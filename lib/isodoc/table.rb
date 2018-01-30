@@ -1,6 +1,6 @@
 module IsoDoc
-  module Table
-    def table_title_parse(node, out)
+  #module Table
+    def self.table_title_parse(node, out)
       name = node.at(ns("./name"))
       if name
         out.p **{ class: "TableTitle", align: "center" } do |p|
@@ -12,7 +12,7 @@ module IsoDoc
       end
     end
 
-    def thead_parse(node, t)
+    def self.thead_parse(node, t)
       thead = node.at(ns("./thead"))
       if thead
         t.thead do |h|
@@ -23,7 +23,7 @@ module IsoDoc
       end
     end
 
-    def tbody_parse(node, t)
+    def self.tbody_parse(node, t)
       tbody = node.at(ns("./tbody"))
       t.tbody do |h|
         tbody.element_children.each_with_index do |n, i|
@@ -32,7 +32,7 @@ module IsoDoc
       end
     end
 
-    def tfoot_parse(node, t)
+    def self.tfoot_parse(node, t)
       tfoot = node.at(ns("./tfoot"))
       if tfoot
         t.tfoot do |h|
@@ -43,7 +43,7 @@ module IsoDoc
       end
     end
 
-    def make_table_attr(node)
+    def self.make_table_attr(node)
       {
         id: node["id"],
         class: "MsoISOTable",
@@ -53,7 +53,7 @@ module IsoDoc
       }
     end
 
-    def table_parse(node, out)
+    def self.table_parse(node, out)
       table_title_parse(node, out)
       out.table **make_table_attr(node) do |t|
         thead_parse(node, t)
@@ -70,7 +70,7 @@ module IsoDoc
 
     #border-left:#{col.zero? ? "#{@@sw} 1.5pt;" : "none;"}
     #border-right:#{@@sw} #{col == totalcols && !header ? "1.5" : "1.0"}pt;
-    def make_tr_attr(td, row, totalrows, col, totalcols, header)
+    def self.make_tr_attr(td, row, totalrows, col, totalcols, header)
       style = td.name == "th" ? "font-weight:bold;" : ""
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
       style += <<~STYLE
@@ -83,7 +83,7 @@ module IsoDoc
         align: td["align"], style: style.gsub(/\n/, "") }
     end
 
-    def tr_parse(node, out, ord, totalrows, header)
+    def self.tr_parse(node, out, ord, totalrows, header)
       out.tr do |r|
         node.elements.each_with_index do |td, i|
           attrs = make_tr_attr(td, ord, totalrows - 1, 
@@ -95,4 +95,4 @@ module IsoDoc
       end
     end
   end
-end
+#end

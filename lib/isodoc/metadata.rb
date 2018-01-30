@@ -1,12 +1,12 @@
 module IsoDoc
-  module Metadata
+  #module Metadata
     @@meta = {}
 
-    def get_metadata
+    def self.get_metadata
       @@meta
     end
 
-    def author(isoxml, _out)
+    def self.author(isoxml, _out)
       # tc = isoxml.at(ns("//technical-committee"))
       tc_num = isoxml.at(ns("//technical-committee/@number"))
       # sc = isoxml.at(ns("//subcommittee"))
@@ -24,7 +24,7 @@ module IsoDoc
       @@meta[:secretariat] = secretariat.text if secretariat
     end
 
-    def id(isoxml, _out)
+    def self.id(isoxml, _out)
       docnumber = isoxml.at(ns("//projectnumber"))
       partnumber = isoxml.at(ns("//projectnumber/@part"))
       documentstatus = isoxml.at(ns("//status/stage"))
@@ -36,7 +36,7 @@ module IsoDoc
         @@meta[:docnumber] = @@meta[:stageabbr] + " " + @@meta[:docnumber]
     end
 
-    def version(isoxml, _out)
+    def self.version(isoxml, _out)
       # e =  isoxml.at(ns("//edition"))
       # out.p "Edition: #{e.text}" if e
       # e =  isoxml.at(ns("//revision_date"))
@@ -46,7 +46,7 @@ module IsoDoc
       # out.p "© ISO #{yr.text}" if yr
     end
 
-    def title(isoxml, _out)
+    def self.title(isoxml, _out)
       intro = isoxml.at(ns("//title[@language='en']/title-intro"))
       main = isoxml.at(ns("//title[@language='en']/title-main"))
       part = isoxml.at(ns("//title[@language='en']/title-part"))
@@ -59,7 +59,7 @@ module IsoDoc
       @@meta[:doctitle] = main
     end
 
-    def subtitle(isoxml, _out)
+    def self.subtitle(isoxml, _out)
       intro = isoxml.at(ns("//title[@language='fr']/title-intro"))
       main = isoxml.at(ns("//title[@language='fr']/title-main"))
       part = isoxml.at(ns("//title[@language='fr']/title-part"))
@@ -72,4 +72,4 @@ module IsoDoc
       @@meta[:docsubtitle] = main
     end
   end
-end
+#end

@@ -1,31 +1,31 @@
 module IsoDoc
-  module Blocks
+  #module Blocks
     @@termdomain = ""
     @@termexample = false
     @@note = false
     @@sourcecode = false
 
-    def set_termdomain(termdomain)
+    def self.set_termdomain(termdomain)
       @@termdomain = termdomain
     end
 
-    def get_termexample
+    def self.get_termexample
       @@termexample
     end
 
-    def set_termexample(value)
+    def self.set_termexample(value)
       @@termexample = value
     end
 
-    def in_sourcecode
+    def self.in_sourcecode
       @@sourcecode
     end
 
-    def is_note
+    def self.is_note
       @@note
     end
 
-    def note_p_parse(node, div)
+    def self.note_p_parse(node, div)
       div.p **{ class: "Note" } do |p|
         p << "NOTE"
         insert_tab(p, 1)
@@ -34,7 +34,7 @@ module IsoDoc
       node.element_children[1..-1].each { |n| parse(n, div) }
     end
 
-    def note_parse(node, out)
+    def self.note_parse(node, out)
       @@note = true
       out.div **{ id: node["id"], class: "Note" } do |div|
         if node.first_element_child.name == "p"
@@ -50,7 +50,7 @@ module IsoDoc
       @@note = false
     end
 
-    def figure_name_parse(node, div, name)
+    def self.figure_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p.b do |b|
           b << "#{get_anchors()[node['id']][:label]}&nbsp;&mdash; "
@@ -59,13 +59,13 @@ module IsoDoc
       end
     end
 
-    def figure_key(out)
+    def self.figure_key(out)
       out.p do |p| 
         p.b { |b| b << "Key" }
       end
     end
 
-    def figure_parse(node, out)
+    def self.figure_parse(node, out)
       name = node.at(ns("./name"))
       out.div **attr_code(id: node["id"]) do |div|
         node.children.each do |n|
@@ -76,7 +76,7 @@ module IsoDoc
       end
     end
 
-    def sourcecode_name_parse(node, div, name)
+    def self.sourcecode_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p.b do |b|
           b << name.text
@@ -84,7 +84,7 @@ module IsoDoc
       end
     end
 
-    def sourcecode_parse(node, out)
+    def self.sourcecode_parse(node, out)
       name = node.at(ns("./name"))
       out.p **attr_code(id: node["id"], class: "Sourcecode") do |div|
         @@sourcecode = true
@@ -96,13 +96,13 @@ module IsoDoc
       end
     end
 
-    def annotation_parse(node, out)
+    def self.annotation_parse(node, out)
       out.p **{ class: "Sourcecode" } do |li|
         node.children.each { |n| parse(n, li) }
       end
     end
 
-    def admonition_parse(node, out)
+    def self.admonition_parse(node, out)
       name = node["type"]
       out.div **{ class: "Admonition" } do |t|
         t.p.b { |b| b << name.upcase } if name
@@ -112,7 +112,7 @@ module IsoDoc
       end
     end
 
-    def formula_parse(node, out)
+    def self.formula_parse(node, out)
       dl = node.at(ns("./dl"))
       out.div **attr_code(id: node["id"], class: "formula") do |div|
         parse(node.at(ns("./stem")), out)
@@ -125,7 +125,7 @@ module IsoDoc
       end
     end
 
-    def para_attrs(node)
+    def self.para_attrs(node)
       classtype = nil
       classtype = "Note" if @@note
       classtype = "MsoFootnoteText" if in_footnote
@@ -137,7 +137,7 @@ module IsoDoc
       attrs
     end
 
-    def para_parse(node, out)
+    def self.para_parse(node, out)
       out.p **attr_code(para_attrs(node)) do |p|
         unless @@termdomain.empty?
           p << "&lt;#{@@termdomain}&gt; "
@@ -147,13 +147,13 @@ module IsoDoc
       end
     end
 
-    def quote_attribution(node, out)
+    def self.quote_attribution(node, out)
       author = node.at(ns("./author/fullname/"))
       source = node.at(ns("./source"))
       # TODO implement
     end
 
-    def quote_parse(node, out)
+    def self.quote_parse(node, out)
       attrs = para_attrs(node)
       attrs[:class] = "Quote"
       out.p **attr_code(attrs) do |p|
@@ -164,7 +164,7 @@ module IsoDoc
       end
     end
 
-    def image_title_parse(out, caption)
+    def self.image_title_parse(out, caption)
       unless caption.nil?
         out.p **{ class: "FigureTitle", align: "center" } do |p|
           p.b { |b| b << caption.to_s }
@@ -172,9 +172,9 @@ module IsoDoc
       end
     end
 
-    def image_parse(url, out, caption)
+    def self.image_parse(url, out, caption)
       out.img **attr_code(src: url)
       image_title_parse(out, caption)
     end
   end
-end
+#end

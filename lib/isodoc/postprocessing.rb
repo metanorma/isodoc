@@ -1,12 +1,12 @@
 require "uuidtools"
 require "html2doc"
-require "IsoDoc/xref_gen"
+#require_relative "./xref_gen"
 
 module IsoDoc
-  module Postprocessing
-    include ::IsoDoc::XrefGen
+  #module Postprocessing
+    #include ::IsoDoc::XrefGen
 
-    def postprocess(result, filename, dir)
+    def self.postprocess(result, filename, dir)
       generate_header(filename, dir)
       result = cleanup(Nokogiri::XML(result)).to_xml
       result = populate_template(result)
@@ -16,13 +16,13 @@ module IsoDoc
       Html2Doc.process(result, filename, "header.html", dir)
     end
 
-    def cleanup(docxml)
+    def self.cleanup(docxml)
       comment_cleanup(docxml)
       footnote_cleanup(docxml)
       docxml
     end
 
-    def comment_cleanup(docxml)
+    def self.comment_cleanup(docxml)
       docxml.xpath('//div/span[@style="MsoCommentReference"]').
         each do |x|
         prev = x.previous_element
@@ -33,7 +33,7 @@ module IsoDoc
       docxml
     end
 
-    def footnote_cleanup(docxml)
+    def self.footnote_cleanup(docxml)
       docxml.xpath('//div[@style="mso-element:footnote"]/a').
         each do |x|
         n = x.next_element
@@ -44,7 +44,7 @@ module IsoDoc
       docxml
     end
 
-    def populate_template(docxml)
+    def self.populate_template(docxml)
       meta = get_metadata
       docxml.
         gsub(/DOCYEAR/, meta[:docyear]).
@@ -62,7 +62,7 @@ module IsoDoc
         gsub(%r{WD/CD/DIS/FDIS}, meta[:stageabbr])
     end
 
-    def generate_header(filename, dir)
+    def self.generate_header(filename, dir)
       hdr_file = File.join(File.dirname(__FILE__), "header.html")
       header = File.read(hdr_file, encoding: "UTF-8").
         gsub(/FILENAME/, filename).
@@ -75,14 +75,14 @@ module IsoDoc
 
     # these are in fact preprocess,
     # but they are extraneous to main HTML file
-    def html_header(html, docxml, filename, dir)
+    def self.html_header(html, docxml, filename, dir)
       anchor_names docxml
       define_head html, filename, dir
     end
 
     # isodoc.css overrides any CSS injected by Html2Doc, which
     # is inserted before this CSS.
-    def define_head(html, filename, dir)
+    def self.define_head(html, filename, dir)
       html.head do |head|
         head.title { |t| t << filename }
         head.style do |style|
@@ -93,10 +93,10 @@ module IsoDoc
       end
     end
 
-    def titlepage(_docxml, div)
+    def self.titlepage(_docxml, div)
       fn = File.join(File.dirname(__FILE__), "iso_titlepage.html")
       titlepage = File.read(fn, encoding: "UTF-8")
       div.parent.add_child titlepage
     end
   end
-end
+#end
