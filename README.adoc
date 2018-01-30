@@ -1,1 +1,3 @@
 = isodoc
+
+This Gem converts documents in the https://github.com/riboseinc/isodoc-models[ISODoc document model] into HTML and Microsoft Word.
