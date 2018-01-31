@@ -1,5 +1,5 @@
 module IsoDoc
-  #module Section
+  class Convert
     def self.clause_parse(node, out)
       out.div **attr_code("id": node["id"]) do |s|
         node.children.each do |c1|
@@ -114,4 +114,4 @@ module IsoDoc
       end
     end
   end
-#end
+end

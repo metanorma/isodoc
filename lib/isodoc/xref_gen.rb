@@ -1,7 +1,7 @@
 #require "isodoc/utils"
 
 module IsoDoc
-  #module XrefGen
+  class Convert
     #include ::IsoDoc::Utils
 
     @@anchors = {}
@@ -73,14 +73,14 @@ module IsoDoc
     def self.sequential_figure_names(clause)
       i = j = 0
       clause.xpath(ns(".//figure")).each do |t|
-        label = "Figure #{i}" + ( j.zero ? "" : "-#{j}" )
+        label = "Figure #{i}" + ( j.zero? ? "" : "-#{j}" )
         if t.parent.name == "figure"
           j += 1
         else
           j = 0
           i += 1
         end
-        label = "Figure #{i}" + ( j.zero ? "" : "-#{j}" )
+        label = "Figure #{i}" + ( j.zero? ? "" : "-#{j}" )
         @@anchors[t["id"]] = { label: label, xref: label }
       end
     end
@@ -190,4 +190,4 @@ module IsoDoc
       @@anchors[ref["id"]] = { xref: linkend }
     end
   end
-#end
+end

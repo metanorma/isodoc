@@ -19,6 +19,7 @@
 require "pp"
 
 module IsoDoc
+  class Convert
   #module ISO2WordHTML
     #include ::IsoDoc::Postprocessing
     #include ::IsoDoc::Utils
@@ -170,4 +171,4 @@ module IsoDoc
       end
     end
   end
-#end
+end

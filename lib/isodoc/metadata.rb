@@ -1,5 +1,5 @@
 module IsoDoc
-  #module Metadata
+  class Convert
     @@meta = {}
 
     def self.get_metadata
@@ -72,4 +72,4 @@ module IsoDoc
       @@meta[:docsubtitle] = main
     end
   end
-#end
+end

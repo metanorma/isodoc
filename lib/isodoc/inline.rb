@@ -1,5 +1,5 @@
 module IsoDoc
-  #module Inline
+  class Convert
 
     @@footnotes = []
     @@comments = []
@@ -174,4 +174,4 @@ module IsoDoc
       @@comments << make_comment_text(node, fn)
     end
   end
-#end
+end

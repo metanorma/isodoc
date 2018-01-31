@@ -1,7 +1,7 @@
 #require "isodoc/xref_gen"
 
 module IsoDoc
-  #module Terms
+  class Convert
     #include ::IsoDoc::XrefGen
 
     def self.definition_parse(node, out)
@@ -67,4 +67,4 @@ module IsoDoc
       node.children.each { |n| parse(n, out) }
     end
   end
-#end
+end

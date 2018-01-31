@@ -1,5 +1,5 @@
 module IsoDoc
-  #module References
+  class Convert
     def self.iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier"))
       isodate = b.at(ns("./publishdate"))
@@ -126,4 +126,4 @@ module IsoDoc
       end
     end
   end
-#end
+end

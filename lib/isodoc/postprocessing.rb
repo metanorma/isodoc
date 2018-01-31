@@ -3,7 +3,7 @@ require "html2doc"
 #require_relative "./xref_gen"
 
 module IsoDoc
-  #module Postprocessing
+  class Convert
     #include ::IsoDoc::XrefGen
 
     def self.postprocess(result, filename, dir)
@@ -99,4 +99,4 @@ module IsoDoc
       div.parent.add_child titlepage
     end
   end
-#end
+end

@@ -1,5 +1,5 @@
 module IsoDoc
-  #module Lists
+  class Convert
     def self.ul_parse(node, out)
       out.ul do |ul|
         node.children.each { |n| parse(n, ul) }
@@ -51,4 +51,4 @@ module IsoDoc
       end
     end
   end
-#end
+end

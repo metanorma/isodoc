@@ -1,7 +1,7 @@
 #require "uuidtools"
 
 module IsoDoc
-  #module Utils
+  class Convert
   def self.ns(xpath)
     xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
       gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
@@ -60,4 +60,4 @@ module IsoDoc
 
 
 end
-#end
+end

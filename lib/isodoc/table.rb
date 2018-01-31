@@ -1,5 +1,5 @@
 module IsoDoc
-  #module Table
+  class Convert
     def self.table_title_parse(node, out)
       name = node.at(ns("./name"))
       if name
@@ -95,4 +95,4 @@ module IsoDoc
       end
     end
   end
-#end
+end

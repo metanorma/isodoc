@@ -1,4 +1,5 @@
 module IsoDoc
+  class Convert
   #module Blocks
     @@termdomain = ""
     @@termexample = false
@@ -177,4 +178,4 @@ module IsoDoc
       image_title_parse(out, caption)
     end
   end
-#end
+end
