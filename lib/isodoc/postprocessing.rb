@@ -13,7 +13,7 @@ module IsoDoc
       File.open("#{filename}.out.html", "w") do |f|
         f.write(result)
       end
-      Html2Doc.process(result, filename, "header.html", dir)
+      Html2Doc.process(result, filename, nil, "header.html", dir)
     end
 
     def self.cleanup(docxml)
