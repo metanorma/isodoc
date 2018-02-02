@@ -108,6 +108,7 @@ module IsoDoc
 
     def foreword(isoxml, out)
       f = isoxml.at(ns("//content[title = 'Foreword']")) or return
+      page_break(out)
       out.div do |s|
         s.h1 **{ class: "ForewordTitle" } { |h1| h1 << "Foreword" }
         f.elements.each { |e| parse(e, s) unless e.name == "title" }
