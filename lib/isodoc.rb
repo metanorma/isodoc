@@ -19,22 +19,11 @@ require_relative "isodoc/lists"
 require_relative "isodoc/table"
 require_relative "isodoc/inline"
 require_relative "isodoc/xref_gen"
+require_relative "isodoc/html"
 require "pp"
 
 module IsoDoc
   class Convert
-  #include ::IsoDoc::ISO2WordHTML
-  #include ::IsoDoc::Postprocessing
-  #include ::IsoDoc::Utils
-  #include ::IsoDoc::Metadata
-  #include ::IsoDoc::Section
-  #include ::IsoDoc::References
-  #include ::IsoDoc::Terms
-  #include ::IsoDoc::Blocks
-  #include ::IsoDoc::Lists
-  #include ::IsoDoc::Table
-  #include ::IsoDoc::Inline
-  #include ::IsoDoc::XrefGen
 
     def self.convert(filename)
     docxml = Nokogiri::XML(File.read(filename))

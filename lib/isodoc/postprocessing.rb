@@ -1,10 +1,7 @@
-require "uuidtools"
 require "html2doc"
-#require_relative "./xref_gen"
 
 module IsoDoc
   class Convert
-    #include ::IsoDoc::XrefGen
 
     def self.postprocess(result, filename, dir)
       generate_header(filename, dir)
@@ -14,6 +11,7 @@ module IsoDoc
         f.write(result)
       end
       Html2Doc.process(result, filename, nil, "header.html", dir)
+      toHTML(result, filename)
     end
 
     def self.cleanup(docxml)
