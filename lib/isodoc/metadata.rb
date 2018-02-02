@@ -6,6 +6,10 @@ module IsoDoc
       @@meta
     end
 
+    def self.set_metadata(key, value)
+      @@meta[key] = value
+    end
+
     def self.author(isoxml, _out)
       # tc = isoxml.at(ns("//technical-committee"))
       tc_num = isoxml.at(ns("//technical-committee/@number"))
@@ -14,26 +18,29 @@ module IsoDoc
       # wg = isoxml.at(ns("//workgroup"))
       wg_num = isoxml.at(ns("//workgroup/@number"))
       secretariat = isoxml.at(ns("//secretariat"))
-      @@meta[:tc] = "XXXX"
-      @@meta[:sc] = "XXXX"
-      @@meta[:wg] = "XXXX"
-      @@meta[:secretariat] = "XXXX"
-      @@meta[:tc] = tc_num.text if tc_num
-      @@meta[:sc] = sc_num.text if sc_num
-      @@meta[:wg] = wg_num.text if wg_num
-      @@meta[:secretariat] = secretariat.text if secretariat
+      set_metadata(:tc, "XXXX")
+      set_metadata(:sc, "XXXX")
+      set_metadata(:wg, "XXXX")
+      set_metadata(:tc,  tc_num.text) if tc_num
+      set_metadata(:sc, sc_num.text) if sc_num
+      set_metadata(:wg, wg_num.text) if wg_num
+      set_metadata(:secretariat, secretariat.text) if secretariat
     end
 
     def self.id(isoxml, _out)
       docnumber = isoxml.at(ns("//projectnumber"))
       partnumber = isoxml.at(ns("//projectnumber/@part"))
       documentstatus = isoxml.at(ns("//status/stage"))
-      @@meta[:docnumber] = docnumber.text
-      @@meta[:docnumber] += "-#{partnumber.text}" if partnumber
-      @@meta[:stage] = documentstatus.text if documentstatus
-      @@meta[:stageabbr] = stage_abbreviation(@@meta[:stage])
-      @@meta[:stage].to_i < 60 and
-        @@meta[:docnumber] = @@meta[:stageabbr] + " " + @@meta[:docnumber]
+      dn = docnumber.text
+      dn += "-#{partnumber.text}" if partnumber
+      if documentstatus
+        set_metadata(:stage, documentstatus.text)
+        abbr = stage_abbreviation(documentstatus.text)
+        set_metadata(:stageabbr, abbr)
+        documentstatus.text.to_i < 60 and
+          dn = abbr + " " + dn
+      end
+      set_metadata(:docnumber, dn)
     end
 
     def self.version(isoxml, _out)
@@ -42,7 +49,7 @@ module IsoDoc
       # e =  isoxml.at(ns("//revision_date"))
       # out.p "Revised: #{e.text}" if e
       yr =  isoxml.at(ns("//copyright/from"))
-      @@meta[:docyear] = yr.text
+      set_metadata(:docyear, yr.text)
       # out.p "© ISO #{yr.text}" if yr
     end
 
@@ -56,7 +63,7 @@ module IsoDoc
       if part
         main = "#{main}&nbsp;&mdash; Part&nbsp;#{partnumber}: #{part.text}"
       end
-      @@meta[:doctitle] = main
+      set_metadata(:doctitle, main)
     end
 
     def self.subtitle(isoxml, _out)
@@ -69,7 +76,7 @@ module IsoDoc
       if part
         main = "#{main}&nbsp;&mdash; Part&nbsp;#{partnumber}: #{part.text}"
       end
-      @@meta[:docsubtitle] = main
+      set_metadata(:docsubtitle, main)
     end
   end
 end
