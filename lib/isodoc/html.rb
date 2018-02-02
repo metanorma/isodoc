@@ -8,9 +8,8 @@ module IsoDoc
       end
     end
 
-    def self.stylesheet(fn)
-      (fn.nil? or fn.empty?) and
-        fn = File.join(File.dirname(__FILE__), "wordstyle.css")
+    def self.htmlstylesheet
+      fn = File.join(File.dirname(__FILE__), "htmlstyle.css")
       stylesheet = File.read(fn, encoding: "UTF-8")
       xml = Nokogiri::XML("<style/>")
       xml.children.first << Nokogiri::XML::Comment.new(xml, "\n#{stylesheet}\n")
@@ -22,7 +21,7 @@ module IsoDoc
       fn = File.join(File.dirname(__FILE__), "htmlstyle.css")
       title = docxml.at("//*[local-name() = 'head']/*[local-name() = 'title']")
       head = docxml.at("//*[local-name() = 'head']")
-      css = stylesheet(fn)
+      css = htmlstylesheet
       if title.nil?
         head.children.first.add_previous_sibling css
       else
