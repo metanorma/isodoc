@@ -21,6 +21,7 @@ module IsoDoc
       set_metadata(:tc, "XXXX")
       set_metadata(:sc, "XXXX")
       set_metadata(:wg, "XXXX")
+      set_metadata(:secretariat, "XXXX")
       set_metadata(:tc,  tc_num.text) if tc_num
       set_metadata(:sc, sc_num.text) if sc_num
       set_metadata(:wg, wg_num.text) if wg_num
