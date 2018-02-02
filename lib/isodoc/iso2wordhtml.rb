@@ -72,10 +72,14 @@ module IsoDoc
       end
     end
 
-    def self.info(isoxml, out)
+    def self.intropage(out)
       fn = File.join(File.dirname(__FILE__), "iso_intro.html")
       intropage = File.read(fn, encoding: "UTF-8")
       out.parent.add_child intropage
+    end
+
+    def self.info(isoxml, out)
+      intropage(out)
       title isoxml, out
       subtitle isoxml, out
       id isoxml, out
