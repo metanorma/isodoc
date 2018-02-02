@@ -2,10 +2,21 @@ module IsoDoc
   class Convert
 
     def toHTML(result, filename)
-      result = htmlstyle(Nokogiri::HTML(result)).to_xml
+      result = htmlPreface(htmlstyle(Nokogiri::HTML(result))).to_xml
+      result = populate_template(result)
       File.open("#{filename}.html", "w") do |f|
         f.write(result)
       end
+    end
+
+    def htmlPreface(docxml)
+      cover = File.read(@htmlcoverpage, encoding: "UTF-8")
+      div1 = docxml.at('//div[@class="WordSection1"]')
+      div1.children.first.add_previous_sibling cover
+      intro = File.read(@htmlintropage, encoding: "UTF-8")
+      div2 = docxml.at('//div[@class="WordSection2"]')
+      div2.children.first.add_previous_sibling intro
+      docxml
     end
 
     def htmlstylesheet
@@ -14,7 +25,6 @@ module IsoDoc
       xml.children.first << Nokogiri::XML::Comment.new(xml, "\n#{stylesheet}\n")
       xml.root.to_s
     end
-
 
     def htmlstyle(docxml)
       title = docxml.at("//*[local-name() = 'head']/*[local-name() = 'title']")

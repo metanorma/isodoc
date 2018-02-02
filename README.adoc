@@ -1,3 +1,32 @@
 = isodoc
 
 This Gem converts documents in the https://github.com/riboseinc/isodoc-models[ISODoc document model] into HTML and Microsoft Word.
+
+The Gem is a class called with a hash of file locations:
+
+htmlstylesheet:: Generic stylesheet for HTML
+wordstylesheet:: Generic stylesheet for Word
+standardsheet:: Stylesheet specific to Standard
+header:: Header file for Word
+htmlcoverpage:: Cover page for HTML
+wordcoverpage:: Cover page for Word
+tmlintropage:: Introductory page for HTML
+wordintropage:: Introductory page for Word
+
+e.g.
+
+[source,ruby]
+--
+        IsoDoc::Convert.new(
+          htmlstylesheet: html_doc_path("htmlstyle.css"),
+          wordstylesheet: nil,
+          standardstylesheet: html_doc_path("isodoc.css"),
+          header: html_doc_path("header.html"),
+          htmlcoverpage: html_doc_path("iso_titlepage.html"),
+          wordcoverpage: html_doc_path("iso_titlepage.html"),
+          htmlintropage: html_doc_path("iso_intro.html"),
+          wordintropage: html_doc_path("iso_intro.html"),
+        )
+--
+
+NOTE: The cover pages and introductory pages (table of contents, copyright notice) must be in ASCII, with any non-ASCII characters escaped as entities.

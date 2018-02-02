@@ -22,7 +22,8 @@ module IsoDoc
 
     def make_body1(body, docxml)
       body.div **{ class: "WordSection1" } do |div1|
-        titlepage docxml, div1
+        # titlepage docxml, div1
+        div1.p # placeholder
       end
       section_break(body)
     end

@@ -1,4 +1,5 @@
 require "html2doc"
+require "htmlentities"
 require "pp"
 
 module IsoDoc
@@ -7,21 +8,24 @@ module IsoDoc
     def postprocess(result, filename, dir)
       generate_header(filename, dir)
       result = cleanup(Nokogiri::HTML(result)).to_xml
-      result = populate_template(result)
       toWord(result, filename, dir)
       toHTML(result, filename)
     end
 
     def toWord(result, filename, dir)
       result = wordPreface(Nokogiri::HTML(result)).to_xml
+      result = populate_template(result)
       Html2Doc.process(result, filename, @wordstylesheet, @header, dir)
     end
 
+    # ensure that these included pages are all ASCII safe!
     def wordPreface(docxml)
-      intropage = File.read(@wordintropage, encoding: "UTF-8")
+      cover = File.read(@wordcoverpage, encoding: "UTF-8")
+      div1 = docxml.at('//div[@class="WordSection1"]')
+      div1.children.first.add_previous_sibling cover
+      intro = File.read(@wordintropage, encoding: "UTF-8")
       div2 = docxml.at('//div[@class="WordSection2"]')
-      div2.children.first.add_previous_sibling intropage
-      #File.open("2.html", "w") {|f| f.write(docxml.to_xml)}
+      div2.children.first.add_previous_sibling intro
       docxml
     end
 

@@ -1,3 +1,5 @@
+require "htmlentities"
+
 module IsoDoc
   class Convert
 
@@ -53,16 +55,24 @@ module IsoDoc
       # out.p "© ISO #{yr.text}" if yr
     end
 
+    def compose_title(main, intro, part, partnumber)
+      c = HTMLEntities.new
+      main = c.encode(main.text, :hexadecimal)
+      intro &&
+        main = "#{c.encode(intro.text, :hexadecimal)}&nbsp;&mdash; #{main}"
+      part &&
+        main = "#{main}&nbsp;&mdash; Part&nbsp;#{partnumber}: "\
+        "#{c.encode(part.text, :hexadecimal)}"
+      main
+    end
+
     def title(isoxml, _out)
+      c = HTMLEntities.new
       intro = isoxml.at(ns("//title[@language='en']/title-intro"))
       main = isoxml.at(ns("//title[@language='en']/title-main"))
       part = isoxml.at(ns("//title[@language='en']/title-part"))
       partnumber = isoxml.at(ns("//id/projectnumber/@part"))
-      main = main.text
-      main = "#{intro.text}&nbsp;&mdash; #{main}" if intro
-      if part
-        main = "#{main}&nbsp;&mdash; Part&nbsp;#{partnumber}: #{part.text}"
-      end
+      main = compose_title(main, intro, part, partnumber)
       set_metadata(:doctitle, main)
     end
 
@@ -71,11 +81,7 @@ module IsoDoc
       main = isoxml.at(ns("//title[@language='fr']/title-main"))
       part = isoxml.at(ns("//title[@language='fr']/title-part"))
       partnumber = isoxml.at(ns("//id/projectnumber/@part"))
-      main = main.text
-      main = "#{intro.text}&nbsp; #{main}" if intro
-      if part
-        main = "#{main}&nbsp;&mdash; Part&nbsp;#{partnumber}: #{part.text}"
-      end
+      main = compose_title(main, intro, part, partnumber)
       set_metadata(:docsubtitle, main)
     end
   end
