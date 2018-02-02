@@ -15,7 +15,7 @@ module IsoDoc
     def toWord(result, filename, dir)
       result = wordPreface(Nokogiri::HTML(result)).to_xml
       result = populate_template(result)
-      Html2Doc.process(result, filename, @wordstylesheet, @header, dir)
+      Html2Doc.process(result, filename, @wordstylesheet, "header.html", dir)
     end
 
     # ensure that these included pages are all ASCII safe!
