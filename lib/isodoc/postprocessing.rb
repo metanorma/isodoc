@@ -1,17 +1,29 @@
 require "html2doc"
+require "pp"
 
 module IsoDoc
   class Convert
 
     def self.postprocess(result, filename, dir)
       generate_header(filename, dir)
-      result = cleanup(Nokogiri::XML(result)).to_xml
+      result = cleanup(Nokogiri::HTML(result)).to_xml
       result = populate_template(result)
-      File.open("#{filename}.out.html", "w") do |f|
-        f.write(result)
-      end
-      Html2Doc.process(result, filename, nil, "header.html", dir)
+      toWord(result, filename, dir)
       toHTML(result, filename)
+    end
+
+    def self.toWord(result, filename, dir)
+      result = wordPreface(Nokogiri::HTML(result)).to_xml
+      Html2Doc.process(result, filename, nil, "header.html", dir)
+    end
+
+    def self.wordPreface(docxml)
+      fn = File.join(File.dirname(__FILE__), "iso_intro.html")
+      intropage = File.read(fn, encoding: "UTF-8")
+      div2 = docxml.at('//div[@class="WordSection2"]')
+      div2.children.first.add_previous_sibling intropage
+      #File.open("2.html", "w") {|f| f.write(docxml.to_xml)}
+      docxml
     end
 
     def self.cleanup(docxml)

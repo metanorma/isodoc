@@ -52,12 +52,12 @@ module IsoDoc
   end
 
   def self.attr_code(attributes)
-          attributes = attributes.reject { |_, val| val.nil? }.map
-          attributes.map do |k, v|
-            [k, (v.is_a? String) ? HTMLEntities.new.decode(v) : v]
-          end.to_h
-        end
+    attributes = attributes.reject { |_, val| val.nil? }.map
+    attributes.map do |k, v|
+      [k, (v.is_a? String) ? HTMLEntities.new.decode(v) : v]
+    end.to_h
+  end
 
 
-end
+  end
 end

@@ -1,37 +1,7 @@
-#require "nokogiri"
-#require "asciimath"
-#require "xml/xslt"
-#require "uuidtools"
-#require "base64"
-#require "mime/types"
-#require "image_size"
-#require "isodoc/postprocessing"
-#require "isodoc/utils"
-#require "isodoc/metadata"
-#require "isodoc/section"
-#require "isodoc/references"
-#require "isodoc/terms"
-#require "isodoc/blocks"
-#require "isodoc/lists"
-#require "isodoc/table"
-#require "isodoc/inline"
-#require "isodoc/xref_gen"
 require "pp"
 
 module IsoDoc
   class Convert
-  #module ISO2WordHTML
-    #include ::IsoDoc::Postprocessing
-    #include ::IsoDoc::Utils
-    #include ::IsoDoc::Metadata
-    #include ::IsoDoc::Section
-    #include ::IsoDoc::References
-    #include ::IsoDoc::Terms
-    #include ::IsoDoc::Blocks
-    #include ::IsoDoc::Lists
-    #include ::IsoDoc::Table
-    #include ::IsoDoc::Inline
-    #include ::IsoDoc::XrefGen
 
     def self.init_file(filename)
       filename = filename.gsub(%r{\.[^/.]+$}, "")
@@ -72,14 +42,8 @@ module IsoDoc
       end
     end
 
-    def self.intropage(out)
-      fn = File.join(File.dirname(__FILE__), "iso_intro.html")
-      intropage = File.read(fn, encoding: "UTF-8")
-      out.parent.add_child intropage
-    end
-
     def self.info(isoxml, out)
-      intropage(out)
+      # intropage(out)
       title isoxml, out
       subtitle isoxml, out
       id isoxml, out

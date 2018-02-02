@@ -60,7 +60,7 @@ module IsoDoc
       part = isoxml.at(ns("//title[@language='en']/title-part"))
       partnumber = isoxml.at(ns("//id/projectnumber/@part"))
       main = main.text
-      main = "#{intro.text}&nbsp;&mdash;#{main}" if intro
+      main = "#{intro.text}&nbsp;&mdash; #{main}" if intro
       if part
         main = "#{main}&nbsp;&mdash; Part&nbsp;#{partnumber}: #{part.text}"
       end
