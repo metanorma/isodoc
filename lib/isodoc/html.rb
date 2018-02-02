@@ -16,6 +16,8 @@ module IsoDoc
       intro = File.read(@htmlintropage, encoding: "UTF-8")
       div2 = docxml.at('//div[@class="WordSection2"]')
       div2.children.first.add_previous_sibling intro
+      body = docxml.at("//*[local-name() = 'body']")
+      body << '<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML"></script>'
       docxml
     end
 

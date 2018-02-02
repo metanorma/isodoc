@@ -61,110 +61,121 @@ module IsoDoc
     end
 
     def stem_parse(node, out)
-      @xslt.xml = AsciiMath.parse(node.text).to_mathml.
-        gsub(/<math>/,
-             "<math xmlns='http://www.w3.org/1998/Math/MathML'>")
-      ooml = @xslt.serve.gsub(/<\?[^>]+>\s*/, "").
-        gsub(/ xmlns:[^=]+="[^"]+"/, "")
+      ooml = if node["type"] == "AsciiMath"
+               "`#{node.text}`"
+             elsif node["type"] == "MathML"
+               node.first_element_child.to_s
+             else 
+               node.text
+             end
+=begin
       out.span **{ class: "stem" } do |span|
         span.parent.add_child ooml
-      end
-    end
-
-    def pagebreak_parse(node, out)
-      attrs = { clear: all, class: "pagebreak" }
-      out.br **attrs
-    end
-
-    def error_parse(node, out)
-      text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
-      out.para do |p|
-        p.b **{ role: "strong" } { |e| e << text }
-      end
-    end
-
-    def footnotes(div)
-      return if @footnotes.empty?
-      div.div **{ style: "mso-element:footnote-list" } do |div1|
-        @footnotes.each do |fn|
-          div1.parent << fn
+        @xslt.xml = AsciiMath.parse(node.text).to_mathml.
+          gsub(/<math>/,
+               "<math xmlns='http://www.w3.org/1998/Math/MathML'>")
+        ooml = @xslt.serve.gsub(/<\?[^>]+>\s*/, "").
+          gsub(/ xmlns:[^=]+="[^"]+"/, "")
+=end
+        out.span **{ class: "stem" } do |span|
+          span.parent.add_child ooml
         end
       end
-    end
 
-    def footnote_attributes(fn)
-      {
-        style: "mso-footnote-id:ftn#{fn}",
-        href: "#_ftn#{fn}",
-        name: "_ftnref#{fn}",
-        title: "",
-      }
-    end
-
-    def make_footnote_link(a)
-      a.span **{ class: "MsoFootnoteReference" } do |s|
-        s.span **{ style: "mso-special-character:footnote" }
+      def pagebreak_parse(node, out)
+        attrs = { clear: all, class: "pagebreak" }
+        out.br **attrs
       end
-    end
 
-    def make_footnote_text(node, fn)
-      noko do |xml|
-        xml.div **{ style: "mso-element:footnote", id: "ftn#{fn}" } do |div|
-          div.a **footnote_attributes(fn) do |a|
-            make_footnote_link(a)
-          end
-          node.children.each { |n| parse(n, div) }
-        end
-      end.join("\n")
-    end
-
-    def footnote_parse(node, out)
-      fn = node["reference"]
-      out.a **footnote_attributes(fn) do |a| 
-        make_footnote_link(a) 
-      end
-      @in_footnote = true
-      @footnotes << make_footnote_text(node, fn)
-      @in_footnote = false
-    end
-
-    def comments(div)
-      return if @comments.empty?
-      div.div **{ style: "mso-element:comment-list" } do |div1|
-        @comments.each do |fn|
-          div1.parent << fn
+      def error_parse(node, out)
+        text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
+        out.para do |p|
+          p.b **{ role: "strong" } { |e| e << text }
         end
       end
-    end
 
-    def make_comment_link(out, fn, date, from)
-      out.span **{ style: "MsoCommentReference" } do |s1|
-        s1.span **{ lang: "EN-GB", style: "font-size:9.0pt"} do |s2|
-          s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
-                   "mso-comment-date:#{date}" } if from
-          s2.span **{ style: "mso-special-character:comment" } do |s|
-            s << "&nbsp;"
+      def footnotes(div)
+        return if @footnotes.empty?
+        div.div **{ style: "mso-element:footnote-list" } do |div1|
+          @footnotes.each do |fn|
+            div1.parent << fn
           end
         end
       end
-    end
 
-    def make_comment_text(node, fn)
-      noko do |xml|
-        xml.div **{ style: "mso-element:comment" } do |div|
-          div.span **{ style: %{mso-comment-author:"#{node["reviewer"]}"} }
-          div.p **{ class: "MsoCommentText" } do |p|
-            make_comment_link(p, fn, node["date"], false)
-            node.children.each { |n| parse(n, p) }
+      def footnote_attributes(fn)
+        {
+          style: "mso-footnote-id:ftn#{fn}",
+          href: "#_ftn#{fn}",
+          name: "_ftnref#{fn}",
+          title: "",
+        }
+      end
+
+      def make_footnote_link(a)
+        a.span **{ class: "MsoFootnoteReference" } do |s|
+          s.span **{ style: "mso-special-character:footnote" }
+        end
+      end
+
+      def make_footnote_text(node, fn)
+        noko do |xml|
+          xml.div **{ style: "mso-element:footnote", id: "ftn#{fn}" } do |div|
+            div.a **footnote_attributes(fn) do |a|
+              make_footnote_link(a)
+            end
+            node.children.each { |n| parse(n, div) }
+          end
+        end.join("\n")
+      end
+
+      def footnote_parse(node, out)
+        fn = node["reference"]
+        out.a **footnote_attributes(fn) do |a| 
+          make_footnote_link(a) 
+        end
+        @in_footnote = true
+        @footnotes << make_footnote_text(node, fn)
+        @in_footnote = false
+      end
+
+      def comments(div)
+        return if @comments.empty?
+        div.div **{ style: "mso-element:comment-list" } do |div1|
+          @comments.each do |fn|
+            div1.parent << fn
           end
         end
-      end.join("\n")
-    end
+      end
 
-    def review_note_parse(node, out)
-      fn = @comments.length + 1
-      make_comment_link(out, fn, node["date"], true)
-      @comments << make_comment_text(node, fn)
+      def make_comment_link(out, fn, date, from)
+        out.span **{ style: "MsoCommentReference" } do |s1|
+          s1.span **{ lang: "EN-GB", style: "font-size:9.0pt"} do |s2|
+            s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
+                     "mso-comment-date:#{date}" } if from
+            s2.span **{ style: "mso-special-character:comment" } do |s|
+              s << "&nbsp;"
+            end
+          end
+        end
+      end
+
+      def make_comment_text(node, fn)
+        noko do |xml|
+          xml.div **{ style: "mso-element:comment" } do |div|
+            div.span **{ style: %{mso-comment-author:"#{node["reviewer"]}"} }
+            div.p **{ class: "MsoCommentText" } do |p|
+              make_comment_link(p, fn, node["date"], false)
+              node.children.each { |n| parse(n, p) }
+            end
+          end
+        end.join("\n")
+      end
+
+      def review_note_parse(node, out)
+        fn = @comments.length + 1
+        make_comment_link(out, fn, node["date"], true)
+        @comments << make_comment_text(node, fn)
+      end
     end
   end
-end
