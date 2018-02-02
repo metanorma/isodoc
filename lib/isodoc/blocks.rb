@@ -1,10 +1,5 @@
 module IsoDoc
   class Convert
-    @termdomain = ""
-    @termexample = false
-    @note = false
-    @sourcecode = false
-
     def set_termdomain(termdomain)
       @termdomain = termdomain
     end

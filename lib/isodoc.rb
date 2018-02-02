@@ -42,19 +42,31 @@ module IsoDoc
       @wordcoverpage = options[:wordcoverpage]
       @htmlintropage = options[:htmlintropage]
       @wordintropage = options[:wordintropage]
+      @termdomain = ""
+      @termexample = false
+      @note = false
+      @sourcecode = false
+      @anchors = {}
+      @meta = {}
+      @footnotes = []
+      @comments = []
+      @xslt = XML::XSLT.new
+      @xslt.xsl = File.read(File.join(File.dirname(__FILE__),
+                                      File.join("isodoc", "mathml2omml.xsl")))
+      @in_footnote = false
     end
 
     def convert(filename)
-    docxml = Nokogiri::XML(File.read(filename))
-    filename, dir = init_file(filename)
-    docxml.root.default_namespace = ""
-    result = noko do |xml|
-      xml.html do |html|
-        html_header(html, docxml, filename, dir)
-        make_body(html, docxml)
-      end
-    end.join("\n")
-    postprocess(result, filename, dir)
+      docxml = Nokogiri::XML(File.read(filename))
+      filename, dir = init_file(filename)
+      docxml.root.default_namespace = ""
+      result = noko do |xml|
+        xml.html do |html|
+          html_header(html, docxml, filename, dir)
+          make_body(html, docxml)
+        end
+      end.join("\n")
+      postprocess(result, filename, dir)
+    end
   end
-end
 end

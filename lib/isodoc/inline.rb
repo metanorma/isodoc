@@ -1,13 +1,6 @@
 module IsoDoc
   class Convert
 
-    @footnotes = []
-    @comments = []
-    @xslt = XML::XSLT.new
-    @xslt.xsl = File.read(File.join(File.dirname(__FILE__),
-                                     "mathml2omml.xsl"))
-    @in_footnote = false
-
     def in_footnote
       @in_footnote
     end

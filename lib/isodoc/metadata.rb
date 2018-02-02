@@ -1,6 +1,5 @@
 module IsoDoc
   class Convert
-    @meta = {}
 
     def get_metadata
       @meta
