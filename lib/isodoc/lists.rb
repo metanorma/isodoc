@@ -1,6 +1,6 @@
 module IsoDoc
   class Convert
-    def self.ul_parse(node, out)
+    def ul_parse(node, out)
       out.ul do |ul|
         node.children.each { |n| parse(n, ul) }
       end
@@ -14,11 +14,11 @@ module IsoDoc
       alphabet_upper: "A",
     }.freeze
 
-    def self.ol_style(type)
+    def ol_style(type)
       @@ol_style[type.to_sym]
     end
 
-    def self.ol_parse(node, out)
+    def ol_parse(node, out)
       # attrs = { numeration: node["type"] }
       style = ol_style(node["type"])
       out.ol **attr_code(type: style) do |ol|
@@ -26,13 +26,13 @@ module IsoDoc
       end
     end
 
-    def self.li_parse(node, out)
+    def li_parse(node, out)
       out.li do |li|
         node.children.each { |n| parse(n, li) }
       end
     end
 
-    def self.dl_parse(node, out)
+    def dl_parse(node, out)
       out.dl do |v|
         node.elements.each_slice(2) do |dt, dd|
           v.dt do |term|

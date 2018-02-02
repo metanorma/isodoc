@@ -1,24 +1,22 @@
 module IsoDoc
   class Convert
 
-    def self.toHTML(result, filename)
+    def toHTML(result, filename)
       result = htmlstyle(Nokogiri::HTML(result)).to_xml
       File.open("#{filename}.html", "w") do |f|
         f.write(result)
       end
     end
 
-    def self.htmlstylesheet
-      fn = File.join(File.dirname(__FILE__), "htmlstyle.css")
-      stylesheet = File.read(fn, encoding: "UTF-8")
+    def htmlstylesheet
+      stylesheet = File.read(@htmlstylesheet, encoding: "UTF-8")
       xml = Nokogiri::XML("<style/>")
       xml.children.first << Nokogiri::XML::Comment.new(xml, "\n#{stylesheet}\n")
       xml.root.to_s
     end
 
 
-    def self.htmlstyle(docxml)
-      fn = File.join(File.dirname(__FILE__), "htmlstyle.css")
+    def htmlstyle(docxml)
       title = docxml.at("//*[local-name() = 'head']/*[local-name() = 'title']")
       head = docxml.at("//*[local-name() = 'head']")
       css = htmlstylesheet

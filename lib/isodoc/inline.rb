@@ -1,39 +1,39 @@
 module IsoDoc
   class Convert
 
-    @@footnotes = []
-    @@comments = []
-    @@xslt = XML::XSLT.new
-    @@xslt.xsl = File.read(File.join(File.dirname(__FILE__),
+    @footnotes = []
+    @comments = []
+    @xslt = XML::XSLT.new
+    @xslt.xsl = File.read(File.join(File.dirname(__FILE__),
                                      "mathml2omml.xsl"))
-    @@in_footnote = false
+    @in_footnote = false
 
-    def self.in_footnote
-      @@in_footnote
+    def in_footnote
+      @in_footnote
     end
 
-    def self.section_break(body)
+    def section_break(body)
       body.br **{ clear: "all", class: "section" }
     end
 
-    def self.page_break(body)
+    def page_break(body)
       body.br **{ 
         clear: "all",
         style: "mso-special-character:line-break;page-break-before:always",
       }
     end
 
-    def self.link_parse(node, out)
+    def link_parse(node, out)
       linktext = node.text
       linktext = node["target"] if linktext.empty?
       out.a **{ "href": node["target"] } { |l| l << linktext }
     end
 
-    def self.callout_parse(node, out)
+    def callout_parse(node, out)
       out << " &lt;#{node.text}&gt;"
     end
 
-    def self.get_linkend(node)
+    def get_linkend(node)
       linkend = node["target"] || node["citeas"]
       if get_anchors().has_key? node["target"]
         linkend = get_anchors()[node["target"]][:xref]
@@ -48,12 +48,12 @@ module IsoDoc
       linkend
     end
 
-    def self.xref_parse(node, out)
+    def xref_parse(node, out)
       linkend = get_linkend(node)
       out.a **{ "href": node["target"] } { |l| l << linkend }
     end
 
-    def self.eref_parse(node, out)
+    def eref_parse(node, out)
       linkend = get_linkend(node)
       section = node.at(ns("./locality"))
       section.nil? or
@@ -67,39 +67,39 @@ module IsoDoc
       end
     end
 
-    def self.stem_parse(node, out)
-      @@xslt.xml = AsciiMath.parse(node.text).to_mathml.
+    def stem_parse(node, out)
+      @xslt.xml = AsciiMath.parse(node.text).to_mathml.
         gsub(/<math>/,
              "<math xmlns='http://www.w3.org/1998/Math/MathML'>")
-      ooml = @@xslt.serve.gsub(/<\?[^>]+>\s*/, "").
+      ooml = @xslt.serve.gsub(/<\?[^>]+>\s*/, "").
         gsub(/ xmlns:[^=]+="[^"]+"/, "")
       out.span **{ class: "stem" } do |span|
         span.parent.add_child ooml
       end
     end
 
-    def self.pagebreak_parse(node, out)
+    def pagebreak_parse(node, out)
       attrs = { clear: all, class: "pagebreak" }
       out.br **attrs
     end
 
-    def self.error_parse(node, out)
+    def error_parse(node, out)
       text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
       out.para do |p|
         p.b **{ role: "strong" } { |e| e << text }
       end
     end
 
-    def self.footnotes(div)
-      return if @@footnotes.empty?
+    def footnotes(div)
+      return if @footnotes.empty?
       div.div **{ style: "mso-element:footnote-list" } do |div1|
-        @@footnotes.each do |fn|
+        @footnotes.each do |fn|
           div1.parent << fn
         end
       end
     end
 
-    def self.footnote_attributes(fn)
+    def footnote_attributes(fn)
       {
         style: "mso-footnote-id:ftn#{fn}",
         href: "#_ftn#{fn}",
@@ -108,13 +108,13 @@ module IsoDoc
       }
     end
 
-    def self.make_footnote_link(a)
+    def make_footnote_link(a)
       a.span **{ class: "MsoFootnoteReference" } do |s|
         s.span **{ style: "mso-special-character:footnote" }
       end
     end
 
-    def self.make_footnote_text(node, fn)
+    def make_footnote_text(node, fn)
       noko do |xml|
         xml.div **{ style: "mso-element:footnote", id: "ftn#{fn}" } do |div|
           div.a **footnote_attributes(fn) do |a|
@@ -125,26 +125,26 @@ module IsoDoc
       end.join("\n")
     end
 
-    def self.footnote_parse(node, out)
+    def footnote_parse(node, out)
       fn = node["reference"]
       out.a **footnote_attributes(fn) do |a| 
         make_footnote_link(a) 
       end
-      @@in_footnote = true
-      @@footnotes << make_footnote_text(node, fn)
-      @@in_footnote = false
+      @in_footnote = true
+      @footnotes << make_footnote_text(node, fn)
+      @in_footnote = false
     end
 
-    def self.comments(div)
-      return if @@comments.empty?
+    def comments(div)
+      return if @comments.empty?
       div.div **{ style: "mso-element:comment-list" } do |div1|
-        @@comments.each do |fn|
+        @comments.each do |fn|
           div1.parent << fn
         end
       end
     end
 
-    def self.make_comment_link(out, fn, date, from)
+    def make_comment_link(out, fn, date, from)
       out.span **{ style: "MsoCommentReference" } do |s1|
         s1.span **{ lang: "EN-GB", style: "font-size:9.0pt"} do |s2|
           s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
@@ -156,7 +156,7 @@ module IsoDoc
       end
     end
 
-    def self.make_comment_text(node, fn)
+    def make_comment_text(node, fn)
       noko do |xml|
         xml.div **{ style: "mso-element:comment" } do |div|
           div.span **{ style: %{mso-comment-author:"#{node["reviewer"]}"} }
@@ -168,10 +168,10 @@ module IsoDoc
       end.join("\n")
     end
 
-    def self.review_note_parse(node, out)
-      fn = @@comments.length + 1
+    def review_note_parse(node, out)
+      fn = @comments.length + 1
       make_comment_link(out, fn, node["date"], true)
-      @@comments << make_comment_text(node, fn)
+      @comments << make_comment_text(node, fn)
     end
   end
 end

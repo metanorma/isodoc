@@ -2,14 +2,14 @@
 
 module IsoDoc
   class Convert
-  def self.ns(xpath)
+  def ns(xpath)
     xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
       gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
       gsub(%r{\[([a-zA-z]+ ?=)}, "[xmlns:\\1").
       gsub(%r{\[([a-zA-z]+\])}, "[xmlns:\\1")
   end
 
-  def self.insert_tab(out, n)
+  def insert_tab(out, n)
     out.span **attr_code(style: "mso-tab-count:#{n}") do |span|
       [1..n].each { |i| span << "&#xA0; " }
     end
@@ -27,7 +27,7 @@ module IsoDoc
     "95": "(Withdrawal)",
   }.freeze
 
-  def self.stage_abbreviation(stage)
+  def stage_abbreviation(stage)
     @@stage_abbrs[stage.to_sym] || "??"
   end
 
@@ -42,7 +42,7 @@ module IsoDoc
 
   # block for processing XML document fragments as XHTML,
   # to allow for HTMLentities
-  def self.noko(&block)
+  def noko(&block)
     doc = ::Nokogiri::XML.parse(@@nokohead)
     fragment = doc.fragment("")
     ::Nokogiri::XML::Builder.with fragment, &block
@@ -51,7 +51,7 @@ module IsoDoc
     end
   end
 
-  def self.attr_code(attributes)
+  def attr_code(attributes)
     attributes = attributes.reject { |_, val| val.nil? }.map
     attributes.map do |k, v|
       [k, (v.is_a? String) ? HTMLEntities.new.decode(v) : v]

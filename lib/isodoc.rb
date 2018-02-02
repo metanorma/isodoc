@@ -25,7 +25,26 @@ require "pp"
 module IsoDoc
   class Convert
 
-    def self.convert(filename)
+    # htmlstylesheet: Generic stylesheet for HTML
+    # wordstylesheet: Generic stylesheet for Word
+    # standardsheet: Stylesheet specific to Standard
+    # header: Header file for Word
+    # htmlcoverpage: Cover page for HTML
+    # wordcoverpage: Cover page for Word
+    # htmlintropage: Introductory page for HTML
+    # wordintropage: Introductory page for Word
+    def initialize(options)
+      @htmlstylesheet = options[:htmlstylesheet]
+      @wordstylesheet = options[:wordstylesheet]
+      @standardstylesheet = options[:standardstylesheet]
+      @header = options[:header]
+      @htmlcoverpage = options[:htmlcoverpage]
+      @wordcoverpage = options[:wordcoverpage]
+      @htmlintropage = options[:htmlintropage]
+      @wordintropage = options[:wordintropage]
+    end
+
+    def convert(filename)
     docxml = Nokogiri::XML(File.read(filename))
     filename, dir = init_file(filename)
     docxml.root.default_namespace = ""

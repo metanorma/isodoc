@@ -4,7 +4,7 @@ require "pp"
 module IsoDoc
   class Convert
 
-    def self.postprocess(result, filename, dir)
+    def postprocess(result, filename, dir)
       generate_header(filename, dir)
       result = cleanup(Nokogiri::HTML(result)).to_xml
       result = populate_template(result)
@@ -12,27 +12,26 @@ module IsoDoc
       toHTML(result, filename)
     end
 
-    def self.toWord(result, filename, dir)
+    def toWord(result, filename, dir)
       result = wordPreface(Nokogiri::HTML(result)).to_xml
-      Html2Doc.process(result, filename, nil, "header.html", dir)
+      Html2Doc.process(result, filename, @wordstylesheet, @header, dir)
     end
 
-    def self.wordPreface(docxml)
-      fn = File.join(File.dirname(__FILE__), "iso_intro.html")
-      intropage = File.read(fn, encoding: "UTF-8")
+    def wordPreface(docxml)
+      intropage = File.read(@wordintropage, encoding: "UTF-8")
       div2 = docxml.at('//div[@class="WordSection2"]')
       div2.children.first.add_previous_sibling intropage
       #File.open("2.html", "w") {|f| f.write(docxml.to_xml)}
       docxml
     end
 
-    def self.cleanup(docxml)
+    def cleanup(docxml)
       comment_cleanup(docxml)
       footnote_cleanup(docxml)
       docxml
     end
 
-    def self.comment_cleanup(docxml)
+    def comment_cleanup(docxml)
       docxml.xpath('//div/span[@style="MsoCommentReference"]').
         each do |x|
         prev = x.previous_element
@@ -43,7 +42,7 @@ module IsoDoc
       docxml
     end
 
-    def self.footnote_cleanup(docxml)
+    def footnote_cleanup(docxml)
       docxml.xpath('//div[@style="mso-element:footnote"]/a').
         each do |x|
         n = x.next_element
@@ -54,7 +53,7 @@ module IsoDoc
       docxml
     end
 
-    def self.populate_template(docxml)
+    def populate_template(docxml)
       meta = get_metadata
       docxml.
         gsub(/DOCYEAR/, meta[:docyear]).
@@ -72,9 +71,8 @@ module IsoDoc
         gsub(%r{WD/CD/DIS/FDIS}, meta[:stageabbr])
     end
 
-    def self.generate_header(filename, dir)
-      hdr_file = File.join(File.dirname(__FILE__), "header.html")
-      header = File.read(hdr_file, encoding: "UTF-8").
+    def generate_header(filename, dir)
+      header = File.read(@header, encoding: "UTF-8").
         gsub(/FILENAME/, filename).
         gsub(/DOCYEAR/, get_metadata()[:docyear]).
         gsub(/DOCNUMBER/, get_metadata()[:docnumber])
@@ -85,27 +83,26 @@ module IsoDoc
 
     # these are in fact preprocess,
     # but they are extraneous to main HTML file
-    def self.html_header(html, docxml, filename, dir)
+    def html_header(html, docxml, filename, dir)
       anchor_names docxml
       define_head html, filename, dir
     end
 
     # isodoc.css overrides any CSS injected by Html2Doc, which
     # is inserted before this CSS.
-    def self.define_head(html, filename, dir)
+    def define_head(html, filename, dir)
       html.head do |head|
         head.title { |t| t << filename }
         head.style do |style|
-          fn = File.join(File.dirname(__FILE__), "isodoc.css")
-          stylesheet = File.read(fn).gsub("FILENAME", filename)
+          stylesheet = File.read(@standardstylesheet).
+            gsub("FILENAME", filename)
           style.comment "\n#{stylesheet}\n"
         end
       end
     end
 
-    def self.titlepage(_docxml, div)
-      fn = File.join(File.dirname(__FILE__), "iso_titlepage.html")
-      titlepage = File.read(fn, encoding: "UTF-8")
+    def titlepage(_docxml, div)
+      titlepage = File.read(@wordcoverpage, encoding: "UTF-8")
       div.parent.add_child titlepage
     end
   end

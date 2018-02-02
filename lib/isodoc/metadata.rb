@@ -1,16 +1,16 @@
 module IsoDoc
   class Convert
-    @@meta = {}
+    @meta = {}
 
-    def self.get_metadata
-      @@meta
+    def get_metadata
+      @meta
     end
 
-    def self.set_metadata(key, value)
-      @@meta[key] = value
+    def set_metadata(key, value)
+      @meta[key] = value
     end
 
-    def self.author(isoxml, _out)
+    def author(isoxml, _out)
       # tc = isoxml.at(ns("//technical-committee"))
       tc_num = isoxml.at(ns("//technical-committee/@number"))
       # sc = isoxml.at(ns("//subcommittee"))
@@ -28,7 +28,7 @@ module IsoDoc
       set_metadata(:secretariat, secretariat.text) if secretariat
     end
 
-    def self.id(isoxml, _out)
+    def id(isoxml, _out)
       docnumber = isoxml.at(ns("//projectnumber"))
       partnumber = isoxml.at(ns("//projectnumber/@part"))
       documentstatus = isoxml.at(ns("//status/stage"))
@@ -44,7 +44,7 @@ module IsoDoc
       set_metadata(:docnumber, dn)
     end
 
-    def self.version(isoxml, _out)
+    def version(isoxml, _out)
       # e =  isoxml.at(ns("//edition"))
       # out.p "Edition: #{e.text}" if e
       # e =  isoxml.at(ns("//revision_date"))
@@ -54,7 +54,7 @@ module IsoDoc
       # out.p "© ISO #{yr.text}" if yr
     end
 
-    def self.title(isoxml, _out)
+    def title(isoxml, _out)
       intro = isoxml.at(ns("//title[@language='en']/title-intro"))
       main = isoxml.at(ns("//title[@language='en']/title-main"))
       part = isoxml.at(ns("//title[@language='en']/title-part"))
@@ -67,7 +67,7 @@ module IsoDoc
       set_metadata(:doctitle, main)
     end
 
-    def self.subtitle(isoxml, _out)
+    def subtitle(isoxml, _out)
       intro = isoxml.at(ns("//title[@language='fr']/title-intro"))
       main = isoxml.at(ns("//title[@language='fr']/title-main"))
       part = isoxml.at(ns("//title[@language='fr']/title-part"))

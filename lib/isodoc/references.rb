@@ -1,6 +1,6 @@
 module IsoDoc
   class Convert
-    def self.iso_bibitem_ref_code(b)
+    def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier"))
       isodate = b.at(ns("./publishdate"))
       reference = "ISO #{isocode.text}"
@@ -8,7 +8,7 @@ module IsoDoc
       reference
     end
 
-    def self.date_note_process(b, ref)
+    def date_note_process(b, ref)
       date_note = b.xpath(ns("./note[text()][contains(.,'ISO DATE:')]"))
       unless date_note.empty?
         date_note.first.content =
@@ -18,7 +18,7 @@ module IsoDoc
       end
     end
 
-    def self.iso_bibitem_entry(list, b, ordinal, biblio)
+    def iso_bibitem_entry(list, b, ordinal, biblio)
       attrs = { id: b["id"], class: biblio ? "Biblio" : nil }
       list.p **attr_code(attrs) do |ref|
         if biblio
@@ -32,7 +32,7 @@ module IsoDoc
       end
     end
 
-    def self.ref_entry_code(r, ordinal, t)
+    def ref_entry_code(r, ordinal, t)
       if /^\d+$/.match?(t)
         r << "[#{t}]"
         insert_tab(r, 1)
@@ -43,7 +43,7 @@ module IsoDoc
       end
     end
 
-    def self.ref_entry(list, b, ordinal, bibliography)
+    def ref_entry(list, b, ordinal, bibliography)
       ref = b.at(ns("./ref"))
       para = b.at(ns("./p"))
       list.p **attr_code("id": ref["id"], class: "Biblio") do |r|
@@ -52,7 +52,7 @@ module IsoDoc
       end
     end
 
-    def self.noniso_bibitem(list, b, ordinal, bibliography)
+    def noniso_bibitem(list, b, ordinal, bibliography)
       ref = b.at(ns("./docidentifier"))
       para = b.at(ns("./formatted"))
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
@@ -61,7 +61,7 @@ module IsoDoc
       end
     end
 
-    def self.split_bibitems(f)
+    def split_bibitems(f)
       iso_bibitem = []
       non_iso_bibitem = []
       f.xpath(ns("./bibitem")).each do |x|
@@ -74,7 +74,7 @@ module IsoDoc
       { iso: iso_bibitem, noniso: non_iso_bibitem }
     end
 
-    def self.biblio_list(f, div, bibliography)
+    def biblio_list(f, div, bibliography)
       bibitems = split_bibitems(f)
       bibitems[:iso].each_with_index do |b, i|
         iso_bibitem_entry(div, b, (i + 1), bibliography)
@@ -95,7 +95,7 @@ module IsoDoc
     @@norm_empty_pref =
       "There are no normative references in this document."
 
-    def self.norm_ref_preface(f, div)
+    def norm_ref_preface(f, div)
       refs = f.elements.select do |e|
         ["reference", "bibitem"].include? e.name
       end
@@ -103,7 +103,7 @@ module IsoDoc
       div.p pref
     end
 
-    def self.norm_ref(isoxml, out)
+    def norm_ref(isoxml, out)
       q = "//sections/references[title = 'Normative References']"
       f = isoxml.at(ns(q)) or return
       out.div do |div|
@@ -113,7 +113,7 @@ module IsoDoc
       end
     end
 
-    def self.bibliography(isoxml, out)
+    def bibliography(isoxml, out)
       q = "//sections/references[title = 'Bibliography']"
       f = isoxml.at(ns(q)) or return
       page_break(out)

@@ -3,7 +3,7 @@ require "pp"
 module IsoDoc
   class Convert
 
-    def self.init_file(filename)
+    def init_file(filename)
       filename = filename.gsub(%r{\.[^/.]+$}, "")
       dir = "#{filename}_files"
       Dir.mkdir(dir) unless File.exists?(dir)
@@ -11,7 +11,7 @@ module IsoDoc
       [filename, dir]
     end
 
-    def self.make_body(xml, docxml)
+    def make_body(xml, docxml)
       body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
       xml.body **body_attr do |body|
         make_body1(body, docxml)
@@ -20,21 +20,21 @@ module IsoDoc
       end
     end
 
-    def self.make_body1(body, docxml)
+    def make_body1(body, docxml)
       body.div **{ class: "WordSection1" } do |div1|
         titlepage docxml, div1
       end
       section_break(body)
     end
 
-    def self.make_body2(body, docxml)
+    def make_body2(body, docxml)
       body.div **{ class: "WordSection2" } do |div2|
         info docxml, div2
       end
       section_break(body)
     end
 
-    def self.make_body3(body, docxml)
+    def make_body3(body, docxml)
       body.div **{ class: "WordSection3" } do |div3|
         middle docxml, div3
         footnotes div3
@@ -42,7 +42,7 @@ module IsoDoc
       end
     end
 
-    def self.info(isoxml, out)
+    def info(isoxml, out)
       # intropage(out)
       title isoxml, out
       subtitle isoxml, out
@@ -53,12 +53,12 @@ module IsoDoc
       introduction isoxml, out
     end
 
-    def self.middle_title(out)
+    def middle_title(out)
       m = get_metadata
       out.p **{ class: "zzSTDTitle1" } { |p| p << m[:doctitle] }
     end
 
-    def self.middle(isoxml, out)
+    def middle(isoxml, out)
       middle_title(out)
       scope isoxml, out
       norm_ref isoxml, out
@@ -69,19 +69,19 @@ module IsoDoc
       bibliography isoxml, out
     end
 
-    def self.smallcap_parse(node, xml)
+    def smallcap_parse(node, xml)
       xml.span **{style: "font-variant:small-caps;"} do |s|
         s << node.text
       end
     end
 
-    def self.text_parse(node, out)
+    def text_parse(node, out)
       text = node.text
       text.gsub!("\n", "<br/>").gsub!(" ", "&nbsp;") if in_sourcecode
       out << text
     end
 
-    def self.parse(node, out)
+    def parse(node, out)
       if node.text?
         text_parse(node, out)
       else

@@ -1,6 +1,6 @@
 module IsoDoc
   class Convert
-    def self.clause_parse(node, out)
+    def clause_parse(node, out)
       out.div **attr_code("id": node["id"]) do |s|
         node.children.each do |c1|
           if c1.name == "title"
@@ -14,7 +14,7 @@ module IsoDoc
       end
     end
 
-    def self.clause_name(num, title, div)
+    def clause_name(num, title, div)
       div.h1 do |h1|
         h1 << num
         insert_tab(h1, 1)
@@ -22,7 +22,7 @@ module IsoDoc
       end
     end
 
-    def self.clause(isoxml, out)
+    def clause(isoxml, out)
       isoxml.xpath(ns("//clause[parent::sections]")).each do |c|
         next if c.at(ns("./title")).text == "Scope"
         out.div **attr_code("id": c["id"]) do |s|
@@ -38,14 +38,14 @@ module IsoDoc
       end
     end
 
-    def self.annex_name(annex, name, div)
+    def annex_name(annex, name, div)
       div.h1 **{class: "Annex"} do |t|
         t << "#{get_anchors()[annex['id']][:label]}<br/><br/>"
         t << "<b>#{name.text}</b>"
       end
     end
 
-    def self.annex(isoxml, out)
+    def annex(isoxml, out)
       isoxml.xpath(ns("//annex")).each do |c|
         page_break(out)
         out.div **attr_code("id": c["id"], class: "Section3" ) do |s|
@@ -60,7 +60,7 @@ module IsoDoc
       end
     end
 
-    def self.scope(isoxml, out)
+    def scope(isoxml, out)
       f = isoxml.at(ns("//clause[title = 'Scope']")) or return
       out.div do |div|
         clause_name("1.", "Scope", div)
@@ -70,7 +70,7 @@ module IsoDoc
       end
     end
 
-    def self.terms_defs(isoxml, out)
+    def terms_defs(isoxml, out)
       f = isoxml.at(ns("//terms")) or return
       out.div do |div|
         clause_name("3.", "Terms and Definitions", div)
@@ -80,7 +80,7 @@ module IsoDoc
       end
     end
 
-    def self.symbols_abbrevs(isoxml, out)
+    def symbols_abbrevs(isoxml, out)
       f = isoxml.at(ns("//symbols-abbrevs")) or return
       out.div do |div|
         clause_name("4.", "Symbols and Abbreviations", div)
@@ -90,7 +90,7 @@ module IsoDoc
       end
     end
 
-    def self.introduction(isoxml, out)
+    def introduction(isoxml, out)
       f = isoxml.at(ns("//content[title = 'Introduction']")) or return
       title_attr = { class: "IntroTitle" }
       page_break(out)
@@ -106,7 +106,7 @@ module IsoDoc
       end
     end
 
-    def self.foreword(isoxml, out)
+    def foreword(isoxml, out)
       f = isoxml.at(ns("//content[title = 'Foreword']")) or return
       out.div do |s|
         s.h1 **{ class: "ForewordTitle" } { |h1| h1 << "Foreword" }
