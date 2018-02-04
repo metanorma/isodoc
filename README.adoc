@@ -29,4 +29,3 @@ e.g.
         )
 --
 
-NOTE: The cover pages and introductory pages (table of contents, copyright notice) must be in ASCII, with any non-ASCII characters escaped as entities.
