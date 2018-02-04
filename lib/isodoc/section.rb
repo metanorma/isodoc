@@ -16,15 +16,17 @@ module IsoDoc
 
     def clause_name(num, title, div, inline_header)
       if inline_header
-      div.h1 do |h1|
-        h1 << num
-        insert_tab(h1, 1)
-        h1 << title
-      end
+        div.h1 do |h1|
+          h1 << num
+          insert_tab(h1, 1)
+          h1 << title
+        end
       else
-        div.span **{ class: zzMoveToFollowing } do |s|
-          s << num
-          s << title
+        div.span **{ class: "zzMoveToFollowing" } do |s|
+          s.b do |b|
+          b << num
+          b << title
+          end
         end
       end
     end

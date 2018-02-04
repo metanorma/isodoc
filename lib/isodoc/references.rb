@@ -107,7 +107,7 @@ module IsoDoc
       q = "//sections/references[title = 'Normative References']"
       f = isoxml.at(ns(q)) or return
       out.div do |div|
-        clause_name("2.", "Normative References", div)
+        clause_name("2.", "Normative References", div, false)
         norm_ref_preface(f, div)
         biblio_list(f, div, false)
       end
