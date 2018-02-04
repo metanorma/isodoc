@@ -66,18 +66,18 @@ module IsoDoc
       # out.p { |p| p << "&nbsp;" }
     end
 
-    @@sw = "solid windowtext"
+    SW = "solid windowtext"
 
-    #border-left:#{col.zero? ? "#{@@sw} 1.5pt;" : "none;"}
-    #border-right:#{@@sw} #{col == totalcols && !header ? "1.5" : "1.0"}pt;
+    #border-left:#{col.zero? ? "#{SW} 1.5pt;" : "none;"}
+    #border-right:#{SW} #{col == totalcols && !header ? "1.5" : "1.0"}pt;
     def make_tr_attr(td, row, totalrows, col, totalcols, header)
       style = td.name == "th" ? "font-weight:bold;" : ""
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
       style += <<~STYLE
-          border-top:#{row.zero? ? "#{@@sw} 1.5pt;" : "none;"}
-          mso-border-top-alt:#{row.zero? ? "#{@@sw} 1.5pt;" : "none;"}
-          border-bottom:#{@@sw} #{rowmax == totalrows ? "1.5" : "1.0"}pt;
-          mso-border-bottom-alt:#{@@sw} #{rowmax == totalrows ? "1.5" : "1.0"}pt;
+          border-top:#{row.zero? ? "#{SW} 1.5pt;" : "none;"}
+          mso-border-top-alt:#{row.zero? ? "#{SW} 1.5pt;" : "none;"}
+          border-bottom:#{SW} #{rowmax == totalrows ? "1.5" : "1.0"}pt;
+          mso-border-bottom-alt:#{SW} #{rowmax == totalrows ? "1.5" : "1.0"}pt;
       STYLE
       { rowspan: td["rowspan"], colspan: td["colspan"],
         align: td["align"], style: style.gsub(/\n/, "") }

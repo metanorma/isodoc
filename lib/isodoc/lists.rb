@@ -6,7 +6,7 @@ module IsoDoc
       end
     end
 
-    @@ol_style = {
+    OL_STYLE = {
       arabic: "1",
       roman: "i",
       alphabet: "a",
@@ -15,7 +15,7 @@ module IsoDoc
     }.freeze
 
     def ol_style(type)
-      @@ol_style[type.to_sym]
+      OL_STYLE[type.to_sym]
     end
 
     def ol_parse(node, out)

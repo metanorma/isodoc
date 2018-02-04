@@ -1,5 +1,6 @@
 module IsoDoc
   class Convert
+    #attr_accessor :termdomain, :termexample, :sourcecode, :note
     def set_termdomain(termdomain)
       @termdomain = termdomain
     end

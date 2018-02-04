@@ -84,7 +84,7 @@ module IsoDoc
       end
     end
 
-    @@norm_with_refs_pref = <<~BOILERPLATE
+    NORM_WITH_REFS_PREF = <<~BOILERPLATE
           The following documents are referred to in the text in such a way
           that some or all of their content constitutes requirements of this
           document. For dated references, only the edition cited applies.
@@ -92,14 +92,14 @@ module IsoDoc
           document (including any amendments) applies.
     BOILERPLATE
 
-    @@norm_empty_pref =
+    NORM_EMPTY_PREF =
       "There are no normative references in this document."
 
     def norm_ref_preface(f, div)
       refs = f.elements.select do |e|
         ["reference", "bibitem"].include? e.name
       end
-      pref = refs.empty? ? @@norm_empty_pref : @@norm_with_refs_pref
+      pref = refs.empty? ? NORM_EMPTY_PREF : NORM_WITH_REFS_PREF
       div.p pref
     end
 
