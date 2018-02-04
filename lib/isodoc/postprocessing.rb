@@ -33,7 +33,17 @@ module IsoDoc
     def cleanup(docxml)
       comment_cleanup(docxml)
       footnote_cleanup(docxml)
+      inline_header_cleanup(docxml)
       docxml
+    end
+
+    def inline_header_cleanup(docxml)
+      docxml.xpath('//span[@style="zzMoveToFollowing"]').each do |x|
+        n = x.next_element
+        if !n.nil?
+          n.children.first.add_previous_sibling(x.remove)
+        end
+      end
     end
 
     def comment_cleanup(docxml)

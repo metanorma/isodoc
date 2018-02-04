@@ -14,11 +14,18 @@ module IsoDoc
       end
     end
 
-    def clause_name(num, title, div)
+    def clause_name(num, title, div, inline_header)
+      if inline_header
       div.h1 do |h1|
         h1 << num
         insert_tab(h1, 1)
         h1 << title
+      end
+      else
+        div.span **{ class: zzMoveToFollowing } do |s|
+          s << num
+          s << title
+        end
       end
     end
 
@@ -29,7 +36,7 @@ module IsoDoc
           c.elements.each do |c1|
             if c1.name == "title"
               clause_name("#{get_anchors()[c['id']][:label]}.", 
-                          c1.text, s)
+                          c1.text, s, c["inline-header"])
             else
               parse(c1, s)
             end
