@@ -61,22 +61,11 @@ module IsoDoc
     end
 
     def stem_parse(node, out)
-      ooml = if node["type"] == "AsciiMath"
-               "`#{node.text}`"
-             elsif node["type"] == "MathML"
-               node.first_element_child.to_s
+      ooml = if node["type"] == "AsciiMath" then "`#{node.text}`"
+             elsif node["type"] == "MathML" then node.first_element_child.to_s
              else 
                node.text
              end
-=begin
-      out.span **{ class: "stem" } do |span|
-        span.parent.add_child ooml
-        @xslt.xml = AsciiMath.parse(node.text).to_mathml.
-          gsub(/<math>/,
-               "<math xmlns='http://www.w3.org/1998/Math/MathML'>")
-        ooml = @xslt.serve.gsub(/<\?[^>]+>\s*/, "").
-          gsub(/ xmlns:[^=]+="[^"]+"/, "")
-=end
         out.span **{ class: "stem" } do |span|
           span.parent.add_child ooml
         end

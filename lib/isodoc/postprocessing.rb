@@ -1,5 +1,6 @@
 require "html2doc"
 require "htmlentities"
+require "nokogiri"
 require "pp"
 
 module IsoDoc
@@ -19,14 +20,13 @@ module IsoDoc
                        dir, ['`', '`'])
     end
 
-    # ensure that these included pages are all ASCII safe!
     def wordPreface(docxml)
-      cover = File.read(@wordcoverpage, encoding: "UTF-8")
-      div1 = docxml.at('//div[@class="WordSection1"]')
-      div1.children.first.add_previous_sibling cover
-      intro = File.read(@wordintropage, encoding: "UTF-8")
-      div2 = docxml.at('//div[@class="WordSection2"]')
-      div2.children.first.add_previous_sibling intro
+      cover = Nokogiri::HTML(File.read(@wordcoverpage, encoding: "UTF-8"))
+      d = docxml.at('//div[@class="WordSection1"]')
+      d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
+      intro = Nokogiri::HTML(File.read(@wordintropage, encoding: "UTF-8"))
+      d = docxml.at('//div[@class="WordSection2"]')
+      d.children.first.add_previous_sibling intro.to_xml(encoding: 'US-ASCII')
       docxml
     end
 
