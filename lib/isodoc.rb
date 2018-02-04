@@ -50,9 +50,6 @@ module IsoDoc
       @meta = {}
       @footnotes = []
       @comments = []
-      @xslt = XML::XSLT.new
-      @xslt.xsl = File.read(File.join(File.dirname(__FILE__),
-                                      File.join("isodoc", "mathml2omml.xsl")))
       @in_footnote = false
     end
 
