@@ -10,14 +10,15 @@ module IsoDoc
     end
 
     def htmlPreface(docxml)
-      cover = File.read(@htmlcoverpage, encoding: "UTF-8")
-      div1 = docxml.at('//div[@class="WordSection1"]')
-      div1.children.first.add_previous_sibling cover
-      intro = File.read(@htmlintropage, encoding: "UTF-8")
-      div2 = docxml.at('//div[@class="WordSection2"]')
-      div2.children.first.add_previous_sibling intro
+      cover = Nokogiri::HTML(File.read(@htmlcoverpage, encoding: "UTF-8"))
+      d = docxml.at('//div[@class="WordSection1"]')
+      d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
+      cover = Nokogiri::HTML(File.read(@htmlntropage, encoding: "UTF-8"))
+      d = docxml.at('//div[@class="WordSection2"]')
+      d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
       body = docxml.at("//*[local-name() = 'body']")
-      body << '<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML"></script>'
+      body << '<script src="https://cdn.mathjax.org/mathjax/latest/'\
+        'MathJax.js?config=AM_HTMLorMML"></script>'
       docxml
     end
 
