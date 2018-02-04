@@ -29,3 +29,4 @@ e.g.
         )
 --
 
+NOTE: Cover page and Intro page cannot contain `<br/>`.
