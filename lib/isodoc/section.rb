@@ -70,7 +70,7 @@ module IsoDoc
     def scope(isoxml, out)
       f = isoxml.at(ns("//clause[title = 'Scope']")) or return
       out.div do |div|
-        clause_name("1.", "Scope", div)
+        clause_name("1.", "Scope", div, false)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
@@ -80,7 +80,7 @@ module IsoDoc
     def terms_defs(isoxml, out)
       f = isoxml.at(ns("//terms")) or return
       out.div do |div|
-        clause_name("3.", "Terms and Definitions", div)
+        clause_name("3.", "Terms and Definitions", div, false)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
@@ -90,7 +90,7 @@ module IsoDoc
     def symbols_abbrevs(isoxml, out)
       f = isoxml.at(ns("//symbols-abbrevs")) or return
       out.div do |div|
-        clause_name("4.", "Symbols and Abbreviations", div)
+        clause_name("4.", "Symbols and Abbreviations", div, false)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
