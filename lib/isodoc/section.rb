@@ -4,8 +4,16 @@ module IsoDoc
       out.div **attr_code("id": node["id"]) do |s|
         node.children.each do |c1|
           if c1.name == "title"
-            s.send "h#{get_anchors()[node['id']][:level]}" do |h|
-              h << "#{get_anchors()[node['id']][:label]}. #{c1.text}"
+            if node["inline-header"]
+              out.span **{ class: "zzMoveToFollowing" } do |s|
+                s.b do |b|
+                  b << "#{get_anchors()[node['id']][:label]}. #{c1.text} "
+                end
+              end
+            else
+              s.send "h#{get_anchors()[node['id']][:level]}" do |h|
+                h << "#{get_anchors()[node['id']][:label]}. #{c1.text}"
+              end
             end
           else
             parse(c1, s)
@@ -19,7 +27,7 @@ module IsoDoc
         div.span **{ class: "zzMoveToFollowing" } do |s|
           s.b do |b|
             b << num
-            b << title
+            b << title + " "
           end
         end
       else
