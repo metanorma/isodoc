@@ -33,6 +33,8 @@ module IsoDoc
       docnumber = isoxml.at(ns("//project-number"))
       partnumber = isoxml.at(ns("//project-number/@part"))
       documentstatus = isoxml.at(ns("//status/stage"))
+      draft =  isoxml.at(ns("//version/draft"))
+      revdate =  isoxml.at(ns("//version/revision-date"))
       dn = docnumber.text
       dn += "-#{partnumber.text}" if partnumber
       if documentstatus
@@ -46,14 +48,21 @@ module IsoDoc
     end
 
     def version(isoxml, _out)
-      # e =  isoxml.at(ns("//edition"))
-      # out.p "Edition: #{e.text}" if e
-      # e =  isoxml.at(ns("//revision_date"))
-      # out.p "Revised: #{e.text}" if e
       yr =  isoxml.at(ns("//copyright/from"))
       set_metadata(:docyear, yr.text)
-      # out.p "© ISO #{yr.text}" if yr
+      draft =  isoxml.at(ns("//version/draft"))
+      set_metadata(:draft, draft.nil? ? nil : draft.text )
+      revdate =  isoxml.at(ns("//version/revision-date"))
+      set_metadata(:revdate, revdate.nil? ? nil : revdate.text )
+      draftinfo = ""
+      if draft
+        draftinfo = " (draft #{draft.text}"
+        draftinfo += ", #{revdate.text}" if revdate
+        draftinfo += ")"
+      end
+      set_metadata(:draftinfo, draftinfo)
     end
+
 
     def compose_title(main, intro, part, partnumber)
       c = HTMLEntities.new

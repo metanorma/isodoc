@@ -42,16 +42,18 @@ module IsoDoc
 
     def toWord(result, filename, dir)
       result = from_xhtml(wordPreface(to_xhtml(result)))
+      puts result
       result = populate_template(result)
+      puts result
       Html2Doc.process(result, filename, @wordstylesheet, "header.html", 
                        dir, ['`', '`'])
     end
 
     def wordPreface(docxml)
-      cover = Nokogiri::XML.fragment(File.read(@wordcoverpage, encoding: "UTF-8"))
+      cover = to_xhtml_fragment(File.read(@wordcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection1"]')
       d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
-      intro = Nokogiri::XML.fragment(File.read(@wordintropage, encoding: "UTF-8"))
+      intro = to_xhtml_fragment(File.read(@wordintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection2"]')
       d.children.first.add_previous_sibling intro.to_xml(encoding: 'US-ASCII')
       docxml
@@ -110,6 +112,7 @@ module IsoDoc
         gsub(/DOCTITLE/, meta[:doctitle]).
         gsub(/DOCSUBTITLE/, meta[:docsubtitle]).
         gsub(/SECRETARIAT/, meta[:secretariat]).
+        gsub(/[ ]?DRAFTINFO/, meta[:draftinfo]).
         gsub(/\[TERMREF\]\s*/, "[SOURCE: ").
         gsub(/\s*\[\/TERMREF\]\s*/, "]").
         gsub(/\s*\[ISOSECTION\]/, ", ").
@@ -121,6 +124,7 @@ module IsoDoc
       header = File.read(@header, encoding: "UTF-8").
         gsub(/FILENAME/, filename).
         gsub(/DOCYEAR/, get_metadata()[:docyear]).
+        gsub(/[ ]?DRAFTINFO/, get_metadata()[:draftinfo]).
         gsub(/DOCNUMBER/, get_metadata()[:docnumber])
       File.open("header.html", "w") do |f|
         f.write(header)
