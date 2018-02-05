@@ -6,33 +6,6 @@ require "pp"
 module IsoDoc
   class Convert
 
-    NOKOHEAD = <<~HERE
-          <!DOCTYPE html SYSTEM
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-          <html xmlns="http://www.w3.org/1999/xhtml">
-          <head> <title></title> <meta charset="UTF-8" /> </head>
-          <body> </body> </html>
-    HERE
-
-    def to_xhtml(xml)
-      xml.gsub!(/<\?xml[^>]*>/, "")
-      unless /<!DOCTYPE /.match? xml
-        xml = '<!DOCTYPE html SYSTEM
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' + xml
-      end
-      Nokogiri::XML.parse(xml)
-    end
-
-    def to_xhtml_fragment(xml)
-      doc = ::Nokogiri::XML.parse(NOKOHEAD)
-      fragment = doc.fragment(xml)
-      fragment
-    end
-
-    def from_xhtml(xml)
-      xml.to_xml.sub(%r{ xmlns="http://www.w3.org/1999/xhtml"}, "")
-    end
-
     def postprocess(result, filename, dir)
       generate_header(filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
@@ -41,10 +14,24 @@ module IsoDoc
     end
 
     def toWord(result, filename, dir)
-      result = from_xhtml(wordPreface(to_xhtml(result)))
+      result = from_xhtml(wordCleanup(to_xhtml(result)))
       result = populate_template(result)
       Html2Doc.process(result, filename, @wordstylesheet, "header.html", 
                        dir, ['`', '`'])
+    end
+
+    def wordCleanup(docxml)
+      wordPreface(docxml)
+      wordAnnexCleanup(docxml)
+      docxml
+    end
+
+    # force Annex h2 to be p.h2Annex, so it is not picked up by ToC
+    def wordAnnexCleanup(docxml)
+      d = docxml.xpath("//h2[ancestor::*[@class = 'Section3']]").each do |h2|
+        h2.name = "p"
+        h2["class"] = "h2Annex"
+      end
     end
 
     def wordPreface(docxml)
@@ -56,7 +43,6 @@ module IsoDoc
         sub(/WORDTOC/, makeWordToC(docxml)))
       d = docxml.at('//div[@class="WordSection2"]')
       d.children.first.add_previous_sibling intro.to_xml(encoding: 'US-ASCII')
-      docxml
     end
 
     def cleanup(docxml)
@@ -193,12 +179,16 @@ module IsoDoc
         lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
     TOC
 
+    def header_strip(h)
+      h.to_s.gsub(%r{<br/>}, " ").
+        sub(/<h[12][^>]*>/, "").sub(%r{</h[12]>}, "")
+    end
+
     def makeWordToC(docxml)
       toc = ""
-      docxml.xpath("//h1 | //h2").each do |h|
-        toc += wordTocEntry(h.name == "h1" ? 1 : 2, 
-                            h.to_s.gsub(%r{<br/>}, " ").
-                            sub(/<h[12][^>]*>/, "").sub(%r{</h[12]>}, ""))
+      docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])]").
+        each do |h|
+        toc += wordTocEntry(h.name == "h1" ? 1 : 2, header_strip(h))
       end
       toc.sub(/(<p class="MsoToc1">)/, 
               %{\\1#{WORD_TOC_PREFACE}}) + WORD_TOC_SUFFIX
