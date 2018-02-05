@@ -51,7 +51,9 @@ module IsoDoc
       cover = to_xhtml_fragment(File.read(@wordcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection1"]')
       d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
-      intro = to_xhtml_fragment(File.read(@wordintropage, encoding: "UTF-8"))
+      intro = to_xhtml_fragment(
+        File.read(@wordintropage, encoding: "UTF-8").
+        sub(/WORDTOC/, makeWordToC(docxml)))
       d = docxml.at('//div[@class="WordSection2"]')
       d.children.first.add_previous_sibling intro.to_xml(encoding: 'US-ASCII')
       docxml
@@ -153,5 +155,54 @@ module IsoDoc
       titlepage = File.read(@wordcoverpage, encoding: "UTF-8")
       div.parent.add_child titlepage
     end
+
+    def wordTocEntry(toclevel, heading)
+      bookmark = Random.rand(1000000000)
+      <<~TOC
+      <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span 
+      lang="EN-GB" style='mso-no-proof:yes'>
+      <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB" 
+      class="MsoTocTextSpan">
+        <span style='mso-tab-count:1 dotted'>. </span>
+        </span><span lang="EN-GB" class="MsoTocTextSpan"> 
+        <span style='mso-element:field-begin'></span></span>
+        <span lang="EN-GB" 
+        class="MsoTocTextSpan"> PAGEREF _Toc#{bookmark} \\h </span>
+          <span lang="EN-GB" class="MsoTocTextSpan"><span
+          style='mso-element:field-separator'></span></span><span
+          lang="EN-GB" class="MsoTocTextSpan">1</span>
+          <span lang="EN-GB" 
+          class="MsoTocTextSpan"></span><span 
+          lang="EN-GB" class="MsoTocTextSpan"><span
+          style='mso-element:field-end'></span></span></a></span></span></p>
+
+      TOC
+    end
+
+    WORD_TOC_PREFACE = <<~TOC
+      <span lang="EN-GB"><span
+        style='mso-element:field-begin'></span><span 
+        style='mso-spacerun:yes'>&#xA0;</span>TOC
+        \\o &quot;1-2&quot; \\h \\z \\u <span 
+        style='mso-element:field-separator'></span></span>
+    TOC
+
+    WORD_TOC_SUFFIX = <<~TOC
+      <p class="MsoToc1"><span lang="EN-GB"><span 
+        style='mso-element:field-end'></span></span><span 
+        lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
+    TOC
+
+    def makeWordToC(docxml)
+      toc = ""
+      docxml.xpath("//h1 | //h2").each do |h|
+        toc += wordTocEntry(h.name == "h1" ? 1 : 2, 
+                            h.to_s.gsub(%r{<br/>}, " ").
+                            sub(/<h[12][^>]*>/, "").sub(%r{</h[12]>}, ""))
+      end
+      toc.sub(/(<p class="MsoToc1">)/, 
+              %{\\1#{WORD_TOC_PREFACE}}) + WORD_TOC_SUFFIX
+    end
+
   end
 end
