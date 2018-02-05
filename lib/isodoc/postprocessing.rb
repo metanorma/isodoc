@@ -6,25 +6,52 @@ require "pp"
 module IsoDoc
   class Convert
 
+    NOKOHEAD = <<~HERE
+          <!DOCTYPE html SYSTEM
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+          <html xmlns="http://www.w3.org/1999/xhtml">
+          <head> <title></title> <meta charset="UTF-8" /> </head>
+          <body> </body> </html>
+    HERE
+
+    def to_xhtml(xml)
+      xml.gsub!(/<\?xml[^>]*>/, "")
+      unless /<!DOCTYPE /.match? xml
+        xml = '<!DOCTYPE html SYSTEM
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' + xml
+      end
+      Nokogiri::XML.parse(xml)
+    end
+
+    def to_xhtml_fragment(xml)
+      doc = ::Nokogiri::XML.parse(NOKOHEAD)
+      fragment = doc.fragment(xml)
+      fragment
+    end
+
+    def from_xhtml(xml)
+      xml.to_xml.sub(%r{ xmlns="http://www.w3.org/1999/xhtml"}, "")
+    end
+
     def postprocess(result, filename, dir)
       generate_header(filename, dir)
-      result = cleanup(Nokogiri::HTML(result)).to_xml
+      result = from_xhtml(cleanup(to_xhtml(result)))
       toWord(result, filename, dir)
       toHTML(result, filename)
     end
 
     def toWord(result, filename, dir)
-      result = wordPreface(Nokogiri::HTML(result)).to_xml
+      result = from_xhtml(wordPreface(to_xhtml(result)))
       result = populate_template(result)
       Html2Doc.process(result, filename, @wordstylesheet, "header.html", 
                        dir, ['`', '`'])
     end
 
     def wordPreface(docxml)
-      cover = Nokogiri::HTML(File.read(@wordcoverpage, encoding: "UTF-8"))
+      cover = Nokogiri::XML.fragment(File.read(@wordcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection1"]')
       d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
-      intro = Nokogiri::HTML(File.read(@wordintropage, encoding: "UTF-8"))
+      intro = Nokogiri::XML.fragment(File.read(@wordintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection2"]')
       d.children.first.add_previous_sibling intro.to_xml(encoding: 'US-ASCII')
       docxml

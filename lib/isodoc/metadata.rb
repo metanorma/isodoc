@@ -30,8 +30,8 @@ module IsoDoc
     end
 
     def id(isoxml, _out)
-      docnumber = isoxml.at(ns("//projectnumber"))
-      partnumber = isoxml.at(ns("//projectnumber/@part"))
+      docnumber = isoxml.at(ns("//project-number"))
+      partnumber = isoxml.at(ns("//project-number/@part"))
       documentstatus = isoxml.at(ns("//status/stage"))
       dn = docnumber.text
       dn += "-#{partnumber.text}" if partnumber
@@ -71,7 +71,7 @@ module IsoDoc
       intro = isoxml.at(ns("//title[@language='en']/title-intro"))
       main = isoxml.at(ns("//title[@language='en']/title-main"))
       part = isoxml.at(ns("//title[@language='en']/title-part"))
-      partnumber = isoxml.at(ns("//id/projectnumber/@part"))
+      partnumber = isoxml.at(ns("//id/project-number/@part"))
       main = compose_title(main, intro, part, partnumber)
       set_metadata(:doctitle, main)
     end
@@ -80,7 +80,7 @@ module IsoDoc
       intro = isoxml.at(ns("//title[@language='fr']/title-intro"))
       main = isoxml.at(ns("//title[@language='fr']/title-main"))
       part = isoxml.at(ns("//title[@language='fr']/title-part"))
-      partnumber = isoxml.at(ns("//id/projectnumber/@part"))
+      partnumber = isoxml.at(ns("//id/project-number/@part"))
       main = compose_title(main, intro, part, partnumber)
       set_metadata(:docsubtitle, main)
     end

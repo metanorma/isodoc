@@ -29,4 +29,4 @@ e.g.
         )
 --
 
-NOTE: Cover page and Intro page cannot contain `<br/>`.
+NOTE: Cover page and Intro page must be XHTML fragments, not HTML fragments. In particular, unlike Word HTML, all HTML attributes need to be quoted: `<p class="MsoToc2">`, not `<p class=MsoToc2>`.
