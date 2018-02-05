@@ -42,9 +42,7 @@ module IsoDoc
 
     def toWord(result, filename, dir)
       result = from_xhtml(wordPreface(to_xhtml(result)))
-      puts result
       result = populate_template(result)
-      puts result
       Html2Doc.process(result, filename, @wordstylesheet, "header.html", 
                        dir, ['`', '`'])
     end
