@@ -1,5 +1,10 @@
 = isodoc
 
+
+image:https://img.shields.io/gem/v/isodoc.svg["Gem Version", link="https://rubygems.org/gems/isodoc"]
+image:https://img.shields.io/travis/riboseinc/asciidoctor-iso/master.svg["Build Status", link="https://travis-ci.org/riboseinc/isodoc"]
+image:https://codeclimate.com/github/riboseinc/isodoc/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/isodoc"]
+
 This Gem converts documents in the https://github.com/riboseinc/isodoc-models[ISODoc document model] into HTML and Microsoft Word.
 
 The Gem is a class called with a hash of file locations:
