@@ -34,14 +34,14 @@ module IsoDoc
       dt = key.add_child("<dt></dt>").first
       dd = key.add_child("<dd></dd>").first
       fnref.parent = dt
-      aside.xpath(".//p").each do |a| 
+      aside.xpath(".//p").each do |a|
         a.delete("class")
-        a.parent = dd 
+        a.parent = dd
       end
     end
 
     def figure_cleanup(docxml)
-      # move footnotes into key, and get rid of footnote reference 
+      # move footnotes into key, and get rid of footnote reference
       # since it is in diagram
       docxml.xpath(FIGURE_WITH_FOOTNOTES).each do |f|
         key = figure_get_or_make_dl(f)
@@ -68,9 +68,7 @@ module IsoDoc
       docxml.xpath('//div/span[@style="MsoCommentReference"]').
         each do |x|
         prev = x.previous_element
-        if !prev.nil?
-          x.parent = prev
-        end
+        x.parent = prev unless prev.nil?
       end
       docxml
     end
@@ -79,9 +77,7 @@ module IsoDoc
       docxml.xpath('//div[@style="mso-element:footnote"]/a').
         each do |x|
         n = x.next_element
-        if !n.nil?
-          n.children.first.add_previous_sibling(x.remove)
-        end
+        n&.children&.first&.add_previous_sibling(x.remove)
       end
       docxml
     end
@@ -89,7 +85,7 @@ module IsoDoc
     def merge_fnref_into_fn_text(a)
       fn = a.at('.//a[@class="zzFootnote"]')
       n = fn.next_element
-      n.children.first.add_previous_sibling(fn.remove) unless n.nil?
+      n&.children&.first&.add_previous_sibling(fn.remove)
     end
 
     TABLE_WITH_FOOTNOTES = "//table[descendant::aside]".freeze
@@ -118,9 +114,7 @@ module IsoDoc
         tfoot = t.at(".//tfoot")
       else
         # nuke its bottom border
-        tfoot.xpath(".//td | .//th").each do |td|
-          remove_bottom_border(td)
-        end
+        tfoot.xpath(".//td | .//th").each { |td| remove_bottom_border(td) }
       end
       tfoot
     end
@@ -129,7 +123,7 @@ module IsoDoc
       # how many columns in the table?
       cols = 0
       t.at(".//tr").xpath("./td | ./th").each do |td|
-        cols += ( td["colspan"] ? td["colspan"].to_i : 1 )
+        cols += (td["colspan"] ? td["colspan"].to_i : 1)
       end
       style = %{border-top:0pt;mso-border-top-alt:0pt;
       border-bottom:#{SW} 1.5pt;mso-border-bottom-alt:#{SW} 1.5pt;}

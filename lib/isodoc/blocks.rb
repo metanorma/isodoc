@@ -116,6 +116,11 @@ module IsoDoc
       end
     end
 
+    def formula_where(dl, out)
+             out.p { |p| p << "where" }
+        parse(dl, out)
+    end
+
     def formula_parse(node, out)
       dl = node.at(ns("./dl"))
       out.div **attr_code(id: node["id"], class: "formula") do |div|
@@ -123,10 +128,7 @@ module IsoDoc
         insert_tab(div, 1)
         div << "(#{get_anchors()[node['id']][:label]})"
       end
-      if dl
-        out.p { |p| p << "where" }
-        parse(dl, out) 
-      end
+        formula_where(dl, out) if dl
     end
 
     def para_attrs(node)

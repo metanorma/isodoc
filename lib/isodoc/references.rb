@@ -99,7 +99,10 @@ module IsoDoc
       refs = f.elements.select do |e|
         ["reference", "bibitem"].include? e.name
       end
-      pref = refs.empty? ? NORM_EMPTY_PREF : NORM_WITH_REFS_PREF
+      pref = if refs.empty? then self.class::NORM_EMPTY_PREF 
+             else 
+               self.class::NORM_WITH_REFS_PREF
+             end
       div.p pref
     end
 
