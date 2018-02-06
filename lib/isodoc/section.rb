@@ -56,7 +56,7 @@ module IsoDoc
     end
 
     def annex_name(annex, name, div)
-      div.h1 **{class: "Annex"} do |t|
+      div.h1 **{ class: "Annex" } do |t|
         t << "#{get_anchors()[annex['id']][:label]}<br/><br/>"
         t << "<b>#{name.text}</b>"
       end
@@ -79,7 +79,7 @@ module IsoDoc
     end
 
     def scope(isoxml, out)
-      f = isoxml.at(ns("//clause[title = 'Scope']")) or return
+      f = isoxml.at(ns("//clause[title = 'Scope']")) || return
       out.div do |div|
         clause_name("1.", "Scope", div, false)
         f.elements.each do |e|
@@ -89,7 +89,7 @@ module IsoDoc
     end
 
     def terms_defs(isoxml, out)
-      f = isoxml.at(ns("//terms")) or return
+      f = isoxml.at(ns("//terms")) || return
       out.div do |div|
         clause_name("3.", "Terms and Definitions", div, false)
         f.elements.each do |e|
@@ -99,7 +99,7 @@ module IsoDoc
     end
 
     def symbols_abbrevs(isoxml, out)
-      f = isoxml.at(ns("//symbols-abbrevs")) or return
+      f = isoxml.at(ns("//symbols-abbrevs")) || return
       out.div do |div|
         clause_name("4.", "Symbols and Abbreviations", div, false)
         f.elements.each do |e|
@@ -109,10 +109,10 @@ module IsoDoc
     end
 
     def introduction(isoxml, out)
-      f = isoxml.at(ns("//content[title = 'Introduction']")) or return
+      f = isoxml.at(ns("//content[title = 'Introduction']")) || return
       title_attr = { class: "IntroTitle" }
       page_break(out)
-      out.div **{class: "Section3" } do |div|
+      out.div **{ class: "Section3" } do |div|
         div.h1 "Introduction", **attr_code(title_attr)
         f.elements.each do |e|
           if e.name == "patent-notice"
@@ -125,7 +125,7 @@ module IsoDoc
     end
 
     def foreword(isoxml, out)
-      f = isoxml.at(ns("//content[title = 'Foreword']")) or return
+      f = isoxml.at(ns("//content[title = 'Foreword']")) || return
       page_break(out)
       out.div do |s|
         s.h1 **{ class: "ForewordTitle" } { |h1| h1 << "Foreword" }

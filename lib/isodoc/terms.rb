@@ -1,8 +1,5 @@
-#require "isodoc/xref_gen"
-
 module IsoDoc
   class Convert
-    #include ::IsoDoc::XrefGen
 
     def definition_parse(node, out)
       node.children.each { |n| parse(n, out) }

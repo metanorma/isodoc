@@ -1,4 +1,4 @@
-require "uuidtools" 
+require "uuidtools"
 
 module IsoDoc
   class Convert
@@ -12,7 +12,7 @@ module IsoDoc
     end
 
     def page_break(body)
-      body.br **{ 
+      body.br **{
         clear: "all",
         style: "mso-special-character:line-break;page-break-before:always",
       }
@@ -65,7 +65,7 @@ module IsoDoc
     def stem_parse(node, out)
       ooml = if node["type"] == "AsciiMath" then "`#{node.text}`"
              elsif node["type"] == "MathML" then node.first_element_child.to_s
-             else 
+             else
                node.text
              end
         out.span **{ class: "stem" } do |span|
@@ -97,13 +97,11 @@ module IsoDoc
       def footnote_attributes(fn, is_footnote)
         style = nil
         style = "mso-footnote-id:ftn#{fn}" if is_footnote
-        {
-          style: style,
+        { style: style,
           href: "#_ftn#{fn}",
           name: "_ftnref#{fn}",
           title: "",
-          class: "zzFootnote",
-        }
+          class: "zzFootnote" }
       end
 
       def make_footnote_link(a, fnid, fnref, is_footnote)
@@ -133,6 +131,7 @@ module IsoDoc
           xml.div **attr_code(attrs) do |div|
             div.a **footnote_attributes(fnid, is_footnote) do |a|
               make_footnote_target(a, fnid, fnref, is_footnote)
+              insert_tab(a, 1) unless is_footnote
             end
             node.children.each { |n| parse(n, div) }
           end
@@ -162,8 +161,8 @@ module IsoDoc
       def footnote_parse(node, out)
         return table_footnote_parse(node, out) if @in_table || @in_figure
         fn = node["reference"]
-        out.a **footnote_attributes(fn, true) do |a| 
-          make_footnote_link(a, nil, nil, true) 
+        out.a **footnote_attributes(fn, true) do |a|
+          make_footnote_link(a, nil, nil, true)
         end
         @in_footnote = true
         @footnotes << make_footnote_text(node, fn, fn, true)
