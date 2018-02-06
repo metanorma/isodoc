@@ -54,15 +54,16 @@ module IsoDoc
     end
 
     def table_parse(node, out)
+      @in_table = true
       table_title_parse(node, out)
       out.table **make_table_attr(node) do |t|
         thead_parse(node, t)
         tbody_parse(node, t)
         tfoot_parse(node, t)
-        dl = node.at(ns("./dl"))
-        parse(dl, out) if dl
+        dl = node.at(ns("./dl")) and parse(dl, out)
         node.xpath(ns("./note")).each { |n| parse(n, out) }
       end
+      @in_table = false
       # out.p { |p| p << "&nbsp;" }
     end
 

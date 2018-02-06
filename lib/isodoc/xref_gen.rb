@@ -52,6 +52,16 @@ module IsoDoc
       end
     end
 
+        def table_note_anchor_names(docxml)
+      docxml.xpath(ns("//table[note]")).each do |t|
+        t.xpath(ns("./note")).each_with_index do |n, i|
+          @anchors[n["id"]] = { label: "NOTE #{i + 1}",
+                                 xref: "#{@anchors[t["id"]][:xref]},"\
+                                 "Note #{i + 1}" }
+        end
+      end
+    end
+
     def middle_anchor_names(docxml)
       symbols_abbrevs = docxml.at(ns("//symbols-abbrevs"))
       sect_num = 4
@@ -68,6 +78,7 @@ module IsoDoc
       initial_anchor_names(docxml)
       middle_anchor_names(docxml)
       back_anchor_names(docxml)
+      table_note_anchor_names(docxml)
     end
 
     def sequential_figure_names(clause)

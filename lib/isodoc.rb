@@ -7,6 +7,7 @@ require "uuidtools"
 require "base64"
 require "mime/types"
 require "image_size"
+require "set"
 require_relative "isodoc/iso2wordhtml"
 require_relative "isodoc/postprocessing"
 require_relative "isodoc/utils"
@@ -51,6 +52,9 @@ module IsoDoc
       @footnotes = []
       @comments = []
       @in_footnote = false
+      @in_table = false
+      @in_figure = false
+      @seen_footnote = Set.new
     end
 
     def convert(filename)

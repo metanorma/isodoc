@@ -1,3 +1,5 @@
+require "uuidtools" 
+
 module IsoDoc
   class Convert
 
@@ -92,39 +94,79 @@ module IsoDoc
         end
       end
 
-      def footnote_attributes(fn)
+      def footnote_attributes(fn, is_footnote)
+        style = nil
+        style = "mso-footnote-id:ftn#{fn}" if is_footnote
         {
-          style: "mso-footnote-id:ftn#{fn}",
+          style: style,
           href: "#_ftn#{fn}",
           name: "_ftnref#{fn}",
           title: "",
+          class: "zzFootnote",
         }
       end
 
-      def make_footnote_link(a)
+      def make_footnote_link(a, fnid, fnref, is_footnote)
         a.span **{ class: "MsoFootnoteReference" } do |s|
-          s.span **{ style: "mso-special-character:footnote" }
+          if is_footnote
+            s.span **{ style: "mso-special-character:footnote" }
+          else
+            s.a **{href: fnid} { a << fnref }
+          end
         end
       end
 
-      def make_footnote_text(node, fn)
+      def make_footnote_target(a, fnid, fnref, is_footnote)
+        a.span **{ class: "MsoFootnoteReference" } do |s|
+          if is_footnote
+            s.span **{ style: "mso-special-character:footnote" }
+          else
+            s.a **{name: fnid} { a << fnref }
+          end
+        end
+      end
+
+      def make_footnote_text(node, fnid, fnref, is_footnote)
+        attrs = { style: "mso-element:footnote", id: "ftn#{fnid}" }
+        attrs[:style] = nil unless is_footnote
         noko do |xml|
-          xml.div **{ style: "mso-element:footnote", id: "ftn#{fn}" } do |div|
-            div.a **footnote_attributes(fn) do |a|
-              make_footnote_link(a)
+          xml.div **attr_code(attrs) do |div|
+            div.a **footnote_attributes(fnid, is_footnote) do |a|
+              make_footnote_target(a, fnid, fnref, is_footnote)
             end
             node.children.each { |n| parse(n, div) }
           end
         end.join("\n")
       end
 
-      def footnote_parse(node, out)
+      def get_table_ancestor_id(node)
+        table = node.ancestors("table") || node.ancestors("figure")
+        return UUIDTools::UUID.random_create.to_s if table.empty?
+        table.last["id"]
+      end
+
+      def table_footnote_parse(node, out)
         fn = node["reference"]
-        out.a **footnote_attributes(fn) do |a| 
-          make_footnote_link(a) 
+        tid = get_table_ancestor_id(node)
+        out.a **footnote_attributes(tid + fn, false) do |a|
+          make_footnote_link(a, tid + fn, fn, false)
+        end
+        # do not output footnote text if we have already seen it for this table
+        return if @seen_footnote.include?(tid + fn)
+        @in_footnote = true
+        out.aside { |a| a << make_footnote_text(node, tid + fn, fn, false) }
+        @in_footnote = false
+        @seen_footnote << (tid + fn)
+      end
+
+      def footnote_parse(node, out)
+        return table_footnote_parse(node, out) if @in_table || @in_figure
+        fn = node["reference"]
+        out.a **footnote_attributes(fn, true) do |a| 
+          make_footnote_link(a, nil, nil, true) 
         end
         @in_footnote = true
-        @footnotes << make_footnote_text(node, fn)
+        @footnotes << make_footnote_text(node, fn, fn, true)
         @in_footnote = false
       end
 
@@ -166,5 +208,5 @@ module IsoDoc
         make_comment_link(out, fn, node["date"], true)
         @comments << make_comment_text(node, fn)
       end
-    end
   end
+end

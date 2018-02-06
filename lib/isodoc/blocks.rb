@@ -21,9 +21,15 @@ module IsoDoc
       @note
     end
 
+    def note_label(node)
+      n = get_anchors()[node["id"]]
+      return "NOTE" if n.nil?
+      n[:label]
+    end
+
     def note_p_parse(node, div)
       div.p **{ class: "Note" } do |p|
-        p << "NOTE"
+        p << note_label(node)
         insert_tab(p, 1)
         node.first_element_child.children.each { |n| parse(n, p) }
       end
@@ -37,7 +43,7 @@ module IsoDoc
           note_p_parse(node, div)
         else
           div.p **{ class: "Note" } do |p|
-            p << "NOTE"
+            p << note_label(node)
             insert_tab(p, 1)
           end
           node.children.each { |n| parse(n, div) }
@@ -62,14 +68,16 @@ module IsoDoc
     end
 
     def figure_parse(node, out)
+      @in_figure = true
       name = node.at(ns("./name"))
-      out.div **attr_code(id: node["id"]) do |div|
+      out.div **attr_code(id: node["id"], class: "figure") do |div|
         node.children.each do |n|
           figure_key(out) if n.name == "dl"
           parse(n, div) unless n.name == "name"
         end
         figure_name_parse(node, div, name) if name
       end
+      @in_figure = false
     end
 
     def sourcecode_name_parse(node, div, name)
