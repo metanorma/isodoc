@@ -58,14 +58,6 @@ module IsoDoc
       end.to_h
     end
 
-    NOKOHEAD = <<~HERE
-          <!DOCTYPE html SYSTEM
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-          <html xmlns="http://www.w3.org/1999/xhtml">
-          <head> <title></title> <meta charset="UTF-8" /> </head>
-          <body> </body> </html>
-    HERE
-
     def to_xhtml(xml)
       xml.gsub!(/<\?xml[^>]*>/, "")
       unless /<!DOCTYPE /.match? xml

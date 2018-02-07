@@ -79,19 +79,19 @@ module IsoDoc
     end
 
     def title(isoxml, _out)
-      intro = isoxml.at(ns("//title[@language='en']/title-intro"))
-      main = isoxml.at(ns("//title[@language='en']/title-main"))
-      part = isoxml.at(ns("//title[@language='en']/title-part"))
-      partnumber = isoxml.at(ns("//id/project-number/@part"))
+      intro = isoxml.at(ns("//title-intro[@language='en']"))
+      main = isoxml.at(ns("//title-main[@language='en']"))
+      part = isoxml.at(ns("//title-part[@language='en']"))
+      partnumber = isoxml.at(ns("//project-number/@part"))
       main = compose_title(main, intro, part, partnumber)
       set_metadata(:doctitle, main)
     end
 
     def subtitle(isoxml, _out)
-      intro = isoxml.at(ns("//title[@language='fr']/title-intro"))
-      main = isoxml.at(ns("//title[@language='fr']/title-main"))
-      part = isoxml.at(ns("//title[@language='fr']/title-part"))
-      partnumber = isoxml.at(ns("//id/project-number/@part"))
+      intro = isoxml.at(ns("//title-intro[@language='fr']"))
+      main = isoxml.at(ns("//title-main[@language='fr']"))
+      part = isoxml.at(ns("//title-part[@language='fr']"))
+      partnumber = isoxml.at(ns("//project-number/@part"))
       main = compose_title(main, intro, part, partnumber)
       set_metadata(:docsubtitle, main)
     end

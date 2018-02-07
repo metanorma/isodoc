@@ -186,7 +186,7 @@ module IsoDoc
     end
 
     def reference_names(ref)
-      isopub = ref.at(ns("./publisher/affiliation[name = 'ISO']"))
+      isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
       docid = ref.at(ns("./docidentifier"))
       return ref_names(ref) unless docid
       date = ref.at(ns("./publisherdate"))

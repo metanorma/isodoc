@@ -39,7 +39,7 @@ module IsoDoc
       text = node.children.select { |c| c.text? && !c.text.empty? }
       linkend = text.join(" ") unless text.nil? || text.empty?
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
-      # <locality type="section">3.1</locality></origin>
+      # <locality type="section"><reference>3.1</reference></locality></origin>
       linkend
     end
 
@@ -50,9 +50,8 @@ module IsoDoc
 
     def eref_parse(node, out)
       linkend = get_linkend(node)
-      section = node.at(ns("./locality"))
-      section.nil? or
-        linkend += ", #{section["type"].capitalize} #{section.text}"
+      r = node.at(ns("./locality/reference"))
+      r.nil? || linkend += ", #{r.parent["type"].capitalize} #{r.text}"
       if node["type"] == "footnote"
         out.sup do |s|
           s.a **{ "href": node["bibitemid"] } { |l| l << linkend }

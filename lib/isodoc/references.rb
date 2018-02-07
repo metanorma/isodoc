@@ -2,7 +2,7 @@ module IsoDoc
   class Convert
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier"))
-      isodate = b.at(ns("./publishdate"))
+      isodate = b.at(ns("./date[@type = 'published']"))
       reference = "ISO #{isocode.text}"
       reference += ": #{isodate.text}" if isodate
       reference
@@ -28,7 +28,7 @@ module IsoDoc
         ref << iso_bibitem_ref_code(b)
         date_note_process(b, ref)
         ref << ", " if biblio
-        ref.i { |i| i << " #{b.at(ns('./name')).text}" }
+        ref.i { |i| i << " #{b.at(ns('./title')).text}" }
       end
     end
 
@@ -54,18 +54,21 @@ module IsoDoc
 
     def noniso_bibitem(list, b, ordinal, bibliography)
       ref = b.at(ns("./docidentifier"))
-      para = b.at(ns("./formatted"))
+      para = b.at(ns("./formattedref"))
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
         ref_entry_code(r, ordinal, ref.text.gsub(/[\[\]]/, ""))
         para.children.each { |n| parse(n, r) }
       end
     end
 
+    ISO_PUBLISHER_XPATH =
+      "./contributor[xmlns:role/@type = 'publisher']/organization[name = 'ISO']"
+
     def split_bibitems(f)
       iso_bibitem = []
       non_iso_bibitem = []
       f.xpath(ns("./bibitem")).each do |x|
-        if x.at(ns("./publisher/affiliation[name = 'ISO']")).nil?
+        if x.at(ns(ISO_PUBLISHER_XPATH)).nil?
           non_iso_bibitem << x
         else
           iso_bibitem << x
