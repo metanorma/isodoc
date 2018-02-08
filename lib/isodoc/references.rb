@@ -110,7 +110,7 @@ module IsoDoc
     end
 
     def norm_ref(isoxml, out)
-      q = "//sections/references[title = 'Normative References']"
+      q = "./*/references[title = 'Normative References']"
       f = isoxml.at(ns(q)) or return
       out.div do |div|
         clause_name("2.", "Normative References", div, false)
@@ -120,7 +120,7 @@ module IsoDoc
     end
 
     def bibliography(isoxml, out)
-      q = "//sections/references[title = 'Bibliography']"
+      q = "./*/references[title = 'Bibliography']"
       f = isoxml.at(ns(q)) or return
       page_break(out)
       out.div do |div|

@@ -20,7 +20,7 @@ module IsoDoc
     end
 
     def initial_anchor_names(d)
-      introduction_names(d.at(ns("//content[title = 'Introduction']")))
+      introduction_names(d.at(ns("//introduction")))
       section_names(d.at(ns("//clause[title = 'Scope']")), "1", 1)
       section_names(d.at(ns(
         "//references[title = 'Normative References']")), "2", 1)
@@ -135,6 +135,7 @@ module IsoDoc
     end
 
     def introduction_names(clause)
+      return if clause.nil?
       clause.xpath(ns("./subsection")).each_with_index do |c, i|
         section_names(c, "0.#{i + 1}")
       end

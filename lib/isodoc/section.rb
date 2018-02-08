@@ -109,7 +109,7 @@ module IsoDoc
     end
 
     def introduction(isoxml, out)
-      f = isoxml.at(ns("//content[title = 'Introduction']")) || return
+      f = isoxml.at(ns("//introduction")) || return
       title_attr = { class: "IntroTitle" }
       page_break(out)
       out.div **{ class: "Section3" } do |div|
@@ -125,7 +125,7 @@ module IsoDoc
     end
 
     def foreword(isoxml, out)
-      f = isoxml.at(ns("//content[title = 'Foreword']")) || return
+      f = isoxml.at(ns("//foreword")) || return
       page_break(out)
       out.div do |s|
         s.h1 **{ class: "ForewordTitle" } { |h1| h1 << "Foreword" }
