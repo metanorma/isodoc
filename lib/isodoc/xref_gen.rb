@@ -137,7 +137,7 @@ module IsoDoc
     def introduction_names(clause)
       return if clause.nil?
       clause.xpath(ns("./subsection")).each_with_index do |c, i|
-        section_names(c, "0.#{i + 1}")
+        section_names1(c, "0.#{i + 1}", 2)
       end
     end
 
