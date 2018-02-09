@@ -67,8 +67,8 @@ module IsoDoc
     def comment_cleanup(docxml)
       docxml.xpath('//div/span[@style="MsoCommentReference"]').
         each do |x|
-        prev = x.previous_element
-        x.parent = prev unless prev.nil?
+        n = x.next_element
+        n&.children&.first&.add_previous_sibling(x.remove)
       end
       docxml
     end

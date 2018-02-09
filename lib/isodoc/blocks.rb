@@ -135,6 +135,7 @@ module IsoDoc
       classtype = nil
       classtype = "Note" if @note
       classtype = "MsoFootnoteText" if in_footnote
+      classtype = "MsoCommentText" if in_comment
       attrs = { class: classtype }
       unless node["align"].nil?
         attrs[:align] = node["align"] unless node["align"] == "justify"

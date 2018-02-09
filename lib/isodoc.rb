@@ -53,6 +53,7 @@ module IsoDoc
       @footnotes = []
       @comments = []
       @in_footnote = false
+      @in_comment = false
       @in_table = false
       @in_figure = false
       @seen_footnote = Set.new

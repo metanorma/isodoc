@@ -138,8 +138,17 @@ module IsoDoc
     TOC
 
     def header_strip(h)
-      h.to_s.gsub(%r{<br/>}, " ").
+      h = h.to_s.gsub(%r{<br/>}, " ").
         sub(/<h[12][^>]*>/, "").sub(%r{</h[12]>}, "")
+      h1 = to_xhtml_fragment(h)    
+      #h1.xpath(".//*[@style = 'MsoCommentReference']").each do |x|
+       h1.xpath(".//*").each do |x|
+         if x.name == "span" && x['style'] == "MsoCommentReference"
+           x.children.remove
+           x.content = ""
+         end
+      end
+      from_xhtml(h1)
     end
 
     def makeWordToC(docxml)

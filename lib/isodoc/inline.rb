@@ -7,6 +7,10 @@ module IsoDoc
       @in_footnote
     end
 
+    def in_comment
+      @in_comment
+    end
+
     def section_break(body)
       body.br **{ clear: "all", class: "section" }
     end
@@ -87,9 +91,7 @@ module IsoDoc
       def footnotes(div)
         return if @footnotes.empty?
         div.div **{ style: "mso-element:footnote-list" } do |div1|
-          @footnotes.each do |fn|
-            div1.parent << fn
-          end
+          @footnotes.each { |fn| div1.parent << fn }
         end
       end
 
@@ -171,17 +173,27 @@ module IsoDoc
       def comments(div)
         return if @comments.empty?
         div.div **{ style: "mso-element:comment-list" } do |div1|
-          @comments.each do |fn|
-            div1.parent << fn
+          @comments.each { |fn| div1.parent << fn }
+        end
+      end
+
+      # add in from and to links to move the comment into place
+      def make_comment_link(out, fn, node)
+        out.span **{ style: "MsoCommentReference" } do |s1|
+          s1.span **{ lang: "EN-GB", style: "font-size:9.0pt"} do |s2|
+            s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
+                     "mso-comment-date:#{node['date']}",
+                     class: "commentLink", from: node['from'], to: node['to']} 
+            s2.span **{ style: "mso-special-character:comment" } do |s|
+              s << "&nbsp;"
+            end
           end
         end
       end
 
-      def make_comment_link(out, fn, date, from)
+     def make_comment_target(out, fn, date)
         out.span **{ style: "MsoCommentReference" } do |s1|
           s1.span **{ lang: "EN-GB", style: "font-size:9.0pt"} do |s2|
-            s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
-                     "mso-comment-date:#{date}" } if from
             s2.span **{ style: "mso-special-character:comment" } do |s|
               s << "&nbsp;"
             end
@@ -193,18 +205,18 @@ module IsoDoc
         noko do |xml|
           xml.div **{ style: "mso-element:comment" } do |div|
             div.span **{ style: %{mso-comment-author:"#{node["reviewer"]}"} }
-            div.p **{ class: "MsoCommentText" } do |p|
-              make_comment_link(p, fn, node["date"], false)
-              node.children.each { |n| parse(n, p) }
-            end
+              make_comment_target(div, fn, node["date"])
+              node.children.each { |n| parse(n, div) }
           end
         end.join("\n")
       end
 
       def review_note_parse(node, out)
         fn = @comments.length + 1
-        make_comment_link(out, fn, node["date"], true)
+        make_comment_link(out, fn, node)
+        @in_comment = true
         @comments << make_comment_text(node, fn)
+        @in_comment = false
       end
   end
 end

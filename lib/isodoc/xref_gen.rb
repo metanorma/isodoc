@@ -190,7 +190,7 @@ module IsoDoc
       isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
       docid = ref.at(ns("./docidentifier"))
       return ref_names(ref) unless docid
-      date = ref.at(ns("./publisherdate"))
+      date = ref.at(ns("./date[@type = 'published']"))
       reference = format_ref(docid.text, isopub)
       reference += ": #{date.text}" if date && isopub
       @anchors[ref["id"]] = { xref: reference }
