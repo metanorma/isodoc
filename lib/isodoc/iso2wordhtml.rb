@@ -49,6 +49,7 @@ module IsoDoc
       subtitle isoxml, out
       id isoxml, out
       author isoxml, out
+      bibdate isoxml, out
       version isoxml, out
       foreword isoxml, out
       introduction isoxml, out

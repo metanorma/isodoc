@@ -29,6 +29,12 @@ module IsoDoc
       set_metadata(:secretariat, secretariat.text) if secretariat
     end
 
+    def bibdate(isoxml, _out)
+      isoxml.xpath(ns("//bibdata/date")).each do |d|
+        set_metadata("#{d["type"]}date".to_sym, d.text)
+      end
+    end
+
     def id(isoxml, _out)
       docnumber = isoxml.at(ns("//project-number"))
       partnumber = isoxml.at(ns("//project-number/@part"))
