@@ -11,7 +11,16 @@ module IsoDoc
       inline_header_cleanup(docxml)
       figure_cleanup(docxml)
       table_cleanup(docxml)
+      admonition_cleanup(docxml)
       docxml
+    end
+
+    def admonition_cleanup(docxml)
+      docxml.xpath("//div[@class = 'Admonition'][title]").each do |d|
+        title = d.at("./title")
+        n = title.next_element
+        n&.children&.first&.add_previous_sibling(title.text + "&mdash;")
+      end
     end
 
     def figure_get_or_make_dl(t)
