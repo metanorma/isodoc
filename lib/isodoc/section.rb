@@ -1,7 +1,7 @@
 module IsoDoc
   class Convert
     def clause_parse(node, out)
-      out.div **attr_code("id": node["id"]) do |s|
+      out.div **attr_code(id: node["id"]) do |s|
         node.children.each do |c1|
           if c1.name == "title"
             if node["inline-header"]
@@ -42,7 +42,7 @@ module IsoDoc
     def clause(isoxml, out)
       isoxml.xpath(ns("//clause[parent::sections]")).each do |c|
         next if c.at(ns("./title")).text == "Scope"
-        out.div **attr_code("id": c["id"]) do |s|
+        out.div **attr_code(id: c["id"]) do |s|
           c.elements.each do |c1|
             if c1.name == "title"
               clause_name("#{get_anchors()[c['id']][:label]}.", 
@@ -65,7 +65,7 @@ module IsoDoc
     def annex(isoxml, out)
       isoxml.xpath(ns("//annex")).each do |c|
         page_break(out)
-        out.div **attr_code("id": c["id"], class: "Section3" ) do |s|
+        out.div **attr_code(id: c["id"], class: "Section3" ) do |s|
           #s1.div **{ class: "annex" } do |s|
             c.elements.each do |c1|
               if c1.name == "title" then annex_name(c, c1, s)
@@ -80,7 +80,7 @@ module IsoDoc
 
     def scope(isoxml, out)
       f = isoxml.at(ns("//clause[title = 'Scope']")) || return
-      out.div do |div|
+      out.div **attr_code(id: f["id"]) do |div|
         clause_name("1.", "Scope", div, false)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
@@ -90,7 +90,7 @@ module IsoDoc
 
     def terms_defs(isoxml, out)
       f = isoxml.at(ns("//terms")) || return
-      out.div do |div|
+      out.div **attr_code(id: f["id"]) do |div|
         clause_name("3.", "Terms and Definitions", div, false)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
@@ -100,7 +100,7 @@ module IsoDoc
 
     def symbols_abbrevs(isoxml, out)
       f = isoxml.at(ns("//symbols-abbrevs")) || return
-      out.div do |div|
+      out.div **attr_code(id: f["id"]) do |div|
         clause_name("4.", "Symbols and Abbreviations", div, false)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
@@ -112,7 +112,7 @@ module IsoDoc
       f = isoxml.at(ns("//introduction")) || return
       title_attr = { class: "IntroTitle" }
       page_break(out)
-      out.div **{ class: "Section3" } do |div|
+      out.div **{ class: "Section3", id: f["id"] } do |div|
         div.h1 "Introduction", **attr_code(title_attr)
         f.elements.each do |e|
           if e.name == "patent-notice"
@@ -127,7 +127,7 @@ module IsoDoc
     def foreword(isoxml, out)
       f = isoxml.at(ns("//foreword")) || return
       page_break(out)
-      out.div do |s|
+      out.div **attr_code(id: f["id"]) do |s|
         s.h1 **{ class: "ForewordTitle" } { |h1| h1 << "Foreword" }
         f.elements.each { |e| parse(e, s) unless e.name == "title" }
       end

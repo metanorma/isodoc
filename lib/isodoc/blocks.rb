@@ -80,6 +80,16 @@ module IsoDoc
       @in_figure = false
     end
 
+        def example_parse(node, out)
+      name = node.at(ns("./name"))
+      out.div **attr_code(id: node["id"], class: "figure") do |div|
+        node.children.each do |n|
+          parse(n, div) unless n.name == "name"
+        end
+        figure_name_parse(node, div, name) if name
+      end
+    end
+
     def sourcecode_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p.b do |b|
@@ -136,7 +146,7 @@ module IsoDoc
       classtype = "Note" if @note
       classtype = "MsoFootnoteText" if in_footnote
       classtype = "MsoCommentText" if in_comment
-      attrs = { class: classtype }
+      attrs = { class: classtype, id: node["id"] }
       unless node["align"].nil?
         attrs[:align] = node["align"] unless node["align"] == "justify"
         attrs[:style] = "text-align:#{node["align"]}"

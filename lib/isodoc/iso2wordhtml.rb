@@ -119,6 +119,7 @@ module IsoDoc
         when "formula" then formula_parse(node, out)
         when "table" then table_parse(node, out)
         when "figure" then figure_parse(node, out)
+        when "example" then example_parse(node, out)
         when "image" then image_parse(node["src"], out, nil)
         when "sourcecode" then sourcecode_parse(node, out)
         when "annotation" then annotation_parse(node, out)

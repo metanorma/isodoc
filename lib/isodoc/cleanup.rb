@@ -64,15 +64,6 @@ module IsoDoc
       end
     end
 
-    def comment_cleanup(docxml)
-      docxml.xpath('//div/span[@style="MsoCommentReference"]').
-        each do |x|
-        n = x.next_element
-        n&.children&.first&.add_previous_sibling(x.remove)
-      end
-      docxml
-    end
-
     def footnote_cleanup(docxml)
       docxml.xpath('//div[@style="mso-element:footnote"]/a').
         each do |x|
