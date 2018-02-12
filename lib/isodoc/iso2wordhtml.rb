@@ -83,6 +83,10 @@ module IsoDoc
       out << text
     end
 
+    def bookmark_parse(node, out)
+      out.a **attr_code(id: node["id"])
+    end
+
     def parse(node, out)
       if node.text?
         text_parse(node, out)
@@ -97,6 +101,7 @@ module IsoDoc
         when "smallcap" then smallcap_parse(node, out)
         when "br" then out.br
         when "hr" then out.hr
+        when "bookmark" then bookmark_parse(node, out)
         when "pagebreak" then pagebreak_parse(node, out)
         when "callout" then callout_parse(node, out)
         when "stem" then stem_parse(node, out)

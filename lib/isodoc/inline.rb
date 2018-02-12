@@ -205,7 +205,7 @@ module IsoDoc
       out.span **{ style: "MsoCommentReference" } do |s1|
         s1.span **{ lang: "EN-GB", style: "font-size:9.0pt"} do |s2|
           s2.span **{ style: "mso-special-character:comment" } # do |s|
-            # s << "&nbsp;"
+          # s << "&nbsp;"
           # end
         end
       end
@@ -260,20 +260,19 @@ module IsoDoc
     end
 
     def skip_comment_wrap(from)
-            from["style"] != "mso-special-character:comment"
+      from["style"] != "mso-special-character:comment"
     end
 
     def insert_comment_cont(from, to, target, docxml)
       # includes_to = from.at(".//*[@id='#{to}']")
       while !from.nil? && from["id"] != to
-        wrap_comment_cont(from, target)
         following = from.xpath("./following::*")
-        from = following.shift && incl_to = from.at(".//*[@id='#{to}']")
+        (from = following.shift) && incl_to = from.at(".//*[@id='#{to}']")
         while !incl_to.nil? && !from.nil? && skip_comment_wrap(from)
-          from = following.shift && incl_to = from.at(".//*[@id='#{to}']")
+          (from = following.shift) && incl_to = from.at(".//*[@id='#{to}']")
         end
+        wrap_comment_cont(from, target) if !from.nil?
       end
-      wrap_comment_cont(from, target) if !from.nil? && from["id"] == to
     end
 
     def move_comment_link_to_from(docxml)
