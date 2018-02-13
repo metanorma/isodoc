@@ -86,7 +86,7 @@ module IsoDoc
         main = "#{c.encode(intro.text, :hexadecimal)}&nbsp;&mdash; #{main}"
       part &&
         main = "#{main}&nbsp;&mdash; "\
-        #{part_label(lang)}&nbsp;#{partnumber}: "\
+        "#{part_label(lang)}&nbsp;#{partnumber}: "\
         "#{c.encode(part.text, :hexadecimal)}"
       main
     end

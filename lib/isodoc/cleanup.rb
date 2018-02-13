@@ -38,8 +38,8 @@ module IsoDoc
 
     def figure_aside_process(f, aside, key)
       # get rid of footnote link, it is in diagram
-      f.at("./a[@class='zzFootnote']").remove
-      fnref = f.at(".//a[@class='zzFootnote']")
+      f.at("./a[@class='TableFootnoteRef']").remove
+      fnref = f.at(".//a[@class='TableFootnoteRef']")
       dt = key.add_child("<dt></dt>").first
       dd = key.add_child("<dd></dd>").first
       fnref.parent = dt
@@ -74,16 +74,14 @@ module IsoDoc
     end
 
     def footnote_cleanup(docxml)
-      docxml.xpath('//div[@style="mso-element:footnote"]/a').
-        each do |x|
-        n = x.next_element
-        n&.children&.first&.add_previous_sibling(x.remove)
+      docxml.xpath('//a[@epub:type = "footnote"]/sup').each_with_index do |x, i|
+        x.content = (i + 1).to_s
       end
       docxml
     end
 
     def merge_fnref_into_fn_text(a)
-      fn = a.at('.//a[@class="zzFootnote"]')
+      fn = a.at('.//a[@class="TableFootnoteRef"]')
       n = fn.next_element
       n&.children&.first&.add_previous_sibling(fn.remove)
     end
@@ -113,7 +111,6 @@ module IsoDoc
         t.add_child("<tfoot></tfoot>")
         tfoot = t.at(".//tfoot")
       else
-        # nuke its bottom border
         tfoot.xpath(".//td | .//th").each { |td| remove_bottom_border(td) }
       end
       tfoot
@@ -135,10 +132,14 @@ module IsoDoc
       docxml.xpath("//table[div[@class = 'Note']]").each do |t|
         tfoot = table_get_or_make_tfoot(t)
         insert_here = new_fullcolspan_row(t, tfoot)
-        t.xpath("div[@class = 'Note']").each do |d|
-          d.parent = insert_here
-        end
+        t.xpath("div[@class = 'Note']").each { |d| d.parent = insert_here }
       end
+      # preempt html2doc putting MsoNormal there
+      docxml.xpath("//p[not(self::*[@class])]"\
+                   "[ancestor::*[@class = 'Note']]").each do |p|
+        p["class"] = "Note"
+      end
+
     end
 
     def table_cleanup(docxml)

@@ -144,7 +144,7 @@ module IsoDoc
     def para_attrs(node)
       classtype = nil
       classtype = "Note" if @note
-      classtype = "MsoFootnoteText" if in_footnote
+      # classtype = "MsoFootnoteText" if in_footnote
       classtype = "MsoCommentText" if in_comment
       attrs = { class: classtype, id: node["id"] }
       unless node["align"].nil?

@@ -65,6 +65,7 @@ module IsoDoc
       docxml.root.default_namespace = ""
       result = noko do |xml|
         xml.html do |html|
+          html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
           html_header(html, docxml, filename, dir)
           make_body(html, docxml)
         end

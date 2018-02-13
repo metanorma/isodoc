@@ -9,13 +9,11 @@ module IsoDoc
     end
 
     def date_note_process(b, ref)
-      date_note = b.xpath(ns("./note[text()][contains(.,'ISO DATE:')]"))
-      unless date_note.empty?
-        date_note.first.content =
-          date_note.first.content.gsub(/ISO DATE: /, "")
-        date_note.wrap("<p></p>")
-        footnote_parse(date_note.first, ref)
-      end
+      date_note = b.at(ns("./note[text()][contains(.,'ISO DATE:')]"))
+      return if date_note.nil?
+      date_note.content = date_note.content.gsub(/ISO DATE: /, "")
+      date_note.children.first.replace("<p>#{date_note.content}</p>")
+      footnote_parse(date_note, ref)
     end
 
     def iso_bibitem_entry(list, b, ordinal, biblio)
