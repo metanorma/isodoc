@@ -56,6 +56,7 @@ module IsoDoc
         gsub(/DOCTITLE/, meta[:doctitle]).
         gsub(/DOCSUBTITLE/, meta[:docsubtitle]).
         gsub(/SECRETARIAT/, meta[:secretariat]).
+        gsub(/AGENCY/, meta[:agency]).
         gsub(/[ ]?DRAFTINFO/, meta[:draftinfo]).
         gsub(/\[TERMREF\]\s*/, "[SOURCE: ").
         gsub(/\s*\[\/TERMREF\]\s*/, "]").
@@ -67,6 +68,7 @@ module IsoDoc
     def generate_header(filename, dir)
       header = File.read(@header, encoding: "UTF-8").
         gsub(/FILENAME/, filename).
+        gsub(/AGENCY/, get_metadata()[:agency]).
         gsub(/DOCYEAR/, get_metadata()[:docyear]).
         gsub(/[ ]?DRAFTINFO/, get_metadata()[:draftinfo]).
         gsub(/DOCNUMBER/, get_metadata()[:docnumber])

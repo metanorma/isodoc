@@ -11,28 +11,56 @@ module IsoDoc
       @meta[key] = value
     end
 
-    def author(isoxml, _out)
-      # tc = isoxml.at(ns("//technical-committee"))
-      tc_num = isoxml.at(ns("//isoworkgroup/technical-committee/@number"))
-      # sc = isoxml.at(ns("//subcommittee"))
-      sc_num = isoxml.at(ns("//isoworkgroup/subcommittee/@number"))
-      # wg = isoxml.at(ns("//workgroup"))
-      wg_num = isoxml.at(ns("//isoworkgroup/workgroup/@number"))
-      secretariat = isoxml.at(ns("//isoworkgroup/secretariat"))
+    def author(xml, _out)
+      tc(xml)
+      sc(xml)
+      wg(xml)
+      secretariat(xml)
+      agency(xml)
+    end
+
+    def tc(xml)
+      tc_num = xml.at(ns("//isoworkgroup/technical-committee/@number"))
+      tc_type = xml.at(ns("//isoworkgroup/technical-committee/@type"))&.
+        text || "TC"
       set_metadata(:tc, "XXXX")
+      set_metadata(:tc,  "#{tc_type} #{tc_num.text}") if tc_num
+    end
+
+    def sc(xml)
+      sc_num = xml.at(ns("//isoworkgroup/subcommittee/@number"))
+      sc_type = xml.at(ns("//isoworkgroup/subcommittee/@type"))&.text || "SC"
       set_metadata(:sc, "XXXX")
+      set_metadata(:sc, "#{sc_type} #{sc_num.text}") if sc_num
+    end
+
+    def wg(xml)
+      wg_num = xml.at(ns("//isoworkgroup/workgroup/@number"))
+      wg_type = xml.at(ns("//isoworkgroup/workgroup/@type"))&.text || "WG"
       set_metadata(:wg, "XXXX")
+      set_metadata(:wg, "#{wg_type} #{wg_num.text}") if wg_num
+    end
+
+    def secretariat(xml)
+      sec = xml.at(ns("//isoworkgroup/secretariat"))
       set_metadata(:secretariat, "XXXX")
-      set_metadata(:tc,  tc_num.text) if tc_num
-      set_metadata(:sc, sc_num.text) if sc_num
-      set_metadata(:wg, wg_num.text) if wg_num
-      set_metadata(:secretariat, secretariat.text) if secretariat
+      set_metadata(:secretariat, sec.text) if sec
     end
 
     def bibdate(isoxml, _out)
       isoxml.xpath(ns("//bibdata/date")).each do |d|
         set_metadata("#{d["type"]}date".to_sym, d.text)
       end
+    end
+
+    def agency(xml)
+      agency = ""
+      pub = xml.xpath(ns("//bibdata/contributor"\
+                         "[xmlns:role/@type = 'publisher']/"\
+                         "organization/name")).each do |org|
+        agency = org.text == "ISO" ? "ISO/#{agency}" : "#{agency}#{org.text}/"
+      end
+      set_metadata(:agency, agency.sub(%r{/$}, ""))
     end
 
     def id(isoxml, _out)
