@@ -110,15 +110,16 @@ module IsoDoc
       end
     end
 
-    def compose_title(main, intro, part, partnumber, lang)
+    def compose_title(main, intro, part, partnum, lang)
       c = HTMLEntities.new
       main = c.encode(main.text, :hexadecimal)
       intro &&
         main = "#{c.encode(intro.text, :hexadecimal)}&nbsp;&mdash; #{main}"
-      part &&
-        main = "#{main}&nbsp;&mdash; "\
-        "#{part_label(lang)}&nbsp;#{partnumber}: "\
-        "#{c.encode(part.text, :hexadecimal)}"
+      if part
+        suffix = c.encode(part.text, :hexadecimal)
+        suffix = "#{part_label(lang)}&nbsp;#{partnum}: " + suffix if partnum
+        main = "#{main}&nbsp;&mdash; #{suffix}"
+      end
       main
     end
 
