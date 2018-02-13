@@ -48,6 +48,9 @@ module IsoDoc
     end
 
     def bibdate(isoxml, _out)
+      %w{published accessed created activated obsoleted}.each do |w|
+        set_metadata("#{w}date".to_sym, "XXX")
+      end
       isoxml.xpath(ns("//bibdata/date")).each do |d|
         set_metadata("#{d["type"]}date".to_sym, d.text)
       end
