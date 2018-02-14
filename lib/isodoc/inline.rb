@@ -25,12 +25,12 @@ module IsoDoc
 
     def get_linkend(node)
       linkend = node["target"] || node["citeas"]
-      if get_anchors().has_key? node["target"]
+      get_anchors().has_key?(node["target"]) &&
         linkend = get_anchors()[node["target"]][:xref]
-      end
       if node["citeas"].nil? && get_anchors().has_key?(node["bibitemid"])
         linkend = get_anchors()[node["bibitemid"]][:xref]
       end
+      linkend += eref_localities(node.xpath(ns("./locality"))) 
       text = node.children.select { |c| c.text? && !c.text.empty? }
       linkend = text.join(" ") unless text.nil? || text.empty?
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
@@ -46,15 +46,19 @@ module IsoDoc
     def eref_localities(r)
       ret = ""
       r.each do |r|
-        ret += ", #{r.parent["type"].capitalize} #{r.text}"
+        if r["type"] == "whole"
+          ret += ", Whole of text"
+        else
+          ret += ", #{r["type"].capitalize}"
+          ref = r.at(ns("./reference"))
+          ret += " #{ref.text}" if ref
+        end
       end
       ret
     end
 
     def eref_parse(node, out)
       linkend = get_linkend(node)
-      r = node.xpath(ns("./locality/reference"))
-      r.empty? || linkend += eref_localities(r)
       if node["type"] == "footnote"
         out.sup do |s|
           s.a **{ "href": node["bibitemid"] } { |l| l << linkend }
