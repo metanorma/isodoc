@@ -3,6 +3,18 @@ require "htmlentities"
 module IsoDoc
   class Convert
 
+    def init_metadata
+      @meta = {
+        tc: "XXXX",
+        sc: "XXXX",
+        wg: "XXXX",
+        secretariat: "XXXX",
+      }
+      %w{published accessed created activated obsoleted}.each do |w|
+        @meta["#{w}date".to_sym] = "XXX"
+      end
+    end
+
     def get_metadata
       @meta
     end
@@ -23,34 +35,27 @@ module IsoDoc
       tc_num = xml.at(ns("//isoworkgroup/technical-committee/@number"))
       tc_type = xml.at(ns("//isoworkgroup/technical-committee/@type"))&.
         text || "TC"
-      set_metadata(:tc, "XXXX")
       set_metadata(:tc,  "#{tc_type} #{tc_num.text}") if tc_num
     end
 
     def sc(xml)
       sc_num = xml.at(ns("//isoworkgroup/subcommittee/@number"))
       sc_type = xml.at(ns("//isoworkgroup/subcommittee/@type"))&.text || "SC"
-      set_metadata(:sc, "XXXX")
       set_metadata(:sc, "#{sc_type} #{sc_num.text}") if sc_num
     end
 
     def wg(xml)
       wg_num = xml.at(ns("//isoworkgroup/workgroup/@number"))
       wg_type = xml.at(ns("//isoworkgroup/workgroup/@type"))&.text || "WG"
-      set_metadata(:wg, "XXXX")
       set_metadata(:wg, "#{wg_type} #{wg_num.text}") if wg_num
     end
 
     def secretariat(xml)
       sec = xml.at(ns("//isoworkgroup/secretariat"))
-      set_metadata(:secretariat, "XXXX")
       set_metadata(:secretariat, sec.text) if sec
     end
 
     def bibdate(isoxml, _out)
-      %w{published accessed created activated obsoleted}.each do |w|
-        set_metadata("#{w}date".to_sym, "XXX")
-      end
       isoxml.xpath(ns("//bibdata/date")).each do |d|
         set_metadata("#{d["type"]}date".to_sym, d.text)
       end

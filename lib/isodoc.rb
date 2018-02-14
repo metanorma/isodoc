@@ -51,6 +51,7 @@ module IsoDoc
       @sourcecode = false
       @anchors = {}
       @meta = {}
+      init_metadata
       @footnotes = []
       @comments = []
       @in_footnote = false
