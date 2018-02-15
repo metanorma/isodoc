@@ -15,7 +15,7 @@ module IsoDoc
 
     def toWord(result, filename, dir)
       result = from_xhtml(wordCleanup(to_xhtml(result)))
-      result = populate_template(result)
+      result = populate_template(result, :word)
       Html2Doc.process(result, filename, @wordstylesheet, "header.html", 
                        dir, ['`', '`'])
     end
@@ -45,7 +45,7 @@ module IsoDoc
       d.children.first.add_previous_sibling intro.to_xml(encoding: 'US-ASCII')
     end
 
-    def populate_template(docxml)
+    def populate_template(docxml, _format)
       meta = get_metadata
       docxml.
         gsub(/DOCYEAR/, meta[:docyear]).

@@ -3,7 +3,7 @@ module IsoDoc
 
     def toHTML(result, filename)
       result = htmlPreface(htmlstyle(Nokogiri::HTML(result))).to_xml
-      result = populate_template(result)
+      result = populate_template(result, :html)
       File.open("#{filename}.html", "w") do |f|
         f.write(result)
       end
