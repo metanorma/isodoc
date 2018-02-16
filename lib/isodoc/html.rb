@@ -2,11 +2,15 @@ module IsoDoc
   class Convert
 
     def toHTML(result, filename)
-      result = htmlPreface(htmlstyle(Nokogiri::HTML(result))).to_xml
+      result = html_cleanup(Nokogiri::HTML(result)).to_xml
       result = populate_template(result, :html)
       File.open("#{filename}.html", "w") do |f|
         f.write(result)
       end
+    end
+
+    def html_cleanup(x)
+      html_footnote_filter(htmlPreface(htmlstyle(x)))
     end
 
     def htmlPreface(docxml)
@@ -36,6 +40,27 @@ module IsoDoc
       if title.nil? then head.children.first.add_previous_sibling css
       else
         title.add_next_sibling css
+      end
+      docxml
+    end
+
+    def update_footnote_filter(x, i, seen)
+      (fn = docxml("//*[@id = #{x['href'].sub(/^#/, "")}]")) || next
+      if seen[fn.text]
+        x.at("./sup").content = seen[fn.text][:num]
+        x["href"] = seen[fn.remove.text][:href]
+      else
+        seen[fn.text] = { num: i, href: x["href"] }
+        i += 1
+      end
+      [i, seen]
+    end
+
+    def html_footnote_filter(docxml)
+      seen = {}
+      i = 1
+      docxml.xpath('//a[@epub:type = "footnote"]').each do |x|
+        i, seen = update_footnote_filter(x, i, seen)
       end
       docxml
     end
