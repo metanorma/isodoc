@@ -78,6 +78,7 @@ module IsoDoc
     end
 
     def text_parse(node, out)
+      return if node.nil?
       text = node.text
       text.gsub!("\n", "<br/>").gsub!(" ", "&nbsp;") if in_sourcecode
       out << text
