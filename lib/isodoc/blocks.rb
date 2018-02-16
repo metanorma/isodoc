@@ -167,7 +167,7 @@ module IsoDoc
     def quote_attribution(node, out)
       author = node.at(ns("./author"))
       source = node.at(ns("./source"))
-      out.p { class: "QuoteAttribution" } do |p|
+      out.p **{ class: "QuoteAttribution" } do |p|
         p << "&mdash; #{author.text}, " if author
         eref_parse(source, p)
       end
