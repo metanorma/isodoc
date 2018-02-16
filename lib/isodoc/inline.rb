@@ -40,7 +40,7 @@ module IsoDoc
 
     def xref_parse(node, out)
       linkend = get_linkend(node)
-      out.a **{ "href": node["target"] } { |l| l << linkend }
+      out.a **{ "href": "#" + node["target"] } { |l| l << linkend }
     end
 
     def eref_localities(r)
@@ -61,10 +61,10 @@ module IsoDoc
       linkend = get_linkend(node)
       if node["type"] == "footnote"
         out.sup do |s|
-          s.a **{ "href": node["bibitemid"] } { |l| l << linkend }
+          s.a **{ "href": "#" + node["bibitemid"] } { |l| l << linkend }
         end
       else
-        out.a **{ "href": node["bibitemid"] } { |l| l << linkend }
+        out.a **{ "href": "#" + node["bibitemid"] } { |l| l << linkend }
       end
     end
 

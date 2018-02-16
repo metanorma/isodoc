@@ -11,7 +11,7 @@ module IsoDoc
     end
 
     def html_cleanup(x)
-      move_images(html_footnote_filter(htmlPreface(htmlstyle(x))))
+      footnote_backlinks(move_images(html_footnote_filter(htmlPreface(htmlstyle(x)))))
     end
 
     def htmlPreface(docxml)
@@ -49,7 +49,8 @@ module IsoDoc
       fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || return
       if seen[fn.text]
         x.at("./sup").content = seen[fn.text][:num].to_s
-        x["href"] = seen[fn.remove.text][:href]
+        fn.remove unless x["href"] == seen[fn.text][:href]
+        x["href"] = seen[fn.text][:href]
       else
         seen[fn.text] = { num: i, href: x["href"] }
         x.at("./sup").content = i.to_s
@@ -67,6 +68,20 @@ module IsoDoc
       docxml
     end
 
+    def footnote_backlinks(docxml)
+      seen = {}
+      docxml.xpath('//a[@epub:type = "footnote"]').each_with_index do |x, i|
+        next if seen[x["href"]]
+        seen[x["href"]] = true
+        sup = x.at("./sup").text
+        fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
+        x["id"] || x["id"] = "_footnote#{i + 1}"
+        fn.elements.first.children.first.
+          add_previous_sibling("<a href='##{x['id']}'>#{sup}) </a>")
+      end
+      docxml
+    end
+
     def move_images(docxml)
       system "rm -r _images; mkdir _images"
       docxml.xpath("//*[local-name() = 'img']").each do |i|
@@ -76,6 +91,7 @@ module IsoDoc
         # presupposes that the image source is local
         system "cp #{i['src']} #{new_full_filename}"
         i["src"] = new_full_filename
+        i["width"], i["height"] = Html2Doc.image_resize(i, 800, 1200)
       end
       docxml
     end
