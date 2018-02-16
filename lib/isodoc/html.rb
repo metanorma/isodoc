@@ -45,7 +45,7 @@ module IsoDoc
     end
 
     def update_footnote_filter(x, i, seen)
-      (fn = docxml("//*[@id = #{x['href'].sub(/^#/, "")}]")) || next
+      (fn = docxml("//*[@id = #{x['href'].sub(/^#/, "")}]")) || return
       if seen[fn.text]
         x.at("./sup").content = seen[fn.text][:num]
         x["href"] = seen[fn.remove.text][:href]
