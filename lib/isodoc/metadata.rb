@@ -8,6 +8,7 @@ module IsoDoc
         tc: "XXXX",
         sc: "XXXX",
         wg: "XXXX",
+        editorialgroup: [],
         secretariat: "XXXX",
       }
       %w{published accessed created activated obsoleted}.each do |w|
@@ -35,19 +36,31 @@ module IsoDoc
       tc_num = xml.at(ns("//editorialgroup/technical-committee/@number"))
       tc_type = xml.at(ns("//editorialgroup/technical-committee/@type"))&.
         text || "TC"
-      set_metadata(:tc,  "#{tc_type} #{tc_num.text}") if tc_num
+      if tc_num
+        tcid = "#{tc_type} #{tc_num.text}"
+        set_metadata(:tc,  tcid)
+        set_metadata(:editorialgroup, get_metadata[:editorialgroup] << tcid)
+      end
     end
 
     def sc(xml)
       sc_num = xml.at(ns("//editorialgroup/subcommittee/@number"))
       sc_type = xml.at(ns("//editorialgroup/subcommittee/@type"))&.text || "SC"
-      set_metadata(:sc, "#{sc_type} #{sc_num.text}") if sc_num
+      if sc_num
+        scid = "#{sc_type} #{sc_num.text}"
+        set_metadata(:sc, scid)
+        set_metadata(:editorialgroup, get_metadata[:editorialgroup] << scid)
+      end
     end
 
     def wg(xml)
       wg_num = xml.at(ns("//editorialgroup/workgroup/@number"))
       wg_type = xml.at(ns("//editorialgroup/workgroup/@type"))&.text || "WG"
-      set_metadata(:wg, "#{wg_type} #{wg_num.text}") if wg_num
+      if wg_num
+        wgid =  "#{wg_type} #{wg_num.text}"
+        set_metadata(:wg, wgid)
+        set_metadata(:editorialgroup, get_metadata[:editorialgroup] << wgid)
+      end
     end
 
     def secretariat(xml)

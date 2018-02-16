@@ -1,6 +1,7 @@
 require "html2doc"
 require "htmlentities"
 require "nokogiri"
+require "liquid"
 require "pp"
 
 module IsoDoc
@@ -48,32 +49,21 @@ module IsoDoc
     def populate_template(docxml, _format)
       meta = get_metadata
       docxml.
-        gsub(/DOCYEAR/, meta[:docyear]).
-        gsub(/DOCNUMBER/, meta[:docnumber]).
-        gsub(/TCNUM/, meta[:tc]).
-        gsub(/SCNUM/, meta[:sc]).
-        gsub(/WGNUM/, meta[:wg]).
-        gsub(/DOCTITLE/, meta[:doctitle]).
-        gsub(/DOCSUBTITLE/, meta[:docsubtitle]).
-        gsub(/SECRETARIAT/, meta[:secretariat]).
-        gsub(/AGENCY/, meta[:agency]).
-        gsub(/[ ]?DRAFTINFO/, meta[:draftinfo]).
         gsub(/\[TERMREF\]\s*/, "[SOURCE: ").
         gsub(/\s*\[\/TERMREF\]\s*/, "]").
         gsub(/\s*\[ISOSECTION\]/, ", ").
-        gsub(/\s*\[MODIFICATION\]/, ", modified &mdash; ").
-        gsub(%r{WD/CD/DIS/FDIS}, meta[:stageabbr])
+        gsub(/\s*\[MODIFICATION\]/, ", modified &mdash; ")
+      template = Liquid::Template.parse(docxml)
+      template.render(meta.map { |k, v| [k.to_s, v] }.to_h)
     end
 
     def generate_header(filename, dir)
-      header = File.read(@header, encoding: "UTF-8").
-        gsub(/FILENAME/, filename).
-        gsub(/AGENCY/, get_metadata()[:agency]).
-        gsub(/DOCYEAR/, get_metadata()[:docyear]).
-        gsub(/[ ]?DRAFTINFO/, get_metadata()[:draftinfo]).
-        gsub(/DOCNUMBER/, get_metadata()[:docnumber])
+      template = Liquid::Template.parse(File.read(@header, encoding: "UTF-8"))
+      meta = get_metadata
+      meta[:filename] = filename
+      params = meta.map { |k, v| [k.to_s, v] }.to_h
       File.open("header.html", "w") do |f|
-        f.write(header)
+        f.write(template.render(params))
       end
     end
 
@@ -144,11 +134,11 @@ module IsoDoc
         sub(/<h[12][^>]*>/, "").sub(%r{</h[12]>}, "")
       h1 = to_xhtml_fragment(h)    
       #h1.xpath(".//*[@style = 'MsoCommentReference']").each do |x|
-       h1.xpath(".//*").each do |x|
-         if x.name == "span" && x['style'] == "MsoCommentReference"
-           x.children.remove
-           x.content = ""
-         end
+      h1.xpath(".//*").each do |x|
+        if x.name == "span" && x['style'] == "MsoCommentReference"
+          x.children.remove
+          x.content = ""
+        end
       end
       from_xhtml(h1)
     end
