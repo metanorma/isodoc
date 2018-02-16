@@ -72,9 +72,11 @@ module IsoDoc
       out.a **{"epub:type": "footnote", href: "#ftn#{fn}" } do |a|
         a.sup { |sup| sup << fn }
       end
+      return if @seen_footnote.include?(fn) 
       @in_footnote = true
       @footnotes << make_generic_footnote_text(node, fn, fn)
       @in_footnote = false
+      @seen_footnote << fn
     end
 
     def comments(div)

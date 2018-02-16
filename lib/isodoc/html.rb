@@ -2,7 +2,8 @@ module IsoDoc
   class Convert
 
     def toHTML(result, filename)
-      result = html_cleanup(Nokogiri::HTML(result)).to_xml
+      # result = html_cleanup(Nokogiri::HTML(result)).to_xml
+      result = from_xhtml(html_cleanup(to_xhtml(result)))
       result = populate_template(result, :html)
       File.open("#{filename}.html", "w") do |f|
         f.write(result)
@@ -44,13 +45,14 @@ module IsoDoc
       docxml
     end
 
-    def update_footnote_filter(x, i, seen)
-      (fn = docxml("//*[@id = #{x['href'].sub(/^#/, "")}]")) || return
+    def update_footnote_filter(docxml, x, i, seen)
+      fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || return
       if seen[fn.text]
-        x.at("./sup").content = seen[fn.text][:num]
+        x.at("./sup").content = seen[fn.text][:num].to_s
         x["href"] = seen[fn.remove.text][:href]
       else
         seen[fn.text] = { num: i, href: x["href"] }
+        x.at("./sup").content = i.to_s
         i += 1
       end
       [i, seen]
@@ -60,7 +62,7 @@ module IsoDoc
       seen = {}
       i = 1
       docxml.xpath('//a[@epub:type = "footnote"]').each do |x|
-        i, seen = update_footnote_filter(x, i, seen)
+        i, seen = update_footnote_filter(docxml, x, i, seen)
       end
       docxml
     end
