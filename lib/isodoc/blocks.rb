@@ -167,7 +167,7 @@ module IsoDoc
     def quote_attribution(node, out)
       author = node.at(ns("./author"))
       source = node.at(ns("./source"))
-      out.p do |p|
+      out.p { class: "QuoteAttribution" } do |p|
         p << "&mdash; #{author.text}, " if author
         eref_parse(source, p)
       end
@@ -176,7 +176,7 @@ module IsoDoc
     def quote_parse(node, out)
       attrs = para_attrs(node)
       attrs[:class] = "Quote"
-      out.p **attr_code(attrs) do |p|
+      out.div **attr_code(attrs) do |p|
         node.children.each do 
           |n| parse(n, p) unless ["author", "source"].include? n.name
         end
