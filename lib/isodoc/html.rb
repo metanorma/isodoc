@@ -11,7 +11,7 @@ module IsoDoc
     end
 
     def html_cleanup(x)
-      html_footnote_filter(htmlPreface(htmlstyle(x)))
+      move_images(html_footnote_filter(htmlPreface(htmlstyle(x))))
     end
 
     def htmlPreface(docxml)
@@ -63,6 +63,19 @@ module IsoDoc
       i = 1
       docxml.xpath('//a[@epub:type = "footnote"]').each do |x|
         i, seen = update_footnote_filter(docxml, x, i, seen)
+      end
+      docxml
+    end
+
+    def move_images(docxml)
+      system "rm -r _images; mkdir _images"
+      docxml.xpath("//*[local-name() = 'img']").each do |i|
+        matched = /\.(?<suffix>\S+)$/.match i["src"]
+        uuid = UUIDTools::UUID.random_create.to_s
+        new_full_filename = File.join("_images", "#{uuid}.#{matched[:suffix]}")
+        # presupposes that the image source is local
+        system "cp #{i['src']} #{new_full_filename}"
+        i["src"] = new_full_filename
       end
       docxml
     end
