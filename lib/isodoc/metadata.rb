@@ -32,26 +32,26 @@ module IsoDoc
     end
 
     def tc(xml)
-      tc_num = xml.at(ns("//isoworkgroup/technical-committee/@number"))
-      tc_type = xml.at(ns("//isoworkgroup/technical-committee/@type"))&.
+      tc_num = xml.at(ns("//editorialgroup/technical-committee/@number"))
+      tc_type = xml.at(ns("//editorialgroup/technical-committee/@type"))&.
         text || "TC"
       set_metadata(:tc,  "#{tc_type} #{tc_num.text}") if tc_num
     end
 
     def sc(xml)
-      sc_num = xml.at(ns("//isoworkgroup/subcommittee/@number"))
-      sc_type = xml.at(ns("//isoworkgroup/subcommittee/@type"))&.text || "SC"
+      sc_num = xml.at(ns("//editorialgroup/subcommittee/@number"))
+      sc_type = xml.at(ns("//editorialgroup/subcommittee/@type"))&.text || "SC"
       set_metadata(:sc, "#{sc_type} #{sc_num.text}") if sc_num
     end
 
     def wg(xml)
-      wg_num = xml.at(ns("//isoworkgroup/workgroup/@number"))
-      wg_type = xml.at(ns("//isoworkgroup/workgroup/@type"))&.text || "WG"
+      wg_num = xml.at(ns("//editorialgroup/workgroup/@number"))
+      wg_type = xml.at(ns("//editorialgroup/workgroup/@type"))&.text || "WG"
       set_metadata(:wg, "#{wg_type} #{wg_num.text}") if wg_num
     end
 
     def secretariat(xml)
-      sec = xml.at(ns("//isoworkgroup/secretariat"))
+      sec = xml.at(ns("//editorialgroup/secretariat"))
       set_metadata(:secretariat, sec.text) if sec
     end
 
