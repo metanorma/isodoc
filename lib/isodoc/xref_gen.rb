@@ -104,7 +104,7 @@ module IsoDoc
       sequential_figure_names(clause)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
         @anchors[t["id"]] = { label: (i + 1).to_s,
-                              xref: "Formula #{i + 1}" }
+                              xref: "Formula (#{i + 1})" }
       end
     end
 
@@ -130,7 +130,7 @@ module IsoDoc
       hierarchical_figure_names(clause, num)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
         @anchors[t["id"]] = { label: "#{num}.#{i + 1}",
-                              xref: "Formula #{num}.#{i + 1}" }
+                              xref: "Formula (#{num}.#{i + 1})" }
       end
     end
 

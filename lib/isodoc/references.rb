@@ -3,7 +3,7 @@ module IsoDoc
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier"))
       isodate = b.at(ns("./date[@type = 'published']"))
-      reference = "ISO #{isocode.text}"
+      reference = "#{isocode.text}"
       reference += ": #{isodate.text}" if isodate
       reference
     end
