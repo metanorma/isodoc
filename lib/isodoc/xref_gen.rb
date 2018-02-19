@@ -49,8 +49,8 @@ module IsoDoc
     end
 
     SECTIONS_XPATH =
-        " //foreword | //introduction | //sections/terms | "\
-        "//sections/clause | ./references | ./annex".freeze
+      " //foreword | //introduction | //sections/terms | "\
+      "//sections/clause | ./references | ./annex".freeze
 
     CHILD_NOTES_XPATH =
       "./*[not(self::xmlns:subsection)]//xmlns:note | ./xmlns:note".freeze
@@ -109,7 +109,8 @@ module IsoDoc
       end
       sequential_figure_names(clause)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
-        @anchors[t["id"]] = { label: (i + 1).to_s, xref: "Formula (#{i + 1})" }
+        @anchors[t["id"]] = { label: (i + 1).to_s, xref: "Formula (#{i + 1})",
+                              container: get_clause_id(t) }
       end
       clause.xpath(ns(".//example")).each_with_index do |t, i|
         @anchors[t["id"]] = { label: (i + 1).to_s, xref: "Example (#{i + 1})" }
@@ -137,7 +138,8 @@ module IsoDoc
       hierarchical_figure_names(clause, num)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
         @anchors[t["id"]] = { label: "#{num}.#{i + 1}",
-                              xref: "Formula (#{num}.#{i + 1})" }
+                              xref: "Formula (#{num}.#{i + 1})",
+                              container: get_clause_id(t) }
       end
       clause.xpath(ns(".//example")).each_with_index do |t, i|
         @anchors[t["id"]] = { label: "#{num}.#{i + 1}",
