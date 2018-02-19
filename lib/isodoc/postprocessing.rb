@@ -48,7 +48,7 @@ module IsoDoc
 
     def populate_template(docxml, _format)
       meta = get_metadata
-      docxml.
+      docxml = docxml.
         gsub(/\[TERMREF\]\s*/, "[SOURCE: ").
         gsub(/\s*\[\/TERMREF\]\s*/, "]").
         gsub(/\s*\[ISOSECTION\]/, ", ").
