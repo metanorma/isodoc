@@ -55,8 +55,8 @@ module IsoDoc
     def figure_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p.b do |b|
-          b << "#{get_anchors()[node['id']][:label]}&nbsp;&mdash; "
-          b << name.text
+          b << "#{get_anchors()[node['id']][:label]}"
+          b << "&nbsp;&mdash; #{name.text}" if name
         end
       end
     end

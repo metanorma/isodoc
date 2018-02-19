@@ -2,14 +2,12 @@ module IsoDoc
   class Convert
     def table_title_parse(node, out)
       name = node.at(ns("./name"))
-      if name
         out.p **{ class: "TableTitle", align: "center" } do |p|
           p.b do |b|
-            b << "#{get_anchors()[node['id']][:label]}&nbsp;&mdash; "
-            b << name.text
+            b << "#{get_anchors()[node['id']][:label]}"
+            b << "&nbsp;&mdash; #{name.text}" if name
           end
         end
-      end
     end
 
     def thead_parse(node, t)
