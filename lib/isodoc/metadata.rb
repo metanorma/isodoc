@@ -87,9 +87,11 @@ module IsoDoc
     def id(isoxml, _out)
       docnumber = isoxml.at(ns("//project-number"))
       partnumber = isoxml.at(ns("//project-number/@part"))
+      subpartnumber = isoxml.at(ns("//project-number/@subpart"))
       documentstatus = isoxml.at(ns("//status/stage"))
       dn = docnumber.text
       dn += "-#{partnumber.text}" if partnumber
+      dn += "-#{subpartnumber.text}" if subpartnumber
       if documentstatus
         set_metadata(:stage, documentstatus.text)
         abbr = stage_abbreviation(documentstatus.text)
@@ -128,13 +130,14 @@ module IsoDoc
       end
     end
 
-    def compose_title(main, intro, part, partnum, lang)
+    def compose_title(main, intro, part, partnum, subpartnum, lang)
       c = HTMLEntities.new
       main = c.encode(main.text, :hexadecimal)
       intro &&
         main = "#{c.encode(intro.text, :hexadecimal)}&nbsp;&mdash; #{main}"
       if part
         suffix = c.encode(part.text, :hexadecimal)
+        partnum = "#{partnum}&ndash;#{subpartnum}" if partnum && subpartnum
         suffix = "#{part_label(lang)}&nbsp;#{partnum}: " + suffix if partnum
         main = "#{main}&nbsp;&mdash; #{suffix}"
       end
@@ -146,7 +149,8 @@ module IsoDoc
       main = isoxml.at(ns("//title-main[@language='en']"))
       part = isoxml.at(ns("//title-part[@language='en']"))
       partnumber = isoxml.at(ns("//project-number/@part"))
-      main = compose_title(main, intro, part, partnumber, "en")
+      subpartnumber = isoxml.at(ns("//project-number/@subpart"))
+      main = compose_title(main, intro, part, partnumber, subpartnumber, "en")
       set_metadata(:doctitle, main)
     end
 
@@ -155,7 +159,8 @@ module IsoDoc
       main = isoxml.at(ns("//title-main[@language='fr']"))
       part = isoxml.at(ns("//title-part[@language='fr']"))
       partnumber = isoxml.at(ns("//project-number/@part"))
-      main = compose_title(main, intro, part, partnumber, "fr")
+      subpartnumber = isoxml.at(ns("//project-number/@subpart"))
+      main = compose_title(main, intro, part, partnumber, subpartnumber, "fr")
       set_metadata(:docsubtitle, main)
     end
   end

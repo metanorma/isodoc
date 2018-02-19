@@ -12,7 +12,7 @@ module IsoDoc
     end
 
     def deprecated_term_parse(node, out)
-      out.p **{ class: "AltTerms" } do |p|
+      out.p **{ class: "DeprecatedTerms" } do |p|
         p << "DEPRECATED: #{node.text}"
       end
     end

@@ -3,7 +3,7 @@ module IsoDoc
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier"))
       isodate = b.at(ns("./date[@type = 'published']"))
-      reference = "#{isocode.text}"
+      reference = isocode.text
       reference += ": #{isodate.text}" if isodate
       reference
     end
@@ -41,7 +41,7 @@ module IsoDoc
       end
     end
 
-    def ref_entry(list, b, ordinal, bibliography)
+    def ref_entry(list, b, ordinal, _bibliography)
       ref = b.at(ns("./ref"))
       para = b.at(ns("./p"))
       list.p **attr_code("id": ref["id"], class: "Biblio") do |r|
@@ -50,7 +50,7 @@ module IsoDoc
       end
     end
 
-    def noniso_bibitem(list, b, ordinal, bibliography)
+    def noniso_bibitem(list, b, ordinal, _bibliography)
       ref = b.at(ns("./docidentifier"))
       para = b.at(ns("./formattedref"))
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
@@ -60,7 +60,8 @@ module IsoDoc
     end
 
     ISO_PUBLISHER_XPATH =
-      "./contributor[xmlns:role/@type = 'publisher']/organization[name = 'ISO']"
+      "./contributor[xmlns:role/@type = 'publisher']/"\
+      "organization[name = 'ISO']".freeze
 
     def split_bibitems(f)
       iso_bibitem = []
@@ -85,7 +86,7 @@ module IsoDoc
       end
     end
 
-    NORM_WITH_REFS_PREF = <<~BOILERPLATE
+    NORM_WITH_REFS_PREF = <<~BOILERPLATE.freeze
           The following documents are referred to in the text in such a way
           that some or all of their content constitutes requirements of this
           document. For dated references, only the edition cited applies.
@@ -94,14 +95,14 @@ module IsoDoc
     BOILERPLATE
 
     NORM_EMPTY_PREF =
-      "There are no normative references in this document."
+      "There are no normative references in this document.".freeze
 
     def norm_ref_preface(f, div)
       refs = f.elements.select do |e|
         ["reference", "bibitem"].include? e.name
       end
-      pref = if refs.empty? then self.class::NORM_EMPTY_PREF 
-             else 
+      pref = if refs.empty? then self.class::NORM_EMPTY_PREF
+             else
                self.class::NORM_WITH_REFS_PREF
              end
       div.p pref
@@ -109,7 +110,7 @@ module IsoDoc
 
     def norm_ref(isoxml, out)
       q = "./*/references[title = 'Normative References']"
-      f = isoxml.at(ns(q)) or return
+      f = isoxml.at(ns(q)) || return
       out.div do |div|
         clause_name("2.", "Normative References", div, false)
         norm_ref_preface(f, div)
@@ -119,7 +120,7 @@ module IsoDoc
 
     def bibliography(isoxml, out)
       q = "./*/references[title = 'Bibliography']"
-      f = isoxml.at(ns(q)) or return
+      f = isoxml.at(ns(q)) || return
       page_break(out)
       out.div do |div|
         div.h1 "Bibliography", **{ class: "Section3" }
