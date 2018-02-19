@@ -12,7 +12,6 @@ module IsoDoc
       figure_cleanup(docxml)
       table_cleanup(docxml)
       admonition_cleanup(docxml)
-      docxml
     end
 
     def admonition_cleanup(docxml)
@@ -21,6 +20,7 @@ module IsoDoc
         n = title.next_element
         n&.children&.first&.add_previous_sibling(title.text + "&mdash;")
       end
+      docxml
     end
 
     def figure_get_or_make_dl(t)
