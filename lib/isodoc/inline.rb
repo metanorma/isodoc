@@ -23,13 +23,23 @@ module IsoDoc
       out << " &lt;#{node.text}&gt;"
     end
 
-    def get_linkend(node)
-      linkend = node["target"] || node["citeas"]
-      get_anchors().has_key?(node["target"]) &&
+    def anchor_linkend(node, linkend)
+      if get_anchors().has_key?(node["target"])
         linkend = get_anchors()[node["target"]][:xref]
+        container = get_anchors()[node["target"]][:container]
+        (container && get_note_container_id(node) != container) &&
+          linkend = get_anchors()[container][:xref] + ", " + linkend
+      end
       if node["citeas"].nil? && get_anchors().has_key?(node["bibitemid"])
         linkend = get_anchors()[node["bibitemid"]][:xref]
       end
+      linkend
+    end
+
+    def get_linkend(node)
+      clause_id = get_clause_id(node)
+      linkend = node["target"] || node["citeas"]
+      linkend = anchor_linkend(node, linkend)
       linkend += eref_localities(node.xpath(ns("./locality"))) 
       text = node.children.select { |c| c.text? && !c.text.empty? }
       linkend = text.join(" ") unless text.nil? || text.empty?
