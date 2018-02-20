@@ -143,7 +143,7 @@ module IsoDoc
 
     def symbols_abbrevs(isoxml, out)
       f = isoxml.at(ns("//symbols-abbrevs")) || return
-      out.div **attr_code(id: f["id"]) do |div|
+      out.div **attr_code(id: f["id"], class: "Symbols") do |div|
         clause_name("4.", "Symbols and Abbreviated Terms", div, false, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"

@@ -11,6 +11,7 @@ module IsoDoc
       inline_header_cleanup(docxml)
       figure_cleanup(docxml)
       table_cleanup(docxml)
+      symbols_cleanup(docxml)
       admonition_cleanup(docxml)
     end
 
@@ -86,10 +87,8 @@ module IsoDoc
       n&.children&.first&.add_previous_sibling(fn.remove)
     end
 
-    TABLE_WITH_FOOTNOTES = "//table[descendant::aside]".freeze
-
     def table_footnote_cleanup(docxml)
-      docxml.xpath(TABLE_WITH_FOOTNOTES).each do |t|
+      docxml.xpath("//table[descendant::aside]").each do |t|
         t.xpath(".//aside").each do |a|
           merge_fnref_into_fn_text(a)
           a.name = "div"
@@ -145,6 +144,33 @@ module IsoDoc
     def table_cleanup(docxml)
       table_footnote_cleanup(docxml)
       table_note_cleanup(docxml)
+    end
+
+    # We assume AsciiMath. Indices sort after letter but before any following
+    # letter (x, x_m, x_1, xa); we use colon to force that sort order.
+    # Numbers sort *after* letters; we use thorn to force that sort order.
+    def symbol_key(x)
+      HTMLEntities.new.decode(x.text).gsub(/_/, ":").gsub(/`/, "").
+        gsub(/[0-9]+/, "þ\\1")
+    end
+
+    def extract_symbols_list(dl)
+      dl_out = []
+      dl.xpath("./dt | ./dd").each do |dtd|
+        if dtd.name == "dt"
+          dl_out << { dt: dtd.remove, key: symbol_key(dtd) }
+        else
+          dl_out.last[:dd] = dtd.remove
+        end
+      end
+      dl_out
+    end
+
+    def symbols_cleanup(docxml)
+      dl = docxml.at("//div[@class = 'Symbols']/dl") || return
+      dl_out = extract_symbols_list(dl)
+      dl_out.sort! { |a, b| a[:key] <=> b[:key] }
+      dl.replace(dl_out.map { |d| d[:dt].to_s + d[:dd].to_s }.join("\n"))
     end
   end
 end
