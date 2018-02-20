@@ -41,16 +41,17 @@ module IsoDoc
     def termnote_anchor_names(docxml)
       docxml.xpath(ns("//term[termnote]")).each do |t|
         t.xpath(ns("./termnote")).each_with_index do |n, i|
-          @anchors[n["id"]] = { label: "Note #{i + 1} to entry",
-                                xref: "#{@anchors[t['id']][:xref]},"\
-                                "Note #{i + 1}" }
+          @anchors[n["id"]] = 
+            { label: "Note #{i + 1} to entry",
+              xref: "#{@anchors[t['id']][:xref]}, Note #{i + 1}" }
         end
       end
     end
 
     SECTIONS_XPATH =
-      " //foreword | //introduction | //sections/terms | "\
-      "//sections/clause | ./references | ./annex".freeze
+      "//foreword | //introduction | //sections/terms | "\
+      "//sections/clause | //references[not(ancestor::references)] | "\
+      "//annex".freeze
 
     CHILD_NOTES_XPATH =
       "./*[not(self::xmlns:subsection)]//xmlns:note | ./xmlns:note".freeze
@@ -60,11 +61,27 @@ module IsoDoc
         notes = s.xpath(CHILD_NOTES_XPATH)
         notes.each_with_index do |n, i|
           next if @anchors[n["id"]]
+          next if n["id"].nil?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = 
-            { label: "NOTE#{idx}", xref: "Note #{idx}", container: s["id"] }
+          @anchors[n["id"]] = anchor_struct(idx, s, "Note")
         end
         note_anchor_names(s.xpath(ns("./subsection")))
+      end
+    end
+
+    CHILD_EXAMPLES_XPATH =
+      "./*[not(self::xmlns:subsection)]//xmlns:example | "\
+      "./xmlns:example".freeze
+
+    def example_anchor_names(sections)
+      sections.each do |s|
+        notes = s.xpath(CHILD_EXAMPLES_XPATH)
+        notes.each_with_index do |n, i|
+          next if @anchors[n["id"]]
+          idx = notes.size == 1 ? "" : " #{i + 1}"
+          @anchors[n["id"]] = anchor_struct(idx, s, "Example")
+        end
+        example_anchor_names(s.xpath(ns("./subsection")))
       end
     end
 
@@ -88,6 +105,8 @@ module IsoDoc
       note_anchor_names(docxml.xpath(ns("//table | //example | //formula | "\
                                         "//figure")))
       note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+      example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+      pp @anchors
     end
 
     def sequential_figure_names(clause)
@@ -98,22 +117,26 @@ module IsoDoc
           j = 0
           i += 1
         end
-        label = "Figure #{i}" + (j.zero? ? "" : "-#{j}")
-        @anchors[t["id"]] = { label: label, xref: label }
+        label = i.to_s + (j.zero? ? "" : "-#{j}")
+        @anchors[t["id"]] = anchor_struct(label, nil, "Figure")
       end
+    end
+
+    def anchor_struct(lbl, container, elem)
+      ret = { label: lbl.to_s }
+      ret[:xref] = elem == "Formula" ? "#{elem} (#{lbl})" : "#{elem} #{lbl}"
+      ret[:xref].gsub!(/ $/, "")
+      ret[:container] = get_clause_id(container) unless container.nil?
+      ret
     end
 
     def sequential_asset_names(clause)
       clause.xpath(ns(".//table")).each_with_index do |t, i|
-        @anchors[t["id"]] = { label: "Table #{i + 1}", xref: "Table #{i + 1}" }
+        @anchors[t["id"]] = anchor_struct(i + 1, nil, "Table")
       end
       sequential_figure_names(clause)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
-        @anchors[t["id"]] = { label: (i + 1).to_s, xref: "Formula (#{i + 1})",
-                              container: get_clause_id(t) }
-      end
-      clause.xpath(ns(".//example")).each_with_index do |t, i|
-        @anchors[t["id"]] = { label: (i + 1).to_s, xref: "Example (#{i + 1})" }
+        @anchors[t["id"]] = anchor_struct(i + 1, t, "Formula")
       end
     end
 
@@ -125,25 +148,18 @@ module IsoDoc
           j = 0
           i += 1
         end
-        label = "Figure #{num}.#{i}" + (j.zero? ? "" : "-#{j}")
-        @anchors[t["id"]] = { label: label, xref: label }
+        label = "#{num}.#{i}" + (j.zero? ? "" : "-#{j}")
+        @anchors[t["id"]] = anchor_struct(label, nil, "Figure")
       end
     end
 
     def hierarchical_asset_names(clause, num)
       clause.xpath(ns(".//table")).each_with_index do |t, i|
-        @anchors[t["id"]] = { label: "Table #{num}.#{i + 1}",
-                              xref: "Table #{num}.#{i + 1}" }
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", nil, "Table")
       end
       hierarchical_figure_names(clause, num)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
-        @anchors[t["id"]] = { label: "#{num}.#{i + 1}",
-                              xref: "Formula (#{num}.#{i + 1})",
-                              container: get_clause_id(t) }
-      end
-      clause.xpath(ns(".//example")).each_with_index do |t, i|
-        @anchors[t["id"]] = { label: "#{num}.#{i + 1}",
-                              xref: "Example (#{num}.#{i + 1})" }
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", t, "Formula")
       end
     end
 
@@ -154,18 +170,17 @@ module IsoDoc
       end
     end
 
-    def section_names(clause, num, level)
-      @anchors[clause["id"]] = { label: num, xref: "Clause #{num}",
-                                 level: level }
+    def section_names(clause, num, lvl)
+      @anchors[clause["id"]] = { label: num, xref: "Clause #{num}", level: lvl }
       clause.xpath(ns("./subsection | ./term")).each_with_index do |c, i|
-        section_names1(c, "#{num}.#{i + 1}", level + 1)
+        section_names1(c, "#{num}.#{i + 1}", lvl + 1)
       end
     end
 
     def section_names1(clause, num, level)
       @anchors[clause["id"]] =
-        { label: num, level: level,
-          xref: clause.name == "term" ? num : "Clause #{num}" }
+        { label: num, level: level, xref: num }
+      # subclauses are not prefixed with "Clause"
       clause.xpath(ns("./subsection ")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", level + 1)
@@ -176,8 +191,7 @@ module IsoDoc
       obligation = "(Informative)"
       obligation = "(Normative)" if clause["subtype"] == "normative"
       label = "<b>Annex #{num}</b><br/>#{obligation}"
-      @anchors[clause["id"]] = { label: label,
-                                 xref: "Annex #{num}", level: 1 }
+      @anchors[clause["id"]] = { label: label, xref: "Annex #{num}", level: 1 }
       clause.xpath(ns("./subsection")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)
       end
@@ -185,9 +199,7 @@ module IsoDoc
     end
 
     def annex_names1(clause, num, level)
-      @anchors[clause["id"]] = { label: num,
-                                 xref: num,
-                                 level: level }
+      @anchors[clause["id"]] = { label: num, xref: num, level: level }
       clause.xpath(ns(".//subsection")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
       end

@@ -23,8 +23,8 @@ module IsoDoc
 
     def note_label(node)
       n = get_anchors()[node["id"]]
-      return "NOTE" if n.nil?
-      n[:label]
+      return "NOTE" if n.nil? || n[:label].empty?
+      "NOTE #{n[:label]}"
     end
 
     def note_p_parse(node, div)
@@ -55,7 +55,7 @@ module IsoDoc
     def figure_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p.b do |b|
-          b << "#{get_anchors()[node['id']][:label]}"
+          b << "Figure #{get_anchors()[node['id']][:label]}"
           b << "&nbsp;&mdash; #{name.text}" if name
         end
       end
@@ -80,13 +80,19 @@ module IsoDoc
       @in_figure = false
     end
 
-        def example_parse(node, out)
+    def example_label(node)
+      n = get_anchors()[node["id"]]
+      return "EXAMPLE" if n.nil? || n[:label].empty?
+      "EXAMPLE #{n[:label]}"
+    end
+
+    def example_parse(node, out)
       name = node.at(ns("./name"))
-      out.div **attr_code(id: node["id"], class: "figure") do |div|
+      out.div **attr_code(id: node["id"], class: "example") do |div|
+        out.p { |p| p << example_label(node) }
         node.children.each do |n|
-          parse(n, div) unless n.name == "name"
+          parse(n, div)
         end
-        figure_name_parse(node, div, name) if name
       end
     end
 
@@ -127,8 +133,8 @@ module IsoDoc
     end
 
     def formula_where(dl, out)
-             out.p { |p| p << "where" }
-        parse(dl, out)
+      out.p { |p| p << "where" }
+      parse(dl, out)
     end
 
     def formula_parse(node, out)
@@ -138,7 +144,7 @@ module IsoDoc
         insert_tab(div, 1)
         div << "(#{get_anchors()[node['id']][:label]})"
       end
-        formula_where(dl, out) if dl
+      formula_where(dl, out) if dl
     end
 
     def para_attrs(node)
