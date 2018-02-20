@@ -106,7 +106,6 @@ module IsoDoc
                                         "//figure")))
       note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-      pp @anchors
     end
 
     def sequential_figure_names(clause)
@@ -189,7 +188,7 @@ module IsoDoc
 
     def annex_names(clause, num)
       obligation = "(Informative)"
-      obligation = "(Normative)" if clause["subtype"] == "normative"
+      obligation = "(Normative)" if clause["obligation"] == "normative"
       label = "<b>Annex #{num}</b><br/>#{obligation}"
       @anchors[clause["id"]] = { label: label, xref: "Annex #{num}", level: 1 }
       clause.xpath(ns("./subsection")).each_with_index do |c, i|
