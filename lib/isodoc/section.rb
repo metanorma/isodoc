@@ -99,12 +99,44 @@ module IsoDoc
       end
     end
 
+    TERM_DEF_BOILERPLATE = <<~BOILERPLATE.freeze
+      <p>ISO and IEC maintain terminological databases for use in 
+      standardization at the following addresses:</p>
+      <ul> <li> <p>ISO Online browsing platform: available at 
+           <link target="http://www.iso.org/obp"/></p> </li>
+           <li> <p>IEC Electropedia: available at 
+           <link target="http://www.electropedia.org"/></p> </li> </ul>
+    BOILERPLATE
+
+    def term_defs_boilerplate(div, source, term)
+      if source.nil? && term.nil?
+        div << "<p>No terms and definitions are listed in this document.</p>"
+      else
+        out = "<p>For the purposes of this document, " +
+          term_defs_boilerplate_cont(div, source, term)
+        div << out
+      end
+      div << TERM_DEF_BOILERPLATE
+    end
+
+    def term_defs_boilerplate_cont(div, src, term)
+      if src.nil?
+        "the following terms and definitions apply.</p>"
+      elsif term.nil?
+        "the terms and definitions given in #{src["citeas"]} apply.</p>"
+      else
+        "the terms and definitions given in #{src["citeas"]} "\
+          "and the following apply.</p>"
+      end
+    end
+
     def terms_defs(isoxml, out)
       f = isoxml.at(ns("//terms")) || return
       out.div **attr_code(id: f["id"]) do |div|
         clause_name("3.", "Terms and Definitions", div, false, nil)
+        term_defs_boilerplate(div, f.at(ns("./source")), f.at(ns(".//term")))
         f.elements.each do |e|
-          parse(e, div) unless e.name == "title"
+          parse(e, div) unless %w{title source}.include? e.name
         end
       end
     end
