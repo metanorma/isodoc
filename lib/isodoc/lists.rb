@@ -37,8 +37,8 @@ module IsoDoc
         node.elements.each_slice(2) do |dt, dd|
           v.dt do |term|
             if dt.elements.empty?
-              term.p **attr_code(class: is_note ? "Note" : nil) do
-                |p| p << dt.text
+              term.p **attr_code(class: is_note ? "Note" : nil) do |p|
+                p << dt.text
               end
             else
               dt.children.each { |n| parse(n, term) }

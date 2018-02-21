@@ -31,14 +31,13 @@ module IsoDoc
       STAGE_ABBRS[stage.to_sym] || "??"
     end
 
-    NOKOHEAD = <<~HERE
+    NOKOHEAD = <<~HERE.freeze
     <!DOCTYPE html SYSTEM
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
     <head> <title></title> <meta charset="UTF-8" /> </head>
     <body> </body> </html>
     HERE
-
 
     # block for processing XML document fragments as XHTML,
     # to allow for HTMLentities
@@ -78,10 +77,10 @@ module IsoDoc
     end
 
     CLAUSE_ANCESTOR =
-     ".//ancestor::*[local-name() = 'subsection' or local-name() = 'foreword' "\
-     "or local-name() = 'introduction' or local-name() = 'terms' or "\
-     "local-name() = 'clause' or local-name() = 'references' or "\
-     "local-name() = 'annex']/@id".freeze
+      ".//ancestor::*[local-name() = 'subsection' or local-name() = 'foreword' "\
+      "or local-name() = 'introduction' or local-name() = 'terms' or "\
+      "local-name() = 'clause' or local-name() = 'references' or "\
+      "local-name() = 'annex']/@id".freeze
 
     def get_clause_id(node)
       clause = node.xpath(CLAUSE_ANCESTOR)
@@ -89,16 +88,26 @@ module IsoDoc
     end
 
     NOTE_CONTAINER_ANCESTOR =
-     ".//ancestor::*[local-name() = 'subsection' or local-name() = 'foreword' "\
-     "or local-name() = 'introduction' or local-name() = 'terms' or "\
-     "local-name() = 'clause' or local-name() = 'references' or "\
-     "local-name() = 'annex' or local-name() = 'formula' or "\
-     "local-name() = 'table' or local-name() = 'example' or "\
-     "local-name() = 'figure']/@id".freeze
+      ".//ancestor::*[local-name() = 'subsection' or "\
+      "local-name() = 'foreword' or "\
+      "local-name() = 'introduction' or local-name() = 'terms' or "\
+      "local-name() = 'clause' or local-name() = 'references' or "\
+      "local-name() = 'annex' or local-name() = 'formula' or "\
+      "local-name() = 'table' or local-name() = 'example' or "\
+      "local-name() = 'figure']/@id".freeze
 
     def get_note_container_id(node)
       container = node.xpath(NOTE_CONTAINER_ANCESTOR)
       container&.last&.text || nil
+    end
+
+    def sentence_join(array)
+      return "" if array.nil? || array.empty?
+      if array.length == 1
+        result = array[0]
+      else
+        result = "#{array[0..-2].join(', ')} and #{array.last}"
+      end
     end
   end
 end

@@ -1,6 +1,5 @@
 module IsoDoc
   class Convert
-
     def definition_parse(node, out)
       node.children.each { |n| parse(n, out) }
     end
@@ -49,7 +48,7 @@ module IsoDoc
       out.div **{ class: "Note" } do |div|
         first = node.first_element_child
         div.p **{ class: "Note" } do |p|
-          p << "#{get_anchors()[node["id"]][:label]}: "
+          p << "#{get_anchors[node['id']][:label]}: "
           para_then_remainder(first, node, p)
         end
       end
@@ -65,7 +64,7 @@ module IsoDoc
 
     def termdef_parse(node, out)
       out.p **{ class: "TermNum", id: node["id"] } do |p|
-        p << get_anchors()[node["id"]][:label]
+        p << get_anchors[node["id"]][:label]
       end
       set_termdomain("")
       node.children.each { |n| parse(n, out) }

@@ -6,7 +6,6 @@ require "pp"
 
 module IsoDoc
   class Convert
-
     def postprocess(result, filename, dir)
       generate_header(filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
@@ -15,35 +14,35 @@ module IsoDoc
     end
 
     def toWord(result, filename, dir)
-      result = from_xhtml(wordCleanup(to_xhtml(result)))
+      result = from_xhtml(word_cleanup(to_xhtml(result)))
       result = populate_template(result, :word)
-      Html2Doc.process(result, filename, @wordstylesheet, "header.html", 
-                       dir, ['`', '`'])
+      Html2Doc.process(result, filename, @wordstylesheet, "header.html",
+                       dir, ["`", "`"])
     end
 
-    def wordCleanup(docxml)
-      wordPreface(docxml)
-      wordAnnexCleanup(docxml)
+    def word_cleanup(docxml)
+      word_preface(docxml)
+      word_annex_cleanup(docxml)
       docxml
     end
 
     # force Annex h2 to be p.h2Annex, so it is not picked up by ToC
-    def wordAnnexCleanup(docxml)
-      d = docxml.xpath("//h2[ancestor::*[@class = 'Section3']]").each do |h2|
+    def word_annex_cleanup(docxml)
+      docxml.xpath("//h2[ancestor::*[@class = 'Section3']]").each do |h2|
         h2.name = "p"
         h2["class"] = "h2Annex"
       end
     end
 
-    def wordPreface(docxml)
+    def word_preface(docxml)
       cover = to_xhtml_fragment(File.read(@wordcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection1"]')
-      d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
+      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
       intro = to_xhtml_fragment(
         File.read(@wordintropage, encoding: "UTF-8").
         sub(/WORDTOC/, makeWordToC(docxml)))
       d = docxml.at('//div[@class="WordSection2"]')
-      d.children.first.add_previous_sibling intro.to_xml(encoding: 'US-ASCII')
+      d.children.first.add_previous_sibling intro.to_xml(encoding: "US-ASCII")
     end
 
     def populate_template(docxml, _format)
@@ -79,8 +78,7 @@ module IsoDoc
     def define_head(html, filename, dir)
       html.head do |head|
         head.title { |t| t << filename }
-        head.style do |style|
-          stylesheet = File.read(@standardstylesheet).
+        head.style do |style| stylesheet = File.read(@standardstylesheet).
             gsub("FILENAME", filename)
           style.comment "\n#{stylesheet}\n"
         end
@@ -92,50 +90,49 @@ module IsoDoc
       div.parent.add_child titlepage
     end
 
-    def wordTocEntry(toclevel, heading)
+    def word_toc_entry(toclevel, heading)
       bookmark = Random.rand(1000000000)
       <<~TOC
-      <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span 
+      <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span
       lang="EN-GB" style='mso-no-proof:yes'>
-      <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB" 
+      <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB"
       class="MsoTocTextSpan">
         <span style='mso-tab-count:1 dotted'>. </span>
-        </span><span lang="EN-GB" class="MsoTocTextSpan"> 
+        </span><span lang="EN-GB" class="MsoTocTextSpan">
         <span style='mso-element:field-begin'></span></span>
-        <span lang="EN-GB" 
+        <span lang="EN-GB"
         class="MsoTocTextSpan"> PAGEREF _Toc#{bookmark} \\h </span>
           <span lang="EN-GB" class="MsoTocTextSpan"><span
           style='mso-element:field-separator'></span></span><span
           lang="EN-GB" class="MsoTocTextSpan">1</span>
-          <span lang="EN-GB" 
-          class="MsoTocTextSpan"></span><span 
+          <span lang="EN-GB"
+          class="MsoTocTextSpan"></span><span
           lang="EN-GB" class="MsoTocTextSpan"><span
           style='mso-element:field-end'></span></span></a></span></span></p>
 
       TOC
     end
 
-    WORD_TOC_PREFACE = <<~TOC
+    WORD_TOC_PREFACE = <<~TOC.freeze
       <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span 
+        style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\o &quot;1-2&quot; \\h \\z \\u <span 
+        \\o &quot;1-2&quot; \\h \\z \\u <span
         style='mso-element:field-separator'></span></span>
     TOC
 
-    WORD_TOC_SUFFIX = <<~TOC
-      <p class="MsoToc1"><span lang="EN-GB"><span 
-        style='mso-element:field-end'></span></span><span 
+    WORD_TOC_SUFFIX = <<~TOC.freeze
+      <p class="MsoToc1"><span lang="EN-GB"><span
+        style='mso-element:field-end'></span></span><span
         lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
     TOC
 
     def header_strip(h)
       h = h.to_s.gsub(%r{<br/>}, " ").
         sub(/<h[12][^>]*>/, "").sub(%r{</h[12]>}, "")
-      h1 = to_xhtml_fragment(h)    
-      #h1.xpath(".//*[@style = 'MsoCommentReference']").each do |x|
+      h1 = to_xhtml_fragment(h)
       h1.xpath(".//*").each do |x|
-        if x.name == "span" && x['style'] == "MsoCommentReference"
+        if x.name == "span" && x["style"] == "MsoCommentReference"
           x.children.remove
           x.content = ""
         end
@@ -147,11 +144,10 @@ module IsoDoc
       toc = ""
       docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])]").
         each do |h|
-        toc += wordTocEntry(h.name == "h1" ? 1 : 2, header_strip(h))
+        toc += word_toc_entry(h.name == "h1" ? 1 : 2, header_strip(h))
       end
-      toc.sub(/(<p class="MsoToc1">)/, 
+      toc.sub(/(<p class="MsoToc1">)/,
               %{\\1#{WORD_TOC_PREFACE}}) + WORD_TOC_SUFFIX
     end
-
   end
 end

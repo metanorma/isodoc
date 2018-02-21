@@ -2,7 +2,6 @@ require "htmlentities"
 
 module IsoDoc
   class Convert
-
     def init_metadata
       @meta = {
         tc: "XXXX",
@@ -57,7 +56,7 @@ module IsoDoc
       wg_num = xml.at(ns("//editorialgroup/workgroup/@number"))
       wg_type = xml.at(ns("//editorialgroup/workgroup/@type"))&.text || "WG"
       if wg_num
-        wgid =  "#{wg_type} #{wg_num.text}"
+        wgid = "#{wg_type} #{wg_num.text}"
         set_metadata(:wg, wgid)
         set_metadata(:editorialgroup, get_metadata[:editorialgroup] << wgid)
       end
@@ -76,9 +75,8 @@ module IsoDoc
 
     def agency(xml)
       agency = ""
-      pub = xml.xpath(ns("//bibdata/contributor"\
-                         "[xmlns:role/@type = 'publisher']/"\
-                         "organization/name")).each do |org|
+      xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = 'publisher']/"\
+                   "organization/name")).each do |org|
         agency = org.text == "ISO" ? "ISO/#{agency}" : "#{agency}#{org.text}/"
       end
       set_metadata(:agency, agency.sub(%r{/$}, ""))

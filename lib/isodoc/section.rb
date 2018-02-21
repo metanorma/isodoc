@@ -1,22 +1,22 @@
 module IsoDoc
   class Convert
     def clause_parse(node, out)
-      out.div **attr_code(id: node["id"]) do |s|
+      out.div **attr_code(id: node["id"]) do |div|
         node.children.each do |c1|
           if c1.name == "title"
             if node["inline-header"]
               out.span **{ class: "zzMoveToFollowing" } do |s|
                 s.b do |b|
-                  b << "#{get_anchors()[node['id']][:label]}. #{c1.text} "
+                  b << "#{get_anchors[node['id']][:label]}. #{c1.text} "
                 end
               end
             else
-              s.send "h#{get_anchors()[node['id']][:level]}" do |h|
-                h << "#{get_anchors()[node['id']][:label]}. #{c1.text}"
+              div.send "h#{get_anchors[node['id']][:level]}" do |h|
+                h << "#{get_anchors[node['id']][:label]}. #{c1.text}"
               end
             end
           else
-            parse(c1, s)
+            parse(c1, div)
           end
         end
       end
@@ -56,7 +56,7 @@ module IsoDoc
         out.div **attr_code(id: c["id"]) do |s|
           c.elements.each do |c1|
             if c1.name == "title"
-              clause_name("#{get_anchors()[c['id']][:label]}.", 
+              clause_name("#{get_anchors[c['id']][:label]}.",
                           c1.text, s, c["inline-header"], nil)
             else
               parse(c1, s)
@@ -68,7 +68,7 @@ module IsoDoc
 
     def annex_name(annex, name, div)
       div.h1 **{ class: "Annex" } do |t|
-        t << "#{get_anchors()[annex['id']][:label]}<br/><br/>"
+        t << "#{get_anchors[annex['id']][:label]}<br/><br/>"
         t << "<b>#{name.text}</b>"
       end
     end
@@ -76,8 +76,7 @@ module IsoDoc
     def annex(isoxml, out)
       isoxml.xpath(ns("//annex")).each do |c|
         page_break(out)
-        out.div **attr_code(id: c["id"], class: "Section3" ) do |s|
-          #s1.div **{ class: "annex" } do |s|
+        out.div **attr_code(id: c["id"], class: "Section3") do |s|
           c.elements.each do |c1|
             if c1.name == "title" then annex_name(c, c1, s)
             else
@@ -100,32 +99,33 @@ module IsoDoc
     end
 
     TERM_DEF_BOILERPLATE = <<~BOILERPLATE.freeze
-      <p>ISO and IEC maintain terminological databases for use in 
+      <p>ISO and IEC maintain terminological databases for use in
       standardization at the following addresses:</p>
-      <ul> <li> <p>ISO Online browsing platform: available at 
+      <ul> <li> <p>ISO Online browsing platform: available at
            <link target="http://www.iso.org/obp"/></p> </li>
-           <li> <p>IEC Electropedia: available at 
+           <li> <p>IEC Electropedia: available at
            <link target="http://www.electropedia.org"/></p> </li> </ul>
     BOILERPLATE
 
     def term_defs_boilerplate(div, source, term)
-      if source.nil? && term.nil?
+      if source.empty? && term.nil?
         div << "<p>No terms and definitions are listed in this document.</p>"
       else
         out = "<p>For the purposes of this document, " +
-          term_defs_boilerplate_cont(div, source, term)
+          term_defs_boilerplate_cont(source, term)
         div << out
       end
       div << TERM_DEF_BOILERPLATE
     end
 
-    def term_defs_boilerplate_cont(div, src, term)
-      if src.nil?
+    def term_defs_boilerplate_cont(src, term)
+      sources = sentence_join(src.map { |s| s["citeas"] })
+      if src.empty?
         "the following terms and definitions apply.</p>"
       elsif term.nil?
-        "the terms and definitions given in #{src["citeas"]} apply.</p>"
+        "the terms and definitions given in #{sources} apply.</p>"
       else
-        "the terms and definitions given in #{src["citeas"]} "\
+        "the terms and definitions given in #{sources} "\
           "and the following apply.</p>"
       end
     end
@@ -134,7 +134,7 @@ module IsoDoc
       f = isoxml.at(ns("//terms")) || return
       out.div **attr_code(id: f["id"]) do |div|
         clause_name("3.", "Terms and Definitions", div, false, nil)
-        term_defs_boilerplate(div, f.at(ns("./source")), f.at(ns(".//term")))
+        term_defs_boilerplate(div, f.xpath(ns("./source")), f.at(ns(".//term")))
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
         end

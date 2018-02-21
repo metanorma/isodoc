@@ -11,16 +11,17 @@ module IsoDoc
     end
 
     def html_cleanup(x)
-      footnote_backlinks(move_images(html_footnote_filter(htmlPreface(htmlstyle(x)))))
+      footnote_backlinks(
+        move_images(html_footnote_filter(htmlPreface(htmlstyle(x)))))
     end
 
     def htmlPreface(docxml)
       cover = Nokogiri::HTML(File.read(@htmlcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection1"]')
-      d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
+      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
       cover = Nokogiri::HTML(File.read(@htmlintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection2"]')
-      d.children.first.add_previous_sibling cover.to_xml(encoding: 'US-ASCII')
+      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
       body = docxml.at("//*[local-name() = 'body']")
       body << '<script src="https://cdn.mathjax.org/mathjax/latest/'\
         'MathJax.js?config=AM_HTMLorMML"></script>'
