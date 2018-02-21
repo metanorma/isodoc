@@ -60,8 +60,10 @@ module IsoDoc
           ret += ", Whole of text"
         else
           ret += ", #{r["type"].capitalize}"
-          ref = r.at(ns("./reference"))
-          ret += " #{ref.text}" if ref
+          refFrom = r.at(ns("./referenceFrom"))
+          refTo = r.at(ns("./referenceTo"))
+          ret += " #{refFrom.text}" if refFrom
+          ret += "&ndash;#{refTo.text}" if refTo
         end
       end
       ret
