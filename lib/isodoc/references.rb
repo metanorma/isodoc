@@ -25,7 +25,7 @@ module IsoDoc
         end
         ref << iso_bibitem_ref_code(b)
         date_note_process(b, ref)
-        ref << ", " if biblio
+        ref << ", " 
         ref.i { |i| i << " #{b.at(ns('./title')).text}" }
       end
     end
@@ -50,11 +50,15 @@ module IsoDoc
       end
     end
 
-    def noniso_bibitem(list, b, ordinal, _bibliography)
+    def noniso_bibitem(list, b, ordinal, bibliography)
       ref = b.at(ns("./docidentifier"))
       para = b.at(ns("./formattedref"))
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
-        ref_entry_code(r, ordinal, ref.text.gsub(/[\[\]]/, ""))
+        if bibliography
+          ref_entry_code(r, ordinal, ref.text.gsub(/[\[\]]/, ""))
+        else
+          r << "#{iso_bibitem_ref_code(b)}, "
+        end
         para.children.each { |n| parse(n, r) }
       end
     end
@@ -87,11 +91,11 @@ module IsoDoc
     end
 
     NORM_WITH_REFS_PREF = <<~BOILERPLATE.freeze
-          The following documents are referred to in the text in such a way
-          that some or all of their content constitutes requirements of this
-          document. For dated references, only the edition cited applies.
-          For undated references, the latest edition of the referenced
-          document (including any amendments) applies.
+      The following documents are referred to in the text in such a way
+      that some or all of their content constitutes requirements of this
+      document. For dated references, only the edition cited applies.
+      For undated references, the latest edition of the referenced
+      document (including any amendments) applies.
     BOILERPLATE
 
     NORM_EMPTY_PREF =
