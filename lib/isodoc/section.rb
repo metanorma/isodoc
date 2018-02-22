@@ -130,10 +130,16 @@ module IsoDoc
       end
     end
 
+    def terms_defs_title(f)
+      symbols = f.at(".//symbols-abbrevs")
+      return "Terms, Definitions, Symbols and Abbreviated Terms" if symbols
+      "Terms and Definitions"
+    end
+
     def terms_defs(isoxml, out)
-      f = isoxml.at(ns("//terms")) || return
+      f = isoxml.at(ns("//sections/terms")) || return
       out.div **attr_code(id: f["id"]) do |div|
-        clause_name("3.", "Terms and Definitions", div, false, nil)
+        clause_name("3.", terms_defs_title(f), div, false, nil)
         term_defs_boilerplate(div, f.xpath(ns("./source")), f.at(ns(".//term")))
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
@@ -141,14 +147,26 @@ module IsoDoc
       end
     end
 
+    # subclause
+    def terms_parse(isoxml, out)
+      clause_parse(isoxml, out)
+    end
+
     def symbols_abbrevs(isoxml, out)
-      f = isoxml.at(ns("//symbols-abbrevs")) || return
+      f = isoxml.at(ns("//sections/symbols-abbrevs")) || return
       out.div **attr_code(id: f["id"], class: "Symbols") do |div|
         clause_name("4.", "Symbols and Abbreviated Terms", div, false, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
       end
+    end
+
+    # subclause
+    def symbols_parse(isoxml, out)
+      isoxml.children.first.
+        add_previous_sibling("<title>Symbols and Abbreviated Terms</title>")
+      clause_parse(isoxml, out)
     end
 
     def introduction(isoxml, out)

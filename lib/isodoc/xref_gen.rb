@@ -20,14 +20,14 @@ module IsoDoc
       section_names(d.at(ns("//clause[title = 'Scope']")), "1", 1)
       section_names(d.at(ns(
         "//references[title = 'Normative References']")), "2", 1)
-      section_names(d.at(ns("//terms")), "3", 1)
+      section_names(d.at(ns("//sections/terms")), "3", 1)
       middle_section_asset_names(d)
     end
 
     def middle_section_asset_names(d)
       middle_sections = "//clause[title = 'Scope'] | "\
-        "//references[title = 'Normative References'] | //terms | "\
-        "//symbols-abbrevs | //clause[parent::sections]"
+        "//references[title = 'Normative References'] | //sections/terms | "\
+        "//sections/symbols-abbrevs | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))
     end
 
@@ -86,7 +86,7 @@ module IsoDoc
     end
 
     def middle_anchor_names(docxml)
-      symbols_abbrevs = docxml.at(ns("//symbols-abbrevs"))
+      symbols_abbrevs = docxml.at(ns("//sections/symbols-abbrevs"))
       sect_num = 4
       if symbols_abbrevs
         section_names(symbols_abbrevs, sect_num.to_s, 1)
@@ -171,7 +171,8 @@ module IsoDoc
 
     def section_names(clause, num, lvl)
       @anchors[clause["id"]] = { label: num, xref: "Clause #{num}", level: lvl }
-      clause.xpath(ns("./subsection | ./term")).each_with_index do |c, i|
+      clause.xpath(ns("./subsection | ./term  | ./terms | ./symbols-abbrevs")).
+        each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", lvl + 1)
       end
     end
@@ -180,7 +181,7 @@ module IsoDoc
       @anchors[clause["id"]] =
         { label: num, level: level, xref: num }
       # subclauses are not prefixed with "Clause"
-      clause.xpath(ns("./subsection ")).
+      clause.xpath(ns("./subsection | ./terms | ./term | ./symbols-abbrevs")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", level + 1)
       end

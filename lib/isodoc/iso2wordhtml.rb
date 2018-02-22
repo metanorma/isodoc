@@ -143,6 +143,8 @@ module IsoDoc
         when "modification" then modification_parse(node, out)
         when "termnote" then termnote_parse(node, out)
         when "termexample" then termexample_parse(node, out)
+        when "terms" then terms_parse(node, out)
+        when "symbols-abbrevs" then symbols_parse(node, out)
         else
           error_parse(node, out)
         end
