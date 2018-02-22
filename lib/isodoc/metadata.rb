@@ -9,6 +9,8 @@ module IsoDoc
         wg: "XXXX",
         editorialgroup: [],
         secretariat: "XXXX",
+        obsoletes: nil,
+        obsoletes_part: nil,
       }
       %w{published accessed created activated obsoleted}.each do |w|
         @meta["#{w}date".to_sym] = "XXX"
@@ -160,6 +162,14 @@ module IsoDoc
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
       main = compose_title(main, intro, part, partnumber, subpartnumber, "fr")
       set_metadata(:docsubtitle, main)
+    end
+
+    def relations(isoxml, _out)
+      std = isoxml.at(ns("//bibdata/relation[@type = 'obsoletes']")) || return
+      locality = std.at(ns(".//locality"))
+      id = std.at(ns(".//docidentifier"))
+      set_metadata(:obsoletes, id.text)
+      set_metadata(:obsoletes_part, locality.text)
     end
   end
 end
