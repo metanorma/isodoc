@@ -3,15 +3,11 @@ require "htmlentities"
 module IsoDoc
   class Convert
     def init_metadata
-      @meta = {
-        tc: "XXXX",
-        sc: "XXXX",
-        wg: "XXXX",
-        editorialgroup: [],
-        secretariat: "XXXX",
-        obsoletes: nil,
-        obsoletes_part: nil,
-      }
+      @meta = { tc: "XXXX", sc: "XXXX", wg: "XXXX",
+                editorialgroup: [],
+                secretariat: "XXXX",
+                obsoletes: nil,
+                obsoletes_part: nil }
       %w{published accessed created activated obsoleted}.each do |w|
         @meta["#{w}date".to_sym] = "XXX"
       end
@@ -71,7 +67,7 @@ module IsoDoc
 
     def bibdate(isoxml, _out)
       isoxml.xpath(ns("//bibdata/date")).each do |d|
-        set_metadata("#{d["type"]}date".to_sym, d.text)
+        set_metadata("#{d['type']}date".to_sym, d.text)
       end
     end
 
@@ -84,20 +80,24 @@ module IsoDoc
       set_metadata(:agency, agency.sub(%r{/$}, ""))
     end
 
-    def id(isoxml, _out)
+    def docnumber(isoxml)
       docnumber = isoxml.at(ns("//project-number"))
       partnumber = isoxml.at(ns("//project-number/@part"))
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
-      documentstatus = isoxml.at(ns("//status/stage"))
       dn = docnumber.text
       dn += "-#{partnumber.text}" if partnumber
       dn += "-#{subpartnumber.text}" if subpartnumber
+      dn
+    end
+
+    def id(isoxml, _out)
+      dn = docnumber(isoxml)
+      documentstatus = isoxml.at(ns("//status/stage"))
       if documentstatus
         set_metadata(:stage, documentstatus.text)
         abbr = stage_abbreviation(documentstatus.text)
         set_metadata(:stageabbr, abbr)
-        documentstatus.text.to_i < 60 and
-          dn = abbr + " " + dn
+        (documentstatus.text.to_i < 60) && dn = abbr + " " + dn
       end
       set_metadata(:docnumber, dn)
     end
@@ -119,7 +119,6 @@ module IsoDoc
       set_metadata(:draft, draft.nil? ? nil : draft.text)
       revdate = isoxml.at(ns("//version/revision-date"))
       set_metadata(:revdate, revdate.nil? ? nil : revdate.text)
-      draftinfo = draftinfo(draft, revdate)
       set_metadata(:draftinfo, draftinfo(draft, revdate))
     end
 
@@ -130,13 +129,14 @@ module IsoDoc
       end
     end
 
+    @c = HTMLEntities.new
+
     def compose_title(main, intro, part, partnum, subpartnum, lang)
-      c = HTMLEntities.new
-      main = c.encode(main.text, :hexadecimal)
+      main = @c.encode(main.text, :hexadecimal)
       intro &&
-        main = "#{c.encode(intro.text, :hexadecimal)}&nbsp;&mdash; #{main}"
+        main = "#{@c.encode(intro.text, :hexadecimal)}&nbsp;&mdash; #{main}"
       if part
-        suffix = c.encode(part.text, :hexadecimal)
+        suffix = @c.encode(part.text, :hexadecimal)
         partnum = "#{partnum}&ndash;#{subpartnum}" if partnum && subpartnum
         suffix = "#{part_label(lang)}&nbsp;#{partnum}: " + suffix if partnum
         main = "#{main}&nbsp;&mdash; #{suffix}"

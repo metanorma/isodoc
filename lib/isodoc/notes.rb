@@ -40,7 +40,7 @@ module IsoDoc
       end.join("\n")
     end
 
-    def make_generic_footnote_text(node, fnid, fn_ref)
+    def make_generic_footnote_text(node, fnid)
       noko do |xml|
         xml.aside **{ id: "ftn#{fnid}" } do |div|
           node.children.each { |n| parse(n, div) }
@@ -69,12 +69,12 @@ module IsoDoc
     def footnote_parse(node, out)
       return table_footnote_parse(node, out) if @in_table || @in_figure
       fn = node["reference"]
-      out.a **{"epub:type": "footnote", href: "#ftn#{fn}" } do |a|
+      out.a **{ "epub:type": "footnote", href: "#ftn#{fn}" } do |a|
         a.sup { |sup| sup << fn }
       end
       return if @seen_footnote.include?(fn)
       @in_footnote = true
-      @footnotes << make_generic_footnote_text(node, fn, fn)
+      @footnotes << make_generic_footnote_text(node, fn)
       @in_footnote = false
       @seen_footnote << fn
     end
@@ -94,27 +94,28 @@ module IsoDoc
       @in_comment = false
     end
 
+    def comment_link_attrs(fn, node)
+      { style: "MsoCommentReference", target: fn,
+        class: "commentLink", from: node["from"],
+        to: node["to"] }
+    end
+
     # add in from and to links to move the comment into place
     def make_comment_link(out, fn, node)
-      out.span(**{ style: "MsoCommentReference", target: fn,
-                   class: "commentLink", from: node["from"],
-                   to: node["to"] }
-              ) do |s1|
-                s1.span **{ lang: "EN-GB", style: "font-size:9.0pt" } do |s2|
-                  s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
-                           "mso-comment-date:#{node['date']}" }
-                  s2.span **{ style: "mso-special-character:comment",
-                              target: fn } # do |s|
-                end
-              end
+      out.span(**comment_link_attrs(fn, node)) do |s1|
+        s1.span **{ lang: "EN-GB", style: "font-size:9.0pt" } do |s2|
+          s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
+                   "mso-comment-date:#{node['date']}" }
+          s2.span **{ style: "mso-special-character:comment",
+                      target: fn } # do |s|
+        end
+      end
     end
 
     def make_comment_target(out)
       out.span **{ style: "MsoCommentReference" } do |s1|
-        s1.span **{ lang: "EN-GB", style: "font-size:9.0pt"} do |s2|
-          s2.span **{ style: "mso-special-character:comment" } # do |s|
-          # s << "&nbsp;"
-          # end
+        s1.span **{ lang: "EN-GB", style: "font-size:9.0pt" } do |s2|
+          s2.span **{ style: "mso-special-character:comment" }
         end
       end
     end
@@ -122,7 +123,7 @@ module IsoDoc
     def make_comment_text(node, fn)
       noko do |xml|
         xml.div **{ style: "mso-element:comment", id: fn } do |div|
-          div.span **{ style: %{mso-comment-author:"#{node["reviewer"]}"} }
+          div.span **{ style: %{mso-comment-author:"#{node['reviewer']}"} }
           make_comment_target(div)
           node.children.each { |n| parse(n, div) }
         end
@@ -147,7 +148,7 @@ module IsoDoc
       docxml
     end
 
-    def move_comment_link_to_from1(x, fromlink, docxml)
+    def move_comment_link_to_from1(x, fromlink)
       x.remove
       link = x.at(".//a")
       fromlink.replace(x)
@@ -171,7 +172,7 @@ module IsoDoc
       from["style"] != "mso-special-character:comment"
     end
 
-    def insert_comment_cont(from, to, target, docxml)
+    def insert_comment_cont(from, to, target)
       # includes_to = from.at(".//*[@id='#{to}']")
       while !from.nil? && from["id"] != to
         following = from.xpath("./following::*")
@@ -186,8 +187,8 @@ module IsoDoc
     def move_comment_link_to_from(docxml)
       docxml.xpath('//span[@style="MsoCommentReference"][@from]').each do |x|
         attrs = comment_attributes(docxml, x) || next
-        move_comment_link_to_from1(x, attrs[:from], docxml)
-        insert_comment_cont(attrs[:from], x["to"], x["target"], docxml)
+        move_comment_link_to_from1(x, attrs[:from])
+        insert_comment_cont(attrs[:from], x["to"], x["target"])
       end
     end
 
@@ -198,7 +199,7 @@ module IsoDoc
         comments << { text: c.remove.to_s, id: c["id"] }
       end
       comments.sort! { |a, b| link_order[a[:id]] <=> link_order[b[:id]] }
-      comments
+      # comments
     end
 
     COMMENT_TARGET_XREFS =

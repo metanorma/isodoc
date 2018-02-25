@@ -1,6 +1,5 @@
 module IsoDoc
   class Convert
-
     def toHTML(result, filename)
       # result = html_cleanup(Nokogiri::HTML(result)).to_xml
       result = from_xhtml(html_cleanup(to_xhtml(result)))
@@ -12,10 +11,11 @@ module IsoDoc
 
     def html_cleanup(x)
       footnote_backlinks(
-        move_images(html_footnote_filter(htmlPreface(htmlstyle(x)))))
+        move_images(html_footnote_filter(html_preface(htmlstyle(x))))
+      )
     end
 
-    def htmlPreface(docxml)
+    def html_preface(docxml)
       cover = Nokogiri::HTML(File.read(@htmlcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection1"]')
       d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
@@ -46,8 +46,7 @@ module IsoDoc
       docxml
     end
 
-    def update_footnote_filter(docxml, x, i, seen)
-      fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || return
+    def update_footnote_filter(fn, x, i, seen)
       if seen[fn.text]
         x.at("./sup").content = seen[fn.text][:num].to_s
         fn.remove unless x["href"] == seen[fn.text][:href]
@@ -64,7 +63,8 @@ module IsoDoc
       seen = {}
       i = 1
       docxml.xpath('//a[@epub:type = "footnote"]').each do |x|
-        i, seen = update_footnote_filter(docxml, x, i, seen)
+        fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
+        i, seen = update_footnote_filter(fn, x, i, seen)
       end
       docxml
     end

@@ -32,17 +32,21 @@ module IsoDoc
       end
     end
 
+    def dt_parse(dt, term)
+      if dt.elements.empty?
+        term.p **attr_code(class: is_note ? "Note" : nil) do |p|
+          p << dt.text
+        end
+      else
+        dt.children.each { |n| parse(n, term) }
+      end
+    end
+
     def dl_parse(node, out)
       out.dl do |v|
         node.elements.each_slice(2) do |dt, dd|
           v.dt do |term|
-            if dt.elements.empty?
-              term.p **attr_code(class: is_note ? "Note" : nil) do |p|
-                p << dt.text
-              end
-            else
-              dt.children.each { |n| parse(n, term) }
-            end
+            dt_parse(dt, term)
           end
           v.dd do |listitem|
             dd.children.each { |n| parse(n, listitem) }

@@ -1,5 +1,3 @@
-#require "uuidtools"
-
 module IsoDoc
   class Convert
     def ns(xpath)

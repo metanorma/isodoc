@@ -24,23 +24,21 @@ module IsoDoc
     end
 
     def anchor_linkend(node, linkend)
-      if get_anchors().has_key?(node["target"])
-        linkend = get_anchors()[node["target"]][:xref]
-        container = get_anchors()[node["target"]][:container]
+      if get_anchors.has_key?(node["target"])
+        linkend = get_anchors[node["target"]][:xref]
+        container = get_anchors[node["target"]][:container]
         (container && get_note_container_id(node) != container) &&
-          linkend = get_anchors()[container][:xref] + ", " + linkend
+          linkend = get_anchors[container][:xref] + ", " + linkend
       end
-      if node["citeas"].nil? && get_anchors().has_key?(node["bibitemid"])
-        linkend = get_anchors()[node["bibitemid"]][:xref]
+      if node["citeas"].nil? && get_anchors.has_key?(node["bibitemid"])
+        linkend = get_anchors[node["bibitemid"]][:xref]
       end
       linkend
     end
 
     def get_linkend(node)
-      clause_id = get_clause_id(node)
-      linkend = node["target"] || node["citeas"]
-      linkend = anchor_linkend(node, linkend)
-      linkend += eref_localities(node.xpath(ns("./locality"))) 
+      linkend = anchor_linkend(node, node["target"] || node["citeas"])
+      linkend += eref_localities(node.xpath(ns("./locality")))
       text = node.children.select { |c| c.text? && !c.text.empty? }
       linkend = text.join(" ") unless text.nil? || text.empty?
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
@@ -53,17 +51,17 @@ module IsoDoc
       out.a **{ "href": "#" + node["target"] } { |l| l << linkend }
     end
 
-    def eref_localities(r)
+    def eref_localities(refs)
       ret = ""
-      r.each do |r|
+      refs.each do |r|
         if r["type"] == "whole"
           ret += ", Whole of text"
         else
           ret += ", #{r["type"].capitalize}"
-          refFrom = r.at(ns("./referenceFrom"))
-          refTo = r.at(ns("./referenceTo"))
-          ret += " #{refFrom.text}" if refFrom
-          ret += "&ndash;#{refTo.text}" if refTo
+          ref_from = r.at(ns("./referenceFrom"))
+          ref_to = r.at(ns("./referenceTo"))
+          ret += " #{ref_from.text}" if ref_from
+          ret += "&ndash;#{ref_to.text}" if ref_to
         end
       end
       ret
@@ -91,7 +89,7 @@ module IsoDoc
       end
     end
 
-    def pagebreak_parse(node, out)
+    def pagebreak_parse(_node, out)
       attrs = { clear: all, class: "pagebreak" }
       out.br **attrs
     end

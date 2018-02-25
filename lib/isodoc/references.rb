@@ -16,16 +16,19 @@ module IsoDoc
       footnote_parse(date_note, ref)
     end
 
+    def iso_bibitem_entry_attrs(b, biblio)
+      { id: b["id"], class: biblio ? "Biblio" : nil }
+    end
+
     def iso_bibitem_entry(list, b, ordinal, biblio)
-      attrs = { id: b["id"], class: biblio ? "Biblio" : nil }
-      list.p **attr_code(attrs) do |ref|
+      list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
         if biblio
           ref << "[#{ordinal}]"
           insert_tab(ref, 1)
         end
         ref << iso_bibitem_ref_code(b)
         date_note_process(b, ref)
-        ref << ", " 
+        ref << ", "
         ref.i { |i| i << " #{b.at(ns('./title')).text}" }
       end
     end
@@ -51,15 +54,14 @@ module IsoDoc
     end
 
     def noniso_bibitem(list, b, ordinal, bibliography)
-      ref = b.at(ns("./docidentifier"))
-      para = b.at(ns("./formattedref"))
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
         if bibliography
-          ref_entry_code(r, ordinal, ref.text.gsub(/[\[\]]/, ""))
+          ref_entry_code(r, ordinal,
+                         b.at(ns("./docidentifier")).text.gsub(/[\[\]]/, ""))
         else
           r << "#{iso_bibitem_ref_code(b)}, "
         end
-        para.children.each { |n| parse(n, r) }
+        b.at(ns("./formattedref")).children.each { |n| parse(n, r) }
       end
     end
 

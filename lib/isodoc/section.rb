@@ -1,20 +1,28 @@
 module IsoDoc
   class Convert
+    def inline_header_title(out, node, c1)
+      out.span **{ class: "zzMoveToFollowing" } do |s|
+        s.b do |b|
+          b << "#{get_anchors[node['id']][:label]}. #{c1.text} "
+        end
+      end
+    end
+
+    def clause_parse_title(node, div, c1)
+      if node["inline-header"]
+        inline_header_title(out, node, c1)
+      else
+        div.send "h#{get_anchors[node['id']][:level]}" do |h|
+          h << "#{get_anchors[node['id']][:label]}. #{c1.text}"
+        end
+      end
+    end
+
     def clause_parse(node, out)
       out.div **attr_code(id: node["id"]) do |div|
         node.children.each do |c1|
           if c1.name == "title"
-            if node["inline-header"]
-              out.span **{ class: "zzMoveToFollowing" } do |s|
-                s.b do |b|
-                  b << "#{get_anchors[node['id']][:label]}. #{c1.text} "
-                end
-              end
-            else
-              div.send "h#{get_anchors[node['id']][:level]}" do |h|
-                h << "#{get_anchors[node['id']][:label]}. #{c1.text}"
-              end
-            end
+            clause_parse_title(node, div, c1)
           else
             parse(c1, div)
           end
@@ -24,13 +32,13 @@ module IsoDoc
 
     def clause_name(num, title, div, inline_header, header_class)
       if inline_header
-        clause_name_inline(num, title)
+        clause_name_inline(num, title, div)
       else
         clause_name_header(num, title, div, header_class)
       end
     end
 
-    def clause_name_inline(num, title)
+    def clause_name_inline(num, title, div)
       div.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
           b << num
@@ -83,7 +91,6 @@ module IsoDoc
               parse(c1, s)
             end
           end
-          # end
         end
       end
     end
