@@ -129,8 +129,6 @@ module IsoDoc
       end
     end
 
-    @c = HTMLEntities.new
-
     def compose_title(main, intro, part, partnum, subpartnum, lang)
       main = @c.encode(main.text, :hexadecimal)
       intro &&

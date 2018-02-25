@@ -59,6 +59,7 @@ module IsoDoc
       @in_table = false
       @in_figure = false
       @seen_footnote = Set.new
+      @c = HTMLEntities.new
     end
 
     def convert(filename)
