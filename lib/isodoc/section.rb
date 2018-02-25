@@ -8,7 +8,7 @@ module IsoDoc
       end
     end
 
-    def clause_parse_title(node, div, c1)
+    def clause_parse_title(node, div, c1, out)
       if node["inline-header"]
         inline_header_title(out, node, c1)
       else
@@ -22,7 +22,7 @@ module IsoDoc
       out.div **attr_code(id: node["id"]) do |div|
         node.children.each do |c1|
           if c1.name == "title"
-            clause_parse_title(node, div, c1)
+            clause_parse_title(node, div, c1, out)
           else
             parse(c1, div)
           end
