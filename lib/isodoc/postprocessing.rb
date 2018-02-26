@@ -17,7 +17,7 @@ module IsoDoc
       result = from_xhtml(word_cleanup(to_xhtml(result)))
       result = populate_template(result, :word)
       Html2Doc.process(result, filename, @wordstylesheet, "header.html",
-                       dir, ["`", "`"])
+                       dir, [@openmathdelim, @closemathdelim])
     end
 
     def word_cleanup(docxml)

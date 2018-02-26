@@ -79,7 +79,8 @@ module IsoDoc
     end
 
     def stem_parse(node, out)
-      ooml = if node["type"] == "AsciiMath" then "`#{node.text}`"
+      ooml = if node["type"] == "AsciiMath"
+               "#{@openmathdelim}#{node.text}#{@closemathdelim}"
              elsif node["type"] == "MathML" then node.first_element_child.to_s
              else
                node.text

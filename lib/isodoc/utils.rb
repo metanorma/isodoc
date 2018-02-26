@@ -107,5 +107,15 @@ module IsoDoc
         result = "#{array[0..-2].join(', ')} and #{array.last}"
       end
     end
+
+    # avoid `; avoid {{ (Liquid Templates); avoid [[ (Javascript)
+    def extract_delims(text)
+      @openmathdelim, @closemathdelim = ["(#(", ")#)"]
+      while text.include?(@openmathdelim) || text.include?(@closemathdelim)
+        @openmathdelim += "("
+        @closemathdelim += ")"
+      end
+      [@openmathdelim, @closemathdelim]
+    end
   end
 end

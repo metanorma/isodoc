@@ -60,9 +60,12 @@ module IsoDoc
       @in_figure = false
       @seen_footnote = Set.new
       @c = HTMLEntities.new
+      @openmathdelim = "`"
+      @closemathdelim = "`"
     end
 
     def convert(filename)
+      @openmathdelim, @closemathdelim = extract_delims(File.read(filename))
       docxml = Nokogiri::XML(File.read(filename))
       filename, dir = init_file(filename)
       docxml.root.default_namespace = ""

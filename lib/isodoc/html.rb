@@ -1,7 +1,6 @@
 module IsoDoc
   class Convert
     def toHTML(result, filename)
-      # result = html_cleanup(Nokogiri::HTML(result)).to_xml
       result = from_xhtml(html_cleanup(to_xhtml(result)))
       result = populate_template(result, :html)
       File.open("#{filename}.html", "w") do |f|
@@ -15,6 +14,22 @@ module IsoDoc
       )
     end
 
+    MATHJAX_ADDR = "https://cdn.mathjax.org/mathjax/latest/MathJax.js".freeze
+    MATHJAX = <<~"MATHJAX".freeze
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        asciimath2jax: {
+          delimiters: [['OPEN', 'CLOSE']]
+        }
+     });
+    </script>
+    <script src="#{MATHJAX_ADDR}?config=AM_HTMLorMML"></script>
+    MATHJAX
+
+    def mathjax(open, close)
+      MATHJAX.gsub("OPEN", open).gsub("CLOSE", close)
+    end
+
     def html_preface(docxml)
       cover = Nokogiri::HTML(File.read(@htmlcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection1"]')
@@ -22,9 +37,8 @@ module IsoDoc
       cover = Nokogiri::HTML(File.read(@htmlintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="WordSection2"]')
       d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
-      body = docxml.at("//*[local-name() = 'body']")
-      body << '<script src="https://cdn.mathjax.org/mathjax/latest/'\
-        'MathJax.js?config=AM_HTMLorMML"></script>'
+      docxml.at("//*[local-name() = 'body']") << mathjax(@openmathdelim,
+                                                         @closemathdelim)
       docxml
     end
 
