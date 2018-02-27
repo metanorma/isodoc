@@ -61,6 +61,7 @@ module IsoDoc
         else
           r << "#{iso_bibitem_ref_code(b)}, "
         end
+        pp b
         b.at(ns("./formattedref")).children.each { |n| parse(n, r) }
       end
     end
