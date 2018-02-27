@@ -61,14 +61,13 @@ module IsoDoc
         else
           r << "#{iso_bibitem_ref_code(b)}, "
         end
-        pp b
         b.at(ns("./formattedref")).children.each { |n| parse(n, r) }
       end
     end
 
     ISO_PUBLISHER_XPATH =
       "./contributor[xmlns:role/@type = 'publisher']/"\
-      "organization[name = 'ISO']".freeze
+      "organization[name = 'ISO' | name = 'IEC']".freeze
 
     def split_bibitems(f)
       iso_bibitem = []
