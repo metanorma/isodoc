@@ -63,11 +63,10 @@ module IsoDoc
 
     def inline_header_cleanup(docxml)
       docxml.xpath('//span[@class="zzMoveToFollowing"]').each do |x|
+        x["class"] = nil
         n = x.next_element
         if n.nil?
-          html = Nokogiri::XML.fragment("<p></p>")
-          html.parent = x.parent
-          x.parent = html
+          x.name = "p"
         else
           n.children.first.add_previous_sibling(x.remove)
         end
