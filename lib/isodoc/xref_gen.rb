@@ -170,6 +170,7 @@ module IsoDoc
     end
 
     def section_names(clause, num, lvl)
+      return if clause.nil?
       @anchors[clause["id"]] = { label: num, xref: "Clause #{num}", level: lvl }
       clause.xpath(ns("./subsection | ./term  | ./terms | ./symbols-abbrevs")).
         each_with_index do |c, i|
