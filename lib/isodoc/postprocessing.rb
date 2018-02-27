@@ -33,10 +33,10 @@ module IsoDoc
         extract_symbols_list(dl).each do |dtd|
           tr = dl.add_child("<tr></tr>").first
           dtd[:dt].name = "td"
-          dtd[:dt]["valign"] = "top;"
+          dtd[:dt]["valign"] = "top"
           dtd[:dt].parent = tr
           dtd[:dd].name = "td"
-          dtd[:dd]["valign"] = "top;"
+          dtd[:dd]["valign"] = "top"
           dtd[:dd].parent = tr
         end
       end
