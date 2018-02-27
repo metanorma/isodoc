@@ -53,6 +53,7 @@ module IsoDoc
       end
     end
 
+    # TODO generate formatted ref if not present
     def noniso_bibitem(list, b, ordinal, bibliography)
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
         if bibliography
@@ -67,7 +68,7 @@ module IsoDoc
 
     ISO_PUBLISHER_XPATH =
       "./contributor[xmlns:role/@type = 'publisher']/"\
-      "organization[name = 'ISO' | name = 'IEC']".freeze
+      "organization[name = 'ISO' or name = 'IEC']".freeze
 
     def split_bibitems(f)
       iso_bibitem = []
