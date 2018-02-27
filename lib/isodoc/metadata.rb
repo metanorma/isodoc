@@ -130,7 +130,7 @@ module IsoDoc
     end
 
     def compose_title(main, intro, part, partnum, subpartnum, lang)
-      main = @c.encode(main.text, :hexadecimal)
+      main = main.nil? ? "" : @c.encode(main.text, :hexadecimal)
       intro &&
         main = "#{@c.encode(intro.text, :hexadecimal)}&nbsp;&mdash; #{main}"
       if part
