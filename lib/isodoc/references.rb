@@ -68,7 +68,7 @@ module IsoDoc
 
     ISO_PUBLISHER_XPATH =
       "./contributor[xmlns:role/@type = 'publisher']/"\
-      "organization[name = 'ISO' or name = 'IEC']".freeze
+      "organization[name = 'ISO' or xmlns:name = 'IEC']".freeze
 
     def split_bibitems(f)
       iso_bibitem = []
