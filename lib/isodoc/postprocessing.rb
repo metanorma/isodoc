@@ -23,7 +23,21 @@ module IsoDoc
     def word_cleanup(docxml)
       word_preface(docxml)
       word_annex_cleanup(docxml)
+      word_dl_cleanup(docxml)
       docxml
+    end
+
+    def word_dl_cleanup(docxml)
+      docxml.xpath("//dl").each do |dl|
+        dl.name = "table"
+        extract_symbols_list(dl).each do |dtd|
+          tr = dl.add_child("<tr></tr>").first
+          dtd[:dt].name = "td"
+          dtd[:dt].parent = tr
+          dtd[:dd].name = "td"
+          dtd[:dd].parent = tr
+        end
+      end
     end
 
     # force Annex h2 to be p.h2Annex, so it is not picked up by ToC

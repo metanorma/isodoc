@@ -9,7 +9,7 @@ module IsoDoc
     end
 
     def clause_parse_title(node, div, c1, out)
-      if node["inline-header"]
+      if node["inline-header"] == "true"
         inline_header_title(out, node, c1)
       else
         div.send "h#{get_anchors[node['id']][:level]}" do |h|
@@ -56,6 +56,7 @@ module IsoDoc
         end
         h1 << title
       end
+      div.parent.at(".//h1")
     end
 
     def clause(isoxml, out)
@@ -65,7 +66,7 @@ module IsoDoc
           c.elements.each do |c1|
             if c1.name == "title"
               clause_name("#{get_anchors[c['id']][:label]}.",
-                          c1.text, s, c["inline-header"], nil)
+                          c1.text, s, c["inline-header"] == "true", nil)
             else
               parse(c1, s)
             end
