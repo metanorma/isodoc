@@ -49,9 +49,8 @@ module IsoDoc
     end
 
     SECTIONS_XPATH =
-      "//foreword | //introduction | //sections/terms | "\
-      "//sections/clause | //references[not(ancestor::references)] | "\
-      "//annex".freeze
+      "//foreword | //introduction | //sections/terms | //annex | "\
+      "//sections/clause | //references[not(ancestor::references)]".freeze
 
     CHILD_NOTES_XPATH =
       "./*[not(self::xmlns:subsection)]//xmlns:note | ./xmlns:note".freeze
@@ -204,28 +203,6 @@ module IsoDoc
       clause.xpath(ns(".//subsection")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
       end
-    end
-
-    def format_ref(ref, isopub)
-      return "ISO #{ref}" if isopub
-      return "[#{ref}]" if /^\d+$/.match?(ref) && !/^\[.*\]$/.match?(ref)
-      ref
-    end
-
-    def reference_names(ref)
-      isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
-      docid = ref.at(ns("./docidentifier"))
-      return ref_names(ref) unless docid
-      date = ref.at(ns("./date[@type = 'published']"))
-      reference = format_ref(docid.text, isopub)
-      reference += ": #{date.text}" if date && isopub
-      @anchors[ref["id"]] = { xref: reference }
-    end
-
-    def ref_names(ref)
-      linkend = ref.text
-      linkend.gsub!(/[\[\]]/, "") unless /^\[\d+\]$/.match? linkend
-      @anchors[ref["id"]] = { xref: linkend }
     end
   end
 end
