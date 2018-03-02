@@ -51,18 +51,24 @@ module IsoDoc
       out.a **{ "href": "#" + node["target"] } { |l| l << linkend }
     end
 
+    def eref_localities1(type, from, to)
+      subsection = from && from.text.match?(/\./)
+      ret = ","
+      ret += type.capitalize if subsection && type == "clause"
+      ret += " #{from.text}" if from
+      ret += "&ndash;#{to.text}" if to
+      ret
+    end
+
     def eref_localities(refs)
       ret = ""
       refs.each do |r|
-        if r["type"] == "whole"
-          ret += ", Whole of text"
-        else
-          ret += ", #{r["type"].capitalize}"
-          ref_from = r.at(ns("./referenceFrom"))
-          ref_to = r.at(ns("./referenceTo"))
-          ret += " #{ref_from.text}" if ref_from
-          ret += "&ndash;#{ref_to.text}" if ref_to
-        end
+        ret += if r["type"] == "whole"
+                 ", Whole of text"
+               else
+                 eref_localities1(r["type"], r.at(ns("./referenceFrom")),
+                                  r.at(ns("./referenceTo")))
+               end
       end
       ret
     end
