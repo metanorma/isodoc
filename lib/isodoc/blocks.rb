@@ -88,10 +88,24 @@ module IsoDoc
 
     def example_parse(node, out)
       name = node.at(ns("./name"))
+=begin
       out.div **attr_code(id: node["id"], class: "example") do |div|
         out.p { |p| p << example_label(node) }
         node.children.each do |n|
           parse(n, div)
+        end
+      end
+=end
+      out.table **attr_code(id: node["id"], class: "example") do |t|
+        t.tr do |tr|
+          tr.td **{width: "2cm"} do |td|
+            td << example_label(node)
+          end
+          tr.td do |td|
+            node.children.each do |n|
+              parse(n, td)
+            end
+          end
         end
       end
     end
