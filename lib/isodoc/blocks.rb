@@ -98,7 +98,7 @@ module IsoDoc
 =end
       out.table **attr_code(id: node["id"], class: "example") do |t|
         t.tr do |tr|
-          tr.td **{width: "70pt", valign: "top"} do |td|
+          tr.td **{width: "75pt", valign: "top"} do |td|
             td << example_label(node)
           end
           tr.td **{valign: "top"} do |td|
