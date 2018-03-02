@@ -98,10 +98,10 @@ module IsoDoc
 =end
       out.table **attr_code(id: node["id"], class: "example") do |t|
         t.tr do |tr|
-          tr.td **{width: "2cm"} do |td|
+          tr.td **{width: "2.5cm", valign: "top"} do |td|
             td << example_label(node)
           end
-          tr.td do |td|
+          tr.td **{valign: "top"} do |td|
             node.children.each do |n|
               parse(n, td)
             end
