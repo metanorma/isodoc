@@ -46,6 +46,7 @@ module IsoDoc
       @wordcoverpage = options[:wordcoverpage]
       @htmlintropage = options[:htmlintropage]
       @wordintropage = options[:wordintropage]
+      @i18nyaml = options[:i18nyaml]
       @termdomain = ""
       @termexample = false
       @note = false

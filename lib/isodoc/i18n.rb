@@ -1,3 +1,5 @@
+require "yaml"
+
 module IsoDoc
   class Convert
 
@@ -374,7 +376,47 @@ module IsoDoc
                     }.freeze
                   end
 
-
+      if @i18nyaml
+        y = YAML.load_file(@i18nyaml)
+        @term_def_boilerplate = y["term_def_boilerplate"]
+        @scope_lbl = y["scope"]
+        @symbols_lbl = y["symbols"]
+        @introduction_lbl = y["introduction"]
+        @foreword_lbl = y["foreword"]
+        @termsdef_lbl = y["termsdef"]
+        @termsdefsymbols_lbl = y["termsdefsymbols"]
+        @normref_lbl = y["normref"]
+        @bibiliography_lbl = y["bibliography"]
+        @clause_lbl = y["clause"]
+        @annex_lbl = y["annex"]
+        @no_terms_boilerplate = y["no_terms_boilerplate"]
+        @internal_terms_boilerplate = y["internal_terms_boilerplate"]
+        @norm_with_refs_pref = y["norm_with_refs_pref"]
+        @norm_empty_pref = y["norm_empty_pref"]
+        @external_terms_boilerplate = y["external_terms_boilerplate"]
+        @internal_external_terms_boilerplate =
+          y["internal_external_terms_boilerplate"]
+        @note_lbl = y["note"]
+        @note_xref_lbl = y["note_xref"]
+        @termnote_lbl = y["termnote"]
+        @figure_lbl = y["figure"]
+        @formula_lbl = y["formula"]
+        @table_lbl = y["table"]
+        @key_lbl = y["key"]
+        @example_lbl = y["example"]
+        @example_xref_lbl = y["example_xref"]
+        @where_lbl = y["where"]
+        @wholeoftext_lbl = y["wholeoftext"]
+        @draft_lbl = y["draft"]
+        @inform_annex_lbl = y["inform_annex"]
+        @norm_annex_lbl = y["norm_annex"]
+        @modified_lbl = y["modified"]
+        @deprecated_lbl = y["deprecated"]
+        @source_lbl = y["source"]
+        @and_lbl = y["and"]
+        @all_parts_lbl = y["all_parts"]
+        @locality = y["locality"]
+      end
     end
 
     def eref_localities1(type, from, to, lang = "en")
