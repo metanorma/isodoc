@@ -12,7 +12,7 @@ module IsoDoc
     end
 
     def make_body(xml, docxml)
-      @lang = docxml&.at("//bibdata/language")&.text || "en"
+      i18n_init(docxml&.at(ns("//bibdata/language"))&.text || "en")
       body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
       xml.body **body_attr do |body|
         make_body1(body, docxml)
