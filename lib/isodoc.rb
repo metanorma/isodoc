@@ -72,6 +72,8 @@ module IsoDoc
       docxml = Nokogiri::XML(File.read(filename))
       filename, dir = init_file(filename)
       docxml.root.default_namespace = ""
+      i18n_init(docxml&.at(ns("//bibdata/language"))&.text || "en",
+                docxml&.at(ns("//bibdata/script"))&.text || "Latn")
       result = noko do |xml|
         xml.html do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")

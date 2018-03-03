@@ -166,7 +166,6 @@ module IsoDoc
                          "Note".freeze
                        end
 
-puts "A"
       @termnote_lbl = case lang
                         when "zh" then "注%".freeze
                         else
@@ -279,6 +278,12 @@ puts "A"
                       paragraph: "段",
                       chapter: "章",
                       page: "页",
+                      table: "表",
+                      annex: "附录",
+                      figure: "图",
+                      example: "示例",
+                      note: "注",
+                      formula: "公式",
                     }.freeze
                   else
                     {
@@ -288,6 +293,12 @@ puts "A"
                       paragraph: "Paragraph",
                       chapter: "Chapter",
                       page: "Page",
+                      table: "Table",
+                      annex: "Annex",
+                      figure: "Figure",
+                      example: "Example",
+                      note: "Note",
+                      formula: "Formula",
                     }.freeze
                   end
 
@@ -297,7 +308,7 @@ puts "A"
     def eref_localities1(type, from, to, lang = "en")
       subsection = from && from.text.match?(/\./)
       if lang = "zh"
-        ret += ", 第#{from.text}" if from
+        ret = ", 第#{from.text}" if from
         ret += "&ndash;#{to}" if to
         ret += @locality[type.to_sym]
       else

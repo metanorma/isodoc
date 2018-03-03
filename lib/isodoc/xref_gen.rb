@@ -39,7 +39,7 @@ module IsoDoc
     end
 
     def termnote_label(n)
-      @termnote_lbl.gsub(/%/, n)
+      @termnote_lbl.gsub(/%/, n.to_s)
     end
 
     def termnote_anchor_names(docxml)
