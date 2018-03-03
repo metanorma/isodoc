@@ -272,7 +272,7 @@ module IsoDoc
                          end
 
       @draft_lbl = case lang
-                   when "zh" then "意见稿".freeze
+                   when "zh" then "稿".freeze
                    when "fr" then "brouillon".freeze
                    else
                      "draft".freeze
