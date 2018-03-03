@@ -93,24 +93,13 @@ module IsoDoc
       end
     end
 
-    NORM_WITH_REFS_PREF = <<~BOILERPLATE.freeze
-      The following documents are referred to in the text in such a way
-      that some or all of their content constitutes requirements of this
-      document. For dated references, only the edition cited applies.
-      For undated references, the latest edition of the referenced
-      document (including any amendments) applies.
-    BOILERPLATE
-
-    NORM_EMPTY_PREF =
-      "There are no normative references in this document.".freeze
-
     def norm_ref_preface(f, div)
       refs = f.elements.select do |e|
         ["reference", "bibitem"].include? e.name
       end
-      pref = if refs.empty? then self.class::NORM_EMPTY_PREF
+      pref = if refs.empty? then @norm_empty_pref
              else
-               self.class::NORM_WITH_REFS_PREF
+               @norm_with_refs_pref
              end
       div.p pref
     end
@@ -119,7 +108,7 @@ module IsoDoc
       q = "./*/references[title = 'Normative References']"
       f = isoxml.at(ns(q)) || return
       out.div do |div|
-        clause_name("2.", "Normative References", div, false, nil)
+        clause_name("2.", @normref_lbl, div, false, nil)
         norm_ref_preface(f, div)
         biblio_list(f, div, false)
       end

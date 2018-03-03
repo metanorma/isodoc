@@ -77,6 +77,22 @@ module IsoDoc
         else
           "Terms, Definitions, Symbols and Abbreviated Terms".freeze
         end
+        
+    @normref_lbl =
+    case lang
+    when "zh"
+    "规范性引用文件".freeze
+    else
+    "Normative References".freeze
+    end
+
+    @bibliography_lbl =
+    case lang
+    when "zh"
+    "参考文献".freeze
+    else
+    "Bibliography".freeze
+    end
 
       @no_terms_boilerplate =
         case lang
@@ -95,6 +111,31 @@ module IsoDoc
             "the following terms and definitions apply.</p>".freeze
         end
 
+@norm_with_refs_pref =
+case lang
+when "zh"
+<<~BOILERPLATE
+          下列文件对于本文件的应用是必不可少的。
+          凡是注日期的引用文件，仅注日期的版本适用于本文件。
+          凡是不注日期的引用文件，其最新版本（包括所有的修改单）适用于本文件。
+      BOILERPLATE
+      else
+<<~BOILERPLATE.freeze
+      The following documents are referred to in the text in such a way
+      that some or all of their content constitutes requirements of this
+      document. For dated references, only the edition cited applies.
+      For undated references, the latest edition of the referenced
+      document (including any amendments) applies.
+    BOILERPLATE
+end
+
+@norm_empty_pref =
+case lang
+when "zh"
+ "本文件并没有规范性引用文件。".freeze
+else
+"There are no normative references in this document.".freeze
+end
 
     end
 
