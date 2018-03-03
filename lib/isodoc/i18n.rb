@@ -421,7 +421,7 @@ module IsoDoc
 
     def eref_localities1(type, from, to, lang = "en")
       subsection = from && from.text.match?(/\./)
-      if lang = "zh"
+      if lang == "zh"
         ret = ", 第#{from.text}" if from
         ret += "&ndash;#{to}" if to
         ret += @locality[type.to_sym]
@@ -437,7 +437,7 @@ module IsoDoc
     # function localising spaces and punctuation.
     # Not clear if period needs to be localised for zh
     def l10n(x, lang = @lang, script = @script)
-      if lang == "zh" && script = "Hans"
+      if lang == "zh" && script == "Hans"
         x.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、").
           gsub(/\(/, "（").gsub(/\)/, "）").
           gsub(/\[/, "【").gsub(/\]/, "】").
