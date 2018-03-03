@@ -127,7 +127,7 @@ module IsoDoc
     def part_label(lang)
       case lang
       when "en" then "Part"
-      when "fr" then "Part"
+      when "fr" then "Partie"
       end
     end
 
