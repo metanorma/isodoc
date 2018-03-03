@@ -68,20 +68,34 @@ module IsoDoc
       @script = "Latn"
     end
 
-    def convert(filename)
-      @openmathdelim, @closemathdelim = extract_delims(File.read(filename))
-      docxml = Nokogiri::XML(File.read(filename))
-      filename, dir = init_file(filename)
-      docxml.root.default_namespace = ""
-      i18n_init(docxml&.at(ns("//bibdata/language"))&.text || "en",
-                docxml&.at(ns("//bibdata/script"))&.text || "Latn")
-      result = noko do |xml|
+    def convert1(docxml, filename, dir)
+      noko do |xml|
         xml.html do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
           html_header(html, docxml, filename, dir)
           make_body(html, docxml)
         end
       end.join("\n")
+    end
+
+    def convert_init(file, filename)
+      docxml = Nokogiri::XML(file)
+      filename, dir = init_file(filename)
+      docxml.root.default_namespace = ""
+      i18n_init(docxml&.at(ns("//bibdata/language"))&.text || "en",
+                docxml&.at(ns("//bibdata/script"))&.text || "Latn")
+      [docxml, filename, dir]
+    end
+
+    def convert(filename, debug = false)
+      convert_file(File.read(filename), filename, debug)
+    end
+
+    def convert_file(file, filename, debug)
+      @openmathdelim, @closemathdelim = extract_delims(file)
+      docxml, filename, dir = convert_init(file, filename)
+      result = convert1(docxml, filename, dir)
+      return result if debug
       postprocess(result, filename, dir)
     end
   end

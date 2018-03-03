@@ -94,6 +94,7 @@ module IsoDoc
     def define_head(html, filename, dir)
       html.head do |head|
         head.title { |t| t << filename }
+        return unless @standardstylesheet
         head.style do |style| stylesheet = File.read(@standardstylesheet).
             gsub("FILENAME", filename)
           style.comment "\n#{stylesheet}\n"

@@ -26,6 +26,7 @@ module IsoDoc
 
     def middle_section_asset_names(d)
       middle_sections = "//clause[title = 'Scope'] | "\
+        "//foreword | //introduction | "\
         "//references[title = 'Normative References'] | //sections/terms | "\
         "//sections/symbols-abbrevs | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))

@@ -4,7 +4,6 @@ SimpleCov.start do
 end
 
 require "bundler/setup"
-require "asciidoctor"
 require "isodoc"
 require "rspec/matchers"
 require "equivalent-xml"

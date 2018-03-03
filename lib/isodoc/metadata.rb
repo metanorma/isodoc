@@ -84,7 +84,7 @@ module IsoDoc
       docnumber = isoxml.at(ns("//project-number"))
       partnumber = isoxml.at(ns("//project-number/@part"))
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
-      dn = docnumber.text
+      dn = docnumber&.text || ""
       dn += "-#{partnumber.text}" if partnumber
       dn += "-#{subpartnumber.text}" if subpartnumber
       dn
@@ -114,7 +114,7 @@ module IsoDoc
 
     def version(isoxml, _out)
       yr = isoxml.at(ns("//copyright/from"))
-      set_metadata(:docyear, yr.text)
+      set_metadata(:docyear, yr&.text)
       draft = isoxml.at(ns("//version/draft"))
       set_metadata(:draft, draft.nil? ? nil : draft.text)
       revdate = isoxml.at(ns("//version/revision-date"))
