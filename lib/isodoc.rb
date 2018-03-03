@@ -23,6 +23,7 @@ require_relative "isodoc/inline"
 require_relative "isodoc/notes"
 require_relative "isodoc/xref_gen"
 require_relative "isodoc/html"
+require_relative "isodoc/i18n"
 require "pp"
 
 module IsoDoc
@@ -62,6 +63,7 @@ module IsoDoc
       @c = HTMLEntities.new
       @openmathdelim = "`"
       @closemathdelim = "`"
+      @lang = "en"
     end
 
     def convert(filename)

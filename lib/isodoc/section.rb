@@ -106,18 +106,6 @@ module IsoDoc
       end
     end
 
-    TERM_DEF_BOILERPLATE = <<~BOILERPLATE.freeze
-      <p>ISO and IEC maintain terminological databases for use in
-      standardization at the following addresses:</p>
-
-      <ul> 
-      <li> <p>ISO Online browsing platform: available at
-        <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-      <li> <p>IEC Electropedia: available at
-        <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-      </p> </li> </ul>
-    BOILERPLATE
-
     def term_defs_boilerplate(div, source, term)
       if source.empty? && term.nil?
         div << "<p>No terms and definitions are listed in this document.</p>"

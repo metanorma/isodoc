@@ -14,7 +14,8 @@ module IsoDoc
       )
     end
 
-    MATHJAX_ADDR = "https://cdn.mathjax.org/mathjax/latest/MathJax.js".freeze
+    MATHJAX_ADDR =
+      "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js".freeze
     MATHJAX = <<~"MATHJAX".freeze
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
