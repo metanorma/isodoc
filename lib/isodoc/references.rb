@@ -1,9 +1,13 @@
 module IsoDoc
   class Convert
+    def docid_l10n(x)
+      x.gsub(/All Parts/, @all_parts_lbl)
+    end
+
     def iso_bibitem_ref_code(b)
-      isocode = b.at(ns("./docidentifier"))
+      isocode = b.at(ns("./docidentifier")).text
       isodate = b.at(ns("./date[@type = 'published']"))
-      reference = isocode.text
+      reference = docid_l10n(isocode)
       reference += ": #{isodate.text}" if isodate
       reference
     end
@@ -57,8 +61,8 @@ module IsoDoc
     def noniso_bibitem(list, b, ordinal, bibliography)
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
         if bibliography
-          ref_entry_code(r, ordinal,
-                         b.at(ns("./docidentifier")).text.gsub(/[\[\]]/, ""))
+          id = docid_l10n(b.at(ns("./docidentifier")).text.gsub(/[\[\]]/, ""))
+          ref_entry_code(r, ordinal, id)
         else
           r << "#{iso_bibitem_ref_code(b)}, "
         end
@@ -119,7 +123,7 @@ module IsoDoc
       f = isoxml.at(ns(q)) || return
       page_break(out)
       out.div do |div|
-        div.h1 "Bibliography", **{ class: "Section3" }
+        div.h1 @bibliography_lbl, **{ class: "Section3" }
         f.elements.reject do |e|
           ["reference", "title", "bibitem"].include? e.name
         end.each { |e| parse(e, div) }
@@ -138,7 +142,7 @@ module IsoDoc
       docid = ref.at(ns("./docidentifier"))
       return ref_names(ref) unless docid
       date = ref.at(ns("./date[@type = 'published']"))
-      reference = format_ref(docid.text, isopub)
+      reference = format_ref(docid_l10n(docid.text), isopub)
       reference += ": #{date.text}" if date && isopub
       @anchors[ref["id"]] = { xref: reference }
     end

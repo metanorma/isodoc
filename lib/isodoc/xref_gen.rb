@@ -38,12 +38,17 @@ module IsoDoc
       end
     end
 
+    def termnote_label(n)
+      @termnote_lbl.gsub(/%/, n)
+    end
+
     def termnote_anchor_names(docxml)
       docxml.xpath(ns("//term[termnote]")).each do |t|
         t.xpath(ns("./termnote")).each_with_index do |n, i|
           @anchors[n["id"]] = 
-            { label: "Note #{i + 1} to entry",
-              xref: "#{@anchors[t['id']][:xref]}, Note #{i + 1}" }
+            { label: termnote_label(i + 1),
+              xref: l10n("#{@anchors[t['id']][:xref]}, "\
+                         "#{@note_xref_lbl} #{i + 1}") }
         end
       end
     end
@@ -62,7 +67,7 @@ module IsoDoc
           next if @anchors[n["id"]]
           next if n["id"].nil?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, s, "Note")
+          @anchors[n["id"]] = anchor_struct(idx, s, @note_xref_lbl)
         end
         note_anchor_names(s.xpath(ns("./subsection")))
       end
@@ -78,7 +83,7 @@ module IsoDoc
         notes.each_with_index do |n, i|
           next if @anchors[n["id"]]
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, s, "Example")
+          @anchors[n["id"]] = anchor_struct(idx, s, @example_xref_lbl)
         end
         example_anchor_names(s.xpath(ns("./subsection")))
       end
@@ -116,13 +121,14 @@ module IsoDoc
           i += 1
         end
         label = i.to_s + (j.zero? ? "" : "-#{j}")
-        @anchors[t["id"]] = anchor_struct(label, nil, "Figure")
+        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl)
       end
     end
 
     def anchor_struct(lbl, container, elem)
       ret = { label: lbl.to_s }
-      ret[:xref] = elem == "Formula" ? "#{elem} (#{lbl})" : "#{elem} #{lbl}"
+      ret[:xref] = 
+        elem == "Formula" ? l10n("#{elem} (#{lbl})") : l10n("#{elem} #{lbl}")
       ret[:xref].gsub!(/ $/, "")
       ret[:container] = get_clause_id(container) unless container.nil?
       ret
@@ -130,11 +136,11 @@ module IsoDoc
 
     def sequential_asset_names(clause)
       clause.xpath(ns(".//table")).each_with_index do |t, i|
-        @anchors[t["id"]] = anchor_struct(i + 1, nil, "Table")
+        @anchors[t["id"]] = anchor_struct(i + 1, nil, @table_lbl)
       end
       sequential_figure_names(clause)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
-        @anchors[t["id"]] = anchor_struct(i + 1, t, "Formula")
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @formula_lbl)
       end
     end
 
@@ -147,17 +153,17 @@ module IsoDoc
           i += 1
         end
         label = "#{num}.#{i}" + (j.zero? ? "" : "-#{j}")
-        @anchors[t["id"]] = anchor_struct(label, nil, "Figure")
+        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl)
       end
     end
 
     def hierarchical_asset_names(clause, num)
       clause.xpath(ns(".//table")).each_with_index do |t, i|
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", nil, "Table")
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", nil, @table_lbl)
       end
       hierarchical_figure_names(clause, num)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", t, "Formula")
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", t, @formula_lbl)
       end
     end
 
@@ -170,7 +176,8 @@ module IsoDoc
 
     def section_names(clause, num, lvl)
       return if clause.nil?
-      @anchors[clause["id"]] = { label: num, xref: "Clause #{num}", level: lvl }
+      @anchors[clause["id"]] = 
+        { label: num, xref: l10n("#{@clause_lbl} #{num}"), level: lvl }
       clause.xpath(ns("./subsection | ./term  | ./terms | ./symbols-abbrevs")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", lvl + 1)
@@ -188,10 +195,11 @@ module IsoDoc
     end
 
     def annex_names(clause, num)
-      obligation = "(Informative)"
-      obligation = "(Normative)" if clause["obligation"] == "normative"
-      label = "<b>Annex #{num}</b><br/>#{obligation}"
-      @anchors[clause["id"]] = { label: label, xref: "Annex #{num}", level: 1 }
+      obl = l10n("(#{@inform_annex_lbl})")
+      obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
+      label = l10n("<b>#{@annex_lbl} #{num}</b><br/>#{obl}")
+      @anchors[clause["id"]] =
+        { label: label, xref: "#{@annex_lbl} #{num}", level: 1 }
       clause.xpath(ns("./subsection")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)
       end

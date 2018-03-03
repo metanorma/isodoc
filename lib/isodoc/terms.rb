@@ -12,7 +12,7 @@ module IsoDoc
 
     def deprecated_term_parse(node, out)
       out.p **{ class: "DeprecatedTerms" } do |p|
-        p << "DEPRECATED: #{node.text}"
+        p << l10n("#{@deprecated_lbl}: #{node.text}")
       end
     end
 
@@ -37,7 +37,7 @@ module IsoDoc
       out.div **{ class: "Note" } do |div|
         first = node.first_element_child
         div.p **{ class: "Note" } do |p|
-          p << "EXAMPLE:"
+          p << l10n("#{@example_lbl}:")
           insert_tab(p, 1)
           para_then_remainder(first, node, p)
         end

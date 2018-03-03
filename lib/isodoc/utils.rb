@@ -75,8 +75,9 @@ module IsoDoc
     end
 
     CLAUSE_ANCESTOR =
-      ".//ancestor::*[local-name() = 'subsection' or local-name() = 'foreword' "\
-      "or local-name() = 'introduction' or local-name() = 'terms' or "\
+      ".//ancestor::*[local-name() = 'subsection' or "\
+      "local-name() = 'foreword' or "\
+      "local-name() = 'introduction' or local-name() = 'terms' or "\
       "local-name() = 'clause' or local-name() = 'references' or "\
       "local-name() = 'annex']/@id".freeze
 
@@ -104,7 +105,7 @@ module IsoDoc
       if array.length == 1
         result = array[0]
       else
-        result = "#{array[0..-2].join(', ')} and #{array.last}"
+        result = l10n("#{array[0..-2].join(', ')} #{@and_lbl} #{array.last}")
       end
     end
 

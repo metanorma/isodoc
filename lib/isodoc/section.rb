@@ -106,6 +106,14 @@ module IsoDoc
       end
     end
 
+        def external_terms_boilerplate(sources)
+      @external_terms_boilerplate.gsub(/%/, sources)
+    end
+
+    def internal_external_terms_boilerplate(sources)
+      @internal_external_terms_boilerplate.gsub(/%/, sources)
+    end
+
     def term_defs_boilerplate(div, source, term)
       if source.empty? && term.nil?
         div << @no_terms_boilerplate

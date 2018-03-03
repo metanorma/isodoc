@@ -105,11 +105,11 @@ module IsoDoc
     def draftinfo(draft, revdate)
       draftinfo = ""
       if draft
-        draftinfo = " (draft #{draft.text}"
+        draftinfo = " (#{@draft_lbl} #{draft.text}"
         draftinfo += ", #{revdate.text}" if revdate
         draftinfo += ")"
       end
-      draftinfo
+      l10n(draftinfo)
     end
 
     def version(isoxml, _out)
@@ -122,6 +122,8 @@ module IsoDoc
       set_metadata(:draftinfo, draftinfo(draft, revdate))
     end
 
+    # we don't leave this to i18n.rb, because we have both English and
+    # French titles in the same document
     def part_label(lang)
       case lang
       when "en" then "Part"

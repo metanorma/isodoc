@@ -12,7 +12,8 @@ module IsoDoc
     end
 
     def make_body(xml, docxml)
-      i18n_init(docxml&.at(ns("//bibdata/language"))&.text || "en")
+      i18n_init(docxml&.at(ns("//bibdata/language"))&.text || "en",
+                docxml&.at(ns("//bibdata/script"))&.text || "Latn")
       body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
       xml.body **body_attr do |body|
         make_body1(body, docxml)
@@ -139,8 +140,6 @@ module IsoDoc
         when "domain" then set_termdomain(node.text)
         when "definition" then definition_parse(node, out)
         when "termsource" then termref_parse(node, out)
-        when "isosection"
-          out << "[ISOSECTION] #{node.text}"
         when "modification" then modification_parse(node, out)
         when "termnote" then termnote_parse(node, out)
         when "termexample" then termexample_parse(node, out)

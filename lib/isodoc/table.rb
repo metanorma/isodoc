@@ -4,8 +4,8 @@ module IsoDoc
       name = node.at(ns("./name"))
         out.p **{ class: "TableTitle", align: "center" } do |p|
           p.b do |b|
-            b << "Table #{get_anchors()[node['id']][:label]}"
-            b << "&nbsp;&mdash; #{name.text}" if name
+            b << l10n("#{@table_lbl} #{get_anchors()[node['id']][:label]}")
+            b << l10n("&nbsp;&mdash; #{name.text}") if name
           end
         end
     end

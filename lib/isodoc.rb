@@ -64,6 +64,7 @@ module IsoDoc
       @openmathdelim = "`"
       @closemathdelim = "`"
       @lang = "en"
+      @script = "Latn"
     end
 
     def convert(filename)

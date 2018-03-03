@@ -64,10 +64,10 @@ module IsoDoc
     def populate_template(docxml, _format)
       meta = get_metadata
       docxml = docxml.
-        gsub(/\[TERMREF\]\s*/, "[SOURCE: ").
-        gsub(/\s*\[\/TERMREF\]\s*/, "]").
-        gsub(/\s*\[ISOSECTION\]/, ", ").
-        gsub(/\s*\[MODIFICATION\]/, ", modified &mdash; ")
+        gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
+        gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
+        gsub(/\s*\[ISOSECTION\]/, l10n(", ")).
+        gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
       template = Liquid::Template.parse(docxml)
       template.render(meta.map { |k, v| [k.to_s, v] }.to_h)
     end

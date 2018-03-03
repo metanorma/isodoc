@@ -23,8 +23,8 @@ module IsoDoc
 
     def note_label(node)
       n = get_anchors()[node["id"]]
-      return "NOTE" if n.nil? || n[:label].empty?
-      "NOTE #{n[:label]}"
+      return @note_lbl if n.nil? || n[:label].empty?
+      l10n("#{@note_lbl} #{n[:label]}")
     end
 
     def note_p_parse(node, div)
@@ -55,7 +55,7 @@ module IsoDoc
     def figure_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p.b do |b|
-          b << "Figure #{get_anchors()[node['id']][:label]}"
+          b << l10n("#{@figure_lbl} #{get_anchors()[node['id']][:label]}")
           b << "&nbsp;&mdash; #{name.text}" if name
         end
       end
@@ -63,7 +63,7 @@ module IsoDoc
 
     def figure_key(out)
       out.p do |p| 
-        p.b { |b| b << "Key" }
+        p.b { |b| b << @key_lbl }
       end
     end
 
@@ -82,9 +82,13 @@ module IsoDoc
 
     def example_label(node)
       n = get_anchors()[node["id"]]
-      return "EXAMPLE" if n.nil? || n[:label].empty?
-      "EXAMPLE #{n[:label]}"
+      return @example_lbl if n.nil? || n[:label].empty?
+      l10n("#{@example_lbl} #{n[:label]}")
     end
+
+    EXAMPLE_TBL_ATTR =
+      {width: "110pt", valign: "top",
+       style: "width:82.8pt;padding:.75pt .75pt .75pt .75pt"}.freeze
 
     def example_parse(node, out)
       name = node.at(ns("./name"))
@@ -98,7 +102,7 @@ module IsoDoc
 =end
       out.table **attr_code(id: node["id"], class: "example") do |t|
         t.tr do |tr|
-          tr.td **{width: "110pt", valign: "top", style: "width:82.8pt;padding:.75pt .75pt .75pt .75pt"} do |td|
+          tr.td **EXAMPLE_TBL_ATTR do |td|
             td << example_label(node)
           end
           tr.td **{valign: "top"} do |td|
@@ -147,7 +151,7 @@ module IsoDoc
     end
 
     def formula_where(dl, out)
-      out.p { |p| p << "where" }
+      out.p { |p| p << @where_lbl }
       parse(dl, out)
     end
 

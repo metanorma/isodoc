@@ -28,7 +28,7 @@ module IsoDoc
         linkend = get_anchors[node["target"]][:xref]
         container = get_anchors[node["target"]][:container]
         (container && get_note_container_id(node) != container) &&
-          linkend = get_anchors[container][:xref] + ", " + linkend
+          linkend = l10n(get_anchors[container][:xref] + ", " + linkend)
       end
       if node["citeas"].nil? && get_anchors.has_key?(node["bibitemid"])
         linkend = get_anchors[node["bibitemid"]][:xref]
@@ -51,20 +51,11 @@ module IsoDoc
       out.a **{ "href": "#" + node["target"] } { |l| l << linkend }
     end
 
-    def eref_localities1(type, from, to)
-      subsection = from && from.text.match?(/\./)
-      ret = ","
-      ret += type.capitalize if subsection && type == "clause"
-      ret += " #{from.text}" if from
-      ret += "&ndash;#{to.text}" if to
-      ret
-    end
-
     def eref_localities(refs)
       ret = ""
       refs.each do |r|
         ret += if r["type"] == "whole"
-                 ", Whole of text"
+                 l10n(", #{@whole_of_text}")
                else
                  eref_localities1(r["type"], r.at(ns("./referenceFrom")),
                                   r.at(ns("./referenceTo")))
