@@ -49,18 +49,16 @@ deprecated: 被取代
 source: 定义
 and: 和
 all_parts: 所有部分
-locality:
-                    {
-                      section: 条,
-                      clause: 条,
-                      part: 部分,s
-                      paragraph: 段,
-                      chapter: 章,
-                      page: 页,
-                      table: 表,
-                      annex: 附录,
-                      figure: 图,
-                      example: 示例,
-                      note: 注,
-                      formula: 公式,
-                    }
+locality: {
+  section: 条,
+  clause: 条,
+  part: 部分,
+  paragraph: 段,
+  chapter: 章,
+  page: 页,
+  table: 表,
+  annex: 附录,
+  figure: 图,
+  example: 示例,
+  note: 注
+}

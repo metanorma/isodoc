@@ -61,5 +61,5 @@ locality: {
                       figure: Figure,
                       example: Exemple,
                       note: Note,
-                      formula: Formule,
+                      formula: Formule
                     }
