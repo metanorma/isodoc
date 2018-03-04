@@ -1,0 +1,66 @@
+term_def_boilerplate: |
+      <p>ISO和IEC用于标准化的术语数据库地址如下：</p>
+      <ul>
+      <li> <p>ISO在线浏览平台:
+        位于<a href=http://www.iso.org/obp>http://www.iso.org/obp</a></p> </li>
+      <li> <p>IEC Electropedia:
+        位于<a href=http://www.electropedia.org>http://www.electropedia.org</a>
+      </p> </li> </ul>
+scope: 范围
+symbols: 符号、代号和缩略语
+introduction: then 引言
+foreword: 前言
+termsdef: 术语和定义
+termsdefsymbols_lbl: 术语、定义、符号、代号和缩略语
+normref: 规范性引用文件
+bibliography: 参考文献
+clause: 条
+annex: 附录
+no_terms_boilerplate: |
+          <p>本文件不提供术语和定义。</p>
+internal_terms_boilerplate: |
+          <p>下列术语和定义适用于本文件。</p>
+norm_with_refs_pref: 
+          下列文件对于本文件的应用是必不可少的。
+          凡是注日期的引用文件，仅注日期的版本适用于本文件。
+          凡是不注日期的引用文件，其最新版本（包括所有的修改单）适用于本文件。
+norm_empty_pref: 
+          本文件并没有规范性引用文件。
+external_terms_boilerplate: |
+          <p>% 界定的术语和定义适用于本文件。</p>
+internal_external_terms_boilerplate: |
+          <p>% 界定的以及下列术语和定义适用于本文件。</p>
+note: 注
+note_xref: 注
+termnote: 注%
+figure: 图
+formula: 公式
+table: 表
+key: 说明
+example: 示例
+example_xref: 示例
+where: 式中
+wholeoftext: 全部
+draft: 稿
+inform_annex: 资料性附录
+norm_annex: 规范性附录
+modified: 改写
+deprecated: 被取代
+source: 定义
+and: 和
+all_parts: 所有部分
+locality:
+                    {
+                      section: 条,
+                      clause: 条,
+                      part: 部分,s
+                      paragraph: 段,
+                      chapter: 章,
+                      page: 页,
+                      table: 表,
+                      annex: 附录,
+                      figure: 图,
+                      example: 示例,
+                      note: 注,
+                      formula: 公式,
+                    }

@@ -1,0 +1,65 @@
+term_def_boilerplate: |
+      <p>L'ISO et l'IEC tiennent à jour des bases de données terminologiques
+      destinées à être utilisées en normalisation, consultables aux adresses
+      suivantes:</p>
+      <ul>
+      <li> <p>ISO Online browsing platform: disponible à l'adresse
+        <a href=http://www.iso.org/obp>http://www.iso.org/obp</a></p> </li>
+      <li> <p>IEC Electropedia: disponible à l'adresse
+        <a href=http://www.electropedia.org>http://www.electropedia.org</a>
+      </p> </li> </ul>
+scope: Domaine d'application
+symbols: Symboles et termes abrégés
+introduction: Introduction
+foreword: Avant-propos
+termsdef: Terms et définitions
+termsdefsymbols: Terms, définitions, symboles et termes abrégés
+normref: Références normatives
+bibliography: then Bibliographie
+clause: then Article
+annex: Annexe
+no_terms_boilerplate: |
+          <p>Aucun terme n'est defini dans le présent document.</p>
+internal_terms_boilerplate: |
+         <p>Pour les besoins du présent document, les termes et définitions suivants s'appliquent.</p>
+norm_with_refs_pref: 
+     Les documents suivants cités dans le texte constituent, pour tout ou partie de leur contenu, des exigences du présent document. Pour les références datées, seule l’édition citée s'applique. Pour les références non datées, la dernière édition du document de référence s'applique (y compris les éventuels amendements).
+norm_empty_pref: 
+          Le présent document ne contient aucune référence normative.
+external_terms_boilerplate: |
+          <p>Pour les besoins du présent document, les termes et définitions de % s'appliquent.</p>
+internal_external_terms_boilerplate: |
+          <p>Pour les besoins du présent document, les termes et définitions de % ainsi que les suivants, s'appliquent.</p>
+note: NOTE
+note_xref: Note
+termnote: Note % à l'article
+figure: Figure
+formula: Formule
+table: Tableau
+key: Légende
+example: EXEMPLE
+example_xref: Exemple
+where: où
+wholeoftext: Ensemble du texte
+draft: brouillon
+inform_annex: informative
+norm_annex: normative
+modified: modifié
+deprecated: DÉCONSEILLÉ
+source: SOURCE
+and: et
+all_parts: toutes les parties
+locality: {
+                      section: Section,
+                      clause: Article,
+                      part: Partie,
+                      paragraph: Alinéa,
+                      chapter: Chapitre,
+                      page: Page,
+                      table: Tableau,
+                      annex: Annexe,
+                      figure: Figure,
+                      example: Exemple,
+                      note: Note,
+                      formula: Formule,
+                    }
