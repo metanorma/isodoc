@@ -66,7 +66,7 @@ module IsoDoc
         ret += @locality[type]
       else
         ret = ","
-        ret += @locality[type] if subsection && type == "clause"
+        ret += @locality[type] unless subsection && type == "clause"
         ret += " #{from.text}" if from
         ret += "&ndash;#{to.text}" if to
       end
