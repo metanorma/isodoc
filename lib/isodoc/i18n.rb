@@ -63,10 +63,10 @@ module IsoDoc
       if lang == "zh"
         ret = ", 第#{from.text}" if from
         ret += "&ndash;#{to}" if to
-        ret += @locality[type.to_sym]
+        ret += @locality[type]
       else
         ret = ","
-        ret += @locality[type.to_sym] if subsection && type == "clause"
+        ret += @locality[type] if subsection && type == "clause"
         ret += " #{from.text}" if from
         ret += "&ndash;#{to.text}" if to
       end
