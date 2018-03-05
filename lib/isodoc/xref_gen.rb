@@ -46,7 +46,7 @@ module IsoDoc
     def termnote_anchor_names(docxml)
       docxml.xpath(ns("//term[termnote]")).each do |t|
         t.xpath(ns("./termnote")).each_with_index do |n, i|
-          @anchors[n["id"]] = 
+          @anchors[n["id"]] =
             { label: termnote_label(i + 1),
               xref: l10n("#{@anchors[t['id']][:xref]}, "\
                          "#{@note_xref_lbl} #{i + 1}") }
@@ -128,7 +128,7 @@ module IsoDoc
 
     def anchor_struct(lbl, container, elem)
       ret = { label: lbl.to_s }
-      ret[:xref] = 
+      ret[:xref] =
         elem == "Formula" ? l10n("#{elem} (#{lbl})") : l10n("#{elem} #{lbl}")
       ret[:xref].gsub!(/ $/, "")
       ret[:container] = get_clause_id(container) unless container.nil?
@@ -177,7 +177,7 @@ module IsoDoc
 
     def section_names(clause, num, lvl)
       return if clause.nil?
-      @anchors[clause["id"]] = 
+      @anchors[clause["id"]] =
         { label: num, xref: l10n("#{@clause_lbl} #{num}"), level: lvl }
       clause.xpath(ns("./subsection | ./term  | ./terms | ./symbols-abbrevs")).
         each_with_index do |c, i|

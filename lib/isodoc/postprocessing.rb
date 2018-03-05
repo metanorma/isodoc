@@ -27,17 +27,21 @@ module IsoDoc
       docxml
     end
 
+    def word_dl_cleanup1(dtd, tr)
+      dtd[:dt].name = "td"
+      dtd[:dt]["valign"] = "top"
+      dtd[:dt].parent = tr
+      dtd[:dd].name = "td"
+      dtd[:dd]["valign"] = "top"
+      dtd[:dd].parent = tr
+    end
+
     def word_dl_cleanup(docxml)
       docxml.xpath("//dl").each do |dl|
         dl.name = "table"
         extract_symbols_list(dl).each do |dtd|
           tr = dl.add_child("<tr></tr>").first
-          dtd[:dt].name = "td"
-          dtd[:dt]["valign"] = "top"
-          dtd[:dt].parent = tr
-          dtd[:dd].name = "td"
-          dtd[:dd]["valign"] = "top"
-          dtd[:dd].parent = tr
+          word_dl_cleanup1(dtd, tr)
         end
       end
     end
@@ -52,13 +56,12 @@ module IsoDoc
 
     def word_preface(docxml)
       cover = to_xhtml_fragment(File.read(@wordcoverpage, encoding: "UTF-8"))
-      d = docxml.at('//div[@class="WordSection1"]')
-      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
-      intro = to_xhtml_fragment(
-        File.read(@wordintropage, encoding: "UTF-8").
-        sub(/WORDTOC/, makeWordToC(docxml)))
-      d = docxml.at('//div[@class="WordSection2"]')
-      d.children.first.add_previous_sibling intro.to_xml(encoding: "US-ASCII")
+      docxml.at('//div[@class="WordSection1"]').children.first.previous =
+        cover.to_xml(encoding: "US-ASCII")
+      intro = to_xhtml_fragment(File.read(@wordintropage, encoding: "UTF-8").
+                                sub(/WORDTOC/, make_WordToC(docxml)))
+      docxml.at('//div[@class="WordSection2"]').children.first.previous =
+        intro.to_xml(encoding: "US-ASCII")
     end
 
     def populate_template(docxml, _format)
@@ -72,7 +75,7 @@ module IsoDoc
       template.render(meta.map { |k, v| [k.to_s, v] }.to_h)
     end
 
-    def generate_header(filename, dir)
+    def generate_header(filename, _dir)
       template = Liquid::Template.parse(File.read(@header, encoding: "UTF-8"))
       meta = get_metadata
       meta[:filename] = filename
@@ -91,11 +94,12 @@ module IsoDoc
 
     # isodoc.css overrides any CSS injected by Html2Doc, which
     # is inserted before this CSS.
-    def define_head(html, filename, dir)
+    def define_head(html, filename, _dir)
       html.head do |head|
         head.title { |t| t << filename }
         return unless @standardstylesheet
-        head.style do |style| stylesheet = File.read(@standardstylesheet).
+        head.style do |style|
+          stylesheet = File.read(@standardstylesheet).
             gsub("FILENAME", filename)
           style.comment "\n#{stylesheet}\n"
         end
@@ -110,10 +114,10 @@ module IsoDoc
     def word_toc_entry(toclevel, heading)
       bookmark = Random.rand(1000000000)
       <<~TOC
-      <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span
-      lang="EN-GB" style='mso-no-proof:yes'>
-      <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB"
-      class="MsoTocTextSpan">
+        <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span
+        lang="EN-GB" style='mso-no-proof:yes'>
+        <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB"
+        class="MsoTocTextSpan">
         <span style='mso-tab-count:1 dotted'>. </span>
         </span><span lang="EN-GB" class="MsoTocTextSpan">
         <span style='mso-element:field-begin'></span></span>
@@ -157,7 +161,7 @@ module IsoDoc
       from_xhtml(h1)
     end
 
-    def makeWordToC(docxml)
+    def make_WordToC(docxml)
       toc = ""
       docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])]").
         each do |h|

@@ -106,7 +106,7 @@ module IsoDoc
       end
     end
 
-        def external_terms_boilerplate(sources)
+    def external_terms_boilerplate(sources)
       @external_terms_boilerplate.gsub(/%/, sources)
     end
 
@@ -168,8 +168,8 @@ module IsoDoc
 
     # subclause
     def symbols_parse(isoxml, out)
-      isoxml.children.first.
-        add_previous_sibling("<title>Symbols and Abbreviated Terms</title>")
+      isoxml.children.first.previous =
+        "<title>Symbols and Abbreviated Terms</title>"
       clause_parse(isoxml, out)
     end
 

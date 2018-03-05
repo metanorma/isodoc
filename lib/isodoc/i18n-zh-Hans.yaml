@@ -8,7 +8,7 @@ term_def_boilerplate: |
       </p> </li> </ul>
 scope: 范围
 symbols: 符号、代号和缩略语
-introduction: then 引言
+introduction: 引言
 foreword: 前言
 termsdef: 术语和定义
 termsdefsymbols_lbl: 术语、定义、符号、代号和缩略语

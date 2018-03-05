@@ -89,22 +89,21 @@ module IsoDoc
       docxml.xpath('//a[@epub:type = "footnote"]').each_with_index do |x, i|
         next if seen[x["href"]]
         seen[x["href"]] = true
-        sup = x.at("./sup").text
         fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
         x["id"] || x["id"] = "_footnote#{i + 1}"
-        fn.elements.first.children.first.
-          add_previous_sibling("<a href='##{x['id']}'>#{sup}) </a>")
+        fn.elements.first.children.first.previous =
+          "<a href='##{x['id']}'>#{x.at('./sup').text}) </a>"
       end
       docxml
     end
 
+    # presupposes that the image source is local
     def move_images(docxml)
       system "rm -r _images; mkdir _images"
       docxml.xpath("//*[local-name() = 'img']").each do |i|
         matched = /\.(?<suffix>\S+)$/.match i["src"]
         uuid = UUIDTools::UUID.random_create.to_s
         new_full_filename = File.join("_images", "#{uuid}.#{matched[:suffix]}")
-        # presupposes that the image source is local
         system "cp #{i['src']} #{new_full_filename}"
         i["src"] = new_full_filename
         i["width"], i["height"] = Html2Doc.image_resize(i, 800, 1200)

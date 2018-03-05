@@ -1,6 +1,5 @@
 module IsoDoc
   class Convert
-    #attr_accessor :termdomain, :termexample, :sourcecode, :note
     def set_termdomain(termdomain)
       @termdomain = termdomain
     end
@@ -17,12 +16,12 @@ module IsoDoc
       @sourcecode
     end
 
-    def is_note
+    def note?
       @note
     end
 
     def note_label(node)
-      n = get_anchors()[node["id"]]
+      n = get_anchors[node["id"]]
       return @note_lbl if n.nil? || n[:label].empty?
       l10n("#{@note_lbl} #{n[:label]}")
     end
@@ -36,17 +35,21 @@ module IsoDoc
       node.element_children[1..-1].each { |n| parse(n, div) }
     end
 
+    def note_parse1(node, div)
+      div.p **{ class: "Note" } do |p|
+        p << note_label(node)
+        insert_tab(p, 1)
+      end
+      node.children.each { |n| parse(n, div) }
+    end
+
     def note_parse(node, out)
       @note = true
       out.div **{ id: node["id"], class: "Note" } do |div|
         if node.first_element_child.name == "p"
           note_p_parse(node, div)
         else
-          div.p **{ class: "Note" } do |p|
-            p << note_label(node)
-            insert_tab(p, 1)
-          end
-          node.children.each { |n| parse(n, div) }
+          note_parse1(node, div)
         end
       end
       @note = false
@@ -55,14 +58,14 @@ module IsoDoc
     def figure_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p.b do |b|
-          b << l10n("#{@figure_lbl} #{get_anchors()[node['id']][:label]}")
+          b << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
           b << "&nbsp;&mdash; #{name.text}" if name
         end
       end
     end
 
     def figure_key(out)
-      out.p do |p| 
+      out.p do |p|
         p.b { |b| b << @key_lbl }
       end
     end
@@ -81,40 +84,39 @@ module IsoDoc
     end
 
     def example_label(node)
-      n = get_anchors()[node["id"]]
+      n = get_anchors[node["id"]]
       return @example_lbl if n.nil? || n[:label].empty?
       l10n("#{@example_lbl} #{n[:label]}")
     end
 
     EXAMPLE_TBL_ATTR =
-      {width: "110pt", valign: "top",
-       style: "width:82.8pt;padding:.75pt .75pt .75pt .75pt"}.freeze
+      { width: "110pt", valign: "top",
+        style: "width:82.8pt;padding:.75pt .75pt .75pt .75pt" }.freeze
 
-    def example_parse(node, out)
-      name = node.at(ns("./name"))
-=begin
+    # used if we are boxing examples
+    def example_div_parse(node, out)
       out.div **attr_code(id: node["id"], class: "example") do |div|
         out.p { |p| p << example_label(node) }
         node.children.each do |n|
           parse(n, div)
         end
       end
-=end
+    end
+
+    def example_parse(node, out)
       out.table **attr_code(id: node["id"], class: "example") do |t|
         t.tr do |tr|
           tr.td **EXAMPLE_TBL_ATTR do |td|
             td << example_label(node)
           end
-          tr.td **{valign: "top"} do |td|
-            node.children.each do |n|
-              parse(n, td)
-            end
+          tr.td **{ valign: "top" } do |td|
+            node.children.each { |n| parse(n, td) }
           end
         end
       end
     end
 
-    def sourcecode_name_parse(node, div, name)
+    def sourcecode_name_parse(_node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p.b do |b|
           b << name.text
@@ -151,29 +153,28 @@ module IsoDoc
     end
 
     def formula_where(dl, out)
+      return unless dl
       out.p { |p| p << @where_lbl }
       parse(dl, out)
     end
 
     def formula_parse(node, out)
-      dl = node.at(ns("./dl"))
       out.div **attr_code(id: node["id"], class: "formula") do |div|
         parse(node.at(ns("./stem")), out)
         insert_tab(div, 1)
-        div << "(#{get_anchors()[node['id']][:label]})"
+        div << "(#{get_anchors[node['id']][:label]})"
       end
-      formula_where(dl, out) if dl
+      formula_where(node.at(ns("./dl")), out)
     end
 
     def para_attrs(node)
       classtype = nil
       classtype = "Note" if @note
-      # classtype = "MsoFootnoteText" if in_footnote
       classtype = "MsoCommentText" if in_comment
       attrs = { class: classtype, id: node["id"] }
       unless node["align"].nil?
         attrs[:align] = node["align"] unless node["align"] == "justify"
-        attrs[:style] = "text-align:#{node["align"]}"
+        attrs[:style] = "text-align:#{node['align']}"
       end
       attrs
     end
@@ -201,8 +202,8 @@ module IsoDoc
       attrs = para_attrs(node)
       attrs[:class] = "Quote"
       out.div **attr_code(attrs) do |p|
-        node.children.each do 
-          |n| parse(n, p) unless ["author", "source"].include? n.name
+        node.children.each do |n|
+          parse(n, p) unless ["author", "source"].include? n.name
         end
         quote_attribution(node, out)
       end

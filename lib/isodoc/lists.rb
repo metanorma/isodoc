@@ -34,7 +34,7 @@ module IsoDoc
 
     def dt_parse(dt, term)
       if dt.elements.empty?
-        term.p **attr_code(class: is_note ? "Note" : nil) do |p|
+        term.p **attr_code(class: note? ? "Note" : nil) do |p|
           p << dt.text
         end
       else

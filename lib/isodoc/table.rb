@@ -2,12 +2,12 @@ module IsoDoc
   class Convert
     def table_title_parse(node, out)
       name = node.at(ns("./name"))
-        out.p **{ class: "TableTitle", align: "center" } do |p|
-          p.b do |b|
-            b << l10n("#{@table_lbl} #{get_anchors()[node['id']][:label]}")
-            b << l10n("&nbsp;&mdash; #{name.text}") if name
-          end
+      out.p **{ class: "TableTitle", align: "center" } do |p|
+        p.b do |b|
+          b << l10n("#{@table_lbl} #{get_anchors[node['id']][:label]}")
+          b << l10n("&nbsp;&mdash; #{name.text}") if name
         end
+      end
     end
 
     def thead_parse(node, t)
@@ -58,7 +58,7 @@ module IsoDoc
         thead_parse(node, t)
         tbody_parse(node, t)
         tfoot_parse(node, t)
-        dl = node.at(ns("./dl")) and parse(dl, out)
+        (dl = node.at(ns("./dl"))) && parse(dl, out)
         node.xpath(ns("./note")).each { |n| parse(n, out) }
       end
       @in_table = false
@@ -67,26 +67,28 @@ module IsoDoc
 
     SW = "solid windowtext".freeze
 
-    #border-left:#{col.zero? ? "#{SW} 1.5pt;" : "none;"}
-    #border-right:#{SW} #{col == totalcols && !header ? "1.5" : "1.0"}pt;
-    def make_tr_attr(td, row, totalrows, col, totalcols, header)
+    # def make_tr_attr(td, row, totalrows, cols, totalcols, header)
+    # border-left:#{col.zero? ? "#{SW} 1.5pt;" : "none;"}
+    # border-right:#{SW} #{col == totalcols && !header ? "1.5" : "1.0"}pt;
+
+    def make_tr_attr(td, row, totalrows)
       style = td.name == "th" ? "font-weight:bold;" : ""
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
       style += <<~STYLE
-          border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
-          mso-border-top-alt:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
-          border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-          mso-border-bottom-alt:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+        border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
+        mso-border-top-alt:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
+        border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+        mso-border-bottom-alt:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
       STYLE
       { rowspan: td["rowspan"], colspan: td["colspan"],
         align: td["align"], style: style.gsub(/\n/, "") }
     end
 
-    def tr_parse(node, out, ord, totalrows, header)
+    def tr_parse(node, out, ord, totalrows, _header)
       out.tr do |r|
-        node.elements.each_with_index do |td, i|
-          attrs = make_tr_attr(td, ord, totalrows - 1,
-                               i, node.elements.size - 1, header)
+        node.elements.each do |td|
+          attrs = make_tr_attr(td, ord, totalrows - 1)
+          # i, node.elements.size - 1, header)
           r.send td.name, **attr_code(attrs) do |entry|
             td.children.each { |n| parse(n, entry) }
           end

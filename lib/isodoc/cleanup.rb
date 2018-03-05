@@ -68,7 +68,7 @@ module IsoDoc
         if n.nil?
           x.name = "p"
         else
-          n.children.first.add_previous_sibling(x.remove)
+          n.children.first.previous = x.remove
         end
       end
     end
@@ -137,7 +137,6 @@ module IsoDoc
                    "[ancestor::*[@class = 'Note']]").each do |p|
         p["class"] = "Note"
       end
-
     end
 
     def table_cleanup(docxml)

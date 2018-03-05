@@ -2,22 +2,21 @@ require "yaml"
 
 module IsoDoc
   class Convert
-
     def i18n_init(lang, script)
       @lang = lang
       @script = script
-
-      if @i18nyaml
-        y = YAML.load_file(@i18nyaml)
-      elsif lang == "en"
-        y = YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
-      elsif lang == "fr"
-        y = YAML.load_file(File.join(File.dirname(__FILE__), "i18n-fr.yaml"))
-      elsif lang == "zh" && script == "Hans"
-        y = YAML.load_file(File.join(File.dirname(__FILE__), "i18n-zh-Hans.yaml"))
-      else 
-        y = YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
-      end
+      y = if @i18nyaml
+            YAML.load_file(@i18nyaml)
+          elsif lang == "en"
+            YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+          elsif lang == "fr"
+            YAML.load_file(File.join(File.dirname(__FILE__), "i18n-fr.yaml"))
+          elsif lang == "zh" && script == "Hans"
+            YAML.load_file(File.join(File.dirname(__FILE__),
+                                     "i18n-zh-Hans.yaml"))
+          else
+            YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+          end
       @term_def_boilerplate = y["term_def_boilerplate"]
       @scope_lbl = y["scope"]
       @symbols_lbl = y["symbols"]
@@ -58,18 +57,20 @@ module IsoDoc
       @locality = y["locality"]
     end
 
+    def eref_localities1_zh(type, from, to)
+      ret = ", 第#{from.text}" if from
+      ret += "&ndash;#{to}" if to
+      ret += @locality[type]
+      ret
+    end
+
     def eref_localities1(type, from, to, lang = "en")
-      subsection = from && from.text.match?(/\./)
-      if lang == "zh"
-        ret = ", 第#{from.text}" if from
-        ret += "&ndash;#{to}" if to
-        ret += @locality[type]
-      else
-        ret = ","
-        ret += " #{@locality[type]}" unless subsection && type == "clause"
-        ret += " #{from.text}" if from
-        ret += "&ndash;#{to.text}" if to
-      end
+      subsection = from&.text&.match?(/\./)
+      return l10n(eref_localities1_zh(type, from, to)) if lang == "zh"
+      ret = ","
+      ret += " #{@locality[type]}" unless subsection && type == "clause"
+      ret += " #{from.text}" if from
+      ret += "&ndash;#{to.text}" if to
       l10n(ret)
     end
 

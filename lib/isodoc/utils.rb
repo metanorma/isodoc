@@ -9,7 +9,7 @@ module IsoDoc
 
     def insert_tab(out, n)
       out.span **attr_code(style: "mso-tab-count:#{n}") do |span|
-        [1..n].each { |i| span << "&#xA0; " }
+        [1..n].each { span << "&#xA0; " }
       end
     end
 
@@ -103,15 +103,16 @@ module IsoDoc
     def sentence_join(array)
       return "" if array.nil? || array.empty?
       if array.length == 1
-        result = array[0]
+        array[0]
       else
-        result = l10n("#{array[0..-2].join(', ')} #{@and_lbl} #{array.last}")
+        l10n("#{array[0..-2].join(', ')} #{@and_lbl} #{array.last}")
       end
     end
 
     # avoid `; avoid {{ (Liquid Templates); avoid [[ (Javascript)
     def extract_delims(text)
-      @openmathdelim, @closemathdelim = ["(#(", ")#)"]
+      @openmathdelim = "(#("
+      @closemathdelim = ")#)"
       while text.include?(@openmathdelim) || text.include?(@closemathdelim)
         @openmathdelim += "("
         @closemathdelim += ")"
