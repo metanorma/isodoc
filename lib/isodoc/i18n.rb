@@ -26,7 +26,7 @@ module IsoDoc
       @termsdef_lbl = y["termsdef"]
       @termsdefsymbols_lbl = y["termsdefsymbols"]
       @normref_lbl = y["normref"]
-      @bibiliography_lbl = y["bibliography"]
+      @bibliography_lbl = y["bibliography"]
       @clause_lbl = y["clause"]
       @annex_lbl = y["annex"]
       @no_terms_boilerplate = y["no_terms_boilerplate"]
