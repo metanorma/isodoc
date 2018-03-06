@@ -3,11 +3,13 @@ require "pp"
 module IsoDoc
   class Convert
 
-    def init_file(filename)
+    def init_file(filename, debug)
       filename = filename.gsub(%r{\.[^/.]+$}, "")
       dir = "#{filename}_files"
-      Dir.mkdir(dir) unless File.exists?(dir)
-      system "rm -r #{dir}/*"
+      unless debug
+        Dir.mkdir(dir) unless File.exists?(dir)
+        system "rm -r #{dir}/*"
+      end
       [filename, dir]
     end
 

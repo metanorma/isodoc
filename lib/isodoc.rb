@@ -78,9 +78,9 @@ module IsoDoc
       end.join("\n")
     end
 
-    def convert_init(file, filename)
+    def convert_init(file, filename, debug)
       docxml = Nokogiri::XML(file)
-      filename, dir = init_file(filename)
+      filename, dir = init_file(filename, debug)
       docxml.root.default_namespace = ""
       i18n_init(docxml&.at(ns("//bibdata/language"))&.text || "en",
                 docxml&.at(ns("//bibdata/script"))&.text || "Latn")
@@ -93,7 +93,7 @@ module IsoDoc
 
     def convert_file(file, filename, debug)
       @openmathdelim, @closemathdelim = extract_delims(file)
-      docxml, filename, dir = convert_init(file, filename)
+      docxml, filename, dir = convert_init(file, filename, debug)
       result = convert1(docxml, filename, dir)
       return result if debug
       postprocess(result, filename, dir)
