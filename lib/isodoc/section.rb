@@ -30,24 +30,7 @@ module IsoDoc
       end
     end
 
-    def clause_name(num, title, div, inline_header, header_class)
-      if inline_header
-        clause_name_inline(num, title, div)
-      else
-        clause_name_header(num, title, div, header_class)
-      end
-    end
-
-    def clause_name_inline(num, title, div)
-      div.span **{ class: "zzMoveToFollowing" } do |s|
-        s.b do |b|
-          b << num
-          b << title + " "
-        end
-      end
-    end
-
-    def clause_name_header(num, title, div, header_class)
+    def clause_name(num, title, div, header_class)
       header_class = {} if header_class.nil?
       div.h1 **attr_code(header_class) do |h1|
         if num
@@ -66,7 +49,7 @@ module IsoDoc
           c.elements.each do |c1|
             if c1.name == "title"
               clause_name("#{get_anchors[c['id']][:label]}.",
-                          c1.text, s, c["inline-header"] == "true", nil)
+                          c1.text, s, nil)
             else
               parse(c1, s)
             end
@@ -99,7 +82,7 @@ module IsoDoc
     def scope(isoxml, out)
       f = isoxml.at(ns("//clause[title = 'Scope']")) || return
       out.div **attr_code(id: f["id"]) do |div|
-        clause_name("1.", @scope_lbl, div, false, nil)
+        clause_name("1.", @scope_lbl, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
@@ -143,7 +126,7 @@ module IsoDoc
     def terms_defs(isoxml, out)
       f = isoxml.at(ns("//sections/terms")) || return
       out.div **attr_code(id: f["id"]) do |div|
-        clause_name("3.", terms_defs_title(f), div, false, nil)
+        clause_name("3.", terms_defs_title(f), div, nil)
         term_defs_boilerplate(div, f.xpath(ns("./source")), f.at(ns(".//term")))
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
@@ -159,7 +142,7 @@ module IsoDoc
     def symbols_abbrevs(isoxml, out)
       f = isoxml.at(ns("//sections/symbols-abbrevs")) || return
       out.div **attr_code(id: f["id"], class: "Symbols") do |div|
-        clause_name("4.", @symbols_lbl, div, false, nil)
+        clause_name("4.", @symbols_lbl, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
@@ -180,7 +163,7 @@ module IsoDoc
       page_break(out)
       out.div **{ class: "Section3", id: f["id"] } do |div|
         # div.h1 "Introduction", **attr_code(title_attr)
-        clause_name(num, @introduction_lbl, div, false, title_attr)
+        clause_name(num, @introduction_lbl, div, title_attr)
         f.elements.each do |e|
           if e.name == "patent-notice"
             e.elements.each { |e1| parse(e1, div) }

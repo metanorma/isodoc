@@ -112,7 +112,7 @@ module IsoDoc
       q = "./*/references[title = 'Normative References']"
       f = isoxml.at(ns(q)) || return
       out.div do |div|
-        clause_name("2.", @normref_lbl, div, false, nil)
+        clause_name("2.", @normref_lbl, div, nil)
         norm_ref_preface(f, div)
         biblio_list(f, div, false)
       end
@@ -128,6 +128,17 @@ module IsoDoc
           ["reference", "title", "bibitem"].include? e.name
         end.each { |e| parse(e, div) }
         biblio_list(f, div, true)
+      end
+    end
+
+    def bibliography_parse(node, out)
+      title = node&.at(ns("./title"))&.text || ""
+      out.div do |div|
+        div.h2 title, **{ class: "Section3" }
+        node.elements.reject do |e|
+          ["reference", "title", "bibitem"].include? e.name
+        end.each { |e| parse(e, div) }
+        biblio_list(node, div, true)
       end
     end
 
