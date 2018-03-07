@@ -50,6 +50,9 @@ RSpec.describe IsoDoc do
          <title>Annex</title>
          <subsection id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
+         <subsection id="Q1" inline-header="false" obligation="normative">
+         <title>Annex A.1a</title>
+         </subsection>
        </subsection>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
@@ -137,7 +140,10 @@ RSpec.describe IsoDoc do
                <div id="P" class="Section3">
                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                  <div id="Q">
-          <h2>A.1. Annex A.1</h2>
+                           <h2>A.1. Annex A.1</h2>
+          <div id="Q1">
+          <h3>A.1.1. Annex A.1a</h3>
+          </div>
         </div>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
