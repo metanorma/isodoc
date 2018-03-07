@@ -311,7 +311,7 @@ INPUT
     OUTPUT
   end
 
-    it "processes sourcecode" do
+  it "processes sourcecode" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
@@ -345,10 +345,10 @@ INPUT
            </body>
          </head>
        </html>
-OUTPUT
-    end
+    OUTPUT
+  end
 
-        it "processes sourcecode with annotations" do
+  it "processes sourcecode with annotations" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
@@ -391,7 +391,179 @@ OUTPUT
          </head>
        </html>
     OUTPUT
-        end
+  end
+
+  it "processes admonitions" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
+  <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+</admonition>
+    </foreword>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <div class="Admonition"><title>CAUTION</title>
+         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </div>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+  end
+
+  it "processes formulae" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934">
+  <stem type="AsciiMath">r = 1 %</stem>
+<dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
+  <dt>
+    <stem type="AsciiMath">r</stem>
+  </dt>
+  <dd>
+    <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
+  </dd>
+</dl></formula>
+    </foreword>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">&#160; </span>(1)</div>
+                 <p>where</p>
+                 <dl>
+                   <dt>
+           <span class="stem">(#(r)#)</span>
+         </dt>
+                   <dd>
+           <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
+         </dd>
+                 </dl>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+  end
+
+  it "processes paragraph alignments" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
+Fictitious<br/>
+World
+    </foreword>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left">Vache Equipment<br/>
+       Fictitious<br/>
+       World
+           </p>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+  end
+
+    it "processes blockquotes" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
+  <source type="inline" bibitemid="ISO7301" citeas="ISO 7301: 2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality></source>
+  <author>ISO</author>
+  <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
+</quote>
+
+    </foreword>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <div class="Quote" id="_044bd364-c832-4b78-8fea-92242402a1d1">
+
+
+         <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<i>Oryza sativa</i> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
+       <p class="QuoteAttribution">&#8212; ISO, <a href="#ISO7301">ISO 7301: 2011, Clause 1</a></p></div>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+    end
 
 
 end
