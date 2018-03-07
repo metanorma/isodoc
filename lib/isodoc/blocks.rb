@@ -1,5 +1,7 @@
 module IsoDoc
   class Convert
+    @annotation = false
+
     def note_label(node)
       n = get_anchors[node["id"]]
       return @note_lbl if n.nil? || n[:label].empty?
@@ -117,9 +119,13 @@ module IsoDoc
     end
 
     def annotation_parse(node, out)
-      out.p **{ class: "Sourcecode" } do |li|
-        node.children.each { |n| parse(n, li) }
+      @sourcecode = false
+      @annotation = true
+      out.span **{ class: "zzMoveToFollowing" } do |s|
+        s  << "&lt;#{node.at(ns("//callout[@target='#{node['id']}']")).text}&gt; "
       end
+        node.children.each { |n| parse(n, out) }
+      @annotation = false
     end
 
     def admonition_parse(node, out)
@@ -151,6 +157,7 @@ module IsoDoc
       classtype = nil
       classtype = "Note" if @note
       classtype = "MsoCommentText" if in_comment
+      classtype = "Sourcecode" if @annotation
       attrs = { class: classtype, id: node["id"] }
       unless node["align"].nil?
         attrs[:align] = node["align"] unless node["align"] == "justify"
