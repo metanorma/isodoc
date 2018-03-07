@@ -1,25 +1,5 @@
 module IsoDoc
   class Convert
-    def set_termdomain(termdomain)
-      @termdomain = termdomain
-    end
-
-    def get_termexample
-      @termexample
-    end
-
-    def set_termexample(value)
-      @termexample = value
-    end
-
-    def in_sourcecode
-      @sourcecode
-    end
-
-    def note?
-      @note
-    end
-
     def note_label(node)
       n = get_anchors[node["id"]]
       return @note_lbl if n.nil? || n[:label].empty?

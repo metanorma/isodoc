@@ -18,7 +18,8 @@ module IsoDoc
       result = populate_template(result, :word)
       Html2Doc.process(result, filename: filename, stylesheet: @wordstylesheet,
                        header_file: "header.html", dir: dir,
-                       asciimathdelims: [@openmathdelim, @closemathdelim])
+                       asciimathdelims: [@openmathdelim, @closemathdelim],
+                       liststyles: { ul: @ulstyle, ol: @olstyle })
     end
 
     def word_cleanup(docxml)

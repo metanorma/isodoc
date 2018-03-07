@@ -17,14 +17,14 @@ module IsoDoc
     MATHJAX_ADDR =
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js".freeze
     MATHJAX = <<~"MATHJAX".freeze
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        asciimath2jax: {
-          delimiters: [['OPEN', 'CLOSE']]
-        }
-     });
-    </script>
-    <script src="#{MATHJAX_ADDR}?config=AM_HTMLorMML"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          asciimath2jax: {
+            delimiters: [['OPEN', 'CLOSE']]
+          }
+       });
+      </script>
+      <script src="#{MATHJAX_ADDR}?config=AM_HTMLorMML"></script>
     MATHJAX
 
     def mathjax(open, close)

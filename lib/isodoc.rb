@@ -37,6 +37,9 @@ module IsoDoc
     # wordcoverpage: Cover page for Word
     # htmlintropage: Introductory page for HTML
     # wordintropage: Introductory page for Word
+    # i18nyaml: YAML file for internationalisation of text
+    # ulstyle: list style in Word CSS for unordered lists
+    # olstyle: list style in Word CSS for ordered lists
     def initialize(options)
       @htmlstylesheet = options[:htmlstylesheet]
       @wordstylesheet = options[:wordstylesheet]
@@ -47,6 +50,8 @@ module IsoDoc
       @htmlintropage = options[:htmlintropage]
       @wordintropage = options[:wordintropage]
       @i18nyaml = options[:i18nyaml]
+      @ulstyle = options[:ulstyle]
+      @olstyle = options[:olstyle]
       @termdomain = ""
       @termexample = false
       @note = false

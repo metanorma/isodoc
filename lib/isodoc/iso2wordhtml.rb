@@ -2,6 +2,25 @@ require "pp"
 
 module IsoDoc
   class Convert
+    def set_termdomain(termdomain)
+      @termdomain = termdomain
+    end
+
+    def get_termexample
+      @termexample
+    end
+
+    def set_termexample(value)
+      @termexample = value
+    end
+
+    def in_sourcecode
+      @sourcecode
+    end
+
+    def note?
+      @note
+    end
 
     def init_file(filename, debug)
       filename = filename.gsub(%r{\.[^/.]+$}, "")
@@ -22,7 +41,7 @@ module IsoDoc
       end
     end
 
-    def make_body1(body, docxml)
+    def make_body1(body, _docxml)
       body.div **{ class: "WordSection1" } do |div1|
         div1.p { |p| p << "&nbsp;" } # placeholder
       end
@@ -75,7 +94,7 @@ module IsoDoc
     end
 
     def smallcap_parse(node, xml)
-      xml.span **{style: "font-variant:small-caps;"} do |s|
+      xml.span **{ style: "font-variant:small-caps;" } do |s|
         s << node.text
       end
     end

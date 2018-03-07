@@ -113,13 +113,16 @@ module IsoDoc
     end
 
     def version(isoxml, _out)
-      yr = isoxml.at(ns("//copyright/from"))
-      set_metadata(:docyear, yr&.text)
-      draft = isoxml.at(ns("//version/draft"))
-      set_metadata(:draft, draft.nil? ? nil : draft.text)
-      revdate = isoxml.at(ns("//version/revision-date"))
-      set_metadata(:revdate, revdate.nil? ? nil : revdate.text)
-      set_metadata(:draftinfo, draftinfo(draft, revdate))
+      set_metadata(:docyear, isoxml&.at(ns("//copyright/from"))&.text)
+      # draft = isoxml.at(ns("//version/draft"))
+      # set_metadata(:draft, draft.nil? ? nil : draft.text)
+      set_metadata(:draft, isoxml&.at(ns("//version/draft"))&.text)
+      # revdate = isoxml.at(ns("//version/revision-date"))
+      #set_metadata(:revdate, revdate.nil? ? nil : revdate.text)
+      set_metadata(:revdate, isoxml&.at(ns("//version/revision-date"))&.text)
+      #set_metadata(:draftinfo, draftinfo(draft, revdate))
+      set_metadata(:draftinfo,
+                   draftinfo(get_metadata[:draft], get_metadata[:revdate]))
     end
 
     # we don't leave this to i18n.rb, because we have both English and
