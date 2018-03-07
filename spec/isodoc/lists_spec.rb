@@ -16,7 +16,7 @@ RSpec.describe IsoDoc do
 </foreword>
 </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
+              <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
            <body lang="EN-US" link="blue" vlink="#954F72">
@@ -57,17 +57,21 @@ RSpec.describe IsoDoc do
   <li>
     <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
   </li>
+  <ol>
   <li>
     <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
   </li>
+  <ol>
   <li>
     <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
   </li>
+  </ol>
+  </ol>
 </ol>
 </foreword>
 </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
+              <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
            <body lang="EN-US" link="blue" vlink="#954F72">
@@ -83,12 +87,16 @@ RSpec.describe IsoDoc do
          <li>
            <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
          </li>
+         <ol type="1">
          <li>
            <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
          </li>
+         <ol type="i">
          <li>
            <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
          </li>
+         </ol>
+         </ol>
        </ol>
                </div>
                <p>&#160;</p>
@@ -133,7 +141,7 @@ end
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <ol type="I">
+                 <ol type="a">
          <li>
            <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
          </li>
