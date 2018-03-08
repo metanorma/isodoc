@@ -522,7 +522,7 @@ World
     OUTPUT
   end
 
-    it "processes blockquotes" do
+  it "processes blockquotes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
@@ -563,7 +563,56 @@ World
          </head>
        </html>
     OUTPUT
-    end
+  end
+
+  it "processes term domains" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <sections>
+    <terms>
+    <term id="_extraneous_matter"><preferred>extraneous matter</preferred><admitted>EM</admitted>
+<domain>rice</domain>
+<definition><p id="_318b3939-be09-46c4-a284-93f9826b981e">organic and inorganic components other than whole or broken kernels</p></definition>
+</term>
+    </terms>
+    </sections>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+               <div><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
+           the following terms and definitions apply.</p>
+       <p>ISO and IEC maintain terminological databases for use in
+       standardization at the following addresses:</p>
+
+       <ul>
+       <li> <p>ISO Online browsing platform: available at
+         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
+       <li> <p>IEC Electropedia: available at
+         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
+       </p> </li> </ul>
+       <p class="TermNum" id="_extraneous_matter">3.1</p><p class="Terms">extraneous matter</p><p class="AltTerms">EM</p>
+
+       <p id="_318b3939-be09-46c4-a284-93f9826b981e">&lt;rice&gt; organic and inorganic components other than whole or broken kernels</p>
+       </div>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+  end
 
 
 end
