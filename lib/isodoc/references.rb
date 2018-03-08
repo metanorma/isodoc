@@ -143,7 +143,7 @@ module IsoDoc
     end
 
     def format_ref(ref, isopub)
-      return "ISO #{ref}" if isopub
+      return ref if isopub
       return "[#{ref}]" if /^\d+$/.match?(ref) && !/^\[.*\]$/.match?(ref)
       ref
     end

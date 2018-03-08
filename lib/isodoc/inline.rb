@@ -6,8 +6,8 @@ module IsoDoc
       body.br **{ clear: "all", class: "section" }
     end
 
-    def page_break(body)
-      body.br **{
+    def page_break(out)
+      out.br **{
         clear: "all",
         style: "mso-special-character:line-break;page-break-before:always",
       }
@@ -84,11 +84,6 @@ module IsoDoc
       out.span **{ class: "stem" } do |span|
         span.parent.add_child ooml
       end
-    end
-
-    def pagebreak_parse(_node, out)
-      attrs = { clear: "all", class: "pagebreak" }
-      out.br **attrs
     end
 
     def error_parse(node, out)
