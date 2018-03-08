@@ -40,6 +40,7 @@ internal_external_terms_boilerplate: |
 note: NOTE
 note_xref: Note
 termnote: Note % to entry
+list: List
 figure: Figure
 formula: Formula
 table: Table

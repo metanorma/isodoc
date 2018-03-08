@@ -35,6 +35,7 @@ note_xref: Note
 termnote: Note % à l'article
 figure: Figure
 formula: Formule
+list: Liste
 table: Tableau
 key: Légende
 example: EXEMPLE

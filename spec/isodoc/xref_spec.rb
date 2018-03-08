@@ -19,6 +19,8 @@ RSpec.describe IsoDoc do
     <note id="N">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
+<p><xref target="N"/></p>
+
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
@@ -29,6 +31,8 @@ RSpec.describe IsoDoc do
     <note id="note2">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
 </note>
+<p>    <xref target="note1"/> <xref target="note2"/> </p>
+
     </subsection>
     </clause>
     </sections>
@@ -80,6 +84,9 @@ RSpec.describe IsoDoc do
                  <div id="N" class="Note">
                    <p class="Note">NOTE<span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
                  </div>
+                 <p>
+                   <a href="#N">Note</a>
+                 </p>
                </div>
                <div id="terms"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
@@ -97,6 +104,8 @@ RSpec.describe IsoDoc do
                  <div id="widgets1">
            <div id="note1" class="Note"><p class="Note">NOTE  1<span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p></div>
            <div id="note2" class="Note"><p class="Note">NOTE  2<span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p></div>
+       <p>    <a href="#note1">Note  1</a> <a href="#note2">Note  2</a> </p>
+
            </div>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -135,6 +144,7 @@ RSpec.describe IsoDoc do
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </figure>
+<p><xref target="N"/></p>
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
@@ -147,6 +157,7 @@ RSpec.describe IsoDoc do
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </figure>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
     </subsection>
     </clause>
     </sections>
@@ -183,13 +194,13 @@ RSpec.describe IsoDoc do
                <div id="fwd">
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
-         <a href="#N">Figure 1</a>
-         <a href="#note1">Figure 2</a>
-         <a href="#note2">Figure 3</a>
-         <a href="#AN">Figure A.1</a>
-         <a href="#Anote1">Figure A.2</a>
-         <a href="#Anote2">Figure A.3</a>
-         </p>
+           <a href="#N">Figure 1</a>
+           <a href="#note1">Figure 2</a>
+           <a href="#note2">Figure 3</a>
+           <a href="#AN">Figure A.1</a>
+           <a href="#Anote1">Figure A.2</a>
+           <a href="#Anote2">Figure A.3</a>
+           </p>
                </div>
                <p>&#160;</p>
              </div>
@@ -200,8 +211,11 @@ RSpec.describe IsoDoc do
                  <h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1>
                  <div id="N" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure 1&#160;&#8212; Split-it-right sample divider</b></p></div>
+         <img src="rice_images/rice_image1.png"/>
+         <p class="FigureTitle" align="center"><b>Figure 1&#160;&#8212; Split-it-right sample divider</b></p></div>
+                 <p>
+                   <a href="#N">Figure 1</a>
+                 </p>
                </div>
                <div id="terms"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
@@ -217,34 +231,35 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>4.<span style="mso-tab-count:1">&#160; </span>Widgets</h1>
                  <div id="widgets1">
-             <div id="note1" class="figure">
+               <div id="note1" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure 2&#160;&#8212; Split-it-right sample divider</b></p></div>
-         <div id="note2" class="figure">
+         <img src="rice_images/rice_image1.png"/>
+         <p class="FigureTitle" align="center"><b>Figure 2&#160;&#8212; Split-it-right sample divider</b></p></div>
+           <div id="note2" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure 3&#160;&#8212; Split-it-right sample divider</b></p></div>
-         </div>
+         <img src="rice_images/rice_image1.png"/>
+         <p class="FigureTitle" align="center"><b>Figure 3&#160;&#8212; Split-it-right sample divider</b></p></div>
+         <p>    <a href="#note1">Figure 2</a> <a href="#note2">Figure 3</a> </p>
+           </div>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                <div id="annex1" class="Section3">
                  <div id="annex1a">
-             <div id="AN" class="figure">
+               <div id="AN" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure A.1&#160;&#8212; Split-it-right sample divider</b></p></div>
-         </div>
+         <img src="rice_images/rice_image1.png"/>
+         <p class="FigureTitle" align="center"><b>Figure A.1&#160;&#8212; Split-it-right sample divider</b></p></div>
+           </div>
                  <div id="annex1b">
-             <div id="Anote1" class="figure">
+               <div id="Anote1" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure A.2&#160;&#8212; Split-it-right sample divider</b></p></div>
-         <div id="Anote2" class="figure">
+         <img src="rice_images/rice_image1.png"/>
+         <p class="FigureTitle" align="center"><b>Figure A.2&#160;&#8212; Split-it-right sample divider</b></p></div>
+           <div id="Anote2" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure A.3&#160;&#8212; Split-it-right sample divider</b></p></div>
-         </div>
+         <img src="rice_images/rice_image1.png"/>
+         <p class="FigureTitle" align="center"><b>Figure A.3&#160;&#8212; Split-it-right sample divider</b></p></div>
+           </div>
                </div>
              </div>
            </body>
@@ -282,6 +297,7 @@ RSpec.describe IsoDoc do
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </figure>
   </figure>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
     </subsection>
     </clause>
     </sections>
@@ -356,6 +372,7 @@ RSpec.describe IsoDoc do
        <img src="rice_images/rice_image1.png"/>
        <p class="FigureTitle" align="center"><b>Figure 1-2&#160;&#8212; Split-it-right sample divider</b></p></div>
        </div>
+       <p>    <a href="#note1">Figure 1-1</a> <a href="#note2">Figure 1-2</a> </p>
          </div>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -400,6 +417,7 @@ RSpec.describe IsoDoc do
         <example id="N">
   <p>Hello</p>
 </example>
+<p><xref target="N"/></p>
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
@@ -410,6 +428,7 @@ RSpec.describe IsoDoc do
         <example id="note2">
   <p>Hello</p>
 </example>
+<p>    <xref target="note1"/> <xref target="note2"/> </p>
     </subsection>
     </clause>
     </sections>
@@ -466,6 +485,9 @@ RSpec.describe IsoDoc do
        </td>
                    </tr>
                  </table>
+                 <p>
+                   <a href="#N">Example</a>
+                 </p>
                </div>
                <div id="terms"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
@@ -487,6 +509,7 @@ RSpec.describe IsoDoc do
                <table id="note2" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td><td valign="top">
          <p>Hello</p>
        </td></tr></table>
+       <p>    <a href="#note1">Example  1</a> <a href="#note2">Example  2</a> </p>
            </div>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -530,6 +553,7 @@ RSpec.describe IsoDoc do
     <formula id="N">
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
+  <p><xref target="N"/></p>
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
@@ -540,6 +564,7 @@ RSpec.describe IsoDoc do
     <formula id="note2">
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
     </subsection>
     </clause>
     </sections>
@@ -602,6 +627,9 @@ RSpec.describe IsoDoc do
                <div id="scope">
                  <h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1>
                  <div id="N" class="formula"><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">&#160; </span>(1)</div>
+                 <p>
+                   <a href="#N">Formula (1)</a>
+                 </p>
                </div>
                <div id="terms"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
@@ -619,6 +647,7 @@ RSpec.describe IsoDoc do
                  <div id="widgets1">
            <div id="note1" class="formula"><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">&#160; </span>(2)</div>
            <div id="note2" class="formula"><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">&#160; </span>(3)</div>
+         <p>    <a href="#note1">Formula (2)</a> <a href="#note2">Formula (3)</a> </p>
            </div>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -663,6 +692,7 @@ RSpec.describe IsoDoc do
     </tr>
     </tbody>
     </table>
+    <p><xref target="N"/></p>
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
@@ -687,6 +717,7 @@ RSpec.describe IsoDoc do
     </tr>
     </tbody>
     </table>
+    <p>    <xref target="note1"/> <xref target="note2"/> </p>
     </subsection>
     </clause>
     </sections>
@@ -768,12 +799,15 @@ RSpec.describe IsoDoc do
                      </tr>
                    </tbody>
                  </table>
+                 <p>
+                   <a href="#N">Table 1</a>
+                 </p>
                </div>
                <div id="terms"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
-    <ul>
+       <ul>
        <li> <p>ISO Online browsing platform: available at
          <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
        <li> <p>IEC Electropedia: available at
@@ -785,6 +819,7 @@ RSpec.describe IsoDoc do
                  <div id="widgets1">
            <p class="TableTitle" align="center"><b>Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</b></p><table id="note1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">11</td></tr></tbody></table>
            <p class="TableTitle" align="center"><b>Table 3&#160;&#8212; Repeatability and reproducibility of husked rice yield</b></p><table id="note2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+       <p>    <a href="#note1">Table 2</a> <a href="#note2">Table 3</a> </p>
        </div>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -1069,5 +1104,347 @@ RSpec.describe IsoDoc do
        </html>
 OUTPUT
 end
+
+  it "cross-references lists" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <p>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+    <ol id="N">
+  <li><p>A</p></li>
+</ol>
+    </clause>
+    <terms id="terms"/>
+    <clause id="widgets"><title>Widgets</title>
+    <subsection id="widgets1">
+    <ol id="note1">
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</ol>
+    <ol id="note2">
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+</ol>
+    </subsection>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <subsection id="annex1a">
+    <ol id="AN">
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</ol>
+    </subsection>
+    <subsection id="annex1b">
+    <ol id="Anote1">
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</ol>
+    <ol id="Anote2">
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+</ol>
+    </subsection>
+    </annex>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p>
+           <a href="#N">Clause 1, List</a>
+           <a href="#note1">4.1, List  1</a>
+           <a href="#note2">4.1, List  2</a>
+           <a href="#AN">A.1, List</a>
+           <a href="#Anote1">A.2, List  1</a>
+           <a href="#Anote2">A.2, List  2</a>
+           </p>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+               <div id="scope">
+                 <h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1>
+                 <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+               </div>
+               <div id="terms"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+       <p>ISO and IEC maintain terminological databases for use in
+       standardization at the following addresses:</p>
+
+       <ul>
+       <li> <p>ISO Online browsing platform: available at
+         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
+       <li> <p>IEC Electropedia: available at
+         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
+       </p> </li> </ul>
+       </div>
+               <div id="widgets">
+                 <h1>4.<span style="mso-tab-count:1">&#160; </span>Widgets</h1>
+                 <div id="widgets1">
+           <ol type="a">
+         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+       </ol>
+           <ol type="a">
+         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+       </ol>
+           </div>
+               </div>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div id="annex1" class="Section3">
+                 <div id="annex1a">
+           <ol type="a">
+         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+       </ol>
+           </div>
+                 <div id="annex1b">
+           <ol type="a">
+         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+       </ol>
+           <ol type="a">
+         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+       </ol>
+           </div>
+               </div>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+    end
+
+    it "cross-references list items" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <p>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+    <ol id="N1">
+  <li id="N"><p>A</p></li>
+</ol>
+    </clause>
+    <terms id="terms"/>
+    <clause id="widgets"><title>Widgets</title>
+    <subsection id="widgets1">
+    <ol id="note1l">
+  <li id="note1"><p>A</p></li>
+</ol>
+    <ol id="note2l">
+  <li id="note2"><p>A</p></li>
+</ol>
+    </subsection>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <subsection id="annex1a">
+    <ol id="ANl">
+  <li id="AN"><p>A</p></li>
+</ol>
+    </subsection>
+    <subsection id="annex1b">
+    <ol id="Anote1l">
+  <li id="Anote1"><p>A</p></li>
+</ol>
+    <ol id="Anote2l">
+  <li id="Anote2"><p>A</p></li>
+</ol>
+    </subsection>
+    </annex>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p>
+           <a href="#N">Clause 1, a)</a>
+           <a href="#note1">4.1, List  1 a)</a>
+           <a href="#note2">4.1, List  2 a)</a>
+           <a href="#AN">A.1, a)</a>
+           <a href="#Anote1">A.2, List  1 a)</a>
+           <a href="#Anote2">A.2, List  2 a)</a>
+           </p>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+               <div id="scope">
+                 <h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1>
+                 <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+               </div>
+               <div id="terms"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+       <p>ISO and IEC maintain terminological databases for use in
+       standardization at the following addresses:</p>
+
+       <ul>
+       <li> <p>ISO Online browsing platform: available at
+         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
+       <li> <p>IEC Electropedia: available at
+         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
+       </p> </li> </ul>
+       </div>
+               <div id="widgets">
+                 <h1>4.<span style="mso-tab-count:1">&#160; </span>Widgets</h1>
+                 <div id="widgets1">
+           <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+           <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+           </div>
+               </div>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div id="annex1" class="Section3">
+                 <div id="annex1a">
+           <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+           </div>
+                 <div id="annex1b">
+           <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+           <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+           </div>
+               </div>
+             </div>
+           </body>
+         </head>
+       </html>
+OUTPUT
+    end
+
+    it "cross-references nested list items" do
+      expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <p>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+    <ol id="N1">
+      <li id="N"><p>A</p>
+      <ol>
+      <li id="note1"><p>A</p>
+      <ol>
+      <li id="note2"><p>A</p>
+      <ol>
+      <li id="AN"><p>A</p>
+      <ol>
+      <li id="Anote1"><p>A</p>
+      <ol>
+      <li id="Anote2"><p>A</p></li>
+      </ol></li>
+      </ol></li>
+      </ol></li>
+      </ol></li>
+      </ol></li>
+    </ol>
+    </clause>
+    </sections>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p>
+       <a href="#N">Clause 1, a)</a>
+       <a href="#note1">Clause 1, a.1)</a>
+       <a href="#note2">Clause 1, a.1.i)</a>
+       <a href="#AN">Clause 1, a.1.i.A)</a>
+       <a href="#Anote1">Clause 1, a.1.i.A.I)</a>
+       <a href="#Anote2">Clause 1, a.1.i.A.I.a)</a>
+       </p>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+               <div id="scope">
+                 <h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1>
+                 <ol type="a">
+         <li><p>A</p>
+         <ol type="1">
+         <li><p>A</p>
+         <ol type="i">
+         <li><p>A</p>
+         <ol type="A">
+         <li><p>A</p>
+         <ol type="I">
+         <li><p>A</p>
+         <ol type="a">
+         <li><p>A</p></li>
+         </ol></li>
+         </ol></li>
+         </ol></li>
+         </ol></li>
+         </ol></li>
+       </ol>
+               </div>
+             </div>
+           </body>
+         </head>
+       </html>
+      OUTPUT
+    end
+
 
 end

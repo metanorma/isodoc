@@ -1,42 +1,11 @@
+require "roman-numerals"
+
 module IsoDoc
   class Convert
     @anchors = {}
 
     def get_anchors
       @anchors
-    end
-
-    def back_anchor_names(docxml)
-      docxml.xpath(ns("//annex")).each_with_index do |c, i|
-        annex_names(c, (65 + i).chr.to_s)
-      end
-      docxml.xpath(ns("//bibitem")).each do |ref|
-        reference_names(ref)
-      end
-    end
-
-    def initial_anchor_names(d)
-      introduction_names(d.at(ns("//introduction")))
-      section_names(d.at(ns("//clause[title = 'Scope']")), "1", 1)
-      section_names(d.at(ns(
-        "//references[title = 'Normative References']")), "2", 1)
-      section_names(d.at(ns("//sections/terms")), "3", 1)
-      middle_section_asset_names(d)
-    end
-
-    def middle_section_asset_names(d)
-      middle_sections = "//clause[title = 'Scope'] | "\
-        "//foreword | //introduction | "\
-        "//references[title = 'Normative References'] | //sections/terms | "\
-        "//sections/symbols-abbrevs | //clause[parent::sections]"
-      sequential_asset_names(d.xpath(ns(middle_sections)))
-    end
-
-    def clause_names(docxml, sect_num)
-      q = "//clause[parent::sections][not(xmlns:title = 'Scope')]"
-      docxml.xpath(ns(q)).each_with_index do |c, i|
-        section_names(c, (i + sect_num).to_s, 1)
-      end
     end
 
     def termnote_label(n)
@@ -90,6 +59,41 @@ module IsoDoc
       end
     end
 
+    def list_anchor_names(sections)
+      sections.each do |s|
+        notes = s.xpath(ns(".//ol")) - s.xpath(ns(".//subsection//ol")) -
+          s.xpath(ns(".//ol//ol"))
+        notes.each_with_index do |n, i|
+          idx = notes.size == 1 ? "" : " #{i + 1}"
+          @anchors[n["id"]] = anchor_struct(idx, s, @list_lbl)
+          list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
+        end
+        list_anchor_names(s.xpath(ns("./subsection")))
+      end
+    end
+
+    def listlabel(depth, i)
+      return i.to_s if [2, 7].include? depth
+      return (96 + i).chr.to_s if [1, 6].include? depth
+      return (64 + i).chr.to_s if [4, 9].include? depth
+      return RomanNumerals.to_roman(i).downcase if [3, 8].include? depth
+      return RomanNumerals.to_roman(i).upcase if [5, 10].include? depth
+      return i.to_s
+    end
+
+    def list_item_anchor_names(list, list_anchor, depth, prev_label, refer_list)
+      list.xpath(ns("./li")).each_with_index do |li, i|
+        label = listlabel(depth, i + 1)
+        label = "#{prev_label}.#{label}" unless prev_label.empty?
+        label = "#{list_anchor[:xref]} #{label}" if refer_list
+        li["id"] && @anchors[li["id"]] = { xref: "#{label})", 
+                                           container: list_anchor[:container] }
+        li.xpath(ns("./ol")).each do |ol|
+          list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
+        end
+      end
+    end
+
     def middle_anchor_names(docxml)
       symbols_abbrevs = docxml.at(ns("//sections/symbols-abbrevs"))
       sect_num = 4
@@ -111,6 +115,7 @@ module IsoDoc
                                         "//figure")))
       note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+      list_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
     end
 
     def sequential_figure_names(clause)
@@ -165,52 +170,6 @@ module IsoDoc
       hierarchical_figure_names(clause, num)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
         @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", t, @formula_lbl)
-      end
-    end
-
-    def introduction_names(clause)
-      return if clause.nil?
-      clause.xpath(ns("./subsection")).each_with_index do |c, i|
-        section_names1(c, "0.#{i + 1}", 2)
-      end
-    end
-
-    def section_names(clause, num, lvl)
-      return if clause.nil?
-      @anchors[clause["id"]] =
-        { label: num, xref: l10n("#{@clause_lbl} #{num}"), level: lvl }
-      clause.xpath(ns("./subsection | ./term  | ./terms | ./symbols-abbrevs")).
-        each_with_index do |c, i|
-        section_names1(c, "#{num}.#{i + 1}", lvl + 1)
-      end
-    end
-
-    def section_names1(clause, num, level)
-      @anchors[clause["id"]] =
-        { label: num, level: level, xref: num }
-      # subclauses are not prefixed with "Clause"
-      clause.xpath(ns("./subsection | ./terms | ./term | ./symbols-abbrevs")).
-        each_with_index do |c, i|
-        section_names1(c, "#{num}.#{i + 1}", level + 1)
-      end
-    end
-
-    def annex_names(clause, num)
-      obl = l10n("(#{@inform_annex_lbl})")
-      obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
-      label = l10n("<b>#{@annex_lbl} #{num}</b><br/>#{obl}")
-      @anchors[clause["id"]] =
-        { label: label, xref: "#{@annex_lbl} #{num}", level: 1 }
-      clause.xpath(ns("./subsection")).each_with_index do |c, i|
-        annex_names1(c, "#{num}.#{i + 1}", 2)
-      end
-      hierarchical_asset_names(clause, num)
-    end
-
-    def annex_names1(clause, num, level)
-      @anchors[clause["id"]] = { label: num, xref: num, level: level }
-      clause.xpath(ns(".//subsection")).each_with_index do |c, i|
-        annex_names1(c, "#{num}.#{i + 1}", level + 1)
       end
     end
   end

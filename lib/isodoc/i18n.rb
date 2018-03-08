@@ -39,6 +39,7 @@ module IsoDoc
       @note_xref_lbl = y["note_xref"]
       @termnote_lbl = y["termnote"]
       @figure_lbl = y["figure"]
+      @list_lbl = y["list"]
       @formula_lbl = y["formula"]
       @table_lbl = y["table"]
       @key_lbl = y["key"]
