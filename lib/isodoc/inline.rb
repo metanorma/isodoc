@@ -87,7 +87,7 @@ module IsoDoc
     end
 
     def pagebreak_parse(_node, out)
-      attrs = { clear: all, class: "pagebreak" }
+      attrs = { clear: "all", class: "pagebreak" }
       out.br **attrs
     end
 
