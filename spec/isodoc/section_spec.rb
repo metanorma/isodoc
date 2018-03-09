@@ -277,6 +277,8 @@ RSpec.describe IsoDoc do
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
          <source type="inline" bibitemid="ISO712" citeas="ISO 712"/>
+         <source type="inline" bibitemid="ISO712" citeas="ISO 712"/>
+         <source type="inline" bibitemid="ISO712" citeas="ISO 712"/>
        </terms>
         </sections>
         <references id="_normative_references" obligation="informative"><title>Normative References</title>
@@ -312,7 +314,7 @@ RSpec.describe IsoDoc do
                  <p id="ISO712">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
                </div>
                <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
-         the terms and definitions given in ISO 712 apply.</p>
+         the terms and definitions given in ISO 712, ISO 712 and ISO 712 apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
