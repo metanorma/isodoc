@@ -33,6 +33,8 @@ module IsoDoc
       dtd[:dt].name = "td"
       dtd[:dt]["valign"] = "top"
       dtd[:dt]["align"] = "left"
+      dtd[:dt]&.elements&.first&.name == "p" &&
+        dtd[:dt].elements.first["style"] = "text-align:left;"
       dtd[:dt].parent = tr
       dtd[:dd].name = "td"
       dtd[:dd]["valign"] = "top"
