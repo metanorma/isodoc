@@ -32,6 +32,7 @@ module IsoDoc
     def word_dl_cleanup1(dtd, tr)
       dtd[:dt].name = "td"
       dtd[:dt]["valign"] = "top"
+      dtd[:dt]["align"] = "left"
       dtd[:dt].parent = tr
       dtd[:dd].name = "td"
       dtd[:dd]["valign"] = "top"
@@ -41,6 +42,7 @@ module IsoDoc
     def word_dl_cleanup(docxml)
       docxml.xpath("//dl").each do |dl|
         dl.name = "table"
+        dl["class"] = "dl"
         extract_symbols_list(dl).each do |dtd|
           tr = dl.add_child("<tr></tr>").first
           word_dl_cleanup1(dtd, tr)
