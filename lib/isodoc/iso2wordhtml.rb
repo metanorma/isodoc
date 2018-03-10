@@ -6,14 +6,6 @@ module IsoDoc
       @termdomain = termdomain
     end
 
-    def get_termexample
-      @termexample
-    end
-
-    def set_termexample(value)
-      @termexample = value
-    end
-
     def in_sourcecode
       @sourcecode
     end
@@ -161,7 +153,7 @@ module IsoDoc
         when "termsource" then termref_parse(node, out)
         when "modification" then modification_parse(node, out)
         when "termnote" then termnote_parse(node, out)
-        when "termexample" then termexample_parse(node, out)
+        when "termexample" then example_parse(node, out)
         when "terms" then terms_parse(node, out)
         when "symbols-abbrevs" then symbols_parse(node, out)
         when "references" then bibliography_parse(node, out)

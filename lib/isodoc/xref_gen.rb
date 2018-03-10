@@ -23,6 +23,17 @@ module IsoDoc
       end
     end
 
+    def termexample_anchor_names(docxml)
+      docxml.xpath(ns("//term[termexample]")).each do |t|
+        t.xpath(ns("./termexample")).each_with_index do |n, i|
+          @anchors[n["id"]] =
+            { label: (i + 1).to_s,
+              xref: l10n("#{@anchors[t['id']][:xref]}, "\
+                         "#{@note_xref_lbl} #{i + 1}") }
+        end
+      end
+    end
+
     SECTIONS_XPATH =
       "//foreword | //introduction | //sections/terms | //annex | "\
       "//sections/clause | //references[not(ancestor::references)]".freeze
@@ -103,6 +114,7 @@ module IsoDoc
       end
       clause_names(docxml, sect_num)
       termnote_anchor_names(docxml)
+      termexample_anchor_names(docxml)
     end
 
     # extract names for all anchors, xref and label

@@ -57,7 +57,7 @@ module IsoDoc
                  l10n(", #{@whole_of_text}")
                else
                  eref_localities1(r["type"], r.at(ns("./referenceFrom")),
-                                  r.at(ns("./referenceTo")))
+                                  r.at(ns("./referenceTo")), @lang)
                end
       end
       ret

@@ -24,7 +24,7 @@ module IsoDoc
       out.p **{ class: "Terms" } { |p| p << node.text }
     end
 
-    def para_then_remainder(first, node, p)
+    def para_then_remainder(first, node, p, div)
       if first.name == "p"
         first.children.each { |n| parse(n, p) }
         node.elements.drop(1).each { |n| parse(n, div) }
@@ -39,7 +39,7 @@ module IsoDoc
         div.p **{ class: "Note" } do |p|
           p << l10n("#{@example_lbl}:")
           insert_tab(p, 1)
-          para_then_remainder(first, node, p)
+          para_then_remainder(first, node, p, div)
         end
       end
     end
@@ -49,7 +49,7 @@ module IsoDoc
         first = node.first_element_child
         div.p **{ class: "Note" } do |p|
           p << "#{get_anchors[node['id']][:label]}: "
-          para_then_remainder(first, node, p)
+          para_then_remainder(first, node, p, div)
         end
       end
     end
