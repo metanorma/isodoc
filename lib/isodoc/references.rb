@@ -48,15 +48,6 @@ module IsoDoc
       end
     end
 
-    def ref_entry(list, b, ordinal, _bibliography)
-      ref = b.at(ns("./ref"))
-      para = b.at(ns("./p"))
-      list.p **attr_code("id": ref["id"], class: "Biblio") do |r|
-        ref_entry_code(r, ordinal, ref.text.gsub(/[\[\]]/, ""))
-        para.children.each { |n| parse(n, r) }
-      end
-    end
-
     # TODO generate formatted ref if not present
     def noniso_bibitem(list, b, ordinal, bibliography)
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
@@ -151,17 +142,17 @@ module IsoDoc
     def reference_names(ref)
       isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
       docid = ref.at(ns("./docidentifier"))
-      return ref_names(ref) unless docid
+      # return ref_names(ref) unless docid
       date = ref.at(ns("./date[@type = 'published']"))
       reference = format_ref(docid_l10n(docid.text), isopub)
       reference += ": #{date.text}" if date && isopub && date != "--"
       @anchors[ref["id"]] = { xref: reference }
     end
 
-    def ref_names(ref)
-      linkend = ref.text
-      linkend.gsub!(/[\[\]]/, "") unless /^\[\d+\]$/.match? linkend
-      @anchors[ref["id"]] = { xref: linkend }
-    end
+    # def ref_names(ref)
+    #  linkend = ref.text
+      # linkend.gsub!(/[\[\]]/, "") unless /^\[\d+\]$/.match? linkend
+      # @anchors[ref["id"]] = { xref: linkend }
+    # end
   end
 end

@@ -17,7 +17,9 @@ RSpec.describe IsoDoc do
       <td align="center">Drago<fn reference="a">
   <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
 </fn></td>
-      <td align="center">Balilla</td>
+      <td align="center">Balilla<fn reference="a">
+  <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
+</fn></td>
       <td align="center">Thaibonnet</td>
     </tr>
     </thead>
@@ -81,7 +83,7 @@ RSpec.describe IsoDoc do
                        <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
-                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Balilla</td>
+       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
                        <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Thaibonnet</td>
                      </tr>
                    </thead>

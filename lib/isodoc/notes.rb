@@ -2,10 +2,6 @@ require "uuidtools"
 
 module IsoDoc
   class Convert
-    def in_footnote
-      @in_footnote
-    end
-
     def in_comment
       @in_comment
     end

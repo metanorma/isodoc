@@ -33,17 +33,6 @@ module IsoDoc
       end
     end
 
-    def termexample_parse(node, out)
-      out.div **{ class: "Note" } do |div|
-        first = node.first_element_child
-        div.p **{ class: "Note" } do |p|
-          p << l10n("#{@example_lbl}:")
-          insert_tab(p, 1)
-          para_then_remainder(first, node, p, div)
-        end
-      end
-    end
-
     def termnote_parse(node, out)
       out.div **{ class: "Note" } do |div|
         first = node.first_element_child

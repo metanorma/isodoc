@@ -1,56 +1,134 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-  it "processes IsoXML terms" do
+  it "processes IsoXML bibliographies" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <sections>
-    <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+    <foreword>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+  <eref bibitemid="ISO712"/>
+  <eref bibitemid="ref1"/>
+  <eref bibitemid="ref10"/>
+  </p>
+    </foreword>
+    <references id="_normative_references" obligation="informative"><title>Normative References</title>
+<bibitem id="ISO712" type="standard">
+  <title format="text/plain">Cereals and cereal products</title>
+  <docidentifier>ISO 712</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>ISO</name>
+    </organization>
+  </contributor>
+</bibitem>
+<bibitem id="ISO16634" type="standard">
+  <title format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
+  <docidentifier>ISO 16634:All Parts</docidentifier>
+  <date type="published">--</date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>ISO</name>
+    </organization>
+  </contributor>
+  <note format="text/plain" reference="1">ISO DATE: Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
+</bibitem>
+<bibitem id="ISO20483" type="standard">
+  <title format="text/plain">Cereals and pulses</title>
+  <docidentifier>ISO 20483</docidentifier>
+  <date type="published">2013</date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>ISO</name>
+    </organization>
+  </contributor>
+</bibitem>
+<bibitem id="ref1">
+  <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
+  <docidentifier>ICC 167</docidentifier>
+</bibitem>
 
-<term id="paddy1"><preferred>paddy</preferred>
-<domain>rice</domain>
-<definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-<termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
-  <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
-  <ul>
-  <li>A</li>
-  </ul>
-</termexample>
-<termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894">
-  <ul>
-  <li>A</li>
-  </ul>
-</termexample>
+</references><references id="_bibliography" obligation="informative">
+  <title>Bibliography</title>
+<bibitem id="ISO3696" type="standard">
+  <title format="text/plain">Water for analytical laboratory use</title>
+  <docidentifier>ISO 3696</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>ISO</name>
+    </organization>
+  </contributor>
+</bibitem>
+<bibitem id="ref10">
+  <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
+  <docidentifier>[10]</docidentifier>
+</bibitem>
+<bibitem id="ref11">
+  <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
+  <docidentifier>IETF RFC 10</docidentifier>
+</bibitem>
 
-<termsource status="modified">
-  <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301: 2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
-    <modification>
-    <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
-  </modification>
-</termsource></term>
 
-<term id="paddy"><preferred>paddy</preferred><admitted>paddy rice</admitted>
-<admitted>rough rice</admitted>
-<deprecates>cargo rice</deprecates>
-<definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-<termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f893">
-  <ul>
-  <li>A</li>
-  </ul>
-</termexample>
-<termnote id="_671a1994-4783-40d0-bc81-987d06ffb74e">
-  <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
-</termnote>
-<termnote id="_671a1994-4783-40d0-bc81-987d06ffb74f">
-<ul><li>A</li></ul>
-  <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
-</termnote>
-<termsource status="identical">
-  <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301: 2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
-</termsource></term>
-</terms>
-</sections>
-</iso-standard>
+</references>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+         <a href="#ISO712">ISO 712</a>
+         <a href="#ref1">ICC 167</a>
+         <a href="#ref10">[10]</a>
+         </p>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+               <div>
+                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+                 <p id="ISO712">ISO 712, <i> Cereals and cereal products</i></p>
+                 <p id="ISO16634">ISO 16634:All Parts: --<a href="#ftn1" epub:type="footnote"><sup>1</sup></a>, <i> Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
+                 <p id="ISO20483">ISO 20483: 2013, <i> Cereals and pulses</i></p>
+                 <p id="ref1" class="Biblio">ICC 167, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+               </div>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="Section3">Bibliography</h1>
+                 <p id="ISO3696" class="Biblio">[1]<span style="mso-tab-count:1">&#160; </span>ISO 3696, <i> Water for analytical laboratory use</i></p>
+                 <p id="ref10" class="Biblio">[10]<span style="mso-tab-count:1">&#160; </span><span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+                 <p id="ref11" class="Biblio">[3]<span style="mso-tab-count:1">&#160; </span>IETF RFC 10,<span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+               </div>
+               <aside id="ftn1">
+         <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
+       </aside>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+  end 
+
+   it "processes empty IsoXML Normative References" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <references id="_normative_references" obligation="informative"><title>Normative References</title>
+    </references>
+    </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
@@ -66,53 +144,15 @@ RSpec.describe IsoDoc do
              <br clear="all" class="section"/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
-               <div id="_terms_and_definitions"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
-           the following terms and definitions apply.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
-       <p class="TermNum" id="paddy1">3.1</p><p class="Terms">paddy</p>
-
-       <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">&lt;rice&gt; rice retaining its husk after threshing</p>
-       <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE 1</td><td valign="top">
-         <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
-         <ul>
-         <li>A</li>
-         </ul>
-       </td></tr></table>
-       <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f894" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE 2</td><td valign="top">
-         <ul>
-         <li>A</li>
-         </ul>
-       </td></tr></table>
-
-       <p>[TERMREF]
-         <a href="#ISO7301">ISO 7301: 2011, 3.1</a>
-           [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
-       [/TERMREF]</p><p class="TermNum" id="paddy">3.2</p><p class="Terms">paddy</p><p class="AltTerms">paddy rice</p>
-       <p class="AltTerms">rough rice</p>
-       <p class="DeprecatedTerms">DEPRECATED: cargo rice</p>
-       <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
-       <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE 1</td><td valign="top">
-         <ul>
-         <li>A</li>
-         </ul>
-       </td></tr></table>
-       <div class="Note"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-       <div class="Note"><p class="Note">Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
-       <p>[TERMREF]
-         <a href="#ISO7301">ISO 7301: 2011, 3.1</a>
-       [/TERMREF]</p></div>
+               <div>
+                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+                 <p>There are no normative references in this document.</p>
+               </div>
              </div>
            </body>
          </head>
        </html>
-OUTPUT
-  end 
+    OUTPUT
+   end
+
 end
