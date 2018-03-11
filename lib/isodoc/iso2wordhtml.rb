@@ -43,6 +43,8 @@ module IsoDoc
     def make_body2(body, docxml)
       body.div **{ class: "WordSection2" } do |div2|
         info docxml, div2
+        foreword docxml, div2
+        introduction docxml, div2
         div2.p { |p| p << "&nbsp;" } # placeholder
       end
       section_break(body)
@@ -57,7 +59,6 @@ module IsoDoc
     end
 
     def info(isoxml, out)
-      # intropage(out)
       title isoxml, out
       subtitle isoxml, out
       id isoxml, out
@@ -65,8 +66,7 @@ module IsoDoc
       bibdate isoxml, out
       relations isoxml, out
       version isoxml, out
-      foreword isoxml, out
-      introduction isoxml, out
+      get_metadata
     end
 
     def middle_title(out)

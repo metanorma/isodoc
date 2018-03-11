@@ -105,8 +105,8 @@ module IsoDoc
     def draftinfo(draft, revdate)
       draftinfo = ""
       if draft
-        draftinfo = " (#{@draft_lbl} #{draft.text}"
-        draftinfo += ", #{revdate.text}" if revdate
+        draftinfo = " (#{@draft_lbl} #{draft}"
+        draftinfo += ", #{revdate}" if revdate
         draftinfo += ")"
       end
       l10n(draftinfo)
@@ -114,13 +114,8 @@ module IsoDoc
 
     def version(isoxml, _out)
       set_metadata(:docyear, isoxml&.at(ns("//copyright/from"))&.text)
-      # draft = isoxml.at(ns("//version/draft"))
-      # set_metadata(:draft, draft.nil? ? nil : draft.text)
       set_metadata(:draft, isoxml&.at(ns("//version/draft"))&.text)
-      # revdate = isoxml.at(ns("//version/revision-date"))
-      #set_metadata(:revdate, revdate.nil? ? nil : revdate.text)
       set_metadata(:revdate, isoxml&.at(ns("//version/revision-date"))&.text)
-      #set_metadata(:draftinfo, draftinfo(draft, revdate))
       set_metadata(:draftinfo,
                    draftinfo(get_metadata[:draft], get_metadata[:revdate]))
     end
