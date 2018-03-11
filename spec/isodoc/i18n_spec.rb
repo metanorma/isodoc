@@ -551,7 +551,7 @@ RSpec.describe IsoDoc do
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
+      <abbreviation>ISO</abbreviation>
     </organization>
   </contributor>
 </bibitem>

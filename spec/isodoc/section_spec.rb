@@ -225,7 +225,7 @@ RSpec.describe IsoDoc do
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
+      <name>International Organization for Standardization</name>
     </organization>
   </contributor>
 </bibitem></references>
@@ -288,7 +288,7 @@ RSpec.describe IsoDoc do
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
+      <abbreviation>ISO</abbreviation>
     </organization>
   </contributor>
 </bibitem></references>

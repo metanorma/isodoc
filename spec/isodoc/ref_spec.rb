@@ -18,7 +18,7 @@ RSpec.describe IsoDoc do
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
+      <name>International Organization for Standardization</name>
     </organization>
   </contributor>
 </bibitem>
@@ -29,7 +29,7 @@ RSpec.describe IsoDoc do
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
+      <abbreviation>ISO</abbreviation>
     </organization>
   </contributor>
   <note format="text/plain" reference="1">ISO DATE: Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
@@ -41,7 +41,7 @@ RSpec.describe IsoDoc do
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
+      <name>International Organization for Standardization</name>
     </organization>
   </contributor>
 </bibitem>
@@ -58,7 +58,7 @@ RSpec.describe IsoDoc do
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
+      <abbreviation>ISO</abbreviation>
     </organization>
   </contributor>
 </bibitem>

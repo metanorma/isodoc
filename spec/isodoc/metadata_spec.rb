@@ -28,13 +28,13 @@ RSpec.describe IsoDoc do
   <contributor>
     <role type="author"/>
     <organization>
-      <name>ISO</name>
+      <abbreviation>ISO</abbreviation>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
+      <abbreviation>ISO</abbreviation>
     </organization>
   </contributor>
   <language>en</language>
@@ -47,7 +47,7 @@ RSpec.describe IsoDoc do
     <from>2016</from>
     <owner>
       <organization>
-        <name>ISO</name>
+        <abbreviation>ISO</abbreviation>
       </organization>
     </owner>
   </copyright>
@@ -95,8 +95,13 @@ OUTPUT
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>ISO</name>
-      <name>IEC</name>
+      <abbreviation>ISO</abbreviation>
+     </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>IEC</abbreviation>
     </organization>
   </contributor>
   <language>en</language>
@@ -109,7 +114,7 @@ OUTPUT
     <from>2016</from>
     <owner>
       <organization>
-        <name>ISO</name>
+        <name>International Organization for Standardization</name>
       </organization>
     </owner>
   </copyright>

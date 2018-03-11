@@ -71,11 +71,21 @@ module IsoDoc
       end
     end
 
+    def iso?(org)
+      name = org&.at(ns("./name"))&.text
+      abbrev = org&.at(ns("./abbreviation"))&.text
+      (abbrev == "ISO" || 
+       name == "International Organization for Standardization" )
+    end
+
     def agency(xml)
       agency = ""
       xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = 'publisher']/"\
-                   "organization/name")).each do |org|
-        agency = org.text == "ISO" ? "ISO/#{agency}" : "#{agency}#{org.text}/"
+                   "organization")).each do |org|
+        name = org&.at(ns("./name"))&.text
+        abbrev = org&.at(ns("./abbreviation"))&.text
+        agency1 = abbrev || name
+        agency = iso?(org) ?  "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
       set_metadata(:agency, agency.sub(%r{/$}, ""))
     end

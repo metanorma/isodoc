@@ -63,7 +63,9 @@ module IsoDoc
 
     ISO_PUBLISHER_XPATH =
       "./contributor[xmlns:role/@type = 'publisher']/"\
-      "organization[name = 'ISO' or xmlns:name = 'IEC']".freeze
+      "organization[abbreviation = 'ISO' or xmlns:abbreviation = 'IEC' or "\
+      "xmlns:name = 'International Organization for Standardization' or "\
+      "xmlns:name = 'International Electrotechnical Commission']".freeze
 
     def split_bibitems(f)
       iso_bibitem = []
@@ -151,8 +153,8 @@ module IsoDoc
 
     # def ref_names(ref)
     #  linkend = ref.text
-      # linkend.gsub!(/[\[\]]/, "") unless /^\[\d+\]$/.match? linkend
-      # @anchors[ref["id"]] = { xref: linkend }
+    # linkend.gsub!(/[\[\]]/, "") unless /^\[\d+\]$/.match? linkend
+    # @anchors[ref["id"]] = { xref: linkend }
     # end
   end
 end
