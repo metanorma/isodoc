@@ -8,7 +8,7 @@ module IsoDoc
       isocode = b.at(ns("./docidentifier")).text
       isodate = b.at(ns("./date[@type = 'published']"))
       reference = docid_l10n(isocode)
-      reference += ": #{isodate.text}" if isodate
+      reference += ": #{date_range(isodate)}" if isodate
       reference
     end
 
@@ -135,8 +135,13 @@ module IsoDoc
       end
     end
 
-    def format_ref(ref, isopub)
-      return ref if isopub
+    def format_ref(ref, isopub, date)
+      if isopub
+        return ref unless date
+        from = date.at(ns("./from"))
+        return ref if from&.text == "--"
+        return ref + ": #{date_range(date)}"
+      end
       return "[#{ref}]" if /^\d+$/.match?(ref) && !/^\[.*\]$/.match?(ref)
       ref
     end
@@ -146,8 +151,8 @@ module IsoDoc
       docid = ref.at(ns("./docidentifier"))
       # return ref_names(ref) unless docid
       date = ref.at(ns("./date[@type = 'published']"))
-      reference = format_ref(docid_l10n(docid.text), isopub)
-      reference += ": #{date.text}" if date && isopub && date != "--"
+      reference = format_ref(docid_l10n(docid.text), isopub, date)
+      # reference += ": #{date_range(date)}" if date && isopub && from.text != "--"
       @anchors[ref["id"]] = { xref: reference }
     end
 

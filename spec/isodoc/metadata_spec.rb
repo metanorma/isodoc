@@ -20,11 +20,11 @@ RSpec.describe IsoDoc do
     <project-number part="1">17301</project-number>
     <tc-document-number>17301</tc-document-number>
   </docidentifier>
-  <date type="published">2011</date>
-  <date type="accessed">2012</date>
-  <date type="created">2010</date>
-  <date type="activated">2013</date>
-  <date type="obsoleted">2014</date>
+  <date type="published"><from>2011</from></date>
+  <date type="accessed"><from>2012</from></date>
+  <date type="created"><from>2010</from><to>2011</to></date>
+  <date type="activated"><from>2013</from></date>
+  <date type="obsoleted"><from>2014</from></date>
   <contributor>
     <role type="author"/>
     <organization>
@@ -64,7 +64,7 @@ RSpec.describe IsoDoc do
 </version>
 </iso-standard>
 INPUT
-       {:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :createddate=>"2010", :docnumber=>"CD 17301-1", :docsubtitle=>"C&#xe9;r&#xe9;ales et l&#xe9;gumineuses&nbsp;&mdash; Sp&#xe9;cification et m&#xe9;thodes d&#x27;essai&nbsp;&mdash; Partie&nbsp;1: Riz", :doctitle=>"Cereals and pulses&nbsp;&mdash; Specifications and test methods&nbsp;&mdash; Part&nbsp;1: Rice", :docyear=>"2016", :draft=>nil, :draftinfo=>"", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2011", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :stage=>"30", :stageabbr=>"CD", :tc=>"TC 34", :wg=>"WG 3"}
+       {:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :createddate=>"2010&ndash;2011", :docnumber=>"CD 17301-1", :docsubtitle=>"C&#xe9;r&#xe9;ales et l&#xe9;gumineuses&nbsp;&mdash; Sp&#xe9;cification et m&#xe9;thodes d&#x27;essai&nbsp;&mdash; Partie&nbsp;1: Riz", :doctitle=>"Cereals and pulses&nbsp;&mdash; Specifications and test methods&nbsp;&mdash; Part&nbsp;1: Rice", :docyear=>"2016", :draft=>nil, :draftinfo=>"", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2011", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :stage=>"30", :stageabbr=>"CD", :tc=>"TC 34", :wg=>"WG 3"}
 OUTPUT
   end
 

@@ -65,9 +65,17 @@ module IsoDoc
       set_metadata(:secretariat, sec.text) if sec
     end
 
+    def date_range(date)
+      from = date.at(ns("./from"))
+      to = date.at(ns("./to"))
+      ret = from.text
+      ret += "&ndash;#{to.text}" if to
+      ret
+    end
+
     def bibdate(isoxml, _out)
       isoxml.xpath(ns("//bibdata/date")).each do |d|
-        set_metadata("#{d['type']}date".to_sym, d.text)
+        set_metadata("#{d['type']}date".to_sym, date_range(d))
       end
     end
 

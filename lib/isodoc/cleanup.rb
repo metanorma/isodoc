@@ -19,7 +19,7 @@ module IsoDoc
       docxml.xpath("//div[@class = 'Admonition'][title]").each do |d|
         title = d.at("./title")
         n = title.next_element
-        n&.children&.first&.add_previous_sibling(title.text + "&mdash;")
+        n&.children&.first&.add_previous_sibling(title.remove.text + "&mdash;")
       end
       docxml
     end
@@ -50,15 +50,16 @@ module IsoDoc
       end
     end
 
+    # move footnotes into key, and get rid of footnote reference
+    # since it is in diagram
     def figure_cleanup(docxml)
-      # move footnotes into key, and get rid of footnote reference
-      # since it is in diagram
       docxml.xpath(FIGURE_WITH_FOOTNOTES).each do |f|
         key = figure_get_or_make_dl(f)
         f.xpath(".//aside").each do |aside|
           figure_aside_process(f, aside, key)
         end
       end
+      docxml
     end
 
     def inline_header_cleanup(docxml)
@@ -71,6 +72,7 @@ module IsoDoc
           n.children.first.previous = x.remove
         end
       end
+      docxml
     end
 
     def footnote_cleanup(docxml)
@@ -142,6 +144,7 @@ module IsoDoc
     def table_cleanup(docxml)
       table_footnote_cleanup(docxml)
       table_note_cleanup(docxml)
+      docxml
     end
 
     # We assume AsciiMath. Indices sort after letter but before any following
@@ -165,10 +168,12 @@ module IsoDoc
     end
 
     def symbols_cleanup(docxml)
-      dl = docxml.at("//div[@class = 'Symbols']/dl") || return
+      dl = docxml.at("//div[@class = 'Symbols']/dl")
+      return docxml unless dl
       dl_out = extract_symbols_list(dl)
       dl_out.sort! { |a, b| a[:key] <=> b[:key] }
       dl.replace(dl_out.map { |d| d[:dt].to_s + d[:dd].to_s }.join("\n"))
+      docxml
     end
   end
 end

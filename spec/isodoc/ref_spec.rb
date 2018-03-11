@@ -25,7 +25,7 @@ RSpec.describe IsoDoc do
 <bibitem id="ISO16634" type="standard">
   <title format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
   <docidentifier>ISO 16634:All Parts</docidentifier>
-  <date type="published">--</date>
+  <date type="published"><from>--</from></date>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -37,7 +37,7 @@ RSpec.describe IsoDoc do
 <bibitem id="ISO20483" type="standard">
   <title format="text/plain">Cereals and pulses</title>
   <docidentifier>ISO 20483</docidentifier>
-  <date type="published">2013</date>
+  <date type="published"><from>2013</from><to>2014</to></date>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -103,7 +103,7 @@ RSpec.describe IsoDoc do
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712">ISO 712, <i> Cereals and cereal products</i></p>
                  <p id="ISO16634">ISO 16634:All Parts: --<a href="#ftn1" epub:type="footnote"><sup>1</sup></a>, <i> Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
-                 <p id="ISO20483">ISO 20483: 2013, <i> Cereals and pulses</i></p>
+                 <p id="ISO20483">ISO 20483: 2013&#8211;2014, <i> Cereals and pulses</i></p>
                  <p id="ref1" class="Biblio">ICC 167, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
