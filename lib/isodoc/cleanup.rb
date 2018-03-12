@@ -39,7 +39,7 @@ module IsoDoc
 
     def figure_aside_process(f, aside, key)
       # get rid of footnote link, it is in diagram
-      f.at("./a[@class='TableFootnoteRef']").remove
+      f&.at("./a[@class='TableFootnoteRef']")&.remove
       fnref = f.at(".//a[@class='TableFootnoteRef']")
       dt = key.add_child("<dt></dt>").first
       dd = key.add_child("<dd></dd>").first
