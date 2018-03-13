@@ -147,7 +147,8 @@ module IsoDoc
       docxml
     end
 
-    # We assume AsciiMath. Indices sort after letter but before any following
+    # We assume AsciiMath is being used in the terms & definitions. 
+    # Indices sort after letter but before any following
     # letter (x, x_m, x_1, xa); we use colon to force that sort order.
     # Numbers sort *after* letters; we use thorn to force that sort order.
     def symbol_key(x)

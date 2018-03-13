@@ -10,7 +10,7 @@ module IsoDoc
 
     def html_cleanup(x)
       footnote_backlinks(
-        move_images(html_footnote_filter(html_preface(htmlstyle(x))))
+        html_toc(move_images(html_footnote_filter(html_preface(htmlstyle(x)))))
       )
     end
 
@@ -108,6 +108,29 @@ module IsoDoc
         i["src"] = new_full_filename
         i["width"], i["height"] = Html2Doc.image_resize(i, 800, 1200)
       end
+      docxml
+    end
+
+    def html_toc1(h, ret, prevname)
+      h["id"] = UUIDTools::UUID.random_create.to_s unless h["id"]
+      li = "<li><a href='##{h["id"]}'>#{h.text}</a></li>"
+      if h.name == "h1"
+        ret += "</ul>" if prevname == "h2"
+      else
+        ret += "<ul>" if prevname == "h1"
+      end
+      ret + li
+    end
+
+    def html_toc(docxml)
+      ret = ""
+      prevname = ""
+      docxml.xpath("//h1 | //h2").each do |h|
+        ret = html_toc1(h, ret, prevname) unless h["class"] == "toc-contents"
+        prevname = h.name
+      end
+      ret += "<ul>" if prevname == "h2"
+      docxml.at("//*[@id='toc-list']").replace("<ul>#{ret}</ret>")
       docxml
     end
   end
