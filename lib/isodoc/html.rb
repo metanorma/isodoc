@@ -32,15 +32,23 @@ module IsoDoc
     end
 
     def html_preface(docxml)
-      cover = Nokogiri::HTML(File.read(@htmlcoverpage, encoding: "UTF-8"))
-      d = docxml.at('//div[@class="WordSection1"]')
-      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
-      cover = Nokogiri::HTML(File.read(@htmlintropage, encoding: "UTF-8"))
-      d = docxml.at('//div[@class="WordSection2"]')
-      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
+      html_cover(docxml) if @htmlcoverpage
+      html_intro(docxml) if @htmlintropage
       docxml.at("//*[local-name() = 'body']") << mathjax(@openmathdelim,
                                                          @closemathdelim)
       docxml
+    end
+
+    def html_cover(docxml)
+      cover = Nokogiri::HTML(File.read(@htmlcoverpage, encoding: "UTF-8"))
+      d = docxml.at('//div[@class="WordSection1"]')
+      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
+    end
+
+    def html_intro(docxml)
+      cover = Nokogiri::HTML(File.read(@htmlintropage, encoding: "UTF-8"))
+      d = docxml.at('//div[@class="WordSection2"]')
+      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
     end
 
     def htmlstylesheet
@@ -123,6 +131,7 @@ module IsoDoc
     end
 
     def html_toc(docxml)
+      return docxml unless @htmlcoverpage
       ret = ""
       prevname = ""
       docxml.xpath("//h1 | //h2").each do |h|

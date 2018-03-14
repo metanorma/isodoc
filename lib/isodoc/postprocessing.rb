@@ -61,9 +61,17 @@ module IsoDoc
     end
 
     def word_preface(docxml)
+      word_cover(docxml) if @wordcoverpage
+      word_intro(docxml) if @wordintropage
+    end
+
+    def word_cover(docxml)
       cover = to_xhtml_fragment(File.read(@wordcoverpage, encoding: "UTF-8"))
       docxml.at('//div[@class="WordSection1"]').children.first.previous =
         cover.to_xml(encoding: "US-ASCII")
+    end
+
+    def word_intro(docxml)
       intro = to_xhtml_fragment(File.read(@wordintropage, encoding: "UTF-8").
                                 sub(/WORDTOC/, make_WordToC(docxml)))
       docxml.at('//div[@class="WordSection2"]').children.first.previous =
@@ -82,6 +90,7 @@ module IsoDoc
     end
 
     def generate_header(filename, _dir)
+      return unless @header
       template = Liquid::Template.parse(File.read(@header, encoding: "UTF-8"))
       meta = get_metadata
       meta[:filename] = filename
