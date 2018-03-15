@@ -18,7 +18,10 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
     expect(word).to match(/one empty stylesheet/)
     html = File.read("test.html")
+    expect(html).to match(%r{<title>test</title><style>})
     expect(html).to match(/another empty stylesheet/)
+    expect(html).to match(%r{cdnjs\.cloudflare\.com/ajax/libs/mathjax/2\.7\.1/MathJax\.js})
+    expect(html).to match(/delimiters: \[\['\(#\(', '\)#\)'\]\]/)
   end
 
   it "generates output docs with null configuration from file" do
@@ -276,5 +279,131 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
     OUTPUT
   end
 
+  it "reorders footnote numbers in HTML" do
+    system "rm -f test.html"
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert_file(<<~"INPUT", "test", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <sections>
+               <clause inline-header="false" obligation="normative"><title>Clause 4</title><fn reference="3">
+  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">This is a footnote.</p>
+</fn><subsection id="N" inline-header="false" obligation="normative">
+
+         <title>Introduction to this<fn reference="2">
+  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+</fn></title>
+       </subsection>
+       <subsection id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+         <p>A<fn reference="1">
+  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+</fn></p>
+       </subsection></clause>
+        </sections>
+        </iso-standard>
+    INPUT
+    html = File.read("test.html").sub(/^.*<div class="WordSection3">/m, '<div class="WordSection3">').
+      sub(%r{<script type="text/x-mathjax-config">.*$}m, "")
+    expect(html).to be_equivalent_to <<~"OUTPUT"
+           <div class="WordSection3">
+               <p class="zzSTDTitle1"></p>
+               <div>
+                 <h1>4.<span style="mso-tab-count:1">&#xA0; </span>Clause 4</h1>
+                 <a href="#ftn3" epub:type="footnote" id="_footnote1">
+                   <sup>1</sup>
+                 </a>
+                 <div id="N">
+
+                <h2>4.1. Introduction to this<a href="#ftn2" epub:type="footnote" id="_footnote2"><sup>2</sup></a></h2>
+              </div>
+                 <div id="O">
+                <h2>4.2. Clause 4.2</h2>
+                <p>A<a href="#ftn2" epub:type="footnote"><sup>2</sup></a></p>
+              </div>
+               </div>
+               <aside id="ftn3">
+         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a href="#_footnote1">1) </a>This is a footnote.</p>
+       </aside>
+               <aside id="ftn2">
+         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a href="#_footnote2">2) </a>Formerly denoted as 15 % (m/m).</p>
+       </aside>
+
+             </div>
+    OUTPUT
+  end
+
+  it "moves images in HTML" do
+    system "rm -f test.html"
+    system "rm -rf _images"
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <foreword>
+         <figure id="_">
+         <name>Split-it-right sample divider</name>
+                  <image src="spec/assets/rice_image1.png" id="_" imagetype="PNG"/>
+       </figure>
+       </foreword>
+        </iso-standard>
+    INPUT
+    html = File.read("test.html").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+      sub(%r{<div class="WordSection3">.*$}m, "")
+    expect(`ls _images`).to match(/\.png$/)
+    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")).to be_equivalent_to <<~"OUTPUT"
+        <div class="WordSection2">
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always" />
+        <div>
+          <h1 class="ForewordTitle">Foreword</h1>
+          <div id="_" class="figure">
+
+           <img src="_images/_.png" width="800" height="673" />
+<p class="FigureTitle" align="center"><b>Figure 1&#xA0;&#x2014; Split-it-right sample divider</b></p></div>
+        </div>
+        <p>&#xA0;</p>
+      </div>
+      <br clear="all" class="section" />
+    OUTPUT
+
+  end
+
+  it "populates HTML ToC" do
+    system "rm -f test.html"
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", htmlintropage: "spec/assets/htmlintro.html"}).convert_file(<<~"INPUT", "test", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <sections>
+               <clause inline-header="false" obligation="normative"><title>Clause 4</title><subsection id="N" inline-header="false" obligation="normative">
+
+         <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
+  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+</fn></title>
+       </subsection>
+       <subsection id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+         <p>A<fn reference="1">
+  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+</fn></p>
+       </subsection></clause>
+               <clause inline-header="false" obligation="normative"><title>Clause 5</title></clause>
+        </sections>
+        </iso-standard>
+
+    INPUT
+    puts File.read("test.html")
+    html = File.read("test.html").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+      sub(%r{<div class="WordSection3">.*$}m, "")
+    expect(html.gsub(/"#[a-f0-9-]+"/, "#_")).to be_equivalent_to <<~"OUTPUT"
+       <div class="WordSection2">
+     
+       <p>/* an empty html intro page */
+     
+       </p>
+       <ul><li><a href=#_>5.<span style="mso-tab-count:1">&#xA0; </span>Clause 4</a></li><ul><li><a href=#_>4.1. Introduction</a><a id="Q"></a> to this</li><li><a href=#_>4.2. Clause 4.2</a></li></ul><li><a href=#_>5.<span style="mso-tab-count:1">&#xA0; </span>Clause 5</a></li></ul>
+     
+     
+     
+               <p>&#xA0;</p>
+             </div>
+             <br clear="all" class="section" />
+
+    OUTPUT
+  end
 
 end

@@ -121,7 +121,7 @@ module IsoDoc
 
     def html_toc1(h, ret, prevname)
       h["id"] = UUIDTools::UUID.random_create.to_s unless h["id"]
-      li = "<li><a href='##{h["id"]}'>#{h.text}</a></li>"
+      li = "<li><a href='##{h["id"]}'>#{header_strip(h)}</a></li>"
       if h.name == "h1"
         ret += "</ul>" if prevname == "h2"
       else
@@ -131,7 +131,7 @@ module IsoDoc
     end
 
     def html_toc(docxml)
-      return docxml unless @htmlcoverpage
+      return docxml unless @htmlintropage
       ret = ""
       prevname = ""
       docxml.xpath("//h1 | //h2").each do |h|
