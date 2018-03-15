@@ -3,7 +3,7 @@ module IsoDoc
     def inline_header_title(out, node, c1)
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
-          b << "#{get_anchors[node['id']][:label]}. #{c1.text} "
+          b << "#{get_anchors[node['id']][:label]}. #{c1.content} "
         end
       end
     end
@@ -13,7 +13,8 @@ module IsoDoc
         inline_header_title(out, node, c1)
       else
         div.send "h#{get_anchors[node['id']][:level]}" do |h|
-          h << "#{get_anchors[node['id']][:label]}. #{c1.text}"
+          h << "#{get_anchors[node['id']][:label]}. "
+          c1.children.each { |c2| parse(c2, h) }
         end
       end
     end
@@ -49,7 +50,7 @@ module IsoDoc
           c.elements.each do |c1|
             if c1.name == "title"
               clause_name("#{get_anchors[c['id']][:label]}.",
-                          c1.text, s, nil)
+                          c1.content, s, nil)
             else
               parse(c1, s)
             end

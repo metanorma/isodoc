@@ -83,7 +83,6 @@ module IsoDoc
       docxml = docxml.
         gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
         gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
-        gsub(/\s*\[ISOSECTION\]/, l10n(", ")).
         gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
       template = Liquid::Template.parse(docxml)
       template.render(meta.map { |k, v| [k.to_s, v] }.to_h)
@@ -119,11 +118,6 @@ module IsoDoc
           style.comment "\n#{stylesheet}\n"
         end
       end
-    end
-
-    def titlepage(_docxml, div)
-      titlepage = File.read(@wordcoverpage, encoding: "UTF-8")
-      div.parent.add_child titlepage
     end
 
     def word_toc_entry(toclevel, heading)
@@ -164,14 +158,11 @@ module IsoDoc
     TOC
 
     def header_strip(h)
-      h = h.to_s.gsub(%r{<br/>}, " ").
-        sub(/<h[12][^>]*>/, "").sub(%r{</h[12]>}, "")
-      h1 = to_xhtml_fragment(h)
-      h1.xpath(".//*").each do |x|
-        if x.name == "span" && x["style"] == "MsoCommentReference"
-          x.children.remove
-          x.content = ""
-        end
+      h = h.to_s.gsub(%r{<br/>}, " ").sub(/<\/?h[12][^>]*>/, "")
+      h1 = to_xhtml_fragment(h.dup)
+      h1.traverse do |x|
+        x.remove if x.name == "span" && x["class"] == "MsoCommentReference"
+        x.remove if x.name == "a" && x["epub:type"] == "footnote"
       end
       from_xhtml(h1)
     end
