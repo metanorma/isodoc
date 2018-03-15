@@ -15,7 +15,7 @@ standardsheet:: Stylesheet specific to Standard
 header:: Header file for Word
 htmlcoverpage:: Cover page for HTML
 wordcoverpage:: Cover page for Word
-tmlintropage:: Introductory page for HTML
+htmlintropage:: Introductory page for HTML
 wordintropage:: Introductory page for Word
 
 e.g.
