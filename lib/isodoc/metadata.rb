@@ -184,8 +184,8 @@ module IsoDoc
       std = isoxml.at(ns("//bibdata/relation[@type = 'obsoletes']")) || return
       locality = std.at(ns(".//locality"))
       id = std.at(ns(".//docidentifier"))
-      set_metadata(:obsoletes, id.text)
-      set_metadata(:obsoletes_part, locality.text)
+      set_metadata(:obsoletes, id.text) if id
+      set_metadata(:obsoletes_part, locality.text) if locality
     end
   end
 end
