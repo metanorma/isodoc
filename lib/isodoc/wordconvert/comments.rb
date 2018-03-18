@@ -136,13 +136,13 @@ def get_comments_from_text(docxml, link_order)
 end
 
 #COMMENT_TARGET_XREFS =
-@@comment_target_xrefs =
+COMMENT_TARGET_XREFS1 =
   "//span[@style='mso-special-character:comment']/@target".freeze
 
 def reorder_comments_by_comment_link(docxml)
   link_order = {}
   #docxml.xpath(COMMENT_TARGET_XREFS).each_with_index do |target, i|
-  docxml.xpath(@@comment_target_xrefs).each_with_index do |target, i|
+  docxml.xpath(COMMENT_TARGET_XREFS1).each_with_index do |target, i|
     link_order[target.value] = i
   end
   comments = get_comments_from_text(docxml, link_order)
