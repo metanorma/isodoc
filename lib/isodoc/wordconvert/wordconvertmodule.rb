@@ -181,7 +181,7 @@ def word_toc_entry(toclevel, heading)
 end
 
 #WORD_TOC_PREFACE = <<~TOC.freeze
-@@word_toc_preface = <<~TOC.freeze
+WORD_TOC_PREFACE1 = <<~TOC.freeze
       <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
@@ -190,7 +190,7 @@ end
 TOC
 
 #WORD_TOC_SUFFIX = <<~TOC.freeze
-@@word_toc_suffix = <<~TOC.freeze
+WORD_TOC_SUFFIX1 = <<~TOC.freeze
       <p class="MsoToc1"><span lang="EN-GB"><span
         style='mso-element:field-end'></span></span><span
         lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
@@ -204,7 +204,7 @@ def make_WordToC(docxml)
   end
   toc.sub(/(<p class="MsoToc1">)/,
           #%{\\1#{WORD_TOC_PREFACE}}) + WORD_TOC_SUFFIX
-          %{\\1#{ @@word_toc_preface}}) +  @@word_toc_suffix
+          %{\\1#{WORD_TOC_PREFACE1}}) +  WORD_TOC_SUFFIX1
 end
 #end
 #end
