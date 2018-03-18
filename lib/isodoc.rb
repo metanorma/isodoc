@@ -13,6 +13,4 @@ require "set"
 require "pp"
 require "isodoc/convert"
 require "isodoc/wordconvert/convert"
-require "isodoc/wordconvert/comments"
-require "isodoc/wordconvert/footnotes"
 end
