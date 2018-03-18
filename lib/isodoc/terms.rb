@@ -13,16 +13,20 @@ module IsoDoc
     def deprecated_term_parse(node, out)
       out.p **{ class: "DeprecatedTerms" } do |p|
         p << l10n("#{@deprecated_lbl}: ")
-        p << node.content
+        node.children.each { |c| parse(c, p) }
       end
     end
 
     def admitted_term_parse(node, out)
-      out.p **{ class: "AltTerms" } { |p| p << node.content }
+      out.p **{ class: "AltTerms" } do |p|
+        node.children.each { |c| parse(c, p) }
+      end
     end
 
     def term_parse(node, out)
-      out.p **{ class: "Terms" } { |p| p << node.content }
+      out.p **{ class: "Terms" } do |p|
+        node.children.each { |c| parse(c, p) }
+      end
     end
 
     def para_then_remainder(first, node, p, div)
