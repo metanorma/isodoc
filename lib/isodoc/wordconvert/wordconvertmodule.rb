@@ -32,8 +32,8 @@ def remove_bottom_border(td)
     gsub(/mso-border-bottom-alt:[^;]+;/, "mso-border-bottom-alt:0pt;")
 end
 
-#@@sw = IsoDoc::SW
-@@sw = "solid windowtext".freeze
+#SW1 = IsoDoc::SW
+SW1 = "solid windowtext".freeze
 
 def new_fullcolspan_row(t, tfoot)
   # how many columns in the table?
@@ -42,7 +42,7 @@ def new_fullcolspan_row(t, tfoot)
     cols += (td["colspan"] ? td["colspan"].to_i : 1)
   end
   style = %{border-top:0pt;mso-border-top-alt:0pt;
-      border-bottom:#{@@sw} 1.5pt;mso-border-bottom-alt:#{@@sw} 1.5pt;}
+      border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;}
   tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
   tfoot.xpath(".//td").last
 end
@@ -51,10 +51,10 @@ def make_tr_attr(td, row, totalrows)
   style = td.name == "th" ? "font-weight:bold;" : ""
   rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
   style += <<~STYLE
-        border-top:#{row.zero? ? "#{@@sw} 1.5pt;" : 'none;'}
-        mso-border-top-alt:#{row.zero? ? "#{@@sw} 1.5pt;" : 'none;'}
-        border-bottom:#{@@sw} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-        mso-border-bottom-alt:#{@@sw} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+        border-top:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
+        mso-border-top-alt:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
+        border-bottom:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+        mso-border-bottom-alt:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
   STYLE
   { rowspan: td["rowspan"], colspan: td["colspan"],
     align: td["align"], style: style.gsub(/\n/, "") }

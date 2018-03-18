@@ -68,13 +68,13 @@ def comment_cleanup(docxml)
 end
 
 #COMMENT_IN_COMMENT_LIST =
-@@comment_in_comment_list =
+COMMENT_IN_COMMENT_LIST1 =
   '//div[@style="mso-element:comment-list"]//'\
   'span[@style="MsoCommentReference"]'.freeze
 
 def embed_comment_in_comment_list(docxml)
   #docxml.xpath(COMMENT_IN_COMMENT_LIST).each do |x|
-  docxml.xpath(@@comment_in_comment_list).each do |x|
+  docxml.xpath(COMMENT_IN_COMMENT_LIST1).each do |x|
     n = x.next_element
     n&.children&.first&.add_previous_sibling(x.remove)
   end
