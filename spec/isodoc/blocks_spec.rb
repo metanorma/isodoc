@@ -18,18 +18,18 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="" class="Note">
-                   <p class="Note">NOTE<span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note">NOTE&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -40,6 +40,44 @@ RSpec.describe IsoDoc do
   end
 
   it "processes labelled notes" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <note id="note1">
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword>
+    </iso-standard>
+INPUT
+       <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br/>
+             <div class="WordSection2">
+               <br/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <div id="note1" class="Note">
+                   <p class="Note">NOTE&#160; These results are based on a study carried out on three different types of kernel.</p>
+                 </div>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+  end
+
+    it "processes sequences of notes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
@@ -59,21 +97,21 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="note1" class="Note">
-                   <p class="Note">NOTE  1<span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note">NOTE  1&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                  <div id="note2" class="Note">
-                   <p class="Note">NOTE  2<span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note">NOTE  2&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -101,19 +139,19 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="" class="Note">
-                   <p class="Note">NOTE<span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note">NOTE&#160; These results are based on a study carried out on three different types of kernel.</p>
                    <p class="Note" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -145,12 +183,12 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="" class="Note"><p class="Note">NOTE<span style="mso-tab-count:1">&#160; </span></p>
+                 <div id="" class="Note"><p class="Note">NOTE&#160; </p>
            <dl><dt><p class="Note">A</p></dt><dd><p class="Note">B</p></dd></dl>
            <ul>
            <li>C</li></ul>
@@ -158,7 +196,7 @@ INPUT
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -191,9 +229,9 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="figureA-1" class="figure">
@@ -204,7 +242,7 @@ INPUT
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -231,9 +269,9 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <table id="samplecode" class="example">
@@ -247,7 +285,7 @@ INPUT
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -278,9 +316,9 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <table id="samplecode" class="example">
@@ -301,7 +339,7 @@ INPUT
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -329,16 +367,16 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;<br/>&#160;&#160;puts&#160;x<br/><p class="FigureTitle" align="center"><b>Ruby code</b></p></p>
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -370,9 +408,9 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="_" class="Sourcecode">puts&#160;"Hello,&#160;world."&#160; &lt;1&gt;<br/>&#160;&#160;&#160;%w{a&#160;b&#160;c}.each&#160;do&#160;|x|<br/>&#160;&#160;&#160;&#160;&#160;puts&#160;x&#160; &lt;2&gt;<br/>&#160;&#160;&#160;end<span class="zzMoveToFollowing">&lt;1&gt; </span>
@@ -383,7 +421,7 @@ INPUT
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -410,9 +448,9 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div class="Admonition"><title>CAUTION</title>
@@ -421,7 +459,7 @@ INPUT
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -455,12 +493,12 @@ INPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><span class="stem">(#(r = 1 %)#)</span><span style="mso-tab-count:1">&#160; </span>(1)</div>
+                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</div>
                  <p>where</p>
                  <dl>
                    <dt>
@@ -473,7 +511,7 @@ INPUT
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -489,7 +527,49 @@ INPUT
     <foreword>
     <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
 Fictitious<br/>
-World
+World</p>
+    <p align="justify">Justify</p>
+    </foreword>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br/>
+             <div class="WordSection2">
+               <br/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left">Vache Equipment<br/>
+       Fictitious<br/>
+       World
+           </p>
+           <p style="text-align:justify">Justify</p>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+  end
+
+    it "processes paragraph alignments (Word)" do
+    expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
+Fictitious<br/>
+World</p>
+    <p align="justify">Justify</p>
     </foreword>
     </iso-standard>
     INPUT
@@ -502,13 +582,14 @@ World
              </div>
              <br clear="all" class="section"/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br  clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left">Vache Equipment<br/>
        Fictitious<br/>
        World
            </p>
+           <p style="text-align:justify">Justify</p>
                </div>
                <p>&#160;</p>
              </div>
@@ -521,6 +602,8 @@ World
        </html>
     OUTPUT
   end
+
+
 
   it "processes blockquotes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
@@ -542,9 +625,9 @@ World
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div class="Quote" id="_044bd364-c832-4b78-8fea-92242402a1d1">
@@ -555,7 +638,7 @@ World
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -585,14 +668,14 @@ World
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
-               <div><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
+               <div><h1>3.&#160; Terms and Definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>

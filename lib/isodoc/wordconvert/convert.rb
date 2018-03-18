@@ -1,16 +1,104 @@
+#require "isodoc/wordconvert/comments"
+#require "isodoc/wordconvert/footnotes"
+
 require "html2doc"
-require "htmlentities"
-require "nokogiri"
 require "liquid"
-require "pp"
 
 module IsoDoc
-  class Convert
+  class WordConvert < Convert
+    def insert_tab(out, n)
+      out.span **attr_code(style: "mso-tab-count:#{n}") do |span|
+        [1..n].each { span << "&#xA0; " }
+      end
+    end
+
+    def para_attrs(node)
+      classtype = nil
+      classtype = "Note" if @note
+      classtype = "MsoCommentText" if in_comment
+      classtype = "Sourcecode" if @annotation
+      attrs = { class: classtype, id: node["id"] }
+      unless node["align"].nil?
+        attrs[:align] = node["align"] unless node["align"] == "justify"
+        attrs[:style] = "text-align:#{node['align']}"
+      end
+      attrs
+    end
+
+    def remove_bottom_border(td)
+      td["style"] =
+        td["style"].gsub(/border-bottom:[^;]+;/, "border-bottom:0pt;").
+        gsub(/mso-border-bottom-alt:[^;]+;/, "mso-border-bottom-alt:0pt;")
+    end
+
+    def new_fullcolspan_row(t, tfoot)
+      # how many columns in the table?
+      cols = 0
+      t.at(".//tr").xpath("./td | ./th").each do |td|
+        cols += (td["colspan"] ? td["colspan"].to_i : 1)
+      end
+      style = %{border-top:0pt;mso-border-top-alt:0pt;
+      border-bottom:#{SW} 1.5pt;mso-border-bottom-alt:#{SW} 1.5pt;}
+      tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
+      tfoot.xpath(".//td").last
+    end
+
+    def make_tr_attr(td, row, totalrows)
+      style = td.name == "th" ? "font-weight:bold;" : ""
+      rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
+      style += <<~STYLE
+        border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
+        mso-border-top-alt:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
+        border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+        mso-border-bottom-alt:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+      STYLE
+      { rowspan: td["rowspan"], colspan: td["colspan"],
+        align: td["align"], style: style.gsub(/\n/, "") }
+    end
+
+    def section_break(body)
+      body.br **{ clear: "all", class: "section" }
+    end
+
+    def page_break(out)
+      out.br **{
+        clear: "all",
+        style: "mso-special-character:line-break;page-break-before:always",
+      }
+    end
+
+    def dt_parse(dt, term)
+      if dt.elements.empty?
+        term.p **attr_code(class: note? ? "Note" : nil,
+                           style: "text-align: left;") do |p|
+          p << dt.text
+        end
+      else
+        dt.children.each { |n| parse(n, term) }
+      end
+    end
+
+    def dl_parse(node, out)
+      out.table **{ class: "dl" } do |v|
+        node.elements.each_slice(2) do |dt, dd|
+          v.tr do |tr|
+            tr.td **{ valign: "top", align: "left" } do |term|
+              dt_parse(dt, term)
+            end
+            tr.td **{ valign: "top" } do |listitem|
+              dd.children.each { |n| parse(n, listitem) }
+            end
+          end
+        end
+      end
+    end
+
+
+
     def postprocess(result, filename, dir)
       generate_header(filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toWord(result, filename, dir)
-      toHTML(result, filename)
     end
 
     def toWord(result, filename, dir)
@@ -25,31 +113,7 @@ module IsoDoc
     def word_cleanup(docxml)
       word_preface(docxml)
       word_annex_cleanup(docxml)
-      word_dl_cleanup(docxml)
       docxml
-    end
-
-    def word_dl_cleanup1(dtd, tr)
-      dtd[:dt].name = "td"
-      dtd[:dt]["valign"] = "top"
-      dtd[:dt]["align"] = "left"
-      dtd[:dt]&.elements&.first&.name == "p" &&
-        dtd[:dt].elements.first["style"] = "text-align:left;"
-      dtd[:dt].parent = tr
-      dtd[:dd].name = "td"
-      dtd[:dd]["valign"] = "top"
-      dtd[:dd].parent = tr
-    end
-
-    def word_dl_cleanup(docxml)
-      docxml.xpath("//dl").each do |dl|
-        dl.name = "table"
-        dl["class"] = "dl"
-        extract_symbols_list(dl).each do |dtd|
-          tr = dl.add_child("<tr></tr>").first
-          word_dl_cleanup1(dtd, tr)
-        end
-      end
     end
 
     # force Annex h2 to be p.h2Annex, so it is not picked up by ToC
@@ -78,16 +142,6 @@ module IsoDoc
         intro.to_xml(encoding: "US-ASCII")
     end
 
-    def populate_template(docxml, _format)
-      meta = get_metadata
-      docxml = docxml.
-        gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
-        gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
-        gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
-      template = Liquid::Template.parse(docxml)
-      template.render(meta.map { |k, v| [k.to_s, v] }.to_h)
-    end
-
     def generate_header(filename, _dir)
       return unless @header
       template = Liquid::Template.parse(File.read(@header, encoding: "UTF-8"))
@@ -96,27 +150,6 @@ module IsoDoc
       params = meta.map { |k, v| [k.to_s, v] }.to_h
       File.open("header.html", "w") do |f|
         f.write(template.render(params))
-      end
-    end
-
-    # these are in fact preprocess,
-    # but they are extraneous to main HTML file
-    def html_header(html, docxml, filename, dir)
-      anchor_names docxml
-      define_head html, filename, dir
-    end
-
-    # isodoc.css overrides any CSS injected by Html2Doc, which
-    # is inserted before this CSS.
-    def define_head(html, filename, _dir)
-      html.head do |head|
-        head.title { |t| t << filename }
-        return unless @standardstylesheet
-        head.style do |style|
-          stylesheet = File.read(@standardstylesheet).
-            gsub("FILENAME", filename)
-          style.comment "\n#{stylesheet}\n"
-        end
       end
     end
 
@@ -156,16 +189,6 @@ module IsoDoc
         style='mso-element:field-end'></span></span><span
         lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
     TOC
-
-    def header_strip(h)
-      h = h.to_s.gsub(%r{<br/>}, " ").sub(/<\/?h[12][^>]*>/, "")
-      h1 = to_xhtml_fragment(h.dup)
-      h1.traverse do |x|
-        x.remove if x.name == "span" && x["class"] == "MsoCommentReference"
-        x.remove if x.name == "a" && x["epub:type"] == "footnote"
-      end
-      from_xhtml(h1)
-    end
 
     def make_WordToC(docxml)
       toc = ""

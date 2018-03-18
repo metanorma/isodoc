@@ -21,20 +21,20 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
        <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt>
        <s>F</s> <span style="font-variant:small-caps;">G</span> <br/> <hr/>
-       <a id="H"/> <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+       <a id="H"/> <br/>
        </p>
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -63,9 +63,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -75,7 +75,7 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -103,9 +103,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -114,7 +114,7 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -144,9 +144,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -159,7 +159,7 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -188,9 +188,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -200,7 +200,7 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -240,9 +240,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -252,11 +252,11 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+                 <h1>2.&#160; Normative References</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712">ISO 712, <i> Cereals and cereal products</i></p>
                </div>
@@ -305,9 +305,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -325,11 +325,11 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+                 <h1>2.&#160; Normative References</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712">ISO 712, <i> Cereals and cereal products</i></p>
                </div>

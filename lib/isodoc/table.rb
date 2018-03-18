@@ -76,9 +76,7 @@ module IsoDoc
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
       style += <<~STYLE
         border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
-        mso-border-top-alt:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
         border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-        mso-border-bottom-alt:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
       STYLE
       { rowspan: td["rowspan"], colspan: td["colspan"],
         align: td["align"], style: style.gsub(/\n/, "") }

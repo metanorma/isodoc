@@ -3,14 +3,11 @@ require "uuidtools"
 module IsoDoc
   class Convert
     def section_break(body)
-      body.br **{ clear: "all", class: "section" }
+      body.br
     end
 
     def page_break(out)
-      out.br **{
-        clear: "all",
-        style: "mso-special-character:line-break;page-break-before:always",
-      }
+      out.br
     end
 
     def link_parse(node, out)

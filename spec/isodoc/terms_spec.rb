@@ -59,14 +59,14 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
-               <div id="_terms_and_definitions"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
+               <div id="_terms_and_definitions"><h1>3.&#160; Terms and Definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>

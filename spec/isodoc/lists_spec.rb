@@ -23,9 +23,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <ul>
@@ -39,7 +39,7 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -49,7 +49,7 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-    it "processes ordered lists" do
+  it "processes ordered lists" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
@@ -78,9 +78,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <ol type="a">
@@ -101,15 +101,15 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
            </body>
          </head>
        </html>
-OUTPUT
-end
+    OUTPUT
+  end
 
   it "processes Roman Upper ordered lists" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
@@ -136,9 +136,9 @@ end
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <ol type="a">
@@ -155,7 +155,7 @@ end
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
@@ -165,7 +165,7 @@ end
     OUTPUT
   end
 
-    it "processes definition lists" do
+  it "processes definition lists" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
@@ -189,9 +189,9 @@ end
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <dl>
@@ -213,15 +213,78 @@ end
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
            </body>
          </head>
        </html>
-OUTPUT
-    end
+    OUTPUT
+  end
+
+  it "processes definition lists (Word)" do
+    expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395">
+  <dt>
+    W
+  </dt>
+  <dd>
+    <p id="_05d81174-3a41-44af-94d8-c78b8d2e175d">mass fraction of gelatinized kernels, expressed in per cent</p>
+  </dd>
+  <dt><stem type="AsciiMath">w</stem></dt>
+  <dd><p>??</p></dd>
+  </dl>
+</foreword>
+</iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+          <head>
+            <title>test</title>
+            <body lang="EN-US" link="blue" vlink="#954F72">
+              <div class="WordSection1">
+                <p>&#160;</p>
+              </div>
+              <br clear="all" class="section"/>
+              <div class="WordSection2">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                <div>
+                  <h1 class="ForewordTitle">Foreword</h1>
+                  <table class="dl">
+                    <tr>
+                      <td valign="top" align="left">
+                        <p style="text-align: left;">
+            W
+          </p>
+                      </td>
+                      <td valign="top">
+            <p id="_05d81174-3a41-44af-94d8-c78b8d2e175d">mass fraction of gelatinized kernels, expressed in per cent</p>
+          </td>
+                    </tr>
+                    <tr>
+                      <td valign="top" align="left">
+                        <span class="stem">(#(w)#)</span>
+                      </td>
+                      <td valign="top">
+                        <p>??</p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <p>&#160;</p>
+              </div>
+              <br clear="all" class="section"/>
+              <div class="WordSection3">
+                <p class="zzSTDTitle1"/>
+              </div>
+            </body>
+          </head>
+        </html>
+    OUTPUT
+  end
+
 
 end
 

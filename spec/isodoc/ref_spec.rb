@@ -82,9 +82,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
@@ -95,23 +95,23 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+                 <h1>2.&#160; Normative References</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712">ISO 712, <i> Cereals and cereal products</i></p>
                  <p id="ISO16634">ISO 16634:All Parts: --<a href="#ftn1" epub:type="footnote"><sup>1</sup></a>, <i> Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
                  <p id="ISO20483">ISO 20483: 2013&#8211;2014, <i> Cereals and pulses</i></p>
                  <p id="ref1" class="Biblio">ICC 167, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                </div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <br/>
                <div>
                  <h1 class="Section3">Bibliography</h1>
-                 <p id="ISO3696" class="Biblio">[1]<span style="mso-tab-count:1">&#160; </span>ISO 3696, <i> Water for analytical laboratory use</i></p>
-                 <p id="ref10" class="Biblio">[10]<span style="mso-tab-count:1">&#160; </span><span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
-                 <p id="ref11" class="Biblio">[3]<span style="mso-tab-count:1">&#160; </span>IETF RFC 10,<span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+                 <p id="ISO3696" class="Biblio">[1]&#160; ISO 3696, <i> Water for analytical laboratory use</i></p>
+                 <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+                 <p id="ref11" class="Biblio">[3]&#160; IETF RFC 10,<span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                </div>
                <aside id="ftn1">
          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
@@ -137,15 +137,15 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection2">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+                 <h1>2.&#160; Normative References</h1>
                  <p>There are no normative references in this document.</p>
                </div>
              </div>

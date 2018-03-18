@@ -8,9 +8,7 @@ module IsoDoc
     end
 
     def insert_tab(out, n)
-      out.span **attr_code(style: "mso-tab-count:#{n}") do |span|
-        [1..n].each { span << "&#xA0; " }
-      end
+      [1..n].each { out << "&nbsp; " }
     end
 
     STAGE_ABBRS = {
@@ -118,6 +116,29 @@ module IsoDoc
         @closemathdelim += ")"
       end
       [@openmathdelim, @closemathdelim]
+    end
+
+    def header_strip(h)
+      h = h.to_s.gsub(%r{<br/>}, " ").sub(/<\/?h[12][^>]*>/, "")
+      h1 = to_xhtml_fragment(h.dup)
+      h1.traverse do |x|
+        x.remove if x.name == "span" && x["class"] == "MsoCommentReference"
+        x.remove if x.name == "a" && x["epub:type"] == "footnote"
+        if x.name == "a"
+          x.replace(x.children)
+        end
+      end
+      from_xhtml(h1)
+    end
+
+    def populate_template(docxml, _format)
+      meta = get_metadata
+      docxml = docxml.
+        gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
+        gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
+        gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
+      template = Liquid::Template.parse(docxml)
+      template.render(meta.map { |k, v| [k.to_s, v] }.to_h)
     end
   end
 end

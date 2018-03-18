@@ -1,5 +1,10 @@
 module IsoDoc
   class Convert
+    def postprocess(result, filename, dir)
+      result = from_xhtml(cleanup(to_xhtml(result)))
+      toHTML(result, filename)
+    end
+
     def toHTML(result, filename)
       result = from_xhtml(html_cleanup(to_xhtml(result)))
       result = populate_template(result, :html)

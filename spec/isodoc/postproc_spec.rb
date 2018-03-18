@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-  it "generates output docs with null configuration" do
+  it "generates HTML output docs with null configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
@@ -13,10 +13,7 @@ RSpec.describe IsoDoc do
     </foreword>
     </iso-standard>
     INPUT
-    expect(File.exist?("test.doc")).to be true
     expect(File.exist?("test.html")).to be true
-    word = File.read("test.doc")
-    expect(word).to match(/one empty stylesheet/)
     html = File.read("test.html")
     expect(html).to match(%r{<title>test</title><style>})
     expect(html).to match(/another empty stylesheet/)
@@ -24,23 +21,63 @@ RSpec.describe IsoDoc do
     expect(html).to match(/delimiters: \[\['\(#\(', '\)#\)'\]\]/)
   end
 
-  it "generates output docs with null configuration from file" do
+  it "generates Word output docs with null configuration" do
+    system "rm -f test.doc"
+    system "rm -f test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword>
+    </iso-standard>
+    INPUT
+    expect(File.exist?("test.doc")).to be true
+    word = File.read("test.doc")
+    expect(word).to match(/one empty stylesheet/)
+  end
+
+  it "generates HTML output docs with null configuration from file" do
     system "rm -f spec/assets/iso.doc"
     system "rm -f spec/assets/iso.html"
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", false)
-    expect(File.exist?("spec/assets/iso.doc")).to be true
     expect(File.exist?("spec/assets/iso.html")).to be true
-    word = File.read("spec/assets/iso.doc")
-    expect(word).to match(/one empty stylesheet/)
     html = File.read("spec/assets/iso.html")
     expect(html).to match(/another empty stylesheet/)
   end
 
+  it "generates Word output docs with null configuration from file" do
+    system "rm -f spec/assets/iso.doc"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", false)
+    expect(File.exist?("spec/assets/iso.doc")).to be true
+    word = File.read("spec/assets/iso.doc")
+    expect(word).to match(/one empty stylesheet/)
+  end
 
-  it "generates output docs with complete configuration" do
+  it "generates HTML output docs with complete configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert_file(<<~"INPUT", "test", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword>
+    </iso-standard>
+    INPUT
+    html = File.read("test.html")
+    expect(html).to match(/a third empty stylesheet/)
+    expect(html).to match(/an empty html cover page/)
+    expect(html).to match(/an empty html intro page/)
+    expect(html).to match(%r{Enkonduko</h1>})
+  end
+
+  it "generates Word output docs with complete configuration" do
+    system "rm -f test.doc"
+    system "rm -f test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
     <note>
@@ -56,17 +93,12 @@ RSpec.describe IsoDoc do
     expect(word).to match(/an empty word cover page/)
     expect(word).to match(/an empty word intro page/)
     expect(word).to match(%r{Enkonduko</h1>})
-    html = File.read("test.html")
-    expect(html).to match(/a third empty stylesheet/)
-    expect(html).to match(/an empty html cover page/)
-    expect(html).to match(/an empty html intro page/)
-    expect(html).to match(%r{Enkonduko</h1>})
   end
 
   it "converts definition lists to tables for Word" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
      <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
     <dl>
@@ -81,30 +113,34 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
       sub(%r{<br clear="all" class="section"/>\s*<div class="WordSection3">.*$}m, "")
     expect(word).to be_equivalent_to <<~"OUTPUT"
-           <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <table class="dl">
-
-
-
-
-                 <tr><td valign="top" align="left">
-                     <p style="text-align:left;" class="MsoNormal">Term</p>
-                   </td><td valign="top">Definition</td></tr><tr><td valign="top" align="left">
-                     <p style="text-align:left;" class="MsoNormal">Term 2</p>
-                   </td><td valign="top">Definition 2</td></tr></table>
-               </div>
-               <p class="MsoNormal">&#xA0;</p>
-             </div>
+        <div class="WordSection2">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                <div>
+                  <h1 class="ForewordTitle">Foreword</h1>
+                  <table class="dl">
+                    <tr>
+                      <td valign="top" align="left">
+                        <p style="text-align: left;" class="MsoNormal">Term</p>
+                      </td>
+                      <td valign="top">Definition</td>
+                    </tr>
+                    <tr>
+                      <td valign="top" align="left">
+                        <p style="text-align: left;" class="MsoNormal">Term 2</p>
+                      </td>
+                      <td valign="top">Definition 2</td>
+                    </tr>
+                  </table>
+                </div>
+                <p class="MsoNormal">&#xA0;</p>
+              </div>
     OUTPUT
   end
 
   it "converts annex subheadings to h2Annex class for Word" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
@@ -129,10 +165,10 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-  it "populates template with terms reference labels" do
+  it "populates Word template with terms reference labels" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -174,9 +210,9 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-  it "populates header" do
+  it "populates Word header" do
     system "rm -f test.doc"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", header: "spec/assets/header.html"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", header: "spec/assets/header.html"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
                <bibdata type="article">
                         <docidentifier>
@@ -202,7 +238,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
 
   it "populates Word ToC" do
     system "rm -f test.doc"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
                <clause inline-header="false" obligation="normative"><title>Clause 4</title><subsection id="N" inline-header="false" obligation="normative">
@@ -241,13 +277,13 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
        <p class="MsoToc2">
          <span class="MsoHyperlink">
            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">4.1. Introduction</a><a><a name="Q" id="Q"></a></a> to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">4.1. Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
          <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
-         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></span>
+         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span>
          </span>
        </p>
 
@@ -307,7 +343,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
            <div class="WordSection3">
                <p class="zzSTDTitle1"></p>
                <div>
-                 <h1>4.<span style="mso-tab-count:1">&#xA0; </span>Clause 4</h1>
+                 <h1>4.&#xA0; Clause 4</h1>
                  <a href="#ftn3" epub:type="footnote" id="_footnote1">
                    <sup>1</sup>
                  </a>
@@ -349,7 +385,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
     expect(`ls _images`).to match(/\.png$/)
     expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")).to be_equivalent_to <<~"OUTPUT"
         <div class="WordSection2">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always" />
+        <br />
         <div>
           <h1 class="ForewordTitle">Foreword</h1>
           <div id="_" class="figure">
@@ -359,7 +395,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
         </div>
         <p>&#xA0;</p>
       </div>
-      <br clear="all" class="section" />
+      <br />
     OUTPUT
 
   end
@@ -386,7 +422,6 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
         </iso-standard>
 
     INPUT
-    puts File.read("test.html")
     html = File.read("test.html").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
       sub(%r{<div class="WordSection3">.*$}m, "")
     expect(html.gsub(/"#[a-f0-9-]+"/, "#_")).to be_equivalent_to <<~"OUTPUT"
@@ -395,13 +430,13 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
        <p>/* an empty html intro page */
      
        </p>
-       <ul><li><a href=#_>5.<span style="mso-tab-count:1">&#xA0; </span>Clause 4</a></li><ul><li><a href=#_>4.1. Introduction</a><a id="Q"></a> to this</li><li><a href=#_>4.2. Clause 4.2</a></li></ul><li><a href=#_>5.<span style="mso-tab-count:1">&#xA0; </span>Clause 5</a></li></ul>
+       <ul><li><a href=#_>5.&#xA0; Clause 4</a></li><ul><li><a href=#_>4.1. Introduction to this</a></li><li><a href=#_>4.2. Clause 4.2</a></li></ul><li><a href=#_>5.&#xA0; Clause 5</a></li></ul>
      
      
      
                <p>&#xA0;</p>
              </div>
-             <br clear="all" class="section" />
+             <br />
 
     OUTPUT
   end
