@@ -56,12 +56,12 @@ RSpec.describe IsoDoc do
        </subsection>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
-       </references><references id="S" obligation="informative">
+       </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
          <references id="T" obligation="informative">
          <title>Bibliography Subsection</title>
        </references>
-       </references>
+       </clause>
        </iso-standard>
     INPUT
         <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -215,12 +215,12 @@ OUTPUT
        </subsection>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
-       </references><references id="S" obligation="informative">
+       </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
          <references id="T" obligation="informative">
          <title>Bibliography Subsection</title>
        </references>
-       </references>
+       </clause>
        </iso-standard>
     INPUT
        <html xmlns:epub="http://www.idpf.org/2007/ops">

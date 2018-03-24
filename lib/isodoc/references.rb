@@ -112,7 +112,7 @@ module IsoDoc
     end
 
     def bibliography(isoxml, out)
-      q = "./*/references[title = 'Bibliography']"
+      q = "//clause[title = 'Bibliography'][descendant::references] | //references[title = 'Bibliography']"
       f = isoxml.at(ns(q)) || return
       page_break(out)
       out.div do |div|
