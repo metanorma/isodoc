@@ -371,9 +371,9 @@ OUTPUT
   it "processes terms & definitions with external source" do
         expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
                <iso-standard xmlns="http://riboseinc.com/isoxml">
+         <termdocsource type="inline" bibitemid="ISO712" citeas="ISO 712"/>
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
-         <source type="inline" bibitemid="ISO712" citeas="ISO 712"/>
          <term id="J">
          <preferred>Term2</preferred>
        </term>
@@ -435,11 +435,11 @@ OUTPUT
   it "processes empty terms & definitions with external source" do
         expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
                <iso-standard xmlns="http://riboseinc.com/isoxml">
+         <termdocsource type="inline" bibitemid="ISO712" citeas="ISO 712"/>
+         <termdocsource type="inline" bibitemid="ISO712" citeas="ISO 712"/>
+         <termdocsource type="inline" bibitemid="ISO712" citeas="ISO 712"/>
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
-         <source type="inline" bibitemid="ISO712" citeas="ISO 712"/>
-         <source type="inline" bibitemid="ISO712" citeas="ISO 712"/>
-         <source type="inline" bibitemid="ISO712" citeas="ISO 712"/>
        </terms>
         </sections>
         <references id="_normative_references" obligation="informative"><title>Normative References</title>

@@ -134,7 +134,8 @@ module IsoDoc
       f = isoxml.at(ns(TERM_CLAUSE)) || return
       out.div **attr_code(id: f["id"]) do |div|
         clause_name("3.", terms_defs_title(f), div, nil)
-        term_defs_boilerplate(div, f.xpath(ns("./source")), f.at(ns(".//term")))
+        term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
+                              f.at(ns(".//term")))
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
         end
