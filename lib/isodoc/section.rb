@@ -43,9 +43,12 @@ module IsoDoc
       div.parent.at(".//h1")
     end
 
+    MIDDLE_CLAUSE = 
+      "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
+      "[not(descendant::terms)]".freeze
+
     def clause(isoxml, out)
-      isoxml.xpath(ns("//clause[parent::sections]")).each do |c|
-        next if c.at(ns("./title")).text == "Scope"
+      isoxml.xpath(ns(MIDDLE_CLAUSE)).each do |c|
         out.div **attr_code(id: c["id"]) do |s|
           c.elements.each do |c1|
             if c1.name == "title"
@@ -124,8 +127,11 @@ module IsoDoc
       @termsdef_lbl
     end
 
+    TERM_CLAUSE = "//sections/terms | "\
+      "//sections/clause[descendant::terms]".freeze
+
     def terms_defs(isoxml, out)
-      f = isoxml.at(ns("//sections/terms")) || return
+      f = isoxml.at(ns(TERM_CLAUSE)) || return
       out.div **attr_code(id: f["id"]) do |div|
         clause_name("3.", terms_defs_title(f), div, nil)
         term_defs_boilerplate(div, f.xpath(ns("./source")), f.at(ns(".//term")))

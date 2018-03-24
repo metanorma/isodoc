@@ -14,7 +14,7 @@ module IsoDoc
       section_names(d.at(ns("//clause[title = 'Scope']")), "1", 1)
       section_names(d.at(ns(
         "//references[title = 'Normative References']")), "2", 1)
-      section_names(d.at(ns("//sections/terms")), "3", 1)
+      section_names(d.at(ns("//sections/terms | //sections/clause[descendant::terms]")), "3", 1)
       middle_section_asset_names(d)
     end
 
@@ -27,7 +27,7 @@ module IsoDoc
     end
 
     def clause_names(docxml, sect_num)
-      q = "//clause[parent::sections][not(xmlns:title = 'Scope')]"
+      q = "//clause[parent::sections][not(xmlns:title = 'Scope')][not(descendant::terms)]"
       docxml.xpath(ns(q)).each_with_index do |c, i|
         section_names(c, (i + sect_num).to_s, 1)
       end

@@ -20,7 +20,7 @@ RSpec.describe IsoDoc do
          <p id="E">Text</p>
        </clause>
 
-       <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
          <term id="J">
          <preferred>Term2</preferred>
@@ -32,7 +32,7 @@ RSpec.describe IsoDoc do
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       </terms>
+       </clause>
        <symbols-abbrevs id="L">
          <dl>
          <dt>Symbol</dt>
@@ -179,7 +179,7 @@ OUTPUT
          <p id="E">Text</p>
        </clause>
 
-       <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
          <term id="J">
          <preferred>Term2</preferred>
@@ -191,7 +191,7 @@ OUTPUT
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       </terms>
+       </clause>
        <symbols-abbrevs id="L">
          <dl>
          <dt>Symbol</dt>
