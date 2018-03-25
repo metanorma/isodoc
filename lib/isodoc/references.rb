@@ -48,6 +48,11 @@ module IsoDoc
       end
     end
 
+    def reference_format(b, r)
+      title = b.at(ns("./formattedref")) || b.at(ns("./title"))
+      title&.children&.each { |n| parse(n, r) }
+    end
+
     # TODO generate formatted ref if not present
     def noniso_bibitem(list, b, ordinal, bibliography)
       list.p **attr_code("id": b["id"], class: "Biblio") do |r|
@@ -57,7 +62,7 @@ module IsoDoc
         else
           r << "#{iso_bibitem_ref_code(b)}, "
         end
-        b.at(ns("./formattedref"))&.children&.each { |n| parse(n, r) }
+        reference_format(b, r)
       end
     end
 
