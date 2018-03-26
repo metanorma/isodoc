@@ -23,8 +23,11 @@ module IsoDoc
       "95": "(Withdrawal)",
     }.freeze
 
-    def stage_abbreviation(stage)
-      STAGE_ABBRS[stage.to_sym] || "??"
+    def stage_abbrev(stage, iter, draft)
+      stage = STAGE_ABBRS[stage.to_sym] || "??"
+      stage += iter.text if iter
+      stage = "Pre" + stage if draft&.text =~ /^0\./
+      stage
     end
 
     NOKOHEAD = <<~HERE.freeze

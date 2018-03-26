@@ -42,6 +42,7 @@ RSpec.describe IsoDoc do
   <status>
     <stage>30</stage>
     <substage>92</substage>
+    <iteration>3</iteration>
   </status>
   <copyright>
     <from>2016</from>
@@ -60,11 +61,11 @@ RSpec.describe IsoDoc do
 </bibdata><version>
   <edition>2</edition>
   <revision-date>2016-05-01</revision-date>
-
+  <draft>0.4</draft>
 </version>
 </iso-standard>
 INPUT
-       {:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :createddate=>"2010&ndash;2011", :docnumber=>"CD 17301-1", :docsubtitle=>"C&#xe9;r&#xe9;ales et l&#xe9;gumineuses&nbsp;&mdash; Sp&#xe9;cification et m&#xe9;thodes d&#x27;essai&nbsp;&mdash; Partie&nbsp;1: Riz", :doctitle=>"Cereals and pulses&nbsp;&mdash; Specifications and test methods&nbsp;&mdash; Part&nbsp;1: Rice", :docyear=>"2016", :draft=>nil, :draftinfo=>"", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2011", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :stage=>"30", :stageabbr=>"CD", :tc=>"TC 34", :wg=>"WG 3"}
+       {:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :createddate=>"2010&ndash;2011", :docnumber=>"PreCD3 17301-1", :docsubtitle=>"C&#xe9;r&#xe9;ales et l&#xe9;gumineuses&nbsp;&mdash; Sp&#xe9;cification et m&#xe9;thodes d&#x27;essai&nbsp;&mdash; Partie&nbsp;1: Riz", :doctitle=>"Cereals and pulses&nbsp;&mdash; Specifications and test methods&nbsp;&mdash; Part&nbsp;1: Rice", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" ( 0.4, 2016-05-01)", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2011", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :stage=>"30", :stageabbr=>"PreCD3", :tc=>"TC 34", :wg=>"WG 3"}
 OUTPUT
   end
 
