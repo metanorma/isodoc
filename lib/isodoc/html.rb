@@ -40,7 +40,10 @@ module IsoDoc
       html_cover(docxml) if @htmlcoverpage
       html_intro(docxml) if @htmlintropage
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
-      @scripts and docxml.at("//body") << File.read(@scripts, encoding: "UTF-8")
+      if @scripts
+        scripts = Nokogiri::HTML(File.read(@scripts, encoding: "UTF-8"))
+        docxml.at("//body").add_child scripts.to_xml(encoding: "US-ASCII")
+      end
       docxml
     end
 
