@@ -50,8 +50,7 @@ module IsoDoc
     def eref_localities(refs)
       ret = ""
       refs.each do |r|
-        ret += if r["type"] == "whole"
-                 l10n(", #{@whole_of_text}")
+        ret += if r["type"] == "whole" then l10n(", #{@whole_of_text}")
                else
                  eref_localities1(r["type"], r.at(ns("./referenceFrom")),
                                   r.at(ns("./referenceTo")), @lang)
