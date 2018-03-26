@@ -39,8 +39,8 @@ module IsoDoc
     def html_preface(docxml)
       html_cover(docxml) if @htmlcoverpage
       html_intro(docxml) if @htmlintropage
-      docxml.at("//*[local-name() = 'body']") << mathjax(@openmathdelim,
-                                                         @closemathdelim)
+      docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
+      @scripts and docxml.at("//body") << File.read(@scripts, encoding: "UTF-8")
       docxml
     end
 

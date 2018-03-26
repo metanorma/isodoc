@@ -58,7 +58,7 @@ RSpec.describe IsoDoc do
   it "generates HTML output docs with complete configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <foreword>
     <note>
@@ -71,6 +71,7 @@ RSpec.describe IsoDoc do
     expect(html).to match(/a third empty stylesheet/)
     expect(html).to match(/an empty html cover page/)
     expect(html).to match(/an empty html intro page/)
+    expect(html).to match(/This is a script/)
     expect(html).to match(%r{Enkonduko</h1>})
   end
 

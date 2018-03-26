@@ -39,6 +39,7 @@ module IsoDoc
       @wordcoverpage = options[:wordcoverpage]
       @htmlintropage = options[:htmlintropage]
       @wordintropage = options[:wordintropage]
+      @scripts = options[:scripts]
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
       @olstyle = options[:olstyle]
