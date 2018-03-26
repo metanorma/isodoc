@@ -81,7 +81,9 @@ module IsoDoc
 
     def doctype(isoxml, _out)
       b = isoxml.at(ns("//bibdata")) || return
-      set_metadata(:doctype, b["type"]) if b["type"]
+      return unless b["type"]
+      t = b["type"].split(/-/).map{ |w| w.capitalize }.join(" ")
+      set_metadata(:doctype, t)
     end
 
     def iso?(org)
