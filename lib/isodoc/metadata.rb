@@ -79,6 +79,11 @@ module IsoDoc
       end
     end
 
+    def doctype(isoxml, _out)
+      b = isoxml.at(ns("//bibdata")) || return
+      set_metadata(:doctype, b["type"]) if b["type"]
+    end
+
     def iso?(org)
       name = org&.at(ns("./name"))&.text
       abbrev = org&.at(ns("./abbreviation"))&.text

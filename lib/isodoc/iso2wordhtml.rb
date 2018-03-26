@@ -83,6 +83,7 @@ module IsoDoc
       title isoxml, out
       subtitle isoxml, out
       id isoxml, out
+      doctype isoxml, out
       author isoxml, out
       bibdate isoxml, out
       relations isoxml, out
