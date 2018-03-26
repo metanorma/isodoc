@@ -1,7 +1,9 @@
 module IsoDoc
   class Convert
     def postprocess(result, filename, dir)
-      result = from_xhtml(cleanup(to_xhtml(result)))
+      result = from_xhtml(cleanup(to_xhtml(result))).
+        gsub(%r{<script><!\[CDATA\[}, "<script>").
+        gsub(%r{\]\]></script>}, "</script>")
       toHTML(result, filename)
     end
 
@@ -42,7 +44,7 @@ module IsoDoc
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       if @scripts
         scripts = Nokogiri::HTML(File.read(@scripts, encoding: "UTF-8"))
-        docxml.at("//body").add_child scripts.to_xml(encoding: "US-ASCII")
+        docxml.at("//body").add_child scripts #scripts.to_xml(encoding: "US-ASCII")
       end
       docxml
     end
