@@ -43,7 +43,7 @@ module IsoDoc
       html_intro(docxml) if @htmlintropage
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       if @scripts
-        scripts = Nokogiri::HTML(File.read(@scripts, encoding: "UTF-8"))
+        scripts = File.read(@scripts, encoding: "UTF-8")
         docxml.at("//body").add_child scripts #scripts.to_xml(encoding: "US-ASCII")
       end
       docxml
