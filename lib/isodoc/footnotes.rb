@@ -34,7 +34,7 @@ module IsoDoc
 
     def make_generic_footnote_text(node, fnid)
       noko do |xml|
-        xml.aside **{ id: "ftn#{fnid}" } do |div|
+        xml.aside **{ id: "ftn#{fnid}", class: "footnote" } do |div|
           node.children.each { |n| parse(n, div) }
         end
       end.join("\n")
@@ -53,7 +53,9 @@ module IsoDoc
       # do not output footnote text if we have already seen it for this table
       return if @seen_footnote.include?(tid + fn)
       @in_footnote = true
-      out.aside { |a| a << make_table_footnote_text(node, tid + fn, fn) }
+      out.aside **{ class: "footnote" } do |a|
+        a << make_table_footnote_text(node, tid + fn, fn)
+      end
       @in_footnote = false
       @seen_footnote << (tid + fn)
     end

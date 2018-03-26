@@ -38,10 +38,10 @@ RSpec.describe IsoDoc do
              <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
-               <aside id="ftn2">
+               <aside id="ftn2" class="footnote">
          <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
        </aside>
-               <aside id="ftn1">
+               <aside id="ftn1" class="footnote">
          <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
        </aside>
              </div>

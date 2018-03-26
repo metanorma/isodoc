@@ -80,7 +80,7 @@ RSpec.describe IsoDoc do
                       </tr>
                       <tr>
                         <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
-                        <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a&#160; </a>
+                        <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a&#160; </a>
           <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
         </div></aside></td>
                         <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>

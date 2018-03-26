@@ -113,7 +113,7 @@ RSpec.describe IsoDoc do
                  <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                  <p id="ref11" class="Biblio">[3]&#160; IETF RFC 10,<span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                </div>
-               <aside id="ftn1">
+               <aside class="footnote" id="ftn1">
          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
        </aside>
              </div>

@@ -356,10 +356,10 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
                 <p>A<a href="#ftn2" epub:type="footnote"><sup>2</sup></a></p>
               </div>
                </div>
-               <aside id="ftn3">
+               <aside id="ftn3" class="footnote">
          <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a href="#_footnote1">1) </a>This is a footnote.</p>
        </aside>
-               <aside id="ftn2">
+               <aside id="ftn2" class="footnote">
          <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a href="#_footnote2">2) </a>Formerly denoted as 15 % (m/m).</p>
        </aside>
 
