@@ -935,6 +935,7 @@ RSpec.describe IsoDoc do
          <xref target="P"/>
          <xref target="Q"/>
          <xref target="Q1"/>
+         <xref target="Q2"/>
          <xref target="R"/>
          </p>
        </foreword>
@@ -984,6 +985,9 @@ RSpec.describe IsoDoc do
          <title>Annex A.1a</title>
          </subclause>
        </subclause>
+              <appendix id="Q2" inline-header="false" obligation="normative">
+         <title>An Appendix</title>
+       </appendix>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">

@@ -147,6 +147,10 @@ RSpec.describe IsoDoc do
          <title>Annex</title>
          <subclause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
+         </subclause>
+                <appendix id="Q2" inline-header="false" obligation="normative">
+         <title>An Appendix</title>
+       </appendix>
     </annex>
     </iso-standard>
     INPUT

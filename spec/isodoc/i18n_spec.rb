@@ -57,6 +57,9 @@ RSpec.describe IsoDoc do
          <title>Annex A.1a</title>
          </subclause>
        </subclause>
+       <appendix id="Q2" inline-header="false" obligation="normative">
+         <title>An Appendix</title>
+       </appendix>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
@@ -219,6 +222,9 @@ RSpec.describe IsoDoc do
          <title>Annex A.1a</title>
          </subclause>
        </subclause>
+              <appendix id="Q2" inline-header="false" obligation="normative">
+         <title>An Appendix</title>
+       </appendix>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
@@ -338,7 +344,6 @@ RSpec.describe IsoDoc do
         <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </subclause>
-       <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
        </introduction><sections>
@@ -381,6 +386,9 @@ RSpec.describe IsoDoc do
          <title>Annex A.1a</title>
          </subclause>
        </subclause>
+              <appendix id="Q2" inline-header="false" obligation="normative">
+         <title>An Appendix</title>
+       </appendix>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
@@ -543,6 +551,9 @@ RSpec.describe IsoDoc do
          <title>Annex A.1a</title>
          </subclause>
        </subclause>
+              <appendix id="Q2" inline-header="false" obligation="normative">
+         <title>An Appendix</title>
+       </appendix>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
          <bibitem id="ISO712" type="standard">

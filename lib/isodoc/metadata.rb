@@ -2,15 +2,16 @@ require "htmlentities"
 
 module IsoDoc
   class Convert
+    DATETYPES = %w{published accessed created activated obsoleted reviewed
+    first_created}.freeze
+
     def init_metadata
       @meta = { tc: "XXXX", sc: "XXXX", wg: "XXXX",
                 editorialgroup: [],
                 secretariat: "XXXX",
                 obsoletes: nil,
                 obsoletes_part: nil }
-      %w{published accessed created activated obsoleted}.each do |w|
-        @meta["#{w}date".to_sym] = "XXX"
-      end
+      DATETYPES.each { |w| @meta["#{w}date".to_sym] = "XXX" }
     end
 
     def get_metadata
