@@ -11,9 +11,9 @@ RSpec.describe IsoDoc do
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><subsection id="C" inline-header="false" obligation="informative">
+        <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
-       </subsection>
+       </subclause>
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
@@ -42,21 +42,21 @@ RSpec.describe IsoDoc do
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subsection id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
-       </subsection>
-       <subsection id="O" inline-header="false" obligation="normative">
+       </subclause>
+       <subclause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </subsection></clause>
+       </subclause></clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
-         <subsection id="Q" inline-header="false" obligation="normative">
+         <subclause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
-         <subsection id="Q1" inline-header="false" obligation="normative">
+         <subclause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
-         </subsection>
-       </subsection>
+         </subclause>
+       </subclause>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
@@ -173,9 +173,9 @@ RSpec.describe IsoDoc do
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><subsection id="C" inline-header="false" obligation="informative">
+        <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
-       </subsection>
+       </subclause>
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
@@ -204,21 +204,21 @@ RSpec.describe IsoDoc do
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subsection id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
-       </subsection>
-       <subsection id="O" inline-header="false" obligation="normative">
+       </subclause>
+       <subclause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </subsection></clause>
+       </subclause></clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
-         <subsection id="Q" inline-header="false" obligation="normative">
+         <subclause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
-         <subsection id="Q1" inline-header="false" obligation="normative">
+         <subclause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
-         </subsection>
-       </subsection>
+         </subclause>
+       </subclause>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
@@ -335,9 +335,9 @@ RSpec.describe IsoDoc do
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><subsection id="C" inline-header="false" obligation="informative">
+        <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
-       </subsection>
+       </subclause>
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
@@ -366,21 +366,21 @@ RSpec.describe IsoDoc do
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subsection id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
-       </subsection>
-       <subsection id="O" inline-header="false" obligation="normative">
+       </subclause>
+       <subclause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </subsection></clause>
+       </subclause></clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
-         <subsection id="Q" inline-header="false" obligation="normative">
+         <subclause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
-         <subsection id="Q1" inline-header="false" obligation="normative">
+         <subclause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
-         </subsection>
-       </subsection>
+         </subclause>
+       </subclause>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
@@ -497,9 +497,9 @@ RSpec.describe IsoDoc do
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><subsection id="C" inline-header="false" obligation="informative">
+        <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
-       </subsection>
+       </subclause>
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
@@ -528,21 +528,21 @@ RSpec.describe IsoDoc do
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subsection id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
-       </subsection>
-       <subsection id="O" inline-header="false" obligation="normative">
+       </subclause>
+       <subclause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </subsection></clause>
+       </subclause></clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
-         <subsection id="Q" inline-header="false" obligation="normative">
+         <subclause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
-         <subsection id="Q1" inline-header="false" obligation="normative">
+         <subclause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
-         </subsection>
-       </subsection>
+         </subclause>
+       </subclause>
        </annex><references id="R" obligation="informative">
          <title>Normative References</title>
          <bibitem id="ISO712" type="standard">

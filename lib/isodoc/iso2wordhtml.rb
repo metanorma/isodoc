@@ -143,7 +143,7 @@ module IsoDoc
         when "callout" then callout_parse(node, out)
         when "stem" then stem_parse(node, out)
         when "clause" then clause_parse(node, out)
-        when "subsection" then clause_parse(node, out)
+        when "subclause" then clause_parse(node, out)
         when "xref" then xref_parse(node, out)
         when "eref" then eref_parse(node, out)
         when "origin" then eref_parse(node, out)

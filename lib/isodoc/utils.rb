@@ -76,7 +76,7 @@ module IsoDoc
     end
 
     CLAUSE_ANCESTOR =
-      ".//ancestor::*[local-name() = 'subsection' or "\
+      ".//ancestor::*[local-name() = 'subclause' or "\
       "local-name() = 'foreword' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
       "local-name() = 'clause' or local-name() = 'references' or "\
@@ -88,7 +88,7 @@ module IsoDoc
     end
 
     NOTE_CONTAINER_ANCESTOR =
-      ".//ancestor::*[local-name() = 'subsection' or "\
+      ".//ancestor::*[local-name() = 'subclause' or "\
       "local-name() = 'foreword' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
       "local-name() = 'clause' or local-name() = 'references' or "\
