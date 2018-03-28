@@ -1024,6 +1024,7 @@ RSpec.describe IsoDoc do
     <a href="#P">Annex A</a>
     <a href="#Q">A.1</a>
     <a href="#Q1">A.1.1</a>
+    <a href="#Q2">Annex A, Appendix 1</a>
     <a href="#R">Clause 2</a>
     </p>
     </div>
@@ -1093,6 +1094,9 @@ RSpec.describe IsoDoc do
           <div id="Q1">
           <h3>A.1.1. Annex A.1a</h3>
           </div>
+        </div>
+       <div id="Q2">
+        <h2>Appendix 1. An Appendix</h2>
         </div>
                </div>
                <br/>

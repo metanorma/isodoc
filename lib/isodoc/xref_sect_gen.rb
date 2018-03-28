@@ -14,7 +14,8 @@ module IsoDoc
       section_names(d.at(ns("//clause[title = 'Scope']")), "1", 1)
       section_names(d.at(ns(
         "//references[title = 'Normative References']")), "2", 1)
-      section_names(d.at(ns("//sections/terms | //sections/clause[descendant::terms]")), "3", 1)
+      section_names(d.at(ns("//sections/terms | "\
+                            "//sections/clause[descendant::terms]")), "3", 1)
       middle_section_asset_names(d)
     end
 
@@ -27,7 +28,8 @@ module IsoDoc
     end
 
     def clause_names(docxml, sect_num)
-      q = "//clause[parent::sections][not(xmlns:title = 'Scope')][not(descendant::terms)]"
+      q = "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
+        "[not(descendant::terms)]"
       docxml.xpath(ns(q)).each_with_index do |c, i|
         section_names(c, (i + sect_num).to_s, 1)
       end
@@ -69,6 +71,7 @@ module IsoDoc
       clause.xpath(ns("./subclause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)
       end
+      appendix_names(clause, num)
       hierarchical_asset_names(clause, num)
     end
 
@@ -76,6 +79,14 @@ module IsoDoc
       @anchors[clause["id"]] = { label: num, xref: num, level: level }
       clause.xpath(ns(".//subclause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
+      end
+    end
+
+    def appendix_names(clause, num)
+      clause.xpath(ns("./appendix")).each_with_index do |c, i|
+        @anchors[c["id"]] = anchor_struct(i + 1, nil, @appendix_lbl)
+        @anchors[c["id"]][:level] = 2
+        @anchors[c["id"]][:container] = clause["id"]
       end
     end
   end

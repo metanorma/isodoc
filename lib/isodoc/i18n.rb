@@ -28,6 +28,7 @@ module IsoDoc
       @bibliography_lbl = y["bibliography"]
       @clause_lbl = y["clause"]
       @annex_lbl = y["annex"]
+      @appendix_lbl = y["appendix"]
       @no_terms_boilerplate = y["no_terms_boilerplate"]
       @internal_terms_boilerplate = y["internal_terms_boilerplate"]
       @norm_with_refs_pref = y["norm_with_refs_pref"]

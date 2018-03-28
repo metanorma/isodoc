@@ -148,6 +148,10 @@ RSpec.describe IsoDoc do
            <h3>A.1.1. Annex A.1a</h3>
            </div>
          </div>
+                  <div id="Q2">
+                <h2>Appendix 1. An Appendix</h2>
+                </div>
+
                 </div>
                 <br/>
                 <div>
@@ -312,6 +316,10 @@ OUTPUT
            <h3>A.1.1. Annex A.1a</h3>
            </div>
          </div>
+                  <div id="Q2">
+                <h2>Appendix 1. An Appendix</h2>
+                  </div>
+
                 </div>
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 <div>

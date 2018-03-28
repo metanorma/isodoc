@@ -151,6 +151,9 @@ RSpec.describe IsoDoc do
           <h3>A.1.1. Annex A.1a</h3>
           </div>
         </div>
+                 <div id="Q2">
+                <h2>Appendix 1. An Appendix</h2>
+                </div>
                </div>
                <br/>
                <div>
@@ -316,6 +319,9 @@ RSpec.describe IsoDoc do
           <h3>A.1.1. Annex A.1a</h3>
           </div>
         </div>
+                         <div id="Q2">
+                <h2>Appendix 1. An Appendix</h2>
+                </div>
                </div>
                <br/>
                <div>
@@ -344,6 +350,7 @@ RSpec.describe IsoDoc do
         <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </subclause>
+       <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
        </introduction><sections>
@@ -479,10 +486,13 @@ RSpec.describe IsoDoc do
           <h3>A.1.1. Annex A.1a</h3>
           </div>
         </div>
+               <div id="Q2">
+                <h2>Appendice 1. An Appendix</h2>
+                </div>
                </div>
                <br/>
                <div>
-                 <h1 class="Section3">then Bibliographie</h1>
+                 <h1 class="Section3">Bibliographie</h1>
                  <div>
                    <h2 class="Section3">Bibliography Subsection</h2>
                  </div>
@@ -648,12 +658,15 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="P" class="Section3">
-                 <h1 class="Annex">&#38468;&#24405;A<br/>&#65288;&#35268;&#33539;&#24615;&#38468;&#24405;&#65289;<br/><br/><b>Annex</b></h1>
+                 <h1 class="Annex">&#38468;&#20214;A<br/>&#65288;&#35268;&#33539;&#24615;&#38468;&#24405;&#65289;<br/><br/><b>Annex</b></h1>
                  <div id="Q">
                 <h2>A.1. Annex A.1</h2>
                 <div id="Q1">
                 <h3>A.1.1. Annex A.1a</h3>
                 </div>
+                </div>
+                <div id="Q2">
+                <h2>&#38468;&#24405;1. An Appendix</h2>
               </div>
                </div>
                <br/>

@@ -77,7 +77,7 @@ module IsoDoc
 
     CLAUSE_ANCESTOR =
       ".//ancestor::*[local-name() = 'subclause' or "\
-      "local-name() = 'foreword' or "\
+      "local-name() = 'appendix' or local-name() = 'foreword' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
       "local-name() = 'clause' or local-name() = 'references' or "\
       "local-name() = 'annex']/@id".freeze
@@ -89,7 +89,7 @@ module IsoDoc
 
     NOTE_CONTAINER_ANCESTOR =
       ".//ancestor::*[local-name() = 'subclause' or "\
-      "local-name() = 'foreword' or "\
+      "local-name() = 'foreword' or local-name() = 'appendix' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
       "local-name() = 'clause' or local-name() = 'references' or "\
       "local-name() = 'annex' or local-name() = 'formula' or "\

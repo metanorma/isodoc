@@ -15,9 +15,10 @@ foreword: Avant-propos
 termsdef: Terms et définitions
 termsdefsymbols: Terms, définitions, symboles et termes abrégés
 normref: Références normatives
-bibliography: then Bibliographie
-clause: then Article
+bibliography: Bibliographie
+clause: Article
 annex: Annexe
+appendix: Appendice
 no_terms_boilerplate: |
           <p>Aucun terme n'est defini dans le présent document.</p>
 internal_terms_boilerplate: |

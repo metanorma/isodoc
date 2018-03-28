@@ -15,7 +15,8 @@ termsdefsymbols_lbl: 术语、定义、符号、代号和缩略语
 normref: 规范性引用文件
 bibliography: 参考文献
 clause: 条
-annex: 附录
+annex: 附件
+appendix: 附录
 no_terms_boilerplate: |
           <p>本文件不提供术语和定义。</p>
 internal_terms_boilerplate: |

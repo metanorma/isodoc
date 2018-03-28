@@ -40,7 +40,8 @@ module IsoDoc
       "//clause[descendant::references][not(ancestor::clause)]".freeze
 
     CHILD_NOTES_XPATH =
-      "./*[not(self::xmlns:subclause)]//xmlns:note | ./xmlns:note".freeze
+      "./*[not(self::xmlns:subclause) and "\
+      "not(self::xmlns:appendix)]//xmlns:note | ./xmlns:note".freeze
 
     def note_anchor_names(sections)
       sections.each do |s|
@@ -51,13 +52,13 @@ module IsoDoc
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, s, @note_xref_lbl)
         end
-        note_anchor_names(s.xpath(ns("./subclause")))
+        note_anchor_names(s.xpath(ns("./subclause | ./appendix")))
       end
     end
 
     CHILD_EXAMPLES_XPATH =
-      "./*[not(self::xmlns:subclause)]//xmlns:example | "\
-      "./xmlns:example".freeze
+      "./*[not(self::xmlns:subclause) and not(self::xmlns:appendix)]//"\
+      "xmlns:example | ./xmlns:example".freeze
 
     def example_anchor_names(sections)
       sections.each do |s|
@@ -67,20 +68,20 @@ module IsoDoc
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, s, @example_xref_lbl)
         end
-        example_anchor_names(s.xpath(ns("./subclause")))
+        example_anchor_names(s.xpath(ns("./subclause | ./appendix")))
       end
     end
 
     def list_anchor_names(sections)
       sections.each do |s|
         notes = s.xpath(ns(".//ol")) - s.xpath(ns(".//subclause//ol")) -
-          s.xpath(ns(".//ol//ol"))
+          s.xpath(ns(".//appendix//ol")) - s.xpath(ns(".//ol//ol"))
         notes.each_with_index do |n, i|
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, s, @list_lbl)
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
-        list_anchor_names(s.xpath(ns("./subclause")))
+        list_anchor_names(s.xpath(ns("./subclause | ./appendix")))
       end
     end
 
@@ -144,10 +145,26 @@ module IsoDoc
       end
     end
 
+    def anchor_struct_label(lbl, elem)
+      case elem
+      when @appendix_lbl then l10n("#{elem} #{lbl}")
+      else
+        lbl.to_s
+      end
+    end
+
+    def anchor_struct_xref(lbl, elem)
+      case elem
+      when @formula_lbl then l10n("#{elem} (#{lbl})")
+      else
+        l10n("#{elem} #{lbl}")
+      end
+    end
+
     def anchor_struct(lbl, container, elem)
-      ret = { label: lbl.to_s }
-      ret[:xref] =
-        elem == "Formula" ? l10n("#{elem} (#{lbl})") : l10n("#{elem} #{lbl}")
+      ret = {}
+      ret[:label] = anchor_struct_label(lbl, elem)
+      ret[:xref] = anchor_struct_xref(lbl, elem)
       ret[:xref].gsub!(/ $/, "")
       ret[:container] = get_clause_id(container) unless container.nil?
       ret

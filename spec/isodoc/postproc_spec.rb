@@ -165,6 +165,9 @@ RSpec.describe IsoDoc do
                  <div><a name="Q" id="Q"></a>
             <p class="h2Annex">A.1. Annex A.1</p>
        </div>
+              <div><a name="Q2" id="Q2"></a>
+                <p class="h2Annex">Appendix 1. An Appendix</p>
+                </div>
                </div>
              </div>
     OUTPUT
