@@ -4,11 +4,11 @@ RSpec.describe IsoDoc do
   it "processes unlabelled notes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -42,11 +42,11 @@ RSpec.describe IsoDoc do
   it "processes labelled notes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note id="note1">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
 INPUT
        <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -80,14 +80,14 @@ INPUT
     it "processes sequences of notes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note id="note1">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
     <note id="note2">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
 INPUT
        <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -124,12 +124,12 @@ INPUT
   it "processes multi-para notes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -164,7 +164,7 @@ INPUT
   it "processes non-para notes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note>
     <dl>
     <dt>A</dt>
@@ -173,7 +173,7 @@ INPUT
     <ul>
     <li>C</li></ul>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -210,7 +210,7 @@ INPUT
   it "processes figures" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <figure id="figureA-1">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
@@ -219,7 +219,7 @@ INPUT
   <dd><p>B</p></dd>
   </dl>
 </figure>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -255,11 +255,11 @@ INPUT
   it "processes examples" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <example id="samplecode">
   <p>Hello</p>
 </example>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -299,14 +299,14 @@ INPUT
   it "processes sequences of examples" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <example id="samplecode">
   <p>Hello</p>
 </example>
     <example id="samplecode2>
   <p>Hello</p>
 </example>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -352,12 +352,12 @@ INPUT
   it "processes sourcecode" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <sourcecode id="samplecode">
     <name>Ruby code</name>
   puts x
 </sourcecode>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -389,7 +389,7 @@ INPUT
   it "processes sourcecode with annotations" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <sourcecode id="_">puts "Hello, world." <callout target="A">1</callout>
        %w{a b c}.each do |x|
          puts x <callout target="B">2</callout>
@@ -398,7 +398,7 @@ INPUT
        </annotation><annotation id="B">
          <p id="_">This is another callout</p>
        </annotation></sourcecode>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -434,11 +434,11 @@ INPUT
   it "processes admonitions" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
   <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
 </admonition>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -472,7 +472,7 @@ INPUT
   it "processes formulae" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934">
   <stem type="AsciiMath">r = 1 %</stem>
 <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
@@ -483,7 +483,7 @@ INPUT
     <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
   </dd>
 </dl></formula>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -524,12 +524,12 @@ INPUT
   it "processes paragraph alignments" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
 Fictitious<br/>
 World</p>
     <p align="justify">Justify</p>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -565,12 +565,12 @@ World</p>
     it "processes paragraph alignments (Word)" do
     expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
 Fictitious<br/>
 World</p>
     <p align="justify">Justify</p>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -608,14 +608,14 @@ World</p>
   it "processes blockquotes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
   <source type="inline" bibitemid="ISO7301" citeas="ISO 7301: 2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality></source>
   <author>ISO</author>
   <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
 </quote>
 
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">

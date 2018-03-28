@@ -4,14 +4,14 @@ RSpec.describe IsoDoc do
   it "processes IsoXML bibliographies" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
   <eref bibitemid="ISO712"/>
   <eref bibitemid="ref1"/>
   <eref bibitemid="ref10"/>
   </p>
-    </foreword>
-    <references id="_normative_references" obligation="informative"><title>Normative References</title>
+    </foreword></preface>
+    <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
 <bibitem id="ISO712" type="standard">
   <title format="text/plain">Cereals and cereal products</title>
   <docidentifier>ISO 712</docidentifier>
@@ -73,6 +73,7 @@ RSpec.describe IsoDoc do
 
 
 </references>
+</bibliography>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -126,8 +127,9 @@ RSpec.describe IsoDoc do
    it "processes empty IsoXML Normative References" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <references id="_normative_references" obligation="informative"><title>Normative References</title>
+    <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
     </references>
+    </bibliography>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">

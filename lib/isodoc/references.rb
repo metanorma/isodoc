@@ -107,7 +107,7 @@ module IsoDoc
     end
 
     def norm_ref(isoxml, out)
-      q = "./*/references[title = 'Normative References']"
+      q = "//bibliography/references[title = 'Normative References']"
       f = isoxml.at(ns(q)) || return
       out.div do |div|
         clause_name("2.", @normref_lbl, div, nil)
@@ -116,9 +116,12 @@ module IsoDoc
       end
     end
 
+    BIBLIOGRAPHY_XPATH = "//bibliography/clause[title = 'Bibliography'] | "\
+      "//bibliography/references[title = 'Bibliography']".freeze
+
+
     def bibliography(isoxml, out)
-      q = "//clause[title = 'Bibliography'][descendant::references] | //references[title = 'Bibliography']"
-      f = isoxml.at(ns(q)) || return
+      f = isoxml.at(ns(BIBLIOGRAPHY_XPATH)) || return
       page_break(out)
       out.div do |div|
         div.h1 @bibliography_lbl, **{ class: "Section3" }

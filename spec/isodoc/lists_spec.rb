@@ -4,7 +4,7 @@ RSpec.describe IsoDoc do
   it "processes unordered lists" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
   <li>
     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
@@ -13,7 +13,7 @@ RSpec.describe IsoDoc do
     <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
   </li>
 </ul>
-</foreword>
+</foreword></preface>
 </iso-standard>
     INPUT
               <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -52,7 +52,7 @@ RSpec.describe IsoDoc do
   it "processes ordered lists" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet">
   <li>
     <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
@@ -68,7 +68,7 @@ RSpec.describe IsoDoc do
   </ol>
   </ol>
 </ol>
-</foreword>
+</foreword></preface>
 </iso-standard>
     INPUT
               <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -114,7 +114,7 @@ RSpec.describe IsoDoc do
   it "processes Roman Upper ordered lists" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="roman_upper">
   <li>
     <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
@@ -126,7 +126,7 @@ RSpec.describe IsoDoc do
     <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
   </li>
 </ol>
-</foreword>
+</foreword></preface>
 </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -168,7 +168,7 @@ RSpec.describe IsoDoc do
   it "processes definition lists" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395">
   <dt>
     W
@@ -179,7 +179,7 @@ RSpec.describe IsoDoc do
   <dt><stem type="AsciiMath">w</stem></dt>
   <dd><p>??</p></dd>
   </dl>
-</foreword>
+</foreword></preface>
 </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -226,7 +226,7 @@ RSpec.describe IsoDoc do
   it "processes definition lists (Word)" do
     expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395">
   <dt>
     W
@@ -237,7 +237,7 @@ RSpec.describe IsoDoc do
   <dt><stem type="AsciiMath">w</stem></dt>
   <dd><p>??</p></dd>
   </dl>
-</foreword>
+</foreword></preface>
 </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">

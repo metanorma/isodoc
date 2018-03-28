@@ -7,6 +7,7 @@ RSpec.describe IsoDoc do
       <bibdata>
       <language>en</language>
       </bibdata>
+      <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -17,7 +18,7 @@ RSpec.describe IsoDoc do
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
-       </introduction><sections>
+       </introduction></preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -60,7 +61,7 @@ RSpec.describe IsoDoc do
        <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
-       </annex><references id="R" obligation="informative">
+       </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -68,6 +69,7 @@ RSpec.describe IsoDoc do
          <title>Bibliography Subsection</title>
        </references>
        </clause>
+       </bibliography>
        </iso-standard>
         INPUT
                <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -175,6 +177,7 @@ RSpec.describe IsoDoc do
       <bibdata>
       <language>tlh</language>
       </bibdata>
+      <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -185,7 +188,7 @@ RSpec.describe IsoDoc do
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
-       </introduction><sections>
+       </introduction></preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -228,7 +231,7 @@ RSpec.describe IsoDoc do
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
-       </annex><references id="R" obligation="informative">
+       </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -236,6 +239,7 @@ RSpec.describe IsoDoc do
          <title>Bibliography Subsection</title>
        </references>
        </clause>
+       </bibliography>
        </iso-standard>
         INPUT
                <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -343,6 +347,7 @@ RSpec.describe IsoDoc do
       <bibdata>
       <language>fr</language>
       </bibdata>
+      <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -353,7 +358,7 @@ RSpec.describe IsoDoc do
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
-       </introduction><sections>
+       </introduction></preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -396,7 +401,7 @@ RSpec.describe IsoDoc do
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
-       </annex><references id="R" obligation="informative">
+       </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -404,6 +409,7 @@ RSpec.describe IsoDoc do
          <title>Bibliography Subsection</title>
        </references>
        </clause>
+       </bibliography>
        </iso-standard>
         INPUT
                <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -511,6 +517,7 @@ RSpec.describe IsoDoc do
       <language>zh</language>
       <script>Hans</script>
       </bibdata>
+      <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -521,7 +528,7 @@ RSpec.describe IsoDoc do
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
-       </introduction><sections>
+       </introduction></preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref></p>
@@ -564,7 +571,7 @@ RSpec.describe IsoDoc do
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
-       </annex><references id="R" obligation="informative">
+       </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
          <bibitem id="ISO712" type="standard">
   <title format="text/plain">Cereals and cereal products</title>
@@ -582,6 +589,7 @@ RSpec.describe IsoDoc do
          <title>Bibliography Subsection</title>
        </references>
        </clause>
+       </bibliography>
        </iso-standard>
         INPUT
                <html xmlns:epub="http://www.idpf.org/2007/ops">

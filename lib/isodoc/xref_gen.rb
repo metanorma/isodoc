@@ -36,8 +36,8 @@ module IsoDoc
 
     SECTIONS_XPATH =
       "//foreword | //introduction | //sections/terms | //annex | "\
-      "//sections/clause | //references[not(ancestor::clause)] | "\
-      "//clause[descendant::references][not(ancestor::clause)]".freeze
+      "//sections/clause | //bibliography/references | "\
+      "//bibliography/clause".freeze
 
     CHILD_NOTES_XPATH =
       "./*[not(self::xmlns:subclause) and "\

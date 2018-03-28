@@ -4,6 +4,7 @@ RSpec.describe IsoDoc do
   it "processes IsoXML tables" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
       <table id="tableD-1">
   <name>Repeatability and reproducibility of husked rice yield</name>
@@ -55,6 +56,7 @@ RSpec.describe IsoDoc do
 <note><p>This is a table about rice</p></note>
 </table>
 </foreword>
+</preface>
 </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -138,6 +140,7 @@ RSpec.describe IsoDoc do
   it "processes IsoXML tables (Word)" do
     expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
       <table id="tableD-1">
   <name>Repeatability and reproducibility of husked rice yield</name>
@@ -189,6 +192,7 @@ RSpec.describe IsoDoc do
 <note><p>This is a table about rice</p></note>
 </table>
 </foreword>
+</preface>
 </iso-standard>
     INPUT
        <html xmlns:epub="http://www.idpf.org/2007/ops">

@@ -4,6 +4,7 @@ RSpec.describe IsoDoc do
   it "processes section names" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -14,7 +15,7 @@ RSpec.describe IsoDoc do
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
-       </introduction><sections>
+       </introduction></preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -57,7 +58,7 @@ RSpec.describe IsoDoc do
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
-       </annex><references id="R" obligation="informative">
+       </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -65,6 +66,7 @@ RSpec.describe IsoDoc do
          <title>Bibliography Subsection</title>
        </references>
        </clause>
+       </bibliography>
        </iso-standard>
     INPUT
         <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -170,6 +172,7 @@ OUTPUT
   it "processes section names (Word)" do
     expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -180,7 +183,7 @@ OUTPUT
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
-       </introduction><sections>
+       </introduction></preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -223,7 +226,7 @@ OUTPUT
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
-       </annex><references id="R" obligation="informative">
+       </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -231,6 +234,7 @@ OUTPUT
          <title>Bibliography Subsection</title>
        </references>
        </clause>
+       </bibliography>
        </iso-standard>
     INPUT
        <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -393,6 +397,7 @@ OUTPUT
        </term>
        </terms>
         </sections>
+        <bibliography>
         <references id="_normative_references" obligation="informative"><title>Normative References</title>
 <bibitem id="ISO712" type="standard">
   <title format="text/plain">Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</title>
@@ -404,6 +409,7 @@ OUTPUT
     </organization>
   </contributor>
 </bibitem></references>
+</bibliography>
         </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -456,6 +462,7 @@ OUTPUT
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
        </terms>
         </sections>
+        <bibliography>
         <references id="_normative_references" obligation="informative"><title>Normative References</title>
 <bibitem id="ISO712" type="standard">
   <title format="text/plain">Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</title>
@@ -467,6 +474,7 @@ OUTPUT
     </organization>
   </contributor>
 </bibitem></references>
+</bibliography>
         </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">

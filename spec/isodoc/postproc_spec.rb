@@ -6,11 +6,11 @@ RSpec.describe IsoDoc do
     system "rm -f test.html"
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
     expect(File.exist?("test.html")).to be true
@@ -26,11 +26,11 @@ RSpec.describe IsoDoc do
     system "rm -f test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
     expect(File.exist?("test.doc")).to be true
@@ -60,11 +60,11 @@ RSpec.describe IsoDoc do
     system "rm -f test.html"
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
     html = File.read("test.html")
@@ -80,11 +80,11 @@ RSpec.describe IsoDoc do
     system "rm -f test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <note>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
     word = File.read("test.doc")
@@ -101,14 +101,14 @@ RSpec.describe IsoDoc do
     system "rm -f test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
      <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <dl>
     <dt>Term</dt>
     <dd>Definition</dd>
     <dt>Term 2</dt>
     <dd>Definition 2</dd>
     </dl>
-    </foreword>
+    </foreword></preface>
     </iso-standard>
     INPUT
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
@@ -380,12 +380,12 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
     system "rm -rf _images"
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <foreword>
+        <preface><foreword>
          <figure id="_">
          <name>Split-it-right sample divider</name>
                   <image src="spec/assets/rice_image1.png" id="_" imagetype="PNG"/>
        </figure>
-       </foreword>
+       </foreword></preface>
         </iso-standard>
     INPUT
     html = File.read("test.html").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').

@@ -4,6 +4,7 @@ RSpec.describe IsoDoc do
   it "cross-references notes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)). to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
     <p>
     <xref target="N"/>
@@ -14,6 +15,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
     <note id="N">
@@ -128,6 +130,7 @@ RSpec.describe IsoDoc do
   it "cross-references figures" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
     <foreword id="fwd">
     <p>
     <xref target="N"/>
@@ -138,6 +141,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
         <figure id="N">
@@ -271,6 +275,7 @@ RSpec.describe IsoDoc do
   it "cross-references subfigures" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
     <foreword id="fwd">
     <p>
     <xref target="N"/>
@@ -281,6 +286,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
     </clause>
@@ -402,6 +408,7 @@ RSpec.describe IsoDoc do
   it "cross-references examples" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
     <foreword>
     <p>
     <xref target="N"/>
@@ -412,6 +419,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
         <example id="N">
@@ -538,6 +546,7 @@ RSpec.describe IsoDoc do
   it "cross-references formulae" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
             <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
     <foreword>
     <p>
     <xref target="N"/>
@@ -548,6 +557,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
     <formula id="N">
@@ -596,6 +606,7 @@ RSpec.describe IsoDoc do
   </dd>
 </dl></formula>
     </foreword>
+    </preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -670,6 +681,7 @@ RSpec.describe IsoDoc do
   it "cross-references tables" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
     <foreword>
     <p>
     <xref target="N"/>
@@ -680,6 +692,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
         <table id="N">
@@ -842,6 +855,7 @@ RSpec.describe IsoDoc do
   it "cross-references term notes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
             <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
     <foreword>
     <p>
     <xref target="note1"/>
@@ -849,6 +863,7 @@ RSpec.describe IsoDoc do
     <xref target="note3"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
     </clause>
@@ -919,6 +934,7 @@ RSpec.describe IsoDoc do
   it "cross-references sections" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble
@@ -945,7 +961,7 @@ RSpec.describe IsoDoc do
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
-       </introduction><sections>
+       </introduction></preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -988,7 +1004,7 @@ RSpec.describe IsoDoc do
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
-       </annex><references id="R" obligation="informative">
+       </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -996,6 +1012,7 @@ RSpec.describe IsoDoc do
          <title>Bibliography Subsection</title>
        </references>
        </clause>
+       </bibliography>
        </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -1116,6 +1133,7 @@ RSpec.describe IsoDoc do
   it "cross-references lists" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
     <p>
     <xref target="N"/>
@@ -1126,6 +1144,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
     <ol id="N">
@@ -1241,6 +1260,7 @@ RSpec.describe IsoDoc do
   it "cross-references list items" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
     <p>
     <xref target="N"/>
@@ -1251,6 +1271,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
     <ol id="N1">
@@ -1366,6 +1387,7 @@ RSpec.describe IsoDoc do
   it "cross-references nested list items" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
     <p>
     <xref target="N"/>
@@ -1376,6 +1398,7 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
     <ol id="N1">

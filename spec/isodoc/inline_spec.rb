@@ -4,13 +4,13 @@ RSpec.describe IsoDoc do
   it "processes inline formatting" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p>
     <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
     <strike>F</strike> <smallcap>G</smallcap> <br/> <hr/>
     <bookmark id="H"/> <pagebreak/>
     </p>
-    </foreword>
+    </foreword></preface>
     <sections>
     </iso-standard>
     INPUT
@@ -47,12 +47,12 @@ RSpec.describe IsoDoc do
   it "processes links" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p>
     <link target="http://example.com"/>
     <link target="http://example.com">example</link>
     </p>
-    </foreword>
+    </foreword></preface>
     <sections>
     </iso-standard>
     INPUT
@@ -88,11 +88,11 @@ RSpec.describe IsoDoc do
   it "processes unrecognised markup" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p>
     <barry fred="http://example.com">example</barry>
     </p>
-    </foreword>
+    </foreword></preface>
     <sections>
     </iso-standard>
     INPUT
@@ -127,13 +127,13 @@ RSpec.describe IsoDoc do
   it "processes AsciiMath and MathML" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p>
     <stem type="AsciiMath">A</stem>
     <stem type="MathML"><m:math><m:row>X</m:row></m:math></stem>
     <stem type="None">Latex?</stem>
     </p>
-    </foreword>
+    </foreword></preface>
     <sections>
     </iso-standard>
     INPUT
@@ -172,12 +172,12 @@ RSpec.describe IsoDoc do
   it "overrides AsciiMath delimiters" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p>
     <stem type="AsciiMath">A</stem>
     (#((Hello))#)
     </p>
-    </foreword>
+    </foreword></preface>
     <sections>
     </iso-standard>
     INPUT
@@ -213,13 +213,13 @@ RSpec.describe IsoDoc do
   it "processes eref types" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p>
     <eref type="footnote" bibitemid="ISO712" citeas="ISO 712">A</stem>
     <eref type="inline" bibitemid="ISO712" citeas="ISO 712">A</stem>
     </p>
-    </foreword>
-    <references id="_normative_references" obligation="informative"><title>Normative References</title>
+    </foreword></preface>
+    <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
 <bibitem id="ISO712" type="standard">
   <title format="text/plain">Cereals and cereal products</title>
   <docidentifier>ISO 712</docidentifier>
@@ -231,6 +231,7 @@ RSpec.describe IsoDoc do
   </contributor>
 </bibitem>
     </references>
+    </bibliography>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -270,7 +271,7 @@ RSpec.describe IsoDoc do
   it "processes eref content" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <foreword>
+    <preface><foreword>
     <p>
     <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
     <eref type="inline" bibitemid="ISO712"/>
@@ -284,8 +285,8 @@ RSpec.describe IsoDoc do
     <eref type="inline" bibitemid="ISO712"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality></eref>
     <eref type="inline" bibitemid="ISO712" citeas="ISO 712">A</eref>
     </p>
-    </foreword>
-    <references id="_normative_references" obligation="informative"><title>Normative References</title>
+    </foreword></preface>
+    <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
 <bibitem id="ISO712" type="standard">
   <title format="text/plain">Cereals and cereal products</title>
   <docidentifier>ISO 712</docidentifier>
@@ -297,6 +298,7 @@ RSpec.describe IsoDoc do
   </contributor>
 </bibitem>
     </references>
+    </bibliography>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">

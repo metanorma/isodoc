@@ -4,6 +4,7 @@ RSpec.describe IsoDoc do
   it "processes IsoXML footnotes" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
     <p>A.<fn reference="2">
   <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
@@ -15,6 +16,7 @@ RSpec.describe IsoDoc do
   <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
 </fn></p>
     </foreword>
+    </preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -54,6 +56,7 @@ RSpec.describe IsoDoc do
           it "processes IsoXML footnotes (Word)" do
     expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
     <p>A.<fn reference="2">
   <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
@@ -65,6 +68,7 @@ RSpec.describe IsoDoc do
   <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
 </fn></p>
     </foreword>
+    </preface>
     </iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops">
@@ -105,6 +109,7 @@ RSpec.describe IsoDoc do
     system "rm -f test.html"
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
     <p id="A">A.</p>
     <p id="B">B.</p>
@@ -116,6 +121,7 @@ RSpec.describe IsoDoc do
     <introduction>
     <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
     </introduction>
+    </preface>
     </iso-standard>
     INPUT
     html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
@@ -198,6 +204,7 @@ RSpec.describe IsoDoc do
     system "rm -f test.doc"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
     <foreword>
     <p id="A">A.</p>
     <p id="B">B.</p>
@@ -209,6 +216,7 @@ RSpec.describe IsoDoc do
     <introduction>
     <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
     </introduction>
+    </preface>
     </iso-standard>
     INPUT
     html = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
