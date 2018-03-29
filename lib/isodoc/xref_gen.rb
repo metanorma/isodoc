@@ -40,7 +40,7 @@ module IsoDoc
       "//bibliography/clause".freeze
 
     CHILD_NOTES_XPATH =
-      "./*[not(self::xmlns:subclause) and "\
+      "./*[not(self::xmlns:clause) and "\
       "not(self::xmlns:appendix)]//xmlns:note | ./xmlns:note".freeze
 
     def note_anchor_names(sections)
@@ -52,12 +52,12 @@ module IsoDoc
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, s, @note_xref_lbl)
         end
-        note_anchor_names(s.xpath(ns("./subclause | ./appendix")))
+        note_anchor_names(s.xpath(ns("./clause | ./appendix")))
       end
     end
 
     CHILD_EXAMPLES_XPATH =
-      "./*[not(self::xmlns:subclause) and not(self::xmlns:appendix)]//"\
+      "./*[not(self::xmlns:clause) and not(self::xmlns:appendix)]//"\
       "xmlns:example | ./xmlns:example".freeze
 
     def example_anchor_names(sections)
@@ -68,20 +68,20 @@ module IsoDoc
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, s, @example_xref_lbl)
         end
-        example_anchor_names(s.xpath(ns("./subclause | ./appendix")))
+        example_anchor_names(s.xpath(ns("./clause | ./appendix")))
       end
     end
 
     def list_anchor_names(sections)
       sections.each do |s|
-        notes = s.xpath(ns(".//ol")) - s.xpath(ns(".//subclause//ol")) -
+        notes = s.xpath(ns(".//ol")) - s.xpath(ns(".//clause//ol")) -
           s.xpath(ns(".//appendix//ol")) - s.xpath(ns(".//ol//ol"))
         notes.each_with_index do |n, i|
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, s, @list_lbl)
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
-        list_anchor_names(s.xpath(ns("./subclause | ./appendix")))
+        list_anchor_names(s.xpath(ns("./clause | ./appendix")))
       end
     end
 

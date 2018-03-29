@@ -76,11 +76,10 @@ module IsoDoc
     end
 
     CLAUSE_ANCESTOR =
-      ".//ancestor::*[local-name() = 'subclause' or "\
+      ".//ancestor::*[local-name() = 'annex' or "\
       "local-name() = 'appendix' or local-name() = 'foreword' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
-      "local-name() = 'clause' or local-name() = 'references' or "\
-      "local-name() = 'annex']/@id".freeze
+      "local-name() = 'clause' or local-name() = 'references']/@id".freeze
 
     def get_clause_id(node)
       clause = node.xpath(CLAUSE_ANCESTOR)
@@ -88,13 +87,12 @@ module IsoDoc
     end
 
     NOTE_CONTAINER_ANCESTOR =
-      ".//ancestor::*[local-name() = 'subclause' or "\
+      ".//ancestor::*[local-name() = 'annex' or "\
       "local-name() = 'foreword' or local-name() = 'appendix' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
       "local-name() = 'clause' or local-name() = 'references' or "\
-      "local-name() = 'annex' or local-name() = 'formula' or "\
-      "local-name() = 'table' or local-name() = 'example' or "\
-      "local-name() = 'figure']/@id".freeze
+      "local-name() = 'figure' or local-name() = 'formula' or "\
+      "local-name() = 'table' or local-name() = 'example']/@id".freeze
 
     def get_note_container_id(node)
       container = node.xpath(NOTE_CONTAINER_ANCESTOR)

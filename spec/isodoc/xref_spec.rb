@@ -26,7 +26,7 @@ RSpec.describe IsoDoc do
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
-    <subclause id="widgets1">
+    <clause id="widgets1">
     <note id="note1">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
@@ -35,23 +35,23 @@ RSpec.describe IsoDoc do
 </note>
 <p>    <xref target="note1"/> <xref target="note2"/> </p>
 
-    </subclause>
+    </clause>
     </clause>
     </sections>
     <annex id="annex1">
-    <subclause id="annex1a">
+    <clause id="annex1a">
     <note id="AN">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </subclause>
-    <subclause id="annex1b">
+    </clause>
+    <clause id="annex1b">
     <note id="Anote1">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
     <note id="Anote2">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
 </note>
-    </subclause>
+    </clause>
     </annex>
     </iso-standard>
     INPUT
@@ -152,7 +152,7 @@ RSpec.describe IsoDoc do
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
-    <subclause id="widgets1">
+    <clause id="widgets1">
         <figure id="note1">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
@@ -162,17 +162,17 @@ RSpec.describe IsoDoc do
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </figure>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
-    </subclause>
+    </clause>
     </clause>
     </sections>
     <annex id="annex1">
-    <subclause id="annex1a">
+    <clause id="annex1a">
         <figure id="AN">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </figure>
-    </subclause>
-    <subclause id="annex1b">
+    </clause>
+    <clause id="annex1b">
         <figure id="Anote1">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
@@ -181,7 +181,7 @@ RSpec.describe IsoDoc do
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </figure>
-    </subclause>
+    </clause>
     </annex>
     </iso-standard>
     INPUT
@@ -292,7 +292,7 @@ RSpec.describe IsoDoc do
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
-    <subclause id="widgets1">
+    <clause id="widgets1">
     <figure id="N">
         <figure id="note1">
   <name>Split-it-right sample divider</name>
@@ -304,13 +304,13 @@ RSpec.describe IsoDoc do
   </figure>
   </figure>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
-    </subclause>
+    </clause>
     </clause>
     </sections>
     <annex id="annex1">
-    <subclause id="annex1a">
-    </subclause>
-    <subclause id="annex1b">
+    <clause id="annex1a">
+    </clause>
+    <clause id="annex1b">
     <figure id="AN">
         <figure id="Anote1">
   <name>Split-it-right sample divider</name>
@@ -321,7 +321,7 @@ RSpec.describe IsoDoc do
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </figure>
   </figure>
-    </subclause>
+    </clause>
     </annex>
     </iso-standard>
     INPUT
@@ -429,7 +429,7 @@ RSpec.describe IsoDoc do
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
-    <subclause id="widgets1">
+    <clause id="widgets1">
         <example id="note1">
   <p>Hello</p>
 </example>
@@ -437,23 +437,23 @@ RSpec.describe IsoDoc do
   <p>Hello</p>
 </example>
 <p>    <xref target="note1"/> <xref target="note2"/> </p>
-    </subclause>
+    </clause>
     </clause>
     </sections>
     <annex id="annex1">
-    <subclause id="annex1a">
+    <clause id="annex1a">
         <example id="AN">
   <p>Hello</p>
 </example>
-    </subclause>
-    <subclause id="annex1b">
+    </clause>
+    <clause id="annex1b">
         <example id="Anote1">
   <p>Hello</p>
 </example>
         <example id="Anote2">
   <p>Hello</p>
 </example>
-    </subclause>
+    </clause>
     </annex>
     </iso-standard>
     INPUT
@@ -567,7 +567,7 @@ RSpec.describe IsoDoc do
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
-    <subclause id="widgets1">
+    <clause id="widgets1">
     <formula id="note1">
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
@@ -575,23 +575,23 @@ RSpec.describe IsoDoc do
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
-    </subclause>
+    </clause>
     </clause>
     </sections>
     <annex id="annex1">
-    <subclause id="annex1a">
+    <clause id="annex1a">
     <formula id="AN">
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
-    </subclause>
-    <subclause id="annex1b">
+    </clause>
+    <clause id="annex1b">
     <formula id="Anote1">
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
     <formula id="Anote2">
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
-    </subclause>
+    </clause>
     </annex>
     </iso-standard>
 
@@ -709,7 +709,7 @@ RSpec.describe IsoDoc do
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
-    <subclause id="widgets1">
+    <clause id="widgets1">
         <table id="note1">
     <name>Repeatability and reproducibility of husked rice yield</name>
     <tbody>
@@ -731,11 +731,11 @@ RSpec.describe IsoDoc do
     </tbody>
     </table>
     <p>    <xref target="note1"/> <xref target="note2"/> </p>
-    </subclause>
+    </clause>
     </clause>
     </sections>
     <annex id="annex1">
-    <subclause id="annex1a">
+    <clause id="annex1a">
         <table id="AN">
     <name>Repeatability and reproducibility of husked rice yield</name>
     <tbody>
@@ -746,8 +746,8 @@ RSpec.describe IsoDoc do
     </tr>
     </tbody>
     </table>
-    </subclause>
-    <subclause id="annex1b">
+    </clause>
+    <clause id="annex1b">
         <table id="Anote1">
     <name>Repeatability and reproducibility of husked rice yield</name>
     <tbody>
@@ -768,7 +768,7 @@ RSpec.describe IsoDoc do
     </tr>
     </tbody>
     </table>
-    </subclause>
+    </clause>
     </annex>
     </iso-standard>
     INPUT
@@ -955,9 +955,9 @@ RSpec.describe IsoDoc do
          <xref target="R"/>
          </p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
-       </subclause>
+       </clause>
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
@@ -986,21 +986,21 @@ RSpec.describe IsoDoc do
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
-       </subclause>
-       <subclause id="O" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </subclause></clause>
+       </clause></clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
-         <subclause id="Q" inline-header="false" obligation="normative">
+         <clause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
-         <subclause id="Q1" inline-header="false" obligation="normative">
+         <clause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
-         </subclause>
-       </subclause>
+         </clause>
+       </clause>
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
@@ -1153,30 +1153,30 @@ RSpec.describe IsoDoc do
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
-    <subclause id="widgets1">
+    <clause id="widgets1">
     <ol id="note1">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </ol>
     <ol id="note2">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
 </ol>
-    </subclause>
+    </clause>
     </clause>
     </sections>
     <annex id="annex1">
-    <subclause id="annex1a">
+    <clause id="annex1a">
     <ol id="AN">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </ol>
-    </subclause>
-    <subclause id="annex1b">
+    </clause>
+    <clause id="annex1b">
     <ol id="Anote1">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </ol>
     <ol id="Anote2">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
 </ol>
-    </subclause>
+    </clause>
     </annex>
     </iso-standard>
     INPUT
@@ -1280,30 +1280,30 @@ RSpec.describe IsoDoc do
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
-    <subclause id="widgets1">
+    <clause id="widgets1">
     <ol id="note1l">
   <li id="note1"><p>A</p></li>
 </ol>
     <ol id="note2l">
   <li id="note2"><p>A</p></li>
 </ol>
-    </subclause>
+    </clause>
     </clause>
     </sections>
     <annex id="annex1">
-    <subclause id="annex1a">
+    <clause id="annex1a">
     <ol id="ANl">
   <li id="AN"><p>A</p></li>
 </ol>
-    </subclause>
-    <subclause id="annex1b">
+    </clause>
+    <clause id="annex1b">
     <ol id="Anote1l">
   <li id="Anote1"><p>A</p></li>
 </ol>
     <ol id="Anote2l">
   <li id="Anote2"><p>A</p></li>
 </ol>
-    </subclause>
+    </clause>
     </annex>
     </iso-standard>
     INPUT

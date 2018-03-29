@@ -145,9 +145,9 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
-         <subclause id="Q" inline-header="false" obligation="normative">
+         <clause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
-         </subclause>
+         </clause>
                 <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
@@ -249,18 +249,18 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
-               <clause inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
+               <clause inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
 
          <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
 </fn></title>
-       </subclause>
-       <subclause id="O" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
          <p>A<fn reference="1">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
 </fn></p>
-       </subclause></clause>
+       </clause></clause>
         </sections>
         </iso-standard>
 
@@ -330,18 +330,18 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
         <sections>
                <clause inline-header="false" obligation="normative"><title>Clause 4</title><fn reference="3">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">This is a footnote.</p>
-</fn><subclause id="N" inline-header="false" obligation="normative">
+</fn><clause id="N" inline-header="false" obligation="normative">
 
          <title>Introduction to this<fn reference="2">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
 </fn></title>
-       </subclause>
-       <subclause id="O" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
          <p>A<fn reference="1">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
 </fn></p>
-       </subclause></clause>
+       </clause></clause>
         </sections>
         </iso-standard>
     INPUT
@@ -413,18 +413,18 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", htmlintropage: "spec/assets/htmlintro.html"}).convert_file(<<~"INPUT", "test", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
-               <clause inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
+               <clause inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
 
          <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
 </fn></title>
-       </subclause>
-       <subclause id="O" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
          <p>A<fn reference="1">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
 </fn></p>
-       </subclause></clause>
+       </clause></clause>
                <clause inline-header="false" obligation="normative"><title>Clause 5</title></clause>
         </sections>
         </iso-standard>

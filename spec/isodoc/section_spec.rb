@@ -9,9 +9,9 @@ RSpec.describe IsoDoc do
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
-       </subclause>
+       </clause>
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
@@ -40,21 +40,21 @@ RSpec.describe IsoDoc do
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
-       </subclause>
-       <subclause id="O" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </subclause></clause>
+       </clause></clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
-         <subclause id="Q" inline-header="false" obligation="normative">
+         <clause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
-         <subclause id="Q1" inline-header="false" obligation="normative">
+         <clause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
-         </subclause>
-       </subclause>
+         </clause>
+       </clause>
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
@@ -177,9 +177,9 @@ OUTPUT
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><subclause id="C" inline-header="false" obligation="informative">
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
-       </subclause>
+       </clause>
        <patent-notice>
        <p>This is patent boilerplate</p>
        </patent-notice>
@@ -208,21 +208,21 @@ OUTPUT
          <dd>Definition</dd>
          </dl>
        </symbols-abbrevs>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
-       </subclause>
-       <subclause id="O" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </subclause></clause>
+       </clause></clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
-         <subclause id="Q" inline-header="false" obligation="normative">
+         <clause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
-         <subclause id="Q1" inline-header="false" obligation="normative">
+         <clause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
-         </subclause>
-       </subclause>
+         </clause>
+       </clause>
               <appendix id="Q2" inline-header="false" obligation="normative">
          <title>An Appendix</title>
        </appendix>
@@ -561,12 +561,12 @@ OUTPUT
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><subclause id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
-       </subclause>
-       <subclause id="O" inline-header="true" obligation="normative">
+       </clause>
+       <clause id="O" inline-header="true" obligation="normative">
          <title>Clause 4.2</title>
-       </subclause></clause>
+       </clause></clause>
 
        </sections>
       </iso-standard>
