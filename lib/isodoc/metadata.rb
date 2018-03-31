@@ -2,8 +2,8 @@ require "htmlentities"
 
 module IsoDoc
   class Convert
-    DATETYPES = %w{published accessed created activated obsoleted reviewed
-    first_created}.freeze
+    DATETYPES = %w{published accessed created activated obsoleted confirmed
+    updated issued}.freeze
 
     def init_metadata
       @meta = { tc: "XXXX", sc: "XXXX", wg: "XXXX",
@@ -116,7 +116,7 @@ module IsoDoc
       dn
     end
 
-    def id(isoxml, _out)
+    def docid(isoxml, _out)
       dn = docnumber(isoxml)
       docstatus = isoxml.at(ns("//status/stage"))
       if docstatus

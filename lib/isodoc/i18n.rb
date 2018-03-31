@@ -57,6 +57,9 @@ module IsoDoc
       @and_lbl = y["and"]
       @all_parts_lbl = y["all_parts"]
       @locality = y["locality"]
+      @labels = y
+      @labels["language"] = @lang
+      @labels["script"] = @script
     end
 
     def eref_localities1_zh(type, from, to)
