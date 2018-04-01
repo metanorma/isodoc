@@ -32,7 +32,7 @@ module IsoDoc
       out.span(**comment_link_attrs(fn, node)) do |s1|
         s1.span **{ lang: "EN-GB", style: "font-size:9.0pt" } do |s2|
           s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
-                   "mso-comment-date:#{node['date']}" }
+                   "mso-comment-date:#{node['date'].gsub(/[-:Z]/, '')}" }
           s2.span **{ style: "mso-special-character:comment",
                       target: fn } # do |s|
         end
