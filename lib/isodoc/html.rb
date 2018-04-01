@@ -16,8 +16,8 @@ module IsoDoc
     end
 
     def html_cleanup(x)
-      footnote_backlinks(
-        html_toc(move_images(html_footnote_filter(html_preface(htmlstyle(x)))))
+      footnote_backlinks(html_toc(
+        term_header(move_images(html_footnote_filter(html_preface(htmlstyle(x))))))
       )
     end
 
@@ -36,6 +36,15 @@ module IsoDoc
 
     def mathjax(open, close)
       MATHJAX.gsub("OPEN", open).gsub("CLOSE", close)
+    end
+
+    def term_header(docxml)
+      %w(h1 h2 h3 h4 h5 h6 h7 h8).each do |h|
+        docxml.xpath("//p[@class = 'TermNum'][../#{h}]").each do |p|
+          p.name = "h#{h[1].to_i + 1}"
+        end
+      end
+      docxml
     end
 
     def html_preface(docxml)
@@ -145,7 +154,8 @@ module IsoDoc
       ret = ""
       prevname = ""
       docxml.xpath("//h1 | //h2").each do |h|
-        ret = html_toc1(h, ret, prevname) unless h["class"] == "toc-contents"
+        next if ["toc-contents", "TermNum"].include? h["class"]
+        ret = html_toc1(h, ret, prevname)
         prevname = h.name
       end
       ret += "<ul>" if prevname == "h2"

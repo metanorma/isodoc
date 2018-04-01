@@ -114,5 +114,5 @@ RSpec.describe IsoDoc do
          </head>
        </html>
 OUTPUT
-  end 
+  end
 end
