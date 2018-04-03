@@ -116,15 +116,23 @@ module IsoDoc
       dn
     end
 
-    def docid(isoxml, _out)
-      dn = docnumber(isoxml)
+    def docstatus(isoxml, _out)
       docstatus = isoxml.at(ns("//status/stage"))
       if docstatus
         set_metadata(:stage, docstatus.text)
         abbr = stage_abbrev(docstatus.text, isoxml.at(ns("//status/iteration")),
                             isoxml.at(ns("//version/draft")))
         set_metadata(:stageabbr, abbr)
-        (docstatus.text.to_i < 60) && dn = abbr + " " + dn
+      end
+    end
+
+    def docid(isoxml, _out)
+      dn = docnumber(isoxml)
+      docstatus = get_metadata[:stage]
+      if docstatus
+        abbr = get_metadata[:stageabbr]
+        docstatus = get_metadata[:stage]
+        (docstatus.to_i < 60) && dn = abbr + " " + dn
       end
       set_metadata(:docnumber, dn)
     end

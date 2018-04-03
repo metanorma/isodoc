@@ -82,6 +82,7 @@ module IsoDoc
     def info(isoxml, out)
       title isoxml, out
       subtitle isoxml, out
+      docstatus isoxml, out
       docid isoxml, out
       doctype isoxml, out
       author isoxml, out
