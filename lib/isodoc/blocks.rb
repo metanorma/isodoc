@@ -21,7 +21,9 @@ module IsoDoc
 
     def note_parse1(node, div)
       div.p **{ class: "Note" } do |p|
-        p << note_label(node)
+        p.span **{ class: "note_label" } do |s|
+          s << note_label(node)
+        end
         insert_tab(p, 1)
       end
       node.children.each { |n| parse(n, div) }
@@ -100,9 +102,7 @@ module IsoDoc
 
     def sourcecode_name_parse(_node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
-        p.b do |b|
-          b << name.text
-        end
+        p << name.text
       end
     end
 

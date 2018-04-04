@@ -24,7 +24,7 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="" class="Note">
-                   <p class="Note">NOTE&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p>&#160;</p>
@@ -62,7 +62,7 @@ INPUT
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="note1" class="Note">
-                   <p class="Note">NOTE&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p>&#160;</p>
@@ -103,10 +103,10 @@ INPUT
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="note1" class="Note">
-                   <p class="Note">NOTE  1&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note"><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                  <div id="note2" class="Note">
-                   <p class="Note">NOTE  2&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note"><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p>&#160;</p>
@@ -145,7 +145,7 @@ INPUT
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="" class="Note">
-                   <p class="Note">NOTE&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                    <p class="Note" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
@@ -188,7 +188,7 @@ INPUT
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="" class="Note"><p class="Note">NOTE&#160; </p>
+                 <div id="" class="Note"><p class="Note"><span class="note_label">NOTE</span>&#160; </p>
            <dl><dt><p class="Note">A</p></dt><dd><p class="Note">B</p></dd></dl>
            <ul>
            <li>C</li></ul>
@@ -238,7 +238,7 @@ INPUT
 
          <img src="rice_images/rice_image1.png"/>
          <p><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
-       <p class="FigureTitle" align="center"><b>Figure 1&#160;&#8212; Split-it-right sample divider</b></p></div>
+       <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
                </div>
                <p>&#160;</p>
              </div>
@@ -276,7 +276,7 @@ INPUT
                  <h1 class="ForewordTitle">Foreword</h1>
                  <table id="samplecode" class="example">
                    <tr>
-                     <td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td>
+                     <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td>
                      <td valign="top">
          <p>Hello</p>
        </td>
@@ -323,7 +323,7 @@ INPUT
                  <h1 class="ForewordTitle">Foreword</h1>
                  <table id="samplecode" class="example">
                    <tr>
-                     <td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td>
+                     <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td>
                      <td valign="top">
          <p>Hello</p>
        </td>
@@ -331,7 +331,7 @@ INPUT
                  </table>
                  <table id="samplecode2&gt;   " class="example">
                    <tr>
-                     <td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td>
+                     <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td>
                      <td valign="top"/>
                    </tr>
                  </table>
@@ -372,7 +372,7 @@ INPUT
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;<br/>&#160;&#160;puts&#160;x<br/><p class="FigureTitle" align="center"><b>Ruby code</b></p></p>
+                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;<br/>&#160;&#160;puts&#160;x<br/><p class="FigureTitle" align="center">Ruby code</p></p>
                </div>
                <p>&#160;</p>
              </div>

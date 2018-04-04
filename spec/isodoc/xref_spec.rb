@@ -84,7 +84,7 @@ RSpec.describe IsoDoc do
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                  <div id="N" class="Note">
-                   <p class="Note">NOTE&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                  <p>
                    <a href="#N">Note</a>
@@ -104,8 +104,8 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>4.&#160; Widgets</h1>
                  <div id="widgets1">
-           <div id="note1" class="Note"><p class="Note">NOTE  1&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-           <div id="note2" class="Note"><p class="Note">NOTE  2&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="note1" class="Note"><p class="Note"><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="note2" class="Note"><p class="Note"><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
        <p>    <a href="#note1">Note  1</a> <a href="#note2">Note  2</a> </p>
 
            </div>
@@ -113,11 +113,11 @@ RSpec.describe IsoDoc do
                <br/>
                <div id="annex1" class="Section3">
                  <div id="annex1a">
-           <div id="AN" class="Note"><p class="Note">NOTE&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="AN" class="Note"><p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            </div>
                  <div id="annex1b">
-           <div id="Anote1" class="Note"><p class="Note">NOTE  1&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-           <div id="Anote2" class="Note"><p class="Note">NOTE  2&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="Anote1" class="Note"><p class="Note"><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="Anote2" class="Note"><p class="Note"><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            </div>
                </div>
              </div>
@@ -216,7 +216,7 @@ RSpec.describe IsoDoc do
                  <div id="N" class="figure">
 
          <img src="rice_images/rice_image1.png"/>
-         <p class="FigureTitle" align="center"><b>Figure 1&#160;&#8212; Split-it-right sample divider</b></p></div>
+         <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
                  <p>
                    <a href="#N">Figure 1</a>
                  </p>
@@ -238,11 +238,11 @@ RSpec.describe IsoDoc do
                <div id="note1" class="figure">
 
          <img src="rice_images/rice_image1.png"/>
-         <p class="FigureTitle" align="center"><b>Figure 2&#160;&#8212; Split-it-right sample divider</b></p></div>
+         <p class="FigureTitle" align="center">Figure 2&#160;&#8212; Split-it-right sample divider</p></div>
            <div id="note2" class="figure">
 
          <img src="rice_images/rice_image1.png"/>
-         <p class="FigureTitle" align="center"><b>Figure 3&#160;&#8212; Split-it-right sample divider</b></p></div>
+         <p class="FigureTitle" align="center">Figure 3&#160;&#8212; Split-it-right sample divider</p></div>
          <p>    <a href="#note1">Figure 2</a> <a href="#note2">Figure 3</a> </p>
            </div>
                </div>
@@ -252,17 +252,17 @@ RSpec.describe IsoDoc do
                <div id="AN" class="figure">
 
          <img src="rice_images/rice_image1.png"/>
-         <p class="FigureTitle" align="center"><b>Figure A.1&#160;&#8212; Split-it-right sample divider</b></p></div>
+         <p class="FigureTitle" align="center">Figure A.1&#160;&#8212; Split-it-right sample divider</p></div>
            </div>
                  <div id="annex1b">
                <div id="Anote1" class="figure">
 
          <img src="rice_images/rice_image1.png"/>
-         <p class="FigureTitle" align="center"><b>Figure A.2&#160;&#8212; Split-it-right sample divider</b></p></div>
+         <p class="FigureTitle" align="center">Figure A.2&#160;&#8212; Split-it-right sample divider</p></div>
            <div id="Anote2" class="figure">
 
          <img src="rice_images/rice_image1.png"/>
-         <p class="FigureTitle" align="center"><b>Figure A.3&#160;&#8212; Split-it-right sample divider</b></p></div>
+         <p class="FigureTitle" align="center">Figure A.3&#160;&#8212; Split-it-right sample divider</p></div>
            </div>
                </div>
              </div>
@@ -372,11 +372,11 @@ RSpec.describe IsoDoc do
              <div id="note1" class="figure">
 
        <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure 1-1&#160;&#8212; Split-it-right sample divider</b></p></div>
+       <p class="FigureTitle" align="center">Figure 1-1&#160;&#8212; Split-it-right sample divider</p></div>
          <div id="note2" class="figure">
 
        <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure 1-2&#160;&#8212; Split-it-right sample divider</b></p></div>
+       <p class="FigureTitle" align="center">Figure 1-2&#160;&#8212; Split-it-right sample divider</p></div>
        </div>
        <p>    <a href="#note1">Figure 1-1</a> <a href="#note2">Figure 1-2</a> </p>
          </div>
@@ -390,11 +390,11 @@ RSpec.describe IsoDoc do
              <div id="Anote1" class="figure">
 
        <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure A.1-1&#160;&#8212; Split-it-right sample divider</b></p></div>
+       <p class="FigureTitle" align="center">Figure A.1-1&#160;&#8212; Split-it-right sample divider</p></div>
          <div id="Anote2" class="figure">
 
        <img src="rice_images/rice_image1.png"/>
-       <p class="FigureTitle" align="center"><b>Figure A.1-2&#160;&#8212; Split-it-right sample divider</b></p></div>
+       <p class="FigureTitle" align="center">Figure A.1-2&#160;&#8212; Split-it-right sample divider</p></div>
        </div>
          </div>
                </div>
@@ -487,7 +487,7 @@ RSpec.describe IsoDoc do
                  <h1>1.&#160; Scope</h1>
                  <table id="N" class="example">
                    <tr>
-                     <td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td>
+                     <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td>
                      <td valign="top">
          <p>Hello</p>
        </td>
@@ -511,10 +511,10 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>4.&#160; Widgets</h1>
                  <div id="widgets1">
-               <table id="note1" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td><td valign="top">
+               <table id="note1" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td><td valign="top">
          <p>Hello</p>
        </td></tr></table>
-               <table id="note2" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td><td valign="top">
+               <table id="note2" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td><td valign="top">
          <p>Hello</p>
        </td></tr></table>
        <p>    <a href="#note1">Example  1</a> <a href="#note2">Example  2</a> </p>
@@ -523,15 +523,15 @@ RSpec.describe IsoDoc do
                <br/>
                <div id="annex1" class="Section3">
                  <div id="annex1a">
-               <table id="AN" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td><td valign="top">
+               <table id="AN" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td><td valign="top">
          <p>Hello</p>
        </td></tr></table>
            </div>
                  <div id="annex1b">
-               <table id="Anote1" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td><td valign="top">
+               <table id="Anote1" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td><td valign="top">
          <p>Hello</p>
        </td></tr></table>
-               <table id="Anote2" class="example"><tr><td width="110pt" valign="top" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td><td valign="top">
+               <table id="Anote2" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td><td valign="top">
          <p>Hello</p>
        </td></tr></table>
            </div>
@@ -801,7 +801,7 @@ RSpec.describe IsoDoc do
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                  <p class="TableTitle" align="center">
-                   <b>Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</b>
+                   Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield
                  </p>
                  <table id="N" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
                    <tbody>
@@ -830,19 +830,19 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>4.&#160; Widgets</h1>
                  <div id="widgets1">
-           <p class="TableTitle" align="center"><b>Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</b></p><table id="note1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-           <p class="TableTitle" align="center"><b>Table 3&#160;&#8212; Repeatability and reproducibility of husked rice yield</b></p><table id="note2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+           <p class="TableTitle" align="center">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+           <p class="TableTitle" align="center">Table 3&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
        <p>    <a href="#note1">Table 2</a> <a href="#note2">Table 3</a> </p>
        </div>
                </div>
                <br/>
                <div id="annex1" class="Section3">
                  <div id="annex1a">
-           <p class="TableTitle" align="center"><b>Table A.1&#160;&#8212; Repeatability and reproducibility of husked rice yield</b></p><table id="AN" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+           <p class="TableTitle" align="center">Table A.1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="AN" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
        </div>
                  <div id="annex1b">
-           <p class="TableTitle" align="center"><b>Table A.2&#160;&#8212; Repeatability and reproducibility of husked rice yield</b></p><table id="Anote1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-           <p class="TableTitle" align="center"><b>Table A.3&#160;&#8212; Repeatability and reproducibility of husked rice yield</b></p><table id="Anote2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+           <p class="TableTitle" align="center">Table A.2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="Anote1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+           <p class="TableTitle" align="center">Table A.3&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="Anote2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
        </div>
                </div>
              </div>

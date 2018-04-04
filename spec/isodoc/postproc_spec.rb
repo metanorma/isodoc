@@ -399,7 +399,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
           <div id="_" class="figure">
 
            <img src="_images/_.png" width="800" height="673" />
-<p class="FigureTitle" align="center"><b>Figure 1&#xA0;&#x2014; Split-it-right sample divider</b></p></div>
+<p class="FigureTitle" align="center">Figure 1&#xA0;&#x2014; Split-it-right sample divider</p></div>
         </div>
         <p>&#xA0;</p>
       </div>

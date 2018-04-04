@@ -72,7 +72,7 @@ RSpec.describe IsoDoc do
                 <div>
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p class="TableTitle" align="center">
-                    <b>Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</b>
+                    Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield
                   </p>
                   <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
                     <thead>
@@ -121,7 +121,7 @@ RSpec.describe IsoDoc do
                       <dd>A type of rice</dd>
                     </dl>
                     <div id="" class="Note">
-                      <p class="Note">NOTE&#160; This is a table about rice</p>
+                      <p class="Note"><span class="note_label">NOTE</span>&#160; This is a table about rice</p>
                     </div>
                   </table>
                 </div>
@@ -208,7 +208,7 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p class="TableTitle" align="center">
-                   <b>Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</b>
+                   Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield
                  </p>
                  <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
                    <thead>
@@ -259,7 +259,7 @@ RSpec.describe IsoDoc do
   </tr>
 </table>
                    <div id="" class="Note">
-                     <p class="Note">NOTE<span style="mso-tab-count:1">&#160; </span>This is a table about rice</p>
+                     <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>This is a table about rice</p>
                    </div>
                  </table>
                </div>
