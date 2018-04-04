@@ -3,10 +3,8 @@ module IsoDoc
     def table_title_parse(node, out)
       name = node.at(ns("./name"))
       out.p **{ class: "TableTitle", align: "center" } do |p|
-        p.b do |b|
-          b << l10n("#{@table_lbl} #{get_anchors[node['id']][:label]}")
-          b << l10n("&nbsp;&mdash; #{name.text}") if name
-        end
+        p << l10n("#{@table_lbl} #{get_anchors[node['id']][:label]}")
+        p << l10n("&nbsp;&mdash; #{name.text}") if name
       end
     end
 

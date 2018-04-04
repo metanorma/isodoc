@@ -10,7 +10,9 @@ module IsoDoc
 
     def note_p_parse(node, div)
       div.p **{ class: "Note" } do |p|
-        p << note_label(node)
+        p.span **{ class: "note_label" } do |s|
+          s << note_label(node)
+        end
         insert_tab(p, 1)
         node.first_element_child.children.each { |n| parse(n, p) }
       end
@@ -39,10 +41,8 @@ module IsoDoc
 
     def figure_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
-        p.b do |b|
-          b << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
-          b << "&nbsp;&mdash; #{name.text}" if name
-        end
+        p << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
+        p << "&nbsp;&mdash; #{name.text}" if name
       end
     end
 
@@ -72,7 +72,7 @@ module IsoDoc
     end
 
     EXAMPLE_TBL_ATTR =
-      { width: "110pt", valign: "top",
+      { width: "110pt", valign: "top", class: "example_label",
         style: "width:82.8pt;padding:.75pt .75pt .75pt .75pt" }.freeze
 
     # used if we are boxing examples
@@ -124,7 +124,7 @@ module IsoDoc
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s  << "&lt;#{node.at(ns("//callout[@target='#{node['id']}']")).text}&gt; "
       end
-        node.children.each { |n| parse(n, out) }
+      node.children.each { |n| parse(n, out) }
       @annotation = false
     end
 
