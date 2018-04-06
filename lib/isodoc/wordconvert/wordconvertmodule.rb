@@ -71,14 +71,16 @@ def page_break(out)
   }
 end
 
+WORD_DT_ATTRS = {class: note? ? "Note" : nil, align: "left";
+                 style: "margin-left:0pt;text-align: left;"}.freeze
+
 def dt_parse(dt, term)
-  if dt.elements.empty?
-    term.p **attr_code(class: note? ? "Note" : nil,
-                       style: "text-align: left;") do |p|
+  term.p **attr_code(WORD_DT_ATTRS) do |p|
+    if dt.elements.empty?
       p << dt.text
+    else
+      dt.children.each { |n| parse(n, p) }
     end
-  else
-    dt.children.each { |n| parse(n, term) }
   end
 end
 
@@ -97,7 +99,19 @@ def dl_parse(node, out)
   end
 end
 
-
+def figure_aside_process(f, aside, key)
+  # get rid of footnote link, it is in diagram
+  f&.at("./a[@class='TableFootnoteRef']")&.remove
+  fnref = f.at(".//a[@class='TableFootnoteRef']")
+  tr = key.add_child("<tr></tr>").first
+  dt = tr.add_child("<td valign='top' align='left'></td>").first
+  dd = tr.add_child("<td valign='top'></td>").first
+  fnref.parent = dt
+  aside.xpath(".//p").each do |a|
+    a.delete("class")
+    a.parent = dd
+  end
+end
 
 def postprocess(result, filename, dir)
   generate_header(filename, dir)
