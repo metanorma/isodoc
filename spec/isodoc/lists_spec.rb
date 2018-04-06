@@ -255,7 +255,7 @@ RSpec.describe IsoDoc do
                   <table class="dl">
                     <tr>
                       <td valign="top" align="left">
-                        <p style="text-align: left;">
+                        <p align="left" style="margin-left:0pt;text-align:left;">
             W
           </p>
                       </td>
@@ -265,7 +265,9 @@ RSpec.describe IsoDoc do
                     </tr>
                     <tr>
                       <td valign="top" align="left">
+                      <p align="left" style="margin-left:0pt;text-align:left;">
                         <span class="stem">(#(w)#)</span>
+                      </p>
                       </td>
                       <td valign="top">
                         <p>??</p>

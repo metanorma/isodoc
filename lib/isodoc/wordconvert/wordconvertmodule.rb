@@ -71,8 +71,8 @@ def page_break(out)
   }
 end
 
-WORD_DT_ATTRS = {class: note? ? "Note" : nil, align: "left";
-                 style: "margin-left:0pt;text-align: left;"}.freeze
+WORD_DT_ATTRS = {class: @note ? "Note" : nil, align: "left",
+                 style: "margin-left:0pt;text-align:left;"}.freeze
 
 def dt_parse(dt, term)
   term.p **attr_code(WORD_DT_ATTRS) do |p|
@@ -97,6 +97,15 @@ def dl_parse(node, out)
       end
     end
   end
+end
+
+def figure_get_or_make_dl(t)
+  dl = t.at(".//table[@class = 'dl']")
+  if dl.nil?
+    t.add_child("<p><b>#{@key_lbl}</b></p><table class='dl'></table>")
+    dl = t.at(".//table[@class = 'dl']")
+  end
+  dl
 end
 
 def figure_aside_process(f, aside, key)

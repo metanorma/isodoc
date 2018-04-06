@@ -237,105 +237,104 @@ OUTPUT
        </bibliography>
        </iso-standard>
     INPUT
-       <html xmlns:epub="http://www.idpf.org/2007/ops">
-          <head>
-            <title>test</title>
-            <body lang="EN-US" link="blue" vlink="#954F72">
-              <div class="WordSection1">
-                <p>&#160;</p>
-              </div>
-              <br clear="all" class="section"/>
-              <div class="WordSection2">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                <div>
-                  <h1 class="ForewordTitle">Foreword</h1>
-                  <p id="A">This is a preamble</p>
-                </div>
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                <div class="Section3" id="B">
-                  <h1 class="IntroTitle">0.<span style="mso-tab-count:1">&#160; </span>Introduction</h1>
-                  <div id="C">
-           <h2>0.1. Introduction Subsection</h2>
-         </div>
-                  <p>This is patent boilerplate</p>
-                </div>
-                <p>&#160;</p>
-              </div>
-              <br clear="all" class="section"/>
-              <div class="WordSection3">
-                <p class="zzSTDTitle1"/>
-                <div id="D">
-                  <h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1>
-                  <p id="E">Text</p>
-                </div>
-                <div>
-                  <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
-                  <p>There are no normative references in this document.</p>
-                </div>
-                <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
-            the following terms and definitions apply.</p>
-        <p>ISO and IEC maintain terminological databases for use in
-        standardization at the following addresses:</p>
-      
-        <ul>
-        <li> <p>ISO Online browsing platform: available at
-          <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-        <li> <p>IEC Electropedia: available at
-          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-        </p> </li> </ul>
-        <div id="I">
-           <h2>3.1. Normal Terms</h2>
-           <p class="TermNum" id="J">3.1.1</p>
-           <p class="Terms">Term2</p>
-      
-         </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
-           <table class="dl"><tr><td valign="top" align="left"><p style="text-align: left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
-         </div></div>
-                <div id="L" class="Symbols">
-                  <h1>4.<span style="mso-tab-count:1">&#160; </span>Symbols and Abbreviated Terms</h1>
-                  <table class="dl">
-                    <tr>
-                      <td valign="top" align="left">
-                        <p style="text-align: left;">Symbol</p>
-                      </td>
-                      <td valign="top">Definition</td>
-                    </tr>
-                  </table>
-                </div>
-                <div id="M">
-                  <h1>5.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1>
-                  <div id="N">
-           <h2>5.1. Introduction</h2>
-         </div>
-                  <div id="O">
-           <h2>5.2. Clause 4.2</h2>
-         </div>
-                </div>
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                <div id="P" class="Section3">
-                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
-                  <div id="Q">
-           <h2>A.1. Annex A.1</h2>
-           <div id="Q1">
-           <h3>A.1.1. Annex A.1a</h3>
-           </div>
-         </div>
-                  <div id="Q2">
-                <h2>Appendix 1. An Appendix</h2>
-                  </div>
+          <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p id="A">This is a preamble</p>
+               </div>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div class="Section3" id="B">
+                 <h1 class="IntroTitle">0.<span style="mso-tab-count:1">&#160; </span>Introduction</h1>
+                 <div id="C">
+          <h2>0.1. Introduction Subsection</h2>
+        </div>
+                 <p>This is patent boilerplate</p>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+               <div id="D">
+                 <h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1>
+                 <p id="E">Text</p>
+               </div>
+               <div>
+                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+                 <p>There are no normative references in this document.</p>
+               </div>
+               <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
+           the following terms and definitions apply.</p>
+       <p>ISO and IEC maintain terminological databases for use in
+       standardization at the following addresses:</p>
 
-                </div>
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                <div>
-                  <h1 class="Section3">Bibliography</h1>
-                  <div>
-                    <h2 class="Section3">Bibliography Subsection</h2>
-                  </div>
-                </div>
-              </div>
-            </body>
-          </head>
-        </html>
+       <ul>
+       <li> <p>ISO Online browsing platform: available at
+         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
+       <li> <p>IEC Electropedia: available at
+         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
+       </p> </li> </ul>
+       <div id="I">
+          <h2>3.1. Normal Terms</h2>
+          <p class="TermNum" id="J">3.1.1</p>
+          <p class="Terms">Term2</p>
+
+        </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
+          <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
+        </div></div>
+               <div id="L" class="Symbols">
+                 <h1>4.<span style="mso-tab-count:1">&#160; </span>Symbols and Abbreviated Terms</h1>
+                 <table class="dl">
+                   <tr>
+                     <td valign="top" align="left">
+                       <p align="left" style="margin-left:0pt;text-align:left;">Symbol</p>
+                     </td>
+                     <td valign="top">Definition</td>
+                   </tr>
+                 </table>
+               </div>
+               <div id="M">
+                 <h1>5.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1>
+                 <div id="N">
+          <h2>5.1. Introduction</h2>
+        </div>
+                 <div id="O">
+          <h2>5.2. Clause 4.2</h2>
+        </div>
+               </div>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div id="P" class="Section3">
+                 <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
+                 <div id="Q">
+          <h2>A.1. Annex A.1</h2>
+          <div id="Q1">
+          <h3>A.1.1. Annex A.1a</h3>
+          </div>
+        </div>
+                 <div id="Q2">
+          <h2>Appendix 1. An Appendix</h2>
+        </div>
+               </div>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="Section3">Bibliography</h1>
+                 <div>
+                   <h2 class="Section3">Bibliography Subsection</h2>
+                 </div>
+               </div>
+             </div>
+           </body>
+         </head>
+       </html>
 OUTPUT
   end
 

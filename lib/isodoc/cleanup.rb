@@ -25,10 +25,10 @@ module IsoDoc
     end
 
     def figure_get_or_make_dl(t)
-      dl = t.at(".//table[@class = 'dl']")
+      dl = t.at(".//dl")
       if dl.nil?
-        t.add_child("<p><b>#{@key_lbl}</b></p><table class='dl'></table>")
-        dl = t.at(".//table[@class = 'dl']")
+        t.add_child("<p><b>#{@key_lbl}</b></p><dl></dl>")
+        dl = t.at(".//dl")
       end
       dl
     end

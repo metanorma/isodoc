@@ -121,13 +121,13 @@ RSpec.describe IsoDoc do
                   <table class="dl">
                     <tr>
                       <td valign="top" align="left">
-                        <p style="text-align: left;" class="MsoNormal">Term</p>
+                        <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Term</p>
                       </td>
                       <td valign="top">Definition</td>
                     </tr>
                     <tr>
                       <td valign="top" align="left">
-                        <p style="text-align: left;" class="MsoNormal">Term 2</p>
+                        <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Term 2</p>
                       </td>
                       <td valign="top">Definition 2</td>
                     </tr>

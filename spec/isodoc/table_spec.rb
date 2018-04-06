@@ -195,7 +195,7 @@ RSpec.describe IsoDoc do
 </preface>
 </iso-standard>
     INPUT
-       <html xmlns:epub="http://www.idpf.org/2007/ops">
+          <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
            <body lang="EN-US" link="blue" vlink="#954F72">
@@ -207,9 +207,7 @@ RSpec.describe IsoDoc do
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p class="TableTitle" align="center">
-                   Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield
-                 </p>
+                 <p class="TableTitle" align="center">Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p>
                  <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
                    <thead>
                      <tr>
@@ -221,7 +219,7 @@ RSpec.describe IsoDoc do
                        <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
-       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
                        <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Thaibonnet</td>
                      </tr>
                    </thead>
@@ -251,13 +249,13 @@ RSpec.describe IsoDoc do
                      </tr>
                    </tfoot>
                    <table class="dl">
-  <tr>
-    <td valign="top" align="left">
-      <p style="text-align: left;">Drago</p>
-    </td>
-    <td valign="top">A type of rice</td>
-  </tr>
-</table>
+                     <tr>
+                       <td valign="top" align="left">
+                         <p align="left" style="margin-left:0pt;text-align:left;">Drago</p>
+                       </td>
+                       <td valign="top">A type of rice</td>
+                     </tr>
+                   </table>
                    <div id="" class="Note">
                      <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>This is a table about rice</p>
                    </div>
