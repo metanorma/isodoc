@@ -93,9 +93,14 @@ module IsoDoc
         t.xpath(".//aside").each do |a|
           merge_fnref_into_fn_text(a)
           a.name = "div"
-          a["class"] = "Note"
+          a["class"] = "TableFootnote"
           t << a.remove
         end
+      end
+      # preempt html2doc putting MsoNormal there
+      docxml.xpath("//p[not(self::*[@class])]"\
+                   "[ancestor::*[@class = 'TableFootnote']]").each do |p|
+        p["class"] = "TableFootnote"
       end
     end
 
@@ -127,10 +132,13 @@ module IsoDoc
     end
 
     def table_note_cleanup(docxml)
-      docxml.xpath("//table[div[@class = 'Note']]").each do |t|
+      docxml.xpath("//table[div[@class = 'Note' or "\
+                   "@class = 'TableFootnote']]").each do |t|
         tfoot = table_get_or_make_tfoot(t)
         insert_here = new_fullcolspan_row(t, tfoot)
-        t.xpath("div[@class = 'Note']").each { |d| d.parent = insert_here }
+        t.xpath("div[@class = 'Note' or @class = 'TableFootnote']").each do |d|
+          d.parent = insert_here
+        end
       end
       # preempt html2doc putting MsoNormal there
       docxml.xpath("//p[not(self::*[@class])]"\

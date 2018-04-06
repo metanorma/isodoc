@@ -323,8 +323,8 @@ INPUT
                       </tr>
                     <tr><td colspan="5" style="border-top:0pt;border-bottom:solid windowtext 1.5pt;"><div id="" class="Note">
                       <p class="Note">NOTE<span style="mso-tab-count:1">&#xA0; </span>This is a table about rice</p>
-                    </div><div class="Note"><div id="ftntableD-1a">
-          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="Note"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
+                    </div><div class="TableFootnote"><div id="ftntableD-1a">
+          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
         </div></div></td></tr></tfoot>
                     <dl>
                       <dt>
@@ -480,8 +480,8 @@ INPUT
                       </tr>
                     <tr><td colspan="5" style="border-top:0pt;mso-border-top-alt:0pt;       border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;"><div id="" class="Note">
                       <p class="Note">NOTE<span style="mso-tab-count:1">&#xA0; </span>This is a table about rice</p>
-                    </div><div class="Note"><div id="ftntableD-1a">
-          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="Note"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
+                    </div><div class="TableFootnote"><div id="ftntableD-1a">
+          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
         </div></div></td></tr></tfoot>
                     <dl>
                       <dt>
@@ -628,8 +628,8 @@ INPUT
 
                  <tfoot><tr><td colspan="5" style="border-top:0pt;border-bottom:solid windowtext 1.5pt;"><div id="" class="Note">
                      <p class="Note">NOTE<span style="mso-tab-count:1">&#xA0; </span>This is a table about rice</p>
-                   </div><div class="Note"><div id="ftntableD-1a">
-         <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="Note"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
+                   </div><div class="TableFootnote"><div id="ftntableD-1a">
+         <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
        </div></div></td></tr></tfoot></table>
                </div>
                <p>&#xA0;</p>
