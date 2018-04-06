@@ -25,10 +25,10 @@ module IsoDoc
     end
 
     def figure_get_or_make_dl(t)
-      dl = t.at(".//dl")
+      dl = t.at(".//table[@class = 'dl']")
       if dl.nil?
-        t.add_child("<p><b>#{@key_lbl}</b></p><dl></dl>")
-        dl = t.at(".//dl")
+        t.add_child("<p><b>#{@key_lbl}</b></p><table class='dl'></table>")
+        dl = t.at(".//table[@class = 'dl']")
       end
       dl
     end
@@ -41,8 +41,9 @@ module IsoDoc
       # get rid of footnote link, it is in diagram
       f&.at("./a[@class='TableFootnoteRef']")&.remove
       fnref = f.at(".//a[@class='TableFootnoteRef']")
-      dt = key.add_child("<dt></dt>").first
-      dd = key.add_child("<dd></dd>").first
+      tr = key.add_child("<tr></tr>").first
+      dt = tr.add_child("<td valign='top' align='left'></td>").first
+      dd = tr.add_child("<td valign='top'></td>").first
       fnref.parent = dt
       aside.xpath(".//p").each do |a|
         a.delete("class")
