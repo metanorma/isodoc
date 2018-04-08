@@ -12,6 +12,7 @@ module IsoDoc
       figure_cleanup(docxml)
       table_cleanup(docxml)
       symbols_cleanup(docxml)
+      example_cleanup(docxml)
       admonition_cleanup(docxml)
     end
 
@@ -20,6 +21,13 @@ module IsoDoc
         title = d.at("./title")
         n = title.next_element
         n&.children&.first&.add_previous_sibling(title.remove.text + "&mdash;")
+      end
+      docxml
+    end
+
+    def example_cleanup(docxml)
+      docxml.xpath("//table[@class = 'example']//p[not(@class)]").each do |p|
+        p["class"] = "example"
       end
       docxml
     end
