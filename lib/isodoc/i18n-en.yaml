@@ -58,6 +58,13 @@ deprecated: DEPRECATED
 source: SOURCE
 and: and
 all_parts: All Parts
+admonition: {
+  danger: Danger,
+  warning: Warning,
+  caution: Caution,
+  important: Important,
+  safety precautions: Safety Precautions,
+}
 locality: {
                       section: Section,
                       clause: Clause,

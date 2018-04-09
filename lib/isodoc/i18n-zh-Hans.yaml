@@ -51,6 +51,13 @@ deprecated: 被取代
 source: 定义
 and: 和
 all_parts: 所有部分
+admonition: {
+  danger: Danger,
+  warning: Warning,
+  caution: Caution,
+  important: Important,
+  safety precautions: Safety Precautions,
+}
 locality: {
   section: 条,
   clause: 条,

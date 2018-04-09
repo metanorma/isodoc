@@ -51,6 +51,13 @@ deprecated: DÉCONSEILLÉ
 source: SOURCE
 and: et
 all_parts: toutes les parties
+admonition: {
+  danger: Danger,
+  warning: Avertissement,
+  caution: Attention,
+  important: Important,
+  safety precautions: Précautions de Sécurité,
+}
 locality: {
                       section: Section,
                       clause: Article,
