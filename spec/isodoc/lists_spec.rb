@@ -178,6 +178,7 @@ RSpec.describe IsoDoc do
   </dd>
   <dt><stem type="AsciiMath">w</stem></dt>
   <dd><p>??</p></dd>
+  <note><p>This is a note</p></note>
   </dl>
 </foreword></preface>
 </iso-standard>
@@ -210,6 +211,9 @@ RSpec.describe IsoDoc do
                      <p>??</p>
                    </dd>
                  </dl>
+                 <div id="" class="Note">
+  <p class="Note"><span class="note_label">NOTE</span>&#160; This is a note</p>
+</div>
                </div>
                <p>&#160;</p>
              </div>
@@ -236,6 +240,7 @@ RSpec.describe IsoDoc do
   </dd>
   <dt><stem type="AsciiMath">w</stem></dt>
   <dd><p>??</p></dd>
+  <note><p>This is a note</p></note>
   </dl>
 </foreword></preface>
 </iso-standard>
@@ -271,6 +276,13 @@ RSpec.describe IsoDoc do
                       </td>
                       <td valign="top">
                         <p>??</p>
+                      </td>
+                    </tr>
+                    <tr>
+                     <td rowspan="2">
+                       <div id="" class="Note">
+                         <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>This is a note</p>
+                       </div>
                       </td>
                     </tr>
                   </table>

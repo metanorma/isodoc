@@ -86,7 +86,7 @@ end
 
 def dl_parse(node, out)
   out.table **{ class: "dl" } do |v|
-    node.elements.each_slice(2) do |dt, dd|
+    node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
       v.tr do |tr|
         tr.td **{ valign: "top", align: "left" } do |term|
           dt_parse(dt, term)
@@ -95,6 +95,16 @@ def dl_parse(node, out)
           dd.children.each { |n| parse(n, listitem) }
         end
       end
+    end
+    dl_parse_notes(node, v)
+  end
+end
+
+def dl_parse_notes(node, v)
+  return if node.elements.reject { |n| dt_dd? n }.empty?
+  v.tr do |tr|
+    tr.td **{ rowspan: 2 } do |td|
+      node.elements.reject { |n| dt_dd? n }.each { |n| parse(n, td) }
     end
   end
 end

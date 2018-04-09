@@ -22,7 +22,6 @@ module IsoDoc
     # We don't really want users to specify type of ordered list;
     # we will use a fixed hierarchy as practiced by ISO (though not
     # fully spelled out): a) 1) i) A) I) 
-    #
    
     def ol_depth(node)
       depth = node.ancestors("ul, ol").size + 1
@@ -58,17 +57,20 @@ module IsoDoc
       end
     end
 
+    def dt_dd?(n)
+      %w{dt dd}.include? n.name
+    end
+
     def dl_parse(node, out)
       out.dl do |v|
-        node.elements.each_slice(2) do |dt, dd|
-          v.dt do |term|
-            dt_parse(dt, term)
-          end
+        node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
+          v.dt { |term| dt_parse(dt, term) }
           v.dd do |listitem|
             dd.children.each { |n| parse(n, listitem) }
           end
         end
       end
+      node.elements.reject { |n| dt_dd? n }.each { |n| parse(n, out) }
     end
   end
 end
