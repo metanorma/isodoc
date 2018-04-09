@@ -57,6 +57,7 @@ module IsoDoc
       @and_lbl = y["and"]
       @all_parts_lbl = y["all_parts"]
       @locality = y["locality"]
+      @admonition = y["admonition"]
       @labels = y
       @labels["language"] = @lang
       @labels["script"] = @script
