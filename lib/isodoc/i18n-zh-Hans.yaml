@@ -52,11 +52,11 @@ source: 定义
 and: 和
 all_parts: 所有部分
 admonition: {
-  danger: Danger,
-  warning: Warning,
-  caution: Caution,
-  important: Important,
-  safety precautions: Safety Precautions,
+  danger: 危险,
+  warning: 警告,
+  caution: 注意,
+  important: 重要,
+  safety precautions: 安全须知,
 }
 locality: {
   section: 条,
