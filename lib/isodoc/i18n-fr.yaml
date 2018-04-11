@@ -10,6 +10,7 @@ term_def_boilerplate: |
       </p> </li> </ul>
 scope: Domaine d'application
 symbols: Symboles et termes abrégés
+table_of_contents: Sommaire
 introduction: Introduction
 foreword: Avant-propos
 termsdef: Terms et définitions

@@ -20,6 +20,7 @@ module IsoDoc
       @term_def_boilerplate = y["term_def_boilerplate"]
       @scope_lbl = y["scope"]
       @symbols_lbl = y["symbols"]
+      @table_of_contents_lbl = y["table_of_contents"]
       @introduction_lbl = y["introduction"]
       @foreword_lbl = y["foreword"]
       @termsdef_lbl = y["termsdef"]

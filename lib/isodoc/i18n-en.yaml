@@ -10,6 +10,7 @@ term_def_boilerplate: |
       </p> </li> </ul>
 scope: Scope
 symbols: Symbols and Abbreviated Terms
+table_of_contents: Table of Contents
 introduction: Introduction
 foreword: Foreword
 termsdef: Terms and Definitions
