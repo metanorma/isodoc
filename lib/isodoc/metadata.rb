@@ -2,7 +2,7 @@ require "htmlentities"
 
 module IsoDoc
   class Convert
-    DATETYPES = %w{published accessed created activated obsoleted confirmed
+    DATETYPES = %w{published accessed created implemented obsoleted confirmed
     updated issued}.freeze
 
     def init_metadata
