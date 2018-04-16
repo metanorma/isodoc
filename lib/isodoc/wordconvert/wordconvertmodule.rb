@@ -136,6 +136,7 @@ def postprocess(result, filename, dir)
   generate_header(filename, dir)
   result = from_xhtml(cleanup(to_xhtml(result)))
   toWord(result, filename, dir)
+  system "rm -f header.html"
 end
 
 def toWord(result, filename, dir)
