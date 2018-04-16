@@ -62,6 +62,7 @@ module IsoDoc
       @closemathdelim = "`"
       @lang = "en"
       @script = "Latn"
+      @files_to_delete = []
     end
 
     def convert1(docxml, filename, dir)

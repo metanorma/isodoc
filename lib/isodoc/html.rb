@@ -3,6 +3,7 @@ module IsoDoc
     def postprocess(result, filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toHTML(result, filename)
+      @files_to_delete.each { |f| system "rm #{f}" }
     end
 
     def toHTML(result, filename)

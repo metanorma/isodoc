@@ -136,7 +136,7 @@ def postprocess(result, filename, dir)
   generate_header(filename, dir)
   result = from_xhtml(cleanup(to_xhtml(result)))
   toWord(result, filename, dir)
-  system "rm -f header.html"
+  @files_to_delete.each { |f| system "rm #{f}" }
 end
 
 def toWord(result, filename, dir)
@@ -189,6 +189,7 @@ def generate_header(filename, _dir)
   File.open("header.html", "w") do |f|
     f.write(template.render(params))
   end
+  @files_to_delete << "header.html"
 end
 
 def word_toc_entry(toclevel, heading)
