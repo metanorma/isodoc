@@ -140,8 +140,8 @@ def postprocess(result, filename, dir)
 end
 
 def toWord(result, filename, dir)
-  result = from_xhtml(word_cleanup(to_xhtml(result)))
   result = populate_template(result, :word)
+  result = from_xhtml(word_cleanup(to_xhtml(result)))
   Html2Doc.process(result, filename: filename, stylesheet: @wordstylesheet,
                    header_file: "header.html", dir: dir,
                    asciimathdelims: [@openmathdelim, @closemathdelim],
