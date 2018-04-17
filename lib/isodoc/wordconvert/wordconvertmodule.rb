@@ -168,16 +168,20 @@ def word_preface(docxml)
 end
 
 def word_cover(docxml)
-  cover = to_xhtml_fragment(File.read(@wordcoverpage, encoding: "UTF-8"))
+  cover = File.read(@wordcoverpage, encoding: "UTF-8")
+  cover = populate_template(cover, :word)
+  coverxml = to_xhtml_fragment(cover)
   docxml.at('//div[@class="WordSection1"]').children.first.previous =
-    cover.to_xml(encoding: "US-ASCII")
+    coverxml.to_xml(encoding: "US-ASCII")
 end
 
 def word_intro(docxml)
-  intro = to_xhtml_fragment(File.read(@wordintropage, encoding: "UTF-8").
-                            sub(/WORDTOC/, make_WordToC(docxml)))
+  intro = File.read(@wordintropage, encoding: "UTF-8").
+                            sub(/WORDTOC/, make_WordToC(docxml))
+  intro = populate_template(intro, :word)
+  introxml = to_xhtml_fragment(intro)
   docxml.at('//div[@class="WordSection2"]').children.first.previous =
-    intro.to_xml(encoding: "US-ASCII")
+    introxml.to_xml(encoding: "US-ASCII")
 end
 
 def generate_header(filename, _dir)
