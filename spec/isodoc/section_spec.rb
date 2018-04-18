@@ -118,7 +118,7 @@ RSpec.describe IsoDoc do
         <div id="I">
            <h2>3.1. Normal Terms</h2>
            <p class="TermNum" id="J">3.1.1</p>
-           <p class="Terms">Term2</p>
+           <p class="Terms" style="text-align:left;">Term2</p>
       
          </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
            <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
@@ -286,7 +286,7 @@ OUTPUT
        <div id="I">
           <h2>3.1. Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1</p>
-          <p class="Terms">Term2</p>
+          <p class="Terms" style="text-align:left;">Term2</p>
 
         </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
           <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
@@ -376,7 +376,7 @@ OUTPUT
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
        <p class="TermNum" id="J">3.1</p>
-         <p class="Terms">Term2</p>
+         <p class="Terms" style="text-align:left;">Term2</p>
        </div>
              </div>
            </body>
@@ -388,7 +388,7 @@ OUTPUT
   it "processes terms & definitions with external source" do
         expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
                <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <termdocsource type="inline" bibitemid="ISO712" citeas="ISO 712"/>
+         <termdocsource type="inline" bibitemid="ISO712" target="ISO 712"/>
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
          <term id="J">
@@ -442,7 +442,7 @@ OUTPUT
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
        <p class="TermNum" id="J">3.1</p>
-                <p class="Terms">Term2</p>
+                <p class="Terms" style="text-align:left;">Term2</p>
               </div>
              </div>
            </body>
@@ -454,9 +454,9 @@ OUTPUT
   it "processes empty terms & definitions with external source" do
         expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
                <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <termdocsource type="inline" bibitemid="ISO712" citeas="ISO 712"/>
-         <termdocsource type="inline" bibitemid="ISO712" citeas="ISO 712"/>
-         <termdocsource type="inline" bibitemid="ISO712" citeas="ISO 712"/>
+         <termdocsource type="inline" bibitemid="ISO712" target="ISO 712"/>
+         <termdocsource type="inline" bibitemid="ISO712" target="ISO 712"/>
+         <termdocsource type="inline" bibitemid="ISO712" target="ISO 712"/>
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
        </terms>

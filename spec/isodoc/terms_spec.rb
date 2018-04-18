@@ -77,7 +77,7 @@ RSpec.describe IsoDoc do
        <li> <p>IEC Electropedia: available at
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
-       <p class="TermNum" id="paddy1">3.1</p><p class="Terms">paddy</p>
+       <p class="TermNum" id="paddy1">3.1</p><p class="Terms" style="text-align:left;">paddy</p>
 
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">&lt;rice&gt; rice retaining its husk after threshing</p>
        <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE 1</td><td valign="top">
@@ -95,9 +95,9 @@ RSpec.describe IsoDoc do
        <p>[TERMREF]
          <a href="#ISO7301">ISO 7301: 2011, 3.1</a>
            [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
-       [/TERMREF]</p><p class="TermNum" id="paddy">3.2</p><p class="Terms">paddy</p><p class="AltTerms">paddy rice</p>
-       <p class="AltTerms">rough rice</p>
-       <p class="DeprecatedTerms">DEPRECATED: cargo rice</p>
+       [/TERMREF]</p><p class="TermNum" id="paddy">3.2</p><p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice</p>
+       <p class="AltTerms" style="text-align:left;">rough rice</p>
+       <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
        <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE 1</td><td valign="top">
          <ul>
