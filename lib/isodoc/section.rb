@@ -111,7 +111,7 @@ module IsoDoc
     end
 
     def term_defs_boilerplate_cont(src, term)
-      sources = sentence_join(src.map { |s| s["citeas"] })
+      sources = sentence_join(src.map { |s| s["target"] })
       if src.empty?
         @internal_terms_boilerplate
       elsif term.nil?
