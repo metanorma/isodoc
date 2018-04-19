@@ -33,13 +33,13 @@ module IsoDoc
     end
 
     def get_linkend(node)
-      linkend = anchor_linkend(node, node["target"] || node["citeas"])
-      linkend += eref_localities(node.xpath(ns("./locality")))
+      link = anchor_link(node, docid_l10n(node["target"] || node["citeas"]))
+      link += eref_localities(node.xpath(ns("./locality")))
       text = node.children.select { |c| c.text? && !c.text.empty? }
-      linkend = text.join(" ") unless text.nil? || text.empty?
+      link = text.join(" ") unless text.nil? || text.empty?
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
       # <locality type="section"><reference>3.1</reference></locality></origin>
-      linkend
+      link
     end
 
     def xref_parse(node, out)
