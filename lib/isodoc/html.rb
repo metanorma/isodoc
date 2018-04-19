@@ -60,15 +60,17 @@ module IsoDoc
     end
 
     def html_cover(docxml)
-      cover = Nokogiri::HTML(File.read(@htmlcoverpage, encoding: "UTF-8"))
+      cover = File.read(@htmlcoverpage, encoding: "UTF-8")
+      coverxml = to_xhtml_fragment(cover)
       d = docxml.at('//div[@class="WordSection1"]')
-      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
+      d.children.first.add_previous_sibling coverxml.to_xml(encoding: "US-ASCII")
     end
 
     def html_intro(docxml)
-      cover = Nokogiri::HTML(File.read(@htmlintropage, encoding: "UTF-8"))
+      intro = File.read(@htmlintropage, encoding: "UTF-8")
+      introxml = to_xhtml_fragment(intro)
       d = docxml.at('//div[@class="WordSection2"]')
-      d.children.first.add_previous_sibling cover.to_xml(encoding: "US-ASCII")
+      d.children.first.add_previous_sibling introxml.to_xml(encoding: "US-ASCII")
     end
 
     def htmlstylesheet

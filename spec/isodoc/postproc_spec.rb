@@ -435,9 +435,8 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
     expect(html.gsub(/"#[a-f0-9-]+"/, "#_")).to be_equivalent_to <<~"OUTPUT"
        <div class="WordSection2">
      
-       <p>/* an empty html intro page */
+       /* an empty html intro page */
      
-       </p>
        <ul><li><a href=#_>2.&#xA0; Clause 4</a></li><ul><li><a href=#_>1.1. Introduction to this</a></li><li><a href=#_>1.2. Clause 4.2</a></li></ul><li><a href=#_>2.&#xA0; Clause 5</a></li></ul>
      
      
