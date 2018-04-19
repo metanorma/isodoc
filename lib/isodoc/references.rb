@@ -1,6 +1,7 @@
 module IsoDoc
   class Convert
     def docid_l10n(x)
+      return x if x.nil?
       x.gsub(/All Parts/, @all_parts_lbl)
     end
 
