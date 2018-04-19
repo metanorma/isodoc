@@ -33,7 +33,7 @@ module IsoDoc
     end
 
     def get_linkend(node)
-      link = anchor_link(node, docid_l10n(node["target"] || node["citeas"]))
+      link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
       link += eref_localities(node.xpath(ns("./locality")))
       text = node.children.select { |c| c.text? && !c.text.empty? }
       link = text.join(" ") unless text.nil? || text.empty?
