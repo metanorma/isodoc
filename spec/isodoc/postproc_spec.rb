@@ -200,7 +200,7 @@ RSpec.describe IsoDoc do
     expect(word).to be_equivalent_to <<~"OUTPUT"
            <div class="WordSection3">
                <p class="zzSTDTitle1"></p>
-               <div><a name="_terms_and_definitions" id="_terms_and_definitions"></a><h1>3.<span style="mso-tab-count:1">&#xA0; </span>Terms and Definitions</h1><p class="MsoNormal">For the purposes of this document,
+               <div><a name="_terms_and_definitions" id="_terms_and_definitions"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Terms and Definitions</h1><p class="MsoNormal">For the purposes of this document,
            the following terms and definitions apply.</p>
        <p class="MsoNormal">ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -211,7 +211,7 @@ RSpec.describe IsoDoc do
        <li class="MsoNormal"> <p class="MsoNormal">IEC Electropedia: available at
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
-       <p class="TermNum"><a name="paddy1" id="paddy1"></a>3.1</p><p class="Terms" style="text-align:left;">paddy</p>
+       <p class="TermNum"><a name="paddy1" id="paddy1"></a>1.1</p><p class="Terms" style="text-align:left;">paddy</p>
        <p class="MsoNormal"><a name="_eb29b35e-123e-4d1c-b50b-2714d41e747f" id="_eb29b35e-123e-4d1c-b50b-2714d41e747f"></a>rice retaining its husk after threshing</p>
        <p class="MsoNormal">[SOURCE: <a href="#ISO7301">ISO 7301: 2011, 3.1</a>, modified &mdash; The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p></div>
              </div>
@@ -274,7 +274,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
        <p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"></span><span style="mso-spacerun:yes">&#xA0;</span>TOC
          \o "1-2" \h \z \u <span style="mso-element:field-separator"></span></span>
        <span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">4.<span style="mso-tab-count:1">&#xA0; </span>Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">1.<span style="mso-tab-count:1">&#xA0; </span>Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -285,7 +285,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
        <p class="MsoToc2">
          <span class="MsoHyperlink">
            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">4.1. Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">1.1. Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -298,7 +298,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
        <p class="MsoToc2">
          <span class="MsoHyperlink">
            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">4.2. Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">1.2. Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -351,16 +351,16 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
            <div class="WordSection3">
                <p class="zzSTDTitle1"></p>
                <div>
-                 <h1>4.&#xA0; Clause 4</h1>
+                 <h1>1.&#xA0; Clause 4</h1>
                  <a href="#ftn3" epub:type="footnote" id="_footnote1">
                    <sup>1</sup>
                  </a>
                  <div id="N">
 
-                <h2>4.1. Introduction to this<a href="#ftn2" epub:type="footnote" id="_footnote2"><sup>2</sup></a></h2>
+                <h2>1.1. Introduction to this<a href="#ftn2" epub:type="footnote" id="_footnote2"><sup>2</sup></a></h2>
               </div>
                  <div id="O">
-                <h2>4.2. Clause 4.2</h2>
+                <h2>1.2. Clause 4.2</h2>
                 <p>A<a href="#ftn2" epub:type="footnote"><sup>2</sup></a></p>
               </div>
                </div>
@@ -438,7 +438,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
        <p>/* an empty html intro page */
      
        </p>
-       <ul><li><a href=#_>5.&#xA0; Clause 4</a></li><ul><li><a href=#_>4.1. Introduction to this</a></li><li><a href=#_>4.2. Clause 4.2</a></li></ul><li><a href=#_>5.&#xA0; Clause 5</a></li></ul>
+       <ul><li><a href=#_>2.&#xA0; Clause 4</a></li><ul><li><a href=#_>1.1. Introduction to this</a></li><li><a href=#_>1.2. Clause 4.2</a></li></ul><li><a href=#_>2.&#xA0; Clause 5</a></li></ul>
      
      
      
@@ -504,8 +504,8 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
     INPUT
         expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
-    expect(html).to match(%r{<h2 class="TermNum" id="paddy1">3\.1</h2>})
-    expect(html).to match(%r{<h2 class="TermNum" id="paddy">3\.2</h2>})
+    expect(html).to match(%r{<h2 class="TermNum" id="paddy1">1\.1</h2>})
+    expect(html).to match(%r{<h2 class="TermNum" id="paddy">1\.2</h2>})
 end
 
 end

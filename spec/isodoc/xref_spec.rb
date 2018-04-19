@@ -69,8 +69,8 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, Note</a>
-           <a href="#note1">4.1, Note  1</a>
-           <a href="#note2">4.1, Note  2</a>
+           <a href="#note1">3.1, Note  1</a>
+           <a href="#note2">3.1, Note  2</a>
            <a href="#AN">A.1, Note</a>
            <a href="#Anote1">A.2, Note  1</a>
            <a href="#Anote2">A.2, Note  2</a>
@@ -90,7 +90,7 @@ RSpec.describe IsoDoc do
                    <a href="#N">Note</a>
                  </p>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -102,7 +102,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        </div>
                <div id="widgets">
-                 <h1>4.&#160; Widgets</h1>
+                 <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
            <div id="note1" class="Note"><p class="Note"><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            <div id="note2" class="Note"><p class="Note"><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
@@ -221,7 +221,7 @@ RSpec.describe IsoDoc do
                    <a href="#N">Figure 1</a>
                  </p>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        </div>
                <div id="widgets">
-                 <h1>4.&#160; Widgets</h1>
+                 <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
                <div id="note1" class="figure">
 
@@ -354,7 +354,7 @@ RSpec.describe IsoDoc do
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -366,7 +366,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        </div>
                <div id="widgets">
-                 <h1>4.&#160; Widgets</h1>
+                 <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
          <div id="N" class="figure">
              <div id="note1" class="figure">
@@ -471,8 +471,8 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, Example</a>
-           <a href="#note1">4.1, Example  1</a>
-           <a href="#note2">4.1, Example  2</a>
+           <a href="#note1">3.1, Example  1</a>
+           <a href="#note2">3.1, Example  2</a>
            <a href="#AN">A.1, Example</a>
            <a href="#Anote1">A.2, Example  1</a>
            <a href="#Anote2">A.2, Example  2</a>
@@ -497,7 +497,7 @@ RSpec.describe IsoDoc do
                    <a href="#N">Example</a>
                  </p>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -509,7 +509,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        </div>
                <div id="widgets">
-                 <h1>4.&#160; Widgets</h1>
+                 <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
                <table id="note1" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td><td valign="top">
          <p>Hello</p>
@@ -623,8 +623,8 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, Formula (1)</a>
-           <a href="#note1">4.1, Formula (2)</a>
-           <a href="#note2">4.1, Formula (3)</a>
+           <a href="#note1">3.1, Formula (2)</a>
+           <a href="#note2">3.1, Formula (3)</a>
            <a href="#AN">A.1, Formula (A.1)</a>
            <a href="#Anote1">A.2, Formula (A.2)</a>
            <a href="#Anote2">A.2, Formula (A.3)</a>
@@ -642,7 +642,7 @@ RSpec.describe IsoDoc do
                    <a href="#N">Formula (1)</a>
                  </p>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -654,7 +654,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        </div>
                <div id="widgets">
-                 <h1>4.&#160; Widgets</h1>
+                 <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
            <div id="note1" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (2)</div>
            <div id="note2" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (3)</div>
@@ -816,7 +816,7 @@ RSpec.describe IsoDoc do
                    <a href="#N">Table 1</a>
                  </p>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -828,7 +828,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        </div>
                <div id="widgets">
-                 <h1>4.&#160; Widgets</h1>
+                 <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
            <p class="TableTitle" align="center">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
            <p class="TableTitle" align="center">Table 3&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
@@ -896,9 +896,9 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
-           <a href="#note1">3.1, Note 1</a>
-           <a href="#note2">3.2, Note 1</a>
-           <a href="#note3">3.2, Note 2</a>
+           <a href="#note1">2.1, Note 1</a>
+           <a href="#note2">2.2, Note 1</a>
+           <a href="#note3">2.2, Note 2</a>
            </p>
                </div>
                <p>&#160;</p>
@@ -909,7 +909,7 @@ RSpec.describe IsoDoc do
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>For the purposes of this document,
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -920,8 +920,8 @@ RSpec.describe IsoDoc do
        <li> <p>IEC Electropedia: available at
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
-       <p class="TermNum" id="_waxy_rice">3.1</p><p class="Terms" style="text-align:left;">waxy rice</p>
-       <div class="Note"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">3.2</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
+       <p class="TermNum" id="_waxy_rice">2.1</p><p class="Terms" style="text-align:left;">waxy rice</p>
+       <div class="Note"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
        <div class="Note"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
        <div class="Note"><p class="Note">Note 2 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div></div>
              </div>
@@ -1194,8 +1194,8 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, List</a>
-           <a href="#note1">4.1, List  1</a>
-           <a href="#note2">4.1, List  2</a>
+           <a href="#note1">3.1, List  1</a>
+           <a href="#note2">3.1, List  2</a>
            <a href="#AN">A.1, List</a>
            <a href="#Anote1">A.2, List  1</a>
            <a href="#Anote2">A.2, List  2</a>
@@ -1212,7 +1212,7 @@ RSpec.describe IsoDoc do
          <li><p>A</p></li>
        </ol>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -1224,7 +1224,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        </div>
                <div id="widgets">
-                 <h1>4.&#160; Widgets</h1>
+                 <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
            <ol type="a">
          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
@@ -1321,8 +1321,8 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, a)</a>
-           <a href="#note1">4.1, List  1 a)</a>
-           <a href="#note2">4.1, List  2 a)</a>
+           <a href="#note1">3.1, List  1 a)</a>
+           <a href="#note2">3.1, List  2 a)</a>
            <a href="#AN">A.1, a)</a>
            <a href="#Anote1">A.2, List  1 a)</a>
            <a href="#Anote2">A.2, List  2 a)</a>
@@ -1339,7 +1339,7 @@ RSpec.describe IsoDoc do
          <li><p>A</p></li>
        </ol>
                </div>
-               <div id="terms"><h1>3.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -1351,7 +1351,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        </div>
                <div id="widgets">
-                 <h1>4.&#160; Widgets</h1>
+                 <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
            <ol type="a">
          <li><p>A</p></li>

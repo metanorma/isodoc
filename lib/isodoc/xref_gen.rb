@@ -107,22 +107,9 @@ module IsoDoc
       end
     end
 
-    def middle_anchor_names(docxml)
-      symbols_abbrevs = docxml.at(ns("//sections/symbols-abbrevs"))
-      sect_num = 4
-      if symbols_abbrevs
-        section_names(symbols_abbrevs, sect_num.to_s, 1)
-        sect_num += 1
-      end
-      clause_names(docxml, sect_num)
-      termnote_anchor_names(docxml)
-      termexample_anchor_names(docxml)
-    end
-
     # extract names for all anchors, xref and label
     def anchor_names(docxml)
       initial_anchor_names(docxml)
-      middle_anchor_names(docxml)
       back_anchor_names(docxml)
       # preempt clause notes with all other types of note
       note_anchor_names(docxml.xpath(ns("//table | //example | //formula | "\

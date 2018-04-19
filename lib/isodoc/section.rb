@@ -83,14 +83,16 @@ module IsoDoc
       end
     end
 
-    def scope(isoxml, out)
-      f = isoxml.at(ns("//clause[title = 'Scope']")) || return
+    def scope(isoxml, out, num)
+      f = isoxml.at(ns("//clause[title = 'Scope']")) or return num
       out.div **attr_code(id: f["id"]) do |div|
-        clause_name("1.", @scope_lbl, div, nil)
+        num = num + 1
+        clause_name("#{num}.", @scope_lbl, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
       end
+      num
     end
 
     def external_terms_boilerplate(sources)
@@ -130,16 +132,18 @@ module IsoDoc
     TERM_CLAUSE = "//sections/terms | "\
       "//sections/clause[descendant::terms]".freeze
 
-    def terms_defs(isoxml, out)
-      f = isoxml.at(ns(TERM_CLAUSE)) || return
+    def terms_defs(isoxml, out, num)
+      f = isoxml.at(ns(TERM_CLAUSE)) or return num
       out.div **attr_code(id: f["id"]) do |div|
-        clause_name("3.", terms_defs_title(f), div, nil)
+        num = num + 1
+        clause_name("#{num}.", terms_defs_title(f), div, nil)
         term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
                               f.at(ns(".//term")))
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
         end
       end
+      num
     end
 
     # subclause
@@ -147,14 +151,16 @@ module IsoDoc
       clause_parse(isoxml, out)
     end
 
-    def symbols_abbrevs(isoxml, out)
-      f = isoxml.at(ns("//sections/symbols-abbrevs")) || return
+    def symbols_abbrevs(isoxml, out, num)
+      f = isoxml.at(ns("//sections/symbols-abbrevs")) or return num
       out.div **attr_code(id: f["id"], class: "Symbols") do |div|
-        clause_name("4.", @symbols_lbl, div, nil)
+        num = num + 1
+        clause_name("#{num}.", @symbols_lbl, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
       end
+      num
     end
 
     # subclause

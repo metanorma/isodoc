@@ -100,7 +100,7 @@ RSpec.describe IsoDoc do
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>2.&#160; Normative References</h1>
+                 <h1>1.&#160; Normative References</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712">ISO 712, <i> Cereals and cereal products</i></p>
                  <p id="ISO16634">ISO 16634:All Parts: --<a href="#ftn1" epub:type="footnote"><sup>1</sup></a>, <i> Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
@@ -147,7 +147,7 @@ RSpec.describe IsoDoc do
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>2.&#160; Normative References</h1>
+                 <h1>1.&#160; Normative References</h1>
                  <p>There are no normative references in this document.</p>
                </div>
              </div>

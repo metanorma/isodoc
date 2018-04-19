@@ -675,7 +675,7 @@ World</p>
              <br/>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
-               <div><h1>3.&#160; Terms and Definitions</h1><p>For the purposes of this document,
+               <div><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -686,7 +686,7 @@ World</p>
        <li> <p>IEC Electropedia: available at
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
-       <p class="TermNum" id="_extraneous_matter">3.1</p><p class="Terms" style="text-align:left;">extraneous matter</p><p class="AltTerms" style="text-align:left;">EM</p>
+       <p class="TermNum" id="_extraneous_matter">1.1</p><p class="Terms" style="text-align:left;">extraneous matter</p><p class="AltTerms" style="text-align:left;">EM</p>
 
        <p id="_318b3939-be09-46c4-a284-93f9826b981e">&lt;rice&gt; organic and inorganic components other than whole or broken kernels</p>
        </div>

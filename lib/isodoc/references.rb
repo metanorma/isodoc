@@ -106,14 +106,16 @@ module IsoDoc
       div.p pref
     end
 
-    def norm_ref(isoxml, out)
+    def norm_ref(isoxml, out, num)
       q = "//bibliography/references[title = 'Normative References']"
-      f = isoxml.at(ns(q)) || return
+      f = isoxml.at(ns(q)) or return num
       out.div do |div|
-        clause_name("2.", @normref_lbl, div, nil)
+        num = num + 1
+        clause_name("#{num}.", @normref_lbl, div, nil)
         norm_ref_preface(f, div)
         biblio_list(f, div, false)
       end
+      num
     end
 
     BIBLIOGRAPHY_XPATH = "//bibliography/clause[title = 'Bibliography'] | "\

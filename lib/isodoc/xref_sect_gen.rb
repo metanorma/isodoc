@@ -11,12 +11,17 @@ module IsoDoc
 
     def initial_anchor_names(d)
       introduction_names(d.at(ns("//introduction")))
-      section_names(d.at(ns("//clause[title = 'Scope']")), "1", 1)
-      section_names(d.at(ns(
-        "//references[title = 'Normative References']")), "2", 1)
-      section_names(d.at(ns("//sections/terms | "\
-                            "//sections/clause[descendant::terms]")), "3", 1)
+      n = 0
+      n = section_names(d.at(ns("//clause[title = 'Scope']")), n, 1)
+      n = section_names(d.at(ns(
+        "//references[title = 'Normative References']")), n, 1)
+      n = section_names(d.at(ns("//sections/terms | "\
+                                "//sections/clause[descendant::terms]")), n, 1)
+      n = section_names(d.at(ns("//sections/symbols-abbrevs")), n, 1)
       middle_section_asset_names(d)
+      clause_names(d, n)
+      termnote_anchor_names(d)
+      termexample_anchor_names(d)
     end
 
     def middle_section_asset_names(d)
@@ -31,7 +36,7 @@ module IsoDoc
       q = "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
         "[not(descendant::terms)]"
       docxml.xpath(ns(q)).each_with_index do |c, i|
-        section_names(c, (i + sect_num).to_s, 1)
+        section_names(c, (i + sect_num), 1)
       end
     end
 
@@ -43,13 +48,15 @@ module IsoDoc
     end
 
     def section_names(clause, num, lvl)
-      return if clause.nil?
+      return num if clause.nil?
+      num = num + 1
       @anchors[clause["id"]] =
-        { label: num, xref: l10n("#{@clause_lbl} #{num}"), level: lvl }
+        { label: num.to_s, xref: l10n("#{@clause_lbl} #{num}"), level: lvl }
       clause.xpath(ns("./clause | ./term  | ./terms | ./symbols-abbrevs")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", lvl + 1)
       end
+      num
     end
 
     def section_names1(clause, num, level)
