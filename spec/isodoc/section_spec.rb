@@ -388,7 +388,7 @@ OUTPUT
   it "processes terms & definitions with external source" do
         expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
                <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <termdocsource type="inline" bibitemid="ISO712" target="ISO 712"/>
+         <termdocsource type="inline" target="ISO712"/>
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
          <term id="J">
@@ -454,9 +454,9 @@ OUTPUT
   it "processes empty terms & definitions with external source" do
         expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
                <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <termdocsource type="inline" bibitemid="ISO712" target="ISO 712"/>
-         <termdocsource type="inline" bibitemid="ISO712" target="ISO 712"/>
-         <termdocsource type="inline" bibitemid="ISO712" target="ISO 712"/>
+         <termdocsource type="inline" target="ISO712"/>
+         <termdocsource type="inline" target="ISO712"/>
+         <termdocsource type="inline" target="ISO712"/>
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
        </terms>
