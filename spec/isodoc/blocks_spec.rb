@@ -277,7 +277,7 @@ INPUT
                  <table id="samplecode" class="example">
                    <tr>
                      <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td>
-                     <td valign="top">
+                     <td valign="top" class="example">
          <p>Hello</p>
        </td>
                    </tr>
@@ -303,7 +303,7 @@ INPUT
     <example id="samplecode">
   <p>Hello</p>
 </example>
-    <example id="samplecode2>
+    <example id="samplecode2">
   <p>Hello</p>
 </example>
     </foreword></preface>
@@ -324,18 +324,19 @@ INPUT
                  <table id="samplecode" class="example">
                    <tr>
                      <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td>
-                     <td valign="top">
+                     <td valign="top" class="example">
          <p>Hello</p>
        </td>
                    </tr>
                  </table>
-                 <table id="samplecode2&gt;   " class="example">
+                 <table id="samplecode2" class="example">
                    <tr>
                      <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td>
-                     <td valign="top"/>
+                     <td valign="top" class="example">
+                 <p>Hello</p>
+                 </td>
                    </tr>
                  </table>
-                 <p>Hello</p>
                </div>
                <p>&#160;</p>
              </div>
