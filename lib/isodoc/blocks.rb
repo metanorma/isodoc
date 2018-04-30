@@ -93,7 +93,7 @@ module IsoDoc
           tr.td **EXAMPLE_TBL_ATTR do |td|
             td << example_label(node)
           end
-          tr.td **{ valign: "top" } do |td|
+          tr.td **{ valign: "top", class: "example" } do |td|
             node.children.each { |n| parse(n, td) }
           end
         end
