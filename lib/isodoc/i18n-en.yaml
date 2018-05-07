@@ -64,7 +64,7 @@ admonition: {
   warning: Warning,
   caution: Caution,
   important: Important,
-  safety precautions: Safety Precautions,
+  safety precautions: Safety Precautions
 }
 locality: {
                       section: Section,

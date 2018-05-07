@@ -387,6 +387,43 @@ INPUT
     OUTPUT
   end
 
+  it "processes sourcecode with escapes preserved" do
+    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <sourcecode id="samplecode">
+    <name>XML code</name>
+  &lt;xml&gt;
+</sourcecode>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br/>
+             <div class="WordSection2">
+               <br/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;<br/>&#160;&#160;&lt;xml&gt;<br/><p class="FigureTitle" align="center">XML code</p></p>
+               </div>
+               <p>&#160;</p>
+             </div>
+             <br/>
+             <div class="WordSection3">
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+         </head>
+       </html>
+    OUTPUT
+  end
+
   it "processes sourcecode with annotations" do
     expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -563,7 +600,7 @@ World</p>
     OUTPUT
   end
 
-    it "processes paragraph alignments (Word)" do
+  it "processes paragraph alignments (Word)" do
     expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
