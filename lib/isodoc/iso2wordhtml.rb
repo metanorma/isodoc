@@ -110,7 +110,7 @@ module IsoDoc
 
     def smallcap_parse(node, xml)
       xml.span **{ style: "font-variant:small-caps;" } do |s|
-        s << node.text
+        s << node.inner_html
       end
     end
 
@@ -130,12 +130,12 @@ module IsoDoc
         text_parse(node, out)
       else
         case node.name
-        when "em" then out.i { |e| e << node.text }
-        when "strong" then out.b { |e| e << node.text }
-        when "sup" then out.sup { |e| e << node.text }
-        when "sub" then out.sub { |e| e << node.text }
-        when "tt" then out.tt { |e| e << node.text }
-        when "strike" then out.s { |e| e << node.text }
+        when "em" then out.i { |e| e << node.inner_html }
+        when "strong" then out.b { |e| e << node.inner_html }
+        when "sup" then out.sup { |e| e << node.inner_html }
+        when "sub" then out.sub { |e| e << node.inner_html }
+        when "tt" then out.tt { |e| e << node.inner_html }
+        when "strike" then out.s { |e| e << node.inner_html }
         when "smallcap" then smallcap_parse(node, out)
         when "br" then out.br
         when "hr" then out.hr
