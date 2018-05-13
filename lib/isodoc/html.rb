@@ -48,6 +48,41 @@ module IsoDoc
       docxml
     end
 
+    def html_head() 
+      <<~HEAD.freeze
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--TOC script import-->
+    <script type="text/javascript"  src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
+
+    <script>
+      $(function() {
+        $("[rel=footnote]").inlineFootnote();
+        });
+    </script>
+
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
+    <!--Font awesome import for the link icon-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+      HEAD
+    end
+
+    def html_button() 
+      '<button onclick="topFunction()" id="myBtn" '\
+        'title="Go to top">Top</button>'.freeze
+    end
+
+    def html_main(docxml)
+      docxml.at("//head").add_child(HEAD)
+      d = docxml.at('//div[@class="WordSection3"]')
+      s = d.replace("<main></main>")
+      s.first.children = d
+      s.first.children.first.previous = html_button()
+    end
+
     def html_preface(docxml)
       html_cover(docxml) if @htmlcoverpage
       html_intro(docxml) if @htmlintropage
@@ -56,6 +91,7 @@ module IsoDoc
         scripts = File.read(@scripts, encoding: "UTF-8")
         docxml.at("//body").add_child scripts #scripts.to_xml(encoding: "US-ASCII")
       end
+      html_main(docxml)
       docxml
     end
 
@@ -152,7 +188,7 @@ module IsoDoc
       ret + li
     end
 
-    def html_toc(docxml)
+    def html_toc_obsolete(docxml)
       return docxml unless @htmlintropage
       ret = ""
       prevname = ""
@@ -163,6 +199,10 @@ module IsoDoc
       end
       ret += "<ul>" if prevname == "h2"
       docxml.at("//*[@id='toc-list']").replace("<ul>#{ret}</ret>")
+      docxml
+    end
+
+    def html_toc(docxml)
       docxml
     end
   end
