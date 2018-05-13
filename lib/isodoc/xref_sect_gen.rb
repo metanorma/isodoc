@@ -69,12 +69,15 @@ module IsoDoc
       end
     end
 
-    def annex_names(clause, num)
+    def annex_name_lbl(clause, num)
       obl = l10n("(#{@inform_annex_lbl})")
       obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
-      label = l10n("<b>#{@annex_lbl} #{num}</b><br/>#{obl}")
-      @anchors[clause["id"]] =
-        { label: label, xref: "#{@annex_lbl} #{num}", level: 1 }
+      l10n("<b>#{@annex_lbl} #{num}</b><br/>#{obl}")
+    end
+
+    def annex_names(clause, num)
+      @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), 
+                                 xref: "#{@annex_lbl} #{num}", level: 1 }
       clause.xpath(ns("./clause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)
       end
