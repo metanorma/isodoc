@@ -64,8 +64,8 @@ module IsoDoc
 
     def make_body3(body, docxml)
       body.div **{ class: "WordSection3" } do |div3|
-        foreword docxml, div2
-        introduction docxml, div2
+        foreword docxml, div3
+        introduction docxml, div3
         middle docxml, div3
         footnotes div3
         comments div3
