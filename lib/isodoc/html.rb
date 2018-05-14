@@ -55,12 +55,6 @@ module IsoDoc
     <!--TOC script import-->
     <script type="text/javascript"  src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
 
-    <script>
-      $(function() {
-        $("[rel=footnote]").inlineFootnote();
-        });
-    </script>
-
     <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
