@@ -74,12 +74,6 @@ module IsoDoc
       d = docxml.at('//div[@class="WordSection3"]')
       d.name = "main"
       d.children.first.previous = html_button()
-=begin
-      d = docxml.at('//div[@class="WordSection3"]')
-      s = d.replace("<main></main>")
-      s.first.children = d
-      s.first.children.first.previous = html_button()
-=end
     end
 
     def html_preface(docxml)

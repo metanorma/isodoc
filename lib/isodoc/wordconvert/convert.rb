@@ -20,6 +20,7 @@ module IsoDoc
         eval File.open(File.join(File.dirname(__FILE__),"wordconvertmodule.rb")).read
         eval File.open(File.join(File.dirname(__FILE__),"comments.rb")).read
         eval File.open(File.join(File.dirname(__FILE__),"footnotes.rb")).read
+        eval File.open(File.join(File.dirname(__FILE__),"postprocess.rb")).read
       end
     end
   end
