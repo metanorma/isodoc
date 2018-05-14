@@ -73,7 +73,7 @@ module IsoDoc
       docxml.at("//head").add_child(html_head())
       d = docxml.at('//div[@class="WordSection3"]')
       d.name = "main"
-      d.first.children.first.previous = html_button()
+      d.children.first.previous = html_button()
 =begin
       d = docxml.at('//div[@class="WordSection3"]')
       s = d.replace("<main></main>")
