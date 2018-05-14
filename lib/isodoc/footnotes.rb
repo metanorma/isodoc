@@ -23,7 +23,7 @@ module IsoDoc
     end
 
     def make_table_footnote_text(node, fnid, fnref)
-      attrs = { id: "ftn#{fnid}" }
+      attrs = { id: "fn:#{fnid}" }
       noko do |xml|
         xml.div **attr_code(attrs) do |div|
           make_table_footnote_target(div, fnid, fnref)
@@ -34,7 +34,7 @@ module IsoDoc
 
     def make_generic_footnote_text(node, fnid)
       noko do |xml|
-        xml.aside **{ id: "ftn#{fnid}", class: "footnote" } do |div|
+        xml.aside **{ id: "fn:#{fnid}", class: "footnote" } do |div|
           node.children.each { |n| parse(n, div) }
         end
       end.join("\n")
@@ -63,7 +63,7 @@ module IsoDoc
     def footnote_parse(node, out)
       return table_footnote_parse(node, out) if @in_table || @in_figure
       fn = node["reference"]
-      attrs = { "epub:type": "footnote", rel: "footnote", href: "#ftn#{fn}" }
+      attrs = { "epub:type": "footnote", rel: "footnote", href: "#fn:#{fn}" }
       out.a **attrs do |a|
         a.sup { |sup| sup << fn }
       end

@@ -74,7 +74,3 @@ def footnote_parse(node, out)
   @in_footnote = false
   @seen_footnote << fn
 end
-      #end
-    #end
-  #end
-#end
