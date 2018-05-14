@@ -66,10 +66,11 @@ module IsoDoc
     end
 
     def convert1(docxml, filename, dir)
+      anchor_names docxml
       noko do |xml|
         xml.html do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
-          html_header(html, docxml, filename, dir)
+          define_head html, filename, dir
           make_body(html, docxml)
         end
       end.join("\n")

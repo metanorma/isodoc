@@ -24,23 +24,17 @@ module IsoDoc
       [filename, dir]
     end
 
-    # these are in fact preprocess,
-    # but they are extraneous to main HTML file
-    def html_header(html, docxml, filename, dir)
-      anchor_names docxml
-      define_head html, filename, dir
-    end
-
     # isodoc.css overrides any CSS injected by Html2Doc, which
     # is inserted before this CSS.
     def define_head(html, filename, _dir)
       html.head do |head|
         head.title { |t| t << filename }
-        return unless @standardstylesheet
-        head.style do |style|
-          stylesheet = File.read(@standardstylesheet).
-            gsub("FILENAME", filename)
-          style.comment "\n#{stylesheet}\n"
+        if @standardstylesheet
+          head.style do |style|
+            stylesheet = File.read(@standardstylesheet).
+              gsub("FILENAME", filename)
+            style.comment "\n#{stylesheet}\n"
+          end
         end
       end
     end
@@ -144,7 +138,7 @@ module IsoDoc
         when "callout" then callout_parse(node, out)
         when "stem" then stem_parse(node, out)
         when "clause" then clause_parse(node, out)
-        # when "subclause" then clause_parse(node, out)
+          # when "subclause" then clause_parse(node, out)
         when "appendix" then clause_parse(node, out)
         when "xref" then xref_parse(node, out)
         when "eref" then eref_parse(node, out)
