@@ -89,7 +89,8 @@ module IsoDoc
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       if @scripts
         scripts = File.read(@scripts, encoding: "UTF-8")
-        docxml.at("//body").add_child << scripts #scripts.to_xml(encoding: "US-ASCII")
+        a = docxml.at("//body").add_child scripts #scripts.to_xml(encoding: "US-ASCII")
+        a.first.inner_html = a.document.create_cdata(a.first.content)
       end
       html_main(docxml)
       docxml
