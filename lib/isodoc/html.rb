@@ -76,7 +76,7 @@ module IsoDoc
     end
 
     def html_main(docxml)
-      docxml.at("//head").add_child(HEAD)
+      docxml.at("//head").add_child(html_head())
       d = docxml.at('//div[@class="WordSection3"]')
       s = d.replace("<main></main>")
       s.first.children = d
