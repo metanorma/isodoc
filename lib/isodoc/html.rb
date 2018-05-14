@@ -151,8 +151,8 @@ module IsoDoc
         seen[x["href"]] = true
         fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
         x["id"] || x["id"] = "fnref:#{i + 1}"
-        fn.elements.first.children.first.previous =
-          "<a href='##{x['id']}'>#{x.at('./sup').text}) </a>"
+        fn.elements.first.children.first.previous = x.at('./sup').text
+        fn.add_child << "<a href='##{x['id']}'>&#x21A9;</a>"
       end
       docxml
     end
