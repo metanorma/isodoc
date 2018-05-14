@@ -63,9 +63,14 @@ module IsoDoc
     def footnote_parse(node, out)
       return table_footnote_parse(node, out) if @in_table || @in_figure
       fn = node["reference"]
-      out.a **{ "epub:type": "footnote", href: "#ftn#{fn}" } do |a|
+      attrs = { "epub:type": "footnote", rel: "footnote", href: "#ftn#{fn}" }
+      out.a **attrs do |a|
         a.sup { |sup| sup << fn }
       end
+      make_footnote(node, fn)
+    end
+    
+    def make_footnote(node, fn)
       return if @seen_footnote.include?(fn)
       @in_footnote = true
       @footnotes << make_generic_footnote_text(node, fn)
