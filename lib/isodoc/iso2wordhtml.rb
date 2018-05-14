@@ -58,15 +58,14 @@ module IsoDoc
     def make_body2(body, docxml)
       body.div **{ class: "WordSection2" } do |div2|
         info docxml, div2
-        foreword docxml, div2
-        introduction docxml, div2
-        div2.p { |p| p << "&nbsp;" } # placeholder
       end
       section_break(body)
     end
 
     def make_body3(body, docxml)
       body.div **{ class: "WordSection3" } do |div3|
+        foreword docxml, div2
+        introduction docxml, div2
         middle docxml, div3
         footnotes div3
         comments div3
