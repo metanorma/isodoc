@@ -19,36 +19,23 @@ RSpec.describe IsoDoc do
     </preface>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+    #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p>A.<a href="#ftn2" epub:type="footnote"><sup>2</sup></a></p>
-                 <p>B.<a href="#ftn2" epub:type="footnote"><sup>2</sup></a></p>
-                 <p>C.<a href="#ftn1" epub:type="footnote"><sup>1</sup></a></p>
+                <p>A.<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
+                <p>B.<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
+                <p>C.<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>1</sup></a></p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
-               <aside id="ftn2" class="footnote">
-         <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-       </aside>
-               <aside id="ftn1" class="footnote">
-         <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
-       </aside>
+                             <aside id="fn:2" class="footnote">
+          <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
+        </aside>
+              <aside id="fn:1" class="footnote">
+          <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
+        </aside>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
     end
@@ -74,6 +61,7 @@ RSpec.describe IsoDoc do
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
+                      </head>
            <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">
                <p>&#160;</p>
@@ -100,7 +88,6 @@ RSpec.describe IsoDoc do
        </aside>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
     end
@@ -126,14 +113,18 @@ RSpec.describe IsoDoc do
     INPUT
     html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
     expect(html).to be_equivalent_to <<~"OUTPUT"
-           <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-             <div class="WordSection1">
-               <p>&#xA0;</p>
-             </div>
-             <br />
-             <div class="WordSection2">
-               <br />
-               <div>
+            <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+            <div class="WordSection1">
+              <p>&#xA0;</p>
+            </div>
+            <br />
+            <div class="WordSection2">
+              <p>&#xA0;</p>
+            </div>
+            <br />
+            <main class="WordSection3"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+              <br />
+              <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
@@ -161,10 +152,6 @@ RSpec.describe IsoDoc do
                  <h1 class="IntroTitle">Introduction</h1>
                  
                </div>
-               <p>&#xA0;</p>
-             </div>
-             <br />
-             <div class="WordSection3">
                <p class="zzSTDTitle1"></p>
                <div style="mso-element:comment-list"><div style="mso-element:comment" id="3">
          <span style="mso-comment-author:&quot;ISO&quot;"></span>

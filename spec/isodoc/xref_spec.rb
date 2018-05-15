@@ -55,16 +55,8 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-<html xmlns:epub="http://www.idpf.org/2007/ops">
-  <head>
-    <title>test</title>
-    <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+    #{HTML_HDR}
+    <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -76,10 +68,6 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">A.2, Note  2</a>
            </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -122,7 +110,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -185,16 +172,8 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+    #{HTML_HDR}
+    <br/>
                <div id="fwd">
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -206,10 +185,6 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">Figure A.3</a>
            </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -267,7 +242,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -325,16 +299,8 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+        #{HTML_HDR}
+    <br/>
                <div id="fwd">
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -346,10 +312,6 @@ RSpec.describe IsoDoc do
          <a href="#Anote2">Figure A.1-2</a>
          </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -400,7 +362,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -457,16 +418,8 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+        #{HTML_HDR}
+    <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -478,10 +431,6 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">A.2, Example  2</a>
            </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -538,7 +487,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -609,16 +557,8 @@ RSpec.describe IsoDoc do
     </preface>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+        #{HTML_HDR}
+    <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -630,10 +570,6 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">A.2, Formula (A.3)</a>
            </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -673,7 +609,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -772,16 +707,8 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+        #{HTML_HDR}
+    <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -793,10 +720,6 @@ RSpec.describe IsoDoc do
        <a href="#Anote2">Table A.3</a>
        </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -847,7 +770,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -883,16 +805,8 @@ RSpec.describe IsoDoc do
 
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+            #{HTML_HDR}
+    <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -901,10 +815,6 @@ RSpec.describe IsoDoc do
            <a href="#note3">2.2, Note 2</a>
            </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -926,7 +836,6 @@ RSpec.describe IsoDoc do
        <div class="Note"><p class="Note">Note 2 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div></div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -1015,15 +924,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-    <div class="WordSection1">
-    <p>&#160;</p>
-      </div>
-    <br/>
-    <div class="WordSection2">
+        #{HTML_HDR}
     <br/>
     <div>
     <h1 class="ForewordTitle">Foreword</h1>
@@ -1053,10 +954,6 @@ RSpec.describe IsoDoc do
     </div>
     <p>This is patent boilerplate</p>
     </div>
-    <p>&#160;</p>
-      </div>
-    <br/>
-    <div class="WordSection3">
     <p class="zzSTDTitle1"/>
     <div id="D">
     <h1>1.&#160; Scope</h1>
@@ -1125,7 +1022,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -1180,16 +1076,8 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+        #{HTML_HDR}
+    <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -1201,10 +1089,6 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">A.2, List  2</a>
            </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -1252,7 +1136,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -1307,16 +1190,8 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <br/>
+        #{HTML_HDR}
+    <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
@@ -1328,10 +1203,6 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">A.2, List  2 a)</a>
            </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -1379,7 +1250,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -1423,16 +1293,8 @@ RSpec.describe IsoDoc do
     </sections>
     </iso-standard>
     INPUT
-            <html xmlns:epub="http://www.idpf.org/2007/ops">
-          <head>
-            <title>test</title>
-            <body lang="EN-US" link="blue" vlink="#954F72">
-              <div class="WordSection1">
-                <p>&#160;</p>
-              </div>
-              <br/>
-              <div class="WordSection2">
-                <br/>
+        #{HTML_HDR}
+    <br/>
                 <div>
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p>
@@ -1444,10 +1306,6 @@ RSpec.describe IsoDoc do
         <a href="#Anote2">Clause 1, a.1.i.A.I.a)</a>
         </p>
                 </div>
-                <p>&#160;</p>
-              </div>
-              <br/>
-              <div class="WordSection3">
                 <p class="zzSTDTitle1"/>
                 <div id="scope">
                   <h1>1.&#160; Scope</h1>
@@ -1472,7 +1330,6 @@ RSpec.describe IsoDoc do
                 </div>
               </div>
             </body>
-          </head>
         </html>
     OUTPUT
   end

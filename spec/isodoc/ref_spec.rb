@@ -76,15 +76,7 @@ RSpec.describe IsoDoc do
 </bibliography>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+    #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
@@ -94,16 +86,12 @@ RSpec.describe IsoDoc do
          <a href="#ref10">[10]</a>
          </p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div>
                  <h1>1.&#160; Normative References</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712">ISO 712, <i> Cereals and cereal products</i></p>
-                 <p id="ISO16634">ISO 16634:All Parts: --<a href="#ftn1" epub:type="footnote"><sup>1</sup></a>, <i> Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
+                 <p id="ISO16634">ISO 16634:All Parts: --<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>1</sup></a>, <i> Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
                  <p id="ISO20483">ISO 20483: 2013&#8211;2014, <i> Cereals and pulses</i></p>
                  <p id="ref1" class="Biblio">ICC 167, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                </div>
@@ -114,12 +102,11 @@ RSpec.describe IsoDoc do
                  <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                  <p id="ref11" class="Biblio">[3]&#160; IETF RFC 10,<span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                </div>
-               <aside class="footnote" id="ftn1">
+               <aside id="fn:1" class="footnote">
          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
        </aside>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end 
@@ -135,6 +122,7 @@ RSpec.describe IsoDoc do
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
+                    </head>
            <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">
                <p>&#160;</p>
@@ -152,7 +140,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
    end

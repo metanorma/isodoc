@@ -345,33 +345,35 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
         </sections>
         </iso-standard>
     INPUT
-    html = File.read("test.html").sub(/^.*<div class="WordSection3">/m, '<div class="WordSection3">').
-      sub(%r{<script type="text/x-mathjax-config">.*$}m, "")
+    html = File.read("test.html").sub(/^.*<main class="WordSection3">/m, '<main class="WordSection3">').
+      sub(%r{</main>.*$}m, "</main>")
     expect(html).to be_equivalent_to <<~"OUTPUT"
-           <div class="WordSection3">
-               <p class="zzSTDTitle1"></p>
-               <div>
-                 <h1>1.&#xA0; Clause 4</h1>
-                 <a href="#ftn3" epub:type="footnote" id="_footnote1">
-                   <sup>1</sup>
-                 </a>
-                 <div id="N">
+           <main class="WordSection3"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+             <p class="zzSTDTitle1"></p>
+             <div>
+               <h1>1.&#xA0; Clause 4</h1>
+               <a rel="footnote" href="#fn:3" epub:type="footnote" id="fnref:1">
+                 <sup>1</sup>
+               </a>
+               <div id="N">
 
-                <h2>1.1. Introduction to this<a href="#ftn2" epub:type="footnote" id="_footnote2"><sup>2</sup></a></h2>
+                <h2>1.1. Introduction to this<a rel="footnote" href="#fn:2" epub:type="footnote" id="fnref:2"><sup>2</sup></a></h2>
               </div>
-                 <div id="O">
+               <div id="O">
                 <h2>1.2. Clause 4.2</h2>
-                <p>A<a href="#ftn2" epub:type="footnote"><sup>2</sup></a></p>
+                <p>A<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
               </div>
-               </div>
-               <aside id="ftn3" class="footnote">
-         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a href="#_footnote1">1) </a>This is a footnote.</p>
-       </aside>
-               <aside id="ftn2" class="footnote">
-         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a href="#_footnote2">2) </a>Formerly denoted as 15 % (m/m).</p>
-       </aside>
-
              </div>
+             <aside id="fn:3" class="footnote">
+         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a rel="footnote" href="#fn:3" epub:type="footnote" id="fnref:1">
+                 <sup>1</sup>
+               </a>This is a footnote.</p>
+       <a href="#fnref:1">&#x21A9;</a></aside>
+             <aside id="fn:2" class="footnote">
+         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a rel="footnote" href="#fn:2" epub:type="footnote" id="fnref:2"><sup>2</sup></a>Formerly denoted as 15 % (m/m).</p>
+       <a href="#fnref:2">&#x21A9;</a></aside>
+
+           </main>
     OUTPUT
   end
 
@@ -388,64 +390,23 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
        </foreword></preface>
         </iso-standard>
     INPUT
-    html = File.read("test.html").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
-      sub(%r{<div class="WordSection3">.*$}m, "")
+    html = File.read("test.html").sub(/^.*<main class="WordSection3">/m, '<main class="WordSection3">').
+      sub(%r{</main>.*$}m, "</main>")
     expect(`ls _images`).to match(/\.png$/)
     expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")).to be_equivalent_to <<~"OUTPUT"
-        <div class="WordSection2">
-        <br />
-        <div>
-          <h1 class="ForewordTitle">Foreword</h1>
-          <div id="_" class="figure">
-
-           <img src="_images/_.png" width="800" height="673" />
-<p class="FigureTitle" align="center">Figure 1&#xA0;&#x2014; Split-it-right sample divider</p></div>
-        </div>
-        <p>&#xA0;</p>
-      </div>
-      <br />
-    OUTPUT
-
-  end
-
-  it "populates HTML ToC" do
-    system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", htmlintropage: "spec/assets/htmlintro.html"}).convert_file(<<~"INPUT", "test", false)
-        <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <sections>
-               <clause inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-
-         <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
-  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
-</fn></title>
-       </clause>
-       <clause id="O" inline-header="false" obligation="normative">
-         <title>Clause 4.2</title>
-         <p>A<fn reference="1">
-  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
-</fn></p>
-       </clause></clause>
-               <clause inline-header="false" obligation="normative"><title>Clause 5</title></clause>
-        </sections>
-        </iso-standard>
-
-    INPUT
-    html = File.read("test.html").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
-      sub(%r{<div class="WordSection3">.*$}m, "")
-    expect(html.gsub(/"#[a-f0-9-]+"/, "#_")).to be_equivalent_to <<~"OUTPUT"
-       <div class="WordSection2">
-     
-       /* an empty html intro page */
-     
-       <ul><li><a href=#_>2.&#xA0; Clause 4</a></li><ul><li><a href=#_>1.1. Introduction to this</a></li><li><a href=#_>1.2. Clause 4.2</a></li></ul><li><a href=#_>2.&#xA0; Clause 5</a></li></ul>
-     
-     
-     
-               <p>&#xA0;</p>
-             </div>
+           <main class="WordSection3"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br />
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="_" class="figure">
 
+                  <img src="_images/_.png" width="800" height="673" />
+       <p class="FigureTitle" align="center">Figure 1&#xA0;&#x2014; Split-it-right sample divider</p></div>
+             </div>
+             <p class="zzSTDTitle1"></p>
+           </main>
     OUTPUT
+
   end
 
   it "processes IsoXML terms for HTML" do

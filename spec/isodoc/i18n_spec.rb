@@ -72,15 +72,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
         INPUT
-               <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+        #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
@@ -94,10 +86,6 @@ RSpec.describe IsoDoc do
         </div>
                  <p>This is patent boilerplate</p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="D">
                  <h1>1.&#160; Scope</h1>
@@ -166,7 +154,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -242,15 +229,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
         INPUT
-               <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+        #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
@@ -264,10 +243,6 @@ RSpec.describe IsoDoc do
         </div>
                  <p>This is patent boilerplate</p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="D">
                  <h1>1.&#160; Scope</h1>
@@ -336,7 +311,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -412,15 +386,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
         INPUT
-               <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+        #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Avant-propos</h1>
@@ -434,10 +400,6 @@ RSpec.describe IsoDoc do
         </div>
                  <p>This is patent boilerplate</p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="D">
                  <h1>1.&#160; Domaine d'application</h1>
@@ -505,7 +467,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -592,15 +553,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
         INPUT
-               <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+        #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">&#21069;&#35328;</h1>
@@ -614,10 +567,6 @@ RSpec.describe IsoDoc do
               </div>
                  <p>This is patent boilerplate</p>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="D">
                  <h1>1.&#160; &#33539;&#22260;</h1>
@@ -686,7 +635,6 @@ RSpec.describe IsoDoc do
                </div>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end

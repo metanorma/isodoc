@@ -16,15 +16,7 @@ RSpec.describe IsoDoc do
 </foreword></preface>
 </iso-standard>
     INPUT
-              <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+    #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
@@ -37,14 +29,9 @@ RSpec.describe IsoDoc do
          </li>
        </ul>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -71,15 +58,7 @@ RSpec.describe IsoDoc do
 </foreword></preface>
 </iso-standard>
     INPUT
-              <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+    #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
@@ -99,14 +78,9 @@ RSpec.describe IsoDoc do
          </ol>
        </ol>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -129,15 +103,7 @@ RSpec.describe IsoDoc do
 </foreword></preface>
 </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+    #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
@@ -153,14 +119,9 @@ RSpec.describe IsoDoc do
          </li>
        </ol>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -183,15 +144,7 @@ RSpec.describe IsoDoc do
 </foreword></preface>
 </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
+    #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
@@ -215,14 +168,9 @@ RSpec.describe IsoDoc do
   <p class="Note"><span class="note_label">NOTE</span>&#160; This is a note</p>
 </div>
                </div>
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
            </body>
-         </head>
        </html>
     OUTPUT
   end
@@ -248,6 +196,7 @@ RSpec.describe IsoDoc do
            <html xmlns:epub="http://www.idpf.org/2007/ops">
           <head>
             <title>test</title>
+                     </head>
             <body lang="EN-US" link="blue" vlink="#954F72">
               <div class="WordSection1">
                 <p>&#160;</p>
@@ -294,7 +243,6 @@ RSpec.describe IsoDoc do
                 <p class="zzSTDTitle1"/>
               </div>
             </body>
-          </head>
         </html>
     OUTPUT
   end

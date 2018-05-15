@@ -52,19 +52,7 @@ RSpec.describe IsoDoc do
 </sections>
 </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
+    #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div id="_terms_and_definitions"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
