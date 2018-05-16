@@ -143,12 +143,15 @@ INPUT
   end
 
   it "processes figures" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(strip_guid(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true))).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <figure id="figureA-1">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <fn reference="a">
+  <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
+</fn>
   <dl>
   <dt>A</dt>
   <dd><p>B</p></dd>
@@ -164,12 +167,66 @@ INPUT
                  <div id="figureA-1" class="figure">
 
          <img src="rice_images/rice_image1.png"/>
+         <a href="#_" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:_"><a id="_" class="TableFootnoteRef">a&#160; </a>
+         <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
+       </div></aside>
          <p><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
        <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
            </body>
+       </html>
+    OUTPUT
+  end
+
+    it "processes figures (Word)" do
+    expect(strip_guid(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true))).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <figure id="figureA-1">
+  <name>Split-it-right sample divider</name>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <fn reference="a">
+  <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
+</fn>
+  <dl>
+  <dt>A</dt>
+  <dd><p>B</p></dd>
+  </dl>
+</figure>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+         </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p>&#160;</p>
+           </div>
+           <br clear="all" class="section"/>
+           <div class="WordSection2">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="figureA-1" class="figure">
+
+         <img src="rice_images/rice_image1.png"/>
+         <a href="#_" class="TableFootnoteRef">a</a><aside><div id="ftn_"><a id="_" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
+         <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
+       </div></aside>
+         <p><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
+       <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
+             </div>
+             <p>&#160;</p>
+           </div>
+           <br clear="all" class="section"/>
+           <div class="WordSection3">
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
        </html>
     OUTPUT
   end

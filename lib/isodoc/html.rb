@@ -175,30 +175,30 @@ module IsoDoc
       docxml
     end
 
-    def html_toc1(h, ret, prevname)
-      h["id"] = UUIDTools::UUID.random_create.to_s unless h["id"]
-      li = "<li><a href='##{h["id"]}'>#{header_strip(h)}</a></li>"
-      if h.name == "h1"
-        ret += "</ul>" if prevname == "h2"
-      else
-        ret += "<ul>" if prevname == "h1"
-      end
-      ret + li
-    end
-
-    def html_toc_obsolete(docxml)
-      return docxml unless @htmlintropage
-      ret = ""
-      prevname = ""
-      docxml.xpath("//h1 | //h2").each do |h|
-        next if ["toc-contents", "TermNum"].include? h["class"]
-        ret = html_toc1(h, ret, prevname)
-        prevname = h.name
-      end
-      ret += "<ul>" if prevname == "h2"
-      docxml.at("//*[@id='toc-list']").replace("<ul>#{ret}</ret>")
-      docxml
-    end
+    #def html_toc1(h, ret, prevname)
+      #h["id"] = UUIDTools::UUID.random_create.to_s unless h["id"]
+      #li = "<li><a href='##{h["id"]}'>#{header_strip(h)}</a></li>"
+      #if h.name == "h1"
+        #ret += "</ul>" if prevname == "h2"
+      #else
+        #ret += "<ul>" if prevname == "h1"
+      #end
+      #ret + li
+    #end
+#
+    #def html_toc_obsolete(docxml)
+      #return docxml unless @htmlintropage
+      #ret = ""
+      #prevname = ""
+      #docxml.xpath("//h1 | //h2").each do |h|
+        #next if ["toc-contents", "TermNum"].include? h["class"]
+        #ret = html_toc1(h, ret, prevname)
+        #prevname = h.name
+      #end
+      #ret += "<ul>" if prevname == "h2"
+      #docxml.at("//*[@id='toc-list']").replace("<ul>#{ret}</ret>")
+      #docxml
+    #end
 
     def html_toc(docxml)
       docxml

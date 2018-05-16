@@ -45,6 +45,8 @@ RSpec.describe IsoDoc do
     expect(File.exist?("spec/assets/iso.html")).to be true
     html = File.read("spec/assets/iso.html")
     expect(html).to match(/another empty stylesheet/)
+    expect(html).to match(%r{https://use.fontawesome.com})
+    expect(html).to match(%r{libs/jquery})
   end
 
   it "generates Word output docs with null configuration from file" do
@@ -71,7 +73,8 @@ RSpec.describe IsoDoc do
     expect(html).to match(/a third empty stylesheet/)
     expect(html).to match(/an empty html cover page/)
     expect(html).to match(/an empty html intro page/)
-    expect(html).to match(/This is a script/)
+    expect(html).to match(/This is > a script/)
+    expect(html).not_to match(/CDATA/)
     expect(html).to match(%r{Enkonduko</h1>})
   end
 
@@ -410,7 +413,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
   end
 
   it "processes IsoXML terms for HTML" do
-        system "rm -f test.doc"
+    system "rm -f test.doc"
     system "rm -f test.html"
     IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -462,10 +465,10 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
 </sections>
 </iso-standard>
     INPUT
-        expect(File.exist?("test.html")).to be true
+    expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
     expect(html).to match(%r{<h2 class="TermNum" id="paddy1">1\.1</h2>})
     expect(html).to match(%r{<h2 class="TermNum" id="paddy">1\.2</h2>})
-end
+  end
 
 end

@@ -52,6 +52,33 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+    it "cleans up figures (Word)" do
+    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    <html xmlns:epub="http://www.idpf.org/2007/ops">
+    <body>
+      <div class="figure">
+        <p>Warning</p>
+        <a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
+         <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
+       </div></aside>
+      </div>
+    </body>
+    </html>
+    INPUT
+              <?xml version="1.0"?>
+       <html xmlns:epub="http://www.idpf.org/2007/ops">
+       <body>
+         <div class="figure">
+           <p>Warning</p>
+           <aside><div id="ftntableD-1a">
+
+          </div></aside>
+          <p><b/></p><table class="dl"><tr><td valign="top" align="left"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a></td><td valign="top"><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></td></tr></table></div>
+       </body>
+       </html>
+    OUTPUT
+  end
+
   it "cleans up inline headers" do
     expect(IsoDoc::Convert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
              <html xmlns:epub="http://www.idpf.org/2007/ops">

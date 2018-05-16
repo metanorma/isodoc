@@ -38,9 +38,9 @@ RSpec.describe IsoDoc do
            </body>
        </html>
     OUTPUT
-    end
-    
-          it "processes IsoXML footnotes (Word)" do
+  end
+
+  it "processes IsoXML footnotes (Word)" do
     expect(IsoDoc::WordConvert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
@@ -90,7 +90,7 @@ RSpec.describe IsoDoc do
            </body>
        </html>
     OUTPUT
-    end
+  end
 
   it "processes IsoXML reviewer notes" do
     system "rm -f test.html"
@@ -138,24 +138,24 @@ RSpec.describe IsoDoc do
                    </span>
                  </span>
                  <span style="mso-comment-continuation:3"><span style="mso-comment-continuation:1"><p id="B">B.</p></span></span>
-                 
+
                  <span style="MsoCommentReference" target="2" class="commentLink" from="C" to="C">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                      <a style="mso-comment-reference:SMC_2;mso-comment-date:20170108T0000"><span style="mso-comment-continuation:3"><p id="C">C.</p></span></a>
                      <span style="mso-special-character:comment" target="2"></span>
                    </span>
                  </span>
-                 
+
                </div>
                <br />
                <div class="Section3" id="">
                  <h1 class="IntroTitle">Introduction</h1>
-                 
+
                </div>
                <p class="zzSTDTitle1"></p>
                <div style="mso-element:comment-list"><div style="mso-element:comment" id="3">
          <span style="mso-comment-author:&quot;ISO&quot;"></span>
-         
+
          <p class="MsoCommentText" id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08"><span style="MsoCommentReference">
            <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
              <span style="mso-special-character:comment"></span>
@@ -166,7 +166,7 @@ RSpec.describe IsoDoc do
        <p class="MsoCommentText" id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p></div>
        <div style="mso-element:comment" id="2">
          <span style="mso-comment-author:&quot;ISO&quot;"></span>
-         
+
          <p class="MsoCommentText" id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08"><span style="MsoCommentReference">
            <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
              <span style="mso-special-character:comment"></span>
@@ -185,8 +185,8 @@ RSpec.describe IsoDoc do
        </body>
        </html>
     OUTPUT
-    end
-    
+  end
+
   it "processes IsoXML reviewer notes (Word)" do
     system "rm -f test.doc"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
@@ -229,19 +229,19 @@ RSpec.describe IsoDoc do
                    </span>
                  </span>
                  <span style="mso-comment-continuation:3"><span style="mso-comment-continuation:1"><p class="MsoNormal"><a name="B" id="B"></a>B.</p></span></span>
-                 
+
                  <span style="MsoCommentReference" target="2" class="commentLink" from="C" to="C">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                      <a style="mso-comment-reference:SMC_2;mso-comment-date:20170108T0000"><span style="mso-comment-continuation:3"><p class="MsoNormal"><a name="C" id="C"></a>C.</p></span></a>
                      <span style="mso-special-character:comment" target="2"></span>
                    </span>
                  </span>
-                 
+
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                <div class="Section3" id="">
                  <h1 class="IntroTitle">Introduction</h1>
-                 
+
                </div>
                <p class="MsoNormal">&#xA0;</p>
              </div>
@@ -250,7 +250,7 @@ RSpec.describe IsoDoc do
                <p class="zzSTDTitle1"></p>
                <div style="mso-element:comment-list"><div style="mso-element:comment"><a name="3" id="3"></a>
          <span style="mso-comment-author:&quot;ISO&quot;"></span>
-         
+
          <p class="MsoCommentText"><a name="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08" id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08"></a><span style="MsoCommentReference">
            <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
              <span style="mso-special-character:comment"></span>
@@ -261,7 +261,7 @@ RSpec.describe IsoDoc do
        <p class="MsoCommentText"><a name="_f1a8b9da-ca75-458b-96fa-d4af7328975e" id="_f1a8b9da-ca75-458b-96fa-d4af7328975e"></a>For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p></div>
        <div style="mso-element:comment"><a name="2" id="2"></a>
          <span style="mso-comment-author:&quot;ISO&quot;"></span>
-         
+
          <p class="MsoCommentText"><a name="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08" id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08"></a><span style="MsoCommentReference">
            <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
              <span style="mso-special-character:comment"></span>
@@ -271,7 +271,7 @@ RSpec.describe IsoDoc do
              </div>
            <div style="mso-element:footnote-list"/></body>
     OUTPUT
-    end
+  end
 
 
 end
