@@ -1,11 +1,3 @@
-#require "uuidtools"
-
-#module IsoDoc
-  #class WordConvert
-  #module WordConvertModule
-    #def self.included base
-#base.class_eval do
-
 def in_comment
   @in_comment
 end
@@ -67,7 +59,6 @@ def comment_cleanup(docxml)
   embed_comment_in_comment_list(docxml)
 end
 
-#COMMENT_IN_COMMENT_LIST =
 COMMENT_IN_COMMENT_LIST1 =
   '//div[@style="mso-element:comment-list"]//'\
   'span[@style="MsoCommentReference"]'.freeze
@@ -135,13 +126,11 @@ def get_comments_from_text(docxml, link_order)
   # comments
 end
 
-#COMMENT_TARGET_XREFS =
 COMMENT_TARGET_XREFS1 =
   "//span[@style='mso-special-character:comment']/@target".freeze
 
 def reorder_comments_by_comment_link(docxml)
   link_order = {}
-  #docxml.xpath(COMMENT_TARGET_XREFS).each_with_index do |target, i|
   docxml.xpath(COMMENT_TARGET_XREFS1).each_with_index do |target, i|
     link_order[target.value] = i
   end
@@ -149,7 +138,3 @@ def reorder_comments_by_comment_link(docxml)
   list = docxml.at("//*[@style='mso-element:comment-list']") || return
   list.children = comments.map { |c| c[:text] }.join("\n")
 end
-      #end
-    #end
-  #end
-#end

@@ -6,10 +6,15 @@ module IsoDoc
       @files_to_delete.each { |f| system "rm #{f}" }
     end
 
+    def script_cdata(result)
+      result.gsub(%r{<script>\s*<!\[CDATA\[}m, "<script>").
+        gsub(%r{\]\]>\s*</script>}, "</script>").
+        gsub(%r{<!\[CDATA\[\s*<script>}m, "<script>").
+        gsub(%r{</script>\s*\]\]>}, "</script>")
+    end
+
     def toHTML(result, filename)
-      result = from_xhtml(html_cleanup(to_xhtml(result))).
-        gsub(%r{<script><!\[CDATA\[}, "<script>").
-        gsub(%r{\]\]></script>}, "</script>")
+      result = script_cdata(from_xhtml(html_cleanup(to_xhtml(result))))
       result = populate_template(result, :html)
       File.open("#{filename}.html", "w") do |f|
         f.write(result)
@@ -83,7 +88,6 @@ module IsoDoc
       if @scripts
         scripts = File.read(@scripts, encoding: "UTF-8")
         a = docxml.at("//body").add_child docxml.create_cdata(scripts) #scripts.to_xml(encoding: "US-ASCII")
-        #a.first.inner_html = docxml.create_cdata(a.first.content)
       end
       html_main(docxml)
       docxml

@@ -1,11 +1,3 @@
-#require "uuidtools"
-
-#module IsoDoc
-  #class WordConvert
-  #module WordConvertModule
-    #def self.included base
-#base.class_eval do
-
 def footnotes(div)
   return if @footnotes.empty?
   @footnotes.each { |fn| div.parent << fn }
