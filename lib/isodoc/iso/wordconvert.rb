@@ -22,7 +22,7 @@ module IsoDoc
         super
         @wordstylesheet = generate_css(html_doc_path("wordstyle.scss"), false, default_fonts(options))
         @standardstylesheet = generate_css(html_doc_path("isodoc.scss"), false, default_fonts(options))
-        @head = html_doc_path("header.html")
+        @header = html_doc_path("header.html")
         @wordcoverpage = html_doc_path("word_iso_titlepage.html")
         @wordintropage = html_doc_path("word_iso_intro.html")
         @ulstyle = "l3"
