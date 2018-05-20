@@ -24,12 +24,16 @@ module IsoDoc
         "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
       end
 
+      def html_doc_path(file)
+        File.join(File.dirname(__FILE__), File.join("html", file))
+      end
+
       def initialize(options)
         super
         if options[:alt]
-          css = generate_css(html_doc_path("style-human.scss"), true, alt_fonts[options])
+          css = generate_css(html_doc_path("style-human.scss"), true, alt_fonts(options))
         else
-          css = generate_css(html_doc_path("style-iso.scss"), true, default_fonts[options])
+          css = generate_css(html_doc_path("style-iso.scss"), true, default_fonts(options))
         end
         @htmlstylesheet = css
         @htmlcoverpage = html_doc_path("html_iso_titlepage.html")
