@@ -13,4 +13,6 @@ require "set"
 require "pp"
 require "isodoc/convert"
 require "isodoc/wordconvert/convert"
+require "isodoc/iso/convert"
+require "isodoc/iso/wordconvert"
 end

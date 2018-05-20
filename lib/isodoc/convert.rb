@@ -65,6 +65,10 @@ module IsoDoc
       @files_to_delete = []
     end
 
+    def html_doc_path(file)
+      File.join(File.dirname(__FILE__), File.join("html", file))
+    end
+
     def convert1(docxml, filename, dir)
       anchor_names docxml
       noko do |xml|
