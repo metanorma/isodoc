@@ -22,7 +22,7 @@ module IsoDoc
     end
 
     def iso_bibitem_entry_attrs(b, biblio)
-      { id: b["id"], class: biblio ? "Biblio" : nil }
+      { id: b["id"], class: biblio ? "Biblio" : "NormRef" }
     end
 
     def iso_bibitem_entry(list, b, ordinal, biblio)
