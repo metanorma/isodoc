@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "cross-references notes" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)). to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)). to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -115,7 +115,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references figures" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
@@ -247,7 +247,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references subfigures" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
@@ -367,7 +367,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references examples" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword>
@@ -492,7 +492,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references formulae" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -614,7 +614,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references tables" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword>
@@ -775,7 +775,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references term notes" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -841,7 +841,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references sections" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword obligation="informative">
@@ -1027,7 +1027,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references lists" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -1141,7 +1141,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references list items" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -1255,7 +1255,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references nested list items" do
-    expect(IsoDoc::Convert.new({}).convert_file(<<~"INPUT", "test", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>

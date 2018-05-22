@@ -4,7 +4,7 @@ RSpec.describe IsoDoc do
   it "generates file based on string input" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", filename: "test"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", filename: "test"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -24,7 +24,7 @@ RSpec.describe IsoDoc do
   it "generates HTML output docs with null configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -44,7 +44,7 @@ RSpec.describe IsoDoc do
   it "generates Word output docs with null configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -61,7 +61,7 @@ RSpec.describe IsoDoc do
   it "generates HTML output docs with null configuration from file" do
     system "rm -f spec/assets/iso.doc"
     system "rm -f spec/assets/iso.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", false)
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.html")).to be true
     html = File.read("spec/assets/iso.html")
     expect(html).to match(/another empty stylesheet/)
@@ -71,7 +71,7 @@ RSpec.describe IsoDoc do
 
   it "generates Word output docs with null configuration from file" do
     system "rm -f spec/assets/iso.doc"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.doc")).to be true
     word = File.read("spec/assets/iso.doc")
     expect(word).to match(/one empty stylesheet/)
@@ -80,7 +80,7 @@ RSpec.describe IsoDoc do
   it "generates HTML output docs with complete configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -101,7 +101,7 @@ RSpec.describe IsoDoc do
   it "generates Word output docs with complete configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -122,7 +122,7 @@ RSpec.describe IsoDoc do
   it "converts definition lists to tables for Word" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
      <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <dl>
@@ -164,7 +164,7 @@ RSpec.describe IsoDoc do
   it "converts annex subheadings to h2Annex class for Word" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
@@ -199,7 +199,7 @@ RSpec.describe IsoDoc do
   it "populates Word template with terms reference labels" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -243,7 +243,7 @@ RSpec.describe IsoDoc do
 
   it "populates Word header" do
     system "rm -f test.doc"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", header: "spec/assets/header.html"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", header: "spec/assets/header.html"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
                <bibdata type="article">
                         <docidentifier>
@@ -269,7 +269,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
 
   it "populates Word ToC" do
     system "rm -f test.doc"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
                <clause inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
@@ -348,7 +348,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
 
   it "reorders footnote numbers in HTML" do
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
                <clause inline-header="false" obligation="normative"><title>Clause 4</title><fn reference="3">
@@ -403,7 +403,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
   it "moves images in HTML" do
     system "rm -f test.html"
     system "rm -rf _images"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword>
          <figure id="_">
@@ -435,7 +435,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
   it "processes IsoXML terms for HTML" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>

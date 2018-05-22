@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe IsoDoc do
   system "rm -f test.html"
   it "processes isodoc as ISO: HTML output" do
-    IsoDoc::Iso::Convert.new({}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Iso::Convert.new({}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -20,7 +20,7 @@ RSpec.describe IsoDoc do
 
   it "processes isodoc as ISO: alt HTML output" do
   system "rm -f test.html"
-    IsoDoc::Iso::Convert.new({alt: true}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Iso::Convert.new({alt: true}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -37,7 +37,7 @@ RSpec.describe IsoDoc do
 
   it "processes isodoc as ISO: Chinese HTML output" do
   system "rm -f test.html"
-    IsoDoc::Iso::Convert.new({script: "Hans"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Iso::Convert.new({script: "Hans"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -54,7 +54,7 @@ RSpec.describe IsoDoc do
 
   it "processes isodoc as ISO: user nominated fonts" do
   system "rm -f test.html"
-    IsoDoc::Iso::Convert.new({bodyfont: "Zapf Chancery", headerfont: "Comic Sans", monospacefont: "Andale Mono"}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Iso::Convert.new({bodyfont: "Zapf Chancery", headerfont: "Comic Sans", monospacefont: "Andale Mono"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -71,7 +71,7 @@ RSpec.describe IsoDoc do
 
   it "processes isodoc as ISO: Word output" do
   system "rm -f test.doc"
-    IsoDoc::Iso::WordConvert.new({}).convert_file(<<~"INPUT", "test", false)
+    IsoDoc::Iso::WordConvert.new({}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
