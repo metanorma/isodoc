@@ -31,6 +31,7 @@ module IsoDoc
     # i18nyaml: YAML file for internationalisation of text
     # ulstyle: list style in Word CSS for unordered lists
     # olstyle: list style in Word CSS for ordered lists
+    # filename: unsuffixed name of output file, if invoked on document string
     def initialize(options)
       @htmlstylesheet = options[:htmlstylesheet]
       @wordstylesheet = options[:wordstylesheet]
@@ -44,6 +45,7 @@ module IsoDoc
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
       @olstyle = options[:olstyle]
+      @filename = options[:filename]
       @termdomain = ""
       @termexample = false
       @note = false
@@ -100,8 +102,12 @@ module IsoDoc
       [docxml, filename, dir]
     end
 
-    def convert(filename, debug = false)
-      convert_file(File.read(filename), filename, debug)
+    def convert(file, debug = false)
+      if @filename
+        convert_file(file, @filename, debug)
+      else
+        convert_file(File.read(file, encoding: "utf-8"), file, debug)
+      end
     end
 
     def convert_file(file, filename, debug)
