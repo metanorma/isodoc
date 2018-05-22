@@ -7,31 +7,53 @@ image:https://codeclimate.com/github/riboseinc/isodoc/badges/gpa.svg["Code Clima
 
 This Gem converts documents in the https://github.com/riboseinc/isodoc-models[ISODoc document model] into HTML and Microsoft Word.
 
-The Gem is a class called with a hash of file locations:
+The Gem contains two classes, `IsoDoc::Convert` (for HTML output) and `IsoDoc::WordConvert` (for Word output). They are initialised with the following rendering parameters:
 
-htmlstylesheet:: Generic stylesheet for HTML
-wordstylesheet:: Generic stylesheet for Word
-standardsheet:: Stylesheet specific to Standard
-header:: Header file for Word
-htmlcoverpage:: Cover page for HTML
-wordcoverpage:: Cover page for Word
-htmlintropage:: Introductory page for HTML
-wordintropage:: Introductory page for Word
+i18nyaml:: YAML file giving internationalisation equivalents for keywords in rendering output; see https://github.com/riboseinc/asciidoctor-iso#document-attributes for further documentation
+bodyfont:: Font for body text
+headerfont:: Font for header text
+monospacefont:: Font for monospace text
+titlefont:: Font for document title text (currently used only in GB)
+script:: The ISO 15924 code for the main script that the standard document is in; used to pick the default fonts for the document
+alt:: Generate alternate rendering (currently used only in ISO)
+
+The IsoDoc gem classes themselves are abstract (though their current implementation contains rendering specific to the ISO standard.) Subclasses of the Isodoc gem classes are specific to different standards, and are associated with templates and stylesheets speciific to the rendering of those standards. Subclasses also provide the default values for the rendering parameters above; they should be used only as overrides.
 
 e.g.
 
 [source,ruby]
 --
-        IsoDoc::Convert.new(
-          htmlstylesheet: html_doc_path("htmlstyle.css"),
-          wordstylesheet: nil,
-          standardstylesheet: html_doc_path("isodoc.css"),
-          header: html_doc_path("header.html"),
-          htmlcoverpage: html_doc_path("iso_titlepage.html"),
-          wordcoverpage: html_doc_path("iso_titlepage.html"),
-          htmlintropage: html_doc_path("iso_intro.html"),
-          wordintropage: html_doc_path("iso_intro.html"),
+        IsoDoc::Convert::Iso.new(
+          bodyfont: "Zapf Chancery", 
+          headerfont: "Comic Sans", 
+          monospacefont: "Andale Mono",
+          alt: true,
+          script: "Hans",
+          i18nyaml: "i18n-en.yaml"
         )
 --
 
-NOTE: Cover page and Intro page must be XHTML fragments, not HTML fragments. In particular, unlike Word HTML, all HTML attributes need to be quoted: `<p class="MsoToc2">`, not `<p class=MsoToc2>`.
+The conversion takes place with a `convert` method, with three arguments: the filename to be used for the output (once its file type suffix is stripped), the XML document string to be converted (optional), and a "debug" argument (optional), which stops execution before the output file is generated. If the document string is nil, its contents are read in from the filename provided. So:
+
+[source,ruby]
+--
+IsoDoc::Iso::Convert.new({}).convert("test.xml") # generates test.html
+
+IsoDoc::Iso::WordConvert.new({script: "Hans"}).convert("test.xml") # generates test.doc, with Chinese font defaults rather than Roman
+
+IsoDoc::Iso::Convert.new({}).convert("test", File.read("file1.xml")) # generates test.html, based on file1.xml
+
+IsoDoc::Iso::Convert.new({}).convert("test", <<~"INPUT", true)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <note>
+    <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a 
+      study carried out on three different types of kernel.</p>
+    </note>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+# generates HTML output for the given input string, but does not save it to disk.
+--
+
+NOTE: In the HTML stylesheets specific to standards, the Cover page and Intro page must be XHTML fragments, not HTML fragments. In particular, unlike Word HTML, all HTML attributes need to be quoted: `<p class="MsoToc2">`, not `<p class=MsoToc2>`.
