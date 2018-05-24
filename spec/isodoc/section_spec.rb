@@ -416,7 +416,7 @@ OUTPUT
                <div>
                  <h1>1.&#160; Normative References</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                 <p id="ISO712">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
+                 <p id="ISO712" class="NormRef">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
                </div>
                <div id="H"><h1>2.&#160; Terms and Definitions</h1><p>For the purposes of this document, the terms and definitions
          given in ISO 712 and the following apply.</p>
@@ -481,7 +481,7 @@ OUTPUT
                <div>
                  <h1>1.&#160; Normative References</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                 <p id="ISO712">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
+                 <p id="ISO712" class="NormRef">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
                </div>
                <div id="H"><h1>2.&#160; Terms and Definitions</h1><p>For the purposes of this document,
          the terms and definitions given in ISO 712, ISO 712 and ISO 712 apply.</p>
