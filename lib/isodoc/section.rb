@@ -103,7 +103,7 @@ module IsoDoc
       @internal_external_terms_boilerplate.gsub(/%/, sources)
     end
 
-    def term_defs_boilerplate(div, source, term)
+    def term_defs_boilerplate(div, source, term, preface)
       if source.empty? && term.nil?
         div << @no_terms_boilerplate
       else
@@ -138,7 +138,7 @@ module IsoDoc
         num = num + 1
         clause_name("#{num}.", terms_defs_title(f), div, nil)
         term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
-                              f.at(ns(".//term")))
+                              f.at(ns(".//term"), f.at(ns("./p")))
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
         end
