@@ -138,7 +138,7 @@ module IsoDoc
         num = num + 1
         clause_name("#{num}.", terms_defs_title(f), div, nil)
         term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
-                              f.at(ns(".//term"), f.at(ns("./p")))
+                              f.at(ns(".//term"), f.at(ns("./p"))))
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
         end
