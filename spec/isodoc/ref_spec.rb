@@ -25,7 +25,7 @@ RSpec.describe IsoDoc do
 <bibitem id="ISO16634" type="standard">
   <title format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
   <docidentifier>ISO 16634:All Parts</docidentifier>
-  <date type="published"><from>--</from></date>
+  <date type="published"><on>--</on></date>
   <contributor>
     <role type="publisher"/>
     <organization>

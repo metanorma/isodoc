@@ -69,8 +69,10 @@ module IsoDoc
     def date_range(date)
       from = date.at(ns("./from"))
       to = date.at(ns("./to"))
-      ret = from.text
-      ret += "&ndash;#{to.text}" if to
+      on = date.at(ns("./on"))
+      return on.text if on
+      ret = "#{from.text}&ndash;"
+      ret += to.text if to
       ret
     end
 

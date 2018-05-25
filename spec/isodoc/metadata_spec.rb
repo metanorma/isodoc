@@ -20,11 +20,11 @@ RSpec.describe IsoDoc do
     <project-number part="1">17301</project-number>
     <tc-document-number>17301</tc-document-number>
   </docidentifier>
-  <date type="published"><from>2011</from></date>
-  <date type="accessed"><from>2012</from></date>
+  <date type="published"><on>2011</on></date>
+  <date type="accessed"><on>2012</on></date>
   <date type="created"><from>2010</from><to>2011</to></date>
-  <date type="activated"><from>2013</from></date>
-  <date type="obsoleted"><from>2014</from></date>
+  <date type="activated"><on>2013</on></date>
+  <date type="obsoleted"><on>2014</on></date>
   <contributor>
     <role type="author"/>
     <organization>
