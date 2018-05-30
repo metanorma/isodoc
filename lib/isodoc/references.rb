@@ -25,6 +25,12 @@ module IsoDoc
       { id: b["id"], class: biblio ? "Biblio" : "NormRef" }
     end
 
+    def iso_title(b)
+      title = b.at(ns("./title[@language = '#{@language}']"))
+      title = b.at(ns("./title")) unless title
+      title.text
+    end
+
     def iso_bibitem_entry(list, b, ordinal, biblio)
       list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
         if biblio
@@ -34,7 +40,7 @@ module IsoDoc
         ref << iso_bibitem_ref_code(b)
         date_note_process(b, ref)
         ref << ", "
-        ref.i { |i| i << " #{b.at(ns('./title')).text}" }
+        ref.i { |i| i << " #{iso_title(b)}" }
       end
     end
 
@@ -50,7 +56,8 @@ module IsoDoc
     end
 
     def reference_format(b, r)
-      title = b.at(ns("./formattedref")) || b.at(ns("./title"))
+      title = b.at(ns("./formattedref")) || 
+        b.at(ns("./title[@language = '#{@language}']")) || b.at(ns("./title"))
       title&.children&.each { |n| parse(n, r) }
     end
 
