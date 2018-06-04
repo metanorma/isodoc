@@ -1,5 +1,5 @@
 module IsoDoc
-  class Convert
+  class Common
     def inline_header_title(out, node, c1)
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|

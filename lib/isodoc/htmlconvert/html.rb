@@ -1,5 +1,5 @@
 module IsoDoc
-  class Convert
+  class Convert < Common
     def postprocess(result, filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toHTML(result, filename)

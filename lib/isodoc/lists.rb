@@ -1,5 +1,5 @@
 module IsoDoc
-  class Convert
+  class Common
     def ul_parse(node, out)
       out.ul do |ul|
         node.children.each { |n| parse(n, ul) }

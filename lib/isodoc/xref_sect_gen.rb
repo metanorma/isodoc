@@ -1,5 +1,5 @@
 module IsoDoc
-  class Convert
+  class Common
     def back_anchor_names(docxml)
       docxml.xpath(ns("//annex")).each_with_index do |c, i|
         annex_names(c, (65 + i).chr.to_s)

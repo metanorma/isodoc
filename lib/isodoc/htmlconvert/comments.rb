@@ -1,7 +1,7 @@
 require "uuidtools"
 
 module IsoDoc
-  class Convert
+  class Convert < Common
     def in_comment
       @in_comment
     end

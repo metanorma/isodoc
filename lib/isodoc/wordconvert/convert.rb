@@ -5,9 +5,11 @@ require "liquid"
 require_relative "wordconvertmodule"
 require_relative "comments"
 require_relative "footnotes"
+require_relative "postprocess"
 
 module IsoDoc
 
+=begin
   module WordConvertModule
     # http://tech.tulentsev.com/2012/02/ruby-how-to-override-class-method-with-a-module/
     # https://www.ruby-forum.com/topic/148303
@@ -24,9 +26,10 @@ module IsoDoc
       end
     end
   end
+=end
 
-  class WordConvert < Convert
-    include WordConvertModule
+  class WordConvert < Common
+    #include WordConvertModule
   end
 end
 

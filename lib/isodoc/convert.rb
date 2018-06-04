@@ -9,16 +9,13 @@ require "isodoc/blocks"
 require "isodoc/lists"
 require "isodoc/table"
 require "isodoc/inline"
-require "isodoc/footnotes"
-require "isodoc/comments"
 require "isodoc/xref_gen"
 require "isodoc/xref_sect_gen"
-require "isodoc/html"
 require "isodoc/i18n"
 require "sass"
 
 module IsoDoc
-  class Convert
+  class Common
 
     # htmlstylesheet: Generic stylesheet for HTML
     # wordstylesheet: Generic stylesheet for Word

@@ -1,7 +1,7 @@
 require "yaml"
 
 module IsoDoc
-  class Convert
+  class Common
     def i18n_init(lang, script)
       @lang = lang
       @script = script

@@ -1,7 +1,7 @@
 require "roman-numerals"
 
 module IsoDoc
-  class Convert
+  class Common
     @anchors = {}
 
     def get_anchors

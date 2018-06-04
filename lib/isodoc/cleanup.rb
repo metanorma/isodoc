@@ -4,7 +4,7 @@ require "nokogiri"
 require "pp"
 
 module IsoDoc
-  class Convert
+  class Common
     def cleanup(docxml)
       comment_cleanup(docxml)
       footnote_cleanup(docxml)

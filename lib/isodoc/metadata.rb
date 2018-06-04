@@ -1,7 +1,7 @@
 require "htmlentities"
 
 module IsoDoc
-  class Convert
+  class Common
     DATETYPES = %w{published accessed created implemented obsoleted confirmed
     updated issued}.freeze
 

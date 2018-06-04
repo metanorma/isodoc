@@ -1,7 +1,7 @@
 require "uuidtools"
 
 module IsoDoc
-  class Convert
+  class Convert < Common
     def footnotes(div)
       return if @footnotes.empty?
       @footnotes.each { |fn| div.parent << fn }

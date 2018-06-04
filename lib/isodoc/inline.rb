@@ -1,7 +1,7 @@
 require "uuidtools"
 
 module IsoDoc
-  class Convert
+  class Common
     def section_break(body)
       body.br
     end

@@ -1,4 +1,7 @@
-def postprocess(result, filename, dir)
+module IsoDoc
+  class WordConvert < Common
+
+    def postprocess(result, filename, dir)
   generate_header(filename, dir)
   result = from_xhtml(cleanup(to_xhtml(result)))
   toWord(result, filename, dir)
@@ -9,7 +12,7 @@ def toWord(result, filename, dir)
   result = populate_template(result, :word)
   result = from_xhtml(word_cleanup(to_xhtml(result)))
   Html2Doc.process(result, filename: filename, stylesheet: @wordstylesheet,
-                   header_file: "header.html", dir: dir,
+                   header_file: @header, dir: dir,
                    asciimathdelims: [@openmathdelim, @closemathdelim],
                    liststyles: { ul: @ulstyle, ol: @olstyle })
 end
@@ -107,4 +110,6 @@ def make_WordToC(docxml)
   end
   toc.sub(/(<p class="MsoToc1">)/,
           %{\\1#{WORD_TOC_PREFACE1}}) +  WORD_TOC_SUFFIX1
+end
+  end
 end

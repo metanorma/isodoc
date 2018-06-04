@@ -1,7 +1,7 @@
 require "pp"
 
 module IsoDoc
-  class Convert
+  class Common
     def set_termdomain(termdomain)
       @termdomain = termdomain
     end

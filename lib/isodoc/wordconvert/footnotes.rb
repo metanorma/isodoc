@@ -1,4 +1,7 @@
-def footnotes(div)
+module IsoDoc
+  class WordConvert < Common
+
+    def footnotes(div)
   return if @footnotes.empty?
   @footnotes.each { |fn| div.parent << fn }
 end
@@ -65,4 +68,14 @@ def footnote_parse(node, out)
   @footnotes << make_generic_footnote_text(node, fn)
   @in_footnote = false
   @seen_footnote << fn
+end
+
+    def make_footnote(node, fn)
+      return if @seen_footnote.include?(fn)
+      @in_footnote = true
+      @footnotes << make_generic_footnote_text(node, fn)
+      @in_footnote = false
+      @seen_footnote << fn
+    end
+  end
 end

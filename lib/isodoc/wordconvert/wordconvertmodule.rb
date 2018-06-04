@@ -1,4 +1,7 @@
-def make_body2(body, docxml)
+module IsoDoc
+  class WordConvert < Common
+
+    def make_body2(body, docxml)
   body.div **{ class: "WordSection2" } do |div2|
     info docxml, div2
     foreword docxml, div2
@@ -135,5 +138,7 @@ def figure_aside_process(f, aside, key)
   aside.xpath(".//p").each do |a|
     a.delete("class")
     a.parent = dd
+  end
+end
   end
 end

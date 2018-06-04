@@ -1,5 +1,5 @@
 module IsoDoc
-  class Convert
+  class Common
     def ns(xpath)
       xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
         gsub(%r{::([a-zA-z])}, "::xmlns:\\1").

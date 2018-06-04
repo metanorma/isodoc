@@ -1,5 +1,5 @@
 module IsoDoc
-  class Convert
+  class Common
     def definition_parse(node, out)
       node.children.each { |n| parse(n, out) }
     end

@@ -1,7 +1,7 @@
 module IsoDoc
   module Iso
-    class WordConvert < IsoDoc::Convert
-      include IsoDoc::WordConvertModule
+    class WordConvert < IsoDoc::WordConvert
+      #include IsoDoc::WordConvertModule
 
       def default_fonts(options)
         b = options[:bodyfont] ||

@@ -1,5 +1,5 @@
 module IsoDoc
-  class Convert
+  class Common
     @annotation = false
 
     def note_label(node)
