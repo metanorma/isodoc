@@ -56,7 +56,7 @@ end
 def generate_header(filename, _dir)
   return unless @header
   template = Liquid::Template.parse(File.read(@header, encoding: "UTF-8"))
-  meta = get_metadata
+  meta = @meta.get
   meta[:filename] = filename
   params = meta.map { |k, v| [k.to_s, v] }.to_h
   File.open("header.html", "w") do |f|

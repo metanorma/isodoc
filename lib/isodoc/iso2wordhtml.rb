@@ -74,21 +74,20 @@ module IsoDoc
     end
 
     def info(isoxml, out)
-      title isoxml, out
-      subtitle isoxml, out
-      docstatus isoxml, out
-      docid isoxml, out
-      doctype isoxml, out
-      author isoxml, out
-      bibdate isoxml, out
-      relations isoxml, out
-      version isoxml, out
-      get_metadata
+      @meta.title isoxml, out
+      @meta.subtitle isoxml, out
+      @meta.docstatus isoxml, out
+      @meta.docid isoxml, out
+      @meta.doctype isoxml, out
+      @meta.author isoxml, out
+      @meta.bibdate isoxml, out
+      @meta.relations isoxml, out
+      @meta.version isoxml, out
+      @meta.get
     end
 
     def middle_title(out)
-      m = get_metadata
-      out.p **{ class: "zzSTDTitle1" } { |p| p << m[:doctitle] }
+      out.p **{ class: "zzSTDTitle1" } { |p| p << @meta.get[:doctitle] }
     end
 
     def middle(isoxml, out)

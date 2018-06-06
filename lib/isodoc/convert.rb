@@ -46,8 +46,6 @@ module IsoDoc
       @note = false
       @sourcecode = false
       @anchors = {}
-      @meta = {}
-      init_metadata
       @footnotes = []
       @comments = []
       @in_footnote = false
@@ -92,8 +90,10 @@ module IsoDoc
       docxml = Nokogiri::XML(file)
       filename, dir = init_file(filename, debug)
       docxml.root.default_namespace = ""
-      i18n_init(docxml&.at(ns("//bibdata/language"))&.text || "en",
-                docxml&.at(ns("//bibdata/script"))&.text || "Latn")
+      lang = docxml&.at(ns("//bibdata/language"))&.text || "en"
+      script = docxml&.at(ns("//bibdata/script"))&.text || "Latn"
+      i18n_init(lang, script)
+      @meta = Metadata.new(lang, script)
       [docxml, filename, dir]
     end
 

@@ -1,25 +1,32 @@
 require "htmlentities"
 
 module IsoDoc
-  class Common
+  class Metadata
     DATETYPES = %w{published accessed created implemented obsoleted confirmed
     updated issued}.freeze
 
-    def init_metadata
-      @meta = { tc: "XXXX", sc: "XXXX", wg: "XXXX",
+    def ns(xpath)
+      Common::ns(xpath)
+    end
+
+    def initialize(lang, script)
+      @metadata = { tc: "XXXX", sc: "XXXX", wg: "XXXX",
                 editorialgroup: [],
                 secretariat: "XXXX",
                 obsoletes: nil,
                 obsoletes_part: nil }
-      DATETYPES.each { |w| @meta["#{w}date".to_sym] = "XXX" }
+      DATETYPES.each { |w| @metadata["#{w}date".to_sym] = "XXX" }
+      @lang = lang
+      @script = script
+            @c = HTMLEntities.new
     end
 
-    def get_metadata
-      @meta
+    def get
+      @metadata
     end
 
-    def set_metadata(key, value)
-      @meta[key] = value
+    def set(key, value)
+      @metadata[key] = value
     end
 
     def author(xml, _out)
@@ -36,8 +43,8 @@ module IsoDoc
         text || "TC"
       if tc_num
         tcid = "#{tc_type} #{tc_num.text}"
-        set_metadata(:tc,  tcid)
-        set_metadata(:editorialgroup, get_metadata[:editorialgroup] << tcid)
+        set(:tc,  tcid)
+        set(:editorialgroup, get[:editorialgroup] << tcid)
       end
     end
 
@@ -46,8 +53,8 @@ module IsoDoc
       sc_type = xml.at(ns("//editorialgroup/subcommittee/@type"))&.text || "SC"
       if sc_num
         scid = "#{sc_type} #{sc_num.text}"
-        set_metadata(:sc, scid)
-        set_metadata(:editorialgroup, get_metadata[:editorialgroup] << scid)
+        set(:sc, scid)
+        set(:editorialgroup, get[:editorialgroup] << scid)
       end
     end
 
@@ -56,29 +63,19 @@ module IsoDoc
       wg_type = xml.at(ns("//editorialgroup/workgroup/@type"))&.text || "WG"
       if wg_num
         wgid = "#{wg_type} #{wg_num.text}"
-        set_metadata(:wg, wgid)
-        set_metadata(:editorialgroup, get_metadata[:editorialgroup] << wgid)
+        set(:wg, wgid)
+        set(:editorialgroup, get[:editorialgroup] << wgid)
       end
     end
 
     def secretariat(xml)
       sec = xml.at(ns("//editorialgroup/secretariat"))
-      set_metadata(:secretariat, sec.text) if sec
-    end
-
-    def date_range(date)
-      from = date.at(ns("./from"))
-      to = date.at(ns("./to"))
-      on = date.at(ns("./on"))
-      return on.text if on
-      ret = "#{from.text}&ndash;"
-      ret += to.text if to
-      ret
+      set(:secretariat, sec.text) if sec
     end
 
     def bibdate(isoxml, _out)
       isoxml.xpath(ns("//bibdata/date")).each do |d|
-        set_metadata("#{d['type']}date".to_sym, date_range(d))
+        set("#{d['type']}date".to_sym, Common::date_range(d))
       end
     end
 
@@ -86,7 +83,7 @@ module IsoDoc
       b = isoxml.at(ns("//bibdata")) || return
       return unless b["type"]
       t = b["type"].split(/-/).map{ |w| w.capitalize }.join(" ")
-      set_metadata(:doctype, t)
+      set(:doctype, t)
     end
 
     def iso?(org)
@@ -105,7 +102,7 @@ module IsoDoc
         agency1 = abbrev || name
         agency = iso?(org) ?  "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
-      set_metadata(:agency, agency.sub(%r{/$}, ""))
+      set(:agency, agency.sub(%r{/$}, ""))
     end
 
     def docnumber(isoxml)
@@ -118,25 +115,44 @@ module IsoDoc
       dn
     end
 
+        STAGE_ABBRS = {
+      "00": "PWI",
+      "10": "NWIP",
+      "20": "WD",
+      "30": "CD",
+      "40": "DIS",
+      "50": "FDIS",
+      "60": "IS",
+      "90": "(Review)",
+      "95": "(Withdrawal)",
+    }.freeze
+
+    def stage_abbrev(stage, iter, draft)
+      stage = STAGE_ABBRS[stage.to_sym] || "??"
+      stage += iter.text if iter
+      stage = "Pre" + stage if draft&.text =~ /^0\./
+      stage
+    end
+
     def docstatus(isoxml, _out)
       docstatus = isoxml.at(ns("//status/stage"))
       if docstatus
-        set_metadata(:stage, docstatus.text)
+        set(:stage, docstatus.text)
         abbr = stage_abbrev(docstatus.text, isoxml.at(ns("//status/iteration")),
                             isoxml.at(ns("//version/draft")))
-        set_metadata(:stageabbr, abbr)
+        set(:stageabbr, abbr)
       end
     end
 
     def docid(isoxml, _out)
       dn = docnumber(isoxml)
-      docstatus = get_metadata[:stage]
+      docstatus = get[:stage]
       if docstatus
-        abbr = get_metadata[:stageabbr]
-        docstatus = get_metadata[:stage]
+        abbr = get[:stageabbr]
+        docstatus = get[:stage]
         (docstatus.to_i < 60) && dn = abbr + " " + dn
       end
-      set_metadata(:docnumber, dn)
+      set(:docnumber, dn)
     end
 
     def draftinfo(draft, revdate)
@@ -146,15 +162,15 @@ module IsoDoc
         draftinfo += ", #{revdate}" if revdate
         draftinfo += ")"
       end
-      l10n(draftinfo)
+      Common::l10n(draftinfo, @lang, @script)
     end
 
     def version(isoxml, _out)
-      set_metadata(:docyear, isoxml&.at(ns("//copyright/from"))&.text)
-      set_metadata(:draft, isoxml&.at(ns("//version/draft"))&.text)
-      set_metadata(:revdate, isoxml&.at(ns("//version/revision-date"))&.text)
-      set_metadata(:draftinfo,
-                   draftinfo(get_metadata[:draft], get_metadata[:revdate]))
+      set(:docyear, isoxml&.at(ns("//copyright/from"))&.text)
+      set(:draft, isoxml&.at(ns("//version/draft"))&.text)
+      set(:revdate, isoxml&.at(ns("//version/revision-date"))&.text)
+      set(:draftinfo,
+                   draftinfo(get[:draft], get[:revdate]))
     end
 
     # we don't leave this to i18n.rb, because we have both English and
@@ -186,7 +202,7 @@ module IsoDoc
       partnumber = isoxml.at(ns("//project-number/@part"))
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
       main = compose_title(main, intro, part, partnumber, subpartnumber, "en")
-      set_metadata(:doctitle, main)
+      set(:doctitle, main)
     end
 
     def subtitle(isoxml, _out)
@@ -196,15 +212,15 @@ module IsoDoc
       partnumber = isoxml.at(ns("//project-number/@part"))
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
       main = compose_title(main, intro, part, partnumber, subpartnumber, "fr")
-      set_metadata(:docsubtitle, main)
+      set(:docsubtitle, main)
     end
 
     def relations(isoxml, _out)
       std = isoxml.at(ns("//bibdata/relation[@type = 'obsoletes']")) || return
       locality = std.at(ns(".//locality"))
       id = std.at(ns(".//docidentifier"))
-      set_metadata(:obsoletes, id.text) if id
-      set_metadata(:obsoletes_part, locality.text) if locality
+      set(:obsoletes, id.text) if id
+      set(:obsoletes_part, locality.text) if locality
     end
   end
 end

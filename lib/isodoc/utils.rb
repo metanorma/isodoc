@@ -1,33 +1,32 @@
 module IsoDoc
   class Common
-    def ns(xpath)
+    def self.ns(xpath)
       xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
         gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
         gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]* ?=)}, "[xmlns:\\1").
         gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
     end
 
-    def insert_tab(out, n)
-      [1..n].each { out << "&nbsp; " }
+    def ns(xpath)
+      Common::ns(xpath)
     end
 
-    STAGE_ABBRS = {
-      "00": "PWI",
-      "10": "NWIP",
-      "20": "WD",
-      "30": "CD",
-      "40": "DIS",
-      "50": "FDIS",
-      "60": "IS",
-      "90": "(Review)",
-      "95": "(Withdrawal)",
-    }.freeze
+    def self.date_range(date)
+      from = date.at(ns("./from"))
+      to = date.at(ns("./to"))
+      on = date.at(ns("./on"))
+      return on.text if on
+      ret = "#{from.text}&ndash;"
+      ret += to.text if to
+      ret
+    end
 
-    def stage_abbrev(stage, iter, draft)
-      stage = STAGE_ABBRS[stage.to_sym] || "??"
-      stage += iter.text if iter
-      stage = "Pre" + stage if draft&.text =~ /^0\./
-      stage
+    def date_range(date)
+      Common::date_range(date)
+    end
+
+    def insert_tab(out, n)
+      [1..n].each { out << "&nbsp; " }
     end
 
     NOKOHEAD = <<~HERE.freeze
@@ -133,7 +132,7 @@ module IsoDoc
     end
 
     def populate_template(docxml, _format)
-      meta = get_metadata.merge(@labels)
+      meta = @meta.get.merge(@labels)
       docxml = docxml.
         gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
         gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).

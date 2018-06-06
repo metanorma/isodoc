@@ -84,7 +84,7 @@ module IsoDoc
 
     # function localising spaces and punctuation.
     # Not clear if period needs to be localised for zh
-    def l10n(x, lang = @lang, script = @script)
+    def self.l10n(x, lang, script)
       if lang == "zh" && script == "Hans"
         x.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、").
           gsub(/\(/, "（").gsub(/\)/, "）").
@@ -93,6 +93,10 @@ module IsoDoc
       else
         x
       end
+    end
+
+    def l10n(x, lang = @lang, script = @script)
+      Common::l10n(x, lang, script)
     end
   end
 end

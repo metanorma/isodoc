@@ -3,7 +3,11 @@ require "nokogiri"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML metadata" do
-    expect(Hash[IsoDoc::Convert.new({}).info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
+    c = IsoDoc::Convert.new({})
+    arr = c.convert_init(<<~"INPUT", "test", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    INPUT
+  expect(Hash[c.info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="international-standard">
   <title>
@@ -70,7 +74,11 @@ OUTPUT
   end
 
   it "processes IsoXML metadata" do
-    expect(Hash[IsoDoc::Convert.new({}).info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
+        c = IsoDoc::Convert.new({})
+    arr = c.convert_init(<<~"INPUT", "test", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    INPUT
+  expect(Hash[c.info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="international-standard">
   <title>
