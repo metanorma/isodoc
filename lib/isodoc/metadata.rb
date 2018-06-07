@@ -9,7 +9,7 @@ module IsoDoc
       Common::ns(xpath)
     end
 
-    def initialize(lang, script)
+    def initialize(lang, script, labels)
       @metadata = { tc: "XXXX", sc: "XXXX", wg: "XXXX",
                 editorialgroup: [],
                 secretariat: "XXXX",
@@ -19,6 +19,7 @@ module IsoDoc
       @lang = lang
       @script = script
             @c = HTMLEntities.new
+            @labels = labels
     end
 
     def get

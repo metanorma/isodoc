@@ -86,8 +86,8 @@ module IsoDoc
       end.join("\n")
     end
 
-    def metadata_init(lang, script)
-            @meta = Metadata.new(lang, script)
+    def metadata_init(lang, script, labels)
+            @meta = Metadata.new(lang, script, labels)
     end
 
     def convert_init(file, filename, debug)
@@ -97,7 +97,7 @@ module IsoDoc
       lang = docxml&.at(ns("//bibdata/language"))&.text || "en"
       script = docxml&.at(ns("//bibdata/script"))&.text || "Latn"
       i18n_init(lang, script)
-      metadata_init(lang, script)
+      metadata_init(lang, script, @labels)
       [docxml, filename, dir]
     end
 
