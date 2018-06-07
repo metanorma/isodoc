@@ -11,15 +11,15 @@ module IsoDoc
 
     def initialize(lang, script, labels)
       @metadata = { tc: "XXXX", sc: "XXXX", wg: "XXXX",
-                editorialgroup: [],
-                secretariat: "XXXX",
-                obsoletes: nil,
-                obsoletes_part: nil }
+                    editorialgroup: [],
+                    secretariat: "XXXX",
+                    obsoletes: nil,
+                    obsoletes_part: nil }
       DATETYPES.each { |w| @metadata["#{w}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
-            @c = HTMLEntities.new
-            @labels = labels
+      @c = HTMLEntities.new
+      @labels = labels
     end
 
     def get
@@ -116,7 +116,7 @@ module IsoDoc
       dn
     end
 
-        STAGE_ABBRS = {
+    STAGE_ABBRS = {
       "00": "PWI",
       "10": "NWIP",
       "20": "WD",
@@ -159,7 +159,7 @@ module IsoDoc
     def draftinfo(draft, revdate)
       draftinfo = ""
       if draft
-        draftinfo = " (#{@draft_lbl} #{draft}"
+        draftinfo = " (#{@labels["draft"]} #{draft}"
         draftinfo += ", #{revdate}" if revdate
         draftinfo += ")"
       end
@@ -171,7 +171,7 @@ module IsoDoc
       set(:draft, isoxml&.at(ns("//version/draft"))&.text)
       set(:revdate, isoxml&.at(ns("//version/revision-date"))&.text)
       set(:draftinfo,
-                   draftinfo(get[:draft], get[:revdate]))
+          draftinfo(get[:draft], get[:revdate]))
     end
 
     # we don't leave this to i18n.rb, because we have both English and
