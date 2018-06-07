@@ -1,4 +1,4 @@
-module Isodoc
+module IsoDoc
 
 require_relative "isodoc/version"
 
