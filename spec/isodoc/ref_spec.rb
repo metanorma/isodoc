@@ -119,20 +119,7 @@ RSpec.describe IsoDoc do
     </bibliography>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-                    </head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
+      #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div>
                  <h1>1.&#160; Normative References</h1>

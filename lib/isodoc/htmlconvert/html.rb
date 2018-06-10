@@ -1,5 +1,30 @@
 module IsoDoc
   class Convert < Common
+        def make_body1(body, _docxml)
+      body.div **{ class: "title-section" } do |div1|
+        div1.p { |p| p << "&nbsp;" } # placeholder
+      end
+      section_break(body)
+    end
+
+    def make_body2(body, docxml)
+      body.div **{ class: "prefatory-section" } do |div2|
+        info docxml, div2
+        div2.p { |p| p << "&nbsp;" } # placeholder
+      end
+      section_break(body)
+    end
+
+    def make_body3(body, docxml)
+      body.div **{ class: "main-section" } do |div3|
+        foreword docxml, div3
+        introduction docxml, div3
+        middle docxml, div3
+        footnotes div3
+        comments div3
+      end
+    end
+
     def postprocess(result, filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toHTML(result, filename)
@@ -76,7 +101,7 @@ module IsoDoc
 
     def html_main(docxml)
       docxml.at("//head").add_child(html_head())
-      d = docxml.at('//div[@class="WordSection3"]')
+      d = docxml.at('//div[@class="main-section"]')
       d.name = "main"
       d.children.first.previous = html_button()
     end
@@ -96,14 +121,14 @@ module IsoDoc
     def html_cover(docxml)
       cover = File.read(@htmlcoverpage, encoding: "UTF-8")
       coverxml = to_xhtml_fragment(cover)
-      d = docxml.at('//div[@class="WordSection1"]')
+      d = docxml.at('//div[@class="title-section"]')
       d.children.first.add_previous_sibling coverxml.to_xml(encoding: "US-ASCII")
     end
 
     def html_intro(docxml)
       intro = File.read(@htmlintropage, encoding: "UTF-8")
       introxml = to_xhtml_fragment(intro)
-      d = docxml.at('//div[@class="WordSection2"]')
+      d = docxml.at('//div[@class="prefatory-section"]')
       d.children.first.add_previous_sibling introxml.to_xml(encoding: "US-ASCII")
     end
 

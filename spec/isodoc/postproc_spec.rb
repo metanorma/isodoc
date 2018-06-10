@@ -368,10 +368,10 @@ RCBET0MgSUQKCkZJTEVOQU1FOiB7eyBmaWxlbmFtZSB9fQoK
         </sections>
         </iso-standard>
     INPUT
-    html = File.read("test.html").sub(/^.*<main class="WordSection3">/m, '<main class="WordSection3">').
+    html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
       sub(%r{</main>.*$}m, "</main>")
     expect(html).to be_equivalent_to <<~"OUTPUT"
-           <main class="WordSection3"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <p class="zzSTDTitle1"></p>
              <div>
                <h1>1.&#xA0; Clause 4</h1>
@@ -413,11 +413,11 @@ RCBET0MgSUQKCkZJTEVOQU1FOiB7eyBmaWxlbmFtZSB9fQoK
        </foreword></preface>
         </iso-standard>
     INPUT
-    html = File.read("test.html").sub(/^.*<main class="WordSection3">/m, '<main class="WordSection3">').
+    html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
       sub(%r{</main>.*$}m, "</main>")
     expect(`ls _images`).to match(/\.png$/)
     expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")).to be_equivalent_to <<~"OUTPUT"
-           <main class="WordSection3"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br />
              <div>
                <h1 class="ForewordTitle">Foreword</h1>

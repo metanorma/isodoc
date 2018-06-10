@@ -1,5 +1,11 @@
 module IsoDoc
   class WordConvert < Common
+    def make_body1(body, _docxml)
+      body.div **{ class: "WordSection1" } do |div1|
+        div1.p { |p| p << "&nbsp;" } # placeholder
+      end
+      section_break(body)
+    end
 
     def make_body2(body, docxml)
   body.div **{ class: "WordSection2" } do |div2|

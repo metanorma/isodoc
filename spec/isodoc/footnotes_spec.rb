@@ -114,15 +114,15 @@ RSpec.describe IsoDoc do
     html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
     expect(html).to be_equivalent_to <<~"OUTPUT"
             <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-            <div class="WordSection1">
+            <div class="title-section">
               <p>&#xA0;</p>
             </div>
             <br />
-            <div class="WordSection2">
+            <div class="prefatory-section">
               <p>&#xA0;</p>
             </div>
             <br />
-            <main class="WordSection3"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
               <br />
               <div>
                  <h1 class="ForewordTitle">Foreword</h1>

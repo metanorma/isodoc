@@ -337,20 +337,7 @@ OUTPUT
         </sections>
         </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-                     </head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
+    #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div id="H"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
@@ -398,20 +385,7 @@ OUTPUT
 </bibliography>
         </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-                     </head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
+    #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div>
                  <h1>1.&#160; Normative References</h1>
@@ -463,20 +437,7 @@ OUTPUT
 </bibliography>
         </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-                     </head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
+    #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div>
                  <h1>1.&#160; Normative References</h1>
@@ -511,20 +472,7 @@ OUTPUT
         </sections>
         </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-                     </head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
+    #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div id="H"><h1>1.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
@@ -557,20 +505,7 @@ OUTPUT
        </sections>
       </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-                     </head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection2">
-               <p>&#160;</p>
-             </div>
-             <br/>
-             <div class="WordSection3">
+    #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div id="M">
                  <h1>1.&#160; Clause 4</h1>
