@@ -8,8 +8,10 @@ module IsoDoc
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier")).text
       isodate = b.at(ns("./date[@type = 'published']"))
+      iso_allparts = b.at(ns("./allParts"))
       reference = docid_l10n(isocode)
       reference += ": #{date_range(isodate)}" if isodate
+      reference += " (all parts)" if iso_allparts&.text == "true"
       reference
     end
 
