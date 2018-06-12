@@ -13,7 +13,7 @@ module IsoDoc
     def link_parse(node, out)
       linktext = node.text
       linktext = node["target"] if linktext.empty?
-      out.a **{ "href": node["target"] } { |l| l << linktext }
+      out.a(**{ "href": node["target"] }) { |l| l << linktext }
     end
 
     def callout_parse(node, out)
@@ -44,7 +44,7 @@ module IsoDoc
 
     def xref_parse(node, out)
       linkend = get_linkend(node)
-      out.a **{ "href": "#" + node["target"] } { |l| l << linkend }
+      out.a(**{ "href": "#" + node["target"] }) { |l| l << linkend }
     end
 
     def eref_localities(refs)
@@ -63,10 +63,10 @@ module IsoDoc
       linkend = get_linkend(node)
       if node["type"] == "footnote"
         out.sup do |s|
-          s.a **{ "href": "#" + node["bibitemid"] } { |l| l << linkend }
+          s.a(**{ "href": "#" + node["bibitemid"] }) { |l| l << linkend }
         end
       else
-        out.a **{ "href": "#" + node["bibitemid"] } { |l| l << linkend }
+        out.a(**{ "href": "#" + node["bibitemid"] }) { |l| l << linkend }
       end
     end
 
@@ -85,7 +85,7 @@ module IsoDoc
     def error_parse(node, out)
       text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
       out.para do |p|
-        p.b **{ role: "strong" } { |e| e << text }
+        p.b(**{ role: "strong" }) { |e| e << text }
       end
     end
   end

@@ -87,7 +87,7 @@ module IsoDoc
     end
 
     def middle_title(out)
-      out.p **{ class: "zzSTDTitle1" } { |p| p << @meta.get[:doctitle] }
+      out.p(**{ class: "zzSTDTitle1" }) { |p| p << @meta.get[:doctitle] }
     end
 
     def middle(isoxml, out)
