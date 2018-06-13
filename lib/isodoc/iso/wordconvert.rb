@@ -28,6 +28,10 @@ module IsoDoc
         @olstyle = "l2"
       end
 
+      def implicit_reference(b)
+        isocode = b.at(ns("./docidentifier")).text
+        isocode == "IEV"
+      end
     end
   end
 end

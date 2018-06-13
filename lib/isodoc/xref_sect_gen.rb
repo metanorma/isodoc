@@ -4,7 +4,7 @@ module IsoDoc
       docxml.xpath(ns("//annex")).each_with_index do |c, i|
         annex_names(c, (65 + i).chr.to_s)
       end
-      docxml.xpath(ns("//bibitem")).each do |ref|
+      docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
         reference_names(ref)
       end
     end

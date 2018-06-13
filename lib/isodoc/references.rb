@@ -33,12 +33,21 @@ module IsoDoc
       title.text
     end
 
+    # reference not to be rendered because it is deemed implicit
+    # in the standards environment
+    def implicit_reference(b)
+      false
+    end
+
+    def prefix_bracketed_ref(ref, text)
+      ref << "[#{text}]"
+      insert_tab(ref, 1)
+    end
+
     def iso_bibitem_entry(list, b, ordinal, biblio)
+      return if implicit_reference(b)
       list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
-        if biblio
-          ref << "[#{ordinal}]"
-          insert_tab(ref, 1)
-        end
+        prefix_bracketed_ref(ref, ordinal) if biblio
         ref << iso_bibitem_ref_code(b)
         date_note_process(b, ref)
         ref << ", "
@@ -48,11 +57,9 @@ module IsoDoc
 
     def ref_entry_code(r, ordinal, t)
       if /^\d+$/.match?(t)
-        r << "[#{t}]"
-        insert_tab(r, 1)
+        prefix_bracketed_ref(r, t)
       else
-        r << "[#{ordinal}]"
-        insert_tab(r, 1)
+        prefix_bracketed_ref(r, ordinal)
         r << "#{t},"
       end
     end

@@ -41,6 +41,10 @@ module IsoDoc
         @scripts = html_doc_path("scripts.html")
       end
 
+      def implicit_reference(b)
+        isocode = b.at(ns("./docidentifier")).text
+        isocode == "IEV"
+      end
     end
   end
 end
