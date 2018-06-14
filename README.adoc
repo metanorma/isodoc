@@ -40,45 +40,32 @@ The conversion takes place with a `convert` method, with three arguments: the fi
 
 [source,ruby]
 ----
-IsoDoc::Iso::Convert.new({}).convert("test.xml") # generates test.html
+# generates test.html
+IsoDoc::Iso::Convert.new({}).convert("test.xml")
 
-IsoDoc::Iso::WordConvert.new({script: "Hans"}).convert("test.xml") # generates test.doc, with Chinese font defaults rather than Roman
+# generates test.doc, with Chinese font defaults rather than Roman
+IsoDoc::Iso::WordConvert.new({script: "Hans"}).convert("test.xml")
 
-IsoDoc::Iso::Convert.new({}).convert("test", File.read("file1.xml")) # generates test.html, based on file1.xml
+# generates test.html, based on file1.xml
+IsoDoc::Iso::Convert.new({}).convert("test", File.read("file1.xml"))
 
+# generates HTML output for the given input string, but does not save it to disk.
 IsoDoc::Iso::Convert.new({}).convert("test", <<~"INPUT", true)
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
+  <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
-    <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a
+      <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a
       study carried out on three different types of kernel.</p>
     </note>
     </foreword></preface>
-    </iso-standard>
-    INPUT
-# generates HTML output for the given input string, but does not save it to disk.
+  </iso-standard>
+  INPUT
 ----
 
 NOTE: In the HTML stylesheets specific to standards, the Cover page and Intro page must be XHTML fragments, not HTML fragments. In particular, unlike Word HTML, all HTML attributes need to be quoted: `<p class="MsoToc2">`, not `<p class=MsoToc2>`.
 
-== Converting the Word document output to "`Native Word`" (`.docx`)
+== Converting Word output into "`Native Word`" (`.docx`)
 
-The generated Word document is not quite in the most "`native`" format used by Word, `.docx`.
+This gem relies on https://github.com/riboseinc/html2doc[html2doc] to generate Microsoft Word documents.
 
-Here are the steps to convert our output into native-`docx`.
-
-=== Microsoft Word on macOS
-
-. Open the generated Word document (`*.doc`) in Word.
-
-. Press "`Save`", it prompts you to save as "`.mht`", but change it to "`.doc`", then "`Save".
-
-. It may automatically prompt you, but if not, do "`Save As`", change the file type to "`.docx`".
-
-.. Change the "`View`" to "`Print Layout`".
-
-.. Right click the Table of Contents, click "`Update Field`" (and either selection of "`Update page numbers only`" / "`Update entire able`").
-
-. Press "`Save`" again to save changes.
-
-. Now you have a distributable, native-`docx`, Word document.
+Please see https://github.com/riboseinc/html2doc#converting-document-output-to-native-word-docx[this post-processing procedure] to convert output into a native-`docx` document.
