@@ -1,11 +1,14 @@
-= isodoc
-
+= isodoc: Ruby gem for converting ISODoc documents into HTML/Word
 
 image:https://img.shields.io/gem/v/isodoc.svg["Gem Version", link="https://rubygems.org/gems/isodoc"]
 image:https://img.shields.io/travis/riboseinc/asciidoctor-iso/master.svg["Build Status", link="https://travis-ci.org/riboseinc/isodoc"]
 image:https://codeclimate.com/github/riboseinc/isodoc/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/isodoc"]
 
+== Purpose
+
 This Gem converts documents in the https://github.com/riboseinc/isodoc-models[ISODoc document model] into HTML and Microsoft Word.
+
+== Usage
 
 The Gem contains two classes, `IsoDoc::Convert` (for HTML output) and `IsoDoc::WordConvert` (for Word output). They are initialised with the following rendering parameters:
 
@@ -22,38 +25,47 @@ The IsoDoc gem classes themselves are abstract (though their current implementat
 e.g.
 
 [source,ruby]
---
-        IsoDoc::Convert::Iso.new(
-          bodyfont: "Zapf Chancery", 
-          headerfont: "Comic Sans", 
-          monospacefont: "Andale Mono",
-          alt: true,
-          script: "Hans",
-          i18nyaml: "i18n-en.yaml"
-        )
---
+----
+IsoDoc::Convert::Iso.new(
+  bodyfont: "Zapf Chancery",
+  headerfont: "Comic Sans",
+  monospacefont: "Andale Mono",
+  alt: true,
+  script: "Hans",
+  i18nyaml: "i18n-en.yaml"
+)
+----
 
 The conversion takes place with a `convert` method, with three arguments: the filename to be used for the output (once its file type suffix is stripped), the XML document string to be converted (optional), and a "debug" argument (optional), which stops execution before the output file is generated. If the document string is nil, its contents are read in from the filename provided. So:
 
 [source,ruby]
---
-IsoDoc::Iso::Convert.new({}).convert("test.xml") # generates test.html
+----
+# generates test.html
+IsoDoc::Iso::Convert.new({}).convert("test.xml")
 
-IsoDoc::Iso::WordConvert.new({script: "Hans"}).convert("test.xml") # generates test.doc, with Chinese font defaults rather than Roman
+# generates test.doc, with Chinese font defaults rather than Roman
+IsoDoc::Iso::WordConvert.new({script: "Hans"}).convert("test.xml")
 
-IsoDoc::Iso::Convert.new({}).convert("test", File.read("file1.xml")) # generates test.html, based on file1.xml
+# generates test.html, based on file1.xml
+IsoDoc::Iso::Convert.new({}).convert("test", File.read("file1.xml"))
 
+# generates HTML output for the given input string, but does not save it to disk.
 IsoDoc::Iso::Convert.new({}).convert("test", <<~"INPUT", true)
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
+  <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
-    <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a 
+      <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a
       study carried out on three different types of kernel.</p>
     </note>
     </foreword></preface>
-    </iso-standard>
-    INPUT
-# generates HTML output for the given input string, but does not save it to disk.
---
+  </iso-standard>
+  INPUT
+----
 
 NOTE: In the HTML stylesheets specific to standards, the Cover page and Intro page must be XHTML fragments, not HTML fragments. In particular, unlike Word HTML, all HTML attributes need to be quoted: `<p class="MsoToc2">`, not `<p class=MsoToc2>`.
+
+== Converting Word output into "`Native Word`" (`.docx`)
+
+This gem relies on https://github.com/riboseinc/html2doc[html2doc] to generate Microsoft Word documents.
+
+Please see https://github.com/riboseinc/html2doc#converting-document-output-to-native-word-docx[this post-processing procedure] to convert output into a native-`docx` document.
