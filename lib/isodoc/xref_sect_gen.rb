@@ -14,7 +14,7 @@ module IsoDoc
       n = 0
       n = section_names(d.at(ns("//clause[title = 'Scope']")), n, 1)
       n = section_names(d.at(ns(
-        "//references[title = 'Normative References']")), n, 1)
+        "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
       n = section_names(d.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
       n = section_names(d.at(ns("//sections/symbols-abbrevs")), n, 1)
@@ -27,7 +27,8 @@ module IsoDoc
     def middle_section_asset_names(d)
       middle_sections = "//clause[title = 'Scope'] | "\
         "//foreword | //introduction | "\
-        "//references[title = 'Normative References'] | //sections/terms | "\
+        "//references[title = 'Normative References' or title = 'Normative references'] | "\
+        "//sections/terms | "\
         "//sections/symbols-abbrevs | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))
     end

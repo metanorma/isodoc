@@ -89,10 +89,10 @@ RSpec.describe IsoDoc do
                   <p id="E">Text</p>
                 </div>
                 <div>
-                  <h1>2.&#160; Normative References</h1>
+                  <h1>2.&#160; Normative references</h1>
                   <p>There are no normative references in this document.</p>
                 </div>
-                <div id="H"><h1>3.&#160; Terms and Definitions</h1><p>For the purposes of this document,
+                <div id="H"><h1>3.&#160; Terms and definitions</h1><p>For the purposes of this document,
             the following terms and definitions apply.</p>
         <p>ISO and IEC maintain terminological databases for use in
         standardization at the following addresses:</p>
@@ -108,11 +108,11 @@ RSpec.describe IsoDoc do
            <p class="TermNum" id="J">3.1.1</p>
            <p class="Terms" style="text-align:left;">Term2</p>
       
-         </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
+         </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
            <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
          </div></div>
                 <div id="L" class="Symbols">
-                  <h1>4.&#160; Symbols and Abbreviated Terms</h1>
+                  <h1>4.&#160; Symbols and abbreviated terms</h1>
                   <dl>
                     <dt>
                       <p>Symbol</p>
@@ -257,10 +257,10 @@ OUTPUT
                  <p id="E">Text</p>
                </div>
                <div>
-                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+                 <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative references</h1>
                  <p>There are no normative references in this document.</p>
                </div>
-               <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
+               <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms and definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -276,11 +276,11 @@ OUTPUT
           <p class="TermNum" id="J">3.1.1</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
+        </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
           <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
         </div></div>
                <div id="L" class="Symbols">
-                 <h1>4.<span style="mso-tab-count:1">&#160; </span>Symbols and Abbreviated Terms</h1>
+                 <h1>4.<span style="mso-tab-count:1">&#160; </span>Symbols and abbreviated terms</h1>
                  <table class="dl">
                    <tr>
                      <td valign="top" align="left">
@@ -339,7 +339,7 @@ OUTPUT
     INPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
-               <div id="H"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document,
+               <div id="H"><h1>1.&#160; Terms and definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -388,11 +388,11 @@ OUTPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>1.&#160; Normative References</h1>
+                 <h1>1.&#160; Normative references</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712" class="NormRef">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
                </div>
-               <div id="H"><h1>2.&#160; Terms and Definitions</h1><p>For the purposes of this document, the terms and definitions
+               <div id="H"><h1>2.&#160; Terms and definitions</h1><p>For the purposes of this document, the terms and definitions
          given in ISO 712 and the following apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -440,11 +440,11 @@ OUTPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>1.&#160; Normative References</h1>
+                 <h1>1.&#160; Normative references</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712" class="NormRef">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
                </div>
-               <div id="H"><h1>2.&#160; Terms and Definitions</h1><p>For the purposes of this document,
+               <div id="H"><h1>2.&#160; Terms and definitions</h1><p>For the purposes of this document,
          the terms and definitions given in ISO 712, ISO 712 and ISO 712 apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -474,7 +474,7 @@ OUTPUT
     INPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
-               <div id="H"><h1>1.&#160; Terms and Definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="H"><h1>1.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 

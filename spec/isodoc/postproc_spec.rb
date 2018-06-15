@@ -223,7 +223,7 @@ RSpec.describe IsoDoc do
     expect(word).to be_equivalent_to <<~"OUTPUT"
            <div class="WordSection3">
                <p class="zzSTDTitle1"></p>
-               <div><a name="_terms_and_definitions" id="_terms_and_definitions"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Terms and Definitions</h1><p class="MsoNormal">For the purposes of this document,
+               <div><a name="_terms_and_definitions" id="_terms_and_definitions"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Terms and definitions</h1><p class="MsoNormal">For the purposes of this document,
            the following terms and definitions apply.</p>
        <p class="MsoNormal">ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>

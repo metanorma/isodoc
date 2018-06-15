@@ -166,7 +166,7 @@ module IsoDoc
     # subclause
     def symbols_parse(isoxml, out)
       isoxml.children.first.previous =
-        "<title>Symbols and Abbreviated Terms</title>"
+        "<title>#{@symbols_lbl}</title>"
       clause_parse(isoxml, out)
     end
 

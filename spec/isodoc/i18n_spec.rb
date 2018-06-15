@@ -92,10 +92,10 @@ RSpec.describe IsoDoc do
                  <p id="E">Text</p>
                </div>
                <div>
-                 <h1>2.&#160; Normative References</h1>
+                 <h1>2.&#160; Normative references</h1>
                  <p>There are no normative references in this document.</p>
                </div>
-               <div id="H"><h1>3.&#160; Terms and Definitions</h1><p>For the purposes of this document,
+               <div id="H"><h1>3.&#160; Terms and definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -111,11 +111,11 @@ RSpec.describe IsoDoc do
           <p class="TermNum" id="J">3.1.1</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
+        </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
         </div></div>
                <div id="L" class="Symbols">
-                 <h1>4.&#160; Symbols and Abbreviated Terms</h1>
+                 <h1>4.&#160; Symbols and abbreviated terms</h1>
                  <dl>
                    <dt>
                      <p>Symbol</p>
@@ -249,10 +249,10 @@ RSpec.describe IsoDoc do
                  <p id="E">Text</p>
                </div>
                <div>
-                 <h1>2.&#160; Normative References</h1>
+                 <h1>2.&#160; Normative references</h1>
                  <p>There are no normative references in this document.</p>
                </div>
-               <div id="H"><h1>3.&#160; Terms and Definitions</h1><p>For the purposes of this document,
+               <div id="H"><h1>3.&#160; Terms and definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
@@ -268,11 +268,11 @@ RSpec.describe IsoDoc do
           <p class="TermNum" id="J">3.1.1</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
+        </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
         </div></div>
                <div id="L" class="Symbols">
-                 <h1>4.&#160; Symbols and Abbreviated Terms</h1>
+                 <h1>4.&#160; Symbols and abbreviated terms</h1>
                  <dl>
                    <dt>
                      <p>Symbol</p>
@@ -424,7 +424,7 @@ RSpec.describe IsoDoc do
           <p class="TermNum" id="J">3.1.1</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
+        </div><div id="K"><h2>3.2. Symboles et termes abr&#233;g&#233;s</h2>
           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
         </div></div>
                <div id="L" class="Symbols">
@@ -592,7 +592,7 @@ RSpec.describe IsoDoc do
                 <p class="TermNum" id="J">3.1.1</p>
                 <p class="Terms" style="text-align:left;">Term2</p>
 
-              </div><div id="K"><h2>3.2. Symbols and Abbreviated Terms</h2>
+              </div><div id="K"><h2>3.2. &#31526;&#21495;&#12289;&#20195;&#21495;&#21644;&#32553;&#30053;&#35821;</h2>
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
               </div></div>
                <div id="L" class="Symbols">

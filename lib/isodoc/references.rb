@@ -60,7 +60,7 @@ module IsoDoc
         prefix_bracketed_ref(r, t)
       else
         prefix_bracketed_ref(r, ordinal)
-        r << "#{t},"
+        r << "#{t}, "
       end
     end
 
@@ -124,7 +124,8 @@ module IsoDoc
     end
 
     def norm_ref(isoxml, out, num)
-      q = "//bibliography/references[title = 'Normative References']"
+      q = "//bibliography/references[title = 'Normative References' or "\
+        "title = 'Normative references']"
       f = isoxml.at(ns(q)) or return num
       out.div do |div|
         num = num + 1

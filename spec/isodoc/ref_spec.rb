@@ -89,7 +89,7 @@ RSpec.describe IsoDoc do
                </div>
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>1.&#160; Normative References</h1>
+                 <h1>1.&#160; Normative references</h1>
                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                  <p id="ISO712" class="NormRef">ISO 712, <i> Cereals and cereal products</i></p>
                  <p id="ISO16634" class="NormRef">ISO 16634: -- (all parts)<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>1</sup></a>, <i> Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
@@ -112,7 +112,7 @@ RSpec.describe IsoDoc do
     OUTPUT
   end 
 
-   it "processes empty IsoXML Normative References" do
+   it "processes empty IsoXML Normative references" do
     expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
@@ -123,7 +123,7 @@ RSpec.describe IsoDoc do
       #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div>
-                 <h1>1.&#160; Normative References</h1>
+                 <h1>1.&#160; Normative references</h1>
                  <p>There are no normative references in this document.</p>
                </div>
              </div>

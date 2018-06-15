@@ -54,7 +54,7 @@ RSpec.describe IsoDoc do
     INPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
-               <div id="_terms_and_definitions"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document,
+               <div id="_terms_and_definitions"><h1>1.&#160; Terms and definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
