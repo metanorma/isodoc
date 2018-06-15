@@ -9,13 +9,13 @@ term_def_boilerplate: |
         <a href=http://www.electropedia.org>http://www.electropedia.org</a>
       </p> </li> </ul>
 scope: Scope
-symbols: Symbols and Abbreviated Terms
-table_of_contents: Table of Contents
+symbols: Symbols and abbreviated terms
+table_of_contents: Table of contents
 introduction: Introduction
 foreword: Foreword
-termsdef: Terms and Definitions
-termsdefsymbols: Terms, Definitions, Symbols and Abbreviated Terms
-normref: Normative References
+termsdef: Terms and definitions
+termsdefsymbols: Terms, definitions, symbols and abbreviated terms
+normref: Normative references
 bibliography: Bibliography
 clause: Clause
 annex: Annex
