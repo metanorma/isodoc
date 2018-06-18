@@ -261,8 +261,8 @@ Content-Location: file:///C:/Doc/test_files/header.html
 Content-Transfer-Encoding: base64
 Content-Type: text/html charset="utf-8"
 
-Ci8qIGFuIGVtcHR5IGhlYWRlciAqLwoKU1RBUlQgRE9DIElEOiB7eyBkb2NudW1iZXIgfX06IEVO
-RCBET0MgSUQKCkZJTEVOQU1FOiB7eyBmaWxlbmFtZSB9fQoK
+Ci8qIGFuIGVtcHR5IGhlYWRlciAqLwoKU1RBUlQgRE9DIElEOiAxMDAwLTE6IEVORCBET0MgSUQK
+CkZJTEVOQU1FOiB0ZXN0Cgo=
 
     OUTPUT
   end
