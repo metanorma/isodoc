@@ -208,11 +208,11 @@ module IsoDoc
       part = isoxml.at(ns("//title-part[@language='en']"))
       partnumber = isoxml.at(ns("//project-number/@part"))
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
-      #set(:doctitlemain, main)
+      set(:doctitlemain, @c.encode(main.text, :hexadecimal))
       main = compose_title(main, intro, part, partnumber, subpartnumber, "en")
       set(:doctitle, main)
-      #set(:doctitleintro, intro)
-      #set(:doctitlepart, part_title(part, partnumber, subpartnumber, "en"))
+      set(:doctitleintro, @c.encode(intro.text, :hexadecimal)) if intro
+      set(:doctitlepart, part_title(part, partnumber, subpartnumber, "en"))
     end
 
     def subtitle(isoxml, _out)
@@ -221,11 +221,11 @@ module IsoDoc
       part = isoxml.at(ns("//title-part[@language='fr']"))
       partnumber = isoxml.at(ns("//project-number/@part"))
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
-      #set(:docsubtitlemain, main)
+      set(:docsubtitlemain, @c.encode(main.text, :hexadecimal))
       main = compose_title(main, intro, part, partnumber, subpartnumber, "fr")
       set(:docsubtitle, main)
-      #set(:docsubtitleintro, intro)
-      #set(:docsubtitlepart, part_title(part, partnumber, subpartnumber, "fr"))
+      set(:docsubtitleintro, @c.encode(intro.text, :hexadecimal)) if intro
+      set(:docsubtitlepart, part_title(part, partnumber, subpartnumber, "fr"))
     end
 
     def relations(isoxml, _out)
