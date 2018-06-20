@@ -1,5 +1,3 @@
-require "htmlentities"
-
 module IsoDoc
   class Metadata
     DATETYPES = %w{published accessed created implemented obsoleted confirmed
@@ -10,11 +8,15 @@ module IsoDoc
     end
 
     def initialize(lang, script, labels)
-      @metadata = { tc: "XXXX", sc: "XXXX", wg: "XXXX",
-                    editorialgroup: [],
-                    secretariat: "XXXX",
-                    obsoletes: nil,
-                    obsoletes_part: nil }
+      @metadata = {
+        tc: "XXXX",
+        sc: "XXXX",
+        wg: "XXXX",
+        editorialgroup: [],
+        secretariat: "XXXX",
+        obsoletes: nil,
+        obsoletes_part: nil
+      }
       DATETYPES.each { |w| @metadata["#{w}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
@@ -90,7 +92,7 @@ module IsoDoc
     def iso?(org)
       name = org&.at(ns("./name"))&.text
       abbrev = org&.at(ns("./abbreviation"))&.text
-      (abbrev == "ISO" || 
+      (abbrev == "ISO" ||
        name == "International Organization for Standardization" )
     end
 
@@ -163,7 +165,7 @@ module IsoDoc
         draftinfo += ", #{revdate}" if revdate
         draftinfo += ")"
       end
-      Common::l10n(draftinfo, @lang, @script)
+      IsoDoc::Function::I18n::l10n(draftinfo, @lang, @script)
     end
 
     def version(isoxml, _out)
@@ -208,10 +210,11 @@ module IsoDoc
       part = isoxml.at(ns("//title-part[@language='en']"))
       partnumber = isoxml.at(ns("//project-number/@part"))
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
-      set(:doctitlemain, @c.encode(main.text, :hexadecimal))
+
+      set(:doctitlemain, @c.encode(main ? main.text : "", :hexadecimal))
       main = compose_title(main, intro, part, partnumber, subpartnumber, "en")
       set(:doctitle, main)
-      set(:doctitleintro, @c.encode(intro.text, :hexadecimal)) if intro
+      set(:doctitleintro, @c.encode(intro ? intro.text : "", :hexadecimal)) if intro
       set(:doctitlepart, part_title(part, partnumber, subpartnumber, "en"))
     end
 
@@ -221,10 +224,10 @@ module IsoDoc
       part = isoxml.at(ns("//title-part[@language='fr']"))
       partnumber = isoxml.at(ns("//project-number/@part"))
       subpartnumber = isoxml.at(ns("//project-number/@subpart"))
-      set(:docsubtitlemain, @c.encode(main.text, :hexadecimal))
+      set(:docsubtitlemain, @c.encode(main ? main.text : "", :hexadecimal))
       main = compose_title(main, intro, part, partnumber, subpartnumber, "fr")
       set(:docsubtitle, main)
-      set(:docsubtitleintro, @c.encode(intro.text, :hexadecimal)) if intro
+      set(:docsubtitleintro, @c.encode(intro ? intro.text : "", :hexadecimal)) if intro
       set(:docsubtitlepart, part_title(part, partnumber, subpartnumber, "fr"))
     end
 

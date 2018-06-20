@@ -1,5 +1,3 @@
-module IsoDoc
-
 require_relative "isodoc/version"
 
 require "nokogiri"
@@ -11,10 +9,19 @@ require "mime/types"
 require "image_size"
 require "set"
 require "pp"
+require "uuidtools"
+require "html2doc"
+require "liquid"
+require "htmlentities"
+
+require "isodoc/common"
 require "isodoc/convert"
 require "isodoc/metadata"
-require "isodoc/htmlconvert/convert"
-require "isodoc/wordconvert/convert"
-require "isodoc/iso/convert"
-require "isodoc/iso/wordconvert"
+require "isodoc/html_convert"
+require "isodoc/word_convert"
+require "isodoc/iso/html_convert"
+require "isodoc/iso/word_convert"
+
+module IsoDoc
+
 end

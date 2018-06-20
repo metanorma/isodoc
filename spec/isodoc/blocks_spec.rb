@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes unlabelled notes" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -27,7 +27,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes labelled notes" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note id="note1">
@@ -52,7 +52,7 @@ INPUT
   end
 
     it "processes sequences of notes" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note id="note1">
@@ -83,7 +83,7 @@ INPUT
   end
 
   it "processes multi-para notes" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -110,7 +110,7 @@ INPUT
   end
 
   it "processes non-para notes" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -143,7 +143,7 @@ INPUT
   end
 
   it "processes figures" do
-    expect(strip_guid(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to <<~"OUTPUT"
+    expect(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <figure id="figureA-1">
@@ -180,7 +180,7 @@ INPUT
     OUTPUT
   end
 
-    it "processes figures (Word)" do
+  it "processes figures (Word)" do
     expect(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -232,7 +232,7 @@ INPUT
   end
 
   it "processes examples" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <example id="samplecode">
@@ -263,7 +263,7 @@ INPUT
 
 
   it "processes sequences of examples" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <example id="samplecode">
@@ -304,7 +304,7 @@ INPUT
   end
 
   it "processes sourcecode" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <sourcecode id="samplecode">
@@ -328,7 +328,7 @@ INPUT
   end
 
   it "processes sourcecode with escapes preserved" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <sourcecode id="samplecode">
@@ -352,7 +352,7 @@ INPUT
   end
 
   it "processes sourcecode with annotations" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <sourcecode id="_">puts "Hello, world." <callout target="A">1</callout>
@@ -384,7 +384,7 @@ INPUT
   end
 
   it "processes admonitions" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
@@ -409,7 +409,7 @@ INPUT
   end
 
   it "processes formulae" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934">
@@ -448,7 +448,7 @@ INPUT
   end
 
   it "processes paragraph alignments" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
@@ -519,7 +519,7 @@ World</p>
 
 
   it "processes blockquotes" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
@@ -549,7 +549,7 @@ World</p>
   end
 
   it "processes term domains" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <terms>

@@ -1,7 +1,5 @@
-require "uuidtools"
-
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module Inline
     def section_break(body)
       body.br
     end

@@ -1,5 +1,5 @@
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module Blocks
     @annotation = false
 
     def note_label(node)

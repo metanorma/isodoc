@@ -1,28 +1,12 @@
-module IsoDoc
-  class Common
-    def self.ns(xpath)
-      xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
-        gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
-        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]* ?=)}, "[xmlns:\\1").
-        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
+module IsoDoc::Function
+  module Utils
+
+    def date_range(date)
+      self.class.date_range(date)
     end
 
     def ns(xpath)
-      Common::ns(xpath)
-    end
-
-    def self.date_range(date)
-      from = date.at(ns("./from"))
-      to = date.at(ns("./to"))
-      on = date.at(ns("./on"))
-      return on.text if on
-      ret = "#{from.text}&ndash;"
-      ret += to.text if to
-      ret
-    end
-
-    def date_range(date)
-      Common::date_range(date)
+      self.class.ns(xpath)
     end
 
     def insert_tab(out, n)

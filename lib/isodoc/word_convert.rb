@@ -1,11 +1,7 @@
-require "uuidtools"
-require "html2doc"
-require "liquid"
-
-require_relative "wordconvertmodule"
-require_relative "comments"
-require_relative "footnotes"
-require_relative "postprocess"
+require_relative "word_function/comments.rb"
+require_relative "word_function/footnotes.rb"
+require_relative "word_function/body.rb"
+require_relative "word_function/postprocess.rb"
 
 module IsoDoc
 
@@ -28,8 +24,10 @@ module IsoDoc
   end
 =end
 
-  class WordConvert < Common
-    #include WordConvertModule
+  class WordConvert < ::IsoDoc::Convert
+    include WordFunction::Comments
+    include WordFunction::Footnotes
+    include WordFunction::Body
+    include WordFunction::Postprocess
   end
 end
-

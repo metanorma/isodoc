@@ -1,5 +1,5 @@
-module IsoDoc
-  class WordConvert < Common
+module IsoDoc::WordFunction
+  module Comments
 
     def in_comment
       @in_comment

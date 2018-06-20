@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe IsoDoc do
   system "rm -f test.html"
   it "processes isodoc as ISO: HTML output" do
-    IsoDoc::Iso::Convert.new({}).convert("test", <<~"INPUT", false)
+    IsoDoc::Iso::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -20,7 +20,7 @@ RSpec.describe IsoDoc do
 
   it "processes isodoc as ISO: alt HTML output" do
   system "rm -f test.html"
-    IsoDoc::Iso::Convert.new({alt: true}).convert("test", <<~"INPUT", false)
+    IsoDoc::Iso::HtmlConvert.new({alt: true}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -37,7 +37,7 @@ RSpec.describe IsoDoc do
 
   it "processes isodoc as ISO: Chinese HTML output" do
   system "rm -f test.html"
-    IsoDoc::Iso::Convert.new({script: "Hans"}).convert("test", <<~"INPUT", false)
+    IsoDoc::Iso::HtmlConvert.new({script: "Hans"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -54,7 +54,7 @@ RSpec.describe IsoDoc do
 
   it "processes isodoc as ISO: user nominated fonts" do
   system "rm -f test.html"
-    IsoDoc::Iso::Convert.new({bodyfont: "Zapf Chancery", headerfont: "Comic Sans", monospacefont: "Andale Mono"}).convert("test", <<~"INPUT", false)
+    IsoDoc::Iso::HtmlConvert.new({bodyfont: "Zapf Chancery", headerfont: "Comic Sans", monospacefont: "Andale Mono"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -87,7 +87,7 @@ RSpec.describe IsoDoc do
   end
 
   it "does not include IEV in references" do
-    expect(IsoDoc::Iso::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::Iso::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">

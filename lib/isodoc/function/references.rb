@@ -1,5 +1,6 @@
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module References
+
     def docid_l10n(x)
       return x if x.nil?
       x.gsub(/All Parts/, @all_parts_lbl)
@@ -65,7 +66,7 @@ module IsoDoc
     end
 
     def reference_format(b, r)
-      title = b.at(ns("./formattedref")) || 
+      title = b.at(ns("./formattedref")) ||
         b.at(ns("./title[@language = '#{@language}']")) || b.at(ns("./title"))
       title&.children&.each { |n| parse(n, r) }
     end

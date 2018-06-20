@@ -3,7 +3,7 @@ require "nokogiri"
 
 RSpec.describe IsoDoc do
   it "cleans up admonitions" do
-    expect(IsoDoc::Convert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
     <html>
     <body>
       <div class="Admonition">
@@ -26,7 +26,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up figures" do
-    expect(IsoDoc::Convert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
     <html xmlns:epub="http://www.idpf.org/2007/ops">
     <body>
       <div class="figure">
@@ -80,7 +80,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up inline headers" do
-    expect(IsoDoc::Convert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
              <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
@@ -149,7 +149,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up footnotes" do
-    expect(IsoDoc::Convert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
               <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
@@ -218,7 +218,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up tables with tfoot" do
-    expect(IsoDoc::Convert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
@@ -505,7 +505,7 @@ INPUT
                         <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:0pt;">2,26</td>
                         <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:0pt;">6,06</td>
                       </tr>
-                    <tr><td colspan="5" style="border-top:0pt;mso-border-top-alt:0pt;       border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;"><div id="" class="Note">
+                    <tr><td colspan="5" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;"><div id="" class="Note">
                       <p class="Note">NOTE<span style="mso-tab-count:1">&#xA0; </span>This is a table about rice</p>
                     </div><div class="TableFootnote"><div id="ftntableD-1a">
           <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
@@ -533,7 +533,7 @@ INPUT
 
 
   it "cleans up tables without tfoot" do
-    expect(IsoDoc::Convert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
@@ -672,7 +672,7 @@ INPUT
   end
 
   it "cleans up symbols lists" do
-    expect(IsoDoc::Convert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
   <div id="L" class="Symbols">
                  <h1>4.<span style="mso-tab-count:1">&#160; </span>Symbols and Abbreviated Terms</h1>
                  <dl>

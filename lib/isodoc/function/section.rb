@@ -1,5 +1,6 @@
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module Section
+
     def inline_header_title(out, node, c1)
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
@@ -43,7 +44,7 @@ module IsoDoc
       div.parent.at(".//h1")
     end
 
-    MIDDLE_CLAUSE = 
+    MIDDLE_CLAUSE =
       "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
       "[not(descendant::terms)]".freeze
 

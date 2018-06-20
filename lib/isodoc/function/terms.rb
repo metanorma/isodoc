@@ -1,5 +1,6 @@
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module Terms
+
     def definition_parse(node, out)
       node.children.each { |n| parse(n, out) }
     end

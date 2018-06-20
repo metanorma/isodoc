@@ -1,7 +1,6 @@
-require "uuidtools"
+module IsoDoc::HtmlFunction
+  module Comments
 
-module IsoDoc
-  class Convert < Common
     def in_comment
       @in_comment
     end
