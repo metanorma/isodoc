@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes inline formatting" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
@@ -32,7 +32,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes links" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
@@ -60,7 +60,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes unrecognised markup" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
@@ -86,7 +86,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes AsciiMath and MathML" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
@@ -118,7 +118,7 @@ RSpec.describe IsoDoc do
   end
 
   it "overrides AsciiMath delimiters" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
@@ -146,7 +146,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes eref types" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
@@ -191,7 +191,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes eref content" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>

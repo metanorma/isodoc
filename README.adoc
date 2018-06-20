@@ -41,16 +41,16 @@ The conversion takes place with a `convert` method, with three arguments: the fi
 [source,ruby]
 ----
 # generates test.html
-IsoDoc::Iso::Convert.new({}).convert("test.xml")
+IsoDoc::Iso::HtmlConvert.new({}).convert("test.xml")
 
 # generates test.doc, with Chinese font defaults rather than Roman
 IsoDoc::Iso::WordConvert.new({script: "Hans"}).convert("test.xml")
 
 # generates test.html, based on file1.xml
-IsoDoc::Iso::Convert.new({}).convert("test", File.read("file1.xml"))
+IsoDoc::Iso::HtmlConvert.new({}).convert("test", File.read("file1.xml"))
 
 # generates HTML output for the given input string, but does not save it to disk.
-IsoDoc::Iso::Convert.new({}).convert("test", <<~"INPUT", true)
+IsoDoc::Iso::HtmlConvert.new({}).convert("test", <<~"INPUT", true)
   <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>

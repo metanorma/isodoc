@@ -1,21 +1,8 @@
-require "isodoc/iso2wordhtml"
-require "isodoc/cleanup"
-require "isodoc/utils"
-require "isodoc/metadata"
-require "isodoc/section"
-require "isodoc/references"
-require "isodoc/terms"
-require "isodoc/blocks"
-require "isodoc/lists"
-require "isodoc/table"
-require "isodoc/inline"
-require "isodoc/xref_gen"
-require "isodoc/xref_sect_gen"
-require "isodoc/i18n"
+require "isodoc/common"
 require "sass"
 
 module IsoDoc
-  class Common
+  class Convert < ::IsoDoc::Common
 
     # htmlstylesheet: Generic stylesheet for HTML
     # wordstylesheet: Generic stylesheet for Word
@@ -87,7 +74,7 @@ module IsoDoc
     end
 
     def metadata_init(lang, script, labels)
-            @meta = Metadata.new(lang, script, labels)
+      @meta = Metadata.new(lang, script, labels)
     end
 
     def convert_init(file, filename, debug)

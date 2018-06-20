@@ -1,6 +1,6 @@
-module IsoDoc
-  class Convert < Common
-        def make_body1(body, _docxml)
+module IsoDoc::HtmlFunction
+  module Html
+    def make_body1(body, _docxml)
       body.div **{ class: "title-section" } do |div1|
         div1.p { |p| p << "&nbsp;" } # placeholder
       end
@@ -78,7 +78,7 @@ module IsoDoc
       docxml
     end
 
-    def html_head() 
+    def html_head()
       <<~HEAD.freeze
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -94,7 +94,7 @@ module IsoDoc
       HEAD
     end
 
-    def html_button() 
+    def html_button()
       '<button onclick="topFunction()" id="myBtn" '\
         'title="Go to top">Top</button>'.freeze
     end

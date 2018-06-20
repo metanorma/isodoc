@@ -1,5 +1,6 @@
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module XrefSectGen
+
     def back_anchor_names(docxml)
       docxml.xpath(ns("//annex")).each_with_index do |c, i|
         annex_names(c, (65 + i).chr.to_s)
@@ -77,7 +78,7 @@ module IsoDoc
     end
 
     def annex_names(clause, num)
-      @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), 
+      @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
                                  xref: "#{@annex_lbl} #{num}", level: 1 }
       clause.xpath(ns("./clause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)

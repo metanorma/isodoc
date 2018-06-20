@@ -1,7 +1,6 @@
-require "uuidtools"
+module IsoDoc::HtmlFunction
+  module Footnotes
 
-module IsoDoc
-  class Convert < Common
     def footnotes(div)
       return if @footnotes.empty?
       @footnotes.each { |fn| div.parent << fn }
@@ -69,7 +68,7 @@ module IsoDoc
       end
       make_footnote(node, fn)
     end
-    
+
     def make_footnote(node, fn)
       return if @seen_footnote.include?(fn)
       @in_footnote = true

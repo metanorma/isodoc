@@ -1,5 +1,6 @@
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module Table
+
     def table_title_parse(node, out)
       name = node.at(ns("./name"))
       out.p **{ class: "TableTitle", align: "center" } do |p|

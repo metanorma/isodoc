@@ -1,6 +1,6 @@
 module IsoDoc
   module Iso
-    class Convert < IsoDoc::Convert
+    class HtmlConvert < IsoDoc::HtmlConvert
 
       def default_fonts(options)
         b = options[:bodyfont] ||

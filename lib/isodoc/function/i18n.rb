@@ -1,21 +1,22 @@
 require "yaml"
 
-module IsoDoc
-  class Common
+# TODO: Cleanup and generalize
+module IsoDoc::Function
+  module I18n
     def i18n_init(lang, script)
       @lang = lang
       @script = script
       y = if @i18nyaml
             YAML.load_file(@i18nyaml)
           elsif lang == "en"
-            YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+            YAML.load_file(File.join(File.dirname(__FILE__), "../../isodoc-yaml/i18n-en.yaml"))
           elsif lang == "fr"
-            YAML.load_file(File.join(File.dirname(__FILE__), "i18n-fr.yaml"))
+            YAML.load_file(File.join(File.dirname(__FILE__), "../../isodoc-yaml/i18n-fr.yaml"))
           elsif lang == "zh" && script == "Hans"
             YAML.load_file(File.join(File.dirname(__FILE__),
-                                     "i18n-zh-Hans.yaml"))
+                                     "../../isodoc-yaml/i18n-zh-Hans.yaml"))
           else
-            YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+            YAML.load_file(File.join(File.dirname(__FILE__), "../../isodoc-yaml/i18n-en.yaml"))
           end
       @term_def_boilerplate = y["term_def_boilerplate"]
       @scope_lbl = y["scope"]
@@ -64,6 +65,7 @@ module IsoDoc
       @labels["script"] = @script
     end
 
+    # TODO: move to localization file
     def eref_localities1_zh(type, from, to)
       ret = ", 第#{from.text}" if from
       ret += "&ndash;#{to}" if to
@@ -71,6 +73,7 @@ module IsoDoc
       ret
     end
 
+    # TODO: move to localization file
     def eref_localities1(type, from, to, lang = "en")
       subsection = from&.text&.match?(/\./)
       return l10n(eref_localities1_zh(type, from, to)) if lang == "zh"
@@ -82,9 +85,10 @@ module IsoDoc
       l10n(ret)
     end
 
+    # TODO: move to localization file
     # function localising spaces and punctuation.
     # Not clear if period needs to be localised for zh
-    def self.l10n(x, lang, script)
+    def l10n(x, lang = @lang, script = @script)
       if lang == "zh" && script == "Hans"
         x.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、").
           gsub(/\(/, "（").gsub(/\)/, "）").
@@ -95,8 +99,7 @@ module IsoDoc
       end
     end
 
-    def l10n(x, lang = @lang, script = @script)
-      Common::l10n(x, lang, script)
-    end
+    module_function :l10n
+
   end
 end

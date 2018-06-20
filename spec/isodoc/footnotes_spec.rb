@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML footnotes" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -94,7 +94,7 @@ RSpec.describe IsoDoc do
 
   it "processes IsoXML reviewer notes" do
     system "rm -f test.html"
-    IsoDoc::Convert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>

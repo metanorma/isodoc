@@ -1,5 +1,5 @@
-module IsoDoc
-  class WordConvert < Common
+module IsoDoc::WordFunction
+  module Postprocess
 
     def postprocess(result, filename, dir)
       header = generate_header(filename, dir)

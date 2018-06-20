@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML bibliographies" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
@@ -110,10 +110,10 @@ RSpec.describe IsoDoc do
            </body>
        </html>
     OUTPUT
-  end 
+  end
 
    it "processes empty IsoXML Normative references" do
-    expect(IsoDoc::Convert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
     </references>

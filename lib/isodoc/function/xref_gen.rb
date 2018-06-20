@@ -1,7 +1,8 @@
 require "roman-numerals"
 
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module XrefGen
+
     @anchors = {}
 
     def get_anchors
@@ -103,7 +104,7 @@ module IsoDoc
         label = listlabel(depth, i + 1)
         label = "#{prev_label}.#{label}" unless prev_label.empty?
         label = "#{list_anchor[:xref]} #{label}" if refer_list
-        li["id"] && @anchors[li["id"]] = { xref: "#{label})", 
+        li["id"] && @anchors[li["id"]] = { xref: "#{label})",
                                            container: list_anchor[:container] }
         li.xpath(ns("./ol")).each do |ol|
           list_item_anchor_names(ol, list_anchor, depth + 1, label, false)

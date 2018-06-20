@@ -1,7 +1,6 @@
-require "pp"
+module IsoDoc::Function
+  module ToWordHtml
 
-module IsoDoc
-  class Common
     def set_termdomain(termdomain)
       @termdomain = termdomain
     end

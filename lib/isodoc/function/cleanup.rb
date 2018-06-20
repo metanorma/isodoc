@@ -1,10 +1,5 @@
-require "html2doc"
-require "htmlentities"
-require "nokogiri"
-require "pp"
-
-module IsoDoc
-  class Common
+module IsoDoc::Function
+  module Cleanup
     def cleanup(docxml)
       comment_cleanup(docxml)
       footnote_cleanup(docxml)
@@ -134,7 +129,7 @@ module IsoDoc
       t.at(".//tr").xpath("./td | ./th").each do |td|
         cols += (td["colspan"] ? td["colspan"].to_i : 1)
       end
-      style = %{border-top:0pt;border-bottom:#{SW} 1.5pt;}
+      style = %{border-top:0pt;border-bottom:#{IsoDoc::Function::Table::SW} 1.5pt;}
       tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
       tfoot.xpath(".//td").last
     end
@@ -161,7 +156,7 @@ module IsoDoc
       docxml
     end
 
-    # We assume AsciiMath is being used in the terms & definitions. 
+    # We assume AsciiMath is being used in the terms & definitions.
     # Indices sort after letter but before any following
     # letter (x, x_m, x_1, xa); we use colon to force that sort order.
     # Numbers sort *after* letters; we use thorn to force that sort order.
