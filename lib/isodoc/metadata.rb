@@ -87,6 +87,9 @@ module IsoDoc
       return unless b["type"]
       t = b["type"].split(/-/).map{ |w| w.capitalize }.join(" ")
       set(:doctype, t)
+      ics = []
+      isoxml.xpath(ns("//bibdata/ics/code")).each { |i| ics << i.text }
+      set(:ics, ics.empty? ? "XXX" : ics.join(", "))
     end
 
     def iso?(org)
