@@ -141,6 +141,7 @@ module IsoDoc
       docstatus = isoxml.at(ns("//status/stage"))
       if docstatus
         set(:stage, docstatus.text)
+        set(:stage_int, docstatus.text.to_i)
         abbr = stage_abbrev(docstatus.text, isoxml.at(ns("//status/iteration")),
                             isoxml.at(ns("//version/draft")))
         set(:stageabbr, abbr)
