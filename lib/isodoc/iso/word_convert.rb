@@ -32,6 +32,22 @@ module IsoDoc
         isocode = b.at(ns("./docidentifier")).text
         isocode == "IEV"
       end
+
+      def make_body(xml, docxml)
+        body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
+        xml.body **body_attr do |body|
+          make_body1(body, docxml)
+          make_body2(body, docxml)
+          make_body3(body, docxml)
+          colophon(body, docxml)
+        end
+      end
+
+      def colophon(body, docxml)
+        body.br **{ clear: "all", style: "page-break-before:left;mso-break-type:section-break" }
+        body.div **{ class: "colophon" } do |div|
+        end
+      end
     end
   end
 end
