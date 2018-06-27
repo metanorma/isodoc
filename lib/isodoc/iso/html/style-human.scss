@@ -404,7 +404,7 @@ ul li {
     list-style: none;
   }
   
-  li p:before {
+  ul li p:before {
     content: "—";
     display: inline-block;
     width: 1em;
