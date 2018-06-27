@@ -11,7 +11,7 @@ module IsoDoc::Function
       isodate = b.at(ns("./date[@type = 'published']"))
       iso_allparts = b.at(ns("./allParts"))
       reference = docid_l10n(isocode)
-      reference += ": #{date_range(isodate)}" if isodate
+      reference += ":#{date_range(isodate)}" if isodate
       reference += " (all parts)" if iso_allparts&.text == "true"
       reference
     end
@@ -169,7 +169,7 @@ module IsoDoc::Function
         return ref unless date
         on = date.at(ns("./on"))
         return ref if on&.text == "--"
-        return ref + ": #{date_range(date)}"
+        return ref + ":#{date_range(date)}"
       end
       return "[#{ref}]" if /^\d+$/.match?(ref) && !/^\[.*\]$/.match?(ref)
       ref
