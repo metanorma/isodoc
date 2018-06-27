@@ -55,7 +55,8 @@ module IsoDoc::WordFunction
 
     def generate_header(filename, _dir)
       return nil unless @header
-      template = Liquid::Template.parse(File.read(@header, encoding: "UTF-8"))
+      #template = Liquid::Template.parse(File.read(@header, encoding: "UTF-8"))
+      template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
       meta = @meta.get
       meta[:filename] = filename
       params = meta.map { |k, v| [k.to_s, v] }.to_h

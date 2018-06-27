@@ -1,7 +1,5 @@
-
 module IsoDoc
   module ClassUtils
-
     def date_range(date)
       from = date.at(ns("./from"))
       to = date.at(ns("./to"))
@@ -19,6 +17,13 @@ module IsoDoc
         gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
     end
 
+    def liquid(doc)
+      # unescape HTML escapes in doc
+      doc = doc.split(%r<(\{%|\}%)>).each_slice(4).map do |a|
+        a[2].gsub!("&lt;", "<").gsub!("&gt;", ">") if a.size > 2
+        a.join("")
+      end.join("")
+      Liquid::Template.parse(doc)
+    end
   end
-
 end

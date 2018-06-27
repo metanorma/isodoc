@@ -115,13 +115,26 @@ module IsoDoc::Function
       from_xhtml(h1)
     end
 
+    def liquid(doc)
+      self.class.liquid(doc)
+    end
+
+    def liquid(doc)
+      # unescape HTML escapes in doc
+      doc = doc.split(%r<(\{%|%\})>).each_slice(4).map do |a|
+        a[2] = a[2].gsub(/\&lt;/, "<").gsub(/\&gt;/, ">") if a.size > 2
+        a.join("")
+      end.join("")
+      Liquid::Template.parse(doc)
+    end
+
     def populate_template(docxml, _format)
       meta = @meta.get.merge(@labels)
       docxml = docxml.
         gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
         gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
         gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
-      template = Liquid::Template.parse(docxml)
+      template = liquid(docxml)
       template.render(meta.map { |k, v| [k.to_s, v] }.to_h)
     end
   end
