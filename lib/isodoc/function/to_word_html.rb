@@ -173,6 +173,7 @@ module IsoDoc::Function
         when "terms" then terms_parse(node, out)
         when "symbols-abbrevs" then symbols_parse(node, out)
         when "references" then bibliography_parse(node, out)
+        when "termdocsource" then termdocsource_parse(node, out)
         else
           error_parse(node, out)
         end

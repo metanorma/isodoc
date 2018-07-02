@@ -64,5 +64,8 @@ module IsoDoc::Function
       set_termdomain("")
       node.children.each { |n| parse(n, out) }
     end
+
+    def termdocsource_parse(_node, _out)
+    end
   end
 end
