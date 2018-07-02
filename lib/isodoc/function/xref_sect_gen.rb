@@ -18,7 +18,7 @@ module IsoDoc::Function
         "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
       n = section_names(d.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
-      n = section_names(d.at(ns("//sections/symbols-abbrevs")), n, 1)
+      n = section_names(d.at(ns("//sections/definitions")), n, 1)
       middle_section_asset_names(d)
       clause_names(d, n)
       termnote_anchor_names(d)
@@ -30,7 +30,7 @@ module IsoDoc::Function
         "//foreword | //introduction | "\
         "//references[title = 'Normative References' or title = 'Normative references'] | "\
         "//sections/terms | "\
-        "//sections/symbols-abbrevs | //clause[parent::sections]"
+        "//sections/definitions | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))
     end
 
@@ -54,7 +54,7 @@ module IsoDoc::Function
       num = num + 1
       @anchors[clause["id"]] =
         { label: num.to_s, xref: l10n("#{@clause_lbl} #{num}"), level: lvl }
-      clause.xpath(ns("./clause | ./term  | ./terms | ./symbols-abbrevs")).
+      clause.xpath(ns("./clause | ./term  | ./terms | ./definitions")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", lvl + 1)
       end
@@ -65,7 +65,7 @@ module IsoDoc::Function
       @anchors[clause["id"]] =
         { label: num, level: level, xref: num }
       # subclauses are not prefixed with "Clause"
-      clause.xpath(ns("./clause | ./terms | ./term | ./symbols-abbrevs")).
+      clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", level + 1)
       end

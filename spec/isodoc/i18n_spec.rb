@@ -30,19 +30,19 @@ RSpec.describe IsoDoc do
          <preferred>Term2</preferred>
        </term>
        </terms>
-       <symbols-abbrevs id="K">
+       <definitions id="K">
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
          </dl>
-       </symbols-abbrevs>
+       </definitions>
        </clause>
-       <symbols-abbrevs id="L">
+       <definitions id="L">
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
          </dl>
-       </symbols-abbrevs>
+       </definitions>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
        </clause>
@@ -187,19 +187,19 @@ RSpec.describe IsoDoc do
          <preferred>Term2</preferred>
        </term>
        </terms>
-       <symbols-abbrevs id="K">
+       <definitions id="K">
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
          </dl>
-       </symbols-abbrevs>
+       </definitions>
        </clause>
-       <symbols-abbrevs id="L">
+       <definitions id="L">
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
          </dl>
-       </symbols-abbrevs>
+       </definitions>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
        </clause>
@@ -344,19 +344,19 @@ RSpec.describe IsoDoc do
          <preferred>Term2</preferred>
        </term>
        </terms>
-       <symbols-abbrevs id="K">
+       <definitions id="K">
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
          </dl>
-       </symbols-abbrevs>
+       </definitions>
        </clause>
-       <symbols-abbrevs id="L">
+       <definitions id="L">
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
          </dl>
-       </symbols-abbrevs>
+       </definitions>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
        </clause>
@@ -501,19 +501,19 @@ RSpec.describe IsoDoc do
          <preferred>Term2</preferred>
        </term>
        </terms>
-       <symbols-abbrevs id="K">
+       <definitions id="K">
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
          </dl>
-       </symbols-abbrevs>
+       </definitions>
        </clause>
-       <symbols-abbrevs id="L">
+       <definitions id="L">
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
          </dl>
-       </symbols-abbrevs>
+       </definitions>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
        </clause>

@@ -171,7 +171,7 @@ module IsoDoc::Function
         when "termnote" then termnote_parse(node, out)
         when "termexample" then example_parse(node, out)
         when "terms" then terms_parse(node, out)
-        when "symbols-abbrevs" then symbols_parse(node, out)
+        when "definitions" then symbols_parse(node, out)
         when "references" then bibliography_parse(node, out)
         when "termdocsource" then termdocsource_parse(node, out)
         else

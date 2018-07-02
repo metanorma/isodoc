@@ -125,7 +125,7 @@ module IsoDoc::Function
     end
 
     def terms_defs_title(f)
-      symbols = f.at(".//symbols-abbrevs")
+      symbols = f.at(".//definitions")
       return @termsdefsymbols_lbl if symbols
       @termsdef_lbl
     end
@@ -153,7 +153,7 @@ module IsoDoc::Function
     end
 
     def symbols_abbrevs(isoxml, out, num)
-      f = isoxml.at(ns("//sections/symbols-abbrevs")) or return num
+      f = isoxml.at(ns("//sections/definitions")) or return num
       out.div **attr_code(id: f["id"], class: "Symbols") do |div|
         num = num + 1
         clause_name("#{num}.", @symbols_lbl, div, nil)
