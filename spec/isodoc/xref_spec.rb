@@ -963,7 +963,7 @@ RSpec.describe IsoDoc do
     <h1>2.&#160; Normative references</h1>
       <p>There are no normative references in this document.</p>
     </div>
-    <div id="H"><h1>3.&#160; Terms and definitions</h1><p>For the purposes of this document,
+    <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
       the following terms and definitions apply.</p>
     <p>ISO and IEC maintain terminological databases for use in
     standardization at the following addresses:</p>

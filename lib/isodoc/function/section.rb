@@ -125,7 +125,7 @@ module IsoDoc::Function
     end
 
     def terms_defs_title(f)
-      symbols = f.at(".//definitions")
+      symbols = f.at(ns(".//definitions"))
       return @termsdefsymbols_lbl if symbols
       @termsdef_lbl
     end
