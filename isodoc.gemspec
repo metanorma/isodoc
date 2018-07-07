@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   DESCRIPTION
 
   spec.homepage      = "https://github.com/riboseinc/isodoc"
-  spec.license       = "MIT"
+  spec.license       = "BSD-2-Clause"
 
   spec.bindir        = "bin"
   spec.require_paths = ["lib"]
