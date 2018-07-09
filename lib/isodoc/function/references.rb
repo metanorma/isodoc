@@ -73,7 +73,7 @@ module IsoDoc::Function
 
     # TODO generate formatted ref if not present
     def noniso_bibitem(list, b, ordinal, bibliography)
-      list.p **attr_code("id": b["id"], class: "Biblio") do |r|
+      list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
         if bibliography
           id = docid_l10n(b.at(ns("./docidentifier")).text.gsub(/[\[\]]/, ""))
           ref_entry_code(r, ordinal, id)
