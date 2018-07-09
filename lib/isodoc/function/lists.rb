@@ -50,7 +50,8 @@ module IsoDoc::Function
 
     def dt_parse(dt, term)
       if dt.elements.empty?
-        term.p **attr_code(class: note? ? "Note" : nil) do |p|
+        #term.p **attr_code(class: note? ? "Note" : nil) do |p|
+        term.p do |p|
           p << dt.text
         end
       else

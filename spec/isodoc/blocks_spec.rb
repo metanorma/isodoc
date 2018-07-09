@@ -16,7 +16,7 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="" class="Note">
-                   <p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p class="zzSTDTitle1"/>
@@ -25,6 +25,45 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
   end
+
+  it "processes unlabelled notes (Word)" do
+    expect(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+         </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p>&#160;</p>
+           </div>
+           <br clear="all" class="section"/>
+           <div class="WordSection2">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="" class="Note">
+                 <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
+               </div>
+             </div>
+             <p>&#160;</p>
+           </div>
+           <br clear="all" class="section"/>
+           <div class="WordSection3">
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+  end
+
 
   it "processes labelled notes" do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
@@ -41,7 +80,7 @@ INPUT
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="note1" class="Note">
-                   <p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p class="zzSTDTitle1"/>
@@ -69,10 +108,10 @@ INPUT
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="note1" class="Note">
-                   <p class="Note"><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                  <div id="note2" class="Note">
-                   <p class="Note"><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p class="zzSTDTitle1"/>
@@ -98,8 +137,8 @@ INPUT
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="" class="Note">
-                   <p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
-                   <p class="Note" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+                   <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
                <p class="zzSTDTitle1"/>
@@ -128,8 +167,8 @@ INPUT
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="" class="Note"><p class="Note"><span class="note_label">NOTE</span>&#160; </p>
-           <dl><dt><p class="Note">A</p></dt><dd><p class="Note">B</p></dd></dl>
+                 <div id="" class="Note"><p><span class="note_label">NOTE</span>&#160; </p>
+           <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
            <ul>
            <li>C</li></ul>
        </div>
@@ -139,6 +178,51 @@ INPUT
            </body>
        </html>
 
+    OUTPUT
+  end
+
+  it "processes non-para notes (Word)" do
+    expect(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <note>
+    <dl>
+    <dt>A</dt>
+    <dd><p>B</p></dd>
+    </dl>
+    <ul>
+    <li>C</li></ul>
+</note>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+         </head>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p>&#160;</p>
+           </div>
+           <br clear="all" class="section"/>
+           <div class="WordSection2">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="" class="Note"><p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span></p>
+           <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p class="Note">B</p></td></tr></table>
+           <ul>
+           <li>C</li></ul>
+       </div>
+             </div>
+             <p>&#160;</p>
+           </div>
+           <br clear="all" class="section"/>
+           <div class="WordSection3">
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+       </html>
     OUTPUT
   end
 

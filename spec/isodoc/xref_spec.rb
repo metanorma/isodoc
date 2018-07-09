@@ -72,7 +72,7 @@ RSpec.describe IsoDoc do
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                  <div id="N" class="Note">
-                   <p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+                   <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                  <p>
                    <a href="#N">Note</a>
@@ -92,8 +92,8 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
-           <div id="note1" class="Note"><p class="Note"><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-           <div id="note2" class="Note"><p class="Note"><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="note1" class="Note"><p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="note2" class="Note"><p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
        <p>    <a href="#note1">Note  1</a> <a href="#note2">Note  2</a> </p>
 
            </div>
@@ -101,11 +101,11 @@ RSpec.describe IsoDoc do
                <br/>
                <div id="annex1" class="Section3">
                  <div id="annex1a">
-           <div id="AN" class="Note"><p class="Note"><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="AN" class="Note"><p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            </div>
                  <div id="annex1b">
-           <div id="Anote1" class="Note"><p class="Note"><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-           <div id="Anote2" class="Note"><p class="Note"><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="Anote1" class="Note"><p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+           <div id="Anote2" class="Note"><p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            </div>
                </div>
              </div>
@@ -831,9 +831,9 @@ RSpec.describe IsoDoc do
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
        <p class="TermNum" id="_waxy_rice">2.1</p><p class="Terms" style="text-align:left;">waxy rice</p>
-       <div class="Note"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
-       <div class="Note"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-       <div class="Note"><p class="Note">Note 2 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div></div>
+       <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
+       <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
+       <div class="Note"><p>Note 2 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div></div>
              </div>
            </body>
        </html>

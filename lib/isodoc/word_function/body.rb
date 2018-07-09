@@ -145,5 +145,49 @@ module IsoDoc::WordFunction
         a.parent = dd
       end
     end
+
+    def note_p_parse(node, div)
+      div.p **{ class: "Note" } do |p|
+        p.span **{ class: "note_label" } do |s|
+          s << note_label(node)
+        end
+        insert_tab(p, 1)
+        node.first_element_child.children.each { |n| parse(n, p) }
+      end
+      node.element_children[1..-1].each { |n| parse(n, div) }
+    end
+
+    def note_parse1(node, div)
+      div.p **{ class: "Note" } do |p|
+        p.span **{ class: "note_label" } do |s|
+          s << note_label(node)
+        end
+        insert_tab(p, 1)
+      end
+      node.children.each { |n| parse(n, div) }
+    end
+
+    def termnote_parse(node, out)
+      out.div **{ class: "Note" } do |div|
+        first = node.first_element_child
+        div.p **{ class: "Note" } do |p|
+          p << "#{get_anchors[node['id']][:label]}: "
+          para_then_remainder(first, node, p, div)
+        end
+      end
+    end
+
+    def para_attrs(node)
+      classtype = nil
+      classtype = "Note" if @note
+      classtype = "MsoCommentText" if in_comment
+      classtype = "Sourcecode" if @annotation
+      attrs = { class: classtype, id: node["id"] }
+      unless node["align"].nil?
+        attrs[:align] = node["align"] unless node["align"] == "justify"
+        attrs[:style] = "text-align:#{node['align']}"
+      end
+      attrs
+    end
   end
 end

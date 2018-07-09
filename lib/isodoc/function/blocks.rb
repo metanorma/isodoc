@@ -9,7 +9,7 @@ module IsoDoc::Function
     end
 
     def note_p_parse(node, div)
-      div.p **{ class: "Note" } do |p|
+      div.p do |p|
         p.span **{ class: "note_label" } do |s|
           s << note_label(node)
         end
@@ -20,7 +20,7 @@ module IsoDoc::Function
     end
 
     def note_parse1(node, div)
-      div.p **{ class: "Note" } do |p|
+      div.p do |p|
         p.span **{ class: "note_label" } do |s|
           s << note_label(node)
         end
@@ -155,7 +155,6 @@ module IsoDoc::Function
 
     def para_attrs(node)
       classtype = nil
-      classtype = "Note" if @note
       classtype = "MsoCommentText" if in_comment
       classtype = "Sourcecode" if @annotation
       attrs = { class: classtype, id: node["id"] }

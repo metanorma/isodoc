@@ -143,11 +143,6 @@ module IsoDoc::Function
           d.parent = insert_here
         end
       end
-      # preempt html2doc putting MsoNormal there
-      docxml.xpath("//p[not(self::*[@class])]"\
-                   "[ancestor::*[@class = 'Note']]").each do |p|
-        p["class"] = "Note"
-      end
     end
 
     def table_cleanup(docxml)

@@ -111,7 +111,7 @@ RSpec.describe IsoDoc do
                    <dd>A type of rice</dd>
                  </dl>
                  <div id="" class="Note">
-                   <p class="Note"><span class="note_label">NOTE</span>&#160; This is a table about rice</p>
+                   <p><span class="note_label">NOTE</span>&#160; This is a table about rice</p>
                  </div>
                </table>
              </div>

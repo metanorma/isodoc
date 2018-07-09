@@ -1,5 +1,13 @@
 module IsoDoc::WordFunction
   module Postprocess
+    def table_note_cleanup(docxml)
+      super
+      # preempt html2doc putting MsoNormal there
+      docxml.xpath("//p[not(self::*[@class])]"\
+                   "[ancestor::*[@class = 'Note']]").each do |p|
+        p["class"] = "Note"
+      end
+    end
 
     def postprocess(result, filename, dir)
       header = generate_header(filename, dir)
