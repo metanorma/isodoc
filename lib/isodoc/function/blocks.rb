@@ -203,8 +203,9 @@ module IsoDoc::Function
       end
     end
 
-    def image_parse(url, out, caption)
-      out.img **attr_code(src: url)
+    def image_parse(node, out, caption)
+      attrs = { src: node["src"], height: node["height"], width: node["width"] }
+      out.img **attr_code(attrs)
       image_title_parse(out, caption)
     end
   end

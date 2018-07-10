@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/riboseinc/html2doc.git
-  revision: ae15cfc0a4c8ebeb74193a8aa4a7884938a08434
+  revision: e9c0077be0c3d36bb09fa35743a79b00dd5ac560
   specs:
-    html2doc (0.8.0)
+    html2doc (0.8.1)
       asciimath
       htmlentities (~> 4.3.4)
       image_size
@@ -17,7 +17,7 @@ PATH
   specs:
     isodoc (0.8.1)
       asciimath
-      html2doc (>= 0.7.1)
+      html2doc (~> 0.8.1)
       htmlentities (~> 4.3.4)
       image_size
       liquid
@@ -103,10 +103,10 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
-    rubocop (0.57.2)
+    rubocop (0.58.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.5)
+      parser (>= 2.5, != 2.5.1.1)
       powerpack (~> 0.1)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
