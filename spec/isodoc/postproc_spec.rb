@@ -409,6 +409,8 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
          <figure id="_">
          <name>Split-it-right sample divider</name>
                   <image src="spec/assets/rice_image1.png" id="_" imagetype="PNG"/>
+                  <image src="spec/assets/rice_image1.png" id="_" width="20000" height="300000" imagetype="PNG"/>
+                  <image src="spec/assets/rice_image1.png" id="_" width="99" height="auto" imagetype="PNG"/>
        </figure>
        </foreword></preface>
         </iso-standard>
@@ -423,7 +425,10 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="figure">
 
-                  <img src="_images/_.png" width="800" height="673" />
+                <img src="_images/_.png" height="auto" width="auto" />
+                <img src="_images/_.png" height="1200" width="80" />
+                <img src="_images/_.png" height="auto" width="99" />
+
        <p class="FigureTitle" align="center">Figure 1&#xA0;&#x2014; Split-it-right sample divider</p></div>
              </div>
              <p class="zzSTDTitle1"></p>
