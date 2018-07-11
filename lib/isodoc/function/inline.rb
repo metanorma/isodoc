@@ -11,7 +11,13 @@ module IsoDoc::Function
     def link_parse(node, out)
       linktext = node.text
       linktext = node["target"] if linktext.empty?
-      out.a(**{ "href": node["target"] }) { |l| l << linktext }
+      out.a(**{ "href": node["target"] }) do |l|
+        if node.text.empty?
+          l << linktext 
+        else
+          node.children.each { |n| parse(n, l) }
+        end
+      end
     end
 
     def callout_parse(node, out)
