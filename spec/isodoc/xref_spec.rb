@@ -190,7 +190,7 @@ RSpec.describe IsoDoc do
                  <h1>1.&#160; Scope</h1>
                  <div id="N" class="figure">
 
-         <img src="rice_images/rice_image1.png"/>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
                  <p>
                    <a href="#N">Figure 1</a>
@@ -212,11 +212,11 @@ RSpec.describe IsoDoc do
                  <div id="widgets1">
                <div id="note1" class="figure">
 
-         <img src="rice_images/rice_image1.png"/>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" align="center">Figure 2&#160;&#8212; Split-it-right sample divider</p></div>
            <div id="note2" class="figure">
 
-         <img src="rice_images/rice_image1.png"/>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" align="center">Figure 3&#160;&#8212; Split-it-right sample divider</p></div>
          <p>    <a href="#note1">Figure 2</a> <a href="#note2">Figure 3</a> </p>
            </div>
@@ -226,17 +226,17 @@ RSpec.describe IsoDoc do
                  <div id="annex1a">
                <div id="AN" class="figure">
 
-         <img src="rice_images/rice_image1.png"/>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" align="center">Figure A.1&#160;&#8212; Split-it-right sample divider</p></div>
            </div>
                  <div id="annex1b">
                <div id="Anote1" class="figure">
 
-         <img src="rice_images/rice_image1.png"/>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" align="center">Figure A.2&#160;&#8212; Split-it-right sample divider</p></div>
            <div id="Anote2" class="figure">
 
-         <img src="rice_images/rice_image1.png"/>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" align="center">Figure A.3&#160;&#8212; Split-it-right sample divider</p></div>
            </div>
                </div>
@@ -333,11 +333,11 @@ RSpec.describe IsoDoc do
          <div id="N" class="figure">
              <div id="note1" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
+       <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
        <p class="FigureTitle" align="center">Figure 1-1&#160;&#8212; Split-it-right sample divider</p></div>
          <div id="note2" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
+       <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
        <p class="FigureTitle" align="center">Figure 1-2&#160;&#8212; Split-it-right sample divider</p></div>
        </div>
        <p>    <a href="#note1">Figure 1-1</a> <a href="#note2">Figure 1-2</a> </p>
@@ -351,11 +351,11 @@ RSpec.describe IsoDoc do
          <div id="AN" class="figure">
              <div id="Anote1" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
+       <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
        <p class="FigureTitle" align="center">Figure A.1-1&#160;&#8212; Split-it-right sample divider</p></div>
          <div id="Anote2" class="figure">
 
-       <img src="rice_images/rice_image1.png"/>
+       <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
        <p class="FigureTitle" align="center">Figure A.1-2&#160;&#8212; Split-it-right sample divider</p></div>
        </div>
          </div>

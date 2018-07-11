@@ -204,7 +204,9 @@ module IsoDoc::Function
     end
 
     def image_parse(node, out, caption)
-      attrs = { src: node["src"], height: node["height"], width: node["width"] }
+      attrs = { src: node["src"], 
+                height: node["height"] || "auto", 
+                width: node["width"] || "auto" }
       out.img **attr_code(attrs)
       image_title_parse(out, caption)
     end

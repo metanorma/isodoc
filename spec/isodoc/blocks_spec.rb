@@ -233,6 +233,7 @@ INPUT
     <figure id="figureA-1">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   <fn reference="a">
   <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
 </fn>
@@ -251,6 +252,7 @@ INPUT
                  <div id="figureA-1" class="figure">
 
          <img src="rice_images/rice_image1.png" height="20" width="30"/>
+         <img src="rice_images/rice_image1.png" height="20" width="auto"/>
          <a href="#_" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:_"><a id="_" class="TableFootnoteRef">a&#160; </a>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
@@ -271,6 +273,7 @@ INPUT
     <figure id="figureA-1">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   <fn reference="a">
   <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
 </fn>
@@ -298,6 +301,7 @@ INPUT
                <div id="figureA-1" class="figure">
 
          <img src="rice_images/rice_image1.png" height="20" width="30"/>
+         <img src="rice_images/rice_image1.png"/>
          <a href="#_" class="TableFootnoteRef">a</a><aside><div id="ftn_"><a id="_" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
