@@ -436,7 +436,7 @@ RSpec.describe IsoDoc do
                  <h1>1.&#160; Scope</h1>
                  <table id="N" class="example">
                    <tr>
-                     <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td>
+                     <td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE</td>
                      <td valign="top" class="example">
          <p>Hello</p>
        </td>
@@ -460,10 +460,10 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
                  <div id="widgets1">
-               <table id="note1" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td><td valign="top" class="example">
+               <table id="note1" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  1</td><td valign="top" class="example">
          <p>Hello</p>
        </td></tr></table>
-               <table id="note2" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td><td valign="top" class="example">
+               <table id="note2" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  2</td><td valign="top" class="example">
          <p>Hello</p>
        </td></tr></table>
        <p>    <a href="#note1">Example  1</a> <a href="#note2">Example  2</a> </p>
@@ -472,15 +472,15 @@ RSpec.describe IsoDoc do
                <br/>
                <div id="annex1" class="Section3">
                  <div id="annex1a">
-               <table id="AN" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td><td valign="top" class="example">
+               <table id="AN" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE</td><td valign="top" class="example">
          <p>Hello</p>
        </td></tr></table>
            </div>
                  <div id="annex1b">
-               <table id="Anote1" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td><td valign="top" class="example">
+               <table id="Anote1" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  1</td><td valign="top" class="example">
          <p>Hello</p>
        </td></tr></table>
-               <table id="Anote2" class="example"><tr><td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td><td valign="top" class="example">
+               <table id="Anote2" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  2</td><td valign="top" class="example">
          <p>Hello</p>
        </td></tr></table>
            </div>

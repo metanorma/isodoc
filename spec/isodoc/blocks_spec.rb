@@ -335,7 +335,7 @@ INPUT
                  <h1 class="ForewordTitle">Foreword</h1>
                  <table id="samplecode" class="example">
                    <tr>
-                     <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE</td>
+                     <td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE</td>
                      <td valign="top" class="example">
          <p>Hello</p>
        </td>
@@ -369,7 +369,7 @@ INPUT
                  <h1 class="ForewordTitle">Foreword</h1>
                  <table id="samplecode" class="example">
                    <tr>
-                     <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  1</td>
+                     <td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  1</td>
                      <td valign="top" class="example">
          <p>Hello</p>
        </td>
@@ -377,7 +377,7 @@ INPUT
                  </table>
                  <table id="samplecode2" class="example">
                    <tr>
-                     <td width="110pt" valign="top" class="example_label" style="width:82.8pt;padding:.75pt .75pt .75pt .75pt">EXAMPLE  2</td>
+                     <td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  2</td>
                      <td valign="top" class="example">
                  <p>Hello</p>
                  </td>
