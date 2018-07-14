@@ -424,9 +424,8 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="figure">
-
-<img src="_images/_.png" height="673" width="800" />
-<img src="_images/_.png" height="1200" width="80" />
+               <img src="_images/_.png" height="776" width="922" />
+<img src="_images/_.png" height="800" width="53" />
 <img src="_images/_.png" height="83" width="99" />
        <p class="FigureTitle" align="center">Figure 1&#xA0;&#x2014; Split-it-right sample divider</p></div>
              </div>
