@@ -10,9 +10,9 @@ module IsoDoc
     include HtmlFunction::Html
 
     def convert(filename, file = nil, debug = false)
-      outname_html = outname + ".html"
+      outname_html = filename + ".html"
       IsoDoc::Rsd::HtmlConvert.new(options).convert(outname_html, file, debug)
-      Metanorma::Output::Pdf.new.convert(outname_html, outname)
+      Metanorma::Output::Pdf.new.convert(outname_html, filename)
       @files_to_delete << outname_html
     end
 
