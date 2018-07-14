@@ -3,6 +3,7 @@ require "sass"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
+    attr_reader :options
 
     # htmlstylesheet: Generic stylesheet for HTML
     # wordstylesheet: Generic stylesheet for Word
@@ -16,6 +17,7 @@ module IsoDoc
     # ulstyle: list style in Word CSS for unordered lists
     # olstyle: list style in Word CSS for ordered lists
     def initialize(options)
+      @options = options
       @htmlstylesheet = options[:htmlstylesheet]
       @wordstylesheet = options[:wordstylesheet]
       @standardstylesheet = options[:standardstylesheet]
