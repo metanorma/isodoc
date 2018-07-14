@@ -9,23 +9,24 @@ module IsoDoc
     include HtmlFunction::Footnotes
     include HtmlFunction::Html
 
+    def initialize(options)
+      super
+      @tmpimagedir = "_pdfimages"
+            @maxwidth = 500
+      @maxheight = 800
+    end
+
     def convert(filename, file = nil, debug = false)
-      outname_html = filename + ".html"
-      IsoDoc::Rsd::HtmlConvert.new(options).convert(outname_html, file, debug)
-      Metanorma::Output::Pdf.new.convert(outname_html, filename)
-      @files_to_delete << outname_html
-    end
-
-    def move_image1(i, new_full_filename)
-      system "cp #{i['src']} #{new_full_filename}"
-      i["src"] = new_full_filename
-      i["width"], i["height"] = Html2Doc.image_resize(i, 800, 500)
-    end
-
-    def postprocess(result, filename, dir)
-      result = from_xhtml(cleanup(to_xhtml(result)))
-      toHTML(result, filename)
-      @files_to_delete.each { |f| system "rm #{f}" }
+      file = File.read(filename, encoding: "utf-8") if file.nil?
+      @openmathdelim, @closemathdelim = extract_delims(file)
+      docxml, outname_html, dir = convert_init(file, filename, debug)
+      result = convert1(docxml, filename, dir)
+      return result if debug
+      postprocess(result, filename, dir)
+      system "rm -fr #{dir}"
+      Metanorma::Output::Pdf.new.convert(filename + ".html", filename)
+      @files_to_delete << (filename + ".html")
+      @files_to_delete << @tmpimagedir
     end
   end
 end
