@@ -8,5 +8,7 @@ module IsoDoc
     include HtmlFunction::Comments
     include HtmlFunction::Footnotes
     include HtmlFunction::Html
+
+    @tmpimagedir = "_images"
   end
 end

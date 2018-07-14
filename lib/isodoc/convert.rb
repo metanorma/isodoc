@@ -48,6 +48,9 @@ module IsoDoc
       @lang = "en"
       @script = "Latn"
       @files_to_delete = []
+      @tmpimagedir = "_images"
+      @maxwidth = 1200
+      @maxheight = 800
     end
 
     def html_doc_path(file)

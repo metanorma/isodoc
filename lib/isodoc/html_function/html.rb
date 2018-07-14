@@ -28,7 +28,7 @@ module IsoDoc::HtmlFunction
     def postprocess(result, filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toHTML(result, filename)
-      @files_to_delete.each { |f| system "rm #{f}" }
+      @files_to_delete.each { |f| system "rm -r #{f}" }
     end
 
     def script_cdata(result)
@@ -188,12 +188,12 @@ module IsoDoc::HtmlFunction
 
     # presupposes that the image source is local
     def move_images(docxml)
-      system "rm -r _images; mkdir _images"
+      system "rm -r #{@tmpimagedir}; mkdir #{@tmpimagedir}"
       docxml.xpath("//*[local-name() = 'img']").each do |i|
         next if /^data:image/.match? i["src"]
         matched = /\.(?<suffix>\S+)$/.match i["src"]
         uuid = UUIDTools::UUID.random_create.to_s
-        new_full_filename = File.join("_images", "#{uuid}.#{matched[:suffix]}")
+        new_full_filename = File.join(@tmpimagedir, "#{uuid}.#{matched[:suffix]}")
         move_image1(i, new_full_filename)
       end
       docxml
@@ -202,7 +202,7 @@ module IsoDoc::HtmlFunction
     def move_image1(i, new_full_filename)
       system "cp #{i['src']} #{new_full_filename}"
       i["src"] = new_full_filename
-      i["width"], i["height"] = Html2Doc.image_resize(i, 800, 1200)
+      i["width"], i["height"] = Html2Doc.image_resize(i, @maxheight, @maxwidth)
     end
 
     def html_toc(docxml)
