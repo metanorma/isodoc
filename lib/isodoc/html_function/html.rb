@@ -49,7 +49,7 @@ module IsoDoc::HtmlFunction
     def html_cleanup(x)
       footnote_backlinks(html_toc(
         term_header(move_images(html_footnote_filter(html_preface(htmlstyle(x))))))
-      )
+                        )
     end
 
     MATHJAX_ADDR =
@@ -202,9 +202,7 @@ module IsoDoc::HtmlFunction
     def move_image1(i, new_full_filename)
       system "cp #{i['src']} #{new_full_filename}"
       i["src"] = new_full_filename
-      if i["width"] != "auto" && i["height"] != "auto"
-        i["width"], i["height"] = Html2Doc.image_resize(i, 800, 1200)
-      end
+      i["width"], i["height"] = Html2Doc.image_resize(i, 800, 1200)
     end
 
     def html_toc(docxml)
