@@ -74,8 +74,8 @@ module IsoDoc::Function
     end
 
     EXAMPLE_TBL_ATTR =
-      { width: "110pt", valign: "top", class: "example_label",
-        style: "width:82.8pt;padding:.75pt .75pt .75pt .75pt" }.freeze
+      { valign: "top", class: "example_label",
+        style: "width:82.8pt;" }.freeze
 
     # used if we are boxing examples
     def example_div_parse(node, out)
@@ -204,8 +204,8 @@ module IsoDoc::Function
     end
 
     def image_parse(node, out, caption)
-      attrs = { src: node["src"], 
-                height: node["height"] || "auto", 
+      attrs = { src: node["src"],
+                height: node["height"] || "auto",
                 width: node["width"] || "auto" }
       out.img **attr_code(attrs)
       image_title_parse(out, caption)
