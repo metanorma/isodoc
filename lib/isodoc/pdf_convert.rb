@@ -1,6 +1,7 @@
 require_relative "html_function/comments.rb"
 require_relative "html_function/footnotes.rb"
 require_relative "html_function/html.rb"
+require "metanorma"
 
 module IsoDoc
   class PdfConvert < ::IsoDoc::Convert
@@ -12,7 +13,7 @@ module IsoDoc
     def initialize(options)
       super
       @tmpimagedir = "_pdfimages"
-            @maxwidth = 500
+      @maxwidth = 500
       @maxheight = 800
     end
 
@@ -24,7 +25,7 @@ module IsoDoc
       return result if debug
       postprocess(result, filename, dir)
       system "rm -fr #{dir}"
-      Metanorma::Output::Pdf.new.convert(filename + ".html", filename)
+      ::Metanorma::Output::Pdf.new.convert(filename + ".html", outname_html + ".pdf")
       system "rm -r #{filename + '.html'} #{@tmpimagedir}"
     end
   end

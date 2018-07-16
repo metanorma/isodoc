@@ -20,6 +20,7 @@ require "isodoc/metadata"
 require "isodoc/html_convert"
 require "isodoc/word_convert"
 require "isodoc/pdf_convert"
+require "isodoc/headlesshtml_convert"
 require "isodoc/iso/html_convert"
 require "isodoc/iso/word_convert"
 

@@ -69,12 +69,33 @@ RSpec.describe IsoDoc do
     expect(html).to match(%r{libs/jquery})
   end
 
+    it "generates Headless HTML output docs with null configuration from file" do
+    system "rm -f spec/assets/iso.html"
+    IsoDoc::HeadlessHtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
+    expect(File.exist?("spec/assets/iso.headless.html")).to be true
+    html = File.read("spec/assets/iso.headless.html")
+    expect(html).not_to match(/another empty stylesheet/)
+    expect(html).not_to match(%r{https://use.fontawesome.com})
+    expect(html).not_to match(%r{libs/jquery})
+    expect(html).not_to match(%r{<html})
+    expect(html).not_to match(%r{<head})
+    expect(html).not_to match(%r{<body})
+    expect(html).to match(%r{<div})
+  end
+
   it "generates Word output docs with null configuration from file" do
     system "rm -f spec/assets/iso.doc"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.doc")).to be true
     word = File.read("spec/assets/iso.doc")
     expect(word).to match(/one empty stylesheet/)
+  end
+
+  it "generates PDF output docs with null configuration from file" do
+    system "rm -f spec/assets/iso.pdf"
+    #require "byebug"; byebug
+    IsoDoc::PdfConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
+    expect(File.exist?("spec/assets/iso.pdf")).to be true
   end
 
   it "generates HTML output docs with complete configuration" do

@@ -6,6 +6,7 @@ PATH
       html2doc (~> 0.8.1)
       htmlentities (~> 4.3.4)
       liquid
+      metanorma (~> 0.2.6)
       nokogiri
       roman-numerals
       ruby-xslt
@@ -59,6 +60,7 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     lumberjack (1.0.13)
+    metanorma (0.2.6)
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
