@@ -6,7 +6,10 @@ rvm:
   - 2.4
   - ruby-head
 
-before_install: gem install bundler -v 1.16.2
+before_install: 
+  - gem install bundler -v 1.16.2
+  - npm install -g puppeteer
+  - npm install
 
 matrix:
   allow_failures:
