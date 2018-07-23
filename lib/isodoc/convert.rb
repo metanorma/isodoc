@@ -62,7 +62,7 @@ module IsoDoc
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
       engine = Sass::Engine.new(fontheader + stylesheet, syntax: :scss)
       outname = File.basename(filename, ".*") + ".css"
-      File.open(outname, "w") { |f| f.write(engine.render) }
+      File.open(outname, "w:UTF-8") { |f| f.write(engine.render) }
       @files_to_delete << outname
       outname
     end
