@@ -41,7 +41,7 @@ module IsoDoc::HtmlFunction
     def toHTML(result, filename)
       result = script_cdata(from_xhtml(html_cleanup(to_xhtml(result))))
       result = populate_template(result, :html)
-      File.open("#{filename}.html", "w") do |f|
+      File.open("#{filename}.html", "w:UTF-8") do |f|
         f.write(result)
       end
     end
