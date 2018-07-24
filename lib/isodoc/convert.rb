@@ -86,8 +86,8 @@ module IsoDoc
       docxml = Nokogiri::XML(file)
       filename, dir = init_file(filename, debug)
       docxml.root.default_namespace = ""
-      lang = docxml&.at(ns("//bibdata/language"))&.text || "en"
-      script = docxml&.at(ns("//bibdata/script"))&.text || "Latn"
+      lang = docxml&.at(ns("//bibdata/language"))&.text || @lang
+      script = docxml&.at(ns("//bibdata/script"))&.text || @script
       i18n_init(lang, script)
       metadata_init(lang, script, @labels)
       [docxml, filename, dir]
