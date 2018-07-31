@@ -9,11 +9,9 @@ module IsoDoc::Function
     end
 
     def link_parse(node, out)
-      linktext = node.text
-      linktext = node["target"] if linktext.empty?
       out.a(**{ "href": node["target"] }) do |l|
         if node.text.empty?
-          l << linktext 
+          l << node["target"].sub(/^mailto:/, "")
         else
           node.children.each { |n| parse(n, l) }
         end
@@ -25,7 +23,8 @@ module IsoDoc::Function
     end
 
     def anchor_linkend(node, linkend)
-      if node["citeas"].nil? && node["bibitemid"] && get_anchors.has_key?(node["bibitemid"])
+      if node["citeas"].nil? && node["bibitemid"] &&
+          get_anchors.has_key?(node["bibitemid"])
         return get_anchors[node["bibitemid"]][:xref]
       elsif node["target"] && get_anchors.has_key?(node["target"])
         linkend = get_anchors[node["target"]][:xref]
