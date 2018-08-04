@@ -1,6 +1,5 @@
 module IsoDoc::Function
   module XrefSectGen
-
     def back_anchor_names(docxml)
       docxml.xpath(ns("//annex")).each_with_index do |c, i|
         annex_names(c, (65 + i).chr.to_s)
@@ -11,7 +10,8 @@ module IsoDoc::Function
     end
 
     def initial_anchor_names(d)
-      introduction_names(d.at(ns("//introduction")))
+      preface_names(d.at(ns("//foreword")))
+      preface_names(d.at(ns("//introduction")))
       n = 0
       n = section_names(d.at(ns("//clause[title = 'Scope']")), n, 1)
       n = section_names(d.at(ns(
@@ -23,6 +23,25 @@ module IsoDoc::Function
       clause_names(d, n)
       termnote_anchor_names(d)
       termexample_anchor_names(d)
+    end
+
+    # in StanDoc, prefaces have no numbering; they are referenced only by title
+    def preface_names(clause)
+      return if clause.nil?
+      clause.xpath(ns("./clause")).each_with_index do |c, i|
+        preface_names1(c, c.at(ns("./title"))&.text, "#{clause.at(ns('./title'))&.text}, #{i+1}", 2)
+      end
+    end
+
+    def preface_names1(clause, title, parent_title, level)
+      label = title || parent_title
+      @anchors[clause["id"]] =
+        { label: nil, level: level, xref: label }
+      # subclauses are not prefixed with "Clause"
+      clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
+        each_with_index do |c, i|
+        preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i+1}", level + 1)
+      end
     end
 
     def middle_section_asset_names(d)
@@ -39,13 +58,6 @@ module IsoDoc::Function
         "[not(descendant::terms)]"
       docxml.xpath(ns(q)).each_with_index do |c, i|
         section_names(c, (i + sect_num), 1)
-      end
-    end
-
-    def introduction_names(clause)
-      return if clause.nil?
-      clause.xpath(ns("./clause")).each_with_index do |c, i|
-        section_names1(c, "0.#{i + 1}", 2)
       end
     end
 
@@ -83,7 +95,7 @@ module IsoDoc::Function
       clause.xpath(ns("./clause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)
       end
-      appendix_names(clause, num)
+      #appendix_names(clause, num)
       hierarchical_asset_names(clause, num)
     end
 
@@ -91,14 +103,6 @@ module IsoDoc::Function
       @anchors[clause["id"]] = { label: num, xref: num, level: level }
       clause.xpath(ns(".//clause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
-      end
-    end
-
-    def appendix_names(clause, num)
-      clause.xpath(ns("./appendix")).each_with_index do |c, i|
-        @anchors[c["id"]] = anchor_struct(i + 1, nil, @appendix_lbl)
-        @anchors[c["id"]][:level] = 2
-        @anchors[c["id"]][:container] = clause["id"]
       end
     end
   end

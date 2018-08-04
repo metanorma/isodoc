@@ -848,6 +848,7 @@ RSpec.describe IsoDoc do
          <title>Foreword</title>
          <p id="A">This is a preamble
          <xref target="C"/>
+         <xref target="C1"/>
          <xref target="D"/>
          <xref target="H"/>
          <xref target="I"/>
@@ -860,16 +861,13 @@ RSpec.describe IsoDoc do
          <xref target="P"/>
          <xref target="Q"/>
          <xref target="Q1"/>
-         <xref target="Q2"/>
          <xref target="R"/>
          </p>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </clause>
-       <patent-notice>
-       <p>This is patent boilerplate</p>
-       </patent-notice>
+       <clause id="C1" inline-header="false" obligation="informative">Text</clause>
        </introduction></preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
@@ -910,9 +908,6 @@ RSpec.describe IsoDoc do
          <title>Annex A.1a</title>
          </clause>
        </clause>
-              <appendix id="Q2" inline-header="false" obligation="normative">
-         <title>An Appendix</title>
-       </appendix>
        </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
@@ -929,7 +924,8 @@ RSpec.describe IsoDoc do
     <div>
     <h1 class="ForewordTitle">Foreword</h1>
     <p id="A">This is a preamble
-    <a href="#C">0.1</a>
+    <a href="#C">Introduction Subsection</a>
+    <a href="#C1">Introduction, 2</a>
     <a href="#D">Clause 1</a>
     <a href="#H">Clause 3</a>
     <a href="#I">3.1</a>
@@ -942,18 +938,17 @@ RSpec.describe IsoDoc do
     <a href="#P">Annex A</a>
     <a href="#Q">A.1</a>
     <a href="#Q1">A.1.1</a>
-    <a href="#Q2">Annex A, Appendix 1</a>
     <a href="#R">Clause 2</a>
     </p>
     </div>
     <br/>
-    <div class="Section3" id="B">
-    <h1 class="IntroTitle">0.&#160; Introduction</h1>
-      <div id="C">
-    <h2>0.1. Introduction Subsection</h2>
-    </div>
-    <p>This is patent boilerplate</p>
-    </div>
+                 <div class="Section3" id="B">
+               <h1 class="IntroTitle">Introduction</h1>
+               <div id="C">
+          <h2>Introduction Subsection</h2>
+        </div>
+               <div id="C1">Text</div>
+             </div>
     <p class="zzSTDTitle1"/>
     <div id="D">
     <h1>1.&#160; Scope</h1>
@@ -1008,9 +1003,6 @@ RSpec.describe IsoDoc do
           <div id="Q1">
           <h3>A.1.1. Annex A.1a</h3>
           </div>
-        </div>
-       <div id="Q2">
-        <h2>Appendix 1. An Appendix</h2>
         </div>
                </div>
                <br/>

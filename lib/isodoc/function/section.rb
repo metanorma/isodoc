@@ -1,10 +1,13 @@
 module IsoDoc::Function
   module Section
-
     def inline_header_title(out, node, c1)
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
-          b << "#{get_anchors[node['id']][:label]}. #{c1.content} "
+          if get_anchors[node['id']][:label]
+            b << "#{get_anchors[node['id']][:label]}. #{c1.content} "
+          else
+            b << "#{c1.content} "
+          end
         end
       end
     end
@@ -14,7 +17,8 @@ module IsoDoc::Function
         inline_header_title(out, node, c1)
       else
         div.send "h#{get_anchors[node['id']][:level]}" do |h|
-          h << "#{get_anchors[node['id']][:label]}. "
+          lbl = get_anchors[node['id']][:label]
+          h << "#{lbl}. " if lbl
           c1.children.each { |c2| parse(c2, h) }
         end
       end
@@ -173,18 +177,12 @@ module IsoDoc::Function
 
     def introduction(isoxml, out)
       f = isoxml.at(ns("//introduction")) || return
-      num = f.at(ns(".//clause")) ? "0." : nil
       title_attr = { class: "IntroTitle" }
       page_break(out)
       out.div **{ class: "Section3", id: f["id"] } do |div|
-        # div.h1 "Introduction", **attr_code(title_attr)
-        clause_name(num, @introduction_lbl, div, title_attr)
+        clause_name(nil, @introduction_lbl, div, title_attr)
         f.elements.each do |e|
-          if e.name == "patent-notice"
-            e.elements.each { |e1| parse(e1, div) }
-          else
-            parse(e, div) unless e.name == "title"
-          end
+          parse(e, div) unless e.name == "title"
         end
       end
     end

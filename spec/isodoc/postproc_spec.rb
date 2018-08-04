@@ -192,9 +192,6 @@ RSpec.describe IsoDoc do
          <clause id="Q" inline-header="false" obligation="normative">
          <title>Annex A.1</title>
          </clause>
-                <appendix id="Q2" inline-header="false" obligation="normative">
-         <title>An Appendix</title>
-       </appendix>
     </annex>
     </iso-standard>
     INPUT
@@ -209,9 +206,6 @@ RSpec.describe IsoDoc do
                  <div><a name="Q" id="Q"></a>
             <p class="h2Annex">A.1. Annex A.1</p>
        </div>
-              <div><a name="Q2" id="Q2"></a>
-                <p class="h2Annex">Appendix 1. An Appendix</p>
-                </div>
                </div>
              </div>
     OUTPUT

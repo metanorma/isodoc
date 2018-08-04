@@ -1,6 +1,8 @@
 module IsoDoc::Function
   module References
 
+    # This is highly specific to ISO, but it's not a bad precedent for
+    # references anyway; keeping here instead of in IsoDoc::Iso for now
     def docid_l10n(x)
       return x if x.nil?
       x.gsub(/All Parts/, @all_parts_lbl)
