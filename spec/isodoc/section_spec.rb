@@ -42,7 +42,10 @@ RSpec.describe IsoDoc do
        </clause>
        <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </clause></clause>
+       </clause>
+       <clause id="O1" inline-header="false" obligation="normative">
+       </clause>
+        </clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
@@ -121,6 +124,9 @@ RSpec.describe IsoDoc do
                   <div id="O">
            <h2>5.2. Clause 4.2</h2>
          </div>
+                  <div id="O1">
+           <h2>5.3. </h2>
+         </div>
                 </div>
                 <br/>
                 <div id="P" class="Section3">
@@ -187,7 +193,10 @@ OUTPUT
        </clause>
        <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
-       </clause></clause>
+       </clause>
+       <clause id="O1" inline-header="false" obligation="normative">
+       </clause>
+        </clause>
 
        </sections><annex id="P" inline-header="false" obligation="normative">
          <title>Annex</title>
@@ -280,6 +289,9 @@ OUTPUT
         </div>
                  <div id="O">
           <h2>5.2. Clause 4.2</h2>
+        </div>
+                 <div id="O1">
+          <h2>5.3. </h2>
         </div>
                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>

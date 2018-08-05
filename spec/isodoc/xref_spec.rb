@@ -91,7 +91,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1">
+                 <div id="widgets1"><h2>3.1. </h2>
            <div id="note1" class="Note"><p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            <div id="note2" class="Note"><p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
        <p>    <a href="#note1">Note  1</a> <a href="#note2">Note  2</a> </p>
@@ -100,10 +100,10 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a">
+                 <div id="annex1a"><h2>A.1. </h2>
            <div id="AN" class="Note"><p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            </div>
-                 <div id="annex1b">
+                 <div id="annex1b"><h2>A.2. </h2>
            <div id="Anote1" class="Note"><p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            <div id="Anote2" class="Note"><p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            </div>
@@ -209,7 +209,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1">
+                 <div id="widgets1"><h2>3.1. </h2>
                <div id="note1" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
@@ -223,13 +223,13 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a">
+                 <div id="annex1a"><h2>A.1. </h2>
                <div id="AN" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" align="center">Figure A.1&#160;&#8212; Split-it-right sample divider</p></div>
            </div>
-                 <div id="annex1b">
+                 <div id="annex1b"><h2>A.2. </h2>
                <div id="Anote1" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
@@ -329,7 +329,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1">
+                 <div id="widgets1"><h2>3.1. </h2>
          <div id="N" class="figure">
              <div id="note1" class="figure">
 
@@ -345,9 +345,9 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a">
+                 <div id="annex1a"><h2>A.1. </h2>
          </div>
-                 <div id="annex1b">
+                 <div id="annex1b"><h2>A.2. </h2>
          <div id="AN" class="figure">
              <div id="Anote1" class="figure">
 
@@ -459,7 +459,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1">
+                 <div id="widgets1"><h2>3.1. </h2>
                <table id="note1" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  1</td><td valign="top" class="example">
          <p>Hello</p>
        </td></tr></table>
@@ -471,12 +471,12 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a">
+                 <div id="annex1a"><h2>A.1. </h2>
                <table id="AN" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE</td><td valign="top" class="example">
          <p>Hello</p>
        </td></tr></table>
            </div>
-                 <div id="annex1b">
+                 <div id="annex1b"><h2>A.2. </h2>
                <table id="Anote1" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  1</td><td valign="top" class="example">
          <p>Hello</p>
        </td></tr></table>
@@ -591,7 +591,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1">
+                 <div id="widgets1"><h2>3.1. </h2>
            <div id="note1" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (2)</div>
            <div id="note2" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (3)</div>
          <p>    <a href="#note1">Formula (2)</a> <a href="#note2">Formula (3)</a> </p>
@@ -599,10 +599,10 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a">
+                 <div id="annex1a"><h2>A.1. </h2>
            <div id="AN" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (A.1)</div>
            </div>
-                 <div id="annex1b">
+                 <div id="annex1b"><h2>A.2. </h2>
            <div id="Anote1" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (A.2)</div>
            <div id="Anote2" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (A.3)</div>
            </div>
@@ -752,7 +752,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1">
+                 <div id="widgets1"><h2>3.1. </h2>
            <p class="TableTitle" align="center">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
            <p class="TableTitle" align="center">Table 3&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
        <p>    <a href="#note1">Table 2</a> <a href="#note2">Table 3</a> </p>
@@ -760,10 +760,10 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a">
+                 <div id="annex1a"><h2>A.1. </h2>
            <p class="TableTitle" align="center">Table A.1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="AN" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
        </div>
-                 <div id="annex1b">
+                 <div id="annex1b"><h2>A.2. </h2>
            <p class="TableTitle" align="center">Table A.2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="Anote1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
            <p class="TableTitle" align="center">Table A.3&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="Anote2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
        </div>
@@ -947,7 +947,7 @@ RSpec.describe IsoDoc do
                <div id="C">
           <h2>Introduction Subsection</h2>
         </div>
-               <div id="C1">Text</div>
+               <div id="C1"><h2/>Text</div>
              </div>
     <p class="zzSTDTitle1"/>
     <div id="D">
@@ -1101,7 +1101,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1">
+                 <div id="widgets1"><h2>3.1. </h2>
            <ol type="a">
          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
        </ol>
@@ -1112,12 +1112,12 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a">
+                 <div id="annex1a"><h2>A.1. </h2>
            <ol type="a">
          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
        </ol>
            </div>
-                 <div id="annex1b">
+                 <div id="annex1b"><h2>A.2. </h2>
            <ol type="a">
          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
        </ol>
@@ -1215,7 +1215,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1">
+                 <div id="widgets1"><h2>3.1. </h2>
            <ol type="a">
          <li><p>A</p></li>
        </ol>
@@ -1226,12 +1226,12 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a">
+                 <div id="annex1a"><h2>A.1. </h2>
            <ol type="a">
          <li><p>A</p></li>
        </ol>
            </div>
-                 <div id="annex1b">
+                 <div id="annex1b"><h2>A.2. </h2>
            <ol type="a">
          <li><p>A</p></li>
        </ol>

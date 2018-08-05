@@ -1,12 +1,13 @@
 module IsoDoc::Function
   module Section
     def inline_header_title(out, node, c1)
+      title = c1&.content || ""
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
           if get_anchors[node['id']][:label]
-            b << "#{get_anchors[node['id']][:label]}. #{c1.content} "
+            b << "#{get_anchors[node['id']][:label]}. #{title} "
           else
-            b << "#{c1.content} "
+            b << "#{title} "
           end
         end
       end
@@ -19,19 +20,16 @@ module IsoDoc::Function
         div.send "h#{get_anchors[node['id']][:level]}" do |h|
           lbl = get_anchors[node['id']][:label]
           h << "#{lbl}. " if lbl
-          c1.children.each { |c2| parse(c2, h) }
+          c1&.children&.each { |c2| parse(c2, h) }
         end
       end
     end
 
     def clause_parse(node, out)
       out.div **attr_code(id: node["id"]) do |div|
-        node.children.each do |c1|
-          if c1.name == "title"
-            clause_parse_title(node, div, c1, out)
-          else
-            parse(c1, div)
-          end
+        clause_parse_title(node, div, node.at(ns("./title")), out)
+        node.children.reject { |c1| c1.name == "title" }.each do |c1|
+          parse(c1, div)
         end
       end
     end
@@ -55,13 +53,10 @@ module IsoDoc::Function
     def clause(isoxml, out)
       isoxml.xpath(ns(MIDDLE_CLAUSE)).each do |c|
         out.div **attr_code(id: c["id"]) do |s|
-          c.elements.each do |c1|
-            if c1.name == "title"
-              clause_name("#{get_anchors[c['id']][:label]}.",
-                          c1.content, s, nil)
-            else
-              parse(c1, s)
-            end
+          clause_name("#{get_anchors[c['id']][:label]}.",
+                      c&.at(ns("./title"))&.content, s, nil)
+          c.elements.reject { |c1| c1.name == "title" }.each do |c1|
+            parse(c1, s)
           end
         end
       end
