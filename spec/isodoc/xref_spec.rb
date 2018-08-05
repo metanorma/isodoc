@@ -61,11 +61,11 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, Note</a>
-           <a href="#note1">3.1, Note  1</a>
-           <a href="#note2">3.1, Note  2</a>
-           <a href="#AN">A.1, Note</a>
-           <a href="#Anote1">A.2, Note  1</a>
-           <a href="#Anote2">A.2, Note  2</a>
+           <a href="#note1">Clause 3.1, Note  1</a>
+           <a href="#note2">Clause 3.1, Note  2</a>
+           <a href="#AN">Annex A.1, Note</a>
+           <a href="#Anote1">Annex A.2, Note  1</a>
+           <a href="#Anote2">Annex A.2, Note  2</a>
            </p>
                </div>
                <p class="zzSTDTitle1"/>
@@ -424,11 +424,11 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, Example</a>
-           <a href="#note1">3.1, Example  1</a>
-           <a href="#note2">3.1, Example  2</a>
-           <a href="#AN">A.1, Example</a>
-           <a href="#Anote1">A.2, Example  1</a>
-           <a href="#Anote2">A.2, Example  2</a>
+           <a href="#note1">Clause 3.1, Example  1</a>
+           <a href="#note2">Clause 3.1, Example  2</a>
+           <a href="#AN">Annex A.1, Example</a>
+           <a href="#Anote1">Annex A.2, Example  1</a>
+           <a href="#Anote2">Annex A.2, Example  2</a>
            </p>
                </div>
                <p class="zzSTDTitle1"/>
@@ -563,11 +563,11 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, Formula (1)</a>
-           <a href="#note1">3.1, Formula (2)</a>
-           <a href="#note2">3.1, Formula (3)</a>
-           <a href="#AN">A.1, Formula (A.1)</a>
-           <a href="#Anote1">A.2, Formula (A.2)</a>
-           <a href="#Anote2">A.2, Formula (A.3)</a>
+           <a href="#note1">Clause 3.1, Formula (2)</a>
+           <a href="#note2">Clause 3.1, Formula (3)</a>
+           <a href="#AN">Annex A.1, Formula (A.1)</a>
+           <a href="#Anote1">Annex A.2, Formula (A.2)</a>
+           <a href="#Anote2">Annex A.2, Formula (A.3)</a>
            </p>
                </div>
                <p class="zzSTDTitle1"/>
@@ -810,9 +810,9 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
-           <a href="#note1">2.1, Note 1</a>
-           <a href="#note2">2.2, Note 1</a>
-           <a href="#note3">2.2, Note 2</a>
+           <a href="#note1">Clause 2.1, Note 1</a>
+           <a href="#note2">Clause 2.2, Note 1</a>
+           <a href="#note3">Clause 2.2, Note 2</a>
            </p>
                </div>
                <p class="zzSTDTitle1"/>
@@ -928,16 +928,16 @@ RSpec.describe IsoDoc do
     <a href="#C1">Introduction, 2</a>
     <a href="#D">Clause 1</a>
     <a href="#H">Clause 3</a>
-    <a href="#I">3.1</a>
-    <a href="#J">3.1.1</a>
-    <a href="#K">3.2</a>
+    <a href="#I">Clause 3.1</a>
+    <a href="#J">Clause 3.1.1</a>
+    <a href="#K">Clause 3.2</a>
     <a href="#L">Clause 4</a>
     <a href="#M">Clause 5</a>
-    <a href="#N">5.1</a>
-    <a href="#O">5.2</a>
+    <a href="#N">Clause 5.1</a>
+    <a href="#O">Clause 5.2</a>
     <a href="#P">Annex A</a>
-    <a href="#Q">A.1</a>
-    <a href="#Q1">A.1.1</a>
+    <a href="#Q">Annex A.1</a>
+    <a href="#Q1">Annex A.1.1</a>
     <a href="#R">Clause 2</a>
     </p>
     </div>
@@ -1074,11 +1074,11 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, List</a>
-           <a href="#note1">3.1, List  1</a>
-           <a href="#note2">3.1, List  2</a>
-           <a href="#AN">A.1, List</a>
-           <a href="#Anote1">A.2, List  1</a>
-           <a href="#Anote2">A.2, List  2</a>
+           <a href="#note1">Clause 3.1, List  1</a>
+           <a href="#note2">Clause 3.1, List  2</a>
+           <a href="#AN">Annex A.1, List</a>
+           <a href="#Anote1">Annex A.2, List  1</a>
+           <a href="#Anote2">Annex A.2, List  2</a>
            </p>
                </div>
                <p class="zzSTDTitle1"/>
@@ -1188,11 +1188,11 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
            <a href="#N">Clause 1, a)</a>
-           <a href="#note1">3.1, List  1 a)</a>
-           <a href="#note2">3.1, List  2 a)</a>
-           <a href="#AN">A.1, a)</a>
-           <a href="#Anote1">A.2, List  1 a)</a>
-           <a href="#Anote2">A.2, List  2 a)</a>
+           <a href="#note1">Clause 3.1, List  1 a)</a>
+           <a href="#note2">Clause 3.1, List  2 a)</a>
+           <a href="#AN">Annex A.1, a)</a>
+           <a href="#Anote1">Annex A.2, List  1 a)</a>
+           <a href="#Anote2">Annex A.2, List  2 a)</a>
            </p>
                </div>
                <p class="zzSTDTitle1"/>
