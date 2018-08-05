@@ -29,7 +29,7 @@ module IsoDoc::Function
     def preface_names(clause)
       return if clause.nil?
       @anchors[clause["id"]] =
-        { label: nil, level: 1, xref: c.at(ns("./title"))&.text }
+        { label: nil, level: 1, xref: clause.at(ns("./title"))&.text }
       clause.xpath(ns("./clause")).each_with_index do |c, i|
         preface_names1(c, c.at(ns("./title"))&.text, "#{clause.at(ns('./title'))&.text}, #{i+1}", 2)
       end
