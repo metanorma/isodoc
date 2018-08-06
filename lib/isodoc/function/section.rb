@@ -87,7 +87,7 @@ module IsoDoc::Function
       f = isoxml.at(ns("//clause[title = 'Scope']")) or return num
       out.div **attr_code(id: f["id"]) do |div|
         num = num + 1
-        clause_name("#{num}.", @scope_lbl, div, nil)
+        clause_name(num, @scope_lbl, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
@@ -136,7 +136,7 @@ module IsoDoc::Function
       f = isoxml.at(ns(TERM_CLAUSE)) or return num
       out.div **attr_code(id: f["id"]) do |div|
         num = num + 1
-        clause_name("#{num}.", terms_defs_title(f), div, nil)
+        clause_name(num, terms_defs_title(f), div, nil)
         term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
                               f.at(ns(".//term")), f.at(ns("./p")))
         f.elements.each do |e|
@@ -155,7 +155,7 @@ module IsoDoc::Function
       f = isoxml.at(ns("//sections/definitions")) or return num
       out.div **attr_code(id: f["id"], class: "Symbols") do |div|
         num = num + 1
-        clause_name("#{num}.", @symbols_lbl, div, nil)
+        clause_name(num, @symbols_lbl, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
