@@ -12,8 +12,8 @@ module IsoDoc::Function
     def initial_anchor_names(d)
       preface_names(d.at(ns("//foreword")))
       preface_names(d.at(ns("//introduction")))
-      n = 0
-      n = section_names(d.at(ns("//clause[title = 'Scope']")), n, 1)
+      sequential_asset_names(d.xpath(ns("//foreword | //introduction")))
+      n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
       n = section_names(d.at(ns(
         "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
       n = section_names(d.at(ns("//sections/terms | "\
