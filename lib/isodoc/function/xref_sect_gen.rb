@@ -102,7 +102,7 @@ module IsoDoc::Function
     def annex_names1(clause, num, level)
       @anchors[clause["id"]] = { label: num, xref: "#{@annex_lbl} #{num}",
                                  level: level }
-      clause.xpath(ns(".//clause")).each_with_index do |c, i|
+      clause.xpath(ns("./clause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
       end
     end
