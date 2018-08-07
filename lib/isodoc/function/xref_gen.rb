@@ -53,7 +53,7 @@ module IsoDoc::Function
           next if @anchors[n["id"]]
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, s, @note_xref_lbl)
+          @anchors[n["id"]] = anchor_struct(idx, n, @note_xref_lbl)
         end
         note_anchor_names(s.xpath(ns("./clause | ./appendix")))
       end
@@ -70,7 +70,7 @@ module IsoDoc::Function
           next if @anchors[n["id"]]
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, s, @example_xref_lbl)
+          @anchors[n["id"]] = anchor_struct(idx, n, @example_xref_lbl)
         end
         example_anchor_names(s.xpath(ns("./clause | ./appendix")))
       end
@@ -83,7 +83,7 @@ module IsoDoc::Function
         notes.each_with_index do |n, i|
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, s, @list_lbl)
+          @anchors[n["id"]] = anchor_struct(idx, n, @list_lbl)
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
         list_anchor_names(s.xpath(ns("./clause | ./appendix")))

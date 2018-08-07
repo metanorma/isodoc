@@ -7,6 +7,8 @@ RSpec.describe IsoDoc do
     <preface>
     <foreword>
     <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
     <xref target="N"/>
     <xref target="note1"/>
     <xref target="note2"/>
@@ -15,6 +17,16 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    <introduction id="intro">
+    <note id="N1">
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+<clause id="xyz"><title>Preparatory</title>
+    <note id="N2">
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83d">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+</clause>
+    </introduction>
     </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
@@ -60,6 +72,8 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
+                 <a href="#N1">Introduction, Note</a>
+                 <a href="#N2">Preparatory, Note</a>
            <a href="#N">Clause 1, Note</a>
            <a href="#note1">Clause 3.1, Note  1</a>
            <a href="#note2">Clause 3.1, Note  2</a>
@@ -68,6 +82,16 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">Annex A.2, Note  2</a>
            </p>
                </div>
+                <br/>
+             <div class="Section3" id="intro">
+               <h1 class="IntroTitle">Introduction</h1>
+               <div id="N1" class="Note">
+                 <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+               </div>
+                <div id="xyz"><h2>Preparatory</h2>
+                <div id="N2" class="Note"><p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
+                </div>
+             </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -120,6 +144,8 @@ RSpec.describe IsoDoc do
         <preface>
     <foreword id="fwd">
     <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
     <xref target="N"/>
     <xref target="note1"/>
     <xref target="note2"/>
@@ -128,6 +154,18 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+        <introduction id="intro">
+        <figure id="N1">
+  <name>Split-it-right sample divider</name>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </figure>
+  <clause id="xyz"><title>Preparatory</title>
+        <figure id="N2">
+  <name>Split-it-right sample divider</name>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </figure>
+</clause>
+    </introduction>
     </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
@@ -177,23 +215,39 @@ RSpec.describe IsoDoc do
                <div id="fwd">
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
-           <a href="#N">Figure 1</a>
-           <a href="#note1">Figure 2</a>
-           <a href="#note2">Figure 3</a>
+           <a href="#N1">Figure 1</a>
+           <a href="#N2">Figure 2</a>
+           <a href="#N">Figure 3</a>
+           <a href="#note1">Figure 4</a>
+           <a href="#note2">Figure 5</a>
            <a href="#AN">Figure A.1</a>
            <a href="#Anote1">Figure A.2</a>
            <a href="#Anote2">Figure A.3</a>
            </p>
                </div>
+               <br/>
+             <div class="Section3" id="intro">
+               <h1 class="IntroTitle">Introduction</h1>
+               <div id="N1" class="figure">
+
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
+         <div id="xyz"><h2>Preparatory</h2>
+               <div id="N2" class="figure">
+
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         <p class="FigureTitle" align="center">Figure 2&#160;&#8212; Split-it-right sample divider</p></div>
+       </div>
+             </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                  <div id="N" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
-         <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
+         <p class="FigureTitle" align="center">Figure 3&#160;&#8212; Split-it-right sample divider</p></div>
                  <p>
-                   <a href="#N">Figure 1</a>
+                   <a href="#N">Figure 3</a>
                  </p>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
@@ -213,12 +267,12 @@ RSpec.describe IsoDoc do
                <div id="note1" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
-         <p class="FigureTitle" align="center">Figure 2&#160;&#8212; Split-it-right sample divider</p></div>
+         <p class="FigureTitle" align="center">Figure 4&#160;&#8212; Split-it-right sample divider</p></div>
            <div id="note2" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
-         <p class="FigureTitle" align="center">Figure 3&#160;&#8212; Split-it-right sample divider</p></div>
-         <p>    <a href="#note1">Figure 2</a> <a href="#note2">Figure 3</a> </p>
+         <p class="FigureTitle" align="center">Figure 5&#160;&#8212; Split-it-right sample divider</p></div>
+         <p>    <a href="#note1">Figure 4</a> <a href="#note2">Figure 5</a> </p>
            </div>
                </div>
                <br/>
@@ -372,6 +426,8 @@ RSpec.describe IsoDoc do
         <preface>
     <foreword>
     <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
     <xref target="N"/>
     <xref target="note1"/>
     <xref target="note2"/>
@@ -380,6 +436,16 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+        <introduction id="intro">
+        <example id="N1">
+  <p>Hello</p>
+</example>
+<clause id="xyz"><title>Preparatory</title>
+        <example id="N2">
+  <p>Hello</p>
+</example>
+</clause>
+    </introduction>
     </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
@@ -423,6 +489,8 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
+           <a href="#N1">Introduction, Example</a>
+           <a href="#N2">Preparatory, Example</a>
            <a href="#N">Clause 1, Example</a>
            <a href="#note1">Clause 3.1, Example  1</a>
            <a href="#note2">Clause 3.1, Example  2</a>
@@ -431,6 +499,23 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">Annex A.2, Example  2</a>
            </p>
                </div>
+               <br/>
+             <div class="Section3" id="intro">
+               <h1 class="IntroTitle">Introduction</h1>
+               <table id="N1" class="example">
+                 <tr>
+                   <td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE</td>
+                   <td valign="top" class="example">
+         <p>Hello</p>
+       </td>
+                 </tr>
+               </table>
+               <div id="xyz"><h2>Preparatory</h2>
+               <table id="N2" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE</td><td valign="top" class="example">
+         <p>Hello</p>
+       </td></tr></table>
+       </div>
+             </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -497,6 +582,8 @@ RSpec.describe IsoDoc do
             <preface>
     <foreword>
     <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
     <xref target="N"/>
     <xref target="note1"/>
     <xref target="note2"/>
@@ -505,6 +592,16 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    <introduction id="intro">
+    <formula id="N1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </formula>
+  <clause id="xyz"><title>Preparatory</title>
+    <formula id="N2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </formula>
+</clause>
+    </introduction>
     </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
@@ -562,20 +659,30 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
-           <a href="#N">Clause 1, Formula (1)</a>
-           <a href="#note1">Clause 3.1, Formula (2)</a>
-           <a href="#note2">Clause 3.1, Formula (3)</a>
+           <a href="#N1">Introduction, Formula (1)</a>
+           <a href="#N2">Preparatory, Formula (2)</a>
+           <a href="#N">Clause 1, Formula (3)</a>
+           <a href="#note1">Clause 3.1, Formula (4)</a>
+           <a href="#note2">Clause 3.1, Formula (5)</a>
            <a href="#AN">Annex A.1, Formula (A.1)</a>
            <a href="#Anote1">Annex A.2, Formula (A.2)</a>
            <a href="#Anote2">Annex A.2, Formula (A.3)</a>
            </p>
                </div>
+                            <br/>
+             <div class="Section3" id="intro">
+               <h1 class="IntroTitle">Introduction</h1>
+               <div id="N1" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</div>
+                       <div id="xyz"><h2>Preparatory</h2>
+    <div id="N2" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (2)</div>
+                </div>
+             </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
-                 <div id="N" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</div>
+                 <div id="N" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (3)</div>
                  <p>
-                   <a href="#N">Formula (1)</a>
+                   <a href="#N">Formula (3)</a>
                  </p>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
@@ -592,9 +699,9 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
                  <div id="widgets1"><h2>3.1. </h2>
-           <div id="note1" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (2)</div>
-           <div id="note2" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (3)</div>
-         <p>    <a href="#note1">Formula (2)</a> <a href="#note2">Formula (3)</a> </p>
+           <div id="note1" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (4)</div>
+           <div id="note2" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (5)</div>
+         <p>    <a href="#note1">Formula (4)</a> <a href="#note2">Formula (5)</a> </p>
            </div>
                </div>
                <br/>
@@ -619,6 +726,8 @@ RSpec.describe IsoDoc do
         <preface>
     <foreword>
     <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
     <xref target="N"/>
     <xref target="note1"/>
     <xref target="note2"/>
@@ -627,6 +736,30 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    <introduction id="intro">
+    <table id="N1">
+    <name>Repeatability and reproducibility of husked rice yield</name>
+    <tbody>
+    <tr>
+      <td align="left">Number of laboratories retained after eliminating outliers</td>
+      <td align="center">13</td>
+      <td align="center">11</td>
+    </tr>
+    </tbody>
+    </table>
+  <clause id="xyz"><title>Preparatory</title>
+    <table id="N2">
+    <name>Repeatability and reproducibility of husked rice yield</name>
+    <tbody>
+    <tr>
+      <td align="left">Number of laboratories retained after eliminating outliers</td>
+      <td align="center">13</td>
+      <td align="center">11</td>
+    </tr>
+    </tbody>
+    </table>
+</clause>
+    </introduction>
     </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
@@ -712,19 +845,38 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
-       <a href="#N">Table 1</a>
-       <a href="#note1">Table 2</a>
-       <a href="#note2">Table 3</a>
+       <a href="#N1">Table 1</a>
+       <a href="#N2">Table 2</a>
+       <a href="#N">Table 3</a>
+       <a href="#note1">Table 4</a>
+       <a href="#note2">Table 5</a>
        <a href="#AN">Table A.1</a>
        <a href="#Anote1">Table A.2</a>
        <a href="#Anote2">Table A.3</a>
        </p>
                </div>
+                            <br/>
+             <div class="Section3" id="intro">
+               <h1 class="IntroTitle">Introduction</h1>
+               <p class="TableTitle" align="center">Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p>
+               <table id="N1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+                 <tbody>
+                   <tr>
+                     <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td>
+                     <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td>
+                     <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td>
+                   </tr>
+                 </tbody>
+               </table>
+                      <div id="xyz"><h2>Preparatory</h2>
+       <p class="TableTitle" align="center">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="N2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+       </div>
+             </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                  <p class="TableTitle" align="center">
-                   Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield
+                   Table 3&#160;&#8212; Repeatability and reproducibility of husked rice yield
                  </p>
                  <table id="N" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
                    <tbody>
@@ -736,7 +888,7 @@ RSpec.describe IsoDoc do
                    </tbody>
                  </table>
                  <p>
-                   <a href="#N">Table 1</a>
+                   <a href="#N">Table 3</a>
                  </p>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
@@ -753,9 +905,9 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
                  <div id="widgets1"><h2>3.1. </h2>
-           <p class="TableTitle" align="center">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-           <p class="TableTitle" align="center">Table 3&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-       <p>    <a href="#note1">Table 2</a> <a href="#note2">Table 3</a> </p>
+           <p class="TableTitle" align="center">Table 4&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+           <p class="TableTitle" align="center">Table 5&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
+       <p>    <a href="#note1">Table 4</a> <a href="#note2">Table 5</a> </p>
        </div>
                </div>
                <br/>
@@ -1024,6 +1176,8 @@ RSpec.describe IsoDoc do
     <preface>
     <foreword>
     <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
     <xref target="N"/>
     <xref target="note1"/>
     <xref target="note2"/>
@@ -1032,6 +1186,16 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    <introduction id="intro">
+     <ol id="N1">
+  <li><p>A</p></li>
+</ol>
+  <clause id="xyz"><title>Preparatory</title>
+     <ol id="N2">
+  <li><p>A</p></li>
+</ol>
+</clause>
+    </introduction>
     </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
@@ -1073,6 +1237,8 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
+           <a href="#N1">Introduction, List</a>
+           <a href="#N2">Preparatory, List</a>
            <a href="#N">Clause 1, List</a>
            <a href="#note1">Clause 3.1, List  1</a>
            <a href="#note2">Clause 3.1, List  2</a>
@@ -1081,6 +1247,18 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">Annex A.2, List  2</a>
            </p>
                </div>
+                            <br/>
+             <div class="Section3" id="intro">
+               <h1 class="IntroTitle">Introduction</h1>
+               <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+       <div id="xyz"><h2>Preparatory</h2>
+            <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+       </div>
+             </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
@@ -1138,6 +1316,8 @@ RSpec.describe IsoDoc do
     <preface>
     <foreword>
     <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
     <xref target="N"/>
     <xref target="note1"/>
     <xref target="note2"/>
@@ -1146,10 +1326,20 @@ RSpec.describe IsoDoc do
     <xref target="Anote2"/>
     </p>
     </foreword>
+    <introduction id="intro">
+    <ol id="N01">
+  <li id="N1"><p>A</p></li>
+</ol>
+  <clause id="xyz"><title>Preparatory</title>
+     <ol id="N02">
+  <li id="N2"><p>A</p></li>
+</ol>
+</clause>
+    </introduction>
     </preface>
     <sections>
     <clause id="scope"><title>Scope</title>
-    <ol id="N1">
+    <ol id="N0">
   <li id="N"><p>A</p></li>
 </ol>
     </clause>
@@ -1187,6 +1377,8 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
+           <a href="#N1">Introduction, a)</a>
+           <a href="#N2">Preparatory, a)</a>
            <a href="#N">Clause 1, a)</a>
            <a href="#note1">Clause 3.1, List  1 a)</a>
            <a href="#note2">Clause 3.1, List  2 a)</a>
@@ -1195,6 +1387,18 @@ RSpec.describe IsoDoc do
            <a href="#Anote2">Annex A.2, List  2 a)</a>
            </p>
                </div>
+                            <br/>
+             <div class="Section3" id="intro">
+               <h1 class="IntroTitle">Introduction</h1>
+               <ol type="a">
+         <li><p>A</p></li>
+       </ol>
+               <div id="xyz"><h2>Preparatory</h2>
+     <ol type="a">
+        <li><p>A</p></li>
+        </ol>
+        </div>
+             </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>

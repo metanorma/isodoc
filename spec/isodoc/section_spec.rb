@@ -514,4 +514,48 @@ OUTPUT
 OUTPUT
     end
 
+        it "processes sections without titles" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+       <introduction id="M" inline-header="false" obligation="normative"><clause id="N" inline-header="false" obligation="normative">
+         <title>Intro</title>
+       </clause>
+       <clause id="O" inline-header="true" obligation="normative">
+       </clause></clause>
+       </preface>
+       <sections>
+       <clause id="M1" inline-header="false" obligation="normative"><clause id="N1" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O1" inline-header="true" obligation="normative">
+       </clause></clause>
+       </sections>
+
+      </iso-standard>
+    INPUT
+    #{HTML_HDR}
+             <br/>
+             <div class="Section3" id="M">
+               <h1 class="IntroTitle">Introduction</h1>
+               <div id="N"><h2>Intro</h2>
+     
+        </div>
+               <div id="O"><span class="zzMoveToFollowing"><b> </b></span>
+        </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div id="M1">
+               <h1>1.&#160; </h1>
+               <div id="N1"><h2>1.1. </h2>
+        </div>
+               <div id="O1"><span class="zzMoveToFollowing"><b>1.2.  </b></span>
+        </div>
+             </div>
+           </div>
+         </body>
+       </html>
+OUTPUT
+    end
+
+
 end

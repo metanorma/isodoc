@@ -132,7 +132,7 @@ module IsoDoc::Function
       f = isoxml.at(ns(q)) or return num
       out.div do |div|
         num = num + 1
-        clause_name("#{num}.", @normref_lbl, div, nil)
+        clause_name(num, @normref_lbl, div, nil)
         norm_ref_preface(f, div)
         biblio_list(f, div, false)
       end

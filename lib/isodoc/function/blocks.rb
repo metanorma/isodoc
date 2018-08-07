@@ -4,7 +4,7 @@ module IsoDoc::Function
 
     def note_label(node)
       n = get_anchors[node["id"]]
-      return @note_lbl if n.nil? || n[:label].empty?
+      return @note_lbl if n.nil? || n[:label].nil? || n[:label].empty?
       l10n("#{@note_lbl} #{n[:label]}")
     end
 

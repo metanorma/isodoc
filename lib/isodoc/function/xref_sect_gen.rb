@@ -25,13 +25,18 @@ module IsoDoc::Function
       termexample_anchor_names(d)
     end
 
+    def preface_clause_name(c)
+      ret = c.at(ns("./title"))&.text || c.name.capitalize
+      ret
+    end
+
     # in StanDoc, prefaces have no numbering; they are referenced only by title
     def preface_names(clause)
       return if clause.nil?
       @anchors[clause["id"]] =
-        { label: nil, level: 1, xref: clause.at(ns("./title"))&.text }
+        { label: nil, level: 1, xref: preface_clause_name(clause) }
       clause.xpath(ns("./clause")).each_with_index do |c, i|
-        preface_names1(c, c.at(ns("./title"))&.text, "#{clause.at(ns('./title'))&.text}, #{i+1}", 2)
+        preface_names1(c, c.at(ns("./title"))&.text, "#{preface_clause_name(clause)}, #{i+1}", 2)
       end
     end
 
