@@ -59,7 +59,7 @@ module IsoDoc::Function
     end
 
     def ref_entry_code(r, ordinal, t)
-      if /^\d+$/.match?(t)
+      if /^\d+$/.match(t)
         prefix_bracketed_ref(r, t)
       else
         prefix_bracketed_ref(r, ordinal)
@@ -173,7 +173,7 @@ module IsoDoc::Function
         return ref if on&.text == "--"
         return ref + ":#{date_range(date)}"
       end
-      return "[#{ref}]" if /^\d+$/.match?(ref) && !/^\[.*\]$/.match?(ref)
+      return "[#{ref}]" if /^\d+$/.match(ref) && !/^\[.*\]$/.match(ref)
       ref
     end
 
@@ -188,7 +188,7 @@ module IsoDoc::Function
 
     # def ref_names(ref)
     #  linkend = ref.text
-    # linkend.gsub!(/[\[\]]/, "") unless /^\[\d+\]$/.match? linkend
+    # linkend.gsub!(/[\[\]]/, "") unless /^\[\d+\]$/.match linkend
     # @anchors[ref["id"]] = { xref: linkend }
     # end
   end

@@ -41,7 +41,7 @@ module IsoDoc::Function
 
     def to_xhtml(xml)
       xml.gsub!(/<\?xml[^>]*>/, "")
-      unless /<!DOCTYPE /.match? xml
+      unless /<!DOCTYPE /.match xml
         xml = '<!DOCTYPE html SYSTEM
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' + xml
       end

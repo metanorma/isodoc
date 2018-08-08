@@ -190,7 +190,7 @@ module IsoDoc::HtmlFunction
     def move_images(docxml)
       system "rm -r #{@tmpimagedir}; mkdir #{@tmpimagedir}"
       docxml.xpath("//*[local-name() = 'img']").each do |i|
-        next if /^data:image/.match? i["src"]
+        next if /^data:image/.match i["src"]
         matched = /\.(?<suffix>\S+)$/.match i["src"]
         uuid = UUIDTools::UUID.random_create.to_s
         new_full_filename = File.join(@tmpimagedir, "#{uuid}.#{matched[:suffix]}")
