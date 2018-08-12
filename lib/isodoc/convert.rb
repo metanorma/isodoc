@@ -51,10 +51,11 @@ module IsoDoc
       @tmpimagedir = "_images"
       @maxwidth = 1200
       @maxheight = 800
+      @libdir = File.dirname(__FILE__)
     end
 
     def html_doc_path(file)
-      File.join(File.dirname(__FILE__), File.join("html", file))
+      File.join(@libdir, File.join("html", file))
     end
 
     def generate_css(filename, stripwordcss, fontheader)
