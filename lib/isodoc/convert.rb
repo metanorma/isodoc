@@ -22,7 +22,7 @@ module IsoDoc
     def initialize(options)
       @libdir = File.dirname(__FILE__) unless @libdir
       options.merge!(default_fonts(options)) { |_, old, new| old || new }.
-        merge!(default_file_locations) { |_, old, new| old || new }
+        merge!(default_file_locations(options)) { |_, old, new| old || new }
       @options = options
       @files_to_delete = []
       @htmlstylesheet = generate_css(options[:htmlstylesheet], true, extract_fonts(options))
@@ -79,7 +79,7 @@ module IsoDoc
     #      wordcoverpage: html_doc_path("word_rsd_titlepage.html"),
     #      wordintropage: html_doc_path("word_rsd_intro.html"),
     # }
-    def default_file_locations
+    def default_file_locations(_options)
       {}
     end
 

@@ -10,7 +10,7 @@ This Gem converts documents in the https://github.com/riboseinc/isodoc-models[IS
 
 == Usage
 
-The Gem contains two classes, `IsoDoc::Convert` (for HTML output) and `IsoDoc::WordConvert` (for Word output). They are initialised with the following rendering parameters:
+The Gem contains the subclasses `Iso::HtmlWordConvert` (for HTML output) and `IsoDoc::WordConvert` (for Word output). They are initialised with the following rendering parameters:
 
 i18nyaml:: YAML file giving internationalisation equivalents for keywords in rendering output; see https://github.com/riboseinc/asciidoctor-iso#document-attributes for further documentation
 bodyfont:: Font for body text
@@ -19,6 +19,16 @@ monospacefont:: Font for monospace text
 titlefont:: Font for document title text (currently used only in GB)
 script:: The ISO 15924 code for the main script that the standard document is in; used to pick the default fonts for the document
 alt:: Generate alternate rendering (currently used only in ISO)
+compliance:: Generate alternate rendering (currently used only in GB)
+htmlstylesheet:: Stylesheet for HTML output
+htmlcoverpage:: Cover page for HTML output
+htmlintropage:: Introductory page for HTML output
+scripts:: Scripts page for HTML output
+wordstylesheet:: Stylesheet for Word output
+standardstylesheet:: Secondary stylesheet for Word output
+header:: Header file for Word output
+wordcoverpage:: Cover page for Word output
+wordintropage:: Introductory page for Word output
 
 The IsoDoc gem classes themselves are abstract (though their current implementation contains rendering specific to the ISO standard.) Subclasses of the Isodoc gem classes are specific to different standards, and are associated with templates and stylesheets speciific to the rendering of those standards. Subclasses also provide the default values for the rendering parameters above; they should be used only as overrides.
 
