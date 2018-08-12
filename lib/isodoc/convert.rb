@@ -21,7 +21,7 @@ module IsoDoc
     # monospace: font to use for monospace text
     def initialize(options)
       @libdir = File.dirname(__FILE__) unless @libdir
-      options.merge!(default_fonts) { |_, old, new| old || new }.
+      options.merge!(default_fonts(options)) { |_, old, new| old || new }.
         merge!(default_file_locations) { |_, old, new| old || new }
       @options = options
       @files_to_delete = []
@@ -59,7 +59,7 @@ module IsoDoc
       @maxheight = 800
     end
 
-    def default_fonts
+    def default_fonts(_options)
       {
         bodyfont: "Arial",
         headerfont: "Arial",
