@@ -16,11 +16,14 @@ module IsoDoc
     # i18nyaml: YAML file for internationalisation of text
     # ulstyle: list style in Word CSS for unordered lists
     # olstyle: list style in Word CSS for ordered lists
+    # bodyfont: font to use for body text
+    # headerfont: font to use for header text
+    # monospace: font to use for monospace text
     def initialize(options)
       @options = options
-      @htmlstylesheet = options[:htmlstylesheet]
-      @wordstylesheet = options[:wordstylesheet]
-      @standardstylesheet = options[:standardstylesheet]
+      @htmlstylesheet = generate_css(options[:htmlstylesheet], true, extract_fonts(options))
+      @wordstylesheet = generate_css(options[:wordstylesheet], false, extract_fonts(options))
+      @standardstylesheet = generate_css(options[:standardstylesheet], false, extract_fonts(options))
       @header = options[:header]
       @htmlcoverpage = options[:htmlcoverpage]
       @wordcoverpage = options[:wordcoverpage]
@@ -54,11 +57,20 @@ module IsoDoc
       @libdir = File.dirname(__FILE__)
     end
 
+    # extract fonts for use in generate_css
+    def extract_fonts(options)
+      b = options[:bodyfont] || "Arial"
+      h = options[:headerfont] || "Arial"
+      m = options[:monospacefont] || "Courier"
+      "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
+    end
+
     def html_doc_path(file)
       File.join(@libdir, File.join("html", file))
     end
 
     def generate_css(filename, stripwordcss, fontheader)
+      return nil unless filename
       stylesheet = File.read(filename, encoding: "UTF-8")
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
       engine = Sass::Engine.new(fontheader + stylesheet, syntax: :scss)
