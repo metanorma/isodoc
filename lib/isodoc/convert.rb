@@ -20,7 +20,11 @@ module IsoDoc
     # headerfont: font to use for header text
     # monospace: font to use for monospace text
     def initialize(options)
+      @libdir = File.dirname(__FILE__) unless @libdir
+      options.merge!(default_fonts) { |_, old, new| old || new }.
+        merge!(default_file_locations) { |_, old, new| old || new }
       @options = options
+      @files_to_delete = []
       @htmlstylesheet = generate_css(options[:htmlstylesheet], true, extract_fonts(options))
       @wordstylesheet = generate_css(options[:wordstylesheet], false, extract_fonts(options))
       @standardstylesheet = generate_css(options[:standardstylesheet], false, extract_fonts(options))
@@ -50,11 +54,33 @@ module IsoDoc
       @closemathdelim = "`"
       @lang = "en"
       @script = "Latn"
-      @files_to_delete = []
       @tmpimagedir = "_images"
       @maxwidth = 1200
       @maxheight = 800
-      @libdir = File.dirname(__FILE__)
+    end
+
+    def default_fonts
+      {
+        bodyfont: "Arial",
+        headerfont: "Arial",
+        monospacefont: "Courier",
+      }
+    end
+
+    # none for this parent gem, but will be populated in child gems which have access to stylesheets &c; e.g.
+    # {
+    #      htmlstylesheet: html_doc_path("htmlstyle.scss"),
+    #      htmlcoverpage: html_doc_path("html_rsd_titlepage.html"),
+    #      htmlintropage: html_doc_path("html_rsd_intro.html"),
+    #      scripts: html_doc_path("scripts.html"),
+    #      wordstylesheet: html_doc_path("wordstyle.scss"),
+    #      standardstylesheet: html_doc_path("rsd.scss"),
+    #      header: html_doc_path("header.html"),
+    #      wordcoverpage: html_doc_path("word_rsd_titlepage.html"),
+    #      wordintropage: html_doc_path("word_rsd_intro.html"),
+    # }
+    def default_file_locations
+      {}
     end
 
     # extract fonts for use in generate_css
