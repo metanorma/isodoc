@@ -140,6 +140,7 @@ module IsoDoc::HtmlFunction
     end
 
     def htmlstyle(docxml)
+      return docxml unless @htmlstylesheet
       title = docxml.at("//*[local-name() = 'head']/*[local-name() = 'title']")
       head = docxml.at("//*[local-name() = 'head']")
       css = htmlstylesheet
