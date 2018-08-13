@@ -101,7 +101,7 @@ RSpec.describe IsoDoc do
   it "generates HTML output docs with complete configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
+    IsoDoc::HtmlConvert.new({bodyfont: "Zapf", htmlstylesheet: "spec/assets/html.css", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -111,7 +111,30 @@ RSpec.describe IsoDoc do
     </iso-standard>
     INPUT
     html = File.read("test.html")
-    expect(html).to match(/a third empty stylesheet/)
+    expect(html).to match(/another empty stylesheet/)
+    expect(html).to match(/font-family: Zapf/)
+    expect(html).to match(/an empty html cover page/)
+    expect(html).to match(/an empty html intro page/)
+    expect(html).to match(/This is > a script/)
+    expect(html).not_to match(/CDATA/)
+    expect(html).to match(%r{Enkonduko</h1>})
+  end
+
+  it "generates HTML output docs with default fonts" do
+    system "rm -f test.doc"
+    system "rm -f test.html"
+    IsoDoc::HtmlConvert.new({htmlstylesheet: "spec/assets/html.css", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    html = File.read("test.html")
+    expect(html).to match(/another empty stylesheet/)
+    expect(html).to match(/font-family: Arial/)
     expect(html).to match(/an empty html cover page/)
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
@@ -122,7 +145,7 @@ RSpec.describe IsoDoc do
   it "generates Word output docs with complete configuration" do
     system "rm -f test.doc"
     system "rm -f test.html"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
+    IsoDoc::WordConvert.new({bodyfont: "Zapf", wordstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -132,6 +155,31 @@ RSpec.describe IsoDoc do
     </iso-standard>
     INPUT
     word = File.read("test.doc")
+    expect(word).to match(/another empty stylesheet/)
+    expect(word).to match(/font-family: Zapf/)
+    expect(word).to match(/a third empty stylesheet/)
+    expect(word).to match(/<title>test<\/title>/)
+    expect(word).to match(/test_files\/header.html/)
+    expect(word).to match(/an empty word cover page/)
+    expect(word).to match(/an empty word intro page/)
+    expect(word).to match(%r{Enkonduko</h1>})
+  end
+
+  it "generates Word output docs with default fonts" do
+    system "rm -f test.doc"
+    system "rm -f test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    word = File.read("test.doc")
+    expect(word).to match(/another empty stylesheet/)
+    expect(word).to match(/font-family: Arial/)
     expect(word).to match(/a third empty stylesheet/)
     expect(word).to match(/<title>test<\/title>/)
     expect(word).to match(/test_files\/header.html/)

@@ -1,2 +1,6 @@
 
 /* another empty stylesheet */
+
+p {
+  font-family: $bodyfont;
+}

@@ -1,5 +1,5 @@
 require "isodoc/common"
-require "sass"
+require "sassc"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
@@ -101,7 +101,7 @@ module IsoDoc
       return nil unless filename
       stylesheet = File.read(filename, encoding: "UTF-8")
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
-      engine = Sass::Engine.new(fontheader + stylesheet, syntax: :scss)
+      engine = SassC::Engine.new(fontheader + stylesheet, syntax: :scss)
       outname = File.basename(filename, ".*") + ".css"
       File.open(outname, "w:UTF-8") { |f| f.write(engine.render) }
       @files_to_delete << outname

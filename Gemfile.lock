@@ -10,7 +10,7 @@ PATH
       nokogiri
       roman-numerals
       ruby-xslt
-      sass
+      sassc (~> 1.12.1)
       thread_safe
       uuidtools
 
@@ -60,11 +60,11 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     lumberjack (1.0.13)
-    metanorma (0.2.7)
+    metanorma (0.2.8)
     method_source (0.9.0)
-    mime-types (3.1)
+    mime-types (3.2.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
+    mime-types-data (3.2018.0812)
     mini_portile2 (2.3.0)
     nenv (0.3.0)
     nokogiri (1.8.4)
@@ -114,6 +114,9 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    sassc (1.12.1)
+      ffi (~> 1.9.6)
+      sass (>= 3.3.0)
     shellany (0.0.1)
     simplecov (0.16.1)
       docile (~> 1.1)
