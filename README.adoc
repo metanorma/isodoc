@@ -29,6 +29,8 @@ standardstylesheet:: Secondary stylesheet for Word output
 header:: Header file for Word output
 wordcoverpage:: Cover page for Word output
 wordintropage:: Introductory page for Word output
+ulstyle:: Style identifier in Word stylesheet for unordered lists
+olstyle:: Style identifier in Word stylesheet for ordered list
 
 The IsoDoc gem classes themselves are abstract (though their current implementation contains rendering specific to the ISO standard.) Subclasses of the Isodoc gem classes are specific to different standards, and are associated with templates and stylesheets speciific to the rendering of those standards. Subclasses also provide the default values for the rendering parameters above; they should be used only as overrides.
 

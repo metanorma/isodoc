@@ -78,6 +78,8 @@ module IsoDoc
     #      header: html_doc_path("header.html"),
     #      wordcoverpage: html_doc_path("word_rsd_titlepage.html"),
     #      wordintropage: html_doc_path("word_rsd_intro.html"),
+    #      ulstyle: l3
+    #      olstyle: l2
     # }
     def default_file_locations(_options)
       {}
