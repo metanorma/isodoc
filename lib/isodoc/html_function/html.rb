@@ -1,3 +1,5 @@
+require "fileutils"
+
 module IsoDoc::HtmlFunction
   module Html
     def make_body1(body, _docxml)
@@ -201,7 +203,8 @@ module IsoDoc::HtmlFunction
     end
 
     def move_image1(i, new_full_filename)
-      system "cp #{i['src']} #{new_full_filename}"
+      #system "cp #{i['src']} #{new_full_filename}"
+      FileUtils.cp i["src"], new_full_filename
       i["src"] = new_full_filename
       i["width"], i["height"] = Html2Doc.image_resize(i, @maxheight, @maxwidth)
     end
