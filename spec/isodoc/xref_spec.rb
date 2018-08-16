@@ -1248,25 +1248,25 @@ RSpec.describe IsoDoc do
            </p>
                </div>
                             <br/>
-             <div class="Section3" id="intro">
+                                         <div class="Section3" id="intro">
                <h1 class="IntroTitle">Introduction</h1>
-               <ol type="a">
+               <ol type="a" id="N1">
          <li><p>A</p></li>
        </ol>
-       <div id="xyz"><h2>Preparatory</h2>
-            <ol type="a">
+               <div id="xyz"><h2>Preparatory</h2>
+            <ol type="a" id="N2">
          <li><p>A</p></li>
        </ol>
        </div>
              </div>
-               <p class="zzSTDTitle1"/>
-               <div id="scope">
-                 <h1>1.&#160; Scope</h1>
-                 <ol type="a">
+             <p class="zzSTDTitle1"/>
+             <div id="scope">
+               <h1>1.&#160; Scope</h1>
+               <ol type="a" id="N">
          <li><p>A</p></li>
        </ol>
-               </div>
-               <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+             </div>
+             <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -1277,35 +1277,35 @@ RSpec.describe IsoDoc do
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
        </div>
-               <div id="widgets">
-                 <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1"><h2>3.1. </h2>
-           <ol type="a">
+             <div id="widgets">
+               <h1>3.&#160; Widgets</h1>
+               <div id="widgets1"><h2>3.1. </h2>
+           <ol type="a" id="note1">
          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
        </ol>
-           <ol type="a">
+           <ol type="a" id="note2">
          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
        </ol>
            </div>
-               </div>
-               <br/>
-               <div id="annex1" class="Section3">
-                 <div id="annex1a"><h2>A.1. </h2>
-           <ol type="a">
-         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-       </ol>
-           </div>
-                 <div id="annex1b"><h2>A.2. </h2>
-           <ol type="a">
-         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-       </ol>
-           <ol type="a">
-         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
-       </ol>
-           </div>
-               </div>
              </div>
-           </body>
+             <br/>
+             <div id="annex1" class="Section3">
+               <div id="annex1a"><h2>A.1. </h2>
+           <ol type="a" id="AN">
+         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+       </ol>
+           </div>
+               <div id="annex1b"><h2>A.2. </h2>
+           <ol type="a" id="Anote1">
+         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+       </ol>
+           <ol type="a" id="Anote2">
+         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+       </ol>
+           </div>
+             </div>
+           </div>
+         </body>
        </html>
     OUTPUT
   end
@@ -1388,25 +1388,25 @@ RSpec.describe IsoDoc do
            </p>
                </div>
                             <br/>
-             <div class="Section3" id="intro">
+                                         <div class="Section3" id="intro">
                <h1 class="IntroTitle">Introduction</h1>
-               <ol type="a">
-         <li><p>A</p></li>
+               <ol type="a" id="N01">
+         <li id="N1"><p>A</p></li>
        </ol>
                <div id="xyz"><h2>Preparatory</h2>
-     <ol type="a">
-        <li><p>A</p></li>
-        </ol>
-        </div>
-             </div>
-               <p class="zzSTDTitle1"/>
-               <div id="scope">
-                 <h1>1.&#160; Scope</h1>
-                 <ol type="a">
-         <li><p>A</p></li>
+            <ol type="a" id="N02">
+         <li id="N2"><p>A</p></li>
        </ol>
-               </div>
-               <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+       </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div id="scope">
+               <h1>1.&#160; Scope</h1>
+               <ol type="a" id="N0">
+         <li id="N"><p>A</p></li>
+       </ol>
+             </div>
+             <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
        <p>ISO and IEC maintain terminological databases for use in
        standardization at the following addresses:</p>
 
@@ -1417,35 +1417,35 @@ RSpec.describe IsoDoc do
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
        </div>
-               <div id="widgets">
-                 <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1"><h2>3.1. </h2>
-           <ol type="a">
-         <li><p>A</p></li>
+             <div id="widgets">
+               <h1>3.&#160; Widgets</h1>
+               <div id="widgets1"><h2>3.1. </h2>
+           <ol type="a" id="note1l">
+         <li id="note1"><p>A</p></li>
        </ol>
-           <ol type="a">
-         <li><p>A</p></li>
-       </ol>
-           </div>
-               </div>
-               <br/>
-               <div id="annex1" class="Section3">
-                 <div id="annex1a"><h2>A.1. </h2>
-           <ol type="a">
-         <li><p>A</p></li>
+           <ol type="a" id="note2l">
+         <li id="note2"><p>A</p></li>
        </ol>
            </div>
-                 <div id="annex1b"><h2>A.2. </h2>
-           <ol type="a">
-         <li><p>A</p></li>
-       </ol>
-           <ol type="a">
-         <li><p>A</p></li>
-       </ol>
-           </div>
-               </div>
              </div>
-           </body>
+             <br/>
+             <div id="annex1" class="Section3">
+               <div id="annex1a"><h2>A.1. </h2>
+           <ol type="a" id="ANl">
+         <li id="AN"><p>A</p></li>
+       </ol>
+           </div>
+               <div id="annex1b"><h2>A.2. </h2>
+           <ol type="a" id="Anote1l">
+         <li id="Anote1"><p>A</p></li>
+       </ol>
+           <ol type="a" id="Anote2l">
+         <li id="Anote2"><p>A</p></li>
+       </ol>
+           </div>
+             </div>
+           </div>
+         </body>
        </html>
     OUTPUT
   end
@@ -1503,30 +1503,30 @@ RSpec.describe IsoDoc do
         </p>
                 </div>
                 <p class="zzSTDTitle1"/>
-                <div id="scope">
-                  <h1>1.&#160; Scope</h1>
-                  <ol type="a">
-          <li><p>A</p>
-          <ol type="1">
-          <li><p>A</p>
-          <ol type="i">
-          <li><p>A</p>
-          <ol type="A">
-          <li><p>A</p>
-          <ol type="I">
-          <li><p>A</p>
-          <ol type="a">
-          <li><p>A</p></li>
-          </ol></li>
-          </ol></li>
-          </ol></li>
-          </ol></li>
-          </ol></li>
-        </ol>
-                </div>
-              </div>
-            </body>
-        </html>
+                             <div id="scope">
+               <h1>1.&#160; Scope</h1>
+               <ol type="a" id="N1">
+         <li id="N"><p>A</p>
+         <ol type="1">
+         <li id="note1"><p>A</p>
+         <ol type="i">
+         <li id="note2"><p>A</p>
+         <ol type="A">
+         <li id="AN"><p>A</p>
+         <ol type="I">
+         <li id="Anote1"><p>A</p>
+         <ol type="a">
+         <li id="Anote2"><p>A</p></li>
+         </ol></li>
+         </ol></li>
+         </ol></li>
+         </ol></li>
+         </ol></li>
+       </ol>
+             </div>
+           </div>
+         </body>
+       </html>
     OUTPUT
   end
 

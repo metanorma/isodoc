@@ -20,7 +20,7 @@ RSpec.describe IsoDoc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <ul>
+                 <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
          <li>
            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
          </li>
@@ -62,7 +62,7 @@ RSpec.describe IsoDoc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <ol type="a">
+                 <ol type="a" id="_ae34a226-aab4-496d-987b-1aa7b6314026">
          <li>
            <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
          </li>
@@ -90,7 +90,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="roman_upper">
-  <li>
+  <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
     <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
   </li>
   <li>
@@ -107,8 +107,8 @@ RSpec.describe IsoDoc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <ol type="a">
-         <li>
+                 <ol type="a" id="_ae34a226-aab4-496d-987b-1aa7b6314026">
+         <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
            <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
          </li>
          <li>
@@ -148,7 +148,7 @@ RSpec.describe IsoDoc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <dl>
+                 <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395">
                    <dt>
                      <p>
            W
