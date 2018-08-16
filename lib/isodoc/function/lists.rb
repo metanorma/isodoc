@@ -2,7 +2,7 @@ module IsoDoc::Function
   module Lists
 
     def ul_parse(node, out)
-      out.ul do |ul|
+      out.ul **attr_code(id: node["id"]) do |ul|
         node.children.each { |n| parse(n, ul) }
       end
     end
@@ -37,13 +37,13 @@ module IsoDoc::Function
     def ol_parse(node, out)
       # style = ol_style(node["type"])
       style = ol_depth(node)
-      out.ol **attr_code(type: style) do |ol|
+      out.ol **attr_code(type: style, id: node["id"] ) do |ol|
         node.children.each { |n| parse(n, ol) }
       end
     end
 
     def li_parse(node, out)
-      out.li do |li|
+      out.li  **attr_code(id: node["id"]) do |li|
         node.children.each { |n| parse(n, li) }
       end
     end
@@ -64,10 +64,12 @@ module IsoDoc::Function
     end
 
     def dl_parse(node, out)
-      out.dl do |v|
+      out.dl  **attr_code(id: node["id"]) do |v|
         node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
-          v.dt { |term| dt_parse(dt, term) }
-          v.dd do |listitem|
+          v.dt **attr_code(id: dt["id"]) do |term|
+            dt_parse(dt, term) 
+          end
+          v.dd  **attr_code(id: dd["id"]) do |listitem|
             dd.children.each { |n| parse(n, listitem) }
           end
         end
