@@ -79,7 +79,6 @@ module IsoDoc::Function
 
     # TODO: move to localization file
     def eref_localities1(target, type, from, to, lang = "en")
-      subsection = from&.text&.match(/\./)
       return l10n(eref_localities1_zh(target, type, from, to)) if lang == "zh"
       ret = ","
       loc = @locality[type] || type.sub(/^locality:/, "").capitalize

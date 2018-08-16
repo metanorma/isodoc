@@ -87,7 +87,7 @@ RSpec.describe IsoDoc do
        <p class="AltTerms" style="text-align:left;">rough rice</p>
        <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
-       <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE 1</td><td valign="top" class="example">
+       <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE</td><td valign="top" class="example">
          <ul>
          <li>A</li>
          </ul>
@@ -190,7 +190,7 @@ OUTPUT
        <p class="AltTerms" style="text-align:left;">rough rice</p>
        <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
-       <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE 1</td><td valign="top" class="example">
+       <table id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><tr><td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE</td><td valign="top" class="example">
          <ul>
          <li>A</li>
          </ul>

@@ -37,7 +37,7 @@ module IsoDoc::Function
 
     def get_linkend(node)
       link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
-      link += eref_localities(node.xpath(ns("./locality")), node["target"] || node["citeas"])
+      link += eref_localities(node.xpath(ns("./locality")), link)
       text = node.children.select { |c| c.text? && !c.text.empty? }
       link = text.join(" ") unless text.nil? || text.empty?
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
