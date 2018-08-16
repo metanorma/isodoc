@@ -37,7 +37,7 @@ module IsoDoc::Function
 
     def get_linkend(node)
       link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
-      link += eref_localities(node.xpath(ns("./locality")))
+      link += eref_localities(node.xpath(ns("./locality")), node["target"] || node["citeas"])
       text = node.children.select { |c| c.text? && !c.text.empty? }
       link = text.join(" ") unless text.nil? || text.empty?
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
@@ -50,12 +50,12 @@ module IsoDoc::Function
       out.a(**{ "href": "#" + node["target"] }) { |l| l << linkend }
     end
 
-    def eref_localities(refs)
+    def eref_localities(refs, target)
       ret = ""
       refs.each do |r|
         ret += if r["type"] == "whole" then l10n(", #{@whole_of_text}")
                else
-                 eref_localities1(r["type"], r.at(ns("./referenceFrom")),
+                 eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
                                   r.at(ns("./referenceTo")), @lang)
                end
       end

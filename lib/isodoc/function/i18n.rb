@@ -69,20 +69,21 @@ module IsoDoc::Function
     end
 
     # TODO: move to localization file
-    def eref_localities1_zh(type, from, to)
+    def eref_localities1_zh(target, type, from, to)
       ret = ", 第#{from.text}" if from
       ret += "&ndash;#{to}" if to
-      ret += (@locality[type] || type.sub(/^locality:/, "").capitalize )
+      loc = (@locality[type] || type.sub(/^locality:/, "").capitalize )
+      ret += " #{loc}"
       ret
     end
 
     # TODO: move to localization file
-    def eref_localities1(type, from, to, lang = "en")
+    def eref_localities1(target, type, from, to, lang = "en")
       subsection = from&.text&.match(/\./)
-      return l10n(eref_localities1_zh(type, from, to)) if lang == "zh"
+      return l10n(eref_localities1_zh(target, type, from, to)) if lang == "zh"
       ret = ","
       loc = @locality[type] || type.sub(/^locality:/, "").capitalize
-      ret += " #{loc}" unless subsection && type == "clause"
+      ret += " #{loc}"
       ret += " #{from.text}" if from
       ret += "&ndash;#{to.text}" if to
       l10n(ret)
