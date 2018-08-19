@@ -82,6 +82,7 @@ module IsoDoc::HtmlFunction
 
     def html_head()
       <<~HEAD.freeze
+    <title>{{ doctitle }}</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!--TOC script import-->
