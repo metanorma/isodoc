@@ -11,7 +11,7 @@ module IsoDoc::Function
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier")).text
       isodate = b.at(ns("./date[@type = 'published']"))
-      iso_allparts = b.at(ns("./allParts"))
+      iso_allparts = b.at(ns("./alloarts"))
       reference = docid_l10n(isocode)
       reference += ":#{date_range(isodate)}" if isodate
       reference += " (all parts)" if iso_allparts&.text == "true"
@@ -167,11 +167,10 @@ module IsoDoc::Function
     end
 
     def format_ref(ref, isopub, date, allparts)
-      require "byebug"; byebug
       if isopub
         if date
           on = date.at(ns("./on"))
-          ref += ":#{date_range(date)}" if on&.text != "--"
+          ref += on&.text == "--" ? ":--" : ":#{date_range(date)}"
           ref += " (all parts)" if allparts
         end
       end
@@ -184,7 +183,7 @@ module IsoDoc::Function
       docid = ref.at(ns("./docidentifier"))
       # return ref_names(ref) unless docid
       date = ref.at(ns("./date[@type = 'published']"))
-      allparts = ref.at(ns("./allParts"))
+      allparts = ref.at(ns("./allparts"))
       reference = format_ref(docid_l10n(docid.text), isopub, date, allparts)
       @anchors[ref["id"]] = { xref: reference }
     end

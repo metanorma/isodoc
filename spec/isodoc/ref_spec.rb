@@ -34,7 +34,7 @@ RSpec.describe IsoDoc do
     </organization>
   </contributor>
   <note format="text/plain" reference="1">ISO DATE: Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
-  <allParts>true</allParts>
+  <allparts>true</allparts>
 </bibitem>
 <bibitem id="ISO20483" type="standard">
   <title format="text/plain">Cereals and pulses</title>

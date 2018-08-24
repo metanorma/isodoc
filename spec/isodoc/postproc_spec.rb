@@ -6,6 +6,7 @@ RSpec.describe IsoDoc do
     system "rm -f test.html"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", filename: "test"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <title language="en">test</title>
     <preface><foreword>
     <note>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
@@ -15,7 +16,7 @@ RSpec.describe IsoDoc do
     INPUT
     expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
-    expect(html).to match(%r{<title>test</title><style>})
+    expect(html).to match(%r{<title>test</title>})
     expect(html).to match(/another empty stylesheet/)
     expect(html).to match(%r{cdnjs\.cloudflare\.com/ajax/libs/mathjax/2\.7\.1/MathJax\.js})
     expect(html).to match(/delimiters: \[\['\(#\(', '\)#\)'\]\]/)
@@ -35,7 +36,7 @@ RSpec.describe IsoDoc do
     INPUT
     expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
-    expect(html).not_to match(%r{<title>test</title><style>})
+    expect(html).not_to match(%r{<title>test</title>})
     expect(html).not_to match(/another empty stylesheet/)
     expect(html).to match(%r{cdnjs\.cloudflare\.com/ajax/libs/mathjax/2\.7\.1/MathJax\.js})
     expect(html).to match(/delimiters: \[\['\(#\(', '\)#\)'\]\]/)
