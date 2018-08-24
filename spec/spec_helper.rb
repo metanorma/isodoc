@@ -30,9 +30,7 @@ end
 
 HTML_HDR = <<~END
         <html xmlns:epub="http://www.idpf.org/2007/ops">
-          <head>
-            <title>test</title>
-          </head>
+          <head/>
           <body lang="EN-US" link="blue" vlink="#954F72">
             <div class="title-section">
               <p>&#160;</p>
@@ -47,9 +45,7 @@ END
 
 WORD_HDR = <<~END
        <html xmlns:epub="http://www.idpf.org/2007/ops">
-         <head>
-           <title>test</title>
-         </head>
+         <head/>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
              <p>&#160;</p>

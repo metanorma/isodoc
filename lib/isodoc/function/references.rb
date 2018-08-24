@@ -166,12 +166,14 @@ module IsoDoc::Function
       end
     end
 
-    def format_ref(ref, isopub, date)
+    def format_ref(ref, isopub, date, allparts)
+      require "byebug"; byebug
       if isopub
-        return ref unless date
-        on = date.at(ns("./on"))
-        return ref if on&.text == "--"
-        return ref + ":#{date_range(date)}"
+        if date
+          on = date.at(ns("./on"))
+          ref += ":#{date_range(date)}" if on&.text != "--"
+          ref += " (all parts)" if allparts
+        end
       end
       return "[#{ref}]" if /^\d+$/.match(ref) && !/^\[.*\]$/.match(ref)
       ref
@@ -182,7 +184,8 @@ module IsoDoc::Function
       docid = ref.at(ns("./docidentifier"))
       # return ref_names(ref) unless docid
       date = ref.at(ns("./date[@type = 'published']"))
-      reference = format_ref(docid_l10n(docid.text), isopub, date)
+      allparts = ref.at(ns("./allParts"))
+      reference = format_ref(docid_l10n(docid.text), isopub, date, allparts)
       @anchors[ref["id"]] = { xref: reference }
     end
 

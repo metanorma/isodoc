@@ -7,6 +7,7 @@ RSpec.describe IsoDoc do
     <preface><foreword>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
   <eref bibitemid="ISO712"/>
+  <eref bibitemid="ISO16634"/>
   <eref bibitemid="ref1"/>
   <eref bibitemid="ref10"/>
   </p>
@@ -83,6 +84,7 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
          <a href="#ISO712">ISO 712</a>
+         <a href="#ISO16634">ISO 16634:-- (all parts)</a>
          <a href="#ref1">ICC 167</a>
          <a href="#ref10">[10]</a>
          </p>
