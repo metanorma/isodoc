@@ -11,7 +11,7 @@ module IsoDoc::Function
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier")).text
       isodate = b.at(ns("./date[@type = 'published']"))
-      iso_allparts = b.at(ns("./alloarts"))
+      iso_allparts = b.at(ns("./allparts"))
       reference = docid_l10n(isocode)
       reference += ":#{date_range(isodate)}" if isodate
       reference += " (all parts)" if iso_allparts&.text == "true"
