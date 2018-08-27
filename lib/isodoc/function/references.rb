@@ -14,7 +14,7 @@ module IsoDoc::Function
       iso_allparts = b.at(ns("./allparts"))
       reference = docid_l10n(isocode)
       reference += ":#{date_range(isodate)}" if isodate
-      reference += " (all parts)" if iso_allparts&.text == "true"
+      reference += " (#{@all_parts_lbl})" if iso_allparts&.text == "true"
       reference
     end
 
