@@ -14,8 +14,8 @@ module IsoDoc::Function
     end
 
     def termnote_anchor_names(docxml)
-      docxml.xpath(ns("//term[termnote]")).each do |t|
-        t.xpath(ns("./termnote")).each_with_index do |n, i|
+      docxml.xpath(ns("//term[descendant::termnote]")).each do |t|
+        t.xpath(ns(".//termnote")).each_with_index do |n, i|
           return if n["id"].nil? || n["id"].empty?
           @anchors[n["id"]] =
             { label: termnote_label(i + 1),
