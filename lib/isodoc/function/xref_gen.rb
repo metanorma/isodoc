@@ -26,8 +26,8 @@ module IsoDoc::Function
     end
 
     def termexample_anchor_names(docxml)
-      docxml.xpath(ns("//term[termexample]")).each do |t|
-        examples = t.xpath(ns("./termexample"))
+      docxml.xpath(ns("//term[descendant::termexample]")).each do |t|
+        examples = t.xpath(ns(".//termexample"))
         examples.each_with_index do |n, i|
           return if n["id"].nil? || n["id"].empty?
           idx = examples.size == 1 ? "" : (i + 1).to_s
