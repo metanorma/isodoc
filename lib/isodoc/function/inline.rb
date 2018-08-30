@@ -25,7 +25,8 @@ module IsoDoc::Function
     def anchor_linkend(node, linkend)
       if node["citeas"].nil? && node["bibitemid"] &&
           get_anchors.has_key?(node["bibitemid"])
-        return get_anchors[node["bibitemid"]][:xref]
+        #return get_anchors[node["bibitemid"]][:xref]
+        return get_anchors.dig(node["bibitemid"] ,:xref)
       elsif node["target"] && get_anchors.has_key?(node["target"])
         linkend = get_anchors[node["target"]][:xref]
         container = get_anchors[node["target"]][:container]

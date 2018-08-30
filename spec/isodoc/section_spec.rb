@@ -349,6 +349,22 @@ OUTPUT
     OUTPUT
   end
 
+    it "warn about external source for terms & definitions that does not point anywhere" do
+        expect{ IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true) }.to output(/not referenced/).to_stderr
+               <iso-standard xmlns="http://riboseinc.com/isoxml">
+         <termdocsource type="inline" bibitemid="ISO712"/>
+       <sections>
+       <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
+         <term id="J">
+         <preferred>Term2</preferred>
+       </term>
+       </terms>
+        </sections>
+</iso-standard>
+INPUT
+end
+
+
   it "processes terms & definitions with external source" do
         expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
                <iso-standard xmlns="http://riboseinc.com/isoxml">

@@ -19,7 +19,8 @@ module IsoDoc::Function
           return if n["id"].nil? || n["id"].empty?
           @anchors[n["id"]] =
             { label: termnote_label(i + 1),
-              xref: l10n("#{@anchors[t['id']][:xref]}, "\
+              #xref: l10n("#{@anchors[t['id']][:xref]}, "\
+              xref: l10n("#{@anchors.dig(t['id'], :xref)}, "\
                          "#{@note_xref_lbl} #{i + 1}") }
         end
       end
@@ -32,7 +33,8 @@ module IsoDoc::Function
           return if n["id"].nil? || n["id"].empty?
           idx = examples.size == 1 ? "" : (i + 1).to_s
           @anchors[n["id"]] = {
-            label: idx, xref: l10n("#{@anchors[t['id']][:xref]}, "\
+            #label: idx, xref: l10n("#{@anchors[t['id']][:xref]}, "\
+            label: idx, xref: l10n("#{@anchors.dig(t['id'], :xref)}, "\
                                    "#{@note_xref_lbl} #{i + 1}") }
         end
       end

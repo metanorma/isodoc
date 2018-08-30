@@ -96,14 +96,15 @@ module IsoDoc::Function
     end
 
     def external_terms_boilerplate(sources)
-      @external_terms_boilerplate.gsub(/%/, sources)
+      @external_terms_boilerplate.gsub(/%/, sources || "???")
     end
 
     def internal_external_terms_boilerplate(sources)
-      @internal_external_terms_boilerplate.gsub(/%/, sources)
+      @internal_external_terms_boilerplate.gsub(/%/, sources || "??")
     end
 
     def term_defs_boilerplate(div, source, term, preface)
+      source.each { |s| @anchors[s["bibitemid"]] or warn "#{s['bibitemid']} not referenced" }
       if source.empty? && term.nil?
         div << @no_terms_boilerplate
       else
@@ -113,11 +114,10 @@ module IsoDoc::Function
     end
 
     def term_defs_boilerplate_cont(src, term)
-      sources = sentence_join(src.map { |s| @anchors[s["bibitemid"]][:xref] })
-      if src.empty?
-        @internal_terms_boilerplate
-      elsif term.nil?
-        external_terms_boilerplate(sources)
+      #sources = sentence_join(src.map { |s| @anchors[s["bibitemid"]][:xref] })
+      sources = sentence_join(src.map { |s| @anchors.dig(s["bibitemid"], :xref) })
+      if src.empty? then @internal_terms_boilerplate
+      elsif term.nil? then external_terms_boilerplate(sources)
       else
         internal_external_terms_boilerplate(sources)
       end
