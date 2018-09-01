@@ -11,7 +11,9 @@ module IsoDoc
     include HtmlFunction::Html
 
     def initialize(options)
+      @standardstylesheet = nil
       super
+      @scripts = @scripts_pdf if @scripts_pdf
       @tmpimagedir = "_pdfimages"
       @maxwidth = 500
       @maxheight = 800

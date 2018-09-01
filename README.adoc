@@ -24,6 +24,7 @@ htmlstylesheet:: Stylesheet for HTML output
 htmlcoverpage:: Cover page for HTML output
 htmlintropage:: Introductory page for HTML output
 scripts:: Scripts page for HTML output
+scripts-pdf:: Scripts page for HTML > PDF output
 wordstylesheet:: Stylesheet for Word output
 standardstylesheet:: Secondary stylesheet for Word output
 header:: Header file for Word output
