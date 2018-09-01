@@ -5,16 +5,16 @@ module IsoDoc::Function
     # references anyway; keeping here instead of in IsoDoc::Iso for now
     def docid_l10n(x)
       return x if x.nil?
-      x.gsub(/All Parts/, @all_parts_lbl)
+      x.gsub(/All Parts/, @all_parts_lbl.downcase)
     end
 
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier")).text
       isodate = b.at(ns("./date[@type = 'published']"))
-      iso_allparts = b.at(ns("./allparts"))
+      allparts = b.at(ns("./allparts"))
       reference = docid_l10n(isocode)
       reference += ":#{date_range(isodate)}" if isodate
-      reference += " (#{@all_parts_lbl})" if iso_allparts&.text == "true"
+      reference += " (#{@all_parts_lbl.downcase})" if allparts&.text == "true"
       reference
     end
 

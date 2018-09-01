@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    isodoc (0.8.10)
+    isodoc (0.8.11)
       asciimath
       html2doc (~> 0.8.1)
       htmlentities (~> 4.3.4)
@@ -41,7 +41,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    html2doc (0.8.2)
+    html2doc (0.8.3)
       asciimath
       htmlentities (~> 4.3.4)
       image_size
