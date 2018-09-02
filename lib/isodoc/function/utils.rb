@@ -128,6 +128,11 @@ module IsoDoc::Function
       Liquid::Template.parse(doc)
     end
 
+    def empty2nil(v)
+      return nil if !v.nil? && v.is_a? String && v.empty?
+      v
+    end
+
     def populate_template(docxml, _format)
       meta = @meta.get.merge(@labels)
       docxml = docxml.
@@ -135,8 +140,7 @@ module IsoDoc::Function
         gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
         gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
       template = liquid(docxml)
-      template.render(meta.map { |k, v| [k.to_s, !v.nil? && v.empty? ? nil : v] }.
-                      to_h)
+      template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
     end
   end
 end
