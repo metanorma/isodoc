@@ -41,8 +41,8 @@ module IsoDoc
     end
 
     def tc(xml)
-      tc_num = xml.at(ns("//editorialgroup/technical-committee/@number"))
-      tc_type = xml.at(ns("//editorialgroup/technical-committee/@type"))&.
+      tc_num = xml.at(ns("//bibdata/editorialgroup/technical-committee/@number"))
+      tc_type = xml.at(ns("//bibdata/editorialgroup/technical-committee/@type"))&.
         text || "TC"
       if tc_num
         tcid = "#{tc_type} #{tc_num.text}"
@@ -52,8 +52,8 @@ module IsoDoc
     end
 
     def sc(xml)
-      sc_num = xml.at(ns("//editorialgroup/subcommittee/@number"))
-      sc_type = xml.at(ns("//editorialgroup/subcommittee/@type"))&.text || "SC"
+      sc_num = xml.at(ns("//bibdata/editorialgroup/subcommittee/@number"))
+      sc_type = xml.at(ns("//bibdata/editorialgroup/subcommittee/@type"))&.text || "SC"
       if sc_num
         scid = "#{sc_type} #{sc_num.text}"
         set(:sc, scid)
@@ -62,8 +62,8 @@ module IsoDoc
     end
 
     def wg(xml)
-      wg_num = xml.at(ns("//editorialgroup/workgroup/@number"))
-      wg_type = xml.at(ns("//editorialgroup/workgroup/@type"))&.text || "WG"
+      wg_num = xml.at(ns("//bibdata/editorialgroup/workgroup/@number"))
+      wg_type = xml.at(ns("//bibdata/editorialgroup/workgroup/@type"))&.text || "WG"
       if wg_num
         wgid = "#{wg_type} #{wg_num.text}"
         set(:wg, wgid)
@@ -72,7 +72,7 @@ module IsoDoc
     end
 
     def secretariat(xml)
-      sec = xml.at(ns("//editorialgroup/secretariat"))
+      sec = xml.at(ns("//bibdata/editorialgroup/secretariat"))
       set(:secretariat, sec.text) if sec
     end
 
@@ -112,9 +112,9 @@ module IsoDoc
     end
 
     def docnumber(isoxml)
-      docnumber = isoxml.at(ns("//project-number"))
-      partnumber = isoxml.at(ns("//project-number/@part"))
-      subpartnumber = isoxml.at(ns("//project-number/@subpart"))
+      docnumber = isoxml.at(ns("//bibdata/docidentifier/project-number"))
+      partnumber = isoxml.at(ns("//bibdata/docidentifier/project-number/@part"))
+      subpartnumber = isoxml.at(ns("//bibdata/docidentifier/project-number/@subpart"))
       dn = docnumber&.text || ""
       dn += "-#{partnumber.text}" if partnumber
       dn += "-#{subpartnumber.text}" if subpartnumber
@@ -152,7 +152,7 @@ module IsoDoc
     end
 
     def version(isoxml, _out)
-      set(:docyear, isoxml&.at(ns("//copyright/from"))&.text)
+      set(:docyear, isoxml&.at(ns("//bibdata/copyright/from"))&.text)
       set(:draft, isoxml&.at(ns("//version/draft"))&.text)
       set(:revdate, isoxml&.at(ns("//version/revision-date"))&.text)
       set(:draftinfo,
@@ -160,7 +160,7 @@ module IsoDoc
     end
 
     def title(isoxml, _out)
-      main = isoxml&.at(ns("//title[@language='en']"))&.text
+      main = isoxml&.at(ns("//bibdata/title[@language='en']"))&.text
       set(:doctitle, main)
     end
 
