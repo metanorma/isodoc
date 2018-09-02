@@ -129,7 +129,7 @@ module IsoDoc::Function
     end
 
     def empty2nil(v)
-      return nil if !v.nil? && v.is_a? String && v.empty?
+      return nil if !v.nil? && v.is_a?(String) && v.empty?
       v
     end
 
