@@ -51,7 +51,7 @@ example: EXAMPLE
 example_xref: Example
 where: where
 wholeoftext: Whole of text
-draft: draft
+draft_label: draft
 inform_annex: informative
 norm_annex: normative
 modified: modified

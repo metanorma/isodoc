@@ -44,7 +44,7 @@ example: 示例
 example_xref: 示例
 where: 式中
 wholeoftext: 全部
-draft: 稿
+draft_label: 稿
 inform_annex: 资料性附录
 norm_annex: 规范性附录
 modified: 改写

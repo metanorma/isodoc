@@ -44,7 +44,7 @@ example: EXEMPLE
 example_xref: Exemple
 where: où
 wholeoftext: Ensemble du texte
-draft: brouillon
+draft_label: brouillon
 inform_annex: informative
 norm_annex: normative
 modified: modifié

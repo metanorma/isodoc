@@ -53,7 +53,7 @@ module IsoDoc::Function
       @example_xref_lbl = y["example_xref"]
       @where_lbl = y["where"]
       @wholeoftext_lbl = y["wholeoftext"]
-      @draft_lbl = y["draft"]
+      @draft_lbl = y["draft_label"]
       @inform_annex_lbl = y["inform_annex"]
       @norm_annex_lbl = y["norm_annex"]
       @modified_lbl = y["modified"]

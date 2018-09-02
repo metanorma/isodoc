@@ -144,7 +144,7 @@ module IsoDoc
     def draftinfo(draft, revdate)
       draftinfo = ""
       if draft
-        draftinfo = " (#{@labels["draft"]} #{draft}"
+        draftinfo = " (#{@labels["draft_label"]} #{draft}"
         draftinfo += ", #{revdate}" if revdate
         draftinfo += ")"
       end
