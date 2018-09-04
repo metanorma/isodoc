@@ -5,17 +5,28 @@ module IsoDoc::Function
     # references anyway; keeping here instead of in IsoDoc::Iso for now
     def docid_l10n(x)
       return x if x.nil?
-      x.gsub(/All Parts/, @all_parts_lbl.downcase)
+      x.gsub(/All Parts/i, @all_parts_lbl.downcase)
     end
 
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier")).text
-      isodate = b.at(ns("./date[@type = 'published']"))
-      allparts = b.at(ns("./allparts"))
+      prefix = b&.at(ns("./docidentifier/@type"))&.text
+      #isodate = b.at(ns("./date[@type = 'published']"))
+      #allparts = b.at(ns("./allparts"))
       reference = docid_l10n(isocode)
-      reference += ":#{date_range(isodate)}" if isodate
-      reference += " (#{@all_parts_lbl.downcase})" if allparts&.text == "true"
-      reference
+      #reference += ":#{date_range(isodate)}" if isodate
+      #reference += " (#{@all_parts_lbl.downcase})" if allparts&.text == "true"
+      docid_prefix(prefix, reference)
+    end
+
+    def docid_prefix(prefix, docid)
+      docid = "#{prefix} #{docid}" unless omit_docid_prefix(prefix)
+      docid
+    end
+
+    def omit_docid_prefix(prefix)
+      return true if prefix.nil? || prefix.empty?
+      return ["ISO"].include? prefix
     end
 
     def date_note_process(b, ref)
@@ -58,8 +69,9 @@ module IsoDoc::Function
       end
     end
 
-    def ref_entry_code(r, ordinal, t)
-      if /^\d+$/.match(t)
+    def ref_entry_code(r, ordinal, prefix, t)
+      t = docid_prefix(prefix, t)
+      if /^\d+$/.match(t) && !prefix
         prefix_bracketed_ref(r, t)
       else
         prefix_bracketed_ref(r, ordinal)
@@ -78,7 +90,8 @@ module IsoDoc::Function
       list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
         if bibliography
           id = docid_l10n(b.at(ns("./docidentifier")).text.gsub(/[\[\]]/, ""))
-          ref_entry_code(r, ordinal, id)
+          prefix = b&.at(ns("./docidentifier/@type"))&.text
+          ref_entry_code(r, ordinal, prefix, id)
         else
           r << "#{iso_bibitem_ref_code(b)}, "
         end
@@ -166,25 +179,28 @@ module IsoDoc::Function
       end
     end
 
-    def format_ref(ref, isopub, date, allparts)
+    def format_ref(ref, prefix, isopub, date, allparts)
       if isopub
-        if date
-          on = date.at(ns("./on"))
-          ref += on&.text == "--" ? ":--" : ":#{date_range(date)}"
-          ref += " (all parts)" if allparts
-        end
+        #if date
+          #on = date.at(ns("./on"))
+          #ref += on&.text == "--" ? ":--" : "" # ":#{date_range(date)}"
+          #ref += " (all parts)" if allparts
+         # ref = docid_prefix(prefix, ref)
+        #end
       end
-      return "[#{ref}]" if /^\d+$/.match(ref) && !/^\[.*\]$/.match(ref)
+          ref = docid_prefix(prefix, ref)
+      return "[#{ref}]" if /^\d+$/.match(ref) && !prefix && !/^\[.*\]$/.match(ref)
       ref
     end
 
     def reference_names(ref)
       isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
       docid = ref.at(ns("./docidentifier"))
+      prefix = ref.at(ns("./docidentifier/@type"))
       # return ref_names(ref) unless docid
       date = ref.at(ns("./date[@type = 'published']"))
       allparts = ref.at(ns("./allparts"))
-      reference = format_ref(docid_l10n(docid.text), isopub, date, allparts)
+      reference = format_ref(docid_l10n(docid.text), prefix&.text, isopub, date, allparts)
       @anchors[ref["id"]] = { xref: reference }
     end
 

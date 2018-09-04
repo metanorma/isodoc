@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    isodoc (0.8.11)
+    isodoc (0.8.13)
       asciimath
       html2doc (~> 0.8.1)
       htmlentities (~> 4.3.4)
