@@ -20,8 +20,14 @@ module IsoDoc::Function
         Dir.mkdir(dir) unless File.exists?(dir)
         system "rm -r #{dir}/*"
       end
+      @filename = filename
       [filename, dir]
     end
+
+    def tmpimagedir
+      @filename + @tmpimagedir
+    end
+
 
     # isodoc.css overrides any CSS injected by Html2Doc, which
     # is inserted before this CSS.

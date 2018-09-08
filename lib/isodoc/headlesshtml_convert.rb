@@ -23,7 +23,7 @@ module IsoDoc
       postprocess(result, filename + ".tmp", dir)
       system "rm -fr #{dir}"
       strip_head(filename + ".tmp.html", outname_html + ".headless.html")
-      system "rm -r #{filename + '.tmp.html'} #{@tmpimagedir}"
+      system "rm -r #{filename + '.tmp.html'} #{tmpimagedir}"
     end
 
     def strip_head(input, output)

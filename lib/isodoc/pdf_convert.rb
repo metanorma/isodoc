@@ -28,7 +28,7 @@ module IsoDoc
       postprocess(result, filename, dir)
       system "rm -fr #{dir}"
       ::Metanorma::Output::Pdf.new.convert(filename + ".html", outname_html + ".pdf")
-      system "rm -r #{filename + '.html'} #{@tmpimagedir}"
+      system "rm -r #{filename + '.html'} #{tmpimagedir}"
     end
   end
 end
