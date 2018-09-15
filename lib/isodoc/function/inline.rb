@@ -22,16 +22,19 @@ module IsoDoc::Function
       out << " &lt;#{node.text}&gt;"
     end
 
+    def prefix_container(container, linkend)
+      l10n(get_anchors[container][:xref] + ", " + linkend)
+    end
+
     def anchor_linkend(node, linkend)
       if node["citeas"].nil? && node["bibitemid"] &&
           get_anchors.has_key?(node["bibitemid"])
-        #return get_anchors[node["bibitemid"]][:xref]
         return get_anchors.dig(node["bibitemid"] ,:xref)
       elsif node["target"] && get_anchors.has_key?(node["target"])
         linkend = get_anchors[node["target"]][:xref]
         container = get_anchors[node["target"]][:container]
         (container && get_note_container_id(node) != container) &&
-          linkend = l10n(get_anchors[container][:xref] + ", " + linkend)
+          linkend = prefix_container(container, linkend)
       end
       linkend
     end
