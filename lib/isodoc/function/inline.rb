@@ -22,7 +22,7 @@ module IsoDoc::Function
       out << " &lt;#{node.text}&gt;"
     end
 
-    def prefix_container(container, linkend)
+    def prefix_container(container, linkend, _target)
       l10n(get_anchors[container][:xref] + ", " + linkend)
     end
 
@@ -34,7 +34,7 @@ module IsoDoc::Function
         linkend = get_anchors[node["target"]][:xref]
         container = get_anchors[node["target"]][:container]
         (container && get_note_container_id(node) != container) &&
-          linkend = prefix_container(container, linkend)
+          linkend = prefix_container(container, linkend, node["target"])
       end
       linkend
     end
