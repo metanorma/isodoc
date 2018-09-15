@@ -76,10 +76,10 @@ module IsoDoc::Function
 
     def stem_parse(node, out)
       ooml = if node["type"] == "AsciiMath"
-               "#{@openmathdelim}#{node.text}#{@closemathdelim}"
+               "#{@openmathdelim}#{HTMLEntities.new.encode(node.text)}#{@closemathdelim}"
              elsif node["type"] == "MathML" then node.first_element_child.to_s
              else
-               node.text
+               HTMLEntities.new.encode(node.text)
              end
       out.span **{ class: "stem" } do |span|
         span.parent.add_child ooml

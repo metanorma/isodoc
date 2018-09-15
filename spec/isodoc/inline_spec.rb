@@ -94,7 +94,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
-    <stem type="AsciiMath">A</stem>
+    <stem type="AsciiMath">&lt;A&gt;</stem>
     <stem type="MathML"><m:math><m:row>X</m:row></m:math></stem>
     <stem type="None">Latex?</stem>
     </p>
@@ -107,7 +107,7 @@ RSpec.describe IsoDoc do
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
-       <span class="stem">(#(A)#)</span>
+       <span class="stem">(#(&lt;A&gt;)#)</span>
        <span class="stem"><m:math>
          <m:row>X</m:row>
        </m:math></span>
