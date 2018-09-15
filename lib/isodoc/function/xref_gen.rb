@@ -19,7 +19,7 @@ module IsoDoc::Function
           return if n["id"].nil? || n["id"].empty?
           @anchors[n["id"]] =
             { label: termnote_label(i + 1),
-              #xref: l10n("#{@anchors[t['id']][:xref]}, "\
+              type: "termnote",
               xref: l10n("#{@anchors.dig(t['id'], :xref)}, "\
                          "#{@note_xref_lbl} #{i + 1}") }
         end
@@ -33,7 +33,7 @@ module IsoDoc::Function
           return if n["id"].nil? || n["id"].empty?
           idx = examples.size == 1 ? "" : (i + 1).to_s
           @anchors[n["id"]] = {
-            #label: idx, xref: l10n("#{@anchors[t['id']][:xref]}, "\
+            type: "termexample",
             label: idx, xref: l10n("#{@anchors.dig(t['id'], :xref)}, "\
                                    "#{@note_xref_lbl} #{i + 1}") }
         end
@@ -56,7 +56,7 @@ module IsoDoc::Function
           next if @anchors[n["id"]]
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @note_xref_lbl)
+          @anchors[n["id"]] = anchor_struct(idx, n, @note_xref_lbl, "note")
         end
         note_anchor_names(s.xpath(ns("./clause | ./appendix")))
       end
@@ -73,7 +73,7 @@ module IsoDoc::Function
           next if @anchors[n["id"]]
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @example_xref_lbl)
+          @anchors[n["id"]] = anchor_struct(idx, n, @example_xref_lbl, "example")
         end
         example_anchor_names(s.xpath(ns("./clause | ./appendix")))
       end
@@ -86,7 +86,7 @@ module IsoDoc::Function
         notes.each_with_index do |n, i|
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @list_lbl)
+          @anchors[n["id"]] = anchor_struct(idx, n, @list_lbl, "list")
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
         list_anchor_names(s.xpath(ns("./clause | ./appendix")))
@@ -108,6 +108,7 @@ module IsoDoc::Function
         label = "#{prev_label}.#{label}" unless prev_label.empty?
         label = "#{list_anchor[:xref]} #{label}" if refer_list
         li["id"] && @anchors[li["id"]] = { xref: "#{label})",
+                                           type: "listitem",
                                            container: list_anchor[:container] }
         li.xpath(ns("./ol")).each do |ol|
           list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
@@ -137,7 +138,7 @@ module IsoDoc::Function
         end
         label = i.to_s + (j.zero? ? "" : "-#{j}")
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl)
+        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl, "figure")
       end
     end
 
@@ -157,24 +158,25 @@ module IsoDoc::Function
       end
     end
 
-    def anchor_struct(lbl, container, elem)
+    def anchor_struct(lbl, container, elem, type)
       ret = {}
       ret[:label] = anchor_struct_label(lbl, elem)
       ret[:xref] = anchor_struct_xref(lbl, elem)
       ret[:xref].gsub!(/ $/, "")
       ret[:container] = get_clause_id(container) unless container.nil?
+      ret[:type] = type
       ret
     end
 
     def sequential_asset_names(clause)
       clause.xpath(ns(".//table")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(i + 1, nil, @table_lbl)
+        @anchors[t["id"]] = anchor_struct(i + 1, nil, @table_lbl, "table")
       end
       sequential_figure_names(clause)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(i + 1, t, @formula_lbl)
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @formula_lbl, "formula")
       end
     end
 
@@ -188,19 +190,19 @@ module IsoDoc::Function
         end
         label = "#{num}.#{i}" + (j.zero? ? "" : "-#{j}")
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl)
+        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl, "figure")
       end
     end
 
     def hierarchical_asset_names(clause, num)
       clause.xpath(ns(".//table")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", nil, @table_lbl)
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", nil, @table_lbl, "table")
       end
       hierarchical_figure_names(clause, num)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", t, @formula_lbl)
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", t, @formula_lbl, "formula")
       end
     end
   end

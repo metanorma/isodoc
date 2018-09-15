@@ -34,7 +34,7 @@ module IsoDoc::Function
     def preface_names(clause)
       return if clause.nil?
       @anchors[clause["id"]] =
-        { label: nil, level: 1, xref: preface_clause_name(clause) }
+        { label: nil, level: 1, xref: preface_clause_name(clause), type: "clause" }
       clause.xpath(ns("./clause")).each_with_index do |c, i|
         preface_names1(c, c.at(ns("./title"))&.text, "#{preface_clause_name(clause)}, #{i+1}", 2)
       end
@@ -43,7 +43,7 @@ module IsoDoc::Function
     def preface_names1(clause, title, parent_title, level)
       label = title || parent_title
       @anchors[clause["id"]] =
-        { label: nil, level: level, xref: label }
+        { label: nil, level: level, xref: label, type: "clause" }
       clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
         each_with_index do |c, i|
         preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i+1}", level + 1)
@@ -71,7 +71,7 @@ module IsoDoc::Function
       return num if clause.nil?
       num = num + 1
       @anchors[clause["id"]] =
-        { label: num.to_s, xref: l10n("#{@clause_lbl} #{num}"), level: lvl }
+        { label: num.to_s, xref: l10n("#{@clause_lbl} #{num}"), level: lvl, type: "clause" }
       clause.xpath(ns("./clause | ./term  | ./terms | ./definitions")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", lvl + 1)
@@ -81,7 +81,7 @@ module IsoDoc::Function
 
     def section_names1(clause, num, level)
       @anchors[clause["id"]] =
-        { label: num, level: level, xref: l10n("#{@clause_lbl} #{num}") }
+        { label: num, level: level, xref: l10n("#{@clause_lbl} #{num}"), type: "clause" }
       clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", level + 1)
@@ -95,7 +95,7 @@ module IsoDoc::Function
     end
 
     def annex_names(clause, num)
-      @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
+      @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
                                  xref: "#{@annex_lbl} #{num}", level: 1 }
       clause.xpath(ns("./clause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)
@@ -106,7 +106,7 @@ module IsoDoc::Function
 
     def annex_names1(clause, num, level)
       @anchors[clause["id"]] = { label: num, xref: "#{@annex_lbl} #{num}",
-                                 level: level }
+                                 level: level, type: "clause" }
       clause.xpath(ns("./clause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
       end
