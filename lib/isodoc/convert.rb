@@ -19,6 +19,7 @@ module IsoDoc
     # bodyfont: font to use for body text
     # headerfont: font to use for header text
     # monospace: font to use for monospace text
+    # suppressheadingnumbers: suppress heading numbers for clauses
     def initialize(options)
       @libdir = File.dirname(__FILE__) unless @libdir
       options.merge!(default_fonts(options)) { |_, old, new| old || new }.
@@ -38,6 +39,7 @@ module IsoDoc
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
       @olstyle = options[:olstyle]
+      @suppressheadingnumbers = options[:suppressheadingnumbers]
       @termdomain = ""
       @termexample = false
       @note = false

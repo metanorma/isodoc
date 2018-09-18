@@ -5,10 +5,9 @@ module IsoDoc::Function
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
           if get_anchors[node['id']][:label]
-            b << "#{get_anchors[node['id']][:label]}. #{title} "
-          else
-            b << "#{title} "
+            b << "#{get_anchors[node['id']][:label]}. " unless @suppressheadingnumbers
           end
+          b << "#{title} "
         end
       end
     end
@@ -19,7 +18,7 @@ module IsoDoc::Function
       else
         div.send "h#{get_anchors[node['id']][:level]}" do |h|
           lbl = get_anchors[node['id']][:label]
-          h << "#{lbl}. " if lbl
+          h << "#{lbl}. " if lbl && !@suppressheadingnumbers
           c1&.children&.each { |c2| parse(c2, h) }
         end
       end
@@ -37,7 +36,7 @@ module IsoDoc::Function
     def clause_name(num, title, div, header_class)
       header_class = {} if header_class.nil?
       div.h1 **attr_code(header_class) do |h1|
-        if num
+        if num && !@suppressheadingnumbers
           h1 << "#{num}."
           insert_tab(h1, 1)
         end
@@ -114,7 +113,6 @@ module IsoDoc::Function
     end
 
     def term_defs_boilerplate_cont(src, term)
-      #sources = sentence_join(src.map { |s| @anchors[s["bibitemid"]][:xref] })
       sources = sentence_join(src.map { |s| @anchors.dig(s["bibitemid"], :xref) })
       if src.empty? then @internal_terms_boilerplate
       elsif term.nil? then external_terms_boilerplate(sources)

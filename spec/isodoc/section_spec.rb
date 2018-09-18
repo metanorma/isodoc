@@ -315,6 +315,155 @@ OUTPUT
 OUTPUT
   end
 
+    it "processes section names suppressing section numbering" do
+    expect(IsoDoc::HtmlConvert.new({suppressheadingnumbers: true}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword obligation="informative">
+         <title>Foreword</title>
+         <p id="A">This is a preamble</p>
+       </foreword>
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+         <title>Introduction Subsection</title>
+       </clause>
+       </introduction></preface><sections>
+       <clause id="D" obligation="normative">
+         <title>Scope</title>
+         <p id="E">Text</p>
+       </clause>
+
+       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <title>Normal Terms</title>
+         <term id="J">
+         <preferred>Term2</preferred>
+       </term>
+       </terms>
+       <definitions id="K">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       </clause>
+       <definitions id="L">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+         <title>Introduction</title>
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+       </clause>
+       <clause id="O1" inline-header="false" obligation="normative">
+       </clause>
+        </clause>
+
+       </sections><annex id="P" inline-header="false" obligation="normative">
+         <title>Annex</title>
+         <clause id="Q" inline-header="false" obligation="normative">
+         <title>Annex A.1</title>
+         <clause id="Q1" inline-header="false" obligation="normative">
+         <title>Annex A.1a</title>
+         </clause>
+       </clause>
+       </annex><bibliography><references id="R" obligation="informative">
+         <title>Normative References</title>
+       </references><clause id="S" obligation="informative">
+         <title>Bibliography</title>
+         <references id="T" obligation="informative">
+         <title>Bibliography Subsection</title>
+       </references>
+       </clause>
+       </bibliography>
+       </iso-standard>
+    INPUT
+    #{HTML_HDR}
+              <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p id="A">This is a preamble</p>
+             </div>
+             <br/>
+             <div class="Section3" id="B">
+               <h1 class="IntroTitle">Introduction</h1>
+               <div id="C"><h2>Introduction Subsection</h2>
+
+        </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div id="D">
+               <h1>Scope</h1>
+               <p id="E">Text</p>
+             </div>
+             <div>
+               <h1>Normative references</h1>
+               <p>There are no normative references in this document.</p>
+             </div>
+             <div id="H"><h1>Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
+           the following terms and definitions apply.</p>
+       <p>ISO and IEC maintain terminological databases for use in
+       standardization at the following addresses:</p>
+
+       <ul>
+       <li> <p>ISO Online browsing platform: available at
+         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
+       <li> <p>IEC Electropedia: available at
+         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
+       </p> </li> </ul>
+       <div id="I"><h2>Normal Terms</h2>
+
+          <p class="TermNum" id="J">3.1.1</p>
+          <p class="Terms" style="text-align:left;">Term2</p>
+
+        </div><div id="K"><h2>Symbols and abbreviated terms</h2>
+          <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+        </div></div>
+             <div id="L" class="Symbols">
+               <h1>Symbols and abbreviated terms</h1>
+               <dl>
+                 <dt>
+                   <p>Symbol</p>
+                 </dt>
+                 <dd>Definition</dd>
+               </dl>
+             </div>
+             <div id="M">
+               <h1>Clause 4</h1>
+               <div id="N"><h2>Introduction</h2>
+
+        </div>
+               <div id="O"><h2>Clause 4.2</h2>
+
+        </div>
+               <div id="O1"><h2/>
+        </div>
+             </div>
+             <br/>
+             <div id="P" class="Section3">
+               <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
+               <div id="Q"><h2>Annex A.1</h2>
+
+          <div id="Q1"><h3>Annex A.1a</h3>
+
+          </div>
+        </div>
+             </div>
+             <br/>
+             <div>
+               <h1 class="Section3">Bibliography</h1>
+               <div>
+                 <h2 class="Section3">Bibliography Subsection</h2>
+               </div>
+             </div>
+           </div>
+         </body>
+       </html>
+OUTPUT
+    end
+
   it "processes simple terms & definitions" do
         expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
                <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -363,7 +512,6 @@ OUTPUT
 </iso-standard>
 INPUT
 end
-
 
   it "processes terms & definitions with external source" do
         expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
@@ -520,6 +668,37 @@ end
         </div>
                  <div id="O">
           <span class="zzMoveToFollowing"><b>1.2. Clause 4.2 </b></span>
+        </div>
+               </div>
+             </div>
+           </body>
+       </html>
+OUTPUT
+    end
+
+        it "processes inline section headers with suppressed heading numbering" do
+    expect(IsoDoc::HtmlConvert.new({suppressheadingnumbers: true}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <sections>
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+         <title>Introduction</title>
+       </clause>
+       <clause id="O" inline-header="true" obligation="normative">
+         <title>Clause 4.2</title>
+       </clause></clause>
+
+       </sections>
+      </iso-standard>
+    INPUT
+    #{HTML_HDR}
+               <p class="zzSTDTitle1"/>
+               <div id="M">
+                 <h1>Clause 4</h1>
+                 <div id="N">
+          <h2>Introduction</h2>
+        </div>
+                 <div id="O">
+          <span class="zzMoveToFollowing"><b>Clause 4.2 </b></span>
         </div>
                </div>
              </div>
