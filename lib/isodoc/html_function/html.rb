@@ -1,4 +1,5 @@
 require "fileutils"
+require "base64"
 
 module IsoDoc::HtmlFunction
   module Html
@@ -195,15 +196,22 @@ module IsoDoc::HtmlFunction
       system "rm -r #{tmpimagedir}; mkdir #{tmpimagedir}"
       docxml.xpath("//*[local-name() = 'img']").each do |i|
         next if /^data:image/.match i["src"]
-        matched = /\.(?<suffix>\S+)$/.match i["src"]
-        uuid = UUIDTools::UUID.random_create.to_s
-        new_full_filename = File.join(tmpimagedir, "#{uuid}.#{matched[:suffix]}")
-        move_image1(i, new_full_filename)
+        @datauriimage ? datauri(i) : move_image1(i)
       end
       docxml
     end
 
-    def move_image1(i, new_full_filename)
+    def datauri(i)
+      type = i["src"].split(".")[-1]
+      bin = open(i["src"]).read
+      data = Base64.strict_encode64(bin)
+      i["src"] = "data:image/#{type};base64;#{data}"
+    end
+
+    def move_image1(i)
+      matched = /\.(?<suffix>\S+)$/.match i["src"]
+      uuid = UUIDTools::UUID.random_create.to_s
+      new_full_filename = File.join(tmpimagedir, "#{uuid}.#{matched[:suffix]}")
       FileUtils.cp i["src"], new_full_filename
       i["src"] = new_full_filename
       i["width"], i["height"] = Html2Doc.image_resize(i, @maxheight, @maxwidth)

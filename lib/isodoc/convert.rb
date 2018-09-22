@@ -20,6 +20,9 @@ module IsoDoc
     # headerfont: font to use for header text
     # monospace: font to use for monospace text
     # suppressheadingnumbers: suppress heading numbers for clauses
+    # scripts: Scripts file for HTML
+    # scripts_pdf: Scripts file for PDF
+    # datauriimage: Encode images in HTML output as data URIs
     def initialize(options)
       @libdir = File.dirname(__FILE__) unless @libdir
       options.merge!(default_fonts(options)) { |_, old, new| old || new }.
@@ -39,6 +42,7 @@ module IsoDoc
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
       @olstyle = options[:olstyle]
+      @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
       @termdomain = ""
       @termexample = false
