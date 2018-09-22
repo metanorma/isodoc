@@ -516,13 +516,13 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
     INPUT
     html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
       sub(%r{</main>.*$}m, "</main>")
-    expect(html.gsub(%r{src="data:image/png;base64;[^"]+"}, %{src="data:image/png;base64;_"})).to be_equivalent_to <<~"OUTPUT"
+    expect(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})).to be_equivalent_to <<~"OUTPUT"
            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br />
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="figure">
-               <img src="data:image/png;base64;_" height="auto" width="auto" />
+               <img src="data:image/png;base64,_" height="auto" width="auto" />
        <p class="FigureTitle" align="center">Figure 1&#xA0;&#x2014; Split-it-right sample divider</p></div>
              </div>
              <p class="zzSTDTitle1"></p>
