@@ -1,3 +1,5 @@
+require "fileutils"
+
 module IsoDoc::WordFunction
   module Postprocess
     def table_note_cleanup(docxml)
@@ -13,7 +15,7 @@ module IsoDoc::WordFunction
       header = generate_header(filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toWord(result, filename, dir, header)
-      @files_to_delete.each { |f| system "rm #{f}" }
+      @files_to_delete.each { |f| FileUtils.rm f }
     end
 
     def toWord(result, filename, dir, header)

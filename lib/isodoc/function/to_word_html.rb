@@ -1,3 +1,5 @@
+require "fileutils"
+
 module IsoDoc::Function
   module ToWordHtml
 
@@ -18,7 +20,7 @@ module IsoDoc::Function
       dir = "#{filename}_files"
       unless debug
         Dir.mkdir(dir) unless File.exists?(dir)
-        system "rm -r #{dir}/*"
+        FileUtils.rm_rf "#{dir}/*"
       end
       @filename = filename
       [filename, dir]

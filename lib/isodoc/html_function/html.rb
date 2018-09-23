@@ -31,7 +31,7 @@ module IsoDoc::HtmlFunction
     def postprocess(result, filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toHTML(result, filename)
-      @files_to_delete.each { |f| system "rm -r #{f}" }
+      @files_to_delete.each { |f| FileUtils.rm_r f }
     end
 
     def script_cdata(result)
@@ -193,7 +193,8 @@ module IsoDoc::HtmlFunction
 
     # presupposes that the image source is local
     def move_images(docxml)
-      system "rm -r #{tmpimagedir}; mkdir #{tmpimagedir}"
+      FileUtils.rm_rf tmpimagedir
+      FileUtils.mkdir tmpimagedir
       docxml.xpath("//*[local-name() = 'img']").each do |i|
         next if /^data:image/.match i["src"]
         @datauriimage ? datauri(i) : move_image1(i)
