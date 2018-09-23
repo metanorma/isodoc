@@ -1,5 +1,6 @@
 require "isodoc/common"
 require "sassc"
+require "fileutils"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
@@ -148,7 +149,7 @@ module IsoDoc
       result = convert1(docxml, filename, dir)
       return result if debug
       postprocess(result, filename, dir)
-      system "rm -fr #{dir}"
+      FileUtils.rm_rf dir
     end
   end
 end

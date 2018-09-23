@@ -1,6 +1,7 @@
 require_relative "html_function/comments.rb"
 require_relative "html_function/footnotes.rb"
 require_relative "html_function/html.rb"
+require "fileutils"
 
 module IsoDoc
   class HeadlessHtmlConvert < ::IsoDoc::Convert
@@ -21,9 +22,9 @@ module IsoDoc
       result = convert1(docxml, outname_html, dir)
       return result if debug
       postprocess(result, filename + ".tmp", dir)
-      system "rm -fr #{dir}"
+      FileUtils.rm_rf dir
       strip_head(filename + ".tmp.html", outname_html + ".headless.html")
-      system "rm -r #{filename + '.tmp.html'} #{tmpimagedir}"
+      FileUtils.rm_r ["#{filename}.tmp.html", tmpimagedir]
     end
 
     def strip_head(input, output)

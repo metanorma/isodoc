@@ -26,9 +26,9 @@ module IsoDoc
       result = convert1(docxml, filename, dir)
       return result if debug
       postprocess(result, filename, dir)
-      system "rm -fr #{dir}"
+      FileUtils.rm_rf dir
       ::Metanorma::Output::Pdf.new.convert(filename + ".html", outname_html + ".pdf")
-      system "rm -r #{filename + '.html'} #{tmpimagedir}"
+      FileUtils.rm_r ["#{filename}.html", tmpimagedir]
     end
   end
 end
