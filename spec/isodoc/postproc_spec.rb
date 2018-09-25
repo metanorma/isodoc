@@ -1,9 +1,10 @@
 require "spec_helper"
+require "fileutils"
 
 RSpec.describe IsoDoc do
   it "generates file based on string input" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", filename: "test"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata>
@@ -25,8 +26,8 @@ RSpec.describe IsoDoc do
   end
 
   it "generates HTML output docs with null configuration" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -45,8 +46,8 @@ RSpec.describe IsoDoc do
   end
 
   it "generates Word output docs with null configuration" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -62,8 +63,8 @@ RSpec.describe IsoDoc do
   end
 
   it "generates HTML output docs with null configuration from file" do
-    system "rm -f spec/assets/iso.doc"
-    system "rm -f spec/assets/iso.html"
+    FileUtils.rm_f "spec/assets/iso.doc"
+    FileUtils.rm_f "spec/assets/iso.html"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.html")).to be true
     html = File.read("spec/assets/iso.html")
@@ -72,8 +73,8 @@ RSpec.describe IsoDoc do
     expect(html).to match(%r{libs/jquery})
   end
 
-    it "generates Headless HTML output docs with null configuration from file" do
-    system "rm -f spec/assets/iso.html"
+  it "generates Headless HTML output docs with null configuration from file" do
+    FileUtils.rm_f "spec/assets/iso.html"
     IsoDoc::HeadlessHtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.headless.html")).to be true
     html = File.read("spec/assets/iso.headless.html")
@@ -87,7 +88,7 @@ RSpec.describe IsoDoc do
   end
 
   it "generates Word output docs with null configuration from file" do
-    system "rm -f spec/assets/iso.doc"
+    FileUtils.rm_f "spec/assets/iso.doc"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.doc")).to be true
     word = File.read("spec/assets/iso.doc")
@@ -95,15 +96,14 @@ RSpec.describe IsoDoc do
   end
 
   it "generates PDF output docs with null configuration from file" do
-    system "rm -f spec/assets/iso.pdf"
-    #require "byebug"; byebug
+    FileUtils.rm_f "spec/assets/iso.pdf"
     IsoDoc::PdfConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.pdf")).to be true
   end
 
   it "generates HTML output docs with complete configuration" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({bodyfont: "Zapf", htmlstylesheet: "spec/assets/html.css", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -124,8 +124,8 @@ RSpec.describe IsoDoc do
   end
 
   it "generates HTML output docs with default fonts" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({htmlstylesheet: "spec/assets/html.css", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -146,8 +146,8 @@ RSpec.describe IsoDoc do
   end
 
   it "generates Word output docs with complete configuration" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new({bodyfont: "Zapf", wordstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -169,8 +169,8 @@ RSpec.describe IsoDoc do
   end
 
   it "generates Word output docs with default fonts" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/html.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -192,8 +192,8 @@ RSpec.describe IsoDoc do
   end
 
   it "converts definition lists to tables for Word" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
      <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -234,8 +234,8 @@ RSpec.describe IsoDoc do
   end
 
   it "converts annex subheadings to h2Annex class for Word" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <annex id="P" inline-header="false" obligation="normative">
@@ -263,8 +263,8 @@ RSpec.describe IsoDoc do
   end
 
   it "populates Word template with terms reference labels" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
@@ -308,7 +308,7 @@ RSpec.describe IsoDoc do
   end
 
   it "populates Word header" do
-    system "rm -f test.doc"
+    FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", header: "spec/assets/header.html"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
                <bibdata type="article">
@@ -334,7 +334,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
   end
 
   it "populates Word ToC" do
-    system "rm -f test.doc"
+    FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
@@ -413,7 +413,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
   end
 
   it "reorders footnote numbers in HTML" do
-    system "rm -f test.html"
+    FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
@@ -467,8 +467,8 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
   end
 
   it "moves images in HTML" do
-    system "rm -f test.html"
-    system "rm -rf test_images"
+    FileUtils.rm_f "test.html"
+    FileUtils.rm_rf "test_images"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword>
@@ -502,8 +502,8 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
   end
 
   it "encodes images in HTML as data URIs" do
-    system "rm -f test.html"
-    system "rm -rf test_images"
+    FileUtils.rm_f "test.html"
+    FileUtils.rm_rf "test_images"
     IsoDoc::HtmlConvert.new({htmlstylesheet: "spec/assets/html.css", datauriimage: true}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword>
@@ -532,8 +532,8 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
   end
 
   it "processes IsoXML terms for HTML" do
-    system "rm -f test.doc"
-    system "rm -f test.html"
+    FileUtils.rm_f "test.html"
+    FileUtils.rm_f "test.doc"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>

@@ -1,4 +1,5 @@
 require "spec_helper"
+require "fileutils"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML footnotes" do
@@ -91,7 +92,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes IsoXML reviewer notes" do
-    system "rm -f test.html"
+    FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
@@ -186,7 +187,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes IsoXML reviewer notes (Word)" do
-    system "rm -f test.doc"
+    FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
