@@ -151,6 +151,10 @@ module IsoDoc::Function
         div << "(#{get_anchors[node['id']][:label]})"
       end
       formula_where(node.at(ns("./dl")), out)
+      node.children.each do |n|
+        next if %w(stem dl).include? n.name
+        parse(n, out)
+      end
     end
 
     def para_attrs(node)

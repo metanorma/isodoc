@@ -503,7 +503,11 @@ INPUT
   <dd>
     <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
   </dd>
-</dl></formula>
+</dl>
+    <note id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0">
+  <p id="_511aaa98-4116-42af-8e5b-c87cdf5bfdc8">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
+</note>
+    </formula>
     </foreword></preface>
     </iso-standard>
     INPUT
@@ -511,17 +515,16 @@ INPUT
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</div>
-                 <p>where</p>
-                 <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
-                   <dt>
+                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</div><p>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d"><dt>
            <span class="stem">(#(r)#)</span>
-         </dt>
-                   <dd>
+         </dt><dd>
            <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
-         </dd>
-                 </dl>
-               </div>
+         </dd></dl>
+
+
+           <div id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0" class="Note"><p><span class="note_label">NOTE</span>&#160; [durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div>
+           </div>
+
                <p class="zzSTDTitle1"/>
              </div>
            </body>
