@@ -117,7 +117,7 @@ module IsoDoc::WordFunction
     def dl_parse_notes(node, v)
       return if node.elements.reject { |n| dt_dd? n }.empty?
       v.tr do |tr|
-        tr.td **{ rowspan: 2 } do |td|
+        tr.td **{ colspan: 2 } do |td|
           node.elements.reject { |n| dt_dd? n }.each { |n| parse(n, td) }
         end
       end
