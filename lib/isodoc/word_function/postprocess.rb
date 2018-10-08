@@ -15,7 +15,7 @@ module IsoDoc::WordFunction
       header = generate_header(filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toWord(result, filename, dir, header)
-      @files_to_delete.each { |f| FileUtils.rm f }
+      @files_to_delete.each { |f| FileUtils.rm_f f }
     end
 
     def toWord(result, filename, dir, header)

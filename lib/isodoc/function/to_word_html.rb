@@ -38,7 +38,7 @@ module IsoDoc::Function
         #head.title { |t| t << filename }
         if @standardstylesheet
           head.style do |style|
-            stylesheet = File.read(@standardstylesheet).
+            stylesheet = File.read(@standardstylesheet, encoding: "utf-8").
               gsub("FILENAME", filename)
             style.comment "\n#{stylesheet}\n"
           end

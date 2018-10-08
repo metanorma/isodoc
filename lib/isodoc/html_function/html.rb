@@ -31,7 +31,7 @@ module IsoDoc::HtmlFunction
     def postprocess(result, filename, dir)
       result = from_xhtml(cleanup(to_xhtml(result)))
       toHTML(result, filename)
-      @files_to_delete.each { |f| FileUtils.rm_r f }
+      @files_to_delete.each { |f| FileUtils.rm_rf f }
     end
 
     def script_cdata(result)
