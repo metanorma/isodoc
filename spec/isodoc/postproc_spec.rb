@@ -291,7 +291,7 @@ RSpec.describe IsoDoc do
          <p class="example"><a name="_158d4efa-b1c9-4aec-b325-756de8e4c968" id="_158d4efa-b1c9-4aec-b325-756de8e4c968"></a>'1M', '01M', and '0001M' all describe the calendar month January.</p>
        </td>
                  </tr>
-               </table><p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt" class="MsoNormal"><span lang="EN-GB" style="display:none;mso-hide:all" xml:lang="EN-GB">&#xA0;</span></p>
+               </table>><p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt;line-height:1.0pt;mso-line-height-rule:exactly" class="MsoNormal"><span lang="EN-GB" style="display:none;mso-hide:all" xml:lang="EN-GB">&#xA0;</span></p>
                <table class="example"><a name="_63112cbc-cde0-435f-9553-e0b8c4f5851d" id="_63112cbc-cde0-435f-9553-e0b8c4f5851d"></a>
                  <tr>
                    <td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  2</td>
