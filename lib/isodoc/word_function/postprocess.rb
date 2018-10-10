@@ -34,8 +34,9 @@ module IsoDoc::WordFunction
       docxml
     end
 
-           EMPTY_PARA = "<p style='margin-top:0cm;margin-right:0cm;"\
-      "margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt'>"\
+       EMPTY_PARA = "<p style='margin-top:0cm;margin-right:0cm;"\
+      "margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt;"\
+      "line-height:1.0pt;mso-line-height-rule:exactly'>"\
       "<span lang=EN-GB style='display:none;mso-hide:all'>&nbsp;</span></p>"
 
     def word_table_separator(docxml)
