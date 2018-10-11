@@ -284,17 +284,17 @@ RSpec.describe IsoDoc do
              <p class="zzSTDTitle1"></p>
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              <div class="Section3"><a name="P" id="P"></a>
-               <table class="example"><a name="_63112cbc-cde0-435f-9553-e0b8c4f5851c" id="_63112cbc-cde0-435f-9553-e0b8c4f5851c"></a>
+               <table class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><a name="_63112cbc-cde0-435f-9553-e0b8c4f5851c" id="_63112cbc-cde0-435f-9553-e0b8c4f5851c"></a>
                  <tr>
-                   <td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  1</td>
+                   <td valign="top" class="example_label" style="width:82.8pt;padding:0pt;margin-left:0pt">EXAMPLE  1</td>
                    <td valign="top" class="example">
          <p class="example"><a name="_158d4efa-b1c9-4aec-b325-756de8e4c968" id="_158d4efa-b1c9-4aec-b325-756de8e4c968"></a>'1M', '01M', and '0001M' all describe the calendar month January.</p>
        </td>
                  </tr>
-               </table>><p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt;line-height:1.0pt;mso-line-height-rule:exactly" class="MsoNormal"><span lang="EN-GB" style="display:none;mso-hide:all" xml:lang="EN-GB">&#xA0;</span></p>
-               <table class="example"><a name="_63112cbc-cde0-435f-9553-e0b8c4f5851d" id="_63112cbc-cde0-435f-9553-e0b8c4f5851d"></a>
+               </table><p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt;line-height:1.0pt;mso-line-height-rule:exactly" class="MsoNormal"><span lang="EN-GB" style="display:none;mso-hide:all" xml:lang="EN-GB">&#xA0;</span></p>
+               <table class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><a name="_63112cbc-cde0-435f-9553-e0b8c4f5851d" id="_63112cbc-cde0-435f-9553-e0b8c4f5851d"></a>
                  <tr>
-                   <td valign="top" class="example_label" style="width:82.8pt;">EXAMPLE  2</td>
+                   <td valign="top" class="example_label" style="width:82.8pt;padding:0pt;margin-left:0pt">EXAMPLE  2</td>
                    <td valign="top" class="example">
          <p class="example"><a name="_158d4efa-b1c9-4aec-b325-756de8e4c969" id="_158d4efa-b1c9-4aec-b325-756de8e4c969"></a>'2M', '02M', and '0002M' all describe the calendar month February.</p>
        </td>

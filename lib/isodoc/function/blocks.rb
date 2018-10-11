@@ -75,7 +75,7 @@ module IsoDoc::Function
 
     EXAMPLE_TBL_ATTR =
       { valign: "top", class: "example_label",
-        style: "width:82.8pt;" }.freeze
+        style: "width:82.8pt;padding:0pt;margin-left:0pt" }.freeze
 
     # used if we are boxing examples
     def example_div_parse(node, out)
@@ -87,8 +87,14 @@ module IsoDoc::Function
       end
     end
 
+    def example_table_attr(node)
+      attr_code(id: node["id"], class: "example",
+                cellspacing: 0, cellpadding: 0,
+                style: "border-collapse:collapse" )
+    end
+
     def example_parse(node, out)
-      out.table **attr_code(id: node["id"], class: "example") do |t|
+      out.table **example_table_attr(node) do |t|
         t.tr do |tr|
           tr.td **EXAMPLE_TBL_ATTR do |td|
             td << example_label(node)
