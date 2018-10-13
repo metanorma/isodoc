@@ -44,7 +44,10 @@ module IsoDoc::Function
     def figure_name_parse(node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
-        p << "&nbsp;&mdash; #{name.text}" if name
+        if name
+          p << "&nbsp;&mdash; "
+          name.children.each { |n| parse(n, div) }
+        end
       end
     end
 
@@ -108,7 +111,7 @@ module IsoDoc::Function
 
     def sourcecode_name_parse(_node, div, name)
       div.p **{ class: "FigureTitle", align: "center" } do |p|
-        p << name.text
+          name.children.each { |n| parse(n, p) }
       end
     end
 

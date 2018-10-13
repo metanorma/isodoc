@@ -5,7 +5,10 @@ module IsoDoc::Function
       name = node.at(ns("./name"))
       out.p **{ class: "TableTitle", align: "center" } do |p|
         p << l10n("#{@table_lbl} #{get_anchors[node['id']][:label]}")
-        p << l10n("&nbsp;&mdash; #{name.text}") if name
+        if name
+          p << l10n("&nbsp;&mdash; ")
+          name.children.each { |n| parse(n, p) }
+        end
       end
     end
 

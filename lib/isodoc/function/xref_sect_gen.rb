@@ -100,7 +100,6 @@ module IsoDoc::Function
       clause.xpath(ns("./clause")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)
       end
-      #appendix_names(clause, num)
       hierarchical_asset_names(clause, num)
     end
 

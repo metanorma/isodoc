@@ -7,7 +7,7 @@ RSpec.describe IsoDoc do
     <preface>
     <foreword>
       <table id="tableD-1">
-  <name>Repeatability and reproducibility of husked rice yield</name>
+  <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
   <thead>
     <tr>
       <td rowspan="2" align="left">Description</td>
@@ -63,7 +63,7 @@ RSpec.describe IsoDoc do
                  <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <p class="TableTitle" align="center">Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p>
+               <p class="TableTitle" align="center">Table 1&#160;&#8212; Repeatability and reproducibility of <i>husked</i> rice yield</p>
                <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
                  <thead>
                    <tr>

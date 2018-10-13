@@ -50,7 +50,7 @@ module IsoDoc::Function
       "[not(descendant::terms)]".freeze
 
     def clause(isoxml, out)
-      isoxml.xpath(ns(MIDDLE_CLAUSE)).each do |c|
+      isoxml.xpath(ns(self.class::MIDDLE_CLAUSE)).each do |c|
         out.div **attr_code(id: c["id"]) do |s|
           clause_name(get_anchors[c['id']][:label],
                       c&.at(ns("./title"))&.content, s, nil)

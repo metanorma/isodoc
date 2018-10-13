@@ -227,7 +227,7 @@ INPUT
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <figure id="figureA-1">
-  <name>Split-it-right sample divider</name>
+  <name>Split-it-right <em>sample</em> divider</name>
   <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   <fn reference="a">
@@ -253,7 +253,7 @@ INPUT
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
          <p><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
-       <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
+       <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider</p></div>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -390,7 +390,7 @@ INPUT
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <sourcecode id="samplecode">
-    <name>Ruby code</name>
+    <name>Ruby <em>code</em></name>
   puts x
 </sourcecode>
     </foreword></preface>
@@ -400,7 +400,7 @@ INPUT
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;<br/>&#160;&#160;puts&#160;x<br/><p class="FigureTitle" align="center">Ruby code</p></p>
+                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;<br/>&#160;&#160;puts&#160;x<br/><p class="FigureTitle" align="center">Ruby <i>code</i></p></p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
