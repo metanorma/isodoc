@@ -27,14 +27,21 @@ module IsoDoc::WordFunction
                        liststyles: { ul: @ulstyle, ol: @olstyle })
     end
 
+    def word_admonition_images(docxml)
+      docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
+         i["width"], i["height"] = Html2Doc.image_resize(i, @maxheight, 300)
+      end
+    end
+
     def word_cleanup(docxml)
       word_preface(docxml)
       word_annex_cleanup(docxml)
       word_table_separator(docxml)
+      word_admonition_images(docxml)
       docxml
     end
 
-       EMPTY_PARA = "<p style='margin-top:0cm;margin-right:0cm;"\
+    EMPTY_PARA = "<p style='margin-top:0cm;margin-right:0cm;"\
       "margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt;"\
       "line-height:1.0pt;mso-line-height-rule:exactly'>"\
       "<span lang=EN-GB style='display:none;mso-hide:all'>&nbsp;</span></p>"
