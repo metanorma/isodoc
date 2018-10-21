@@ -42,8 +42,9 @@ module IsoDoc::HtmlFunction
     end
 
     def toHTML(result, filename)
-      result = script_cdata(from_xhtml(html_cleanup(to_xhtml(result))))
+      result = (from_xhtml(html_cleanup(to_xhtml(result))))
       result = populate_template(result, :html)
+      result = script_cdata(from_xhtml(move_images(to_xhtml(result))))
       File.open("#{filename}.html", "w:UTF-8") do |f|
         f.write(result)
       end
@@ -51,7 +52,7 @@ module IsoDoc::HtmlFunction
 
     def html_cleanup(x)
       footnote_backlinks(html_toc(
-        term_header(move_images(html_footnote_filter(html_preface(htmlstyle(x))))))
+        term_header((html_footnote_filter(html_preface(htmlstyle(x))))))
                         )
     end
 
