@@ -105,7 +105,7 @@ module IsoDoc::Function
     end
 
     def term_defs_boilerplate(div, source, term, preface)
-      source.each { |s| @anchors[s["bibitemid"]] or warn "#{s['bibitemid']} not referenced" }
+      source.each { |s| @anchors[s["bibitemid"]] or warn "term source #{s['bibitemid']} not referenced" }
       if source.empty? && term.nil?
         div << @no_terms_boilerplate
       else
