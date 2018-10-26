@@ -8,6 +8,7 @@ PATH
       liquid
       metanorma (~> 0.2.7)
       nokogiri
+      rake (~> 12.0)
       roman-numerals
       ruby-xslt
       sassc (~> 1.12.1)
@@ -139,7 +140,6 @@ DEPENDENCIES
   guard (~> 2.14)
   guard-rspec (~> 4.7)
   isodoc!
-  rake (~> 12.0)
   rspec (~> 3.6)
   rubocop (~> 0.50)
   simplecov (~> 0.15)
