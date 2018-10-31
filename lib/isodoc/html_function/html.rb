@@ -205,8 +205,7 @@ module IsoDoc::HtmlFunction
 
     def datauri(i)
       type = i["src"].split(".")[-1]
-      #bin = open(i["src"]).read(encoding: "utf-8")
-      bin = File.read(i["src"], encoding: "utf-8")
+      bin = File.read(@localdir + i["src"], encoding: "utf-8")
       data = Base64.strict_encode64(bin)
       i["src"] = "data:image/#{type};base64,#{data}"
     end
@@ -215,9 +214,10 @@ module IsoDoc::HtmlFunction
       matched = /\.(?<suffix>\S+)$/.match i["src"]
       uuid = UUIDTools::UUID.random_create.to_s
       new_full_filename = File.join(tmpimagedir, "#{uuid}.#{matched[:suffix]}")
-      FileUtils.cp i["src"], new_full_filename
+      local_filename = File.join(@localdir, i["src"])
+      FileUtils.cp local_filename, new_full_filename
       i["src"] = new_full_filename
-      i["width"], i["height"] = Html2Doc.image_resize(i, @maxheight, @maxwidth)
+      i["width"], i["height"] = Html2Doc.image_resize(i, local_filename, @maxheight, @maxwidth)
     end
 
     def html_toc(docxml)

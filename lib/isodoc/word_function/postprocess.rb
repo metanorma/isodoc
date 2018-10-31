@@ -29,7 +29,8 @@ module IsoDoc::WordFunction
 
     def word_admonition_images(docxml)
       docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
-         i["width"], i["height"] = Html2Doc.image_resize(i, @maxheight, 300)
+        i["width"], i["height"] =
+          Html2Doc.image_resize(i, File.join(@localdir, i["src"]), @maxheight, 300)
       end
     end
 
@@ -85,16 +86,14 @@ module IsoDoc::WordFunction
 
     def generate_header(filename, _dir)
       return nil unless @header
-      #template = Liquid::Template.parse(File.read(@header, encoding: "UTF-8"))
       template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
       meta = @meta.get
       meta[:filename] = filename
       params = meta.map { |k, v| [k.to_s, v] }.to_h
-      File.open("header.html", "w:UTF-8") do |f|
-        f.write(template.render(params))
-      end
-      @files_to_delete << "header.html"
-      "header.html"
+      headerfile = File.join(@localdir, "header.html")
+      File.open(headerfile, "w:UTF-8") { |f| f.write(template.render(params)) }
+      @files_to_delete << headerfile
+      headerfile
     end
 
     def word_toc_entry(toclevel, heading)

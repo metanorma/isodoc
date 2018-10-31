@@ -23,11 +23,13 @@ module IsoDoc::Function
         FileUtils.rm_rf "#{dir}/*"
       end
       @filename = filename
+      @localdir = %r{/}.match(filename) ? filename.sub(%r{/[^/]+$}, "/") : "./"
       [filename, dir]
     end
 
+    # tmp image dir is same directory as @filename
     def tmpimagedir
-      @filename + @tmpimagedir
+      @filename.sub(%r{^.*/([^/]+)$}, "\\1") + @tmpimagedir
     end
 
 
@@ -39,7 +41,7 @@ module IsoDoc::Function
         if @standardstylesheet
           head.style do |style|
             stylesheet = File.read(@standardstylesheet, encoding: "utf-8").
-              gsub("FILENAME", filename)
+              gsub("FILENAME", File.basename(filename))
             style.comment "\n#{stylesheet}\n"
           end
         end
