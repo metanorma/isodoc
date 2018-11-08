@@ -90,7 +90,7 @@ module IsoDoc::WordFunction
       meta = @meta.get
       meta[:filename] = filename
       params = meta.map { |k, v| [k.to_s, v] }.to_h
-      headerfile = File.join(@localdir, "header.html")
+      headerfile = "header.html"
       File.open(headerfile, "w:UTF-8") { |f| f.write(template.render(params)) }
       @files_to_delete << headerfile
       headerfile
