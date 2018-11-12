@@ -370,8 +370,8 @@ Content-Location: file:///C:/Doc/test_files/header.html
 Content-Transfer-Encoding: base64
 Content-Type: text/html charset="utf-8"
 
-Ci8qIGFuIGVtcHR5IGhlYWRlciAqLwoKU1RBUlQgRE9DIElEOiAxMDAwLTE6IEVORCBET0MgSUQK
-CkZJTEVOQU1FOiB0ZXN0Cgo=
+Ci8qIGFuIGVtcHR5IGhlYWRlciAqLwoKU1RBUlQgRE9DIElEOiAKICAgICAgICAgICAxMDAwCiAg
+ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
 
     OUTPUT
   end
@@ -406,7 +406,7 @@ CkZJTEVOQU1FOiB0ZXN0Cgo=
        <p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"></span><span style="mso-spacerun:yes">&#xA0;</span>TOC
          \o "1-2" \h \z \u <span style="mso-element:field-separator"></span></span>
        <span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">1.<span style="mso-tab-count:1">&#xA0; </span>Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">1. Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>

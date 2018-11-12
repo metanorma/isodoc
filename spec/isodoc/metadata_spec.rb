@@ -12,10 +12,8 @@ RSpec.describe IsoDoc do
     <bibdata type="international-standard">
   <title>The Incredible Mr Ripley</title>
   <title language="en">Cereals and pulses</title>
-  <docidentifier>
-    <project-number part="1">17301</project-number>
-    <tc-document-number>17301</tc-document-number>
-  </docidentifier>
+  <docidentifier>17301-1</docidentifier>
+  <docnumber>17301</docnumber>
   <date type="published"><on>2011</on></date>
   <date type="accessed"><on>2012</on></date>
   <date type="created"><from>2010</from><to>2011</to></date>
@@ -57,7 +55,7 @@ RSpec.describe IsoDoc do
 </version>
 </iso-standard>
 INPUT
-{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :confirmeddate=>"XXX", :createddate=>"2010&ndash;2011", :docnumber=>"17301-1 Committee draft", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2011", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :status=>"Committee draft", :tc=>"TC 34", :updateddate=>"XXX", :wg=>"WG 3"}
+{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :confirmeddate=>"XXX", :createddate=>"2010&ndash;2011", :docnumber=>"17301-1", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2011", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :status=>"Committee draft", :tc=>"TC 34", :updateddate=>"XXX", :wg=>"WG 3"}
 OUTPUT
   end
 
@@ -71,10 +69,8 @@ OUTPUT
     <bibdata type="international-standard">
   <title language="fr" format="text/plain">Céréales et légumineuses</ti>
   <title language="en" format="text/plain">Cereals and pulses</title>
-  <docidentifier>
-    <project-number part="1" subpart="3">17301</project-number>
-    <tc-document-number>17301</tc-document-number>
-  </docidentifier>
+  <docidentifier>17301-1-3</docidentifier>
+  <docnumber>17301</docnumber>
   <contributor>
     <role type="author"/>
     <organization>
