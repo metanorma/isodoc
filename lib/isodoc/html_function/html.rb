@@ -108,7 +108,7 @@ module IsoDoc::HtmlFunction
       docxml.at("//head").add_child(html_head())
       d = docxml.at('//div[@class="main-section"]')
       d.name = "main"
-      d.children.first.previous = html_button()
+      d.children.empty? or d.children.first.previous = html_button()
     end
 
     def html_preface(docxml)
@@ -117,7 +117,7 @@ module IsoDoc::HtmlFunction
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       if @scripts
         scripts = File.read(@scripts, encoding: "UTF-8")
-        a = docxml.at("//body").add_child docxml.create_cdata(scripts) #scripts.to_xml(encoding: "US-ASCII")
+        a = docxml.at("//body").add_child docxml.create_cdata(scripts)
       end
       html_main(docxml)
       docxml
