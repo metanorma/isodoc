@@ -1,6 +1,32 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "processes document with no content" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface/>
+          <sections/>
+        </iso-standard>
+    INPUT
+    <html xmlns:epub="http://www.idpf.org/2007/ops">
+  <head/>
+  <body lang="EN-US" link="blue" vlink="#954F72">
+    <div class="title-section">
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class="prefatory-section">
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class="main-section">
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+</html>
+    OUTPUT
+    end
+
   it "processes section names" do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
