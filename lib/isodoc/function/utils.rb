@@ -106,11 +106,10 @@ module IsoDoc::Function
       h = h.to_s.gsub(%r{<br/>}, " ").sub(/<\/?h[12][^>]*>/, "")
       h1 = to_xhtml_fragment(h.dup)
       h1.traverse do |x|
+        x.replace(" ") if x.name == "span" && /mso-tab-count/.match(x["style"])
         x.remove if x.name == "span" && x["class"] == "MsoCommentReference"
         x.remove if x.name == "a" && x["epub:type"] == "footnote"
-        if x.name == "a"
-          x.replace(x.children)
-        end
+        x.replace(x.children) if x.name == "a"
       end
       from_xhtml(h1)
     end

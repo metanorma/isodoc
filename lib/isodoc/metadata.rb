@@ -111,16 +111,6 @@ module IsoDoc
       set(:agency, agency.sub(%r{/$}, ""))
     end
 
-    def docnumber(isoxml)
-      docnumber = isoxml.at(ns("//bibdata/docidentifier/project-number"))
-      partnumber = isoxml.at(ns("//bibdata/docidentifier/project-number/@part"))
-      subpartnumber = isoxml.at(ns("//bibdata/docidentifier/project-number/@subpart"))
-      dn = docnumber&.text || ""
-      dn += "-#{partnumber.text}" if partnumber
-      dn += "-#{subpartnumber.text}" if subpartnumber
-      dn
-    end
-
     def docstatus(isoxml, _out)
       docstatus = isoxml.at(ns("//bibdata/status"))
       if docstatus
@@ -133,11 +123,7 @@ module IsoDoc
     end
 
     def docid(isoxml, _out)
-      dn = docnumber(isoxml)
-      docstatus = get[:status]
-      if docstatus && docstatus != "Published"
-        dn = "#{dn} #{docstatus}"
-      end
+      dn = isoxml.at(ns("//bibdata/docidentifier"))
       set(:docnumber, dn)
     end
 
