@@ -112,68 +112,40 @@ RSpec.describe IsoDoc do
     INPUT
     html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
     expect(html).to be_equivalent_to <<~"OUTPUT"
-            <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-            <div class="title-section">
-              <p>&#xA0;</p>
-            </div>
-            <br />
-            <div class="prefatory-section">
-              <p>&#xA0;</p>
-            </div>
-            <br />
-            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-              <br />
-              <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
-                   <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                     <a style="mso-comment-reference:SMC_1;mso-comment-date:20170101T0000"><span style="MsoCommentReference" target="3" class="commentLink" from="A" to="C">
-                   <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                     <a style="mso-comment-reference:SMC_3;mso-comment-date:20170108T0000"><p id="A">A.</p></a>
-                     <span style="mso-comment-continuation:3"><span style="mso-special-character:comment" target="3"></span></span>
-                   </span>
-                 </span></a>
-                     <span style="mso-comment-continuation:3"><span style="mso-comment-continuation:1"><span style="mso-special-character:comment" target="1"></span></span></span>
-                   </span>
-                 </span>
-                 <span style="mso-comment-continuation:3"><span style="mso-comment-continuation:1"><p id="B">B.</p></span></span>
-
-                 <span style="MsoCommentReference" target="2" class="commentLink" from="C" to="C">
-                   <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                     <a style="mso-comment-reference:SMC_2;mso-comment-date:20170108T0000"><span style="mso-comment-continuation:3"><p id="C">C.</p></span></a>
-                     <span style="mso-special-character:comment" target="2"></span>
-                   </span>
-                 </span>
-
-               </div>
-               <br />
-               <div class="Section3" id="">
-                 <h1 class="IntroTitle">Introduction</h1>
-
-               </div>
-               <p class="zzSTDTitle1"></p>
-               <div style="mso-element:comment-list"><div style="mso-element:comment" id="3">
-         <span style="mso-comment-author:&quot;ISO&quot;"></span>
-
-         <p class="MsoCommentText" id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08"><span style="MsoCommentReference">
-           <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-             <span style="mso-special-character:comment"></span>
-           </span>
-         </span>Second note.</p>
-       </div>
-       <div style="mso-element:comment" id="1"><span style="mso-comment-author:&quot;ISO&quot;"></span><p class="MsoCommentText" id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07"><span style="MsoCommentReference"><span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB"><span style="mso-special-character:comment"></span></span></span>A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-       <p class="MsoCommentText" id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p></div>
-       <div style="mso-element:comment" id="2">
-         <span style="mso-comment-author:&quot;ISO&quot;"></span>
-
-         <p class="MsoCommentText" id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08"><span style="MsoCommentReference">
-           <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-             <span style="mso-special-character:comment"></span>
-           </span>
-         </span>Second note.</p>
-       </div></div>
+<body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+           <div class="title-section">
+             <p>&#xA0;</p>
+           </div>
+           <br />
+           <div class="prefatory-section">
+             <p>&#xA0;</p>
+           </div>
+           <br />
+           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+             <br />
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
+                 <a style="mso-comment-reference:SMC_1;mso-comment-date:20170101T0000"><span style="MsoCommentReference" target="3" class="commentLink" from="A" to="C">
+                 <a style="mso-comment-reference:SMC_3;mso-comment-date:20170108T0000"><p id="A">A.</p></a>
+               </span></a>
+               </span>
+               <span style="mso-comment-continuation:3"><span style="mso-comment-continuation:1"><p id="B">B.</p></span></span>
+               
+               <span style="MsoCommentReference" target="2" class="commentLink" from="C" to="C">
+                 <a style="mso-comment-reference:SMC_2;mso-comment-date:20170108T0000"><span style="mso-comment-continuation:3"><p id="C">C.</p></span></a>
+               </span>
+               
              </div>
-           <script type="text/x-mathjax-config">
+             <br />
+             <div class="Section3" id="">
+               <h1 class="IntroTitle">Introduction</h1>
+               
+             </div>
+             <p class="zzSTDTitle1"></p>
+             <div style="mso-element:comment-list"></div>
+           </main>
+         <script type="text/x-mathjax-config">
          MathJax.Hub.Config({
            asciimath2jax: {
              delimiters: [['(#(', ')#)']]
@@ -182,7 +154,6 @@ RSpec.describe IsoDoc do
        </script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=AM_HTMLorMML"></script>
        </body>
-       </html>
     OUTPUT
   end
 

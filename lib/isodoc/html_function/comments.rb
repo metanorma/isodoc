@@ -29,21 +29,15 @@ module IsoDoc::HtmlFunction
     # add in from and to links to move the comment into place
     def make_comment_link(out, fn, node)
       out.span(**comment_link_attrs(fn, node)) do |s1|
-        s1.span **{ lang: "EN-GB", style: "font-size:9.0pt" } do |s2|
-          s2.a **{ style: "mso-comment-reference:SMC_#{fn};"\
+          s1.a **{ style: "mso-comment-reference:SMC_#{fn};"\
                    "mso-comment-date:#{node['date'].gsub(/[-:Z]/, '')}" }
-          s2.span **{ style: "mso-special-character:comment",
-                      target: fn } # do |s|
         end
-      end
     end
 
     def make_comment_target(out)
       out.span **{ style: "MsoCommentReference" } do |s1|
-        s1.span **{ lang: "EN-GB", style: "font-size:9.0pt" } do |s2|
-          s2.span **{ style: "mso-special-character:comment" }
+          s1.span **{ style: "mso-special-character:comment" }
         end
-      end
     end
 
     def make_comment_text(node, fn)
