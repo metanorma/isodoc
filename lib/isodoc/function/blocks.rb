@@ -78,7 +78,7 @@ module IsoDoc::Function
 
     EXAMPLE_TBL_ATTR =
       { valign: "top", class: "example_label",
-        style: "width:82.8pt;padding:0pt;margin-left:0pt" }.freeze
+        style: "width:82.8pt;padding:0 0 0 1em;margin-left:0pt" }.freeze
 
     # used if we are boxing examples
     def example_div_parse(node, out)
