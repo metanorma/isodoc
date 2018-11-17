@@ -27,6 +27,7 @@ module IsoDoc::Function
       @table_of_contents_lbl = y["table_of_contents"]
       @introduction_lbl = y["introduction"]
       @foreword_lbl = y["foreword"]
+      @abstract_lbl = y["abstract"]
       @termsdef_lbl = y["termsdef"]
       @termsdefsymbols_lbl = y["termsdefsymbols"]
       @normref_lbl = y["normref"]

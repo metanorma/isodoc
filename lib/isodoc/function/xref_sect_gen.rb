@@ -13,7 +13,7 @@ module IsoDoc::Function
       preface_names(d.at(ns("//abstract")))
       preface_names(d.at(ns("//foreword")))
       preface_names(d.at(ns("//introduction")))
-      sequential_asset_names(d.xpath(ns("//foreword | //introduction")))
+      sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction")))
       n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
       n = section_names(d.at(ns(
         "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)

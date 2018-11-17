@@ -31,6 +31,9 @@ RSpec.describe IsoDoc do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
+      <abstract obligation="informative">
+         <title>Foreword</title>
+      </abstract>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -93,6 +96,11 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     #{HTML_HDR}
+    <br/>
+        <div>
+        <h1 class="AbstractTitle">Abstract</h1>
+        </div>
+
                 <br/>
                 <div>
                   <h1 class="ForewordTitle">Foreword</h1>
@@ -182,6 +190,9 @@ OUTPUT
     expect(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
+      <abstract obligation="informative">
+         <title>Foreword</title>
+      </abstract>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -251,6 +262,10 @@ OUTPUT
              </div>
              <br clear="all" class="section"/>
              <div class="WordSection2">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                <div>
+                   <h1 class="AbstractTitle">Abstract</h1>
+                </div>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
