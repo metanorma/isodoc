@@ -4,8 +4,8 @@ module IsoDoc::Function
       title = c1&.content || ""
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
-          if get_anchors[node['id']][:label]
-            b << "#{get_anchors[node['id']][:label]}. " unless @suppressheadingnumbers
+          if get_anchors[node['id']][:label] && !@suppressheadingnumbers
+            b << "#{get_anchors[node['id']][:label]}. "
           end
           b << "#{title} "
         end
@@ -105,7 +105,8 @@ module IsoDoc::Function
     end
 
     def term_defs_boilerplate(div, source, term, preface)
-      source.each { |s| @anchors[s["bibitemid"]] or warn "term source #{s['bibitemid']} not referenced" }
+      source.each { |s| @anchors[s["bibitemid"]] or
+                    warn "term source #{s['bibitemid']} not referenced" }
       if source.empty? && term.nil?
         div << @no_terms_boilerplate
       else
@@ -115,7 +116,9 @@ module IsoDoc::Function
     end
 
     def term_defs_boilerplate_cont(src, term)
-      sources = sentence_join(src.map { |s| @anchors.dig(s["bibitemid"], :xref) })
+      sources = sentence_join(src.map do |s|
+        "<a href=##{s["bibitemid"]}>#{@anchors.dig(s["bibitemid"], :xref)}</a>" 
+      end)
       if src.empty? then @internal_terms_boilerplate
       elsif term.nil? then external_terms_boilerplate(sources)
       else
