@@ -329,7 +329,7 @@ INPUT
                  <h1 class="ForewordTitle">Foreword</h1>
                  <table id="samplecode" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
                    <tr>
-                     <td valign="top" class="example_label" style="width:82.8pt;padding:0pt;margin-left:0pt">EXAMPLE</td>
+                     <td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE</td>
                      <td valign="top" class="example">
          <p>Hello</p>
        </td>
@@ -363,7 +363,7 @@ INPUT
                  <h1 class="ForewordTitle">Foreword</h1>
                  <table id="samplecode" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
                    <tr>
-                     <td valign="top" class="example_label" style="width:82.8pt;padding:0pt;margin-left:0pt">EXAMPLE  1</td>
+                     <td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE  1</td>
                      <td valign="top" class="example">
          <p>Hello</p>
        </td>
@@ -371,7 +371,7 @@ INPUT
                  </table>
                  <table id="samplecode2" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
                    <tr>
-                     <td valign="top" class="example_label" style="width:82.8pt;padding:0pt;margin-left:0pt">EXAMPLE  2</td>
+                     <td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE  2</td>
                      <td valign="top" class="example">
                  <p>Hello</p>
                  </td>
