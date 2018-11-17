@@ -11,11 +11,7 @@ module IsoDoc::Function
     def iso_bibitem_ref_code(b)
       isocode = b.at(ns("./docidentifier")).text
       prefix = b&.at(ns("./docidentifier/@type"))&.text
-      #isodate = b.at(ns("./date[@type = 'published']"))
-      #allparts = b.at(ns("./allparts"))
       reference = docid_l10n(isocode)
-      #reference += ":#{date_range(isodate)}" if isodate
-      #reference += " (#{@all_parts_lbl.downcase})" if allparts&.text == "true"
       docid_prefix(prefix, reference)
     end
 
@@ -26,7 +22,7 @@ module IsoDoc::Function
 
     def omit_docid_prefix(prefix)
       return true if prefix.nil? || prefix.empty?
-      return ["ISO"].include? prefix
+      return ["ISO", "IEC"].include? prefix
     end
 
     def date_note_process(b, ref)
