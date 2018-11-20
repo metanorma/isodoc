@@ -1,6 +1,57 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "cross-references external documents in HTML" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
+    <foreword>
+    <p>
+    <xref target="a#b"/>
+    </p>
+    </foreword>
+    </preface>
+    </iso-standard
+    INPUT
+        #{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <p>
+<a href="a.html#b">a#b</a>
+</p>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+</html>
+    OUTPUT
+  end
+
+  it "cross-references external documents in DOC" do
+    expect(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').sub(%r{</div>.*$}m, "</div>")).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
+    <foreword>
+    <p>
+    <xref target="a#b"/>
+    </p>
+    </foreword>
+    </preface>
+    </iso-standard
+    INPUT
+           <div class="WordSection2">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p>
+       <a href="a.doc#b">a#b</a>
+       </p>
+             </div>
+    OUTPUT
+  end
+
+
   it "cross-references notes" do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)). to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">

@@ -50,8 +50,9 @@ module IsoDoc::Function
     end
 
     def xref_parse(node, out)
-      linkend = get_linkend(node)
-      out.a(**{ "href": "#" + node["target"] }) { |l| l << linkend }
+      target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".html#") :
+        "##{node["target"]}"
+      out.a(**{ "href": target }) { |l| l << get_linkend(node) }
     end
 
     def eref_localities(refs, target)

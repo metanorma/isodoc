@@ -202,5 +202,11 @@ module IsoDoc::WordFunction
       out.img **attr_code(attrs)
       image_title_parse(out, caption)
     end
+
+    def xref_parse(node, out)
+      target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".doc#") :
+        "##{node["target"]}"
+      out.a(**{ "href": target }) { |l| l << get_linkend(node) }
+    end
   end
 end
