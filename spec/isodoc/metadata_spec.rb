@@ -12,6 +12,11 @@ RSpec.describe IsoDoc do
     <bibdata type="international-standard">
   <title>The Incredible Mr Ripley</title>
   <title language="en">Cereals and pulses</title>
+  <source>URL A</source>
+  <source type="html">URL B</source>
+  <source type="xml">URL C</source>
+  <source type="pdf">URL D</source>
+  <source type="doc">URL E</source>
   <docidentifier>17301-1</docidentifier>
   <docnumber>17301</docnumber>
   <date type="published"><on>2011</on></date>
@@ -55,7 +60,7 @@ RSpec.describe IsoDoc do
 </version>
 </iso-standard>
 INPUT
-{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :confirmeddate=>"XXX", :createddate=>"2010&ndash;2011", :docnumber=>"17301-1", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2011", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :status=>"Committee draft", :tc=>"TC 34", :updateddate=>"XXX", :wg=>"WG 3"}
+{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :confirmeddate=>"XXX", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :html=>"URL B", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :status=>"Committee draft", :tc=>"TC 34", :updateddate=>"XXX", :url=>"URL A", :wg=>"WG 3", :xml=>"URL C"}
 OUTPUT
   end
 
@@ -118,7 +123,7 @@ OUTPUT
 </version>
 </iso-standard>
 INPUT
-{:accesseddate=>"XXX", :agency=>"ISO/IEC", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :editorialgroup=>["ABC 34", "DEF 4", "GHI 3"], :ics=>"1.2.3, 1.2.3", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :publisheddate=>"XXX", :revdate=>"2016-05-01", :sc=>"DEF 4", :secretariat=>"XXXX", :status=>"Published", :tc=>"ABC 34", :updateddate=>"XXX", :wg=>"GHI 3"}
+{:accesseddate=>"XXX", :agency=>"ISO/IEC", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :editorialgroup=>["ABC 34", "DEF 4", "GHI 3"], :ics=>"1.2.3, 1.2.3", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2016-05-01", :sc=>"DEF 4", :secretariat=>"XXXX", :status=>"Published", :tc=>"ABC 34", :updateddate=>"XXX", :wg=>"GHI 3"}
 OUTPUT
   end
 

@@ -93,6 +93,7 @@ module IsoDoc::Function
       @meta.bibdate isoxml, out
       @meta.relations isoxml, out
       @meta.version isoxml, out
+      @meta.url isoxml, out
       @meta.get
     end
 
