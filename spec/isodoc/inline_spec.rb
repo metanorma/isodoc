@@ -7,7 +7,7 @@ RSpec.describe IsoDoc do
     <preface><foreword>
     <p>
     <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
-    <strike>F</strike> <smallcap>G</smallcap> <br/> <hr/>
+    <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
     <bookmark id="H"/> <pagebreak/>
     </p>
     </foreword></preface>
@@ -20,7 +20,7 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>
        <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt>
-       <s>F</s> <span style="font-variant:small-caps;">G</span> <br/> <hr/>
+       <s>F</s> <span style="font-variant:small-caps;">G</span> <span class="keyword">I</span> <br/> <hr/>
        <a id="H"/> <br/>
        </p>
                </div>

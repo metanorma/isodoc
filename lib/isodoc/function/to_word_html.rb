@@ -128,6 +128,12 @@ module IsoDoc::Function
       out.a **attr_code(id: node["id"])
     end
 
+    def keyword_parse(node, out)
+      out.span **{ class: "keyword" } do |s|
+        s << node.inner_html
+      end
+    end
+
     def parse(node, out)
       if node.text?
         text_parse(node, out)
@@ -139,6 +145,7 @@ module IsoDoc::Function
         when "sub" then out.sub { |e| e << node.inner_html }
         when "tt" then out.tt { |e| e << node.inner_html }
         when "strike" then out.s { |e| e << node.inner_html }
+        when "keyword" then keyword_parse(node, out)
         when "smallcap" then smallcap_parse(node, out)
         when "br" then out.br
         when "hr" then out.hr
