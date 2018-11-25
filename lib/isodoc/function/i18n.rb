@@ -3,24 +3,28 @@ require "yaml"
 # TODO: Cleanup and generalize
 module IsoDoc::Function
   module I18n
+    def load_yaml(lang, script)
+      if @i18nyaml
+        YAML.load_file(@i18nyaml)
+      elsif lang == "en"
+        YAML.load_file(File.join(File.dirname(__FILE__),
+                                 "../../isodoc-yaml/i18n-en.yaml"))
+      elsif lang == "fr"
+        YAML.load_file(File.join(File.dirname(__FILE__),
+                                 "../../isodoc-yaml/i18n-fr.yaml"))
+      elsif lang == "zh" && script == "Hans"
+        YAML.load_file(File.join(File.dirname(__FILE__),
+                                 "../../isodoc-yaml/i18n-zh-Hans.yaml"))
+      else
+        YAML.load_file(File.join(File.dirname(__FILE__),
+                                 "../../isodoc-yaml/i18n-en.yaml"))
+      end
+    end
+
     def i18n_init(lang, script)
       @lang = lang
       @script = script
-      y = if @i18nyaml
-            YAML.load_file(@i18nyaml)
-          elsif lang == "en"
-            YAML.load_file(File.join(File.dirname(__FILE__),
-                                     "../../isodoc-yaml/i18n-en.yaml"))
-          elsif lang == "fr"
-            YAML.load_file(File.join(File.dirname(__FILE__),
-                                     "../../isodoc-yaml/i18n-fr.yaml"))
-          elsif lang == "zh" && script == "Hans"
-            YAML.load_file(File.join(File.dirname(__FILE__),
-                                     "../../isodoc-yaml/i18n-zh-Hans.yaml"))
-          else
-            YAML.load_file(File.join(File.dirname(__FILE__),
-                                     "../../isodoc-yaml/i18n-en.yaml"))
-          end
+      y = load_yaml(lang, script)
       @term_def_boilerplate = y["term_def_boilerplate"]
       @scope_lbl = y["scope"]
       @symbols_lbl = y["symbols"]
