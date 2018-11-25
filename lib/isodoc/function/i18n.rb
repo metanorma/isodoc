@@ -4,8 +4,7 @@ require "yaml"
 module IsoDoc::Function
   module I18n
     def load_yaml(lang, script)
-      if @i18nyaml
-        YAML.load_file(@i18nyaml)
+      if @i18nyaml then YAML.load_file(@i18nyaml)
       elsif lang == "en"
         YAML.load_file(File.join(File.dirname(__FILE__),
                                  "../../isodoc-yaml/i18n-en.yaml"))
