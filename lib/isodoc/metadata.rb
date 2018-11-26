@@ -113,9 +113,15 @@ module IsoDoc
 
     def docstatus(isoxml, _out)
       docstatus = isoxml.at(ns("//bibdata/status"))
+      set(:unpublished, true)
       if docstatus
         set(:status, status_print(docstatus.text))
+        set(:unpublished, unpublished(docstatus.text))
       end
+    end
+
+    def unpublished(status)
+      status.downcase == "published"
     end
 
     def status_print(status)
