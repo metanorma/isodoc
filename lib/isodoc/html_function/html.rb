@@ -221,7 +221,22 @@ module IsoDoc::HtmlFunction
       i["width"], i["height"] = Html2Doc.image_resize(i, local_filename, @maxheight, @maxwidth)
     end
 
+    def html_toc_entry(level, header)
+      %(<li class="h#{level}"><a href="##{header['id']}">#{header_strip(header)}</a></li>)
+    end
+
     def html_toc(docxml)
+=begin
+      idx = docxml.at("//div[@id = 'toc']") or return docxml
+      toc = "<ul>"
+      tocidx = 0
+      docxml.xpath("//main//h1 | //main//h2[not(@class = 'TermNum')]").each do |h|
+        h["id"] ||= "toc#{tocidx}"
+        toc += html_toc_entry(h.name == "h1" ? 1 : 2, h)
+        tocidx += 1
+      end
+      idx.children = "#{toc}</ul>"
+=end
       docxml
     end
   end
