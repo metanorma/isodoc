@@ -127,6 +127,10 @@ module IsoDoc::Function
       end
     end
 
+    def pre_parse(node, out)
+      out.pre node.text, **attr_code(id: node["id"])
+    end
+
     def annotation_parse(node, out)
       @sourcecode = false
       @annotation = true

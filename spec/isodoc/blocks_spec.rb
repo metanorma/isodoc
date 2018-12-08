@@ -238,6 +238,10 @@ INPUT
   <dd><p>B</p></dd>
   </dl>
 </figure>
+<figure>
+<pre>A &lt;
+B</pre>
+</figure>
     </foreword></preface>
     </iso-standard>
     INPUT
@@ -254,6 +258,10 @@ INPUT
        </div></aside>
          <p><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
        <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider</p></div>
+               <div class="figure">
+<pre>A &lt;
+B</pre>
+</div>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -278,6 +286,10 @@ INPUT
   <dd><p>B</p></dd>
   </dl>
 </figure>
+<figure>
+<pre>A &lt;
+B</pre>
+</figure>
     </foreword></preface>
     </iso-standard>
     INPUT
@@ -301,6 +313,10 @@ INPUT
        </div></aside>
          <p><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
        <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
+               <div class="figure">
+<pre>A &lt;
+B</pre>
+</div>
              </div>
              <p>&#160;</p>
            </div>

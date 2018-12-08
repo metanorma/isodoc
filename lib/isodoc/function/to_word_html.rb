@@ -178,6 +178,7 @@ module IsoDoc::Function
         when "example" then example_parse(node, out)
         when "image" then image_parse(node, out, nil)
         when "sourcecode" then sourcecode_parse(node, out)
+        when "pre" then pre_parse(node, out)
         when "annotation" then annotation_parse(node, out)
         when "term" then termdef_parse(node, out)
         when "preferred" then term_parse(node, out)
