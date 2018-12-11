@@ -29,7 +29,8 @@ module IsoDoc::Function
 
     # tmp image dir is same directory as @filename
     def tmpimagedir
-      @filename.sub(%r{^.*/([^/]+)$}, "\\1") + @tmpimagedir
+      #@filename.sub(%r{^.*/([^/]+)$}, "\\1") + @tmpimagedir
+      @filename + @tmpimagedir
     end
 
 
