@@ -214,10 +214,11 @@ module IsoDoc::HtmlFunction
     def move_image1(i)
       matched = /\.(?<suffix>\S+)$/.match i["src"]
       uuid = UUIDTools::UUID.random_create.to_s
-      new_full_filename = File.join(tmpimagedir, "#{uuid}.#{matched[:suffix]}")
+      fname = "#{uuid}.#{matched[:suffix]}"
+      new_full_filename = File.join(tmpimagedir, fname)
       local_filename = File.join(@localdir, i["src"])
       FileUtils.cp local_filename, new_full_filename
-      i["src"] = new_full_filename
+      i["src"] = File.join(rel_tmpimagedir, fname)
       i["width"], i["height"] = Html2Doc.image_resize(i, local_filename, @maxheight, @maxwidth)
     end
 

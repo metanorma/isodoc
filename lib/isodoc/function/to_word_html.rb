@@ -29,10 +29,12 @@ module IsoDoc::Function
 
     # tmp image dir is same directory as @filename
     def tmpimagedir
-      #@filename.sub(%r{^.*/([^/]+)$}, "\\1") + @tmpimagedir
       @filename + @tmpimagedir
     end
 
+    def rel_tmpimagedir
+      @filename.sub(%r{^.*/([^/]+)$}, "\\1") + @tmpimagedir
+    end
 
     # isodoc.css overrides any CSS injected by Html2Doc, which
     # is inserted before this CSS.
