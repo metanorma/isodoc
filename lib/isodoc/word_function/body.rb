@@ -191,8 +191,19 @@ module IsoDoc::WordFunction
       attrs
     end
 
+    def imgsrc(uri)
+      return uri unless %r{^data:image/}.match uri
+      %r{^data:image/(?<imgtype>[^;]+);base64,(?<imgdata>.+)$} =~ uri
+      uuid = UUIDTools::UUID.random_create.to_s
+      fname = "#{uuid}.#{imgtype}"
+      new_file = File.join(tmpimagedir, fname)
+      @files_to_delete << new_file
+      File.open(new_file, "wb") { |f| f.write(Base64.strict_decode64(imgdata)) }
+      File.join(rel_tmpimagedir, fname)
+    end
+
     def image_parse(node, out, caption)
-      attrs = { src: node["src"],
+      attrs = { src: imgsrc(node["src"]),
                 height: node["height"],
                 width: node["width"] }
       if node["height"] == "auto" || node["width"] == "auto"
@@ -206,7 +217,7 @@ module IsoDoc::WordFunction
     def xref_parse(node, out)
       target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".doc#") :
         "##{node["target"]}"
-      out.a(**{ "href": target }) { |l| l << get_linkend(node) }
+        out.a(**{ "href": target }) { |l| l << get_linkend(node) }
     end
   end
 end
