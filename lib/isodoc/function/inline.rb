@@ -42,11 +42,13 @@ module IsoDoc::Function
     def get_linkend(node)
       link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
       link += eref_localities(node.xpath(ns("./locality")), link)
-      text = node.children.select { |c| c.text? && !c.text.empty? }
-      link = text.join(" ") unless text.nil? || text.empty?
+      #text = node.children.select { |c| c.text? && !c.text.empty? }
+      #link = text.join(" ") unless text.nil? || text.empty?
+      contents = node.children.select { |c| c.name != "locality" }
+      return link if contents.nil? || contents.empty?
+      Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
       # <locality type="section"><reference>3.1</reference></locality></origin>
-      link
     end
 
     def xref_parse(node, out)
