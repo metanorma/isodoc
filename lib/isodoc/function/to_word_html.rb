@@ -117,7 +117,8 @@ module IsoDoc::Function
 
     def smallcap_parse(node, xml)
       xml.span **{ style: "font-variant:small-caps;" } do |s|
-        s << node.inner_html
+        #s << node.inner_html
+        node.children.each { |n| parse(n, s) }
       end
     end
 
@@ -134,7 +135,44 @@ module IsoDoc::Function
 
     def keyword_parse(node, out)
       out.span **{ class: "keyword" } do |s|
-        s << node.inner_html
+        #s << node.inner_html
+        node.children.each { |n| parse(n, s) }
+      end
+    end
+
+    def em_parse(node, out)
+      out.i do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+    
+    def strong_parse(node, out)
+      out.b do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def sup_parse(node, out)
+      out.sup do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def sub_parse(node, out)
+      out.sub do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def tt_parse(node, out)
+      out.tt do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def strike_parse(node, out)
+      out.s do |e|
+        node.children.each { |n| parse(n, e) }
       end
     end
 
@@ -143,12 +181,18 @@ module IsoDoc::Function
         text_parse(node, out)
       else
         case node.name
-        when "em" then out.i { |e| e << node.inner_html }
-        when "strong" then out.b { |e| e << node.inner_html }
-        when "sup" then out.sup { |e| e << node.inner_html }
-        when "sub" then out.sub { |e| e << node.inner_html }
-        when "tt" then out.tt { |e| e << node.inner_html }
-        when "strike" then out.s { |e| e << node.inner_html }
+        #when "em" then out.i { |e| e << node.inner_html }
+        #when "strong" then out.b { |e| e << node.inner_html }
+        #when "sup" then out.sup { |e| e << node.inner_html }
+        #when "sub" then out.sub { |e| e << node.inner_html }
+        #when "tt" then out.tt { |e| e << node.inner_html }
+        #when "strike" then out.s { |e| e << node.inner_html }
+        when "em" then em_parse(node, out)
+        when "strong" then strong_parse(node, out)
+        when "sup" then sup_parse(node, out)
+        when "sub" then sub_parse(node, out)
+        when "tt" then tt_parse(node, out)
+        when "strike" then strike_parse(node, out)
         when "keyword" then keyword_parse(node, out)
         when "smallcap" then smallcap_parse(node, out)
         when "br" then out.br
@@ -158,7 +202,6 @@ module IsoDoc::Function
         when "callout" then callout_parse(node, out)
         when "stem" then stem_parse(node, out)
         when "clause" then clause_parse(node, out)
-          # when "subclause" then clause_parse(node, out)
         #when "appendix" then clause_parse(node, out)
         when "xref" then xref_parse(node, out)
         when "eref" then eref_parse(node, out)

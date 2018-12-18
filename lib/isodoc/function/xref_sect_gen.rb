@@ -10,7 +10,7 @@ module IsoDoc::Function
     end
 
     def initial_anchor_names(d)
-      preface_names(d.at(ns("//abstract")))
+      preface_names(d.at(ns("//preface/abstract")))
       preface_names(d.at(ns("//foreword")))
       preface_names(d.at(ns("//introduction")))
       sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction")))

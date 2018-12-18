@@ -43,7 +43,8 @@ module IsoDoc::Function
       out.div **{ class: "Note" } do |div|
         first = node.first_element_child
         div.p do |p|
-          p << "#{get_anchors[node['id']][:label]}: "
+          anchor = get_anchors[node['id']]
+          p << "#{anchor&.dig(:label) || '???'}: "
           para_then_remainder(first, node, p, div)
         end
       end

@@ -31,6 +31,32 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+  it "processes embedded inline formatting" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <p>
+    <em><strong>&lt;</strong></em> <tt><link target="B"/></tt>
+    </p>
+    </foreword></preface>
+    <sections>
+    </iso-standard>
+    INPUT
+    #{HTML_HDR}
+               <br/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p>
+       <i><b>&lt;</b></i> <tt><a href="B">B</a></tt> 
+       </p>
+               </div>
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+       </html>
+    OUTPUT
+  end
+
   it "processes links" do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
