@@ -1,6 +1,8 @@
 module IsoDoc::WordFunction
   module Body
     def make_body1(body, _docxml)
+      FileUtils.rm_rf tmpimagedir
+      FileUtils.mkdir tmpimagedir
       body.div **{ class: "WordSection1" } do |div1|
         div1.p { |p| p << "&nbsp;" } # placeholder
       end
