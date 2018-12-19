@@ -420,7 +420,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;<br/>&#160;&#160;puts&#160;x<br/><p class="FigureTitle" align="center">Ruby <i>code</i></p></p>
+                 <p id="samplecode" class="Sourcecode"><br/>    <br/>  puts x<br/><p class="FigureTitle" align="center">Ruby <i>code</i></p></p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -444,7 +444,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;<br/>&#160;&#160;&lt;xml&gt;<br/><p class="FigureTitle" align="center">XML code</p></p>
+                 <p id="samplecode" class="Sourcecode"><br/>    <br/>  &lt;xml&gt;<br/><p class="FigureTitle" align="center">XML code</p></p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -472,7 +472,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="_" class="Sourcecode">puts&#160;"Hello,&#160;world."&#160; &lt;1&gt;<br/>&#160;&#160;&#160;%w{a&#160;b&#160;c}.each&#160;do&#160;|x|<br/>&#160;&#160;&#160;&#160;&#160;puts&#160;x&#160; &lt;2&gt;<br/>&#160;&#160;&#160;end<span class="zzMoveToFollowing">&lt;1&gt; </span>
+                 <p id="_" class="Sourcecode">puts "Hello, world."  &lt;1&gt;<br/>   %w{a b c}.each do |x|<br/>     puts x  &lt;2&gt;<br/>   end<span class="zzMoveToFollowing">&lt;1&gt; </span>
             <p class="Sourcecode" id="_">This is one callout</p>
           <span class="zzMoveToFollowing">&lt;2&gt; </span>
             <p class="Sourcecode" id="_">This is another callout</p>
