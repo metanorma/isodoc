@@ -125,7 +125,8 @@ module IsoDoc::Function
     def text_parse(node, out)
       return if node.nil? || node.text.nil?
       text = node.to_s
-      text = text.gsub("\n", "<br/>") if in_sourcecode
+      text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&nbsp;").
+        gsub(/[ ](?=[ ])/, "&nbsp;") if in_sourcecode
       out << text
     end
 
