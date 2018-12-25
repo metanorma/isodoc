@@ -76,9 +76,14 @@ module IsoDoc::Function
     end
 
     def reference_format(b, r)
-      title = b.at(ns("./formattedref")) ||
-        b.at(ns("./title[@language = '#{@language}']")) || b.at(ns("./title"))
-      title&.children&.each { |n| parse(n, r) }
+      if ftitle = b.at(ns("./formattedref"))
+        ftitle&.children&.each { |n| parse(n, r) }
+      else
+        title = b.at(ns("./title[@language = '#{@language}']")) || b.at(ns("./title"))
+        r.i do |i|
+          title&.children&.each { |n| parse(n, i) }
+        end
+      end
     end
 
     # TODO generate formatted ref if not present
@@ -178,13 +183,13 @@ module IsoDoc::Function
     def format_ref(ref, prefix, isopub, date, allparts)
       if isopub
         #if date
-          #on = date.at(ns("./on"))
-          #ref += on&.text == "--" ? ":--" : "" # ":#{date_range(date)}"
-          #ref += " (all parts)" if allparts
-         # ref = docid_prefix(prefix, ref)
+        #on = date.at(ns("./on"))
+        #ref += on&.text == "--" ? ":--" : "" # ":#{date_range(date)}"
+        #ref += " (all parts)" if allparts
+        # ref = docid_prefix(prefix, ref)
         #end
       end
-          ref = docid_prefix(prefix, ref)
+      ref = docid_prefix(prefix, ref)
       return "[#{ref}]" if /^\d+$/.match(ref) && !prefix && !/^\[.*\]$/.match(ref)
       ref
     end

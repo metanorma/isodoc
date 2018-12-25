@@ -69,7 +69,7 @@ RSpec.describe IsoDoc do
   <docidentifier>[10]</docidentifier>
 </bibitem>
 <bibitem id="ref11">
-  <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
+  <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
   <docidentifier type="IETF">RFC 10</docidentifier>
 </bibitem>
 
@@ -103,7 +103,7 @@ RSpec.describe IsoDoc do
                  <h1 class="Section3">Bibliography</h1>
                  <p id="ISO3696" class="Biblio">[1]&#160; ISO 3696, <i> Water for analytical laboratory use</i></p>
                  <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
-                 <p id="ref11" class="Biblio">[3]&#160; IETF RFC 10, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+                  <p id="ref11" class="Biblio">[3]&#160; IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i></p>
                </div>
                <aside id="fn:1" class="footnote">
          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
