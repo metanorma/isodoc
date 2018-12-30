@@ -223,6 +223,25 @@ module IsoDoc::WordFunction
         out.a(**{ "href": target }) { |l| l << get_linkend(node) }
     end
 
+    def example_table_attr(node)
+      super.merge({
+        style: "mso-table-lspace:15.0cm;margin-left:423.0pt;"\
+        "mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;"\
+        "mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;"\
+        "mso-table-overlap:never;border-collapse:collapse;"
+      })
+    end
+
+
+    def make_table_attr(node)
+      {
+        style: "mso-table-lspace:15.0cm;margin-left:423.0pt;"\
+        "mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;"\
+        "mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;"\
+        "mso-table-overlap:never;"
+      }.merge(super)
+    end
+
     def table_parse(node, out)
       @in_table = true
       table_title_parse(node, out)
