@@ -83,7 +83,7 @@ module IsoDoc::Function
     # used if we are boxing examples
     def example_div_parse(node, out)
       out.div **attr_code(id: node["id"], class: "example") do |div|
-        out.p { |p| p << example_label(node) }
+        div.p { |p| p << example_label(node) }
         node.children.each do |n|
           parse(n, div)
         end

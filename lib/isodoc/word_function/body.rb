@@ -222,5 +222,20 @@ module IsoDoc::WordFunction
         "##{node["target"]}"
         out.a(**{ "href": target }) { |l| l << get_linkend(node) }
     end
+
+    def table_parse(node, out)
+      @in_table = true
+      table_title_parse(node, out)
+      out.div **{ align: "center" } do |div|
+        div.table **make_table_attr(node) do |t|
+          thead_parse(node, t)
+          tbody_parse(node, t)
+          tfoot_parse(node, t)
+          (dl = node.at(ns("./dl"))) && parse(dl, out)
+          node.xpath(ns("./note")).each { |n| parse(n, out) }
+        end
+      end
+      @in_table = false
+    end
   end
 end

@@ -182,12 +182,6 @@ module IsoDoc::Function
         text_parse(node, out)
       else
         case node.name
-        #when "em" then out.i { |e| e << node.inner_html }
-        #when "strong" then out.b { |e| e << node.inner_html }
-        #when "sup" then out.sup { |e| e << node.inner_html }
-        #when "sub" then out.sub { |e| e << node.inner_html }
-        #when "tt" then out.tt { |e| e << node.inner_html }
-        #when "strike" then out.s { |e| e << node.inner_html }
         when "em" then em_parse(node, out)
         when "strong" then strong_parse(node, out)
         when "sup" then sup_parse(node, out)
