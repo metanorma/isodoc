@@ -180,6 +180,14 @@ module IsoDoc::Function
       end
     end
 
+    def hiersep
+      "."
+    end
+
+    def hierfigsep
+      "-"
+    end
+
     def hierarchical_figure_names(clause, num)
       i = j = 0
       clause.xpath(ns(".//figure")).each do |t|
@@ -188,21 +196,31 @@ module IsoDoc::Function
           j = 0
           i += 1
         end
-        label = "#{num}.#{i}" + (j.zero? ? "" : "-#{j}")
+        label = "#{num}#{hiersep}#{i}" + (j.zero? ? "" : "#{hierfigsep}#{j}")
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl, "figure")
       end
     end
 
-    def hierarchical_asset_names(clause, num)
+    def hierarchical_table_names(clause, num)
       clause.xpath(ns(".//table")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", nil, @table_lbl, "table")
+        @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
+                                          nil, @table_lbl, "table")
       end
+    end
+
+    def hierarchical_asset_names(clause, num)
+      hierarchical_table_names(clause, num)
       hierarchical_figure_names(clause, num)
+      hierarchical_formula_names(clause, num)
+    end
+
+    def hierarchical_formula_names(clause, num)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", t, @formula_lbl, "formula")
+        @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
+                                          t, @formula_lbl, "formula")
       end
     end
   end

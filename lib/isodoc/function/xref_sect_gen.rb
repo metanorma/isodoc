@@ -20,8 +20,8 @@ module IsoDoc::Function
       n = section_names(d.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
       n = section_names(d.at(ns("//sections/definitions")), n, 1)
-      middle_section_asset_names(d)
       clause_names(d, n)
+      middle_section_asset_names(d)
       termnote_anchor_names(d)
       termexample_anchor_names(d)
     end
