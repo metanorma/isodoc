@@ -1065,6 +1065,7 @@ RSpec.describe IsoDoc do
          <xref target="Q"/>
          <xref target="Q1"/>
          <xref target="R"/>
+         <xref target="S"/>
          </p>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
@@ -1142,6 +1143,7 @@ RSpec.describe IsoDoc do
     <a href="#Q">Annex A.1</a>
     <a href="#Q1">Annex A.1.1</a>
     <a href="#R">Clause 2</a>
+    <a href="#S">Bibliography</a>
     </p>
     </div>
     <br/>

@@ -4,6 +4,10 @@ module IsoDoc::Function
       docxml.xpath(ns("//annex")).each_with_index do |c, i|
         annex_names(c, (65 + i).chr.to_s)
       end
+      docxml.xpath(ns("//bibliography/clause[not(xmlns:title = 'Normative References' or xmlns:title = 'Normative references')] |"\
+                   "//bibliography/references[not(xmlns:title = 'Normative References' or xmlns:title = 'Normative references')]")).each do |b|
+        preface_names(b)
+      end
       docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
         reference_names(ref)
       end
@@ -16,7 +20,8 @@ module IsoDoc::Function
       sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction")))
       n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
       n = section_names(d.at(ns(
-        "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
+        "//bibliography/clause[title = 'Normative References' or title = 'Normative references'] |"\
+        "//bibliography/references[title = 'Normative References' or title = 'Normative references']")), n, 1)
       n = section_names(d.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
       n = section_names(d.at(ns("//sections/definitions")), n, 1)
@@ -36,7 +41,7 @@ module IsoDoc::Function
       return if clause.nil?
       @anchors[clause["id"]] =
         { label: nil, level: 1, xref: preface_clause_name(clause), type: "clause" }
-      clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).each_with_index do |c, i|
+      clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).each_with_index do |c, i|
         preface_names1(c, c.at(ns("./title"))&.text, "#{preface_clause_name(clause)}, #{i+1}", 2)
       end
     end
@@ -45,7 +50,7 @@ module IsoDoc::Function
       label = title || parent_title
       @anchors[clause["id"]] =
         { label: nil, level: level, xref: label, type: "clause" }
-      clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
+      clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).
         each_with_index do |c, i|
         preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i+1}", level + 1)
       end
@@ -73,7 +78,7 @@ module IsoDoc::Function
       num = num + 1
       @anchors[clause["id"]] =
         { label: num.to_s, xref: l10n("#{@clause_lbl} #{num}"), level: lvl, type: "clause" }
-      clause.xpath(ns("./clause | ./term  | ./terms | ./definitions")).
+      clause.xpath(ns("./clause | ./term  | ./terms | ./definitions | ./references")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", lvl + 1)
       end
@@ -83,7 +88,7 @@ module IsoDoc::Function
     def section_names1(clause, num, level)
       @anchors[clause["id"]] =
         { label: num, level: level, xref: l10n("#{@clause_lbl} #{num}"), type: "clause" }
-      clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
+      clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", level + 1)
       end
