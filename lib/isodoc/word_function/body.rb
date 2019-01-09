@@ -80,12 +80,16 @@ module IsoDoc::WordFunction
     end
 
     def section_break(body)
-      body.br **{ clear: "all", class: "section" }
+      body.p do |p|
+        p.br **{ clear: "all", class: "section" }
+      end
     end
 
     def page_break(out)
-      out.br **{ clear: "all",
+      out.p do |p|
+        p.br **{ clear: "all",
                  style: "mso-special-character:line-break;page-break-before:always" }
+      end
     end
 
     WORD_DT_ATTRS = {class: @note ? "Note" : nil, align: "left",
