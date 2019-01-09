@@ -42,9 +42,9 @@ RSpec.describe IsoDoc do
            <div class="WordSection1">
              <p>&#160;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p><br clear="all" class="section"/></p>
            <div class="WordSection2">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="" class="Note">
@@ -53,7 +53,7 @@ RSpec.describe IsoDoc do
              </div>
              <p>&#160;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p><br clear="all" class="section"/></p>
            <div class="WordSection3">
              <p class="zzSTDTitle1"/>
            </div>
@@ -200,9 +200,9 @@ INPUT
            <div class="WordSection1">
              <p>&#160;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p><br clear="all" class="section"/></p>
            <div class="WordSection2">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="" class="Note"><p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span></p>
@@ -213,7 +213,7 @@ INPUT
              </div>
              <p>&#160;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p><br clear="all" class="section"/></p>
            <div class="WordSection3">
              <p class="zzSTDTitle1"/>
            </div>
@@ -302,9 +302,9 @@ B</pre>
            <div class="WordSection1">
              <p>&#160;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p><br clear="all" class="section"/></p>
            <div class="WordSection2">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="figureA-1" class="figure">
@@ -324,7 +324,7 @@ B</pre>
              </div>
              <p>&#160;</p>
            </div>
-           <br clear="all" class="section"/>
+           <p><br clear="all" class="section"/></p>
            <div class="WordSection3">
              <p class="zzSTDTitle1"/>
            </div>
@@ -597,9 +597,9 @@ World</p>
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <p><br clear="all" class="section"/></p>
              <div class="WordSection2">
-               <br  clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br  clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left">Vache Equipment<br/>
@@ -610,7 +610,7 @@ World</p>
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <p><br clear="all" class="section"/></p>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>

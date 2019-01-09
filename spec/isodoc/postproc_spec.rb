@@ -207,10 +207,10 @@ RSpec.describe IsoDoc do
     </iso-standard>
     INPUT
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
-      sub(%r{<br clear="all" class="section"/>\s*<div class="WordSection3">.*$}m, "")
+          sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(word).to be_equivalent_to <<~"OUTPUT"
         <div class="WordSection2">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                 <div>
                   <h1 class="ForewordTitle">Foreword</h1>
                   <table class="dl">
@@ -251,7 +251,7 @@ RSpec.describe IsoDoc do
     expect(word).to be_equivalent_to <<~"OUTPUT"
            <div class="WordSection3">
                <p class="zzSTDTitle1"></p>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div class="Section3"><a name="P" id="P"></a>
                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                  <div><a name="Q" id="Q"></a>
@@ -282,7 +282,7 @@ RSpec.describe IsoDoc do
     expect(word).to be_equivalent_to <<~"OUTPUT"
     <div class="WordSection3">
              <p class="zzSTDTitle1"></p>
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div class="Section3"><a name="P" id="P"></a>
                <table class="example" cellspacing="0" cellpadding="0" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-collapse:collapse;"><a name="_63112cbc-cde0-435f-9553-e0b8c4f5851c" id="_63112cbc-cde0-435f-9553-e0b8c4f5851c"></a>
                  <tr>
@@ -398,7 +398,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
 
     INPUT
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
-      sub(%r{<br clear="all" class="section"/>\s*<div class="WordSection3">.*$}m, "")
+      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(word.gsub(/_Toc\d\d+/, "_Toc")).to be_equivalent_to <<~'OUTPUT'
            <div class="WordSection2">
        /* an empty word intro page */

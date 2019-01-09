@@ -260,18 +260,18 @@ OUTPUT
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <p><br clear="all" class="section"/></p>
              <div class="WordSection2">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                 <div>
                    <h1 class="AbstractTitle">Abstract</h1>
                 </div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="A">This is a preamble</p>
                </div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div class="Section3" id="B">
                  <h1 class="IntroTitle">Introduction</h1>
                  <div id="C">
@@ -280,7 +280,7 @@ OUTPUT
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <p><br clear="all" class="section"/></p>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <div id="D">
@@ -333,7 +333,7 @@ OUTPUT
           <h2>5.3. </h2>
         </div>
                </div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div id="P" class="Section3">
                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                  <div id="Q">
@@ -343,7 +343,7 @@ OUTPUT
           </div>
         </div>
                </div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="Section3">Bibliography</h1>
                  <div>

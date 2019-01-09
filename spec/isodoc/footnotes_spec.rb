@@ -65,9 +65,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <p><br clear="all" class="section"/></p>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p>A.<a href="#ftn2" epub:type="footnote"><sup>2</sup></a></p>
@@ -76,7 +76,7 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <br clear="all" class="section"/>
+             <p><br clear="all" class="section"/></p>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
                <aside id="ftn2">
@@ -182,9 +182,9 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p class="MsoNormal">&#xA0;</p>
              </div>
-             <br clear="all" class="section"/>
+             <p class="MsoNormal"><br clear="all" class="section"/></p>
              <div class="WordSection2">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
@@ -208,14 +208,14 @@ RSpec.describe IsoDoc do
                  </span>
 
                </div>
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div class="Section3" id="">
                  <h1 class="IntroTitle">Introduction</h1>
 
                </div>
                <p class="MsoNormal">&#xA0;</p>
              </div>
-             <br clear="all" class="section"/>
+             <p class="MsoNormal"><br clear="all" class="section"/></p>
              <div class="WordSection3">
                <p class="zzSTDTitle1"></p>
                <div style="mso-element:comment-list"><div style="mso-element:comment"><a name="3" id="3"></a>

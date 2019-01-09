@@ -127,14 +127,14 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     timecop (0.9.1)
-    unicode-display_width (1.4.0)
+    unicode-display_width (1.4.1)
     uuidtools (2.1.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.15)
+  bundler (~> 2.0.1)
   byebug (~> 9.1)
   equivalent-xml (~> 0.6)
   guard (~> 2.14)
@@ -146,4 +146,4 @@ DEPENDENCIES
   timecop (~> 0.9)
 
 BUNDLED WITH
-   1.17.2
+   2.0.1

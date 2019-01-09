@@ -41,7 +41,7 @@ RSpec.describe IsoDoc do
     </iso-standard
     INPUT
            <div class="WordSection2">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p>
