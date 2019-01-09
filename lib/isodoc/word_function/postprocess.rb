@@ -2,6 +2,25 @@ require "fileutils"
 
 module IsoDoc::WordFunction
   module Postprocess
+    # add namespaces for Word fragments
+    WORD_NOKOHEAD = <<~HERE.freeze
+    <!DOCTYPE html SYSTEM
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
+    <head> <title></title> <meta charset="UTF-8" /> </head>
+    <body> </body> </html>
+    HERE
+
+    def to_word_xhtml_fragment(xml)
+      doc = ::Nokogiri::XML.parse(WORD_NOKOHEAD)
+      fragment = doc.fragment(xml)
+      fragment
+    end
+
     def table_note_cleanup(docxml)
       super
       # preempt html2doc putting MsoNormal there
@@ -70,7 +89,7 @@ module IsoDoc::WordFunction
     def word_cover(docxml)
       cover = File.read(@wordcoverpage, encoding: "UTF-8")
       cover = populate_template(cover, :word)
-      coverxml = to_xhtml_fragment(cover)
+      coverxml = to_word_xhtml_fragment(cover)
       docxml.at('//div[@class="WordSection1"]').children.first.previous =
         coverxml.to_xml(encoding: "US-ASCII")
     end
@@ -79,7 +98,7 @@ module IsoDoc::WordFunction
       intro = File.read(@wordintropage, encoding: "UTF-8").
         sub(/WORDTOC/, make_WordToC(docxml))
       intro = populate_template(intro, :word)
-      introxml = to_xhtml_fragment(intro)
+      introxml = to_word_xhtml_fragment(intro)
       docxml.at('//div[@class="WordSection2"]').children.first.previous =
         introxml.to_xml(encoding: "US-ASCII")
     end

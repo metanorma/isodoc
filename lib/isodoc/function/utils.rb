@@ -13,6 +13,7 @@ module IsoDoc::Function
       [1..n].each { out << "&nbsp; " }
     end
 
+    # add namespaces for Word fragments
     NOKOHEAD = <<~HERE.freeze
     <!DOCTYPE html SYSTEM
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
