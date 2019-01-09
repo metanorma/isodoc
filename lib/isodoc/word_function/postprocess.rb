@@ -17,7 +17,8 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
 
     def to_word_xhtml_fragment(xml)
       doc = ::Nokogiri::XML.parse(WORD_NOKOHEAD)
-      fragment = doc.fragment(xml)
+      #fragment = doc.fragment(xml)
+      fragment = ::Nokogiri::XML::DocumentFragment.new(doc, xml, doc.root)
       fragment
     end
 
