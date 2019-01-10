@@ -104,7 +104,7 @@ module IsoDoc::Function
     end
 
     def header_strip(h)
-      h = h.to_s.gsub(%r{<br/>}, " ").sub(/<\/?h[12][^>]*>/, "")
+      h = h.to_s.gsub(%r{<br/>}, " ").sub(/<\/?h[123456][^>]*>/, "")
       h1 = to_xhtml_fragment(h.dup)
       h1.traverse do |x|
         x.replace(" ") if x.name == "span" && /mso-tab-count/.match(x["style"])
