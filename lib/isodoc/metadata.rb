@@ -121,7 +121,7 @@ module IsoDoc
     end
 
     def unpublished(status)
-      status.downcase == "published"
+      !status.downcase == "published"
     end
 
     def status_print(status)
