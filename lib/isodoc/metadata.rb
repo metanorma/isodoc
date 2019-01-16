@@ -32,7 +32,45 @@ module IsoDoc
       @metadata[key] = value
     end
 
+    def extract_person_names(authors)
+      ret = []
+      authors.each do |a|
+        if a.at(ns("./name/completename"))
+          ret << a.at(ns("./name/completename")).text
+        else
+          fn = []
+          forenames = a.xpath(ns("./name/forename"))
+          forenames.each { |f| fn << f.text }
+          surname = a&.at(ns("./name/surname"))&.text
+          ret << fn.join(" ") + " " + surname
+        end
+      end
+      ret
+    end
+
+    def extract_person_names_affiliations(authors)
+      names = extract_person_names(authors)
+      affils = []
+      authors.each do |a|
+        affils << (a&.at(ns("./affiliation/org/name"))&.text || "")
+      end
+      ret = {}
+      affils.each_with_index do |a, i|
+        ret[a] ||= []
+        ret[a] << names[i]
+      end
+      ret
+    end
+
+    def personal_authors(isoxml)
+      authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author' "\
+                                "or xmlns:role/@type = 'editor']/person"))
+      set(:authors, extract_person_names(authors))
+      set(:authors_affiliations, extract_person_names_affiliations(authors))
+    end
+
     def author(xml, _out)
+      personal_authors(xml)
       tc(xml)
       sc(xml)
       wg(xml)
@@ -121,7 +159,7 @@ module IsoDoc
     end
 
     def unpublished(status)
-      !status.downcase == "published"
+      !(status.downcase == "published")
     end
 
     def status_print(status)
