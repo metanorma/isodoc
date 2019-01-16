@@ -212,7 +212,7 @@ module IsoDoc::HtmlFunction
     end
 
     def move_image1(i)
-      matched = /\.(?<suffix>\S+)$/.match i["src"]
+      matched = /\.(?<suffix>[^. \r\n\t]+)$/.match i["src"]
       uuid = UUIDTools::UUID.random_create.to_s
       fname = "#{uuid}.#{matched[:suffix]}"
       new_full_filename = File.join(tmpimagedir, fname)
