@@ -27,7 +27,7 @@ module IsoDoc
       return result if debug
       postprocess(result, filename, dir)
       FileUtils.rm_rf dir
-      ::Metanorma::Output::Pdf.new.convert(filename + ".html", outname_html + ".pdf")
+      ::Metanorma::Output::Pdf.new.convert("#{filename}.html", outname_html + ".pdf")
       FileUtils.rm_r ["#{filename}.html", tmpimagedir]
     end
 
