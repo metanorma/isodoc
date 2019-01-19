@@ -12,11 +12,11 @@ RSpec.describe IsoDoc do
     <bibdata type="international-standard">
   <title>The Incredible Mr Ripley</title>
   <title language="en">Cereals and pulses</title>
-  <source>URL A</source>
-  <source type="html">URL B</source>
-  <source type="xml">URL C</source>
-  <source type="pdf">URL D</source>
-  <source type="doc">URL E</source>
+  <uri>URL A</uri>
+  <uri type="html">URL B</uri>
+  <uri type="xml">URL C</uri>
+  <uri type="pdf">URL D</uri>
+  <uri type="doc">URL E</uri>
   <docidentifier>17301-1</docidentifier>
   <docnumber>17301</docnumber>
   <date type="published"><on>2011</on></date>

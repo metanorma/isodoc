@@ -207,11 +207,11 @@ module IsoDoc
     end
 
     def url(xml, _out)
-      a = xml.at(ns("//bibdata/source[not(@type)]")) and set(:url, a.text)
-      a = xml.at(ns("//bibdata/source[@type = 'html']")) and set(:html, a.text)
-      a = xml.at(ns("//bibdata/source[@type = 'xml']")) and set(:xml, a.text)
-      a = xml.at(ns("//bibdata/source[@type = 'pdf']")) and set(:pdf, a.text)
-      a = xml.at(ns("//bibdata/source[@type = 'doc']")) and set(:doc, a.text)
+      a = xml.at(ns("//bibdata/uri[not(@type)]")) and set(:url, a.text)
+      a = xml.at(ns("//bibdata/uri[@type = 'html']")) and set(:html, a.text)
+      a = xml.at(ns("//bibdata/uri[@type = 'xml']")) and set(:xml, a.text)
+      a = xml.at(ns("//bibdata/uri[@type = 'pdf']")) and set(:pdf, a.text)
+      a = xml.at(ns("//bibdata/uri[@type = 'doc']")) and set(:doc, a.text)
     end
   end
 end
