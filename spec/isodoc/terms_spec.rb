@@ -68,13 +68,13 @@ RSpec.describe IsoDoc do
        <p class="TermNum" id="paddy1">1.1</p><p class="Terms" style="text-align:left;">paddy</p>
 
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">&lt;rice&gt; rice retaining its husk after threshing</p>
-       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example"><p class="FigureTitle" align="center">EXAMPLE 1</p>
+       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example"><p class="example_label">EXAMPLE 1</p>
          <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
          <ul>
          <li>A</li>
          </ul>
        </div>
-       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f894" class="example"><p class="FigureTitle" align="center">EXAMPLE 2</p>
+       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f894" class="example"><p class="example_label">EXAMPLE 2</p>
          <ul>
          <li>A</li>
          </ul>
@@ -87,7 +87,7 @@ RSpec.describe IsoDoc do
        <p class="AltTerms" style="text-align:left;">rough rice</p>
        <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
-       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><p class="FigureTitle" align="center">EXAMPLE</p>
+       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><p class="example_label">EXAMPLE</p>
          <ul>
          <li>A</li>
          </ul>
@@ -171,13 +171,13 @@ OUTPUT
        <p class="TermNum" id="paddy1">1.1</p><p class="Terms" style="text-align:left;">paddy</p>
 
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">&lt;rice&gt; rice retaining its husk after threshing</p>
-       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example"><p class="FigureTitle" align="center">EXAMPLE 1</p>
+       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example"><p class="example_label">EXAMPLE 1</p>
          <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
          <ul>
          <li>A</li>
          </ul>
        </div>
-       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f894" class="example"><p class="FigureTitle" align="center">EXAMPLE 2</p>
+       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f894" class="example"><p class="example_label">EXAMPLE 2</p>
          <ul>
          <li>A</li>
          </ul>
@@ -190,7 +190,7 @@ OUTPUT
        <p class="AltTerms" style="text-align:left;">rough rice</p>
        <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
-       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><p class="FigureTitle" align="center">EXAMPLE</p>
+       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><p class="example_label">EXAMPLE</p>
          <ul>
          <li>A</li>
          </ul>
