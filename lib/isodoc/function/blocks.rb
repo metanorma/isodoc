@@ -83,7 +83,9 @@ module IsoDoc::Function
     # used if we are boxing examples
     def example_div_parse(node, out)
       out.div **attr_code(id: node["id"], class: "example") do |div|
-        div.p { |p| p << example_label(node) }
+        div.p **{ class: "FigureTitle", align: "center" } do |p|
+          p << example_label(node)
+        end
         node.children.each do |n|
           parse(n, div)
         end
@@ -96,7 +98,7 @@ module IsoDoc::Function
                 style: "border-collapse:collapse" )
     end
 
-    def example_parse(node, out)
+    def example_table_parse(node, out)
       out.table **example_table_attr(node) do |t|
         t.tr do |tr|
           tr.td **EXAMPLE_TBL_ATTR do |td|
@@ -107,6 +109,10 @@ module IsoDoc::Function
           end
         end
       end
+    end
+
+    def example_parse(node, out)
+      example_div_parse(node, out)
     end
 
     def sourcecode_name_parse(_node, div, name)

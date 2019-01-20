@@ -347,14 +347,10 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <table id="samplecode" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-                   <tr>
-                     <td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE</td>
-                     <td valign="top" class="example">
+                 <div id="samplecode" class="example">
+                 <p class="FigureTitle" align="center">EXAMPLE</p>
          <p>Hello</p>
-       </td>
-                   </tr>
-                 </table>
+                 </div>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -381,22 +377,14 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <table id="samplecode" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-                   <tr>
-                     <td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE  1</td>
-                     <td valign="top" class="example">
+                 <div id="samplecode" class="example">
+                 <p class="FigureTitle" align="center">EXAMPLE  1</p>
          <p>Hello</p>
-       </td>
-                   </tr>
-                 </table>
-                 <table id="samplecode2" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-                   <tr>
-                     <td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE  2</td>
-                     <td valign="top" class="example">
+                 </div>
+                 <div id="samplecode2" class="example">
+                 <p class="FigureTitle" align="center">EXAMPLE  2</p>
                  <p>Hello</p>
-                 </td>
-                   </tr>
-                 </table>
+                 </div>
                </div>
                <p class="zzSTDTitle1"/>
              </div>

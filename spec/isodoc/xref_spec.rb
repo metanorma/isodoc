@@ -553,31 +553,21 @@ RSpec.describe IsoDoc do
                <br/>
              <div class="Section3" id="intro">
                <h1 class="IntroTitle">Introduction</h1>
-               <table id="N1" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-                 <tr>
-                   <td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE</td>
-                   <td valign="top" class="example">
+               <div id="N1" class="example"><p class="FigureTitle" align="center">EXAMPLE</p>
          <p>Hello</p>
-       </td>
-                 </tr>
-               </table>
+       </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <table id="N2" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><tr><td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE</td><td valign="top" class="example">
+               <div id="N2" class="example"><p class="FigureTitle" align="center">EXAMPLE</p>
          <p>Hello</p>
-       </td></tr></table>
+       </div>
        </div>
              </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
-                 <table id="N" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-                   <tr>
-                     <td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE</td>
-                     <td valign="top" class="example">
+               <div id="N" class="example"><p class="FigureTitle" align="center">EXAMPLE</p>
          <p>Hello</p>
-       </td>
-                   </tr>
-                 </table>
+                 </div>
                  <p>
                    <a href="#N">Example</a>
                  </p>
@@ -596,29 +586,29 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
                  <div id="widgets1"><h2>3.1. </h2>
-               <table id="note1" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><tr><td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE  1</td><td valign="top" class="example">
+               <div id="note1" class="example"><p class="FigureTitle" align="center">EXAMPLE  1</p>
          <p>Hello</p>
-       </td></tr></table>
-               <table id="note2" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><tr><td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE  2</td><td valign="top" class="example">
+       </div>
+               <div id="note2" class="example"><p class="FigureTitle" align="center">EXAMPLE  2</p>
          <p>Hello</p>
-       </td></tr></table>
+       </div>
        <p>    <a href="#note1">Example  1</a> <a href="#note2">Example  2</a> </p>
            </div>
                </div>
                <br/>
                <div id="annex1" class="Section3">
                  <div id="annex1a"><h2>A.1. </h2>
-               <table id="AN" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><tr><td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE</td><td valign="top" class="example">
+               <div id="AN" class="example"><p class="FigureTitle" align="center">EXAMPLE</p>
          <p>Hello</p>
-       </td></tr></table>
+       </div>
            </div>
                  <div id="annex1b"><h2>A.2. </h2>
-               <table id="Anote1" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><tr><td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE  1</td><td valign="top" class="example">
+               <div id="Anote1" class="example"><p class="FigureTitle" align="center">EXAMPLE  1</p>
          <p>Hello</p>
-       </td></tr></table>
-               <table id="Anote2" class="example" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><tr><td valign="top" class="example_label" style="width:82.8pt;padding:0 0 0 1em;margin-left:0pt">EXAMPLE  2</td><td valign="top" class="example">
+       </div>
+               <div id="Anote2" class="example"><p class="FigureTitle" align="center">EXAMPLE  2</p>
          <p>Hello</p>
-       </td></tr></table>
+       </div>
            </div>
                </div>
              </div>
