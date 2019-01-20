@@ -348,7 +348,7 @@ B</pre>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="samplecode" class="example">
-                 <p class="example_label">EXAMPLE</p>
+                 <p class="example-title">EXAMPLE</p>
          <p>Hello</p>
                  </div>
                </div>
@@ -378,11 +378,11 @@ B</pre>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="samplecode" class="example">
-                 <p class="example_label">EXAMPLE  1</p>
+                 <p class="example-title">EXAMPLE  1</p>
          <p>Hello</p>
                  </div>
                  <div id="samplecode2" class="example">
-                 <p class="example_label">EXAMPLE  2</p>
+                 <p class="example-title">EXAMPLE  2</p>
                  <p>Hello</p>
                  </div>
                </div>

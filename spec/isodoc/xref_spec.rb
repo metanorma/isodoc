@@ -553,11 +553,11 @@ RSpec.describe IsoDoc do
                <br/>
              <div class="Section3" id="intro">
                <h1 class="IntroTitle">Introduction</h1>
-               <div id="N1" class="example"><p class="example_label">EXAMPLE</p>
+               <div id="N1" class="example"><p class="example-title">EXAMPLE</p>
          <p>Hello</p>
        </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div id="N2" class="example"><p class="example_label">EXAMPLE</p>
+               <div id="N2" class="example"><p class="example-title">EXAMPLE</p>
          <p>Hello</p>
        </div>
        </div>
@@ -565,7 +565,7 @@ RSpec.describe IsoDoc do
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
-               <div id="N" class="example"><p class="example_label">EXAMPLE</p>
+               <div id="N" class="example"><p class="example-title">EXAMPLE</p>
          <p>Hello</p>
                  </div>
                  <p>
@@ -586,10 +586,10 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
                  <div id="widgets1"><h2>3.1. </h2>
-               <div id="note1" class="example"><p class="example_label">EXAMPLE  1</p>
+               <div id="note1" class="example"><p class="example-title">EXAMPLE  1</p>
          <p>Hello</p>
        </div>
-               <div id="note2" class="example"><p class="example_label">EXAMPLE  2</p>
+               <div id="note2" class="example"><p class="example-title">EXAMPLE  2</p>
          <p>Hello</p>
        </div>
        <p>    <a href="#note1">Example  1</a> <a href="#note2">Example  2</a> </p>
@@ -598,15 +598,15 @@ RSpec.describe IsoDoc do
                <br/>
                <div id="annex1" class="Section3">
                  <div id="annex1a"><h2>A.1. </h2>
-               <div id="AN" class="example"><p class="example_label">EXAMPLE</p>
+               <div id="AN" class="example"><p class="example-title">EXAMPLE</p>
          <p>Hello</p>
        </div>
            </div>
                  <div id="annex1b"><h2>A.2. </h2>
-               <div id="Anote1" class="example"><p class="example_label">EXAMPLE  1</p>
+               <div id="Anote1" class="example"><p class="example-title">EXAMPLE  1</p>
          <p>Hello</p>
        </div>
-               <div id="Anote2" class="example"><p class="example_label">EXAMPLE  2</p>
+               <div id="Anote2" class="example"><p class="example-title">EXAMPLE  2</p>
          <p>Hello</p>
        </div>
            </div>
