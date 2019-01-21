@@ -1,7 +1,7 @@
 = isodoc: Ruby gem for converting ISODoc documents into HTML/Word
 
 image:https://img.shields.io/gem/v/isodoc.svg["Gem Version", link="https://rubygems.org/gems/isodoc"]
-image:https://img.shields.io/travis/riboseinc/asciidoctor-iso/master.svg["Build Status", link="https://travis-ci.com/riboseinc/isodoc"]
+image:https://img.shields.io/travis/riboseinc/isodoc/master.svg["Build Status", link="https://travis-ci.org/riboseinc/isodoc"]
 image:https://codeclimate.com/github/riboseinc/isodoc/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/isodoc"]
 
 == Purpose
