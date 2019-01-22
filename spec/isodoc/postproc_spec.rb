@@ -642,7 +642,9 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     <li><p>A1</p>
     <p>B1</p></li>
     <li><ul><li><p>C1</p>
-    <p>D1</p></li>
+    <formula id="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62">
+    <stem type="AsciiMath">D1</stem>
+    </formula>
     </ul></li>
     </ol>
     </foreword></preface>
@@ -668,7 +670,11 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
        <p class="MsoListParagraphCxSpFirst">A1
        <p class="ListContLevel1">B1</p></p>
        <p class="MsoListParagraphCxSpLast">C1
-       <p class="ListContLevel2">D1</p>
+       <div class="formula"><a name="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62" id="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62"></a><p class="ListContLevel2"><span class="stem"><m:oMath>
+  <m:r><m:t>D1</m:t></m:r>
+
+</m:oMath>
+</span><span style="mso-tab-count:1">&#xA0; </span>(1)</p></div>
        </p>
 
              </div>

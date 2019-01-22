@@ -71,7 +71,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def list_add(xpath, level)
       xpath.each do |list|
         (list.xpath(".//li") - list.xpath(".//ol//li | .//ul//li")).each do |li|
-          li.xpath("./p").each_with_index do |p, i|
+          li.xpath("./p | ./div/p").each_with_index do |p, i|
             next if p == 0
             p["class"] = "ListContLevel#{level}"
           end

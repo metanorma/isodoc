@@ -163,12 +163,18 @@ module IsoDoc::Function
       parse(dl, out)
     end
 
-    def formula_parse(node, out)
+    def formula_parse1(node, out)
       out.div **attr_code(id: node["id"], class: "formula") do |div|
-        parse(node.at(ns("./stem")), out)
-        insert_tab(div, 1)
-        div << "(#{get_anchors[node['id']][:label]})"
+        div.p do |p|
+          parse(node.at(ns("./stem")), div)
+          insert_tab(div, 1)
+          div << "(#{get_anchors[node['id']][:label]})"
+        end
       end
+    end
+
+    def formula_parse(node, out)
+      formula_parse1(node, out)
       formula_where(node.at(ns("./dl")), out)
       node.children.each do |n|
         next if %w(stem dl).include? n.name
