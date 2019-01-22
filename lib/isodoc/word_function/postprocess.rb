@@ -59,7 +59,26 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       word_annex_cleanup(docxml)
       word_table_separator(docxml)
       word_admonition_images(docxml)
+      word_list_continuations(docxml)
       docxml
+    end
+
+    def word_list_continuations(docxml)
+      list_add(docxml.xpath("//ul[not(ancestor::ul) and not(ancestor::ol)]"), 1)
+      list_add(docxml.xpath("//ol[not(ancestor::ul) and not(ancestor::ol)]"), 1)
+    end
+
+    def list_add(xpath, level)
+      xpath.each do |list|
+        (list.xpath(".//li") - list.xpath(".//ol//li | .//ul//li")).each do |li|
+          li.xpath("./p").each_with_index do |p, i|
+            next if p == 0
+            p["class"] = "ListContLevel#{level}"
+          end
+          list_add(li.xpath(".//ul") - li.xpath(".//ul//ul | .//ol//ul"), level + 1)
+          list_add(li.xpath(".//ol") - li.xpath(".//ul//ol | .//ol//ol"), level + 1)
+        end
+      end
     end
 
     EMPTY_PARA = "<p style='margin-top:0cm;margin-right:0cm;"\

@@ -625,4 +625,56 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     expect(html).to match(%r{<h2 class="TermNum" id="paddy">1\.2</h2>})
   end
 
+  it "creates continuation styles for multiparagraph list items in Word" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <ul>
+    <li><p>A</p>
+    <p>B</p></li>
+    <li><ol><li><p>C</p>
+    <p>D</p></li>
+    </ol></li>
+    </ul>
+    <ol>
+    <li><p>A1</p>
+    <p>B1</p></li>
+    <li><ul><li><p>C1</p>
+    <p>D1</p></li>
+    </ul></li>
+    </ol>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    expect(word).to be_equivalent_to <<~"OUTPUT"
+           <div class="WordSection2">
+             <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+
+       <p class="MsoListParagraphCxSpFirst">A
+       <p class="ListContLevel1">B</p></p>
+       <p class="MsoListParagraphCxSpLast"><p class="MsoListParagraphCxSpFirst">C
+       <p class="ListContLevel2">D</p></p>
+       </p>
+
+
+       <p class="MsoListParagraphCxSpFirst">A1
+       <p class="ListContLevel1">B1</p></p>
+       <p class="MsoListParagraphCxSpLast">C1
+       <p class="ListContLevel2">D1</p>
+       </p>
+
+             </div>
+             <p class="MsoNormal">&#xA0;</p>
+           </div>
+    OUTPUT
+  end
+
 end
