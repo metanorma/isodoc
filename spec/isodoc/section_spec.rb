@@ -54,6 +54,7 @@ RSpec.describe IsoDoc do
        </term>
        </terms>
        <definitions id="K">
+         <title>Definitions</title>
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
@@ -138,7 +139,7 @@ RSpec.describe IsoDoc do
            <p class="TermNum" id="J">3.1.1</p>
            <p class="Terms" style="text-align:left;">Term2</p>
       
-         </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
+         </div><div id="K"><h2>3.2. Definitions</h2>
            <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
          </div></div>
                 <div id="L" class="Symbols">

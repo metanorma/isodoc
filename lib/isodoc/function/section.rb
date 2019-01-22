@@ -158,7 +158,7 @@ module IsoDoc::Function
       f = isoxml.at(ns("//sections/definitions")) or return num
       out.div **attr_code(id: f["id"], class: "Symbols") do |div|
         num = num + 1
-        clause_name(num, @symbols_lbl, div, nil)
+        clause_name(num, f&.at(ns("./title"))&.content || @symbols_lbl, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
@@ -168,8 +168,8 @@ module IsoDoc::Function
 
     # subclause
     def symbols_parse(isoxml, out)
-      isoxml.children.first.previous =
-        "<title>#{@symbols_lbl}</title>"
+      isoxml.at(ns("./title")) or
+        isoxml.children.first.previous = "<title>#{@symbols_lbl}</title>"
       clause_parse(isoxml, out)
     end
 
