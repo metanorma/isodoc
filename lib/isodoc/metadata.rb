@@ -182,6 +182,7 @@ module IsoDoc
     end
 
     def version(isoxml, _out)
+      set(:edition, isoxml&.at(ns("//version/edition"))&.text)
       set(:docyear, isoxml&.at(ns("//bibdata/copyright/from"))&.text)
       set(:draft, isoxml&.at(ns("//version/draft"))&.text)
       set(:revdate, isoxml&.at(ns("//version/revision-date"))&.text)
