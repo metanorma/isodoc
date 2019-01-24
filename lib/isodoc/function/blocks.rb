@@ -147,9 +147,13 @@ module IsoDoc::Function
       @annotation = false
     end
 
+    def admonition_class(node)
+      "Admonition"
+    end
+
     def admonition_parse(node, out)
       name = node["type"]
-      out.div **{ class: "Admonition" } do |t|
+      out.div **{ class: admonition_class(node) } do |t|
         t.title { |b| b << @admonition[name].upcase } if name
         node.children.each do |n|
           parse(n, t)
