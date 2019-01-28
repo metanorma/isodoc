@@ -114,9 +114,12 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
         coverxml.to_xml(encoding: "US-ASCII")
     end
 
+    def insert_toc(intro)
+      intro.sub(/WORDTOC/, make_WordToC(docxml))
+    end
+
     def word_intro(docxml)
-      intro = File.read(@wordintropage, encoding: "UTF-8").
-        sub(/WORDTOC/, make_WordToC(docxml))
+      intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"))
       intro = populate_template(intro, :word)
       introxml = to_word_xhtml_fragment(intro)
       docxml.at('//div[@class="WordSection2"]').children.first.previous =
