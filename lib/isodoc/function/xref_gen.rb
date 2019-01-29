@@ -42,7 +42,7 @@ module IsoDoc::Function
 
     SECTIONS_XPATH =
       "//foreword | //introduction | //sections/terms | //annex | "\
-      "//sections/clause | //bibliography/references | "\
+      "//sections/clause | //sections/definitions | //bibliography/references | "\
       "//bibliography/clause".freeze
 
     CHILD_NOTES_XPATH =
@@ -58,7 +58,7 @@ module IsoDoc::Function
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, n, @note_xref_lbl, "note")
         end
-        note_anchor_names(s.xpath(ns("./clause | ./appendix")))
+        note_anchor_names(s.xpath(ns("./clause | ./appendix | ./terms | ./definitions")))
       end
     end
 
@@ -75,7 +75,7 @@ module IsoDoc::Function
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, n, @example_xref_lbl, "example")
         end
-        example_anchor_names(s.xpath(ns("./clause | ./appendix")))
+        example_anchor_names(s.xpath(ns("./clause | ./appendix | ./terms | ./definitions")))
       end
     end
 
@@ -89,7 +89,7 @@ module IsoDoc::Function
           @anchors[n["id"]] = anchor_struct(idx, n, @list_lbl, "list")
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
-        list_anchor_names(s.xpath(ns("./clause | ./appendix")))
+        list_anchor_names(s.xpath(ns("./clause | ./appendix | ./terms | ./definitions")))
       end
     end
 
