@@ -112,10 +112,47 @@ module IsoDoc::HtmlFunction
       d.children.empty? or d.children.first.previous = html_button()
     end
 
+    def sourcecode_highlighter
+      '<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>'
+    end
+
+    def sourcecodelang(lang)
+      return unless lang
+      case lang.downcase
+      when "javascript" then "lang-js"
+      when "c" then "lang-c"
+      when "c+" then "lang-cpp"
+      when "console" then "lang-bsh"
+      when "ruby" then "lang-rb"
+      when "html" then "lang-html"
+      when "java" then "lang-java"
+      when "xml" then "lang-xml"
+      when "perl" then "lang-perl"
+      when "python" then "lang-py"
+      when "xsl" then "lang-xsl"
+      else
+        ""
+      end
+    end
+
+    def sourcecode_parse(node, out)
+      name = node.at(ns("./name"))
+      out.pre **attr_code(id: node["id"], 
+                          class: "prettyprint #{sourcecodelang(node&.at(ns('./@lang'))&.value)}") do |div|
+        @sourcecode = true
+        node.children.each do |n|
+          parse(n, div) unless n.name == "name"
+        end
+        @sourcecode = false
+        sourcecode_name_parse(node, div, name) if name
+      end
+    end
+
     def html_preface(docxml)
       html_cover(docxml) if @htmlcoverpage
       html_intro(docxml) if @htmlintropage
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
+      docxml.at("//body") << sourcecode_highlighter
       if @scripts
         scripts = File.read(@scripts, encoding: "UTF-8")
         a = docxml.at("//body").add_child docxml.create_cdata(scripts)

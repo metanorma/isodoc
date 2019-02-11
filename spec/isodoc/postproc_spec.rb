@@ -683,4 +683,62 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     OUTPUT
   end
 
+  it "does not lose HTML escapes in postprocessing" do
+        FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <sourcecode id="samplecode">
+    <name>XML code</name>
+  &lt;xml&gt; &amp;
+</sourcecode>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
+      sub(%r{</main>.*$}m, "</main>")
+    expect(html).to be_equivalent_to <<~"OUTPUT"
+    <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+      <br />
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <pre id="samplecode" class="prettyprint "><br />&#xA0;&#xA0;&#xA0; <br />&#xA0; &lt;xml&gt; &amp;<br /><p class="FigureTitle" align="center">XML code</p></pre>
+      </div>
+      <p class="zzSTDTitle1"></p>
+    </main>
+    OUTPUT
+  end
+
+
+  it "does not lose HTML escapes in postprocessing (Word)" do
+        FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <sourcecode id="samplecode">
+    <name>XML code</name>
+  &lt;xml&gt; &amp;
+</sourcecode>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    expect(word).to be_equivalent_to <<~"OUTPUT"
+    <div class="WordSection2">
+      <p class="MsoNormal">
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <p class="Sourcecode"><a name="samplecode" id="samplecode"></a><br/>&#xA0;&#xA0;&#xA0; <br/>&#xA0; &lt;xml&gt; &amp;<br/><p class="FigureTitle" align="center">XML code</p></p>
+      </div>
+      <p class="MsoNormal">&#xA0;</p>
+    </div>
+
+    OUTPUT
+  end
+
 end

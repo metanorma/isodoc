@@ -397,7 +397,7 @@ B</pre>
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <sourcecode id="samplecode">
+    <sourcecode lang="ruby" id="samplecode">
     <name>Ruby <em>code</em></name>
   puts x
 </sourcecode>
@@ -408,8 +408,49 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
+                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="FigureTitle" align="center">Ruby <i>code</i></p></pre>
+               </div>
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+       </html>
+    OUTPUT
+  end
+
+  it "processes sourcecode (Word)" do
+    expect(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <sourcecode lang="ruby" id="samplecode">
+    <name>Ruby <em>code</em></name>
+  puts x
+</sourcecode>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head/>
+         <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear="all" class="section"/>
+           </p>
+           <div class="WordSection2">
+             <p>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
                  <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="FigureTitle" align="center">Ruby <i>code</i></p></p>
                </div>
+                  <p>&#160;</p>
+ </div>
+ <p>
+   <br clear="all" class="section"/>
+ </p>
+ <div class="WordSection3">
                <p class="zzSTDTitle1"/>
              </div>
            </body>
@@ -432,7 +473,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="FigureTitle" align="center">XML code</p></p>
+                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="FigureTitle" align="center">XML code</p></pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -460,11 +501,11 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="_" class="Sourcecode">puts "Hello, world."  &lt;1&gt;<br/>&#160;&#160; %w{a b c}.each do |x|<br/>&#160;&#160;&#160;&#160; puts x  &lt;2&gt;<br/>&#160;&#160; end<span class="zzMoveToFollowing">&lt;1&gt; </span>
+                 <pre id="_" class="prettyprint ">puts "Hello, world."  &lt;1&gt;<br/>&#160;&#160; %w{a b c}.each do |x|<br/>&#160;&#160;&#160;&#160; puts x  &lt;2&gt;<br/>&#160;&#160; end<span class="zzMoveToFollowing">&lt;1&gt; </span>
             <p class="Sourcecode" id="_">This is one callout</p>
           <span class="zzMoveToFollowing">&lt;2&gt; </span>
             <p class="Sourcecode" id="_">This is another callout</p>
-          </p>
+          </pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>

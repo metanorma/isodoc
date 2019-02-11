@@ -140,7 +140,8 @@ module IsoDoc::Function
         gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
         gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
       template = liquid(docxml)
-      template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
+      template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h).
+        gsub('&lt;', '&#x3c;').gsub('&gt;', '&#x3e;').gsub('&amp;', '&#x26;')
     end
   end
 end
