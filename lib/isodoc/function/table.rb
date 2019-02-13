@@ -24,7 +24,7 @@ module IsoDoc::Function
     end
 
     def tbody_parse(node, t)
-      tbody = node.at(ns("./tbody"))
+      tbody = node.at(ns("./tbody")) || return
       t.tbody do |h|
         tbody.element_children.each_with_index do |n, i|
           tr_parse(n, h, i, tbody.element_children.size, false)
