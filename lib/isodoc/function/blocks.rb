@@ -154,7 +154,7 @@ module IsoDoc::Function
     def admonition_parse(node, out)
       name = node["type"]
       out.div **{ class: admonition_class(node) } do |t|
-        t.title { |b| b << @admonition[name].upcase } if name
+        t.title { |b| b << @admonition[name].upcase } if name && @admonition[name]
         node.children.each do |n|
           parse(n, t)
         end
