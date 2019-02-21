@@ -528,7 +528,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div class="Admonition"><title>CAUTION</title>
+                 <div class="Admonition"><p class="FigureTitle" align="center">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -538,6 +538,33 @@ B</pre>
        </html>
     OUTPUT
   end
+
+  it "processes admonitions with titles" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
+    <name>Title</name>
+  <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+</admonition>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+               <br/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <div class="Admonition"><p class="FigureTitle" align="center">Title</p>
+         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </div>
+               </div>
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+       </html>
+    OUTPUT
+  end
+
 
   it "processes formulae" do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
