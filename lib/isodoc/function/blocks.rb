@@ -154,6 +154,7 @@ module IsoDoc::Function
     def admonition_name(node, type)
       name = node&.at(ns("./name")) and return name
       name = Nokogiri::XML::Node.new('name', node.document)
+      return unless type && @admonition[type]
       name << @admonition[type]&.upcase
       name
     end
