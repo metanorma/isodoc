@@ -408,7 +408,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="FigureTitle" align="center">Ruby <i>code</i></p></pre>
+                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" align="center">Ruby <i>code</i></p></pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -443,7 +443,7 @@ B</pre>
              </p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="FigureTitle" align="center">Ruby <i>code</i></p></p>
+                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" align="center">Ruby <i>code</i></p></p>
                </div>
                   <p>&#160;</p>
  </div>
@@ -473,7 +473,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="FigureTitle" align="center">XML code</p></pre>
+                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="SourceTitle" align="center">XML code</p></pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -528,7 +528,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div class="Admonition"><p class="FigureTitle" align="center">CAUTION</p>
+                 <div class="Admonition"><p class="AdmonitionTitle" align="center">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -554,7 +554,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div class="Admonition"><p class="FigureTitle" align="center">Title</p>
+                 <div class="Admonition"><p class="AdmonitionTitle" align="center">Title</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>

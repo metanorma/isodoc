@@ -116,8 +116,14 @@ module IsoDoc::Function
     end
 
     def sourcecode_name_parse(_node, div, name)
-      div.p **{ class: "FigureTitle", align: "center" } do |p|
+      div.p **{ class: "SourceTitle", align: "center" } do |p|
           name.children.each { |n| parse(n, p) }
+      end
+    end
+
+    def admonition_name_parse(_node, div, name)
+      div.p **{ class: "AdmonitionTitle", align: "center" } do |p|
+        name.children.each { |n| parse(n, p) }
       end
     end
 
@@ -163,7 +169,7 @@ module IsoDoc::Function
       type = node["type"]
       name = admonition_name(node, type)
       out.div **{ class: admonition_class(node) } do |t|
-        sourcecode_name_parse(node, t, name) if name
+        admonition_name_parse(node, t, name) if name
         node.children.each do |n|
           parse(n, t) unless n.name == "name"
         end

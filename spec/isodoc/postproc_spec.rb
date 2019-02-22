@@ -703,7 +703,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
       <br />
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <pre id="samplecode" class="prettyprint "><br />&#xA0;&#xA0;&#xA0; <br />&#xA0; &lt;xml&gt; &amp;<br /><p class="FigureTitle" align="center">XML code</p></pre>
+        <pre id="samplecode" class="prettyprint "><br />&#xA0;&#xA0;&#xA0; <br />&#xA0; &lt;xml&gt; &amp;<br /><p class="SourceTitle" align="center">XML code</p></pre>
       </div>
       <p class="zzSTDTitle1"></p>
     </main>
@@ -733,7 +733,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
       </p>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <p class="Sourcecode"><a name="samplecode" id="samplecode"></a><br/>&#xA0;&#xA0;&#xA0; <br/>&#xA0; &lt;xml&gt; &amp;<br/><p class="FigureTitle" align="center">XML code</p></p>
+        <p class="Sourcecode"><a name="samplecode" id="samplecode"></a><br/>&#xA0;&#xA0;&#xA0; <br/>&#xA0; &lt;xml&gt; &amp;<br/><p class="SourceTitle" align="center">XML code</p></p>
       </div>
       <p class="MsoNormal">&#xA0;</p>
     </div>
