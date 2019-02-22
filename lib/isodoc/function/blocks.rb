@@ -221,7 +221,8 @@ module IsoDoc::Function
       author = node.at(ns("./author"))
       source = node.at(ns("./source"))
       out.p **{ class: "QuoteAttribution" } do |p|
-        p << "&mdash; #{author.text}, " if author
+        p << "&mdash; #{author.text}" if author
+        p << ", " if author && source
         eref_parse(source, p) if source
       end
     end
