@@ -101,7 +101,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        <div id="I">
           <h2>3.1. Normal Terms</h2>
-          <p class="TermNum" id="J">3.1.1</p>
+          <p class="TermNum" id="J">3.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
         </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
@@ -248,7 +248,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        <div id="I">
           <h2>3.1. Normal Terms</h2>
-          <p class="TermNum" id="J">3.1.1</p>
+          <p class="TermNum" id="J">3.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
         </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
@@ -394,7 +394,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        <div id="I">
           <h2>3.1. Normal Terms</h2>
-          <p class="TermNum" id="J">3.1.1</p>
+          <p class="TermNum" id="J">3.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
         </div><div id="K"><h2>3.2. Symboles et termes abr&#233;g&#233;s</h2>
@@ -552,7 +552,7 @@ RSpec.describe IsoDoc do
        </p> </li> </ul>
        <div id="I">
                 <h2>3.1. Normal Terms</h2>
-                <p class="TermNum" id="J">3.1.1</p>
+                <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;">Term2</p>
 
               </div><div id="K"><h2>3.2. &#31526;&#21495;&#12289;&#20195;&#21495;&#21644;&#32553;&#30053;&#35821;</h2>

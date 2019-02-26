@@ -60,7 +60,7 @@ module IsoDoc::Function
 
     def termdef_parse(node, out)
       out.p **{ class: "TermNum", id: node["id"] } do |p|
-        p << get_anchors[node["id"]][:label]
+        p << "#{get_anchors[node["id"]][:label]}#{clausedelim}"
       end
       set_termdomain("")
       node.children.each { |n| parse(n, out) }

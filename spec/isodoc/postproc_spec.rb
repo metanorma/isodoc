@@ -300,7 +300,7 @@ RSpec.describe IsoDoc do
 
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> 
-       <p class="TermNum"><a name="paddy1" id="paddy1"></a>1.1</p><p class="Terms" style="text-align:left;">paddy</p>
+       <p class="TermNum"><a name="paddy1" id="paddy1"></a>1.1.</p><p class="Terms" style="text-align:left;">paddy</p>
        <p class="MsoNormal"><a name="_eb29b35e-123e-4d1c-b50b-2714d41e747f" id="_eb29b35e-123e-4d1c-b50b-2714d41e747f"></a>rice retaining its husk after threshing</p>
        <p class="MsoNormal">[SOURCE: <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>, modified &mdash; The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p></div>
              </div>
@@ -621,8 +621,8 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     INPUT
     expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
-    expect(html).to match(%r{<h2 class="TermNum" id="paddy1">1\.1</h2>})
-    expect(html).to match(%r{<h2 class="TermNum" id="paddy">1\.2</h2>})
+    expect(html).to match(%r{<h2 class="TermNum" id="paddy1">1\.1\.</h2>})
+    expect(html).to match(%r{<h2 class="TermNum" id="paddy">1\.2\.</h2>})
   end
 
   it "creates continuation styles for multiparagraph list items in Word" do

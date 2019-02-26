@@ -1,11 +1,15 @@
 module IsoDoc::Function
   module Section
+    def clausedelim
+      "."
+    end
+
     def inline_header_title(out, node, c1)
       title = c1&.content || ""
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
           if get_anchors[node['id']][:label] && !@suppressheadingnumbers
-            b << "#{get_anchors[node['id']][:label]}. "
+            b << "#{get_anchors[node['id']][:label]}#{clausedelim} "
           end
           b << "#{title} "
         end
@@ -18,7 +22,7 @@ module IsoDoc::Function
       else
         div.send "h#{get_anchors[node['id']][:level]}" do |h|
           lbl = get_anchors[node['id']][:label]
-          h << "#{lbl}. " if lbl && !@suppressheadingnumbers
+          h << "#{lbl}#{clausedelim} " if lbl && !@suppressheadingnumbers
           c1&.children&.each { |c2| parse(c2, h) }
         end
       end
@@ -37,7 +41,7 @@ module IsoDoc::Function
       header_class = {} if header_class.nil?
       div.h1 **attr_code(header_class) do |h1|
         if num && !@suppressheadingnumbers
-          h1 << "#{num}."
+          h1 << "#{num}#{clausedelim}"
           insert_tab(h1, 1)
         end
         h1 << title

@@ -1449,8 +1449,8 @@ OUTPUT
        <li> <p>IEC Electropedia: available at
          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
        </p> </li> </ul>
-       <p class="TermNum" id="_waxy_rice">2.1</p><p class="Terms" style="text-align:left;">waxy rice</p>
-       <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
+       <p class="TermNum" id="_waxy_rice">2.1.</p><p class="Terms" style="text-align:left;">waxy rice</p>
+       <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2.</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
        <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
        <div class="Note"><p>Note 2 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div></div>
              </div>
@@ -1592,7 +1592,7 @@ OUTPUT
        </p> </li> </ul>
        <div id="I">
           <h2>3.1. Normal Terms</h2>
-          <p class="TermNum" id="J">3.1.1</p>
+          <p class="TermNum" id="J">3.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
         </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
