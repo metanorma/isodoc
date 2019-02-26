@@ -680,20 +680,6 @@ RSpec.describe IsoDoc do
     </clause>
     </annex>
     </iso-standard>
-
-    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934">
-  <stem type="AsciiMath">r = 1 %</stem>
-<dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
-  <dt>
-    <stem type="AsciiMath">r</stem>
-  </dt>
-  <dd>
-    <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
-  </dd>
-</dl></formula>
-    </foreword>
-    </preface>
-    </iso-standard>
     INPUT
         #{HTML_HDR}
     <br/>
@@ -760,6 +746,446 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
   end
+
+    it "cross-references requirements" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
+    <foreword>
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+    <introduction id="intro">
+    <requirement id="N1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </requirement>
+  <clause id="xyz"><title>Preparatory</title>
+    <requirement id="N2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </requirement>
+</clause>
+    </introduction>
+    </preface>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+    <requirement id="N">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </requirement>
+  <p><xref target="N"/></p>
+    </clause>
+    <terms id="terms"/>
+    <clause id="widgets"><title>Widgets</title>
+    <clause id="widgets1">
+    <requirement id="note1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </requirement>
+    <requirement id="note2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </requirement>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
+    </clause>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <clause id="annex1a">
+    <requirement id="AN">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </requirement>
+    </clause>
+    <clause id="annex1b">
+    <requirement id="Anote1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </requirement>
+    <requirement id="Anote2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </requirement>
+    </clause>
+    </annex>
+    </iso-standard>
+    INPUT
+#{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <p>
+    <a href="#N1">Introduction, Requirement 1</a>
+    <a href="#N2">Preparatory, Requirement 2</a>
+    <a href="#N">Clause 1, Requirement 3</a>
+    <a href="#note1">Clause 3.1, Requirement 4</a>
+    <a href="#note2">Clause 3.1, Requirement 5</a>
+    <a href="#AN">Annex A.1, Requirement A.1</a>
+    <a href="#Anote1">Annex A.2, Requirement A.2</a>
+    <a href="#Anote2">Annex A.2, Requirement A.3</a>
+    </p>
+      </div>
+      <br/>
+      <div class="Section3" id="intro">
+        <h1 class="IntroTitle">Introduction</h1>
+        <div class="require"><p class="AdmonitionTitle">Requirement 1:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+        <div id="xyz"><h2>Preparatory</h2>
+    <div class="require"><p class="AdmonitionTitle">Requirement 2:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+</div>
+      </div>
+      <p class="zzSTDTitle1"/>
+      <div id="scope">
+        <h1>1.&#160; Scope</h1>
+        <div class="require"><p class="AdmonitionTitle">Requirement 3:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+        <p>
+          <a href="#N">Requirement 3</a>
+        </p>
+      </div>
+      <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+<p>ISO and IEC maintain terminological databases for use in
+standardization at the following addresses:</p>
+
+<ul>
+<li> <p>ISO Online browsing platform: available at
+  <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
+<li> <p>IEC Electropedia: available at
+  <a href="http://www.electropedia.org">http://www.electropedia.org</a>
+</p> </li> </ul>
+</div>
+      <div id="widgets">
+        <h1>3.&#160; Widgets</h1>
+        <div id="widgets1"><h2>3.1. </h2>
+    <div class="require"><p class="AdmonitionTitle">Requirement 4:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    <div class="require"><p class="AdmonitionTitle">Requirement 5:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+  <p>    <a href="#note1">Requirement 4</a> <a href="#note2">Requirement 5</a> </p>
+    </div>
+      </div>
+      <br/>
+      <div id="annex1" class="Section3">
+        <div id="annex1a"><h2>A.1. </h2>
+    <div class="require"><p class="AdmonitionTitle">Requirement A.1:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    </div>
+        <div id="annex1b"><h2>A.2. </h2>
+    <div class="require"><p class="AdmonitionTitle">Requirement A.2:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    <div class="require"><p class="AdmonitionTitle">Requirement A.3:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    </div>
+      </div>
+    </div>
+  </body>
+</html>
+OUTPUT
+    end
+
+        it "cross-references recommendations" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
+    <foreword>
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+    <introduction id="intro">
+    <recommendation id="N1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </recommendation>
+  <clause id="xyz"><title>Preparatory</title>
+    <recommendation id="N2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </recommendation>
+</clause>
+    </introduction>
+    </preface>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+    <recommendation id="N">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </recommendation>
+  <p><xref target="N"/></p>
+    </clause>
+    <terms id="terms"/>
+    <clause id="widgets"><title>Widgets</title>
+    <clause id="widgets1">
+    <recommendation id="note1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </recommendation>
+    <recommendation id="note2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </recommendation>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
+    </clause>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <clause id="annex1a">
+    <recommendation id="AN">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </recommendation>
+    </clause>
+    <clause id="annex1b">
+    <recommendation id="Anote1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </recommendation>
+    <recommendation id="Anote2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </recommendation>
+    </clause>
+    </annex>
+    </iso-standard>
+    INPUT
+#{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <p>
+    <a href="#N1">Introduction, Recommendation 1</a>
+    <a href="#N2">Preparatory, Recommendation 2</a>
+    <a href="#N">Clause 1, Recommendation 3</a>
+    <a href="#note1">Clause 3.1, Recommendation 4</a>
+    <a href="#note2">Clause 3.1, Recommendation 5</a>
+    <a href="#AN">Annex A.1, Recommendation A.1</a>
+    <a href="#Anote1">Annex A.2, Recommendation A.2</a>
+    <a href="#Anote2">Annex A.2, Recommendation A.3</a>
+    </p>
+      </div>
+      <br/>
+      <div class="Section3" id="intro">
+        <h1 class="IntroTitle">Introduction</h1>
+        <div class="recommend"><p class="AdmonitionTitle">Recommendation 1:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+        <div id="xyz"><h2>Preparatory</h2>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation 2:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+</div>
+      </div>
+      <p class="zzSTDTitle1"/>
+      <div id="scope">
+        <h1>1.&#160; Scope</h1>
+        <div class="recommend"><p class="AdmonitionTitle">Recommendation 3:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+        <p>
+          <a href="#N">Recommendation 3</a>
+        </p>
+      </div>
+      <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+<p>ISO and IEC maintain terminological databases for use in
+standardization at the following addresses:</p>
+
+<ul>
+<li> <p>ISO Online browsing platform: available at
+  <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
+<li> <p>IEC Electropedia: available at
+  <a href="http://www.electropedia.org">http://www.electropedia.org</a>
+</p> </li> </ul>
+</div>
+      <div id="widgets">
+        <h1>3.&#160; Widgets</h1>
+        <div id="widgets1"><h2>3.1. </h2>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation 4:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation 5:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+  <p>    <a href="#note1">Recommendation 4</a> <a href="#note2">Recommendation 5</a> </p>
+    </div>
+      </div>
+      <br/>
+      <div id="annex1" class="Section3">
+        <div id="annex1a"><h2>A.1. </h2>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation A.1:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    </div>
+        <div id="annex1b"><h2>A.2. </h2>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation A.2:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation A.3:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    </div>
+      </div>
+    </div>
+  </body>
+</html>
+OUTPUT
+    end
+
+        it "cross-references permissions" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
+    <foreword>
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+    <introduction id="intro">
+    <permission id="N1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </permission>
+  <clause id="xyz"><title>Preparatory</title>
+    <permission id="N2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </permission>
+</clause>
+    </introduction>
+    </preface>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+    <permission id="N">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </permission>
+  <p><xref target="N"/></p>
+    </clause>
+    <terms id="terms"/>
+    <clause id="widgets"><title>Widgets</title>
+    <clause id="widgets1">
+    <permission id="note1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </permission>
+    <permission id="note2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </permission>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
+    </clause>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <clause id="annex1a">
+    <permission id="AN">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </permission>
+    </clause>
+    <clause id="annex1b">
+    <permission id="Anote1">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </permission>
+    <permission id="Anote2">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </permission>
+    </clause>
+    </annex>
+    </iso-standard>
+    INPUT
+#{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <p>
+    <a href="#N1">Introduction, Permission 1</a>
+    <a href="#N2">Preparatory, Permission 2</a>
+    <a href="#N">Clause 1, Permission 3</a>
+    <a href="#note1">Clause 3.1, Permission 4</a>
+    <a href="#note2">Clause 3.1, Permission 5</a>
+    <a href="#AN">Annex A.1, Permission A.1</a>
+    <a href="#Anote1">Annex A.2, Permission A.2</a>
+    <a href="#Anote2">Annex A.2, Permission A.3</a>
+    </p>
+      </div>
+      <br/>
+      <div class="Section3" id="intro">
+        <h1 class="IntroTitle">Introduction</h1>
+        <div class="permission"><p class="AdmonitionTitle">Permission 1:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+        <div id="xyz"><h2>Preparatory</h2>
+    <div class="permission"><p class="AdmonitionTitle">Permission 2:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+</div>
+      </div>
+      <p class="zzSTDTitle1"/>
+      <div id="scope">
+        <h1>1.&#160; Scope</h1>
+        <div class="permission"><p class="AdmonitionTitle">Permission 3:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+        <p>
+          <a href="#N">Permission 3</a>
+        </p>
+      </div>
+      <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+<p>ISO and IEC maintain terminological databases for use in
+standardization at the following addresses:</p>
+
+<ul>
+<li> <p>ISO Online browsing platform: available at
+  <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
+<li> <p>IEC Electropedia: available at
+  <a href="http://www.electropedia.org">http://www.electropedia.org</a>
+</p> </li> </ul>
+</div>
+      <div id="widgets">
+        <h1>3.&#160; Widgets</h1>
+        <div id="widgets1"><h2>3.1. </h2>
+    <div class="permission"><p class="AdmonitionTitle">Permission 4:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    <div class="permission"><p class="AdmonitionTitle">Permission 5:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+  <p>    <a href="#note1">Permission 4</a> <a href="#note2">Permission 5</a> </p>
+    </div>
+      </div>
+      <br/>
+      <div id="annex1" class="Section3">
+        <div id="annex1a"><h2>A.1. </h2>
+    <div class="permission"><p class="AdmonitionTitle">Permission A.1:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    </div>
+        <div id="annex1b"><h2>A.2. </h2>
+    <div class="permission"><p class="AdmonitionTitle">Permission A.2:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    <div class="permission"><p class="AdmonitionTitle">Permission A.3:</p>
+  <span class="stem">(#(r = 1 %)#)</span>
+  </div>
+    </div>
+      </div>
+    </div>
+  </body>
+</html>
+OUTPUT
+    end
+
+
 
   it "cross-references tables" do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
@@ -1533,20 +1959,20 @@ RSpec.describe IsoDoc do
     </iso-standard>
     INPUT
         #{HTML_HDR}
-    <br/>
-                <div>
-                  <h1 class="ForewordTitle">Foreword</h1>
-                  <p>
-        <a href="#N">Clause 1, a)</a>
-        <a href="#note1">Clause 1, a.1)</a>
-        <a href="#note2">Clause 1, a.1.i)</a>
-        <a href="#AN">Clause 1, a.1.i.A)</a>
-        <a href="#Anote1">Clause 1, a.1.i.A.I)</a>
-        <a href="#Anote2">Clause 1, a.1.i.A.I.a)</a>
-        </p>
-                </div>
-                <p class="zzSTDTitle1"/>
-                             <div id="scope">
+                     <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p>
+       <a href="#N">Clause 1, a)</a>
+       <a href="#note1">Clause 1, a.1)</a>
+       <a href="#note2">Clause 1, a.1.i)</a>
+       <a href="#AN">Clause 1, a.1.i.A)</a>
+       <a href="#Anote1">Clause 1, a.1.i.A.I)</a>
+       <a href="#Anote2">Clause 1, a.1.i.A.I.a)</a>
+       </p>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div id="scope">
                <h1>1.&#160; Scope</h1>
                <ol type="a" id="N1">
          <li id="N"><p>A</p>

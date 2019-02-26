@@ -40,6 +40,9 @@ figure: Figure
 formula: Formule
 list: Liste
 table: Tableau
+requirement: Exigence
+recommendation: Recommandation
+permission: Autorisation
 key: Légende
 example: EXEMPLE
 example_xref: Exemple

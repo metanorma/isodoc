@@ -173,16 +173,49 @@ module IsoDoc::Function
       ret
     end
 
-    def sequential_asset_names(clause)
+    def sequential_table_names(clause)
       clause.xpath(ns(".//table")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct(i + 1, nil, @table_lbl, "table")
       end
-      sequential_figure_names(clause)
+    end
+
+    def sequential_formula_names(clause)
       clause.xpath(ns(".//formula")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct(i + 1, t, @formula_lbl, "formula")
       end
+    end
+
+    def sequential_permission_names(clause)
+      clause.xpath(ns(".//permission")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @permission_lbl, "permission")
+      end
+    end
+
+    def sequential_requirement_names(clause)
+      clause.xpath(ns(".//requirement")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @requirement_lbl, "requirement")
+      end
+    end
+
+    def sequential_recommendation_names(clause)
+      clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @recommendation_lbl, "recommendation")
+      end
+    end
+
+
+    def sequential_asset_names(clause)
+      sequential_table_names(clause)
+      sequential_figure_names(clause)
+      sequential_formula_names(clause)
+      sequential_permission_names(clause)
+      sequential_requirement_names(clause)
+      sequential_recommendation_names(clause)
     end
 
     def hiersep
@@ -219,6 +252,9 @@ module IsoDoc::Function
       hierarchical_table_names(clause, num)
       hierarchical_figure_names(clause, num)
       hierarchical_formula_names(clause, num)
+      hierarchical_permission_names(clause, num)
+      hierarchical_requirement_names(clause, num)
+      hierarchical_recommendation_names(clause, num)
     end
 
     def hierarchical_formula_names(clause, num)
@@ -226,6 +262,30 @@ module IsoDoc::Function
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
                                           t, @formula_lbl, "formula")
+      end
+    end
+
+    def hierarchical_permission_names(clause, num)
+      clause.xpath(ns(".//permission")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+                                          t, @permission_lbl, "permission")
+      end
+    end
+
+    def hierarchical_requirement_names(clause, num)
+      clause.xpath(ns(".//requirement")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+                                          t, @requirement_lbl, "requirement")
+      end
+    end
+
+    def hierarchical_recommendation_names(clause, num)
+      clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+                                          t, @recommendation_lbl, "recommendation")
       end
     end
   end

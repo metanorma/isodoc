@@ -743,5 +743,260 @@ World</p>
     OUTPUT
   end
 
+  it "processes permissions" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <permission id="_">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td align="left">Object</td>
+          <td align="left">Value</td>
+        </tr>
+        <tr>
+          <td align="left">Mission</td>
+          <td align="left">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</permission>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    #{HTML_HDR}
+       <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <div class="permission"><p class="AdmonitionTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
+
+  <div>/ss/584/2015/level/1</div>
+  <div>user</div>
+  <div>
+    <p id="_">I recommend <i>this</i>.</p>
+  </div>
+
+  <div>
+    <p id="_">As for the measurement targets,</p>
+  </div>
+  <div>
+    <p id="_">The measurement target shall be measured as:</p>
+    <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+
+
+  </div>
+  <div>
+    <p id="_">The following code will be run for verification:</p>
+    <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+  </div>
+
+</div>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+</html>
+    OUTPUT
+  end
+
+    it "processes requirements" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <requirement id="_">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td align="left">Object</td>
+          <td align="left">Value</td>
+        </tr>
+        <tr>
+          <td align="left">Mission</td>
+          <td align="left">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</requirement>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    #{HTML_HDR}
+        <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <div class="require"><p class="AdmonitionTitle">Requirement 1:<br/>/ogc/recommendation/wfs/2</p>
+
+  <div>/ss/584/2015/level/1</div>
+  <div>user</div>
+  <div>
+    <p id="_">I recommend <i>this</i>.</p>
+  </div>
+
+  <div>
+    <p id="_">As for the measurement targets,</p>
+  </div>
+  <div>
+    <p id="_">The measurement target shall be measured as:</p>
+    <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+
+
+  </div>
+  <div>
+    <p id="_">The following code will be run for verification:</p>
+    <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+  </div>
+
+</div>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+</html>
+    OUTPUT
+  end
+
+      it "processes recommendation" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <recommendation id="_">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td align="left">Object</td>
+          <td align="left">Value</td>
+        </tr>
+        <tr>
+          <td align="left">Mission</td>
+          <td align="left">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</recommendation>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    #{HTML_HDR}
+       <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <div class="recommend"><p class="AdmonitionTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p>
+
+  <div>/ss/584/2015/level/1</div>
+  <div>user</div>
+  <div>
+    <p id="_">I recommend <i>this</i>.</p>
+  </div>
+
+  <div>
+    <p id="_">As for the measurement targets,</p>
+  </div>
+  <div>
+    <p id="_">The measurement target shall be measured as:</p>
+    <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+
+
+  </div>
+  <div>
+    <p id="_">The following code will be run for verification:</p>
+    <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+  </div>
+
+</div>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+</html>
+    OUTPUT
+  end
+
 
 end

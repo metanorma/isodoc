@@ -40,6 +40,9 @@ figure: 图
 formula: 公式
 list: 列项
 table: 表
+requirement: 条件
+recommendation: 建议
+permission: 允许
 key: 说明
 example: 示例
 example_xref: 示例

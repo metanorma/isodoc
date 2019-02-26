@@ -65,6 +65,9 @@ module IsoDoc::Function
       @source_lbl = y["source"]
       @and_lbl = y["and"]
       @all_parts_lbl = y["all_parts"]
+      @permission_lbl = y["permission"]
+      @recommendation_lbl = y["recommendation"]
+      @requirement_lbl = y["requirement"]
       @locality = y["locality"]
       @admonition = y["admonition"]
       @labels = y

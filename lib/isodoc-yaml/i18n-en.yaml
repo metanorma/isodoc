@@ -47,6 +47,9 @@ list: List
 figure: Figure
 formula: Formula
 table: Table
+requirement: Requirement
+recommendation: Recommendation
+permission: Permission
 key: Key
 example: EXAMPLE
 example_xref: Example

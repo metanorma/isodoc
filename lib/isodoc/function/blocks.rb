@@ -260,5 +260,52 @@ module IsoDoc::Function
       out.img **attr_code(attrs)
       image_title_parse(out, caption)
     end
+
+    def recommendation_name(node, out, label)
+      name = node.at(ns("./label"))
+      out.p **{ class: "AdmonitionTitle" }  do |b|
+        b << l10n("#{label} #{get_anchors[node['id']][:label]}:")
+        if name
+          b.br
+          name.children.each { |n| parse(n,b) }
+        end
+      end
+    end
+
+    def recommendation_parse(node, out)
+      out.div **{ class: "recommend" } do |t|
+        recommendation_name(node, t, @recommendation_lbl)
+        node.children.each do |n|
+          parse(n, t) unless n.name == "label"
+        end
+      end
+    end
+
+    def requirement_parse(node, out)
+      out.div **{ class: "require" } do |t|
+        recommendation_name(node, t, @requirement_lbl)
+        node.children.each do |n|
+          parse(n, t) unless n.name == "label"
+        end
+      end
+    end
+
+    def permission_parse(node, out)
+      out.div **{ class: "permission" } do |t|
+        recommendation_name(node, t, @permission_lbl)
+        node.children.each do |n|
+          parse(n, t) unless n.name == "label"
+        end
+      end
+    end
+
+    def requirement_component_parse(node, out)
+      return if node["exclude"] == "true"
+      out.div do |div|
+        node.children.each do |n|
+          parse(n, div)
+        end
+      end
+    end
   end
 end

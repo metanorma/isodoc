@@ -235,6 +235,16 @@ module IsoDoc::Function
         when "definitions" then symbols_parse(node, out)
         when "references" then bibliography_parse(node, out)
         when "termdocsource" then termdocsource_parse(node, out)
+        when "requirement" then requirement_parse(node, out)
+        when "recommendation" then recommendation_parse(node, out)
+        when "permission" then permission_parse(node, out)
+        when "subject" then requirement_component_parse(node, out)
+        when "inherit" then requirement_component_parse(node, out)
+        when "description" then requirement_component_parse(node, out)
+        when "specification" then requirement_component_parse(node, out)
+        when "measurement-target" then requirement_component_parse(node, out)
+        when "verification" then requirement_component_parse(node, out)
+        when "import" then requirement_component_parse(node, out)
         else
           error_parse(node, out)
         end
