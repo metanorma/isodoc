@@ -307,5 +307,8 @@ module IsoDoc::Function
         end
       end
     end
+
+    def requirement_skip_parse(node, out)
+    end
   end
 end

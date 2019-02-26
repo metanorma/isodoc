@@ -800,7 +800,6 @@ World</p>
         <div class="permission"><p class="AdmonitionTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
 
   <div>/ss/584/2015/level/1</div>
-  <div>user</div>
   <div>
     <p id="_">I recommend <i>this</i>.</p>
   </div>
@@ -885,7 +884,6 @@ World</p>
         <div class="require"><p class="AdmonitionTitle">Requirement 1:<br/>/ogc/recommendation/wfs/2</p>
 
   <div>/ss/584/2015/level/1</div>
-  <div>user</div>
   <div>
     <p id="_">I recommend <i>this</i>.</p>
   </div>
@@ -970,7 +968,6 @@ World</p>
         <div class="recommend"><p class="AdmonitionTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p>
 
   <div>/ss/584/2015/level/1</div>
-  <div>user</div>
   <div>
     <p id="_">I recommend <i>this</i>.</p>
   </div>
