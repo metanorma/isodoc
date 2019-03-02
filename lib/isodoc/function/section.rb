@@ -30,7 +30,8 @@ module IsoDoc::Function
 
     def clause_parse(node, out)
       out.div **attr_code(id: node["id"]) do |div|
-        clause_parse_title(node, div, node.at(ns("./title")), out)
+        node.at(ns("./title")) and
+          clause_parse_title(node, div, node.at(ns("./title")), out)
         node.children.reject { |c1| c1.name == "title" }.each do |c1|
           parse(c1, div)
         end
