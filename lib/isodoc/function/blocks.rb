@@ -261,13 +261,16 @@ module IsoDoc::Function
       image_title_parse(out, caption)
     end
 
-    def recommendation_name(node, out, label)
-      name = node.at(ns("./label"))
+    def recommendation_name(node, out, type)
+      label = node.at(ns("./label"))
+      title = node.at(ns("./title"))
       out.p **{ class: "AdmonitionTitle" }  do |b|
-        b << l10n("#{label} #{get_anchors[node['id']][:label]}:")
-        if name
+        b << l10n("#{type} #{get_anchors[node['id']][:label]}:")
+        if label || title
           b.br
-          name.children.each { |n| parse(n,b) }
+          label and label.children.each { |n| parse(n,b) }
+          b << "#{clausedelim} " if label && title
+          title and title.children.each { |n| parse(n,b) }
         end
       end
     end
@@ -276,7 +279,7 @@ module IsoDoc::Function
       out.div **{ class: "recommend" } do |t|
         recommendation_name(node, t, @recommendation_lbl)
         node.children.each do |n|
-          parse(n, t) unless n.name == "label"
+          parse(n, t) unless %w(label title).include? n.name
         end
       end
     end
@@ -285,7 +288,7 @@ module IsoDoc::Function
       out.div **{ class: "require" } do |t|
         recommendation_name(node, t, @requirement_lbl)
         node.children.each do |n|
-          parse(n, t) unless n.name == "label"
+          parse(n, t) unless %w(label title).include? n.name
         end
       end
     end
@@ -294,7 +297,7 @@ module IsoDoc::Function
       out.div **{ class: "permission" } do |t|
         recommendation_name(node, t, @permission_lbl)
         node.children.each do |n|
-          parse(n, t) unless n.name == "label"
+          parse(n, t) unless %w(label title).include? n.name
         end
       end
     end

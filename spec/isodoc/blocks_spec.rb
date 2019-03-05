@@ -832,6 +832,7 @@ World</p>
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <requirement id="_">
+  <title>A New Requirement</title>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <subject>user</subject>
@@ -881,7 +882,7 @@ World</p>
         <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="require"><p class="AdmonitionTitle">Requirement 1:<br/>/ogc/recommendation/wfs/2</p>
+        <div class="require"><p class="AdmonitionTitle">Requirement 1:<br/>/ogc/recommendation/wfs/2. A New Requirement</p>
 
   <div>/ss/584/2015/level/1</div>
   <div>
