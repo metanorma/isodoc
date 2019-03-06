@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    isodoc (0.9.17)
+    isodoc (0.9.18)
       asciimath
       html2doc (~> 0.8.6)
       htmlentities (~> 4.3.4)
@@ -54,14 +54,14 @@ GEM
       uuidtools
     htmlentities (4.3.4)
     image_size (2.0.0)
-    json (2.1.0)
+    json (2.2.0)
     liquid (4.0.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     lumberjack (1.0.13)
-    metanorma (0.3.8)
+    metanorma (0.3.9)
       asciidoctor
       htmlentities
     method_source (0.9.2)
@@ -75,7 +75,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    parallel (1.13.0)
+    parallel (1.14.0)
     parser (2.6.0.0)
       ast (~> 2.4.0)
     powerpack (0.1.2)
@@ -128,7 +128,7 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     timecop (0.9.1)
-    unicode-display_width (1.4.1)
+    unicode-display_width (1.5.0)
     uuidtools (2.1.5)
 
 PLATFORMS
