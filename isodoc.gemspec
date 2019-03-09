@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
     This gem is in active development.
   DESCRIPTION
 
-  spec.homepage      = "https://github.com/riboseinc/isodoc"
+  spec.homepage      = "https://github.com/metanorma/isodoc"
   spec.license       = "BSD-2-Clause"
 
   spec.bindir        = "bin"
