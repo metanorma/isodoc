@@ -152,7 +152,7 @@ RSpec.describe IsoDoc do
            }
         });
        </script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=AM_HTMLorMML"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=AM_HTMLorMML" async="async"></script>
        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
        </body>
     OUTPUT

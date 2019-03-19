@@ -58,7 +58,7 @@ module IsoDoc::HtmlFunction
     end
 
     MATHJAX_ADDR =
-      "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js".freeze
+      "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js".freeze
     MATHJAX = <<~"MATHJAX".freeze
       <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
@@ -67,7 +67,7 @@ module IsoDoc::HtmlFunction
           }
        });
       </script>
-      <script src="#{MATHJAX_ADDR}?config=AM_HTMLorMML"></script>
+      <script src="#{MATHJAX_ADDR}?config=AM_HTMLorMML" async="async"></script>
     MATHJAX
 
     def mathjax(open, close)
