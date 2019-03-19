@@ -29,5 +29,11 @@ module IsoDoc
     include WordFunction::Footnotes
     include WordFunction::Body
     include WordFunction::Postprocess
+
+    def convert(filename, file = nil, debug = false)
+      ret = super
+      FileUtils.rm_rf tmpimagedir
+      ret
+    end
   end
 end

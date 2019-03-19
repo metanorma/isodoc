@@ -14,9 +14,12 @@ module IsoDoc
       @standardstylesheet = nil
       super
       @scripts = @scripts_pdf if @scripts_pdf
-      @tmpimagedir = "_pdfimages"
       @maxwidth = 500
       @maxheight = 800
+    end
+
+    def tmpimagedir_suffix
+      "_pdfimages"
     end
 
     def convert(filename, file = nil, debug = false)
@@ -28,7 +31,7 @@ module IsoDoc
       postprocess(result, filename, dir)
       FileUtils.rm_rf dir
       ::Metanorma::Output::Pdf.new.convert("#{filename}.html", outname_html + ".pdf")
-      FileUtils.rm_r ["#{filename}.html", tmpimagedir]
+      FileUtils.rm_rf ["#{filename}.html", tmpimagedir]
     end
 
     def xref_parse(node, out)

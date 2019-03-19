@@ -62,9 +62,12 @@ module IsoDoc
       @closemathdelim = "`"
       @lang = "en"
       @script = "Latn"
-      @tmpimagedir = "_images"
       @maxwidth = 1200
       @maxheight = 800
+    end
+
+    def tmpimagedir_suffix
+      "_images"
     end
 
     def default_fonts(_options)

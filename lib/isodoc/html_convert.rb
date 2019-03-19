@@ -9,6 +9,15 @@ module IsoDoc
     include HtmlFunction::Footnotes
     include HtmlFunction::Html
 
-    @tmpimagedir = "_images"
+    def tmpimagedir_suffix
+      "_htmlimages"
+    end
+
+    def convert(filename, file = nil, debug = false)
+      ret = super
+      Dir.exists?(tmpimagedir) and Dir["#{tmpimagedir}/*"].empty? and
+        FileUtils.rm_r tmpimagedir
+      ret
+    end
   end
 end

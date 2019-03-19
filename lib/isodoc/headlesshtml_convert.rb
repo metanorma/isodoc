@@ -10,9 +10,8 @@ module IsoDoc
     include HtmlFunction::Footnotes
     include HtmlFunction::Html
 
-    def initialize(options)
-      super
-      @tmpimagedir = "_headlessimages"
+    def tmpimagedir_suffix
+      "_headlessimages"
     end
 
     def convert(filename, file = nil, debug = false)
@@ -24,7 +23,7 @@ module IsoDoc
       postprocess(result, filename + ".tmp", dir)
       FileUtils.rm_rf dir
       strip_head(filename + ".tmp.html", outname_html + ".headless.html")
-      FileUtils.rm_r ["#{filename}.tmp.html", tmpimagedir]
+      FileUtils.rm_rf ["#{filename}.tmp.html", tmpimagedir]
     end
 
     def strip_head(input, output)
