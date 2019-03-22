@@ -1,17 +1,15 @@
+dist: trusty
 sudo: false
 language: ruby
-
 rvm:
   - 2.5
   - 2.4
   - 2.3
   - ruby-head
-
-before_install: 
-  - gem install bundler -v 1.16.2
-  - npm install -g puppeteer
-  - npm install
-
+before_install:
+  - travis_retry sudo apt-get update
+  - curl -L https://raw.githubusercontent.com/metanorma/metanorma-linux-setup/master/ubuntu-install-puppeteer.sh | bash
 matrix:
   allow_failures:
     - rvm: ruby-head
+
