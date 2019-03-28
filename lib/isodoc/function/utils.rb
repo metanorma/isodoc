@@ -134,7 +134,7 @@ module IsoDoc::Function
     end
 
     def populate_template(docxml, _format)
-      meta = @meta.get.merge(@labels)
+      meta = @meta.get.merge(@labels || {})
       docxml = docxml.
         gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
         gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
