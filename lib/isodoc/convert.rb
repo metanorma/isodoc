@@ -64,6 +64,10 @@ module IsoDoc
       @script = "Latn"
       @maxwidth = 1200
       @maxheight = 800
+      @wordToClevels = options[:doctoclevels].to_i
+      @wordToClevels = 2 if @wordToClevels == 0
+      @htmlToClevels = options[:htmltoclevels].to_i
+      @htmlToClevels = 2 if @htmlToClevels == 0
     end
 
     def tmpimagedir_suffix

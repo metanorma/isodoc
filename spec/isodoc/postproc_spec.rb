@@ -349,6 +349,9 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
          <p>A<fn reference="1">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
 </fn></p>
+<clause id="P" inline-header="false" obligation="normative">
+<title>Clause 4.2.1</title>
+</clause>
        </clause></clause>
         </sections>
         </iso-standard>
@@ -410,6 +413,123 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
                <p class="MsoNormal">&#xA0;</p>
              </div>
     OUTPUT
+  end
+
+    it "populates Word ToC with custom levels" do
+    FileUtils.rm_f "test.doc"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html", doctoclevels: 3}).convert("test", <<~"INPUT", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <sections>
+               <clause inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+
+         <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
+  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+</fn></title>
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+         <p>A<fn reference="1">
+  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+</fn></p>
+<clause id="P" inline-header="false" obligation="normative">
+<title>Clause 4.2.1</title>
+</clause>
+       </clause></clause>
+        </sections>
+        </iso-standard>
+
+    INPUT
+    word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    expect(word.gsub(/_Toc\d\d+/, "_Toc")).to be_equivalent_to <<~'OUTPUT'
+           <div class="WordSection2">
+       /* an empty word intro page */
+
+       <p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"></span><span style="mso-spacerun:yes">&#xA0;</span>TOC
+         \o "1-3" \h \z \u <span style="mso-element:field-separator"></span></span>
+       <span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
+       <a href="#_Toc">1. Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <span style="mso-tab-count:1 dotted">. </span>
+       </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <span style="mso-element:field-begin"></span></span>
+       <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
+         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
+         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span></span></p>
+
+       <p class="MsoToc2">
+         <span class="MsoHyperlink">
+           <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
+       <a href="#_Toc">1.1. Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <span style="mso-tab-count:1 dotted">. </span>
+       </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <span style="mso-element:field-begin"></span></span>
+       <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
+         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
+         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span>
+         </span>
+       </p>
+
+       <p class="MsoToc2">
+         <span class="MsoHyperlink">
+           <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
+       <a href="#_Toc">1.2. Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <span style="mso-tab-count:1 dotted">. </span>
+       </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <span style="mso-element:field-begin"></span></span>
+       <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
+         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
+         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span>
+         </span>
+       </p>
+
+       <p class="MsoToc3">
+  <span class="MsoHyperlink">
+    <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
+<a href="#_Toc">1.2.1. Clause 4.2.1<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+<span style="mso-tab-count:1 dotted">. </span>
+</span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+<span style="mso-element:field-begin"></span></span>
+<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
+  <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
+  <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span>
+  </span>
+</p>
+
+       <p class="MsoToc1">
+         <span lang="EN-GB" xml:lang="EN-GB">
+           <span style="mso-element:field-end"></span>
+         </span>
+         <span lang="EN-GB" xml:lang="EN-GB">
+           <p class="MsoNormal">&#xA0;</p>
+         </span>
+       </p>
+
+
+               <p class="MsoNormal">&#xA0;</p>
+             </div>
+    OUTPUT
+    end
+
+      it "generates HTML output with custom ToC levels function" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::HtmlConvert.new({htmltoclevels: 3}).convert("test", <<~"INPUT", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    html = File.read("test.html")
+    toclevel = <<~"TOCLEVEL"
+function toclevel() {
+  var i;
+  var text = "";
+  for(i = 1; i <= 3; i++) {
+TOCLEVEL
+    expect(html).to include toclevel
   end
 
   it "reorders footnote numbers in HTML" do

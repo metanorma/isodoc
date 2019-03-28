@@ -55,8 +55,8 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def word_cleanup(docxml)
-      word_preface(docxml)
       word_annex_cleanup(docxml)
+      word_preface(docxml)
       word_table_separator(docxml)
       word_admonition_images(docxml)
       word_list_continuations(docxml)
@@ -103,7 +103,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
 
     def word_preface(docxml)
       word_cover(docxml) if @wordcoverpage
-      word_intro(docxml) if @wordintropage
+      word_intro(docxml, @wordToClevels) if @wordintropage
     end
 
     def word_cover(docxml)
@@ -114,12 +114,12 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
         coverxml.to_xml(encoding: "US-ASCII")
     end
 
-    def insert_toc(intro, docxml)
-      intro.sub(/WORDTOC/, make_WordToC(docxml))
+    def insert_toc(intro, docxml, level)
+      intro.sub(/WORDTOC/, make_WordToC(docxml, level))
     end
 
-    def word_intro(docxml)
-      intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"), docxml)
+    def word_intro(docxml, level)
+      intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"), docxml, level)
       intro = populate_template(intro, :word)
       introxml = to_word_xhtml_fragment(intro)
       docxml.at('//div[@class="WordSection2"]').children.first.previous =
@@ -161,13 +161,15 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       TOC
     end
 
-    WORD_TOC_PREFACE1 = <<~TOC.freeze
+    def word_toc_preface(level) 
+      <<~TOC.freeze
       <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\o &quot;1-2&quot; \\h \\z \\u <span
+        \\o &quot;1-#{level}&quot; \\h \\z \\u <span
         style='mso-element:field-separator'></span></span>
-    TOC
+      TOC
+    end
 
     WORD_TOC_SUFFIX1 = <<~TOC.freeze
       <p class="MsoToc1"><span lang="EN-GB"><span
@@ -175,14 +177,15 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
         lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
     TOC
 
-    def make_WordToC(docxml)
+    def make_WordToC(docxml, level)
       toc = ""
-      docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])]").
-        each do |h|
-        toc += word_toc_entry(h.name == "h1" ? 1 : 2, header_strip(h))
+      #docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])]").
+      xpath = (1..level).each.map { |i| "//h#{i}" }.join (" | ")
+      docxml.xpath(xpath).each do |h|
+        toc += word_toc_entry(h.name[1].to_i, header_strip(h))
       end
       toc.sub(/(<p class="MsoToc1">)/,
-              %{\\1#{WORD_TOC_PREFACE1}}) +  WORD_TOC_SUFFIX1
+              %{\\1#{word_toc_preface(level)}}) +  WORD_TOC_SUFFIX1
     end
   end
 end
