@@ -93,12 +93,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       end
     end
 
-    # force Annex h2 to be p.h2Annex, so it is not picked up by ToC
     def word_annex_cleanup(docxml)
-      docxml.xpath("//h2[ancestor::*[@class = 'Section3']]").each do |h2|
-        h2.name = "p"
-        h2["class"] = "h2Annex"
-      end
     end
 
     def word_preface(docxml)
