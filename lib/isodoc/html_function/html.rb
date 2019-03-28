@@ -91,14 +91,9 @@ module IsoDoc::HtmlFunction
     <!--TOC script import-->
     <script type="text/javascript"  src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
     <script type="text/javascript">
-    function toclevel() {
-      var i;
-      var text = "";
+    function toclevel() { var i; var text = "";
       for(i = 1; i <= #{@htmlToClevels}; i++) {
-        if (i > 1) { text += ","; }
-        text += "h" + i + ":not(.TermNum)";
-      }
-    }
+        if (i > 1) { text += ","; } text += "h" + i + ":not(.TermNum)"; } }
     </script>
 
     <!--Google fonts-->
