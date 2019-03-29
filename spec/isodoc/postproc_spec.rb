@@ -495,7 +495,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     INPUT
     html = File.read("test.html")
     toclevel = <<~"TOCLEVEL"
-function toclevel() { var i; var text = "";\n for(i = 1; i <= 3; i++) {
+function toclevel() { var i; var text = "";\n  for(i = 1; i <= 3; i++) {
 TOCLEVEL
     expect(html).to include toclevel
   end

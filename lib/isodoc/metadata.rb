@@ -33,8 +33,7 @@ module IsoDoc
     end
 
     def extract_person_names(authors)
-      ret = []
-      authors.each do |a|
+      authors.inject([]) do |ret, a|
         if a.at(ns("./name/completename"))
           ret << a.at(ns("./name/completename")).text
         else
@@ -45,15 +44,22 @@ module IsoDoc
           ret << fn.join(" ") + " " + surname
         end
       end
-      ret
+    end
+
+    def extract_person_affiliations(authors)
+      authors.inject([]) do |m, a|
+        name = a&.at(ns("./affiliation/org/name"))&.text
+        location = a&.at(ns("./affiliation/org/contact/address/"\
+                            "formattedAddress"))&.text
+        m << ((!name.nil? && !location.nil?) ? "#{name}, #{location}" :
+          (name || location || ""))
+        m
+      end
     end
 
     def extract_person_names_affiliations(authors)
       names = extract_person_names(authors)
-      affils = []
-      authors.each do |a|
-        affils << (a&.at(ns("./affiliation/org/name"))&.text || "")
-      end
+      affils = extract_person_affiliations(authors)
       ret = {}
       affils.each_with_index do |a, i|
         ret[a] ||= []

@@ -49,7 +49,11 @@ RSpec.describe IsoDoc do
       <surname>Rubble</surname>
       </name>
       <affiliation>
-      <org><name>Bedrock Inc.</name></org>
+      <org><name>Slate Inc.</name>
+      <contact><address>
+      <formattedAddress>Bedrock</formattedAddress>
+      </address></contact>
+        </org>
       </affiliation>
     </person>
   </contributor>
@@ -81,7 +85,7 @@ RSpec.describe IsoDoc do
 </bibdata>
 </iso-standard>
 INPUT
-{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc."=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :confirmeddate=>"XXX", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :edition=>"2", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :html=>"URL B", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :status=>"Committee draft", :tc=>"TC 34", :unpublished=>true, :updateddate=>"XXX", :url=>"URL A", :wg=>"WG 3", :xml=>"URL C"}
+{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Slate Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :confirmeddate=>"XXX", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :edition=>"2", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :html=>"URL B", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :status=>"Committee draft", :tc=>"TC 34", :unpublished=>true, :updateddate=>"XXX", :url=>"URL A", :wg=>"WG 3", :xml=>"URL C"}
 OUTPUT
   end
 
