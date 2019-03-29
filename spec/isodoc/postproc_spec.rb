@@ -233,35 +233,6 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-  it "converts annex subheadings to h2Annex class for Word" do
-    FileUtils.rm_f "test.doc"
-    FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <annex id="P" inline-header="false" obligation="normative">
-         <title>Annex</title>
-         <clause id="Q" inline-header="false" obligation="normative">
-         <title>Annex A.1</title>
-         </clause>
-    </annex>
-    </iso-standard>
-    INPUT
-    word = File.read("test.doc").sub(/^.*<div class="WordSection3">/m, '<div class="WordSection3">').
-      sub(%r{<div style="mso-element:footnote-list"/>.*$}m, "")
-    expect(word).to be_equivalent_to <<~"OUTPUT"
-           <div class="WordSection3">
-               <p class="zzSTDTitle1"></p>
-               <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-               <div class="Section3"><a name="P" id="P"></a>
-                 <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
-                 <div><a name="Q" id="Q"></a>
-            <p class="h2Annex">A.1. Annex A.1</p>
-       </div>
-               </div>
-             </div>
-    OUTPUT
-  end
-
   it "populates Word template with terms reference labels" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
@@ -524,10 +495,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     INPUT
     html = File.read("test.html")
     toclevel = <<~"TOCLEVEL"
-function toclevel() {
-  var i;
-  var text = "";
-  for(i = 1; i <= 3; i++) {
+function toclevel() { var i; var text = "";\n for(i = 1; i <= 3; i++) {
 TOCLEVEL
     expect(html).to include toclevel
   end
