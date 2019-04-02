@@ -83,6 +83,13 @@ module IsoDoc::HtmlFunction
       docxml
     end
 
+    def googlefonts()
+      <<~HEAD.freeze
+      <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
+    HEAD
+    end
+
     def html_head()
       <<~HEAD.freeze
     <title>{{ doctitle }}</title>
@@ -93,15 +100,16 @@ module IsoDoc::HtmlFunction
     <script type="text/javascript">
     function toclevel() { var i; var text = "";
       for(i = 1; i <= #{@htmlToClevels}; i++) {
-        if (i > 1) { text += ","; } text += "h" + i + ":not(.TermNum)"; } }
+        if (i > 1) { text += ","; } text += "h" + i + ":not(.TermNum)"; } 
+      return text;}
     </script>
 
     <!--Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
+    #{googlefonts}
     <!--Font awesome import for the link icon-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+    <style class="anchorjs"></style>
       HEAD
     end
 
