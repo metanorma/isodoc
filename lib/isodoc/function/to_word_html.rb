@@ -69,7 +69,6 @@ module IsoDoc::Function
 
     def make_body2(body, docxml)
       body.div **{ class: "prefatory-section" } do |div2|
-        info docxml, div2
         div2.p { |p| p << "&nbsp;" } # placeholder
       end
       section_break(body)

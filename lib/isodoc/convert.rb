@@ -30,9 +30,9 @@ module IsoDoc
         merge!(default_file_locations(options)) { |_, old, new| old || new }
       @options = options
       @files_to_delete = []
-      @htmlstylesheet = generate_css(options[:htmlstylesheet], true, extract_fonts(options))
-      @wordstylesheet = generate_css(options[:wordstylesheet], false, extract_fonts(options))
-      @standardstylesheet = generate_css(options[:standardstylesheet], false, extract_fonts(options))
+      @htmlstylesheet_name = options[:htmlstylesheet]
+      @wordstylesheet_name = options[:wordstylesheet]
+      @standardstylesheet_name = options[:standardstylesheet]
       @header = options[:header]
       @htmlcoverpage = options[:htmlcoverpage]
       @wordcoverpage = options[:wordcoverpage]
@@ -68,6 +68,13 @@ module IsoDoc
       @wordToClevels = 2 if @wordToClevels == 0
       @htmlToClevels = options[:htmltoclevels].to_i
       @htmlToClevels = 2 if @htmlToClevels == 0
+    end
+
+    # run this after @meta is populated
+    def populate_css
+      @htmlstylesheet = generate_css(@htmlstylesheet_name, true, extract_fonts(options))
+      @wordstylesheet = generate_css(@wordstylesheet_name, false, extract_fonts(options))
+      @standardstylesheet = generate_css(@standardstylesheet_name, false, extract_fonts(options))
     end
 
     def tmpimagedir_suffix
@@ -115,6 +122,7 @@ module IsoDoc
     def generate_css(filename, stripwordcss, fontheader)
       return nil unless filename
       stylesheet = File.read(filename, encoding: "UTF-8")
+      stylesheet = populate_template(stylesheet, :word)
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
       engine = SassC::Engine.new(fontheader + stylesheet, syntax: :scss)
       outname = File.basename(filename, ".*") + ".css"
@@ -128,6 +136,8 @@ module IsoDoc
       noko do |xml|
         xml.html do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
+          info docxml, nil
+          populate_css()
           define_head html, filename, dir
           make_body(html, docxml)
         end
