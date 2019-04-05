@@ -66,8 +66,7 @@ module IsoDoc::Function
     end
 
     def clause_names(docxml, sect_num)
-      q = "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
-        "[not(descendant::terms)]"
+      q = self.class::MIDDLE_CLAUSE
       docxml.xpath(ns(q)).each_with_index do |c, i|
         section_names(c, (i + sect_num), 1)
       end
