@@ -48,8 +48,8 @@ module IsoDoc
 
     def extract_person_affiliations(authors)
       authors.inject([]) do |m, a|
-        name = a&.at(ns("./affiliation/org/name"))&.text
-        location = a&.at(ns("./affiliation/org/contact/address/"\
+        name = a&.at(ns("./affiliation/organization/name"))&.text
+        location = a&.at(ns("./affiliation/organization/contact/address/"\
                             "formattedAddress"))&.text
         m << ((!name.nil? && !location.nil?) ? "#{name}, #{location}" :
           (name || location || ""))

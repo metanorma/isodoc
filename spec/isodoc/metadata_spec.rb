@@ -49,11 +49,11 @@ RSpec.describe IsoDoc do
       <surname>Rubble</surname>
       </name>
       <affiliation>
-      <org><name>Slate Inc.</name>
+      <organization><name>Slate Inc.</name>
       <contact><address>
       <formattedAddress>Bedrock</formattedAddress>
       </address></contact>
-        </org>
+        </organization>
       </affiliation>
     </person>
   </contributor>
