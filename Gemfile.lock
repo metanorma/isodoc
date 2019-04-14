@@ -17,7 +17,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    asciidoctor (2.0.6)
+    asciidoctor (2.0.7)
     asciimath (1.0.8)
     ast (2.4.0)
     byebug (9.1.0)
@@ -42,13 +42,12 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    html2doc (0.8.9)
+    html2doc (0.8.10)
       asciimath (~> 1.0.7)
       htmlentities (~> 4.3.4)
       image_size
       mime-types
       nokogiri
-      ruby-xslt
       thread_safe
       uuidtools
     htmlentities (4.3.4)
@@ -75,7 +74,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     parallel (1.17.0)
-    parser (2.6.2.0)
+    parser (2.6.2.1)
       ast (~> 2.4.0)
     powerpack (0.1.2)
     pry (0.12.2)
@@ -108,7 +107,6 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.10.0)
-    ruby-xslt (0.9.10)
     ruby_dep (1.5.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)

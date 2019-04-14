@@ -2,7 +2,6 @@ require_relative "isodoc/version"
 
 require "nokogiri"
 require "asciimath"
-require "xml/xslt"
 require "uuidtools"
 require "base64"
 require "mime/types"
