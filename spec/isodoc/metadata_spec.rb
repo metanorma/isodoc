@@ -50,9 +50,9 @@ RSpec.describe IsoDoc do
       </name>
       <affiliation>
       <organization><name>Slate Inc.</name>
-      <contact><address>
+      <address>
       <formattedAddress>Bedrock</formattedAddress>
-      </address></contact>
+      </address>
         </organization>
       </affiliation>
     </person>
