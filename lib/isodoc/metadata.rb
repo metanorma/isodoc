@@ -206,6 +206,17 @@ module IsoDoc
     end
 
     def relations(isoxml, _out)
+      relations_obsoletes(isoxml)
+      relations_partof(isoxml)
+    end
+
+    def relations_partof(isoxml)
+      std = isoxml.at(ns("//bibdata/relation[@type = 'partOf']")) || return
+      id = std.at(ns(".//docidentifier"))
+      set(:partof, id.text) if id
+    end
+
+    def relations_obsoletes(isoxml)
       std = isoxml.at(ns("//bibdata/relation[@type = 'obsoletes']")) || return
       locality = std.at(ns(".//locality"))
       id = std.at(ns(".//docidentifier"))

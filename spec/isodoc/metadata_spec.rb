@@ -134,6 +134,9 @@ OUTPUT
     <locality type="clause"><referenceFrom>3.1</referenceFrom></locality>
     <docidentifier>IEC 8121</docidentifier>
   </relation>
+  <relation type="partOf">
+    <docidentifier>IEC 8122</docidentifier>
+  </relation>
   <editorialgroup>
     <technical-committee number="34" type="ABC">Food products</technical-committee>
     <subcommittee number="4" type="DEF">Cereals and pulses</subcommittee>
@@ -147,7 +150,7 @@ OUTPUT
 </version>
 </iso-standard>
 INPUT
-{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :edition=>nil, :editorialgroup=>["ABC 34", "DEF 4", "GHI 3"], :ics=>"1.2.3, 1.2.3", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2016-05-01", :sc=>"DEF 4", :secretariat=>"XXXX", :status=>"Published", :tc=>"ABC 34", :unpublished=>false, :updateddate=>"XXX", :wg=>"GHI 3"}
+{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :edition=>nil, :editorialgroup=>["ABC 34", "DEF 4", "GHI 3"], :ics=>"1.2.3, 1.2.3", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2016-05-01", :sc=>"DEF 4", :secretariat=>"XXXX", :status=>"Published", :tc=>"ABC 34", :unpublished=>false, :updateddate=>"XXX", :wg=>"GHI 3"}
 OUTPUT
   end
 
