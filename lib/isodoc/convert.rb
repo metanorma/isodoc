@@ -5,6 +5,7 @@ require "fileutils"
 module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_reader :options
+    attr_writer :labels
 
     # htmlstylesheet: Generic stylesheet for HTML
     # wordstylesheet: Generic stylesheet for Word
