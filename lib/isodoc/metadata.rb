@@ -1,7 +1,7 @@
 module IsoDoc
   class Metadata
     DATETYPES = %w{published accessed created implemented obsoleted confirmed
-    updated issued received}.freeze
+    updated issued received transmitted copied unchanged circulated}.freeze
 
     def ns(xpath)
       Common::ns(xpath)
