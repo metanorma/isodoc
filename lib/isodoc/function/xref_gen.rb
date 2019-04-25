@@ -268,7 +268,7 @@ module IsoDoc::Function
     def hierarchical_permission_names(clause, num)
       clause.xpath(ns(".//permission")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+        @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
                                           t, @permission_lbl, "permission")
       end
     end
@@ -276,7 +276,7 @@ module IsoDoc::Function
     def hierarchical_requirement_names(clause, num)
       clause.xpath(ns(".//requirement")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+        @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
                                           t, @requirement_lbl, "requirement")
       end
     end
@@ -284,7 +284,7 @@ module IsoDoc::Function
     def hierarchical_recommendation_names(clause, num)
       clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+        @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
                                           t, @recommendation_lbl, "recommendation")
       end
     end
