@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    isodoc (0.9.21)
+    isodoc (0.9.22)
       asciimath
       html2doc (~> 0.8.6)
       htmlentities (~> 4.3.4)
@@ -17,7 +17,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    asciidoctor (2.0.7)
+    asciidoctor (2.0.8)
     asciimath (1.0.8)
     ast (2.4.0)
     byebug (9.1.0)
@@ -68,7 +68,7 @@ GEM
     mime-types-data (3.2019.0331)
     mini_portile2 (2.4.0)
     nenv (0.3.0)
-    nokogiri (1.10.2)
+    nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -92,7 +92,7 @@ GEM
       rspec-mocks (~> 3.8.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.2)
+    rspec-expectations (3.8.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-mocks (3.8.0)
