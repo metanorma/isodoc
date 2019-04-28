@@ -238,6 +238,7 @@ module IsoDoc::Function
         when "recommendation" then recommendation_parse(node, out)
         when "permission" then permission_parse(node, out)
         when "subject" then requirement_skip_parse(node, out)
+        when "classification" then requirement_skip_parse(node, out)
         when "inherit" then requirement_component_parse(node, out)
         when "description" then requirement_component_parse(node, out)
         when "specification" then requirement_component_parse(node, out)
