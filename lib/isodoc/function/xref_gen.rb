@@ -187,27 +187,70 @@ module IsoDoc::Function
       end
     end
 
+    FIRST_LVL_REQ = "[not(ancestor::permission or ancestor::requirement or ancestor::recommendation)]".freeze
+
     def sequential_permission_names(clause)
-      clause.xpath(ns(".//permission")).each_with_index do |t, i|
+      clause.xpath(ns(".//permission#{FIRST_LVL_REQ}")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct(i + 1, t, @permission_lbl, "permission")
+        sequential_permission_names1(t, i + 1)
+        sequential_requirement_names1(t, i + 1)
+        sequential_recommendation_names1(t, i + 1)
+      end
+    end
+
+    def sequential_permission_names1(block, lbl)
+      block.xpath(ns("./permission")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        newlbl = "#{lbl}#{hierfigsep}#{i + 1}"
+        @anchors[t["id"]] = anchor_struct(newlbl, t, @permission_lbl, "permission")
+        sequential_permission_names1(t, newlbl)
+        sequential_requirement_names1(t, newlbl)
+        sequential_recommendation_names1(t, newlbl)
       end
     end
 
     def sequential_requirement_names(clause)
-      clause.xpath(ns(".//requirement")).each_with_index do |t, i|
+      clause.xpath(ns(".//requirement#{FIRST_LVL_REQ}")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct(i + 1, t, @requirement_lbl, "requirement")
+        sequential_permission_names1(t, i + 1)
+        sequential_requirement_names1(t, i + 1)
+        sequential_recommendation_names1(t, i + 1)
+      end
+    end
+
+    def sequential_requirement_names1(block, lbl)
+      block.xpath(ns("./requirement")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        newlbl = "#{lbl}#{hierfigsep}#{i + 1}"
+        @anchors[t["id"]] = anchor_struct(newlbl, t, @requirement_lbl, "requirement")
+        sequential_permission_names1(t, newlbl)
+        sequential_requirement_names1(t, newlbl)
+        sequential_recommendation_names1(t, newlbl)
       end
     end
 
     def sequential_recommendation_names(clause)
-      clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
+      clause.xpath(ns(".//recommendation#{FIRST_LVL_REQ}")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct(i + 1, t, @recommendation_lbl, "recommendation")
+        sequential_permission_names1(t, i + 1)
+        sequential_requirement_names1(t, i + 1)
+        sequential_recommendation_names1(t, i + 1)
       end
     end
 
+    def sequential_recommendation_names1(block, lbl)
+      block.xpath(ns("./recommendation")).each_with_index do |t, i|
+        next if t["id"].nil? || t["id"].empty?
+        newlbl = "#{lbl}#{hierfigsep}#{i + 1}"
+        @anchors[t["id"]] = anchor_struct(newlbl, t, @recommendation_lbl, "recommendation")
+        sequential_permission_names1(t, newlbl)
+        sequential_requirement_names1(t, newlbl)
+        sequential_recommendation_names1(t, newlbl)
+      end
+    end
 
     def sequential_asset_names(clause)
       sequential_table_names(clause)
@@ -266,26 +309,35 @@ module IsoDoc::Function
     end
 
     def hierarchical_permission_names(clause, num)
-      clause.xpath(ns(".//permission")).each_with_index do |t, i|
+      clause.xpath(ns(".//permission#{FIRST_LVL_REQ}")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                          t, @permission_lbl, "permission")
+        lbl = "#{num}#{hiersep}#{i + 1}"
+        @anchors[t["id"]] = anchor_struct(lbl, t, @permission_lbl, "permission")
+        sequential_permission_names1(t, lbl)
+        sequential_requirement_names1(t, lbl)
+        sequential_recommendation_names1(t, lbl)
       end
     end
 
     def hierarchical_requirement_names(clause, num)
-      clause.xpath(ns(".//requirement")).each_with_index do |t, i|
+      clause.xpath(ns(".//requirement#{FIRST_LVL_REQ}")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                          t, @requirement_lbl, "requirement")
+        lbl = "#{num}#{hiersep}#{i + 1}"
+        @anchors[t["id"]] = anchor_struct(lbl, t, @requirement_lbl, "requirement")
+        sequential_permission_names1(t, lbl)
+        sequential_requirement_names1(t, lbl)
+        sequential_recommendation_names1(t, lbl)
       end
     end
 
     def hierarchical_recommendation_names(clause, num)
-      clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
+      clause.xpath(ns(".//recommendation#{FIRST_LVL_REQ}")).each_with_index do |t, i|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                          t, @recommendation_lbl, "recommendation")
+        lbl = "#{num}#{hiersep}#{i + 1}"
+        @anchors[t["id"]] = anchor_struct(lbl, t, @recommendation_lbl, "recommendation")
+        sequential_permission_names1(t, lbl)
+        sequential_requirement_names1(t, lbl)
+        sequential_recommendation_names1(t, lbl)
       end
     end
   end

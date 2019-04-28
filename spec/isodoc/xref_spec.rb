@@ -1185,6 +1185,55 @@ standardization at the following addresses:</p>
 OUTPUT
     end
 
+        it "labels and cross-references nested requirements" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
+    <foreword>
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N"/>
+    <xref target="Q1"/>
+    <xref target="R1"/>
+    <xref target="AN1"/>
+    <xref target="AN2"/>
+    <xref target="AN"/>
+    <xref target="AQ1"/>
+    <xref target="AR1"/>
+    </p>
+    </foreword>
+    </preface>
+    <sections>
+    <clause id="xyz"><title>Preparatory</title>
+    <permission id="N1">
+    <permission id="N2">
+    <permission id="N">
+    </permission>
+    </permission>
+    <requirement id="Q1">
+    </requirement>
+    <recommendation id="R1">
+    </recommendation>
+    </permission>
+    </clause>
+    </sections>
+    <annex id="Axyz"><title>Preparatory</title>
+    <permission id="AN1">
+    <permission id="AN2">
+    <permission id="AN">
+    </permission>
+    </permission>
+    <requirement id="AQ1">
+    </requirement>
+    <recommendation id="AR1">
+    </recommendation>
+    </permission>
+    </annex>
+    </iso-standard>
+    INPUT
+    OUTPUT
+        end
 
 
   it "cross-references tables" do
