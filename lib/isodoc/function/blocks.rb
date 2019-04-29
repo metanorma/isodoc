@@ -304,7 +304,7 @@ module IsoDoc::Function
 
     def requirement_component_parse(node, out)
       return if node["exclude"] == "true"
-      out.div do |div|
+      out.div **{ class: "requirement-" + node.name } do |div|
         node.children.each do |n|
           parse(n, div)
         end

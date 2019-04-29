@@ -800,21 +800,21 @@ World</p>
         <h1 class="ForewordTitle">Foreword</h1>
         <div class="permission"><p class="AdmonitionTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
 
-  <div>/ss/584/2015/level/1</div>
-  <div>
+  <div class="requirement-inherit">/ss/584/2015/level/1</div>
+  <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>
   </div>
 
-  <div>
+  <div class="requirement-description">
     <p id="_">As for the measurement targets,</p>
   </div>
-  <div>
+  <div class="requirement-measurement-target">
     <p id="_">The measurement target shall be measured as:</p>
     <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
 
 
   </div>
-  <div>
+  <div class="requirement-verification">
     <p id="_">The following code will be run for verification:</p>
     <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
   </div>
@@ -885,21 +885,21 @@ World</p>
         <h1 class="ForewordTitle">Foreword</h1>
         <div class="require"><p class="AdmonitionTitle">Requirement 1:<br/>/ogc/recommendation/wfs/2. A New Requirement</p>
 
-  <div>/ss/584/2015/level/1</div>
-  <div>
+  <div class="requirement-inherit">/ss/584/2015/level/1</div>
+  <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>
   </div>
 
-  <div>
+  <div class="requirement-description">
     <p id="_">As for the measurement targets,</p>
   </div>
-  <div>
+  <div class="requirement-measurement-target">
     <p id="_">The measurement target shall be measured as:</p>
     <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
 
 
   </div>
-  <div>
+  <div class="requirement-verification">
     <p id="_">The following code will be run for verification:</p>
     <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
   </div>
@@ -969,21 +969,21 @@ World</p>
         <h1 class="ForewordTitle">Foreword</h1>
         <div class="recommend"><p class="AdmonitionTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p>
 
-  <div>/ss/584/2015/level/1</div>
-  <div>
+  <div class="requirement-inherit">/ss/584/2015/level/1</div>
+  <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>
   </div>
 
-  <div>
+  <div class="requirement-description">
     <p id="_">As for the measurement targets,</p>
   </div>
-  <div>
+  <div class="requirement-measurement-target">
     <p id="_">The measurement target shall be measured as:</p>
     <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
 
 
   </div>
-  <div>
+  <div class="requirement-verification">
     <p id="_">The following code will be run for verification:</p>
     <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
   </div>

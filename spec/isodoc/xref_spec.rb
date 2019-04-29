@@ -1232,6 +1232,54 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
+     #{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <p>
+<a href="#N1">Clause 1, Permission 1</a>
+<a href="#N2">Clause 1, Permission 1-1</a>
+<a href="#N">Clause 1, Permission 1-1-1</a>
+<a href="#Q1">Clause 1, Requirement 1-1</a>
+<a href="#R1">Clause 1, Recommendation 1-1</a>
+<a href="#AN1">Annex A, Permission A.1</a>
+<a href="#AN2">Annex A, Permission A.1-1</a>
+<a href="#AN">Annex A, Permission A.1-1-1</a>
+<a href="#AQ1">Annex A, Requirement A.1-1</a>
+<a href="#AR1">Annex A, Recommendation A.1-1</a>
+</p>
+      </div>
+      <p class="zzSTDTitle1"/>
+      <div id="xyz">
+        <h1>1.&#160; Preparatory</h1>
+        <div class="permission"><p class="AdmonitionTitle">Permission 1:</p>
+<div class="permission"><p class="AdmonitionTitle">Permission 1-1:</p>
+<div class="permission"><p class="AdmonitionTitle">Permission 1-1-1:</p>
+</div>
+</div>
+<div class="require"><p class="AdmonitionTitle">Requirement 1-1:</p>
+</div>
+<div class="recommend"><p class="AdmonitionTitle">Recommendation 1-1:</p>
+</div>
+</div>
+      </div>
+      <br/>
+      <div id="Axyz" class="Section3">
+        <h1 class="Annex"><b>Annex A</b><br/>(informative)<br/><br/><b>Preparatory</b></h1>
+        <div class="permission"><p class="AdmonitionTitle">Permission A.1:</p>
+<div class="permission"><p class="AdmonitionTitle">Permission A.1-1:</p>
+<div class="permission"><p class="AdmonitionTitle">Permission A.1-1-1:</p>
+</div>
+</div>
+<div class="require"><p class="AdmonitionTitle">Requirement A.1-1:</p>
+</div>
+<div class="recommend"><p class="AdmonitionTitle">Recommendation A.1-1:</p>
+</div>
+</div>
+      </div>
+    </div>
+  </body>
+</html>
     OUTPUT
         end
 
