@@ -4,6 +4,7 @@ module IsoDoc
       from = date.at(ns("./from"))
       to = date.at(ns("./to"))
       on = date.at(ns("./on"))
+      return date.text unless (from || on || to)
       return on.text if on
       ret = "#{from.text}&ndash;"
       ret += to.text if to
