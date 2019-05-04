@@ -154,16 +154,7 @@ RSpec.describe IsoDoc do
                  </p>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
-       </div>
+               </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
                  <div id="widgets1"><h2>3.1. </h2>
@@ -302,15 +293,6 @@ RSpec.describe IsoDoc do
                  </p>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -422,15 +404,6 @@ RSpec.describe IsoDoc do
                  <h1>1.&#160; Scope</h1>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -573,15 +546,6 @@ RSpec.describe IsoDoc do
                  </p>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -713,15 +677,6 @@ RSpec.describe IsoDoc do
                  </p>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -849,15 +804,6 @@ RSpec.describe IsoDoc do
         </p>
       </div>
       <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-<p>ISO and IEC maintain terminological databases for use in
-standardization at the following addresses:</p>
-
-<ul>
-<li> <p>ISO Online browsing platform: available at
-  <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-<li> <p>IEC Electropedia: available at
-  <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-</p> </li> </ul>
 </div>
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
@@ -995,15 +941,6 @@ OUTPUT
         </p>
       </div>
       <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-<p>ISO and IEC maintain terminological databases for use in
-standardization at the following addresses:</p>
-
-<ul>
-<li> <p>ISO Online browsing platform: available at
-  <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-<li> <p>IEC Electropedia: available at
-  <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-</p> </li> </ul>
 </div>
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
@@ -1141,15 +1078,6 @@ OUTPUT
         </p>
       </div>
       <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-<p>ISO and IEC maintain terminological databases for use in
-standardization at the following addresses:</p>
-
-<ul>
-<li> <p>ISO Online browsing platform: available at
-  <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-<li> <p>IEC Electropedia: available at
-  <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-</p> </li> </ul>
 </div>
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
@@ -1456,15 +1384,6 @@ OUTPUT
                  </p>
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -1537,15 +1456,6 @@ OUTPUT
                </div>
                <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        <p class="TermNum" id="_waxy_rice">2.1.</p><p class="Terms" style="text-align:left;">waxy rice</p>
        <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2.</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
        <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
@@ -1678,15 +1588,6 @@ OUTPUT
     </div>
     <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
       the following terms and definitions apply.</p>
-    <p>ISO and IEC maintain terminological databases for use in
-    standardization at the following addresses:</p>
-
-    <ul>
-    <li> <p>ISO Online browsing platform: available at
-    <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-    <li> <p>IEC Electropedia: available at
-    <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        <div id="I">
           <h2>3.1. Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1.</p>
@@ -1833,15 +1734,6 @@ OUTPUT
        </ol>
              </div>
              <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
              <div id="widgets">
                <h1>3.&#160; Widgets</h1>
@@ -1973,15 +1865,6 @@ OUTPUT
        </ol>
              </div>
              <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
              <div id="widgets">
                <h1>3.&#160; Widgets</h1>

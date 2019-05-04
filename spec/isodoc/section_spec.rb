@@ -125,15 +125,6 @@ RSpec.describe IsoDoc do
                 </div>
                 <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
             the following terms and definitions apply.</p>
-        <p>ISO and IEC maintain terminological databases for use in
-        standardization at the following addresses:</p>
-      
-        <ul>
-        <li> <p>ISO Online browsing platform: available at
-          <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-        <li> <p>IEC Electropedia: available at
-          <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-        </p> </li> </ul>
         <div id="I">
            <h2>3.1. Normal Terms</h2>
            <p class="TermNum" id="J">3.1.1.</p>
@@ -294,15 +285,6 @@ OUTPUT
                </div>
                <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        <div id="I">
           <h2>3.1. Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1.</p>
@@ -446,15 +428,6 @@ OUTPUT
              </div>
              <div id="H"><h1>Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        <div id="I"><h2>Normal Terms</h2>
 
           <p class="TermNum" id="J">3.1.1.</p>
@@ -522,15 +495,6 @@ OUTPUT
                <p class="zzSTDTitle1"/>
                <div id="H"><h1>1.&#160; Terms and definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        <p class="TermNum" id="J">1.1.</p>
          <p class="Terms" style="text-align:left;">Term2</p>
        </div>
@@ -590,15 +554,6 @@ end
                </div>
                <div id="H"><h1>2.&#160; Terms and definitions</h1><p>For the purposes of this document, the terms and definitions
          given in <a href="#ISO712">ISO 712</a> and the following apply.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        <p class="TermNum" id="J">2.1.</p>
                 <p class="Terms" style="text-align:left;">Term2</p>
               </div>
@@ -642,15 +597,6 @@ end
                </div>
                <div id="H"><h1>2.&#160; Terms and definitions</h1><p>For the purposes of this document,
          the terms and definitions given in <a href="#ISO712">ISO 712</a>, <a href="#ISO712">ISO 712</a> and <a href="#ISO712">ISO 712</a> apply.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
              </div>
            </body>
@@ -671,15 +617,6 @@ end
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
                <div id="H"><h1>1.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       <p>ISO and IEC maintain terminological databases for use in
-       standardization at the following addresses:</p>
-
-       <ul>
-       <li> <p>ISO Online browsing platform: available at
-         <a href="http://www.iso.org/obp">http://www.iso.org/obp</a></p> </li>
-       <li> <p>IEC Electropedia: available at
-         <a href="http://www.electropedia.org">http://www.electropedia.org</a>
-       </p> </li> </ul>
        </div>
              </div>
            </body>
