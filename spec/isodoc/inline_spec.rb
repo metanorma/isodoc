@@ -64,6 +64,7 @@ RSpec.describe IsoDoc do
     <p>
     <link target="http://example.com"/>
     <link target="http://example.com">example</link>
+    <link target="http://example.com" alt="tip">example</link>
     <link target="mailto:fred@example.com"/>
     <link target="mailto:fred@example.com">mailto:fred@example.com</link>
     </p>
@@ -78,6 +79,7 @@ RSpec.describe IsoDoc do
                  <p>
        <a href="http://example.com">http://example.com</a>
        <a href="http://example.com">example</a>
+       <a href="http://example.com" title="tip">example</a>
        <a href="mailto:fred@example.com">fred@example.com</a>
        <a href="mailto:fred@example.com">mailto:fred@example.com</a>
        </p>

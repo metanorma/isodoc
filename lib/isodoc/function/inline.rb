@@ -9,7 +9,7 @@ module IsoDoc::Function
     end
 
     def link_parse(node, out)
-      out.a(**{ "href": node["target"] }) do |l|
+      out.a **attr_code(href: node["target"], title: node["alt"]) do |l|
         if node.text.empty?
           l << node["target"].sub(/^mailto:/, "")
         else
