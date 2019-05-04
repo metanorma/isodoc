@@ -44,13 +44,14 @@ module IsoDoc::Function
     end
 
     def make_table_attr(node)
-      {
+      attr_code(
         id: node["id"],
         class: "MsoISOTable",
         border: 1,
         cellspacing: 0,
         cellpadding: 0,
-      }
+        title: node["alt"]
+      )
     end
 
     def table_parse(node, out)

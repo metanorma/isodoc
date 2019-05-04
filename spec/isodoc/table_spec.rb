@@ -6,7 +6,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
-      <table id="tableD-1">
+      <table id="tableD-1" alt="tool tip">
   <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
   <thead>
     <tr>
@@ -64,7 +64,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" align="center">Table 1&#160;&#8212; Repeatability and reproducibility of <i>husked</i> rice yield</p>
-               <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+               <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0" title="tool tip">
                  <thead>
                    <tr>
                      <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
@@ -127,7 +127,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
-      <table id="tableD-1">
+      <table id="tableD-1" alt="tool tip">
   <name>Repeatability and reproducibility of husked rice yield</name>
   <thead>
     <tr>
@@ -193,7 +193,7 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p class="TableTitle" align="center">Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p>
                  <div align="center">
-                 <table style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;mso-table-overlap:never;" id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+                 <table style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;mso-table-overlap:never;" id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0" title="tool tip">
                    <thead>
                      <tr>
                        <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Description</td>
