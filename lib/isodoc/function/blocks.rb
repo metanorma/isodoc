@@ -42,6 +42,7 @@ module IsoDoc::Function
     end
 
     def figure_name_parse(node, div, name)
+      return if name.nil? && node.at(ns("./figure"))
       div.p **{ class: "FigureTitle", align: "center" } do |p|
         p << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
         if name
@@ -65,7 +66,7 @@ module IsoDoc::Function
           figure_key(out) if n.name == "dl"
           parse(n, div) unless n.name == "name"
         end
-        figure_name_parse(node, div, name) if name
+        figure_name_parse(node, div, name)
       end
       @in_figure = false
     end
