@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    isodoc (0.9.22)
+    isodoc (0.9.23)
       asciimath
       html2doc (~> 0.8.6)
       htmlentities (~> 4.3.4)
@@ -17,7 +17,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    asciidoctor (2.0.8)
+    asciidoctor (2.0.9)
     asciimath (1.0.8)
     ast (2.4.0)
     byebug (9.1.0)
@@ -74,7 +74,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     parallel (1.17.0)
-    parser (2.6.2.1)
+    parser (2.6.3.0)
       ast (~> 2.4.0)
     powerpack (0.1.2)
     pry (0.12.2)
