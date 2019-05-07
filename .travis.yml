@@ -12,7 +12,10 @@ before_install:
 - nvm install 8
 - npm install -g puppeteer
 - gem install bundler -v 2.0.1
+- export ARCHFLAGS="-arch x86_64"
 - bundle update
+- unset ARCHFLAGS
+- nokogiri -v
 matrix:
   allow_failures:
     - rvm: ruby-head
