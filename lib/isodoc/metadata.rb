@@ -156,10 +156,14 @@ module IsoDoc
     end
 
     def docstatus(isoxml, _out)
-      docstatus = isoxml.at(ns("//bibdata/status"))
+      docstatus = isoxml.at(ns("//bibdata/status/stage"))
       set(:unpublished, true)
       if docstatus
-        set(:status, status_print(docstatus.text))
+        set(:stage, status_print(docstatus.text))
+        i = isoxml&.at(ns("//bibdata/status/substage"))&.text and
+          set(:substage, i)
+        i = isoxml&.at(ns("//bibdata/status/iteration"))&.text and
+          set(:iteration, i)
         set(:unpublished, unpublished(docstatus.text))
       end
     end
