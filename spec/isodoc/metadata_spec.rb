@@ -9,7 +9,7 @@ RSpec.describe IsoDoc do
     INPUT
   expect(Hash[c.info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <bibdata type="international-standard">
+    <bibdata type="standard">
   <title>The Incredible Mr Ripley</title>
   <title language="en">Cereals and pulses</title>
   <uri>URL A</uri>
@@ -86,16 +86,13 @@ RSpec.describe IsoDoc do
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <technical-committee number="34">Food products</technical-committee>
-    <subcommittee number="4">Cereals and pulses</subcommittee>
-    <workgroup number="3">Rice Group</workgroup>
-    <secretariat>GB</secretariat>
-  </editorialgroup>
+  <ext>
+  <doctype>international-standard</doctype>
+  </ext>
 </bibdata>
 </iso-standard>
 INPUT
-{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Slate Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :circulateddate=>"2015", :confirmeddate=>"2017", :copieddate=>"2016", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :edition=>"2", :editorialgroup=>["TC 34", "SC 4", "WG 3"], :html=>"URL B", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"2", :obsoleteddate=>"2014", :obsoletes=>nil, :obsoletes_part=>nil, :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :sc=>"SC 4", :secretariat=>"GB", :stage=>"Committee draft", :substage=>"Withdrawn", :tc=>"TC 34", :transmitteddate=>"2020", :unchangeddate=>"2019", :unpublished=>true, :updateddate=>"2018", :url=>"URL A", :wg=>"WG 3", :xml=>"URL C"}
+{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Slate Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :circulateddate=>"2015", :confirmeddate=>"2017", :copieddate=>"2016", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :edition=>"2", :html=>"URL B", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"2", :obsoleteddate=>"2014", :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :stage=>"Committee draft", :substage=>"Withdrawn", :transmitteddate=>"2020", :unchangeddate=>"2019", :unpublished=>true, :updateddate=>"2018", :url=>"URL A", :xml=>"URL C"}
 OUTPUT
   end
 
@@ -106,7 +103,7 @@ OUTPUT
     INPUT
   expect(Hash[c.info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <bibdata type="international-standard">
+    <bibdata type="standard">
   <title language="fr" format="text/plain">Céréales et légumineuses</ti>
   <title language="en" format="text/plain">Cereals and pulses</title>
   <docidentifier>17301-1-3</docidentifier>
@@ -147,20 +144,16 @@ OUTPUT
   <relation type="partOf">
     <docidentifier>IEC 8122</docidentifier>
   </relation>
-  <editorialgroup>
-    <technical-committee number="34" type="ABC">Food products</technical-committee>
-    <subcommittee number="4" type="DEF">Cereals and pulses</subcommittee>
-    <workgroup number="3" type="GHI">Rice Group</workgroup>
-  </editorialgroup>
-  <ics><code>1.2.3</code></ics>
-  <ics><code>1.2.3</code></ics>
+  <ext>
+  <doctype>international-standard</doctype>
+  </ext>
 </bibdata><version>
   <revision-date>2016-05-01</revision-date>
   <draft>12</draft>
 </version>
 </iso-standard>
 INPUT
-{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :edition=>nil, :editorialgroup=>["ABC 34", "DEF 4", "GHI 3"], :ics=>"1.2.3, 1.2.3", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2016-05-01", :sc=>"DEF 4", :secretariat=>"XXXX", :stage=>"Published", :tc=>"ABC 34", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX", :wg=>"GHI 3"}
+{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2016-05-01", :stage=>"Published", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
 OUTPUT
   end
 

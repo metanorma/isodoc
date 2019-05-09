@@ -8,15 +8,7 @@ module IsoDoc
     end
 
     def initialize(lang, script, labels)
-      @metadata = {
-        tc: "XXXX",
-        sc: "XXXX",
-        wg: "XXXX",
-        editorialgroup: [],
-        secretariat: "XXXX",
-        obsoletes: nil,
-        obsoletes_part: nil
-      }
+      @metadata = {}
       DATETYPES.each { |w| @metadata["#{w}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
@@ -77,47 +69,7 @@ module IsoDoc
 
     def author(xml, _out)
       personal_authors(xml)
-      tc(xml)
-      sc(xml)
-      wg(xml)
-      secretariat(xml)
       agency(xml)
-    end
-
-    def tc(xml)
-      tc_num = xml.at(ns("//bibdata/editorialgroup/technical-committee/@number"))
-      tc_type = xml.at(ns("//bibdata/editorialgroup/technical-committee/@type"))&.
-        text || "TC"
-      if tc_num
-        tcid = "#{tc_type} #{tc_num.text}"
-        set(:tc,  tcid)
-        set(:editorialgroup, get[:editorialgroup] << tcid)
-      end
-    end
-
-    def sc(xml)
-      sc_num = xml.at(ns("//bibdata/editorialgroup/subcommittee/@number"))
-      sc_type = xml.at(ns("//bibdata/editorialgroup/subcommittee/@type"))&.text || "SC"
-      if sc_num
-        scid = "#{sc_type} #{sc_num.text}"
-        set(:sc, scid)
-        set(:editorialgroup, get[:editorialgroup] << scid)
-      end
-    end
-
-    def wg(xml)
-      wg_num = xml.at(ns("//bibdata/editorialgroup/workgroup/@number"))
-      wg_type = xml.at(ns("//bibdata/editorialgroup/workgroup/@type"))&.text || "WG"
-      if wg_num
-        wgid = "#{wg_type} #{wg_num.text}"
-        set(:wg, wgid)
-        set(:editorialgroup, get[:editorialgroup] << wgid)
-      end
-    end
-
-    def secretariat(xml)
-      sec = xml.at(ns("//bibdata/editorialgroup/secretariat"))
-      set(:secretariat, sec.text) if sec
     end
 
     def bibdate(isoxml, _out)
@@ -127,13 +79,9 @@ module IsoDoc
     end
 
     def doctype(isoxml, _out)
-      b = isoxml.at(ns("//bibdata")) || return
-      return unless b["type"]
-      t = b["type"].split(/[- ]/).map{ |w| w.capitalize }.join(" ")
+      b = isoxml&.at(ns("//bibdata/ext/doctype"))&.text || return
+      t = b.split(/[- ]/).map{ |w| w.capitalize }.join(" ")
       set(:doctype, t)
-      ics = []
-      isoxml.xpath(ns("//bibdata/ics/code")).each { |i| ics << i.text }
-      set(:ics, ics.empty? ? "XXX" : ics.join(", "))
     end
 
     def iso?(org)
