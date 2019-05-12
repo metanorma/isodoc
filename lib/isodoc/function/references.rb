@@ -200,7 +200,7 @@ module IsoDoc::Function
       prefix = ref.at(ns("./docidentifier/@type"))
       # return ref_names(ref) unless docid
       date = ref.at(ns("./date[@type = 'published']"))
-      allparts = ref.at(ns("./allparts"))
+      allparts = ref.at(ns("./extent[@type='part'][referenceFrom='all']"))
       reference = format_ref(docid_l10n(docid.text), prefix&.text, isopub, date, allparts)
       @anchors[ref["id"]] = { xref: reference }
     end
