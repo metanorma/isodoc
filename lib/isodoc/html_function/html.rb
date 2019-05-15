@@ -93,7 +93,7 @@ module IsoDoc::HtmlFunction
       <<~HEAD.freeze
     function toclevel() { var i; var text = "";
       for(i = 1; i <= #{@htmlToClevels}; i++) {
-        if (i > 1) { text += ","; } text += "h" + i + ":not(.TermNum)"; } 
+        if (i > 1) { text += ","; } text += "h" + i + ":not(:empty):not(.TermNum)"; } 
       return text;}
       HEAD
     end
