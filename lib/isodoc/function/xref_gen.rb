@@ -165,7 +165,7 @@ module IsoDoc::Function
       end
     end
 
-    def anchor_struct(lbl, container, elem, type, unnumbered)
+    def anchor_struct(lbl, container, elem, type, unnumbered = false)
       ret = {}
       ret[:label] = unnumbered == "true" ? nil : anchor_struct_label(lbl, elem)
       ret[:xref] = anchor_struct_xref(unnumbered == "true" ? "(??)" : lbl, elem)
