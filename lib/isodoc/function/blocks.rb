@@ -44,11 +44,11 @@ module IsoDoc::Function
     def figure_name_parse(node, div, name)
       return if name.nil? && node.at(ns("./figure"))
       div.p **{ class: "FigureTitle", align: "center" } do |p|
-        p << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
-        if name
+        get_anchors[node['id']][:label].nil? or
+          p << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
+        name and !get_anchors[node['id']][:label].nil? and
           p << "&nbsp;&mdash; "
-          name.children.each { |n| parse(n, div) }
-        end
+        name and name.children.each { |n| parse(n, div) }
       end
     end
 
@@ -73,7 +73,7 @@ module IsoDoc::Function
 
     def example_label(node)
       n = get_anchors[node["id"]]
-      return @example_lbl if n.nil? || n[:label].empty?
+      return @example_lbl if n.nil? || n[:label].nil? || n[:label].empty?
       l10n("#{@example_lbl} #{n[:label]}")
     end
 
@@ -118,7 +118,7 @@ module IsoDoc::Function
 
     def sourcecode_name_parse(_node, div, name)
       div.p **{ class: "SourceTitle", align: "center" } do |p|
-          name.children.each { |n| parse(n, p) }
+        name.children.each { |n| parse(n, p) }
       end
     end
 
@@ -187,8 +187,10 @@ module IsoDoc::Function
       out.div **attr_code(id: node["id"], class: "formula") do |div|
         div.p do |p|
           parse(node.at(ns("./stem")), div)
-          insert_tab(div, 1)
-          div << "(#{get_anchors[node['id']][:label]})"
+          unless get_anchors[node['id']][:label].nil?
+            insert_tab(div, 1)
+            div << "(#{get_anchors[node['id']][:label]})"
+          end
         end
       end
     end
@@ -266,7 +268,8 @@ module IsoDoc::Function
       label = node.at(ns("./label"))
       title = node.at(ns("./title"))
       out.p **{ class: "AdmonitionTitle" }  do |b|
-        b << l10n("#{type} #{get_anchors[node['id']][:label]}:")
+        get_anchors[node['id']][:label].nil? or
+          b << l10n("#{type} #{get_anchors[node['id']][:label]}:")
         if label || title
           b.br
           label and label.children.each { |n| parse(n,b) }

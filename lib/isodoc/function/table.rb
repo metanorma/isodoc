@@ -4,11 +4,11 @@ module IsoDoc::Function
     def table_title_parse(node, out)
       name = node.at(ns("./name"))
       out.p **{ class: "TableTitle", align: "center" } do |p|
-        p << l10n("#{@table_lbl} #{get_anchors[node['id']][:label]}")
-        if name
+        get_anchors[node['id']][:label].nil? or
+          p << l10n("#{@table_lbl} #{get_anchors[node['id']][:label]}")
+        name and !get_anchors[node['id']][:label].nil? and
           p << l10n("&nbsp;&mdash; ")
-          name.children.each { |n| parse(n, p) }
-        end
+        name and name.children.each { |n| parse(n, p) }
       end
     end
 

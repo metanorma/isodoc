@@ -57,7 +57,7 @@ module IsoDoc::Function
           next if @anchors[n["id"]]
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @note_xref_lbl, "note")
+          @anchors[n["id"]] = anchor_struct(idx, n, @note_xref_lbl, "note", false)
         end
         note_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
       end
@@ -73,12 +73,14 @@ module IsoDoc::Function
     def example_anchor_names(sections)
       sections.each do |s|
         notes = s.xpath(CHILD_EXAMPLES_XPATH)
-        notes.each_with_index do |n, i|
+        i = 0
+        notes.each do |n|
           next if @anchors[n["id"]]
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
           @anchors[n["id"]] = anchor_struct(idx, n, @example_xref_lbl,
-                                            "example")
+                                            "example", n["unnumbered"])
+          i += 1 unless n["unnumbered"]
         end
         example_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
       end
@@ -91,7 +93,7 @@ module IsoDoc::Function
         notes.each_with_index do |n, i|
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{i + 1}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @list_lbl, "list")
+          @anchors[n["id"]] = anchor_struct(idx, n, @list_lbl, "list", false)
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
         list_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
@@ -139,11 +141,11 @@ module IsoDoc::Function
         if t.parent.name == "figure" then j += 1
         else
           j = 0
-          i += 1
+          i += 1 unless t["unnumbered"]
         end
         label = i.to_s + (j.zero? ? "" : "-#{j}")
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl, "figure")
+        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl, "figure", t["unnumbered"])
       end
     end
 
@@ -163,10 +165,10 @@ module IsoDoc::Function
       end
     end
 
-    def anchor_struct(lbl, container, elem, type)
+    def anchor_struct(lbl, container, elem, type, unnumbered)
       ret = {}
-      ret[:label] = anchor_struct_label(lbl, elem)
-      ret[:xref] = anchor_struct_xref(lbl, elem)
+      ret[:label] = unnumbered == "true" ? nil : anchor_struct_label(lbl, elem)
+      ret[:xref] = anchor_struct_xref(unnumbered == "true" ? "(??)" : lbl, elem)
       ret[:xref].gsub!(/ $/, "")
       ret[:container] = get_clause_id(container) unless container.nil?
       ret[:type] = type
@@ -174,81 +176,97 @@ module IsoDoc::Function
     end
 
     def sequential_table_names(clause)
-      clause.xpath(ns(".//table")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//table")).each do |t|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(i + 1, nil, @table_lbl, "table")
+        @anchors[t["id"]] = anchor_struct(i + 1, nil, @table_lbl, "table", t["unnumbered"])
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def sequential_formula_names(clause)
-      clause.xpath(ns(".//formula")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//formula")).each do |t|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(i + 1, t, @formula_lbl, "formula")
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @formula_lbl, "formula", t["unnumbered"])
+        i += 1 unless t["unnumbered"]
       end
     end
 
     FIRST_LVL_REQ = "[not(ancestor::permission or ancestor::requirement or ancestor::recommendation)]".freeze
 
     def sequential_permission_names(clause)
-      clause.xpath(ns(".//permission#{FIRST_LVL_REQ}")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//permission#{FIRST_LVL_REQ}")).each do |t|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(i + 1, t, @permission_lbl, "permission")
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @permission_lbl, "permission", t["unnumbered"])
         sequential_permission_names1(t, i + 1)
         sequential_requirement_names1(t, i + 1)
         sequential_recommendation_names1(t, i + 1)
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def sequential_permission_names1(block, lbl)
-      block.xpath(ns("./permission")).each_with_index do |t, i|
+      i = 0
+      block.xpath(ns("./permission")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         newlbl = "#{lbl}#{hierfigsep}#{i + 1}"
-        @anchors[t["id"]] = anchor_struct(newlbl, t, @permission_lbl, "permission")
+        @anchors[t["id"]] = anchor_struct(newlbl, t, @permission_lbl, "permission", t["unnumbered"])
         sequential_permission_names1(t, newlbl)
         sequential_requirement_names1(t, newlbl)
         sequential_recommendation_names1(t, newlbl)
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def sequential_requirement_names(clause)
-      clause.xpath(ns(".//requirement#{FIRST_LVL_REQ}")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//requirement#{FIRST_LVL_REQ}")).each do |t|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(i + 1, t, @requirement_lbl, "requirement")
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @requirement_lbl, "requirement", t["unnumbered"])
         sequential_permission_names1(t, i + 1)
         sequential_requirement_names1(t, i + 1)
         sequential_recommendation_names1(t, i + 1)
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def sequential_requirement_names1(block, lbl)
-      block.xpath(ns("./requirement")).each_with_index do |t, i|
+      i = 0
+      block.xpath(ns("./requirement")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         newlbl = "#{lbl}#{hierfigsep}#{i + 1}"
-        @anchors[t["id"]] = anchor_struct(newlbl, t, @requirement_lbl, "requirement")
+        @anchors[t["id"]] = anchor_struct(newlbl, t, @requirement_lbl, "requirement", t["unnumbered"])
         sequential_permission_names1(t, newlbl)
         sequential_requirement_names1(t, newlbl)
         sequential_recommendation_names1(t, newlbl)
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def sequential_recommendation_names(clause)
-      clause.xpath(ns(".//recommendation#{FIRST_LVL_REQ}")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//recommendation#{FIRST_LVL_REQ}")).each do |t|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(i + 1, t, @recommendation_lbl, "recommendation")
+        @anchors[t["id"]] = anchor_struct(i + 1, t, @recommendation_lbl, "recommendation", t["unnumbered"])
         sequential_permission_names1(t, i + 1)
         sequential_requirement_names1(t, i + 1)
         sequential_recommendation_names1(t, i + 1)
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def sequential_recommendation_names1(block, lbl)
-      block.xpath(ns("./recommendation")).each_with_index do |t, i|
+      i = 0
+      block.xpath(ns("./recommendation")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         newlbl = "#{lbl}#{hierfigsep}#{i + 1}"
-        @anchors[t["id"]] = anchor_struct(newlbl, t, @recommendation_lbl, "recommendation")
+        @anchors[t["id"]] = anchor_struct(newlbl, t, @recommendation_lbl, "recommendation", t["unnumbered"])
         sequential_permission_names1(t, newlbl)
         sequential_requirement_names1(t, newlbl)
         sequential_recommendation_names1(t, newlbl)
+        i += 1 unless t["unnumbered"]
       end
     end
 
@@ -275,19 +293,21 @@ module IsoDoc::Function
         if t.parent.name == "figure" then j += 1
         else
           j = 0
-          i += 1
+          i += 1 unless t["unnumbered"]
         end
         label = "#{num}#{hiersep}#{i}" + (j.zero? ? "" : "#{hierfigsep}#{j}")
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl, "figure")
+        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl, "figure", t["unnumbered"])
       end
     end
 
     def hierarchical_table_names(clause, num)
-      clause.xpath(ns(".//table")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//table")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                          nil, @table_lbl, "table")
+                                          nil, @table_lbl, "table", t["unnumbered"])
+        i += 1 unless t["unnumbered"]
       end
     end
 
@@ -301,43 +321,51 @@ module IsoDoc::Function
     end
 
     def hierarchical_formula_names(clause, num)
-      clause.xpath(ns(".//formula")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//formula")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                          t, @formula_lbl, "formula")
+                                          t, @formula_lbl, "formula", t["unnumbered"])
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def hierarchical_permission_names(clause, num)
-      clause.xpath(ns(".//permission#{FIRST_LVL_REQ}")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//permission#{FIRST_LVL_REQ}")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         lbl = "#{num}#{hiersep}#{i + 1}"
-        @anchors[t["id"]] = anchor_struct(lbl, t, @permission_lbl, "permission")
+        @anchors[t["id"]] = anchor_struct(lbl, t, @permission_lbl, "permission", t["unnumbered"])
         sequential_permission_names1(t, lbl)
         sequential_requirement_names1(t, lbl)
         sequential_recommendation_names1(t, lbl)
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def hierarchical_requirement_names(clause, num)
-      clause.xpath(ns(".//requirement#{FIRST_LVL_REQ}")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//requirement#{FIRST_LVL_REQ}")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         lbl = "#{num}#{hiersep}#{i + 1}"
-        @anchors[t["id"]] = anchor_struct(lbl, t, @requirement_lbl, "requirement")
+        @anchors[t["id"]] = anchor_struct(lbl, t, @requirement_lbl, "requirement", t["unnumbered"])
         sequential_permission_names1(t, lbl)
         sequential_requirement_names1(t, lbl)
         sequential_recommendation_names1(t, lbl)
+        i += 1 unless t["unnumbered"]
       end
     end
 
     def hierarchical_recommendation_names(clause, num)
-      clause.xpath(ns(".//recommendation#{FIRST_LVL_REQ}")).each_with_index do |t, i|
+      i = 0
+      clause.xpath(ns(".//recommendation#{FIRST_LVL_REQ}")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         lbl = "#{num}#{hiersep}#{i + 1}"
-        @anchors[t["id"]] = anchor_struct(lbl, t, @recommendation_lbl, "recommendation")
+        @anchors[t["id"]] = anchor_struct(lbl, t, @recommendation_lbl, "recommendation", t["unnumbered"])
         sequential_permission_names1(t, lbl)
         sequential_requirement_names1(t, lbl)
         sequential_recommendation_names1(t, lbl)
+        i += 1 unless t["unnumbered"]
       end
     end
   end

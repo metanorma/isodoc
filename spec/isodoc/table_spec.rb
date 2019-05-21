@@ -55,6 +55,10 @@ RSpec.describe IsoDoc do
 </dl>
 <note><p>This is a table about rice</p></note>
 </table>
+
+<table id="tableD-2" unnumbered="true">
+<tbody><tr><td>A</td></tr></tbody>
+</table>
 </foreword>
 </preface>
 </iso-standard>
@@ -113,6 +117,14 @@ RSpec.describe IsoDoc do
                  <div id="" class="Note">
                    <p><span class="note_label">NOTE</span>&#160; This is a table about rice</p>
                  </div>
+               </table>
+               <p class="TableTitle" align="center"/>
+               <table id="tableD-2" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+                 <tbody>
+                   <tr>
+                     <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
+                   </tr>
+                 </tbody>
                </table>
              </div>
              <p class="zzSTDTitle1"/>
