@@ -1,5 +1,18 @@
 module IsoDoc::WordFunction
   module Body
+    def anchor_names(docxml)
+      super
+      renumber_footnotes(docxml)
+    end
+
+    # undo merger of seen footnotes
+    def renumber_footnotes(docxml)
+      docxml.xpath(ns("//fn[not(ancestor::table or "\
+                      "ancestor::figure)]")).each_with_index do |f, i|
+        f["reference"] = (i + 1).to_s
+      end
+    end
+
     def make_body1(body, _docxml)
       FileUtils.rm_rf tmpimagedir
       FileUtils.mkdir tmpimagedir
