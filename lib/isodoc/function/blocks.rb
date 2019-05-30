@@ -44,10 +44,15 @@ module IsoDoc::Function
     def figure_name_parse(node, div, name)
       return if name.nil? && node.at(ns("./figure"))
       div.p **{ class: "FigureTitle", align: "center" } do |p|
+        lbl = anchor(node['id'], :label, false)
+        lbl.nil? or p << l10n("#{@figure_lbl} #{lbl}")
+        name and !lbl.nil? and p << "&nbsp;&mdash; "
+=begin
         get_anchors[node['id']][:label].nil? or
           p << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
         name and !get_anchors[node['id']][:label].nil? and
           p << "&nbsp;&mdash; "
+=end
         name and name.children.each { |n| parse(n, div) }
       end
     end
@@ -187,9 +192,12 @@ module IsoDoc::Function
       out.div **attr_code(id: node["id"], class: "formula") do |div|
         div.p do |p|
           parse(node.at(ns("./stem")), div)
-          unless get_anchors[node['id']][:label].nil?
+          lbl = anchor(node['id'], :label, false)
+          #unless get_anchors[node['id']][:label].nil?
+          unless lbl.nil?
             insert_tab(div, 1)
-            div << "(#{get_anchors[node['id']][:label]})"
+            #div << "(#{get_anchors[node['id']][:label]})"
+            div << "(#{lbl})"
           end
         end
       end
@@ -268,8 +276,10 @@ module IsoDoc::Function
       label = node.at(ns("./label"))
       title = node.at(ns("./title"))
       out.p **{ class: "AdmonitionTitle" }  do |b|
-        get_anchors[node['id']][:label].nil? or
-          b << l10n("#{type} #{get_anchors[node['id']][:label]}:")
+        lbl = anchor(node['id'], :label, false)
+        lbl.nil? or b << l10n("#{type} #{lbl}:")
+        #get_anchors[node['id']][:label].nil? or
+          #b << l10n("#{type} #{get_anchors[node['id']][:label]}:")
         if label || title
           b.br
           label and label.children.each { |n| parse(n,b) }

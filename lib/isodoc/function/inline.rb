@@ -23,20 +23,25 @@ module IsoDoc::Function
     end
 
     def prefix_container(container, linkend, _target)
-      l10n(get_anchors[container][:xref] + ", " + linkend)
+      #l10n(get_anchors[container][:xref] + ", " + linkend)
+      l10n(anchor(container, :xref) + ", " + linkend)
     end
 
     def anchor_linkend(node, linkend)
-      if node["citeas"].nil? && node["bibitemid"] &&
-          get_anchors.has_key?(node["bibitemid"])
-        return get_anchors.dig(node["bibitemid"] ,:xref)
-      elsif node["target"] && get_anchors.has_key?(node["target"])
-        linkend = get_anchors[node["target"]][:xref]
-        container = get_anchors[node["target"]][:container]
+      if node["citeas"].nil? && node["bibitemid"] #&&
+          #get_anchors.has_key?(node["bibitemid"])
+        #return get_anchors.dig(node["bibitemid"] ,:xref)
+        return anchor(node["bibitemid"] ,:xref) || "???"
+      #elsif node["target"] && get_anchors.has_key?(node["target"])
+      elsif node["target"] && !/.#./.match(node["target"])
+        #linkend = get_anchors[node["target"]][:xref]
+        linkend = anchor(node["target"], :xref)
+        #container = get_anchors[node["target"]][:container]
+        container = anchor(node["target"], :container, false)
         (container && get_note_container_id(node) != container) &&
           linkend = prefix_container(container, linkend, node["target"])
       end
-      linkend
+      linkend || "???"
     end
 
     def get_linkend(node)

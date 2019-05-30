@@ -51,6 +51,18 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+  it "warns of missing crossreference" do
+    expect { IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true) }.to output(/No label has been processed for ID N1/).to_stderr
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
+    <foreword>
+    <p>
+    <xref target="N1"/>
+    </preface>
+    </iso-standard>
+    INPUT
+  end
+
 
   it "cross-references notes" do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"

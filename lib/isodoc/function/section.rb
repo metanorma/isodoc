@@ -8,8 +8,10 @@ module IsoDoc::Function
       title = c1&.content || ""
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
-          if get_anchors[node['id']][:label] && !@suppressheadingnumbers
-            b << "#{get_anchors[node['id']][:label]}#{clausedelim} "
+          #if get_anchors[node['id']][:label] && !@suppressheadingnumbers
+          if anchor(node['id'], :label, false) && !@suppressheadingnumbers
+            #b << "#{get_anchors[node['id']][:label]}#{clausedelim} "
+            b << "#{anchor(node['id'], :label)}#{clausedelim} "
           end
           b << "#{title} "
         end
@@ -20,8 +22,10 @@ module IsoDoc::Function
       if node["inline-header"] == "true"
         inline_header_title(out, node, c1)
       else
-        div.send "h#{get_anchors[node['id']][:level]}" do |h|
-          lbl = get_anchors[node['id']][:label]
+        #div.send "h#{get_anchors[node['id']][:level]}" do |h|
+        div.send "h#{anchor(node['id'], :level) || '1'}" do |h|
+          #lbl = get_anchors[node['id']][:label]
+          lbl = anchor(node['id'], :label, false)
           h << "#{lbl}#{clausedelim} " if lbl && !@suppressheadingnumbers
           c1&.children&.each { |c2| parse(c2, h) }
         end
@@ -56,7 +60,8 @@ module IsoDoc::Function
     def clause(isoxml, out)
       isoxml.xpath(ns(self.class::MIDDLE_CLAUSE)).each do |c|
         out.div **attr_code(id: c["id"]) do |s|
-          clause_name(get_anchors[c['id']][:label],
+          #clause_name(get_anchors[c['id']][:label],
+          clause_name(anchor(c['id'], :label),
                       c&.at(ns("./title"))&.content, s, nil)
           c.elements.reject { |c1| c1.name == "title" }.each do |c1|
             parse(c1, s)
@@ -67,7 +72,8 @@ module IsoDoc::Function
 
     def annex_name(annex, name, div)
       div.h1 **{ class: "Annex" } do |t|
-        t << "#{get_anchors[annex['id']][:label]}<br/><br/>"
+        #t << "#{get_anchors[annex['id']][:label]}<br/><br/>"
+        t << "#{anchor(annex['id'], :label)}<br/><br/>"
         t.b do |b|
           name&.children&.each { |c2| parse(c2, b) }
         end
@@ -121,7 +127,7 @@ module IsoDoc::Function
 
     def term_defs_boilerplate_cont(src, term)
       sources = sentence_join(src.map do |s|
-        "<a href=##{s["bibitemid"]}>#{@anchors.dig(s["bibitemid"], :xref)}</a>" 
+        "<a href=##{s["bibitemid"]}>#{anchor(s["bibitemid"], :xref)}</a>" 
       end)
       if src.empty? then @internal_terms_boilerplate
       elsif term.nil? then external_terms_boilerplate(sources)

@@ -9,6 +9,14 @@ module IsoDoc::Function
       @anchors
     end
 
+    def anchor(id, lbl, warning = true)
+      unless @anchors[id]
+        warning and warn "No label has been processed for ID #{id}"
+        return nil
+      end
+      @anchors.dig(id, lbl)
+    end
+
     def termnote_label(n)
       @termnote_lbl.gsub(/%/, n.to_s)
     end
@@ -20,7 +28,7 @@ module IsoDoc::Function
           @anchors[n["id"]] =
             { label: termnote_label(i + 1),
               type: "termnote",
-              xref: l10n("#{@anchors.dig(t['id'], :xref)}, "\
+              xref: l10n("#{anchor(t['id'], :xref)}, "\
                          "#{@note_xref_lbl} #{i + 1}") }
         end
       end
@@ -34,7 +42,7 @@ module IsoDoc::Function
           idx = examples.size == 1 ? "" : (i + 1).to_s
           @anchors[n["id"]] = {
             type: "termexample",
-            label: idx, xref: l10n("#{@anchors.dig(t['id'], :xref)}, "\
+            label: idx, xref: l10n("#{anchor(t['id'], :xref)}, "\
                                    "#{@note_xref_lbl} #{i + 1}") }
         end
       end
