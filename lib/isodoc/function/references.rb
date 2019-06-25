@@ -38,9 +38,11 @@ module IsoDoc::Function
     end
 
     def iso_title(b)
-      title = b.at(ns("./title[@language = '#{@language}']"))
-      title = b.at(ns("./title")) unless title
-      title.text
+      title = b.at(ns("./title[@language = '#{@lang}' and @type = 'main']")) ||
+        b.at(ns("./title[@language = '#{@lang}']")) ||
+        b.at(ns("./title[@type = 'main']")) ||
+        b.at(ns("./title"))
+      title
     end
 
     # reference not to be rendered because it is deemed implicit
@@ -61,7 +63,7 @@ module IsoDoc::Function
         ref << iso_bibitem_ref_code(b)
         date_note_process(b, ref)
         ref << ", "
-        ref.i { |i| i << " #{iso_title(b)}" }
+        ref.i { |i| i << " #{iso_title(b).text}" }
       end
     end
 
@@ -79,7 +81,7 @@ module IsoDoc::Function
       if ftitle = b.at(ns("./formattedref"))
         ftitle&.children&.each { |n| parse(n, r) }
       else
-        title = b.at(ns("./title[@language = '#{@language}']")) || b.at(ns("./title"))
+        title = iso_title(b)
         r.i do |i|
           title&.children&.each { |n| parse(n, i) }
         end

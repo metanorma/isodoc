@@ -4,6 +4,9 @@ RSpec.describe IsoDoc do
   it "processes IsoXML bibliographies" do
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <language>en</language>
+    </bibdata>
     <preface><foreword>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
   <eref bibitemid="ISO712"/>
@@ -14,7 +17,8 @@ RSpec.describe IsoDoc do
     </foreword></preface>
     <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
 <bibitem id="ISO712" type="standard">
-  <title format="text/plain">Cereals and cereal products</title>
+  <title format="text/plain">Cereals or cereal products</title>
+  <title type="main" format="text/plain">Cereals and cereal products</title>
   <docidentifier type="ISO">ISO 712</docidentifier>
   <contributor>
     <role type="publisher"/>
@@ -24,7 +28,8 @@ RSpec.describe IsoDoc do
   </contributor>
 </bibitem>
 <bibitem id="ISO16634" type="standard">
-  <title format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
+  <title language="x" format="text/plain">Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</title>
+  <title language="en" format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
   <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
   <date type="published"><on>--</on></date>
   <contributor>
