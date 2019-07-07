@@ -1,4 +1,5 @@
 require "fileutils"
+require "pathname"
 
 module IsoDoc::Function
   module ToWordHtml
@@ -16,14 +17,15 @@ module IsoDoc::Function
     end
 
     def init_file(filename, debug)
-      filename = filename.gsub(%r{\.[^/.]+$}, "")
+      filepath = Pathname.new(filename)
+      filename = filepath.sub_ext('').to_s
       dir = "#{filename}_files"
       unless debug
         Dir.mkdir(dir) unless File.exists?(dir)
         FileUtils.rm_rf "#{dir}/*"
       end
       @filename = filename
-      @localdir = %r{/}.match(filename) ? filename.sub(%r{/[^/]+$}, "/") : "./"
+      @localdir = filepath.parent.to_s + '/'
       [filename, dir]
     end
 
@@ -33,7 +35,7 @@ module IsoDoc::Function
     end
 
     def rel_tmpimagedir
-      @filename.sub(%r{^.*/([^/]+)$}, "\\1") + tmpimagedir_suffix
+      Pathname.new(@filename).basename.to_s + tmpimagedir_suffix
     end
 
     # isodoc.css overrides any CSS injected by Html2Doc, which
