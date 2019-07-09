@@ -86,7 +86,7 @@ module IsoDoc::HtmlFunction
       <<~HEAD.freeze
       <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
-    HEAD
+      HEAD
     end
 
     def toclevel
@@ -108,7 +108,7 @@ module IsoDoc::HtmlFunction
     <script type="text/javascript">#{toclevel}</script>
 
     <!--Google fonts-->
-    #{googlefonts}
+      #{googlefonts}
     <!--Font awesome import for the link icon-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
@@ -251,10 +251,20 @@ module IsoDoc::HtmlFunction
       FileUtils.rm_rf tmpimagedir
       FileUtils.mkdir tmpimagedir
       docxml.xpath("//*[local-name() = 'img']").each do |i|
+        i["width"], i["height"] = Html2Doc.image_resize(i, image_localfile(i),
+                                                        @maxheight, @maxwidth)
         next if /^data:image/.match i["src"]
         @datauriimage ? datauri(i) : move_image1(i)
       end
       docxml
+    end
+
+    def image_localfile(i)
+      if /^data:image/.match i["src"]
+        save_dataimage(i["src"], false)
+      else
+        File.join(@localdir, i["src"])
+      end
     end
 
     def datauri(i)
@@ -269,10 +279,9 @@ module IsoDoc::HtmlFunction
       uuid = UUIDTools::UUID.random_create.to_s
       fname = "#{uuid}.#{matched[:suffix]}"
       new_full_filename = File.join(tmpimagedir, fname)
-      local_filename = File.join(@localdir, i["src"])
+      local_filename = image_localfile(i)
       FileUtils.cp local_filename, new_full_filename
       i["src"] = File.join(rel_tmpimagedir, fname)
-      i["width"], i["height"] = Html2Doc.image_resize(i, local_filename, @maxheight, @maxwidth)
     end
 
     def html_toc_entry(level, header)

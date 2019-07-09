@@ -212,13 +212,7 @@ module IsoDoc::WordFunction
 
     def imgsrc(uri)
       return uri unless %r{^data:image/}.match uri
-      %r{^data:image/(?<imgtype>[^;]+);base64,(?<imgdata>.+)$} =~ uri
-      uuid = UUIDTools::UUID.random_create.to_s
-      fname = "#{uuid}.#{imgtype}"
-      new_file = File.join(tmpimagedir, fname)
-      @files_to_delete << new_file
-      File.open(new_file, "wb") { |f| f.write(Base64.strict_decode64(imgdata)) }
-      File.join(rel_tmpimagedir, fname)
+      save_dataimage(uri)
     end
 
     def image_parse(node, out, caption)
