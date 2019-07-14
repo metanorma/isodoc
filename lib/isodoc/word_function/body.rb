@@ -46,18 +46,13 @@ module IsoDoc::WordFunction
       end
     end
 
-    def para_attrs(node)
+    def para_class(_node)
       classtype = nil
       classtype = "Note" if @note
       classtype = "MsoCommentText" if in_comment
       classtype = "Sourcecode" if @annotation
-      attrs = { class: classtype, id: node["id"] }
-      unless node["align"].nil?
-        attrs[:align] = node["align"] unless node["align"] == "justify"
-        attrs[:style] = "text-align:#{node['align']}"
+      classtype
       end
-      attrs
-    end
 
     def remove_bottom_border(td)
       td["style"] =
