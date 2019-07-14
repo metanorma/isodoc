@@ -193,11 +193,7 @@ module IsoDoc::WordFunction
     end
 
     def para_attrs(node)
-      classtype = nil
-      classtype = "Note" if @note
-      classtype = "MsoCommentText" if in_comment
-      classtype = "Sourcecode" if @annotation
-      attrs = { class: classtype, id: node["id"] }
+      attrs = { class: para_class(node), id: node["id"] }
       unless node["align"].nil?
         attrs[:align] = node["align"] unless node["align"] == "justify"
         attrs[:style] = "text-align:#{node['align']}"
