@@ -212,11 +212,15 @@ module IsoDoc::Function
       end
     end
 
-    def para_attrs(node)
+    def para_class(_node)
       classtype = nil
       classtype = "MsoCommentText" if in_comment
       classtype = "Sourcecode" if @annotation
-      attrs = { class: classtype, id: node["id"] }
+      classtype
+    end
+
+    def para_attrs(node)
+      attrs = { class: para_class(node), id: node["id"] }
       unless node["align"].nil?
         attrs[:align] = node["align"] unless node["align"] == "justify"
         attrs[:style] = "text-align:#{node['align']}"
@@ -279,7 +283,7 @@ module IsoDoc::Function
         lbl = anchor(node['id'], :label, false)
         lbl.nil? or b << l10n("#{type} #{lbl}:")
         #get_anchors[node['id']][:label].nil? or
-          #b << l10n("#{type} #{get_anchors[node['id']][:label]}:")
+        #b << l10n("#{type} #{get_anchors[node['id']][:label]}:")
         if label || title
           b.br
           label and label.children.each { |n| parse(n,b) }
