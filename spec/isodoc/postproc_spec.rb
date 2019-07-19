@@ -706,6 +706,46 @@ TOCLEVEL
     expect(html).to match(%r{<h2 class="TermNum" id="paddy">1\.2\.</h2>})
   end
 
+    it "processes empty term modifications" do
+    FileUtils.rm_f "test.html"
+    FileUtils.rm_f "test.doc"
+    IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <sections>
+    <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+
+<term id="paddy1"><preferred>paddy</preferred>
+<domain>rice</domain>
+<definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
+<termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
+  <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
+  <ul>
+  <li>A</li>
+  </ul>
+</termexample>
+<termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894">
+  <ul>
+  <li>A</li>
+  </ul>
+</termexample>
+
+<termsource status="modified">
+  <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
+    <modification>
+    <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489"/>
+  </modification>
+</termsource></term>
+
+</terms>
+</sections>
+</iso-standard>
+    INPUT
+    expect(File.exist?("test.html")).to be true
+    html = File.read("test.html")
+    expect(html).to include '[SOURCE: <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>, modified]'
+  end
+
+
   it "creates continuation styles for multiparagraph list items in Word" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
