@@ -44,7 +44,9 @@ module IsoDoc::HtmlFunction
     def toHTML(result, filename)
       result = (from_xhtml(html_cleanup(to_xhtml(result))))
       result = populate_template(result, :html)
-      result = script_cdata(from_xhtml(move_images(to_xhtml(result))))
+      #result = script_cdata(from_xhtml(move_images(to_xhtml(result))))
+      result = from_xhtml(move_images(to_xhtml(result)))
+      result = script_cdata(inject_script(result))
       File.open("#{filename}.html", "w:UTF-8") do |f|
         f.write(result)
       end
@@ -169,12 +171,18 @@ module IsoDoc::HtmlFunction
       html_intro(docxml) if @htmlintropage
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       docxml.at("//body") << sourcecode_highlighter
-      if @scripts
-        scripts = File.read(@scripts, encoding: "UTF-8")
-        a = docxml.at("//body").add_child docxml.create_cdata(scripts)
-      end
+      #if @scripts
+      #  scripts = File.read(@scripts, encoding: "UTF-8")
+      #  a = docxml.at("//body").add_child docxml.create_cdata(scripts)
+      #end
       html_main(docxml)
       docxml
+    end
+
+    def inject_script(doc)
+      return doc unless @scripts
+      scripts = File.read(@scripts, encoding: "UTF-8")
+      doc.sub("</body>", scripts + "\n</body>")
     end
 
     def html_cover(docxml)
