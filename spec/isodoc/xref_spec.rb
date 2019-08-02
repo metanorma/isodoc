@@ -800,7 +800,7 @@ RSpec.describe IsoDoc do
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="require"><p class="AdmonitionTitle"/>
+    <div class="require"><p class="AdmonitionTitle">Requirement:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -837,7 +837,7 @@ RSpec.describe IsoDoc do
   </div>
     </div>
         <div id="annex1b"><h2>A.2. </h2>
-    <div class="require"><p class="AdmonitionTitle"/>
+    <div class="require"><p class="AdmonitionTitle">Requirement:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     <div class="require"><p class="AdmonitionTitle">Requirement A.2:</p>
@@ -937,7 +937,7 @@ OUTPUT
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="recommend"><p class="AdmonitionTitle"/>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -974,7 +974,7 @@ OUTPUT
   </div>
     </div>
         <div id="annex1b"><h2>A.2. </h2>
-    <div class="recommend"><p class="AdmonitionTitle"/>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     <div class="recommend"><p class="AdmonitionTitle">Recommendation A.2:</p>
@@ -1074,7 +1074,7 @@ OUTPUT
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="permission"><p class="AdmonitionTitle"/>
+    <div class="permission"><p class="AdmonitionTitle">Permission:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -1111,7 +1111,7 @@ OUTPUT
   </div>
     </div>
         <div id="annex1b"><h2>A.2. </h2>
-    <div class="permission"><p class="AdmonitionTitle"/>
+    <div class="permission"><p class="AdmonitionTitle">Permission:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     <div class="permission"><p class="AdmonitionTitle">Permission A.2:</p>

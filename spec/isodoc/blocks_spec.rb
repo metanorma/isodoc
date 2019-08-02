@@ -896,7 +896,7 @@ World</p>
         <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="require"><p class="AdmonitionTitle"><br/>/ogc/recommendation/wfs/2. A New Requirement</p>
+        <div class="require"><p class="AdmonitionTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p>
 
   <div class="requirement-inherit">/ss/584/2015/level/1</div>
   <div class="requirement-description">

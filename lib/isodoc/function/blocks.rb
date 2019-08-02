@@ -281,9 +281,7 @@ module IsoDoc::Function
       title = node.at(ns("./title"))
       out.p **{ class: "AdmonitionTitle" }  do |b|
         lbl = anchor(node['id'], :label, false)
-        lbl.nil? or b << l10n("#{type} #{lbl}:")
-        #get_anchors[node['id']][:label].nil? or
-        #b << l10n("#{type} #{get_anchors[node['id']][:label]}:")
+        b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
         if label || title
           b.br
           label and label.children.each { |n| parse(n,b) }
