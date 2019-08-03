@@ -211,12 +211,12 @@ RSpec.describe IsoDoc do
         <introduction id="intro">
         <figure id="N1">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
   <clause id="xyz"><title>Preparatory</title>
         <figure id="N2" unnumbered="true">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
 </clause>
     </introduction>
@@ -225,7 +225,7 @@ RSpec.describe IsoDoc do
     <clause id="scope"><title>Scope</title>
         <figure id="N">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
 <p><xref target="N"/></p>
     </clause>
@@ -234,11 +234,11 @@ RSpec.describe IsoDoc do
     <clause id="widgets1">
         <figure id="note1">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
     <figure id="note2">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
     </clause>
@@ -248,17 +248,17 @@ RSpec.describe IsoDoc do
     <clause id="annex1a">
         <figure id="AN">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
     </clause>
     <clause id="annex1b">
         <figure id="Anote1" unnumbered="true">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
     <figure id="Anote2">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
     </clause>
     </annex>
@@ -369,11 +369,11 @@ RSpec.describe IsoDoc do
     <figure id="N">
         <figure id="note1">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
     <figure id="note2">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
   </figure>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
@@ -387,11 +387,11 @@ RSpec.describe IsoDoc do
     <figure id="AN">
         <figure id="Anote1">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
     <figure id="Anote2">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
   </figure>
     </clause>
