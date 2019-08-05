@@ -47,12 +47,6 @@ module IsoDoc::Function
         lbl = anchor(node['id'], :label, false)
         lbl.nil? or p << l10n("#{@figure_lbl} #{lbl}")
         name and !lbl.nil? and p << "&nbsp;&mdash; "
-=begin
-        get_anchors[node['id']][:label].nil? or
-          p << l10n("#{@figure_lbl} #{get_anchors[node['id']][:label]}")
-        name and !get_anchors[node['id']][:label].nil? and
-          p << "&nbsp;&mdash; "
-=end
         name and name.children.each { |n| parse(n, div) }
       end
     end
@@ -193,10 +187,8 @@ module IsoDoc::Function
         div.p do |p|
           parse(node.at(ns("./stem")), div)
           lbl = anchor(node['id'], :label, false)
-          #unless get_anchors[node['id']][:label].nil?
           unless lbl.nil?
             insert_tab(div, 1)
-            #div << "(#{get_anchors[node['id']][:label]})"
             div << "(#{lbl})"
           end
         end
@@ -274,60 +266,6 @@ module IsoDoc::Function
                 alt: node["alt"]  }
       out.img **attr_code(attrs)
       image_title_parse(out, caption)
-    end
-
-    def recommendation_name(node, out, type)
-      label = node.at(ns("./label"))
-      title = node.at(ns("./title"))
-      out.p **{ class: "AdmonitionTitle" }  do |b|
-        lbl = anchor(node['id'], :label, false)
-        b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
-        if label || title
-          b.br
-          label and label.children.each { |n| parse(n,b) }
-          b << "#{clausedelim} " if label && title
-          title and title.children.each { |n| parse(n,b) }
-        end
-      end
-    end
-
-    def recommendation_parse(node, out)
-      out.div **{ class: "recommend" } do |t|
-        recommendation_name(node, t, @recommendation_lbl)
-        node.children.each do |n|
-          parse(n, t) unless %w(label title).include? n.name
-        end
-      end
-    end
-
-    def requirement_parse(node, out)
-      out.div **{ class: "require" } do |t|
-        recommendation_name(node, t, @requirement_lbl)
-        node.children.each do |n|
-          parse(n, t) unless %w(label title).include? n.name
-        end
-      end
-    end
-
-    def permission_parse(node, out)
-      out.div **{ class: "permission" } do |t|
-        recommendation_name(node, t, @permission_lbl)
-        node.children.each do |n|
-          parse(n, t) unless %w(label title).include? n.name
-        end
-      end
-    end
-
-    def requirement_component_parse(node, out)
-      return if node["exclude"] == "true"
-      out.div **{ class: "requirement-" + node.name } do |div|
-        node.children.each do |n|
-          parse(n, div)
-        end
-      end
-    end
-
-    def requirement_skip_parse(node, out)
     end
   end
 end

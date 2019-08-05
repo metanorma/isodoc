@@ -812,6 +812,7 @@ World</p>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
         <div class="permission"><p class="AdmonitionTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
+        <p><i>Subject: user<br/>Control-class: Technical<br/>Priority: P0<br/>Family: System and Communications Protection<br/>Family: System and Communications Protocols</i></p>
 
   <div class="requirement-inherit">/ss/584/2015/level/1</div>
   <div class="requirement-description">
@@ -896,7 +897,7 @@ World</p>
         <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="require"><p class="AdmonitionTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p>
+        <div class="require"><p class="AdmonitionTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user</i></p>
 
   <div class="requirement-inherit">/ss/584/2015/level/1</div>
   <div class="requirement-description">
@@ -930,9 +931,11 @@ World</p>
     expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <recommendation id="_">
+    <recommendation id="_" obligation="shall,could">
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
+  <classification><tag>type</tag><value>text</value></classification>
+  <classification><tag>language</tag><value>BASIC</value></classification>
   <subject>user</subject>
   <description>
     <p id="_">I recommend <em>this</em>.</p>
@@ -980,8 +983,7 @@ World</p>
        <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="recommend"><p class="AdmonitionTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p>
-
+<div class="recommend"><p class="AdmonitionTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could<br/>Subject: user<br/>Type: text<br/>Language: BASIC</i></p>
   <div class="requirement-inherit">/ss/584/2015/level/1</div>
   <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>

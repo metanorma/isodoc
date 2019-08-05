@@ -11,6 +11,7 @@ require_relative "./function/to_word_html"
 require_relative "./function/utils"
 require_relative "./function/xref_gen"
 require_relative "./function/xref_sect_gen"
+require_relative "./function/reqt"
 require_relative "./class_utils"
 
 module IsoDoc
