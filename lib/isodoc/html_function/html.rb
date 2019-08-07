@@ -44,12 +44,9 @@ module IsoDoc::HtmlFunction
     def toHTML(result, filename)
       result = (from_xhtml(html_cleanup(to_xhtml(result))))
       result = populate_template(result, :html)
-      #result = script_cdata(from_xhtml(move_images(to_xhtml(result))))
       result = from_xhtml(move_images(to_xhtml(result)))
       result = script_cdata(inject_script(result))
-      File.open("#{filename}.html", "w:UTF-8") do |f|
-        f.write(result)
-      end
+      File.open("#{filename}.html", "w:UTF-8") { |f| f.write(result) }
     end
 
     def html_cleanup(x)
@@ -63,9 +60,7 @@ module IsoDoc::HtmlFunction
     MATHJAX = <<~"MATHJAX".freeze
       <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
-          asciimath2jax: {
-            delimiters: [['OPEN', 'CLOSE']]
-          }
+          asciimath2jax: { delimiters: [['OPEN', 'CLOSE']] }
        });
       </script>
       <script src="#{MATHJAX_ADDR}?config=AM_HTMLorMML" async="async"></script>
@@ -88,15 +83,6 @@ module IsoDoc::HtmlFunction
       <<~HEAD.freeze
       <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
-      HEAD
-    end
-
-    def toclevel
-      <<~HEAD.freeze
-    function toclevel() { var i; var text = "";
-      for(i = 1; i <= #{@htmlToClevels}; i++) {
-        if (i > 1) { text += ","; } text += "h" + i + ":not(:empty):not(.TermNum)"; } 
-      return text;}
       HEAD
     end
 
@@ -155,12 +141,10 @@ module IsoDoc::HtmlFunction
 
     def sourcecode_parse(node, out)
       name = node.at(ns("./name"))
-      out.pre **attr_code(id: node["id"], 
-                          class: "prettyprint #{sourcecodelang(node&.at(ns('./@lang'))&.value)}") do |div|
+      class1 = "prettyprint #{sourcecodelang(node&.at(ns('./@lang'))&.value)}"
+      out.pre **attr_code(id: node["id"], class: class1) do |div|
         @sourcecode = true
-        node.children.each do |n|
-          parse(n, div) unless n.name == "name"
-        end
+        node.children.each { |n| parse(n, div) unless n.name == "name" }
         @sourcecode = false
         sourcecode_name_parse(node, div, name) if name
       end
@@ -171,10 +155,6 @@ module IsoDoc::HtmlFunction
       html_intro(docxml) if @htmlintropage
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       docxml.at("//body") << sourcecode_highlighter
-      #if @scripts
-      #  scripts = File.read(@scripts, encoding: "UTF-8")
-      #  a = docxml.at("//body").add_child docxml.create_cdata(scripts)
-      #end
       html_main(docxml)
       docxml
     end
@@ -186,17 +166,15 @@ module IsoDoc::HtmlFunction
     end
 
     def html_cover(docxml)
-      cover = File.read(@htmlcoverpage, encoding: "UTF-8")
-      coverxml = to_xhtml_fragment(cover)
+      doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="title-section"]')
-      d.children.first.add_previous_sibling coverxml.to_xml(encoding: "US-ASCII")
+      d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
     end
 
     def html_intro(docxml)
-      intro = File.read(@htmlintropage, encoding: "UTF-8")
-      introxml = to_xhtml_fragment(intro)
+      doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="prefatory-section"]')
-      d.children.first.add_previous_sibling introxml.to_xml(encoding: "US-ASCII")
+      d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
     end
 
     def htmlstylesheet
@@ -293,21 +271,33 @@ module IsoDoc::HtmlFunction
     end
 
     def html_toc_entry(level, header)
-      %(<li class="h#{level}"><a href="##{header['id']}">#{header_strip(header)}</a></li>)
+      %(<li class="#{level}"><a href="##{header['id']}">\
+      #{header_strip(header)}</a></li>)
     end
 
+    def toclevel_classes
+      (1..@htmlToClevels).inject([]) { |m, i| m << "h#{i}" }
+    end
+
+    def toclevel
+      ret = toclevel_classes.map { |l| "#{l}:not(:empty):not(.TermNum)" }
+      <<~HEAD.freeze
+    function toclevel() { return "#{ret.join(',')}";}
+      HEAD
+    end
+
+    # needs to be same output as toclevel
     def html_toc(docxml)
-=begin
       idx = docxml.at("//div[@id = 'toc']") or return docxml
       toc = "<ul>"
-      tocidx = 0
-      docxml.xpath("//main//h1 | //main//h2[not(@class = 'TermNum')]").each do |h|
+      path = toclevel_classes.map do |l|
+        "//main//#{l}[not(@class = 'TermNum')][not(text())]"
+      end
+      docxml.xpath(path.join(" | ")).each_with_index do |h, tocidx|
         h["id"] ||= "toc#{tocidx}"
-        toc += html_toc_entry(h.name == "h1" ? 1 : 2, h)
-        tocidx += 1
+        toc += html_toc_entry(h.name, h)
       end
       idx.children = "#{toc}</ul>"
-=end
       docxml
     end
   end

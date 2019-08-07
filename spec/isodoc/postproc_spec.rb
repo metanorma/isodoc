@@ -486,7 +486,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     INPUT
     html = File.read("test.html")
     toclevel = <<~"TOCLEVEL"
-function toclevel() { var i; var text = "";\n  for(i = 1; i <= 3; i++) {
+function toclevel() { return "h1:not(:empty):not(.TermNum),h2:not(:empty):not(.TermNum),h3:not(:empty):not(.TermNum)";}
 TOCLEVEL
     expect(html).to include toclevel
   end
