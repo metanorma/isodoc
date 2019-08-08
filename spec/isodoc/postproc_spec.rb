@@ -486,7 +486,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     INPUT
     html = File.read("test.html")
     toclevel = <<~"TOCLEVEL"
-function toclevel() { return "h1:not(:empty):not(.TermNum),h2:not(:empty):not(.TermNum),h3:not(:empty):not(.TermNum)";}
+function toclevel() { return "h1:not(:empty):not(.TermNum):not(.noTOC),h2:not(:empty):not(.TermNum):not(.noTOC),h3:not(:empty):not(.TermNum):not(.noTOC)";}
 TOCLEVEL
     expect(html).to include toclevel
   end
