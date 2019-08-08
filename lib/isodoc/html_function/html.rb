@@ -45,8 +45,13 @@ module IsoDoc::HtmlFunction
       result = (from_xhtml(html_cleanup(to_xhtml(result))))
       result = populate_template(result, :html)
       result = from_xhtml(move_images(to_xhtml(result)))
-      result = script_cdata(inject_script(result))
+      result = html5(script_cdata(inject_script(result)))
       File.open("#{filename}.html", "w:UTF-8") { |f| f.write(result) }
+    end
+
+    def html5(doc)
+      doc.sub(%r{<!DOCTYPE html [^>]+>}, "<!DOCTYPE html>").
+        sub(%r{<\?xml[^>]+>}, "")
     end
 
     def html_cleanup(x)

@@ -42,7 +42,6 @@ module IsoDoc::Function
     # is inserted before this CSS.
     def define_head(html, filename, _dir)
       html.head do |head|
-        #head.title { |t| t << filename }
         if @standardstylesheet
           head.style do |style|
             stylesheet = File.read(@standardstylesheet, encoding: "utf-8").
