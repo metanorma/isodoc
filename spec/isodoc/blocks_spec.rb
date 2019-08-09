@@ -263,16 +263,16 @@ B</pre>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
          <p><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
-       <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider</p></div>
+       <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider</p></div>
                <div class="figure" id="figure-B">
 <pre>A &lt;
 B</pre>
-<p class="FigureTitle" align="center">Figure 2</p>
+<p class="FigureTitle" style="text-align:center;">Figure 2</p>
 </div>
                <div class="figure" id="figure-C">
 <pre>A &lt;
 B</pre>
-<p class="FigureTitle" align="center"/>
+<p class="FigureTitle" style="text-align:center;"/>
 </div>
                </div>
                <p class="zzSTDTitle1"/>
@@ -326,11 +326,11 @@ B</pre>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
          <p><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
-       <p class="FigureTitle" align="center">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
+       <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
                <div class="figure" id="figure-B">
 <pre>A &lt;
 B</pre>
-             <p class="FigureTitle" align="center">Figure 2</p>
+             <p class="FigureTitle" style="text-align:center;">Figure 2</p>
 </div>
              </div>
              <p>&#160;</p>
@@ -426,7 +426,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" align="center">Ruby <i>code</i></p></pre>
+                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" style="text-align:center;">Ruby <i>code</i></p></pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -461,7 +461,7 @@ B</pre>
              </p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" align="center">Ruby <i>code</i></p></p>
+                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" style="text-align:center;">Ruby <i>code</i></p></p>
                </div>
                   <p>&#160;</p>
  </div>
@@ -491,7 +491,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="SourceTitle" align="center">XML code</p></pre>
+                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="SourceTitle" style="text-align:center;">XML code</p></pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -546,7 +546,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div class="Admonition"><p class="AdmonitionTitle" align="center">CAUTION</p>
+                 <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -572,7 +572,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div class="Admonition"><p class="AdmonitionTitle" align="center">Title</p>
+                 <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Title</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -645,11 +645,11 @@ World</p>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left">Vache Equipment<br/>
+                 <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" style="text-align:left;">Vache Equipment<br/>
        Fictitious<br/>
        World
            </p>
-           <p style="text-align:justify">Justify</p>
+           <p style="text-align:justify;">Justify</p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -773,12 +773,12 @@ World</p>
     <table id="_">
       <tbody>
         <tr>
-          <td align="left">Object</td>
-          <td align="left">Value</td>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
         </tr>
         <tr>
-          <td align="left">Mission</td>
-          <td align="left">Accomplished</td>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
         </tr>
       </tbody>
     </table>
@@ -859,12 +859,12 @@ World</p>
     <table id="_">
       <tbody>
         <tr>
-          <td align="left">Object</td>
-          <td align="left">Value</td>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
         </tr>
         <tr>
-          <td align="left">Mission</td>
-          <td align="left">Accomplished</td>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
         </tr>
       </tbody>
     </table>
@@ -945,12 +945,12 @@ World</p>
     <table id="_">
       <tbody>
         <tr>
-          <td align="left">Object</td>
-          <td align="left">Value</td>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
         </tr>
         <tr>
-          <td align="left">Mission</td>
-          <td align="left">Accomplished</td>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
         </tr>
       </tbody>
     </table>

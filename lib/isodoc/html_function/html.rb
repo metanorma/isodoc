@@ -193,11 +193,14 @@ module IsoDoc::HtmlFunction
       return docxml unless @htmlstylesheet
       title = docxml.at("//*[local-name() = 'head']/*[local-name() = 'title']")
       head = docxml.at("//*[local-name() = 'head']")
+=begin
       css = htmlstylesheet
       if title.nil? then head.children.first.add_previous_sibling css
       else
         title.add_next_sibling css
       end
+=end
+      head << htmlstylesheet
       docxml
     end
 

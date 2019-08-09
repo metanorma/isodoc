@@ -43,7 +43,7 @@ module IsoDoc::Function
 
     def figure_name_parse(node, div, name)
       return if name.nil? && node.at(ns("./figure"))
-      div.p **{ class: "FigureTitle", align: "center" } do |p|
+      div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
         lbl = anchor(node['id'], :label, false)
         lbl.nil? or p << l10n("#{@figure_lbl} #{lbl}")
         name and !lbl.nil? and p << "&nbsp;&mdash; "
@@ -77,8 +77,9 @@ module IsoDoc::Function
     end
 
     EXAMPLE_TBL_ATTR =
-      { valign: "top", class: "example_label",
-        style: "width:82.8pt;padding:0 0 0 0;margin-left:0pt" }.freeze
+      #{ valign: "top", 
+      { class: "example_label", style: "width:82.8pt;padding:0 0 0 0;\
+        margin-left:0pt;vertical-align:top;" }.freeze
 
     # used if we are boxing examples
     def example_div_parse(node, out)
@@ -104,7 +105,7 @@ module IsoDoc::Function
           tr.td **EXAMPLE_TBL_ATTR do |td|
             td << example_label(node)
           end
-          tr.td **{ valign: "top", class: "example" } do |td|
+          tr.td **{ style: "vertical-align:top", class: "example" } do |td|
             node.children.each { |n| parse(n, td) }
           end
         end
@@ -116,13 +117,13 @@ module IsoDoc::Function
     end
 
     def sourcecode_name_parse(_node, div, name)
-      div.p **{ class: "SourceTitle", align: "center" } do |p|
+      div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
         name.children.each { |n| parse(n, p) }
       end
     end
 
     def admonition_name_parse(_node, div, name)
-      div.p **{ class: "AdmonitionTitle", align: "center" } do |p|
+      div.p **{ class: "AdmonitionTitle", style: "text-align:center;" } do |p|
         name.children.each { |n| parse(n, p) }
       end
     end
@@ -214,8 +215,8 @@ module IsoDoc::Function
     def para_attrs(node)
       attrs = { class: para_class(node), id: node["id"] }
       unless node["align"].nil?
-        attrs[:align] = node["align"] unless node["align"] == "justify"
-        attrs[:style] = "text-align:#{node['align']}"
+        #attrs[:align] = node["align"] unless node["align"] == "justify"
+        attrs[:style] = "text-align:#{node['align']};"
       end
       attrs
     end
@@ -253,7 +254,7 @@ module IsoDoc::Function
 
     def image_title_parse(out, caption)
       unless caption.nil?
-        out.p **{ class: "FigureTitle", align: "center" } do |p|
+        out.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
           p.b { |b| b << caption.to_s }
         end
       end

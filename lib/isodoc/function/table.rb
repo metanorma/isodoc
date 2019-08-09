@@ -3,16 +3,10 @@ module IsoDoc::Function
 
     def table_title_parse(node, out)
       name = node.at(ns("./name"))
-      out.p **{ class: "TableTitle", align: "center" } do |p|
+      out.p **{ class: "TableTitle", style: "text-align:center;" } do |p|
         lbl = anchor(node['id'], :label, false)
         lbl.nil? or p << l10n("#{@table_lbl} #{lbl}")
         name and !lbl.nil? and p << l10n("&nbsp;&mdash; ")
-=begin
-        get_anchors[node['id']][:label].nil? or
-          p << l10n("#{@table_lbl} #{get_anchors[node['id']][:label]}")
-        name and !get_anchors[node['id']][:label].nil? and
-          p << l10n("&nbsp;&mdash; ")
-=end
         name and name.children.each { |n| parse(n, p) }
       end
     end
@@ -81,13 +75,14 @@ module IsoDoc::Function
 
     def make_tr_attr(td, row, totalrows)
       style = td.name == "th" ? "font-weight:bold;" : ""
+      td["align"] and style += "text-align:#{td['align']};"
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
       style += <<~STYLE
         border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
         border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
       STYLE
       { rowspan: td["rowspan"], colspan: td["colspan"],
-        align: td["align"], style: style.gsub(/\n/, "") }
+        style: style.gsub(/\n/, "") }
     end
 
     def tr_parse(node, out, ord, totalrows, _header)

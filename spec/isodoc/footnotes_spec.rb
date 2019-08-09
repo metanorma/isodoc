@@ -115,7 +115,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
     expect(html).to be_equivalent_to <<~"OUTPUT"
-<body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+<body lang="en" xml:lang="en">
            <div class="title-section">
              <p>&#xA0;</p>
            </div>

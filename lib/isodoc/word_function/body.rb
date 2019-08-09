@@ -13,6 +13,10 @@ module IsoDoc::WordFunction
       end
     end
 
+    def body_attr
+      { lang: "EN-US", link: "blue", vlink: "#954F72" }
+    end
+
     def make_body1(body, _docxml)
       FileUtils.rm_rf tmpimagedir
       FileUtils.mkdir tmpimagedir

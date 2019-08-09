@@ -52,8 +52,11 @@ module IsoDoc::Function
       end
     end
 
+    def body_attr
+      { lang: "#{@lang}" }
+    end
+
     def make_body(xml, docxml)
-      body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
       xml.body **body_attr do |body|
         make_body1(body, docxml)
         make_body2(body, docxml)
