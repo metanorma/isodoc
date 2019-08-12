@@ -239,12 +239,12 @@ module IsoDoc::WordFunction
 
 
     def make_table_attr(node)
-      {
+      super.merge({
         style: "mso-table-lspace:15.0cm;margin-left:423.0pt;"\
         "mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;"\
         "mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;"\
-        "mso-table-overlap:never;"
-      }.merge(super)
+        "mso-table-overlap:never;border-spacing:0;"
+      })
     end
 
     def table_parse(node, out)

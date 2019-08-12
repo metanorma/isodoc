@@ -95,8 +95,7 @@ module IsoDoc::Function
 
     def example_table_attr(node)
       attr_code(id: node["id"], class: "example",
-                cellspacing: 0, cellpadding: 0,
-                style: "border-collapse:collapse" )
+                style: "border-collapse:collapse;border-spacing:0;" )
     end
 
     def example_table_parse(node, out)
@@ -105,7 +104,7 @@ module IsoDoc::Function
           tr.td **EXAMPLE_TBL_ATTR do |td|
             td << example_label(node)
           end
-          tr.td **{ style: "vertical-align:top", class: "example" } do |td|
+          tr.td **{ style: "vertical-align:top;padding:0;", class: "example" } do |td|
             node.children.each { |n| parse(n, td) }
           end
         end

@@ -46,9 +46,7 @@ module IsoDoc::Function
       attr_code(
         id: node["id"],
         class: "MsoISOTable",
-        border: 1,
-        cellspacing: 0,
-        cellpadding: 0,
+        style: "border-width:1;border-spacing:0;",
         title: node["alt"]
       )
     end
@@ -80,6 +78,7 @@ module IsoDoc::Function
       style += <<~STYLE
         border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
         border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+        padding:0;
       STYLE
       { rowspan: td["rowspan"], colspan: td["colspan"],
         style: style.gsub(/\n/, "") }
@@ -89,7 +88,6 @@ module IsoDoc::Function
       out.tr do |r|
         node.elements.each do |td|
           attrs = make_tr_attr(td, ord, totalrows - 1)
-          # i, node.elements.size - 1, header)
           r.send td.name, **attr_code(attrs) do |entry|
             td.children.each { |n| parse(n, entry) }
           end
