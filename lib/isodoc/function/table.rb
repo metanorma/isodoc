@@ -46,7 +46,7 @@ module IsoDoc::Function
       attr_code(
         id: node["id"],
         class: "MsoISOTable",
-        style: "border-width:1;border-spacing:0;",
+        style: "border-width:1px;border-spacing:0;",
         title: node["alt"]
       )
     end

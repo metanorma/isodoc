@@ -68,7 +68,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">Table 1&#160;&#8212; Repeatability and reproducibility of <i>husked</i> rice yield</p>
-               <table id="tableD-1" class="MsoISOTable" style="border-width:1;border-spacing:0;" title="tool tip">
+               <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;" title="tool tip">
                  <thead>
                    <tr>
                      <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">Description</td>
@@ -119,7 +119,7 @@ RSpec.describe IsoDoc do
                  </div>
                </table>
                <p class="TableTitle" style="text-align:center;"/>
-               <table id="tableD-2" class="MsoISOTable" style="border-width:1;border-spacing:0;">
+               <table id="tableD-2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                  <tbody>
                    <tr>
                      <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">A</td>
