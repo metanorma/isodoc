@@ -60,6 +60,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       word_table_separator(docxml)
       word_admonition_images(docxml)
       word_list_continuations(docxml)
+      word_example_cleanup(docxml)
       docxml
     end
 
@@ -94,6 +95,12 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def word_annex_cleanup(docxml)
+    end
+
+    def word_example_cleanup(docxml)
+      docxml.xpath("//div[@class = 'example']//p[not(@class)]").each do |p|
+        p["class"] = "example"
+      end
     end
 
     def word_preface(docxml)

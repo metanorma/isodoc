@@ -862,4 +862,35 @@ TOCLEVEL
     OUTPUT
   end
 
+    it "propagates example style to paragraphs in postprocessing (Word)" do
+        FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <example id="samplecode">
+  <p>ABC</p>
+</example>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    expect(word).to be_equivalent_to <<~"OUTPUT"
+<div class="WordSection2">
+             <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div class="example"><a name="samplecode" id="samplecode"></a><p class="example-title">EXAMPLE</p>
+         <p class="example">ABC</p>
+       </div>
+             </div>
+             <p class="MsoNormal">&#xA0;</p>
+           </div>
+    OUTPUT
+  end
+
+
 end
