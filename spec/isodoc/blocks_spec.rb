@@ -508,7 +508,7 @@ B</pre>
        %w{a b c}.each do |x|
          puts x <callout target="B">2</callout>
        end<annotation id="A">
-         <p id="_">This is one callout</p>
+         <p id="_">This is <em>one</em> callout</p>
        </annotation><annotation id="B">
          <p id="_">This is another callout</p>
        </annotation></sourcecode>
@@ -519,11 +519,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="_" class="prettyprint ">puts "Hello, world."  &lt;1&gt;<br/>&#160;&#160; %w{a b c}.each do |x|<br/>&#160;&#160;&#160;&#160; puts x  &lt;2&gt;<br/>&#160;&#160; end<span class="zzMoveToFollowing">&lt;1&gt; </span>
-            <p class="Sourcecode" id="_">This is one callout</p>
-          <span class="zzMoveToFollowing">&lt;2&gt; </span>
-            <p class="Sourcecode" id="_">This is another callout</p>
-          </pre>
+                 <pre id="_" class="prettyprint ">puts "Hello, world."  &lt;1&gt;<br/>&#160;&#160; %w{a b c}.each do |x|<br/>&#160;&#160;&#160;&#160; puts x  &lt;2&gt;<br/>&#160;&#160; end<br/><br/>&lt;1&gt; This is one callout<br/>&lt;2&gt; This is another callout</pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>

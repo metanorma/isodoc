@@ -146,10 +146,14 @@ module IsoDoc::Function
     def annotation_parse(node, out)
       @sourcecode = false
       @annotation = true
-      out.span **{ class: "zzMoveToFollowing" } do |s|
-        s  << "&lt;#{node.at(ns("//callout[@target='#{node['id']}']")).text}&gt; "
-      end
-      node.children.each { |n| parse(n, out) }
+      node.at("./preceding-sibling::*[local-name() = 'annotation']") or
+        out << "<br/>"
+      out << "<br/>"
+      #out.span **{ class: "zzMoveToFollowing" } do |s|
+      out  << "&lt;#{node.at(ns("//callout[@target='#{node['id']}']")).text}&gt; "
+      #end
+      #node.children.each { |n| parse(n, out) }
+      out << node&.children&.text&.strip
       @annotation = false
     end
 
