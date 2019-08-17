@@ -8,16 +8,52 @@ module IsoDoc::Function
       x.gsub(/All Parts/i, @all_parts_lbl.downcase)
     end
 
-    def iso_bibitem_ref_code(b)
-      isocode = b.at(ns("./docidentifier")).text
+    # TODO generate formatted ref if not present
+    def nonstd_bibitem(list, b, ordinal, bibliography)
+      list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
+        id = bibitem_ref_code(b)
+        require "byebug"; byebug
+        if bibliography
+          ref_entry_code(r, ordinal, id)
+        else
+          r << "#{id}, "
+        end
+        reference_format(b, r)
+      end
+    end
+
+
+    def std_bibitem_entry(list, b, ordinal, biblio)
+      return if implicit_reference(b)
+      list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
+        prefix_bracketed_ref(ref, ordinal) if biblio
+        ref << bibitem_ref_code(b)
+        date_note_process(b, ref)
+        ref << ", "
+        reference_format(b, ref)
+      end
+    end
+
+    # if t is just a number, only use that ([1] Non-Standard)
+    # else, use both ordinal, as prefix, and t
+    def ref_entry_code(r, ordinal, t)
+      if /^\d+$/.match(t)
+        prefix_bracketed_ref(r, t)
+      else
+        prefix_bracketed_ref(r, ordinal)
+        r << "#{t}, "
+      end
+    end
+
+    def bibitem_ref_code(b)
+      isocode = b.at(ns("./docidentifier")).text.sub(/^\[/, "").sub(/\]$/, "")
       prefix = b&.at(ns("./docidentifier/@type"))&.text
-      reference = docid_l10n(isocode)
-      docid_prefix(prefix, reference)
+      docid_prefix(prefix, isocode)
     end
 
     def docid_prefix(prefix, docid)
-      docid = "#{prefix} #{docid}" unless omit_docid_prefix(prefix)
-      docid
+      docid = "#{prefix} #{docid}" if prefix && !omit_docid_prefix(prefix)
+      docid_l10n(docid)
     end
 
     def omit_docid_prefix(prefix)
@@ -56,27 +92,6 @@ module IsoDoc::Function
       insert_tab(ref, 1)
     end
 
-    def iso_bibitem_entry(list, b, ordinal, biblio)
-      return if implicit_reference(b)
-      list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
-        prefix_bracketed_ref(ref, ordinal) if biblio
-        ref << iso_bibitem_ref_code(b)
-        date_note_process(b, ref)
-        ref << ", "
-        ref.i { |i| i << " #{iso_title(b).text}" }
-      end
-    end
-
-    def ref_entry_code(r, ordinal, prefix, t)
-      t = docid_prefix(prefix, t)
-      if /^\d+$/.match(t) && !prefix
-        prefix_bracketed_ref(r, t)
-      else
-        prefix_bracketed_ref(r, ordinal)
-        r << "#{t}, "
-      end
-    end
-
     def reference_format(b, r)
       if ftitle = b.at(ns("./formattedref"))
         ftitle&.children&.each { |n| parse(n, r) }
@@ -85,20 +100,6 @@ module IsoDoc::Function
         r.i do |i|
           title&.children&.each { |n| parse(n, i) }
         end
-      end
-    end
-
-    # TODO generate formatted ref if not present
-    def noniso_bibitem(list, b, ordinal, bibliography)
-      list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
-        if bibliography
-          id = docid_l10n(b.at(ns("./docidentifier")).text.gsub(/[\[\]]/, ""))
-          prefix = b&.at(ns("./docidentifier/@type"))&.text
-          ref_entry_code(r, ordinal, prefix, id)
-        else
-          r << "#{iso_bibitem_ref_code(b)}, "
-        end
-        reference_format(b, r)
       end
     end
 
@@ -128,6 +129,22 @@ module IsoDoc::Function
       end
       bibitems[:noniso].each_with_index do |b, i|
         noniso_bibitem(div, b, (i + 1 + bibitems[:iso].size), bibliography)
+      end
+    end
+
+    def is_standard(b)
+      code = b.at(ns("./docidentifier")).text.sub(/^\[/, "").sub(/\]$/, "")
+      prefix = b&.at(ns("./docidentifier/@type"))&.text
+      !(prefix.nil? && /^\[?\d+\]?$/.match(code))
+    end
+
+    def biblio_list(f, div, bibliography)
+      f.xpath(ns("./bibitem")).each_with_index do |b, i|
+        if(is_standard(b))
+          std_bibitem_entry(div, b, i + 1, bibliography)
+        else
+          nonstd_bibitem(div, b, i + 1, bibliography)
+        end
       end
     end
 
