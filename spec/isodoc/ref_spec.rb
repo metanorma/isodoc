@@ -74,7 +74,7 @@ RSpec.describe IsoDoc do
 </bibitem>
 <bibitem id="ref10">
   <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
-  <docidentifier>[10]</docidentifier>
+  <docidentifier type="metanorma">[10]</docidentifier>
 </bibitem>
 <bibitem id="ref11">
   <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>

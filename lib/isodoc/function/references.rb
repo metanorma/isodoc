@@ -12,7 +12,6 @@ module IsoDoc::Function
     def nonstd_bibitem(list, b, ordinal, bibliography)
       list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
         id = bibitem_ref_code(b)
-        require "byebug"; byebug
         if bibliography
           ref_entry_code(r, ordinal, id)
         else
@@ -24,7 +23,6 @@ module IsoDoc::Function
 
 
     def std_bibitem_entry(list, b, ordinal, biblio)
-      return if implicit_reference(b)
       list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
         prefix_bracketed_ref(ref, ordinal) if biblio
         ref << bibitem_ref_code(b)
@@ -46,9 +44,10 @@ module IsoDoc::Function
     end
 
     def bibitem_ref_code(b)
-      isocode = b.at(ns("./docidentifier")).text.sub(/^\[/, "").sub(/\]$/, "")
-      prefix = b&.at(ns("./docidentifier/@type"))&.text
-      docid_prefix(prefix, isocode)
+      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma')]"))
+      id ||= b.at(ns("./docidentifier[not(@type = 'DOI')]"))
+      id ||= b.at(ns("./docidentifier")) or return "(NO ID)"
+      docid_prefix(id["type"], id.text.sub(/^\[/, "").sub(/\]$/, ""))
     end
 
     def docid_prefix(prefix, docid)
@@ -58,7 +57,7 @@ module IsoDoc::Function
 
     def omit_docid_prefix(prefix)
       return true if prefix.nil? || prefix.empty?
-      return ["ISO", "IEC"].include? prefix
+      return ["ISO", "IEC", "metanorma"].include? prefix
     end
 
     def date_note_process(b, ref)
@@ -109,37 +108,18 @@ module IsoDoc::Function
       "xmlns:name = 'International Organization for Standardization' or "\
       "xmlns:name = 'International Electrotechnical Commission']".freeze
 
-    def split_bibitems(f)
-      iso_bibitem = []
-      non_iso_bibitem = []
-      f.xpath(ns("./bibitem")).each do |x|
-        if x.at(ns(ISO_PUBLISHER_XPATH)).nil?
-          non_iso_bibitem << x
-        else
-          iso_bibitem << x
-        end
-      end
-      { iso: iso_bibitem, noniso: non_iso_bibitem }
-    end
-
-    def biblio_list(f, div, bibliography)
-      bibitems = split_bibitems(f)
-      bibitems[:iso].each_with_index do |b, i|
-        iso_bibitem_entry(div, b, (i + 1), bibliography)
-      end
-      bibitems[:noniso].each_with_index do |b, i|
-        noniso_bibitem(div, b, (i + 1 + bibitems[:iso].size), bibliography)
-      end
-    end
-
     def is_standard(b)
-      code = b.at(ns("./docidentifier")).text.sub(/^\[/, "").sub(/\]$/, "")
-      prefix = b&.at(ns("./docidentifier/@type"))&.text
-      !(prefix.nil? && /^\[?\d+\]?$/.match(code))
+      ret = false
+      b.xpath(ns("./docidentifier")).each do |id|
+        next if id["type"].nil? || %w(metanorma DOI).include?(id["type"])
+        ret = true
+      end
+      ret
     end
 
     def biblio_list(f, div, bibliography)
       f.xpath(ns("./bibitem")).each_with_index do |b, i|
+        next if implicit_reference(b)
         if(is_standard(b))
           std_bibitem_entry(div, b, i + 1, bibliography)
         else
@@ -152,10 +132,7 @@ module IsoDoc::Function
       refs = f.elements.select do |e|
         ["reference", "bibitem"].include? e.name
       end
-      pref = if refs.empty? then @norm_empty_pref
-             else
-               @norm_with_refs_pref
-             end
+      pref = refs.empty? ? @norm_empty_pref : @norm_with_refs_pref
       div.p pref
     end
 
