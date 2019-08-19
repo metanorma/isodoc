@@ -6,18 +6,22 @@ module IsoDoc::HtmlFunction
     end
 
     def comments(div)
+=begin
       return if @comments.empty?
       div.div **{ style: "mso-element:comment-list" } do |div1|
         @comments.each { |fn| div1.parent << fn }
       end
+=end
     end
 
     def review_note_parse(node, out)
+=begin
       fn = @comments.length + 1
       make_comment_link(out, fn, node)
       @in_comment = true
       @comments << make_comment_text(node, fn)
       @in_comment = false
+=end
     end
 
     def comment_link_attrs(fn, node)
@@ -51,9 +55,11 @@ module IsoDoc::HtmlFunction
     end
 
     def comment_cleanup(docxml)
+=begin
       move_comment_link_to_from(docxml)
       reorder_comments_by_comment_link(docxml)
       embed_comment_in_comment_list(docxml)
+=end
     end
 
     COMMENT_IN_COMMENT_LIST =

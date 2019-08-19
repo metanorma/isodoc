@@ -94,7 +94,7 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-  it "processes IsoXML reviewer notes" do
+  it "processes IsoXML reviewer notes (HTML)" do
     FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -115,7 +115,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
     expect(html).to be_equivalent_to <<~"OUTPUT"
-<body lang="en" xml:lang="en">
+     <body lang="en" xml:lang="en">
            <div class="title-section">
              <p>&#xA0;</p>
            </div>
@@ -128,36 +128,23 @@ RSpec.describe IsoDoc do
              <br />
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
-                 <a style="mso-comment-reference:SMC_1;mso-comment-date:20170101T0000"><span style="MsoCommentReference" target="3" class="commentLink" from="A" to="C">
-                 <a style="mso-comment-reference:SMC_3;mso-comment-date:20170108T0000"><p id="A">A.</p></a>
-               </span></a>
-               </span>
-               <span style="mso-comment-continuation:3"><span style="mso-comment-continuation:1"><p id="B">B.</p></span></span>
-               
-               <span style="MsoCommentReference" target="2" class="commentLink" from="C" to="C">
-                 <a style="mso-comment-reference:SMC_2;mso-comment-date:20170108T0000"><span style="mso-comment-continuation:3"><p id="C">C.</p></span></a>
-               </span>
-               
+               <p id="A">A.</p>
+               <p id="B">B.</p>
+               <p id="C">C.</p>
              </div>
              <br />
              <div class="Section3" id="">
                <h1 class="IntroTitle">Introduction</h1>
-               
              </div>
              <p class="zzSTDTitle1"></p>
-             <div style="mso-element:comment-list"></div>
            </main>
          <script type="text/x-mathjax-config">
          MathJax.Hub.Config({
-           asciimath2jax: {
-             delimiters: [['(#(', ')#)']]
-           }
+           asciimath2jax: { delimiters: [['(#(', ')#)']] }
         });
        </script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=AM_HTMLorMML" async="async"></script>
-       <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-       </body>
+       <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script></body>
     OUTPUT
   end
 

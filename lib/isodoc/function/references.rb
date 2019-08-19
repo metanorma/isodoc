@@ -21,7 +21,6 @@ module IsoDoc::Function
       end
     end
 
-
     def std_bibitem_entry(list, b, ordinal, biblio)
       list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
         prefix_bracketed_ref(ref, ordinal) if biblio
