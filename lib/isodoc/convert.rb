@@ -135,7 +135,7 @@ module IsoDoc
     def convert1(docxml, filename, dir)
       anchor_names docxml
       noko do |xml|
-        xml.html do |html|
+        xml.html **{ lang: "#{@lang}" } do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
           info docxml, nil
           populate_css()

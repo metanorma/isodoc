@@ -36,7 +36,7 @@ RSpec.describe IsoDoc do
     </foreword></preface>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
+           <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
          <head/>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
@@ -194,7 +194,7 @@ INPUT
     </foreword></preface>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
+           <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
          <head/>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
@@ -306,7 +306,7 @@ B</pre>
     </foreword></preface>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
+           <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
          <head/>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
@@ -446,7 +446,7 @@ B</pre>
     </foreword></preface>
     </iso-standard>
     INPUT
-    <html xmlns:epub="http://www.idpf.org/2007/ops">
+    <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
          <head/>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
@@ -665,7 +665,7 @@ World</p>
     </foreword></preface>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops">
+           <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
          <head/>
            <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">

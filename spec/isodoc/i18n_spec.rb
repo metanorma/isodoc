@@ -204,7 +204,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
         INPUT
-        #{HTML_HDR.sub(/<body lang="en">/, '<body lang="tlh">')}
+        #{HTML_HDR.gsub(/ lang="en">/, ' lang="tlh">')}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
@@ -342,7 +342,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
         INPUT
-            #{HTML_HDR.sub(/<body lang="en">/, '<body lang="fr">')}
+            #{HTML_HDR.gsub(/ lang="en">/, ' lang="fr">')}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Avant-propos</h1>
@@ -490,7 +490,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
         INPUT
-    #{HTML_HDR.sub(/<body lang="en">/, '<body lang="zh">')}
+    #{HTML_HDR.gsub(/ lang="en">/, ' lang="zh">')}
                <br/>
                <div>
                  <h1 class="ForewordTitle">&#21069;&#35328;</h1>
