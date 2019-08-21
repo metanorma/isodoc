@@ -230,11 +230,12 @@ module IsoDoc::HtmlFunction
     def footnote_backlinks(docxml)
       seen = {}
       docxml.xpath('//a[@epub:type = "footnote"]').each_with_index do |x, i|
-        next if seen[x["href"]]
-        seen[x["href"]] = true
+        seen[x["href"]] and next or seen[x["href"]] = true
         fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
-        x["id"] || x["id"] = "fnref:#{i + 1}"
-        fn.elements.first.children.first.previous = x.dup
+        xdup = x.dup
+        xdup.remove["id"]
+        fn.elements.first.children.first.previous = xdup
+        x["id"] ||= "fnref:#{i + 1}"
         fn.add_child "<a href='##{x['id']}'>&#x21A9;</a>"
       end
       docxml
