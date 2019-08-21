@@ -26,7 +26,7 @@ RSpec.describe IsoDoc do
     </thead>
     <tbody>
     <tr>
-      <td align="left">Number of laboratories retained after eliminating outliers</td>
+      <th align="left">Number of laboratories retained after eliminating outliers</td>
       <td align="center">13</td>
       <td align="center">11</td>
       <td align="center">13</td>
@@ -71,21 +71,21 @@ RSpec.describe IsoDoc do
                <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;" title="tool tip">
                  <thead>
                    <tr>
-                     <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">Description</td>
-                     <td colspan="4" style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">Rice sample</td>
+                     <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Description</td>
+                     <td colspan="4" style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;" scope="colgroup">Rice sample</td>
                    </tr>
                    <tr>
-                     <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">Arborio</td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a&#160; </a>
+                     <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Arborio</td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a&#160; </a>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">Thaibonnet</td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Thaibonnet</td>
                    </tr>
                  </thead>
                  <tbody>
                    <tr>
-                     <td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">Number of laboratories retained after eliminating outliers</td>
+                     <th style="font-weight:bold;text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;" scope="row">Number of laboratories retained after eliminating outliers</td>
                      <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">13</td>
                      <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">11</td>
                      <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">13</td>

@@ -77,7 +77,7 @@ module IsoDoc::WordFunction
       tfoot.xpath(".//td").last
     end
 
-    def make_tr_attr(td, row, totalrows)
+    def make_tr_attr(td, row, totalrows, _header)
       style = td.name == "th" ? "font-weight:bold;" : ""
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
       style += <<~STYLE

@@ -71,7 +71,7 @@ module IsoDoc::Function
     # border-left:#{col.zero? ? "#{SW} 1.5pt;" : "none;"}
     # border-right:#{SW} #{col == totalcols && !header ? "1.5" : "1.0"}pt;
 
-    def make_tr_attr(td, row, totalrows)
+    def make_tr_attr(td, row, totalrows, header)
       style = td.name == "th" ? "font-weight:bold;" : ""
       td["align"] and style += "text-align:#{td['align']};"
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
@@ -80,14 +80,17 @@ module IsoDoc::Function
         border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
         padding:0;
       STYLE
+      header and scope = (td["colspan"] ? "colgroup" : "col")
+      !header and td.name == "th" and scope =
+        (td["rowspan"] ? "rowgroup" : "row")
       { rowspan: td["rowspan"], colspan: td["colspan"],
-        style: style.gsub(/\n/, "") }
+        style: style.gsub(/\n/, ""), scope: scope }
     end
 
-    def tr_parse(node, out, ord, totalrows, _header)
+    def tr_parse(node, out, ord, totalrows, header)
       out.tr do |r|
         node.elements.each do |td|
-          attrs = make_tr_attr(td, ord, totalrows - 1)
+          attrs = make_tr_attr(td, ord, totalrows - 1, header)
           r.send td.name, **attr_code(attrs) do |entry|
             td.children.each { |n| parse(n, entry) }
           end
