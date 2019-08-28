@@ -100,10 +100,14 @@ module IsoDoc::Function
     # Not clear if period needs to be localised for zh
     def l10n(x, lang = @lang, script = @script)
       if lang == "zh" && script == "Hans"
-        x.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、").
-          gsub(/\(/, "（").gsub(/\)/, "）").
-          gsub(/\[/, "【").gsub(/\]/, "】").
-          gsub(/<b>/, "").gsub("</b>", "")
+        xml = Nokogiri::HTML::DocumentFragment.parse(x)
+        xml.traverse do |n|
+          next unless n.text?
+          n.replace(n.text.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、").
+            gsub(/\(/, "（").gsub(/\)/, "）").
+            gsub(/\[/, "【").gsub(/\]/, "】"))
+        end
+        xml.to_xml.gsub(/<b>/, "").gsub("</b>", "").gsub(/<\?[^>]+>/, "")
       else
         x
       end

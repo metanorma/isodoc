@@ -106,36 +106,6 @@ module IsoDoc::Function
       num
     end
 
-    def external_terms_boilerplate(sources)
-      @external_terms_boilerplate.gsub(/%/, sources || "???")
-    end
-
-    def internal_external_terms_boilerplate(sources)
-      @internal_external_terms_boilerplate.gsub(/%/, sources || "??")
-    end
-
-    def term_defs_boilerplate(div, source, term, preface)
-      source.each { |s| @anchors[s["bibitemid"]] or
-                    warn "term source #{s['bibitemid']} not referenced" }
-      if source.empty? && term.nil?
-        div << @no_terms_boilerplate
-      else
-        div << term_defs_boilerplate_cont(source, term)
-      end
-      div << @term_def_boilerplate
-    end
-
-    def term_defs_boilerplate_cont(src, term)
-      sources = sentence_join(src.map do |s|
-        "<a href=##{s["bibitemid"]}>#{anchor(s["bibitemid"], :xref)}</a>" 
-      end)
-      if src.empty? then @internal_terms_boilerplate
-      elsif term.nil? then external_terms_boilerplate(sources)
-      else
-        internal_external_terms_boilerplate(sources)
-      end
-    end
-
     def terms_defs_title(f)
       symbols = f.at(ns(".//definitions"))
       return @termsdefsymbols_lbl if symbols
@@ -150,8 +120,6 @@ module IsoDoc::Function
       out.div **attr_code(id: f["id"]) do |div|
         num = num + 1
         clause_name(num, terms_defs_title(f), div, nil)
-        term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
-                              f.at(ns(".//term")), f.at(ns("./p")))
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
         end

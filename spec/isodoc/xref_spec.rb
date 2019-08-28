@@ -165,7 +165,7 @@ RSpec.describe IsoDoc do
                  <a href="#N">Note</a>
                </p>
              </div>
-             <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+             <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        </div>
              <div id="widgets">
                <h1>3.&#160; Widgets</h1>
@@ -304,7 +304,7 @@ RSpec.describe IsoDoc do
                    <a href="#N">Figure 2</a>
                  </p>
                </div>
-               <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -415,7 +415,7 @@ RSpec.describe IsoDoc do
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                </div>
-               <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -557,7 +557,7 @@ RSpec.describe IsoDoc do
                    <a href="#N">Example</a>
                  </p>
                </div>
-               <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -688,7 +688,7 @@ RSpec.describe IsoDoc do
                    <a href="#N">Formula (2)</a>
                  </p>
                </div>
-               <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -815,7 +815,7 @@ RSpec.describe IsoDoc do
           <a href="#N">Requirement 2</a>
         </p>
       </div>
-      <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+      <div id="terms"><h1>2.&#160; Terms and definitions</h1>
 </div>
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
@@ -952,7 +952,7 @@ OUTPUT
           <a href="#N">Recommendation 2</a>
         </p>
       </div>
-      <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+      <div id="terms"><h1>2.&#160; Terms and definitions</h1>
 </div>
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
@@ -1089,7 +1089,7 @@ OUTPUT
           <a href="#N">Permission 2</a>
         </p>
       </div>
-      <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+      <div id="terms"><h1>2.&#160; Terms and definitions</h1>
 </div>
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
@@ -1395,7 +1395,7 @@ OUTPUT
                    <a href="#N">Table 2</a>
                  </p>
                </div>
-               <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+               <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
@@ -1466,8 +1466,7 @@ OUTPUT
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
                </div>
-               <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>For the purposes of this document,
-           the following terms and definitions apply.</p>
+               <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        <p class="TermNum" id="_waxy_rice">2.1.</p><p class="Terms" style="text-align:left;">waxy rice</p>
        <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2.</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
        <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
@@ -1598,8 +1597,7 @@ OUTPUT
     <h1>2.&#160; Normative references</h1>
       <p>There are no normative references in this document.</p>
     </div>
-    <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
-      the following terms and definitions apply.</p>
+    <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
        <div id="I">
           <h2>3.1. Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1.</p>
@@ -1745,7 +1743,7 @@ OUTPUT
          <li><p>A</p></li>
        </ol>
              </div>
-             <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+             <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        </div>
              <div id="widgets">
                <h1>3.&#160; Widgets</h1>
@@ -1876,7 +1874,7 @@ OUTPUT
          <li id="N"><p>A</p></li>
        </ol>
              </div>
-             <div id="terms"><h1>2.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
+             <div id="terms"><h1>2.&#160; Terms and definitions</h1>
        </div>
              <div id="widgets">
                <h1>3.&#160; Widgets</h1>

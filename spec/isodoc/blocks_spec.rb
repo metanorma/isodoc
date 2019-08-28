@@ -740,8 +740,7 @@ World</p>
     INPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
-               <div><h1>1.&#160; Terms and definitions</h1><p>For the purposes of this document,
-           the following terms and definitions apply.</p>
+               <div><h1>1.&#160; Terms and definitions</h1>
        <p class="TermNum" id="_extraneous_matter">1.1.</p><p class="Terms" style="text-align:left;">extraneous matter</p><p class="AltTerms" style="text-align:left;">EM</p>
 
        <p id="_318b3939-be09-46c4-a284-93f9826b981e">&lt;rice&gt; organic and inorganic components other than whole or broken kernels</p>

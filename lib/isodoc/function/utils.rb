@@ -88,7 +88,8 @@ module IsoDoc::Function
       if array.length == 1
         array[0]
       else
-        l10n("#{array[0..-2].join(', ')} #{@and_lbl} #{array.last}")
+        IsoDoc::Function::I18n::l10n("#{array[0..-2].join(', ')} #{@and_lbl} #{array.last}",
+                                    @lang, @script)
       end
     end
 

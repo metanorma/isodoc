@@ -6,6 +6,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+    <p>For the purposes of this document, the following terms and definitions apply.</p>
 
 <term id="paddy1"><preferred>paddy</preferred>
 <domain>rice</domain>
@@ -100,6 +101,7 @@ OUTPUT
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+    <p>For the purposes of this document, the following terms and definitions apply.</p>
 
 <term id="paddy1"><preferred>paddy</preferred>
 <domain>rice</domain>
