@@ -127,14 +127,6 @@ module IsoDoc::Function
       end
     end
 
-    def norm_ref_preface(f, div)
-      refs = f.elements.select do |e|
-        ["reference", "bibitem"].include? e.name
-      end
-      pref = refs.empty? ? @norm_empty_pref : @norm_with_refs_pref
-      div.p pref
-    end
-
     def norm_ref(isoxml, out, num)
       q = "//bibliography/references[title = 'Normative References' or "\
         "title = 'Normative references']"
@@ -142,7 +134,9 @@ module IsoDoc::Function
       out.div do |div|
         num = num + 1
         clause_name(num, @normref_lbl, div, nil)
-        norm_ref_preface(f, div)
+        f.elements.reject do |e|
+          ["reference", "title", "bibitem"].include? e.name
+        end.each { |e| parse(e, div) }
         biblio_list(f, div, false)
       end
       num

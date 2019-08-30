@@ -121,7 +121,6 @@ RSpec.describe IsoDoc do
                 </div>
                 <div>
                   <h1>2.&#160; Normative references</h1>
-                  <p>There are no normative references in this document.</p>
                 </div>
                 <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
         <div id="I">
@@ -280,7 +279,6 @@ OUTPUT
                </div>
                <div>
                  <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative references</h1>
-                 <p>There are no normative references in this document.</p>
                </div>
                <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms, definitions, symbols and abbreviated terms</h1>
        <div id="I">
@@ -422,7 +420,6 @@ OUTPUT
              </div>
              <div>
                <h1>Normative references</h1>
-               <p>There are no normative references in this document.</p>
              </div>
              <div id="H"><h1>Terms, definitions, symbols and abbreviated terms</h1>
        <div id="I"><h2>Normal Terms</h2>
