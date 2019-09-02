@@ -43,8 +43,8 @@ module IsoDoc::Function
     end
 
     def bibitem_ref_code(b)
-      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma')]"))
-      id ||= b.at(ns("./docidentifier[not(@type = 'DOI')]"))
+      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or @type = 'ISBN')]"))
+      id ||= b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'ISSN' or @type = 'ISBN')]"))
       id ||= b.at(ns("./docidentifier")) or return "(NO ID)"
       docid_prefix(id["type"], id.text.sub(/^\[/, "").sub(/\]$/, ""))
     end
@@ -110,7 +110,7 @@ module IsoDoc::Function
     def is_standard(b)
       ret = false
       b.xpath(ns("./docidentifier")).each do |id|
-        next if id["type"].nil? || %w(metanorma DOI).include?(id["type"])
+        next if id["type"].nil? || %w(metanorma DOI ISSN ISBN).include?(id["type"])
         ret = true
       end
       ret
