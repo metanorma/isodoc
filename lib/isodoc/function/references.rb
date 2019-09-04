@@ -12,10 +12,11 @@ module IsoDoc::Function
     def nonstd_bibitem(list, b, ordinal, bibliography)
       list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
         id = bibitem_ref_code(b)
+        identifier = render_identifier(id)
         if bibliography
-          ref_entry_code(r, ordinal, id)
+          ref_entry_code(r, ordinal, identifier)
         else
-          r << "#{id}, "
+          r << "#{identifier}, "
         end
         reference_format(b, r)
       end
@@ -24,7 +25,9 @@ module IsoDoc::Function
     def std_bibitem_entry(list, b, ordinal, biblio)
       list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
         prefix_bracketed_ref(ref, ordinal) if biblio
-        ref << bibitem_ref_code(b)
+        id = bibitem_ref_code(b)
+        identifier = render_identifier(id)
+        ref << identifier
         date_note_process(b, ref)
         ref << ", "
         reference_format(b, ref)
@@ -38,14 +41,19 @@ module IsoDoc::Function
         prefix_bracketed_ref(r, t)
       else
         prefix_bracketed_ref(r, ordinal)
-        r << "#{t}, "
+        if !t.empty? && !%w(metanorma DOI ISSN ISBN).include?(t.split.first)
+          r << "#{t}, "
+        end
       end
     end
 
     def bibitem_ref_code(b)
-      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma')]"))
-      id ||= b.at(ns("./docidentifier[not(@type = 'DOI')]"))
+      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or @type = 'ISBN')]"))
+      id ||= b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'ISSN' or @type = 'ISBN')]"))
       id ||= b.at(ns("./docidentifier")) or return "(NO ID)"
+    end
+
+    def render_identifier(id)
       docid_prefix(id["type"], id.text.sub(/^\[/, "").sub(/\]$/, ""))
     end
 
@@ -110,7 +118,7 @@ module IsoDoc::Function
     def is_standard(b)
       ret = false
       b.xpath(ns("./docidentifier")).each do |id|
-        next if id["type"].nil? || %w(metanorma DOI).include?(id["type"])
+        next if id["type"].nil? || %w(metanorma DOI ISSN ISBN).include?(id["type"])
         ret = true
       end
       ret
