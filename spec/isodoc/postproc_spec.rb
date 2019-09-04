@@ -861,8 +861,8 @@ TOCLEVEL
     OUTPUT
   end
 
-    it "propagates example style to paragraphs in postprocessing (Word)" do
-        FileUtils.rm_f "test.doc"
+  it "propagates example style to paragraphs in postprocessing (Word)" do
+    FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
