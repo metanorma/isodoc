@@ -10,6 +10,8 @@ RSpec.describe IsoDoc do
     <preface><foreword>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
   <eref bibitemid="ISO712"/>
+  <eref bibitemid="ISBN"/>
+  <eref bibitemid="ISSN"/>
   <eref bibitemid="ISO16634"/>
   <eref bibitemid="ref1"/>
   <eref bibitemid="ref10"/>
@@ -63,6 +65,26 @@ RSpec.describe IsoDoc do
 
 </references><references id="_bibliography" obligation="informative">
   <title>Bibliography</title>
+<bibitem id="ISBN" type="ISBN">
+  <title format="text/plain">Chemicals for analytical laboratory use</title>
+  <docidentifier type="ISBN">ISBN</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>ISBN</abbreviation>
+    </organization>
+  </contributor>
+</bibitem>
+<bibitem id="ISSN" type="ISSN">
+  <title format="text/plain">Instruments for analytical laboratory use</title>
+  <docidentifier type="ISSN">ISSN</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>ISSN</abbreviation>
+    </organization>
+  </contributor>
+</bibitem>
 <bibitem id="ISO3696" type="standard">
   <title format="text/plain">Water for analytical laboratory use</title>
   <docidentifier type="ISO">ISO 3696</docidentifier>
