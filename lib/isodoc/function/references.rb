@@ -14,7 +14,7 @@ module IsoDoc::Function
         id = bibitem_ref_code(b)
         identifier = render_identifier(id)
         if bibliography
-          ref_entry_code(r, ordinal, identifier)
+          ref_entry_code(r, ordinal, identifier, id)
         else
           r << "#{identifier}, "
         end
@@ -36,12 +36,12 @@ module IsoDoc::Function
 
     # if t is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and t
-    def ref_entry_code(r, ordinal, t)
-      if /^\d+$/.match(t)
+    def ref_entry_code(r, ordinal, t, id)
+      if id["type"] == "metanorma"
         prefix_bracketed_ref(r, t)
       else
         prefix_bracketed_ref(r, ordinal)
-        if !t.empty? && !%w(metanorma DOI ISSN ISBN).include?(t.split.first)
+        if !t.empty? && !%w(DOI ISSN ISBN).include?(id["type"])
           r << "#{t}, "
         end
       end
@@ -50,7 +50,11 @@ module IsoDoc::Function
     def bibitem_ref_code(b)
       id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or @type = 'ISBN')]"))
       id ||= b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'ISSN' or @type = 'ISBN')]"))
-      id ||= b.at(ns("./docidentifier")) or return "(NO ID)"
+      id ||= b.at(ns("./docidentifier")) 
+      return id if id
+      id = Nokogiri::XML::Node.new("docidentifier", b.document)
+      id.text = "(NO ID)"
+      id
     end
 
     def render_identifier(id)
@@ -193,12 +197,11 @@ module IsoDoc::Function
 
     def reference_names(ref)
       isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
-      docid = ref.at(ns("./docidentifier"))
-      prefix = ref.at(ns("./docidentifier/@type"))
-      # return ref_names(ref) unless docid
+      docid = bibitem_ref_code(ref)
+      prefix = docid["type"]
       date = ref.at(ns("./date[@type = 'published']"))
       allparts = ref.at(ns("./extent[@type='part'][referenceFrom='all']"))
-      reference = format_ref(docid_l10n(docid.text), prefix&.text, isopub, date, allparts)
+      reference = format_ref(docid_l10n(docid.text), prefix, isopub, date, allparts)
       @anchors[ref["id"]] = { xref: reference }
     end
 

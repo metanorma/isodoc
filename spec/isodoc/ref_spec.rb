@@ -15,6 +15,7 @@ RSpec.describe IsoDoc do
   <eref bibitemid="ISO16634"/>
   <eref bibitemid="ref1"/>
   <eref bibitemid="ref10"/>
+  <eref bibitemid="ref12"/>
   </p>
     </foreword></preface>
     <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
@@ -68,6 +69,7 @@ RSpec.describe IsoDoc do
 <bibitem id="ISBN" type="ISBN">
   <title format="text/plain">Chemicals for analytical laboratory use</title>
   <docidentifier type="ISBN">ISBN</docidentifier>
+  <docidentifier type="metanorma">[1]</docidentifier>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -78,6 +80,7 @@ RSpec.describe IsoDoc do
 <bibitem id="ISSN" type="ISSN">
   <title format="text/plain">Instruments for analytical laboratory use</title>
   <docidentifier type="ISSN">ISSN</docidentifier>
+  <docidentifier type="metanorma">[2]</docidentifier>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -114,37 +117,43 @@ RSpec.describe IsoDoc do
     </iso-standard>
     INPUT
     #{HTML_HDR}
-               <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
          <a href="#ISO712">ISO 712</a>
+         <a href="#ISBN">[1]</a>
+         <a href="#ISSN">[2]</a>
          <a href="#ISO16634">ISO 16634:-- (all parts)</a>
          <a href="#ref1">ICC 167</a>
          <a href="#ref10">[10]</a>
+         <a href="#ref12">[Citn]</a>
          </p>
-               </div>
-               <p class="zzSTDTitle1"/>
-               <div>
-                 <h1>1.&#160; Normative references</h1>
-                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                 <p id="ISO712" class="NormRef">ISO 712, <i> Cereals and cereal products</i></p>
-                 <p id="ISO16634" class="NormRef">ISO 16634:-- (all parts)<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>1</sup></a>, <i> Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
-                 <p id="ISO20483" class="NormRef">ISO 20483:2013-2014, <i> Cereals and pulses</i></p>
-                 <p id="ref1" class="NormRef">ICC 167, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
-               </div>
-               <br/>
-               <div>
-                 <h1 class="Section3">Bibliography</h1>
-                 <p id="ISO3696" class="Biblio">[1]&#160; ISO 3696, <i> Water for analytical laboratory use</i></p>
-                 <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
-                  <p id="ref11" class="Biblio">[3]&#160; IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i></p>
-               </div>
-               <aside id="fn:1" class="footnote">
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div>
+               <h1>1.&#160; Normative references</h1>
+               <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+               <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i></p>
+               <p id="ISO16634" class="NormRef">ISO 16634:-- (all parts)<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>1</sup></a>, <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
+               <p id="ISO20483" class="NormRef">ISO 20483:2013-2014, <i>Cereals and pulses</i></p>
+               <p id="ref1" class="NormRef">ICC 167, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+             </div>
+             <br/>
+             <div>
+               <h1 class="Section3">Bibliography</h1>
+               <p id="ISBN" class="Biblio">[1]&#160; <i>Chemicals for analytical laboratory use</i></p>
+               <p id="ISSN" class="Biblio">[2]&#160; <i>Instruments for analytical laboratory use</i></p>
+               <p id="ISO3696" class="Biblio">[3]&#160; ISO 3696, <i>Water for analytical laboratory use</i></p>
+               <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+               <p id="ref11" class="Biblio">[5]&#160; IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i></p>
+               <p id="ref12" class="Biblio">[Citn]&#160; CitationWorks. 2019. <i>How to cite a reference</i>.</p>
+             </div>
+             <aside id="fn:1" class="footnote">
          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
        </aside>
-             </div>
-           </body>
+           </div>
+         </body>
        </html>
     OUTPUT
   end
