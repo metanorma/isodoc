@@ -81,6 +81,10 @@ RSpec.describe IsoDoc do
   <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
   <docidentifier type="IETF">RFC 10</docidentifier>
 </bibitem>
+<bibitem id="ref12">
+  <formattedref format="application/x-isodoc+xml">CitationWorks. 2019. <em>How to cite a reference</em>.</formattedref>
+  <docidentifier type="metanorma">[Citn]</docidentifier>
+</bibitem>
 
 
 </references>
