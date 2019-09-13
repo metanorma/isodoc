@@ -12,7 +12,7 @@ module IsoDoc::Function
     def anchor(id, lbl, warning = true)
       unless @anchors[id]
         warning and warn "No label has been processed for ID #{id}"
-        return nil
+        return "[#{id}]"
       end
       @anchors.dig(id, lbl)
     end
