@@ -51,6 +51,7 @@ module IsoDoc::Function
       @figure_lbl = y["figure"]
       @list_lbl = y["list"]
       @formula_lbl = y["formula"]
+      @inequality_lbl = y["inequality"]
       @table_lbl = y["table"]
       @key_lbl = y["key"]
       @example_lbl = y["example"]

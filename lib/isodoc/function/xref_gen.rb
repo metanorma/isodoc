@@ -168,6 +168,7 @@ module IsoDoc::Function
     def anchor_struct_xref(lbl, elem)
       case elem
       when @formula_lbl then l10n("#{elem} (#{lbl})")
+      when @inequality_lbl then l10n("#{elem} (#{lbl})")
       else
         l10n("#{elem} #{lbl}")
       end
@@ -196,7 +197,8 @@ module IsoDoc::Function
       i = 0
       clause.xpath(ns(".//formula")).each do |t|
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(i + 1, t, @formula_lbl, "formula", t["unnumbered"])
+        @anchors[t["id"]] = anchor_struct(i + 1, t, t["inequality"] ? @inequality_lbl : @formula_lbl,
+                                          "formula", t["unnumbered"])
         i += 1 unless t["unnumbered"]
       end
     end
@@ -333,7 +335,8 @@ module IsoDoc::Function
       clause.xpath(ns(".//formula")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                          t, @formula_lbl, "formula", t["unnumbered"])
+                                          t, t["inequality"] ? @inequality_lbl : @formula_lbl,
+                                          "formula", t["unnumbered"])
         i += 1 unless t["unnumbered"]
       end
     end

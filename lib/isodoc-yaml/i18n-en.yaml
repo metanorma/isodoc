@@ -37,6 +37,7 @@ termnote: Note % to entry
 list: List
 figure: Figure
 formula: Formula
+inequality: Formula
 table: Table
 requirement: Requirement
 recommendation: Recommendation
