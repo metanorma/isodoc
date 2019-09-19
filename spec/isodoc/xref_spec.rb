@@ -1988,4 +1988,98 @@ OUTPUT
     OUTPUT
   end
 
+   it "realises subsequences" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+    <foreword id="fwd">
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N3"/>
+    <xref target="N4"/>
+    <xref target="N5"/>
+    <xref target="N6"/>
+    <xref target="N7"/>
+    <xref target="N8"/>
+    </p>
+    </foreword>
+        <introduction id="intro">
+        <figure id="N1"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N2" subsequence="A"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N3" subsequence="A"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N4" subsequence="B"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N5" subsequence="B"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N6" subsequence="B"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N7"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N8"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+  </introduction>
+  </iso-standard>
+INPUT
+                   #{HTML_HDR}
+             <br/>
+             <div id="fwd">
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p>
+         <a href="#N1">Figure 1</a>
+         <a href="#N2">Figure 2a</a>
+         <a href="#N3">Figure 2b</a>
+         <a href="#N4">Figure 3a</a>
+         <a href="#N5">Figure 3b</a>
+         <a href="#N6">Figure 3c</a>
+         <a href="#N7">Figure 4</a>
+         <a href="#N8">Figure 5</a>
+         </p>
+             </div>
+             <br/>
+             <div class="Section3" id="intro">
+               <h1 class="IntroTitle">Introduction</h1>
+               <div id="N1" class="figure">
+                <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+             <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
+               <div id="N2" class="figure">
+                <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+             <p class="FigureTitle" style="text-align:center;">Figure 2a&#160;&#8212; Split-it-right sample divider</p></div>
+               <div id="N3" class="figure">
+                <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+             <p class="FigureTitle" style="text-align:center;">Figure 2b&#160;&#8212; Split-it-right sample divider</p></div>
+               <div id="N4" class="figure">
+                <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+             <p class="FigureTitle" style="text-align:center;">Figure 3a&#160;&#8212; Split-it-right sample divider</p></div>
+               <div id="N5" class="figure">
+                <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+             <p class="FigureTitle" style="text-align:center;">Figure 3b&#160;&#8212; Split-it-right sample divider</p></div>
+               <div id="N6" class="figure">
+                <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+             <p class="FigureTitle" style="text-align:center;">Figure 3c&#160;&#8212; Split-it-right sample divider</p></div>
+               <div id="N7" class="figure">
+                <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+             <p class="FigureTitle" style="text-align:center;">Figure 4&#160;&#8212; Split-it-right sample divider</p></div>
+               <div id="N8" class="figure">
+                <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+             <p class="FigureTitle" style="text-align:center;">Figure 5&#160;&#8212; Split-it-right sample divider</p></div>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+   end
+
 end
