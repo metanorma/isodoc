@@ -51,10 +51,20 @@ module IsoDoc::Function
       )
     end
 
+    def tcaption(node, t)
+      return unless node["longdesc"]
+      t.caption do |c|
+        c.span **{ style: "display:none" } do |s|
+          s << node["longdesc"]
+        end
+      end
+    end
+
     def table_parse(node, out)
       @in_table = true
       table_title_parse(node, out)
       out.table **make_table_attr(node) do |t|
+        tcaption(node, t)
         thead_parse(node, t)
         tbody_parse(node, t)
         tfoot_parse(node, t)
