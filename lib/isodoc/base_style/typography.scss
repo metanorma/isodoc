@@ -1,0 +1,402 @@
+/* Titles */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $headerfont;
+  color: #0e1a85;
+  font-weight: 600;
+  margin-top: 2em;
+  margin-bottom: 0.3em;
+}
+
+.h2Annex {
+  font-family: $headerfont;
+}
+
+h1 {
+  font-size: 1.4em;
+  text-transform: uppercase;
+  margin-top: 2em;
+}
+
+h1#content {
+  margin-top: 2em;
+}
+
+h2 {
+  font-size: 1.3em;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 1.1em;
+  font-weight: 400;
+}
+
+/*
+span[id^="toc"]:after {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 0.8em;
+  color: #cfcfcf;
+  content: "\f0c1";
+}
+*/
+
+.TermNum,
+.Terms,
+.AltTerms {
+  color: #485094;
+  font-weight: 400;
+}
+
+p.TermNum {
+  font-size: 0.9em;
+  line-height: 1em;
+  margin: 0;
+  margin-top: 2em;
+}
+
+p.Terms {
+  font-size: 1.1em;
+  line-height: 1.7em;
+  margin: 0;
+}
+
+/*
+p.AltTerms {
+  font-style: italic;
+  margin: 0;
+}
+*/
+
+span.obligation {
+  font-weight: 400;
+}
+
+
+/* Links */
+
+a,
+a:visited {
+  text-decoration: none;
+  color: #485094;
+}
+
+a:hover {
+  color: white;
+  background: #1d1d1d;
+  box-shadow: 3px 0 0 #1d1d1d, -3px 0 0 #1d1d1d;
+
+  /* padding: 2px 0 2px 0; */
+}
+
+::selection {
+  background: #1d1d1d;
+
+  /* WebKit/Blink Browsers */
+  color: white;
+}
+
+::-moz-selection {
+  background: #1d1d1d;
+
+  /* Gecko Browsers */
+  color: white;
+}
+
+.contact-info a:hover {
+  color: #485094;
+  text-decoration: underline;
+  background: none;
+  box-shadow: 0 0 0 0;
+}
+
+
+/* Lists */
+
+ol {
+  margin-left: 1.2em;
+}
+
+ul {
+  position: relative;
+  margin-left: 0;
+  list-style: none;
+  padding-left: 1.2em;
+}
+
+ul > li:before {
+  content: "\2014";
+  position: absolute;
+  left: 0;
+}
+
+main li {
+  margin-top: 1em;
+  padding-left: 0.5em;
+}
+
+#toc ul {
+  margin-bottom: 0.25em;
+}
+
+#toc li {
+  list-style-type: none;
+}
+
+#toc li:before {
+  content: " ";
+  display: none;
+}
+
+
+/* Rules */
+
+.rule {
+  width: 100%;
+  height: 1px;
+  background-color: #0e1a85;
+  margin: 2em 0;
+}
+
+h2 p {
+  display: inline;
+}
+
+
+/* Bibliograhy */
+
+p.Biblio,
+p.NormRef {
+  margin-top: 1em;
+}
+
+p.Biblio:before,
+p.NormRef:before {
+  content: "\2014";
+  padding-right: 1em;
+}
+
+
+/* Source Code + figures */
+
+.figure,
+.Sourcecode {
+  font-family: $monospacefont;
+  font-variant-ligatures: none;
+  background-color: #f7f7f7;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  padding: 1.5em;
+  margin: 2em 0 1em 0;
+  overflow: auto;
+}
+
+.FigureTitle,
+.SourceTitle,
+.AdmonitionTitle {
+  font-weight: 700;
+  font-size: 1em;
+  text-align: center;
+}
+
+
+/* Notes */
+
+.Note,
+.Admonition {
+  color: #47430c;
+  padding: 0.25em;
+  margin: 0;
+}
+
+.Note p,
+.Admonition p {
+  margin: 1em;
+}
+
+.Note {
+  background-color: #fff495;
+}
+
+.Admonition {
+  background-color: #ffcccc;
+}
+
+
+/* Examples */
+
+table.example {
+  background-color: #e1eef1;
+}
+
+td.example {
+  padding: 0 1em 0 1em;
+  margin: 2em 0 1em 0;
+}
+
+.example {
+  background-color: #e1eef1;
+  padding: 0.5em;
+  margin: 2em 0 1em 0;
+  text-align: left;
+  padding-left: 2em;
+}
+
+.example p {
+  margin: 0;
+}
+
+.example .example-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-left: -1.5em;
+}
+
+.example .Sourcecode {
+  background: none;
+}
+
+
+/* Tables */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-weight: 300;
+  margin: 1em 0 2em 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 2em;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  font-size: 0.95em;
+}
+
+td,
+th {
+  padding: 1em;
+}
+
+td.header {
+  font-weight: 400;
+}
+
+p.TableTitle {
+  text-align: center;
+  margin-top: 2.5em;
+  font-weight: 400;
+}
+
+
+/* Footnotes */
+
+a.footnote-number {
+  vertical-align: super;
+  font-size: 0.8em;
+}
+
+.footnote {
+  font-size: 0.9em;
+}
+
+
+/* Blockquotes */
+
+.Quote {
+  background-color: #f7f7f7;
+  font-style: italic;
+  width: 80%;
+  padding: 1.5em;
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.QuoteAttribution {
+  text-align: right;
+}
+
+
+/* Formulas */
+
+.formula,
+.Formula {
+  background-color: #f7f7f7;
+  padding: 1.5em;
+  margin-top: 2em;
+  text-align: center;
+}
+
+
+/* Contact Info */
+
+.contact-info {
+  background-color: #f7f7f7;
+  padding: 1em;
+  margin-top: 2em;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.contact-info p,
+.contact-info a {
+  font-family: $monospacefont;
+  font-variant-ligatures: none;
+  font-weight: 400;
+  line-height: 1.3em;
+  font-size: 1em;
+  margin: 0;
+}
+
+.contact-info .name {
+  font-weight: 700;
+}
+
+
+/* Keywords */
+
+span.keyword {
+  font-weight: 600;
+}
+
+
+/* Paragraphs */
+
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+/* Admonitions */
+
+.Admonition,
+.admonition {
+  background-color: #ffb3b3;
+
+  /* color: #47430c;*/
+  padding: 0.5em;
+  margin: 1.5em 0 1.5em 0;
+  text-align: left;
+}
+
+.Admonition p,
+.admonition p {
+  margin: 0;
+}

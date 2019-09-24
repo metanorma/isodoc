@@ -1,0 +1,49 @@
+@page {
+  margin: 2cm 1cm 2cm 1cm;
+}
+
+@media print {
+  h1,
+  .title-section1 {
+    page-break-before: always;
+  }
+
+  #toggle,
+  .document-stage-band,
+  .document-type-band,
+  #myBtn {
+    display: none;
+  }
+
+  .container {
+    padding-left: 0;
+  }
+
+  nav {
+    position: relative;
+    width: auto;
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0;
+    margin-right: 0;
+    background-color: white;
+  }
+
+  #toc .toc-active a {
+    color: #485094;
+  }
+
+  #toc .toc-active,
+  #toc li:hover {
+    background: white;
+    box-shadow: none !important;
+  }
+
+  #toc li:hover a {
+    color: black;
+  }
+
+  h1.toc-contents {
+    margin-top: 2em;
+  }
+}
