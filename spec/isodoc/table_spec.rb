@@ -6,7 +6,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
-      <table id="tableD-1" alt="tool tip" longdesc="long desc">
+      <table id="tableD-1" alt="tool tip" summary="long desc">
   <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
   <thead>
     <tr>
@@ -142,7 +142,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
-      <table id="tableD-1" alt="tool tip" longdesc="long desc">
+      <table id="tableD-1" alt="tool tip" summary="long desc">
   <name>Repeatability and reproducibility of husked rice yield</name>
   <thead>
     <tr>

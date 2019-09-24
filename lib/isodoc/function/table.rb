@@ -52,10 +52,10 @@ module IsoDoc::Function
     end
 
     def tcaption(node, t)
-      return unless node["longdesc"]
+      return unless node["summary"]
       t.caption do |c|
         c.span **{ style: "display:none" } do |s|
-          s << node["longdesc"]
+          s << node["summary"]
         end
       end
     end
