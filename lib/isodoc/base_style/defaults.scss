@@ -1,0 +1,26 @@
+$bigscreenBreakpoint: 768px !default;
+
+
+$doctype-colors-list: (
+  standard: #0AC442,
+  directive: #540D6E,
+  guide: #D183C9,
+  specification: #65AFFF,
+  report: #3A405A,
+  amendment: #F26430,
+  corrigendum: #C84630,
+  administrative: #BFAE48,
+  advisory: #BD9391,
+) !default;
+
+
+$docstage-colors-list: (
+  proposal: #39A0ED,
+  working-draft: #2D7393,
+  committee-draft: #2A6B7C,
+  draft-standard: #1C7F7A,
+  final-draft: #53C170,
+  published: #069E2D,
+  withdrawn: #004E64,
+  cancelled: #2E382E,
+) !default;

@@ -1,0 +1,52 @@
+.h2Annex {
+  font-family: $headerfont;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+
+  dt, dd {
+    p {
+      margin-top: 0;
+    }
+  }
+
+  dt {
+    grid-column-start: 1;
+  }
+
+  dd {
+    grid-column-start: 2;
+  }
+}
+
+@mixin bodyStyle1($fontSize, $lineHeight, $colorText, $colorBackground, $fontWeight: 400) {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  color: $colorText;
+  background-color: $colorBackground;
+
+  main {
+    margin: 0 3em 0 6em;
+  }
+}
+
+@mixin rule($thickness, $color, $margin: 2em 0, $clear: false) {
+  width: 100%;
+  height: $thickness;
+  background-color: $color;
+
+  @if $margin {
+    margin: $margin;
+  }
+
+  // Obsolete (?)
+  @if $clear {
+    clear: both;
+  }
+}
