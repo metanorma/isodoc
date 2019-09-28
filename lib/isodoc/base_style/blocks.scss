@@ -6,7 +6,9 @@
   text-align: center;
 }
 
-@mixin blockWithBackground() {
+@mixin monospaceBlockStyle() {
+  font-family: $monospacefont;
+  font-variant-ligatures: none;
 }
 
 @mixin admonitionBlock() {
@@ -23,6 +25,24 @@
     max-width: 100%;
     height: auto;
   }
+
+@mixin sourceBlock($colorBg, $colorFg: null) {
+  @include monospaceBlockStyle();
+
+  .SourceTitle {
+    @include blockTitle();
+  }
+
+  @if $colorFg {
+    color: $colorFg;
+  }
+
+  background-color: $colorBg;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  padding: 1.5em;
+  margin: 2em 0 1em 0;
+  overflow: auto;
 }
 
 @mixin exampleBlock($colorBg, $colorText, $padding: .5em, $offsetContent: 1.5em) {
