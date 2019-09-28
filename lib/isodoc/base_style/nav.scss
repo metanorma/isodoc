@@ -1,6 +1,6 @@
 @import 'defaults';
 
-@mixin toc($colorLink) {
+@mixin toc($colorLink, $colorLinkActiveBg, $colorLinkActiveFg) {
   ul {
     margin: 0;
     padding: 0;
@@ -17,7 +17,7 @@
 
       &:hover {
         box-shadow: none;
-        color: white;
+        color: $colorLinkActiveFg;
       }
     }
   }
@@ -31,19 +31,33 @@
   }
 
   .toc-active, li:hover {
-    background: #1d1d1d;
-    box-shadow: inset -5px 0px 10px -5px #1d1d1d !important;
+    background: $colorLinkActiveBg;
+    box-shadow: inset -5px 0px 10px -5px $colorLinkActiveBg !important;
 
     a {
-      color: white;
+      color: $colorLinkActiveFg;
     }
   }
 
-  .toc-active, li:hover {
+  @media print {
+    .toc-active, li:hover {
+      background: white;
+      box-shadow: none !important;
+    }
+
+    .toc-active a {
+      color: $colorLink;
+    }
+
+    li:hover a {
+      color: black;
+    }
   }
 }
 
 @mixin sidebarNavContainer($offset) {
+  // Expected to be applied to body.
+
   @media screen and (min-width: $bigscreenBreakpoint) {
     padding-left: $offset;
   }
