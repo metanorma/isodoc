@@ -61,6 +61,9 @@
   @include docBand();
   top: $vOffset;
   z-index: 99;
+  @media print {
+    display: none;
+  }
 }
 
 

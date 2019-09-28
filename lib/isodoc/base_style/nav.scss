@@ -47,6 +47,10 @@
   @media screen and (min-width: $bigscreenBreakpoint) {
     padding-left: $offset;
   }
+
+  @media print {
+    padding-left: 0;
+  }
 }
 
 @mixin sidebarToc($font: $bodyfont, $fontWeight: 400) {
@@ -80,6 +84,16 @@
       line-height: $lineHeight;
     }
   }
+
+  @media print {
+    position: relative;
+    width: auto;
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0;
+    margin-right: 0;
+    background-color: white;
+  }
 }
 
 @mixin sidebarNavToggle($colorFg: white, $colorBg: black) {
@@ -101,7 +115,11 @@
     }
   }
 
-  @media screeen and (max-width: $bigscreenBreakpoint) {
+  @media screen and (max-width: $bigscreenBreakpoint) {
+    display: none;
+  }
+
+  @media print {
     display: none;
   }
 }
