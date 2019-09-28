@@ -36,6 +36,23 @@ dl {
   }
 }
 
+@mixin elementStyles($color, $colorHighlightBg, $colorHighlightFg) {
+  a, a:visited {
+    text-decoration: none;
+    color: $color;
+  }
+  a:hover {
+    color: $colorHighlightFg;
+    background: $colorHighlightBg;
+    box-shadow: 3px 0 0 $colorHighlightBg, -3px 0 0 $colorHighlightBg;
+  }
+  ::selection,
+  ::-moz-selection {
+    background: $colorHighlightBg;
+    color: $colorHighlightFg;
+  }
+}
+
 @mixin rule($thickness, $color, $margin: 2em 0, $clear: false) {
   width: 100%;
   height: $thickness;
@@ -48,5 +65,25 @@ dl {
   // Obsolete (?)
   @if $clear {
     clear: both;
+  }
+}
+
+@mixin table($border: none) {
+  width: 100%;
+  font-weight: 300;
+  margin: 1em 0 2em 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 2em;
+
+  &, th, td {
+    border: $border;
+    font-size: 0.95em;
+  }
+  th, td {
+    padding: 1em;
+  }
+  td.header {
+    font-weigth: 400;
   }
 }
