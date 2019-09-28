@@ -53,3 +53,10 @@
     }
   }
 }
+
+@mixin formulaBlock($colorBg) {
+  background-color: $colorBg;
+  padding: 1.5em;
+  margin-top: 2em;
+  text-align: center;
+}
