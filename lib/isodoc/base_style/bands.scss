@@ -48,19 +48,7 @@
   > :first-child {
     @include docBandTitle($textLength, $fontWeight, $fontFamily);
   }
-}
 
-
-@mixin docBandBase() {
-  @include docBand();
-  z-index: 98;
-}
-
-
-@mixin docBand($vOffset: 0) {
-  @include docBand();
-  top: $vOffset;
-  z-index: 99;
   @media print {
     display: none;
   }
