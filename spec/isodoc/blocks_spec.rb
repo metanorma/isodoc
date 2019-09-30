@@ -349,6 +349,7 @@ B</pre>
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <example id="samplecode">
+    <name>Title</name>
   <p>Hello</p>
 </example>
     </foreword></preface>
@@ -359,7 +360,7 @@ B</pre>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="samplecode" class="example">
-                 <p class="example-title">EXAMPLE</p>
+                 <p class="example-title">EXAMPLE&#160;&#8212; Title</p>
          <p>Hello</p>
                  </div>
                </div>
@@ -379,6 +380,7 @@ B</pre>
   <p>Hello</p>
 </example>
     <example id="samplecode2">
+    <name>Title</name>
   <p>Hello</p>
 </example>
     <example id="samplecode3" unnumbered="true">
@@ -396,7 +398,7 @@ B</pre>
          <p>Hello</p>
                  </div>
                  <div id="samplecode2" class="example">
-                 <p class="example-title">EXAMPLE  2</p>
+                 <p class="example-title">EXAMPLE  2&#160;&#8212; Title</p>
                  <p>Hello</p>
                  </div>
                  <div id="samplecode3" class="example">
