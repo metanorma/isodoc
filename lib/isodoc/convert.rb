@@ -125,6 +125,9 @@ module IsoDoc
       stylesheet = File.read(filename, encoding: "UTF-8")
       stylesheet = populate_template(stylesheet, :word)
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
+      SassC.load_paths << File.join(Gem.loaded_specs['isodoc'].full_gem_path,
+                                    "lib", "isodoc")
+      SassC.load_paths << File.dirname(filename)
       engine = SassC::Engine.new(fontheader + stylesheet, syntax: :scss)
       outname = File.basename(filename, ".*") + ".css"
       File.open(outname, "w:UTF-8") { |f| f.write(engine.render) }

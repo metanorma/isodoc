@@ -1,0 +1,92 @@
+@import 'defaults';
+
+@mixin blockTitle() {
+  font-weight: 700;
+  font-size: 1em;
+  text-align: center;
+}
+
+@mixin monospaceBlockStyle() {
+  font-family: $monospacefont;
+  font-variant-ligatures: none;
+}
+
+@mixin admonitionBlock() {
+  .AdmonitionTitle {
+    @include blockTitle();
+  }
+}
+
+@mixin figureBlock() {
+  .FigureTitle, .figure-title {
+    @include blockTitle();
+  }
+
+  > img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  line-height: 1.6em;
+  padding: 1.5em;
+  margin: 2em 0 1em 0;
+  overflow: auto;
+}
+
+@mixin sourceBlock($colorBg, $colorFg: null) {
+  @include monospaceBlockStyle();
+
+  .SourceTitle {
+    @include blockTitle();
+  }
+
+  @if $colorFg {
+    color: $colorFg;
+  }
+
+  background-color: $colorBg;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  padding: 1.5em;
+  margin: 2em 0 1em 0;
+  overflow: auto;
+}
+
+@mixin exampleBlock($colorBg, $colorText, $padding: .5em, $offsetContent: 1.5em) {
+  background-color: $colorBg;
+
+  padding: $padding;
+  margin: 2em 0 1em 0;
+  text-align: left;
+
+  p {
+    margin: 0;
+  }
+
+  @if $colorText {
+    color: #424242;
+  }
+
+  @if $offsetContent {
+    padding-left: $padding + $offsetContent;
+  }
+
+  .example-title {
+    font-weight: 700;
+    text-transform: uppercase;
+
+    @if $offsetContent {
+      margin-left: -$offsetContent;
+    }
+  }
+}
+
+@mixin formulaBlock($colorBg) {
+  background-color: $colorBg;
+  padding: 1.5em;
+  margin-top: 2em;
+  text-align: center;
+}

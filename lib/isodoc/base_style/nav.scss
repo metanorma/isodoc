@@ -1,0 +1,180 @@
+@import 'defaults';
+
+@mixin toc($colorLink, $colorLinkActiveBg, $colorLinkActiveFg) {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li a {
+      padding: 5px 10px;
+    }
+
+    a {
+      color: $colorLink;
+      text-decoration: none;
+      display: block;
+
+      &:hover {
+        box-shadow: none;
+        color: $colorLinkActiveFg;
+      }
+    }
+  }
+
+  .h2 {
+    padding-left: 30px;
+  }
+
+  .h3 {
+    padding-left: 50px;
+  }
+
+  .toc-active, li:hover {
+    background: $colorLinkActiveBg;
+    box-shadow: inset -5px 0px 10px -5px $colorLinkActiveBg !important;
+
+    a {
+      color: $colorLinkActiveFg;
+    }
+  }
+
+  @media print {
+    .toc-active, li:hover {
+      background: white;
+      box-shadow: none !important;
+    }
+
+    .toc-active a {
+      color: $colorLink;
+    }
+
+    li:hover a {
+      color: black;
+    }
+  }
+}
+
+@mixin sidebarNavContainer($offset) {
+  // Expected to be applied to body.
+
+  @media screen and (min-width: $bigscreenBreakpoint) {
+    padding-left: $offset;
+  }
+
+  @media print {
+    padding-left: 0;
+  }
+}
+
+@mixin sidebarToc($font: $bodyfont, $fontWeight: 400) {
+  font-family: $font;
+  font-weight: $fontWeight;
+
+  @media screen and (max-width: $bigscreenBreakpoint) {
+    padding: 0 1.5em;
+    overflow: visible;
+  }
+}
+
+@mixin sidebarNav(
+    $colorBg,
+    $width,
+    $offsetLeft,
+    $lineHeight: null) {
+
+  @media screen and (min-width: $bigscreenBreakpoint) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: $width;
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0 0 0 $offsetLeft;
+    background-color: $colorBg;
+
+    @if $lineHeight != null {
+      line-height: $lineHeight;
+    }
+  }
+
+  @media print {
+    position: relative;
+    width: auto;
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0;
+    margin-right: 0;
+    background-color: white;
+  }
+}
+
+@mixin sidebarNavToggle($colorFg: white, $colorBg: black) {
+  @media screen and (min-width: $bigscreenBreakpoint) {
+    position: fixed;
+    height: 100%;
+    width: 30px;
+    background-color: $colorBg;
+    color: $colorFg !important;
+    cursor: pointer;
+    z-index: 100;
+
+    span {
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+
+  @media screen and (max-width: $bigscreenBreakpoint) {
+    display: none;
+  }
+
+  @media print {
+    display: none;
+  }
+}
+
+@mixin tocSeparator {
+  @media screen and (min-width: $bigscreenBreakpoint) {
+    display: none;
+  }
+}
+
+@mixin toTopBtn($color, $colorBg) {
+  font-family: $monospacefont;
+  font-variant-ligatures: none;
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color: $colorBg;
+  opacity: 0.15;
+  color: $color;
+  cursor: pointer;
+  padding: 10px 15px 10px 15px;
+  border-radius: 4px;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @media print {
+    display: none;
+  }
+}
+
+@mixin anchorLink($color) {
+  &:hover {
+    background: none;
+    color: $color;
+    box-shadow: none;
+  }
+}

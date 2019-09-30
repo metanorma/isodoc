@@ -1,0 +1,89 @@
+.h2Annex {
+  font-family: $headerfont;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+
+  dt, dd {
+    p {
+      margin-top: 0;
+    }
+  }
+
+  dt {
+    grid-column-start: 1;
+  }
+
+  dd {
+    grid-column-start: 2;
+  }
+}
+
+@mixin bodyStyle1($fontSize, $lineHeight, $colorText, $colorBackground, $fontWeight: 400) {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  color: $colorText;
+  background-color: $colorBackground;
+
+  main {
+    margin: 0 3em 0 6em;
+  }
+}
+
+@mixin elementStyles($color, $colorHighlightBg, $colorHighlightFg) {
+  a, a:visited {
+    text-decoration: none;
+    color: $color;
+  }
+  a:hover {
+    color: $colorHighlightFg;
+    background: $colorHighlightBg;
+    box-shadow: 3px 0 0 $colorHighlightBg, -3px 0 0 $colorHighlightBg;
+  }
+  ::selection,
+  ::-moz-selection {
+    background: $colorHighlightBg;
+    color: $colorHighlightFg;
+  }
+}
+
+@mixin rule($thickness, $color, $margin: 2em 0, $clear: false) {
+  width: 100%;
+  height: $thickness;
+  background-color: $color;
+
+  @if $margin {
+    margin: $margin;
+  }
+
+  // Obsolete (?)
+  @if $clear {
+    clear: both;
+  }
+}
+
+@mixin table($border: none) {
+  width: 100%;
+  font-weight: 300;
+  margin: 1em 0 2em 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 2em;
+
+  &, th, td {
+    border: $border;
+    font-size: 0.95em;
+  }
+  th, td {
+    padding: 1em;
+  }
+  td.header {
+    font-weigth: 400;
+  }
+}
