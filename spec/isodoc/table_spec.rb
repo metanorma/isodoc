@@ -142,6 +142,9 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
+      <table id="tableD-0">
+      <tbody><tr><td>A</td></tr></tbody>
+      </table>
       <table id="tableD-1" alt="tool tip" summary="long desc">
   <name>Repeatability and reproducibility of husked rice yield</name>
   <thead>
@@ -206,8 +209,18 @@ RSpec.describe IsoDoc do
                <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p class="TableTitle" style="text-align:center;">Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p>
+                 <p class="TableTitle" style="text-align:center;">Table 1</p>
                  <div align="center">
+                 <table id="tableD-0" class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                   <tbody>
+                     <tr>
+                       <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">A</td>
+                     </tr>
+                   </tbody>
+                 </table>
+                 </div>
+                 <p class="TableTitle" style="text-align:center;">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p>
+                  <div align="center">
                  <table id="tableD-1" class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;" title="tool tip" summary="long desc">
                    <thead>
                      <tr>
