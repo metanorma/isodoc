@@ -173,7 +173,9 @@ module IsoDoc::Function
     def bibliography_parse(node, out)
       title = node&.at(ns("./title"))&.text || ""
       out.div do |div|
-        div.h2 title, **{ class: "Section3" }
+        anchor(node['id'], :label, false) and
+          clause_parse_title(node, div, node.at(ns("./title")), out) or
+          div.h2 title, **{ class: "Section3" }
         node.elements.reject do |e|
           ["reference", "title", "bibitem"].include? e.name
         end.each { |e| parse(e, div) }
