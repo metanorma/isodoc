@@ -84,6 +84,7 @@ RSpec.describe IsoDoc do
          <clause id="Q1" inline-header="false" obligation="normative">
          <title>Annex A.1a</title>
          </clause>
+         <references id="Q2"><title>Annex Bibliography</title></references>
        </clause>
        </annex><bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
@@ -160,6 +161,7 @@ RSpec.describe IsoDoc do
            <div id="Q1">
            <h3>A.1.1. Annex A.1a</h3>
            </div>
+           <div><h3>A.1.2. Annex Bibliography</h3></div>
          </div>
 
                 </div>
