@@ -13,8 +13,7 @@ module IsoDoc::Function
       list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
         id = bibitem_ref_code(b)
         identifier = render_identifier(id)
-        if bibliography
-          ref_entry_code(r, ordinal, identifier, id)
+        if bibliography then ref_entry_code(r, ordinal, identifier, id)
         else
           r << "#{identifier}, "
         end
@@ -48,8 +47,10 @@ module IsoDoc::Function
     end
 
     def bibitem_ref_code(b)
-      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or @type = 'ISBN')]"))
-      id ||= b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'ISSN' or @type = 'ISBN')]"))
+      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
+                   "or @type = 'ISSN' or @type = 'ISBN')]"))
+      id ||= b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'ISSN' or "\
+                     "@type = 'ISBN')]"))
       id ||= b.at(ns("./docidentifier")) 
       return id if id
       id = Nokogiri::XML::Node.new("docidentifier", b.document)
@@ -122,19 +123,22 @@ module IsoDoc::Function
     def is_standard(b)
       ret = false
       b.xpath(ns("./docidentifier")).each do |id|
-        next if id["type"].nil? || %w(metanorma DOI ISSN ISBN).include?(id["type"])
+        next if id["type"].nil? ||
+          %w(metanorma DOI ISSN ISBN).include?(id["type"])
         ret = true
       end
       ret
     end
 
-    def biblio_list(f, div, bibliography)
-      f.xpath(ns("./bibitem")).each_with_index do |b, i|
+    def biblio_list(f, div, biblio)
+      i = 0
+      f.xpath(ns("./bibitem | ./note")).each do |b|
         next if implicit_reference(b)
-        if(is_standard(b))
-          std_bibitem_entry(div, b, i + 1, bibliography)
+        i += 1 if b.name == "bibitem"
+        if b.name == "note" then note_parse(b, div)
+        elsif(is_standard(b)) then std_bibitem_entry(div, b, i, biblio)
         else
-          nonstd_bibitem(div, b, i + 1, bibliography)
+          nonstd_bibitem(div, b, i, biblio)
         end
       end
     end
@@ -147,7 +151,7 @@ module IsoDoc::Function
         num = num + 1
         clause_name(num, @normref_lbl, div, nil)
         f.elements.reject do |e|
-          ["reference", "title", "bibitem"].include? e.name
+          %w(reference title bibitem note).include? e.name
         end.each { |e| parse(e, div) }
         biblio_list(f, div, false)
       end
@@ -157,14 +161,13 @@ module IsoDoc::Function
     BIBLIOGRAPHY_XPATH = "//bibliography/clause[title = 'Bibliography'] | "\
       "//bibliography/references[title = 'Bibliography']".freeze
 
-
     def bibliography(isoxml, out)
       f = isoxml.at(ns(BIBLIOGRAPHY_XPATH)) || return
       page_break(out)
       out.div do |div|
         div.h1 @bibliography_lbl, **{ class: "Section3" }
         f.elements.reject do |e|
-          ["reference", "title", "bibitem"].include? e.name
+          %w(reference title bibitem note).include? e.name
         end.each { |e| parse(e, div) }
         biblio_list(f, div, true)
       end
@@ -177,24 +180,17 @@ module IsoDoc::Function
           clause_parse_title(node, div, node.at(ns("./title")), out) or
           div.h2 title, **{ class: "Section3" }
         node.elements.reject do |e|
-          ["reference", "title", "bibitem"].include? e.name
+          %w(reference title bibitem note).include? e.name
         end.each { |e| parse(e, div) }
         biblio_list(node, div, true)
       end
     end
 
     def format_ref(ref, prefix, isopub, date, allparts)
-      if isopub
-        #if date
-        #on = date.at(ns("./on"))
-        #ref += on&.text == "--" ? ":--" : "" # ":#{date_range(date)}"
-        #ref += " (all parts)" if allparts
-        # ref = docid_prefix(prefix, ref)
-        #end
-      end
       ref = docid_prefix(prefix, ref)
-      return "[#{ref}]" if /^\d+$/.match(ref) && !prefix && !/^\[.*\]$/.match(ref)
-      ref
+      return "[#{ref}]" if /^\d+$/.match(ref) && !prefix &&
+        !/^\[.*\]$/.match(ref)
+        ref
     end
 
     def reference_names(ref)
@@ -203,7 +199,8 @@ module IsoDoc::Function
       prefix = docid["type"]
       date = ref.at(ns("./date[@type = 'published']"))
       allparts = ref.at(ns("./extent[@type='part'][referenceFrom='all']"))
-      reference = format_ref(docid_l10n(docid.text), prefix, isopub, date, allparts)
+      reference = format_ref(docid_l10n(docid.text), prefix, isopub, date,
+                             allparts)
       @anchors[ref["id"]] = { xref: reference }
     end
 
