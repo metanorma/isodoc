@@ -3,7 +3,7 @@
   width: 25px;
 
   @if $fontFamily {
-    font-family: $fontFamily;
+    font-family: unquote($fontFamily);
   }
 
   font-weight: $fontWeight;
