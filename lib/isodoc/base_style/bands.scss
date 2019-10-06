@@ -1,15 +1,15 @@
-@mixin docBandTitle($length, $fontWeight: 400, $fontFamily: null) {
+@mixin docBandTitle($length, $fontWeight: 400, $fontFamily: null, $color: white) {
   position: relative;
   width: 25px;
 
   @if $fontFamily {
-    font-family: $fontFamily;
+    font-family: unquote($fontFamily);
   }
 
   font-weight: $fontWeight;
   height: $length;
 
-  color: white;
+  color: $color;
   text-transform: uppercase;
   font-size: 0.9em;
   font-weight: 400;
@@ -30,6 +30,7 @@
     $order,
     $textLength,
     $offset: 0,
+	$color: white,
     $fontWeight: 400,
     $fontFamily: null) {
 
@@ -46,7 +47,7 @@
   }
 
   > :first-child {
-    @include docBandTitle($textLength, $fontWeight, $fontFamily);
+    @include docBandTitle($textLength, $fontWeight, $fontFamily, $color);
   }
 
   @media print {
