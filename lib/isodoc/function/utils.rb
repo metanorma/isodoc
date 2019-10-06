@@ -40,12 +40,16 @@ module IsoDoc::Function
       end.to_h
     end
 
+    DOCTYPE_HDR = '<!DOCTYPE html SYSTEM
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.freeze
+
     def to_xhtml(xml)
       xml.gsub!(/<\?xml[^>]*>/, "")
-      unless /<!DOCTYPE /.match xml
-        xml = '<!DOCTYPE html SYSTEM
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' + xml
-      end
+      /<!DOCTYPE /.match xml or xml = DOCTYPE_HDR + xml
+      xml = xml.split(/(\&[^ \r\n\t#;]+;)/).map do |t|
+        /^(\&[^ \t\r\n#;]+;)/.match(t) ? 
+          HTMLEntities.new.encode(HTMLEntities.new.decode(t), :hexadecimal) : t
+      end.join("")
       Nokogiri::XML.parse(xml)
     end
 
@@ -85,11 +89,11 @@ module IsoDoc::Function
 
     def sentence_join(array)
       return "" if array.nil? || array.empty?
-      if array.length == 1
-        array[0]
+      if array.length == 1 then array[0]
       else
-        IsoDoc::Function::I18n::l10n("#{array[0..-2].join(', ')} #{@and_lbl} #{array.last}",
-                                    @lang, @script)
+        IsoDoc::Function::I18n::l10n("#{array[0..-2].join(', ')} "\
+                                     "#{@and_lbl} #{array.last}",
+                                     @lang, @script)
       end
     end
 
