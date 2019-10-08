@@ -213,6 +213,7 @@ module IsoDoc::WordFunction
     def image_parse(node, out, caption)
       attrs = { src: imgsrc(node["src"]),
                 height: node["height"],
+                alt: node["alt"],
                 width: node["width"] }
       if node["height"] == "auto" || node["width"] == "auto"
         attrs[:height] = nil
