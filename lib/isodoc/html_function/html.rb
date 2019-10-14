@@ -68,7 +68,7 @@ module IsoDoc::HtmlFunction
           asciimath2jax: { delimiters: [['OPEN', 'CLOSE']] }
        });
       </script>
-      <script src="#{MATHJAX_ADDR}?config=AM_HTMLorMML" async="async"></script>
+      <script src="#{MATHJAX_ADDR}?config=MML_HTMLorMML-full" async="async"></script>
     MATHJAX
 
     def mathjax(open, close)
