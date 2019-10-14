@@ -271,6 +271,7 @@ module IsoDoc::Function
       attrs = { src: node["src"],
                 height: node["height"] || "auto",
                 width: node["width"] || "auto",
+                title: node["title"],
                 alt: node["alt"]  }
       out.img **attr_code(attrs)
       image_title_parse(out, caption)

@@ -228,7 +228,7 @@ INPUT
     <preface><foreword>
     <figure id="figureA-1">
   <name>Split-it-right <em>sample</em> divider</name>
-  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext"/>
+  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
   <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
   <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f2" mimetype="image/png"/>
   <fn reference="a">
@@ -256,7 +256,7 @@ B</pre>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div id="figureA-1" class="figure">
 
-         <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext"/>
+         <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletxt"/>
          <img src="rice_images/rice_image1.png" height="20" width="auto"/>
          <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto"/>
          <a href="#_" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:_"><a id="_" class="TableFootnoteRef">a&#160; </a>
@@ -288,7 +288,7 @@ B</pre>
     <preface><foreword>
     <figure id="figureA-1">
   <name>Split-it-right sample divider</name>
-  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletext"/>
   <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   <fn reference="a">
@@ -319,7 +319,7 @@ B</pre>
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="figureA-1" class="figure">
 
-         <img src="rice_images/rice_image1.png" height="20" width="30"/>
+         <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletext"/>
          <img src="rice_images/rice_image1.png"/>
          <img src="test_images/_.gif"/>
          <a href="#_" class="TableFootnoteRef">a</a><aside><div id="ftn_"><a id="_" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
