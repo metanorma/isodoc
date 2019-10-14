@@ -214,6 +214,7 @@ module IsoDoc::WordFunction
       attrs = { src: imgsrc(node["src"]),
                 height: node["height"],
                 alt: node["alt"],
+                title: node["title"],
                 width: node["width"] }
       if node["height"] == "auto" || node["width"] == "auto"
         attrs[:height] = nil
