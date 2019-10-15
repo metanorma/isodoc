@@ -143,7 +143,7 @@ RSpec.describe IsoDoc do
            asciimath2jax: { delimiters: [['(#(', ')#)']] }
         });
        </script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=AM_HTMLorMML" async="async"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=MML_HTMLorMML-full" async="async"></script>
        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script></body>
     OUTPUT
   end
