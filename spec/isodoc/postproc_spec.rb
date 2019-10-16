@@ -891,5 +891,39 @@ TOCLEVEL
     OUTPUT
   end
 
+  it "deals with image captions (Word)" do 
+FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+<figure id="fig1">
+  <name>Typical arrangement of the far-field scan set-up</name>
+  <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
+  </figure>
+   </foreword></preface>
+    </iso-standard>
+    INPUT
+    word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "").
+      sub(/src="[^"]+"/, 'src="_"')
+    expect(word).to be_equivalent_to <<~"OUTPUT"
+    <div class="WordSection2">
+             <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div class="figure"><a name="fig1" id="fig1"></a>
+
+         <p style="text-align:center;page-break-after:avoid;" class="MsoNormal"><img src="_" width="400" height="337"/></p>
+         <p class="FigureTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Typical arrangement of the far-field scan set-up</p></div>
+             </div>
+             <p class="MsoNormal">&#xA0;</p>
+           </div>
+    OUTPUT
+
+  end
+
 
 end
