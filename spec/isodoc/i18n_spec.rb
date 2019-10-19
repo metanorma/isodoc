@@ -89,11 +89,11 @@ RSpec.describe IsoDoc do
                </div>
                <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
        <div id="I">
-          <h2>3.1. Normal Terms</h2>
+          <h2>3.1.&#160; Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
+        </div><div id="K"><h2>3.2.&#160; Symbols and abbreviated terms</h2>
           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
         </div></div>
                <div id="L" class="Symbols">
@@ -108,19 +108,19 @@ RSpec.describe IsoDoc do
                <div id="M">
                  <h1>5.&#160; Clause 4</h1>
                  <div id="N">
-          <h2>5.1. Introduction</h2>
+          <h2>5.1.&#160; Introduction</h2>
         </div>
                  <div id="O">
-          <h2>5.2. Clause 4.2</h2>
+          <h2>5.2.&#160; Clause 4.2</h2>
         </div>
                </div>
                <br/>
                <div id="P" class="Section3">
                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                  <div id="Q">
-          <h2>A.1. Annex A.1</h2>
+          <h2>A.1.&#160; Annex A.1</h2>
           <div id="Q1">
-          <h3>A.1.1. Annex A.1a</h3>
+          <h3>A.1.1.&#160; Annex A.1a</h3>
           </div>
         </div>
                </div>
@@ -225,11 +225,11 @@ RSpec.describe IsoDoc do
                </div>
                <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
        <div id="I">
-          <h2>3.1. Normal Terms</h2>
+          <h2>3.1.&#160; Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
+        </div><div id="K"><h2>3.2.&#160; Symbols and abbreviated terms</h2>
           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
         </div></div>
                <div id="L" class="Symbols">
@@ -244,19 +244,19 @@ RSpec.describe IsoDoc do
                <div id="M">
                  <h1>5.&#160; Clause 4</h1>
                  <div id="N">
-          <h2>5.1. Introduction</h2>
+          <h2>5.1.&#160; Introduction</h2>
         </div>
                  <div id="O">
-          <h2>5.2. Clause 4.2</h2>
+          <h2>5.2.&#160; Clause 4.2</h2>
         </div>
                </div>
                <br/>
                <div id="P" class="Section3">
                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                  <div id="Q">
-          <h2>A.1. Annex A.1</h2>
+          <h2>A.1.&#160; Annex A.1</h2>
           <div id="Q1">
-          <h3>A.1.1. Annex A.1a</h3>
+          <h3>A.1.1.&#160; Annex A.1a</h3>
           </div>
         </div>
                </div>
@@ -361,11 +361,11 @@ RSpec.describe IsoDoc do
                </div>
                <div id="H"><h1>3.&#160; Terms, d&#233;finitions, symboles et termes abr&#233;g&#233;s</h1>
        <div id="I">
-          <h2>3.1. Normal Terms</h2>
+          <h2>3.1.&#160; Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symboles et termes abr&#233;g&#233;s</h2>
+        </div><div id="K"><h2>3.2.&#160; Symboles et termes abr&#233;g&#233;s</h2>
           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
         </div></div>
                <div id="L" class="Symbols">
@@ -380,19 +380,19 @@ RSpec.describe IsoDoc do
                <div id="M">
                  <h1>5.&#160; Clause 4</h1>
                  <div id="N">
-          <h2>5.1. Introduction</h2>
+          <h2>5.1.&#160; Introduction</h2>
         </div>
                  <div id="O">
-          <h2>5.2. Clause 4.2</h2>
+          <h2>5.2.&#160; Clause 4.2</h2>
         </div>
                </div>
                <br/>
                <div id="P" class="Section3">
                  <h1 class="Annex"><b>Annexe A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                  <div id="Q">
-          <h2>A.1. Annex A.1</h2>
+          <h2>A.1.&#160; Annex A.1</h2>
           <div id="Q1">
-          <h3>A.1.1. Annex A.1a</h3>
+          <h3>A.1.1.&#160; Annex A.1a</h3>
           </div>
         </div>
                </div>
@@ -511,11 +511,11 @@ RSpec.describe IsoDoc do
                </div>
                <div id="H"><h1>3.&#160; &#26415;&#35821;&#12289;&#23450;&#20041;&#12289;&#31526;&#21495;&#12289;&#20195;&#21495;&#21644;&#32553;&#30053;&#35821;</h1>
        <div id="I">
-                <h2>3.1. Normal Terms</h2>
+                <h2>3.1.&#160; Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;">Term2</p>
 
-              </div><div id="K"><h2>3.2. &#31526;&#21495;&#12289;&#20195;&#21495;&#21644;&#32553;&#30053;&#35821;</h2>
+              </div><div id="K"><h2>3.2.&#160; &#31526;&#21495;&#12289;&#20195;&#21495;&#21644;&#32553;&#30053;&#35821;</h2>
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
               </div></div>
                <div id="L" class="Symbols">
@@ -530,19 +530,19 @@ RSpec.describe IsoDoc do
                <div id="M">
                  <h1>5.&#160; Clause 4</h1>
                  <div id="N">
-                <h2>5.1. Introduction</h2>
+                <h2>5.1.&#160; Introduction</h2>
               </div>
                  <div id="O">
-                <h2>5.2. Clause 4.2</h2>
+                <h2>5.2.&#160; Clause 4.2</h2>
               </div>
                </div>
                <br/>
                <div id="P" class="Section3">
                  <h1 class="Annex">&#38468;&#20214;A<br/>&#65288;&#35268;&#33539;&#24615;&#38468;&#24405;&#65289;<br/><br/><b>Annex</b></h1>
                  <div id="Q">
-                <h2>A.1. Annex A.1</h2>
+                <h2>A.1.&#160; Annex A.1</h2>
                 <div id="Q1">
-                <h3>A.1.1. Annex A.1a</h3>
+                <h3>A.1.1.&#160; Annex A.1a</h3>
                 </div>
                 </div>
                </div>
