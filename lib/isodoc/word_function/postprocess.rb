@@ -102,6 +102,11 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
         next unless t&.next_element&.name == "table"
         t.add_next_sibling(EMPTY_PARA)
       end
+      docxml.xpath("//p[@class = 'TableTitle']").each do |t|
+        next unless t.children.empty?
+        t["style"] = t["style"].sub(/;?$/, ";font-size:0pt;")
+        t.children = "&nbsp;"
+      end
     end
 
     def word_annex_cleanup(docxml)
