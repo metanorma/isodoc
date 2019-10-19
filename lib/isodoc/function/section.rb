@@ -4,14 +4,17 @@ module IsoDoc::Function
       "."
     end
 
+    def clausedelimspace(out)
+      insert_tab(out, 1)
+    end
+
     def inline_header_title(out, node, c1)
       title = c1&.content || ""
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
-          #if get_anchors[node['id']][:label] && !@suppressheadingnumbers
           if anchor(node['id'], :label, false) && !@suppressheadingnumbers
-            #b << "#{get_anchors[node['id']][:label]}#{clausedelim} "
-            b << "#{anchor(node['id'], :label)}#{clausedelim} "
+            b << "#{anchor(node['id'], :label)}#{clausedelim}"
+            clausedelimspace(out)
           end
           b << "#{title} "
         end
@@ -22,11 +25,10 @@ module IsoDoc::Function
       if node["inline-header"] == "true"
         inline_header_title(out, node, c1)
       else
-        #div.send "h#{get_anchors[node['id']][:level]}" do |h|
         div.send "h#{anchor(node['id'], :level) || '1'}" do |h|
-          #lbl = get_anchors[node['id']][:label]
           lbl = anchor(node['id'], :label, false)
-          h << "#{lbl}#{clausedelim} " if lbl && !@suppressheadingnumbers
+          h << "#{lbl}#{clausedelim}" if lbl && !@suppressheadingnumbers
+          clausedelimspace(out) if lbl && !@suppressheadingnumbers
           c1&.children&.each { |c2| parse(c2, h) }
         end
       end
@@ -60,7 +62,6 @@ module IsoDoc::Function
     def clause(isoxml, out)
       isoxml.xpath(ns(self.class::MIDDLE_CLAUSE)).each do |c|
         out.div **attr_code(id: c["id"]) do |s|
-          #clause_name(get_anchors[c['id']][:label],
           clause_name(anchor(c['id'], :label),
                       c&.at(ns("./title"))&.content, s, nil)
           c.elements.reject { |c1| c1.name == "title" }.each do |c1|
@@ -72,7 +73,6 @@ module IsoDoc::Function
 
     def annex_name(annex, name, div)
       div.h1 **{ class: "Annex" } do |t|
-        #t << "#{get_anchors[annex['id']][:label]}<br/><br/>"
         t << "#{anchor(annex['id'], :label)}<br/><br/>"
         t.b do |b|
           name&.children&.each { |c2| parse(c2, b) }

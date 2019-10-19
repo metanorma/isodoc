@@ -524,10 +524,10 @@ TOCLEVEL
                </a>
                <div id="N">
 
-                <h2>1.1. Introduction to this<a rel="footnote" href="#fn:2" epub:type="footnote" id="fnref:2"><sup>2</sup></a></h2>
+                <h2>1.1.&#160; Introduction to this<a rel="footnote" href="#fn:2" epub:type="footnote" id="fnref:2"><sup>2</sup></a></h2>
               </div>
                <div id="O">
-                <h2>1.2. Clause 4.2</h2>
+                <h2>1.2.&#160; Clause 4.2</h2>
                 <p>A<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
               </div>
              </div>
