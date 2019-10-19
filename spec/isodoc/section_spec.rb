@@ -125,11 +125,11 @@ RSpec.describe IsoDoc do
                 </div>
                 <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
         <div id="I">
-           <h2>3.1. Normal Terms</h2>
+           <h2>3.1.&#160; Normal Terms</h2>
            <p class="TermNum" id="J">3.1.1.</p>
            <p class="Terms" style="text-align:left;">Term2</p>
       
-         </div><div id="K"><h2>3.2. Definitions</h2>
+         </div><div id="K"><h2>3.2.&#160; Definitions</h2>
            <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
          </div></div>
                 <div id="L" class="Symbols">
@@ -144,24 +144,24 @@ RSpec.describe IsoDoc do
                 <div id="M">
                   <h1>5.&#160; Clause 4</h1>
                   <div id="N">
-           <h2>5.1. Introduction</h2>
+           <h2>5.1.&#160; Introduction</h2>
          </div>
                   <div id="O">
-           <h2>5.2. Clause 4.2</h2>
+           <h2>5.2.&#160; Clause 4.2</h2>
          </div>
                   <div id="O1">
-           <h2>5.3. </h2>
+           <h2>5.3.&#160; </h2>
          </div>
                 </div>
                 <br/>
                 <div id="P" class="Section3">
                   <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                   <div id="Q">
-           <h2>A.1. Annex A.1</h2>
+           <h2>A.1.&#160; Annex A.1</h2>
            <div id="Q1">
-           <h3>A.1.1. Annex A.1a</h3>
+           <h3>A.1.1.&#160; Annex A.1a</h3>
            </div>
-           <div><h3>A.1.2. Annex Bibliography</h3></div>
+           <div><h3>A.1.2.&#160; Annex Bibliography</h3></div>
          </div>
 
                 </div>
@@ -284,11 +284,11 @@ OUTPUT
                </div>
                <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms, definitions, symbols and abbreviated terms</h1>
        <div id="I">
-          <h2>3.1. Normal Terms</h2>
+          <h2>3.1.<span style="mso-tab-count:1">&#160; </span>Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
+        </div><div id="K"><h2>3.2.<span style="mso-tab-count:1">&#160; </span>Symbols and abbreviated terms</h2>
           <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
         </div></div>
                <div id="L" class="Symbols">
@@ -305,22 +305,22 @@ OUTPUT
                <div id="M">
                  <h1>5.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1>
                  <div id="N">
-          <h2>5.1. Introduction</h2>
+          <h2>5.1.<span style="mso-tab-count:1">&#160; </span>Introduction</h2>
         </div>
                  <div id="O">
-          <h2>5.2. Clause 4.2</h2>
+          <h2>5.2.<span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
         </div>
                  <div id="O1">
-          <h2>5.3. </h2>
+          <h2>5.3.<span style="mso-tab-count:1">&#160; </span></h2>
         </div>
                </div>
                <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div id="P" class="Section3">
                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                  <div id="Q">
-          <h2>A.1. Annex A.1</h2>
+          <h2>A.1.<span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
           <div id="Q1">
-          <h3>A.1.1. Annex A.1a</h3>
+          <h3>A.1.1.<span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
           </div>
         </div>
                </div>
@@ -519,10 +519,10 @@ OUTPUT
                <div id="M">
                  <h1>1.&#160; Clause 4</h1>
                  <div id="N">
-          <h2>1.1. Introduction</h2>
+          <h2>1.1.&#160; Introduction</h2>
         </div>
                  <div id="O">
-          <span class="zzMoveToFollowing"><b>1.2. Clause 4.2 </b></span>
+          <span class="zzMoveToFollowing"><b>1.2.&#160; Clause 4.2 </b></span>
         </div>
                </div>
              </div>
@@ -594,9 +594,9 @@ OUTPUT
              <p class="zzSTDTitle1"/>
              <div id="M1">
                <h1>1.&#160; </h1>
-               <div id="N1"><h2>1.1. </h2>
+               <div id="N1"><h2>1.1.&#160;</h2>
         </div>
-               <div id="O1"><span class="zzMoveToFollowing"><b>1.2.  </b></span>
+               <div id="O1"><span class="zzMoveToFollowing"><b>1.2.&#160; </b></span>
         </div>
              </div>
            </div>
