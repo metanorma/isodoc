@@ -925,5 +925,59 @@ FileUtils.rm_f "test.doc"
 
   end
 
+  it "deals with empty table titles (Word)" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+<table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
+      <td rowspan="2" align="left">
+        <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>(</mo><mi>μ</mi><mi>m</mi><mo>)</mo></mrow></math></stem></p>
+      </td>
+      <th colspan="3" align="left">Predictive wavelengths</th>
+    </tr>
+    </thead>
+    </table>
+    </preface>
+    </iso-standard>
+INPUT
+word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "").
+      sub(/src="[^"]+"/, 'src="_"')
+    expect(word).to be_equivalent_to <<~"OUTPUT"
+     <div class="WordSection2">
+             <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p class="TableTitle" style="text-align:center;font-size:0pt;">&#xA0;</p>
+               <div align="center">
+                 <table class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;"><a name="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7"></a>
+                   <thead>
+                     <tr>
+                       <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;">
+               <p class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"></a>Output wavelength <span class="stem"><m:oMath>
+
+           <m:r><m:t>(&#x3BC;m)</m:t></m:r>
+
+
+
+
+       </m:oMath>
+       </span></p>
+             </td>
+                       <th colspan="3" align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Predictive wavelengths</th>
+                     </tr>
+                   </thead>
+                 </table>
+               </div>
+             </div>
+             <p class="MsoNormal">&#xA0;</p>
+           </div>
+    OUTPUT
+  end
+
 
 end
