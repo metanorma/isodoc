@@ -69,7 +69,7 @@ module IsoDoc::Function
 
     def omit_docid_prefix(prefix)
       return true if prefix.nil? || prefix.empty?
-      return ["ISO", "IEC", "metanorma"].include? prefix
+      return %w(ISO IEC ITU metanorma).include? prefix
     end
 
     def date_note_process(b, ref)
