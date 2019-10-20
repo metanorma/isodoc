@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    isodoc (1.0.4)
+    isodoc (1.0.5)
       asciimath
       html2doc (~> 0.8.11)
       htmlentities (~> 4.3.4)
@@ -10,7 +10,7 @@ PATH
       nokogiri (>= 1.10.4)
       rake (~> 12.0)
       roman-numerals
-      sassc (~> 2)
+      sassc (~> 2.2.1)
       thread_safe
       uuidtools
 
@@ -42,7 +42,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    html2doc (0.8.13)
+    html2doc (0.8.14)
       asciimath (~> 1.0.7)
       htmlentities (~> 4.3.4)
       image_size
