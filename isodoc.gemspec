@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "html2doc", "~> 0.8.11"
   spec.add_dependency "liquid"
   spec.add_dependency "roman-numerals"
-  spec.add_dependency "sassc", "~> 2"
+  spec.add_dependency "sassc", "~> 2.2.1"
   spec.add_dependency "metanorma", "~> 0.3.0"
   spec.add_dependency "rake", "~> 12.0"
 
