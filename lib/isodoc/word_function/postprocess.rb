@@ -65,12 +65,14 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def word_image_caption(docxml)
-      docxml.xpath("//p[@class = 'FigureTitle']").each do |t|
+      docxml.xpath("//p[@class = 'FigureTitle' or @class = 'SourceTitle']").each do |t|
         if t.previous_element.name == "img"
           img = t.previous_element
           t.previous_element.swap("<p>#{img.to_xml}</p>")
         end
-        t.previous_element["style"] = t["style"].sub(/;?$/, ";page-break-after:avoid;")
+        t.previous_element["style"] = t.previous_element["style"] ?
+          t.previous_element["style"].sub(/;?$/, ";page-break-after:avoid;") :
+          "page-break-after:avoid;"
       end
     end
 
