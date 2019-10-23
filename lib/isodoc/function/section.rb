@@ -48,7 +48,7 @@ module IsoDoc::Function
       div.h1 **attr_code(header_class) do |h1|
         if num && !@suppressheadingnumbers
           h1 << "#{num}#{clausedelim}"
-          insert_tab(h1, 1)
+          clausedelimspace(h1)
         end
         h1 << title
       end

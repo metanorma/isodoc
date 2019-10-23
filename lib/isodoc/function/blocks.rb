@@ -139,8 +139,8 @@ module IsoDoc::Function
           parse(n, div) unless n.name == "name"
         end
         @sourcecode = false
-        sourcecode_name_parse(node, div, name) if name
       end
+      sourcecode_name_parse(node, out, name) if name
     end
 
     def pre_parse(node, out)

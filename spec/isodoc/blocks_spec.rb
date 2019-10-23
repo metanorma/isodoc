@@ -463,7 +463,7 @@ B</pre>
              </p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" style="text-align:center;">Ruby <i>code</i></p></p>
+                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/></p><p class="SourceTitle" style="text-align:center;">Ruby <i>code</i></p>
                </div>
                   <p>&#160;</p>
  </div>
