@@ -102,7 +102,7 @@ module IsoDoc::Function
     def annex_names(clause, num)
       @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
                                  xref: "#{@annex_lbl} #{num}", level: 1 }
-      clause.xpath(ns("./clause | ./references")).each_with_index do |c, i|
+      clause.xpath(ns("./clause | ./references | ./term  | ./terms | ./definitions")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)
       end
       hierarchical_asset_names(clause, num)
@@ -111,7 +111,7 @@ module IsoDoc::Function
     def annex_names1(clause, num, level)
       @anchors[clause["id"]] = { label: num, xref: "#{@annex_lbl} #{num}",
                                  level: level, type: "clause" }
-      clause.xpath(ns("./clause | ./references")).each_with_index do |c, i|
+      clause.xpath(ns("./clause | ./references | ./term  | ./terms | ./definitions")).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
       end
     end
