@@ -916,7 +916,7 @@ FileUtils.rm_f "test.doc"
                <h1 class="ForewordTitle">Foreword</h1>
                <div class="figure"><a name="fig1" id="fig1"></a>
 
-         <p style="page-break-after:avoid;" class="MsoNormal"><img src="_" width="400" height="337"/></p>
+         <p style="page-break-after:avoid;" class="figure"><img src="_" width="400" height="337"/></p>
          <p class="FigureTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Typical arrangement of the far-field scan set-up</p></div>
              </div>
              <p class="MsoNormal">&#xA0;</p>
