@@ -86,7 +86,7 @@ module IsoDoc::Function
     end
 
     def merge_fnref_into_fn_text(a)
-      fn = a.at('.//a[@class="TableFootnoteRef"]')
+      fn = a.at('.//span[@class="TableFootnoteRef"]')
       n = fn.next_element
       n&.children&.first&.add_previous_sibling(fn.remove)
     end
