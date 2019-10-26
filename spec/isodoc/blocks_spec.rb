@@ -322,7 +322,7 @@ B</pre>
          <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletext"/>
          <img src="rice_images/rice_image1.png"/>
          <img src="test_images/_.gif"/>
-         <a href="#_" class="TableFootnoteRef">a</a><aside><div id="ftn_"><a id="_" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
+         <a href="#_" class="TableFootnoteRef">a</a><aside><div id="ftn_"><span id="_" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></span>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
          <p><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>

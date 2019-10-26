@@ -15,7 +15,7 @@ module IsoDoc::WordFunction
 
     def make_table_footnote_target(out, fnid, fnref)
       attrs = { id: fnid, class: "TableFootnoteRef" }
-      out.a **attrs do |a|
+      out.span **attrs do |a|
         a << fnref
         insert_tab(a, 1)
       end
