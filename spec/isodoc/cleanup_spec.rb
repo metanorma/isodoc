@@ -31,7 +31,7 @@ RSpec.describe IsoDoc do
     <body>
       <div class="figure">
         <p>Warning</p>
-        <a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
+        <a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside>
       </div>
@@ -46,7 +46,7 @@ RSpec.describe IsoDoc do
            <aside><div id="ftntableD-1a">
 
           </div></aside>
-         <p><b/></p><dl><dt><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a></dt><dd><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></dd></dl></div>
+         <p><b/></p><dl><dt><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#xA0; </span></dt><dd><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></dd></dl></div>
        </body>
        </html>
     OUTPUT
@@ -58,7 +58,7 @@ RSpec.describe IsoDoc do
     <body>
       <div class="figure">
         <p>Warning</p>
-        <a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
+        <a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#160; </span></span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside>
       </div>
@@ -73,7 +73,7 @@ RSpec.describe IsoDoc do
            <aside><div id="ftntableD-1a">
 
           </div></aside>
-          <p><b/></p><table class="dl"><tr><td valign="top" align="left"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a></td><td valign="top"><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></td></tr></table></div>
+          <p><b/></p><table class="dl"><tr><td valign="top" align="left"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#xA0; </span></span></td><td valign="top"><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></td></tr></table></div>
        </body>
        </html>
     OUTPUT
@@ -242,7 +242,7 @@ RSpec.describe IsoDoc do
                      </tr>
                      <tr>
                        <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
-                       <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
+                       <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
        <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
@@ -351,7 +351,7 @@ INPUT
                     <tr><td colspan="5" style="border-top:0pt;border-bottom:solid windowtext 1.5pt;"><div id="" class="Note">
                       <p class="Note">NOTE<span style="mso-tab-count:1">&#xA0; </span>This is a table about rice</p>
                     </div><div class="TableFootnote"><div id="ftntableD-1a">
-          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
+          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#xA0; </span>Parboiled rice.</p>
         </div></div></td></tr></tfoot>
                     <dl>
                       <dt>
@@ -399,7 +399,7 @@ INPUT
                      </tr>
                      <tr>
                        <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
-                       <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
+                       <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#160; </span></span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
        <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
@@ -508,7 +508,7 @@ INPUT
                     <tr><td colspan="5" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;"><div id="" class="Note">
                       <p class="Note">NOTE<span style="mso-tab-count:1">&#xA0; </span>This is a table about rice</p>
                     </div><div class="TableFootnote"><div id="ftntableD-1a">
-          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
+          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#xA0; </span></span>Parboiled rice.</p>
         </div></div></td></tr></tfoot>
                     <dl>
                       <dt>
@@ -557,7 +557,7 @@ INPUT
                      </tr>
                      <tr>
                        <td align="left" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Arborio</td>
-                       <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></a>
+                       <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
        <td align="center" style="border-top:none;border-bottom:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
@@ -656,7 +656,7 @@ INPUT
                  <tfoot><tr><td colspan="5" style="border-top:0pt;border-bottom:solid windowtext 1.5pt;"><div id="" class="Note">
                      <p class="Note">NOTE<span style="mso-tab-count:1">&#xA0; </span>This is a table about rice</p>
                    </div><div class="TableFootnote"><div id="ftntableD-1a">
-         <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><a id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#xA0; </span></a>Parboiled rice.</p>
+         <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55" class="TableFootnote"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#xA0; </span>Parboiled rice.</p>
        </div></div></td></tr></tfoot></table>
                </div>
                <p>&#xA0;</p>

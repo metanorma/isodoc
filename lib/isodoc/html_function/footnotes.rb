@@ -15,9 +15,11 @@ module IsoDoc::HtmlFunction
 
     def make_table_footnote_target(out, fnid, fnref)
       attrs = { id: fnid, class: "TableFootnoteRef" }
-      out.a **attrs do |a|
-        a << fnref
-        insert_tab(a, 1)
+      out.span do |s|
+        out.span **attrs do |a|
+          a << fnref
+        end
+        insert_tab(s, 1)
       end
     end
 

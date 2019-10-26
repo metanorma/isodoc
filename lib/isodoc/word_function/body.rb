@@ -153,7 +153,7 @@ module IsoDoc::WordFunction
     def figure_aside_process(f, aside, key)
       # get rid of footnote link, it is in diagram
       f&.at("./a[@class='TableFootnoteRef']")&.remove
-      fnref = f.at(".//a[@class='TableFootnoteRef']")
+      fnref = f.at(".//span[@class='TableFootnoteRef']/..")
       tr = key.add_child("<tr></tr>").first
       dt = tr.add_child("<td valign='top' align='left'></td>").first
       dd = tr.add_child("<td valign='top'></td>").first

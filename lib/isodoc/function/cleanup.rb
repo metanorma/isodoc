@@ -43,7 +43,7 @@ module IsoDoc::Function
     def figure_aside_process(f, aside, key)
       # get rid of footnote link, it is in diagram
       f&.at("./a[@class='TableFootnoteRef']")&.remove
-      fnref = f.at(".//a[@class='TableFootnoteRef']")
+      fnref = f.at(".//span[@class='TableFootnoteRef']/..")
       dt = key.add_child("<dt></dt>").first
       dd = key.add_child("<dd></dd>").first
       fnref.parent = dt
@@ -86,7 +86,7 @@ module IsoDoc::Function
     end
 
     def merge_fnref_into_fn_text(a)
-      fn = a.at('.//span[@class="TableFootnoteRef"]')
+      fn = a.at('.//span[@class="TableFootnoteRef"]/..')
       n = fn.next_element
       n&.children&.first&.add_previous_sibling(fn.remove)
     end

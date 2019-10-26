@@ -79,7 +79,7 @@ RSpec.describe IsoDoc do
                    </tr>
                    <tr>
                      <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Arborio</td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><a id="tableD-1a" class="TableFootnoteRef">a&#160; </a>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
                      <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
@@ -229,7 +229,7 @@ RSpec.describe IsoDoc do
                      </tr>
                      <tr>
                        <td align="left" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Arborio</td>
-                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span id="tableD-1a" class="TableFootnoteRef">a<span style="mso-tab-count:1">&#160; </span></span>
+                       <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#160; </span></span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
                        <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
