@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    isodoc (1.0.5)
+    isodoc (1.0.6)
       asciimath
-      html2doc (~> 0.8.11)
+      html2doc (~> 0.9.0)
       htmlentities (~> 4.3.4)
       liquid
       metanorma (~> 0.3.0)
@@ -18,7 +18,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     asciidoctor (2.0.10)
-    asciimath (1.0.8)
+    asciimath (1.0.9)
     ast (2.4.0)
     byebug (9.1.0)
     coderay (1.1.2)
@@ -42,8 +42,8 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    html2doc (0.8.14)
-      asciimath (~> 1.0.7)
+    html2doc (0.9.0)
+      asciimath (~> 1.0.9)
       htmlentities (~> 4.3.4)
       image_size
       mime-types
