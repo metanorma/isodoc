@@ -133,9 +133,8 @@ module IsoDoc::Function
     def anchor_names(docxml)
       initial_anchor_names(docxml)
       back_anchor_names(docxml)
-      # preempt clause notes with all other types of note
-      note_anchor_names(docxml.xpath(ns("//table | //example | //formula | "\
-                                        "//figure")))
+      # preempt clause notes with all other types of note (ISO default)
+      note_anchor_names(docxml.xpath(ns("//table | //figure")))
       note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       list_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
