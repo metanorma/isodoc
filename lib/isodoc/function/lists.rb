@@ -35,7 +35,6 @@ module IsoDoc::Function
     end
 
     def ol_parse(node, out)
-      # style = ol_style(node["type"])
       style = ol_depth(node)
       out.ol **attr_code(type: style, id: node["id"] ) do |ol|
         node.children.each { |n| parse(n, ol) }

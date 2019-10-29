@@ -23,22 +23,17 @@ module IsoDoc::Function
     end
 
     def prefix_container(container, linkend, _target)
-      #l10n(get_anchors[container][:xref] + ", " + linkend)
       l10n(anchor(container, :xref) + ", " + linkend)
     end
 
     def anchor_linkend(node, linkend)
-      if node["citeas"].nil? && node["bibitemid"] #&&
-          #get_anchors.has_key?(node["bibitemid"])
-        #return get_anchors.dig(node["bibitemid"] ,:xref)
+      if node["citeas"].nil? && node["bibitemid"] 
         return anchor(node["bibitemid"] ,:xref) || "???"
-      #elsif node["target"] && get_anchors.has_key?(node["target"])
       elsif node["target"] && !/.#./.match(node["target"])
-        #linkend = get_anchors[node["target"]][:xref]
         linkend = anchor(node["target"], :xref)
-        #container = get_anchors[node["target"]][:container]
         container = anchor(node["target"], :container, false)
-        (container && get_note_container_id(node) != container) &&
+        (container && get_note_container_id(node) != container &&
+         @anchors[node["target"]]) &&
           linkend = prefix_container(container, linkend, node["target"])
       end
       linkend || "???"
@@ -47,8 +42,6 @@ module IsoDoc::Function
     def get_linkend(node)
       link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
       link += eref_localities(node.xpath(ns("./locality")), link)
-      #text = node.children.select { |c| c.text? && !c.text.empty? }
-      #link = text.join(" ") unless text.nil? || text.empty?
       contents = node.children.select { |c| c.name != "locality" }
       return link if contents.nil? || contents.empty?
       Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
