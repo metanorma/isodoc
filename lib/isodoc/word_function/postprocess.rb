@@ -60,6 +60,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       word_admonition_images(docxml)
       word_list_continuations(docxml)
       word_example_cleanup(docxml)
+      word_pseudocode_cleanup(docxml)
       word_image_caption(docxml)
       docxml
     end
@@ -118,6 +119,12 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       docxml.xpath("//div[@class = 'example']//p[not(@class)]").each do |p|
         p["class"] = "example"
       end
+    end
+
+    def word_pseudocode_cleanup(docxml)
+      docxml.xpath("//div[@class = 'pseudocode']//p[not(@class)]").each do |p|
+          p["class"] = "pseudocode"
+        end
     end
 
     def word_preface(docxml)

@@ -1050,9 +1050,9 @@ OUTPUT
 </preface></itu-standard>
 INPUT
     expect( File.read("test.doc").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{<div class="WordSection3">.*}m, "")).to be_equivalent_to <<~"OUTPUT"
-<div class="pseudocode"><a name="_" id="_"></a><p class="MsoNormal"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
+            <div class="pseudocode"><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
-       <p style="page-break-after:avoid;" class="MsoNormal"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Label</p></div>
+       <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Label</p></div>
              </div>
              <p class="MsoNormal">&#xA0;</p>
            </div>
