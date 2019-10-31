@@ -1009,5 +1009,59 @@ World</p>
     OUTPUT
   end
 
+ it "processes pseudocode" do
+    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+<itu-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <language>en</language>
+    </bibdata>
+        <preface><foreword>
+  <figure id="_" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong><br/>
+        <smallcap>B</smallcap></p>
+<p id="_">  <em>C</em></p></figure>
+</preface></itu-standard>
+INPUT
+    #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="_" class="pseudocode"><p id="_">&#160;&#160;<b>A</b><br/>
+       &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-variant:small-caps;">B</span></p>
+       <p id="_">&#160;&#160;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Label</p></div>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+</html>
+OUTPUT
+  end
+
+  it "processes pseudocode (Word)" do
+    FileUtils.rm_f "test.doc"
+    IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", false)
+<itu-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <language>en</language>
+    </bibdata>
+        <preface><foreword>
+  <figure id="_" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong><br/>
+        <smallcap>B</smallcap></p>
+<p id="_">  <em>C</em></p></figure>
+</preface></itu-standard>
+INPUT
+    expect( File.read("test.doc").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{<div class="WordSection3">.*}m, "")).to be_equivalent_to <<~"OUTPUT"
+<div class="pseudocode"><a name="_" id="_"></a><p class="MsoNormal"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
+       &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
+       <p style="page-break-after:avoid;" class="MsoNormal"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Label</p></div>
+             </div>
+             <p class="MsoNormal">&#xA0;</p>
+           </div>
+           <p class="MsoNormal">
+             <br clear="all" class="section"/>
+           </p>
+OUTPUT
+  end
+
+
 
 end

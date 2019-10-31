@@ -58,6 +58,8 @@ module IsoDoc::Function
     end
 
     def figure_parse(node, out)
+      return pseudocode_parse(node, out) if node["class"] == "pseudocode" ||
+        node["type"] == "pseudocode"
       @in_figure = true
       out.div **attr_code(id: node["id"], class: "figure") do |div|
         node.children.each do |n|
@@ -68,6 +70,18 @@ module IsoDoc::Function
       end
       @in_figure = false
     end
+
+    def pseudocode_parse(node, out)
+        @in_figure = true
+        name = node.at(ns("./name"))
+        out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
+          node.children.each do |n|
+            parse(n, div) unless n.name == "name"
+          end
+          sourcecode_name_parse(node, div, name) if name
+        end
+        @in_figure = false
+      end
 
     def example_label(node, div, name)
       n = get_anchors[node["id"]]
