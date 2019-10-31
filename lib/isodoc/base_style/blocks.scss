@@ -55,6 +55,23 @@
   overflow: auto;
 }
 
+@mixin pseudocodeBlock($colorBg, $colorFg: null) {
+  .SourceTitle {
+    @include blockTitle();
+  }
+
+  @if $colorFg {
+    color: $colorFg;
+  }
+
+  background-color: $colorBg;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  padding: 1.5em;
+  margin: 2em 0 1em 0;
+  overflow: auto;
+}
+
 @mixin exampleBlock($colorBg, $colorText, $padding: .5em, $offsetContent: 1.5em) {
   background-color: $colorBg;
 
