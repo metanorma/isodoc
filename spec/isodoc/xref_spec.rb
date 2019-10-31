@@ -202,6 +202,7 @@ RSpec.describe IsoDoc do
     <xref target="N2"/>
     <xref target="N"/>
     <xref target="note1"/>
+    <xref target="note3"/>
     <xref target="note2"/>
     <xref target="AN"/>
     <xref target="Anote1"/>
@@ -235,6 +236,9 @@ RSpec.describe IsoDoc do
         <figure id="note1">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+  </figure>
+  <figure id="note3" class="pseudocode">
+  <p>pseudocode</p>
   </figure>
     <figure id="note2">
   <name>Split-it-right sample divider</name>
@@ -273,6 +277,7 @@ RSpec.describe IsoDoc do
            <a href="#N2">Figure (??)</a>
            <a href="#N">Figure 2</a>
            <a href="#note1">Figure 3</a>
+           <a href="#note3">[note3]</a>
            <a href="#note2">Figure 4</a>
            <a href="#AN">Figure A.1</a>
            <a href="#Anote1">Figure (??)</a>
@@ -313,6 +318,9 @@ RSpec.describe IsoDoc do
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" style="text-align:center;">Figure 3&#160;&#8212; Split-it-right sample divider</p></div>
+         <div id="note3" class="pseudocode">
+<p>pseudocode</p>
+</div>
            <div id="note2" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
