@@ -1001,7 +1001,7 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "").
       sub(/src="[^"]+"/, 'src="_"')
     expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-<div class='WordSection2' xmlns:m='m'>
+    <div class='WordSection2' xmlns:m='m'>
          <p class='MsoNormal'>
            <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
          </p>
@@ -1014,17 +1014,17 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
                <thead>
                  <tr>
                    <td rowspan='2' align='left' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>
-                     <p align='left' class='MsoNormal'>
+                     <p style='text-align: left' class='MsoNormal'>
                        <a name='_c47d9b39-adb2-431d-9320-78cb148fdb56' id='_c47d9b39-adb2-431d-9320-78cb148fdb56'/>
                        Output wavelength
                      </p>
-                     <p align='left' class='MsoNormal'>
+                     <p style='text-align: left' class='MsoNormal'>
                        <a name='_c47d9b39-adb2-431d-9320-78cb148fdb57' id='_c47d9b39-adb2-431d-9320-78cb148fdb57'/>
                        Output wavelength
                      </p>
                    </td>
                    <th colspan='3' align='right' style='font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
-                     <p align='right' class='MsoNormal'>
+                     <p style='text-align: right' class='MsoNormal'>
                        <a name='_c47d9b39-adb2-431d-9320-78cb148fdb58' id='_c47d9b39-adb2-431d-9320-78cb148fdb58'/>
                        Predictive wavelengths
                      </p>

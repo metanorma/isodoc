@@ -66,15 +66,17 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       docxml
     end
 
+    def style_update(node, css)
+        node["style"] = node["style"] ?  node["style"].sub(/;?$/, ";#{css}") : css
+    end
+
     def word_image_caption(docxml)
       docxml.xpath("//p[@class = 'FigureTitle' or @class = 'SourceTitle']").each do |t|
         if t.previous_element.name == "img"
           img = t.previous_element
           t.previous_element.swap("<p class=\'figure\'>#{img.to_xml}</p>")
         end
-        t.previous_element["style"] = t.previous_element["style"] ?
-          t.previous_element["style"].sub(/;?$/, ";page-break-after:avoid;") :
-          "page-break-after:avoid;"
+        style_update(t.previous_element, "page-break-after:avoid;")
       end
     end
 
@@ -99,7 +101,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def word_table_align(docxml)
       docxml.xpath("//td[@align]/p | //th[@align]/p").each do |p|
         next if p["align"]
-        p["align"] = p.parent["align"]
+        style_update(p, "text-align: #{p.parent["align"]}")
       end
     end
 
