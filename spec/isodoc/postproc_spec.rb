@@ -208,7 +208,7 @@ RSpec.describe IsoDoc do
     INPUT
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
           sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(word).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <div class="WordSection2">
                 <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                 <div>
@@ -257,7 +257,7 @@ RSpec.describe IsoDoc do
     INPUT
     word = File.read("test.doc").sub(/^.*<div class="WordSection3">/m, '<div class="WordSection3">').
       sub(%r{<div style="mso-element:footnote-list"/>.*$}m, "")
-    expect(word).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <div class="WordSection3">
                <p class="zzSTDTitle1"></p>
                <div><a name="_terms_and_definitions" id="_terms_and_definitions"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Terms and definitions</h1>
@@ -320,7 +320,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     INPUT
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(word.gsub(/_Toc\d\d+/, "_Toc")).to be_equivalent_to <<~'OUTPUT'
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc"))).to be_equivalent_to xmlpp(<<~'OUTPUT')
            <div class="WordSection2">
        /* an empty word intro page */
 
@@ -402,7 +402,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     INPUT
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(word.gsub(/_Toc\d\d+/, "_Toc")).to be_equivalent_to <<~'OUTPUT'
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc"))).to be_equivalent_to xmlpp(<<~'OUTPUT')
            <div class="WordSection2">
        /* an empty word intro page */
 
@@ -512,10 +512,10 @@ TOCLEVEL
         </sections>
         </iso-standard>
     INPUT
-    html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
+    html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main xmlns:epub="epub" class="main-section">').
       sub(%r{</main>.*$}m, "</main>")
-    expect(html).to be_equivalent_to <<~"OUTPUT"
-           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+           <main  xmlns:epub="epub" class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <p class="zzSTDTitle1"></p>
              <div>
                <h1>1.&#xA0; Clause 4</h1>
@@ -563,7 +563,7 @@ TOCLEVEL
     html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
       sub(%r{</main>.*$}m, "</main>")
     expect(`ls test_htmlimages`).to match(/\.png$/)
-    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br />
              <div>
@@ -599,7 +599,7 @@ TOCLEVEL
     html = File.read("spec/test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
       sub(%r{</main>.*$}m, "</main>")
     expect(`ls test_htmlimages`).to match(/\.png$/)
-    expect(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br />
              <div>
@@ -631,7 +631,7 @@ TOCLEVEL
     INPUT
     html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
       sub(%r{</main>.*$}m, "</main>")
-    expect(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"}))).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br />
              <div>
@@ -770,10 +770,10 @@ TOCLEVEL
     </foreword></preface>
     </iso-standard>
     INPUT
-    word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+    word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">').
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(word).to be_equivalent_to <<~"OUTPUT"
-           <div class="WordSection2">
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+           <div class="WordSection2" xmlns:m="m">
              <p class="MsoNormal">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
@@ -818,7 +818,7 @@ TOCLEVEL
     INPUT
         html = File.read("test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
       sub(%r{</main>.*$}m, "</main>")
-    expect(html).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
       <br />
       <div>
@@ -846,7 +846,7 @@ TOCLEVEL
     INPUT
         word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(word).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <div class="WordSection2">
       <p class="MsoNormal">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -875,7 +875,7 @@ TOCLEVEL
     INPUT
         word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(word).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
 <div class="WordSection2">
              <p class="MsoNormal">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -907,7 +907,7 @@ FileUtils.rm_f "test.doc"
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "").
       sub(/src="[^"]+"/, 'src="_"')
-    expect(word).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <div class="WordSection2">
              <p class="MsoNormal">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -942,11 +942,11 @@ FileUtils.rm_f "test.doc"
     </preface>
     </iso-standard>
 INPUT
-word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
+word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">').
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "").
       sub(/src="[^"]+"/, 'src="_"')
-    expect(word).to be_equivalent_to <<~"OUTPUT"
-     <div class="WordSection2">
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+     <div class="WordSection2" xmlns:m="m">
              <p class="MsoNormal">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>

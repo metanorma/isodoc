@@ -3,7 +3,7 @@ require "fileutils"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML footnotes" do
-    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -42,7 +42,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes IsoXML footnotes (Word)" do
-    expect(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -114,7 +114,7 @@ RSpec.describe IsoDoc do
     </iso-standard>
     INPUT
     html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
-    expect(html).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
      <body lang="en" xml:lang="en">
            <div class="title-section">
              <p>&#xA0;</p>
@@ -168,7 +168,7 @@ RSpec.describe IsoDoc do
     </iso-standard>
     INPUT
     html = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
-    expect(html).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
              <div class="WordSection1">
                <p class="MsoNormal">&#xA0;</p>

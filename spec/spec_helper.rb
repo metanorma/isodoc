@@ -7,6 +7,7 @@ require "bundler/setup"
 require "isodoc"
 require "rspec/matchers"
 require "equivalent-xml"
+require "rexml/document"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -18,6 +19,14 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+end
+
+def xmlpp(x)
+  s = ""
+  f = REXML::Formatters::Pretty.new(2)
+  f.compact = true
+  f.write(REXML::Document.new(x),s)
+  s
 end
 
 def strip_guid(x)

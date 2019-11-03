@@ -3,7 +3,7 @@ require "nokogiri"
 
 RSpec.describe IsoDoc do
   it "cleans up admonitions" do
-    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <html>
     <body>
       <div class="Admonition">
@@ -26,7 +26,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up figures" do
-    expect(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <html xmlns:epub="http://www.idpf.org/2007/ops">
     <body>
       <div class="figure">
@@ -53,7 +53,7 @@ RSpec.describe IsoDoc do
   end
 
     it "cleans up figures (Word)" do
-    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <html xmlns:epub="http://www.idpf.org/2007/ops">
     <body>
       <div class="figure">
@@ -80,7 +80,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up inline headers" do
-    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
              <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
@@ -149,7 +149,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up footnotes" do
-    expect(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
     #{HTML_HDR}
     <br/>
                <div>
@@ -191,7 +191,7 @@ RSpec.describe IsoDoc do
   end
 
     it "cleans up footnotes (Word)" do
-    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
          <head/>
            <body lang="EN-US" link="blue" vlink="#954F72">
@@ -262,7 +262,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up tables with tfoot" do
-    expect(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
@@ -419,7 +419,7 @@ INPUT
   end
 
   it "cleans up tables with tfoot (Word)" do
-    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
@@ -577,7 +577,7 @@ INPUT
 
 
   it "cleans up tables without tfoot" do
-    expect(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
            <title>test</title>
@@ -716,7 +716,7 @@ INPUT
   end
 
   it "cleans up symbols lists" do
-    expect(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
   <div id="L" class="Symbols">
                  <h1>4.<span style="mso-tab-count:1">&#160; </span>Symbols and Abbreviated Terms</h1>
                  <dl>

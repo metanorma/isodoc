@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML tables" do
-    expect(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -26,7 +26,7 @@ RSpec.describe IsoDoc do
     </thead>
     <tbody>
     <tr>
-      <th align="left">Number of laboratories retained after eliminating outliers</td>
+      <th align="left">Number of laboratories retained after eliminating outliers</th>
       <td align="center">13</td>
       <td align="center">11</td>
       <td align="center">13</td>
@@ -88,7 +88,7 @@ RSpec.describe IsoDoc do
                  </thead>
                  <tbody>
                    <tr>
-                     <th style="font-weight:bold;text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;" scope="row">Number of laboratories retained after eliminating outliers</td>
+                     <th style="font-weight:bold;text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;" scope="row">Number of laboratories retained after eliminating outliers</th>
                      <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">13</td>
                      <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">11</td>
                      <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">13</td>
@@ -138,7 +138,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes IsoXML tables (Word)" do
-    expect(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
