@@ -56,6 +56,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def word_cleanup(docxml)
       word_annex_cleanup(docxml)
       word_preface(docxml)
+      word_table_align(docxml)
       word_table_separator(docxml)
       word_admonition_images(docxml)
       word_list_continuations(docxml)
@@ -92,6 +93,13 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
           list_add(li.xpath(".//ul") - li.xpath(".//ul//ul | .//ol//ul"), level + 1)
           list_add(li.xpath(".//ol") - li.xpath(".//ul//ol | .//ol//ol"), level + 1)
         end
+      end
+    end
+
+    def word_table_align(docxml)
+      docxml.xpath("//td[@align]/p | //th[@align]/p").each do |p|
+        next if p["align"]
+        p["align"] = p.parent["align"]
       end
     end
 
