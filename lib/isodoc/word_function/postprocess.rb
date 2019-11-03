@@ -49,7 +49,8 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def word_admonition_images(docxml)
       docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
         i["width"], i["height"] =
-          Html2Doc.image_resize(i, File.join(@localdir, i["src"]), @maxheight, 300)
+          Html2Doc.image_resize(i, File.join(@localdir, i["src"]),
+                                @maxheight, 300)
       end
     end
 
@@ -67,11 +68,12 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def style_update(node, css)
-        node["style"] = node["style"] ?  node["style"].sub(/;?$/, ";#{css}") : css
+      node["style"] = node["style"] ?  node["style"].sub(/;?$/, ";#{css}") : css
     end
 
     def word_image_caption(docxml)
-      docxml.xpath("//p[@class = 'FigureTitle' or @class = 'SourceTitle']").each do |t|
+      docxml.xpath("//p[@class = 'FigureTitle' or @class = 'SourceTitle']").
+        each do |t|
         if t.previous_element.name == "img"
           img = t.previous_element
           t.previous_element.swap("<p class=\'figure\'>#{img.to_xml}</p>")
@@ -85,15 +87,15 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       list_add(docxml.xpath("//ol[not(ancestor::ul) and not(ancestor::ol)]"), 1)
     end
 
-    def list_add(xpath, level)
+    def list_add(xpath, lvl)
       xpath.each do |list|
-        (list.xpath(".//li") - list.xpath(".//ol//li | .//ul//li")).each do |li|
-          li.xpath("./p | ./div/p").each_with_index do |p, i|
+        (list.xpath(".//li") - list.xpath(".//ol//li | .//ul//li")).each do |l|
+          l.xpath("./p | ./div/p").each_with_index do |p, i|
             next if p == 0
-            p["class"] = "ListContLevel#{level}"
+            p["class"] = "ListContLevel#{lvl}"
           end
-          list_add(li.xpath(".//ul") - li.xpath(".//ul//ul | .//ol//ul"), level + 1)
-          list_add(li.xpath(".//ol") - li.xpath(".//ul//ol | .//ol//ol"), level + 1)
+          list_add(l.xpath(".//ul") - l.xpath(".//ul//ul | .//ol//ul"), lvl + 1)
+          list_add(l.xpath(".//ol") - l.xpath(".//ul//ol | .//ol//ol"), lvl + 1)
         end
       end
     end
@@ -133,8 +135,8 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
 
     def word_pseudocode_cleanup(docxml)
       docxml.xpath("//div[@class = 'pseudocode']//p[not(@class)]").each do |p|
-          p["class"] = "pseudocode"
-        end
+        p["class"] = "pseudocode"
+      end
     end
 
     def word_preface(docxml)
@@ -155,7 +157,8 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def word_intro(docxml, level)
-      intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"), docxml, level)
+      intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"),
+                         docxml, level)
       intro = populate_template(intro, :word)
       introxml = to_word_xhtml_fragment(intro)
       docxml.at('//div[@class="WordSection2"]').children.first.previous =
