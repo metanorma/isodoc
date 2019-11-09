@@ -1,5 +1,15 @@
 module IsoDoc::WordFunction
   module Body
+    def define_head(head, filename, _dir)
+      head.style do |style|
+        loc = File.join(File.dirname(__FILE__), "..", "base_style",
+                        "metanorma_word.scss")
+        stylesheet = File.read(loc, encoding: "utf-8")
+        style.comment "\n#{stylesheet}\n"
+      end
+      super
+    end
+
     def anchor_names(docxml)
       super
       renumber_footnotes(docxml)
@@ -56,7 +66,7 @@ module IsoDoc::WordFunction
       classtype = "MsoCommentText" if in_comment
       classtype = "Sourcecode" if @annotation
       classtype
-      end
+    end
 
     def remove_bottom_border(td)
       td["style"] =
@@ -72,7 +82,8 @@ module IsoDoc::WordFunction
       t.at(".//tr").xpath("./td | ./th").each do |td|
         cols += (td["colspan"] ? td["colspan"].to_i : 1)
       end
-      style = %{border-top:0pt;mso-border-top-alt:0pt;border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;}
+      style = "border-top:0pt;mso-border-top-alt:0pt;"\
+        "border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;"
       tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
       tfoot.xpath(".//td").last
     end
@@ -81,10 +92,10 @@ module IsoDoc::WordFunction
       style = td.name == "th" ? "font-weight:bold;" : ""
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
       style += <<~STYLE
-            border-top:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
-            mso-border-top-alt:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
-            border-bottom:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-            mso-border-bottom-alt:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+        border-top:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
+        mso-border-top-alt:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
+        border-bottom:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+        mso-border-bottom-alt:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
       STYLE
       { rowspan: td["rowspan"], colspan: td["colspan"],
         align: td["align"], style: style.gsub(/\n/, "") }
@@ -99,7 +110,8 @@ module IsoDoc::WordFunction
     def page_break(out)
       out.p do |p|
         p.br **{ clear: "all",
-                 style: "mso-special-character:line-break;page-break-before:always" }
+                 style: "mso-special-character:line-break;"\
+                 "page-break-before:always" }
       end
     end
 
@@ -233,8 +245,8 @@ module IsoDoc::WordFunction
     def example_table_attr(node)
       super.merge({
         style: "mso-table-lspace:15.0cm;margin-left:423.0pt;"\
-        "mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;"\
-        "mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;"\
+        "mso-table-rspace:15.0cm;margin-right:423.0pt;"\
+        "mso-table-anchor-horizontal:column;"\
         "mso-table-overlap:never;border-collapse:collapse;"
       })
     end
@@ -243,8 +255,8 @@ module IsoDoc::WordFunction
       super.merge(attr_code({
         summary: node["summary"],
         style: "mso-table-lspace:15.0cm;margin-left:423.0pt;"\
-        "mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;"\
-        "mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;"\
+        "mso-table-rspace:15.0cm;margin-right:423.0pt;"\
+        "mso-table-anchor-horizontal:column;"\
         "mso-table-overlap:never;border-spacing:0;border-width:1px;"
       }))
     end
@@ -252,7 +264,7 @@ module IsoDoc::WordFunction
     def table_parse(node, out)
       @in_table = true
       table_title_parse(node, out)
-      out.div **{ align: "center" } do |div|
+      out.div **{ align: "center", class: "table_container" } do |div|
         div.table **make_table_attr(node) do |t|
           thead_parse(node, t)
           tbody_parse(node, t)

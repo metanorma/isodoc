@@ -60,6 +60,7 @@ RSpec.describe IsoDoc do
     expect(File.exist?("test.doc")).to be true
     word = File.read("test.doc")
     expect(word).to match(/one empty stylesheet/)
+    expect(word).to match(/div\.table_container/)
   end
 
   it "generates HTML output docs with null configuration from file" do
@@ -953,8 +954,8 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;font-size:0pt;">&#xA0;</p>
-               <div align="center">
-                 <table class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;"><a name="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7"></a>
+               <div align="center" class="table_container">
+                 <table class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;"><a name="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7"></a>
                    <thead>
                      <tr>
                        <td rowspan="2" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;">
@@ -1008,8 +1009,8 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
          <div>
            <h1 class='ForewordTitle'>Foreword</h1>
            <p class='TableTitle' style='text-align:center;font-size:0pt;'>&#xA0;</p>
-           <div align='center'>
-             <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-bspace:14.2pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
+           <div align='center' class="table_container">
+             <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
                <a name='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7' id='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7'/>
                <thead>
                  <tr>
