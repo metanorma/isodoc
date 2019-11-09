@@ -40,14 +40,12 @@ module IsoDoc::Function
 
     # isodoc.css overrides any CSS injected by Html2Doc, which
     # is inserted before this CSS.
-    def define_head(html, filename, _dir)
-      html.head do |head|
-        if @standardstylesheet
-          head.style do |style|
-            stylesheet = File.read(@standardstylesheet, encoding: "utf-8").
-              gsub("FILENAME", File.basename(filename))
-            style.comment "\n#{stylesheet}\n"
-          end
+    def define_head(head, filename, _dir)
+      if @standardstylesheet
+        head.style do |style|
+          stylesheet = File.read(@standardstylesheet, encoding: "utf-8").
+            gsub("FILENAME", File.basename(filename))
+          style.comment "\n#{stylesheet}\n"
         end
       end
     end
@@ -149,7 +147,7 @@ module IsoDoc::Function
         node.children.each { |n| parse(n, e) }
       end
     end
-    
+
     def strong_parse(node, out)
       out.b do |e|
         node.children.each { |n| parse(n, e) }
@@ -200,7 +198,7 @@ module IsoDoc::Function
         when "callout" then callout_parse(node, out)
         when "stem" then stem_parse(node, out)
         when "clause" then clause_parse(node, out)
-        #when "appendix" then clause_parse(node, out)
+          #when "appendix" then clause_parse(node, out)
         when "xref" then xref_parse(node, out)
         when "eref" then eref_parse(node, out)
         when "origin" then eref_parse(node, out)

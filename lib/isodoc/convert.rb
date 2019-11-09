@@ -142,7 +142,7 @@ module IsoDoc
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
           info docxml, nil
           populate_css()
-          define_head html, filename, dir
+          html.head { |head| define_head head, filename, dir }
           make_body(html, docxml)
         end
       end.join("\n")

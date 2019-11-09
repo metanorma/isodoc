@@ -107,16 +107,20 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       end
     end
 
+=begin
     EMPTY_PARA = "<p style='margin-top:0cm;margin-right:0cm;"\
       "margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt;"\
       "line-height:1.0pt;mso-line-height-rule:exactly'>"\
       "<span lang=EN-GB style='display:none;mso-hide:all'>&nbsp;</span></p>"
 
-    def word_table_separator(docxml)
-      docxml.xpath("//table").each do |t|
-        next unless t&.next_element&.name == "table"
+    def table_after_table(docxml)
+     docxml.xpath("//table[following-sibling::*[1]/self::table]").each do |t|
         t.add_next_sibling(EMPTY_PARA)
       end
+    end
+=end
+
+    def word_table_separator(docxml)
       docxml.xpath("//p[@class = 'TableTitle']").each do |t|
         next unless t.children.empty?
         t["style"] = t["style"].sub(/;?$/, ";font-size:0pt;")
