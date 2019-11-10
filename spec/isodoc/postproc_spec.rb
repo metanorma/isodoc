@@ -756,7 +756,8 @@ TOCLEVEL
     <li><p>A</p>
     <p>B</p></li>
     <li><ol><li><p>C</p>
-    <p>D</p></li>
+    <p>D</p>
+    <sourcecode>E</sourcecode></li>
     </ol></li>
     </ul>
     <ol>
@@ -774,33 +775,57 @@ TOCLEVEL
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">').
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-           <div class="WordSection2" xmlns:m="m">
-             <p class="MsoNormal">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-
-       <p class="MsoListParagraphCxSpFirst">A
-       <p class="ListContLevel1">B</p></p>
-       <p class="MsoListParagraphCxSpLast"><p class="MsoListParagraphCxSpFirst">C
-       <p class="ListContLevel2">D</p></p>
-       </p>
-
-
-       <p class="MsoListParagraphCxSpFirst">A1
-       <p class="ListContLevel1">B1</p></p>
-       <p class="MsoListParagraphCxSpLast">C1
-       <div class="formula"><a name="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62" id="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62"></a><p class="ListContLevel2"><span class="stem"><m:oMath>
-  <m:r><m:t>D1</m:t></m:r>
-
-</m:oMath>
-</span><span style="mso-tab-count:1">&#xA0; </span>(1)</p></div>
-       </p>
-
+    <div class='WordSection2' xmlns:m='m'>
+         <p class='MsoNormal'>
+           <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+         </p>
+         <div>
+           <h1 class='ForewordTitle'>Foreword</h1>
+           <p class='MsoListParagraphCxSpFirst'>
+             A
+             <div class='ListContLevel1'>
+               <p class='MsoNormal'>B</p>
              </div>
-             <p class="MsoNormal">&#xA0;</p>
-           </div>
+           </p>
+           <p class='MsoListParagraphCxSpLast'>
+             <p class='MsoListParagraphCxSpFirst'>
+               C
+               <div class='ListContLevel2'>
+                 <p class='MsoNormal'>D</p>
+               </div>
+               <div class='ListContLevel2'>
+                 <p class='Sourcecode'>E</p>
+               </div>
+             </p>
+           </p>
+           <p class='MsoListParagraphCxSpFirst'>
+             A1
+             <div class='ListContLevel1'>
+               <p class='MsoNormal'>B1</p>
+             </div>
+           </p>
+           <p class='MsoListParagraphCxSpLast'>
+             C1
+             <div class='ListContLevel2'>
+               <div class='formula'>
+                 <a name='_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62' id='_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62'/>
+                 <p class='MsoNormal'>
+                   <span class='stem'>
+                     <m:oMath>
+                       <m:r>
+                         <m:t>D1</m:t>
+                       </m:r>
+                     </m:oMath>
+                   </span>
+                   <span style='mso-tab-count:1'>&#xA0; </span>
+                   (1)
+                 </p>
+               </div>
+             </div>
+           </p>
+         </div>
+         <p class='MsoNormal'>&#xA0;</p>
+       </div>
     OUTPUT
   end
 

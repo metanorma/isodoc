@@ -90,9 +90,9 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def list_add(xpath, lvl)
       xpath.each do |list|
         (list.xpath(".//li") - list.xpath(".//ol//li | .//ul//li")).each do |l|
-          l.xpath("./p | ./div/p").each_with_index do |p, i|
-            next if p == 0
-            p["class"] = "ListContLevel#{lvl}"
+          l.xpath("./p | ./div").each_with_index do |p, i|
+            next if i == 0
+            p.wrap(%{<div class="ListContLevel#{lvl}"/>})
           end
           list_add(l.xpath(".//ul") - l.xpath(".//ul//ul | .//ol//ul"), lvl + 1)
           list_add(l.xpath(".//ol") - l.xpath(".//ul//ol | .//ol//ol"), lvl + 1)
