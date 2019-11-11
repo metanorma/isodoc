@@ -40,10 +40,12 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def toWord(result, filename, dir, header)
       result = populate_template(result, :word)
       result = from_xhtml(word_cleanup(to_xhtml(result)))
-      Html2Doc.process(result, filename: filename, stylesheet: @wordstylesheet,
-                       header_file: header, dir: dir,
+      Html2Doc.process(result, filename: filename, stylesheet: @wordstylesheet&.path,
+                       header_file: header&.path, dir: dir,
                        asciimathdelims: [@openmathdelim, @closemathdelim],
                        liststyles: { ul: @ulstyle, ol: @olstyle })
+      header&.unlink
+      @wordstylesheet&.unlink
     end
 
     def word_admonition_images(docxml)
@@ -175,10 +177,14 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       meta = @meta.get
       meta[:filename] = filename
       params = meta.map { |k, v| [k.to_s, v] }.to_h
-      headerfile = "header.html"
-      File.open(headerfile, "w:UTF-8") { |f| f.write(template.render(params)) }
-      @files_to_delete << headerfile
-      headerfile
+      #headerfile = "header.html"
+      #File.open(headerfile, "w:UTF-8") { |f| f.write(template.render(params)) }
+      #@files_to_delete << headerfile
+      #headerfile
+      Tempfile.open(%w(header html), :encoding => "utf-8") do |f|
+        f.write(template.render(params))
+        f
+      end
     end
 
     def word_toc_entry(toclevel, heading)

@@ -43,7 +43,9 @@ module IsoDoc::Function
     def define_head(head, filename, _dir)
       if @standardstylesheet
         head.style do |style|
-          stylesheet = File.read(@standardstylesheet, encoding: "utf-8").
+          #stylesheet = File.read(@standardstylesheet, encoding: "utf-8").
+          @standardstylesheet.open
+          stylesheet = @standardstylesheet.read.
             gsub("FILENAME", File.basename(filename))
           style.comment "\n#{stylesheet}\n"
         end

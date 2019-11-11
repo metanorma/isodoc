@@ -283,7 +283,7 @@ B</pre>
   end
 
   it "processes figures (Word)" do
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(/['"][^'".]+\.gif['"]/, "'_.gif'")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <figure id="figureA-1">
@@ -321,7 +321,7 @@ B</pre>
 
          <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletext"/>
          <img src="rice_images/rice_image1.png"/>
-         <img src="test_images/_.gif"/>
+         <img src="_.gif"/>
          <a href="#_" class="TableFootnoteRef">a</a><aside><div id="ftn_"><span><span id="_" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#160; </span></span>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>

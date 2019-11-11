@@ -1,6 +1,7 @@
 require "isodoc/common"
 require "sassc"
 require "fileutils"
+require "tempfile"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
@@ -31,6 +32,7 @@ module IsoDoc
         merge!(default_file_locations(options)) { |_, old, new| old || new }
       @options = options
       @files_to_delete = []
+      @tempfile_cache = []
       @htmlstylesheet_name = options[:htmlstylesheet]
       @wordstylesheet_name = options[:wordstylesheet]
       @standardstylesheet_name = options[:standardstylesheet]
@@ -129,10 +131,15 @@ module IsoDoc
                                     "lib", "isodoc")
       SassC.load_paths << File.dirname(filename)
       engine = SassC::Engine.new(fontheader + stylesheet, syntax: :scss)
-      outname = File.basename(filename, ".*") + ".css"
-      File.open(outname, "w:UTF-8") { |f| f.write(engine.render) }
-      @files_to_delete << outname
-      outname
+      #outname = File.basename(filename, ".*") + ".css"
+      #File.open(outname, "w:UTF-8") { |f| f.write(engine.render) }
+      #@files_to_delete << outname
+      #outname
+      Tempfile.open([File.basename(filename, ".*"), "css"],
+                      :encoding => "utf-8") do |f|
+        f.write(engine.render)
+        f
+    end
     end
 
     def convert1(docxml, filename, dir)

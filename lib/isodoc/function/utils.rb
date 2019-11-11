@@ -152,12 +152,18 @@ module IsoDoc::Function
 
     def save_dataimage(uri, relative_dir = true)
       %r{^data:image/(?<imgtype>[^;]+);base64,(?<imgdata>.+)$} =~ uri
-      uuid = UUIDTools::UUID.random_create.to_s
-      fname = "#{uuid}.#{imgtype}"
-      new_file = File.join(tmpimagedir, fname)
-      @files_to_delete << new_file
-      File.open(new_file, "wb") { |f| f.write(Base64.strict_decode64(imgdata)) }
-      File.join(relative_dir ? rel_tmpimagedir : tmpimagedir, fname)
+      #uuid = UUIDTools::UUID.random_create.to_s
+      #fname = "#{uuid}.#{imgtype}"
+      #new_file = File.join(tmpimagedir, fname)
+      #@files_to_delete << new_file
+      #File.open(new_file, "wb") { |f| f.write(Base64.strict_decode64(imgdata)) }
+      #File.join(relative_dir ? rel_tmpimagedir : tmpimagedir, fname)
+      Tempfile.open(["image", ".#{imgtype}"]) do |f|
+        f.binmode
+        f.write(Base64.strict_decode64(imgdata))
+        @tempfile_cache << f #persist to the end
+        f.path
+    end
     end
   end
 end

@@ -183,9 +183,12 @@ module IsoDoc::HtmlFunction
     end
 
     def htmlstylesheet
-      stylesheet = File.read(@htmlstylesheet, encoding: "UTF-8")
+      #stylesheet = File.read(@htmlstylesheet, encoding: "UTF-8")
+      @htmlstylesheet.open
+      stylesheet = @htmlstylesheet.read
       xml = Nokogiri::XML("<style/>")
       xml.children.first << Nokogiri::XML::Comment.new(xml, "\n#{stylesheet}\n")
+      @htmlstylesheet.close!
       xml.root.to_s
     end
 
@@ -269,10 +272,18 @@ module IsoDoc::HtmlFunction
       i["src"] = "data:image/#{type};base64,#{data}"
     end
 
-    def move_image1(i)
+    def image_suffix(i)
+      type = i["mimetype"]&.sub(%r{^[^/]+/}, "")
       matched = /\.(?<suffix>[^. \r\n\t]+)$/.match i["src"]
+      type and !type.empty? and return type
+      !matched.nil? and matched[:suffix] and return matched[:suffix]
+      "png"
+    end
+
+      def move_image1(i)
+      suffix = image_suffix(i)
       uuid = UUIDTools::UUID.random_create.to_s
-      fname = "#{uuid}.#{matched[:suffix]}"
+      fname = "#{uuid}.#{suffix}"
       new_full_filename = File.join(tmpimagedir, fname)
       local_filename = image_localfile(i)
       FileUtils.cp local_filename, new_full_filename
