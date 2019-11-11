@@ -21,6 +21,10 @@ dl {
   }
 }
 
+b, strong {
+  font-weight: bold;
+}
+
 @mixin bodyStyle1($fontSize, $lineHeight, $colorText, $colorBackground, $fontWeight: 400) {
   margin-left: auto;
   margin-right: auto;
