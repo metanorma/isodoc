@@ -273,7 +273,7 @@ module IsoDoc::HtmlFunction
     end
 
     def image_suffix(i)
-      type = i["mimetype"]&.sub(%r{^[^/]+/}, "")
+      type = i["mimetype"]&.sub(%r{^[^/*]+/}, "")
       matched = /\.(?<suffix>[^. \r\n\t]+)$/.match i["src"]
       type and !type.empty? and return type
       !matched.nil? and matched[:suffix] and return matched[:suffix]
