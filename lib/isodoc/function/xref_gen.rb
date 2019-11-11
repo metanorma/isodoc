@@ -1,23 +1,8 @@
-require "roman-numerals"
 require_relative "xref_counter"
+require_relative "xref_anchor"
 
 module IsoDoc::Function
   module XrefGen
-
-    @anchors = {}
-
-    def get_anchors
-      @anchors
-    end
-
-    def anchor(id, lbl, warning = true)
-      unless @anchors[id]
-        warning and warn "No label has been processed for ID #{id}"
-        return "[#{id}]"
-      end
-      @anchors.dig(id, lbl)
-    end
-
     def termnote_label(n)
       @termnote_lbl.gsub(/%/, n.to_s)
     end
@@ -29,8 +14,7 @@ module IsoDoc::Function
           return if n["id"].nil? || n["id"].empty?
           c.increment(n)
           @anchors[n["id"]] =
-            { label: termnote_label(c.print),
-              type: "termnote",
+            { label: termnote_label(c.print), type: "termnote",
               xref: l10n("#{anchor(t['id'], :xref)}, "\
                          "#{@note_xref_lbl} #{c.print}") }
         end
@@ -46,8 +30,8 @@ module IsoDoc::Function
           c.increment(n)
           idx = examples.size == 1 ? "" : c.print
           @anchors[n["id"]] = {
-            type: "termexample",
-            label: idx, xref: l10n("#{anchor(t['id'], :xref)}, "\
+            type: "termexample", label: idx, 
+            xref: l10n("#{anchor(t['id'], :xref)}, "\
                                    "#{@example_xref_lbl} #{c.print}") }
         end
       end
@@ -120,9 +104,9 @@ module IsoDoc::Function
         label = c.increment(li).listlabel(depth)
         label = "#{prev_label}.#{label}" unless prev_label.empty?
         label = "#{list_anchor[:xref]} #{label}" if refer_list
-        li["id"] and @anchors[li["id"]] = { xref: "#{label})",
-                                           type: "listitem",
-                                           container: list_anchor[:container] }
+        li["id"] and @anchors[li["id"]] =
+          { xref: "#{label})", type: "listitem", 
+            container: list_anchor[:container] }
         li.xpath(ns("./ol")).each do |ol|
           list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
         end
@@ -156,33 +140,6 @@ module IsoDoc::Function
       end
     end
 
-    def anchor_struct_label(lbl, elem)
-      case elem
-      when @appendix_lbl then l10n("#{elem} #{lbl}")
-      else
-        lbl.to_s
-      end
-    end
-
-    def anchor_struct_xref(lbl, elem)
-      case elem
-      when @formula_lbl then l10n("#{elem} (#{lbl})")
-      when @inequality_lbl then l10n("#{elem} (#{lbl})")
-      else
-        l10n("#{elem} #{lbl}")
-      end
-    end
-
-    def anchor_struct(lbl, container, elem, type, unnumbered = false)
-      ret = {}
-      ret[:label] = unnumbered == "true" ? nil : anchor_struct_label(lbl, elem)
-      ret[:xref] = anchor_struct_xref(unnumbered == "true" ? "(??)" : lbl, elem)
-      ret[:xref].gsub!(/ $/, "")
-      ret[:container] = get_clause_id(container) unless container.nil?
-      ret[:type] = type
-      ret
-    end
-
     def sequential_table_names(clause)
       c = Counter.new
       clause.xpath(ns(".//table")).each do |t|
@@ -203,7 +160,8 @@ module IsoDoc::Function
       end
     end
 
-    FIRST_LVL_REQ = "[not(ancestor::permission or ancestor::requirement or ancestor::recommendation)]".freeze
+    FIRST_LVL_REQ = "[not(ancestor::permission or ancestor::requirement or "\
+      "ancestor::recommendation)]".freeze
 
     def sequential_permission_names(clause, klass, label)
       c = Counter.new
@@ -213,7 +171,8 @@ module IsoDoc::Function
         @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
         sequential_permission_names1(t, id, "permission", @permission_lbl)
         sequential_permission_names1(t, id, "requirement", @requirement_lbl)
-        sequential_permission_names1(t, id, "recommendation", @recommendation_lbl)
+        sequential_permission_names1(t, id, "recommendation",
+                                     @recommendation_lbl)
       end
     end
 
@@ -225,7 +184,8 @@ module IsoDoc::Function
         @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
         sequential_permission_names1(t, id, "permission", @permission_lbl)
         sequential_permission_names1(t, id, "requirement", @requirement_lbl)
-        sequential_permission_names1(t, id, "recommendation", @recommendation_lbl)
+        sequential_permission_names1(t, id, "recommendation",
+                                     @recommendation_lbl)
       end
     end
 
@@ -278,8 +238,10 @@ module IsoDoc::Function
       hierarchical_figure_names(clause, num)
       hierarchical_formula_names(clause, num)
       hierarchical_permission_names(clause, num, "permission", @permission_lbl)
-      hierarchical_permission_names(clause, num, "requirement", @requirement_lbl)
-      hierarchical_permission_names(clause, num, "recommendation", @recommendation_lbl)
+      hierarchical_permission_names(clause, num, "requirement",
+                                    @requirement_lbl)
+      hierarchical_permission_names(clause, num, "recommendation",
+                                    @recommendation_lbl)
     end
 
     def hierarchical_formula_names(clause, num)
@@ -301,7 +263,8 @@ module IsoDoc::Function
         @anchors[t["id"]] = anchor_struct(lbl, t, label, klass, t["unnumbered"])
         sequential_permission_names1(t, lbl, "permission", @permission_lbl)
         sequential_permission_names1(t, lbl, "requirement", @requirement_lbl)
-        sequential_permission_names1(t, lbl, "recommendation", @recommendation_lbl)
+        sequential_permission_names1(t, lbl, "recommendation",
+                                     @recommendation_lbl)
       end
     end
   end

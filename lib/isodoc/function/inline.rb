@@ -90,6 +90,24 @@ module IsoDoc::Function
       end
     end
 
+     def image_title_parse(out, caption)
+      unless caption.nil?
+        out.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
+          p.b { |b| b << caption.to_s }
+        end
+      end
+    end
+
+    def image_parse(node, out, caption)
+      attrs = { src: node["src"],
+                height: node["height"] || "auto",
+                width: node["width"] || "auto",
+                title: node["title"],
+                alt: node["alt"]  }
+      out.img **attr_code(attrs)
+      image_title_parse(out, caption)
+    end
+
     def error_parse(node, out)
       text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
       out.para do |p|
