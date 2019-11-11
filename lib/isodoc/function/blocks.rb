@@ -32,11 +32,8 @@ module IsoDoc::Function
     def note_parse(node, out)
       @note = true
       out.div **{ id: node["id"], class: "Note" } do |div|
-        if node.first_element_child.name == "p"
-          note_p_parse(node, div)
-        else
-          note_parse1(node, div)
-        end
+        node.first_element_child.name == "p" ?
+          note_p_parse(node, div) : note_parse1(node, div)
       end
       @note = false
     end
@@ -75,9 +72,7 @@ module IsoDoc::Function
         @in_figure = true
         name = node.at(ns("./name"))
         out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
-          node.children.each do |n|
-            parse(n, div) unless n.name == "name"
-          end
+          node.children.each { |n| parse(n, div) unless n.name == "name" }
           sourcecode_name_parse(node, div, name) if name
         end
         @in_figure = false
@@ -149,9 +144,7 @@ module IsoDoc::Function
       name = node.at(ns("./name"))
       out.p **attr_code(id: node["id"], class: "Sourcecode") do |div|
         @sourcecode = true
-        node.children.each do |n|
-          parse(n, div) unless n.name == "name"
-        end
+        node.children.each { |n| parse(n, div) unless n.name == "name" }
         @sourcecode = false
       end
       sourcecode_name_parse(node, out, name) if name
@@ -166,11 +159,8 @@ module IsoDoc::Function
       @annotation = true
       node.at("./preceding-sibling::*[local-name() = 'annotation']") or
         out << "<br/>"
-      out << "<br/>"
-      #out.span **{ class: "zzMoveToFollowing" } do |s|
-      out  << "&lt;#{node.at(ns("//callout[@target='#{node['id']}']")).text}&gt; "
-      #end
-      #node.children.each { |n| parse(n, out) }
+      callout = node.at(ns("//callout[@target='#{node['id']}']"))
+      out << "<br/>&lt;#{callout.text}&gt; "
       out << node&.children&.text&.strip
       @annotation = false
     end
@@ -192,9 +182,7 @@ module IsoDoc::Function
       name = admonition_name(node, type)
       out.div **{ class: admonition_class(node) } do |t|
         admonition_name_parse(node, t, name) if name
-        node.children.each do |n|
-          parse(n, t) unless n.name == "name"
-        end
+        node.children.each { |n| parse(n, t) unless n.name == "name" }
       end
     end
 
@@ -235,10 +223,8 @@ module IsoDoc::Function
 
     def para_attrs(node)
       attrs = { class: para_class(node), id: node["id"] }
-      unless node["align"].nil?
-        #attrs[:align] = node["align"] unless node["align"] == "justify"
+      node["align"].nil? or
         attrs[:style] = "text-align:#{node['align']};"
-      end
       attrs
     end
 
@@ -271,24 +257,6 @@ module IsoDoc::Function
         end
         quote_attribution(node, out)
       end
-    end
-
-    def image_title_parse(out, caption)
-      unless caption.nil?
-        out.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
-          p.b { |b| b << caption.to_s }
-        end
-      end
-    end
-
-    def image_parse(node, out, caption)
-      attrs = { src: node["src"],
-                height: node["height"] || "auto",
-                width: node["width"] || "auto",
-                title: node["title"],
-                alt: node["alt"]  }
-      out.img **attr_code(attrs)
-      image_title_parse(out, caption)
     end
   end
 end
