@@ -260,6 +260,8 @@ module IsoDoc::HtmlFunction
     def image_localfile(i)
       if /^data:image/.match i["src"]
         save_dataimage(i["src"], false)
+      elsif %r{^([A-Z]D:)?/}.match i["src"]
+        i["src"]
       else
         File.join(@localdir, i["src"])
       end

@@ -553,6 +553,7 @@ TOCLEVEL
         <preface><foreword>
          <figure id="_">
          <name>Split-it-right sample divider</name>
+                  <image src="#{File.expand_path(File.join(File.dirname(__FILE__), "..", "assets/rice_image1.png"))}" id="_" mimetype="image/png"/>
                   <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
                   <image src="spec/assets/rice_image1.png" id="_" width="20000" height="300000" mimetype="image/png"/>
                   <image src="spec/assets/rice_image1.png" id="_" width="99" height="auto" mimetype="image/png"/>
@@ -570,6 +571,7 @@ TOCLEVEL
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="figure">
+               <img src="test_htmlimages/_.png" height="776" width="922" />
                <img src="test_htmlimages/_.png" height="776" width="922" />
 <img src="test_htmlimages/_.png" height="800" width="53" />
 <img src="test_htmlimages/_.png" height="83" width="99" />
