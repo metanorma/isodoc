@@ -731,6 +731,7 @@ INPUT
                       <?xml version="1.0"?>
        <div id="L" class="Symbols">
                       <h1>4.<span style="mso-tab-count:1">&#xA0; </span>Symbols and Abbreviated Terms</h1>
+                      <dl>
                       <dt>
          <p>
            <span class="stem">(#(x)#)</span>
@@ -756,6 +757,7 @@ INPUT
            <span class="stem">(#(&#x3B1;)#)</span>
          </p>
        </dt><dd>Definition 1</dd>
+       </dl>
                     </div>
 
     OUTPUT

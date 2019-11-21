@@ -177,7 +177,7 @@ module IsoDoc::Function
       return docxml unless dl
       dl_out = extract_symbols_list(dl)
       dl_out.sort! { |a, b| a[:key] <=> b[:key] }
-      dl.replace(dl_out.map { |d| d[:dt].to_s + d[:dd].to_s }.join("\n"))
+      dl.children = dl_out.map { |d| d[:dt].to_s + d[:dd].to_s }.join("\n")
       docxml
     end
   end
