@@ -300,7 +300,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
-               <clause inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+               <clause id="A" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
 
          <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
@@ -382,7 +382,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html", doctoclevels: 3}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
-               <clause inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+               <clause id="A" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
 
          <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
@@ -496,7 +496,7 @@ TOCLEVEL
     IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", wordintropage: "spec/assets/wordintro.html"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <sections>
-               <clause inline-header="false" obligation="normative"><title>Clause 4</title><fn reference="3">
+               <clause id="A" inline-header="false" obligation="normative"><title>Clause 4</title><fn reference="3">
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">This is a footnote.</p>
 </fn><clause id="N" inline-header="false" obligation="normative">
 
@@ -518,7 +518,7 @@ TOCLEVEL
     expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <main  xmlns:epub="epub" class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <p class="zzSTDTitle1"></p>
-             <div>
+             <div id="A">
                <h1>1.&#xA0; Clause 4</h1>
                <a rel="footnote" href="#fn:3" epub:type="footnote" id="fnref:1">
                  <sup>1</sup>
