@@ -475,6 +475,32 @@ OUTPUT
 OUTPUT
     end
 
+    it "processes section titles without ID" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({suppressheadingnumbers: true}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause obligation="informative">
+         <title>Introduction Subsection</title>
+       </clause>
+       </introduction>
+       </preface>
+       </iso-standard>
+       INPUT
+    #{HTML_HDR}
+      <br/>
+      <div class='Section3' id='B'>
+        <h1 class='IntroTitle'>Introduction</h1>
+        <div>
+          <h1>Introduction Subsection</h1>
+        </div>
+      </div>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+       OUTPUT
+    end
+
   it "processes simple terms & definitions" do
         expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
                <iso-standard xmlns="http://riboseinc.com/isoxml">

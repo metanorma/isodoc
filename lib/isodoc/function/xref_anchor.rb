@@ -25,7 +25,7 @@ module IsoDoc::Function
     end
 
     def anchor(id, lbl, warning = true)
-      return "[]" if id.nil? || id.empty?
+      return nil if id.nil? || id.empty?
       unless @anchors[id]
         if warning
           @seen ||= Seen_Anchor.instance
