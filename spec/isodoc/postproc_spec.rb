@@ -629,6 +629,7 @@ TOCLEVEL
         <preface><foreword>
          <figure id="_">
          <name>Split-it-right sample divider</name>
+                  <image src="#{File.expand_path(File.join(File.dirname(__FILE__), "..", "assets/rice_image1.png"))}" id="_" mimetype="image/png"/>
                   <image src="assets/rice_image1.png" id="_" mimetype="image/png"/>
                   <image src="assets/rice_image1.png" id="_" width="20000" height="300000" mimetype="image/png"/>
                   <image src="assets/rice_image1.png" id="_" width="99" height="auto" mimetype="image/png"/>
@@ -645,6 +646,7 @@ TOCLEVEL
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="figure">
+               <img src="test_htmlimages/_.png" height="776" width="922" />
                <img src="test_htmlimages/_.png" height="776" width="922" />
 <img src="test_htmlimages/_.png" height="800" width="53" />
 <img src="test_htmlimages/_.png" height="83" width="99" />
@@ -664,6 +666,7 @@ TOCLEVEL
         <preface><foreword>
          <figure id="_">
          <name>Split-it-right sample divider</name>
+                  <image src="#{File.expand_path(File.join(File.dirname(__FILE__), "..", "assets/rice_image1.png"))}" id="_" mimetype="image/png"/>
                   <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
        </figure>
        </foreword></preface>
@@ -678,6 +681,7 @@ TOCLEVEL
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="figure">
                <img src="data:image/png;base64,_" height="776" width="922" />
+               <img src="data:image/png;base64,_" height="776" width="922" />
        <p class="FigureTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Split-it-right sample divider</p></div>
              </div>
              <p class="zzSTDTitle1"></p>
@@ -685,6 +689,39 @@ TOCLEVEL
     OUTPUT
 
   end
+
+    it "encodes images in HTML as data URIs, using relative file location" do
+    FileUtils.rm_f "spec/test.html"
+    FileUtils.rm_rf "spec/test_htmlimages"
+    IsoDoc::HtmlConvert.new({htmlstylesheet: "spec/assets/html.css", datauriimage: true}).convert("spec/test", <<~"INPUT", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface><foreword>
+         <figure id="_">
+         <name>Split-it-right sample divider</name>
+                  <image src="#{File.expand_path(File.join(File.dirname(__FILE__), "..", "assets/rice_image1.png"))}" id="_" mimetype="image/png"/>
+                  <image src="assets/rice_image1.png" id="_" mimetype="image/png"/>
+       </figure>
+       </foreword></preface>
+        </iso-standard>
+    INPUT
+    html = File.read("spec/test.html").sub(/^.*<main class="main-section">/m, '<main class="main-section">').
+      sub(%r{</main>.*$}m, "</main>")
+    expect(xmlpp(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"}))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+             <br />
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="_" class="figure">
+               <img src="data:image/png;base64,_" height="776" width="922" />
+               <img src="data:image/png;base64,_" height="776" width="922" />
+       <p class="FigureTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Split-it-right sample divider</p></div>
+             </div>
+             <p class="zzSTDTitle1"></p>
+           </main>
+    OUTPUT
+
+  end
+
 
   it "processes IsoXML terms for HTML" do
     FileUtils.rm_f "test.html"

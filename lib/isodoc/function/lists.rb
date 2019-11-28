@@ -62,8 +62,12 @@ module IsoDoc::Function
       %w{dt dd}.include? n.name
     end
 
+    def dl_attr(node)
+      attr_code(id: node["id"])
+    end
+
     def dl_parse(node, out)
-      out.dl  **attr_code(id: node["id"]) do |v|
+      out.dl  **dl_attr(node) do |v|
         node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
           v.dt **attr_code(id: dt["id"]) do |term|
             dt_parse(dt, term) 
