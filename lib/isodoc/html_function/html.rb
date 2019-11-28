@@ -269,7 +269,7 @@ module IsoDoc::HtmlFunction
 
     def datauri(i)
       type = i["src"].split(".")[-1]
-      bin = IO.binread(File.join(@localdir, i["src"]))
+      bin = IO.binread(image_localfile(i))
       data = Base64.strict_encode64(bin)
       i["src"] = "data:image/#{type};base64,#{data}"
     end
