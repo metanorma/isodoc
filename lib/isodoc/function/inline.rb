@@ -8,6 +8,14 @@ module IsoDoc::Function
       out.br
     end
 
+    def hr_parse(node, out)
+      out.hr
+    end
+
+    def br_parse(node, out)
+      out.br
+    end
+
     def link_parse(node, out)
       out.a **attr_code(href: node["target"], title: node["alt"]) do |l|
         if node.text.empty?
