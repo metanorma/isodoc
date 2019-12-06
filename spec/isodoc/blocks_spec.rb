@@ -240,7 +240,7 @@ INPUT
   </dl>
 </figure>
 <figure id="figure-B">
-<pre>A &lt;
+<pre alt="A B">A &lt;
 B</pre>
 </figure>
 <figure id="figure-C" unnumbered="true">
