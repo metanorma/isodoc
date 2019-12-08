@@ -57,6 +57,31 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+  it "processes inline images" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <p>
+  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+  </p>
+  </foreword></preface>
+  </iso-standard>
+  INPUT
+    #{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <p>
+          <img src='rice_images/rice_image1.png' height='20' width='30' title='titletxt' alt='alttext'/>
+        </p>
+      </div>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+  OUTPUT
+  end
+
   it "processes links" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
