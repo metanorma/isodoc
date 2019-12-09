@@ -128,9 +128,14 @@ module IsoDoc::Function
       example_div_parse(node, out)
     end
 
-    def sourcecode_name_parse(_node, div, name)
+    def sourcecode_name_parse(node, div, name)
       div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
-        name.children.each { |n| parse(n, p) }
+        if node.ancestors("example").empty?
+          lbl = anchor(node['id'], :label, false)
+          lbl.nil? or p << l10n("#{@figure_lbl} #{lbl}")
+          name and !lbl.nil? and p << "&nbsp;&mdash; "
+        end
+        name&.children&.each { |n| parse(n, p) }
       end
     end
 
@@ -147,7 +152,8 @@ module IsoDoc::Function
         node.children.each { |n| parse(n, div) unless n.name == "name" }
         @sourcecode = false
       end
-      sourcecode_name_parse(node, out, name) if name
+      sourcecode_name_parse(node, out, name) if name ||
+        node.ancestors("example").empty? && anchor(node['id'], :label, false)
     end
 
     def pre_parse(node, out)

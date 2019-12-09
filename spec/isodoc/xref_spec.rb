@@ -203,10 +203,13 @@ RSpec.describe IsoDoc do
     <xref target="N"/>
     <xref target="note1"/>
     <xref target="note3"/>
+    <xref target="note4"/>
     <xref target="note2"/>
+    <xref target="note51"/>
     <xref target="AN"/>
     <xref target="Anote1"/>
     <xref target="Anote2"/>
+    <xref target="Anote3"/>
     </p>
     </foreword>
         <introduction id="intro">
@@ -240,6 +243,14 @@ RSpec.describe IsoDoc do
   <figure id="note3" class="pseudocode">
   <p>pseudocode</p>
   </figure>
+  <sourcecode id="note4"><name>Source! Code!</name>
+  A B C
+  </sourcecode>
+  <example id="note5">
+  <sourcecode id="note51">
+  A B C
+  </sourcecode>
+  </example>
     <figure id="note2">
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
@@ -264,6 +275,9 @@ RSpec.describe IsoDoc do
   <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </figure>
+  <sourcecode id="Anote3"><name>Source! Code!</name>
+  A B C
+  </sourcecode>
     </clause>
     </annex>
     </iso-standard>
@@ -277,11 +291,14 @@ RSpec.describe IsoDoc do
            <a href="#N2">Figure (??)</a>
            <a href="#N">Figure 2</a>
            <a href="#note1">Figure 3</a>
-           <a href="#note3">[note3]</a>
-           <a href="#note2">Figure 4</a>
+           <a href="#note3">Figure 4</a>
+           <a href="#note4">Figure 5</a>
+           <a href="#note2">Figure 6</a>
+           <a href="#note51">[note51]</a>
            <a href="#AN">Figure A.1</a>
            <a href="#Anote1">Figure (??)</a>
            <a href="#Anote2">Figure A.2</a>
+           <a href="#Anote3">Figure A.3</a>
            </p>
                </div>
                <br/>
@@ -313,7 +330,7 @@ RSpec.describe IsoDoc do
        </div>
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1"><h2>3.1.&#160;</h2>
+                 <div id="widgets1"><h2>3.1.&#160; </h2>
                <div id="note1" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
@@ -321,22 +338,39 @@ RSpec.describe IsoDoc do
          <div id="note3" class="pseudocode">
 <p>pseudocode</p>
 </div>
+<pre id='note4' class='prettyprint '>
+  <br/>
+  &#160; A B C
+  <br/>
+  &#160; 
+  <p class='SourceTitle' style='text-align:center;'>Figure 5&#160;&#8212; Source! Code!</p>
+</pre>
+<div id='note5' class='example'>
+  <p class='example-title'>EXAMPLE</p>
+  <pre id='note51' class='prettyprint '>
+    <br/>
+    &#160; A B C
+    <br/>
+    &#160; 
+  </pre>
+</div>
+
            <div id="note2" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
-         <p class="FigureTitle" style="text-align:center;">Figure 4&#160;&#8212; Split-it-right sample divider</p></div>
-         <p>    <a href="#note1">Figure 3</a> <a href="#note2">Figure 4</a> </p>
+         <p class="FigureTitle" style="text-align:center;">Figure 6&#160;&#8212; Split-it-right sample divider</p></div>
+         <p>    <a href="#note1">Figure 3</a> <a href="#note2">Figure 6</a> </p>
            </div>
                </div>
                <br/>
                <div id="annex1" class="Section3">
-                 <div id="annex1a"><h2>A.1.&#160;</h2>
+                 <div id="annex1a"><h2>A.1.&#160; </h2>
                <div id="AN" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" style="text-align:center;">Figure A.1&#160;&#8212; Split-it-right sample divider</p></div>
            </div>
-                 <div id="annex1b"><h2>A.2.&#160;</h2>
+                 <div id="annex1b"><h2>A.2.&#160; </h2>
                <div id="Anote1" class="figure">
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
@@ -345,7 +379,14 @@ RSpec.describe IsoDoc do
 
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          <p class="FigureTitle" style="text-align:center;">Figure A.2&#160;&#8212; Split-it-right sample divider</p></div>
-           </div>
+           <pre id='Anote3' class='prettyprint '>
+  <br/>
+  &#160; A B C
+  <br/>
+  &#160;
+  <p class='SourceTitle' style='text-align:center;'>Figure A.3&#160;&#8212; Source! Code!</p>
+</pre>
+</div>
                </div>
              </div>
            </body>

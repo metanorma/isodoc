@@ -70,17 +70,18 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def style_update(node, css)
+      return unless node
       node["style"] = node["style"] ?  node["style"].sub(/;?$/, ";#{css}") : css
     end
 
     def word_image_caption(docxml)
       docxml.xpath("//p[@class = 'FigureTitle' or @class = 'SourceTitle']").
         each do |t|
-        if t.previous_element.name == "img"
+        if t&.previous_element&.name == "img"
           img = t.previous_element
           t.previous_element.swap("<p class=\'figure\'>#{img.to_xml}</p>")
         end
-        style_update(t.previous_element, "page-break-after:avoid;")
+        style_update(t&.previous_element, "page-break-after:avoid;")
       end
     end
 
