@@ -351,6 +351,9 @@ B</pre>
     <example id="samplecode">
     <name>Title</name>
   <p>Hello</p>
+  <sourcecode id="X">
+  <name>Sample</name>
+  </sourcecode>
 </example>
     </foreword></preface>
     </iso-standard>
@@ -362,6 +365,13 @@ B</pre>
                  <div id="samplecode" class="example">
                  <p class="example-title">EXAMPLE&#160;&#8212; Title</p>
          <p>Hello</p>
+         <pre id='X' class='prettyprint '>
+  <br/>
+  &#160; 
+  <br/>
+  &#160; 
+  <p class='SourceTitle' style='text-align:center;'>Sample</p>
+</pre>
                  </div>
                </div>
                <p class="zzSTDTitle1"/>
@@ -428,7 +438,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" style="text-align:center;">Ruby <i>code</i></p></pre>
+                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p></pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -463,7 +473,7 @@ B</pre>
              </p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/></p><p class="SourceTitle" style="text-align:center;">Ruby <i>code</i></p>
+                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/></p><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
                </div>
                   <p>&#160;</p>
  </div>
@@ -493,7 +503,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="SourceTitle" style="text-align:center;">XML code</p></pre>
+                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; XML code</p></pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -1027,7 +1037,7 @@ INPUT
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="pseudocode"><p id="_">&#160;&#160;<b>A</b><br/>
        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-variant:small-caps;">B</span></p>
-       <p id="_">&#160;&#160;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Label</p></div>
+       <p id="_">&#160;&#160;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
              </div>
              <p class="zzSTDTitle1"/>
            </div>
@@ -1052,7 +1062,7 @@ INPUT
     expect(xmlpp( File.read("test.doc").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{</div>.*}m, "</div>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <div class="pseudocode"><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
-       <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Label</p></div>
+       <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
 OUTPUT
   end
 
