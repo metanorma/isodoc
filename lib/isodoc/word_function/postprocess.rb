@@ -51,8 +51,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def word_admonition_images(docxml)
       docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
         i["width"], i["height"] =
-          Html2Doc.image_resize(i, File.join(@localdir, i["src"]),
-                                @maxheight, 300)
+          Html2Doc.image_resize(i, image_localfile(i), @maxheight, 300)
       end
     end
 

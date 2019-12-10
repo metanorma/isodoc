@@ -257,16 +257,6 @@ module IsoDoc::HtmlFunction
       docxml
     end
 
-    def image_localfile(i)
-      if /^data:image/.match i["src"]
-        save_dataimage(i["src"], false)
-      elsif %r{^([A-Z]:)?/}.match i["src"]
-        i["src"]
-      else
-        File.join(@localdir, i["src"])
-      end
-    end
-
     def datauri(i)
       type = i["src"].split(".")[-1]
       bin = IO.binread(image_localfile(i))

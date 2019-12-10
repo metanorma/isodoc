@@ -1,6 +1,5 @@
 module IsoDoc::Function
   module Utils
-
     def date_range(date)
       self.class.date_range(date)
     end
@@ -40,8 +39,8 @@ module IsoDoc::Function
       end.to_h
     end
 
-    DOCTYPE_HDR = '<!DOCTYPE html SYSTEM
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.freeze
+    DOCTYPE_HDR = '<!DOCTYPE html SYSTEM '\
+      '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.freeze
 
     def to_xhtml(xml)
       xml.gsub!(/<\?xml[^>]*>/, "")
@@ -165,7 +164,17 @@ module IsoDoc::Function
         f.write(Base64.strict_decode64(imgdata))
         @tempfile_cache << f #persist to the end
         f.path
+      end
     end
+
+    def image_localfile(i)
+      if /^data:image/.match i["src"]
+        save_dataimage(i["src"], false)
+      elsif %r{^([A-Z]:)?/}.match i["src"]
+        i["src"]
+      else
+        File.join(@localdir, i["src"])
+      end
     end
   end
 end
