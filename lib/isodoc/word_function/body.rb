@@ -10,6 +10,7 @@ module IsoDoc::WordFunction
       super
     end
 
+=begin
     def anchor_names(docxml)
       super
       renumber_footnotes(docxml)
@@ -22,6 +23,7 @@ module IsoDoc::WordFunction
         f["reference"] = (i + 1).to_s
       end
     end
+=end
 
     def body_attr
       { lang: "EN-US", link: "blue", vlink: "#954F72" }

@@ -1,5 +1,13 @@
 module IsoDoc::WordFunction
   module Footnotes
+    def bookmarkid
+      ret = "X"
+      until !@bookmarks_allocated[ret] do
+        ret = Random.rand(1000000000)
+      end
+      @bookmarks_allocated[ret] = true
+      sprintf "%09d", ret
+    end
 
     def footnotes(div)
       return if @footnotes.empty?
@@ -59,13 +67,26 @@ module IsoDoc::WordFunction
       @seen_footnote << (tid + fn)
     end
 
+    def seen_footnote_parse(node, out, fn)
+      out.span **{style: "mso-element:field-begin"}
+      out << " NOTEREF _Ref#{@fn_bookmarks[fn]} \\f \\h"
+      out.span **{style: "mso-element:field-separator"}
+      out.span **{class: "MsoFootnoteReference"} do |s|
+        s << fn
+      end
+      out.span **{style: "mso-element:field-end"}
+    end
+
     def footnote_parse(node, out)
       return table_footnote_parse(node, out) if @in_table || @in_figure
       fn = node["reference"]
-      out.a **{ "epub:type": "footnote", href: "#ftn#{fn}" } do |a|
-        a.sup { |sup| sup << fn }
+      return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)
+      @fn_bookmarks[fn] = bookmarkid
+      out.span **{style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}"} do |s|
+        s.a **{ "epub:type": "footnote", href: "#ftn#{fn}" } do |a|
+          a.sup { |sup| sup << fn }
+        end
       end
-      return if @seen_footnote.include?(fn)
       @in_footnote = true
       @footnotes << make_generic_footnote_text(node, fn)
       @in_footnote = false
