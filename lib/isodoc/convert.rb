@@ -71,6 +71,8 @@ module IsoDoc
       @wordToClevels = 2 if @wordToClevels == 0
       @htmlToClevels = options[:htmltoclevels].to_i
       @htmlToClevels = 2 if @htmlToClevels == 0
+      @bookmarks_allocated = {"X" => true}
+      @fn_bookmarks = {}
     end
 
     # run this after @meta is populated
@@ -136,10 +138,10 @@ module IsoDoc
       #@files_to_delete << outname
       #outname
       Tempfile.open([File.basename(filename, ".*"), "css"],
-                      :encoding => "utf-8") do |f|
+                    :encoding => "utf-8") do |f|
         f.write(engine.render)
         f
-    end
+      end
     end
 
     def convert1(docxml, filename, dir)

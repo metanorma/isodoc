@@ -42,7 +42,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes IsoXML footnotes (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).gsub(/_Ref\d+/, "_Ref"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -59,38 +59,65 @@ RSpec.describe IsoDoc do
     </preface>
     </iso-standard>
     INPUT
-           <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-         <head><style/></head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <p><br clear="all" class="section"/></p>
-             <div class="WordSection2">
-               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p>A.<a href="#ftn1" epub:type="footnote"><sup>1</sup></a></p>
-                 <p>B.<a href="#ftn2" epub:type="footnote"><sup>2</sup></a></p>
-                 <p>C.<a href="#ftn3" epub:type="footnote"><sup>3</sup></a></p>
-               </div>
-               <p>&#160;</p>
-             </div>
-             <p><br clear="all" class="section"/></p>
-             <div class="WordSection3">
-               <p class="zzSTDTitle1"/>
-               <aside id="ftn1">
-         <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-       </aside>
-               <aside id="ftn2">
-         <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-       </aside>
-               <aside id="ftn3">
-         <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
-       </aside>
-             </div>
-           </body>
-       </html>
+    <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+  <head>
+    <style>
+    </style>
+  </head>
+  <body lang='EN-US' link='blue' vlink='#954F72'>
+    <div class='WordSection1'>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection2'>
+      <p>
+        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+      </p>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <p>
+          A.
+          <span style='mso-bookmark:_Ref'>
+            <a href='#ftn2' epub:type='footnote'>
+              <sup>2</sup>
+            </a>
+          </span>
+        </p>
+        <p>
+          B.
+          <span style='mso-element:field-begin'/>
+           NOTEREF _Ref \\f \\h
+          <span style='mso-element:field-separator'/>
+          <span class='MsoFootnoteReference'>2</span>
+          <span style='mso-element:field-end'/>
+        </p>
+        <p>
+          C.
+          <span style='mso-bookmark:_Ref'>
+            <a href='#ftn1' epub:type='footnote'>
+              <sup>1</sup>
+            </a>
+          </span>
+        </p>
+      </div>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection3'>
+      <p class='zzSTDTitle1'/>
+      <aside id='ftn2'>
+        <p id='_1e228e29-baef-4f38-b048-b05a051747e4'>Formerly denoted as 15 % (m/m).</p>
+      </aside>
+      <aside id='ftn1'>
+        <p id='_1e228e29-baef-4f38-b048-b05a051747e4'>Hello! denoted as 15 % (m/m).</p>
+      </aside>
+    </div>
+  </body>
+</html>
     OUTPUT
   end
 

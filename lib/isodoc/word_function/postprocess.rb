@@ -177,10 +177,6 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       meta = @meta.get
       meta[:filename] = filename
       params = meta.map { |k, v| [k.to_s, v] }.to_h
-      #headerfile = "header.html"
-      #File.open(headerfile, "w:UTF-8") { |f| f.write(template.render(params)) }
-      #@files_to_delete << headerfile
-      #headerfile
       Tempfile.open(%w(header html), :encoding => "utf-8") do |f|
         f.write(template.render(params))
         f
@@ -188,7 +184,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def word_toc_entry(toclevel, heading)
-      bookmark = Random.rand(1000000000)
+      bookmark = bookmarkid # Random.rand(1000000000)
       <<~TOC
         <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span
         lang="EN-GB" style='mso-no-proof:yes'>
