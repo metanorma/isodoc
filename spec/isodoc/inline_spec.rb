@@ -31,6 +31,28 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+    it "ignores index entries" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <p><index primary="A" secondary="B" tertiary="C"/></p>
+    </foreword></preface>
+    <sections>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <p/>
+             </div>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    end
+
   it "processes embedded inline formatting" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">

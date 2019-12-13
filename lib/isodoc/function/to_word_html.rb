@@ -248,6 +248,7 @@ module IsoDoc::Function
         when "measurement-target" then requirement_component_parse(node, out)
         when "verification" then requirement_component_parse(node, out)
         when "import" then requirement_component_parse(node, out)
+        when "index" then index_parse(node, out)
         else
           error_parse(node, out)
         end
