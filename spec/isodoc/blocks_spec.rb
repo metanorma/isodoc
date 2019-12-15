@@ -1081,6 +1081,53 @@ INPUT
 OUTPUT
   end
 
+  it "does not label embedded figures, sourcecode" do
+  expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+<itu-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <language>en</language>
+    </bibdata>
+        <preface><foreword>
+        <example>
+        <sourcecode id="B"><name>Label</name>A B C</sourcecode>
+  <figure id="A" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong></p></figure>
+        <sourcecode id="B1">A B C</sourcecode>
+  <figure id="A1" class="pseudocode"><p id="_">  <strong>A</strong></p></figure>
+</example>
+</preface></itu-standard>
+INPUT
+    #{HTML_HDR}
+      <br/>
+      <div>
+      <h1 class='ForewordTitle'>Foreword</h1>
+               <div class='example'>
+                 <p class='example-title'>EXAMPLE</p>
+                 <pre id='B' class='prettyprint '>
+                   A B C
+                   <p class='SourceTitle' style='text-align:center;'>Label</p>
+                 </pre>
+                 <div id='A' class='pseudocode'>
+                   <p id='_'>
+                     &#160;&#160;
+                     <b>A</b>
+                   </p>
+                   <p class='SourceTitle' style='text-align:center;'>Label</p>
+                 </div>
+                 <pre id='B1' class='prettyprint '>A B C</pre>
+                 <div id='A1' class='pseudocode'>
+                   <p id='_'>
+                     &#160;&#160;
+                     <b>A</b>
+                   </p>
+                 </div>
+               </div>
+             </div>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+       end
 
 
 end

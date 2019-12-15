@@ -7,10 +7,7 @@ module IsoDoc::Function
 
     def recommendation_name(node, out, type)
       label, title, lbl = recommendation_labels(node)
-      #label = node.at(ns("./label"))
-      #title = node.at(ns("./title"))
       out.p **{ class: "AdmonitionTitle" }  do |b|
-        #lbl = anchor(node['id'], :label, false)
         b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
         if label || title
           b.br

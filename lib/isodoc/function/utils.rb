@@ -176,5 +176,10 @@ module IsoDoc::Function
         File.join(@localdir, i["src"])
       end
     end
+
+    def labelled_ancestor(node)
+      return !node.ancestors("example, requirement, recommendation, permission, "\
+                             "table, figure, sourcecode").empty?
+    end
   end
 end
