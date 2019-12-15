@@ -337,6 +337,7 @@ RSpec.describe IsoDoc do
          <p class="FigureTitle" style="text-align:center;">Figure 3&#160;&#8212; Split-it-right sample divider</p></div>
          <div id="note3" class="pseudocode">
 <p>pseudocode</p>
+<p class='SourceTitle' style='text-align:center;'>Figure 4</p>
 </div>
 <pre id='note4' class='prettyprint '>
   <br/>

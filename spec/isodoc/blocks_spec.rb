@@ -272,7 +272,6 @@ B</pre>
                <div class="figure" id="figure-C">
 <pre>A &lt;
 B</pre>
-<p class="FigureTitle" style="text-align:center;"/>
 </div>
                </div>
                <p class="zzSTDTitle1"/>
@@ -431,6 +430,9 @@ B</pre>
     <name>Ruby <em>code</em></name>
   puts x
 </sourcecode>
+<sourcecode unnumbered="true">
+Que?
+</sourcecode>
     </foreword></preface>
     </iso-standard>
     INPUT
@@ -439,6 +441,11 @@ B</pre>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p></pre>
+                 <pre class='prettyprint '>
+  <br/>
+  Que?
+  <br/>
+</pre>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -454,6 +461,9 @@ B</pre>
     <sourcecode lang="ruby" id="samplecode">
     <name>Ruby <em>code</em></name>
   puts x
+</sourcecode>
+<sourcecode unnumbered="true">
+Que?
 </sourcecode>
     </foreword></preface>
     </iso-standard>
@@ -474,6 +484,11 @@ B</pre>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/></p><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
+                 <p class='Sourcecode'>
+  <br/>
+  Que?
+  <br/>
+</p>
                </div>
                   <p>&#160;</p>
  </div>

@@ -40,8 +40,9 @@ module IsoDoc::Function
 
     def figure_name_parse(node, div, name)
       return if name.nil? && node.at(ns("./figure"))
+      lbl = anchor(node['id'], :label, false)
+      return if lbl.nil? && name.nil?
       div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
-        lbl = anchor(node['id'], :label, false)
         lbl.nil? or p << l10n("#{@figure_lbl} #{lbl}")
         name and !lbl.nil? and p << "&nbsp;&mdash; "
         name and name.children.each { |n| parse(n, div) }
@@ -69,14 +70,14 @@ module IsoDoc::Function
     end
 
     def pseudocode_parse(node, out)
-        @in_figure = true
-        name = node.at(ns("./name"))
-        out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
-          node.children.each { |n| parse(n, div) unless n.name == "name" }
-          sourcecode_name_parse(node, div, name) if name
-        end
-        @in_figure = false
+      @in_figure = true
+      name = node.at(ns("./name"))
+      out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
+        node.children.each { |n| parse(n, div) unless n.name == "name" }
+        sourcecode_name_parse(node, div, name)
       end
+      @in_figure = false
+    end
 
     def example_label(node, div, name)
       n = get_anchors[node["id"]]
@@ -129,9 +130,10 @@ module IsoDoc::Function
     end
 
     def sourcecode_name_parse(node, div, name)
+      lbl = anchor(node['id'], :label, false)
+      return if lbl.nil? && name.nil?
       div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
         if node.ancestors("example").empty?
-          lbl = anchor(node['id'], :label, false)
           lbl.nil? or p << l10n("#{@figure_lbl} #{lbl}")
           name and !lbl.nil? and p << "&nbsp;&mdash; "
         end
@@ -152,8 +154,8 @@ module IsoDoc::Function
         node.children.each { |n| parse(n, div) unless n.name == "name" }
         @sourcecode = false
       end
-      sourcecode_name_parse(node, out, name) if name ||
-        node.ancestors("example").empty? && anchor(node['id'], :label, false)
+      sourcecode_name_parse(node, out, name) if
+        node.ancestors("example").empty?
     end
 
     def pre_parse(node, out)

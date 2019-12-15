@@ -121,7 +121,6 @@ RSpec.describe IsoDoc do
                    <p><span class="note_label">NOTE</span>&#160; This is a table about rice</p>
                  </div>
                </table>
-               <p class="TableTitle" style="text-align:center;"/>
                <table id="tableD-2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                  <tbody>
                    <tr>

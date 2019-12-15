@@ -1054,7 +1054,6 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
              </p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <p class="TableTitle" style="text-align:center;font-size:0pt;">&#xA0;</p>
                <div align="center" class="table_container">
                  <table class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;"><a name="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7"></a>
                    <thead>
@@ -1109,7 +1108,6 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
          </p>
          <div>
            <h1 class='ForewordTitle'>Foreword</h1>
-           <p class='TableTitle' style='text-align:center;font-size:0pt;'>&#xA0;</p>
            <div align='center' class="table_container">
              <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
                <a name='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7' id='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7'/>
