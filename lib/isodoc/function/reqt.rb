@@ -41,12 +41,16 @@ module IsoDoc::Function
       end
     end
 
+    def reqt_metadata_node(n)
+      %w(label title subject classification tag value).include? n.name
+    end
+
     def recommendation_parse(node, out)
       out.div **{ class: "recommend" } do |t|
         recommendation_name(node, t, @recommendation_lbl)
         recommendation_attributes(node, out)
         node.children.each do |n|
-          parse(n, t) unless %w(label title).include? n.name
+          parse(n, t) unless reqt_metadata_node(n)
         end
       end
     end
@@ -56,7 +60,7 @@ module IsoDoc::Function
         recommendation_name(node, t, @requirement_lbl)
         recommendation_attributes(node, out)
         node.children.each do |n|
-          parse(n, t) unless %w(label title).include? n.name
+          parse(n, t) unless reqt_metadata_node(n)
         end
       end
     end
@@ -66,7 +70,7 @@ module IsoDoc::Function
         recommendation_name(node, t, @permission_lbl)
         recommendation_attributes(node, out)
         node.children.each do |n|
-          parse(n, t) unless %w(label title).include? n.name
+          parse(n, t) unless reqt_metadata_node(n)
         end
       end
     end
