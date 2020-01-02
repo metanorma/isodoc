@@ -833,7 +833,7 @@ World</p>
        <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="permission"><p class="AdmonitionTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
+        <div class="permission"><p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
         <p><i>Subject: user<br/>Control-class: Technical<br/>Priority: P0<br/>Family: System and Communications Protection<br/>Family: System and Communications Protocols</i></p>
 
   <div class="requirement-inherit">/ss/584/2015/level/1</div>
@@ -919,7 +919,7 @@ World</p>
         <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="require"><p class="AdmonitionTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user</i></p>
+        <div class="require"><p class="RecommendationTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user</i></p>
 
   <div class="requirement-inherit">/ss/584/2015/level/1</div>
   <div class="requirement-description">
@@ -1005,7 +1005,7 @@ World</p>
        <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-<div class="recommend"><p class="AdmonitionTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could<br/>Subject: user<br/>Type: text<br/>Language: BASIC</i></p>
+<div class="recommend"><p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could<br/>Subject: user<br/>Type: text<br/>Language: BASIC</i></p>
   <div class="requirement-inherit">/ss/584/2015/level/1</div>
   <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>

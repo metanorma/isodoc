@@ -846,11 +846,11 @@ RSpec.describe IsoDoc do
       <br/>
       <div class="Section3" id="intro">
         <h1 class="IntroTitle">Introduction</h1>
-        <div class="require"><p class="AdmonitionTitle">Requirement 1:</p>
+        <div class="require"><p class="RecommendationTitle">Requirement 1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="require"><p class="AdmonitionTitle">Requirement:</p>
+    <div class="require"><p class="RecommendationTitle">Requirement:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -858,7 +858,7 @@ RSpec.describe IsoDoc do
       <p class="zzSTDTitle1"/>
       <div id="scope">
         <h1>1.&#160; Scope</h1>
-        <div class="require"><p class="AdmonitionTitle">Requirement 2:</p>
+        <div class="require"><p class="RecommendationTitle">Requirement 2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <p>
@@ -870,10 +870,10 @@ RSpec.describe IsoDoc do
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
         <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="require"><p class="AdmonitionTitle">Requirement 3:</p>
+    <div class="require"><p class="RecommendationTitle">Requirement 3:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="require"><p class="AdmonitionTitle">Requirement 4:</p>
+    <div class="require"><p class="RecommendationTitle">Requirement 4:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
   <p>    <a href="#note1">Requirement 3</a> <a href="#note2">Requirement 4</a> </p>
@@ -882,15 +882,15 @@ RSpec.describe IsoDoc do
       <br/>
       <div id="annex1" class="Section3">
         <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="require"><p class="AdmonitionTitle">Requirement A.1:</p>
+    <div class="require"><p class="RecommendationTitle">Requirement A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
         <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="require"><p class="AdmonitionTitle">Requirement:</p>
+    <div class="require"><p class="RecommendationTitle">Requirement:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="require"><p class="AdmonitionTitle">Requirement A.2:</p>
+    <div class="require"><p class="RecommendationTitle">Requirement A.2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
@@ -983,11 +983,11 @@ OUTPUT
       <br/>
       <div class="Section3" id="intro">
         <h1 class="IntroTitle">Introduction</h1>
-        <div class="recommend"><p class="AdmonitionTitle">Recommendation 1:</p>
+        <div class="recommend"><p class="RecommendationTitle">Recommendation 1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="recommend"><p class="AdmonitionTitle">Recommendation:</p>
+    <div class="recommend"><p class="RecommendationTitle">Recommendation:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -995,7 +995,7 @@ OUTPUT
       <p class="zzSTDTitle1"/>
       <div id="scope">
         <h1>1.&#160; Scope</h1>
-        <div class="recommend"><p class="AdmonitionTitle">Recommendation 2:</p>
+        <div class="recommend"><p class="RecommendationTitle">Recommendation 2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <p>
@@ -1007,10 +1007,10 @@ OUTPUT
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
         <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="recommend"><p class="AdmonitionTitle">Recommendation 3:</p>
+    <div class="recommend"><p class="RecommendationTitle">Recommendation 3:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="recommend"><p class="AdmonitionTitle">Recommendation 4:</p>
+    <div class="recommend"><p class="RecommendationTitle">Recommendation 4:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
   <p>    <a href="#note1">Recommendation 3</a> <a href="#note2">Recommendation 4</a> </p>
@@ -1019,15 +1019,15 @@ OUTPUT
       <br/>
       <div id="annex1" class="Section3">
         <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="recommend"><p class="AdmonitionTitle">Recommendation A.1:</p>
+    <div class="recommend"><p class="RecommendationTitle">Recommendation A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
         <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="recommend"><p class="AdmonitionTitle">Recommendation:</p>
+    <div class="recommend"><p class="RecommendationTitle">Recommendation:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="recommend"><p class="AdmonitionTitle">Recommendation A.2:</p>
+    <div class="recommend"><p class="RecommendationTitle">Recommendation A.2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
@@ -1120,11 +1120,11 @@ OUTPUT
       <br/>
       <div class="Section3" id="intro">
         <h1 class="IntroTitle">Introduction</h1>
-        <div class="permission"><p class="AdmonitionTitle">Permission 1:</p>
+        <div class="permission"><p class="RecommendationTitle">Permission 1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="permission"><p class="AdmonitionTitle">Permission:</p>
+    <div class="permission"><p class="RecommendationTitle">Permission:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -1132,7 +1132,7 @@ OUTPUT
       <p class="zzSTDTitle1"/>
       <div id="scope">
         <h1>1.&#160; Scope</h1>
-        <div class="permission"><p class="AdmonitionTitle">Permission 2:</p>
+        <div class="permission"><p class="RecommendationTitle">Permission 2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <p>
@@ -1144,10 +1144,10 @@ OUTPUT
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
         <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="permission"><p class="AdmonitionTitle">Permission 3:</p>
+    <div class="permission"><p class="RecommendationTitle">Permission 3:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="permission"><p class="AdmonitionTitle">Permission 4:</p>
+    <div class="permission"><p class="RecommendationTitle">Permission 4:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
   <p>    <a href="#note1">Permission 3</a> <a href="#note2">Permission 4</a> </p>
@@ -1156,15 +1156,15 @@ OUTPUT
       <br/>
       <div id="annex1" class="Section3">
         <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="permission"><p class="AdmonitionTitle">Permission A.1:</p>
+    <div class="permission"><p class="RecommendationTitle">Permission A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
         <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="permission"><p class="AdmonitionTitle">Permission:</p>
+    <div class="permission"><p class="RecommendationTitle">Permission:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="permission"><p class="AdmonitionTitle">Permission A.2:</p>
+    <div class="permission"><p class="RecommendationTitle">Permission A.2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
@@ -1242,28 +1242,28 @@ OUTPUT
       <p class="zzSTDTitle1"/>
       <div id="xyz">
         <h1>1.&#160; Preparatory</h1>
-        <div class="permission"><p class="AdmonitionTitle">Permission 1:</p>
-<div class="permission"><p class="AdmonitionTitle">Permission 1-1:</p>
-<div class="permission"><p class="AdmonitionTitle">Permission 1-1-1:</p>
+        <div class="permission"><p class="RecommendationTitle">Permission 1:</p>
+<div class="permission"><p class="RecommendationTitle">Permission 1-1:</p>
+<div class="permission"><p class="RecommendationTitle">Permission 1-1-1:</p>
 </div>
 </div>
-<div class="require"><p class="AdmonitionTitle">Requirement 1-1:</p>
+<div class="require"><p class="RecommendationTitle">Requirement 1-1:</p>
 </div>
-<div class="recommend"><p class="AdmonitionTitle">Recommendation 1-1:</p>
+<div class="recommend"><p class="RecommendationTitle">Recommendation 1-1:</p>
 </div>
 </div>
       </div>
       <br/>
       <div id="Axyz" class="Section3">
         <h1 class="Annex"><b>Annex A</b><br/>(informative)<br/><br/><b>Preparatory</b></h1>
-        <div class="permission"><p class="AdmonitionTitle">Permission A.1:</p>
-<div class="permission"><p class="AdmonitionTitle">Permission A.1-1:</p>
-<div class="permission"><p class="AdmonitionTitle">Permission A.1-1-1:</p>
+        <div class="permission"><p class="RecommendationTitle">Permission A.1:</p>
+<div class="permission"><p class="RecommendationTitle">Permission A.1-1:</p>
+<div class="permission"><p class="RecommendationTitle">Permission A.1-1-1:</p>
 </div>
 </div>
-<div class="require"><p class="AdmonitionTitle">Requirement A.1-1:</p>
+<div class="require"><p class="RecommendationTitle">Requirement A.1-1:</p>
 </div>
-<div class="recommend"><p class="AdmonitionTitle">Recommendation A.1-1:</p>
+<div class="recommend"><p class="RecommendationTitle">Recommendation A.1-1:</p>
 </div>
 </div>
       </div>

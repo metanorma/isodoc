@@ -17,6 +17,12 @@
   }
 }
 
+@mixin recommendationBlock() {
+  .RecommendationTitle {
+    @include blockTitle();
+  }
+}
+
 @mixin figureBlock() {
   .FigureTitle, .figure-title {
     @include blockTitle();
