@@ -54,7 +54,7 @@ module IsoDoc::Function
       id ||= b.at(ns("./docidentifier")) 
       return id if id
       id = Nokogiri::XML::Node.new("docidentifier", b.document)
-      id.text = "(NO ID)"
+      id << "(NO ID)"
       id
     end
 
