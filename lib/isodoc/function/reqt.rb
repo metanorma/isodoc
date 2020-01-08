@@ -22,10 +22,10 @@ module IsoDoc::Function
       out = [] 
       oblig = node["obligation"] and out << "Obligation: #{oblig}" 
       subj = node&.at(ns("./subject"))&.text and out << "Subject: #{subj}" 
+      node.xpath(ns("./inherit")).each { |i| out << "Inherit: #{i.text}" }
       node.xpath(ns("./classification")).each do |c|
-        tag = c.at(ns("./tag"))
-        value = c.at(ns("./value"))
-        tag && value or next
+        tag = c.at(ns("./tag")) or next
+        value = c.at(ns("./value")) or next
         out << "#{tag.text.capitalize}: #{value.text}"
       end
       out
@@ -42,7 +42,7 @@ module IsoDoc::Function
     end
 
     def reqt_metadata_node(n)
-      %w(label title subject classification tag value).include? n.name
+      %w(label title subject classification tag value inherit).include? n.name
     end
 
     def recommendation_parse(node, out)
