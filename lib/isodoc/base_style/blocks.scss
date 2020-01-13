@@ -58,7 +58,8 @@
   line-height: 1.6em;
   padding: 1.5em;
   margin: 2em 0 1em 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: scroll;;
 }
 
 @mixin pseudocodeBlock($colorBg, $colorFg: null) {
