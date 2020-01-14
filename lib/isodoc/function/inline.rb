@@ -89,6 +89,11 @@ module IsoDoc::Function
       end
     end
 
+    def concept_parse(node, out)
+      content = node.first_element_child.children.select { |c| c.name != "locality" }
+      content.each { |n| parse(n, out) }
+    end
+
     def stem_parse(node, out)
       ooml = if node["type"] == "AsciiMath"
                "#{@openmathdelim}#{HTMLEntities.new.encode(node.text)}#{@closemathdelim}"

@@ -249,6 +249,7 @@ module IsoDoc::Function
         when "verification" then requirement_component_parse(node, out)
         when "import" then requirement_component_parse(node, out)
         when "index" then index_parse(node, out)
+        when "concept" then concept_parse(node, out)
         else
           error_parse(node, out)
         end

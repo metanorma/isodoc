@@ -53,6 +53,54 @@ RSpec.describe IsoDoc do
     OUTPUT
     end
 
+    it "processes concept markup" do
+      expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <p>
+    <concept term='term'>
+        <xref target='clause1'>w[o]rd</xref>
+      </concept>
+      <concept term='term'>
+        <eref>word</eref>
+      </concept>
+      <concept>
+        <eref>
+          <locality type='clause'>
+            <referenceFrom>3.1</referenceFrom>
+          </locality>
+          <locality type='figure'>
+            <referenceFrom>a</referenceFrom>
+          </locality>
+          <em>word</em>
+        </eref>
+      </concept>
+      <concept term='term'>
+        <termref base='IEV' target='135-13-13'><em>word</em> word</termref>
+      </concept>
+    </p>
+    </foreword></preface>
+    <sections>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <p>
+           w[o]rd word
+          <i>word</i>
+          <i>word</i>
+           word
+        </p>
+      </div>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+OUTPUT
+    end
+
   it "processes embedded inline formatting" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
