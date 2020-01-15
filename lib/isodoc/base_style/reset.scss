@@ -96,3 +96,31 @@ blockquote, q {
     content: none;
   }
 }
+
+  .h2Annex {
+  font-family: $headerfont;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+
+  dt, dd {
+    p {
+      margin-top: 0;
+    }
+  }
+
+  dt {
+    grid-column-start: 1;
+  }
+
+  dd {
+    grid-column-start: 2;
+  }
+}
+
+b, strong {
+  font-weight: bold;
+}
+

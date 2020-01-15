@@ -1,30 +1,3 @@
-.h2Annex {
-  font-family: $headerfont;
-}
-
-dl {
-  display: grid;
-  grid-template-columns: max-content auto;
-
-  dt, dd {
-    p {
-      margin-top: 0;
-    }
-  }
-
-  dt {
-    grid-column-start: 1;
-  }
-
-  dd {
-    grid-column-start: 2;
-  }
-}
-
-b, strong {
-  font-weight: bold;
-}
-
 @mixin bodyStyle1($fontSize, $lineHeight, $colorText, $colorBackground, $fontWeight: 400) {
   margin-left: auto;
   margin-right: auto;
@@ -38,6 +11,7 @@ b, strong {
   main {
     margin: 0 3em 0 6em;
   }
+
 }
 
 @mixin elementStyles($color, $colorHighlightBg, $colorHighlightFg) {
