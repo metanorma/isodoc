@@ -1,6 +1,7 @@
 require_relative "html_function/comments.rb"
 require_relative "html_function/footnotes.rb"
 require_relative "html_function/html.rb"
+require_relative "html_function/postprocess.rb"
 
 module IsoDoc
   class HtmlConvert < ::IsoDoc::Convert

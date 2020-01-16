@@ -58,14 +58,31 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
-    <concept term='term'>
+    <ul>
+    <li><concept term='term'>
+        <xref target='clause1'/>
+      </concept></li>
+    <li><concept term='term'>
         <xref target='clause1'>w[o]rd</xref>
-      </concept>
-      <concept term='term'>
-        <eref>word</eref>
-      </concept>
-      <concept>
-        <eref>
+      </concept></li>
+      <li><concept term='term'>
+        <eref bibitemid="ISO712" type="inline" citeas="ISO 712"/>
+      </concept></li>
+      <li><concept term='term'>
+        <eref bibitemid="ISO712" type="inline" citeas="ISO 712">word</eref>
+      </concept></li>
+      <li><concept>
+        <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
+          <locality type='clause'>
+            <referenceFrom>3.1</referenceFrom>
+          </locality>
+          <locality type='figure'>
+            <referenceFrom>a</referenceFrom>
+          </locality>
+        </eref>
+      </concept></li>
+      <li><concept>
+        <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
           <locality type='clause'>
             <referenceFrom>3.1</referenceFrom>
           </locality>
@@ -74,30 +91,82 @@ RSpec.describe IsoDoc do
           </locality>
           <em>word</em>
         </eref>
-      </concept>
-      <concept term='term'>
+      </concept></li>
+      <li><concept term='term'>
+        <termref base='IEV' target='135-13-13'/>
+      </concept></li>
+      <li><concept term='term'>
         <termref base='IEV' target='135-13-13'><em>word</em> word</termref>
-      </concept>
+      </concept></li>
+      </ul>
     </p>
     </foreword></preface>
     <sections>
+    <clause id="clause1"><title>Clause 1</title></clause>
+    </sections>
+    <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
+    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+<bibitem id="ISO712" type="standard">
+  <title format="text/plain">Cereals or cereal products</title>
+  <title type="main" format="text/plain">Cereals and cereal products</title>
+  <docidentifier type="ISO">ISO 712</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>International Organization for Standardization</name>
+    </organization>
+  </contributor>
+</bibitem>
+</references></bibliography>
     </iso-standard>
     INPUT
         #{HTML_HDR}
-      <br/>
-      <div>
-        <h1 class='ForewordTitle'>Foreword</h1>
-        <p>
-           w[o]rd word
-          <i>word</i>
-          <i>word</i>
-           word
-        </p>
-      </div>
-      <p class='zzSTDTitle1'/>
-    </div>
-  </body>
-</html>
+        <br/>
+             <div>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <p>
+                 <ul>
+                   <li>
+                     [Term defined in <a href='#clause1'>Clause 2</a>]
+                   </li>
+                   <li>w[o]rd</li>
+                   <li>
+                     [Term defined in <a href='#ISO712'>ISO 712</a>]
+                   </li>
+                   <li>word</li>
+                   <li>
+                     [Term defined in <a href='#ISO712'>ISO 712, Clause 3.1, Figure a</a>]
+                   </li>
+                   <li>
+                     <i>word</i>
+                   </li>
+                   <li>[Term defined in Termbase IEV, term ID 135-13-13]</li>
+                   <li>
+                     <i>word</i> word
+                   </li>
+                 </ul>
+               </p>
+             </div>
+             <p class='zzSTDTitle1'/>
+             <div>
+               <h1>1.&#160; Normative references</h1>
+               <p>
+                 The following documents are referred to in the text in such a way that
+                 some or all of their content constitutes requirements of this
+                 document. For dated references, only the edition cited applies. For
+                 undated references, the latest edition of the referenced document
+                 (including any amendments) applies.
+               </p>
+               <p id='ISO712' class='NormRef'>
+                 ISO 712, <i>Cereals and cereal products</i>
+               </p>
+             </div>
+             <div id='clause1'>
+               <h1>2.&#160; Clause 1</h1>
+             </div>
+           </div>
+         </body>
+       </html>
 OUTPUT
     end
 

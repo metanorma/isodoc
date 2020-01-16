@@ -45,7 +45,7 @@ module IsoDoc::Function
         container = anchor(node["target"], :container, false)
         (container && get_note_container_id(node) != container &&
          @anchors[node["target"]]) &&
-          linkend = prefix_container(container, linkend, node["target"])
+        linkend = prefix_container(container, linkend, node["target"])
       end
       linkend || "???"
     end
@@ -53,7 +53,8 @@ module IsoDoc::Function
     def get_linkend(node)
       link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
       link += eref_localities(node.xpath(ns("./locality")), link)
-      contents = node.children.select { |c| c.name != "locality" }
+      contents = node.children.select { |c| c.name != "locality" }.
+        select { |c| !c.text? || /\S/.match(c) }
       return link if contents.nil? || contents.empty?
       Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
@@ -63,7 +64,7 @@ module IsoDoc::Function
     def xref_parse(node, out)
       target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".html#") :
         "##{node["target"]}"
-      out.a(**{ "href": target }) { |l| l << get_linkend(node) }
+        out.a(**{ "href": target }) { |l| l << get_linkend(node) }
     end
 
     def eref_localities(refs, target)
@@ -89,9 +90,20 @@ module IsoDoc::Function
       end
     end
 
+    def termrefelem_parse(node, out)
+      out << "Termbase #{node['base']}, term ID #{node['target']}"
+    end
+
     def concept_parse(node, out)
-      content = node.first_element_child.children.select { |c| c.name != "locality" }
-      content.each { |n| parse(n, out) }
+      content = node.first_element_child.children.select { |c| c.name != "locality" }.
+        select { |c| !c.text? || /\S/.match(c) }
+      if content.empty?
+        out << "[Term defined in "
+        parse(node.first_element_child, out)
+        out << "]"
+      else
+        content.each { |n| parse(n, out) }
+      end
     end
 
     def stem_parse(node, out)
@@ -106,7 +118,7 @@ module IsoDoc::Function
       end
     end
 
-     def image_title_parse(out, caption)
+    def image_title_parse(out, caption)
       unless caption.nil?
         out.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
           p.b { |b| b << caption.to_s }
