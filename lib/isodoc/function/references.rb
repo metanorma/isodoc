@@ -47,10 +47,9 @@ module IsoDoc::Function
     end
 
     def bibitem_ref_code(b)
-      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
+      id = b.at(ns("./docidentifier[@type = 'metanorma']"))
+      id ||= b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
                    "or @type = 'ISSN' or @type = 'ISBN')]"))
-      id ||= b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'ISSN' or "\
-                     "@type = 'ISBN')]"))
       id ||= b.at(ns("./docidentifier")) 
       return id if id
       id = Nokogiri::XML::Node.new("docidentifier", b.document)
