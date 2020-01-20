@@ -344,8 +344,8 @@ RSpec.describe IsoDoc do
   &#160; A B C
   <br/>
   &#160; 
-  <p class='SourceTitle' style='text-align:center;'>Figure 5&#160;&#8212; Source! Code!</p>
 </pre>
+  <p class='SourceTitle' style='text-align:center;'>Figure 5&#160;&#8212; Source! Code!</p>
 <div id='note5' class='example'>
   <p class='example-title'>EXAMPLE</p>
   <pre id='note51' class='prettyprint '>
@@ -385,8 +385,8 @@ RSpec.describe IsoDoc do
   &#160; A B C
   <br/>
   &#160;
-  <p class='SourceTitle' style='text-align:center;'>Figure A.3&#160;&#8212; Source! Code!</p>
 </pre>
+  <p class='SourceTitle' style='text-align:center;'>Figure A.3&#160;&#8212; Source! Code!</p>
 </div>
                </div>
              </div>

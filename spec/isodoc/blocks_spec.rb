@@ -369,8 +369,8 @@ B</pre>
   &#160; 
   <br/>
   &#160; 
-  <p class='SourceTitle' style='text-align:center;'>Sample</p>
 </pre>
+  <p class='SourceTitle' style='text-align:center;'>Sample</p>
                  </div>
                </div>
                <p class="zzSTDTitle1"/>
@@ -440,7 +440,8 @@ Que?
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p></pre>
+                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/></pre>
+                 <p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
                  <pre class='prettyprint '>
   <br/>
   Que?
@@ -518,7 +519,8 @@ Que?
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; XML code</p></pre>
+                 <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/></pre>
+                 <p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; XML code</p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -547,6 +549,7 @@ Que?
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <pre id="_" class="prettyprint ">puts "Hello, world."  &lt;1&gt;<br/>&#160;&#160; %w{a b c}.each do |x|<br/>&#160;&#160;&#160;&#160; puts x  &lt;2&gt;<br/>&#160;&#160; end<br/><br/>&lt;1&gt; This is one callout<br/>&lt;2&gt; This is another callout</pre>
+                  <p class='SourceTitle' style='text-align:center;'>Figure 1</p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -1106,8 +1109,8 @@ INPUT
                  <p class='example-title'>EXAMPLE</p>
                  <pre id='B' class='prettyprint '>
                    A B C
-                   <p class='SourceTitle' style='text-align:center;'>Label</p>
                  </pre>
+                   <p class='SourceTitle' style='text-align:center;'>Label</p>
                  <div id='A' class='pseudocode'>
                    <p id='_'>
                      &#160;&#160;

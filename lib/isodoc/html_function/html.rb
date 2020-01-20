@@ -91,8 +91,8 @@ module IsoDoc::HtmlFunction
         @sourcecode = true
         node.children.each { |n| parse(n, div) unless n.name == "name" }
         @sourcecode = false
-        sourcecode_name_parse(node, div, name) if name
       end
+      sourcecode_name_parse(node, out, name)
     end
   end
 end

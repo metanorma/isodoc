@@ -10,21 +10,6 @@ module IsoDoc::WordFunction
       super
     end
 
-=begin
-    def anchor_names(docxml)
-      super
-      renumber_footnotes(docxml)
-    end
-
-    # undo merger of seen footnotes
-    def renumber_footnotes(docxml)
-      docxml.xpath(ns("//fn[not(ancestor::table or "\
-                      "ancestor::figure)]")).each_with_index do |f, i|
-        f["reference"] = (i + 1).to_s
-      end
-    end
-=end
-
     def body_attr
       { lang: "EN-US", link: "blue", vlink: "#954F72" }
     end
