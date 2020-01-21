@@ -136,6 +136,66 @@ module IsoDoc::Function
       image_title_parse(out, caption)
     end
 
+    def smallcap_parse(node, xml)
+      xml.span **{ style: "font-variant:small-caps;" } do |s|
+        node.children.each { |n| parse(n, s) }
+      end
+    end
+
+    def text_parse(node, out)
+      return if node.nil? || node.text.nil?
+      text = node.to_s
+      text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&nbsp;").
+        gsub(/[ ](?=[ ])/, "&nbsp;") if in_sourcecode
+      out << text
+    end
+
+    def bookmark_parse(node, out)
+      out.a **attr_code(id: node["id"])
+    end
+
+    def keyword_parse(node, out)
+      out.span **{ class: "keyword" } do |s|
+        node.children.each { |n| parse(n, s) }
+      end
+    end
+
+    def em_parse(node, out)
+      out.i do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def strong_parse(node, out)
+      out.b do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def sup_parse(node, out)
+      out.sup do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def sub_parse(node, out)
+      out.sub do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def tt_parse(node, out)
+      out.tt do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def strike_parse(node, out)
+      out.s do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
     def error_parse(node, out)
       text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
       out.para do |p|

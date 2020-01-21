@@ -180,5 +180,29 @@ module IsoDoc::Function
         f.elements.each { |e| parse(e, s) unless e.name == "title" }
       end
     end
+
+    def copyright_parse(node, out)
+      out.div **{class: "copyright"} do |div|
+        node.children.each { |n| parse(n, div) }
+      end
+    end
+
+    def license_parse(node, out)
+      out.div **{class: "license"} do |div|
+        node.children.each { |n| parse(n, div) }
+      end
+    end
+
+    def legal_parse(node, out)
+      out.div **{class: "legal"} do |div|
+        node.children.each { |n| parse(n, div) }
+      end
+    end
+
+    def feedback_parse(node, out)
+      out.div **{class: "feedback"} do |div|
+        node.children.each { |n| parse(n, div) }
+      end
+    end
   end
 end

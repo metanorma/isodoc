@@ -25,6 +25,7 @@ module IsoDoc::WordFunction
 
     def make_body2(body, docxml)
       body.div **{ class: "WordSection2" } do |div2|
+        boilerplate docxml, div2
         abstract docxml, div2
         foreword docxml, div2
         introduction docxml, div2

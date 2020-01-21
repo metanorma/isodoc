@@ -80,6 +80,7 @@ module IsoDoc::Function
 
     def make_body3(body, docxml)
       body.div **{ class: "main-section" } do |div3|
+                  boilerplate docxml, div3
         abstract docxml, div3
         foreword docxml, div3
         introduction docxml, div3
@@ -118,67 +119,20 @@ module IsoDoc::Function
       bibliography isoxml, out
     end
 
-    def smallcap_parse(node, xml)
-      xml.span **{ style: "font-variant:small-caps;" } do |s|
-        #s << node.inner_html
-        node.children.each { |n| parse(n, s) }
+      def boilerplate(node, out)
+        boilerplate = node.at(ns("//boilerplate")) or return
+        out.div **{class: "authority"} do |s|
+          boilerplate.children.each do |n|
+            if n.name == "title"
+              s.h1 do |h|
+                n.children.each { |nn| parse(nn, h) }
+              end
+            else
+              parse(n, s)
+            end
+          end
+        end
       end
-    end
-
-    def text_parse(node, out)
-      return if node.nil? || node.text.nil?
-      text = node.to_s
-      text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&nbsp;").
-        gsub(/[ ](?=[ ])/, "&nbsp;") if in_sourcecode
-      out << text
-    end
-
-    def bookmark_parse(node, out)
-      out.a **attr_code(id: node["id"])
-    end
-
-    def keyword_parse(node, out)
-      out.span **{ class: "keyword" } do |s|
-        #s << node.inner_html
-        node.children.each { |n| parse(n, s) }
-      end
-    end
-
-    def em_parse(node, out)
-      out.i do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def strong_parse(node, out)
-      out.b do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def sup_parse(node, out)
-      out.sup do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def sub_parse(node, out)
-      out.sub do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def tt_parse(node, out)
-      out.tt do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def strike_parse(node, out)
-      out.s do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
 
     def parse(node, out)
       if node.text?
@@ -251,6 +205,10 @@ module IsoDoc::Function
         when "index" then index_parse(node, out)
         when "concept" then concept_parse(node, out)
         when "termref" then termrefelem_parse(node, out)
+        when "copyright-statement" then copyright_parse(node, out)
+        when "license-statement" then license_parse(node, out)
+        when "legal-statement" then legal_parse(node, out)
+        when "feedback-statement" then feedback_parse(node, out)
         else
           error_parse(node, out)
         end

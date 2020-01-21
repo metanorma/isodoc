@@ -19,6 +19,7 @@ module IsoDoc::HtmlFunction
 
     def make_body3(body, docxml)
       body.div **{ class: "main-section" } do |div3|
+        boilerplate docxml, div3
         abstract docxml, div3
         foreword docxml, div3
         introduction docxml, div3

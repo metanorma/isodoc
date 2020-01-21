@@ -30,6 +30,28 @@ RSpec.describe IsoDoc do
   it "processes section names" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <boilerplate>
+        <copyright-statement>
+        <clause>
+          <title>Copyright</title>
+        </clause>
+        </copyright-statement>
+        <license-statement>
+        <clause>
+          <title>License</title>
+        </clause>
+        </license-statement>
+        <legal-statement>
+        <clause>
+          <title>Legal</title>
+        </clause>
+        </legal-statement>
+        <feedback-statement>
+        <clause>
+          <title>Feedback</title>
+        </clause>
+        </feedback-statement>
+      </boilerplate>
       <preface>
       <abstract obligation="informative">
          <title>Foreword</title>
@@ -98,6 +120,28 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     #{HTML_HDR}
+    <div class='authority'>
+  <div class='copyright'>
+    <div>
+      <h1>Copyright</h1>
+    </div>
+  </div>
+  <div class='license'>
+    <div>
+      <h1>License</h1>
+    </div>
+  </div>
+  <div class='legal'>
+    <div>
+      <h1>Legal</h1>
+    </div>
+  </div>
+  <div class='feedback'>
+    <div>
+      <h1>Feedback</h1>
+    </div>
+  </div>
+</div>
     <br/>
         <div>
         <h1 class="AbstractTitle">Abstract</h1>
@@ -181,6 +225,28 @@ OUTPUT
   it "processes section names (Word)" do
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <boilerplate>
+        <copyright-statement>
+        <clause>
+          <title>Copyright</title>
+        </clause>
+        </copyright-statement>
+        <license-statement>
+        <clause>
+          <title>License</title>
+        </clause>
+        </license-statement>
+        <legal-statement>
+        <clause>
+          <title>Legal</title>
+        </clause>
+        </legal-statement>
+        <feedback-statement>
+        <clause>
+          <title>Feedback</title>
+        </clause>
+        </feedback-statement>
+      </boilerplate>
       <preface>
       <abstract obligation="informative">
          <title>Foreword</title>
@@ -254,6 +320,28 @@ OUTPUT
              </div>
              <p><br clear="all" class="section"/></p>
              <div class="WordSection2">
+             <div class='authority'>
+  <div class='copyright'>
+    <div>
+      <h1>Copyright</h1>
+    </div>
+  </div>
+  <div class='license'>
+    <div>
+      <h1>License</h1>
+    </div>
+  </div>
+  <div class='legal'>
+    <div>
+      <h1>Legal</h1>
+    </div>
+  </div>
+  <div class='feedback'>
+    <div>
+      <h1>Feedback</h1>
+    </div>
+  </div>
+</div>
              <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                 <div>
                    <h1 class="AbstractTitle">Abstract</h1>
