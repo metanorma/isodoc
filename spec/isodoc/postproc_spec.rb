@@ -1152,10 +1152,10 @@ OUTPUT
     <div id="legal"> <h1>Legal</h1> </div>
     <div id="feedback"> <h1>Feedback</h1> </div>
     <hr/>
-    <div class="feedback"/>
-    <div class="legal"/>
-    <div class="license"/>
-    <div class="copyright"/>
+    <div id="feedback-destination"/>
+    <div id="legal-destination"/>
+    <div id="license-destination"/>
+    <div id="copyright-destination"/>
     </div>
     </body>
     </html>
