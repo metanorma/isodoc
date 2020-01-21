@@ -55,7 +55,21 @@ module IsoDoc::HtmlFunction
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       docxml.at("//body") << sourcecode_highlighter
       html_main(docxml)
+      authority_cleanup(docxml)
       docxml
+    end
+
+    def authority_cleanup1(docxml, klass)
+      dest = docxml.at("//div[@class = '#{klass}']")
+      auth = docxml.at("//div[@id = '#{klass}']")
+      auth&.xpath(".//h1 | .//h2")&.each { |h| h["class"] = "IntroTitle" }
+      dest and auth and dest.replace(auth.remove)
+    end
+
+    def authority_cleanup(docxml)
+      %w(copyright license legal feedback).each do |t|
+        authority_cleanup1(docxml, t)
+      end
     end
 
     def html_cover(docxml)

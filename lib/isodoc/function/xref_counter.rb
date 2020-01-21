@@ -2,6 +2,14 @@ require "roman-numerals"
 
 module IsoDoc::Function
   module XrefGen
+    def hiersep
+      "."
+    end
+
+    def hierfigsep
+      "-"
+    end
+
     class Counter
       def initialize
         @num = 0
@@ -30,13 +38,13 @@ module IsoDoc::Function
       end
 
       def listlabel(depth)
-      return @num.to_s if [2, 7].include? depth
-      return (96 + @num).chr.to_s if [1, 6].include? depth
-      return (64 + @num).chr.to_s if [4, 9].include? depth
-      return RomanNumerals.to_roman(@num).downcase if [3, 8].include? depth
-      return RomanNumerals.to_roman(@num).upcase if [5, 10].include? depth
-      return @num.to_s
-    end
+        return @num.to_s if [2, 7].include? depth
+        return (96 + @num).chr.to_s if [1, 6].include? depth
+        return (64 + @num).chr.to_s if [4, 9].include? depth
+        return RomanNumerals.to_roman(@num).downcase if [3, 8].include? depth
+        return RomanNumerals.to_roman(@num).upcase if [5, 10].include? depth
+        return @num.to_s
+      end
     end
   end
 end

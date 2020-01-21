@@ -1141,4 +1141,43 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
 OUTPUT
     end
 
+    it "cleans up boilerplate" do
+      expect(xmlpp(IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", filename: "test"}).html_preface(Nokogiri::XML(<<~INPUT)).to_xml).sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <html>
+    <head/>
+    <body>
+    <div class="main-section">
+    <div id="copyright"> <h1>Copyright</h1> </div>
+    <div id="license"> <h1>License</h1> </div>
+    <div id="legal"> <h1>Legal</h1> </div>
+    <div id="feedback"> <h1>Feedback</h1> </div>
+    <hr/>
+    <div class="feedback"/>
+    <div class="legal"/>
+    <div class="license"/>
+    <div class="copyright"/>
+    </div>
+    </body>
+    </html>
+    INPUT
+    <main class='main-section'>
+      <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
+      <hr/>
+      <div id='feedback'>
+        <h1 class='IntroTitle'>Feedback</h1>
+      </div>
+      <div id='legal'>
+        <h1 class='IntroTitle'>Legal</h1>
+      </div>
+      <div id='license'>
+        <h1 class='IntroTitle'>License</h1>
+      </div>
+      <div id='copyright'>
+        <h1 class='IntroTitle'>Copyright</h1>
+      </div>
+    </main>
+    OUTPUT
+  end
+
+
 end

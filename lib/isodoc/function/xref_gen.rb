@@ -32,7 +32,7 @@ module IsoDoc::Function
           @anchors[n["id"]] = {
             type: "termexample", label: idx, 
             xref: l10n("#{anchor(t['id'], :xref)}, "\
-                                   "#{@example_xref_lbl} #{c.print}") }
+                       "#{@example_xref_lbl} #{c.print}") }
         end
       end
     end
@@ -169,11 +169,14 @@ module IsoDoc::Function
         next if t["id"].nil? || t["id"].empty?
         id = c.increment(t).print
         @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
-        sequential_permission_names1(t, id, "permission", @permission_lbl)
-        sequential_permission_names1(t, id, "requirement", @requirement_lbl)
-        sequential_permission_names1(t, id, "recommendation",
-                                     @recommendation_lbl)
+        sequential_permission_names2(t, id)
       end
+    end
+
+    def sequential_permission_names2(t, id)
+      sequential_permission_names1(t, id, "permission", @permission_lbl)
+      sequential_permission_names1(t, id, "requirement", @requirement_lbl)
+      sequential_permission_names1(t, id, "recommendation", @recommendation_lbl)
     end
 
     def sequential_permission_names1(block, lbl, klass, label)
@@ -182,10 +185,7 @@ module IsoDoc::Function
         next if t["id"].nil? || t["id"].empty?
         id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
         @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
-        sequential_permission_names1(t, id, "permission", @permission_lbl)
-        sequential_permission_names1(t, id, "requirement", @requirement_lbl)
-        sequential_permission_names1(t, id, "recommendation",
-                                     @recommendation_lbl)
+        sequential_permission_names2(t, id)
       end
     end
 
@@ -196,14 +196,6 @@ module IsoDoc::Function
       sequential_permission_names(clause, "permission", @permission_lbl)
       sequential_permission_names(clause, "requirement", @requirement_lbl)
       sequential_permission_names(clause, "recommendation", @recommendation_lbl)
-    end
-
-    def hiersep
-      "."
-    end
-
-    def hierfigsep
-      "-"
     end
 
     def hierarchical_figure_names(clause, num)
@@ -259,12 +251,9 @@ module IsoDoc::Function
       c = Counter.new
       clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
         next if t["id"].nil? || t["id"].empty?
-        lbl = "#{num}#{hiersep}#{c.increment(t).print}"
-        @anchors[t["id"]] = anchor_struct(lbl, t, label, klass, t["unnumbered"])
-        sequential_permission_names1(t, lbl, "permission", @permission_lbl)
-        sequential_permission_names1(t, lbl, "requirement", @requirement_lbl)
-        sequential_permission_names1(t, lbl, "recommendation",
-                                     @recommendation_lbl)
+        id = "#{num}#{hiersep}#{c.increment(t).print}"
+        @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
+        sequential_permission_names2(t, id)
       end
     end
   end
