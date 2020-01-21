@@ -1147,15 +1147,15 @@ OUTPUT
     <head/>
     <body>
     <div class="main-section">
-    <div id="copyright"> <h1>Copyright</h1> </div>
-    <div id="license"> <h1>License</h1> </div>
-    <div id="legal"> <h1>Legal</h1> </div>
-    <div id="feedback"> <h1>Feedback</h1> </div>
+    <div id="boilerplate-copyright"> <h1>Copyright</h1> </div>
+    <div id="boilerplate-license"> <h1>License</h1> </div>
+    <div id="boilerplate-legal"> <h1>Legal</h1> </div>
+    <div id="boilerplate-feedback"> <h1>Feedback</h1> </div>
     <hr/>
-    <div id="feedback-destination"/>
-    <div id="legal-destination"/>
-    <div id="license-destination"/>
-    <div id="copyright-destination"/>
+    <div id="boilerplate-feedback-destination"/>
+    <div id="boilerplate-legal-destination"/>
+    <div id="boilerplate-license-destination"/>
+    <div id="boilerplate-copyright-destination"/>
     </div>
     </body>
     </html>
@@ -1163,16 +1163,16 @@ OUTPUT
     <main class='main-section'>
       <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
       <hr/>
-      <div id='feedback'>
+      <div id='boilerplate-feedback'>
         <h1 class='IntroTitle'>Feedback</h1>
       </div>
-      <div id='legal'>
+      <div id='boilerplate-legal'>
         <h1 class='IntroTitle'>Legal</h1>
       </div>
-      <div id='license'>
+      <div id='boilerplate-license'>
         <h1 class='IntroTitle'>License</h1>
       </div>
-      <div id='copyright'>
+      <div id='boilerplate-copyright'>
         <h1 class='IntroTitle'>Copyright</h1>
       </div>
     </main>
@@ -1185,15 +1185,15 @@ OUTPUT
     <head/>
     <body>
     <div class="main-section">
-    <div id="copyright"> <h1>Copyright</h1> </div>
-    <div id="license"> <h1>License</h1> </div>
-    <div id="legal"> <h1>Legal</h1> </div>
-    <div id="feedback"> <h1>Feedback</h1> </div>
+    <div id="boilerplate-copyright"> <h1>Copyright</h1> </div>
+    <div id="boilerplate-license"> <h1>License</h1> </div>
+    <div id="boilerplate-legal"> <h1>Legal</h1> </div>
+    <div id="boilerplate-feedback"> <h1>Feedback</h1> </div>
     <hr/>
-    <div id="feedback-destination"/>
-    <div id="legal-destination"/>
-    <div id="license-destination"/>
-    <div id="copyright-destination"/>
+    <div id="boilerplate-feedback-destination"/>
+    <div id="boilerplate-legal-destination"/>
+    <div id="boilerplate-license-destination"/>
+    <div id="boilerplate-copyright-destination"/>
     </div>
     </body>
     </html>
@@ -1203,16 +1203,16 @@ OUTPUT
   <body>
     <div class='main-section'>
       <hr/>
-      <div id='feedback'>
+      <div id='boilerplate-feedback'>
         <p class='IntroTitle'>Feedback</p>
       </div>
-      <div id='legal'>
+      <div id='boilerplate-legal'>
         <p class='IntroTitle'>Legal</p>
       </div>
-      <div id='license'>
+      <div id='boilerplate-license'>
         <p class='IntroTitle'>License</p>
       </div>
-      <div id='copyright'>
+      <div id='boilerplate-copyright'>
         <p class='IntroTitle'>Copyright</p>
       </div>
     </div>

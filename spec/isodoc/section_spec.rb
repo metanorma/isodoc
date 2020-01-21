@@ -121,22 +121,22 @@ RSpec.describe IsoDoc do
     INPUT
     #{HTML_HDR}
     <div class='authority'>
-  <div class='copyright'>
+  <div class='boilerplate-copyright'>
     <div>
       <h1>Copyright</h1>
     </div>
   </div>
-  <div class='license'>
+  <div class='boilerplate-license'>
     <div>
       <h1>License</h1>
     </div>
   </div>
-  <div class='legal'>
+  <div class='boilerplate-legal'>
     <div>
       <h1>Legal</h1>
     </div>
   </div>
-  <div class='feedback'>
+  <div class='boilerplate-feedback'>
     <div>
       <h1>Feedback</h1>
     </div>
@@ -321,22 +321,22 @@ OUTPUT
              <p><br clear="all" class="section"/></p>
              <div class="WordSection2">
              <div class='authority'>
-  <div class='copyright'>
+  <div class='boilerplate-copyright'>
     <div>
       <h1>Copyright</h1>
     </div>
   </div>
-  <div class='license'>
+  <div class='boilerplate-license'>
     <div>
       <h1>License</h1>
     </div>
   </div>
-  <div class='legal'>
+  <div class='boilerplate-legal'>
     <div>
       <h1>Legal</h1>
     </div>
   </div>
-  <div class='feedback'>
+  <div class='boilerplate-feedback'>
     <div>
       <h1>Feedback</h1>
     </div>

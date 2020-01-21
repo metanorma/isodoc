@@ -182,25 +182,25 @@ module IsoDoc::Function
     end
 
     def copyright_parse(node, out)
-      out.div **{class: "copyright"} do |div|
+      out.div **{class: "boilerplate-copyright"} do |div|
         node.children.each { |n| parse(n, div) }
       end
     end
 
     def license_parse(node, out)
-      out.div **{class: "license"} do |div|
+      out.div **{class: "boilerplate-license"} do |div|
         node.children.each { |n| parse(n, div) }
       end
     end
 
     def legal_parse(node, out)
-      out.div **{class: "legal"} do |div|
+      out.div **{class: "boilerplate-legal"} do |div|
         node.children.each { |n| parse(n, div) }
       end
     end
 
     def feedback_parse(node, out)
-      out.div **{class: "feedback"} do |div|
+      out.div **{class: "boilerplate-feedback"} do |div|
         node.children.each { |n| parse(n, div) }
       end
     end

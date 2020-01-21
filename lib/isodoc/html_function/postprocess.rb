@@ -60,8 +60,8 @@ module IsoDoc::HtmlFunction
     end
 
     def authority_cleanup1(docxml, klass)
-      dest = docxml.at("//div[@id = '#{klass}-destination']")
-      auth = docxml.at("//div[@id = '#{klass}' or @class = '#{klass}']")
+      dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
+      auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or @class = 'boilerplate-#{klass}']")
       auth&.xpath(".//h1 | .//h2")&.each { |h| h["class"] = "IntroTitle" }
       dest and auth and dest.replace(auth.remove)
     end
