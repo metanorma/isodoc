@@ -65,7 +65,24 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       word_example_cleanup(docxml)
       word_pseudocode_cleanup(docxml)
       word_image_caption(docxml)
+      authority_cleanup(docxml)
       docxml
+    end
+
+    def authority_cleanup1(docxml, klass)
+      dest = docxml.at("//div[@id = '#{klass}-destination']")
+      auth = docxml.at("//div[@id = '#{klass}' or @class = '#{klass}']")
+      auth&.xpath(".//h1 | .//h2")&.each do |h|
+        h.name = "p"
+        h["class"] = "IntroTitle"
+      end
+      dest and auth and dest.replace(auth.remove)
+    end
+
+    def authority_cleanup(docxml)
+      %w(copyright license legal feedback).each do |t|
+        authority_cleanup1(docxml, t)
+      end
     end
 
     def style_update(node, css)

@@ -1179,5 +1179,46 @@ OUTPUT
     OUTPUT
   end
 
+     it "cleans up boilerplate (Word)" do
+      expect(xmlpp(IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", filename: "test"}).word_cleanup(Nokogiri::XML(<<~INPUT)).to_xml).sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <html>
+    <head/>
+    <body>
+    <div class="main-section">
+    <div id="copyright"> <h1>Copyright</h1> </div>
+    <div id="license"> <h1>License</h1> </div>
+    <div id="legal"> <h1>Legal</h1> </div>
+    <div id="feedback"> <h1>Feedback</h1> </div>
+    <hr/>
+    <div id="feedback-destination"/>
+    <div id="legal-destination"/>
+    <div id="license-destination"/>
+    <div id="copyright-destination"/>
+    </div>
+    </body>
+    </html>
+    INPUT
+    <html>
+  <head/>
+  <body>
+    <div class='main-section'>
+      <hr/>
+      <div id='feedback'>
+        <p class='IntroTitle'>Feedback</p>
+      </div>
+      <div id='legal'>
+        <p class='IntroTitle'>Legal</p>
+      </div>
+      <div id='license'>
+        <p class='IntroTitle'>License</p>
+      </div>
+      <div id='copyright'>
+        <p class='IntroTitle'>Copyright</p>
+      </div>
+    </div>
+  </body>
+</html>
+    OUTPUT
+  end
 
 end
