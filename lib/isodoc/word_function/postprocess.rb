@@ -74,7 +74,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or @class = 'boilerplate-#{klass}']")
       auth&.xpath(".//h1 | .//h2")&.each do |h|
         h.name = "p"
-        h["class"] = "IntroTitle"
+        h["class"] = "TitlePageSubhead"
       end
       dest and auth and dest.replace(auth.remove)
     end

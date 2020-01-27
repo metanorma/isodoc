@@ -1204,16 +1204,16 @@ OUTPUT
     <div class='main-section'>
       <hr/>
       <div id='boilerplate-feedback'>
-        <p class='IntroTitle'>Feedback</p>
+        <p class='TitlePageSubhead'>Feedback</p>
       </div>
       <div id='boilerplate-legal'>
-        <p class='IntroTitle'>Legal</p>
+        <p class='TitlePageSubhead'>Legal</p>
       </div>
       <div id='boilerplate-license'>
-        <p class='IntroTitle'>License</p>
+        <p class='TitlePageSubhead'>License</p>
       </div>
       <div id='boilerplate-copyright'>
-        <p class='IntroTitle'>Copyright</p>
+        <p class='TitlePageSubhead'>Copyright</p>
       </div>
     </div>
   </body>
