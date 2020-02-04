@@ -133,10 +133,6 @@ module IsoDoc
                                     "lib", "isodoc")
       SassC.load_paths << File.dirname(filename)
       engine = SassC::Engine.new(fontheader + stylesheet, syntax: :scss)
-      #outname = File.basename(filename, ".*") + ".css"
-      #File.open(outname, "w:UTF-8") { |f| f.write(engine.render) }
-      #@files_to_delete << outname
-      #outname
       Tempfile.open([File.basename(filename, ".*"), "css"],
                     :encoding => "utf-8") do |f|
         f.write(engine.render)

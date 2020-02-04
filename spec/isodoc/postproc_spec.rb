@@ -1221,4 +1221,132 @@ OUTPUT
     OUTPUT
   end
 
+      it "deals with landscape and portrait pagebreaks (Word)" do
+        FileUtils.rm_f "test.doc"
+        IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", filename: "test"}).convert("test", <<~"INPUT", false)
+        <standard-document xmlns="http://riboseinc.com/isoxml">
+       <bibdata type="standard">
+         <title language="en" format="text/plain">Document title</title>
+         <version>
+           <draft>1.2</draft>
+         </version>
+         <language>en</language>
+         <script>Latn</script>
+         <status><stage>published</stage></status>
+         <ext>
+         <doctype>article</doctype>
+         </ext>
+       </bibdata>
+       <preface>
+       <introduction><title>Preface 1</title>
+       <p align="center">This is a <pagebreak orientation="landscape"/> paragraph</p>
+       <table>
+       <tbody>
+       <tr><td>A</td><td>B</td></tr>
+       </tbody>
+       </table>
+       <clause><title>Preface 1.1</title>
+       <p>On my side</p>
+       <pagebreak orientation="portrait"/>
+       <p>Upright again</p>
+       </clause>
+       <clause><title>Preface 1.3</title>
+       <p>And still upright</p>
+       </clause>
+       </introduction>
+       </preface>
+       <sections><clause><title>Foreword</title>
+       <note>
+       <p id="_">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p>
+       <pagebreak orientation="landscape"/>
+       <p>And side</p>
+       <pagebreak orientation="portrait"/>
+       <p>And up</p>
+       </note>
+        </clause></sections>
+       </standard-document>
+   INPUT
+   expect(File.exist?("test.doc")).to be true
+    html = File.read("test.doc", encoding: "UTF-8")
+    expect(html).to include "div.WordSection2_0 {page:WordSection2P;}"
+expect(html).to include "div.WordSection2_1 {page:WordSection2L;}"
+    expect(html).to include "div.WordSection3_0 {page:WordSection3P;}"
+expect(html).to include "div.WordSection3_1 {page:WordSection3L;}"
+
+expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+<body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
+         <div class='WordSection1'>
+           <p class='MsoNormal'>&#xA0;</p>
+         </div>
+         <p class='MsoNormal'>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection2'>
+           <p class='MsoNormal'>
+             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+           </p>
+           <div class='Section3' id=''>
+             <h1 class='IntroTitle'>Introduction</h1>
+             <p align='center' style='text-align:center' class='MsoNormal'>
+               This is a
+               <p class='MsoNormal'>
+                 <br clear='all' class='section'/>
+               </p>
+                paragraph
+             </p>
+           </div>
+         </div>
+         <div class='WordSection2_1'>
+           <div align='center' class='table_container'> </div>
+           <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'> </table>
+           <tbody> </tbody>
+           <tr> </tr>
+           <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>A</td>
+           <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>B</td>
+           <div> </div>
+           <h1>Preface 1.1</h1>
+           <p class='MsoNormal'>On my side</p>
+           <p class='MsoNormal'/>
+           <br clear='all' class='section'/>
+         </div>
+         <div class='WordSection2_0'>
+           <p class='MsoNormal'>Upright again</p>
+           <div> </div>
+           <h1>Preface 1.3</h1>
+           <p class='MsoNormal'>And still upright</p>
+           <p class='MsoNormal'>&#xA0;</p>
+         </div>
+         <p class='MsoNormal'>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection3'>
+           <p class='zzSTDTitle1'>Document title</p>
+           <div>
+             <h1>Foreword</h1>
+             <div id='' class='Note'>
+               <p class='Note'>
+                 <span class='note_label'>NOTE 1</span>
+                 <span style='mso-tab-count:1'>&#xA0; </span>
+                 For further information on the Foreword, see
+                 <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
+               </p>
+               <p class='Note'>
+                 <br clear='all' class='section'/>
+               </p>
+             </div>
+           </div>
+         </div>
+         <div class='WordSection3_1'>
+           <p class='Note'>And side</p>
+           <p class='Note'> </p>
+           <br clear='all' class='section'/>
+         </div>
+         <div class='WordSection3_0'>
+           <p class='Note'>And up</p>
+         </div>
+         <div style='mso-element:footnote-list'/>
+       </body>
+OUTPUT
+      end
+
 end

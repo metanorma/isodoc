@@ -8,7 +8,7 @@ RSpec.describe IsoDoc do
     <p>
     <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
     <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
-    <bookmark id="H"/> <pagebreak/>
+    <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/>
     </p>
     </foreword></preface>
     <sections>
@@ -21,13 +21,56 @@ RSpec.describe IsoDoc do
                  <p>
        <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt>
        <s>F</s> <span style="font-variant:small-caps;">G</span> <span class="keyword">I</span> <br/> <hr/>
-       <a id="H"/> <br/>
+       <a id="H"/> <br/> <br/>
        </p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
            </body>
        </html>
+    OUTPUT
+  end
+
+    it "processes inline formatting (Word)" do
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface/><sections><clause>
+    <p>
+    <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
+    <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
+    <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/>
+    </p>
+    </clause></sections>
+    </iso-standard>
+    INPUT
+    #{WORD_HDR}
+      <p class='zzSTDTitle1'/>
+      <div>
+        <h1/>
+        <p>
+          <i>A</i>
+          <b>B</b>
+          <sup>C</sup>
+          <sub>D</sub>
+          <tt>E</tt>
+          <s>F</s>
+          <span style='font-variant:small-caps;'>G</span>
+          <span class='keyword'>I</span>
+          <br/>
+          <hr/>
+          <a id='H'/>
+          <p>
+            <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+          </p>
+          <p>
+            <br clear='all' class='section' orientation='landscape'/>
+          </p>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
+
     OUTPUT
   end
 
