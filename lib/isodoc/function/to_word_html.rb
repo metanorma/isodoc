@@ -150,7 +150,7 @@ module IsoDoc::Function
         when "br" then br_parse(node, out)
         when "hr" then hr_parse(node, out)
         when "bookmark" then bookmark_parse(node, out)
-        when "pagebreak" then page_break(out)
+        when "pagebreak" then pagebreak_parse(node, out)
         when "callout" then callout_parse(node, out)
         when "stem" then stem_parse(node, out)
         when "clause" then clause_parse(node, out)

@@ -8,6 +8,10 @@ module IsoDoc::Function
       out.br
     end
 
+    def pagebreak_parse(_node, out)
+      out.br
+    end
+
     def hr_parse(node, out)
       out.hr
     end
