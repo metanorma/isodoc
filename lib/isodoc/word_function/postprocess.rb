@@ -41,6 +41,11 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def toWord(result, filename, dir, header)
       result = populate_template(result, :word)
       result = from_xhtml(word_cleanup(to_xhtml(result)))
+      unless @landscapestyle.empty?
+      @wordstylesheet&.open
+      @wordstylesheet&.write(@landscapestyle)
+      @wordstylesheet&.close
+      end
       Html2Doc.process(result, filename: filename, stylesheet: @wordstylesheet&.path,
                        header_file: header&.path, dir: dir,
                        asciimathdelims: [@openmathdelim, @closemathdelim],
@@ -177,8 +182,21 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def word_section_breaks(docxml)
-      docxml.xpath("//br[@orientation]").each do |br|
+      @landscapestyle = ""
+      word_section_breaks1(docxml, "WordSection2")
+      word_section_breaks1(docxml, "WordSection3")
+    end
+
+    def word_section_breaks1(docxml, sect)
+      docxml.xpath("//div[@class = '#{sect}']//br[@orientation]").reverse.
+        each_with_index do |br, i|
+        @landscapestyle += "\ndiv.#{sect}_#{i} {page:#{sect}"\
+          "#{br["orientation"] == "landscape" ? "L" : "P"};}\n"
         br.delete("orientation")
+        move = br.parent.xpath("following::node()") &
+          br.document.xpath("//div[@class = '#{sect}']//*")
+        docxml.at("//div[@class = '#{sect}']").
+          after("<div class='#{sect}_#{i}'/>").next_element << move.remove
       end
     end
   end
