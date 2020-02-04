@@ -193,10 +193,18 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
         @landscapestyle += "\ndiv.#{sect}_#{i} {page:#{sect}"\
           "#{br["orientation"] == "landscape" ? "L" : "P"};}\n"
         br.delete("orientation")
-        move = br.parent.xpath("following::node()") &
-          br.document.xpath("//div[@class = '#{sect}']//*")
-        docxml.at("//div[@class = '#{sect}']").
-          after("<div class='#{sect}_#{i}'/>").next_element << move.remove
+        split_at_section_break(docxml, sect, br, i)
+      end
+    end
+
+    def split_at_section_break(docxml, sect, br, i)
+      move = br.parent.xpath("following::node()") &
+        br.document.xpath("//div[@class = '#{sect}']//*")
+      ins = docxml.at("//div[@class = '#{sect}']").
+        after("<div class='#{sect}_#{i}'/>").next_element
+      move.each do |m|
+        next if m.at("./ancestor::div[@class = '#{sect}_#{i}']")
+        ins << m.remove
       end
     end
   end

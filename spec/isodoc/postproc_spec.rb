@@ -1259,7 +1259,22 @@ OUTPUT
        <note>
        <p id="_">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p>
        <pagebreak orientation="landscape"/>
-       <p>And side</p>
+       <table id="_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249">
+<thead>
+<tr>
+<th align="left">A</th>
+<th align="left">B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">C</td>
+<td align="left">D</td>
+</tr>
+</tbody>
+<note id="_8fff1596-290e-4314-b03c-7a8aab97eebe">
+<p id="_32c22439-387a-48cf-a006-5ab3b934ba73">B</p>
+</note></table>
        <pagebreak orientation="portrait"/>
        <p>And up</p>
        </note>
@@ -1274,7 +1289,7 @@ expect(html).to include "div.WordSection2_1 {page:WordSection2L;}"
 expect(html).to include "div.WordSection3_1 {page:WordSection3L;}"
 
 expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-<body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
+       <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
          <div class='WordSection1'>
            <p class='MsoNormal'>&#xA0;</p>
          </div>
@@ -1288,7 +1303,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
            <div class='Section3' id=''>
              <h1 class='IntroTitle'>Introduction</h1>
              <p align='center' style='text-align:center' class='MsoNormal'>
-               This is a
+               This is a 
                <p class='MsoNormal'>
                  <br clear='all' class='section'/>
                </p>
@@ -1297,23 +1312,30 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
            </div>
          </div>
          <div class='WordSection2_1'>
-           <div align='center' class='table_container'> </div>
-           <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'> </table>
-           <tbody> </tbody>
-           <tr> </tr>
-           <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>A</td>
-           <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>B</td>
-           <div> </div>
-           <h1>Preface 1.1</h1>
-           <p class='MsoNormal'>On my side</p>
-           <p class='MsoNormal'/>
-           <br clear='all' class='section'/>
+           <div align='center' class='table_container'>
+             <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
+               <tbody>
+                 <tr>
+                   <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>A</td>
+                   <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>B</td>
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+           <div>
+             <h1>Preface 1.1</h1>
+             <p class='MsoNormal'>On my side</p>
+             <p class='MsoNormal'>
+               <br clear='all' class='section'/>
+             </p>
+           </div>
          </div>
          <div class='WordSection2_0'>
            <p class='MsoNormal'>Upright again</p>
-           <div> </div>
-           <h1>Preface 1.3</h1>
-           <p class='MsoNormal'>And still upright</p>
+           <div>
+             <h1>Preface 1.3</h1>
+             <p class='MsoNormal'>And still upright</p>
+           </div>
            <p class='MsoNormal'>&#xA0;</p>
          </div>
          <p class='MsoNormal'>
@@ -1327,7 +1349,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
                <p class='Note'>
                  <span class='note_label'>NOTE 1</span>
                  <span style='mso-tab-count:1'>&#xA0; </span>
-                 For further information on the Foreword, see
+                 For further information on the Foreword, see 
                  <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
                </p>
                <p class='Note'>
@@ -1337,9 +1359,41 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
            </div>
          </div>
          <div class='WordSection3_1'>
-           <p class='Note'>And side</p>
-           <p class='Note'> </p>
-           <br clear='all' class='section'/>
+           <p class='TableTitle' style='text-align:center;'>Table 1</p>
+           <div align='center' class='table_container'>
+             <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
+               <a name='_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249' id='_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249'/>
+               <thead>
+                 <tr>
+                   <th align='left' style='font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>A</th>
+                   <th align='left' style='font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>B</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td align='left' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>C</td>
+                   <td align='left' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>D</td>
+                 </tr>
+               </tbody>
+               <tfoot>
+                 <tr>
+                   <td colspan='2' style='border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
+                     <div class='Note'>
+                       <a name='_8fff1596-290e-4314-b03c-7a8aab97eebe' id='_8fff1596-290e-4314-b03c-7a8aab97eebe'/>
+                       <p class='Note'>
+                         <span class='note_label'>NOTE</span>
+                         <span style='mso-tab-count:1'>&#xA0; </span>
+                         B
+                       </p>
+                     </div>
+                   </td>
+                 </tr>
+               </tfoot>
+             </table>
+           </div>
+           <p class='Note'>
+             <br clear='all' class='section'/>
+           </p>
          </div>
          <div class='WordSection3_0'>
            <p class='Note'>And up</p>
