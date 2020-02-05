@@ -86,19 +86,6 @@ module IsoDoc::HtmlFunction
       d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
     end
 
-
-    def html_cover(docxml)
-      doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
-      d = docxml.at('//div[@class="title-section"]')
-      d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
-    end
-
-    def html_intro(docxml)
-      doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
-      d = docxml.at('//div[@class="prefatory-section"]')
-      d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
-    end
-
     def html_toc_entry(level, header)
       %(<li class="#{level}"><a href="##{header['id']}">\
       #{header_strip(header)}</a></li>)
