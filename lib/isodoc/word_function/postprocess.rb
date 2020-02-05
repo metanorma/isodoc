@@ -33,18 +33,18 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
 
     def postprocess(result, filename, dir)
       header = generate_header(filename, dir)
-      result = from_xhtml(cleanup(to_xhtml(result)))
+      result = from_xhtml(cleanup(to_xhtml(textcleanup(result))))
       toWord(result, filename, dir, header)
       @files_to_delete.each { |f| FileUtils.rm_f f }
     end
 
     def toWord(result, filename, dir, header)
-      result = populate_template(result, :word)
+      #result = populate_template(result, :word)
       result = from_xhtml(word_cleanup(to_xhtml(result)))
       unless @landscapestyle.empty?
-      @wordstylesheet&.open
-      @wordstylesheet&.write(@landscapestyle)
-      @wordstylesheet&.close
+        @wordstylesheet&.open
+        @wordstylesheet&.write(@landscapestyle)
+        @wordstylesheet&.close
       end
       Html2Doc.process(result, filename: filename, stylesheet: @wordstylesheet&.path,
                        header_file: header&.path, dir: dir,

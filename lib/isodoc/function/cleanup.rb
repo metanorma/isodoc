@@ -1,5 +1,13 @@
 module IsoDoc::Function
   module Cleanup
+    def textcleanup(docxml)
+      docxml.
+        gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
+        gsub(/\s*\[MODIFICATION\]\s*\[\/TERMREF\]/, l10n(", #{@modified_lbl} [/TERMREF]")).
+        gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
+        gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
+    end
+
     def cleanup(docxml)
       comment_cleanup(docxml)
       footnote_cleanup(docxml)

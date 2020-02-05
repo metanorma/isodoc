@@ -1,7 +1,7 @@
 module IsoDoc::HtmlFunction
   module Html
     def postprocess(result, filename, dir)
-      result = from_xhtml(cleanup(to_xhtml(result)))
+      result = from_xhtml(cleanup(to_xhtml(textcleanup(result))))
       toHTML(result, filename)
       @files_to_delete.each { |f| FileUtils.rm_rf f }
     end
@@ -15,7 +15,7 @@ module IsoDoc::HtmlFunction
 
     def toHTML(result, filename)
       result = (from_xhtml(html_cleanup(to_xhtml(result))))
-      result = populate_template(result, :html)
+      #result = populate_template(result, :html)
       result = from_xhtml(move_images(to_xhtml(result)))
       result = html5(script_cdata(inject_script(result)))
       File.open("#{filename}.html", "w:UTF-8") { |f| f.write(result) }
@@ -75,13 +75,15 @@ module IsoDoc::HtmlFunction
     def html_cover(docxml)
       doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="title-section"]')
-      d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
+      #d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
+      d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
     end
 
     def html_intro(docxml)
       doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="prefatory-section"]')
-      d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
+      #d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
+      d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
     end
 
 

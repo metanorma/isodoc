@@ -25,6 +25,44 @@ RSpec.describe IsoDoc do
     expect(html).to match(/delimiters: \[\['\(#\(', '\)#\)'\]\]/)
   end
 
+  it "ignores Liquid markup in the document body" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+        <title language="en">test</title>
+        </bibdata>
+    <preface><foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">{% elif %}These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword></preface>
+    </iso-standard>
+INPUT
+expect(File.exist?("test.html")).to be true
+    html = File.read("test.html")
+  end
+
+    it "ignores Liquid markup in the document body (Word)" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+        <title language="en">test</title>
+        </bibdata>
+    <preface><foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">{% elif %}These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword></preface>
+    </iso-standard>
+INPUT
+expect(File.exist?("test.doc")).to be true
+    html = File.read("test.doc")
+  end
+
   it "generates HTML output docs with null configuration" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"

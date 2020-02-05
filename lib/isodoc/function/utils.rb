@@ -140,11 +140,6 @@ module IsoDoc::Function
 
     def populate_template(docxml, _format)
       meta = @meta.get.merge(@labels || {})
-      docxml = docxml.
-        gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
-        gsub(/\s*\[MODIFICATION\]\s*\[\/TERMREF\]/, l10n(", #{@modified_lbl} [/TERMREF]")).
-        gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
-        gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
       template = liquid(docxml)
       template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h).
         gsub('&lt;', '&#x3c;').gsub('&gt;', '&#x3e;').gsub('&amp;', '&#x26;')
@@ -152,12 +147,6 @@ module IsoDoc::Function
 
     def save_dataimage(uri, relative_dir = true)
       %r{^data:image/(?<imgtype>[^;]+);base64,(?<imgdata>.+)$} =~ uri
-      #uuid = UUIDTools::UUID.random_create.to_s
-      #fname = "#{uuid}.#{imgtype}"
-      #new_file = File.join(tmpimagedir, fname)
-      #@files_to_delete << new_file
-      #File.open(new_file, "wb") { |f| f.write(Base64.strict_decode64(imgdata)) }
-      #File.join(relative_dir ? rel_tmpimagedir : tmpimagedir, fname)
       imgtype = "png" unless /^[a-z0-9]+$/.match imgtype
       Tempfile.open(["image", ".#{imgtype}"]) do |f|
         f.binmode
