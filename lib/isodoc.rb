@@ -19,6 +19,7 @@ require "isodoc/metadata"
 require "isodoc/html_convert"
 require "isodoc/word_convert"
 require "isodoc/pdf_convert"
+require "isodoc/xslfo_convert"
 require "isodoc/headlesshtml_convert"
 
 module IsoDoc
