@@ -92,7 +92,7 @@ RSpec.describe IsoDoc do
 </bibdata>
 </iso-standard>
 INPUT
-{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Slate Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :circulateddate=>"2015", :confirmeddate=>"2017", :copieddate=>"2016", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :edition=>"2", :html=>"URL B", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"2", :obsoleteddate=>"2014", :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :stage=>"Committee draft", :substage=>"Withdrawn", :transmitteddate=>"2020", :unchangeddate=>"2019", :unpublished=>true, :updateddate=>"2018", :url=>"URL A", :xml=>"URL C"}
+{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Slate Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :circulateddate=>"2015", :confirmeddate=>"2017", :copieddate=>"2016", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :edition=>"2", :html=>"URL B", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"2", :obsoleteddate=>"2014", :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :stage=>"Committee draft", :substage=>"Withdrawn", :transmitteddate=>"2020", :unchangeddate=>"2019", :unpublished=>true, :updateddate=>"2018", :url=>"URL A", :xml=>"URL C"}
 OUTPUT
   end
 
@@ -153,7 +153,7 @@ OUTPUT
 </version>
 </iso-standard>
 INPUT
-{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2016-05-01", :stage=>"Published", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
+{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2016-05-01", :stage=>"Published", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
 OUTPUT
   end
 

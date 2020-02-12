@@ -127,6 +127,8 @@ module IsoDoc
     def docid(isoxml, _out)
       dn = isoxml.at(ns("//bibdata/docidentifier"))
       set(:docnumber, dn&.text)
+      dn = isoxml.at(ns("//bibdata/docnumber"))
+      set(:docnumeric, dn&.text)
     end
 
     def draftinfo(draft, revdate)
