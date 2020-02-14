@@ -114,11 +114,11 @@ module IsoDoc
           set(:iteration, i)
         set(:unpublished, unpublished(docstatus.text))
         unpublished(docstatus.text) and
-          set(:stageabbr, stage_abbrev(docstatus.text))
+          set(:stageabbr, stage_abbr(docstatus.text))
       end
     end
 
-    def stage_abbrev(docstatus)
+    def stage_abbr(docstatus)
       status_print(docstatus).split(/ /).
         map { |s| s[0].upcase }.join("")
     end
@@ -134,6 +134,9 @@ module IsoDoc
     def docid(isoxml, _out)
       dn = isoxml.at(ns("//bibdata/docidentifier"))
       set(:docnumber, dn&.text)
+    end
+
+    def docnumeric(isoxml, _out)
       dn = isoxml.at(ns("//bibdata/docnumber"))
       set(:docnumeric, dn&.text)
     end

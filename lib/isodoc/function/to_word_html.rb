@@ -94,6 +94,7 @@ module IsoDoc::Function
       @meta.subtitle isoxml, out
       @meta.docstatus isoxml, out
       @meta.docid isoxml, out
+      @meta.docnumeric isoxml, out
       @meta.doctype isoxml, out
       @meta.author isoxml, out
       @meta.bibdate isoxml, out
