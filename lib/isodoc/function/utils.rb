@@ -138,7 +138,7 @@ module IsoDoc::Function
       v
     end
 
-    def populate_template(docxml, _format)
+    def populate_template(docxml, _format = nil)
       meta = @meta.get.merge(@labels || {})
       template = liquid(docxml)
       template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h).

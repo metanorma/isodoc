@@ -113,7 +113,14 @@ module IsoDoc
         i = isoxml&.at(ns("//bibdata/status/iteration"))&.text and
           set(:iteration, i)
         set(:unpublished, unpublished(docstatus.text))
+        unpublished(docstatus.text) and
+          set(:stageabbr, stage_abbrev(docstatus.text))
       end
+    end
+
+    def stage_abbrev(docstatus)
+      status_print(docstatus).split(/ /).
+        map { |s| s[0].upcase }.join("")
     end
 
     def unpublished(status)
