@@ -9,14 +9,13 @@ module IsoDoc::Function
     end
 
     def inline_header_title(out, node, c1)
-      title = c1&.content || ""
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
           if anchor(node['id'], :label, false) && !@suppressheadingnumbers
             b << "#{anchor(node['id'], :label)}#{clausedelim}"
             clausedelimspace(out)
           end
-          b << "#{title} "
+          c1&.children&.each { |c2| parse(c2, b) }
         end
       end
     end
@@ -50,7 +49,8 @@ module IsoDoc::Function
           h1 << "#{num}#{clausedelim}"
           clausedelimspace(h1)
         end
-        h1 << title
+        title.is_a?(String) ? h1 << title :
+          title&.children&.each { |c2| parse(c2, h1) }
       end
       div.parent.at(".//h1")
     end
@@ -63,7 +63,7 @@ module IsoDoc::Function
       isoxml.xpath(ns(self.class::MIDDLE_CLAUSE)).each do |c|
         out.div **attr_code(id: c["id"]) do |s|
           clause_name(anchor(c['id'], :label),
-                      c&.at(ns("./title"))&.content, s, nil)
+                      c&.at(ns("./title")), s, nil)
           c.elements.reject { |c1| c1.name == "title" }.each do |c1|
             parse(c1, s)
           end
@@ -136,7 +136,7 @@ module IsoDoc::Function
       f = isoxml.at(ns("//sections/definitions")) or return num
       out.div **attr_code(id: f["id"], class: "Symbols") do |div|
         num = num + 1
-        clause_name(num, f&.at(ns("./title"))&.content || @symbols_lbl, div, nil)
+        clause_name(num, f&.at(ns("./title")) || @symbols_lbl, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
