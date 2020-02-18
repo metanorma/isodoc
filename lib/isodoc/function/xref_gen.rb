@@ -38,7 +38,8 @@ module IsoDoc::Function
     end
 
     SECTIONS_XPATH =
-      "//foreword | //introduction | //sections/terms | //annex | "\
+      "//foreword | //introduction | //acknowledgements | //preface/clause | "\
+      "//sections/terms | //annex | "\
       "//sections/clause | //sections/definitions | "\
       "//bibliography/references | //bibliography/clause".freeze
 

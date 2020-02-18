@@ -17,7 +17,9 @@ module IsoDoc::Function
       preface_names(d.at(ns("//preface/abstract")))
       preface_names(d.at(ns("//foreword")))
       preface_names(d.at(ns("//introduction")))
-      sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction")))
+      preface_names(d.at(ns("//preface/clause")))
+      preface_names(d.at(ns("//acknowledgements")))
+      #sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //preface/clause | //acknowledgements")))
       n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
       n = section_names(d.at(ns(
         "//bibliography/clause[title = 'Normative References' or title = 'Normative references'] |"\
@@ -60,9 +62,9 @@ module IsoDoc::Function
 
     def middle_section_asset_names(d)
       middle_sections = "//clause[title = 'Scope'] | "\
-        "//foreword | //introduction | "\
         "//references[title = 'Normative References' or title = 'Normative references'] | "\
         "//sections/terms | "\
+        "//preface/abstract | //foreword | //introduction | //preface/clause | //acknowledgements "\
         "//sections/definitions | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))
     end

@@ -172,6 +172,18 @@ module IsoDoc::Function
       end
     end
 
+    def acknowledgements(isoxml, out)
+      f = isoxml.at(ns("//acknowledgements")) || return
+      title_attr = { class: "IntroTitle" }
+      page_break(out)
+      out.div **{ class: "Section3", id: f["id"] } do |div|
+        clause_name(nil, f&.at(ns("./title")), div, title_attr)
+        f.elements.each do |e|
+          parse(e, div) unless e.name == "title"
+        end
+      end
+    end
+
     def abstract(isoxml, out)
       f = isoxml.at(ns("//preface/abstract")) || return
       page_break(out)

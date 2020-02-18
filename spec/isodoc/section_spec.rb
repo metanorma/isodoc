@@ -63,7 +63,11 @@ RSpec.describe IsoDoc do
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </clause>
-       </introduction></preface><sections>
+       </introduction>
+       <acknowledgements obligation="informative">
+         <title>Acknowledgements</title>
+       </acknowledgements>
+        </preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -159,6 +163,10 @@ RSpec.describe IsoDoc do
            <h2>Introduction Subsection</h2>
          </div>
                 </div>
+                <br/>
+<div class='Section3' id=''>
+  <h1 class='IntroTitle'>Acknowledgements</h1>
+</div>
                 <p class="zzSTDTitle1"/>
                 <div id="D">
                   <h1>1.&#160; Scope</h1>
@@ -258,7 +266,11 @@ OUTPUT
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </clause>
-       </introduction></preface><sections>
+       </introduction>
+<acknowledgements obligation="informative">
+         <title>Acknowledgements</title>
+       </acknowledgements>
+</preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -358,6 +370,12 @@ OUTPUT
           <h2>Introduction Subsection</h2>
         </div>
                </div>
+               <p>
+  <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+</p>
+<div class='Section3' id=''>
+  <h1 class='IntroTitle'>Acknowledgements</h1>
+</div>
                <p>&#160;</p>
              </div>
              <p><br clear="all" class="section"/></p>

@@ -23,6 +23,7 @@ module IsoDoc::HtmlFunction
         abstract docxml, div3
         foreword docxml, div3
         introduction docxml, div3
+        acknowledgements docxml, div3
         middle docxml, div3
         footnotes div3
         comments div3

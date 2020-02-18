@@ -31,6 +31,7 @@ module IsoDoc::WordFunction
         abstract docxml, div2
         foreword docxml, div2
         introduction docxml, div2
+        acknowledgements docxml, div2
         div2.p { |p| p << "&nbsp;" } # placeholder
       end
       section_break(body)

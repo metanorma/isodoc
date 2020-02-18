@@ -64,6 +64,7 @@ module IsoDoc::Function
 
     CLAUSE_ANCESTOR =
       ".//ancestor::*[local-name() = 'annex' or "\
+      "local-name() = 'acknowledgements' or "\
       "local-name() = 'appendix' or local-name() = 'foreword' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
       "local-name() = 'clause' or local-name() = 'references']/@id".freeze
@@ -77,6 +78,7 @@ module IsoDoc::Function
       ".//ancestor::*[local-name() = 'annex' or "\
       "local-name() = 'foreword' or local-name() = 'appendix' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
+      "local-name() = 'acknowledgements' or "\
       "local-name() = 'clause' or local-name() = 'references' or "\
       "local-name() = 'figure' or local-name() = 'formula' or "\
       "local-name() = 'table' or local-name() = 'example']/@id".freeze
