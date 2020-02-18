@@ -4,8 +4,11 @@ module IsoDoc::Function
       docxml.xpath(ns("//annex")).each_with_index do |c, i|
         annex_names(c, (65 + i).chr.to_s)
       end
-      docxml.xpath(ns("//bibliography/clause[not(xmlns:title = 'Normative References' or xmlns:title = 'Normative references')] |"\
-                   "//bibliography/references[not(xmlns:title = 'Normative References' or xmlns:title = 'Normative references')]")).each do |b|
+      docxml.xpath(
+        ns("//bibliography/clause[not(xmlns:title = 'Normative References' or "\
+           "xmlns:title = 'Normative references')] |"\
+           "//bibliography/references[not(xmlns:title = 'Normative References'"\
+           " or xmlns:title = 'Normative references')]")).each do |b|
         preface_names(b)
       end
       docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
@@ -17,13 +20,20 @@ module IsoDoc::Function
       preface_names(d.at(ns("//preface/abstract")))
       preface_names(d.at(ns("//foreword")))
       preface_names(d.at(ns("//introduction")))
-      preface_names(d.at(ns("//preface/clause")))
+      d.xpath(ns("//preface/clause")).each do |c|
+      preface_names(c)
+      end
       preface_names(d.at(ns("//acknowledgements")))
-      #sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //preface/clause | //acknowledgements")))
+      # potentially overridden in middle_section_asset_names()
+      sequential_asset_names(
+        d.xpath(ns("//preface/abstract | //foreword | //introduction | "\
+                   "//preface/clause | //acknowledgements")))
       n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
       n = section_names(d.at(ns(
-        "//bibliography/clause[title = 'Normative References' or title = 'Normative references'] |"\
-        "//bibliography/references[title = 'Normative References' or title = 'Normative references']")), n, 1)
+        "//bibliography/clause[title = 'Normative References' or "\
+        "title = 'Normative references'] |"\
+        "//bibliography/references[title = 'Normative References' or "\
+        "title = 'Normative references']")), n, 1)
       n = section_names(d.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
       n = section_names(d.at(ns("//sections/definitions")), n, 1)
@@ -38,15 +48,18 @@ module IsoDoc::Function
       ret
     end
 
-    SUBCLAUSES = "./clause | ./references | ./term  | ./terms | ./definitions".freeze
+    SUBCLAUSES =
+      "./clause | ./references | ./term  | ./terms | ./definitions".freeze
 
     # in StanDoc, prefaces have no numbering; they are referenced only by title
     def preface_names(clause)
       return if clause.nil?
       @anchors[clause["id"]] =
-        { label: nil, level: 1, xref: preface_clause_name(clause), type: "clause" }
+        { label: nil, level: 1, xref: preface_clause_name(clause),
+          type: "clause" }
       clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-        preface_names1(c, c.at(ns("./title"))&.text, "#{preface_clause_name(clause)}, #{i+1}", 2)
+        preface_names1(c, c.at(ns("./title"))&.text,
+                       "#{preface_clause_name(clause)}, #{i+1}", 2)
       end
     end
 
@@ -56,15 +69,17 @@ module IsoDoc::Function
         { label: nil, level: level, xref: label, type: "clause" }
       clause.xpath(ns(SUBCLAUSES)).
         each_with_index do |c, i|
-        preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i+1}", level + 1)
+        preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i+1}",
+                       level + 1)
       end
     end
 
     def middle_section_asset_names(d)
       middle_sections = "//clause[title = 'Scope'] | "\
-        "//references[title = 'Normative References' or title = 'Normative references'] | "\
-        "//sections/terms | "\
-        "//preface/abstract | //foreword | //introduction | //preface/clause | //acknowledgements "\
+        "//references[title = 'Normative References' or title = "\
+        "'Normative references'] | "\
+        "//sections/terms | //preface/abstract | //foreword | "\
+        "//introduction | //preface/clause | //acknowledgements "\
         "//sections/definitions | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))
     end
@@ -80,7 +95,8 @@ module IsoDoc::Function
       return num if clause.nil?
       num = num + 1
       @anchors[clause["id"]] =
-        { label: num.to_s, xref: l10n("#{@clause_lbl} #{num}"), level: lvl, type: "clause" }
+        { label: num.to_s, xref: l10n("#{@clause_lbl} #{num}"), level: lvl,
+          type: "clause" }
       clause.xpath(ns(SUBCLAUSES)).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", lvl + 1)
@@ -90,7 +106,8 @@ module IsoDoc::Function
 
     def section_names1(clause, num, level)
       @anchors[clause["id"]] =
-        { label: num, level: level, xref: l10n("#{@clause_lbl} #{num}"), type: "clause" }
+        { label: num, level: level, xref: l10n("#{@clause_lbl} #{num}"),
+          type: "clause" }
       clause.xpath(ns(SUBCLAUSES)).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", level + 1)
@@ -104,7 +121,8 @@ module IsoDoc::Function
     end
 
     def annex_names(clause, num)
-      @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
+      @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
+                                 type: "clause",
                                  xref: "#{@annex_lbl} #{num}", level: 1 }
       clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", 2)

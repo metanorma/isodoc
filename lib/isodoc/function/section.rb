@@ -193,6 +193,19 @@ module IsoDoc::Function
       end
     end
 
+    def preface(isoxml, out)
+      title_attr = { class: "IntroTitle" }
+      isoxml.xpath(ns("//preface/clause")).each do |f|
+        page_break(out)
+        out.div **{ class: "Section3", id: f["id"] } do |div|
+          clause_name(nil, f&.at(ns("./title")), div, title_attr)
+          f.elements.each do |e|
+            parse(e, div) unless e.name == "title"
+          end
+        end
+      end
+    end
+
     def copyright_parse(node, out)
       out.div **{class: "boilerplate-copyright"} do |div|
         node.children.each { |n| parse(n, div) }
