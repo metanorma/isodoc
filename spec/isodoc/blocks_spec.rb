@@ -222,6 +222,97 @@ INPUT
     OUTPUT
   end
 
+  it "processes paragraphs containing notes" do
+        expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <p id="A">ABC <note id="B"><p id="C">XYZ</p></note>
+<note id="B1"><p id="C1">XYZ1</p></note></p>
+</foreword></preface>
+    </iso-standard>
+INPUT
+#{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <p id='A'>
+          ABC 
+          <div id='B' class='Note'>
+            <p>
+              <span class='note_label'>NOTE 1</span>
+              &#160; XYZ
+            </p>
+          </div>
+          <div id='B1' class='Note'>
+            <p>
+              <span class='note_label'>NOTE 2</span>
+              &#160; XYZ1
+            </p>
+          </div>
+        </p>
+      </div>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+OUTPUT
+  end
+
+    it "processes paragraphs containing notes (Word)" do
+        expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <p id="A">ABC <note id="B"><p id="C">XYZ</p></note>
+<note id="B1"><p id="C1">XYZ1</p></note></p>
+</foreword></preface>
+    </iso-standard>
+INPUT
+<html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+<head>
+    <style/>
+  </head>
+  <body lang='EN-US' link='blue' vlink='#954F72'>
+    <div class='WordSection1'>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection2'>
+      <p>
+        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+      </p>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <p id='A'>ABC </p>
+        <div id='B' class='Note'>
+          <p class='Note'>
+            <span class='note_label'>NOTE 1</span>
+            <span style='mso-tab-count:1'>&#160; </span>
+            XYZ
+          </p>
+        </div>
+        <div id='B1' class='Note'>
+          <p class='Note'>
+            <span class='note_label'>NOTE 2</span>
+            <span style='mso-tab-count:1'>&#160; </span>
+            XYZ1
+          </p>
+        </div>
+      </div>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection3'>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+OUTPUT
+  end
+
   it "processes figures" do
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">

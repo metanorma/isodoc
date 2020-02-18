@@ -58,6 +58,17 @@ module IsoDoc::WordFunction
       classtype
     end
 
+    def para_parse(node, out)
+      out.p **attr_code(para_attrs(node)) do |p|
+        unless @termdomain.empty?
+          p << "&lt;#{@termdomain}&gt; "
+          @termdomain = ""
+        end
+        node.children.each { |n| parse(n, p) unless n.name == "note" }
+      end
+      node.xpath(ns("./note")).each { |n| parse(n, out) }
+    end
+
     def section_break(body)
       body.p do |p|
         p.br **{ clear: "all", class: "section" }
