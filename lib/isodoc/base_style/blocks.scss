@@ -45,10 +45,6 @@
 @mixin sourceBlock($colorBg, $colorFg: null) {
   @include monospaceBlockStyle();
 
-  .SourceTitle {
-    @include blockTitle();
-  }
-
   @if $colorFg {
     color: $colorFg;
   }
@@ -59,7 +55,7 @@
   padding: 1.5em;
   margin: 2em 0 1em 0;
   overflow-y: auto;
-  overflow-x: scroll;;
+  overflow-x: scroll;
 }
 
 @mixin pseudocodeBlock($colorBg, $colorFg: null) {
