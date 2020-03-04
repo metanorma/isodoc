@@ -73,6 +73,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       word_image_caption(docxml)
       word_section_breaks(docxml)
       authority_cleanup(docxml)
+      word_footnote_format(docxml)
       docxml
     end
 
@@ -207,6 +208,17 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
         next if m.at("./ancestor::div[@class = '#{sect}_#{i}']")
         ins << m.remove
       end
+    end
+
+    def word_footnote_format(docxml)
+      docxml.xpath("//a[@epub:type = 'footnote']/sup").each do |x|
+        footnote_reference_format(x)
+      end
+      docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
+                   "//span[@class = 'TableFootnoteRef']").each do |x|
+        table_footnote_reference_format(x)
+      end
+      docxml
     end
   end
 end

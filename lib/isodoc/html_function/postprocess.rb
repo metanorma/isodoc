@@ -27,9 +27,9 @@ module IsoDoc::HtmlFunction
     end
 
     def html_cleanup(x)
-      footnote_backlinks(html_toc(
+      footnote_format(footnote_backlinks(html_toc(
         term_header((html_footnote_filter(html_preface(htmlstyle(x))))))
-                        )
+                        ))
     end
 
     def htmlstylesheet
@@ -199,8 +199,20 @@ module IsoDoc::HtmlFunction
       docxml
     end
 
+    def footnote_format(docxml)
+      docxml.xpath("//a[@epub:type = 'footnote']").each do |x|
+        footnote_reference_format(x)
+      end
+      docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
+                   "//span[@class = 'TableFootnoteRef']").each do |x|
+        table_footnote_reference_format(x)
+      end
+      docxml
+    end
+
     def sourcecode_highlighter
-      '<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>'
+      '<script src="https://cdn.rawgit.com/google/code-prettify/master/'\
+        'loader/run_prettify.js"></script>'
     end
 
     MATHJAX_ADDR =

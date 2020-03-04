@@ -161,5 +161,13 @@ module IsoDoc::Function
 
     def symbols_cleanup(docxml)
     end
+
+    def table_footnote_reference_format(a)
+      a
+    end
+
+    def footnote_reference_format(a)
+      a
+    end
   end
 end
