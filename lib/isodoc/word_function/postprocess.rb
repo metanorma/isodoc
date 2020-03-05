@@ -213,7 +213,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def word_footnote_format(docxml)
       # the content is in a[@epub:type = 'footnote']//sup, but in Word, 
       # we need to inject content around the autonumbered footnote reference
-      docxml.xpath("//span[@class = 'MsoFootnoteReference']/..").each do |x|
+      docxml.xpath("//a[@epub:type = 'footnote']").each do |x|
         footnote_reference_format(x)
       end
       docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
