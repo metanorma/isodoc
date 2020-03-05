@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "liquid"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "sassc", "~> 2.2.1"
-  spec.add_dependency "metanorma", "~> 0.3.0"
+  spec.add_dependency "metanorma", "~> 1.0.0"
   spec.add_dependency "rake", "~> 12.0"
 
   spec.add_development_dependency "byebug", "~> 9.1"
