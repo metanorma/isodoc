@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "nokogiri", ">= 1.10.4"
   spec.add_dependency "thread_safe"
   spec.add_dependency "uuidtools"
-  spec.add_dependency "html2doc", "~> 0.9.0"
+  spec.add_dependency "html2doc", "~> 1.0.0"
   spec.add_dependency "liquid"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "sassc", "~> 2.2.1"
