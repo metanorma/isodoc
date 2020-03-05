@@ -200,7 +200,7 @@ module IsoDoc::HtmlFunction
     end
 
     def footnote_format(docxml)
-      docxml.xpath("//a[@epub:type = 'footnote']").each do |x|
+      docxml.xpath("//a[@epub:type = 'footnote']/sup").each do |x|
         footnote_reference_format(x)
       end
       docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
