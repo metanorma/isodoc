@@ -228,5 +228,12 @@ module IsoDoc::WordFunction
         "mso-table-overlap:never;border-collapse:collapse;"
       })
     end
+
+    def formula_where(dl, out)
+      return unless dl
+      out.p { |p| p << @where_lbl }
+      parse(dl, out)
+      out.parent.at("./table")["class"] = "formula_dl"
+    end
   end
 end

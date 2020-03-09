@@ -151,7 +151,7 @@ module IsoDoc::Function
       return unless dl
       out.p { |p| p << @where_lbl }
       parse(dl, out)
-      p out.parent.at("./dl")["class"] = "formula_dl"
+      out.parent.at("./dl")["class"] = "formula_dl"
     end
 
     def formula_parse1(node, out)
