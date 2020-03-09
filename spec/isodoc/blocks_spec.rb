@@ -318,7 +318,7 @@ OUTPUT
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <figure id="figureA-1">
-  <name>Split-it-right <em>sample</em> divider</name>
+  <name>Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
   <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
   <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
   <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f2" mimetype="image/png"/>
@@ -354,7 +354,11 @@ B</pre>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
          <p  style='page-break-after:avoid;'><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
-       <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider</p></div>
+       <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider
+       <a rel='footnote' href='#fn:1' epub:type='footnote'>
+  <sup>1</sup>
+</a>
+        </p></div>
                <div class="figure" id="figure-B">
 <pre>A &lt;
 B</pre>
@@ -366,6 +370,9 @@ B</pre>
 </div>
                </div>
                <p class="zzSTDTitle1"/>
+               <aside id='fn:1' class='footnote'>
+  <p>X</p>
+</aside>
              </div>
            </body>
        </html>
@@ -373,11 +380,11 @@ B</pre>
   end
 
   it "processes figures (Word)" do
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(/['"][^'".]+\.gif['"]/, "'_.gif'")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(/['"][^'".]+\.gif['"]/, "'_.gif'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <figure id="figureA-1">
-  <name>Split-it-right sample divider</name>
+  <name>Split-it-right sample divider<fn reference="1"><p>X</p></fn></name>
   <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletext"/>
   <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
@@ -416,7 +423,15 @@ B</pre>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
          <p  style='page-break-after:avoid;'><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
-       <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
+          <p class='FigureTitle' style='text-align:center;'>
+   Figure 1&#160;&#8212; Split-it-right sample divider
+   <span style='mso-bookmark:_Ref'>
+     <a href='#ftn1' epub:type='footnote'>
+       <sup>1</sup>
+     </a>
+   </span>
+ </p>
+</div>
                <div class="figure" id="figure-B">
 <pre>A &lt;
 B</pre>
@@ -428,6 +443,9 @@ B</pre>
            <p><br clear="all" class="section"/></p>
            <div class="WordSection3">
              <p class="zzSTDTitle1"/>
+              <aside id='ftn1'>
+   <p>X</p>
+ </aside>
            </div>
          </body>
        </html>

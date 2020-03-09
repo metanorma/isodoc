@@ -78,7 +78,8 @@ module IsoDoc::WordFunction
     end
 
     def footnote_parse(node, out)
-      return table_footnote_parse(node, out) if @in_table || @in_figure
+      return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
+        !node.ancestors.map {|m| m.name }.include?("name")
       fn = node["reference"]
       return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)
       @fn_bookmarks[fn] = bookmarkid

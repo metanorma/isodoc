@@ -62,7 +62,8 @@ module IsoDoc::HtmlFunction
     end
 
     def footnote_parse(node, out)
-      return table_footnote_parse(node, out) if @in_table || @in_figure
+       return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
+        !node.ancestors.map {|m| m.name }.include?("name")
       fn = node["reference"]
       attrs = { "epub:type": "footnote", rel: "footnote", href: "#fn:#{fn}" }
       out.a **attrs do |a|

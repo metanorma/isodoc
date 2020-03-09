@@ -7,7 +7,7 @@ RSpec.describe IsoDoc do
     <preface>
     <foreword>
       <table id="tableD-1" alt="tool tip" summary="long desc">
-  <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
+  <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
   <thead>
     <tr>
       <td rowspan="2" align="left">Description</td>
@@ -67,7 +67,11 @@ RSpec.describe IsoDoc do
                  <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <p class="TableTitle" style="text-align:center;">Table 1&#160;&#8212; Repeatability and reproducibility of <i>husked</i> rice yield</p>
+               <p class="TableTitle" style="text-align:center;">Table 1&#160;&#8212; Repeatability and reproducibility of <i>husked</i> rice yield
+               <a rel='footnote' href='#fn:1' epub:type='footnote'>
+  <sup>1</sup>
+</a>
+                </p>
                <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;" title="tool tip">
                <caption>
                <span style="display:none">long desc</span>
@@ -130,6 +134,9 @@ RSpec.describe IsoDoc do
                </table>
              </div>
              <p class="zzSTDTitle1"/>
+              <aside id='fn:1' class='footnote'>
+   <p>X</p>
+ </aside>
            </div>
          </body>
        </html>
@@ -137,7 +144,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes IsoXML tables (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -145,7 +152,7 @@ RSpec.describe IsoDoc do
       <tbody><tr><td>A</td></tr></tbody>
       </table>
       <table id="tableD-1" alt="tool tip" summary="long desc">
-  <name>Repeatability and reproducibility of husked rice yield</name>
+  <name>Repeatability and reproducibility of husked rice yield<fn reference="1"><p>X</p></fn></name>
   <thead>
     <tr>
       <td rowspan="2" align="left">Description</td>
@@ -218,7 +225,13 @@ RSpec.describe IsoDoc do
                    </tbody>
                  </table>
                  </div>
-                 <p class="TableTitle" style="text-align:center;">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p>
+                 <p class="TableTitle" style="text-align:center;">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield
+                 <span style='mso-bookmark:_Ref'>
+   <a href='#ftn1' epub:type='footnote'>
+     <sup>1</sup>
+   </a>
+ </span>
+        </p>
                   <div align="center" class="table_container">
                  <table id="tableD-1" class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;" title="tool tip" summary="long desc">
                    <thead>
@@ -279,6 +292,9 @@ RSpec.describe IsoDoc do
              <p><br clear="all" class="section"/></p>
              <div class="WordSection3">
                <p class="zzSTDTitle1"/>
+               <aside id='ftn1'>
+  <p>X</p>
+</aside>
              </div>
            </body>
        </html>

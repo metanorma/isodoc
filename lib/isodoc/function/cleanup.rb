@@ -65,6 +65,7 @@ module IsoDoc::Function
     # since it is in diagram
     def figure_cleanup(docxml)
       docxml.xpath(FIGURE_WITH_FOOTNOTES).each do |f|
+        next unless f.at(".//aside[not(ancestor::p[@class = 'FigureTitle'])]")
         key = figure_get_or_make_dl(f)
         f.xpath(".//aside").each do |aside|
           figure_aside_process(f, aside, key)
