@@ -53,7 +53,7 @@ module IsoDoc::Function
     end
 
     def figure_key(out)
-      out.p do |p|
+      out.p **{ style: "page-break-after:avoid;"} do |p|
         p.b { |b| b << @key_lbl }
       end
     end
@@ -149,7 +149,9 @@ module IsoDoc::Function
 
     def formula_where(dl, out)
       return unless dl
-      out.p { |p| p << @where_lbl }
+      out.p **{ style: "page-break-after:avoid;"} do |p|
+        p << @where_lbl
+      end
       parse(dl, out)
       out.parent.at("./dl")["class"] = "formula_dl"
     end

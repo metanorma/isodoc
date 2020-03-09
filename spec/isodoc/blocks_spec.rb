@@ -353,7 +353,7 @@ B</pre>
          <a href="#_" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:_"><span><span id="_" class="TableFootnoteRef">a</span>&#160; </span>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
-         <p><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
+         <p  style='page-break-after:avoid;'><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
        <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider</p></div>
                <div class="figure" id="figure-B">
 <pre>A &lt;
@@ -415,7 +415,7 @@ B</pre>
          <a href="#_" class="TableFootnoteRef">a</a><aside><div id="ftn_"><span><span id="_" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#160; </span></span>
          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
        </div></aside>
-         <p><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
+         <p  style='page-break-after:avoid;'><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
        <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right sample divider</p></div>
                <div class="figure" id="figure-B">
 <pre>A &lt;
@@ -729,7 +729,7 @@ Que?
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
+                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after:avoid;'>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
            <span class="stem">(#(r)#)</span>
          </dt><dd>
            <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
