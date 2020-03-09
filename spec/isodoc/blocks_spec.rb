@@ -729,7 +729,7 @@ Que?
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d"><dt>
+                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula"><dt>
            <span class="stem">(#(r)#)</span>
          </dt><dd>
            <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>

@@ -20,6 +20,7 @@ module IsoDoc::Function
       end
     end
 
+    # used for subclauses
     def clause_parse_title(node, div, c1, out)
       if node["inline-header"] == "true"
         inline_header_title(out, node, c1)
@@ -33,6 +34,7 @@ module IsoDoc::Function
       end
     end
 
+    # used for subclauses
     def clause_parse(node, out)
       out.div **attr_code(id: node["id"]) do |div|
         clause_parse_title(node, div, node.at(ns("./title")), out)
