@@ -86,6 +86,7 @@ module IsoDoc::Function
       isoxml.xpath(ns("//annex")).each do |c|
         page_break(out)
         out.div **attr_code(id: c["id"], class: "Section3") do |s|
+          annex_name(c, nil, s) unless c.at(ns("./title"))
           c.elements.each do |c1|
             if c1.name == "title" then annex_name(c, c1, s)
             else

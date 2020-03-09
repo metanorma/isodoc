@@ -114,7 +114,10 @@ RSpec.describe IsoDoc do
          </clause>
          <references id="Q2"><title>Annex Bibliography</title></references>
        </clause>
-       </annex><bibliography><references id="R" obligation="informative">
+       </annex>
+       <annex id="P1" inline-header="false" obligation="normative">
+       </annex>
+        <bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -227,6 +230,17 @@ RSpec.describe IsoDoc do
          </div>
 
                 </div>
+                 <br/>
+ <div id='P1' class='Section3'>
+   <h1 class='Annex'>
+     <b>Annex B</b>
+     <br/>
+     (normative)
+     <br/>
+     <br/>
+     <b/>
+   </h1>
+ </div>
                 <br/>
                 <div>
                   <h1 class="Section3">Bibliography</h1>
@@ -325,7 +339,10 @@ OUTPUT
          <title>Annex A.1a</title>
          </clause>
        </clause>
-       </annex><bibliography><references id="R" obligation="informative">
+       </annex>
+ <annex id="P1" inline-header="false" obligation="normative">
+       </annex>
+        <bibliography><references id="R" obligation="informative">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -454,6 +471,19 @@ OUTPUT
           </div>
         </div>
                </div>
+                <p>
+   <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+ </p>
+ <div id='P1' class='Section3'>
+   <h1 class='Annex'>
+     <b>Annex B</b>
+     <br/>
+     (normative)
+     <br/>
+     <br/>
+     <b/>
+   </h1>
+ </div>
                <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="Section3">Bibliography</h1>

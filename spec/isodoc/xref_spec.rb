@@ -178,6 +178,14 @@ RSpec.describe IsoDoc do
              </div>
              <br/>
              <div id="annex1" class="Section3">
+                          <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
                <div id="annex1a"><h2>A.1.&#160;</h2>
            <div id="AN" class="Note"><p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
            </div>
@@ -365,6 +373,14 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
+                            <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
                  <div id="annex1a"><h2>A.1.&#160; </h2>
                <div id="AN" class="figure">
 
@@ -485,6 +501,14 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
+                            <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
                  <div id="annex1a"><h2>A.1.&#160;</h2>
          </div>
                  <div id="annex1b"><h2>A.2.&#160;</h2>
@@ -623,6 +647,14 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
+                            <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
                  <div id="annex1a"><h2>A.1.&#160;</h2>
                <div id="AN" class="example"><p class="example-title">EXAMPLE</p>
          <p>Hello</p>
@@ -750,6 +782,14 @@ RSpec.describe IsoDoc do
                </div>
                <br/>
                <div id="annex1" class="Section3">
+                            <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
                  <div id="annex1a"><h2>A.1.&#160;</h2>
            <div id="AN" class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (A.1)</p></div>
            </div>
@@ -881,6 +921,14 @@ RSpec.describe IsoDoc do
       </div>
       <br/>
       <div id="annex1" class="Section3">
+                   <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
         <div id="annex1a"><h2>A.1.&#160;</h2>
     <div class="require"><p class="RecommendationTitle">Requirement A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
@@ -1018,6 +1066,14 @@ OUTPUT
       </div>
       <br/>
       <div id="annex1" class="Section3">
+                   <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
         <div id="annex1a"><h2>A.1.&#160;</h2>
     <div class="recommend"><p class="RecommendationTitle">Recommendation A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
@@ -1155,6 +1211,14 @@ OUTPUT
       </div>
       <br/>
       <div id="annex1" class="Section3">
+                   <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
         <div id="annex1a"><h2>A.1.&#160;</h2>
     <div class="permission"><p class="RecommendationTitle">Permission A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
@@ -1457,6 +1521,14 @@ OUTPUT
                </div>
                <br/>
                <div id="annex1" class="Section3">
+                            <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
                  <div id="annex1a"><h2>A.1.&#160;</h2>
                  <p class="TableTitle" style="text-align:center;">Table A.1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="AN" class="MsoISOTable" style="border-width:1px;border-spacing:0;"><tbody><tr><td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">Number of laboratories retained after eliminating outliers</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">13</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">11</td></tr></tbody></table>
        </div>
@@ -1807,6 +1879,14 @@ OUTPUT
              </div>
              <br/>
              <div id="annex1" class="Section3">
+                          <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
                <div id="annex1a"><h2>A.1.&#160;</h2>
            <ol type="a" id="AN">
          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
@@ -1938,6 +2018,14 @@ OUTPUT
              </div>
              <br/>
              <div id="annex1" class="Section3">
+                          <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <br/>
+  <b/>
+</h1>
                <div id="annex1a"><h2>A.1.&#160;</h2>
            <ol type="a" id="ANl">
          <li id="AN"><p>A</p></li>
