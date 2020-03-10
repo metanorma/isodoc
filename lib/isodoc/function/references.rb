@@ -131,13 +131,13 @@ module IsoDoc::Function
 
     def biblio_list(f, div, biblio)
       i = 0
-      f.xpath(ns("./bibitem | ./note")).each do |b|
-        next if implicit_reference(b)
-        i += 1 if b.name == "bibitem"
-        if b.name == "note" then note_parse(b, div)
-        elsif(is_standard(b)) then std_bibitem_entry(div, b, i, biblio)
+      f.children.each do |b|
+        if b.name == "bibitem"
+          i += 1
+          (is_standard(b)) ? std_bibitem_entry(div, b, i, biblio) :
+            nonstd_bibitem(div, b, i, biblio)
         else
-          nonstd_bibitem(div, b, i, biblio)
+          parse(b, div) unless %w(title).include? b.name
         end
       end
     end
@@ -149,9 +149,6 @@ module IsoDoc::Function
       out.div do |div|
         num = num + 1
         clause_name(num, @normref_lbl, div, nil)
-        f.elements.reject do |e|
-          %w(reference title bibitem note).include? e.name
-        end.each { |e| parse(e, div) }
         biblio_list(f, div, false)
       end
       num
@@ -165,9 +162,6 @@ module IsoDoc::Function
       page_break(out)
       out.div do |div|
         div.h1 @bibliography_lbl, **{ class: "Section3" }
-        f.elements.reject do |e|
-          %w(reference title bibitem note).include? e.name
-        end.each { |e| parse(e, div) }
         biblio_list(f, div, true)
       end
     end
@@ -178,9 +172,6 @@ module IsoDoc::Function
         anchor(node['id'], :label, false) and
           clause_parse_title(node, div, node.at(ns("./title")), out) or
           div.h2 title, **{ class: "Section3" }
-        node.elements.reject do |e|
-          %w(reference title bibitem note).include? e.name
-        end.each { |e| parse(e, div) }
         biblio_list(node, div, true)
       end
     end
