@@ -237,9 +237,9 @@ module IsoDoc::WordFunction
     def li_parse(node, out)
       out.li  **attr_code(id: node["id"]) do |li|
         if node["uncheckedcheckbox"] == "true"
-          li << "&#10063; "
+          li << '<span class="zzMoveToFollowing">&#x2610; </span>'
         elsif node["checkedcheckbox"] == "true"
-          li << "&#10003; "
+          li << '<span class="zzMoveToFollowing">&#x2611; </span>'
         end
         node.children.each { |n| parse(n, li) }
       end

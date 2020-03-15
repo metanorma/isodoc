@@ -57,11 +57,15 @@ RSpec.describe IsoDoc do
                <h1 class='ForewordTitle'>Foreword</h1>
                <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
                  <li>
+                 <span class='zzMoveToFollowing'>
                    <input type='checkbox'/>
+                   </span>
                    <p id='_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2'>updated normative references;</p>
                  </li>
                  <li>
+                 <span class='zzMoveToFollowing'>
                    <input type='checkbox'  checked='checked'/>
+                   </span>
                    <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
                  </li>
                </ul>
@@ -105,11 +109,11 @@ RSpec.describe IsoDoc do
                <h1 class='ForewordTitle'>Foreword</h1>
                <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
                  <li>
-                   &#10003; 
+                   <span class='zzMoveToFollowing'>&#9745; </span>
                    <p id='_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2'>updated normative references;</p>
                  </li>
                  <li>
-                   &#10063; 
+                 <span class='zzMoveToFollowing'>&#9744; </span>
                    <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
                  </li>
                </ul>
