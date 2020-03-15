@@ -36,6 +36,98 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+  it "processes unordered checklists" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
+  <li  checkedcheckbox="true" uncheckedcheckbox="false">
+    <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
+  </li>
+  <li checkedcheckbox="false" uncheckedcheckbox="true">
+    <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+  </li>
+</ul>
+</foreword></preface>
+</iso-standard>
+    INPUT
+    #{HTML_HDR}
+               <br/>
+     <div>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
+                 <li>
+                   <input type='checkbox'/>
+                   <p id='_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2'>updated normative references;</p>
+                 </li>
+                 <li>
+                   <input type='checkbox'  checked='checked'/>
+                   <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
+                 </li>
+               </ul>
+             </div>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+  end
+
+    it "processes unordered checklists (Word)" do
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
+  <li  checkedcheckbox="true" uncheckedcheckbox="false">
+    <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
+  </li>
+  <li checkedcheckbox="false" uncheckedcheckbox="true">
+    <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+  </li>
+</ul>
+</foreword></preface>
+</iso-standard>
+    INPUT
+       <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+          <head><style/></head>
+<body lang='EN-US' link='blue' vlink='#954F72'>
+           <div class='WordSection1'>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection2'>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
+                 <li>
+                   &#10003; 
+                   <p id='_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2'>updated normative references;</p>
+                 </li>
+                 <li>
+                   &#10063; 
+                   <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
+                 </li>
+               </ul>
+             </div>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection3'>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+  end
+
+
   it "processes ordered lists" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">

@@ -17,8 +17,6 @@ module IsoDoc::WordFunction
     end
 
     def make_body1(body, _docxml)
-      #FileUtils.rm_rf tmpimagedir
-      #FileUtils.mkdir tmpimagedir
       body.div **{ class: "WordSection1" } do |div1|
         div1.p { |p| p << "&nbsp;" } # placeholder
       end
@@ -234,6 +232,17 @@ module IsoDoc::WordFunction
       out.p { |p| p << @where_lbl }
       parse(dl, out)
       out.parent.at("./table")["class"] = "formula_dl"
+    end
+
+    def li_parse(node, out)
+      out.li  **attr_code(id: node["id"]) do |li|
+        if node["uncheckedcheckbox"] == "true"
+          li << "&#10063; "
+        elsif node["checkedcheckbox"] == "true"
+          li << "&#10003; "
+        end
+        node.children.each { |n| parse(n, li) }
+      end
     end
   end
 end

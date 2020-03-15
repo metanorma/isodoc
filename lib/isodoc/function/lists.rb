@@ -43,6 +43,11 @@ module IsoDoc::Function
 
     def li_parse(node, out)
       out.li  **attr_code(id: node["id"]) do |li|
+        if node["uncheckedcheckbox"] == "true"
+          li << '<input type="checkbox" checked="checked"/>'
+        elsif node["checkedcheckbox"] == "true"
+          li << '<input type="checkbox"/>'
+        end
         node.children.each { |n| parse(n, li) }
       end
     end
