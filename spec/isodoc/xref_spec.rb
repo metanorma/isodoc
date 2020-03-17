@@ -749,9 +749,9 @@ RSpec.describe IsoDoc do
            <a href="#N">Clause 1, Formula (2)</a>
            <a href="#note1">Clause 3.1, Formula (3)</a>
            <a href="#note2">Clause 3.1, Formula (4)</a>
-           <a href="#AN">Annex A.1, Formula (A.1)</a>
-           <a href="#Anote1">Annex A.2, Formula ((??))</a>
-           <a href="#Anote2">Annex A.2, Formula (A.2)</a>
+           <a href="#AN">Formula (A.1)</a>
+           <a href="#Anote1">Formula ((??))</a>
+           <a href="#Anote2">Formula (A.2)</a>
            </p>
                </div>
                             <br/>
@@ -878,9 +878,9 @@ RSpec.describe IsoDoc do
     <a href="#N">Clause 1, Requirement 2</a>
     <a href="#note1">Clause 3.1, Requirement 3</a>
     <a href="#note2">Clause 3.1, Requirement 4</a>
-    <a href="#AN">Annex A.1, Requirement A.1</a>
-    <a href="#Anote1">Annex A.2, Requirement (??)</a>
-    <a href="#Anote2">Annex A.2, Requirement A.2</a>
+    <a href="#AN">Requirement A.1</a>
+    <a href="#Anote1">Requirement (??)</a>
+    <a href="#Anote2">Requirement A.2</a>
     </p>
       </div>
       <br/>
@@ -1023,9 +1023,9 @@ OUTPUT
     <a href="#N">Clause 1, Recommendation 2</a>
     <a href="#note1">Clause 3.1, Recommendation 3</a>
     <a href="#note2">Clause 3.1, Recommendation 4</a>
-    <a href="#AN">Annex A.1, Recommendation A.1</a>
-    <a href="#Anote1">Annex A.2, Recommendation (??)</a>
-    <a href="#Anote2">Annex A.2, Recommendation A.2</a>
+    <a href="#AN">Recommendation A.1</a>
+    <a href="#Anote1">Recommendation (??)</a>
+    <a href="#Anote2">Recommendation A.2</a>
     </p>
       </div>
       <br/>
@@ -1168,9 +1168,9 @@ OUTPUT
     <a href="#N">Clause 1, Permission 2</a>
     <a href="#note1">Clause 3.1, Permission 3</a>
     <a href="#note2">Clause 3.1, Permission 4</a>
-    <a href="#AN">Annex A.1, Permission A.1</a>
-    <a href="#Anote1">Annex A.2, Permission (??)</a>
-    <a href="#Anote2">Annex A.2, Permission A.2</a>
+    <a href="#AN">Permission A.1</a>
+    <a href="#Anote1">Permission (??)</a>
+    <a href="#Anote2">Permission A.2</a>
     </p>
       </div>
       <br/>
@@ -1296,11 +1296,11 @@ OUTPUT
 <a href="#N">Clause 1, Permission 1-1-1</a>
 <a href="#Q1">Clause 1, Requirement 1-1</a>
 <a href="#R1">Clause 1, Recommendation 1-1</a>
-<a href="#AN1">Annex A, Permission A.1</a>
-<a href="#AN2">Annex A, Permission A.1-1</a>
-<a href="#AN">Annex A, Permission A.1-1-1</a>
-<a href="#AQ1">Annex A, Requirement A.1-1</a>
-<a href="#AR1">Annex A, Recommendation A.1-1</a>
+<a href="#AN1">Permission A.1</a>
+<a href="#AN2">Permission A.1-1</a>
+<a href="#AN">Permission A.1-1-1</a>
+<a href="#AQ1">Requirement A.1-1</a>
+<a href="#AR1">Recommendation A.1-1</a>
 </p>
       </div>
       <p class="zzSTDTitle1"/>

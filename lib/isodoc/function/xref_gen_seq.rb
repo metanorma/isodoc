@@ -119,7 +119,7 @@ module IsoDoc::Function
       clause.xpath(ns(".//formula")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] =
-          anchor_struct("#{num}#{hiersep}#{c.increment(t).print}", t,
+          anchor_struct("#{num}#{hiersep}#{c.increment(t).print}", nil,
                         t["inequality"] ? @inequality_lbl : @formula_lbl,
                         "formula", t["unnumbered"])
       end
@@ -130,8 +130,24 @@ module IsoDoc::Function
       clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         id = "#{num}#{hiersep}#{c.increment(t).print}"
-        @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
-        sequential_permission_names2(t, id)
+        @anchors[t["id"]] = anchor_struct(id, nil, label, klass, t["unnumbered"])
+        hierarchical_permission_names2(t, id)
+      end
+    end
+
+     def hierarchical_permission_names2(t, id)
+      hierarchical_permission_names1(t, id, "permission", @permission_lbl)
+      hierarchical_permission_names1(t, id, "requirement", @requirement_lbl)
+      hierarchical_permission_names1(t, id, "recommendation", @recommendation_lbl)
+    end
+
+     def hierarchical_permission_names1(block, lbl, klass, label)
+      c = Counter.new
+      block.xpath(ns("./#{klass}")).each do |t|
+        next if t["id"].nil? || t["id"].empty?
+        id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
+        @anchors[t["id"]] = anchor_struct(id, nil, label, klass, t["unnumbered"])
+        hierarchical_permission_names2(t, id)
       end
     end
   end
