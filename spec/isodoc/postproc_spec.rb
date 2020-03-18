@@ -1441,4 +1441,59 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
 OUTPUT
       end
 
+       it "expands out nested requirements in Word" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <requirement id="_d0e30ad6-847c-410b-8b72-6f7d5de51787"><label>requirement label</label><requirement id="_de276426-18ca-480d-be2f-bfed83397c5d"><description>
+<p id="_4f603be0-a0ca-4155-a5a3-24deaa8c83a4">Description text</p>
+</description></requirement>
+<requirement id="_d934408b-90f3-427a-8c55-b4b5f9be04ce"><description>
+<p id="_a6386641-7559-4a97-8c81-44773e878eba">Description text</p>
+</description></requirement></requirement>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">').
+      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <div class='WordSection2' xmlns:m='m'>
+  <p class='MsoNormal'>
+    <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+  </p>
+  <div>
+    <h1 class='ForewordTitle'>Foreword</h1>
+    <div class='require'>
+      <p class='RecommendationTitle'>
+        Requirement 1:
+        <br/>
+        requirement label
+      </p>
+      <div class='require'>
+        <p class='RecommendationTitle'>Requirement 1-1:</p>
+        <div class='requirement-description'>
+          <p class='MsoNormal'>
+            <a name='_4f603be0-a0ca-4155-a5a3-24deaa8c83a4' id='_4f603be0-a0ca-4155-a5a3-24deaa8c83a4'/>
+            Description text
+          </p>
+        </div>
+      </div>
+      <div class='require'>
+        <p class='RecommendationTitle'>Requirement 1-2:</p>
+        <div class='requirement-description'>
+          <p class='MsoNormal'>
+            <a name='_a6386641-7559-4a97-8c81-44773e878eba' id='_a6386641-7559-4a97-8c81-44773e878eba'/>
+            Description text
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class='MsoNormal'>&#xA0;</p>
+</div>
+OUTPUT
+       end
+
 end

@@ -64,6 +64,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def word_cleanup(docxml)
       word_annex_cleanup(docxml)
       word_preface(docxml)
+      word_nested_tables(docxml)
       word_table_align(docxml)
       word_table_separator(docxml)
       word_admonition_images(docxml)
@@ -75,6 +76,14 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       authority_cleanup(docxml)
       word_footnote_format(docxml)
       docxml
+    end
+
+    def word_nested_tables(docxml)
+      docxml.xpath("//table").each do |t|
+        t.xpath(".//table").each do |tt|
+          t << tt
+        end
+      end
     end
 
     def authority_cleanup1(docxml, klass)
