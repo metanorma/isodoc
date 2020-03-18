@@ -715,4 +715,182 @@ INPUT
     OUTPUT
   end
 
+    it "breaks up very long strings in tables" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p class="TableTitle" align="center">
+                   <b>Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</b>
+                 </p>
+                 <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+                   <thead>
+                     <tr>
+                       <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
+                       <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
+                       <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Rice sample</td>
+                     </tr>
+                     <tbody>
+                     <tr>
+                       <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/BBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                       <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                       <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                     </tr>
+                     </tbody>
+                     </table>
+                     </div>
+                     </div>
+                     </body>
+                     </html>
+                     INPUT
+                            <?xml version='1.0'?>
+       <html xmlns:epub='http://www.idpf.org/2007/ops'>
+         <head>
+           <title>test</title>
+           <body lang='EN-US' link='blue' vlink='#954F72'>
+             <div class='WordSection1'>
+               <p>&#xA0;</p>
+             </div>
+             <br clear='all' class='section'/>
+             <div class='WordSection2'>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+               <div>
+                 <h1 class='ForewordTitle'>Foreword</h1>
+                 <p class='TableTitle' align='center'>
+                   <b>Table 1&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</b>
+                 </p>
+                 <table id='tableD-1' class='MsoISOTable' border='1' cellspacing='0' cellpadding='0'>
+                   <thead>
+                     <tr>
+                       <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>Description</td>
+                       <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>Description</td>
+                       <td align='center' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;'>Rice sample</td>
+                     </tr>
+                     <tbody>
+                       <tr>
+                         <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
+                         http://www.example.com/
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA/
+BBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                         </td>
+                         <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
+                         http://www.example.com/
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAABBBBBBBBBBBBBBBBBBBBBB BBBBBB
+                         </td>
+                         <td align='center' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;'>
+                         www.example.com/
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ABBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                         </td>
+                       </tr>
+                     </tbody>
+                   </thead>
+                 </table>
+               </div>
+             </div>
+           </body>
+         </head>
+       </html>
+                     OUTPUT
+    end
+
+        it "breaks up very long strings in tables (Word)" do
+    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+           <html xmlns:epub="http://www.idpf.org/2007/ops">
+         <head>
+           <title>test</title>
+           <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+               <p>&#160;</p>
+             </div>
+             <br clear="all" class="section"/>
+             <div class="WordSection2">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+               <div>
+                 <h1 class="ForewordTitle">Foreword</h1>
+                 <p class="TableTitle" align="center">
+                   <b>Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</b>
+                 </p>
+                 <table id="tableD-1" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+                   <thead>
+                     <tr>
+                       <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
+                       <td align="left" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Description</td>
+                       <td align="center" style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Rice sample</td>
+                     </tr>
+                     <tbody>
+                     <tr>
+                         <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
+                           http://www.example.com/ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA/ BBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                         </td>
+                         <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
+                           http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAABBBBBBBBBBBBBBBBBBBBBB BBBBBB
+                         </td>
+                         <td align='center' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;'>
+                           www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ABBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                         </td>
+                     </tr>
+                     </tbody>
+                     </table>
+                     </div>
+                     </div>
+                     </body>
+                     </html>
+                     INPUT
+                            <?xml version='1.0'?>
+       <html xmlns:epub='http://www.idpf.org/2007/ops'>
+         <head>
+           <title>test</title>
+           <body lang='EN-US' link='blue' vlink='#954F72'>
+             <div class='WordSection1'>
+               <p>&#xA0;</p>
+             </div>
+             <br clear='all' class='section'/>
+             <div class='WordSection2'>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+               <div>
+                 <h1 class='ForewordTitle'>Foreword</h1>
+                 <p class='TableTitle' align='center'>
+                   <b>Table 1&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</b>
+                 </p>
+                 <table id='tableD-1' class='MsoISOTable' border='1' cellspacing='0' cellpadding='0'>
+                   <thead>
+                     <tr>
+                       <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>Description</td>
+                       <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>Description</td>
+                       <td align='center' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;'>Rice sample</td>
+                     </tr>
+                     <tbody>
+                       <tr>
+                         <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
+                           http://www.example.com/ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA/ BBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                         </td>
+                         <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
+                           http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAABBBBBBBBBBBBBBBBBBBBBB BBBBBB
+                         </td>
+                         <td align='center' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;'>
+                           www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ABBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                         </td>
+                       </tr>
+                     </tbody>
+                   </thead>
+                 </table>
+               </div>
+             </div>
+           </body>
+         </head>
+       </html>
+                     OUTPUT
+    end
+
 end

@@ -19,6 +19,33 @@ module IsoDoc::Function
       admonition_cleanup(docxml)
     end
 
+    def table_long_strings_cleanup(docxml)
+      docxml.xpath("//td | //th").each do |d|
+        d.traverse do |n|
+          next unless n.text?
+          n.replace(break_up_long_strings(n.text))
+        end
+      end
+    end
+
+    def break_up_long_strings(t)
+      t.split(/(?=\s)/).map do |w|
+        (/^\s*$/.match(t) or w.size < 30) ? w :
+          w.scan(/.{,30}/).map do |w1|
+          (w1.size < 30) ? w1 : break_up_long_strings1(w1)
+        end.join
+      end.join
+    end
+
+    def break_up_long_strings1(w1)
+      s = w1.split(%r{(?<=[,.?+;/=])})
+      if s.size == 1 then w1 + " "
+      else
+        s[-1] = " " + s[-1]
+        s.join
+      end
+    end
+
     def admonition_cleanup(docxml)
       docxml.xpath("//div[@class = 'Admonition'][title]").each do |d|
         title = d.at("./title")
@@ -157,6 +184,7 @@ module IsoDoc::Function
     def table_cleanup(docxml)
       table_footnote_cleanup(docxml)
       table_note_cleanup(docxml)
+      table_long_strings_cleanup(docxml)
       docxml
     end
 
