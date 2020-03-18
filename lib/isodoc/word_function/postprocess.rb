@@ -80,8 +80,8 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
 
     def word_nested_tables(docxml)
       docxml.xpath("//table").each do |t|
-        t.xpath(".//table").each do |tt|
-          t << tt
+        t.xpath(".//table").reverse.each do |tt|
+          t.next = tt.remove
         end
       end
     end

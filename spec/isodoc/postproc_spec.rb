@@ -1441,59 +1441,126 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
 OUTPUT
       end
 
-       it "expands out nested requirements in Word" do
-    FileUtils.rm_f "test.doc"
-    FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
-    <requirement id="_d0e30ad6-847c-410b-8b72-6f7d5de51787"><label>requirement label</label><requirement id="_de276426-18ca-480d-be2f-bfed83397c5d"><description>
-<p id="_4f603be0-a0ca-4155-a5a3-24deaa8c83a4">Description text</p>
-</description></requirement>
-<requirement id="_d934408b-90f3-427a-8c55-b4b5f9be04ce"><description>
-<p id="_a6386641-7559-4a97-8c81-44773e878eba">Description text</p>
-</description></requirement></requirement>
-    </foreword></preface>
-    </iso-standard>
-    INPUT
-    word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">').
-      sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <div class='WordSection2' xmlns:m='m'>
-  <p class='MsoNormal'>
-    <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-  </p>
-  <div>
-    <h1 class='ForewordTitle'>Foreword</h1>
-    <div class='require'>
-      <p class='RecommendationTitle'>
-        Requirement 1:
-        <br/>
-        requirement label
-      </p>
-      <div class='require'>
-        <p class='RecommendationTitle'>Requirement 1-1:</p>
-        <div class='requirement-description'>
-          <p class='MsoNormal'>
-            <a name='_4f603be0-a0ca-4155-a5a3-24deaa8c83a4' id='_4f603be0-a0ca-4155-a5a3-24deaa8c83a4'/>
-            Description text
-          </p>
-        </div>
-      </div>
-      <div class='require'>
-        <p class='RecommendationTitle'>Requirement 1-2:</p>
-        <div class='requirement-description'>
-          <p class='MsoNormal'>
-            <a name='_a6386641-7559-4a97-8c81-44773e878eba' id='_a6386641-7559-4a97-8c81-44773e878eba'/>
-            Description text
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <p class='MsoNormal'>&#xA0;</p>
+       it "expands out nested tables in Word" do
+         expect(xmlpp(IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css", filename: "test"}).word_cleanup(Nokogiri::XML(<<~INPUT)).to_xml).sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <html>
+    <head/>
+    <body>
+    <div class="main-section">
+    <table id="_7830dff8-419e-4b9e-85cf-a063689f44ca" class="recommend" style="border-collapse:collapse;border-spacing:0;"><thead><tr style="background:#A5A5A5;"><th style="vertical-align:top;" class="recommend" colspan="2"><p class="RecommendationTitle">Requirement 1:</p></th></tr></thead><tbody><tr><td style="vertical-align:top;" class="recommend" colspan="2"><p>requirement label</p></td></tr>
+
+<table id="_a0f8c202-fd34-460c-bd5e-b2f4cc29210d" class="recommend" style="border-collapse:collapse;border-spacing:0;"><thead><tr style="background:#A5A5A5;"><th style="vertical-align:top;" class="recommend" colspan="2"><p class="RecommendationTitle">Requirement 1-1:</p></th></tr></thead><tbody><tr style="background:#C9C9C9;"><td style="vertical-align:top;" class="recommend" colspan="2">
+<p id="_2e2c247b-ce4c-48c5-96dd-f3e090a5b4a7">Description text</p>
+</td></tr></tbody></table>
+</tbody></table>
 </div>
-OUTPUT
+        <div id="_second_sample"><h2>1.2.<span style="mso-tab-count:1">&#xA0; </span>Second sample</h2>
+
+<table id="_9846c486-14e5-4b1c-bb2f-55cc254dd309" class="recommend" style="border-collapse:collapse;border-spacing:0;"><thead><tr style="background:#A5A5A5;"><th style="vertical-align:top;" class="recommend" colspan="2"><p class="RecommendationTitle">Requirement 2:</p></th></tr></thead><tbody><tr><td style="vertical-align:top;" class="recommend" colspan="2"><p>requirement label</p></td></tr><table id="_62de974c-7128-44d6-ba86-99f818f1d467" class="recommend" style="border-collapse:collapse;border-spacing:0;"><thead><tr style="background:#A5A5A5;"><th style="vertical-align:top;" class="recommend" colspan="2"><p class="RecommendationTitle">Requirement 2-1:</p></th></tr></thead><tbody><tr style="background:#C9C9C9;"><td style="vertical-align:top;" class="recommend" colspan="2">
+<p id="_30b90b08-bd71-4497-bbcc-8c61fbb9f772">Description text</p>
+</td></tr></tbody></table>
+<table id="_fede5681-71f6-47bb-bc65-7bd0b11acd01" class="recommend" style="border-collapse:collapse;border-spacing:0;"><thead><tr style="background:#A5A5A5;"><th style="vertical-align:top;" class="recommend" colspan="2"><p class="RecommendationTitle">Requirement 2-2:</p></th></tr></thead><tbody><tr><td style="vertical-align:top;" class="recommend" colspan="2">
+<p id="_8daa3d74-90fd-4a57-9169-de457a68cfda">Description text</p>
+</td></tr></tbody></table></tbody></table>
+    </div>
+    </body>
+    </html>
+    INPUT
+    <html>
+  <head/>
+  <body>
+    <div class='main-section'>
+         <table id='_7830dff8-419e-4b9e-85cf-a063689f44ca' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+       <thead>
+         <tr style='background:#A5A5A5;'>
+           <th style='vertical-align:top;' class='recommend' colspan='2'>
+             <p class='RecommendationTitle'>Requirement 1:</p>
+           </th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td style='vertical-align:top;' class='recommend' colspan='2'>
+             <p>requirement label</p>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+     <table id='_a0f8c202-fd34-460c-bd5e-b2f4cc29210d' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+       <thead>
+         <tr style='background:#A5A5A5;'>
+           <th style='vertical-align:top;' class='recommend' colspan='2'>
+             <p class='RecommendationTitle'>Requirement 1-1:</p>
+           </th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr style='background:#C9C9C9;'>
+           <td style='vertical-align:top;' class='recommend' colspan='2'>
+             <p id='_2e2c247b-ce4c-48c5-96dd-f3e090a5b4a7'>Description text</p>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+   </div>
+   <div id='_second_sample'>
+     <h2>
+       1.2.
+       <span style='mso-tab-count:1'>&#xA0; </span>
+       Second sample
+     </h2>
+     <table id='_9846c486-14e5-4b1c-bb2f-55cc254dd309' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+       <thead>
+         <tr style='background:#A5A5A5;'>
+           <th style='vertical-align:top;' class='recommend' colspan='2'>
+             <p class='RecommendationTitle'>Requirement 2:</p>
+           </th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td style='vertical-align:top;' class='recommend' colspan='2'>
+             <p>requirement label</p>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+     <table id='_62de974c-7128-44d6-ba86-99f818f1d467' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+       <thead>
+         <tr style='background:#A5A5A5;'>
+           <th style='vertical-align:top;' class='recommend' colspan='2'>
+             <p class='RecommendationTitle'>Requirement 2-1:</p>
+           </th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr style='background:#C9C9C9;'>
+           <td style='vertical-align:top;' class='recommend' colspan='2'>
+             <p id='_30b90b08-bd71-4497-bbcc-8c61fbb9f772'>Description text</p>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+     <table id='_fede5681-71f6-47bb-bc65-7bd0b11acd01' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+       <thead>
+         <tr style='background:#A5A5A5;'>
+           <th style='vertical-align:top;' class='recommend' colspan='2'>
+             <p class='RecommendationTitle'>Requirement 2-2:</p>
+           </th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td style='vertical-align:top;' class='recommend' colspan='2'>
+             <p id='_8daa3d74-90fd-4a57-9169-de457a68cfda'>Description text</p>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+    </div>
+  </body>
+</html>
+    OUTPUT
        end
 
 end
