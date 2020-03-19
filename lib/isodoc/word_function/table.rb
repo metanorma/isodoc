@@ -36,6 +36,7 @@ module IsoDoc::WordFunction
     def make_table_attr(node)
       super.merge(attr_code({
         summary: node["summary"],
+        width: node["width"],
         style: "mso-table-lspace:15.0cm;margin-left:423.0pt;"\
         "mso-table-rspace:15.0cm;margin-right:423.0pt;"\
         "mso-table-anchor-horizontal:column;"\

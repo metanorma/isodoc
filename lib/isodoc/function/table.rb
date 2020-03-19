@@ -45,10 +45,11 @@ module IsoDoc::Function
     end
 
     def make_table_attr(node)
+      width = node["width"] ? "width:#{node['width']};" : nil
       attr_code(
         id: node["id"],
         class: "MsoISOTable",
-        style: "border-width:1px;border-spacing:0;",
+        style: "border-width:1px;border-spacing:0;#{width}",
         title: node["alt"]
       )
     end

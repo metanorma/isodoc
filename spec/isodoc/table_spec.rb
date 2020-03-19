@@ -6,7 +6,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
-      <table id="tableD-1" alt="tool tip" summary="long desc">
+      <table id="tableD-1" alt="tool tip" summary="long desc" width="70%">
   <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
   <thead>
     <tr>
@@ -72,7 +72,7 @@ RSpec.describe IsoDoc do
   <sup>1</sup>
 </a>
                 </p>
-               <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;" title="tool tip">
+               <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;" title="tool tip">
                <caption>
                <span style="display:none">long desc</span>
                </caption>
@@ -151,7 +151,7 @@ RSpec.describe IsoDoc do
       <table id="tableD-0">
       <tbody><tr><td>A</td></tr></tbody>
       </table>
-      <table id="tableD-1" alt="tool tip" summary="long desc">
+      <table id="tableD-1" alt="tool tip" summary="long desc" width="70%">
   <name>Repeatability and reproducibility of husked rice yield<fn reference="1"><p>X</p></fn></name>
   <thead>
     <tr>
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc do
  </span>
         </p>
                   <div align="center" class="table_container">
-                 <table id="tableD-1" class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;" title="tool tip" summary="long desc">
+                 <table id="tableD-1" class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;" title="tool tip" summary="long desc" width="70%">
                    <thead>
                      <tr>
                        <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Description</td>
