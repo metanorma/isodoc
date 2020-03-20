@@ -133,6 +133,7 @@ module IsoDoc::Function
       i = 0
       f.children.each do |b|
         if b.name == "bibitem"
+          next if implicit_reference(b)
           i += 1
           (is_standard(b)) ? std_bibitem_entry(div, b, i, biblio) :
             nonstd_bibitem(div, b, i, biblio)
