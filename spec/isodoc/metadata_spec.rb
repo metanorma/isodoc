@@ -108,6 +108,10 @@ OUTPUT
   <title language="en" format="text/plain">Cereals and pulses</title>
   <docidentifier>17301-1-3</docidentifier>
   <docnumber>17301</docnumber>
+  <date type="published"><on>2011-01</on></date>
+  <version>
+  <revision-date>2016-05</revision-date>
+</version>
   <contributor>
     <role type="author"/>
     <organization>
@@ -153,7 +157,7 @@ OUTPUT
 </version>
 </iso-standard>
 INPUT
-{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05-01)", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2016-05-01", :stage=>"Published", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
+{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05)", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"2011-01", :receiveddate=>"XXX", :revdate=>"2016-05", :stage=>"Published", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
 OUTPUT
   end
 
