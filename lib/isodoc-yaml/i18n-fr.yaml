@@ -48,6 +48,18 @@ deprecated: DÉCONSEILLÉ
 source: SOURCE
 and: et
 all_parts: toutes les parties
+month_january: Janvier
+month_february: Février
+month_march: Mars
+month_april: Avril
+month_may: Mai
+month_june: Juin
+month_july: Juillet
+month_august: Août
+month_september: Septembre
+month_october: Octobre
+month_november: Novembre
+month_december: Décembre
 admonition: {
   danger: Danger,
   warning: Avertissement,

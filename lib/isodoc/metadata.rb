@@ -1,3 +1,5 @@
+require_relative "./metadata_date"
+
 module IsoDoc
   class Metadata
     DATETYPES = %w{published accessed created implemented obsoleted confirmed
