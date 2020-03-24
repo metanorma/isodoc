@@ -22,6 +22,10 @@ module IsoDoc
       @metadata
     end
 
+    def labels
+      @labels
+    end
+
     def set(key, value)
       @metadata[key] = value
     end
@@ -157,7 +161,9 @@ module IsoDoc
       set(:edition, isoxml&.at(ns("//bibdata/edition"))&.text)
       set(:docyear, isoxml&.at(ns("//bibdata/copyright/from"))&.text)
       set(:draft, isoxml&.at(ns("//version/draft"))&.text)
-      set(:revdate, isoxml&.at(ns("//version/revision-date"))&.text)
+      revdate = isoxml&.at(ns("//version/revision-date"))&.text
+      set(:revdate, revdate)
+      set(:revdate_monthyear, monthyr(revdate))
       set(:draftinfo,
           draftinfo(get[:draft], get[:revdate]))
     end

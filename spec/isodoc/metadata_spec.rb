@@ -92,7 +92,7 @@ RSpec.describe IsoDoc do
 </bibdata>
 </iso-standard>
 INPUT
-{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Slate Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :circulateddate=>"2015", :confirmeddate=>"2017", :copieddate=>"2016", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :edition=>"2", :html=>"URL B", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"2", :obsoleteddate=>"2014", :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :stage=>"Committee draft", :stageabbr=>"CD", :substage=>"Withdrawn", :transmitteddate=>"2020", :unchangeddate=>"2019", :unpublished=>true, :updateddate=>"2018", :url=>"URL A", :xml=>"URL C"}
+{:accesseddate=>"2012", :activateddate=>"2013", :agency=>"ISO", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Slate Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :circulateddate=>"2015", :confirmeddate=>"2017", :copieddate=>"2016", :createddate=>"2010&ndash;2011", :doc=>"URL E", :docnumber=>"17301-1", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"0.4", :draftinfo=>" (draft 0.4, 2016-05-01)", :edition=>"2", :html=>"URL B", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"2", :obsoleteddate=>"2014", :pdf=>"URL D", :publisheddate=>"2011", :receiveddate=>"XXX", :revdate=>"2016-05-01", :revdate_monthyear=>"May 2016", :stage=>"Committee draft", :stageabbr=>"CD", :substage=>"Withdrawn", :transmitteddate=>"2020", :unchangeddate=>"2019", :unpublished=>true, :updateddate=>"2018", :url=>"URL A", :xml=>"URL C"}
 OUTPUT
   end
 
@@ -157,8 +157,60 @@ OUTPUT
 </version>
 </iso-standard>
 INPUT
-{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05)", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"2011-01", :receiveddate=>"XXX", :revdate=>"2016-05", :stage=>"Published", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
+{:accesseddate=>"XXX", :agency=>"ISO/IEC", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :doctype=>"International Standard", :docyear=>"2016", :draft=>"12", :draftinfo=>" (draft 12, 2016-05)", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>"IEC 8121", :obsoletes_part=>"3.1", :partof=>"IEC 8122", :publisheddate=>"2011-01", :receiveddate=>"XXX", :revdate=>"2016-05", :revdate_monthyear=>"May 2016", :stage=>"Published", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
 OUTPUT
   end
+
+    it "processes IsoXML metadata in French" do
+        c = IsoDoc::Convert.new({})
+    arr = c.convert_init(<<~"INPUT", "test", false)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="standard">
+  <language>fr</language>
+  <script>Latn</script>
+  </bibdata>
+  </iso-standard>
+    INPUT
+  expect(Hash[c.info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="standard">
+  <title language="fr" format="text/plain">Céréales et légumineuses</ti>
+  <title language="en" format="text/plain">Cereals and pulses</title>
+  <docidentifier>17301-1-3</docidentifier>
+  <docnumber>17301</docnumber>
+  <date type="published"><on>2011-01</on></date>
+  <version>
+  <revision-date>2016-05</revision-date>
+</version>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>ISO</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>ISO</abbreviation>
+     </organization>
+  </contributor>
+  <language>fr</language>
+  <script>Latn</script>
+  <status><stage>Published</stage></status>
+  <copyright>
+    <from>2016</from>
+    <owner>
+      <organization>
+        <name>International Organization for Standardization</name>
+      </organization>
+    </owner>
+  </copyright>
+</bibdata>
+</iso-standard>
+INPUT
+{:accesseddate=>"XXX", :agency=>"ISO", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"17301-1-3", :docnumeric=>"17301", :doctitle=>"Cereals and pulses", :docyear=>"2016", :draft=>nil, :draftinfo=>"", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :publisheddate=>"2011-01", :receiveddate=>"XXX", :revdate=>"2016-05", :revdate_monthyear=>"Mai 2016", :stage=>"Published", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
+OUTPUT
+end
+
 
 end
