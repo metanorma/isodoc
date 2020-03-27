@@ -20,10 +20,12 @@ module IsoDoc::Function
 
     def recommendation_attributes1(node) 
       out = [] 
-      oblig = node["obligation"] and out << "Obligation: #{oblig}" 
-      subj = node&.at(ns("./subject"))&.text and out << "Subject: #{subj}" 
+      oblig = node["obligation"] and
+        out << l10n("#{@labels['obligation']}: #{oblig}")
+      subj = node&.at(ns("./subject"))&.text and
+        out << l10n("#{@labels['subject']}: #{subj}")
       node.xpath(ns("./inherit")).each do |i|
-        out << recommendation_attr_parse(i, "Inherit")
+        out << recommendation_attr_parse(i, @labels["inherits"])
       end
       node.xpath(ns("./classification")).each do |c|
         line = recommendation_attr_keyvalue(c, "tag", "value") and out << line

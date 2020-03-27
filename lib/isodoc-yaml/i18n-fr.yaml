@@ -60,6 +60,9 @@ month_september: Septembre
 month_october: Octobre
 month_november: Novembre
 month_december: Décembre
+obligation: Obligation
+subject: Sujet
+inherits: Hérite
 admonition: {
   danger: Danger,
   warning: Avertissement,

@@ -1044,9 +1044,9 @@ World</p>
         <h1 class="ForewordTitle">Foreword</h1>
         <div class="permission"><p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
         <p><i>Subject: user<br/>
-Inherit: /ss/584/2015/level/1
+Inherits: /ss/584/2015/level/1
 <br/>
-Inherit: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
+Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
 <br/>Control-class: Technical<br/>Priority: P0<br/>Family: System and Communications Protection<br/>Family: System and Communications Protocols</i></p>
 
   <div class="requirement-description">
@@ -1139,7 +1139,7 @@ Inherit: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
         <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="require"><p class="RecommendationTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user<br/>Inherit: /ss/584/2015/level/1</i></p>
+        <div class="require"><p class="RecommendationTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user<br/>Inherits: /ss/584/2015/level/1</i></p>
 
   <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>
@@ -1167,6 +1167,121 @@ Inherit: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
 </html>
     OUTPUT
   end
+
+   it "processes requirements in French" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <language>fr</language>
+    <script>Latn</script>
+    </bibdata>
+    <preface><foreword>
+    <requirement id="A" unnumbered="true">
+  <title>A New Requirement</title>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="B">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</requirement>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+#{HTML_HDR.gsub(/"en"/, '"fr"')}
+             <br/>
+             <div>
+               <h1 class='ForewordTitle'>Avant-propos</h1>
+               <div class='require'>
+                 <p class='RecommendationTitle'>
+                   Exigence:
+                   <br/>
+                   /ogc/recommendation/wfs/2. A New Requirement
+                 </p>
+                 <p>
+                   <i>
+                     Sujet: user
+                     <br/>
+                     H&#233;rite: /ss/584/2015/level/1
+                   </i>
+                 </p>
+                 <div class='requirement-description'>
+                   <p id='_'>
+                     I recommend
+                     <i>this</i>
+                     .
+                   </p>
+                 </div>
+                 <div class='requirement-description'>
+                   <p id='_'>As for the measurement targets,</p>
+                 </div>
+                 <div class='requirement-measurement-target'>
+                   <p id='_'>The measurement target shall be measured as:</p>
+                   <div id='B' class='formula'>
+                     <p>
+                       <span class='stem'>(#(r/1 = 0)#)</span>
+                       &#160; (1)
+                     </p>
+                   </div>
+                 </div>
+                 <div class='requirement-verification'>
+                   <p id='_'>The following code will be run for verification:</p>
+                   <pre id='_' class='prettyprint '>
+                     CoreRoot(success): HttpResponse
+                     <br/>
+                     &#160;&#160;&#160;&#160;&#160; if (success)
+                     <br/>
+                     &#160;&#160;&#160;&#160;&#160; recommendation(label:
+                     success-response)
+                     <br/>
+                     &#160;&#160;&#160;&#160;&#160; end
+                     <br/>
+                     &#160;&#160;&#160;
+                   </pre>
+                 </div>
+               </div>
+             </div>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
+OUTPUT
+end
 
       it "processes recommendation" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
@@ -1224,7 +1339,7 @@ Inherit: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
        <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-<div class="recommend"><p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could<br/>Subject: user<br/>Inherit: /ss/584/2015/level/1<br/>Type: text<br/>Language: BASIC</i></p>
+<div class="recommend"><p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could<br/>Subject: user<br/>Inherits: /ss/584/2015/level/1<br/>Type: text<br/>Language: BASIC</i></p>
   <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>
   </div>

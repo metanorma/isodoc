@@ -62,6 +62,9 @@ month_september: 九月
 month_october: 十月
 month_november: 十一月
 month_december: 十二月
+obligation: 义务
+subject: 主体
+inherits: 继承自
 admonition: {
   danger: 危险,
   warning: 警告,
