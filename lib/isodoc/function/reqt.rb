@@ -22,13 +22,26 @@ module IsoDoc::Function
       out = [] 
       oblig = node["obligation"] and out << "Obligation: #{oblig}" 
       subj = node&.at(ns("./subject"))&.text and out << "Subject: #{subj}" 
-      node.xpath(ns("./inherit")).each { |i| out << "Inherit: #{i.text}" }
+      node.xpath(ns("./inherit")).each do |i|
+        out << recommendation_attr_parse(i, "Inherit")
+      end
       node.xpath(ns("./classification")).each do |c|
-        tag = c.at(ns("./tag")) or next
-        value = c.at(ns("./value")) or next
-        out << "#{tag.text.capitalize}: #{value.text}"
+        line = recommendation_attr_keyvalue(c, "tag", "value") and out << line
       end
       out
+    end
+
+    def recommendation_attr_parse(node, label)
+      noko do |xml|
+        xml << "#{label}: "
+        node.children.each { |n| parse(n, xml) }
+      end.join
+    end
+
+    def recommendation_attr_keyvalue(node, key, value)
+      tag = node.at(ns("./#{key}")) or return nil
+      value = node.at(ns("./#{value}")) or return nil
+      "#{tag.text.capitalize}: #{value.text}"
     end
 
     def recommendation_attributes(node, out)
