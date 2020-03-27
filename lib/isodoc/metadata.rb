@@ -9,6 +9,10 @@ module IsoDoc
       Common::ns(xpath)
     end
 
+    def l10n(a, b, c)
+      IsoDoc::Function::I18n::l10n(a, b, c)
+    end
+
     def initialize(lang, script, labels)
       @metadata = {}
       DATETYPES.each { |w| @metadata["#{w}date".to_sym] = "XXX" }
@@ -99,14 +103,24 @@ module IsoDoc
 
     def agency(xml)
       agency = ""
+      publisher = []
       xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = 'publisher']/"\
                    "organization")).each do |org|
         name = org&.at(ns("./name"))&.text
-        abbrev = org&.at(ns("./abbreviation"))&.text
-        agency1 = abbrev || name
+        agency1 = org&.at(ns("./abbreviation"))&.text || name
+        publisher << name if name
         agency = iso?(org) ?  "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
       set(:agency, agency.sub(%r{/$}, ""))
+      set(:publisher, multiple_and(publisher, @labels["and"]))
+    end
+
+    def multiple_and(names, andword)
+      return "" if names.length == 0
+      return names[0] if names.length == 1
+      names.length == 2 and
+        return l10n("#{names[0]} #{andword} #{names[1]}", @lang, @script)
+      l10n(names[0..-2].join(", ") + " #{andword} #{names[-1]}", @lang, @script)
     end
 
     def docstatus(isoxml, _out)
@@ -154,7 +168,7 @@ module IsoDoc
         draftinfo += ", #{revdate}" if revdate
         draftinfo += ")"
       end
-      IsoDoc::Function::I18n::l10n(draftinfo, @lang, @script)
+      l10n(draftinfo, @lang, @script)
     end
 
     def version(isoxml, _out)
