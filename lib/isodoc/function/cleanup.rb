@@ -23,7 +23,8 @@ module IsoDoc::Function
       docxml.xpath("//td | //th").each do |d|
         d.traverse do |n|
           next unless n.text?
-          n.replace(break_up_long_strings(n.text))
+          n.replace(HTMLEntities.new.encode(
+            break_up_long_strings(n.text)))
         end
       end
     end
