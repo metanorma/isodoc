@@ -831,7 +831,7 @@ ABBBBBBBBBBBBBBBBBBBBBBBBBBBB
                      <tbody>
                      <tr>
                          <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
-                           http://www.example.com/ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA/ BBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                           http://www.example.com/ &amp;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA/ BBBBBBBBBBBBBBBBBBBBBBBBBBBB
                          </td>
                          <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
                            http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAABBBBBBBBBBBBBBBBBBBBBB BBBBBB
@@ -873,7 +873,7 @@ ABBBBBBBBBBBBBBBBBBBBBBBBBBBB
                      <tbody>
                        <tr>
                          <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
-                           http://www.example.com/ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA/ BBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                           http://www.example.com/ &amp;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA/ BBBBBBBBBBBBBBBBBBBBBBBBBBBB
                          </td>
                          <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
                            http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAABBBBBBBBBBBBBBBBBBBBBB BBBBBB
