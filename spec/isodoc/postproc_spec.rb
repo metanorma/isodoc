@@ -1095,7 +1095,7 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <div align="center" class="table_container">
-                 <table class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;"><a name="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7"></a>
+                 <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;"><a name="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7"></a>
                    <thead>
                      <tr>
                        <td rowspan="2" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;">
@@ -1149,7 +1149,7 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
          <div>
            <h1 class='ForewordTitle'>Foreword</h1>
            <div align='center' class="table_container">
-             <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
+             <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
                <a name='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7' id='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7'/>
                <thead>
                  <tr>
@@ -1351,7 +1351,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
          </div>
          <div class='WordSection2_1'>
            <div align='center' class='table_container'>
-             <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
+             <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
                <tbody>
                  <tr>
                    <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>A</td>
@@ -1399,7 +1399,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
          <div class='WordSection3_1'>
            <p class='TableTitle' style='text-align:center;'>Table 1</p>
            <div align='center' class='table_container'>
-             <table class='MsoISOTable' style='mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
+             <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
                <a name='_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249' id='_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249'/>
                <thead>
                  <tr>

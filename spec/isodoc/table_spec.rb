@@ -217,7 +217,7 @@ RSpec.describe IsoDoc do
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p class="TableTitle" style="text-align:center;">Table 1</p>
                  <div align="center" class="table_container">
-                 <table id="tableD-0" class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                 <table id="tableD-0" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
                    <tbody>
                      <tr>
                        <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">A</td>
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc do
  </span>
         </p>
                   <div align="center" class="table_container">
-                 <table id="tableD-1" class="MsoISOTable" style="mso-table-lspace:15.0cm;margin-left:423.0pt;mso-table-rspace:15.0cm;margin-right:423.0pt;mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;" title="tool tip" summary="long desc" width="70%">
+                 <table id="tableD-1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;" title="tool tip" summary="long desc" width="70%">
                    <thead>
                      <tr>
                        <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Description</td>
