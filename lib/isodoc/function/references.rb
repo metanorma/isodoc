@@ -15,6 +15,7 @@ module IsoDoc::Function
         identifier = render_identifier(id)
         if bibliography then ref_entry_code(r, ordinal, identifier, id)
         else
+          identifier = "[#{identifier}]" if id["type"] == "metanorma"
           r << "#{identifier}, "
         end
         reference_format(b, r)
@@ -26,6 +27,7 @@ module IsoDoc::Function
         prefix_bracketed_ref(ref, ordinal) if biblio
         id = bibitem_ref_code(b)
         identifier = render_identifier(id)
+        identifier = "[#{identifier}]" if id["type"] == "metanorma" && !biblio
         ref << identifier
         date_note_process(b, ref)
         ref << ", "
