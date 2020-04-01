@@ -7,7 +7,10 @@
   }
 
   font-weight: $fontWeight;
-  height: $length;
+
+  @if $length {
+    height: $length;
+  }
 
   color: $color;
   text-transform: uppercase;
@@ -28,9 +31,9 @@
 
 @mixin docBand(
     $order,
-    $textLength,
+    $textLength: null,
     $offset: 0,
-	$color: white,
+	  $color: white,
     $fontWeight: 400,
     $fontFamily: null) {
 
