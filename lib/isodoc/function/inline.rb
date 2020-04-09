@@ -55,12 +55,12 @@ module IsoDoc::Function
     end
 
     def get_linkend(node)
-      contents = node.children.select { |c| c.name != "locality" }.
+      contents = node.children.select { |c| !%w{locality localityStack}.include? c.name }.
         select { |c| !c.text? || /\S/.match(c) }
       !contents.empty? and
         return Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
       link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
-      link + eref_localities(node.xpath(ns("./locality")), link)
+      link + eref_localities(node.xpath(ns("./locality | ./localityStack")), link)
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
       # <locality type="section"><reference>3.1</reference></locality></origin>
     end
@@ -73,14 +73,27 @@ module IsoDoc::Function
 
     def eref_localities(refs, target)
       ret = ""
-      refs.each do |r|
-        ret += if r["type"] == "whole" then l10n(", #{@whole_of_text}")
-               else
-                 eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
-                                  r.at(ns("./referenceTo")), @lang)
-               end
+      refs.each_with_index do |r, i|
+        delim = ","
+        delim = ";" if r.name == "localityStack" && i>0
+        if r.name == "localityStack"
+          r.elements.each_with_index do |rr, j|
+            ret += eref_localities0(rr, j, target, delim)
+            delim = ","
+          end
+        else
+          ret += eref_localities0(r, i, target, delim)
+          end
       end
       ret
+    end
+
+    def eref_localities0(r, i, target, delim)
+      if r["type"] == "whole" then l10n("#{delim} #{@whole_of_text}")
+      else
+        eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
+                         r.at(ns("./referenceTo")), delim, @lang)
+      end
     end
 
     def eref_parse(node, out)

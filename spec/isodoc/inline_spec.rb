@@ -436,6 +436,8 @@ OUTPUT
     <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
     <eref type="inline" bibitemid="ISO712"/>
     <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO712"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+    <eref type="inline" bibitemid="ISO712"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
     <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref>
     <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
     <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
@@ -469,6 +471,8 @@ OUTPUT
            <a href="#ISO712">ISO 712</a>
            <a href="#ISO712">ISO 712</a>
            <a href="#ISO712">ISO 712, Table 1</a>
+           <a href='#ISO712'>ISO 712, Table 1</a>
+<a href='#ISO712'>ISO 712, Table 1; Clause 1</a>
            <a href="#ISO712">ISO 712, Table 1&#8211;1</a>
            <a href="#ISO712">ISO 712, Clause 1, Table 1</a>
            <a href="#ISO712">ISO 712, Clause 1</a>
