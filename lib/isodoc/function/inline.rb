@@ -112,7 +112,7 @@ module IsoDoc::Function
     end
 
     def concept_parse(node, out)
-      content = node.first_element_child.children.select { |c| c.name != "locality" }.
+      content = node.first_element_child.children.select { |c| !%w{locality localityStack}.include? c.name }.
         select { |c| !c.text? || /\S/.match(c) }
       if content.empty?
         out << "[Term defined in "
