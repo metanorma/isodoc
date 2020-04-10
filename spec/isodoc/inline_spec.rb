@@ -133,10 +133,24 @@ RSpec.describe IsoDoc do
         </localityStack>
         <localityStack>
           <locality type='figure'>
-            <referenceFrom>a</referenceFrom>
+            <referenceFrom>b</referenceFrom>
           </locality>
         </localityStack>
-          <em>word</em>
+        </eref>
+      </concept></li>
+      <li><concept>
+        <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
+        <localityStack>
+          <locality type='clause'>
+            <referenceFrom>3.1</referenceFrom>
+          </locality>
+        </localityStack>
+        <localityStack>
+          <locality type='figure'>
+            <referenceFrom>b</referenceFrom>
+          </locality>
+        </localityStack>
+        <em>word</em>
         </eref>
       </concept></li>
       <li><concept term='term'>
@@ -182,7 +196,10 @@ RSpec.describe IsoDoc do
                    </li>
                    <li>word</li>
                    <li>
-                     [Term defined in <a href='#ISO712'>ISO 712, Clause 3.1; Figure a</a>]
+                     [Term defined in <a href='#ISO712'>ISO 712, Clause 3.1, Figure a</a>]
+                   </li>
+                   <li>
+                     [Term defined in <a href='#ISO712'>ISO 712, Clause 3.1; Figure b</a>]
                    </li>
                    <li>
                      <i>word</i>
