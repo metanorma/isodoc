@@ -157,7 +157,7 @@ module IsoDoc::Function
         when "clause" then clause_parse(node, out)
         when "xref" then xref_parse(node, out)
         when "eref" then eref_parse(node, out)
-        when "origin" then eref_parse(node, out)
+        when "origin" then origin_parse(node, out)
         when "link" then link_parse(node, out)
         when "ul" then ul_parse(node, out)
         when "ol" then ol_parse(node, out)

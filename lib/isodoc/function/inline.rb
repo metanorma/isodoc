@@ -107,6 +107,14 @@ module IsoDoc::Function
       end
     end
 
+    def origin_parse(node, out)
+      if t = node.at(ns("./termref"))
+        termrefelem_parse(t, out)
+      else
+        eref_parse(node, out)
+      end
+    end
+
     def termrefelem_parse(node, out)
       out << "Termbase #{node['base']}, term ID #{node['target']}"
     end

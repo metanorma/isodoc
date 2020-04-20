@@ -28,7 +28,26 @@ RSpec.describe IsoDoc do
     <modification>
     <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
   </modification>
-</termsource></term>
+</termsource>
+
+<termsource status='identical'>
+    <origin citeas=''>
+      <termref base='IEV' target='xyz'>t1</termref>
+    </origin>
+  </termsource>
+
+  <termsource status='modified'>
+    <origin citeas=''>
+      <termref base='IEV' target='xyz'/>
+    </origin>
+    <modification>
+      <p id='_'>with adjustments</p>
+    </modification>
+  </termsource>
+
+
+
+</term>
 
 <term id="paddy"><preferred>paddy</preferred><admitted>paddy rice</admitted>
 <admitted>rough rice</admitted>
@@ -75,7 +94,10 @@ RSpec.describe IsoDoc do
        <p>[TERMREF]
          <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
            [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
-       [/TERMREF]</p><p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice</p>
+       [/TERMREF]</p>
+       <p>[TERMREF] Termbase IEV, term ID xyz [/TERMREF]</p>
+<p>[TERMREF] Termbase IEV, term ID xyz [MODIFICATION]with adjustments [/TERMREF]</p>
+<p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice</p>
        <p class="AltTerms" style="text-align:left;">rough rice</p>
        <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
@@ -122,7 +144,26 @@ OUTPUT
     <modification>
     <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
   </modification>
-</termsource></term>
+</termsource>
+
+<termsource status='identical'>
+    <origin citeas=''>
+      <termref base='IEV' target='xyz'>t1</termref>
+    </origin>
+  </termsource>
+
+  <termsource status='modified'>
+    <origin citeas=''>
+      <termref base='IEV' target='xyz'/>
+    </origin>
+    <modification>
+      <p id='_'>with adjustments</p>
+    </modification>
+  </termsource>
+
+
+
+</term>
 
 <term id="paddy"><preferred>paddy</preferred><admitted>paddy rice</admitted>
 <admitted>rough rice</admitted>
@@ -169,7 +210,10 @@ OUTPUT
        <p>[TERMREF]
          <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
            [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
-       [/TERMREF]</p><p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice</p>
+       [/TERMREF]</p>
+       <p>[TERMREF] Termbase IEV, term ID xyz [/TERMREF]</p>
+<p>[TERMREF] Termbase IEV, term ID xyz [MODIFICATION]with adjustments [/TERMREF]</p>
+<p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice</p>
        <p class="AltTerms" style="text-align:left;">rough rice</p>
        <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
