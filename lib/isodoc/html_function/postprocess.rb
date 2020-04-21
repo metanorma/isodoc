@@ -108,7 +108,7 @@ module IsoDoc::HtmlFunction
       idx = docxml.at("//div[@id = 'toc']") or return docxml
       toc = "<ul>"
       path = toclevel_classes.map do |l|
-        "//main//#{l}[not(@class = 'TermNum')][not(@class = 'noTOC')][not(text())]"
+        "//main//#{l}[not(@class = 'TermNum')][not(@class = 'noTOC')][text()]"
       end
       docxml.xpath(path.join(" | ")).each_with_index do |h, tocidx|
         h["id"] ||= "toc#{tocidx}"
