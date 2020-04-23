@@ -1341,6 +1341,9 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
            <br clear='all' class='section'/>
          </p>
          <div class='WordSection2'>
+         <p class='MsoNormal'>
+  <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+</p>
            <div class='Section3' id=''>
              <h1 class='IntroTitle'>Introduction</h1>
              <p align='center' style='text-align:center' class='MsoNormal'>

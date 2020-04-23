@@ -197,6 +197,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       word_section_breaks1(docxml, "WordSection2")
       word_section_breaks1(docxml, "WordSection3")
       word_remove_pb_before_annex(docxml)
+      docxml.xpath("//br[@orientation]").each { |br| br.delete("orientation") }
     end
 
     def word_section_breaks1(docxml, sect)
@@ -204,7 +205,6 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
         each_with_index do |br, i|
         @landscapestyle += "\ndiv.#{sect}_#{i} {page:#{sect}"\
           "#{br["orientation"] == "landscape" ? "L" : "P"};}\n"
-        br.delete("orientation")
         split_at_section_break(docxml, sect, br, i)
       end
     end
@@ -220,10 +220,10 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       end
     end
 
-    # applies for <div><p><pagebreak/></p><div class="Section3">...
+    # applies for <div class="WordSectionN_M"><p><pagebreak/></p>...
     def word_remove_pb_before_annex(docxml)
-      docxml.xpath("//div[div[@class = 'Section3']][p/br]").each do |d|
-        d.elements[1].name == "div" && d.elements[1]["class"] == "Section3" or next
+      docxml.xpath("//div[p/br]").each do |d|
+        /^WordSection\d+_\d+$/.match(d["class"]) or next
         d.elements[0].name == "p" && !d.elements[0].elements.empty? or next
         d.elements[0].elements[0].name == "br" && d.elements[0].elements[0]["style"] ==
           "mso-special-character:line-break;page-break-before:always" or next
