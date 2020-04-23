@@ -3,7 +3,8 @@ require_relative "./metadata_date"
 module IsoDoc
   class Metadata
     DATETYPES = %w{published accessed created implemented obsoleted confirmed
-    updated issued received transmitted copied unchanged circulated}.freeze
+    updated issued received transmitted copied unchanged circulated vote-started
+    vote-ended}.freeze
 
     def ns(xpath)
       Common::ns(xpath)
@@ -15,7 +16,7 @@ module IsoDoc
 
     def initialize(lang, script, labels)
       @metadata = {}
-      DATETYPES.each { |w| @metadata["#{w}date".to_sym] = "XXX" }
+      DATETYPES.each { |w| @metadata["#{w.gsub(/-/, "_")}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
       @c = HTMLEntities.new
@@ -84,7 +85,7 @@ module IsoDoc
 
     def bibdate(isoxml, _out)
       isoxml.xpath(ns("//bibdata/date")).each do |d|
-        set("#{d['type']}date".to_sym, Common::date_range(d))
+        set("#{d['type'].gsub(/-/, "_")}date".to_sym, Common::date_range(d))
       end
     end
 
