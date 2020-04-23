@@ -48,6 +48,7 @@ module IsoDoc
       @olstyle = options[:olstyle]
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
+      @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
       @termdomain = ""
       @termexample = false
       @note = false

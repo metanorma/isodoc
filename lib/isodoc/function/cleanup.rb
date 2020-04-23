@@ -20,6 +20,7 @@ module IsoDoc::Function
     end
 
     def table_long_strings_cleanup(docxml)
+      return unless @break_up_urls_in_tables == true
       docxml.xpath("//td | //th").each do |d|
         d.traverse do |n|
           next unless n.text?
@@ -30,6 +31,7 @@ module IsoDoc::Function
     end
 
     def break_up_long_strings(t)
+      return t if t.match(/^\s*$/)
       t.split(/(?=\s)/).map do |w|
         (/^\s*$/.match(t) or w.size < 30) ? w :
           w.scan(/.{,30}/).map do |w1|
