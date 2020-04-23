@@ -1316,7 +1316,11 @@ OUTPUT
        <pagebreak orientation="portrait"/>
        <p>And up</p>
        </note>
+       <pagebreak orientation="portrait"/>
         </clause></sections>
+        <annex id="_level_1" inline-header="false" obligation="normative">
+        <title>Annex 1</title>
+        </annex>
        </standard-document>
    INPUT
    expect(File.exist?("test.doc")).to be true
@@ -1324,7 +1328,9 @@ OUTPUT
     expect(html).to include "div.WordSection2_0 {page:WordSection2P;}"
 expect(html).to include "div.WordSection2_1 {page:WordSection2L;}"
     expect(html).to include "div.WordSection3_0 {page:WordSection3P;}"
-expect(html).to include "div.WordSection3_1 {page:WordSection3L;}"
+expect(html).to include "div.WordSection3_1 {page:WordSection3P;}"
+expect(html).to include "div.WordSection3_2 {page:WordSection3L;}"
+
 
 expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
        <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
@@ -1335,9 +1341,6 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
            <br clear='all' class='section'/>
          </p>
          <div class='WordSection2'>
-           <p class='MsoNormal'>
-             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-           </p>
            <div class='Section3' id=''>
              <h1 class='IntroTitle'>Introduction</h1>
              <p align='center' style='text-align:center' class='MsoNormal'>
@@ -1396,7 +1399,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
              </div>
            </div>
          </div>
-         <div class='WordSection3_1'>
+         <div class='WordSection3_2'>
            <p class='TableTitle' style='text-align:center;'>Table 1</p>
            <div align='center' class='table_container'>
              <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
@@ -1433,8 +1436,24 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
              <br clear='all' class='section'/>
            </p>
          </div>
-         <div class='WordSection3_0'>
+         <div class='WordSection3_1'>
            <p class='Note'>And up</p>
+              <p class='MsoNormal'>
+     <br clear='all' class='section'/>
+   </p>
+ </div>
+ <div class='WordSection3_0'>
+   <div class='Section3'>
+     <a name='_level_1' id='_level_1'/>
+     <h1 class='Annex'>
+       <b>Annex A</b>
+       <br/>
+       (normative)
+       <br/>
+       <br/>
+       <b>Annex 1</b>
+     </h1>
+   </div>
          </div>
          <div style='mso-element:footnote-list'/>
        </body>

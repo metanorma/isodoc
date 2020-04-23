@@ -196,6 +196,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       @landscapestyle = ""
       word_section_breaks1(docxml, "WordSection2")
       word_section_breaks1(docxml, "WordSection3")
+      word_remove_pb_before_annex(docxml)
     end
 
     def word_section_breaks1(docxml, sect)
@@ -216,6 +217,17 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       move.each do |m|
         next if m.at("./ancestor::div[@class = '#{sect}_#{i}']")
         ins << m.remove
+      end
+    end
+
+    # applies for <div><p><pagebreak/></p><div class="Section3">...
+    def word_remove_pb_before_annex(docxml)
+      docxml.xpath("//div[div[@class = 'Section3']][p/br]").each do |d|
+        d.elements[1].name == "div" && d.elements[1]["class"] == "Section3" or next
+        d.elements[0].name == "p" && !d.elements[0].elements.empty? or next
+        d.elements[0].elements[0].name == "br" && d.elements[0].elements[0]["style"] ==
+          "mso-special-character:line-break;page-break-before:always" or next
+        d.elements[0].remove
       end
     end
 
