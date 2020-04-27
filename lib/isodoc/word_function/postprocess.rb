@@ -39,7 +39,6 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def toWord(result, filename, dir, header)
-      #result = populate_template(result, :word)
       result = from_xhtml(word_cleanup(to_xhtml(result)))
       unless @landscapestyle.empty?
         @wordstylesheet&.open
