@@ -198,6 +198,16 @@ module IsoDoc::WordFunction
       save_dataimage(uri)
     end
 
+    def image_parse(node, out, caption)
+      attrs = { src: imgsrc(node["src"]),
+                height: node["height"],
+                alt: node["alt"],
+                title: node["title"],
+                width: node["width"] }
+      out.img **attr_code(attrs)
+      image_title_parse(out, caption)
+    end
+
     def xref_parse(node, out)
       target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".doc#") :
         "##{node["target"]}"
