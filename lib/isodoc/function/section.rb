@@ -109,20 +109,29 @@ module IsoDoc::Function
       num
     end
 
-    def terms_defs_title(f)
-      symbols = f.at(ns(".//definitions"))
-      return @termsdefsymbols_lbl if symbols
-      @termsdef_lbl
-    end
-
     TERM_CLAUSE = "//sections/terms | "\
       "//sections/clause[descendant::terms]".freeze
+
+    def term_def_title(title)
+      case title&.text
+      when "Terms, definitions, symbols and abbreviated terms"
+        @labels["termsdefsymbolsabbrev"]
+      when "Terms, definitions and symbols"
+        @labels["termsdefsymbols"]
+      when "Terms, definitions and abbreviated terms"
+        @labels["termsdefabbrev"]
+      when "Terms and definitions"
+        @labels["termsdef"]
+      else
+        title
+      end
+    end
 
     def terms_defs(isoxml, out, num)
       f = isoxml.at(ns(TERM_CLAUSE)) or return num
       out.div **attr_code(id: f["id"]) do |div|
         num = num + 1
-        clause_name(num, terms_defs_title(f), div, nil)
+        clause_name(num, term_def_title(f&.at(ns("./title"))), div, nil)
         f.elements.each do |e|
           parse(e, div) unless %w{title source}.include? e.name
         end

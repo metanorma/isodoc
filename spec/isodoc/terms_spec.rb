@@ -74,7 +74,7 @@ RSpec.describe IsoDoc do
     INPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
-               <div id="_terms_and_definitions"><h1>1.&#160; Terms and definitions</h1><p>For the purposes of this document,
+               <div id="_terms_and_definitions"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;">paddy</p>
 
@@ -190,7 +190,7 @@ OUTPUT
     INPUT
     #{WORD_HDR}
              <p class="zzSTDTitle1"/>
-             <div id="_terms_and_definitions"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and definitions</h1><p>For the purposes of this document,
+             <div id="_terms_and_definitions"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;">paddy</p>
 

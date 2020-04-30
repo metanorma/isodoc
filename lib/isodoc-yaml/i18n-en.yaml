@@ -6,7 +6,9 @@ introduction: Introduction
 foreword: Foreword
 abstract: Abstract
 termsdef: Terms and definitions
-termsdefsymbols: Terms, definitions, symbols and abbreviated terms
+termsdefsymbolsabbrev: Terms, definitions, symbols and abbreviated terms
+termsdefsymbols: Terms, definitions and symbols
+termsdefabbrev: Terms, definitions and abbreviated terms
 normref: Normative references
 bibliography: Bibliography
 clause: Clause

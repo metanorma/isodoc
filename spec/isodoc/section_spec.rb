@@ -188,7 +188,7 @@ RSpec.describe IsoDoc do
                 <div>
                   <h1>2.&#160; Normative references</h1>
                 </div>
-                <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
+                <div id="H"><h1>3.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
         <div id="I">
            <h2>3.1.&#160; Normal Terms</h2>
            <p class="TermNum" id="J">3.1.1.</p>
@@ -429,7 +429,7 @@ OUTPUT
                <div>
                  <h1>2.<span style="mso-tab-count:1">&#160; </span>Normative references</h1>
                </div>
-               <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms, definitions, symbols and abbreviated terms</h1>
+               <div id="H"><h1>3.<span style="mso-tab-count:1">&#160; </span>Terms, Definitions, Symbols and Abbreviated Terms</h1>
        <div id="I">
           <h2>3.1.<span style="mso-tab-count:1">&#160; </span>Normal Terms</h2>
           <p class="TermNum" id="J">3.1.1.</p>
@@ -669,7 +669,12 @@ OUTPUT
       </div>
       <p class='zzSTDTitle1'/>
       <div id='H'>
-        <h1>1.&#160; Terms, definitions, symbols and abbreviated terms</h1>
+      <h1>
+  1.&#160; Terms, Definitions, Symbols and Abbreviated Terms
+  <a rel='footnote' href='#fn:10' epub:type='footnote'>
+    <sup>10</sup>
+  </a>
+</h1>
         <div id='I'>
           <h2>
             1.1.&#160; Normal Terms
@@ -872,7 +877,7 @@ OUTPUT
              <div>
                <h1>Normative references</h1>
              </div>
-             <div id="H"><h1>Terms, definitions, symbols and abbreviated terms</h1>
+             <div id="H"><h1>Terms, Definitions, Symbols and Abbreviated Terms</h1>
        <div id="I"><h2>Normal Terms</h2>
 
           <p class="TermNum" id="J">3.1.1.</p>
@@ -964,7 +969,7 @@ OUTPUT
     INPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
-               <div id="H"><h1>1.&#160; Terms and definitions</h1>
+               <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
        <p class="TermNum" id="J">1.1.</p>
          <p class="Terms" style="text-align:left;">Term2</p>
        </div>
