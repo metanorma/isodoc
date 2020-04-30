@@ -79,7 +79,7 @@ module IsoDoc::Function
         "//references[title = 'Normative References' or title = "\
         "'Normative references'] | "\
         "//sections/terms | //preface/abstract | //foreword | "\
-        "//introduction | //preface/clause | //acknowledgements "\
+        "//introduction | //preface/clause | //acknowledgements | "\
         "//sections/definitions | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))
     end
