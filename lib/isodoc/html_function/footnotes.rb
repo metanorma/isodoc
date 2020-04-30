@@ -48,7 +48,7 @@ module IsoDoc::HtmlFunction
     end
 
     def table_footnote_parse(node, out)
-      fn = node["reference"]
+      fn = node["reference"] || UUIDTools::UUID.random_create.to_s
       tid = get_table_ancestor_id(node)
       make_table_footnote_link(out, tid + fn, fn)
       # do not output footnote text if we have already seen it for this table
@@ -64,7 +64,7 @@ module IsoDoc::HtmlFunction
     def footnote_parse(node, out)
        return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
         !node.ancestors.map {|m| m.name }.include?("name")
-      fn = node["reference"]
+      fn = node["reference"] || UUIDTools::UUID.random_create.to_s
       attrs = { "epub:type": "footnote", rel: "footnote", href: "#fn:#{fn}" }
       out.a **attrs do |a|
         a.sup { |sup| sup << fn }

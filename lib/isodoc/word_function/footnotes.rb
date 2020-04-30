@@ -56,7 +56,7 @@ module IsoDoc::WordFunction
     end
 
     def table_footnote_parse(node, out)
-      fn = node["reference"]
+      fn = node["reference"] || UUIDTools::UUID.random_create.to_s
       tid = get_table_ancestor_id(node)
       make_table_footnote_link(out, tid + fn, fn)
       # do not output footnote text if we have already seen it for this table
@@ -80,7 +80,7 @@ module IsoDoc::WordFunction
     def footnote_parse(node, out)
       return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
         !node.ancestors.map {|m| m.name }.include?("name")
-      fn = node["reference"]
+      fn = node["reference"] || UUIDTools::UUID.random_create.to_s
       return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)
       @fn_bookmarks[fn] = bookmarkid
       out.span **{style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}"} do |s|
