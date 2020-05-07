@@ -222,5 +222,10 @@ module IsoDoc::Function
         quote_attribution(node, out)
       end
     end
+
+    def passthrough_parse(node, out)
+      return if node["format"] and !(node["format"].split(/,/).include? @format.to_s)
+      out << HTMLEntities.new.decode(node.content)
+    end
   end
 end

@@ -1462,5 +1462,47 @@ INPUT
     OUTPUT
        end
 
+         it "processes passthrough with compatible format" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <passthrough format="html,rfc">&lt;A&gt;</passthrough>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    #{HTML_HDR}
+        <br/>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <a/>
+      </div>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+    OUTPUT
+  end
+
+     it "ignore passthrough with incompatible format" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <passthrough format="doc,rfc">&lt;A&gt;</passthrough>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    #{HTML_HDR}
+      <br/>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+      </div>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+    OUTPUT
+  end
+
+
 
 end

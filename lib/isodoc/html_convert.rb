@@ -14,6 +14,11 @@ module IsoDoc
       "_htmlimages"
     end
 
+    def initialize(options)
+      @format = :html
+      super
+    end
+
     def convert(filename, file = nil, debug = false)
       ret = super
       Dir.exists?(tmpimagedir) and Dir["#{tmpimagedir}/*"].empty? and

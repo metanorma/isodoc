@@ -30,6 +30,11 @@ module IsoDoc
     include WordFunction::Body
     include WordFunction::Postprocess
 
+    def initialize(options)
+      @format = :doc
+      super
+    end
+
     def convert(filename, file = nil, debug = false)
       ret = super
       FileUtils.rm_rf tmpimagedir

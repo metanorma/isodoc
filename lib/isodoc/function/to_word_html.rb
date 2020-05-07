@@ -210,6 +210,7 @@ module IsoDoc::Function
         when "license-statement" then license_parse(node, out)
         when "legal-statement" then legal_parse(node, out)
         when "feedback-statement" then feedback_parse(node, out)
+        when "passthrough" then passthrough_parse(node, out)
         else
           error_parse(node, out)
         end

@@ -22,6 +22,11 @@ module IsoDoc
       "_pdfimages"
     end
 
+    def initialize(options)
+      @format = :pdf
+      super
+    end
+
     def convert(filename, file = nil, debug = false)
       file = File.read(filename, encoding: "utf-8") if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)
