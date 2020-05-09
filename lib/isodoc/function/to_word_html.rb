@@ -21,7 +21,7 @@ module IsoDoc::Function
       filename = filepath.sub_ext('').to_s
       dir = "#{filename}_files"
       unless debug
-        Dir.mkdir(dir) unless File.exists?(dir)
+        Dir.mkdir(dir, 0777) unless File.exists?(dir)
         FileUtils.rm_rf "#{dir}/*"
       end
       @filename = filename
