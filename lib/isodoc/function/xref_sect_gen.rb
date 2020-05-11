@@ -17,17 +17,9 @@ module IsoDoc::Function
     end
 
     def initial_anchor_names(d)
-      preface_names(d.at(ns("//preface/abstract")))
-      preface_names(d.at(ns("//foreword")))
-      preface_names(d.at(ns("//introduction")))
-      d.xpath(ns("//preface/clause")).each do |c|
-      preface_names(c)
-      end
-      preface_names(d.at(ns("//acknowledgements")))
+      d.xpath(ns("//preface/*")).each { |c| c.element? and preface_names(c) }
       # potentially overridden in middle_section_asset_names()
-      sequential_asset_names(
-        d.xpath(ns("//preface/abstract | //foreword | //introduction | "\
-                   "//preface/clause | //acknowledgements")))
+      sequential_asset_names(d.xpath(ns("//preface/*")))
       n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
       n = section_names(d.at(ns(
         "//bibliography/clause[title = 'Normative References' or "\
@@ -78,8 +70,7 @@ module IsoDoc::Function
       middle_sections = "//clause[title = 'Scope'] | "\
         "//references[title = 'Normative References' or title = "\
         "'Normative references'] | "\
-        "//sections/terms | //preface/abstract | //foreword | "\
-        "//introduction | //preface/clause | //acknowledgements | "\
+        "//sections/terms | //preface/* | "\
         "//sections/definitions | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))
     end

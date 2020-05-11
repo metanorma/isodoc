@@ -40,6 +40,7 @@ module IsoDoc::Function
 
     SECTIONS_XPATH =
       "//foreword | //introduction | //acknowledgements | //preface/clause | "\
+      "//preface/terms | preface/definitions | preface/references | "\
       "//sections/terms | //annex | "\
       "//sections/clause | //sections/definitions | "\
       "//bibliography/references | //bibliography/clause".freeze
@@ -68,7 +69,7 @@ module IsoDoc::Function
       "not(self::xmlns:terms) and not(self::xmlns:definitions)]//"\
       "xmlns:example | ./xmlns:example".freeze
 
-    CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions"
+    CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | ./references"
 
     def example_anchor_names(sections)
       sections.each do |s|
