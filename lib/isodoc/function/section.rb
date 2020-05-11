@@ -207,7 +207,8 @@ module IsoDoc::Function
 
     def preface(isoxml, out)
       title_attr = { class: "IntroTitle" }
-      isoxml.xpath(ns("//preface/clause")).each do |f|
+      isoxml.xpath(ns("//preface/clause | //preface/terms | //preface/definitions | "\
+                      "//preface/references")).each do |f|
         page_break(out)
         out.div **{ class: "Section3", id: f["id"] } do |div|
           clause_name(nil, f&.at(ns("./title")), div, title_attr)
