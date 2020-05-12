@@ -5,10 +5,9 @@ module IsoDoc::Function
         annex_names(c, (65 + i).chr.to_s)
       end
       docxml.xpath(
-        ns("//bibliography/clause[not(xmlns:title = 'Normative References' or "\
-           "xmlns:title = 'Normative references')] |"\
-           "//bibliography/references[not(xmlns:title = 'Normative References'"\
-           " or xmlns:title = 'Normative references')]")).each do |b|
+           ns("//bibliography/clause[.//references[@normative = 'false']] | "\
+           "//bibliography/references[@normative = 'false']"
+           )).each do |b|
         preface_names(b)
       end
       docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
@@ -22,10 +21,8 @@ module IsoDoc::Function
       sequential_asset_names(d.xpath(ns("//preface/*")))
       n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
       n = section_names(d.at(ns(
-        "//bibliography/clause[title = 'Normative References' or "\
-        "title = 'Normative references'] |"\
-        "//bibliography/references[title = 'Normative References' or "\
-        "title = 'Normative references']")), n, 1)
+        "//bibliography/clause[.//references[@normative = 'true']] | "\
+        "//bibliography/references[@normative = 'true']")), n, 1)
       n = section_names(d.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
       n = section_names(d.at(ns("//sections/definitions")), n, 1)
@@ -68,8 +65,7 @@ module IsoDoc::Function
 
     def middle_section_asset_names(d)
       middle_sections = "//clause[title = 'Scope'] | "\
-        "//references[title = 'Normative References' or title = "\
-        "'Normative references'] | "\
+        "//references[@normative = 'true'] | "\
         "//sections/terms | //preface/* | "\
         "//sections/definitions | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))

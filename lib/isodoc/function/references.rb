@@ -146,8 +146,7 @@ module IsoDoc::Function
     end
 
     def norm_ref(isoxml, out, num)
-      q = "//bibliography/references[title = 'Normative References' or "\
-        "title = 'Normative references']"
+      q = "//bibliography/references[@normative = 'true']"
       f = isoxml.at(ns(q)) or return num
       out.div do |div|
         num = num + 1
@@ -157,8 +156,8 @@ module IsoDoc::Function
       num
     end
 
-    BIBLIOGRAPHY_XPATH = "//bibliography/clause[title = 'Bibliography'] | "\
-      "//bibliography/references[title = 'Bibliography']".freeze
+    BIBLIOGRAPHY_XPATH = "//bibliography/clause[.//references[@normative = 'false']] | "\
+      "//bibliography/references[@normative = 'false']".freeze
 
     def bibliography(isoxml, out)
       f = isoxml.at(ns(BIBLIOGRAPHY_XPATH)) || return
