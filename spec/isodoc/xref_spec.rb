@@ -1631,6 +1631,9 @@ OUTPUT
          <xref target="P"/>
          <xref target="Q"/>
          <xref target="Q1"/>
+         <xref target="QQ"/>
+         <xref target="QQ1"/>
+         <xref target="QQ2"/>
          <xref target="R"/>
          <xref target="S"/>
          </p>
@@ -1679,7 +1682,13 @@ OUTPUT
          <title>Annex A.1a</title>
          </clause>
        </clause>
-       </annex><bibliography><references id="R" obligation="informative" normative="true">
+       </annex>
+       <annex id="QQ">
+       <terms id="QQ1">
+       <term id="QQ2"/>
+       </terms>
+       </annex>
+        <bibliography><references id="R" obligation="informative" normative="true">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
@@ -1709,6 +1718,9 @@ OUTPUT
     <a href="#P">Annex A</a>
     <a href="#Q">Annex A.1</a>
     <a href="#Q1">Annex A.1.1</a>
+    <a href='#QQ'>Annex B</a>
+<a href='#QQ1'>Annex B</a>
+<a href='#QQ2'>Annex B.1</a>
     <a href="#R">Clause 2</a>
     <a href="#S">Bibliography</a>
     </p>
@@ -1764,6 +1776,21 @@ OUTPUT
           <div id="Q1">
           <h3>A.1.1.&#160; Annex A.1a</h3>
           </div>
+                 </div>
+     </div>
+     <br/>
+     <div id='QQ' class='Section3'>
+       <h1 class='Annex'>
+         <b>Annex B</b>
+         <br/>
+         (informative)
+         <br/>
+         <br/>
+         <b/>
+       </h1>
+       <div id='QQ1'>
+         <h1>B.&#160; </h1>
+         <p class='TermNum' id='QQ2'>B.1.</p>
         </div>
                </div>
                <br/>

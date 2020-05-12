@@ -107,12 +107,25 @@ module IsoDoc::Function
       l10n("<b>#{@annex_lbl} #{num}</b><br/>#{obl}")
     end
 
+    def single_annex_special_section(clause)
+      a = clause.xpath(ns("./references | ./terms | ./definitions"))
+      a.size == 1 or return nil
+      clause.xpath(ns("./clause | ./p | ./table | ./ol | ./ul | ./dl | "\
+                      "./note | ./admonition | ./figure")).size == 0 or
+                     return nil
+      a[0]
+    end
+
     def annex_names(clause, num)
       @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
                                  type: "clause",
                                  xref: "#{@annex_lbl} #{num}", level: 1 }
-      clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-        annex_names1(c, "#{num}.#{i + 1}", 2)
+      if a = single_annex_special_section(clause)
+        annex_names1(a, "#{num}", 1)
+      else
+        clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
+          annex_names1(c, "#{num}.#{i + 1}", 2)
+        end
       end
       hierarchical_asset_names(clause, num)
     end
