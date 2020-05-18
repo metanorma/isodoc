@@ -91,7 +91,6 @@ module IsoDoc::Function
       style += <<~STYLE
         border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
         border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-        padding:0;
       STYLE
       header and scope = (td["colspan"] ? "colgroup" : "col")
       !header and td.name == "th" and scope =
