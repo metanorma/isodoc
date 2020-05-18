@@ -798,7 +798,7 @@ INPUT
                      OUTPUT
     end
 
-        it "breaks up very long strings in tables on request" do
+        it "does not break up very long strings in tables on request in HTML" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({break_up_urls_in_tables: "true"}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
            <html xmlns:epub="http://www.idpf.org/2007/ops">
          <head>
@@ -863,19 +863,12 @@ INPUT
                      <tbody>
                        <tr>
                          <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
-                         http://www.example.com/
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA/
-BBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                         http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/BBBBBBBBBBBBBBBBBBBBBBBBBBBB
                          </td>
                          <td align='left' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;'>
-                         http://www.example.com/
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAABBBBBBBBBBBBBBBBBBBBBB BBBBBB
-                         </td>
+                         http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
                          <td align='center' style='border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;'>
-                         www.example.com/
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-ABBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                         www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB
                          </td>
                        </tr>
                      </tbody>
