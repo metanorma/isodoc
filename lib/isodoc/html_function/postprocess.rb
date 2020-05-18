@@ -159,7 +159,8 @@ module IsoDoc::HtmlFunction
     def inject_script(doc)
       return doc unless @scripts
       scripts = File.read(@scripts, encoding: "UTF-8")
-      doc.sub("</body>", scripts + "\n</body>")
+      a = doc.split(%r{</body>})
+      a[0] + scripts + "</body>" + a[1]
     end
 
     def update_footnote_filter(fn, x, i, seen)
