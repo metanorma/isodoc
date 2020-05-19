@@ -44,11 +44,15 @@ module IsoDoc::Function
       end
     end
 
+    def pref_ref_code(b)
+      b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
+              "or @type = 'ISSN' or @type = 'ISBN' or @type = 'rfc-anchor')]"))
+    end
+
     # returns [metanorma, non-metanorma, DOI/ISSN/ISBN] identifiers
     def bibitem_ref_code(b)
       id = b.at(ns("./docidentifier[@type = 'metanorma']"))
-      id1 = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
-                    "or @type = 'ISSN' or @type = 'ISBN')]"))
+      id1 = pref_ref_code(b)
       id2 = b.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or @type = 'ISBN']")) 
       return [id, id1, id2] if id || id1 || id2
       id = Nokogiri::XML::Node.new("docidentifier", b.document)
