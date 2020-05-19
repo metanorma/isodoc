@@ -9,26 +9,26 @@ module IsoDoc::Function
     end
 
     # TODO generate formatted ref if not present
-    def nonstd_bibitem(list, b, ordinal, bibliography)
-      list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
-        id = bibitem_ref_code(b)
-        identifier = render_identifier(id)
-        if bibliography then ref_entry_code(r, ordinal, identifier, id)
+    def nonstd_bibitem(list, b, ordinal, biblio)
+      list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
+        ids = bibitem_ref_code(b)
+        identifiers = render_identifier(ids)
+        if biblio then ref_entry_code(ref, ordinal, identifiers, ids)
         else
-          identifier = "[#{identifier}]" if id["type"] == "metanorma"
-          r << "#{identifier}, "
+          ref << "#{identifiers[0] || identifiers[1]}, "
+          ref << "#{identifiers[1]}, " if identifiers[0] && identifiers[1]
         end
-        reference_format(b, r)
+        reference_format(b, ref)
       end
     end
 
     def std_bibitem_entry(list, b, ordinal, biblio)
       list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
-        prefix_bracketed_ref(ref, ordinal) if biblio
-        id = bibitem_ref_code(b)
-        identifier = render_identifier(id)
-        identifier = "[#{identifier}]" if id["type"] == "metanorma" && !biblio
-        ref << identifier
+        ids = bibitem_ref_code(b)
+        identifiers = render_identifier(ids)
+        prefix_bracketed_ref(ref, "[#{ordinal}]") if biblio
+        ref << "#{identifiers[0] || identifiers[1]}"
+        ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
         date_note_process(b, ref)
         ref << ", "
         reference_format(b, ref)
@@ -38,29 +38,39 @@ module IsoDoc::Function
     # if t is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and t
     def ref_entry_code(r, ordinal, t, id)
-      if id["type"] == "metanorma"
-        prefix_bracketed_ref(r, t)
-      else
-        prefix_bracketed_ref(r, ordinal)
-        if !t.empty? && !%w(DOI ISSN ISBN).include?(id["type"])
-          r << "#{t}, "
-        end
+      prefix_bracketed_ref(r, t[0] || "[#{ordinal}]")
+      if t[1]
+        r << "#{t[1]}, "
       end
     end
 
+    # returns [metanorma, non-metanorma, DOI/ISSN/ISBN] identifiers
     def bibitem_ref_code(b)
       id = b.at(ns("./docidentifier[@type = 'metanorma']"))
-      id ||= b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
-                   "or @type = 'ISSN' or @type = 'ISBN')]"))
-      id ||= b.at(ns("./docidentifier")) 
-      return id if id
+      id1 = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
+                    "or @type = 'ISSN' or @type = 'ISBN')]"))
+      id2 = b.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or @type = 'ISBN']")) 
+      return [id, id1, id2] if id || id1 || id2
       id = Nokogiri::XML::Node.new("docidentifier", b.document)
       id << "(NO ID)"
-      id
+      [nil, id, nil]
+    end
+
+    def bracket_if_num(x)
+      return nil if x.nil?
+      x = x.text.sub(/^\[/, "").sub(/\]$/, "")
+      return "[#{x}]" if /^\d+$/.match(x)
+      x
     end
 
     def render_identifier(id)
-      docid_prefix(id["type"], id.text.sub(/^\[/, "").sub(/\]$/, ""))
+      [
+        bracket_if_num(id[0]),
+        id[1].nil? ? nil :
+        docid_prefix(id[1]["type"], id[1].text.sub(/^\[/, "").sub(/\]$/, "")),
+        id[2].nil? ? nil :
+        docid_prefix(id[2]["type"], id[2].text.sub(/^\[/, "").sub(/\]$/, "")),
+      ]
     end
 
     def docid_prefix(prefix, docid)
@@ -100,7 +110,7 @@ module IsoDoc::Function
     end
 
     def prefix_bracketed_ref(ref, text)
-      ref << "[#{text}]"
+      ref << text
       insert_tab(ref, 1)
     end
 
@@ -187,12 +197,11 @@ module IsoDoc::Function
 
     def reference_names(ref)
       isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
-      docid = bibitem_ref_code(ref)
-      prefix = docid["type"]
+      ids = bibitem_ref_code(ref)
+      identifiers = render_identifier(ids)
       date = ref.at(ns("./date[@type = 'published']"))
       allparts = ref.at(ns("./extent[@type='part'][referenceFrom='all']"))
-      reference = format_ref(docid_l10n(docid.text), prefix, isopub, date,
-                             allparts)
+      reference = docid_l10n(identifiers[0] || identifiers[1])
       @anchors[ref["id"]] = { xref: reference }
     end
 

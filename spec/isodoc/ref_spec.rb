@@ -135,7 +135,7 @@ RSpec.describe IsoDoc do
          <a href="#ISO16634">ISO 16634:-- (all parts)</a>
          <a href="#ref1">ICC 167</a>
          <a href="#ref10">[10]</a>
-         <a href="#ref12">[Citn]</a>
+         <a href="#ref12">Citn</a>
          <a href='#zip_ffs'>[5]</a>
          </p>
              </div>
@@ -143,7 +143,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1>1.&#160; Normative references</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-               <p id="ISO712" class="NormRef">[110], <i>Cereals and cereal products</i></p>
+               <p id="ISO712" class="NormRef">[110], ISO 712, <i>Cereals and cereal products</i></p>
                <p id="ISO16634" class="NormRef">ISO 16634:-- (all parts)<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>1</sup></a>, <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i></p>
                <p id="ISO20483" class="NormRef">ISO 20483:2013-2014, <i>Cereals and pulses</i></p>
                <p id="ref1" class="NormRef">ICC 167, <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
@@ -166,7 +166,7 @@ RSpec.describe IsoDoc do
                <p id="ISO3696" class="Biblio">[3]&#160; ISO 3696, <i>Water for analytical laboratory use</i></p>
                <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
                <p id="ref11" class="Biblio">[5]&#160; IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i></p>
-               <p id="ref12" class="Biblio">[6]&#160; Citn, CitationWorks. 2019. <i>How to cite a reference</i>.</p>
+               <p id="ref12" class="Biblio">[6]&#160; Citn, IETF RFC 20, CitationWorks. 2019. <i>How to cite a reference</i>.</p>
              </div>
              <aside id="fn:1" class="footnote">
          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
