@@ -1463,24 +1463,33 @@ INPUT
        end
 
          it "processes passthrough with compatible format" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+               FileUtils.rm_f "test.html"
+    IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <passthrough format="html,rfc">&lt;A&gt;</passthrough>
+    <passthrough format="html,rfc">&lt;A&gt;</passthrough><em>Hello</em><passthrough format="html,rfc">&lt;/A&gt;</passthrough>
     </foreword></preface>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-        <br/>
-      <div>
-        <h1 class='ForewordTitle'>Foreword</h1>
-        <a/>
-      </div>
-      <p class='zzSTDTitle1'/>
-    </div>
-  </body>
-</html>
+expect(( File.read("test.html").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{</div>.*}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <A><i>Hello</i></A>
     OUTPUT
+  end
+
+          it "aborts if passthrough results in malformed XML" do
+               FileUtils.rm_f "test.html"
+               FileUtils.rm_f "test.html.err"
+               begin
+    expect { IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", false) }.to raise_error(SystemExit)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <passthrough format="html,rfc">&lt;A&gt;</passthrough><em>Hello</em>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    rescue SystemExit
+    end
+    expect(File.exist?("test.html.err")).to be true
   end
 
      it "ignore passthrough with incompatible format" do

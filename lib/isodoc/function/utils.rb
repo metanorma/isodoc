@@ -49,7 +49,12 @@ module IsoDoc::Function
         /^(\&[^ \t\r\n#;]+;)/.match(t) ? 
           HTMLEntities.new.encode(HTMLEntities.new.decode(t), :hexadecimal) : t
       end.join("")
-      Nokogiri::XML.parse(xml)
+      begin
+        Nokogiri::XML.parse(xml) { |config| config.strict }
+      rescue Nokogiri::XML::SyntaxError => e
+        File.open("#{@filename}.#{@format}.err", "w:UTF-8") { |f| f.write xml }
+        abort "Malformed Output XML for #{@format}: #{e} (see #{@filename}.#{@format}.err)"
+      end
     end
 
     def to_xhtml_fragment(xml)
