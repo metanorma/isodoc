@@ -114,7 +114,7 @@ module IsoDoc::Function
     end
 
     def prefix_bracketed_ref(ref, text)
-      ref << text
+      ref << text.to_s
       insert_tab(ref, 1)
     end
 
