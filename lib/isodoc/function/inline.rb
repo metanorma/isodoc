@@ -227,5 +227,19 @@ module IsoDoc::Function
         p.b(**{ role: "strong" }) { |e| e << text }
       end
     end
+
+    def variant_parse(node, out)
+      if node["lang"] == @lang && node["script"] == @script
+        node.children.each { |n| parse(n, out) }
+      else
+        prev = node.xpath("./preceding-sibling::xmlns:variant")
+        foll = node.xpath("./following-sibling::xmlns:variant")
+        found = false
+        (prev + foll).each { |n| found = true if n["lang"] == @lang && n["script"] == @script }
+        return if found
+        return unless prev.empty?
+        node.children.each { |n| parse(n, out) }
+      end
+    end
   end
 end

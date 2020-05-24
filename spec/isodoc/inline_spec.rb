@@ -515,5 +515,40 @@ OUTPUT
     OUTPUT
   end
 
+    it "processes variant" do
+          expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <language>en</language>
+    <script>Latn</script>
+    </bibdata>
+    <preface>
+        <clause id="A"><title><variant lang="en" script="Latn">ABC</variant><variant lang="fr" script="Latn">DEF</variant></title></clause>
+        <clause id="B"><title><variant lang="de" script="Latn">GHI</variant><variant lang="es" script="Latn">JKL</variant></title></clause>
+        <clause id="C"><title><variant lang="fr" script="Latn">ABC</variant><variant lang="en" script="Latn">DEF</variant></title></clause>
+    </preface>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+        <br/>
+      <div class='Section3' id='A'>
+        <h1 class='IntroTitle'>ABC</h1>
+          </div>
+  <br/>
+  <div class='Section3' id='B'>
+    <h1 class='IntroTitle'>GHI</h1>
+  </div>
+  <br/>
+  <div class='Section3' id='C'>
+    <h1 class='IntroTitle'>DEF</h1>
+  </div>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+    OUTPUT
+    end
+
+
 
 end
