@@ -97,5 +97,8 @@ module IsoDoc::HtmlFunction
       end
       sourcecode_name_parse(node, out, name)
     end
+
+    def table_long_strings_cleanup(docxml)
+    end
   end
 end

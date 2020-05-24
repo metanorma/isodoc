@@ -78,41 +78,41 @@ RSpec.describe IsoDoc do
                </caption>
                  <thead>
                    <tr>
-                     <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Description</td>
-                     <td colspan="4" style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;" scope="colgroup">Rice sample</td>
+                     <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">Description</td>
+                     <td colspan="4" style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="colgroup">Rice sample</td>
                    </tr>
                    <tr>
-                     <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Arborio</td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
+                     <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;" scope="col">Thaibonnet</td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Thaibonnet</td>
                    </tr>
                  </thead>
                  <tbody>
                    <tr>
-                     <th style="font-weight:bold;text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;" scope="row">Number of laboratories retained after eliminating outliers</th>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">13</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">11</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">13</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;padding:0;">13</td>
+                     <th style="font-weight:bold;text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Number of laboratories retained after eliminating outliers</th>
+                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">11</td>
+                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
+                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">13</td>
                    </tr>
                    <tr>
-                     <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">Mean value, g/100 g</td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">81,2</td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">82,0</td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">81,8</td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;padding:0;">77,7</td>
+                     <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;">Mean value, g/100 g</td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">81,2</td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">82,0</td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">81,8</td>
+                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;">77,7</td>
                    </tr>
                  </tbody>
                  <tfoot>
                    <tr>
-                     <td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">Reproducibility limit, <span class="stem">(#(R)#)</span> (= 2,83 <span class="stem">(#(s_R)#)</span>)</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">2,89</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">0,57</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">2,26</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">6,06</td>
+                     <td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Reproducibility limit, <span class="stem">(#(R)#)</span> (= 2,83 <span class="stem">(#(s_R)#)</span>)</td>
+                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">2,89</td>
+                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">0,57</td>
+                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">2,26</td>
+                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">6,06</td>
                    </tr>
                  </tfoot>
                  <dl>
@@ -128,7 +128,7 @@ RSpec.describe IsoDoc do
                <table id="tableD-2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                  <tbody>
                    <tr>
-                     <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;padding:0;">A</td>
+                     <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
                    </tr>
                  </tbody>
                </table>

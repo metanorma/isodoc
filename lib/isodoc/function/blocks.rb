@@ -225,7 +225,7 @@ module IsoDoc::Function
 
     def passthrough_parse(node, out)
       return if node["format"] and !(node["format"].split(/,/).include? @format.to_s)
-      out << HTMLEntities.new.decode(node.content)
+      out.passthrough node.text
     end
   end
 end
