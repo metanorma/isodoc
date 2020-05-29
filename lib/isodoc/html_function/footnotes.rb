@@ -65,7 +65,7 @@ module IsoDoc::HtmlFunction
        return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
         !node.ancestors.map {|m| m.name }.include?("name")
       fn = node["reference"] || UUIDTools::UUID.random_create.to_s
-      attrs = { "epub:type": "footnote", rel: "footnote", href: "#fn:#{fn}" }
+      attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
       out.a **attrs do |a|
         a.sup { |sup| sup << fn }
       end

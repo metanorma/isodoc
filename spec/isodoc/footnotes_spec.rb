@@ -24,9 +24,24 @@ RSpec.describe IsoDoc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                <p>A.<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
-                <p>B.<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
-                <p>C.<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>1</sup></a></p>
+                 <p>
+                 A.
+                 <a class='FootnoteRef' href='#fn:2'>
+                   <sup>2</sup>
+                 </a>
+               </p>
+               <p>
+                 B.
+                 <a class='FootnoteRef' href='#fn:2'>
+                   <sup>2</sup>
+                 </a>
+               </p>
+               <p>
+                 C.
+                 <a class='FootnoteRef' href='#fn:1'>
+                   <sup>1</sup>
+                 </a>
+               </p>
                </div>
                <p class="zzSTDTitle1"/>
                              <aside id="fn:2" class="footnote">
@@ -80,7 +95,7 @@ RSpec.describe IsoDoc do
         <p>
           A.
           <span style='mso-bookmark:_Ref'>
-            <a href='#ftn2' epub:type='footnote'>
+            <a href='#ftn2' epub:type='footnote'  class='FootnoteRef'>
               <sup>2</sup>
             </a>
           </span>
@@ -96,7 +111,7 @@ RSpec.describe IsoDoc do
         <p>
           C.
           <span style='mso-bookmark:_Ref'>
-            <a href='#ftn1' epub:type='footnote'>
+            <a href='#ftn1' epub:type='footnote'  class='FootnoteRef'>
               <sup>1</sup>
             </a>
           </span>

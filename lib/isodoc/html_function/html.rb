@@ -3,6 +3,18 @@ require "base64"
 
 module IsoDoc::HtmlFunction
   module Html
+    def convert1(docxml, filename, dir)
+      anchor_names docxml
+      noko do |xml|
+        xml.html **{ lang: "#{@lang}" } do |html|
+          info docxml, nil
+          populate_css()
+          html.head { |head| define_head head, filename, dir }
+          make_body(html, docxml)
+        end
+      end.join("\n")
+    end
+
     def make_body1(body, _docxml)
       body.div **{ class: "title-section" } do |div1|
         div1.p { |p| p << "&nbsp;" } # placeholder

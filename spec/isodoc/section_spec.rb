@@ -609,7 +609,7 @@ OUTPUT
                  <div>
                    <h1>
                      Copyright
-                     <a rel='footnote' href='#fn:1' epub:type='footnote'>
+                     <a class='FootnoteRef' href='#fn:1'>
                        <sup>1</sup>
                      </a>
                    </h1>
@@ -619,7 +619,7 @@ OUTPUT
                  <div>
                    <h1>
                      License
-                     <a rel='footnote' href='#fn:2' epub:type='footnote'>
+                     <a class='FootnoteRef' href='#fn:2'>
                        <sup>2</sup>
                      </a>
                    </h1>
@@ -629,7 +629,7 @@ OUTPUT
                  <div>
                    <h1>
                      Legal
-                     <a rel='footnote' href='#fn:3' epub:type='footnote'>
+                     <a class='FootnoteRef' href='#fn:3'>
                        <sup>3</sup>
                      </a>
                    </h1>
@@ -639,7 +639,7 @@ OUTPUT
                  <div>
                    <h1>
                      Feedback
-                     <a rel='footnote' href='#fn:4' epub:type='footnote'>
+                     <a class='FootnoteRef' href='#fn:4'>
                        <sup>4</sup>
                      </a>
                    </h1>
@@ -661,7 +661,7 @@ OUTPUT
                <div id='C'>
                  <h2>
                    Introduction Subsection
-                   <a rel='footnote' href='#fn:8' epub:type='footnote'>
+                   <a class='FootnoteRef' href='#fn:8'>
                      <sup>8</sup>
                    </a>
                  </h2>
@@ -674,14 +674,14 @@ OUTPUT
              <div id='H'>
                <h1>
                  2.&#160; Terms, Definitions, Symbols and Abbreviated Terms
-                 <a rel='footnote' href='#fn:10' epub:type='footnote'>
+                 <a class='FootnoteRef' href='#fn:10'>
                    <sup>10</sup>
                  </a>
                </h1>
                <div id='I'>
                  <h2>
                    2.1.&#160; Normal Terms
-                   <a rel='footnote' href='#fn:11' epub:type='footnote'>
+                   <a class='FootnoteRef' href='#fn:11'>
                      <sup>11</sup>
                    </a>
                  </h2>
@@ -691,7 +691,7 @@ OUTPUT
                <div id='K'>
                  <h2>
                    2.2.&#160; Definitions
-                   <a rel='footnote' href='#fn:12' epub:type='footnote'>
+                   <a class='FootnoteRef' href='#fn:12'>
                      <sup>12</sup>
                    </a>
                  </h2>
@@ -715,7 +715,7 @@ OUTPUT
              <div id='D'>
                <h1>
                  4.&#160; Scope
-                 <a rel='footnote' href='#fn:9' epub:type='footnote'>
+                 <a class='FootnoteRef' href='#fn:9'>
                    <sup>9</sup>
                  </a>
                </h1>
@@ -724,14 +724,14 @@ OUTPUT
              <div id='M'>
                <h1>
                  5.&#160; Clause 4
-                 <a rel='footnote' href='#fn:13' epub:type='footnote'>
+                 <a class='FootnoteRef' href='#fn:13'>
                    <sup>13</sup>
                  </a>
                </h1>
                <div id='N'>
                  <h2>
                    5.1.&#160; Introduction
-                   <a rel='footnote' href='#fn:1' epub:type='footnote'>
+                   <a class='FootnoteRef' href='#fn:1'>
                      <sup>1</sup>
                    </a>
                  </h2>
@@ -739,7 +739,7 @@ OUTPUT
                <div id='O'>
                  <h2>
                    5.2.&#160; Clause 4.2
-                   <a rel='footnote' href='#fn:14' epub:type='footnote'>
+                   <a class='FootnoteRef' href='#fn:14'>
                      <sup>14</sup>
                    </a>
                  </h2>
@@ -758,7 +758,7 @@ OUTPUT
                  <br/>
                  <b>
                    Annex
-                   <a rel='footnote' href='#fn:15' epub:type='footnote'>
+                   <a class='FootnoteRef' href='#fn:15'>
                      <sup>15</sup>
                    </a>
                  </b>
@@ -766,14 +766,14 @@ OUTPUT
                <div id='Q'>
                  <h2>
                    A.1.&#160; Annex A.1
-                   <a rel='footnote' href='#fn:16' epub:type='footnote'>
+                   <a class='FootnoteRef' href='#fn:16'>
                      <sup>16</sup>
                    </a>
                  </h2>
                  <div id='Q1'>
                    <h3>
                      A.1.1.&#160; Annex A.1a
-                     <a rel='footnote' href='#fn:17' epub:type='footnote'>
+                     <a class='FootnoteRef' href='#fn:17'>
                        <sup>17</sup>
                      </a>
                    </h3>
@@ -781,7 +781,7 @@ OUTPUT
                  <div>
                    <h3>
                      A.1.2.&#160; Annex Bibliography
-                     <a rel='footnote' href='#fn:18' epub:type='footnote'>
+                     <a class='FootnoteRef' href='#fn:18'>
                        <sup>18</sup>
                      </a>
                    </h3>

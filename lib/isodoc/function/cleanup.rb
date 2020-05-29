@@ -126,7 +126,7 @@ module IsoDoc::Function
     end
 
     def footnote_cleanup(docxml)
-      docxml.xpath('//a[@epub:type = "footnote"]/sup').each_with_index do |x, i|
+      docxml.xpath('//a[@class = "FootnoteRef"]/sup').each_with_index do |x, i|
         x.content = (i + 1).to_s
       end
       docxml

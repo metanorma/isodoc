@@ -154,9 +154,9 @@ RSpec.describe IsoDoc do
     <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                <p>A.<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
-                <p>B.<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
-                <p>C.<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>1</sup></a></p>
+                <p>A.<a class="FootnoteRef" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
+                <p>B.<a class="FootnoteRef" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
+                <p>C.<a class="FootnoteRef" href="#fn:1" epub:type="footnote"><sup>1</sup></a></p>
                </div>
                <p class="zzSTDTitle1"/>
                              <aside id="fn:2" class="footnote">
@@ -173,9 +173,9 @@ RSpec.describe IsoDoc do
        <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                   <p>A.<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>1</sup></a></p>
-                   <p>B.<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
-                   <p>C.<a rel="footnote" href="#fn:1" epub:type="footnote"><sup>3</sup></a></p>
+                   <p>A.<a class="FootnoteRef" href="#fn:2" epub:type="footnote"><sup>1</sup></a></p>
+                   <p>B.<a class="FootnoteRef" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
+                   <p>C.<a class="FootnoteRef" href="#fn:1" epub:type="footnote"><sup>3</sup></a></p>
                   </div>
                   <p class="zzSTDTitle1"/>
                                 <aside id="fn:2" class="footnote">

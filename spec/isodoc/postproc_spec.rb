@@ -558,25 +558,25 @@ TOCLEVEL
              <p class="zzSTDTitle1"></p>
              <div id="A">
                <h1>1.&#xA0; Clause 4</h1>
-               <a rel="footnote" href="#fn:3" epub:type="footnote" id="fnref:1">
+               <a class='FootnoteRef' href='#fn:3' id='fnref:1'>
                  <sup>1</sup>
                </a>
                <div id="N">
 
-                <h2>1.1.&#160; Introduction to this<a rel="footnote" href="#fn:2" epub:type="footnote" id="fnref:2"><sup>2</sup></a></h2>
+                <h2>1.1.&#160; Introduction to this<a class='FootnoteRef' href='#fn:2' id='fnref:2'><sup>2</sup></a></h2>
               </div>
                <div id="O">
                 <h2>1.2.&#160; Clause 4.2</h2>
-                <p>A<a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
+                <p>A<a class='FootnoteRef' href='#fn:2'><sup>2</sup></a></p>
               </div>
              </div>
              <aside id="fn:3" class="footnote">
-         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a rel="footnote" href="#fn:3" epub:type="footnote">
+         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a class='FootnoteRef' href='#fn:3'>
                  <sup>1</sup>
                </a>This is a footnote.</p>
        <a href="#fnref:1">&#x21A9;</a></aside>
              <aside id="fn:2" class="footnote">
-         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a rel="footnote" href="#fn:2" epub:type="footnote"><sup>2</sup></a>Formerly denoted as 15 % (m/m).</p>
+         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a class='FootnoteRef' href='#fn:2'><sup>2</sup></a>Formerly denoted as 15 % (m/m).</p>
        <a href="#fnref:2">&#x21A9;</a></aside>
 
            </main>

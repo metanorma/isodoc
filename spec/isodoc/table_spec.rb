@@ -68,7 +68,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">Table 1&#160;&#8212; Repeatability and reproducibility of <i>husked</i> rice yield
-               <a rel='footnote' href='#fn:1' epub:type='footnote'>
+               <a class='FootnoteRef' href='#fn:1'>
   <sup>1</sup>
 </a>
                 </p>
@@ -227,7 +227,7 @@ RSpec.describe IsoDoc do
                  </div>
                  <p class="TableTitle" style="text-align:center;">Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield
                  <span style='mso-bookmark:_Ref'>
-   <a href='#ftn1' epub:type='footnote'>
+   <a href='#ftn1' epub:type='footnote' class='FootnoteRef'>
      <sup>1</sup>
    </a>
  </span>

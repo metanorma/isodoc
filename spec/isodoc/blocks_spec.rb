@@ -355,7 +355,7 @@ B</pre>
        </div></aside>
          <p  style='page-break-after:avoid;'><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
        <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider
-       <a rel='footnote' href='#fn:1' epub:type='footnote'>
+       <a class='FootnoteRef' href='#fn:1'>
   <sup>1</sup>
 </a>
         </p></div>
@@ -426,7 +426,7 @@ B</pre>
           <p class='FigureTitle' style='text-align:center;'>
    Figure 1&#160;&#8212; Split-it-right sample divider
    <span style='mso-bookmark:_Ref'>
-     <a href='#ftn1' epub:type='footnote'>
+     <a href='#ftn1' epub:type='footnote' class='FootnoteRef'>
        <sup>1</sup>
      </a>
    </span>
