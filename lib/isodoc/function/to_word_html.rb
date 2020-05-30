@@ -79,7 +79,7 @@ module IsoDoc::Function
 
     def make_body3(body, docxml)
       body.div **{ class: "main-section" } do |div3|
-                  boilerplate docxml, div3
+        boilerplate docxml, div3
         abstract docxml, div3
         foreword docxml, div3
         introduction docxml, div3
@@ -109,8 +109,15 @@ module IsoDoc::Function
       out.p(**{ class: "zzSTDTitle1" }) { |p| p << @meta.get[:doctitle] }
     end
 
+    def middle_admonitions(isoxml, out)
+      isoxml.xpath(ns("//sections/note | //sections/admonition")).each do |x|
+        parse(x, out)
+      end
+    end
+
     def middle(isoxml, out)
       middle_title(out)
+      middle_admonitions(isoxml, out)
       i = scope isoxml, out, 0
       i = norm_ref isoxml, out, i
       i = terms_defs isoxml, out, i
@@ -120,20 +127,20 @@ module IsoDoc::Function
       bibliography isoxml, out
     end
 
-      def boilerplate(node, out)
-        boilerplate = node.at(ns("//boilerplate")) or return
-        out.div **{class: "authority"} do |s|
-          boilerplate.children.each do |n|
-            if n.name == "title"
-              s.h1 do |h|
-                n.children.each { |nn| parse(nn, h) }
-              end
-            else
-              parse(n, s)
+    def boilerplate(node, out)
+      boilerplate = node.at(ns("//boilerplate")) or return
+      out.div **{class: "authority"} do |s|
+        boilerplate.children.each do |n|
+          if n.name == "title"
+            s.h1 do |h|
+              n.children.each { |nn| parse(nn, h) }
             end
+          else
+            parse(n, s)
           end
         end
       end
+    end
 
     def parse(node, out)
       if node.text?

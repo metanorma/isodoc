@@ -141,7 +141,7 @@ module IsoDoc::Function
     def admonition_parse(node, out)
       type = node["type"]
       name = admonition_name(node, type)
-      out.div **{ class: admonition_class(node) } do |t|
+      out.div **{ id: node["id"], class: admonition_class(node) } do |t|
         admonition_name_parse(node, t, name) if name
         node.children.each { |n| parse(n, t) unless n.name == "name" }
       end

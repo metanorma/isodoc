@@ -70,6 +70,8 @@ RSpec.describe IsoDoc do
          <title>Acknowledgements</title>
        </acknowledgements>
         </preface><sections>
+        <note id="NN1"><p>Initial note</p></note>
+        <admonition id="NN2" type="warning"><p>Initial admonition</p></admonition>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -181,6 +183,16 @@ RSpec.describe IsoDoc do
   <h1 class='IntroTitle'>Acknowledgements</h1>
 </div>
                 <p class="zzSTDTitle1"/>
+                 <div id='NN1' class='Note'>
+   <p>
+     <span class='note_label'>NOTE</span>
+     &#160; Initial note
+   </p>
+ </div>
+ <div id='NN2' class='Admonition'>
+   <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+   <p>Initial admonition</p>
+ </div>
                 <div id="D">
                   <h1>1.&#160; Scope</h1>
                   <p id="E">Text</p>

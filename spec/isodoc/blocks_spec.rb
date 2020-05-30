@@ -681,7 +681,7 @@ Que?
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+                 <div class="Admonition" id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a'><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -707,7 +707,7 @@ Que?
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">Title</p>
+                 <div class="Admonition" id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a"><p class="AdmonitionTitle" style="text-align:center;">Title</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
