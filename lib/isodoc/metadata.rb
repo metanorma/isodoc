@@ -218,5 +218,11 @@ module IsoDoc
       a = xml.at(ns("//bibdata/uri[@type = 'pdf']")) and set(:pdf, a.text)
       a = xml.at(ns("//bibdata/uri[@type = 'doc']")) and set(:doc, a.text)
     end
+
+    def keywords(isoxml, _out)
+      ret = []
+      isoxml.xpath(ns("//bibdata/keyword")).each { |kw| ret << kw.text }
+      set(:keywords, ret)
+    end
   end
 end

@@ -102,6 +102,7 @@ module IsoDoc::Function
       @meta.relations isoxml, out
       @meta.version isoxml, out
       @meta.url isoxml, out
+      @meta.keywords isoxml, out
       @meta.get
     end
 
