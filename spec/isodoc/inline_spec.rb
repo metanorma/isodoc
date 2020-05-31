@@ -549,6 +549,59 @@ OUTPUT
     OUTPUT
     end
 
-
+it "cases xrefs" do
+  expect(xmlpp(IsoDoc::HtmlConvert.new({i18nyaml: "spec/assets/i18n.yaml"}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <sections>
+    <clause id="A">
+    <table id="B">
+    </table>
+    </clause>
+    <clause id="C">
+    <p>This is <xref target="A"/> and <xref target="B"/>.
+    This is <xref target="A" case="capital"/> and <xref target="B" case="lowercase"/>.
+    <xref target="A"/> is clause <em>initial.</em><br/>
+    <xref target="A"/> is too.  </p>
+    <p><xref target="A"/> is also.</p>
+</clause>
+</sections>
+</iso-standard>
+INPUT
+        #{HTML_HDR}
+      <p class='zzSTDTitle1'/>
+      <div id='A'>
+        <h1>1.&#160; </h1>
+        <p class='TableTitle' style='text-align:center;'>Tabelo 1</p>
+        <table id='B' class='MsoISOTable' style='border-width:1px;border-spacing:0;'/>
+      </div>
+      <div id='C'>
+        <h1>2.&#160; </h1>
+        <p>
+          This is
+          <a href='#A'>kla&#365;zo 1</a>
+           and
+          <a href='#B'>Tabelo 1</a>
+          . This is
+          <a href='#A'>Kla&#365;zo 1</a>
+           and
+          <a href='#B'>tabelo 1</a>
+          .
+          <a href='#A'>Kla&#365;zo 1</a>
+           is clause
+          <i>initial.</i>
+          <br/>
+          <a href='#A'>Kla&#365;zo 1</a>
+           is too.
+        </p>
+        <p>
+          <a href='#A'>Kla&#365;zo 1</a>
+           is also.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
+OUTPUT
+end
 
 end

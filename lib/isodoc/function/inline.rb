@@ -1,28 +1,7 @@
+require_relative "inline_simple"
+
 module IsoDoc::Function
   module Inline
-    def section_break(body)
-      body.br
-    end
-
-    def page_break(out)
-      out.br
-    end
-
-    def pagebreak_parse(_node, out)
-      out.br
-    end
-
-    def hr_parse(node, out)
-      out.hr
-    end
-
-    def br_parse(node, out)
-      out.br
-    end
-
-    def index_parse(node, out)
-    end
-
     def link_parse(node, out)
       out.a **attr_code(href: node["target"], title: node["alt"]) do |l|
         if node.text.empty?
@@ -50,17 +29,39 @@ module IsoDoc::Function
         (container && get_note_container_id(node) != container &&
          @anchors[node["target"]]) &&
         linkend = prefix_container(container, linkend, node["target"])
+        linkend = capitalise_xref(node, linkend)
       end
       linkend || "???"
     end
 
+    def capitalise_xref(node, linkend)
+      return linkend unless %w(Latn Cyrl Grek).include? @script
+      return linkend&.capitalize if node["case"] == "capital"
+      return linkend&.downcase if node["case"] == "lowercase"
+      return linkend if linkend[0,1].match(/\p{Upper}/)
+      prec = nearest_block_parent(node).xpath("./descendant-or-self::text()") &
+        node.xpath("./preceding::text()")
+      (prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map { |p| p.text }.join)) ?
+        linkend&.capitalize : linkend
+    end
+
+    def nearest_block_parent(node)
+      until %w(p title td th name formula 
+        li dt dd sourcecode pre).include?(node.name)
+        node = node.parent
+      end
+      node
+    end
+
     def get_linkend(node)
-      contents = node.children.select { |c| !%w{locality localityStack}.include? c.name }.
-        select { |c| !c.text? || /\S/.match(c) }
+      contents = node.children.select do |c|
+        !%w{locality localityStack}.include? c.name 
+      end.select { |c| !c.text? || /\S/.match(c) }
       !contents.empty? and
         return Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
       link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
-      link + eref_localities(node.xpath(ns("./locality | ./localityStack")), link)
+      link + eref_localities(node.xpath(ns("./locality | ./localityStack")),
+                             link)
       # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
       # <locality type="section"><reference>3.1</reference></locality></origin>
     end
@@ -83,7 +84,7 @@ module IsoDoc::Function
           end
         else
           ret += eref_localities0(r, i, target, delim)
-          end
+        end
       end
       ret
     end
@@ -120,8 +121,9 @@ module IsoDoc::Function
     end
 
     def concept_parse(node, out)
-      content = node.first_element_child.children.select { |c| !%w{locality localityStack}.include? c.name }.
-        select { |c| !c.text? || /\S/.match(c) }
+      content = node.first_element_child.children.select do |c|
+        !%w{locality localityStack}.include? c.name 
+      end.select { |c| !c.text? || /\S/.match(c) }
       if content.empty?
         out << "[Term defined in "
         parse(node.first_element_child, out)
@@ -133,7 +135,8 @@ module IsoDoc::Function
 
     def stem_parse(node, out)
       ooml = if node["type"] == "AsciiMath"
-               "#{@openmathdelim}#{HTMLEntities.new.encode(node.text)}#{@closemathdelim}"
+               "#{@openmathdelim}#{HTMLEntities.new.encode(node.text)}"\
+                 "#{@closemathdelim}"
              elsif node["type"] == "MathML" then node.first_element_child.to_s
              else
                HTMLEntities.new.encode(node.text)
@@ -175,52 +178,6 @@ module IsoDoc::Function
       out << text
     end
 
-    def bookmark_parse(node, out)
-      out.a **attr_code(id: node["id"])
-    end
-
-    def keyword_parse(node, out)
-      out.span **{ class: "keyword" } do |s|
-        node.children.each { |n| parse(n, s) }
-      end
-    end
-
-    def em_parse(node, out)
-      out.i do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def strong_parse(node, out)
-      out.b do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def sup_parse(node, out)
-      out.sup do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def sub_parse(node, out)
-      out.sub do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def tt_parse(node, out)
-      out.tt do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
-    def strike_parse(node, out)
-      out.s do |e|
-        node.children.each { |n| parse(n, e) }
-      end
-    end
-
     def error_parse(node, out)
       text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
       out.para do |p|
@@ -232,14 +189,20 @@ module IsoDoc::Function
       if node["lang"] == @lang && node["script"] == @script
         node.children.each { |n| parse(n, out) }
       else
-        prev = node.xpath("./preceding-sibling::xmlns:variant")
-        foll = node.xpath("./following-sibling::xmlns:variant")
-        found = false
-        (prev + foll).each { |n| found = true if n["lang"] == @lang && n["script"] == @script }
-        return if found
-        return unless prev.empty?
+        return if found_matching_variant_sibling(node)
+        return unless !node.at("./preceding-sibling::xmlns:variant")
         node.children.each { |n| parse(n, out) }
       end
+    end
+
+    def found_matching_variant_sibling(node)
+      prev = node.xpath("./preceding-sibling::xmlns:variant")
+      foll = node.xpath("./following-sibling::xmlns:variant")
+      found = false
+      (prev + foll).each do |n|
+        found = true if n["lang"] == @lang && n["script"] == @script
+      end
+      found
     end
   end
 end
