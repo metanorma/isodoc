@@ -5,7 +5,6 @@ module IsoDoc::Function
     end
 
     def termref_cleanup(docxml)
-      require "byebug"; byebug
       docxml.
         gsub(%r{\s*\[/TERMREF\]\s*</p>\s*<p>\s*\[TERMREF\]}, "; ").
         gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
