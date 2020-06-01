@@ -1,16 +1,21 @@
 module IsoDoc::Function
   module Cleanup
     def textcleanup(docxml)
-      docxml = passthrough_cleanup(docxml)
+      docxml = termref_cleanup(passthrough_cleanup(docxml))
+    end
+
+    def termref_cleanup(docxml)
+      require "byebug"; byebug
       docxml.
+        gsub(%r{\s*\[/TERMREF\]\s*</p>\s*<p>\s*\[TERMREF\]}, "; ").
         gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
         gsub(/\s*\[MODIFICATION\]\s*\[\/TERMREF\]/, l10n(", #{@modified_lbl} [/TERMREF]")).
-        gsub(/\s*\[\/TERMREF\]\s*/, l10n("]")).
+        gsub(%r{\s*\[\/TERMREF\]\s*}, l10n("]")).
         gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
     end
 
     def passthrough_cleanup(docxml)
-      docxml = docxml.split(%r{(<passthrough>|</passthrough>)}).each_slice(4).map do |a|
+      docxml.split(%r{(<passthrough>|</passthrough>)}).each_slice(4).map do |a|
         a.size > 2 and a[2] = HTMLEntities.new.decode(a[2])
         [a[0], a[2]]
       end.join
