@@ -16,6 +16,7 @@ module IsoDoc::Function
             clausedelimspace(out)
           end
           c1&.children&.each { |c2| parse(c2, b) }
+          clausedelimspace(out) if /\S/.match(c1&.text)
         end
       end
     end
