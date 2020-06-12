@@ -526,19 +526,19 @@ OUTPUT
     <p>
     <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
     <eref type="inline" bibitemid="ISO712"/>
-    <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
-    <eref type="inline" bibitemid="ISO712"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
-    <eref type="inline" bibitemid="ISO712"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1.5</referenceFrom></locality></eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality>A</eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="whole"></locality></eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality></eref>
-    <eref type="inline" bibitemid="ISO712" citeas="ISO 712">A</eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>xyz</referenceFrom></locality></eref>
-    <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>xyz</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+    <eref type="inline" bibitemid="ISO713"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1.5</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom></locality>A</eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="whole"></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713" citeas="ISO 713">A</eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="anchor"><referenceFrom>xyz</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="anchor"><referenceFrom>xyz</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
     </p>
     </foreword></preface>
     <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
@@ -546,6 +546,17 @@ OUTPUT
   <title format="text/plain">Cereals and cereal products</title>
   <uri type="citation">http://www.example.com</uri>
   <docidentifier>ISO 712</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>ISO</abbreviation>
+    </organization>
+  </contributor>
+</bibitem>
+<bibitem id="ISO713" type="standard">
+  <title format="text/plain">Cereals and cereal products</title>
+  <uri type="citation">spec/assets/iso713</uri>
+  <docidentifier>ISO 713</docidentifier>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -564,19 +575,19 @@ OUTPUT
         <p>
           <a href='http://www.example.com'>ISO 712</a>
           <a href='http://www.example.com'>ISO 712</a>
-          <a href='http://www.example.com'>ISO 712, Table 1</a>
-          <a href='http://www.example.com'>ISO 712, Table 1</a>
-          <a href='http://www.example.com'>ISO 712, Table 1; Clause 1</a>
-          <a href='http://www.example.com'>ISO 712, Table 1&#8211;1</a>
-          <a href='http://www.example.com'>ISO 712, Clause 1, Table 1</a>
-          <a href='http://www.example.com'>ISO 712, Clause 1</a>
-          <a href='http://www.example.com'>ISO 712, Clause 1.5</a>
-          <a href='http://www.example.com'>A</a>
-          <a href='http://www.example.com'>ISO 712, </a>
-          <a href='http://www.example.com'>ISO 712, Prelude 7</a>
-          <a href='http://www.example.com'>A</a>
-          <a href='http://www.example.com#xyz'>ISO 712</a>
-          <a href='http://www.example.com#xyz'>ISO 712, Clause 1</a>
+          <a href='spec/assets/iso713.html'>ISO 713, Table 1</a>
+          <a href='spec/assets/iso713.html'>ISO 713, Table 1</a>
+          <a href='spec/assets/iso713.html'>ISO 713, Table 1; Clause 1</a>
+          <a href='spec/assets/iso713.html'>ISO 713, Table 1&#8211;1</a>
+          <a href='spec/assets/iso713.html'>ISO 713, Clause 1, Table 1</a>
+          <a href='spec/assets/iso713.html'>ISO 713, Clause 1</a>
+          <a href='spec/assets/iso713.html'>ISO 713, Clause 1.5</a>
+          <a href='spec/assets/iso713.html'>A</a>
+          <a href='spec/assets/iso713.html'>ISO 713, </a>
+          <a href='spec/assets/iso713.html'>ISO 713, Prelude 7</a>
+          <a href='spec/assets/iso713.html'>A</a>
+          <a href='spec/assets/iso713.html#xyz'>ISO 713</a>
+          <a href='spec/assets/iso713.html#xyz'>ISO 713, Clause 1</a>
         </p>
       </div>
       <p class='zzSTDTitle1'/>
@@ -586,12 +597,130 @@ OUTPUT
           ISO 712,
           <i>Cereals and cereal products</i>
         </p>
+        <p id='ISO713' class='NormRef'>
+  ISO 713,
+  <i>Cereals and cereal products</i>
+</p>
       </div>
     </div>
   </body>
 </html>
 OUTPUT
     end
+
+      it "processes eref content pointing to reference with citation URL (Word)" do
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <p>
+    <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
+    <eref type="inline" bibitemid="ISO712"/>
+    <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+    <eref type="inline" bibitemid="ISO713"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1.5</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom></locality>A</eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="whole"></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713" citeas="ISO 713">A</eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="anchor"><referenceFrom>xyz</referenceFrom></locality></eref>
+    <eref type="inline" bibitemid="ISO713"><locality type="anchor"><referenceFrom>xyz</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
+    </p>
+    </foreword></preface>
+    <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+<bibitem id="ISO712" type="standard">
+  <title format="text/plain">Cereals and cereal products</title>
+  <uri type="citation">http://www.example.com</uri>
+  <docidentifier>ISO 712</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>ISO</abbreviation>
+    </organization>
+  </contributor>
+</bibitem>
+<bibitem id="ISO713" type="standard">
+  <title format="text/plain">Cereals and cereal products</title>
+  <uri type="citation">spec/assets/iso713</uri>
+  <docidentifier>ISO 713</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>ISO</abbreviation>
+    </organization>
+  </contributor>
+</bibitem>
+    </references>
+    </bibliography>
+    </iso-standard>
+    INPUT
+    <html  xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+    <head>
+    <style>
+    </style>
+  </head>
+  <body lang='EN-US' link='blue' vlink='#954F72'>
+    <div class='WordSection1'>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection2'>
+      <p>
+        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+      </p>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <p>
+          <a href='http://www.example.com'>ISO 712</a>
+          <a href='http://www.example.com'>ISO 712</a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Table 1</a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Table 1</a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Table 1; Clause 1</a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Table 1&#8211;1</a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Clause 1, Table 1</a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Clause 1</a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Clause 1.5</a>
+          <a href='spec/assets/iso713.doc'>A</a>
+          <a href='spec/assets/iso713.doc'>ISO 713, </a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Prelude 7</a>
+          <a href='spec/assets/iso713.doc'>A</a>
+          <a href='spec/assets/iso713.doc#xyz'>ISO 713</a>
+          <a href='spec/assets/iso713.doc#xyz'>ISO 713, Clause 1</a>
+        </p>
+      </div>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection3'>
+      <p class='zzSTDTitle1'/>
+      <div>
+        <h1>
+          1.
+          <span style='mso-tab-count:1'>&#160; </span>
+          Normative references
+        </h1>
+        <p id='ISO712' class='NormRef'>
+          ISO 712,
+          <i>Cereals and cereal products</i>
+        </p>
+        <p id='ISO713' class='NormRef'>
+          ISO 713,
+          <i>Cereals and cereal products</i>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
+
+OUTPUT
+      end
 
     it "processes variant" do
           expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")

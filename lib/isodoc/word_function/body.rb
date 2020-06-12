@@ -240,5 +240,10 @@ module IsoDoc::WordFunction
         node.children.each { |n| parse(n, li) }
       end
     end
+
+    def suffix_url(url)
+      return url if %r{^http[s]?://}.match(url)
+      url.sub(/#{File.extname(url)}$/, ".doc")
+    end
   end
 end

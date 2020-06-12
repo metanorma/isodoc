@@ -97,12 +97,17 @@ module IsoDoc::Function
       end
     end
 
+    def suffix_url(url)
+      return url if %r{^http[s]?://}.match(url)
+      url.sub(/#{File.extname(url)}$/, ".html")
+    end
+
     def eref_target(node)
       href = "#" + node["bibitemid"]
       url = node.at(ns("//bibitem[@id = '#{node['bibitemid']}']/"\
                        "uri[@type = 'citation']"))
       return href unless url
-      href = url.text
+      href = suffix_url(url.text)
       anchor = node&.at(ns(".//locality[@type = 'anchor']"))&.text
       anchor and href += "##{anchor}"
       href
