@@ -6,6 +6,7 @@ module IsoDoc::Function
     def docid_l10n(x)
       return x if x.nil?
       x.gsub(/All Parts/i, @all_parts_lbl.downcase) if @all_parts_lbl
+      x
     end
 
     # TODO generate formatted ref if not present
