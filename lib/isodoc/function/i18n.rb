@@ -87,6 +87,7 @@ module IsoDoc::Function
 
     # TODO: move to localization file
     def eref_localities1(target, type, from, to, delim, lang = "en")
+      return "" if type == "anchor"
       return l10n(eref_localities1_zh(target, type, from, to, delim)) if lang == "zh"
       ret = delim
       loc = @locality[type] || type.sub(/^locality:/, "").capitalize

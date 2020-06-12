@@ -97,14 +97,26 @@ module IsoDoc::Function
       end
     end
 
+    def eref_target(node)
+      href = "#" + node["bibitemid"]
+      url = node.at(ns("//bibitem[@id = '#{node['bibitemid']}']/"\
+                       "uri[@type = 'citation']"))
+      return href unless url
+      href = url.text
+      anchor = node&.at(ns(".//locality[@type = 'anchor']"))&.text
+      anchor and href += "##{anchor}"
+      href
+    end
+
     def eref_parse(node, out)
       linkend = get_linkend(node)
+      href = eref_target(node)
       if node["type"] == "footnote"
         out.sup do |s|
-          s.a(**{ "href": "#" + node["bibitemid"] }) { |l| l << linkend }
+          s.a(**{ "href": href }) { |l| l << linkend }
         end
       else
-        out.a(**{ "href": "#" + node["bibitemid"] }) { |l| l << linkend }
+        out.a(**{ "href": href }) { |l| l << linkend }
       end
     end
 
