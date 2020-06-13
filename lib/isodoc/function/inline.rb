@@ -90,7 +90,7 @@ module IsoDoc::Function
     end
 
     def eref_localities0(r, i, target, delim)
-      if r["type"] == "whole" then l10n("#{delim} #{@whole_of_text}")
+      if r["type"] == "whole" then l10n("#{delim} #{@wholeoftext_lbl}")
       else
         eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
                          r.at(ns("./referenceTo")), delim, @lang)

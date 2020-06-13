@@ -501,7 +501,7 @@ OUTPUT
            <a href="#ISO712">ISO 712, Clause 1</a>
            <a href="#ISO712">ISO 712, Clause 1.5</a>
            <a href="#ISO712">A</a>
-           <a href="#ISO712">ISO 712, </a>
+           <a href="#ISO712">ISO 712, Whole of text</a>
            <a href="#ISO712">ISO 712, Prelude 7</a>
            <a href="#ISO712">A</a>
            <a href='#ISO712'>ISO 712</a>
@@ -583,7 +583,7 @@ OUTPUT
           <a href='spec/assets/iso713.html'>ISO 713, Clause 1</a>
           <a href='spec/assets/iso713.html'>ISO 713, Clause 1.5</a>
           <a href='spec/assets/iso713.html'>A</a>
-          <a href='spec/assets/iso713.html'>ISO 713, </a>
+          <a href='spec/assets/iso713.html'>ISO 713, Whole of text</a>
           <a href='spec/assets/iso713.html'>ISO 713, Prelude 7</a>
           <a href='spec/assets/iso713.html'>A</a>
           <a href='spec/assets/iso713.html#xyz'>ISO 713</a>
@@ -686,7 +686,7 @@ OUTPUT
           <a href='spec/assets/iso713.doc'>ISO 713, Clause 1</a>
           <a href='spec/assets/iso713.doc'>ISO 713, Clause 1.5</a>
           <a href='spec/assets/iso713.doc'>A</a>
-          <a href='spec/assets/iso713.doc'>ISO 713, </a>
+          <a href='spec/assets/iso713.doc'>ISO 713, Whole of text</a>
           <a href='spec/assets/iso713.doc'>ISO 713, Prelude 7</a>
           <a href='spec/assets/iso713.doc'>A</a>
           <a href='spec/assets/iso713.doc#xyz'>ISO 713</a>
