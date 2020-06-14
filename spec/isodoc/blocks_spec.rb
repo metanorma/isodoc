@@ -505,37 +505,14 @@ B</pre>
 OUTPUT
     end
 
-=begin
-   context "disable inkscape" do
-    let (:wconv) { instance_double("IsoDoc::WordConvert") }
-    let (:wconv_class) { class_double("IsoDoc::WordConvert") }
-
-    before do
-      allow(wconv_class).to receive(:new).and_return(wconv)
-      #expect(IsoDoc::WordConvert).to receive(:new).with({}).and_return(wconv)
-    expect(wconv).to receive(:convert).with("test", anything(), true) do |*args|
-      wconv.convert(args)
-    end
-    expect(wconv).to receive(:inkscape_installed?) do
-      nil
-    end
-    end
-=end
-
 context "disable inkscape" do
-    #let (:wconv) { double(IsoDoc::WordConvert) }
-
-
 
    it "converts SVG (Word) with inkscape disabled" do
     FileUtils.rm_rf "spec/assets/odf1.emf"
-IsoDoc::WordConvert.any_instance.stub(:inkscape_installed?).and_return(nil)
+    allow(IsoDoc::WordFunction::Body).to receive(:inkscape_installed?).and_return(nil)
+    allow_any_instance_of(IsoDoc::WordFunction::Body).to receive(:inkscape_installed?)
 
-    allow(IsoDoc::WordConvert).to receive(:convert).and_call_original
-
-
-
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.svg['"]/, "'_.svg'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <figure id="figureA-1">
@@ -546,8 +523,42 @@ IsoDoc::WordConvert.any_instance.stub(:inkscape_installed?).and_return(nil)
     </foreword></preface>
     </iso-standard>
     INPUT
+ <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+<head>
+<style>
+        </style>
+  </head>
+  <body lang='EN-US' link='blue' vlink='#954F72'>
+    <div class='WordSection1'>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection2'>
+      <p>
+        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+      </p>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <div id='figureA-1' class='figure'>
+          <img src='spec/assets/odf.emf'/>
+          <img src='spec/assets/odf1.svg'/>
+          <img src='_.svg' height='auto' width='auto'/>
+          <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
+        </div>
+      </div>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection3'>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
 
-INPUT
 OUTPUT
     end
    end

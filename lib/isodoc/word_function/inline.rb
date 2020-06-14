@@ -39,7 +39,7 @@ module IsoDoc::WordFunction
     end
 
     def svg_to_emf_filename(uri)
-      File.join(File.dirname(uri), File.basename(uri), ".emf")
+      File.join(File.dirname(uri), File.basename(uri, ".*")) + ".emf"
     end
 
     def svg_to_emf(node)
@@ -48,14 +48,14 @@ module IsoDoc::WordFunction
       %r{^data:image/}.match(uri) and uri = save_dataimage(uri)
       ret = svg_to_emf_filename(uri)
       File.exists?(ret) and return ret
-      exe = inkspace_installed? or return nil
-      system %(inkscape --export-type="emf" #{uri}) and
+      exe = inkscape_installed? or return nil
+      system %(#{exe} --export-type="emf" #{uri}) and
         return ret
       nil
     end
 
-    def self.inkspace_installed?
-      cmd = "inkspace"
+    def inkscape_installed?
+      cmd = "inkscape"
       exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
       ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
         exts.each do |ext|
