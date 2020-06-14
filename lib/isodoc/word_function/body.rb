@@ -1,4 +1,5 @@
 require_relative "./table.rb"
+require_relative "./inline.rb"
 
 module IsoDoc::WordFunction
   module Body
@@ -67,28 +68,6 @@ module IsoDoc::WordFunction
         node.children.each { |n| parse(n, p) unless n.name == "note" }
       end
       node.xpath(ns("./note")).each { |n| parse(n, out) }
-    end
-
-    def section_break(body)
-      body.p do |p|
-        p.br **{ clear: "all", class: "section" }
-      end
-    end
-
-    def page_break(out)
-      out.p do |p|
-        p.br **{ clear: "all",
-                 style: "mso-special-character:line-break;"\
-                 "page-break-before:always" }
-      end
-    end
-
-    def pagebreak_parse(node, out)
-      return page_break(out) if node["orientation"].nil?
-      out.p do |p|
-        p.br **{clear: "all", class: "section", 
-                orientation: node["orientation"] }
-      end
     end
 
     WORD_DT_ATTRS = {class: @note ? "Note" : nil, align: "left",
@@ -191,27 +170,6 @@ module IsoDoc::WordFunction
         attrs[:style] = "text-align:#{node['align']}"
       end
       attrs
-    end
-
-    def imgsrc(uri)
-      return uri unless %r{^data:image/}.match uri
-      save_dataimage(uri)
-    end
-
-    def image_parse(node, out, caption)
-      attrs = { src: imgsrc(node["src"]),
-                height: node["height"],
-                alt: node["alt"],
-                title: node["title"],
-                width: node["width"] }
-      out.img **attr_code(attrs)
-      image_title_parse(out, caption)
-    end
-
-    def xref_parse(node, out)
-      target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".doc#") :
-        "##{node["target"]}"
-        out.a(**{ "href": target }) { |l| l << get_linkend(node) }
     end
 
     def example_table_attr(node)

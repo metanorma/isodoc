@@ -156,6 +156,7 @@ module IsoDoc::Function
     def save_dataimage(uri, relative_dir = true)
       %r{^data:image/(?<imgtype>[^;]+);base64,(?<imgdata>.+)$} =~ uri
       imgtype = "png" unless /^[a-z0-9]+$/.match imgtype
+      imgtype.sub!(/\+[a-z0-9]+$/, "") # svg+xml
       Tempfile.open(["image", ".#{imgtype}"]) do |f|
         f.binmode
         f.write(Base64.strict_decode64(imgdata))

@@ -380,6 +380,7 @@ B</pre>
   end
 
   it "processes figures (Word)" do
+    FileUtils.rm_rf "spec/assets/odf1.emf"
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(/['"][^'".]+\.gif['"]/, "'_.gif'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -451,6 +452,45 @@ B</pre>
        </html>
     OUTPUT
   end
+
+   it "converts SVG (Word)" do
+    FileUtils.rm_rf "spec/assets/odf1.emf"
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(/['"][^'".]+\.gif['"]/, "'_.gif'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <figure id="figureA-1">
+  <image src="spec/assets/odf.svg" mimetype="image/svg+xml"/>
+  <image src="spec/assets/odf1.svg" mimetype="image/svg+xml"/>
+  <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
+</figure>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+
+INPUT
+OUTPUT
+    end
+
+   it "converts SVG (Word) with inkspace disabled" do
+    FileUtils.rm_rf "spec/assets/odf1.emf"
+    mock_disable_inkspace
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(/['"][^'".]+\.gif['"]/, "'_.gif'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <figure id="figureA-1">
+  <image src="spec/assets/odf.svg" mimetype="image/svg+xml"/>
+  <image src="spec/assets/odf1.svg" mimetype="image/svg+xml"/>
+  <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
+</figure>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+
+INPUT
+OUTPUT
+    end
+
+
 
   it "processes examples" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
@@ -1512,6 +1552,14 @@ expect(( File.read("test.html").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h
     OUTPUT
   end
 
+private
+
+def mock_inkspace_disabled
+    expect(IsoDoc::WordConvert).to receive(:inkspace_installed?) do
+      raise "Inkspace not installed"
+      false
+    end
+  end
 
 
 end
