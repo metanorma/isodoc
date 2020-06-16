@@ -1,8 +1,11 @@
 module IsoDoc::Function
   module Lists
+    def ul_attrs(node)
+      { id: node["id"], style: keep_style(node) }
+    end
 
     def ul_parse(node, out)
-      out.ul **attr_code(id: node["id"]) do |ul|
+      out.ul **attr_code(ul_attrs(node)) do |ul|
         node.children.each { |n| parse(n, ul) }
       end
     end
@@ -34,9 +37,12 @@ module IsoDoc::Function
       ol_style(type)
     end
 
+    def ol_attrs(node)
+      { type: ol_depth(node), id: node["id"], style: keep_style(node) }
+    end
+
     def ol_parse(node, out)
-      style = ol_depth(node)
-      out.ol **attr_code(type: style, id: node["id"] ) do |ol|
+      out.ol **attr_code(ol_attrs(node)) do |ol|
         node.children.each { |n| parse(n, ol) }
       end
     end
@@ -67,12 +73,12 @@ module IsoDoc::Function
       %w{dt dd}.include? n.name
     end
 
-    def dl_attr(node)
-      attr_code(id: node["id"])
+    def dl_attrs(node)
+      attr_code(id: node["id"], style: keep_style(node))
     end
 
     def dl_parse(node, out)
-      out.dl  **dl_attr(node) do |v|
+      out.dl  **dl_attrs(node) do |v|
         node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
           v.dt **attr_code(id: dt["id"]) do |term|
             dt_parse(dt, term) 

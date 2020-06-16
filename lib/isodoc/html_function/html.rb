@@ -102,7 +102,7 @@ module IsoDoc::HtmlFunction
     def sourcecode_parse(node, out)
       name = node.at(ns("./name"))
       class1 = "prettyprint #{sourcecodelang(node&.at(ns('./@lang'))&.value)}"
-      out.pre **attr_code(id: node["id"], class: class1) do |div|
+      out.pre **sourcecode_attrs(node).merge(class: class1) do |div|
         @sourcecode = true
         node.children.each { |n| parse(n, div) unless n.name == "name" }
         @sourcecode = false

@@ -44,12 +44,12 @@ module IsoDoc::Function
       end
     end
 
-    def make_table_attr(node)
+    def table_attrs(node)
       width = node["width"] ? "width:#{node['width']};" : nil
       attr_code(
         id: node["id"],
         class: "MsoISOTable",
-        style: "border-width:1px;border-spacing:0;#{width}",
+        style: "border-width:1px;border-spacing:0;#{width}#{keep_style(node)}",
         title: node["alt"]
       )
     end
@@ -66,7 +66,7 @@ module IsoDoc::Function
     def table_parse(node, out)
       @in_table = true
       table_title_parse(node, out)
-      out.table **make_table_attr(node) do |t|
+      out.table **table_attrs(node) do |t|
         tcaption(node, t)
         thead_parse(node, t)
         tbody_parse(node, t)

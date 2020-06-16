@@ -6,7 +6,7 @@ RSpec.describe IsoDoc do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
-      <table id="tableD-1" alt="tool tip" summary="long desc" width="70%">
+      <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
   <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
   <thead>
     <tr>
@@ -72,7 +72,7 @@ RSpec.describe IsoDoc do
   <sup>1</sup>
 </a>
                 </p>
-               <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;" title="tool tip">
+               <table id="tableD-1" class="MsoISOTable" style="border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" >
                <caption>
                <span style="display:none">long desc</span>
                </caption>
@@ -121,7 +121,7 @@ RSpec.describe IsoDoc do
                    </dt>
                    <dd>A type of rice</dd>
                  </dl>
-                 <div id="" class="Note">
+                 <div class="Note">
                    <p><span class="note_label">NOTE</span>&#160; This is a table about rice</p>
                  </div>
                </table>
@@ -281,7 +281,7 @@ RSpec.describe IsoDoc do
                        <td valign="top">A type of rice</td>
                      </tr>
                    </table>
-                   <div id="" class="Note">
+                   <div class="Note">
                      <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>This is a table about rice</p>
                    </div>
                  </table>

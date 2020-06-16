@@ -921,8 +921,9 @@ TOCLEVEL
            <p class='MsoListParagraphCxSpLast'>
              C1
              <div class='ListContLevel2'>
-               <div class='formula'>
+               <div>
                  <a name='_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62' id='_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62'/>
+               <div class='formula'>
                  <p class='MsoNormal'>
                    <span class='stem'>
                      <m:oMath>
@@ -934,6 +935,7 @@ TOCLEVEL
                    <span style='mso-tab-count:1'>&#xA0; </span>
                    (1)
                  </p>
+                 </div>
                </div>
              </div>
            </p>
@@ -1346,7 +1348,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
 </p>
            <div class='Section3' id=''>
              <h1 class='IntroTitle'>Introduction</h1>
-             <p align='center' style='text-align:center' class='MsoNormal'>
+             <p align='center' style='text-align:center;' class='MsoNormal'>
                This is a 
                <p class='MsoNormal'>
                  <br clear='all' class='section'/>
@@ -1389,7 +1391,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
            <p class='zzSTDTitle1'>Document title</p>
            <div>
              <h1>Foreword</h1>
-             <div id='' class='Note'>
+             <div class='Note'>
                <p class='Note'>
                  <span class='note_label'>NOTE 1</span>
                  <span style='mso-tab-count:1'>&#xA0; </span>

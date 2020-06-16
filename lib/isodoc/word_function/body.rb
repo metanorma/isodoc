@@ -153,7 +153,7 @@ module IsoDoc::WordFunction
     end
 
     def termnote_parse(node, out)
-      out.div **{ class: "Note" } do |div|
+      out.div **note_attrs(node) do |div|
         first = node.first_element_child
         div.p **{ class: "Note" } do |p|
           anchor = get_anchors[node['id']]
@@ -164,11 +164,13 @@ module IsoDoc::WordFunction
     end
 
     def para_attrs(node)
-      attrs = { class: para_class(node), id: node["id"] }
+      attrs = { class: para_class(node), id: node["id"], style: "" }
       unless node["align"].nil?
         attrs[:align] = node["align"] unless node["align"] == "justify"
-        attrs[:style] = "text-align:#{node['align']}"
+        attrs[:style] += "text-align:#{node['align']};"
       end
+      attrs[:style] += "#{keep_style(node)}"
+      attrs[:style] = nil if attrs[:style].empty?
       attrs
     end
 
@@ -177,7 +179,8 @@ module IsoDoc::WordFunction
         style: "mso-table-lspace:15.0cm;margin-left:423.0pt;"\
         "mso-table-rspace:15.0cm;margin-right:423.0pt;"\
         "mso-table-anchor-horizontal:column;"\
-        "mso-table-overlap:never;border-collapse:collapse;"
+        "mso-table-overlap:never;border-collapse:collapse;"\
+        "#{keep_style(node)}"
       })
     end
 

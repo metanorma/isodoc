@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <note>
+    <note id="A" keep-with-next="true" keep-lines-together="true">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
     </foreword></preface>
@@ -15,7 +15,7 @@ RSpec.describe IsoDoc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="" class="Note">
+                 <div id="A" class="Note" style="page-break-after: avoid;page-break-inside: avoid;">
                    <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                  </div>
                </div>
@@ -30,7 +30,7 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <note>
+    <note id="A">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
 </note>
     </foreword></preface>
@@ -47,7 +47,7 @@ RSpec.describe IsoDoc do
              <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <div id="" class="Note">
+               <div id="A" class="Note">
                  <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
                </div>
              </div>
@@ -134,7 +134,7 @@ INPUT
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="" class="Note">
+                 <div class="Note">
                    <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                    <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
                  </div>
@@ -150,7 +150,7 @@ INPUT
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <note>
+    <note id="A">
     <dl>
     <dt>A</dt>
     <dd><p>B</p></dd>
@@ -165,7 +165,7 @@ INPUT
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="" class="Note"><p><span class="note_label">NOTE</span>&#160; </p>
+                 <div id="A" class="Note"><p><span class="note_label">NOTE</span>&#160; </p>
            <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
            <ul>
            <li>C</li></ul>
@@ -183,7 +183,7 @@ INPUT
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <note>
+    <note id="A">
     <dl>
     <dt>A</dt>
     <dd><p>B</p></dd>
@@ -205,7 +205,7 @@ INPUT
              <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <div id="" class="Note"><p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span></p>
+               <div id="A" class="Note"><p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span></p>
            <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p class="Note">B</p></td></tr></table>
            <ul>
            <li>C</li></ul>
@@ -317,7 +317,7 @@ OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <figure id="figureA-1">
+    <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
   <name>Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
   <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
   <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
@@ -345,7 +345,7 @@ B</pre>
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="figureA-1" class="figure">
+                 <div id="figureA-1" class="figure" style='page-break-after: avoid;page-break-inside: avoid;'>
 
          <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletxt"/>
          <img src="rice_images/rice_image1.png" height="20" width="auto"/>
@@ -568,7 +568,7 @@ OUTPUT
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <example id="samplecode">
+    <example id="samplecode" keep-with-next="true" keep-lines-together="true">
     <name>Title</name>
   <p>Hello</p>
   <sourcecode id="X">
@@ -582,7 +582,7 @@ OUTPUT
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="samplecode" class="example">
+                 <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
                  <p class="example-title">EXAMPLE&#160;&#8212; Title</p>
          <p>Hello</p>
          <pre id='X' class='prettyprint '>
@@ -601,6 +601,60 @@ OUTPUT
     OUTPUT
   end
 
+   it "processes examples (Word)" do
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <example id="samplecode" keep-with-next="true" keep-lines-together="true">
+    <name>Title</name>
+  <p>Hello</p>
+  <sourcecode id="X">
+  <name>Sample</name>
+  </sourcecode>
+</example>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    <html  xmlns:epub='http://www.idpf.org/2007/ops' lang='en'><head><style>
+        </style>
+  </head>
+  <body lang='EN-US' link='blue' vlink='#954F72'>
+    <div class='WordSection1'>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection2'>
+      <p>
+        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+      </p>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <div id='samplecode' class='example' style='page-break-after: avoid;page-break-inside: avoid;'>
+          <p class='example-title'>EXAMPLE&#160;&#8212; Title</p>
+          <p>Hello</p>
+          <p id='X' class='Sourcecode'>
+            <br/>
+            &#160;
+            <br/>
+            &#160;
+          </p>
+          <p class='SourceTitle' style='text-align:center;'>Sample</p>
+        </div>
+      </div>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection3'>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+OUTPUT
+   end
 
   it "processes sequences of examples" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
@@ -783,7 +837,7 @@ Que?
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
+    <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution" keep-with-next="true" keep-lines-together="true">
   <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
 </admonition>
     </foreword></preface>
@@ -793,7 +847,7 @@ Que?
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div class="Admonition" id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a'><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+                 <div class="Admonition" id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' style='page-break-after: avoid;page-break-inside: avoid;'><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -835,7 +889,7 @@ Que?
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true">
+    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
   <stem type="AsciiMath">r = 1 %</stem>
 <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
   <dt>
@@ -859,16 +913,16 @@ Que?
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after:avoid;'>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
+                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after:avoid;'>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
            <span class="stem">(#(r)#)</span>
          </dt><dd>
            <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
          </dd></dl>
 
 
-           <div id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0" class="Note"><p><span class="note_label">NOTE</span>&#160; [durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div>
+           <div id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0" class="Note"><p><span class="note_label">NOTE</span>&#160; [durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
 
-                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181935" class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div>
+                 <div id="_be9158af-7e93-4ee2-90c5-26d31c181935"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div></div>
                  </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -881,7 +935,7 @@ Que?
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true">
+    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"   keep-with-next="true" keep-lines-together="true">
   <stem type="AsciiMath">r = 1 %</stem>
 <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
   <dt>
@@ -919,7 +973,7 @@ Que?
              </p>
              <div>
                <h1 class='ForewordTitle'>Foreword</h1>
-               <div id='_be9158af-7e93-4ee2-90c5-26d31c181934' class='formula'>
+               <div id='_be9158af-7e93-4ee2-90c5-26d31c181934' style='page-break-after: avoid;page-break-inside: avoid;'><div class='formula'>
                  <p>
                    <span class='stem'>(#(r = 1 %)#)</span>
                  </p>
@@ -946,12 +1000,14 @@ Que?
                    always expressed.
                  </p>
                </div>
-               <div id='_be9158af-7e93-4ee2-90c5-26d31c181935' class='formula'>
+               </div>
+               <div id='_be9158af-7e93-4ee2-90c5-26d31c181935'><div class='formula'>
                  <p>
                    <span class='stem'>(#(r = 1 %)#)</span>
                    <span style='mso-tab-count:1'>&#160; </span>
                    (1)
                  </p>
+                 </div>
                </div>
              </div>
              <p>&#160;</p>
@@ -967,14 +1023,14 @@ Que?
     OUTPUT
   end
 
-  it "processes paragraph alignments" do
+  it "processes paragraph attributes" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
 Fictitious<br/>
 World</p>
-    <p align="justify">Justify</p>
+    <p align="justify" keep-with-next="true" keep-lines-together="true">Justify</p>
     </foreword></preface>
     </iso-standard>
     INPUT
@@ -986,7 +1042,7 @@ World</p>
        Fictitious<br/>
        World
            </p>
-           <p style="text-align:justify;">Justify</p>
+           <p style="text-align:justify;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -995,14 +1051,14 @@ World</p>
     OUTPUT
   end
 
-  it "processes paragraph alignments (Word)" do
+  it "processes paragraph attributes (Word)" do
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
 Fictitious<br/>
 World</p>
-    <p align="justify">Justify</p>
+    <p align="justify" keep-with-next="true" keep-lines-together="true">Justify</p>
     </foreword></preface>
     </iso-standard>
     INPUT
@@ -1017,11 +1073,11 @@ World</p>
                <p><br  clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left">Vache Equipment<br/>
+                 <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left;">Vache Equipment<br/>
        Fictitious<br/>
        World
            </p>
-           <p style="text-align:justify">Justify</p>
+           <p style="text-align:justify;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
                </div>
                <p>&#160;</p>
              </div>
@@ -1096,7 +1152,7 @@ World</p>
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <permission id="_">
+    <permission id="_"   keep-with-next="true" keep-lines-together="true">
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
@@ -1154,7 +1210,8 @@ World</p>
        <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="permission"><p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
+        <div class="permission" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
+        <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
         <p><i>Subject: user<br/>
 Inherits: /ss/584/2015/level/1
 <br/>
@@ -1170,7 +1227,7 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
   </div>
   <div class="requirement-measurement-target">
     <p id="_">The measurement target shall be measured as:</p>
-    <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
 
 
   </div>
@@ -1200,7 +1257,7 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <requirement id="A" unnumbered="true">
+    <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
   <title>A New Requirement</title>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
@@ -1226,7 +1283,7 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
   <description>
     <p id="_">As for the measurement targets,</p>
   </description>
-  <measurement-target exclude="false">
+  <measurement-target exclude="false"  keep-with-next="true" keep-lines-together="true">
     <p id="_">The measurement target shall be measured as:</p>
     <formula id="B">
       <stem type="AsciiMath">r/1 = 0</stem>
@@ -1251,7 +1308,8 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
         <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="require"><p class="RecommendationTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user<br/>Inherits: /ss/584/2015/level/1</i></p>
+        <div class="require" id='A' style='page-break-after: avoid;page-break-inside: avoid;'>
+<p class="RecommendationTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user<br/>Inherits: /ss/584/2015/level/1</i></p>
 
   <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>
@@ -1260,9 +1318,9 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
   <div class="requirement-description">
     <p id="_">As for the measurement targets,</p>
   </div>
-  <div class="requirement-measurement-target">
+  <div class="requirement-measurement-target"  style='page-break-after: avoid;page-break-inside: avoid;'>
     <p id="_">The measurement target shall be measured as:</p>
-    <div id="B" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
 
 
   </div>
@@ -1339,7 +1397,7 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
              <br/>
              <div>
                <h1 class='ForewordTitle'>Avant-propos</h1>
-               <div class='require'>
+               <div class='require' id="A">
                  <p class='RecommendationTitle'>
                    Exigence:
                    <br/>
@@ -1364,11 +1422,12 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
                  </div>
                  <div class='requirement-measurement-target'>
                    <p id='_'>The measurement target shall be measured as:</p>
-                   <div id='B' class='formula'>
+                   <div id='B'><div class='formula'>
                      <p>
                        <span class='stem'>(#(r/1 = 0)#)</span>
                        &#160; (1)
                      </p>
+                     </div>
                    </div>
                  </div>
                  <div class='requirement-verification'>
@@ -1399,7 +1458,7 @@ end
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <recommendation id="_" obligation="shall,could">
+    <recommendation id="_" obligation="shall,could"   keep-with-next="true" keep-lines-together="true">
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <classification><tag>type</tag><value>text</value></classification>
@@ -1451,7 +1510,8 @@ end
        <br/>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-<div class="recommend"><p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could<br/>Subject: user<br/>Inherits: /ss/584/2015/level/1<br/>Type: text<br/>Language: BASIC</i></p>
+<div class="recommend"  id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
+<p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could<br/>Subject: user<br/>Inherits: /ss/584/2015/level/1<br/>Type: text<br/>Language: BASIC</i></p>
   <div class="requirement-description">
     <p id="_">I recommend <i>this</i>.</p>
   </div>
@@ -1461,7 +1521,7 @@ end
   </div>
   <div class="requirement-measurement-target">
     <p id="_">The measurement target shall be measured as:</p>
-    <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
 
 
   </div>
@@ -1486,7 +1546,7 @@ end
     <language>en</language>
     </bibdata>
         <preface><foreword>
-  <figure id="_" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong><br/>
+  <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Label</name><p id="_">  <strong>A</strong><br/>
         <smallcap>B</smallcap></p>
 <p id="_">  <em>C</em></p></figure>
 </preface></itu-standard>
@@ -1495,7 +1555,7 @@ INPUT
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <div id="_" class="pseudocode"><p id="_">&#160;&#160;<b>A</b><br/>
+               <div id="_" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'><p id="_">&#160;&#160;<b>A</b><br/>
        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-variant:small-caps;">B</span></p>
        <p id="_">&#160;&#160;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
              </div>

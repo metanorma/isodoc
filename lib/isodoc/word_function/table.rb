@@ -33,12 +33,12 @@ module IsoDoc::WordFunction
         align: td["align"], style: style.gsub(/\n/, "") }
     end
 
-    def make_table_attr(node)
+    def table_attrs(node)
       super.merge(attr_code({
         summary: node["summary"],
         width: node["width"],
         style: "mso-table-anchor-horizontal:column;"\
-        "mso-table-overlap:never;border-spacing:0;border-width:1px;"
+        "mso-table-overlap:never;border-spacing:0;border-width:1px;#{keep_style(node)}"
       }))
     end
 
@@ -46,7 +46,7 @@ module IsoDoc::WordFunction
       @in_table = true
       table_title_parse(node, out)
       out.div **{ align: "center", class: "table_container" } do |div|
-        div.table **make_table_attr(node) do |t|
+        div.table **table_attrs(node) do |t|
           thead_parse(node, t)
           tbody_parse(node, t)
           tfoot_parse(node, t)

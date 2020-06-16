@@ -60,8 +60,12 @@ module IsoDoc::Function
       %w(label title subject classification tag value inherit).include? n.name
     end
 
+    def reqt_attrs(node, klass)
+      attr_code(class: klass, id: node["id"], style: keep_style(node))
+    end
+
     def recommendation_parse(node, out)
-      out.div **{ class: "recommend" } do |t|
+      out.div **reqt_attrs(node, "recommend") do |t|
         recommendation_name(node, t, @recommendation_lbl)
         recommendation_attributes(node, out)
         node.children.each do |n|
@@ -71,7 +75,7 @@ module IsoDoc::Function
     end
 
     def requirement_parse(node, out)
-      out.div **{ class: "require" } do |t|
+      out.div **reqt_attrs(node, "require") do |t|
         recommendation_name(node, t, @requirement_lbl)
         recommendation_attributes(node, out)
         node.children.each do |n|
@@ -81,7 +85,7 @@ module IsoDoc::Function
     end
 
     def permission_parse(node, out)
-      out.div **{ class: "permission" } do |t|
+      out.div **reqt_attrs(node, "permission") do |t|
         recommendation_name(node, t, @permission_lbl)
         recommendation_attributes(node, out)
         node.children.each do |n|
@@ -90,9 +94,14 @@ module IsoDoc::Function
       end
     end
 
+    def reqt_component_attrs(node)
+      attr_code(class: "requirement-" + node.name,
+                style: keep_style(node))
+    end
+
     def requirement_component_parse(node, out)
       return if node["exclude"] == "true"
-      out.div **{ class: "requirement-" + node.name } do |div|
+      out.div **reqt_component_attrs(node) do |div|
         node.children.each do |n|
           parse(n, div)
         end

@@ -1,44 +1,8 @@
-require_relative "blocks_example"
+require_relative "blocks_example_note"
 
 module IsoDoc::Function
   module Blocks
     @annotation = false
-
-    def note_label(node)
-      n = get_anchors[node["id"]]
-      return @note_lbl if n.nil? || n[:label].nil? || n[:label].empty?
-      l10n("#{@note_lbl} #{n[:label]}")
-    end
-
-    def note_p_parse(node, div)
-      div.p do |p|
-        p.span **{ class: "note_label" } do |s|
-          s << note_label(node)
-        end
-        insert_tab(p, 1)
-        node.first_element_child.children.each { |n| parse(n, p) }
-      end
-      node.element_children[1..-1].each { |n| parse(n, div) }
-    end
-
-    def note_parse1(node, div)
-      div.p do |p|
-        p.span **{ class: "note_label" } do |s|
-          s << note_label(node)
-        end
-        insert_tab(p, 1)
-      end
-      node.children.each { |n| parse(n, div) }
-    end
-
-    def note_parse(node, out)
-      @note = true
-      out.div **{ id: node["id"], class: "Note" } do |div|
-        node.first_element_child.name == "p" ?
-          note_p_parse(node, div) : note_parse1(node, div)
-      end
-      @note = false
-    end
 
     def figure_name_parse(node, div, name)
       return if name.nil? && node.at(ns("./figure"))
@@ -58,11 +22,15 @@ module IsoDoc::Function
       end
     end
 
+    def figure_attrs(node)
+      attr_code(id: node["id"], class: "figure", style: keep_style(node))
+    end
+
     def figure_parse(node, out)
       return pseudocode_parse(node, out) if node["class"] == "pseudocode" ||
         node["type"] == "pseudocode"
       @in_figure = true
-      out.div **attr_code(id: node["id"], class: "figure") do |div|
+      out.div **figure_attrs(node) do |div|
         node.children.each do |n|
           figure_key(out) if n.name == "dl"
           parse(n, div) unless n.name == "name"
@@ -72,10 +40,14 @@ module IsoDoc::Function
       @in_figure = false
     end
 
+    def pseudocode_attrs(node)
+      attr_code(id: node["id"], class: "pseudocode", style: keep_style(node))
+    end
+
     def pseudocode_parse(node, out)
       @in_figure = true
       name = node.at(ns("./name"))
-      out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
+      out.div **pseudocode_attrs(node) do |div|
         node.children.each { |n| parse(n, div) unless n.name == "name" }
         sourcecode_name_parse(node, div, name)
       end
@@ -101,9 +73,13 @@ module IsoDoc::Function
       end
     end
 
+    def sourcecode_attrs(node)
+      attr_code(id: node["id"], class: "Sourcecode", style: keep_style(node))
+    end
+
     def sourcecode_parse(node, out)
       name = node.at(ns("./name"))
-      out.p **attr_code(id: node["id"], class: "Sourcecode") do |div|
+      out.p **sourcecode_attrs(node) do |div|
         @sourcecode = true
         node.children.each { |n| parse(n, div) unless n.name == "name" }
         @sourcecode = false
@@ -138,10 +114,15 @@ module IsoDoc::Function
       name
     end
 
+    def admonition_attrs(node)
+      attr_code(id: node["id"], class: admonition_class(node),
+                style: keep_style(node))
+    end
+
     def admonition_parse(node, out)
       type = node["type"]
       name = admonition_name(node, type)
-      out.div **{ id: node["id"], class: admonition_class(node) } do |t|
+      out.div **admonition_attrs(node) do |t|
         admonition_name_parse(node, t, name) if name
         node.children.each { |n| parse(n, t) unless n.name == "name" }
       end
@@ -157,7 +138,7 @@ module IsoDoc::Function
     end
 
     def formula_parse1(node, out)
-      out.div **attr_code(id: node["id"], class: "formula") do |div|
+      out.div **attr_code(class: "formula") do |div|
         div.p do |p|
           parse(node.at(ns("./stem")), div)
           lbl = anchor(node['id'], :label, false)
@@ -169,12 +150,18 @@ module IsoDoc::Function
       end
     end
 
+    def formula_attrs(node)
+      attr_code(id: node["id"], style: keep_style(node))
+    end
+
     def formula_parse(node, out)
-      formula_parse1(node, out)
-      formula_where(node.at(ns("./dl")), out)
-      node.children.each do |n|
-        next if %w(stem dl).include? n.name
-        parse(n, out)
+      out.div **formula_attrs(node) do |div|
+        formula_parse1(node, div)
+        formula_where(node.at(ns("./dl")), div)
+        node.children.each do |n|
+          next if %w(stem dl).include? n.name
+          parse(n, div)
+        end
       end
     end
 
@@ -187,8 +174,9 @@ module IsoDoc::Function
 
     def para_attrs(node)
       attrs = { class: para_class(node), id: node["id"] }
-      node["align"].nil? or
-        attrs[:style] = "text-align:#{node['align']};"
+      s = node["align"].nil? ? "" : "text-align:#{node['align']};"
+      s = "#{s}#{keep_style(node)}"
+      attrs[:style] = s unless s.empty?
       attrs
     end
 
@@ -224,7 +212,8 @@ module IsoDoc::Function
     end
 
     def passthrough_parse(node, out)
-      return if node["format"] and !(node["format"].split(/,/).include? @format.to_s)
+      return if node["format"] and
+        !(node["format"].split(/,/).include? @format.to_s)
       out.passthrough node.text
     end
   end

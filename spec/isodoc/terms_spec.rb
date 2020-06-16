@@ -11,7 +11,7 @@ RSpec.describe IsoDoc do
 <term id="paddy1"><preferred>paddy</preferred>
 <domain>rice</domain>
 <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-<termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
+<termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892"  keep-with-next="true" keep-lines-together="true">
   <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
   <ul>
   <li>A</li>
@@ -58,7 +58,7 @@ RSpec.describe IsoDoc do
   <li>A</li>
   </ul>
 </termexample>
-<termnote id="_671a1994-4783-40d0-bc81-987d06ffb74e">
+<termnote id="_671a1994-4783-40d0-bc81-987d06ffb74e"  keep-with-next="true" keep-lines-together="true">
   <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
 </termnote>
 <termnote id="_671a1994-4783-40d0-bc81-987d06ffb74f">
@@ -79,7 +79,7 @@ RSpec.describe IsoDoc do
        <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;">paddy</p>
 
        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">&lt;rice&gt; rice retaining its husk after threshing</p>
-       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example"><p class="example-title">EXAMPLE 1</p>
+       <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example"  style='page-break-after: avoid;page-break-inside: avoid;'><p class="example-title">EXAMPLE 1</p>
          <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
          <ul>
          <li>A</li>
@@ -106,8 +106,8 @@ RSpec.describe IsoDoc do
          <li>A</li>
          </ul>
        </div>
-       <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-       <div class="Note"><p>Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
+       <div class="Note" id='_671a1994-4783-40d0-bc81-987d06ffb74e' style='page-break-after: avoid;page-break-inside: avoid;'><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
+       <div class="Note" id='_671a1994-4783-40d0-bc81-987d06ffb74f'><p>Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
        <p>[TERMREF]
          <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
        [/TERMREF]</p></div>
@@ -222,8 +222,8 @@ OUTPUT
          <li>A</li>
          </ul>
        </div>
-       <div class="Note"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-       <div class="Note"><p class="Note">Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
+       <div id='_671a1994-4783-40d0-bc81-987d06ffb74e' class="Note"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
+       <div id='_671a1994-4783-40d0-bc81-987d06ffb74f' class="Note"><p class="Note">Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
        <p>[TERMREF]
          <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
        [/TERMREF]</p></div>

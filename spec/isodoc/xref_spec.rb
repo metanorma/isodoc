@@ -768,15 +768,15 @@ RSpec.describe IsoDoc do
                             <br/>
              <div class="Section3" id="intro">
                <h1 class="IntroTitle">Introduction</h1>
-               <div id="N1" class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div>
+               <div id="N1"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div></div>
                        <div id="xyz"><h2>Preparatory</h2>
-    <div id="N2" class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div>
+    <div id="N2"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div></div>
                 </div>
              </div>
                <p class="zzSTDTitle1"/>
                <div id="scope">
                  <h1>1.&#160; Scope</h1>
-                 <div id="N" class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (2)</p></div>
+                 <div id="N"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (2)</p></div></div>
                  <p>
                    <a href="#N">Formula (2)</a>
                  </p>
@@ -786,8 +786,8 @@ RSpec.describe IsoDoc do
                <div id="widgets">
                  <h1>3.&#160; Widgets</h1>
                  <div id="widgets1"><h2>3.1.&#160;</h2>
-           <div id="note1" class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (3)</p></div>
-           <div id="note2" class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (4)</p></div>
+           <div id="note1"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (3)</p></div></div>
+           <div id="note2"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (4)</p></div></div>
          <p>    <a href="#note1">Formula (3)</a> <a href="#note2">Formula (4)</a> </p>
            </div>
                </div>
@@ -802,11 +802,11 @@ RSpec.describe IsoDoc do
   <b/>
 </h1>
                  <div id="annex1a"><h2>A.1.&#160;</h2>
-           <div id="AN" class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (A.1)</p></div>
+           <div id="AN"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (A.1)</p></div></div>
            </div>
                  <div id="annex1b"><h2>A.2.&#160;</h2>
-           <div id="Anote1" class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div>
-           <div id="Anote2" class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (A.2)</p></div>
+           <div id="Anote1"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div></div>
+           <div id="Anote2"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (A.2)</p></div></div>
            </div>
                </div>
              </div>
@@ -897,11 +897,11 @@ RSpec.describe IsoDoc do
       <br/>
       <div class="Section3" id="intro">
         <h1 class="IntroTitle">Introduction</h1>
-        <div class="require"><p class="RecommendationTitle">Requirement 1:</p>
+        <div class="require" id="N1"><p class="RecommendationTitle">Requirement 1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="require"><p class="RecommendationTitle">Requirement:</p>
+    <div class="require" id="N2"><p class="RecommendationTitle">Requirement:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -909,7 +909,7 @@ RSpec.describe IsoDoc do
       <p class="zzSTDTitle1"/>
       <div id="scope">
         <h1>1.&#160; Scope</h1>
-        <div class="require"><p class="RecommendationTitle">Requirement 2:</p>
+        <div class="require" id="N"><p class="RecommendationTitle">Requirement 2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <p>
@@ -921,10 +921,10 @@ RSpec.describe IsoDoc do
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
         <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="require"><p class="RecommendationTitle">Requirement 3:</p>
+    <div class="require" id="note1"><p class="RecommendationTitle">Requirement 3:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="require"><p class="RecommendationTitle">Requirement 4:</p>
+    <div class="require" id="note2"><p class="RecommendationTitle">Requirement 4:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
   <p>    <a href="#note1">Requirement 3</a> <a href="#note2">Requirement 4</a> </p>
@@ -941,15 +941,15 @@ RSpec.describe IsoDoc do
   <b/>
 </h1>
         <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="require"><p class="RecommendationTitle">Requirement A.1:</p>
+    <div class="require" id="AN"><p class="RecommendationTitle">Requirement A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
         <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="require"><p class="RecommendationTitle">Requirement:</p>
+    <div class="require" id="Anote1"><p class="RecommendationTitle">Requirement:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="require"><p class="RecommendationTitle">Requirement A.2:</p>
+    <div class="require" id="Anote2"><p class="RecommendationTitle">Requirement A.2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
@@ -1042,11 +1042,11 @@ OUTPUT
       <br/>
       <div class="Section3" id="intro">
         <h1 class="IntroTitle">Introduction</h1>
-        <div class="recommend"><p class="RecommendationTitle">Recommendation 1:</p>
+        <div class="recommend" id="N1"><p class="RecommendationTitle">Recommendation 1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="recommend"><p class="RecommendationTitle">Recommendation:</p>
+    <div class="recommend" id="N2"><p class="RecommendationTitle">Recommendation:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -1054,7 +1054,7 @@ OUTPUT
       <p class="zzSTDTitle1"/>
       <div id="scope">
         <h1>1.&#160; Scope</h1>
-        <div class="recommend"><p class="RecommendationTitle">Recommendation 2:</p>
+        <div class="recommend" id="N"><p class="RecommendationTitle">Recommendation 2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <p>
@@ -1066,10 +1066,10 @@ OUTPUT
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
         <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="recommend"><p class="RecommendationTitle">Recommendation 3:</p>
+    <div class="recommend" id="note1"><p class="RecommendationTitle">Recommendation 3:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="recommend"><p class="RecommendationTitle">Recommendation 4:</p>
+    <div class="recommend" id="note2"><p class="RecommendationTitle">Recommendation 4:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
   <p>    <a href="#note1">Recommendation 3</a> <a href="#note2">Recommendation 4</a> </p>
@@ -1086,15 +1086,15 @@ OUTPUT
   <b/>
 </h1>
         <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="recommend"><p class="RecommendationTitle">Recommendation A.1:</p>
+    <div class="recommend" id="AN"><p class="RecommendationTitle">Recommendation A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
         <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="recommend"><p class="RecommendationTitle">Recommendation:</p>
+    <div class="recommend" id="Anote1"><p class="RecommendationTitle">Recommendation:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="recommend"><p class="RecommendationTitle">Recommendation A.2:</p>
+    <div class="recommend" id="Anote2"><p class="RecommendationTitle">Recommendation A.2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
@@ -1187,11 +1187,11 @@ OUTPUT
       <br/>
       <div class="Section3" id="intro">
         <h1 class="IntroTitle">Introduction</h1>
-        <div class="permission"><p class="RecommendationTitle">Permission 1:</p>
+        <div class="permission" id="N1"><p class="RecommendationTitle">Permission 1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <div id="xyz"><h2>Preparatory</h2>
-    <div class="permission"><p class="RecommendationTitle">Permission:</p>
+    <div class="permission" id="N2"><p class="RecommendationTitle">Permission:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
 </div>
@@ -1199,7 +1199,7 @@ OUTPUT
       <p class="zzSTDTitle1"/>
       <div id="scope">
         <h1>1.&#160; Scope</h1>
-        <div class="permission"><p class="RecommendationTitle">Permission 2:</p>
+        <div class="permission" id="N"><p class="RecommendationTitle">Permission 2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
         <p>
@@ -1211,10 +1211,10 @@ OUTPUT
       <div id="widgets">
         <h1>3.&#160; Widgets</h1>
         <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="permission"><p class="RecommendationTitle">Permission 3:</p>
+    <div class="permission" id="note1"><p class="RecommendationTitle">Permission 3:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="permission"><p class="RecommendationTitle">Permission 4:</p>
+    <div class="permission" id="note2"><p class="RecommendationTitle">Permission 4:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
   <p>    <a href="#note1">Permission 3</a> <a href="#note2">Permission 4</a> </p>
@@ -1231,15 +1231,15 @@ OUTPUT
   <b/>
 </h1>
         <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="permission"><p class="RecommendationTitle">Permission A.1:</p>
+    <div class="permission" id="AN"><p class="RecommendationTitle">Permission A.1:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
         <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="permission"><p class="RecommendationTitle">Permission:</p>
+    <div class="permission" id="Anote1"><p class="RecommendationTitle">Permission:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
-    <div class="permission"><p class="RecommendationTitle">Permission A.2:</p>
+    <div class="permission" id="Anote2"><p class="RecommendationTitle">Permission A.2:</p>
   <span class="stem">(#(r = 1 %)#)</span>
   </div>
     </div>
@@ -1317,28 +1317,28 @@ OUTPUT
       <p class="zzSTDTitle1"/>
       <div id="xyz">
         <h1>1.&#160; Preparatory</h1>
-        <div class="permission"><p class="RecommendationTitle">Permission 1:</p>
-<div class="permission"><p class="RecommendationTitle">Permission 1-1:</p>
-<div class="permission"><p class="RecommendationTitle">Permission 1-1-1:</p>
+        <div class="permission" id="N1"><p class="RecommendationTitle">Permission 1:</p>
+<div class="permission" id="N2"><p class="RecommendationTitle">Permission 1-1:</p>
+<div class="permission" id="N"><p class="RecommendationTitle">Permission 1-1-1:</p>
 </div>
 </div>
-<div class="require"><p class="RecommendationTitle">Requirement 1-1:</p>
+<div class="require" id="Q1"><p class="RecommendationTitle">Requirement 1-1:</p>
 </div>
-<div class="recommend"><p class="RecommendationTitle">Recommendation 1-1:</p>
+<div class="recommend" id="R1"><p class="RecommendationTitle">Recommendation 1-1:</p>
 </div>
 </div>
       </div>
       <br/>
       <div id="Axyz" class="Section3">
         <h1 class="Annex"><b>Annex A</b><br/>(informative)<br/><br/><b>Preparatory</b></h1>
-        <div class="permission"><p class="RecommendationTitle">Permission A.1:</p>
-<div class="permission"><p class="RecommendationTitle">Permission A.1-1:</p>
-<div class="permission"><p class="RecommendationTitle">Permission A.1-1-1:</p>
+        <div class="permission" id="AN1"><p class="RecommendationTitle">Permission A.1:</p>
+<div class="permission" id='AN2'><p class="RecommendationTitle">Permission A.1-1:</p>
+<div class="permission" id="AN"><p class="RecommendationTitle">Permission A.1-1-1:</p>
 </div>
 </div>
-<div class="require"><p class="RecommendationTitle">Requirement A.1-1:</p>
+<div class="require" id="AQ1"><p class="RecommendationTitle">Requirement A.1-1:</p>
 </div>
-<div class="recommend"><p class="RecommendationTitle">Recommendation A.1-1:</p>
+<div class="recommend" id='AR1'><p class="RecommendationTitle">Recommendation A.1-1:</p>
 </div>
 </div>
       </div>
@@ -1601,9 +1601,9 @@ OUTPUT
                </div>
                <div id="terms"><h1>2.&#160; </h1>
        <p class="TermNum" id="_waxy_rice">2.1.</p><p class="Terms" style="text-align:left;">waxy rice</p>
-       <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2.</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
-       <div class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-       <div class="Note"><p>Note 2 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div></div>
+       <div id="note1" class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2.</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
+       <div id="note2" class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
+       <div id="note3" class="Note"><p>Note 2 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div></div>
              </div>
            </body>
        </html>
