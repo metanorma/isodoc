@@ -134,12 +134,6 @@ expect(File.exist?("test.doc")).to be true
     expect(word).to match(/one empty stylesheet/)
   end
 
-  it "generates PDF output docs with null configuration from file" do
-    FileUtils.rm_f "spec/assets/iso.pdf"
-    IsoDoc::PdfConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("spec/assets/iso.xml", nil, false)
-    expect(File.exist?("spec/assets/iso.pdf")).to be true
-  end
-
   it "generates HTML output docs with complete configuration" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
