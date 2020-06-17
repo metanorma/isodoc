@@ -89,9 +89,8 @@ module IsoDoc::Function
     end
 
     def date_note_process(b, ref)
-      date_note = b.at(ns("./note[text()][contains(.,'ISO DATE:')]"))
+      date_note = b.at(ns("./note[@type = 'ISO DATE']"))
       return if date_note.nil?
-      date_note.content = date_note.content.gsub(/ISO DATE: /, "")
       date_note.children.first.replace("<p>#{date_note.content}</p>")
       footnote_parse(date_note, ref)
     end
