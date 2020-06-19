@@ -1,15 +1,20 @@
 module IsoDoc::Function
   module XrefGen
+    def subfigure_increment(j, c, t)
+      if t.parent.name == "figure" then j += 1
+        else
+          j = 0
+          c.increment(t)
+        end
+      j
+    end
+
     def sequential_figure_names(clause)
       c = Counter.new
       j = 0
       clause.xpath(ns(".//figure | .//sourcecode[not(ancestor::example)]")).
         each do |t|
-        if t.parent.name == "figure" then j += 1
-        else
-          j = 0
-          c.increment(t)
-        end
+        j = subfigure_increment(j, c, t)
         label = c.print + (j.zero? ? "" : "-#{j}")
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] =
@@ -80,11 +85,7 @@ module IsoDoc::Function
       j = 0
       clause.xpath(ns(".//figure |  .//sourcecode[not(ancestor::example)]")).
         each do |t|
-        if t.parent.name == "figure" then j += 1
-        else
-          j = 0
-          c.increment(t)
-        end
+        j = subfigure_increment(j, c, t)
         label = "#{num}#{hiersep}#{c.print}" +
           (j.zero? ? "" : "#{hierfigsep}#{j}")
         next if t["id"].nil? || t["id"].empty?
