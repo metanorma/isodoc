@@ -36,7 +36,7 @@ module IsoDoc
       super
     end
 
-    def convert(filename, file = nil, debug = false)
+    def convert(filename, file = nil, debug = false, output_filename = nil)
       ret = super
       FileUtils.rm_rf tmpimagedir
       ret
