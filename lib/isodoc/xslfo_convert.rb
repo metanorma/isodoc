@@ -15,6 +15,7 @@ module IsoDoc
 
     def initialize(options)
       @format = :pdf
+      @suffix = "pdf"
       super
     end
 

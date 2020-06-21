@@ -18,7 +18,7 @@ module IsoDoc::HtmlFunction
       #result = populate_template(result, :html)
       result = from_xhtml(move_images(to_xhtml(result)))
       result = html5(script_cdata(inject_script(result)))
-      File.open("#{filename}.html", "w:UTF-8") { |f| f.write(result) }
+      File.open(filename, "w:UTF-8") { |f| f.write(result) }
     end
 
     def html5(doc)

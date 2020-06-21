@@ -32,6 +32,7 @@ module IsoDoc
 
     def initialize(options)
       @format = :doc
+      @suffix = "doc"
       super
     end
 

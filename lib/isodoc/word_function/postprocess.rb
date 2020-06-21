@@ -32,6 +32,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     end
 
     def postprocess(result, filename, dir)
+      filename.sub!(/\.doc$/, "")
       header = generate_header(filename, dir)
       result = from_xhtml(cleanup(to_xhtml(textcleanup(result))))
       toWord(result, filename, dir, header)

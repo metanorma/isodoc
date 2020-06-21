@@ -16,10 +16,11 @@ module IsoDoc
 
     def initialize(options)
       @format = :html
+      @suffix = "html"
       super
     end
 
-    def convert(filename, file = nil, debug = false)
+    def convert(filename, file = nil, debug = false, output_filename = nil)
       ret = super
       Dir.exists?(tmpimagedir) and Dir["#{tmpimagedir}/*"].empty? and
         FileUtils.rm_r tmpimagedir
