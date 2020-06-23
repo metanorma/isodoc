@@ -157,6 +157,10 @@ module IsoDoc
       @meta = Metadata.new(lang, script, labels)
     end
 
+    def xref_init(lang, script, klass, labels, options)
+      @xrefs = Xref.new(lang, script, klass, labels, options)
+    end
+
     def convert_init(file, input_filename, debug)
       docxml = Nokogiri::XML(file)
       filename, dir = init_file(input_filename, debug)
@@ -165,7 +169,7 @@ module IsoDoc
       script = docxml&.at(ns("//bibdata/script"))&.text || @script
       i18n_init(lang, script)
       metadata_init(lang, script, @labels)
-      @xrefs = Xref.new(@lang, @script, self, @labels)
+      xref_init(lang, script, self, @labels, {})
       [docxml, filename, dir]
     end
 

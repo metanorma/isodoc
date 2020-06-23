@@ -11,12 +11,13 @@ module IsoDoc
     include XrefGen::Blocks
     include XrefGen::Sections
 
-     def initialize(lang, script, klass, labels)
+     def initialize(lang, script, klass, labels, options = {})
       @anchors = {}
       @lang = lang
       @script = script
       @klass = klass
       @labels = labels
+      @options = options
     end
 
     def get
