@@ -1,7 +1,7 @@
 module IsoDoc::Function
   module Blocks
     def example_label(node, div, name)
-      n = get_anchors[node["id"]]
+      n = @xrefs.get[node["id"]]
       div.p **{ class: "example-title" } do |p|
         lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @example_lbl :
           l10n("#{@example_lbl} #{n[:label]}")
@@ -56,7 +56,7 @@ module IsoDoc::Function
     end
 
     def note_label(node)
-      n = get_anchors[node["id"]]
+      n = @xrefs.get[node["id"]]
       return @note_lbl if n.nil? || n[:label].nil? || n[:label].empty?
       l10n("#{@note_lbl} #{n[:label]}")
     end

@@ -9,8 +9,6 @@ require_relative "./function/table"
 require_relative "./function/terms"
 require_relative "./function/to_word_html"
 require_relative "./function/utils"
-require_relative "./function/xref_gen"
-require_relative "./function/xref_sect_gen"
 require_relative "./function/reqt"
 require_relative "./class_utils"
 
@@ -27,8 +25,6 @@ module IsoDoc
     include Function::Terms
     include Function::ToWordHtml
     include Function::Utils
-    include Function::XrefGen
-    include Function::XrefSectGen
 
     extend ::IsoDoc::ClassUtils
   end

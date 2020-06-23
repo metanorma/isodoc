@@ -1,18 +1,18 @@
-module IsoDoc::Function
-  module XrefSectGen
+module IsoDoc::XrefGen
+  module Sections
     def back_anchor_names(docxml)
       docxml.xpath(ns("//annex")).each_with_index do |c, i|
         annex_names(c, (65 + i).chr.to_s)
       end
       docxml.xpath(
-           ns("//bibliography/clause[.//references[@normative = 'false']] | "\
+        ns("//bibliography/clause[.//references[@normative = 'false']] | "\
            "//bibliography/references[@normative = 'false']"
-           )).each do |b|
-        preface_names(b)
-      end
-      docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
-        reference_names(ref)
-      end
+          )).each do |b|
+            preface_names(b)
+          end
+          docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
+            reference_names(ref)
+          end
     end
 
     def initial_anchor_names(d)
@@ -72,8 +72,7 @@ module IsoDoc::Function
     end
 
     def clause_names(docxml, sect_num)
-      q = self.class::MIDDLE_CLAUSE
-      docxml.xpath(ns(q)).each_with_index do |c, i|
+      docxml.xpath(ns(@klass.middle_clause)).each_with_index do |c, i|
         section_names(c, (i + sect_num), 1)
       end
     end
@@ -82,7 +81,7 @@ module IsoDoc::Function
       return num if clause.nil?
       num = num + 1
       @anchors[clause["id"]] =
-        { label: num.to_s, xref: l10n("#{@clause_lbl} #{num}"), level: lvl,
+        { label: num.to_s, xref: l10n("#{@labels["clause"]} #{num}"), level: lvl,
           type: "clause" }
       clause.xpath(ns(SUBCLAUSES)).
         each_with_index do |c, i|
@@ -93,7 +92,7 @@ module IsoDoc::Function
 
     def section_names1(clause, num, level)
       @anchors[clause["id"]] =
-        { label: num, level: level, xref: l10n("#{@clause_lbl} #{num}"),
+        { label: num, level: level, xref: l10n("#{@labels["clause"]} #{num}"),
           type: "clause" }
       clause.xpath(ns(SUBCLAUSES)).
         each_with_index do |c, i|
@@ -102,9 +101,9 @@ module IsoDoc::Function
     end
 
     def annex_name_lbl(clause, num)
-      obl = l10n("(#{@inform_annex_lbl})")
-      obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
-      l10n("<b>#{@annex_lbl} #{num}</b><br/>#{obl}")
+      obl = l10n("(#{@labels["inform_annex"]})")
+      obl = l10n("(#{@labels["norm_annex"]})") if clause["obligation"] == "normative"
+      l10n("<b>#{@labels["annex"]} #{num}</b><br/>#{obl}")
     end
 
     def single_annex_special_section(clause)
@@ -119,7 +118,7 @@ module IsoDoc::Function
     def annex_names(clause, num)
       @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
                                  type: "clause",
-                                 xref: "#{@annex_lbl} #{num}", level: 1 }
+                                 xref: "#{@labels["annex"]} #{num}", level: 1 }
       if a = single_annex_special_section(clause)
         annex_names1(a, "#{num}", 1)
       else
@@ -131,11 +130,26 @@ module IsoDoc::Function
     end
 
     def annex_names1(clause, num, level)
-      @anchors[clause["id"]] = { label: num, xref: "#{@annex_lbl} #{num}",
+      @anchors[clause["id"]] = { label: num, xref: "#{@labels["annex"]} #{num}",
                                  level: level, type: "clause" }
       clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
       end
+    end
+
+    ISO_PUBLISHER_XPATH =
+      "./contributor[xmlns:role/@type = 'publisher']/"\
+      "organization[abbreviation = 'ISO' or xmlns:abbreviation = 'IEC' or "\
+      "xmlns:name = 'International Organization for Standardization' or "\
+      "xmlns:name = 'International Electrotechnical Commission']".freeze
+
+    def reference_names(ref)
+      isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
+      ids = @klass.bibitem_ref_code(ref)
+      identifiers = @klass.render_identifier(ids)
+      date = ref.at(ns("./date[@type = 'published']"))
+      reference = @klass.docid_l10n(identifiers[0] || identifiers[1])
+      @anchors[ref["id"]] = { xref: reference }
     end
   end
 end

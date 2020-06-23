@@ -3,7 +3,7 @@ module IsoDoc::Function
 
     def table_title_parse(node, out)
       name = node.at(ns("./name"))
-      lbl = anchor(node['id'], :label, false)
+      lbl = @xrefs.anchor(node['id'], :label, false)
       lbl = nil if labelled_ancestor(node)
       return if name.nil? && lbl.nil?
       out.p **{ class: "TableTitle", style: "text-align:center;" } do |p|

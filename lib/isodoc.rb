@@ -22,6 +22,7 @@ require "isodoc/pdf_convert"
 require "isodoc/xslfo_convert"
 require "isodoc/headlesshtml_convert"
 require "isodoc/presentation_xml_convert"
+require "isodoc/xref"
 
 module IsoDoc
 

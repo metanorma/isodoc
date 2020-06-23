@@ -2,7 +2,7 @@ module IsoDoc::Function
   module Blocks
     def recommendation_labels(node)
       [node.at(ns("./label")), node.at(ns("./title")), 
-       anchor(node['id'], :label, false)]
+       @xrefs.anchor(node['id'], :label, false)]
     end
 
     def recommendation_name(node, out, type)

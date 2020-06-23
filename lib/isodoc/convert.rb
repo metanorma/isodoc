@@ -53,7 +53,6 @@ module IsoDoc
       @termexample = false
       @note = false
       @sourcecode = false
-      @anchors = {}
       @footnotes = []
       @comments = []
       @in_footnote = false
@@ -142,7 +141,7 @@ module IsoDoc
     end
 
     def convert1(docxml, filename, dir)
-      anchor_names docxml
+      @xrefs.parse docxml
       noko do |xml|
         xml.html **{ lang: "#{@lang}" } do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
@@ -166,6 +165,7 @@ module IsoDoc
       script = docxml&.at(ns("//bibdata/script"))&.text || @script
       i18n_init(lang, script)
       metadata_init(lang, script, @labels)
+      @xrefs = Xref.new(@lang, @script, self, @labels)
       [docxml, filename, dir]
     end
 
@@ -178,6 +178,11 @@ module IsoDoc
       output_filename ||= "#{filename}.#{@suffix}"
       postprocess(result, output_filename, dir)
       FileUtils.rm_rf dir
+    end
+
+    def middle_clause
+      "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
+      "[not(descendant::terms)]".freeze
     end
   end
 end

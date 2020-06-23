@@ -7,7 +7,7 @@ module IsoDoc
     end
 
     def convert1(docxml, filename, dir)
-      anchor_names docxml
+      @xrefs.parse docxml
       info docxml, nil
       docxml.to_xml
     end

@@ -6,7 +6,7 @@ module IsoDoc::Function
 
     def figure_name_parse(node, div, name)
       return if name.nil? && node.at(ns("./figure"))
-      lbl = anchor(node['id'], :label, false)
+      lbl = @xrefs.anchor(node['id'], :label, false)
       lbl = nil if labelled_ancestor(node) && node.ancestors("figure").empty?
       return if lbl.nil? && name.nil?
       div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
@@ -55,7 +55,7 @@ module IsoDoc::Function
     end
 
     def sourcecode_name_parse(node, div, name)
-      lbl = anchor(node['id'], :label, false)
+      lbl = @xrefs.anchor(node['id'], :label, false)
       lbl = nil if labelled_ancestor(node)
       return if lbl.nil? && name.nil?
       div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
@@ -141,7 +141,7 @@ module IsoDoc::Function
       out.div **attr_code(class: "formula") do |div|
         div.p do |p|
           parse(node.at(ns("./stem")), div)
-          lbl = anchor(node['id'], :label, false)
+          lbl = @xrefs.anchor(node['id'], :label, false)
           unless lbl.nil?
             insert_tab(div, 1)
             div << "(#{lbl})"

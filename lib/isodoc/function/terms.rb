@@ -43,7 +43,7 @@ module IsoDoc::Function
       out.div **note_attrs(node) do |div|
         first = node.first_element_child
         div.p do |p|
-          p << "#{anchor(node['id'], :label) || '???'}: "
+          p << "#{@xrefs.anchor(node['id'], :label) || '???'}: "
           para_then_remainder(first, node, p, div)
         end
       end
@@ -59,7 +59,7 @@ module IsoDoc::Function
 
     def termdef_parse(node, out)
       out.p **{ class: "TermNum", id: node["id"] } do |p|
-        p << "#{get_anchors[node["id"]][:label]}#{clausedelim}"
+        p << "#{@xrefs.get[node["id"]][:label]}#{clausedelim}"
       end
       set_termdomain("")
       node.children.each { |n| parse(n, out) }

@@ -17,17 +17,17 @@ module IsoDoc::Function
     end
 
     def prefix_container(container, linkend, _target)
-      l10n(anchor(container, :xref) + ", " + linkend)
+      l10n(@xrefs.anchor(container, :xref) + ", " + linkend)
     end
 
     def anchor_linkend(node, linkend)
       if node["citeas"].nil? && node["bibitemid"] 
-        return anchor(node["bibitemid"] ,:xref) || "???"
+        return @xrefs.anchor(node["bibitemid"] ,:xref) || "???"
       elsif node["target"] && !/.#./.match(node["target"])
-        linkend = anchor(node["target"], :xref)
-        container = anchor(node["target"], :container, false)
+        linkend = @xrefs.anchor(node["target"], :xref)
+        container = @xrefs.anchor(node["target"], :container, false)
         (container && get_note_container_id(node) != container &&
-         @anchors[node["target"]]) &&
+         @xrefs.get[node["target"]]) &&
         linkend = prefix_container(container, linkend, node["target"])
         linkend = capitalise_xref(node, linkend)
       end
