@@ -19,11 +19,22 @@ module IsoDoc
       super
     end
 
-    def convert(filename, file = nil, debug = false)
-      file = File.read(filename, encoding: "utf-8") if file.nil?
-      docxml, outname_html, dir = convert_init(file, filename, debug)
+    def pdf_stylesheet(docxml)
+      nil
+    end
+
+    def convert(input_filename, file = nil, debug = false, output_filename = nil)
+      file = File.read(input_filename, encoding: "utf-8") if file.nil?
+      docxml, filename, dir = convert_init(file, input_filename, debug)
+      /\.xml$/.match(input_filename) or
+          input_filename = Tempfile.open([filename, ".xml"], encoding: "utf-8") do |f|
+          f.write file
+          f.path
+        end
       FileUtils.rm_rf dir
-      ::Metanorma::Output::XslfoPdf.new.convert(filename, outname_html + ".pdf", nil)
+      ::Metanorma::Output::XslfoPdf.new.convert(input_filename,
+                                                output_filename || "#{filename}.#{@suffix}", 
+                                               File.join(@libdir, pdf_stylesheet(docxml)))
     end
 
     def xref_parse(node, out)
