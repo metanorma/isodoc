@@ -53,7 +53,6 @@ module IsoDoc
       @termexample = false
       @note = false
       @sourcecode = false
-      @anchors = {}
       @footnotes = []
       @comments = []
       @in_footnote = false
@@ -142,7 +141,7 @@ module IsoDoc
     end
 
     def convert1(docxml, filename, dir)
-      anchor_names docxml
+      @xrefs.parse docxml
       noko do |xml|
         xml.html **{ lang: "#{@lang}" } do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
@@ -158,25 +157,36 @@ module IsoDoc
       @meta = Metadata.new(lang, script, labels)
     end
 
-    def convert_init(file, filename, debug)
+    def xref_init(lang, script, klass, labels, options)
+      @xrefs = Xref.new(lang, script, klass, labels, options)
+    end
+
+    def convert_init(file, input_filename, debug)
       docxml = Nokogiri::XML(file)
-      filename, dir = init_file(filename, debug)
+      filename, dir = init_file(input_filename, debug)
       docxml.root.default_namespace = ""
       lang = docxml&.at(ns("//bibdata/language"))&.text || @lang
       script = docxml&.at(ns("//bibdata/script"))&.text || @script
       i18n_init(lang, script)
       metadata_init(lang, script, @labels)
+      xref_init(lang, script, self, @labels, {})
       [docxml, filename, dir]
     end
 
-    def convert(filename, file = nil, debug = false)
-      file = File.read(filename, encoding: "utf-8") if file.nil?
+    def convert(input_filename, file = nil, debug = false, output_filename = nil)
+      file = File.read(input_filename, encoding: "utf-8") if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)
-      docxml, filename, dir = convert_init(file, filename, debug)
+      docxml, filename, dir = convert_init(file, input_filename, debug)
       result = convert1(docxml, filename, dir)
       return result if debug
-      postprocess(result, filename, dir)
+      output_filename ||= "#{filename}.#{@suffix}"
+      postprocess(result, output_filename, dir)
       FileUtils.rm_rf dir
+    end
+
+    def middle_clause
+      "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
+      "[not(descendant::terms)]".freeze
     end
   end
 end

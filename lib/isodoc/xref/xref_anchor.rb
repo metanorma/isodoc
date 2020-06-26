@@ -1,7 +1,7 @@
 require "singleton"
 
-module IsoDoc::Function
-  module XrefGen
+module IsoDoc::XrefGen
+  module Anchor
     class Seen_Anchor
       include Singleton
 
@@ -12,34 +12,23 @@ module IsoDoc::Function
       def seen(x)
         @seen.has_key?(x)
       end
-      
+
       def add(x)
         @seen[x] = true
       end
     end
 
-    @anchors = {}
+    def initialize()
+      @anchors = {}
+    end
 
     def get_anchors
       @anchors
     end
 
-    def anchor(id, lbl, warning = true)
-      return nil if id.nil? || id.empty?
-      unless @anchors[id]
-        if warning
-          @seen ||= Seen_Anchor.instance
-          @seen.seen(id) or warn "No label has been processed for ID #{id}"
-          @seen.add(id)
-          return "[#{id}]"
-        end
-      end
-      @anchors.dig(id, lbl)
-    end
-
     def anchor_struct_label(lbl, elem)
       case elem
-      when @appendix_lbl then l10n("#{elem} #{lbl}")
+      when @labels["appendix"] then l10n("#{elem} #{lbl}")
       else
         lbl.to_s
       end
@@ -47,8 +36,8 @@ module IsoDoc::Function
 
     def anchor_struct_xref(lbl, elem)
       case elem
-      when @formula_lbl then l10n("#{elem} (#{lbl})")
-      when @inequality_lbl then l10n("#{elem} (#{lbl})")
+      when @labels["formula"] then l10n("#{elem} (#{lbl})")
+      when @labels["inequality"] then l10n("#{elem} (#{lbl})")
       else
         l10n("#{elem} #{lbl}")
       end
@@ -59,7 +48,7 @@ module IsoDoc::Function
       ret[:label] = unnumbered == "true" ? nil : anchor_struct_label(lbl, elem)
       ret[:xref] = anchor_struct_xref(unnumbered == "true" ? "(??)" : lbl, elem)
       ret[:xref].gsub!(/ $/, "")
-      ret[:container] = get_clause_id(container) unless container.nil?
+      ret[:container] = @klass.get_clause_id(container) unless container.nil?
       ret[:type] = type
       ret
     end

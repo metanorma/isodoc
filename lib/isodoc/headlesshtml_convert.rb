@@ -16,18 +16,19 @@ module IsoDoc
 
     def initialize(options)
       @format = :html
+      @suffix = "headless.html"
       super
     end
 
-    def convert(filename, file = nil, debug = false)
-      file = File.read(filename, encoding: "utf-8") if file.nil?
+    def convert(input_filename, file = nil, debug = false, output_filename = nil)
+      file = File.read(input_filename, encoding: "utf-8") if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)
-      docxml, outname_html, dir = convert_init(file, filename, debug)
-      result = convert1(docxml, outname_html, dir)
+      docxml, filename, dir = convert_init(file, input_filename, debug)
+      result = convert1(docxml, filename, dir)
       return result if debug
-      postprocess(result, filename + ".tmp", dir)
+      postprocess(result, filename + ".tmp.html", dir)
       FileUtils.rm_rf dir
-      strip_head(filename + ".tmp.html", outname_html + ".headless.html")
+      strip_head(filename + ".tmp.html", output_filename || "#{filename}.#{@suffix}")
       FileUtils.rm_rf ["#{filename}.tmp.html", tmpimagedir]
     end
 

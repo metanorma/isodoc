@@ -32,10 +32,11 @@ module IsoDoc
 
     def initialize(options)
       @format = :doc
+      @suffix = "doc"
       super
     end
 
-    def convert(filename, file = nil, debug = false)
+    def convert(filename, file = nil, debug = false, output_filename = nil)
       ret = super
       FileUtils.rm_rf tmpimagedir
       ret

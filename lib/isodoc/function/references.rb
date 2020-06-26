@@ -129,12 +129,6 @@ module IsoDoc::Function
       end
     end
 
-    ISO_PUBLISHER_XPATH =
-      "./contributor[xmlns:role/@type = 'publisher']/"\
-      "organization[abbreviation = 'ISO' or xmlns:abbreviation = 'IEC' or "\
-      "xmlns:name = 'International Organization for Standardization' or "\
-      "xmlns:name = 'International Electrotechnical Commission']".freeze
-
     def is_standard(b)
       ret = false
       b.xpath(ns("./docidentifier")).each do |id|
@@ -185,7 +179,7 @@ module IsoDoc::Function
     def bibliography_parse(node, out)
       title = node&.at(ns("./title"))&.text || ""
       out.div do |div|
-        anchor(node['id'], :label, false) and
+        @xrefs.anchor(node['id'], :label, false) and
           clause_parse_title(node, div, node.at(ns("./title")), out) or
           div.h2 title, **{ class: "Section3" }
         biblio_list(node, div, true)
@@ -197,16 +191,6 @@ module IsoDoc::Function
       return "[#{ref}]" if /^\d+$/.match(ref) && !prefix &&
         !/^\[.*\]$/.match(ref)
         ref
-    end
-
-    def reference_names(ref)
-      isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
-      ids = bibitem_ref_code(ref)
-      identifiers = render_identifier(ids)
-      date = ref.at(ns("./date[@type = 'published']"))
-      allparts = ref.at(ns("./extent[@type='part'][referenceFrom='all']"))
-      reference = docid_l10n(identifiers[0] || identifiers[1])
-      @anchors[ref["id"]] = { xref: reference }
     end
 
     # def ref_names(ref)

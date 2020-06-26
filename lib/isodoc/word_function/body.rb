@@ -156,7 +156,7 @@ module IsoDoc::WordFunction
       out.div **note_attrs(node) do |div|
         first = node.first_element_child
         div.p **{ class: "Note" } do |p|
-          anchor = get_anchors[node['id']]
+          anchor = @xrefs.get[node['id']]
           p << "#{anchor&.dig(:label) || '???'}: "
           para_then_remainder(first, node, p, div)
         end

@@ -1,11 +1,19 @@
-module IsoDoc::Function
-  module XrefGen
+module IsoDoc::XrefGen
+  module Blocks
+    def hiersep
+      "."
+    end
+
+    def hierfigsep
+      "-"
+    end
+
     def subfigure_increment(j, c, t)
       if t.parent.name == "figure" then j += 1
-        else
-          j = 0
-          c.increment(t)
-        end
+      else
+        j = 0
+        c.increment(t)
+      end
       j
     end
 
@@ -18,7 +26,7 @@ module IsoDoc::Function
         label = c.print + (j.zero? ? "" : "-#{j}")
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] =
-          anchor_struct(label, nil, @figure_lbl, "figure", t["unnumbered"])
+          anchor_struct(label, nil, @labels["figure"], "figure", t["unnumbered"])
       end
     end
 
@@ -27,7 +35,7 @@ module IsoDoc::Function
       clause.xpath(ns(".//table")).each do |t|
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] = anchor_struct(c.increment(t).print, nil, 
-                                          @table_lbl, "table", t["unnumbered"])
+                                          @labels["table"], "table", t["unnumbered"])
       end
     end
 
@@ -37,7 +45,7 @@ module IsoDoc::Function
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] =
           anchor_struct(c.increment(t).print, t, 
-                        t["inequality"] ? @inequality_lbl : @formula_lbl,
+                        t["inequality"] ? @labels["inequality"] : @labels["formula"],
                         "formula", t["unnumbered"])
       end
     end
@@ -56,9 +64,9 @@ module IsoDoc::Function
     end
 
     def sequential_permission_names2(t, id)
-      sequential_permission_names1(t, id, "permission", @permission_lbl)
-      sequential_permission_names1(t, id, "requirement", @requirement_lbl)
-      sequential_permission_names1(t, id, "recommendation", @recommendation_lbl)
+      sequential_permission_names1(t, id, "permission", @labels["permission"])
+      sequential_permission_names1(t, id, "requirement", @labels["requirement"])
+      sequential_permission_names1(t, id, "recommendation", @labels["recommendation"])
     end
 
     def sequential_permission_names1(block, lbl, klass, label)
@@ -75,9 +83,9 @@ module IsoDoc::Function
       sequential_table_names(clause)
       sequential_figure_names(clause)
       sequential_formula_names(clause)
-      sequential_permission_names(clause, "permission", @permission_lbl)
-      sequential_permission_names(clause, "requirement", @requirement_lbl)
-      sequential_permission_names(clause, "recommendation", @recommendation_lbl)
+      sequential_permission_names(clause, "permission", @labels["permission"])
+      sequential_permission_names(clause, "requirement", @labels["requirement"])
+      sequential_permission_names(clause, "recommendation", @labels["recommendation"])
     end
 
     def hierarchical_figure_names(clause, num)
@@ -89,7 +97,7 @@ module IsoDoc::Function
         label = "#{num}#{hiersep}#{c.print}" +
           (j.zero? ? "" : "#{hierfigsep}#{j}")
         next if t["id"].nil? || t["id"].empty?
-        @anchors[t["id"]] = anchor_struct(label, nil, @figure_lbl, "figure",
+        @anchors[t["id"]] = anchor_struct(label, nil, @labels["figure"], "figure",
                                           t["unnumbered"])
       end
     end
@@ -100,7 +108,7 @@ module IsoDoc::Function
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] =
           anchor_struct("#{num}#{hiersep}#{c.increment(t).print}",
-                        nil, @table_lbl, "table", t["unnumbered"])
+                        nil, @labels["table"], "table", t["unnumbered"])
       end
     end
 
@@ -108,11 +116,11 @@ module IsoDoc::Function
       hierarchical_table_names(clause, num)
       hierarchical_figure_names(clause, num)
       hierarchical_formula_names(clause, num)
-      hierarchical_permission_names(clause, num, "permission", @permission_lbl)
+      hierarchical_permission_names(clause, num, "permission", @labels["permission"])
       hierarchical_permission_names(clause, num, "requirement",
-                                    @requirement_lbl)
+                                    @labels["requirement"])
       hierarchical_permission_names(clause, num, "recommendation",
-                                    @recommendation_lbl)
+                                    @labels["recommendation"])
     end
 
     def hierarchical_formula_names(clause, num)
@@ -121,7 +129,7 @@ module IsoDoc::Function
         next if t["id"].nil? || t["id"].empty?
         @anchors[t["id"]] =
           anchor_struct("#{num}#{hiersep}#{c.increment(t).print}", nil,
-                        t["inequality"] ? @inequality_lbl : @formula_lbl,
+                        t["inequality"] ? @labels["inequality"] : @labels["formula"],
                         "formula", t["unnumbered"])
       end
     end
@@ -136,13 +144,13 @@ module IsoDoc::Function
       end
     end
 
-     def hierarchical_permission_names2(t, id)
-      hierarchical_permission_names1(t, id, "permission", @permission_lbl)
-      hierarchical_permission_names1(t, id, "requirement", @requirement_lbl)
-      hierarchical_permission_names1(t, id, "recommendation", @recommendation_lbl)
+    def hierarchical_permission_names2(t, id)
+      hierarchical_permission_names1(t, id, "permission", @labels["permission"])
+      hierarchical_permission_names1(t, id, "requirement", @labels["requirement"])
+      hierarchical_permission_names1(t, id, "recommendation", @labels["recommendation"])
     end
 
-     def hierarchical_permission_names1(block, lbl, klass, label)
+    def hierarchical_permission_names1(block, lbl, klass, label)
       c = Counter.new
       block.xpath(ns("./#{klass}")).each do |t|
         next if t["id"].nil? || t["id"].empty?

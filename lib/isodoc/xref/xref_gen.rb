@@ -1,11 +1,9 @@
-require_relative "xref_counter"
-require_relative "xref_anchor"
-require_relative "xref_gen_seq"
+require_relative "xref_gen_seq.rb"
 
-module IsoDoc::Function
-  module XrefGen
+module IsoDoc::XrefGen
+  module Blocks
     def termnote_label(n)
-      @termnote_lbl.gsub(/%/, n.to_s)
+      @labels["termnote"].gsub(/%/, n.to_s)
     end
 
     def termnote_anchor_names(docxml)
@@ -17,7 +15,7 @@ module IsoDoc::Function
           @anchors[n["id"]] =
             { label: termnote_label(c.print), type: "termnote",
               xref: l10n("#{anchor(t['id'], :xref)}, "\
-                         "#{@note_xref_lbl} #{c.print}") }
+                         "#{@labels["note_xref"]} #{c.print}") }
         end
       end
     end
@@ -33,7 +31,7 @@ module IsoDoc::Function
           @anchors[n["id"]] = {
             type: "termexample", label: idx, 
             xref: l10n("#{anchor(t['id'], :xref)}, "\
-                       "#{@example_xref_lbl} #{c.print}") }
+                       "#{@labels["example_xref"]} #{c.print}") }
         end
       end
     end
@@ -57,7 +55,7 @@ module IsoDoc::Function
         notes.each do |n|
           next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{c.increment(n).print}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @note_xref_lbl, 
+          @anchors[n["id"]] = anchor_struct(idx, n, @labels["note_xref"], 
                                             "note", false)
         end
         note_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
@@ -79,7 +77,7 @@ module IsoDoc::Function
           next if @anchors[n["id"]]
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{c.increment(n).print}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @example_xref_lbl,
+          @anchors[n["id"]] = anchor_struct(idx, n, @labels["example_xref"],
                                             "example", n["unnumbered"])
         end
         example_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
@@ -94,7 +92,7 @@ module IsoDoc::Function
         notes.each do |n|
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 ? "" : " #{c.increment(n).print}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @list_lbl, "list", false)
+          @anchors[n["id"]] = anchor_struct(idx, n, @labels["list"], "list", false)
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
         list_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
@@ -114,17 +112,6 @@ module IsoDoc::Function
           list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
         end
       end
-    end
-
-    # extract names for all anchors, xref and label
-    def anchor_names(docxml)
-      initial_anchor_names(docxml)
-      back_anchor_names(docxml)
-      # preempt clause notes with all other types of note (ISO default)
-      note_anchor_names(docxml.xpath(ns("//table | //figure")))
-      note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-      example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-      list_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
     end
   end
 end

@@ -24,19 +24,21 @@ module IsoDoc
 
     def initialize(options)
       @format = :pdf
+      @suffix = "pdf"
       super
     end
 
-    def convert(filename, file = nil, debug = false)
-      file = File.read(filename, encoding: "utf-8") if file.nil?
+    def convert(input_filename, file = nil, debug = false, output_filename = nil)
+      file = File.read(input_filename, encoding: "utf-8") if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)
-      docxml, outname_html, dir = convert_init(file, filename, debug)
+      docxml, filename, dir = convert_init(file, input_filename, debug)
       result = convert1(docxml, filename, dir)
       return result if debug
-      postprocess(result, filename, dir)
+      postprocess(result, filename + ".tmp.html", dir)
       FileUtils.rm_rf dir
-      ::Metanorma::Output::Pdf.new.convert("#{filename}.html", outname_html + ".pdf")
-      FileUtils.rm_rf ["#{filename}.html", tmpimagedir]
+      ::Metanorma::Output::Pdf.new.convert("#{filename}.tmp.html",
+                                           output_filename || "#{filename}.#{@suffix}")
+      FileUtils.rm_rf ["#{filename}.tmp.html", tmpimagedir]
     end
 
     def xref_parse(node, out)
