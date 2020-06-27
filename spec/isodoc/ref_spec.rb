@@ -231,7 +231,7 @@ RSpec.describe IsoDoc do
           <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
         </p>
         <p id='ref12' class='Biblio'>
-          [6]&#160; Citn, IETF RFC 20, CitationWorks. 2019.
+          Citn&#160; IETF RFC 20, CitationWorks. 2019.
           <i>How to cite a reference</i>
           .
         </p>

@@ -16,22 +16,24 @@ module IsoDoc::Function
         identifiers = render_identifier(ids)
         if biblio then ref_entry_code(ref, ordinal, identifiers, ids)
         else
-          ref << "#{identifiers[0] || identifiers[1]}, "
-          ref << "#{identifiers[1]}, " if identifiers[0] && identifiers[1]
+          ref << "#{identifiers[0] || identifiers[1]}"
+          ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
         end
+        ref << ", " unless biblio && !identifiers[1]
         reference_format(b, ref)
       end
     end
 
     def std_bibitem_entry(list, b, ordinal, biblio)
       list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
-        ids = bibitem_ref_code(b)
-        identifiers = render_identifier(ids)
-        prefix_bracketed_ref(ref, "[#{ordinal}]") if biblio
-        ref << "#{identifiers[0] || identifiers[1]}"
-        ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
+        identifiers = render_identifier(bibitem_ref_code(b))
+        if biblio then ref_entry_code(ref, ordinal, identifiers, nil)
+        else
+          ref << "#{identifiers[0] || identifiers[1]}"
+          ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
+        end
         date_note_process(b, ref)
-        ref << ", "
+        ref << ", " unless biblio && !identifiers[1]
         reference_format(b, ref)
       end
     end
@@ -40,9 +42,7 @@ module IsoDoc::Function
     # else, use both ordinal, as prefix, and t
     def ref_entry_code(r, ordinal, t, id)
       prefix_bracketed_ref(r, t[0] || "[#{ordinal}]")
-      if t[1]
-        r << "#{t[1]}, "
-      end
+      t[1] and r << "#{t[1]}"
     end
 
     def pref_ref_code(b)
