@@ -313,8 +313,8 @@ INPUT
 OUTPUT
   end
 
-  it "processes figures" do
-    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      it "processes figures (Presentation XML)" do
+    expect(xmlpp((IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
@@ -331,6 +331,65 @@ OUTPUT
   </dl>
 </figure>
 <figure id="figure-B">
+<pre alt="A B">A &lt;
+B</pre>
+</figure>
+<figure id="figure-C" unnumbered="true">
+<pre>A &lt;
+B</pre>
+</figure>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
+  <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
+  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+  <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
+  <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f2" mimetype="image/png"/>
+  <fn reference="a">
+  <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
+</fn>
+  <dl>
+  <dt>A</dt>
+  <dd><p>B</p></dd>
+  </dl>
+</figure>
+<figure id="figure-B">
+<name>Figure 2</name>
+<pre alt="A B">A &lt;
+B</pre>
+</figure>
+<figure id="figure-C" unnumbered="true">
+<pre>A &lt;
+B</pre>
+</figure>
+    </foreword></preface>
+    </iso-standard>
+OUTPUT
+      end
+
+  it "processes figures (HTML)" do
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+     <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
+  <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
+  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+  <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
+  <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f2" mimetype="image/png"/>
+  <fn reference="a">
+  <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
+</fn>
+  <dl>
+  <dt>A</dt>
+  <dd><p>B</p></dd>
+  </dl>
+</figure>
+<figure id="figure-B">
+<name>Figure 2</name>
 <pre alt="A B">A &lt;
 B</pre>
 </figure>
@@ -382,13 +441,13 @@ B</pre>
   it "processes figures (Word)" do
     FileUtils.rm_rf "spec/assets/odf1.emf"
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).sub(/['"][^'".]+\.gif['"]/, "'_.gif'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
+     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <figure id="figureA-1">
-  <name>Split-it-right sample divider<fn reference="1"><p>X</p></fn></name>
-  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletext"/>
-  <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
-  <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+    <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
+  <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
+  <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+  <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
+  <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f2" mimetype="image/png"/>
   <fn reference="a">
   <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
 </fn>
@@ -398,6 +457,11 @@ B</pre>
   </dl>
 </figure>
 <figure id="figure-B">
+<name>Figure 2</name>
+<pre alt="A B">A &lt;
+B</pre>
+</figure>
+<figure id="figure-C" unnumbered="true">
 <pre>A &lt;
 B</pre>
 </figure>
@@ -415,9 +479,8 @@ B</pre>
              <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <div id="figureA-1" class="figure">
-
-         <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletext"/>
+               <div id="figureA-1" class="figure"  style='page-break-after: avoid;page-break-inside: avoid;'>
+         <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletxt"/>
          <img src="rice_images/rice_image1.png" height='20' width='auto'/>
          <img src='_.gif' height='20' width='auto'/>
          <a href="#_" class="TableFootnoteRef">a</a><aside><div id="ftn_"><span><span id="_" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#160; </span></span>
@@ -425,7 +488,7 @@ B</pre>
        </div></aside>
          <p  style='page-break-after:avoid;'><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
           <p class='FigureTitle' style='text-align:center;'>
-   Figure 1&#160;&#8212; Split-it-right sample divider
+   Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider
    <span style='mso-bookmark:_Ref'>
      <a href='#ftn1' epub:type='footnote' class='FootnoteRef'>
        <sup>1</sup>
@@ -437,6 +500,9 @@ B</pre>
 <pre>A &lt;
 B</pre>
              <p class="FigureTitle" style="text-align:center;">Figure 2</p>
+              </div>
+ <div id='figure-C' class='figure'>
+   <pre>A &lt; B</pre>
 </div>
              </div>
              <p>&#160;</p>
@@ -488,7 +554,6 @@ B</pre>
           <img src='spec/assets/odf.emf'/>
           <img src='spec/assets/odf1.emf'/>
           <img src='_.emf' height='auto' width='auto'/>
-          <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
         </div>
       </div>
       <p>&#160;</p>
@@ -545,7 +610,6 @@ context "disable inkscape" do
           <img src='spec/assets/odf.emf'/>
           <img src='spec/assets/odf1.svg'/>
           <img src='_.svg' height='auto' width='auto'/>
-          <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
         </div>
       </div>
       <p>&#160;</p>

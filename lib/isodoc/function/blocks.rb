@@ -5,13 +5,8 @@ module IsoDoc::Function
     @annotation = false
 
     def figure_name_parse(node, div, name)
-      return if name.nil? && node.at(ns("./figure"))
-      lbl = @xrefs.anchor(node['id'], :label, false)
-      lbl = nil if labelled_ancestor(node) && node.ancestors("figure").empty?
-      return if lbl.nil? && name.nil?
+      return if name.nil? 
       div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
-        lbl.nil? or p << l10n("#{@figure_lbl} #{lbl}")
-        name and !lbl.nil? and p << "&nbsp;&mdash; "
         name and name.children.each { |n| parse(n, div) }
       end
     end
