@@ -261,7 +261,7 @@ RSpec.describe IsoDoc do
                    </dd>
                  </dl>
                  <div class="Note">
-  <p><span class="note_label"/>&#160; This is a note</p>
+  <p>&#160; This is a note</p>
 </div>
                </div>
                <p class="zzSTDTitle1"/>

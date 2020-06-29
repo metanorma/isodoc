@@ -60,7 +60,7 @@ module IsoDoc::Function
       div.p do |p|
         name and p.span **{ class: "note_label" } do |s|
           name and name.children.each { |n| parse(n, s) }
-          s << node_delim
+          s << note_delim
         end
         insert_tab(p, 1)
         node.first_element_child.children.each { |n| parse(n, p) }
@@ -73,7 +73,7 @@ module IsoDoc::Function
       name and div.p do |p|
         p.span **{ class: "note_label" } do |s|
           name.children.each { |n| parse(n, s) }
-          s << node_delim
+          s << note_delim
         end
         insert_tab(p, 1)
       end

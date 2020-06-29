@@ -12,13 +12,13 @@ module IsoDoc
       return if labelled_ancestor(f) && f.ancestors("figure").empty?
       return if f.at(ns("./figure")) and !f.at(ns("./name"))
       lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@figure_lbl} #{lbl}"))
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@figure_lbl} #{lbl}"), "name")
     end
 
-    def prefix_name(f, delim, number)
+    def prefix_name(f, delim, number, elem)
       return if number.nil? || number.empty?
-      unless name = f.at(ns("./name"))
-        f.children.first.previous = "<name></name>"
+      unless name = f.at(ns("./#{elem}"))
+        f.children.first.previous = "<#{elem}></#{elem}>"
         name = f.children.first
       end
       name.children.empty? ? name.add_child(number) :
@@ -35,7 +35,7 @@ module IsoDoc
       return if labelled_ancestor(f)
       return unless f.ancestors("example").empty?
       lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@figure_lbl} #{lbl}"))
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@figure_lbl} #{lbl}"), "name")
     end
 
     def formula(docxml)
@@ -47,7 +47,7 @@ module IsoDoc
     # introduce name element
     def formula1(f)
       lbl = @xrefs.anchor(f['id'], :label, false)
-      prefix_name(f, "", lbl)
+      prefix_name(f, "", lbl, "name")
     end
 
     def example(docxml)
@@ -66,7 +66,7 @@ module IsoDoc
       n = @xrefs.get[f["id"]]
       lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @example_lbl :
           l10n("#{@example_lbl} #{n[:label]}")
-      prefix_name(f, "&nbsp;&mdash; ", lbl)
+      prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
     end
 
     def note(docxml)
@@ -80,7 +80,7 @@ module IsoDoc
       n = @xrefs.get[f["id"]]
       lbl = (@note_lbl if n.nil? || n[:label].nil? || n[:label].empty?) ?
         @note_lbl : l10n("#{@note_lbl} #{n[:label]}")
-      prefix_name(f, "", lbl)
+      prefix_name(f, "", lbl, "name")
     end
 
     def termnote(docxml)
@@ -92,7 +92,7 @@ module IsoDoc
     # introduce name element
     def termnote1(f)
       lbl = l10n(@xrefs.anchor(f['id'], :label) || '???')
-      prefix_name(f, "", lbl)
+      prefix_name(f, "", lbl, "name")
     end
   end
 end
