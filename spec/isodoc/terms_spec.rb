@@ -139,12 +139,14 @@ RSpec.describe IsoDoc do
                  </ul>
                </termexample>
                <termnote id='_671a1994-4783-40d0-bc81-987d06ffb74e' keep-with-next='true' keep-lines-together='true'>
+               <name>Note 1 to entry</name>
                  <p id='_19830f33-e46c-42cc-94ca-a5ef101132d5'>
                    The starch of waxy rice consists almost entirely of amylopectin. The
                    kernels have a tendency to stick together after cooking.
                  </p>
                </termnote>
                <termnote id='_671a1994-4783-40d0-bc81-987d06ffb74f'>
+               <name>Note 2 to entry</name>
                  <ul>
                    <li>A</li>
                  </ul>
@@ -234,12 +236,14 @@ OUTPUT
                  </ul>
                </termexample>
                <termnote id='_671a1994-4783-40d0-bc81-987d06ffb74e' keep-with-next='true' keep-lines-together='true'>
+               <name>Note 1 to entry</name>
                  <p id='_19830f33-e46c-42cc-94ca-a5ef101132d5'>
                    The starch of waxy rice consists almost entirely of amylopectin. The
                    kernels have a tendency to stick together after cooking.
                  </p>
                </termnote>
                <termnote id='_671a1994-4783-40d0-bc81-987d06ffb74f'>
+               <name>Note 2 to entry</name>
                  <ul>
                    <li>A</li>
                  </ul>
@@ -370,12 +374,14 @@ OUTPUT
                  </ul>
                </termexample>
                <termnote id='_671a1994-4783-40d0-bc81-987d06ffb74e' keep-with-next='true' keep-lines-together='true'>
+               <name>Note 1 to entry</name>
                  <p id='_19830f33-e46c-42cc-94ca-a5ef101132d5'>
                    The starch of waxy rice consists almost entirely of amylopectin. The
                    kernels have a tendency to stick together after cooking.
                  </p>
                </termnote>
                <termnote id='_671a1994-4783-40d0-bc81-987d06ffb74f'>
+               <name>Note 2 to entry</name>
                  <ul>
                    <li>A</li>
                  </ul>

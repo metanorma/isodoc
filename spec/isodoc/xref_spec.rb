@@ -76,7 +76,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references notes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -141,11 +141,7 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-    <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p>
+    <!--
                  <a href="#N1">Introduction, Note</a>
                  <a href="#N2">Preparatory, Note</a>
            <a href="#N">Clause 1, Note</a>
@@ -154,60 +150,109 @@ RSpec.describe IsoDoc do
            <a href="#AN">Annex A.1, Note</a>
            <a href="#Anote1">Annex A.2, Note  1</a>
            <a href="#Anote2">Annex A.2, Note  2</a>
-           </p>
-               </div>
-                <br/>
-                <div class="Section3" id="intro">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="N1" class="Note">
-                 <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
-               </div>
-               <div id="xyz"><h2>Preparatory</h2>
-           <div id="N2" class="Note"><p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-       </div>
-             </div>
-             <p class="zzSTDTitle1"/>
-             <div id="scope">
-               <h1>1.&#160; Scope</h1>
-               <div id="N" class="Note">
-                 <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
-               </div>
-               <p>
-                 <a href="#N">Note</a>
-               </p>
-             </div>
-             <div id="terms"><h1>2.&#160; </h1>
-       </div>
-             <div id="widgets">
-               <h1>3.&#160; Widgets</h1>
-               <div id="widgets1"><h2>3.1.&#160;</h2>
-           <div id="note1" class="Note"><p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-           <div id="note2" class="Note"><p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-       <p>    <a href="#note1">Note  1</a> <a href="#note2">Note  2</a> </p>
-
-           </div>
-             </div>
-             <br/>
-             <div id="annex1" class="Section3">
-                          <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-               <div id="annex1a"><h2>A.1.&#160;</h2>
-           <div id="AN" class="Note"><p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-           </div>
-               <div id="annex1b"><h2>A.2.&#160;</h2>
-           <div id="Anote1" class="Note"><p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-           <div id="Anote2" class="Note"><p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p></div>
-           </div>
-             </div>
-           </div>
-         </body>
-       </html>
+           -->
+     <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='N1'/>
+        <xref target='N2'/>
+        <xref target='N'/>
+        <xref target='note1'/>
+        <xref target='note2'/>
+        <xref target='AN'/>
+        <xref target='Anote1'/>
+        <xref target='Anote2'/>
+      </p>
+    </foreword>
+    <introduction id='intro'>
+      <note id='N1'>
+        <name>NOTE</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+      <clause id='xyz'>
+        <title>Preparatory</title>
+        <note id='N2'>
+          <name>NOTE</name>
+          <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83d'>
+            These results are based on a study carried out on three different
+            types of kernel.
+          </p>
+        </note>
+      </clause>
+    </introduction>
+  </preface>
+  <sections>
+    <clause id='scope'>
+      <title>Scope</title>
+      <note id='N'>
+        <name>NOTE</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+      <p>
+        <xref target='N'/>
+      </p>
+    </clause>
+    <terms id='terms'/>
+    <clause id='widgets'>
+      <title>Widgets</title>
+      <clause id='widgets1'>
+        <note id='note1'>
+          <name>NOTE 1</name>
+          <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+            These results are based on a study carried out on three different
+            types of kernel.
+          </p>
+        </note>
+        <note id='note2'>
+          <name>NOTE 2</name>
+          <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
+            These results are based on a study carried out on three different
+            types of kernel.
+          </p>
+        </note>
+        <p>
+          <xref target='note1'/>
+          <xref target='note2'/>
+        </p>
+      </clause>
+    </clause>
+  </sections>
+  <annex id='annex1'>
+    <clause id='annex1a'>
+      <note id='AN'>
+        <name>NOTE</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+    </clause>
+    <clause id='annex1b'>
+      <note id='Anote1'>
+        <name>NOTE 1</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+      <note id='Anote2'>
+        <name>NOTE 2</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+    </clause>
+  </annex>
+</iso-standard>
     OUTPUT
   end
 
@@ -1561,7 +1606,7 @@ OUTPUT
   end
 
   it "cross-references term notes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -1591,28 +1636,57 @@ OUTPUT
 
     </iso-standard>
     INPUT
-            #{HTML_HDR}
-    <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p>
+    <!--
            <a href="#note1">Clause 2.1, Note 1</a>
            <a href="#note2">Clause 2.2, Note 1</a>
            <a href="#note3">Clause 2.2, Note 2</a>
-           </p>
-               </div>
-               <p class="zzSTDTitle1"/>
-               <div id="scope">
-                 <h1>1.&#160; Scope</h1>
-               </div>
-               <div id="terms"><h1>2.&#160; </h1>
-       <p class="TermNum" id="_waxy_rice">2.1.</p><p class="Terms" style="text-align:left;">waxy rice</p>
-       <div id="note1" class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div><p class="TermNum" id="_nonwaxy_rice">2.2.</p><p class="Terms" style="text-align:left;">nonwaxy rice</p>
-       <div id="note2" class="Note"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-       <div id="note3" class="Note"><p>Note 2 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div></div>
-             </div>
-           </body>
-       </html>
+           -->
+           <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='note1'/>
+        <xref target='note2'/>
+        <xref target='note3'/>
+      </p>
+    </foreword>
+  </preface>
+  <sections>
+    <clause id='scope'>
+      <title>Scope</title>
+    </clause>
+    <terms id='terms'>
+      <term id='_waxy_rice'>
+        <preferred>waxy rice</preferred>
+        <termnote id='note1'>
+          <name>Note 1 to entry</name>
+          <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
+            The starch of waxy rice consists almost entirely of amylopectin. The
+            kernels have a tendency to stick together after cooking.
+          </p>
+        </termnote>
+      </term>
+      <term id='_nonwaxy_rice'>
+        <preferred>nonwaxy rice</preferred>
+        <termnote id='note2'>
+          <name>Note 1 to entry</name>
+          <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
+            The starch of waxy rice consists almost entirely of amylopectin. The
+            kernels have a tendency to stick together after cooking.
+          </p>
+        </termnote>
+        <termnote id='note3'>
+          <name>Note 2 to entry</name>
+          <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
+            The starch of waxy rice consists almost entirely of amylopectin. The
+            kernels have a tendency to stick together after cooking.
+          </p>
+        </termnote>
+      </term>
+    </terms>
+  </sections>
+</iso-standard>
     OUTPUT
   end
 

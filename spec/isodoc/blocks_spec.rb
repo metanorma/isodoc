@@ -1,8 +1,8 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-  it "processes unlabelled notes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes unlabelled notes (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note id="A" keep-with-next="true" keep-lines-together="true">
@@ -10,6 +10,39 @@ RSpec.describe IsoDoc do
 </note>
     </foreword></preface>
     </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <note id='A' keep-with-next='true' keep-lines-together='true'>
+        <name>NOTE</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+    </foreword>
+  </preface>
+</iso-standard>
+OUTPUT
+  end
+
+  it "processes unlabelled notes (HTML)" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <note id='A' keep-with-next='true' keep-lines-together='true'>
+        <name>NOTE</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+    </foreword>
+  </preface>
+</iso-standard>
     INPUT
     #{HTML_HDR}
                <br/>
@@ -28,13 +61,19 @@ RSpec.describe IsoDoc do
 
   it "processes unlabelled notes (Word)" do
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
-    <note id="A">
-  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-</note>
-    </foreword></preface>
-    </iso-standard>
+    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <note id='A' keep-with-next='true' keep-lines-together='true'>
+        <name>NOTE</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+    </foreword>
+  </preface>
+</iso-standard>
     INPUT
            <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
          <head><style/></head>
@@ -47,7 +86,7 @@ RSpec.describe IsoDoc do
              <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <div id="A" class="Note">
+               <div id="A" class="Note"  style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
                </div>
              </div>
@@ -62,34 +101,8 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-
-  it "processes labelled notes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
-    <note id="note1">
-  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-</note>
-    </foreword></preface>
-    </iso-standard>
-INPUT
-    #{HTML_HDR}
-               <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="note1" class="Note">
-                   <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
-                 </div>
-               </div>
-               <p class="zzSTDTitle1"/>
-             </div>
-           </body>
-       </html>
-    OUTPUT
-  end
-
-    it "processes sequences of notes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+     it "processes sequences of notes (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note id="note1">
@@ -100,6 +113,53 @@ INPUT
 </note>
     </foreword></preface>
     </iso-standard>
+INPUT
+<?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <note id='note1'>
+        <name>NOTE 1</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+      <note id='note2'>
+        <name>NOTE 2</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+    </foreword>
+  </preface>
+</iso-standard>
+OUTPUT
+  end
+
+    it "processes sequences of notes (HTML)" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <note id='note1'>
+        <name>NOTE 1</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+      <note id='note2'>
+        <name>NOTE 2</name>
+        <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
+          These results are based on a study carried out on three different
+          types of kernel.
+        </p>
+      </note>
+    </foreword>
+  </preface>
+</iso-standard>
 INPUT
     #{HTML_HDR}
                <br/>
@@ -124,6 +184,7 @@ INPUT
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
+    <name>NOTE</name>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
 </note>
@@ -150,7 +211,7 @@ INPUT
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <note id="A">
+    <note id="A"><name>NOTE</name>
     <dl>
     <dt>A</dt>
     <dd><p>B</p></dd>
@@ -183,7 +244,7 @@ INPUT
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <note id="A">
+    <note id="A"><name>NOTE</name>
     <dl>
     <dt>A</dt>
     <dd><p>B</p></dd>
@@ -226,8 +287,8 @@ INPUT
         expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <p id="A">ABC <note id="B"><p id="C">XYZ</p></note>
-<note id="B1"><p id="C1">XYZ1</p></note></p>
+    <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
+<note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
 </foreword></preface>
     </iso-standard>
 INPUT
@@ -262,8 +323,8 @@ OUTPUT
         expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <p id="A">ABC <note id="B"><p id="C">XYZ</p></note>
-<note id="B1"><p id="C1">XYZ1</p></note></p>
+    <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
+<note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
 </foreword></preface>
     </iso-standard>
 INPUT
@@ -1046,6 +1107,7 @@ Que?
           </dd>
         </dl>
         <note id='_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0'>
+        <name>NOTE</name>
           <p id='_511aaa98-4116-42af-8e5b-c87cdf5bfdc8'>
             [durationUnits] is essentially a duration statement without the "P"
             prefix. "P" is unnecessary because between "G" and "U" duration is
@@ -1078,6 +1140,7 @@ end
   </dd>
 </dl>
     <note id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0">
+    <name>NOTE</name>
   <p id="_511aaa98-4116-42af-8e5b-c87cdf5bfdc8">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
 </note>
     </formula>
@@ -1124,6 +1187,7 @@ end
   </dd>
 </dl>
     <note id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0">
+    <name>NOTE</name>
   <p id="_511aaa98-4116-42af-8e5b-c87cdf5bfdc8">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
 </note>
     </formula>

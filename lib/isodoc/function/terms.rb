@@ -39,11 +39,14 @@ module IsoDoc::Function
     end
 
     def termnote_parse(node, out)
+      name = node&.at(ns("./name"))&.remove
       out.div **note_attrs(node) do |div|
-        first = node.first_element_child
         div.p do |p|
-          p << "#{@xrefs.anchor(node['id'], :label) || '???'}: "
-          para_then_remainder(first, node, p, div)
+          if name
+            name.children.each { |n| parse(n, p) }
+            p << l10n(": ")
+          end
+          para_then_remainder(node.first_element_child, node, p, div)
         end
       end
     end

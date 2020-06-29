@@ -15,6 +15,9 @@ module IsoDoc
       sourcecode docxml
       formula docxml
       example docxml
+      termexample docxml
+      note docxml
+      termnote docxml
       docxml.to_xml
     end
 

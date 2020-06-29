@@ -51,7 +51,13 @@ module IsoDoc
     end
 
     def example(docxml)
-      docxml.xpath(ns("//example | //termexample")).each do |f|
+      docxml.xpath(ns("//example")).each do |f|
+        example1(f)
+      end
+    end
+
+    def termexample(docxml)
+      docxml.xpath(ns("//termexample")).each do |f|
         example1(f)
       end
     end
@@ -61,6 +67,32 @@ module IsoDoc
       lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @example_lbl :
           l10n("#{@example_lbl} #{n[:label]}")
       prefix_name(f, "&nbsp;&mdash; ", lbl)
+    end
+
+    def note(docxml)
+      docxml.xpath(ns("//note")).each do |f|
+        note1(f)
+      end
+    end
+
+    # introduce name element
+    def note1(f)
+      n = @xrefs.get[f["id"]]
+      lbl = (@note_lbl if n.nil? || n[:label].nil? || n[:label].empty?) ?
+        @note_lbl : l10n("#{@note_lbl} #{n[:label]}")
+      prefix_name(f, "", lbl)
+    end
+
+    def termnote(docxml)
+      docxml.xpath(ns("//termnote")).each do |f|
+        termnote1(f)
+      end
+    end
+
+    # introduce name element
+    def termnote1(f)
+      lbl = l10n(@xrefs.anchor(f['id'], :label) || '???')
+      prefix_name(f, "", lbl)
     end
   end
 end

@@ -1385,7 +1385,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
              <h1>Foreword</h1>
              <div class='Note'>
                <p class='Note'>
-                 <span class='note_label'>NOTE 1</span>
+                 <span class='note_label'/>
                  <span style='mso-tab-count:1'>&#xA0; </span>
                  For further information on the Foreword, see 
                  <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
@@ -1419,7 +1419,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
                      <div class='Note'>
                        <a name='_8fff1596-290e-4314-b03c-7a8aab97eebe' id='_8fff1596-290e-4314-b03c-7a8aab97eebe'/>
                        <p class='Note'>
-                         <span class='note_label'>NOTE</span>
+                         <span class='note_label'/>
                          <span style='mso-tab-count:1'>&#xA0; </span>
                          B
                        </p>

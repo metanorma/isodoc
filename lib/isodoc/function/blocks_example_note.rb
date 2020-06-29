@@ -51,16 +51,11 @@ module IsoDoc::Function
       example_div_parse(node, out)
     end
 
-    def note_label(node)
-      n = @xrefs.get[node["id"]]
-      return @note_lbl if n.nil? || n[:label].nil? || n[:label].empty?
-      l10n("#{@note_lbl} #{n[:label]}")
-    end
-
     def note_p_parse(node, div)
+      name = node&.at(ns("./name"))&.remove
       div.p do |p|
         p.span **{ class: "note_label" } do |s|
-          s << note_label(node)
+          name and name.children.each { |n| parse(n, s) }
         end
         insert_tab(p, 1)
         node.first_element_child.children.each { |n| parse(n, p) }
@@ -69,9 +64,10 @@ module IsoDoc::Function
     end
 
     def note_parse1(node, div)
+      name = node&.at(ns("./name"))&.remove
       div.p do |p|
         p.span **{ class: "note_label" } do |s|
-          s << note_label(node)
+          name and name.children.each { |n| parse(n, s) }
         end
         insert_tab(p, 1)
       end
@@ -95,7 +91,8 @@ module IsoDoc::Function
     def note_parse(node, out)
       @note = true
       out.div **note_attrs(node) do |div|
-        node.first_element_child.name == "p" ?
+        node&.at(ns("./*[local-name() != 'name'][1]"))&.name == "p" ?
+        #node.first_element_child.name == "p" ?
           note_p_parse(node, div) : note_parse1(node, div)
       end
       @note = false
