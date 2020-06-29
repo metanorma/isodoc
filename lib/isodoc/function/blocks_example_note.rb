@@ -58,7 +58,7 @@ module IsoDoc::Function
     def note_p_parse(node, div)
       name = node&.at(ns("./name"))&.remove
       div.p do |p|
-        p.span **{ class: "note_label" } do |s|
+        name and p.span **{ class: "note_label" } do |s|
           name and name.children.each { |n| parse(n, s) }
           s << node_delim
         end
@@ -70,9 +70,10 @@ module IsoDoc::Function
 
     def note_parse1(node, div)
       name = node&.at(ns("./name"))&.remove
-      div.p do |p|
+      name and div.p do |p|
         p.span **{ class: "note_label" } do |s|
-          name and name.children.each { |n| parse(n, s) }
+          name.children.each { |n| parse(n, s) }
+          s << node_delim
         end
         insert_tab(p, 1)
       end
