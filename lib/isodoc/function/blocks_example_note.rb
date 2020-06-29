@@ -51,11 +51,16 @@ module IsoDoc::Function
       example_div_parse(node, out)
     end
 
+    def note_delim
+      ""
+    end
+
     def note_p_parse(node, div)
       name = node&.at(ns("./name"))&.remove
       div.p do |p|
         p.span **{ class: "note_label" } do |s|
           name and name.children.each { |n| parse(n, s) }
+          s << node_delim
         end
         insert_tab(p, 1)
         node.first_element_child.children.each { |n| parse(n, p) }

@@ -38,13 +38,17 @@ module IsoDoc::Function
       end
     end
 
+    def termnote_delim
+      l10n(": ")
+    end
+
     def termnote_parse(node, out)
       name = node&.at(ns("./name"))&.remove
       out.div **note_attrs(node) do |div|
         div.p do |p|
           if name
             name.children.each { |n| parse(n, p) }
-            p << l10n(": ")
+            p << termnote_delim
           end
           para_then_remainder(node.first_element_child, node, p, div)
         end
