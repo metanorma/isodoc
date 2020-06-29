@@ -37,5 +37,17 @@ module IsoDoc
       lbl = @xrefs.anchor(f['id'], :label, false) or return
       prefix_name(f, "&nbsp;&mdash; ", l10n("#{@figure_lbl} #{lbl}"))
     end
+
+    def formula(docxml)
+      docxml.xpath(ns("//formula")).each do |f|
+        formula1(f)
+      end
+    end
+
+    # introduce name element
+    def formula1(f)
+      lbl = @xrefs.anchor(f['id'], :label, false)
+      prefix_name(f, "", lbl)
+    end
   end
 end

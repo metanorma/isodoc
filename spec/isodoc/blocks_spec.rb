@@ -989,9 +989,8 @@ Que?
     OUTPUT
   end
 
-
-  it "processes formulae" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+   it "processes formulae (PresentationXML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
@@ -1009,6 +1008,62 @@ Que?
 </note>
     </formula>
     <formula id="_be9158af-7e93-4ee2-90c5-26d31c181935">
+  <stem type="AsciiMath">r = 1 %</stem>
+  </formula>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <formula id='_be9158af-7e93-4ee2-90c5-26d31c181934' unnumbered='true' keep-with-next='true' keep-lines-together='true'>
+        <stem type='AsciiMath'>r = 1 %</stem>
+        <dl id='_e4fe94fe-1cde-49d9-b1ad-743293b7e21d'>
+          <dt>
+            <stem type='AsciiMath'>r</stem>
+          </dt>
+          <dd>
+            <p id='_1b99995d-ff03-40f5-8f2e-ab9665a69b77'>is the repeatability limit.</p>
+          </dd>
+        </dl>
+        <note id='_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0'>
+          <p id='_511aaa98-4116-42af-8e5b-c87cdf5bfdc8'>
+            [durationUnits] is essentially a duration statement without the "P"
+            prefix. "P" is unnecessary because between "G" and "U" duration is
+            always expressed.
+          </p>
+        </note>
+      </formula>
+      <formula id='_be9158af-7e93-4ee2-90c5-26d31c181935'>
+        <name>1</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </formula>
+    </foreword>
+  </preface>
+</iso-standard>
+OUTPUT
+end
+
+  it "processes formulae (HTML)" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
+  <stem type="AsciiMath">r = 1 %</stem>
+<dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
+  <dt>
+    <stem type="AsciiMath">r</stem>
+  </dt>
+  <dd>
+    <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
+  </dd>
+</dl>
+    <note id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0">
+  <p id="_511aaa98-4116-42af-8e5b-c87cdf5bfdc8">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
+</note>
+    </formula>
+    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181935"><name>1</name>
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
     </foreword></preface>
@@ -1054,7 +1109,7 @@ Que?
   <p id="_511aaa98-4116-42af-8e5b-c87cdf5bfdc8">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
 </note>
     </formula>
-    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181935">
+    <formula id="_be9158af-7e93-4ee2-90c5-26d31c181935"><name>1</name>
   <stem type="AsciiMath">r = 1 %</stem>
   </formula>
     </foreword></preface>
@@ -1332,7 +1387,7 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
   </div>
   <div class="requirement-measurement-target">
     <p id="_">The measurement target shall be measured as:</p>
-    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span></p></div></div>
 
 
   </div>
@@ -1425,7 +1480,7 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
   </div>
   <div class="requirement-measurement-target"  style='page-break-after: avoid;page-break-inside: avoid;'>
     <p id="_">The measurement target shall be measured as:</p>
-    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span></p></div></div>
 
 
   </div>
@@ -1530,7 +1585,6 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
                    <div id='B'><div class='formula'>
                      <p>
                        <span class='stem'>(#(r/1 = 0)#)</span>
-                       &#160; (1)
                      </p>
                      </div>
                    </div>
@@ -1626,7 +1680,7 @@ end
   </div>
   <div class="requirement-measurement-target">
     <p id="_">The measurement target shall be measured as:</p>
-    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span></p></div></div>
 
 
   </div>

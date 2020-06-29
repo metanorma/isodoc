@@ -130,7 +130,7 @@ module IsoDoc::Function
       out.div **attr_code(class: "formula") do |div|
         div.p do |p|
           parse(node.at(ns("./stem")), div)
-          lbl = @xrefs.anchor(node['id'], :label, false)
+          lbl = node&.at(ns("./name"))&.text
           unless lbl.nil?
             insert_tab(div, 1)
             div << "(#{lbl})"
@@ -148,7 +148,7 @@ module IsoDoc::Function
         formula_parse1(node, div)
         formula_where(node.at(ns("./dl")), div)
         node.children.each do |n|
-          next if %w(stem dl).include? n.name
+          next if %w(stem dl name).include? n.name
           parse(n, div)
         end
       end

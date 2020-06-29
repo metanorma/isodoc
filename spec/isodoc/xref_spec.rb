@@ -658,7 +658,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references formulae" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -721,11 +721,7 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-        #{HTML_HDR}
-    <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p>
+                 <!--
            <a href="#N1">Introduction, Formula (1)</a>
            <a href="#N2">Preparatory, Formula ((??))</a>
            <a href="#N">Clause 1, Formula (2)</a>
@@ -734,55 +730,83 @@ RSpec.describe IsoDoc do
            <a href="#AN">Formula (A.1)</a>
            <a href="#Anote1">Formula ((??))</a>
            <a href="#Anote2">Formula (A.2)</a>
-           </p>
-               </div>
-                            <br/>
-             <div class="Section3" id="intro">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="N1"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div></div>
-                       <div id="xyz"><h2>Preparatory</h2>
-    <div id="N2"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div></div>
-                </div>
-             </div>
-               <p class="zzSTDTitle1"/>
-               <div id="scope">
-                 <h1>1.&#160; Scope</h1>
-                 <div id="N"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (2)</p></div></div>
-                 <p>
-                   <a href="#N">Formula (2)</a>
-                 </p>
-               </div>
-               <div id="terms"><h1>2.&#160; </h1>
-       </div>
-               <div id="widgets">
-                 <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1"><h2>3.1.&#160;</h2>
-           <div id="note1"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (3)</p></div></div>
-           <div id="note2"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (4)</p></div></div>
-         <p>    <a href="#note1">Formula (3)</a> <a href="#note2">Formula (4)</a> </p>
-           </div>
-               </div>
-               <br/>
-               <div id="annex1" class="Section3">
-                            <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-                 <div id="annex1a"><h2>A.1.&#160;</h2>
-           <div id="AN"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (A.1)</p></div></div>
-           </div>
-                 <div id="annex1b"><h2>A.2.&#160;</h2>
-           <div id="Anote1"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div></div>
-           <div id="Anote2"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (A.2)</p></div></div>
-           </div>
-               </div>
-             </div>
-           </body>
-       </html>
+           -->
+           <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='N1'/>
+        <xref target='N2'/>
+        <xref target='N'/>
+        <xref target='note1'/>
+        <xref target='note2'/>
+        <xref target='AN'/>
+        <xref target='Anote1'/>
+        <xref target='Anote2'/>
+      </p>
+    </foreword>
+    <introduction id='intro'>
+      <formula id='N1'>
+        <name>1</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </formula>
+      <clause id='xyz'>
+        <title>Preparatory</title>
+        <formula id='N2' unnumbered='true'>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </formula>
+      </clause>
+    </introduction>
+  </preface>
+  <sections>
+    <clause id='scope'>
+      <title>Scope</title>
+      <formula id='N'>
+        <name>2</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </formula>
+      <p>
+        <xref target='N'/>
+      </p>
+    </clause>
+    <terms id='terms'/>
+    <clause id='widgets'>
+      <title>Widgets</title>
+      <clause id='widgets1'>
+        <formula id='note1'>
+          <name>3</name>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </formula>
+        <formula id='note2'>
+          <name>4</name>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </formula>
+        <p>
+          <xref target='note1'/>
+          <xref target='note2'/>
+        </p>
+      </clause>
+    </clause>
+  </sections>
+  <annex id='annex1'>
+    <clause id='annex1a'>
+      <formula id='AN'>
+        <name>A.1</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </formula>
+    </clause>
+    <clause id='annex1b'>
+      <formula id='Anote1' unnumbered='true'>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </formula>
+      <formula id='Anote2'>
+        <name>A.2</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </formula>
+    </clause>
+  </annex>
+</iso-standard>
     OUTPUT
   end
 

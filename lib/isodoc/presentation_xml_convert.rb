@@ -13,6 +13,7 @@ module IsoDoc
       info docxml, nil
       figure docxml
       sourcecode docxml
+      formula docxml
       docxml.to_xml
     end
 
