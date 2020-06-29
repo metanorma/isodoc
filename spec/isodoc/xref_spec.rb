@@ -358,7 +358,7 @@ RSpec.describe IsoDoc do
                  <p>pseudocode</p>
                </figure>
                <sourcecode id='note4'>
-                 <name>Source! Code!</name>
+                 <name>Figure 5&#xA0;&#x2014; Source! Code!</name>
                   A B C
                </sourcecode>
                <example id='note5'>
@@ -392,7 +392,7 @@ RSpec.describe IsoDoc do
                <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
              </figure>
              <sourcecode id='Anote3'>
-               <name>Source! Code!</name>
+               <name>Figure A.3&#xA0;&#x2014; Source! Code!</name>
                 A B C
              </sourcecode>
            </clause>

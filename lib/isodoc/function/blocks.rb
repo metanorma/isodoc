@@ -7,7 +7,7 @@ module IsoDoc::Function
     def figure_name_parse(node, div, name)
       return if name.nil? 
       div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
-        name and name.children.each { |n| parse(n, div) }
+        name.children.each { |n| parse(n, div) }
       end
     end
 
@@ -50,15 +50,9 @@ module IsoDoc::Function
     end
 
     def sourcecode_name_parse(node, div, name)
-      lbl = @xrefs.anchor(node['id'], :label, false)
-      lbl = nil if labelled_ancestor(node)
-      return if lbl.nil? && name.nil?
+      return if name.nil? 
       div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
-        if node.ancestors("example").empty?
-          lbl.nil? or p << l10n("#{@figure_lbl} #{lbl}")
-          name and !lbl.nil? and p << "&nbsp;&mdash; "
-        end
-        name&.children&.each { |n| parse(n, p) }
+        name.children.each { |n| parse(n, p) }
       end
     end
 

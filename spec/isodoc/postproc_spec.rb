@@ -961,7 +961,7 @@ TOCLEVEL
         <h1 class="ForewordTitle">Foreword</h1>
         <pre id="samplecode" class="prettyprint "><br />&#xA0;&#xA0;&#xA0; <br />&#xA0; &lt;xml&gt; &amp;<br />
         </pre>
-        <p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; XML code</p>
+        <p class="SourceTitle" style="text-align:center;">XML code</p>
       </div>
       <p class="zzSTDTitle1"></p>
     </main>
@@ -991,7 +991,7 @@ TOCLEVEL
       </p>
       <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"></a><br/>&#xA0;&#xA0;&#xA0; <br/>&#xA0; &lt;xml&gt; &amp;<br/></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; XML code</p>
+        <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"></a><br/>&#xA0;&#xA0;&#xA0; <br/>&#xA0; &lt;xml&gt; &amp;<br/></p><p class="SourceTitle" style="text-align:center;">XML code</p>
       </div>
       <p class="MsoNormal">&#xA0;</p>
     </div>

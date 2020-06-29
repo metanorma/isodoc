@@ -761,8 +761,8 @@ OUTPUT
     OUTPUT
   end
 
-  it "processes sourcecode" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+   it "processes sourcecode (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <sourcecode lang="ruby" id="samplecode">
@@ -775,11 +775,48 @@ Que?
     </foreword></preface>
     </iso-standard>
     INPUT
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <sourcecode lang='ruby' id='samplecode'>
+        <name>
+          Figure 1&#xA0;&#x2014; Ruby
+          <em>code</em>
+        </name>
+         puts x
+      </sourcecode>
+      <sourcecode unnumbered='true'> Que? </sourcecode>
+    </foreword>
+  </preface>
+</iso-standard>
+OUTPUT
+   end
+
+  it "processes sourcecode (HTML)" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <sourcecode lang='ruby' id='samplecode'>
+        <name>
+          Figure 1&#xA0;&#x2014; Ruby
+          <em>code</em>
+        </name>
+  puts x
+</sourcecode>
+      <sourcecode unnumbered='true'>
+Que?
+</sourcecode>
+    </foreword>
+  </preface>
+</iso-standard>
+    INPUT
         #{HTML_HDR}
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/></pre>
+                 <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160; puts x<br/></pre>
                  <p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
                  <pre class='prettyprint '>
   <br/>
@@ -796,17 +833,22 @@ Que?
 
   it "processes sourcecode (Word)" do
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
-    <sourcecode lang="ruby" id="samplecode">
-    <name>Ruby <em>code</em></name>
+    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <sourcecode lang='ruby' id='samplecode'>
+        <name>
+          Figure 1&#xA0;&#x2014; Ruby
+          <em>code</em>
+        </name>
   puts x
 </sourcecode>
-<sourcecode unnumbered="true">
+      <sourcecode unnumbered='true'>
 Que?
 </sourcecode>
-    </foreword></preface>
-    </iso-standard>
+    </foreword>
+  </preface>
+</iso-standard>
     INPUT
     <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
          <head><style/></head>
@@ -823,7 +865,7 @@ Que?
              </p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; puts x<br/></p><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
+                 <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160; puts x<br/></p><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
                  <p class='Sourcecode'>
   <br/>
   Que?
@@ -859,7 +901,7 @@ Que?
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/></pre>
-                 <p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; XML code</p>
+                 <p class="SourceTitle" style="text-align:center;">XML code</p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -888,7 +930,6 @@ Que?
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <pre id="_" class="prettyprint ">puts "Hello, world."  &lt;1&gt;<br/>&#160;&#160; %w{a b c}.each do |x|<br/>&#160;&#160;&#160;&#160; puts x  &lt;2&gt;<br/>&#160;&#160; end<br/><br/>&lt;1&gt; This is one callout<br/>&lt;2&gt; This is another callout</pre>
-                  <p class='SourceTitle' style='text-align:center;'>Figure 1</p>
                </div>
                <p class="zzSTDTitle1"/>
              </div>
@@ -1603,8 +1644,8 @@ end
     OUTPUT
   end
 
- it "processes pseudocode" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes pseudocode (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
 <itu-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata>
     <language>en</language>
@@ -1614,6 +1655,59 @@ end
         <smallcap>B</smallcap></p>
 <p id="_">  <em>C</em></p></figure>
 </preface></itu-standard>
+INPUT
+<?xml version='1.0'?>
+<itu-standard xmlns='http://riboseinc.com/isoxml'>
+  <bibdata>
+    <language>en</language>
+  </bibdata>
+  <preface>
+    <foreword>
+      <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>
+        <name>Figure 1&#xA0;&#x2014; Label</name>
+        <p id='_'>
+          &#xA0;&#xA0;
+          <strong>A</strong>
+          <br/>
+           &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;
+          <smallcap>B</smallcap>
+        </p>
+        <p id='_'>
+          &#xA0;&#xA0;
+          <em>C</em>
+        </p>
+      </figure>
+    </foreword>
+  </preface>
+</itu-standard>
+OUTPUT
+end
+
+ it "processes pseudocode (HTML)" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+<itu-standard xmlns='http://riboseinc.com/isoxml'>
+  <bibdata>
+    <language>en</language>
+  </bibdata>
+  <preface>
+    <foreword>
+      <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>
+        <name>Figure 1&#xA0;&#x2014; Label</name>
+        <p id='_'>
+          &#xA0;&#xA0;
+          <strong>A</strong>
+          <br/>
+           &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;
+          <smallcap>B</smallcap>
+        </p>
+        <p id='_'>
+          &#xA0;&#xA0;
+          <em>C</em>
+        </p>
+      </figure>
+    </foreword>
+  </preface>
+</itu-standard>
 INPUT
     #{HTML_HDR}
              <br/>
@@ -1633,18 +1727,32 @@ OUTPUT
   it "processes pseudocode (Word)" do
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", false)
-<itu-standard xmlns="http://riboseinc.com/isoxml">
-    <bibdata>
+    <itu-standard xmlns='http://riboseinc.com/isoxml'>
+  <bibdata>
     <language>en</language>
-    </bibdata>
-        <preface><foreword>
-  <figure id="_" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong><br/>
-        <smallcap>B</smallcap></p>
-<p id="_">  <em>C</em></p></figure>
-</preface></itu-standard>
+  </bibdata>
+  <preface>
+    <foreword>
+      <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>
+        <name>Figure 1&#xA0;&#x2014; Label</name>
+        <p id='_'>
+          &#xA0;&#xA0;
+          <strong>A</strong>
+          <br/>
+           &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;
+          <smallcap>B</smallcap>
+        </p>
+        <p id='_'>
+          &#xA0;&#xA0;
+          <em>C</em>
+        </p>
+      </figure>
+    </foreword>
+  </preface>
+</itu-standard>
 INPUT
     expect(xmlpp( File.read("test.doc").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{</div>.*}m, "</div>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <div class="pseudocode"><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
+            <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
        <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
 OUTPUT
