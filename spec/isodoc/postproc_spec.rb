@@ -1018,7 +1018,7 @@ TOCLEVEL
              </p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <div class="example"><a name="samplecode" id="samplecode"></a><p class="example-title">EXAMPLE</p>
+               <div class="example"><a name="samplecode" id="samplecode"></a>
          <p class="example">ABC</p>
        </div>
              </div>

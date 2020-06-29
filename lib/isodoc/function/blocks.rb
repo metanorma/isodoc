@@ -130,8 +130,7 @@ module IsoDoc::Function
       out.div **attr_code(class: "formula") do |div|
         div.p do |p|
           parse(node.at(ns("./stem")), div)
-          lbl = node&.at(ns("./name"))&.text
-          unless lbl.nil?
+          if lbl = node&.at(ns("./name"))&.text
             insert_tab(div, 1)
             div << "(#{lbl})"
           end

@@ -14,6 +14,7 @@ module IsoDoc
       figure docxml
       sourcecode docxml
       formula docxml
+      example docxml
       docxml.to_xml
     end
 

@@ -49,5 +49,18 @@ module IsoDoc
       lbl = @xrefs.anchor(f['id'], :label, false)
       prefix_name(f, "", lbl)
     end
+
+    def example(docxml)
+      docxml.xpath(ns("//example | //termexample")).each do |f|
+        example1(f)
+      end
+    end
+
+    def example1(f)
+      n = @xrefs.get[f["id"]]
+      lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @example_lbl :
+          l10n("#{@example_lbl} #{n[:label]}")
+      prefix_name(f, "&nbsp;&mdash; ", lbl)
+    end
   end
 end

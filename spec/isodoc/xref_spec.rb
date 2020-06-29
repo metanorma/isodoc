@@ -362,6 +362,7 @@ RSpec.describe IsoDoc do
                   A B C
                </sourcecode>
                <example id='note5'>
+               <name>EXAMPLE</name>
                  <sourcecode id='note51'> A B C </sourcecode>
                </example>
                <figure id='note2'>
@@ -513,7 +514,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cross-references examples" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword>
@@ -576,11 +577,7 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-        #{HTML_HDR}
-    <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p>
+    <!--
            <a href="#N1">Introduction, Example</a>
            <a href="#N2">Preparatory, Example (??)</a>
            <a href="#N">Clause 1, Example</a>
@@ -589,71 +586,85 @@ RSpec.describe IsoDoc do
            <a href="#AN">Annex A.1, Example</a>
            <a href="#Anote1">Annex A.2, Example (??)</a>
            <a href="#Anote2">Annex A.2, Example  1</a>
-           </p>
-               </div>
-               <br/>
-             <div class="Section3" id="intro">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="N1" class="example"><p class="example-title">EXAMPLE</p>
-         <p>Hello</p>
-       </div>
-               <div id="xyz"><h2>Preparatory</h2>
-               <div id="N2" class="example"><p class="example-title">EXAMPLE</p>
-         <p>Hello</p>
-       </div>
-       </div>
-             </div>
-               <p class="zzSTDTitle1"/>
-               <div id="scope">
-                 <h1>1.&#160; Scope</h1>
-               <div id="N" class="example"><p class="example-title">EXAMPLE</p>
-         <p>Hello</p>
-                 </div>
-                 <p>
-                   <a href="#N">Example</a>
-                 </p>
-               </div>
-               <div id="terms"><h1>2.&#160; </h1>
-       </div>
-               <div id="widgets">
-                 <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1"><h2>3.1.&#160;</h2>
-               <div id="note1" class="example"><p class="example-title">EXAMPLE  1</p>
-         <p>Hello</p>
-       </div>
-               <div id="note2" class="example"><p class="example-title">EXAMPLE</p>
-         <p>Hello</p>
-       </div>
-       <p>    <a href="#note1">Example  1</a> <a href="#note2">Example (??)</a> </p>
-           </div>
-               </div>
-               <br/>
-               <div id="annex1" class="Section3">
-                            <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-                 <div id="annex1a"><h2>A.1.&#160;</h2>
-               <div id="AN" class="example"><p class="example-title">EXAMPLE</p>
-         <p>Hello</p>
-       </div>
-           </div>
-                 <div id="annex1b"><h2>A.2.&#160;</h2>
-               <div id="Anote1" class="example"><p class="example-title">EXAMPLE</p>
-         <p>Hello</p>
-       </div>
-               <div id="Anote2" class="example"><p class="example-title">EXAMPLE  1</p>
-         <p>Hello</p>
-       </div>
-           </div>
-               </div>
-             </div>
-           </body>
-       </html>
+           -->
+           <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='N1'/>
+        <xref target='N2'/>
+        <xref target='N'/>
+        <xref target='note1'/>
+        <xref target='note2'/>
+        <xref target='AN'/>
+        <xref target='Anote1'/>
+        <xref target='Anote2'/>
+      </p>
+    </foreword>
+    <introduction id='intro'>
+      <example id='N1'>
+        <name>EXAMPLE</name>
+        <p>Hello</p>
+      </example>
+      <clause id='xyz'>
+        <title>Preparatory</title>
+        <example id='N2' unnumbered='true'>
+          <name>EXAMPLE</name>
+          <p>Hello</p>
+        </example>
+      </clause>
+    </introduction>
+  </preface>
+  <sections>
+    <clause id='scope'>
+      <title>Scope</title>
+      <example id='N'>
+        <name>EXAMPLE</name>
+        <p>Hello</p>
+      </example>
+      <p>
+        <xref target='N'/>
+      </p>
+    </clause>
+    <terms id='terms'/>
+    <clause id='widgets'>
+      <title>Widgets</title>
+      <clause id='widgets1'>
+        <example id='note1'>
+          <name>EXAMPLE 1</name>
+          <p>Hello</p>
+        </example>
+        <example id='note2' unnumbered='true'>
+          <name>EXAMPLE</name>
+          <p>Hello</p>
+        </example>
+        <p>
+          <xref target='note1'/>
+          <xref target='note2'/>
+        </p>
+      </clause>
+    </clause>
+  </sections>
+  <annex id='annex1'>
+    <clause id='annex1a'>
+      <example id='AN'>
+        <name>EXAMPLE</name>
+        <p>Hello</p>
+      </example>
+    </clause>
+    <clause id='annex1b'>
+      <example id='Anote1' unnumbered='true'>
+        <name>EXAMPLE</name>
+        <p>Hello</p>
+      </example>
+      <example id='Anote2'>
+        <name>EXAMPLE 1</name>
+        <p>Hello</p>
+      </example>
+    </clause>
+  </annex>
+</iso-standard>
     OUTPUT
   end
 

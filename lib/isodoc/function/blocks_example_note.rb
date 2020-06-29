@@ -1,13 +1,9 @@
 module IsoDoc::Function
   module Blocks
     def example_label(node, div, name)
-      n = @xrefs.get[node["id"]]
+      return if name.nil?
       div.p **{ class: "example-title" } do |p|
-        lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @example_lbl :
-          l10n("#{@example_lbl} #{n[:label]}")
-        p << lbl
-        name and !lbl.nil? and p << "&nbsp;&mdash; "
-        name and name.children.each { |n| parse(n, div) }
+        name.children.each { |n| parse(n, div) }
       end
     end
 

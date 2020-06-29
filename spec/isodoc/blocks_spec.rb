@@ -627,9 +627,8 @@ OUTPUT
     end
    end
 
-
-  it "processes examples" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes examples (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <example id="samplecode" keep-with-next="true" keep-lines-together="true">
@@ -642,6 +641,37 @@ OUTPUT
     </foreword></preface>
     </iso-standard>
     INPUT
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
+        <name>EXAMPLE&#xA0;&#x2014; Title</name>
+        <p>Hello</p>
+        <sourcecode id='X'>
+          <name>Sample</name>
+        </sourcecode>
+      </example>
+    </foreword>
+  </preface>
+</iso-standard>
+OUTPUT
+  end
+
+  it "processes examples (HTML)" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
+        <name>EXAMPLE&#xA0;&#x2014; Title</name>
+        <p>Hello</p>
+        <sourcecode id='X'><name>Sample</name></sourcecode>
+      </example>
+    </foreword>
+  </preface>
+</iso-standard>
+    INPUT
         #{HTML_HDR}
                <br/>
                <div>
@@ -649,12 +679,7 @@ OUTPUT
                  <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
                  <p class="example-title">EXAMPLE&#160;&#8212; Title</p>
          <p>Hello</p>
-         <pre id='X' class='prettyprint '>
-  <br/>
-  &#160; 
-  <br/>
-  &#160; 
-</pre>
+         <pre id='X' class='prettyprint '/>
   <p class='SourceTitle' style='text-align:center;'>Sample</p>
                  </div>
                </div>
@@ -667,17 +692,17 @@ OUTPUT
 
    it "processes examples (Word)" do
     expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
-    <example id="samplecode" keep-with-next="true" keep-lines-together="true">
-    <name>Title</name>
-  <p>Hello</p>
-  <sourcecode id="X">
-  <name>Sample</name>
-  </sourcecode>
-</example>
-    </foreword></preface>
-    </iso-standard>
+    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
+        <name>EXAMPLE&#xA0;&#x2014; Title</name>
+        <p>Hello</p>
+        <sourcecode id='X'><name>Sample</name></sourcecode>
+      </example>
+    </foreword>
+  </preface>
+</iso-standard>
     INPUT
     <html  xmlns:epub='http://www.idpf.org/2007/ops' lang='en'><head><style>
         </style>
@@ -698,12 +723,7 @@ OUTPUT
         <div id='samplecode' class='example' style='page-break-after: avoid;page-break-inside: avoid;'>
           <p class='example-title'>EXAMPLE&#160;&#8212; Title</p>
           <p>Hello</p>
-          <p id='X' class='Sourcecode'>
-            <br/>
-            &#160;
-            <br/>
-            &#160;
-          </p>
+          <p id='X' class='Sourcecode'/>
           <p class='SourceTitle' style='text-align:center;'>Sample</p>
         </div>
       </div>
@@ -721,7 +741,7 @@ OUTPUT
    end
 
   it "processes sequences of examples" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <example id="samplecode">
@@ -737,27 +757,25 @@ OUTPUT
     </foreword></preface>
     </iso-standard>
     INPUT
-        #{HTML_HDR}
-               <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <div id="samplecode" class="example">
-                 <p class="example-title">EXAMPLE  1</p>
-         <p>Hello</p>
-                 </div>
-                 <div id="samplecode2" class="example">
-                 <p class="example-title">EXAMPLE  2&#160;&#8212; Title</p>
-                 <p>Hello</p>
-                 </div>
-                 <div id="samplecode3" class="example">
-                 <p class="example-title">EXAMPLE</p>
-                 <p>Hello</p>
-                 </div>
-               </div>
-               <p class="zzSTDTitle1"/>
-             </div>
-           </body>
-       </html>
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <example id='samplecode'>
+        <name>EXAMPLE 1</name>
+        <p>Hello</p>
+      </example>
+      <example id='samplecode2'>
+        <name>EXAMPLE 2&#xA0;&#x2014; Title</name>
+        <p>Hello</p>
+      </example>
+      <example id='samplecode3' unnumbered='true'>
+        <name>EXAMPLE</name>
+        <p>Hello</p>
+      </example>
+    </foreword>
+  </preface>
+</iso-standard>
     OUTPUT
   end
 
@@ -1832,7 +1850,6 @@ INPUT
       <div>
       <h1 class='ForewordTitle'>Foreword</h1>
                <div class='example'>
-                 <p class='example-title'>EXAMPLE</p>
                  <pre id='B' class='prettyprint '>
                    A B C
                  </pre>
