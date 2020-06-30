@@ -94,5 +94,30 @@ module IsoDoc
       lbl = l10n(@xrefs.anchor(f['id'], :label) || '???')
       prefix_name(f, "", lbl, "name")
     end
+
+    def recommendation(docxml)
+      docxml.xpath(ns("//recommendation")).each do |f|
+        recommendation1(f, @recommendation_lbl)
+      end
+    end
+
+    def requirement(docxml)
+      docxml.xpath(ns("//requirement")).each do |f|
+        recommendation1(f, @requirement_lbl)
+      end
+    end
+
+    def permission(docxml)
+      docxml.xpath(ns("//permission")).each do |f|
+        recommendation1(f, @permission_lbl)
+      end
+    end
+
+    # introduce name element
+    def recommendation1(f, type)
+      n = @xrefs.anchor(f['id'], :label, false)
+      lbl = (n.nil? ? type : l10n("#{type} #{n}"))
+      prefix_name(f, "", lbl, "name")
+    end
   end
 end

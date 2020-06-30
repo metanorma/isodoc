@@ -867,7 +867,7 @@ RSpec.describe IsoDoc do
   end
 
     it "cross-references requirements" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -930,11 +930,7 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-#{HTML_HDR}
-      <br/>
-      <div>
-        <h1 class="ForewordTitle">Foreword</h1>
-        <p>
+        <!--
     <a href="#N1">Introduction, Requirement 1</a>
     <a href="#N2">Preparatory, Requirement (??)</a>
     <a href="#N">Clause 1, Requirement 2</a>
@@ -943,76 +939,90 @@ RSpec.describe IsoDoc do
     <a href="#AN">Requirement A.1</a>
     <a href="#Anote1">Requirement (??)</a>
     <a href="#Anote2">Requirement A.2</a>
-    </p>
-      </div>
-      <br/>
-      <div class="Section3" id="intro">
-        <h1 class="IntroTitle">Introduction</h1>
-        <div class="require" id="N1"><p class="RecommendationTitle">Requirement 1:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-        <div id="xyz"><h2>Preparatory</h2>
-    <div class="require" id="N2"><p class="RecommendationTitle">Requirement:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-</div>
-      </div>
-      <p class="zzSTDTitle1"/>
-      <div id="scope">
-        <h1>1.&#160; Scope</h1>
-        <div class="require" id="N"><p class="RecommendationTitle">Requirement 2:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
+    -->
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='N1'/>
+        <xref target='N2'/>
+        <xref target='N'/>
+        <xref target='note1'/>
+        <xref target='note2'/>
+        <xref target='AN'/>
+        <xref target='Anote1'/>
+        <xref target='Anote2'/>
+      </p>
+    </foreword>
+    <introduction id='intro'>
+      <requirement id='N1'>
+        <name>Requirement 1</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </requirement>
+      <clause id='xyz'>
+        <title>Preparatory</title>
+        <requirement id='N2' unnumbered='true'>
+          <name>Requirement</name>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </requirement>
+      </clause>
+    </introduction>
+  </preface>
+  <sections>
+    <clause id='scope'>
+      <title>Scope</title>
+      <requirement id='N'>
+        <name>Requirement 2</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </requirement>
+      <p>
+        <xref target='N'/>
+      </p>
+    </clause>
+    <terms id='terms'/>
+    <clause id='widgets'>
+      <title>Widgets</title>
+      <clause id='widgets1'>
+        <requirement id='note1'>
+          <name>Requirement 3</name>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </requirement>
+        <requirement id='note2'>
+          <name>Requirement 4</name>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </requirement>
         <p>
-          <a href="#N">Requirement 2</a>
+          <xref target='note1'/>
+          <xref target='note2'/>
         </p>
-      </div>
-      <div id="terms"><h1>2.&#160; </h1>
-</div>
-      <div id="widgets">
-        <h1>3.&#160; Widgets</h1>
-        <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="require" id="note1"><p class="RecommendationTitle">Requirement 3:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    <div class="require" id="note2"><p class="RecommendationTitle">Requirement 4:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-  <p>    <a href="#note1">Requirement 3</a> <a href="#note2">Requirement 4</a> </p>
-    </div>
-      </div>
-      <br/>
-      <div id="annex1" class="Section3">
-                   <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-        <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="require" id="AN"><p class="RecommendationTitle">Requirement A.1:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    </div>
-        <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="require" id="Anote1"><p class="RecommendationTitle">Requirement:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    <div class="require" id="Anote2"><p class="RecommendationTitle">Requirement A.2:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    </div>
-      </div>
-    </div>
-  </body>
-</html>
-OUTPUT
+      </clause>
+    </clause>
+  </sections>
+  <annex id='annex1'>
+    <clause id='annex1a'>
+      <requirement id='AN'>
+        <name>Requirement A.1</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </requirement>
+    </clause>
+    <clause id='annex1b'>
+      <requirement id='Anote1' unnumbered='true'>
+        <name>Requirement</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </requirement>
+      <requirement id='Anote2'>
+        <name>Requirement A.2</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </requirement>
+    </clause>
+  </annex>
+</iso-standard>
+    OUTPUT
     end
 
         it "cross-references recommendations" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -1075,11 +1085,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-#{HTML_HDR}
-      <br/>
-      <div>
-        <h1 class="ForewordTitle">Foreword</h1>
-        <p>
+        <!--
     <a href="#N1">Introduction, Recommendation 1</a>
     <a href="#N2">Preparatory, Recommendation (??)</a>
     <a href="#N">Clause 1, Recommendation 2</a>
@@ -1088,76 +1094,90 @@ OUTPUT
     <a href="#AN">Recommendation A.1</a>
     <a href="#Anote1">Recommendation (??)</a>
     <a href="#Anote2">Recommendation A.2</a>
-    </p>
-      </div>
-      <br/>
-      <div class="Section3" id="intro">
-        <h1 class="IntroTitle">Introduction</h1>
-        <div class="recommend" id="N1"><p class="RecommendationTitle">Recommendation 1:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-        <div id="xyz"><h2>Preparatory</h2>
-    <div class="recommend" id="N2"><p class="RecommendationTitle">Recommendation:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-</div>
-      </div>
-      <p class="zzSTDTitle1"/>
-      <div id="scope">
-        <h1>1.&#160; Scope</h1>
-        <div class="recommend" id="N"><p class="RecommendationTitle">Recommendation 2:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
+    -->
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='N1'/>
+        <xref target='N2'/>
+        <xref target='N'/>
+        <xref target='note1'/>
+        <xref target='note2'/>
+        <xref target='AN'/>
+        <xref target='Anote1'/>
+        <xref target='Anote2'/>
+      </p>
+    </foreword>
+    <introduction id='intro'>
+      <recommendation id='N1'>
+        <name>Recommendation 1</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </recommendation>
+      <clause id='xyz'>
+        <title>Preparatory</title>
+        <recommendation id='N2' unnumbered='true'>
+          <name>Recommendation</name>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </recommendation>
+      </clause>
+    </introduction>
+  </preface>
+  <sections>
+    <clause id='scope'>
+      <title>Scope</title>
+      <recommendation id='N'>
+        <name>Recommendation 2</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </recommendation>
+      <p>
+        <xref target='N'/>
+      </p>
+    </clause>
+    <terms id='terms'/>
+    <clause id='widgets'>
+      <title>Widgets</title>
+      <clause id='widgets1'>
+        <recommendation id='note1'>
+          <name>Recommendation 3</name>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </recommendation>
+        <recommendation id='note2'>
+          <name>Recommendation 4</name>
+          <stem type='AsciiMath'>r = 1 %</stem>
+        </recommendation>
         <p>
-          <a href="#N">Recommendation 2</a>
+          <xref target='note1'/>
+          <xref target='note2'/>
         </p>
-      </div>
-      <div id="terms"><h1>2.&#160; </h1>
-</div>
-      <div id="widgets">
-        <h1>3.&#160; Widgets</h1>
-        <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="recommend" id="note1"><p class="RecommendationTitle">Recommendation 3:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    <div class="recommend" id="note2"><p class="RecommendationTitle">Recommendation 4:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-  <p>    <a href="#note1">Recommendation 3</a> <a href="#note2">Recommendation 4</a> </p>
-    </div>
-      </div>
-      <br/>
-      <div id="annex1" class="Section3">
-                   <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-        <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="recommend" id="AN"><p class="RecommendationTitle">Recommendation A.1:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    </div>
-        <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="recommend" id="Anote1"><p class="RecommendationTitle">Recommendation:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    <div class="recommend" id="Anote2"><p class="RecommendationTitle">Recommendation A.2:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    </div>
-      </div>
-    </div>
-  </body>
-</html>
-OUTPUT
+      </clause>
+    </clause>
+  </sections>
+  <annex id='annex1'>
+    <clause id='annex1a'>
+      <recommendation id='AN'>
+        <name>Recommendation A.1</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </recommendation>
+    </clause>
+    <clause id='annex1b'>
+      <recommendation id='Anote1' unnumbered='true'>
+        <name>Recommendation</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </recommendation>
+      <recommendation id='Anote2'>
+        <name>Recommendation A.2</name>
+        <stem type='AsciiMath'>r = 1 %</stem>
+      </recommendation>
+    </clause>
+  </annex>
+</iso-standard>
+    OUTPUT
     end
 
         it "cross-references permissions" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -1220,11 +1240,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-#{HTML_HDR}
-      <br/>
-      <div>
-        <h1 class="ForewordTitle">Foreword</h1>
-        <p>
+    <!--
     <a href="#N1">Introduction, Permission 1</a>
     <a href="#N2">Preparatory, Permission (??)</a>
     <a href="#N">Clause 1, Permission 2</a>
@@ -1233,76 +1249,90 @@ OUTPUT
     <a href="#AN">Permission A.1</a>
     <a href="#Anote1">Permission (??)</a>
     <a href="#Anote2">Permission A.2</a>
-    </p>
-      </div>
-      <br/>
-      <div class="Section3" id="intro">
-        <h1 class="IntroTitle">Introduction</h1>
-        <div class="permission" id="N1"><p class="RecommendationTitle">Permission 1:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-        <div id="xyz"><h2>Preparatory</h2>
-    <div class="permission" id="N2"><p class="RecommendationTitle">Permission:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-</div>
-      </div>
-      <p class="zzSTDTitle1"/>
-      <div id="scope">
-        <h1>1.&#160; Scope</h1>
-        <div class="permission" id="N"><p class="RecommendationTitle">Permission 2:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-        <p>
-          <a href="#N">Permission 2</a>
-        </p>
-      </div>
-      <div id="terms"><h1>2.&#160; </h1>
-</div>
-      <div id="widgets">
-        <h1>3.&#160; Widgets</h1>
-        <div id="widgets1"><h2>3.1.&#160;</h2>
-    <div class="permission" id="note1"><p class="RecommendationTitle">Permission 3:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    <div class="permission" id="note2"><p class="RecommendationTitle">Permission 4:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-  <p>    <a href="#note1">Permission 3</a> <a href="#note2">Permission 4</a> </p>
-    </div>
-      </div>
-      <br/>
-      <div id="annex1" class="Section3">
-                   <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-        <div id="annex1a"><h2>A.1.&#160;</h2>
-    <div class="permission" id="AN"><p class="RecommendationTitle">Permission A.1:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    </div>
-        <div id="annex1b"><h2>A.2.&#160;</h2>
-    <div class="permission" id="Anote1"><p class="RecommendationTitle">Permission:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    <div class="permission" id="Anote2"><p class="RecommendationTitle">Permission A.2:</p>
-  <span class="stem">(#(r = 1 %)#)</span>
-  </div>
-    </div>
-      </div>
-    </div>
-  </body>
-</html>
+    -->
+    <?xml version='1.0'?>
+       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+         <preface>
+           <foreword>
+             <p>
+               <xref target='N1'/>
+               <xref target='N2'/>
+               <xref target='N'/>
+               <xref target='note1'/>
+               <xref target='note2'/>
+               <xref target='AN'/>
+               <xref target='Anote1'/>
+               <xref target='Anote2'/>
+             </p>
+           </foreword>
+           <introduction id='intro'>
+             <permission id='N1'>
+               <name>Permission 1</name>
+               <stem type='AsciiMath'>r = 1 %</stem>
+             </permission>
+             <clause id='xyz'>
+               <title>Preparatory</title>
+               <permission id='N2' unnumbered='true'>
+                 <name>Permission</name>
+                 <stem type='AsciiMath'>r = 1 %</stem>
+               </permission>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope'>
+             <title>Scope</title>
+             <permission id='N'>
+               <name>Permission 2</name>
+               <stem type='AsciiMath'>r = 1 %</stem>
+             </permission>
+             <p>
+               <xref target='N'/>
+             </p>
+           </clause>
+           <terms id='terms'/>
+           <clause id='widgets'>
+             <title>Widgets</title>
+             <clause id='widgets1'>
+               <permission id='note1'>
+                 <name>Permission 3</name>
+                 <stem type='AsciiMath'>r = 1 %</stem>
+               </permission>
+               <permission id='note2'>
+                 <name>Permission 4</name>
+                 <stem type='AsciiMath'>r = 1 %</stem>
+               </permission>
+               <p>
+                 <xref target='note1'/>
+                 <xref target='note2'/>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <clause id='annex1a'>
+             <permission id='AN'>
+               <name>Permission A.1</name>
+               <stem type='AsciiMath'>r = 1 %</stem>
+             </permission>
+           </clause>
+           <clause id='annex1b'>
+             <permission id='Anote1' unnumbered='true'>
+               <name>Permission</name>
+               <stem type='AsciiMath'>r = 1 %</stem>
+             </permission>
+             <permission id='Anote2'>
+               <name>Permission A.2</name>
+               <stem type='AsciiMath'>r = 1 %</stem>
+             </permission>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
     end
 
         it "labels and cross-references nested requirements" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -1348,11 +1378,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-     #{HTML_HDR}
-      <br/>
-      <div>
-        <h1 class="ForewordTitle">Foreword</h1>
-        <p>
+        <!--
 <a href="#N1">Clause 1, Permission 1</a>
 <a href="#N2">Clause 1, Permission 1-1</a>
 <a href="#N">Clause 1, Permission 1-1-1</a>
@@ -1363,39 +1389,64 @@ OUTPUT
 <a href="#AN">Permission A.1-1-1</a>
 <a href="#AQ1">Requirement A.1-1</a>
 <a href="#AR1">Recommendation A.1-1</a>
-</p>
-      </div>
-      <p class="zzSTDTitle1"/>
-      <div id="xyz">
-        <h1>1.&#160; Preparatory</h1>
-        <div class="permission" id="N1"><p class="RecommendationTitle">Permission 1:</p>
-<div class="permission" id="N2"><p class="RecommendationTitle">Permission 1-1:</p>
-<div class="permission" id="N"><p class="RecommendationTitle">Permission 1-1-1:</p>
-</div>
-</div>
-<div class="require" id="Q1"><p class="RecommendationTitle">Requirement 1-1:</p>
-</div>
-<div class="recommend" id="R1"><p class="RecommendationTitle">Recommendation 1-1:</p>
-</div>
-</div>
-      </div>
-      <br/>
-      <div id="Axyz" class="Section3">
-        <h1 class="Annex"><b>Annex A</b><br/>(informative)<br/><br/><b>Preparatory</b></h1>
-        <div class="permission" id="AN1"><p class="RecommendationTitle">Permission A.1:</p>
-<div class="permission" id='AN2'><p class="RecommendationTitle">Permission A.1-1:</p>
-<div class="permission" id="AN"><p class="RecommendationTitle">Permission A.1-1-1:</p>
-</div>
-</div>
-<div class="require" id="AQ1"><p class="RecommendationTitle">Requirement A.1-1:</p>
-</div>
-<div class="recommend" id='AR1'><p class="RecommendationTitle">Recommendation A.1-1:</p>
-</div>
-</div>
-      </div>
-    </div>
-  </body>
-</html>
+-->
+<?xml version='1.0'?>
+       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+         <preface>
+           <foreword>
+             <p>
+               <xref target='N1'/>
+               <xref target='N2'/>
+               <xref target='N'/>
+               <xref target='Q1'/>
+               <xref target='R1'/>
+               <xref target='AN1'/>
+               <xref target='AN2'/>
+               <xref target='AN'/>
+               <xref target='AQ1'/>
+               <xref target='AR1'/>
+             </p>
+           </foreword>
+         </preface>
+         <sections>
+           <clause id='xyz'>
+             <title>Preparatory</title>
+             <permission id='N1'>
+               <name>Permission 1</name>
+               <permission id='N2'>
+                 <name>Permission 1-1</name>
+                 <permission id='N'>
+                   <name>Permission 1-1-1</name>
+                 </permission>
+               </permission>
+               <requirement id='Q1'>
+                 <name>Requirement 1-1</name>
+               </requirement>
+               <recommendation id='R1'>
+                 <name>Recommendation 1-1</name>
+               </recommendation>
+             </permission>
+           </clause>
+         </sections>
+         <annex id='Axyz'>
+           <title>Preparatory</title>
+           <permission id='AN1'>
+             <name>Permission A.1</name>
+             <permission id='AN2'>
+               <name>Permission A.1-1</name>
+               <permission id='AN'>
+                 <name>Permission A.1-1-1</name>
+               </permission>
+             </permission>
+             <requirement id='AQ1'>
+               <name>Requirement A.1-1</name>
+             </requirement>
+             <recommendation id='AR1'>
+               <name>Recommendation A.1-1</name>
+             </recommendation>
+           </permission>
+         </annex>
+       </iso-standard>
     OUTPUT
         end
 

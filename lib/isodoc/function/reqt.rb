@@ -1,14 +1,14 @@
 module IsoDoc::Function
   module Blocks
     def recommendation_labels(node)
-      [node.at(ns("./label")), node.at(ns("./title")), 
-       @xrefs.anchor(node['id'], :label, false)]
+      [node.at(ns("./label")), node.at(ns("./title")), node.at(ns("./name"))]
     end
 
-    def recommendation_name(node, out, type)
+    def recommendation_name(node, out, _type)
       label, title, lbl = recommendation_labels(node)
       out.p **{ class: "RecommendationTitle" }  do |b|
-        b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
+        lbl and lbl.children.each { |n| parse(n, b) }
+        b << l10n(":")
         if label || title
           b.br
           label and label.children.each { |n| parse(n,b) }
@@ -57,7 +57,8 @@ module IsoDoc::Function
     end
 
     def reqt_metadata_node(n)
-      %w(label title subject classification tag value inherit).include? n.name
+      %w(label title subject classification tag value 
+      inherit name).include? n.name
     end
 
     def reqt_attrs(node, klass)

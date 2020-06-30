@@ -1390,8 +1390,8 @@ World</p>
     OUTPUT
   end
 
-  it "processes permissions" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+   it "processes permissions (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <permission id="_"   keep-with-next="true" keep-lines-together="true">
@@ -1443,8 +1443,268 @@ World</p>
     <bibliography><references id="_bibliography" obligation="informative" normative="false">
 <title>Bibliography</title>
 <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
+</references></bibliography>
+    </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+         <preface>
+           <foreword>
+             <permission id='_' keep-with-next='true' keep-lines-together='true'>
+               <name>Permission 1</name>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <inherit>
+                 <eref type='inline' bibitemid='rfc2616' citeas='RFC 2616'>RFC 2616 (HTTP/1.1)</eref>
+               </inherit>
+               <subject>user</subject>
+               <classification>
+                 <tag>control-class</tag>
+                 <value>Technical</value>
+               </classification>
+               <classification>
+                 <tag>priority</tag>
+                 <value>P0</value>
+               </classification>
+               <classification>
+                 <tag>family</tag>
+                 <value>System and Communications Protection</value>
+               </classification>
+               <classification>
+                 <tag>family</tag>
+                 <value>System and Communications Protocols</value>
+               </classification>
+               <description>
+                 <p id='_'>
+                   I recommend
+                   <em>this</em>
+                   .
+                 </p>
+               </description>
+               <specification exclude='true' type='tabular'>
+                 <p id='_'>This is the object of the recommendation:</p>
+                 <table id='_'>
+                   <tbody>
+                     <tr>
+                       <td style='text-align:left;'>Object</td>
+                       <td style='text-align:left;'>Value</td>
+                     </tr>
+                     <tr>
+                       <td style='text-align:left;'>Mission</td>
+                       <td style='text-align:left;'>Accomplished</td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </specification>
+               <description>
+                 <p id='_'>As for the measurement targets,</p>
+               </description>
+               <measurement-target exclude='false'>
+                 <p id='_'>The measurement target shall be measured as:</p>
+                 <formula id='_'>
+                   <name>1</name>
+                   <stem type='AsciiMath'>r/1 = 0</stem>
+                 </formula>
+               </measurement-target>
+               <verification exclude='false'>
+                 <p id='_'>The following code will be run for verification:</p>
+                 <sourcecode id='_'>
+                   CoreRoot(success): HttpResponse if (success) recommendation(label:
+                   success-response) end
+                 </sourcecode>
+               </verification>
+               <import exclude='true'>
+                 <sourcecode id='_'>success-response()</sourcecode>
+               </import>
+             </permission>
+           </foreword>
+         </preface>
+         <bibliography>
+           <references id='_bibliography' obligation='informative' normative='false'>
+             <title>Bibliography</title>
+             <bibitem id='rfc2616' type='standard'>
+               <fetched>2020-03-27</fetched>
+               <title format='text/plain' language='en' script='Latn'>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title>
+               <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
+               <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
+               <docidentifier type='IETF'>RFC 2616</docidentifier>
+               <docidentifier type='rfc-anchor'>RFC2616</docidentifier>
+               <docidentifier type='DOI'>10.17487/RFC2616</docidentifier>
+               <date type='published'>
+                 <on>1999-06</on>
+               </date>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>R. Fielding</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>J. Gettys</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>J. Mogul</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>H. Frystyk</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>L. Masinter</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>P. Leach</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>T. Berners-Lee</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <language>en</language>
+               <script>Latn</script>
+               <abstract format='text/plain' language='en' script='Latn'>
+                 HTTP has been in use by the World-Wide Web global information
+                 initiative since 1990. This specification defines the protocol
+                 referred to as &#x201C;HTTP/1.1&#x201D;, and is an update to RFC 2068.
+                 [STANDARDS-TRACK]
+               </abstract>
+               <series type='main'>
+                 <title format='text/plain' language='en' script='Latn'>RFC</title>
+                 <number>2616</number>
+               </series>
+               <place>Fremont, CA</place>
+             </bibitem>
+           </references>
+         </bibliography>
+       </iso-standard>
+OUTPUT
+    end
 
-
+  it "processes permissions (HTML)" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <permission id="_"   keep-with-next="true" keep-lines-together="true">
+    <name>Permission 1</name>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
+  <subject>user</subject>
+  <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</permission>
+    </foreword></preface>
+    <bibliography><references id="_bibliography" obligation="informative" normative="false">
+<title>Bibliography</title>
+<bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
 </references></bibliography>
     </iso-standard>
     INPUT
@@ -1495,11 +1755,122 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
     OUTPUT
   end
 
-    it "processes requirements" do
+   it "processes requirements (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
+  <title>A New Requirement</title>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false"  keep-with-next="true" keep-lines-together="true">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="B">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</requirement>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+     <?xml version='1.0'?>
+       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+         <preface>
+           <foreword>
+             <requirement id='A' unnumbered='true' keep-with-next='true' keep-lines-together='true'>
+               <name>Requirement</name>
+               <title>A New Requirement</title>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <subject>user</subject>
+               <description>
+                 <p id='_'>
+                   I recommend
+                   <em>this</em>
+                   .
+                 </p>
+               </description>
+               <specification exclude='true' type='tabular'>
+                 <p id='_'>This is the object of the recommendation:</p>
+                 <table id='_'>
+                   <tbody>
+                     <tr>
+                       <td style='text-align:left;'>Object</td>
+                       <td style='text-align:left;'>Value</td>
+                     </tr>
+                     <tr>
+                       <td style='text-align:left;'>Mission</td>
+                       <td style='text-align:left;'>Accomplished</td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </specification>
+               <description>
+                 <p id='_'>As for the measurement targets,</p>
+               </description>
+               <measurement-target exclude='false' keep-with-next='true' keep-lines-together='true'>
+                 <p id='_'>The measurement target shall be measured as:</p>
+                 <formula id='B'>
+                   <name>1</name>
+                   <stem type='AsciiMath'>r/1 = 0</stem>
+                 </formula>
+               </measurement-target>
+               <verification exclude='false'>
+                 <p id='_'>The following code will be run for verification:</p>
+                 <sourcecode id='_'>
+                   CoreRoot(success): HttpResponse if (success) recommendation(label:
+                   success-response) end
+                 </sourcecode>
+               </verification>
+               <import exclude='true'>
+                 <sourcecode id='_'>success-response()</sourcecode>
+               </import>
+             </requirement>
+           </foreword>
+         </preface>
+       </iso-standard>
+OUTPUT
+end
+
+    it "processes requirements (HTML)" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
+    <name>Requirement</name>
   <title>A New Requirement</title>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
@@ -1580,7 +1951,125 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
     OUTPUT
   end
 
-   it "processes requirements in French" do
+   it "processes requirements in French (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata>
+    <language>fr</language>
+    <script>Latn</script>
+    </bibdata>
+    <preface><foreword>
+    <requirement id="A" unnumbered="true">
+  <title>A New Requirement</title>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="B">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</requirement>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+         <bibdata>
+           <language>fr</language>
+           <script>Latn</script>
+         </bibdata>
+         <preface>
+           <foreword>
+             <requirement id='A' unnumbered='true'>
+               <name>Exigence</name>
+               <title>A New Requirement</title>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <subject>user</subject>
+               <description>
+                 <p id='_'>
+                   I recommend
+                   <em>this</em>
+                   .
+                 </p>
+               </description>
+               <specification exclude='true' type='tabular'>
+                 <p id='_'>This is the object of the recommendation:</p>
+                 <table id='_'>
+                   <tbody>
+                     <tr>
+                       <td style='text-align:left;'>Object</td>
+                       <td style='text-align:left;'>Value</td>
+                     </tr>
+                     <tr>
+                       <td style='text-align:left;'>Mission</td>
+                       <td style='text-align:left;'>Accomplished</td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </specification>
+               <description>
+                 <p id='_'>As for the measurement targets,</p>
+               </description>
+               <measurement-target exclude='false'>
+                 <p id='_'>The measurement target shall be measured as:</p>
+                 <formula id='B'>
+                   <name>1</name>
+                   <stem type='AsciiMath'>r/1 = 0</stem>
+                 </formula>
+               </measurement-target>
+               <verification exclude='false'>
+                 <p id='_'>The following code will be run for verification:</p>
+                 <sourcecode id='_'>
+                   CoreRoot(success): HttpResponse if (success) recommendation(label:
+                   success-response) end
+                 </sourcecode>
+               </verification>
+               <import exclude='true'>
+                 <sourcecode id='_'>success-response()</sourcecode>
+               </import>
+             </requirement>
+           </foreword>
+         </preface>
+         </iso-standard>
+OUTPUT
+end
+
+   it "processes requirements in French (HTML)" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata>
@@ -1589,6 +2078,7 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
     </bibdata>
     <preface><foreword>
     <requirement id="A" unnumbered="true">
+    <name>Exigence</name>
   <title>A New Requirement</title>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
@@ -1695,11 +2185,130 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
 OUTPUT
 end
 
-      it "processes recommendation" do
+ it "processes recommendation (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <recommendation id="_" obligation="shall,could"   keep-with-next="true" keep-lines-together="true">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <classification><tag>type</tag><value>text</value></classification>
+  <classification><tag>language</tag><value>BASIC</value></classification>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</recommendation>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+         <preface>
+           <foreword>
+             <recommendation id='_' obligation='shall,could' keep-with-next='true' keep-lines-together='true'>
+               <name>Recommendation 1</name>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <classification>
+                 <tag>type</tag>
+                 <value>text</value>
+               </classification>
+               <classification>
+                 <tag>language</tag>
+                 <value>BASIC</value>
+               </classification>
+               <subject>user</subject>
+               <description>
+                 <p id='_'>
+                   I recommend
+                   <em>this</em>
+                   .
+                 </p>
+               </description>
+               <specification exclude='true' type='tabular'>
+                 <p id='_'>This is the object of the recommendation:</p>
+                 <table id='_'>
+                   <tbody>
+                     <tr>
+                       <td style='text-align:left;'>Object</td>
+                       <td style='text-align:left;'>Value</td>
+                     </tr>
+                     <tr>
+                       <td style='text-align:left;'>Mission</td>
+                       <td style='text-align:left;'>Accomplished</td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </specification>
+               <description>
+                 <p id='_'>As for the measurement targets,</p>
+               </description>
+               <measurement-target exclude='false'>
+                 <p id='_'>The measurement target shall be measured as:</p>
+                 <formula id='_'>
+                   <name>1</name>
+                   <stem type='AsciiMath'>r/1 = 0</stem>
+                 </formula>
+               </measurement-target>
+               <verification exclude='false'>
+                 <p id='_'>The following code will be run for verification:</p>
+                 <sourcecode id='_'>
+                   CoreRoot(success): HttpResponse if (success) recommendation(label:
+                   success-response) end
+                 </sourcecode>
+               </verification>
+               <import exclude='true'>
+                 <sourcecode id='_'>success-response()</sourcecode>
+               </import>
+             </recommendation>
+           </foreword>
+         </preface>
+       </iso-standard>
+OUTPUT
+end
+
+      it "processes recommendation (HTML)" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <recommendation id="_" obligation="shall,could"   keep-with-next="true" keep-lines-together="true">
+    <name>Recommendation 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <classification><tag>type</tag><value>text</value></classification>

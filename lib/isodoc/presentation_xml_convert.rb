@@ -18,6 +18,9 @@ module IsoDoc
       termexample docxml
       note docxml
       termnote docxml
+      permission docxml
+      requirement docxml
+      recommendation docxml
       docxml.to_xml
     end
 
