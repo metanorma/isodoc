@@ -2,13 +2,8 @@ module IsoDoc::Function
   module Table
 
     def table_title_parse(node, out)
-      name = node.at(ns("./name"))
-      lbl = @xrefs.anchor(node['id'], :label, false)
-      lbl = nil if labelled_ancestor(node)
-      return if name.nil? && lbl.nil?
+      name = node.at(ns("./name")) or return
       out.p **{ class: "TableTitle", style: "text-align:center;" } do |p|
-        lbl.nil? or p << l10n("#{@table_lbl} #{lbl}")
-        name and !lbl.nil? and p << l10n("&nbsp;&mdash; ")
         name and name.children.each { |n| parse(n, p) }
       end
     end

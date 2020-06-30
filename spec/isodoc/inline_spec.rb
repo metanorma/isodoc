@@ -778,7 +778,6 @@ INPUT
       <p class='zzSTDTitle1'/>
       <div id='A'>
         <h1>1.&#160; </h1>
-        <p class='TableTitle' style='text-align:center;'>Tabelo 1</p>
         <table id='B' class='MsoISOTable' style='border-width:1px;border-spacing:0;'/>
       </div>
       <div id='C'>

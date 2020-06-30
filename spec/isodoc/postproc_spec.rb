@@ -1397,7 +1397,6 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
            </div>
          </div>
          <div class='WordSection3_2'>
-           <p class='TableTitle' style='text-align:center;'>Table 1</p>
            <div align='center' class='table_container'>
              <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
                <a name='_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249' id='_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249'/>

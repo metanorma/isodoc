@@ -1452,7 +1452,7 @@ OUTPUT
 
 
   it "cross-references tables" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword>
@@ -1571,11 +1571,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        #{HTML_HDR}
-    <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p>
+    <!--
        <a href="#N1">Table 1</a>
        <a href="#N2">Table (??)</a>
        <a href="#N">Table 2</a>
@@ -1584,75 +1580,133 @@ OUTPUT
        <a href="#AN">Table A.1</a>
        <a href="#Anote1">Table (??)</a>
        <a href="#Anote2">Table A.2</a>
-       </p>
-               </div>
-                            <br/>
-             <div class="Section3" id="intro">
-               <h1 class="IntroTitle">Introduction</h1>
-               <p class="TableTitle" style="text-align:center;">Table 1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p>
-               <table id="N1" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-                 <tbody>
-                   <tr>
-                     <td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td>
-                     <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td>
-                   </tr>
-                 </tbody>
-               </table>
-                      <div id="xyz"><h2>Preparatory</h2>
-       <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of husked rice yield</p><table id="N2" class="MsoISOTable" style="border-width:1px;border-spacing:0;"><tbody><tr><td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-       </div>
-             </div>
-               <p class="zzSTDTitle1"/>
-               <div id="scope">
-                 <h1>1.&#160; Scope</h1>
-                 <p class="TableTitle" style="text-align:center;">
-                   Table 2&#160;&#8212; Repeatability and reproducibility of husked rice yield
-                 </p>
-                 <table id="N" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
-                   <tbody>
-                     <tr>
-                       <td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td>
-                       <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td>
-                       <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td>
-                     </tr>
-                   </tbody>
-                 </table>
-                 <p>
-                   <a href="#N">Table 2</a>
-                 </p>
-               </div>
-               <div id="terms"><h1>2.&#160; </h1>
-       </div>
-               <div id="widgets">
-                 <h1>3.&#160; Widgets</h1>
-                 <div id="widgets1"><h2>3.1.&#160;</h2>
-           <p class="TableTitle" style="text-align:center;">Table 3&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note1" class="MsoISOTable" style="border-width:1px;border-spacing:0;"><tbody><tr><td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-           <p class="TableTitle" style="text-align:center;">Table 4&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="note2" class="MsoISOTable" style="border-width:1px;border-spacing:0;"><tbody><tr><td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-       <p>    <a href="#note1">Table 3</a> <a href="#note2">Table 4</a> </p>
-       </div>
-               </div>
-               <br/>
-               <div id="annex1" class="Section3">
-                            <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-                 <div id="annex1a"><h2>A.1.&#160;</h2>
-                 <p class="TableTitle" style="text-align:center;">Table A.1&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="AN" class="MsoISOTable" style="border-width:1px;border-spacing:0;"><tbody><tr><td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-       </div>
-                 <div id="annex1b"><h2>A.2.&#160;</h2>
-                 <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of husked rice yield</p><table id="Anote1" class="MsoISOTable" style="border-width:1px;border-spacing:0;"><tbody><tr><td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-                 <p class="TableTitle" style="text-align:center;">Table A.2&#160;&#8212; Repeatability and reproducibility of husked rice yield</p><table id="Anote2" class="MsoISOTable" style="border-width:1px;border-spacing:0;"><tbody><tr><td style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">Number of laboratories retained after eliminating outliers</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">13</td><td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">11</td></tr></tbody></table>
-       </div>
-               </div>
-             </div>
-           </body>
-       </html>
+       -->
+       <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='N1'/>
+        <xref target='N2'/>
+        <xref target='N'/>
+        <xref target='note1'/>
+        <xref target='note2'/>
+        <xref target='AN'/>
+        <xref target='Anote1'/>
+        <xref target='Anote2'/>
+      </p>
+    </foreword>
+    <introduction id='intro'>
+      <table id='N1'>
+        <name>Table 1&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
+        <tbody>
+          <tr>
+            <td align='left'>Number of laboratories retained after eliminating outliers</td>
+            <td align='center'>13</td>
+            <td align='center'>11</td>
+          </tr>
+        </tbody>
+      </table>
+      <clause id='xyz'>
+        <title>Preparatory</title>
+        <table id='N2' unnumbered='true'>
+          <name>Table &#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
+          <tbody>
+            <tr>
+              <td align='left'>Number of laboratories retained after eliminating outliers</td>
+              <td align='center'>13</td>
+              <td align='center'>11</td>
+            </tr>
+          </tbody>
+        </table>
+      </clause>
+    </introduction>
+  </preface>
+  <sections>
+    <clause id='scope'>
+      <title>Scope</title>
+      <table id='N'>
+        <name>Table 2&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
+        <tbody>
+          <tr>
+            <td align='left'>Number of laboratories retained after eliminating outliers</td>
+            <td align='center'>13</td>
+            <td align='center'>11</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <xref target='N'/>
+      </p>
+    </clause>
+    <terms id='terms'/>
+    <clause id='widgets'>
+      <title>Widgets</title>
+      <clause id='widgets1'>
+        <table id='note1'>
+          <name>Table 3&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
+          <tbody>
+            <tr>
+              <td align='left'>Number of laboratories retained after eliminating outliers</td>
+              <td align='center'>13</td>
+              <td align='center'>11</td>
+            </tr>
+          </tbody>
+        </table>
+        <table id='note2'>
+          <name>Table 4&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
+          <tbody>
+            <tr>
+              <td align='left'>Number of laboratories retained after eliminating outliers</td>
+              <td align='center'>13</td>
+              <td align='center'>11</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          <xref target='note1'/>
+          <xref target='note2'/>
+        </p>
+      </clause>
+    </clause>
+  </sections>
+  <annex id='annex1'>
+    <clause id='annex1a'>
+      <table id='AN'>
+        <name>Table A.1&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
+        <tbody>
+          <tr>
+            <td align='left'>Number of laboratories retained after eliminating outliers</td>
+            <td align='center'>13</td>
+            <td align='center'>11</td>
+          </tr>
+        </tbody>
+      </table>
+    </clause>
+    <clause id='annex1b'>
+      <table id='Anote1' unnumbered='true'>
+        <name>Table &#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
+        <tbody>
+          <tr>
+            <td align='left'>Number of laboratories retained after eliminating outliers</td>
+            <td align='center'>13</td>
+            <td align='center'>11</td>
+          </tr>
+        </tbody>
+      </table>
+      <table id='Anote2'>
+        <name>Table A.2&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
+        <tbody>
+          <tr>
+            <td align='left'>Number of laboratories retained after eliminating outliers</td>
+            <td align='center'>13</td>
+            <td align='center'>11</td>
+          </tr>
+        </tbody>
+      </table>
+    </clause>
+  </annex>
+</iso-standard>
     OUTPUT
   end
 

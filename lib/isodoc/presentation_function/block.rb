@@ -18,8 +18,9 @@ module IsoDoc
     def prefix_name(f, delim, number, elem)
       return if number.nil? || number.empty?
       unless name = f.at(ns("./#{elem}"))
-        f.children.first.previous = "<#{elem}></#{elem}>"
-        name = f.children.first
+        f.children.empty? and f.add_child("<#{elem}></#{elem}>") or
+          f.children.first.previous = "<#{elem}></#{elem}>"
+          name = f.children.first
       end
       name.children.empty? ? name.add_child(number) :
         ( name.children.first.previous = "#{number}#{delim}" )
@@ -65,7 +66,7 @@ module IsoDoc
     def example1(f)
       n = @xrefs.get[f["id"]]
       lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @example_lbl :
-          l10n("#{@example_lbl} #{n[:label]}")
+        l10n("#{@example_lbl} #{n[:label]}")
       prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
     end
 
@@ -118,6 +119,18 @@ module IsoDoc
       n = @xrefs.anchor(f['id'], :label, false)
       lbl = (n.nil? ? type : l10n("#{type} #{n}"))
       prefix_name(f, "", lbl, "name")
+    end
+
+    def table(docxml)
+      docxml.xpath(ns("//table")).each do |f|
+        table1(f)
+      end
+    end
+
+    def table1(f)
+      return if labelled_ancestor(f)
+      n = @xrefs.anchor(f['id'], :label, false)
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@table_lbl} #{n}"), "name")
     end
   end
 end
