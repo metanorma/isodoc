@@ -98,11 +98,9 @@ RSpec.describe IsoDoc do
                  </ul>
                </termexample>
                <termsource status='modified'>
-                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
-                   <locality type='clause'>
-                     <referenceFrom>3.1</referenceFrom>
-                   </locality>
-                 </origin>
+                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'><locality type='clause'>
+  <referenceFrom>3.1</referenceFrom>
+</locality>ISO 7301:2011, Clause 3.1</origin>
                  <modification>
                    <p id='_e73a417d-ad39-417d-a4c8-20e4e2529489'>
                      The term "cargo rice" is shown as deprecated, and Note 1 to entry
@@ -156,11 +154,9 @@ RSpec.describe IsoDoc do
                  </p>
                </termnote>
                <termsource status='identical'>
-                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
-                   <locality type='clause'>
-                     <referenceFrom>3.1</referenceFrom>
-                   </locality>
-                 </origin>
+                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'><locality type='clause'>
+  <referenceFrom>3.1</referenceFrom>
+</locality>ISO 7301:2011, Clause 3.1</origin>
                </termsource>
              </term>
            </terms>
@@ -196,11 +192,7 @@ OUTPUT
                  </ul>
                </termexample>
                <termsource status='modified'>
-                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
-                   <locality type='clause'>
-                     <referenceFrom>3.1</referenceFrom>
-                   </locality>
-                 </origin>
+                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>ISO 7301:2011, Clause 3.1</origin>
                  <modification>
                    <p id='_e73a417d-ad39-417d-a4c8-20e4e2529489'>The term "cargo rice" is shown as deprecated, and Note 1 to entry
                      is not included here
@@ -253,11 +245,7 @@ OUTPUT
                  </p>
                </termnote>
                <termsource status='identical'>
-                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
-                   <locality type='clause'>
-                     <referenceFrom>3.1</referenceFrom>
-                   </locality>
-                 </origin>
+               <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>ISO 7301:2011, Clause 3.1</origin>
                </termsource>
              </term>
            </terms>
@@ -336,11 +324,7 @@ OUTPUT
                  </ul>
                </termexample>
                <termsource status='modified'>
-                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
-                   <locality type='clause'>
-                     <referenceFrom>3.1</referenceFrom>
-                   </locality>
-                 </origin>
+                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>ISO 7301:2011, Clause 3.1</origin>
                  <modification>
                    <p id='_e73a417d-ad39-417d-a4c8-20e4e2529489'>The term "cargo rice" is shown as deprecated, and Note 1 to entry
                      is not included here
@@ -391,11 +375,7 @@ OUTPUT
                  </p>
                </termnote>
                <termsource status='identical'>
-                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
-                   <locality type='clause'>
-                     <referenceFrom>3.1</referenceFrom>
-                   </locality>
-                 </origin>
+                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>ISO 7301:2011, Clause 3.1</origin>
                </termsource>
              </term>
            </terms>

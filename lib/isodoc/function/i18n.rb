@@ -77,27 +77,6 @@ module IsoDoc::Function
     end
 
     # TODO: move to localization file
-    def eref_localities1_zh(target, type, from, to, delim)
-      ret = "#{delim} 第#{from.text}" if from
-      ret += "&ndash;#{to}" if to
-      loc = (@locality[type] || type.sub(/^locality:/, "").capitalize )
-      ret += " #{loc}"
-      ret
-    end
-
-    # TODO: move to localization file
-    def eref_localities1(target, type, from, to, delim, lang = "en")
-      return "" if type == "anchor"
-      return l10n(eref_localities1_zh(target, type, from, to, delim)) if lang == "zh"
-      ret = delim
-      loc = @locality[type] || type.sub(/^locality:/, "").capitalize
-      ret += " #{loc}"
-      ret += " #{from.text}" if from
-      ret += "&ndash;#{to.text}" if to
-      l10n(ret)
-    end
-
-    # TODO: move to localization file
     # function localising spaces and punctuation.
     # Not clear if period needs to be localised for zh
     def l10n(x, lang = @lang, script = @script)

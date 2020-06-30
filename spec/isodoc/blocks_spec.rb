@@ -1332,14 +1332,52 @@ World</p>
     OUTPUT
   end
 
-
-
-  it "processes blockquotes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+it "processes blockquotes (Presentation XML)" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
   <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality></source>
+  <author>ISO</author>
+  <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
+</quote>
+
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+         <preface>
+           <foreword>
+             <quote id='_044bd364-c832-4b78-8fea-92242402a1d1'>
+               <source type='inline' bibitemid='ISO7301' citeas='ISO 7301:2011'>
+                 <locality type='clause'>
+                   <referenceFrom>1</referenceFrom>
+                 </locality>ISO 7301:2011, Clause 1
+               </source>
+               <author>ISO</author>
+               <p id='_d4fd0a61-f300-4285-abe6-602707590e53'>
+                 This International Standard gives the minimum specifications for rice
+                 (
+                 <em>Oryza sativa</em>
+                  L.) which is subject to international trade. It is applicable to the
+                 following types: husked rice and milled rice, parboiled or not,
+                 intended for direct human consumption. It is neither applicable to
+                 other products derived from rice, nor to waxy rice (glutinous rice).
+               </p>
+             </quote>
+           </foreword>
+         </preface>
+       </iso-standard>
+    OUTPUT
+  end
+
+  it "processes blockquotes (HTML)" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
+  <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 7301:2011, Clause 1</source>
   <author>ISO</author>
   <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
 </quote>

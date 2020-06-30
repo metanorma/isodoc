@@ -277,7 +277,7 @@ expect(File.exist?("test.doc")).to be true
 <term id="paddy1"><preferred>paddy</preferred>
 <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
 <termsource status="modified">
-  <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
+  <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">ISO 7301:2011, Clause 3.1</origin>
     <modification>
     <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
   </modification>
@@ -838,7 +838,7 @@ TOCLEVEL
 </termexample>
 
 <termsource status="modified">
-  <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
+  <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">ISO 7301:2011, Clause 3.1</origin>
     <modification>
     <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489"/>
   </modification>

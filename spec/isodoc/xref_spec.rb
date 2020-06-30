@@ -1,13 +1,38 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "cross-references external documents in Presentation XML" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
+    <foreword>
+    <p>
+    <xref target="a#b"/>
+    </p>
+    </foreword>
+    </preface>
+    </iso-standard
+    INPUT
+<?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='a#b'>a#b</xref>
+      </p>
+    </foreword>
+  </preface>
+</iso-standard>
+    OUTPUT
+  end
+
   it "cross-references external documents in HTML" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
     <p>
-    <xref target="a#b"/>
+        <xref target='a#b'>a#b</xref>
     </p>
     </foreword>
     </preface>
@@ -34,7 +59,7 @@ RSpec.describe IsoDoc do
     <preface>
     <foreword>
     <p>
-    <xref target="a#b"/>
+        <xref target='a#b'>a#b</xref>
     </p>
     </foreword>
     </preface>
@@ -52,7 +77,7 @@ RSpec.describe IsoDoc do
   end
 
   it "warns of missing crossreference" do
-    expect { IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true) }.to output(/No label has been processed for ID N1/).to_stderr
+    expect { IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true) }.to output(/No label has been processed for ID N1/).to_stderr
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -141,29 +166,19 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-    <!--
-                 <a href="#N1">Introduction, Note</a>
-                 <a href="#N2">Preparatory, Note</a>
-           <a href="#N">Clause 1, Note</a>
-           <a href="#note1">Clause 3.1, Note  1</a>
-           <a href="#note2">Clause 3.1, Note  2</a>
-           <a href="#AN">Annex A.1, Note</a>
-           <a href="#Anote1">Annex A.2, Note  1</a>
-           <a href="#Anote2">Annex A.2, Note  2</a>
-           -->
      <?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
     <foreword>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N'/>
-        <xref target='note1'/>
-        <xref target='note2'/>
-        <xref target='AN'/>
-        <xref target='Anote1'/>
-        <xref target='Anote2'/>
+        <xref target='N1'>Introduction, Note</xref>
+<xref target='N2'>Preparatory, Note</xref>
+<xref target='N'>Clause 1, Note</xref>
+<xref target='note1'>Clause 3.1, Note 1</xref>
+<xref target='note2'>Clause 3.1, Note 2</xref>
+<xref target='AN'>Annex A.1, Note</xref>
+<xref target='Anote1'>Annex A.2, Note 1</xref>
+<xref target='Anote2'>Annex A.2, Note 2</xref>
       </p>
     </foreword>
     <introduction id='intro'>
@@ -197,7 +212,7 @@ RSpec.describe IsoDoc do
         </p>
       </note>
       <p>
-        <xref target='N'/>
+      <xref target='N'>Note</xref>
       </p>
     </clause>
     <terms id='terms'/>
@@ -219,8 +234,8 @@ RSpec.describe IsoDoc do
           </p>
         </note>
         <p>
-          <xref target='note1'/>
-          <xref target='note2'/>
+          <xref target='note1'>Note 1</xref>
+<xref target='note2'>Note 2</xref>
         </p>
       </clause>
     </clause>
@@ -351,18 +366,18 @@ RSpec.describe IsoDoc do
          <preface>
            <foreword id='fwd'>
              <p>
-               <xref target='N1'/>
-               <xref target='N2'/>
-               <xref target='N'/>
-               <xref target='note1'/>
-               <xref target='note3'/>
-               <xref target='note4'/>
-               <xref target='note2'/>
-               <xref target='note51'/>
-               <xref target='AN'/>
-               <xref target='Anote1'/>
-               <xref target='Anote2'/>
-               <xref target='Anote3'/>
+                <xref target='N1'>Figure 1</xref>
+ <xref target='N2'>Figure (??)</xref>
+ <xref target='N'>Figure 2</xref>
+ <xref target='note1'>Figure 3</xref>
+ <xref target='note3'>Figure 4</xref>
+ <xref target='note4'>Figure 5</xref>
+ <xref target='note2'>Figure 6</xref>
+ <xref target='note51'>[note51]</xref>
+ <xref target='AN'>Figure A.1</xref>
+ <xref target='Anote1'>Figure (??)</xref>
+ <xref target='Anote2'>Figure A.2</xref>
+ <xref target='Anote3'>Figure A.3</xref>
              </p>
            </foreword>
            <introduction id='intro'>
@@ -387,7 +402,7 @@ RSpec.describe IsoDoc do
                <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
              </figure>
              <p>
-               <xref target='N'/>
+             <xref target='N'>Figure 2</xref>
              </p>
            </clause>
            <terms id='terms'/>
@@ -415,8 +430,8 @@ RSpec.describe IsoDoc do
                  <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
                </figure>
                <p>
-                 <xref target='note1'/>
-                 <xref target='note2'/>
+                 <xref target='note1'>Figure 3</xref>
+<xref target='note2'>Figure 6</xref>
                </p>
              </clause>
            </clause>
@@ -505,12 +520,12 @@ RSpec.describe IsoDoc do
          <preface>
            <foreword id='fwd'>
              <p>
-               <xref target='N'/>
-               <xref target='note1'/>
-               <xref target='note2'/>
-               <xref target='AN'/>
-               <xref target='Anote1'/>
-               <xref target='Anote2'/>
+               <xref target='N'>Figure 1</xref>
+<xref target='note1'>Figure 1-1</xref>
+<xref target='note2'>Figure 1-2</xref>
+<xref target='AN'>Figure A.1</xref>
+<xref target='Anote1'>Figure A.1-1</xref>
+<xref target='Anote2'>Figure A.1-2</xref>
              </p>
            </foreword>
          </preface>
@@ -533,8 +548,8 @@ RSpec.describe IsoDoc do
                  </figure>
                </figure>
                <p>
-                 <xref target='note1'/>
-                 <xref target='note2'/>
+                 <xref target='note1'>Figure 1-1</xref>
+<xref target='note2'>Figure 1-2</xref>
                </p>
              </clause>
            </clause>
@@ -622,29 +637,19 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-    <!--
-           <a href="#N1">Introduction, Example</a>
-           <a href="#N2">Preparatory, Example (??)</a>
-           <a href="#N">Clause 1, Example</a>
-           <a href="#note1">Clause 3.1, Example  1</a>
-           <a href="#note2">Clause 3.1, Example (??)</a>
-           <a href="#AN">Annex A.1, Example</a>
-           <a href="#Anote1">Annex A.2, Example (??)</a>
-           <a href="#Anote2">Annex A.2, Example  1</a>
-           -->
            <?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
     <foreword>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N'/>
-        <xref target='note1'/>
-        <xref target='note2'/>
-        <xref target='AN'/>
-        <xref target='Anote1'/>
-        <xref target='Anote2'/>
+        <xref target='N1'>Introduction, Example</xref>
+<xref target='N2'>Preparatory, Example (??)</xref>
+<xref target='N'>Clause 1, Example</xref>
+<xref target='note1'>Clause 3.1, Example 1</xref>
+<xref target='note2'>Clause 3.1, Example (??)</xref>
+<xref target='AN'>Annex A.1, Example</xref>
+<xref target='Anote1'>Annex A.2, Example (??)</xref>
+<xref target='Anote2'>Annex A.2, Example 1</xref>
       </p>
     </foreword>
     <introduction id='intro'>
@@ -669,7 +674,7 @@ RSpec.describe IsoDoc do
         <p>Hello</p>
       </example>
       <p>
-        <xref target='N'/>
+      <xref target='N'>Example</xref>
       </p>
     </clause>
     <terms id='terms'/>
@@ -685,8 +690,8 @@ RSpec.describe IsoDoc do
           <p>Hello</p>
         </example>
         <p>
-          <xref target='note1'/>
-          <xref target='note2'/>
+        <xref target='note1'>Example 1</xref>
+<xref target='note2'>Example (??)</xref>
         </p>
       </clause>
     </clause>
@@ -777,29 +782,19 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-                 <!--
-           <a href="#N1">Introduction, Formula (1)</a>
-           <a href="#N2">Preparatory, Formula ((??))</a>
-           <a href="#N">Clause 1, Formula (2)</a>
-           <a href="#note1">Clause 3.1, Formula (3)</a>
-           <a href="#note2">Clause 3.1, Formula (4)</a>
-           <a href="#AN">Formula (A.1)</a>
-           <a href="#Anote1">Formula ((??))</a>
-           <a href="#Anote2">Formula (A.2)</a>
-           -->
            <?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
     <foreword>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N'/>
-        <xref target='note1'/>
-        <xref target='note2'/>
-        <xref target='AN'/>
-        <xref target='Anote1'/>
-        <xref target='Anote2'/>
+        <xref target='N1'>Introduction, Formula (1)</xref>
+<xref target='N2'>Preparatory, Formula ((??))</xref>
+<xref target='N'>Clause 1, Formula (2)</xref>
+<xref target='note1'>Clause 3.1, Formula (3)</xref>
+<xref target='note2'>Clause 3.1, Formula (4)</xref>
+<xref target='AN'>Formula (A.1)</xref>
+<xref target='Anote1'>Formula ((??))</xref>
+<xref target='Anote2'>Formula (A.2)</xref>
       </p>
     </foreword>
     <introduction id='intro'>
@@ -823,7 +818,7 @@ RSpec.describe IsoDoc do
         <stem type='AsciiMath'>r = 1 %</stem>
       </formula>
       <p>
-        <xref target='N'/>
+      <xref target='N'>Formula (2)</xref>
       </p>
     </clause>
     <terms id='terms'/>
@@ -839,8 +834,8 @@ RSpec.describe IsoDoc do
           <stem type='AsciiMath'>r = 1 %</stem>
         </formula>
         <p>
-          <xref target='note1'/>
-          <xref target='note2'/>
+          <xref target='note1'>Formula (3)</xref>
+<xref target='note2'>Formula (4)</xref>
         </p>
       </clause>
     </clause>
@@ -930,29 +925,19 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-        <!--
-    <a href="#N1">Introduction, Requirement 1</a>
-    <a href="#N2">Preparatory, Requirement (??)</a>
-    <a href="#N">Clause 1, Requirement 2</a>
-    <a href="#note1">Clause 3.1, Requirement 3</a>
-    <a href="#note2">Clause 3.1, Requirement 4</a>
-    <a href="#AN">Requirement A.1</a>
-    <a href="#Anote1">Requirement (??)</a>
-    <a href="#Anote2">Requirement A.2</a>
-    -->
     <?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
     <foreword>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N'/>
-        <xref target='note1'/>
-        <xref target='note2'/>
-        <xref target='AN'/>
-        <xref target='Anote1'/>
-        <xref target='Anote2'/>
+        <xref target='N1'>Introduction, Requirement 1</xref>
+<xref target='N2'>Preparatory, Requirement (??)</xref>
+<xref target='N'>Clause 1, Requirement 2</xref>
+<xref target='note1'>Clause 3.1, Requirement 3</xref>
+<xref target='note2'>Clause 3.1, Requirement 4</xref>
+<xref target='AN'>Requirement A.1</xref>
+<xref target='Anote1'>Requirement (??)</xref>
+<xref target='Anote2'>Requirement A.2</xref>
       </p>
     </foreword>
     <introduction id='intro'>
@@ -977,7 +962,7 @@ RSpec.describe IsoDoc do
         <stem type='AsciiMath'>r = 1 %</stem>
       </requirement>
       <p>
-        <xref target='N'/>
+        <xref target='N'>Requirement 2</xref>
       </p>
     </clause>
     <terms id='terms'/>
@@ -993,8 +978,8 @@ RSpec.describe IsoDoc do
           <stem type='AsciiMath'>r = 1 %</stem>
         </requirement>
         <p>
-          <xref target='note1'/>
-          <xref target='note2'/>
+          <xref target='note1'>Requirement 3</xref>
+<xref target='note2'>Requirement 4</xref>
         </p>
       </clause>
     </clause>
@@ -1085,29 +1070,19 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-        <!--
-    <a href="#N1">Introduction, Recommendation 1</a>
-    <a href="#N2">Preparatory, Recommendation (??)</a>
-    <a href="#N">Clause 1, Recommendation 2</a>
-    <a href="#note1">Clause 3.1, Recommendation 3</a>
-    <a href="#note2">Clause 3.1, Recommendation 4</a>
-    <a href="#AN">Recommendation A.1</a>
-    <a href="#Anote1">Recommendation (??)</a>
-    <a href="#Anote2">Recommendation A.2</a>
-    -->
     <?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
     <foreword>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N'/>
-        <xref target='note1'/>
-        <xref target='note2'/>
-        <xref target='AN'/>
-        <xref target='Anote1'/>
-        <xref target='Anote2'/>
+        <xref target='N1'>Introduction, Recommendation 1</xref>
+<xref target='N2'>Preparatory, Recommendation (??)</xref>
+<xref target='N'>Clause 1, Recommendation 2</xref>
+<xref target='note1'>Clause 3.1, Recommendation 3</xref>
+<xref target='note2'>Clause 3.1, Recommendation 4</xref>
+<xref target='AN'>Recommendation A.1</xref>
+<xref target='Anote1'>Recommendation (??)</xref>
+<xref target='Anote2'>Recommendation A.2</xref>
       </p>
     </foreword>
     <introduction id='intro'>
@@ -1132,7 +1107,7 @@ RSpec.describe IsoDoc do
         <stem type='AsciiMath'>r = 1 %</stem>
       </recommendation>
       <p>
-        <xref target='N'/>
+      <xref target='N'>Recommendation 2</xref>
       </p>
     </clause>
     <terms id='terms'/>
@@ -1148,8 +1123,8 @@ RSpec.describe IsoDoc do
           <stem type='AsciiMath'>r = 1 %</stem>
         </recommendation>
         <p>
-          <xref target='note1'/>
-          <xref target='note2'/>
+           <xref target='note1'>Recommendation 3</xref>
+ <xref target='note2'>Recommendation 4</xref>
         </p>
       </clause>
     </clause>
@@ -1240,29 +1215,19 @@ RSpec.describe IsoDoc do
     </annex>
     </iso-standard>
     INPUT
-    <!--
-    <a href="#N1">Introduction, Permission 1</a>
-    <a href="#N2">Preparatory, Permission (??)</a>
-    <a href="#N">Clause 1, Permission 2</a>
-    <a href="#note1">Clause 3.1, Permission 3</a>
-    <a href="#note2">Clause 3.1, Permission 4</a>
-    <a href="#AN">Permission A.1</a>
-    <a href="#Anote1">Permission (??)</a>
-    <a href="#Anote2">Permission A.2</a>
-    -->
     <?xml version='1.0'?>
        <iso-standard xmlns='http://riboseinc.com/isoxml'>
          <preface>
            <foreword>
              <p>
-               <xref target='N1'/>
-               <xref target='N2'/>
-               <xref target='N'/>
-               <xref target='note1'/>
-               <xref target='note2'/>
-               <xref target='AN'/>
-               <xref target='Anote1'/>
-               <xref target='Anote2'/>
+               <xref target='N1'>Introduction, Permission 1</xref>
+<xref target='N2'>Preparatory, Permission (??)</xref>
+<xref target='N'>Clause 1, Permission 2</xref>
+<xref target='note1'>Clause 3.1, Permission 3</xref>
+<xref target='note2'>Clause 3.1, Permission 4</xref>
+<xref target='AN'>Permission A.1</xref>
+<xref target='Anote1'>Permission (??)</xref>
+<xref target='Anote2'>Permission A.2</xref>
              </p>
            </foreword>
            <introduction id='intro'>
@@ -1287,7 +1252,7 @@ RSpec.describe IsoDoc do
                <stem type='AsciiMath'>r = 1 %</stem>
              </permission>
              <p>
-               <xref target='N'/>
+               <xref target='N'>Permission 2</xref>
              </p>
            </clause>
            <terms id='terms'/>
@@ -1303,8 +1268,8 @@ RSpec.describe IsoDoc do
                  <stem type='AsciiMath'>r = 1 %</stem>
                </permission>
                <p>
-                 <xref target='note1'/>
-                 <xref target='note2'/>
+               <xref target='note1'>Permission 3</xref>
+<xref target='note2'>Permission 4</xref>
                </p>
              </clause>
            </clause>
@@ -1378,33 +1343,21 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        <!--
-<a href="#N1">Clause 1, Permission 1</a>
-<a href="#N2">Clause 1, Permission 1-1</a>
-<a href="#N">Clause 1, Permission 1-1-1</a>
-<a href="#Q1">Clause 1, Requirement 1-1</a>
-<a href="#R1">Clause 1, Recommendation 1-1</a>
-<a href="#AN1">Permission A.1</a>
-<a href="#AN2">Permission A.1-1</a>
-<a href="#AN">Permission A.1-1-1</a>
-<a href="#AQ1">Requirement A.1-1</a>
-<a href="#AR1">Recommendation A.1-1</a>
--->
 <?xml version='1.0'?>
        <iso-standard xmlns='http://riboseinc.com/isoxml'>
          <preface>
            <foreword>
              <p>
-               <xref target='N1'/>
-               <xref target='N2'/>
-               <xref target='N'/>
-               <xref target='Q1'/>
-               <xref target='R1'/>
-               <xref target='AN1'/>
-               <xref target='AN2'/>
-               <xref target='AN'/>
-               <xref target='AQ1'/>
-               <xref target='AR1'/>
+                <xref target='N1'>Clause 1, Permission 1</xref>
+ <xref target='N2'>Clause 1, Permission 1-1</xref>
+ <xref target='N'>Clause 1, Permission 1-1-1</xref>
+ <xref target='Q1'>Clause 1, Requirement 1-1</xref>
+ <xref target='R1'>Clause 1, Recommendation 1-1</xref>
+ <xref target='AN1'>Permission A.1</xref>
+ <xref target='AN2'>Permission A.1-1</xref>
+ <xref target='AN'>Permission A.1-1-1</xref>
+ <xref target='AQ1'>Requirement A.1-1</xref>
+ <xref target='AR1'>Recommendation A.1-1</xref>
              </p>
            </foreword>
          </preface>
@@ -1571,29 +1524,19 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    <!--
-       <a href="#N1">Table 1</a>
-       <a href="#N2">Table (??)</a>
-       <a href="#N">Table 2</a>
-       <a href="#note1">Table 3</a>
-       <a href="#note2">Table 4</a>
-       <a href="#AN">Table A.1</a>
-       <a href="#Anote1">Table (??)</a>
-       <a href="#Anote2">Table A.2</a>
-       -->
        <?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
     <foreword>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N'/>
-        <xref target='note1'/>
-        <xref target='note2'/>
-        <xref target='AN'/>
-        <xref target='Anote1'/>
-        <xref target='Anote2'/>
+         <xref target='N1'>Table 1</xref>
+ <xref target='N2'>Table (??)</xref>
+ <xref target='N'>Table 2</xref>
+ <xref target='note1'>Table 3</xref>
+ <xref target='note2'>Table 4</xref>
+ <xref target='AN'>Table A.1</xref>
+ <xref target='Anote1'>Table (??)</xref>
+ <xref target='Anote2'>Table A.2</xref>
       </p>
     </foreword>
     <introduction id='intro'>
@@ -1636,7 +1579,7 @@ OUTPUT
         </tbody>
       </table>
       <p>
-        <xref target='N'/>
+        <xref target='N'>Table 2</xref>
       </p>
     </clause>
     <terms id='terms'/>
@@ -1664,8 +1607,8 @@ OUTPUT
           </tbody>
         </table>
         <p>
-          <xref target='note1'/>
-          <xref target='note2'/>
+          <xref target='note1'>Table 3</xref>
+<xref target='note2'>Table 4</xref>
         </p>
       </clause>
     </clause>
@@ -1741,19 +1684,14 @@ OUTPUT
 
     </iso-standard>
     INPUT
-    <!--
-           <a href="#note1">Clause 2.1, Note 1</a>
-           <a href="#note2">Clause 2.2, Note 1</a>
-           <a href="#note3">Clause 2.2, Note 2</a>
-           -->
            <?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
     <foreword>
       <p>
-        <xref target='note1'/>
-        <xref target='note2'/>
-        <xref target='note3'/>
+        <xref target='note1'>Clause 2.1, Note 1</xref>
+<xref target='note2'>Clause 2.2, Note 1</xref>
+<xref target='note3'>Clause 2.2, Note 2</xref>
       </p>
     </foreword>
   </preface>
@@ -1796,7 +1734,7 @@ OUTPUT
   end
 
   it "cross-references sections" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword obligation="informative">
@@ -1884,115 +1822,109 @@ OUTPUT
        </bibliography>
        </iso-standard>
     INPUT
-        #{HTML_HDR}
-    <br/>
-    <div>
-    <h1 class="ForewordTitle">Foreword</h1>
-    <p id="A">This is a preamble
-    <a href="#C">Introduction Subsection</a>
-    <a href="#C1">Introduction, 2</a>
-    <a href="#D">Clause 1</a>
-    <a href="#H">Clause 3</a>
-    <a href="#I">Clause 3.1</a>
-    <a href="#J">Clause 3.1.1</a>
-    <a href="#K">Clause 3.2</a>
-    <a href="#L">Clause 4</a>
-    <a href="#M">Clause 5</a>
-    <a href="#N">Clause 5.1</a>
-    <a href="#O">Clause 5.2</a>
-    <a href="#P">Annex A</a>
-    <a href="#Q">Annex A.1</a>
-    <a href="#Q1">Annex A.1.1</a>
-    <a href='#QQ'>Annex B</a>
-<a href='#QQ1'>Annex B</a>
-<a href='#QQ2'>Annex B.1</a>
-    <a href="#R">Clause 2</a>
-    <a href="#S">Bibliography</a>
-    </p>
-    </div>
-    <br/>
-                 <div class="Section3" id="B">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="C">
-          <h2>Introduction Subsection</h2>
-        </div>
-               <div id="C1"><h2/>Text</div>
-             </div>
-    <p class="zzSTDTitle1"/>
-    <div id="D">
-    <h1>1.&#160; Scope</h1>
-      <p id="E">Text</p>
-    </div>
-    <div>
-    <h1>2.&#160; Normative references</h1>
-    </div>
-    <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
-       <div id="I">
-          <h2>3.1.&#160; Normal Terms</h2>
-          <p class="TermNum" id="J">3.1.1.</p>
-          <p class="Terms" style="text-align:left;">Term2</p>
-
-        </div><div id="K"><h2>3.2.&#160; Symbols and abbreviated terms</h2>
-          <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
-        </div></div>
-               <div id="L" class="Symbols">
-                 <h1>4.&#160; Symbols and abbreviated terms</h1>
-                 <dl>
-                   <dt>
-                     <p>Symbol</p>
-                   </dt>
-                   <dd>Definition</dd>
-                 </dl>
-               </div>
-               <div id="M">
-                 <h1>5.&#160; Clause 4</h1>
-                 <div id="N">
-          <h2>5.1.&#160; Introduction</h2>
-        </div>
-                 <div id="O">
-          <h2>5.2.&#160; Clause 4.2</h2>
-        </div>
-               </div>
-               <br/>
-               <div id="P" class="Section3">
-                 <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
-                 <div id="Q">
-          <h2>A.1.&#160; Annex A.1</h2>
-          <div id="Q1">
-          <h3>A.1.1.&#160; Annex A.1a</h3>
-          </div>
-                 </div>
-     </div>
-     <br/>
-     <div id='QQ' class='Section3'>
-       <h1 class='Annex'>
-         <b>Annex B</b>
-         <br/>
-         (informative)
-         <br/>
-         <br/>
-         <b/>
-       </h1>
-       <div id='QQ1'>
-         <h1>B.&#160; </h1>
-         <p class='TermNum' id='QQ2'>B.1.</p>
-        </div>
-               </div>
-               <br/>
-               <div>
-                 <h1 class="Section3">Bibliography</h1>
-                 <div>
-                   <h2 class="Section3">Bibliography Subsection</h2>
-                 </div>
-               </div>
-             </div>
-           </body>
-       </html>
+    <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword obligation='informative'>
+              <title>Foreword</title>
+              <p id='A'>
+                This is a preamble
+                <xref target='C'>Introduction Subsection</xref>
+                <xref target='C1'>Introduction, 2</xref>
+                <xref target='D'>Clause 1</xref>
+                <xref target='H'>Clause 3</xref>
+                <xref target='I'>Clause 3.1</xref>
+                <xref target='J'>Clause 3.1.1</xref>
+                <xref target='K'>Clause 3.2</xref>
+                <xref target='L'>Clause 4</xref>
+                <xref target='M'>Clause 5</xref>
+                <xref target='N'>Clause 5.1</xref>
+                <xref target='O'>Clause 5.2</xref>
+                <xref target='P'>Annex A</xref>
+                <xref target='Q'>Annex A.1</xref>
+                <xref target='Q1'>Annex A.1.1</xref>
+                <xref target='QQ'>Annex B</xref>
+                <xref target='QQ1'>Annex B</xref>
+                <xref target='QQ2'>Annex B.1</xref>
+                <xref target='R'>Clause 2</xref>
+                <xref target='S'>Bibliography</xref>
+              </p>
+            </foreword>
+            <introduction id='B' obligation='informative'>
+              <title>Introduction</title>
+              <clause id='C' inline-header='false' obligation='informative'>
+                <title>Introduction Subsection</title>
+              </clause>
+              <clause id='C1' inline-header='false' obligation='informative'>Text</clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='D' obligation='normative'>
+              <title>Scope</title>
+              <p id='E'>Text</p>
+            </clause>
+            <terms id='H' obligation='normative'>
+              <title>Terms, definitions, symbols and abbreviated terms</title>
+              <terms id='I' obligation='normative'>
+                <title>Normal Terms</title>
+                <term id='J'>
+                  <preferred>Term2</preferred>
+                </term>
+              </terms>
+              <definitions id='K'>
+                <dl>
+                  <dt>Symbol</dt>
+                  <dd>Definition</dd>
+                </dl>
+              </definitions>
+            </terms>
+            <definitions id='L'>
+              <dl>
+                <dt>Symbol</dt>
+                <dd>Definition</dd>
+              </dl>
+            </definitions>
+            <clause id='M' inline-header='false' obligation='normative'>
+              <title>Clause 4</title>
+              <clause id='N' inline-header='false' obligation='normative'>
+                <title>Introduction</title>
+              </clause>
+              <clause id='O' inline-header='false' obligation='normative'>
+                <title>Clause 4.2</title>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='P' inline-header='false' obligation='normative'>
+            <title>Annex</title>
+            <clause id='Q' inline-header='false' obligation='normative'>
+              <title>Annex A.1</title>
+              <clause id='Q1' inline-header='false' obligation='normative'>
+                <title>Annex A.1a</title>
+              </clause>
+            </clause>
+          </annex>
+          <annex id='QQ'>
+            <terms id='QQ1'>
+              <term id='QQ2'/>
+            </terms>
+          </annex>
+          <bibliography>
+            <references id='R' obligation='informative' normative='true'>
+              <title>Normative References</title>
+            </references>
+            <clause id='S' obligation='informative'>
+              <title>Bibliography</title>
+              <references id='T' obligation='informative' normative='false'>
+                <title>Bibliography Subsection</title>
+              </references>
+            </clause>
+          </bibliography>
+        </iso-standard>
     OUTPUT
   end
 
   it "cross-references lists" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -2053,85 +1985,95 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        #{HTML_HDR}
-    <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p>
-           <a href="#N1">Introduction, List</a>
-           <a href="#N2">Preparatory, List</a>
-           <a href="#N">Clause 1, List</a>
-           <a href="#note1">Clause 3.1, List  1</a>
-           <a href="#note2">Clause 3.1, List  2</a>
-           <a href="#AN">Annex A.1, List</a>
-           <a href="#Anote1">Annex A.2, List  1</a>
-           <a href="#Anote2">Annex A.2, List  2</a>
-           </p>
-               </div>
-                            <br/>
-                                         <div class="Section3" id="intro">
-               <h1 class="IntroTitle">Introduction</h1>
-               <ol type="a" id="N1">
-         <li><p>A</p></li>
-       </ol>
-               <div id="xyz"><h2>Preparatory</h2>
-            <ol type="a" id="N2">
-         <li><p>A</p></li>
-       </ol>
-       </div>
-             </div>
-             <p class="zzSTDTitle1"/>
-             <div id="scope">
-               <h1>1.&#160; Scope</h1>
-               <ol type="a" id="N">
-         <li><p>A</p></li>
-       </ol>
-             </div>
-             <div id="terms"><h1>2.&#160; </h1>
-       </div>
-             <div id="widgets">
-               <h1>3.&#160; Widgets</h1>
-               <div id="widgets1"><h2>3.1.&#160;</h2>
-           <ol type="a" id="note1">
-         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-       </ol>
-           <ol type="a" id="note2">
-         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
-       </ol>
-           </div>
-             </div>
-             <br/>
-             <div id="annex1" class="Section3">
-                          <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-               <div id="annex1a"><h2>A.1.&#160;</h2>
-           <ol type="a" id="AN">
-         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-       </ol>
-           </div>
-               <div id="annex1b"><h2>A.2.&#160;</h2>
-           <ol type="a" id="Anote1">
-         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-       </ol>
-           <ol type="a" id="Anote2">
-         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
-       </ol>
-           </div>
-             </div>
-           </div>
-         </body>
-       </html>
+    <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'>Introduction, List</xref>
+                <xref target='N2'>Preparatory, List</xref>
+                <xref target='N'>Clause 1, List</xref>
+                <xref target='note1'>Clause 3.1, List 1</xref>
+                <xref target='note2'>Clause 3.1, List 2</xref>
+                <xref target='AN'>Annex A.1, List</xref>
+                <xref target='Anote1'>Annex A.2, List 1</xref>
+                <xref target='Anote2'>Annex A.2, List 2</xref>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <ol id='N1'>
+                <li>
+                  <p>A</p>
+                </li>
+              </ol>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <ol id='N2'>
+                  <li>
+                    <p>A</p>
+                  </li>
+                </ol>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <ol id='N'>
+                <li>
+                  <p>A</p>
+                </li>
+              </ol>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <ol id='note1'>
+                  <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+                    These results are based on a study carried out on three different
+                    types of kernel.
+                  </p>
+                </ol>
+                <ol id='note2'>
+                  <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
+                    These results are based on a study carried out on three different
+                    types of kernel.
+                  </p>
+                </ol>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <ol id='AN'>
+                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+                  These results are based on a study carried out on three different
+                  types of kernel.
+                </p>
+              </ol>
+            </clause>
+            <clause id='annex1b'>
+              <ol id='Anote1'>
+                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+                  These results are based on a study carried out on three different
+                  types of kernel.
+                </p>
+              </ol>
+              <ol id='Anote2'>
+                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
+                  These results are based on a study carried out on three different
+                  types of kernel.
+                </p>
+              </ol>
+            </clause>
+          </annex>
+        </iso-standard>
     OUTPUT
   end
 
   it "cross-references list items" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -2192,85 +2134,90 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        #{HTML_HDR}
-    <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p>
-           <a href="#N1">Introduction, a)</a>
-           <a href="#N2">Preparatory, a)</a>
-           <a href="#N">Clause 1, a)</a>
-           <a href="#note1">Clause 3.1, List  1 a)</a>
-           <a href="#note2">Clause 3.1, List  2 a)</a>
-           <a href="#AN">Annex A.1, a)</a>
-           <a href="#Anote1">Annex A.2, List  1 a)</a>
-           <a href="#Anote2">Annex A.2, List  2 a)</a>
-           </p>
-               </div>
-                            <br/>
-                                         <div class="Section3" id="intro">
-               <h1 class="IntroTitle">Introduction</h1>
-               <ol type="a" id="N01">
-         <li id="N1"><p>A</p></li>
-       </ol>
-               <div id="xyz"><h2>Preparatory</h2>
-            <ol type="a" id="N02">
-         <li id="N2"><p>A</p></li>
-       </ol>
-       </div>
-             </div>
-             <p class="zzSTDTitle1"/>
-             <div id="scope">
-               <h1>1.&#160; Scope</h1>
-               <ol type="a" id="N0">
-         <li id="N"><p>A</p></li>
-       </ol>
-             </div>
-             <div id="terms"><h1>2.&#160; </h1>
-       </div>
-             <div id="widgets">
-               <h1>3.&#160; Widgets</h1>
-               <div id="widgets1"><h2>3.1.&#160;</h2>
-           <ol type="a" id="note1l">
-         <li id="note1"><p>A</p></li>
-       </ol>
-           <ol type="a" id="note2l">
-         <li id="note2"><p>A</p></li>
-       </ol>
-           </div>
-             </div>
-             <br/>
-             <div id="annex1" class="Section3">
-                          <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <br/>
-  <b/>
-</h1>
-               <div id="annex1a"><h2>A.1.&#160;</h2>
-           <ol type="a" id="ANl">
-         <li id="AN"><p>A</p></li>
-       </ol>
-           </div>
-               <div id="annex1b"><h2>A.2.&#160;</h2>
-           <ol type="a" id="Anote1l">
-         <li id="Anote1"><p>A</p></li>
-       </ol>
-           <ol type="a" id="Anote2l">
-         <li id="Anote2"><p>A</p></li>
-       </ol>
-           </div>
-             </div>
-           </div>
-         </body>
-       </html>
+ <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'>Introduction, a)</xref>
+                <xref target='N2'>Preparatory, a)</xref>
+                <xref target='N'>Clause 1, a)</xref>
+                <xref target='note1'>Clause 3.1, List 1 a)</xref>
+                <xref target='note2'>Clause 3.1, List 2 a)</xref>
+                <xref target='AN'>Annex A.1, a)</xref>
+                <xref target='Anote1'>Annex A.2, List 1 a)</xref>
+                <xref target='Anote2'>Annex A.2, List 2 a)</xref>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <ol id='N01'>
+                <li id='N1'>
+                  <p>A</p>
+                </li>
+              </ol>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <ol id='N02'>
+                  <li id='N2'>
+                    <p>A</p>
+                  </li>
+                </ol>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <ol id='N0'>
+                <li id='N'>
+                  <p>A</p>
+                </li>
+              </ol>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <ol id='note1l'>
+                  <li id='note1'>
+                    <p>A</p>
+                  </li>
+                </ol>
+                <ol id='note2l'>
+                  <li id='note2'>
+                    <p>A</p>
+                  </li>
+                </ol>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <ol id='ANl'>
+                <li id='AN'>
+                  <p>A</p>
+                </li>
+              </ol>
+            </clause>
+            <clause id='annex1b'>
+              <ol id='Anote1l'>
+                <li id='Anote1'>
+                  <p>A</p>
+                </li>
+              </ol>
+              <ol id='Anote2l'>
+                <li id='Anote2'>
+                  <p>A</p>
+                </li>
+              </ol>
+            </clause>
+          </annex>
+        </iso-standard>
     OUTPUT
   end
 
   it "cross-references nested list items" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface>
     <foreword>
@@ -2308,44 +2255,56 @@ OUTPUT
     </sections>
     </iso-standard>
     INPUT
-        #{HTML_HDR}
-                     <br/>
-             <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <p>
-       <a href="#N">Clause 1, a)</a>
-       <a href="#note1">Clause 1, a.1)</a>
-       <a href="#note2">Clause 1, a.1.i)</a>
-       <a href="#AN">Clause 1, a.1.i.A)</a>
-       <a href="#Anote1">Clause 1, a.1.i.A.I)</a>
-       <a href="#Anote2">Clause 1, a.1.i.A.I.a)</a>
-       </p>
-             </div>
-             <p class="zzSTDTitle1"/>
-             <div id="scope">
-               <h1>1.&#160; Scope</h1>
-               <ol type="a" id="N1">
-         <li id="N"><p>A</p>
-         <ol type="1">
-         <li id="note1"><p>A</p>
-         <ol type="i">
-         <li id="note2"><p>A</p>
-         <ol type="A">
-         <li id="AN"><p>A</p>
-         <ol type="I">
-         <li id="Anote1"><p>A</p>
-         <ol type="a">
-         <li id="Anote2"><p>A</p></li>
-         </ol></li>
-         </ol></li>
-         </ol></li>
-         </ol></li>
-         </ol></li>
-       </ol>
-             </div>
-           </div>
-         </body>
-       </html>
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='N'>Clause 1, a)</xref>
+        <xref target='note1'>Clause 1, a.1)</xref>
+        <xref target='note2'>Clause 1, a.1.i)</xref>
+        <xref target='AN'>Clause 1, a.1.i.A)</xref>
+        <xref target='Anote1'>Clause 1, a.1.i.A.I)</xref>
+        <xref target='Anote2'>Clause 1, a.1.i.A.I.a)</xref>
+      </p>
+    </foreword>
+  </preface>
+  <sections>
+    <clause id='scope'>
+      <title>Scope</title>
+      <ol id='N1'>
+        <li id='N'>
+          <p>A</p>
+          <ol>
+            <li id='note1'>
+              <p>A</p>
+              <ol>
+                <li id='note2'>
+                  <p>A</p>
+                  <ol>
+                    <li id='AN'>
+                      <p>A</p>
+                      <ol>
+                        <li id='Anote1'>
+                          <p>A</p>
+                          <ol>
+                            <li id='Anote2'>
+                              <p>A</p>
+                            </li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </clause>
+  </sections>
+</iso-standard>
     OUTPUT
   end
 
@@ -2398,14 +2357,14 @@ INPUT
   <preface>
     <foreword id='fwd'>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N3'/>
-        <xref target='N4'/>
-        <xref target='N5'/>
-        <xref target='N6'/>
-        <xref target='N7'/>
-        <xref target='N8'/>
+        <xref target='N1'>Figure 1</xref>
+<xref target='N2'>Figure 2a</xref>
+<xref target='N3'>Figure 2b</xref>
+<xref target='N4'>Figure 3a</xref>
+<xref target='N5'>Figure 3b</xref>
+<xref target='N6'>Figure 3c</xref>
+<xref target='N7'>Figure 4</xref>
+<xref target='N8'>Figure 5</xref>
       </p>
     </foreword>
     <introduction id='intro'>
@@ -2504,16 +2463,16 @@ INPUT
   <preface>
     <foreword id='fwd'>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N3'/>
-        <xref target='N4'/>
-        <xref target='N5'/>
-        <xref target='N6'/>
-        <xref target='N7'/>
-        <xref target='N8'/>
-        <xref target='N9'/>
-        <xref target='N10'/>
+        <xref target='N1'>Figure 1</xref>
+<xref target='N2'>Figure A</xref>
+<xref target='N3'>Figure 2</xref>
+<xref target='N4'>Figure 7</xref>
+<xref target='N5'>Figure 8</xref>
+<xref target='N6'>Figure 9a</xref>
+<xref target='N7'>Figure 9c</xref>
+<xref target='N8'>Figure 9d</xref>
+<xref target='N9'>Figure 20f</xref>
+<xref target='N10'>Figure 20g</xref>
       </p>
     </foreword>
     <introduction id='intro'>

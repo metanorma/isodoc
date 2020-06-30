@@ -16,85 +16,16 @@ module IsoDoc::Function
       out << " &lt;#{node.text}&gt;"
     end
 
-    def prefix_container(container, linkend, _target)
-      l10n(@xrefs.anchor(container, :xref) + ", " + linkend)
-    end
-
-    def anchor_linkend(node, linkend)
-      if node["citeas"].nil? && node["bibitemid"] 
-        return @xrefs.anchor(node["bibitemid"] ,:xref) || "???"
-      elsif node["target"] && !/.#./.match(node["target"])
-        linkend = @xrefs.anchor(node["target"], :xref)
-        container = @xrefs.anchor(node["target"], :container, false)
-        (container && get_note_container_id(node) != container &&
-         @xrefs.get[node["target"]]) &&
-        linkend = prefix_container(container, linkend, node["target"])
-        linkend = capitalise_xref(node, linkend)
+    def no_locality_parse(node, out)
+      node.children.each do |n|
+        parse(n, out) unless %w{locality localityStack}.include? n.name
       end
-      linkend || "???"
-    end
-
-    def capitalise_xref(node, linkend)
-      return linkend unless %w(Latn Cyrl Grek).include? @script
-      return linkend&.capitalize if node["case"] == "capital"
-      return linkend&.downcase if node["case"] == "lowercase"
-      return linkend if linkend[0,1].match(/\p{Upper}/)
-      prec = nearest_block_parent(node).xpath("./descendant-or-self::text()") &
-        node.xpath("./preceding::text()")
-      (prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map { |p| p.text }.join)) ?
-        linkend&.capitalize : linkend
-    end
-
-    def nearest_block_parent(node)
-      until %w(p title td th name formula 
-        li dt dd sourcecode pre).include?(node.name)
-        node = node.parent
-      end
-      node
-    end
-
-    def get_linkend(node)
-      contents = node.children.select do |c|
-        !%w{locality localityStack}.include? c.name 
-      end.select { |c| !c.text? || /\S/.match(c) }
-      !contents.empty? and
-        return Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
-      link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
-      link + eref_localities(node.xpath(ns("./locality | ./localityStack")),
-                             link)
-      # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
-      # <locality type="section"><reference>3.1</reference></locality></origin>
     end
 
     def xref_parse(node, out)
       target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".html#") :
         "##{node["target"]}"
-        out.a(**{ "href": target }) { |l| l << get_linkend(node) }
-    end
-
-    def eref_localities(refs, target)
-      ret = ""
-      refs.each_with_index do |r, i|
-        delim = ","
-        delim = ";" if r.name == "localityStack" && i>0
-        if r.name == "localityStack"
-          r.elements.each_with_index do |rr, j|
-            ret += eref_localities0(rr, j, target, delim)
-            delim = ","
-          end
-        else
-          ret += eref_localities0(r, i, target, delim)
-        end
-      end
-      ret
-    end
-
-    def eref_localities0(r, i, target, delim)
-      if r["type"] == "whole" then l10n("#{delim} #{@wholeoftext_lbl}")
-      else
-        eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
-                         r.at(ns("./referenceTo")), delim, @lang)
-      end
+        out.a(**{ "href": target }) { |l| no_locality_parse(node, l) }
     end
 
     def suffix_url(url)
@@ -114,14 +45,13 @@ module IsoDoc::Function
     end
 
     def eref_parse(node, out)
-      linkend = get_linkend(node)
       href = eref_target(node)
       if node["type"] == "footnote"
         out.sup do |s|
-          s.a(**{ "href": href }) { |l| l << linkend }
+          s.a(**{ "href": href }) { |l| no_locality_parse(node, l) }
         end
       else
-        out.a(**{ "href": href }) { |l| l << linkend }
+        out.a(**{ "href": href }) { |l| no_locality_parse(node, l) }
       end
     end
 

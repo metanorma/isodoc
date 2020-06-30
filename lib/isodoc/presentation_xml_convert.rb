@@ -1,4 +1,5 @@
 require_relative "presentation_function/block"
+require_relative "presentation_function/inline"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -22,6 +23,10 @@ module IsoDoc
       permission docxml
       requirement docxml
       recommendation docxml
+      xref docxml
+      eref docxml
+      origin docxml
+      quotesource docxml
       docxml.to_xml
     end
 

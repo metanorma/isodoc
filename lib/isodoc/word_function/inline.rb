@@ -69,7 +69,9 @@ module IsoDoc::WordFunction
     def xref_parse(node, out)
       target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".doc#") :
         "##{node["target"]}"
-        out.a(**{ "href": target }) { |l| l << get_linkend(node) }
+        out.a(**{ "href": target }) do |l|
+          node.children.each { |n| parse(n, l) }
+        end
     end
   end
 end
