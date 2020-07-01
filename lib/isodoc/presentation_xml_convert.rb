@@ -12,6 +12,11 @@ module IsoDoc
     def convert1(docxml, filename, dir)
       @xrefs.parse docxml
       info docxml, nil
+      conversions(docxml)
+      docxml.to_xml
+    end
+
+    def conversions(docxml)
       table docxml
       figure docxml
       sourcecode docxml
@@ -27,7 +32,6 @@ module IsoDoc
       eref docxml
       origin docxml
       quotesource docxml
-      docxml.to_xml
     end
 
     def postprocess(result, filename, dir)
