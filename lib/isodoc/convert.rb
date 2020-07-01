@@ -63,8 +63,8 @@ module IsoDoc
       @c = HTMLEntities.new
       @openmathdelim = "`"
       @closemathdelim = "`"
-      @lang = "en"
-      @script = "Latn"
+      @lang = options[:language] || "en"
+      @script = options[:script] || "Latn"
       @maxwidth = 1200
       @maxheight = 800
       @wordToClevels = options[:doctoclevels].to_i
