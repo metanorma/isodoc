@@ -4,7 +4,6 @@ require "base64"
 module IsoDoc::HtmlFunction
   module Html
     def convert1(docxml, filename, dir)
-      @xrefs.parse docxml
       noko do |xml|
         xml.html **{ lang: "#{@lang}" } do |html|
           info docxml, nil

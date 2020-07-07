@@ -19,7 +19,7 @@ module IsoDoc::XrefGen
       d.xpath(ns("//preface/*")).each { |c| c.element? and preface_names(c) }
       # potentially overridden in middle_section_asset_names()
       sequential_asset_names(d.xpath(ns("//preface/*")))
-      n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
+      n = section_names(d.at(ns("//clause[@type = 'scope']")), 0, 1)
       n = section_names(d.at(ns(
         "//bibliography/clause[.//references[@normative = 'true']] | "\
         "//bibliography/references[@normative = 'true']")), n, 1)
@@ -64,7 +64,7 @@ module IsoDoc::XrefGen
     end
 
     def middle_section_asset_names(d)
-      middle_sections = "//clause[title = 'Scope'] | "\
+      middle_sections = "//clause[@type = 'scope'] | "\
         "//references[@normative = 'true'] | "\
         "//sections/terms | //preface/* | "\
         "//sections/definitions | //clause[parent::sections]"
@@ -103,7 +103,7 @@ module IsoDoc::XrefGen
     def annex_name_lbl(clause, num)
       obl = l10n("(#{@labels["inform_annex"]})")
       obl = l10n("(#{@labels["norm_annex"]})") if clause["obligation"] == "normative"
-      l10n("<b>#{@labels["annex"]} #{num}</b><br/>#{obl}")
+      l10n("<strong>#{@labels["annex"]} #{num}</strong><br/>#{obl}")
     end
 
     def single_annex_special_section(clause)

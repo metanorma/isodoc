@@ -272,9 +272,9 @@ expect(File.exist?("test.doc")).to be true
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.css"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
-    <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+    <terms id="_terms_and_definitions" obligation="normative"><title>1.<tab/>Terms and Definitions</title>
 
-<term id="paddy1"><preferred>paddy</preferred>
+<term id="paddy1"><name>1.1.</name><preferred>paddy</preferred>
 <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
 <termsource status="modified">
   <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">ISO 7301:2011, Clause 3.1</origin>
@@ -360,7 +360,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
        <p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"></span><span style="mso-spacerun:yes">&#xA0;</span>TOC
          \o "1-2" \h \z \u <span style="mso-element:field-separator"></span></span>
        <span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">1. Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -371,7 +371,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
        <p class="MsoToc2">
          <span class="MsoHyperlink">
            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">1.1. Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -384,7 +384,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
        <p class="MsoToc2">
          <span class="MsoHyperlink">
            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">1.2. Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -442,7 +442,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
        <p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"></span><span style="mso-spacerun:yes">&#xA0;</span>TOC
          \o "1-3" \h \z \u <span style="mso-element:field-separator"></span></span>
        <span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">1. Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -453,7 +453,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
        <p class="MsoToc2">
          <span class="MsoHyperlink">
            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">1.1. Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -466,7 +466,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
        <p class="MsoToc2">
          <span class="MsoHyperlink">
            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-       <a href="#_Toc">1.2. Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+       <a href="#_Toc">Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-tab-count:1 dotted">. </span>
        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
        <span style="mso-element:field-begin"></span></span>
@@ -479,7 +479,7 @@ ICAgICAgIDogRU5EIERPQyBJRAoKRklMRU5BTUU6IHRlc3QKCg==
        <p class="MsoToc3">
   <span class="MsoHyperlink">
     <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-<a href="#_Toc">1.2.1. Clause 4.2.1<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+<a href="#_Toc">Clause 4.2.1<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
 <span style="mso-tab-count:1 dotted">. </span>
 </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
 <span style="mso-element:field-begin"></span></span>
@@ -551,16 +551,16 @@ TOCLEVEL
            <main  xmlns:epub="epub" class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <p class="zzSTDTitle1"></p>
              <div id="A">
-               <h1>1.&#xA0; Clause 4</h1>
+               <h1>Clause 4</h1>
                <a class='FootnoteRef' href='#fn:3' id='fnref:1'>
                  <sup>1</sup>
                </a>
                <div id="N">
 
-                <h2>1.1.&#160; Introduction to this<a class='FootnoteRef' href='#fn:2' id='fnref:2'><sup>2</sup></a></h2>
+                <h2>Introduction to this<a class='FootnoteRef' href='#fn:2' id='fnref:2'><sup>2</sup></a></h2>
               </div>
                <div id="O">
-                <h2>1.2.&#160; Clause 4.2</h2>
+                <h2>Clause 4.2</h2>
                 <p>A<a class='FootnoteRef' href='#fn:2'><sup>2</sup></a></p>
               </div>
              </div>
@@ -763,7 +763,7 @@ TOCLEVEL
     <sections>
     <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
 
-<term id="paddy1"><preferred>paddy</preferred>
+<term id="paddy1"><name>1.1.</name><preferred>paddy</preferred>
 <domain>rice</domain>
 <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
 <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
@@ -785,7 +785,7 @@ TOCLEVEL
   </modification>
 </termsource></term>
 
-<term id="paddy"><preferred>paddy</preferred><admitted>paddy rice</admitted>
+<term id="paddy"><name>1.2.</name><preferred>paddy</preferred><admitted>paddy rice</admitted>
 <admitted>rough rice</admitted>
 <deprecates>cargo rice</deprecates>
 <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
@@ -1361,7 +1361,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
              </table>
            </div>
            <div>
-             <h1>Preface 1.1</h1>
+             <h2>Preface 1.1</h2>
              <p class='MsoNormal'>On my side</p>
              <p class='MsoNormal'>
                <br clear='all' class='section'/>
@@ -1371,7 +1371,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
          <div class='WordSection2_0'>
            <p class='MsoNormal'>Upright again</p>
            <div>
-             <h1>Preface 1.3</h1>
+             <h2>Preface 1.3</h2>
              <p class='MsoNormal'>And still upright</p>
            </div>
            <p class='MsoNormal'>&#xA0;</p>
@@ -1441,14 +1441,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
  <div class='WordSection3_0'>
    <div class='Section3'>
      <a name='_level_1' id='_level_1'/>
-     <h1 class='Annex'>
-       <b>Annex A</b>
-       <br/>
-       (normative)
-       <br/>
-       <br/>
-       <b>Annex 1</b>
-     </h1>
+     <h1 class='Annex'>Annex 1</h1>
    </div>
          </div>
          <div style='mso-element:footnote-list'/>

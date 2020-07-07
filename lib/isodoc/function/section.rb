@@ -8,36 +8,37 @@ module IsoDoc::Function
       insert_tab(out, 1)
     end
 
-    def inline_header_title(out, node, c1)
+    def inline_header_title(out, node, title)
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
-          if @xrefs.anchor(node['id'], :label, false) && !@suppressheadingnumbers
-            b << "#{@xrefs.anchor(node['id'], :label)}#{clausedelim}"
-            clausedelimspace(out)
-          end
-          c1&.children&.each { |c2| parse(c2, b) }
-          clausedelimspace(out) if /\S/.match(c1&.text)
+          title&.children&.each { |c2| parse(c2, b) }
+          clausedelimspace(out) if /\S/.match(title&.text)
         end
       end
     end
 
     # used for subclauses
-    def clause_parse_title(node, div, c1, out)
+    def clause_parse_title(node, div, title, out, header_class = {})
+      return if title.nil?
       if node["inline-header"] == "true"
-        inline_header_title(out, node, c1)
+        inline_header_title(out, node, title)
       else
-        div.send "h#{@xrefs.anchor(node['id'], :level, false) || '1'}" do |h|
-          lbl = @xrefs.anchor(node['id'], :label, false)
-          h << "#{lbl}#{clausedelim}" if lbl && !@suppressheadingnumbers
-          clausedelimspace(out) if lbl && !@suppressheadingnumbers
-          c1&.children&.each { |c2| parse(c2, h) }
+        depth = (title && title["depth"]) ? title["depth"] :
+          node.ancestors("clause, annex, terms, references, definitions, "\
+                        "acknowledgements, introduction, foreword").size + 1
+        div.send "h#{depth}", **attr_code(header_class) do |h|
+          title&.children&.each { |c2| parse(c2, h) }
         end
       end
+    end
+
+    def clause_attrs(node)
+      { id: node["id"] }
     end
 
     # used for subclauses
     def clause_parse(node, out)
-      out.div **attr_code(id: node["id"]) do |div|
+      out.div **attr_code(clause_attrs(node)) do |div|
         clause_parse_title(node, div, node.at(ns("./title")), out)
         node.children.reject { |c1| c1.name == "title" }.each do |c1|
           parse(c1, div)
@@ -45,13 +46,9 @@ module IsoDoc::Function
       end
     end
 
-    def clause_name(num, title, div, header_class)
+    def clause_name(_num, title, div, header_class)
       header_class = {} if header_class.nil?
       div.h1 **attr_code(header_class) do |h1|
-        if num && !@suppressheadingnumbers
-          h1 << "#{num}#{clausedelim}"
-          clausedelimspace(h1)
-        end
         title.is_a?(String) ? h1 << title :
           title&.children&.each { |c2| parse(c2, h1) }
       end
@@ -60,9 +57,8 @@ module IsoDoc::Function
 
     def clause(isoxml, out)
       isoxml.xpath(ns(middle_clause)).each do |c|
-        out.div **attr_code(id: c["id"]) do |s|
-          clause_name(@xrefs.anchor(c['id'], :label),
-                      c&.at(ns("./title")), s, nil)
+        out.div **attr_code(clause_attrs(c)) do |s|
+          clause_name(nil, c&.at(ns("./title")), s, nil)
           c.elements.reject { |c1| c1.name == "title" }.each do |c1|
             parse(c1, s)
           end
@@ -71,19 +67,20 @@ module IsoDoc::Function
     end
 
     def annex_name(annex, name, div)
+      return if name.nil?
       div.h1 **{ class: "Annex" } do |t|
-        t << "#{@xrefs.anchor(annex['id'], :label)}<br/><br/>"
-        t.b do |b|
-          name&.children&.each { |c2| parse(c2, b) }
-        end
+        name.children.each { |c2| parse(c2, t) }
       end
+    end
+
+    def annex_attrs(node)
+      { id: node["id"], class: "Section3" }
     end
 
     def annex(isoxml, out)
       isoxml.xpath(ns("//annex")).each do |c|
         page_break(out)
-        out.div **attr_code(id: c["id"], class: "Section3") do |s|
-          annex_name(c, nil, s) unless c.at(ns("./title"))
+        out.div **attr_code(annex_attrs(c)) do |s|
           c.elements.each do |c1|
             if c1.name == "title" then annex_name(c, c1, s)
             else
@@ -95,10 +92,10 @@ module IsoDoc::Function
     end
 
     def scope(isoxml, out, num)
-      f = isoxml.at(ns("//clause[title = 'Scope']")) or return num
+      f = isoxml.at(ns("//clause[@type = 'scope']")) or return num
       out.div **attr_code(id: f["id"]) do |div|
         num = num + 1
-        clause_name(num, @scope_lbl, div, nil)
+        clause_name(num, f&.at(ns("./title")), div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end

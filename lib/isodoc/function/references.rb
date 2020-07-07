@@ -158,7 +158,7 @@ module IsoDoc::Function
       f = isoxml.at(ns(q)) or return num
       out.div do |div|
         num = num + 1
-        clause_name(num, @normref_lbl, div, nil)
+        clause_name(num, f.at(ns("./title")), div, nil)
         biblio_list(f, div, false)
       end
       num
@@ -179,9 +179,7 @@ module IsoDoc::Function
     def bibliography_parse(node, out)
       title = node&.at(ns("./title"))&.text || ""
       out.div do |div|
-        @xrefs.anchor(node['id'], :label, false) and
-          clause_parse_title(node, div, node.at(ns("./title")), out) or
-          div.h2 title, **{ class: "Section3" }
+        clause_parse_title(node, div, node.at(ns("./title")), out, { class: "Section3" })
         biblio_list(node, div, true)
       end
     end

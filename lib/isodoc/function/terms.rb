@@ -64,8 +64,9 @@ module IsoDoc::Function
     end
 
     def termdef_parse(node, out)
+      name = node&.at(ns("./name"))&.remove
       out.p **{ class: "TermNum", id: node["id"] } do |p|
-        p << "#{@xrefs.get[node["id"]][:label]}#{clausedelim}"
+        name&.children&.each { |n| parse(n, p) }
       end
       set_termdomain("")
       node.children.each { |n| parse(n, out) }

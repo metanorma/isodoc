@@ -1407,7 +1407,7 @@ it "processes blockquotes (Presentation XML)" do
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <sections>
     <terms>
-    <term id="_extraneous_matter"><preferred>extraneous matter</preferred><admitted>EM</admitted>
+    <term id="_extraneous_matter"><name>1.1.</name><preferred>extraneous matter</preferred><admitted>EM</admitted>
 <domain>rice</domain>
 <definition><p id="_318b3939-be09-46c4-a284-93f9826b981e">organic and inorganic components other than whole or broken kernels</p></definition>
 </term>
@@ -1417,7 +1417,7 @@ it "processes blockquotes (Presentation XML)" do
     INPUT
     #{HTML_HDR}
                <p class="zzSTDTitle1"/>
-               <div><h1>1.&#160; </h1>
+               <div><h1/>
        <p class="TermNum" id="_extraneous_matter">1.1.</p><p class="Terms" style="text-align:left;">extraneous matter</p><p class="AltTerms" style="text-align:left;">EM</p>
 
        <p id="_318b3939-be09-46c4-a284-93f9826b981e">&lt;rice&gt; organic and inorganic components other than whole or broken kernels</p>
@@ -1559,7 +1559,7 @@ it "processes blockquotes (Presentation XML)" do
          </preface>
          <bibliography>
            <references id='_bibliography' obligation='informative' normative='false'>
-             <title>Bibliography</title>
+             <title depth="1">Bibliography</title>
              <bibitem id='rfc2616' type='standard'>
                <fetched>2020-03-27</fetched>
                <title format='text/plain' language='en' script='Latn'>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title>

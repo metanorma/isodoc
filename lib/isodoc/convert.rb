@@ -77,9 +77,12 @@ module IsoDoc
 
     # run this after @meta is populated
     def populate_css
-      @htmlstylesheet = generate_css(@htmlstylesheet_name, true, extract_fonts(options))
-      @wordstylesheet = generate_css(@wordstylesheet_name, false, extract_fonts(options))
-      @standardstylesheet = generate_css(@standardstylesheet_name, false, extract_fonts(options))
+      @htmlstylesheet = generate_css(@htmlstylesheet_name, true, 
+                                     extract_fonts(options))
+      @wordstylesheet = generate_css(@wordstylesheet_name, false, 
+                                     extract_fonts(options))
+      @standardstylesheet = generate_css(@standardstylesheet_name, false, 
+                                         extract_fonts(options))
     end
 
     def tmpimagedir_suffix
@@ -94,7 +97,8 @@ module IsoDoc
       }
     end
 
-    # none for this parent gem, but will be populated in child gems which have access to stylesheets &c; e.g.
+    # none for this parent gem, but will be populated in child gems 
+    # which have access to stylesheets &c; e.g.
     # {
     #      htmlstylesheet: html_doc_path("htmlstyle.scss"),
     #      htmlcoverpage: html_doc_path("html_rsd_titlepage.html"),
@@ -157,8 +161,9 @@ module IsoDoc
       @meta = Metadata.new(lang, script, labels)
     end
 
-    def xref_init(lang, script, klass, labels, options)
-      @xrefs = Xref.new(lang, script, klass, labels, options)
+    def xref_init(lang, script, _klass, labels, options)
+      html = HtmlConvert.new(language: @lang, script: @script)
+      @xrefs = Xref.new(lang, script, html, labels, options)
     end
 
     def convert_init(file, input_filename, debug)
@@ -173,7 +178,8 @@ module IsoDoc
       [docxml, filename, dir]
     end
 
-    def convert(input_filename, file = nil, debug = false, output_filename = nil)
+    def convert(input_filename, file = nil, debug = false, 
+                output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)
       docxml, filename, dir = convert_init(file, input_filename, debug)
@@ -185,7 +191,7 @@ module IsoDoc
     end
 
     def middle_clause
-      "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
+      "//clause[parent::sections][not(@type = 'scope')]"\
       "[not(descendant::terms)]".freeze
     end
   end

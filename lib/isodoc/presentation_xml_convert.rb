@@ -1,5 +1,6 @@
 require_relative "presentation_function/block"
 require_relative "presentation_function/inline"
+require_relative "presentation_function/section"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -17,6 +18,18 @@ module IsoDoc
     end
 
     def conversions(docxml)
+      section docxml
+      block docxml
+      inline docxml
+    end
+
+    def section(docxml)
+      clause docxml
+      annex docxml
+      term docxml
+    end
+
+    def block(docxml)
       table docxml
       figure docxml
       sourcecode docxml
@@ -28,6 +41,9 @@ module IsoDoc
       permission docxml
       requirement docxml
       recommendation docxml
+    end
+
+    def inline(docxml)
       xref docxml
       eref docxml
       origin docxml
@@ -35,15 +51,11 @@ module IsoDoc
     end
 
     def postprocess(result, filename, dir)
-      #result = from_xhtml(cleanup(to_xhtml(textcleanup(result))))
       toXML(result, filename)
       @files_to_delete.each { |f| FileUtils.rm_rf f }
     end
 
     def toXML(result, filename)
-      #result = (from_xhtml(html_cleanup(to_xhtml(result))))
-      #result = from_xhtml(move_images(to_xhtml(result)))
-      #result = html5(script_cdata(inject_script(result)))
       File.open(filename, "w:UTF-8") { |f| f.write(result) }
     end
   end

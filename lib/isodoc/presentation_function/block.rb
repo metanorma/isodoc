@@ -78,6 +78,7 @@ module IsoDoc
 
     # introduce name element
     def note1(f)
+      return if f.parent.name == "bibitem"
       n = @xrefs.get[f["id"]]
       lbl = (@note_lbl if n.nil? || n[:label].nil? || n[:label].empty?) ?
         @note_lbl : l10n("#{@note_lbl} #{n[:label]}")
