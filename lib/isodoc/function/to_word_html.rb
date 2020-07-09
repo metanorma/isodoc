@@ -18,7 +18,7 @@ module IsoDoc::Function
 
     def init_file(filename, debug)
       filepath = Pathname.new(filename)
-      filename = filepath.sub_ext('').to_s
+      filename = filepath.sub_ext('').sub(/\.presentation$/, "").to_s
       dir = "#{filename}_files"
       unless debug
         Dir.mkdir(dir, 0777) unless File.exists?(dir)
