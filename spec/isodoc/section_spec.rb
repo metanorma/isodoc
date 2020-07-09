@@ -1215,5 +1215,57 @@ OUTPUT
 OUTPUT
     end
 
+        it "processes clauses containing normative references" do
+            expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <bibliography>
+        <clause id="D" obligation="informative">
+         <title>Bibliography</title>
+         <references id="E" obligation="informative" normative="false">
+         <title>Bibliography Subsection 1</title>
+       </references>
+         <references id="F" obligation="informative" normative="false">
+         <title>Bibliography Subsection 2</title>
+       </references>
+       </clause>
+       <clause id="A" obligation="informative"><title>First References</title>
+        <references id="B" obligation="informative" normative="true">
+         <title>Normative References 1</title>
+       </references>
+        <references id="C" obligation="informative" normative="false">
+         <title>Normative References 2</title>
+       </references>
+        </clause>
+
+       </bibliography>
+INPUT
+    #{HTML_HDR}
+      <p class='zzSTDTitle1'/>
+      <div>
+        <h1>1.&#160; Normative references</h1>
+        <div>
+          <h2>1.1.&#160; Normative References 1</h2>
+        </div>
+        <div>
+          <h2>1.2.&#160; Normative References 2</h2>
+        </div>
+      </div>
+      <br/>
+      <div>
+        <h1 class='Section3'>Bibliography</h1>
+        <div>
+          <h2 class='Section3'>Bibliography Subsection 1</h2>
+        </div>
+        <div>
+          <h2 class='Section3'>Bibliography Subsection 2</h2>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+OUTPUT
+            end
+
 
 end
