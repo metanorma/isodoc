@@ -45,7 +45,7 @@ module IsoDoc::Function
         head.style do |style|
           @standardstylesheet.open
           stylesheet = @standardstylesheet.read.
-            gsub("FILENAME", File.basename(filename))
+            gsub("FILENAME", File.basename(filename).sub(/\.presentation$/, ""))
           style.comment "\n#{stylesheet}\n"
         end
       end
