@@ -5,9 +5,7 @@ module IsoDoc::XrefGen
         annex_names(c, (65 + i).chr.to_s)
       end
       docxml.xpath(
-        ns("//bibliography/clause[.//references[@normative = 'false']] | "\
-           "//bibliography/references[@normative = 'false']"
-          )).each do |b|
+           ns(@klass.bibliography_xpath)).each do |b|
             preface_names(b)
           end
           docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
@@ -20,9 +18,7 @@ module IsoDoc::XrefGen
       # potentially overridden in middle_section_asset_names()
       sequential_asset_names(d.xpath(ns("//preface/*")))
       n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
-      n = section_names(d.at(ns(
-        "//bibliography/clause[.//references[@normative = 'true']] | "\
-        "//bibliography/references[@normative = 'true']")), n, 1)
+      n = section_names(d.at(ns(@klass.norm_ref_xpath)), n, 1)
       n = section_names(d.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
       n = section_names(d.at(ns("//sections/definitions")), n, 1)
@@ -65,7 +61,7 @@ module IsoDoc::XrefGen
 
     def middle_section_asset_names(d)
       middle_sections = "//clause[title = 'Scope'] | "\
-        "//references[@normative = 'true'] | "\
+        "#{@klass.norm_ref_xpath} | "\
         "//sections/terms | //preface/* | "\
         "//sections/definitions | //clause[parent::sections]"
       sequential_asset_names(d.xpath(ns(middle_sections)))

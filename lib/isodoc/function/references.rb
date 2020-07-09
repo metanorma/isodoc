@@ -153,22 +153,33 @@ module IsoDoc::Function
       end
     end
 
+    def norm_ref_xpath
+      "//bibliography/references[@normative = 'true'] | "\
+      "//bibliography/clause[.//references[@normative = 'true']]"
+    end
+
     def norm_ref(isoxml, out, num)
-      q = "//bibliography/references[@normative = 'true']"
-      f = isoxml.at(ns(q)) or return num
+      f = isoxml.at(ns(norm_ref_xpath)) or return num
       out.div do |div|
         num = num + 1
         clause_name(num, @normref_lbl, div, nil)
-        biblio_list(f, div, false)
+        if f.name == "clause"
+          f.elements.each { |e| parse(e, div) unless e.name == "title" }
+        else
+          biblio_list(f, div, false)
+        end
       end
       num
     end
 
-    BIBLIOGRAPHY_XPATH = "//bibliography/clause[.//references[@normative = 'false']] | "\
-      "//bibliography/references[@normative = 'false']".freeze
+    def bibliography_xpath 
+      "//bibliography/clause[.//references]"\
+      "[not(.//references[@normative = 'true'])] | "\
+      "//bibliography/references[@normative = 'false']"
+    end
 
     def bibliography(isoxml, out)
-      f = isoxml.at(ns(BIBLIOGRAPHY_XPATH)) || return
+      f = isoxml.at(ns(bibliography_xpath)) || return
       page_break(out)
       out.div do |div|
         div.h1 @bibliography_lbl, **{ class: "Section3" }
