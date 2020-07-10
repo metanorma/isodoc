@@ -1216,7 +1216,7 @@ OUTPUT
     end
 
         it "processes clauses containing normative references" do
-            expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+          input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <bibliography>
         <clause id="D" obligation="informative">
@@ -1238,16 +1238,43 @@ OUTPUT
         </clause>
 
        </bibliography>
+       </iso-standard>
 INPUT
+presxml = <<~OUTPUT
+<iso-standard xmlns="http://riboseinc.com/isoxml">
+            <bibliography>
+        <clause id="D" obligation="informative">
+         <title depth="1">Bibliography</title>
+         <references id="E" obligation="informative" normative="false">
+         <title depth="2">Bibliography Subsection 1</title>
+       </references>
+         <references id="F" obligation="informative" normative="false">
+         <title depth="2">Bibliography Subsection 2</title>
+       </references>
+       </clause>
+       <clause id="A" obligation="informative"><title depth="1">1.<tab/>First References</title>
+        <references id="B" obligation="informative" normative="true">
+         <title depth="2">1.1.<tab/>Normative References 1</title>
+       </references>
+        <references id="C" obligation="informative" normative="false">
+         <title depth="2">1.2.<tab/>Normative References 2</title>
+       </references>
+        </clause>
+
+       </bibliography>
+       </iso-standard>
+OUTPUT
+
+html = <<~OUTPUT
     #{HTML_HDR}
       <p class='zzSTDTitle1'/>
       <div>
-        <h1>1.&#160; Normative references</h1>
+        <h1>1.&#160; First References</h1>
         <div>
-          <h2>1.1.&#160; Normative References 1</h2>
+          <h2 class='Section3'>1.1.&#160; Normative References 1</h2>
         </div>
         <div>
-          <h2>1.2.&#160; Normative References 2</h2>
+          <h2 class='Section3'>1.2.&#160; Normative References 2</h2>
         </div>
       </div>
       <br/>
@@ -1265,6 +1292,8 @@ INPUT
 </html>
 
 OUTPUT
+            expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+            expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
             end
 
 

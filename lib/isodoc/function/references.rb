@@ -163,7 +163,6 @@ module IsoDoc::Function
       out.div do |div|
         num = num + 1
         clause_name(num, f.at(ns("./title")), div, nil)
-        clause_name(num, @normref_lbl, div, nil)
         if f.name == "clause"
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
         else
