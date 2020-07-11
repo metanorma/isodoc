@@ -17,26 +17,29 @@ module IsoDoc
       source_files = scss_files.ext('.css')
 
       task :comment_out_liquid do
-        scss_files.each do |file_name|
-          commented_out = comment_out_liquid(File.read(file_name, encoding: "UTF-8"))
-          File.open(file_name, "w", encoding: "UTF-8") do |file|
-            file.puts(commented_out)
-          end
+        process_css_files(scss_files) do |file_name|
+          comment_out_liquid(File.read(file_name, encoding: "UTF-8"))
         end
       end
 
       task :build_scss => [:comment_out_liquid].push(*source_files) do
-        scss_files.each do |file_name|
-          original = uncomment_out_liquid(File.read(file_name, encoding: "UTF-8"))
-          File.open(file_name, "w", encoding: "UTF-8") do |file|
-            file.puts(original)
-          end
+        process_css_files(scss_files) do |file_name|
+          uncomment_out_liquid(File.read(file_name, encoding: "UTF-8"))
         end
         puts('Built scss!')
       end
 
       Rake::Task["build"].enhance [:build_scss] do
         # Rake::Task[:clean].invoke
+      end
+    end
+
+    def process_css_files(scss_files)
+      scss_files.each do |file_name|
+        result = yield(file_name)
+        File.open(file_name, "w", encoding: "UTF-8") do |file|
+          file.puts(result)
+        end
       end
     end
 

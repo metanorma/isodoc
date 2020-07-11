@@ -133,6 +133,13 @@ module IsoDoc
       }
     end
 
+    def scss_fontheader
+      b = options[:bodyfont] || "Arial"
+      h = options[:headerfont] || "Arial"
+      m = options[:monospacefont] || "Courier"
+      "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
+    end
+
     def html_doc_path(file)
       File.join(@libdir, File.join("html", file))
     end
@@ -144,7 +151,7 @@ module IsoDoc
       SassC.load_paths << File.join(Gem.loaded_specs['isodoc'].full_gem_path,
                                     "lib", "isodoc")
       SassC.load_paths << File.dirname(filename)
-      engine = SassC::Engine.new(stylesheet, syntax: :scss, importer: SasscImporter)
+      engine = SassC::Engine.new(scss_fontheader + stylesheet, syntax: :scss, importer: SasscImporter)
       engine.render
     end
 
@@ -154,7 +161,7 @@ module IsoDoc
       stylesheet = File.read(filename, encoding: "UTF-8")
       stylesheet = populate_template(stylesheet, :word)
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
-      stylesheet = convert_scss(filename, fontheader + stylesheet) if File.extname(filename) == '.scss'
+      stylesheet = convert_scss(filename, stylesheet) if File.extname(filename) == '.scss'
       Tempfile.open([File.basename(filename, ".*"), "css"],
                     :encoding => "utf-8") do |f|
         f.write(convert_scss(filename, stylesheet))
