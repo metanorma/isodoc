@@ -46,7 +46,7 @@ module IsoDoc::Function
       xml.gsub!(/<\?xml[^>]*>/, "")
       /<!DOCTYPE /.match xml or xml = DOCTYPE_HDR + xml
       xml = xml.split(/(\&[^ \r\n\t#;]+;)/).map do |t|
-        /^(\&[^ \t\r\n#;]+;)/.match(t) ? 
+        /^(\&[^ \t\r\n#;]+;)/.match(t) ?
           HTMLEntities.new.encode(HTMLEntities.new.decode(t), :hexadecimal) : t
       end.join("")
       begin
@@ -147,7 +147,11 @@ module IsoDoc::Function
     end
 
     def populate_template(docxml, _format = nil)
-      meta = @meta.get.merge(@labels || {}).merge(@meta.labels || {})
+      meta = @meta
+               .get
+               .merge(@labels || {})
+               .merge(@meta.labels || {})
+               .merge(@meta.fonts_options || {})
       template = liquid(docxml)
       template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h).
         gsub('&lt;', '&#x3c;').gsub('&gt;', '&#x3e;').gsub('&amp;', '&#x26;')

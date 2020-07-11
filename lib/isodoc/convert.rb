@@ -81,7 +81,7 @@ module IsoDoc
       # Already have compiled stylesheet, use it
       return stylesheet_path if stylesheet_path.nil? || File.extname(stylesheet_path) == '.css'
 
-      basename = File.basename(stylesheet_path)
+      basename = File.basename(stylesheet_path, '.*')
       compiled_path = File.join(File.dirname(stylesheet_path), "#{basename}.css")
       return stylesheet_path unless File.file?(compiled_path)
 
@@ -90,9 +90,9 @@ module IsoDoc
 
     # run this after @meta is populated
     def populate_css
-      @htmlstylesheet = generate_css(@htmlstylesheet_name, true, extract_fonts(options))
-      @wordstylesheet = generate_css(@wordstylesheet_name, false, extract_fonts(options))
-      @standardstylesheet = generate_css(@standardstylesheet_name, false, extract_fonts(options))
+      @htmlstylesheet = generate_css(@htmlstylesheet_name, true)
+      @wordstylesheet = generate_css(@wordstylesheet_name, false)
+      @standardstylesheet = generate_css(@standardstylesheet_name, false)
     end
 
     def tmpimagedir_suffix
@@ -125,12 +125,12 @@ module IsoDoc
       {}
     end
 
-    # extract fonts for use in generate_css
-    def extract_fonts(options)
-      b = options[:bodyfont] || "Arial"
-      h = options[:headerfont] || "Arial"
-      m = options[:monospacefont] || "Courier"
-      "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
+    def fonts_options
+      {
+        'bodyfont' => options[:bodyfont] || "Arial",
+        'headerfont' => options[:headerfont] || "Arial",
+        'monospacefont' => options[:monospacefont] || "Courier"
+      }
     end
 
     def html_doc_path(file)
@@ -138,16 +138,17 @@ module IsoDoc
     end
 
     def convert_scss(filename, stylesheet)
-      require "sassc"
+      require 'sassc'
+      require 'isodoc/sassc_importer'
 
       SassC.load_paths << File.join(Gem.loaded_specs['isodoc'].full_gem_path,
                                     "lib", "isodoc")
       SassC.load_paths << File.dirname(filename)
-      engine = SassC::Engine.new(extract_fonts({}) + stylesheet, syntax: :scss)
+      engine = SassC::Engine.new(stylesheet, syntax: :scss, importer: SasscImporter)
       engine.render
     end
 
-    def generate_css(filename, stripwordcss, fontheader)
+    def generate_css(filename, stripwordcss)
       return nil if filename.nil?
 
       stylesheet = File.read(filename, encoding: "UTF-8")
@@ -190,6 +191,7 @@ module IsoDoc
       script = docxml&.at(ns("//bibdata/script"))&.text || @script
       i18n_init(lang, script)
       metadata_init(lang, script, @labels)
+      @meta.fonts_options = fonts_options
       xref_init(lang, script, self, @labels, {})
       [docxml, filename, dir]
     end

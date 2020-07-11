@@ -6,6 +6,8 @@ module IsoDoc
     updated issued received transmitted copied unchanged circulated vote-started
     vote-ended}.freeze
 
+    attr_accessor :fonts_options
+
     def ns(xpath)
       Common::ns(xpath)
     end
@@ -14,13 +16,14 @@ module IsoDoc
       IsoDoc::Function::I18n::l10n(a, b, c)
     end
 
-    def initialize(lang, script, labels)
+    def initialize(lang, script, labels, fonts_options={})
       @metadata = {}
       DATETYPES.each { |w| @metadata["#{w.gsub(/-/, "_")}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
       @c = HTMLEntities.new
       @labels = labels
+      @fonts_options = fonts_options
     end
 
     def get

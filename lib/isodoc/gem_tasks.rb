@@ -1,4 +1,5 @@
-require "sassc"
+require 'sassc'
+require 'isodoc/sassc_importer'
 require 'rake/clean'
 
 module IsoDoc
@@ -12,9 +13,25 @@ module IsoDoc
         compile_scss(current_task)
       end
 
-      source_files = Rake::FileList["lib/**/*.scss"].ext('.css')
+      scss_files = Rake::FileList["lib/**/*.scss"]
+      source_files = scss_files.ext('.css')
 
-      task :build_scss => source_files do
+      task :comment_out_liquid do
+        scss_files.each do |file_name|
+          commented_out = comment_out_liquid(File.read(file_name, encoding: "UTF-8"))
+          File.open(file_name, "w", encoding: "UTF-8") do |file|
+            file.puts(commented_out)
+          end
+        end
+      end
+
+      task :build_scss => [:comment_out_liquid].push(*source_files) do
+        scss_files.each do |file_name|
+          original = uncomment_out_liquid(File.read(file_name, encoding: "UTF-8"))
+          File.open(file_name, "w", encoding: "UTF-8") do |file|
+            file.puts(original)
+          end
+        end
         puts('Built scss!')
       end
 
@@ -26,7 +43,7 @@ module IsoDoc
     def comment_out_liquid(text)
       text.split("\n").map do |line|
         if line =~ /{({|%).+(}|%)}/
-          "// LIQUID_COMMENT#{line}"
+          "/* LIQUID_COMMENT#{line}LIQUID_COMMENT */"
         else
           line
         end
@@ -35,14 +52,10 @@ module IsoDoc
     end
 
     def uncomment_out_liquid(text)
-      text.split("\n").map do |line|
-        if line =~ /\/\/ LIQUID_COMMENT/
-          line.gsub('// LIQUID_COMMENT', '')
-        else
-          line
-        end
-      end
-      .join("\n")
+      text
+        .gsub('/* LIQUID_COMMENT', '')
+        .gsub('LIQUID_COMMENT */', '')
+        .gsub('"{{', '{{').gsub('}}"', '}}')
     end
 
     def compile_scss(current_task)
@@ -51,11 +64,13 @@ module IsoDoc
       require "sassc"
       SassC.load_paths << File.join(Gem.loaded_specs['isodoc'].full_gem_path, "lib", "isodoc")
       SassC.load_paths << File.dirname(filename)
-      engine = SassC::Engine.new(File.read(filename, encoding: "UTF-8"), syntax: :scss)
+      fonts_placeholder = "$bodyfont: '{{bodyfont}}';\n$headerfont: '{{headerfont}}';\n$monospacefont: '{{monospacefont}}';\n"
+      sheet_content = File.read(filename, encoding: "UTF-8")
+      engine = SassC::Engine.new(fonts_placeholder + sheet_content, syntax: :scss, importer: SasscImporter)
       basename = File.basename(filename, '.*')
       compiled_path = File.join(File.dirname(filename), "#{basename}.css")
       begin
-        content = engine.render
+        content = uncomment_out_liquid(engine.render)
         File.open(compiled_path, 'w:UTF-8') do |f|
           f.write(content)
         end
