@@ -1,6 +1,5 @@
 require_relative "./function/blocks"
 require_relative "./function/cleanup"
-require_relative "./function/i18n"
 require_relative "./function/inline"
 require_relative "./function/lists"
 require_relative "./function/references"
@@ -16,7 +15,6 @@ module IsoDoc
   class Common
     include Function::Blocks
     include Function::Cleanup
-    include Function::I18n
     include Function::Inline
     include Function::Lists
     include Function::References

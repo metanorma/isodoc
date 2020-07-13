@@ -166,6 +166,12 @@ module IsoDoc
       @xrefs = Xref.new(lang, script, html, labels, options)
     end
 
+    def i18n_init(lang, script)
+      require "byebug"; byebug
+      #@i18n = I18n.new(lang, script, @i18nyaml)
+      @i18n = I18n.new
+    end
+
     def convert_init(file, input_filename, debug)
       docxml = Nokogiri::XML(file)
       filename, dir = init_file(input_filename, debug)
@@ -173,8 +179,8 @@ module IsoDoc
       lang = docxml&.at(ns("//bibdata/language"))&.text || @lang
       script = docxml&.at(ns("//bibdata/script"))&.text || @script
       i18n_init(lang, script)
-      metadata_init(lang, script, @labels)
-      xref_init(lang, script, self, @labels, {})
+      metadata_init(lang, script, @i18n.get)
+      xref_init(lang, script, self, @i18n.get, {})
       [docxml, filename, dir]
     end
 

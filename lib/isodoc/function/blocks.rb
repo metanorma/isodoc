@@ -13,7 +13,9 @@ module IsoDoc::Function
 
     def figure_key(out)
       out.p **{ style: "page-break-after:avoid;"} do |p|
-        p.b { |b| b << @key_lbl }
+        #p.b { |b| b << @key_lbl }
+        p.b { |b| b << @i18n.key }
+                       #@i18n.key
       end
     end
 

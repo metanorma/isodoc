@@ -1,10 +1,10 @@
 require "yaml"
 
 # TODO: Cleanup and generalize
-module IsoDoc::Function
-  module I18n
-    def load_yaml(lang, script)
-      if @i18nyaml then YAML.load_file(@i18nyaml)
+module IsoDoc
+  class I18n
+    def load_yaml(lang, script, i18nyaml = nil)
+      if i18nyaml then YAML.load_file(i18nyaml)
       elsif lang == "en"
         YAML.load_file(File.join(File.dirname(__FILE__),
                                  "../../isodoc-yaml/i18n-en.yaml"))
@@ -20,10 +20,21 @@ module IsoDoc::Function
       end
     end
 
-    def i18n_init(lang, script)
+    def get
+      @labels
+    end
+
+    def init(lang, script, i18nyaml = nil)
       @lang = lang
       @script = script
       y = load_yaml(lang, script)
+      @labels = y
+      @labels["language"] = @lang
+      @labels["script"] = @script
+      @labels.each do |k, v|
+        define_method(:k) { v }
+      end
+=begin
       @term_def_boilerplate = y["term_def_boilerplate"]
       @scope_lbl = y["scope"]
       @symbols_lbl = y["symbols"]
@@ -71,9 +82,7 @@ module IsoDoc::Function
       @requirement_lbl = y["requirement"]
       @locality = y["locality"]
       @admonition = y["admonition"]
-      @labels = y
-      @labels["language"] = @lang
-      @labels["script"] = @script
+=end
     end
 
     # TODO: move to localization file
@@ -94,7 +103,7 @@ module IsoDoc::Function
       end
     end
 
-    module_function :l10n
+    #module_function :l10n
 
   end
 end
