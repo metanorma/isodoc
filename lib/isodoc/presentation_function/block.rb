@@ -12,7 +12,7 @@ module IsoDoc
       return if labelled_ancestor(f) && f.ancestors("figure").empty?
       return if f.at(ns("./figure")) and !f.at(ns("./name"))
       lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@figure_lbl} #{lbl}"), "name")
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.figure} #{lbl}"), "name")
     end
 
     def prefix_name(f, delim, number, elem)
@@ -36,7 +36,7 @@ module IsoDoc
       return if labelled_ancestor(f)
       return unless f.ancestors("example").empty?
       lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@figure_lbl} #{lbl}"), "name")
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.figure} #{lbl}"), "name")
     end
 
     def formula(docxml)
@@ -65,8 +65,8 @@ module IsoDoc
 
     def example1(f)
       n = @xrefs.get[f["id"]]
-      lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @example_lbl :
-        l10n("#{@example_lbl} #{n[:label]}")
+      lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @i18n.example :
+        l10n("#{@i18n.example} #{n[:label]}")
       prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
     end
 
@@ -80,8 +80,8 @@ module IsoDoc
     def note1(f)
       return if f.parent.name == "bibitem"
       n = @xrefs.get[f["id"]]
-      lbl = (@note_lbl if n.nil? || n[:label].nil? || n[:label].empty?) ?
-        @note_lbl : l10n("#{@note_lbl} #{n[:label]}")
+      lbl = (@i18n.note if n.nil? || n[:label].nil? || n[:label].empty?) ?
+        @i18n.note : l10n("#{@i18n.note} #{n[:label]}")
       prefix_name(f, "", lbl, "name")
     end
 
@@ -99,19 +99,19 @@ module IsoDoc
 
     def recommendation(docxml)
       docxml.xpath(ns("//recommendation")).each do |f|
-        recommendation1(f, @recommendation_lbl)
+        recommendation1(f, @i18n.recommendation)
       end
     end
 
     def requirement(docxml)
       docxml.xpath(ns("//requirement")).each do |f|
-        recommendation1(f, @requirement_lbl)
+        recommendation1(f, @i18n.requirement)
       end
     end
 
     def permission(docxml)
       docxml.xpath(ns("//permission")).each do |f|
-        recommendation1(f, @permission_lbl)
+        recommendation1(f, @i18n.permission)
       end
     end
 
@@ -131,7 +131,7 @@ module IsoDoc
     def table1(f)
       return if labelled_ancestor(f)
       n = @xrefs.anchor(f['id'], :label, false)
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@table_lbl} #{n}"), "name")
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.table} #{n}"), "name")
     end
   end
 end

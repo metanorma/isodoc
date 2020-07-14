@@ -7,16 +7,16 @@ module IsoDoc
       if i18nyaml then YAML.load_file(i18nyaml)
       elsif lang == "en"
         YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../../isodoc-yaml/i18n-en.yaml"))
+                                 "../isodoc-yaml/i18n-en.yaml"))
       elsif lang == "fr"
         YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../../isodoc-yaml/i18n-fr.yaml"))
+                                 "../isodoc-yaml/i18n-fr.yaml"))
       elsif lang == "zh" && script == "Hans"
         YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../../isodoc-yaml/i18n-zh-Hans.yaml"))
+                                 "../isodoc-yaml/i18n-zh-Hans.yaml"))
       else
         YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../../isodoc-yaml/i18n-en.yaml"))
+                                 "../isodoc-yaml/i18n-en.yaml"))
       end
     end
 
@@ -24,15 +24,19 @@ module IsoDoc
       @labels
     end
 
-    def init(lang, script, i18nyaml = nil)
+    def set(x, y)
+      @labels[x] = y
+    end
+
+    def initialize(lang, script, i18nyaml = nil)
       @lang = lang
       @script = script
-      y = load_yaml(lang, script)
+      y = load_yaml(lang, script, i18nyaml)
       @labels = y
       @labels["language"] = @lang
       @labels["script"] = @script
       @labels.each do |k, v|
-        define_method(:k) { v }
+        self.class.send(:define_method, k.downcase) { v }
       end
 =begin
       @term_def_boilerplate = y["term_def_boilerplate"]
@@ -83,6 +87,10 @@ module IsoDoc
       @locality = y["locality"]
       @admonition = y["admonition"]
 =end
+    end
+
+    def self.l10n(x, lang = @lang, script = @script)
+      l10n(x, lang, script)
     end
 
     # TODO: move to localization file

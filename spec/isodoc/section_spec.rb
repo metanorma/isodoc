@@ -855,7 +855,12 @@ OUTPUT
              </div>
              <br/>
              <div>
-             <h1 class='Section3'>Bibliography</h1>
+             <h1 class='Section3'>
+  Bibliography
+  <a class='FootnoteRef' href='#fn:20'>
+    <sup>20</sup>
+  </a>
+</h1>
              <div>
              <h2 class='Section3'>
   Bibliography Subsection

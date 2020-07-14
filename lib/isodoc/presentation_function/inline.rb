@@ -72,7 +72,7 @@ module IsoDoc
     end
 
     def eref_localities0(r, i, target, delim)
-      if r["type"] == "whole" then l10n("#{delim} #{@wholeoftext_lbl}")
+      if r["type"] == "whole" then l10n("#{delim} #{@i18n.wholeoftext}")
       else
         eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
                          r.at(ns("./referenceTo")), delim, @lang)
@@ -83,7 +83,7 @@ module IsoDoc
     def eref_localities1_zh(target, type, from, to, delim)
       ret = "#{delim} 第#{from.text}" if from
       ret += "&ndash;#{to.text}" if to
-      loc = (@locality[type] || type.sub(/^locality:/, "").capitalize )
+      loc = (@i18n.locality[type] || type.sub(/^locality:/, "").capitalize )
       ret += " #{loc}"
       ret
     end
@@ -93,7 +93,7 @@ module IsoDoc
       return "" if type == "anchor"
       return l10n(eref_localities1_zh(target, type, from, to, delim)) if lang == "zh"
       ret = delim
-      loc = @locality[type] || type.sub(/^locality:/, "").capitalize
+      loc = @i18n.locality[type] || type.sub(/^locality:/, "").capitalize
       ret += " #{loc}"
       ret += " #{from.text}" if from
       ret += "&ndash;#{to.text}" if to

@@ -46,7 +46,7 @@ RSpec.describe IsoDoc do
            <aside><div id="ftntableD-1a">
 
           </div></aside>
-         <p><b/></p><dl><dt><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#xA0; </span></dt><dd><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></dd></dl></div>
+         <p><b>Key</b></p><dl><dt><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#xA0; </span></dt><dd><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></dd></dl></div>
        </body>
        </html>
     OUTPUT
@@ -73,7 +73,7 @@ RSpec.describe IsoDoc do
            <aside><div id="ftntableD-1a">
 
           </div></aside>
-          <p><b/></p><table class="dl"><tr><td valign="top" align="left"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#xA0; </span></span></td><td valign="top"><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></td></tr></table></div>
+          <p><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">&#xA0; </span></span></td><td valign="top"><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></td></tr></table></div>
        </body>
        </html>
     OUTPUT

@@ -10,7 +10,7 @@ RSpec.describe IsoDoc do
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
-         <p id="A">This is a preamble</p>
+         <p id="A">See <xref target="M"/></p>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
@@ -75,7 +75,7 @@ RSpec.describe IsoDoc do
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
-             <p id='A'>This is a preamble</p>
+             <p id='A'>See <xref target='M'>Clause 5</xref></p>
            </foreword>
            <introduction id='B' obligation='informative'>
              <title>Introduction</title>
@@ -158,7 +158,10 @@ PRESXML
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="A">This is a preamble</p>
+                 <p id='A'>
+  See
+  <a href='#M'>Clause 5</a>
+</p>
                </div>
                <br/>
                <div class="Section3" id="B">
@@ -236,7 +239,7 @@ PRESXML
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
-         <p id="A">This is a preamble</p>
+         <p id="A">See <xref target="M"/></p>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
@@ -300,7 +303,7 @@ PRESXML
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
-             <p id='A'>This is a preamble</p>
+             <p id='A'>See <xref target='M'>Clause 5</xref></p>
            </foreword>
            <introduction id='B' obligation='informative'>
              <title>Introduction</title>
@@ -388,7 +391,7 @@ PRESXML
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
-         <p id="A">This is a preamble</p>
+         <p id="A">See <xref target="M"/></p>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
@@ -436,7 +439,7 @@ PRESXML
        </annex><bibliography><references id="R" obligation="informative" normative="true">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
-         <title>Bibliography</title>
+         <title>Bibliographie</title>
          <references id="T" obligation="informative" normative="false">
          <title>Bibliography Subsection</title>
        </references>
@@ -453,7 +456,7 @@ PRESXML
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
-             <p id='A'>This is a preamble</p>
+             <p id='A'>See <xref target='M'>Article 5</xref></p>
            </foreword>
            <introduction id='B' obligation='informative'>
              <title>Introduction</title>
@@ -522,7 +525,7 @@ PRESXML
             <title depth='1'>2.<tab/>Normative References</title>
            </references>
            <clause id='S' obligation='informative'>
-             <title depth="1">Bibliography</title>
+             <title depth="1">Bibliographie</title>
              <references id='T' obligation='informative' normative='false'>
                <title depth="2">Bibliography Subsection</title>
              </references>
@@ -536,7 +539,10 @@ PRESXML
                <br/>
                <div>
                  <h1 class="ForewordTitle">Avant-propos</h1>
-                 <p id="A">This is a preamble</p>
+                 <p id='A'>
+  See
+  <a href='#M'>Article 5</a>
+</p>
                </div>
                <br/>
                <div class="Section3" id="B">
@@ -615,7 +621,7 @@ PRESXML
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
-         <p id="A">This is a preamble</p>
+         <p id="A">See <xref target="M"/></p>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
@@ -691,7 +697,7 @@ PRESXML
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
-             <p id='A'>This is a preamble</p>
+             <p id='A'>See <xref target='M'>&#x6761;5</xref></p>
            </foreword>
            <introduction id='B' obligation='informative'>
              <title>Introduction</title>
@@ -785,7 +791,10 @@ PRESXML
                <br/>
                <div>
                  <h1 class="ForewordTitle">&#21069;&#35328;</h1>
-                 <p id="A">This is a preamble</p>
+                 <p id='A'>
+  See
+  <a href='#M'>&#26465;5</a>
+</p>
                </div>
                <br/>
                <div class="Section3" id="B">
@@ -844,7 +853,7 @@ PRESXML
                </div>
                <br/>
                <div>
-                 <h1 class="Section3">&#21442;&#32771;&#25991;&#29486;</h1>
+                 <h1 class="Section3">Bibliography</h1>
                  <div>
                    <h2 class="Section3">Bibliography Subsection</h2>
                  </div>
@@ -857,4 +866,266 @@ PRESXML
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
+  it "processes i18n file" do
+    input = <<~"INPUT"
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata>
+      <language>eo</language>
+      <script>Latn</script>
+      </bibdata>
+      <preface>
+      <foreword obligation="informative">
+         <title>Foreword</title>
+         <p id="A">See <xref target="M"/></p>
+       </foreword>
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+         <title>Introduction Subsection</title>
+       </clause>
+       </introduction></preface><sections>
+       <clause id="D" obligation="normative" type="scope">
+         <title>Scope</title>
+         <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref></p>
+       </clause>
+
+       <clause id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
+         <title>Normal Terms</title>
+         <term id="J">
+         <preferred>Term2</preferred>
+       </term>
+       </terms>
+       <definitions id="K">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       </clause>
+       <definitions id="L">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+         <title>Introduction</title>
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+       </clause></clause>
+
+       </sections><annex id="P" inline-header="false" obligation="normative">
+         <title>Annex</title>
+         <clause id="Q" inline-header="false" obligation="normative">
+         <title>Annex A.1</title>
+         <clause id="Q1" inline-header="false" obligation="normative">
+         <title>Annex A.1a</title>
+         </clause>
+       </clause>
+       </annex><bibliography><references id="R" obligation="informative" normative="true">
+         <title>Normative References</title>
+         <bibitem id="ISO712" type="standard">
+  <title format="text/plain">Cereals and cereal products</title>
+  <docidentifier>ISO 712</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>ISO</abbreviation>
+    </organization>
+  </contributor>
+</bibitem>
+       </references><clause id="S" obligation="informative">
+         <title>Bibliography</title>
+         <references id="T" obligation="informative" normative="false">
+         <title>Bibliography Subsection</title>
+       </references>
+       </clause>
+       </bibliography>
+       </iso-standard>
+        INPUT
+
+        presxml = <<~OUTPUT
+         <iso-standard xmlns="http://riboseinc.com/isoxml">
+             <bibdata>
+             <language>eo</language>
+             <script>Latn</script>
+             </bibdata>
+             <preface>
+             <foreword obligation="informative">
+                <title>Foreword</title>
+                <p id='A'>See <xref target='M'>kla&#x16D;zo 5</xref></p>
+              </foreword>
+               <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+                <title depth="2">Introduction Subsection</title>
+              </clause>
+              </introduction></preface><sections>
+              <clause id="D" obligation="normative" type="scope">
+                <title depth="1">1.<tab/>Scope</title>
+                <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO 712, Tabelo 1&#x2013;1</eref></p>
+              </clause>
+
+              <clause id="H" obligation="normative"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
+                <title depth="2">3.1.<tab/>Normal Terms</title>
+                <term id="J"><name>3.1.1.</name>
+                <preferred>Term2</preferred>
+              </term>
+              </terms>
+              <definitions id="K"><title>3.2.</title>
+                <dl>
+                <dt>Symbol</dt>
+                <dd>Definition</dd>
+                </dl>
+              </definitions>
+              </clause>
+              <definitions id="L"><title>4.</title>
+                <dl>
+                <dt>Symbol</dt>
+                <dd>Definition</dd>
+                </dl>
+              </definitions>
+              <clause id="M" inline-header="false" obligation="normative"><title depth="1">5.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+                <title depth="2">5.1.<tab/>Introduction</title>
+              </clause>
+              <clause id="O" inline-header="false" obligation="normative">
+                <title depth="2">5.2.<tab/>Clause 4.2</title>
+              </clause></clause>
+
+              </sections><annex id="P" inline-header="false" obligation="normative">
+                <title><strong>Aldono A</strong><br/>(norma)<br/><br/><strong>Annex</strong></title>
+                <clause id="Q" inline-header="false" obligation="normative">
+                <title depth="2">A.1.<tab/>Annex A.1</title>
+                <clause id="Q1" inline-header="false" obligation="normative">
+                <title depth="3">A.1.1.<tab/>Annex A.1a</title>
+                </clause>
+              </clause>
+              </annex><bibliography><references id="R" obligation="informative" normative="true">
+                <title depth="1">2.<tab/>Normative References</title>
+                <bibitem id="ISO712" type="standard">
+         <title format="text/plain">Cereals and cereal products</title>
+         <docidentifier>ISO 712</docidentifier>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <abbreviation>ISO</abbreviation>
+           </organization>
+         </contributor>
+       </bibitem>
+              </references><clause id="S" obligation="informative">
+                <title depth="1">Bibliography</title>
+                <references id="T" obligation="informative" normative="false">
+                <title depth="2">Bibliography Subsection</title>
+              </references>
+              </clause>
+              </bibliography>
+              </iso-standard>
+              OUTPUT
+
+        output = <<~OUTPUT
+        <html lang='eo'>
+         <head/>
+         <body lang='eo'>
+           <div class='title-section'>
+             <p>&#160;</p>
+           </div>
+           <br/>
+           <div class='prefatory-section'>
+             <p>&#160;</p>
+           </div>
+           <br/>
+           <div class='main-section'>
+             <br/>
+             <div>
+               <h1 class='ForewordTitle'>Anta&#365;parolo</h1>
+               <p id='A'>
+  See
+  <a href='#M'>kla&#365;zo 5</a>
+</p>
+             </div>
+             <br/>
+             <div class='Section3' id='B'>
+               <h1 class='IntroTitle'>Enkonduko</h1>
+               <div id='C'>
+                 <h2>Introduction Subsection</h2>
+               </div>
+             </div>
+             <p class='zzSTDTitle1'/>
+             <div id='D'>
+               <h1>1.&#160; Scope</h1>
+               <p id='E'>
+                 <a href='#ISO712'>ISO 712, Tabelo 1&#8211;1</a>
+               </p>
+             </div>
+             <div>
+               <h1>2.&#160; Normative References</h1>
+               <p id='ISO712' class='NormRef'>
+                 ISO 712,
+                 <i>Cereals and cereal products</i>
+               </p>
+             </div>
+             <div id='H'>
+               <h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
+               <div id='I'>
+                 <h2>3.1.&#160; Normal Terms</h2>
+                 <p class='TermNum' id='J'>3.1.1.</p>
+                 <p class='Terms' style='text-align:left;'>Term2</p>
+               </div>
+               <div id='K'>
+                 <h2>3.2.</h2>
+                 <dl>
+                   <dt>
+                     <p>Symbol</p>
+                   </dt>
+                   <dd>Definition</dd>
+                 </dl>
+               </div>
+             </div>
+             <div id='L' class='Symbols'>
+               <h1>4.</h1>
+               <dl>
+                 <dt>
+                   <p>Symbol</p>
+                 </dt>
+                 <dd>Definition</dd>
+               </dl>
+             </div>
+             <div id='M'>
+               <h1>5.&#160; Clause 4</h1>
+               <div id='N'>
+                 <h2>5.1.&#160; Introduction</h2>
+               </div>
+               <div id='O'>
+                 <h2>5.2.&#160; Clause 4.2</h2>
+               </div>
+             </div>
+             <br/>
+             <div id='P' class='Section3'>
+               <h1 class='Annex'>
+                 <b>Aldono A</b>
+                 <br/>
+                 (norma)
+                 <br/>
+                 <br/>
+                 <b>Annex</b>
+               </h1>
+               <div id='Q'>
+                 <h2>A.1.&#160; Annex A.1</h2>
+                 <div id='Q1'>
+                   <h3>A.1.1.&#160; Annex A.1a</h3>
+                 </div>
+               </div>
+             </div>
+             <br/>
+             <div>
+               <h1 class='Section3'>Bibliography</h1>
+               <div>
+                 <h2 class='Section3'>Bibliography Subsection</h2>
+               </div>
+             </div>
+           </div>
+         </body>
+       </html>
+        OUTPUT
+
+        expect(xmlpp(IsoDoc::PresentationXMLConvert.new({i18nyaml: "spec/assets/i18n.yaml"}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({i18nyaml: "spec/assets/i18n.yaml"}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
+  end
 end

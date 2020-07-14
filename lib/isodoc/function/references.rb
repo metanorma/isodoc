@@ -5,7 +5,7 @@ module IsoDoc::Function
     # references anyway; keeping here instead of in IsoDoc::Iso for now
     def docid_l10n(x)
       return x if x.nil?
-      x.gsub(/All Parts/i, @all_parts_lbl.downcase) if @all_parts_lbl
+      x.gsub(/All Parts/i, @i18n.all_parts.downcase) if @i18n.all_parts
       x
     end
 
@@ -155,7 +155,7 @@ module IsoDoc::Function
 
     def norm_ref_xpath
       "//bibliography/references[@normative = 'true'] | "\
-      "//bibliography/clause[.//references[@normative = 'true']]"
+        "//bibliography/clause[.//references[@normative = 'true']]"
     end
 
     def norm_ref(isoxml, out, num)
@@ -174,15 +174,18 @@ module IsoDoc::Function
 
     def bibliography_xpath 
       "//bibliography/clause[.//references]"\
-      "[not(.//references[@normative = 'true'])] | "\
-      "//bibliography/references[@normative = 'false']"
+        "[not(.//references[@normative = 'true'])] | "\
+        "//bibliography/references[@normative = 'false']"
     end
 
     def bibliography(isoxml, out)
       f = isoxml.at(ns(bibliography_xpath)) || return
       page_break(out)
       out.div do |div|
-        div.h1 @bibliography_lbl, **{ class: "Section3" }
+        #div.h1 @bibliography_lbl, **{ class: "Section3" }
+        div.h1 **{class: "Section3"} do |h1|
+          f&.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
+        end
         biblio_list(f, div, true)
       end
     end

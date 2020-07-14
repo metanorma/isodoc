@@ -13,9 +13,7 @@ module IsoDoc::Function
 
     def figure_key(out)
       out.p **{ style: "page-break-after:avoid;"} do |p|
-        #p.b { |b| b << @key_lbl }
         p.b { |b| b << @i18n.key }
-                       #@i18n.key
       end
     end
 
@@ -100,8 +98,8 @@ module IsoDoc::Function
     def admonition_name(node, type)
       name = node&.at(ns("./name")) and return name
       name = Nokogiri::XML::Node.new('name', node.document)
-      return unless type && @admonition[type]
-      name << @admonition[type]&.upcase
+      return unless type && @i18n.admonition[type]
+      name << @i18n.admonition[type]&.upcase
       name
     end
 
@@ -122,7 +120,7 @@ module IsoDoc::Function
     def formula_where(dl, out)
       return unless dl
       out.p **{ style: "page-break-after:avoid;"} do |p|
-        p << @where_lbl
+        p << @i18n.where
       end
       parse(dl, out)
       out.parent.at("./dl")["class"] = "formula_dl"

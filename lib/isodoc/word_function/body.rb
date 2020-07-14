@@ -111,7 +111,7 @@ module IsoDoc::WordFunction
     def figure_get_or_make_dl(t)
       dl = t.at(".//table[@class = 'dl']")
       if dl.nil?
-        t.add_child("<p><b>#{@key_lbl}</b></p><table class='dl'></table>")
+        t.add_child("<p><b>#{@i18n.key}</b></p><table class='dl'></table>")
         dl = t.at(".//table[@class = 'dl']")
       end
       dl
@@ -190,7 +190,7 @@ module IsoDoc::WordFunction
 
     def formula_where(dl, out)
       return unless dl
-      out.p { |p| p << @where_lbl }
+      out.p { |p| p << @i18n.where }
       parse(dl, out)
       out.parent.at("./table")["class"] = "formula_dl"
     end

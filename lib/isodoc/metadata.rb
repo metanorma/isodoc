@@ -11,16 +11,17 @@ module IsoDoc
     end
 
     def l10n(a, b, c)
-      IsoDoc::Function::I18n::l10n(a, b, c)
+      @i18n.l10n(a, b, c)
     end
 
-    def initialize(lang, script, labels)
+    def initialize(lang, script, i18n)
       @metadata = {}
       DATETYPES.each { |w| @metadata["#{w.gsub(/-/, "_")}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
       @c = HTMLEntities.new
-      @labels = labels
+      @i18n = i18n
+      @labels = @i18n.get
     end
 
     def get

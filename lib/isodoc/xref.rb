@@ -11,13 +11,15 @@ module IsoDoc
     include XrefGen::Blocks
     include XrefGen::Sections
 
-     def initialize(lang, script, klass, labels, options = {})
+     def initialize(lang, script, klass, i18n, options = {})
       @anchors = {}
       @lang = lang
       @script = script
       @klass = klass
-      @labels = labels
       @options = options
+      @i18n = i18n
+      @labels = @i18n.get
+      @klass.i18n = @i18n
     end
 
     def get
@@ -53,7 +55,7 @@ module IsoDoc
     end
 
     def l10n(a, lang = @lang, script = @script)
-      IsoDoc::Function::I18n::l10n(a, lang, script)
+      @i18n.l10n(a, lang, script)
     end
   end
 end

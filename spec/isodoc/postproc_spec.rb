@@ -153,7 +153,7 @@ expect(File.exist?("test.doc")).to be true
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
     expect(html).not_to match(/CDATA/)
-    expect(html).to match(%r{Enkonduko</h1>})
+    expect(html).to match(%r{Anta&#x16D;parolo</h1>})
   end
 
   it "generates HTML output docs with default fonts" do
@@ -175,7 +175,7 @@ expect(File.exist?("test.doc")).to be true
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
     expect(html).not_to match(/CDATA/)
-    expect(html).to match(%r{Enkonduko</h1>})
+    expect(html).to match(%r{Anta&#x16D;parolo</h1>})
   end
 
   it "generates Word output docs with complete configuration" do
@@ -198,7 +198,7 @@ expect(File.exist?("test.doc")).to be true
     expect(word).to match(/test_files\/header.html/)
     expect(word).to match(/an empty word cover page/)
     expect(word).to match(/an empty word intro page/)
-    expect(word).to match(%r{Enkonduko</h1>})
+    expect(word).to match(%r{Anta&#x16D;parolo</h1>})
   end
 
   it "generates Word output docs with default fonts" do
@@ -221,7 +221,7 @@ expect(File.exist?("test.doc")).to be true
     expect(word).to match(/test_files\/header.html/)
     expect(word).to match(/an empty word cover page/)
     expect(word).to match(/an empty word intro page/)
-    expect(word).to match(%r{Enkonduko</h1>})
+    expect(word).to match(%r{Anta&#x16D;parolo</h1>})
   end
 
   it "converts definition lists to tables for Word" do

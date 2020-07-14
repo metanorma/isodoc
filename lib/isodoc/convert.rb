@@ -2,11 +2,12 @@ require "isodoc/common"
 require "sassc"
 require "fileutils"
 require "tempfile"
+require_relative "i18n"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_reader :options
-    attr_accessor :labels
+    attr_accessor :i18n
 
     # htmlstylesheet: Generic stylesheet for HTML
     # wordstylesheet: Generic stylesheet for Word
@@ -157,30 +158,32 @@ module IsoDoc
       end.join("\n")
     end
 
-    def metadata_init(lang, script, labels)
-      @meta = Metadata.new(lang, script, labels)
+    def metadata_init(lang, script, i18n)
+      @meta = Metadata.new(lang, script, i18n)
     end
 
-    def xref_init(lang, script, _klass, labels, options)
+    def xref_init(lang, script, _klass, i18n, options)
       html = HtmlConvert.new(language: @lang, script: @script)
-      @xrefs = Xref.new(lang, script, html, labels, options)
+      @xrefs = Xref.new(lang, script, html, i18n, options)
     end
 
-    def i18n_init(lang, script)
-      require "byebug"; byebug
-      #@i18n = I18n.new(lang, script, @i18nyaml)
-      @i18n = I18n.new
+    def i18n_init(lang, script, i18nyaml = nil)
+      @i18n = I18n.new(lang, script, i18nyaml || @i18nyaml)
+    end
+
+    def l10n(x, lang = @lang, script = @script)
+      @i18n.l10n(x, lang, script)
     end
 
     def convert_init(file, input_filename, debug)
       docxml = Nokogiri::XML(file)
       filename, dir = init_file(input_filename, debug)
       docxml.root.default_namespace = ""
-      lang = docxml&.at(ns("//bibdata/language"))&.text || @lang
-      script = docxml&.at(ns("//bibdata/script"))&.text || @script
-      i18n_init(lang, script)
-      metadata_init(lang, script, @i18n.get)
-      xref_init(lang, script, self, @i18n.get, {})
+      lang = docxml&.at(ns("//bibdata/language"))&.text and @lang = lang
+      script = docxml&.at(ns("//bibdata/script"))&.text and @script = script
+      i18n_init(@lang, @script)
+      metadata_init(@lang, @script, @i18n)
+      xref_init(@lang, @script, self, @i18n, {})
       [docxml, filename, dir]
     end
 

@@ -109,13 +109,13 @@ module IsoDoc::Function
     def term_def_title(title)
       case title&.text
       when "Terms, definitions, symbols and abbreviated terms"
-        @labels["termsdefsymbolsabbrev"]
+        @i18n.termsdefsymbolsabbrev
       when "Terms, definitions and symbols"
-        @labels["termsdefsymbols"]
+        @i18n.termsdefsymbols
       when "Terms, definitions and abbreviated terms"
-        @labels["termsdefabbrev"]
+        @i18n.termsdefabbrev
       when "Terms and definitions"
-        @labels["termsdef"]
+        @i18n.termsdef
       else
         title
       end
@@ -142,7 +142,7 @@ module IsoDoc::Function
       f = isoxml.at(ns("//sections/definitions")) or return num
       out.div **attr_code(id: f["id"], class: "Symbols") do |div|
         num = num + 1
-        clause_name(num, f&.at(ns("./title")) || @symbols_lbl, div, nil)
+        clause_name(num, f&.at(ns("./title")) || @i18n.symbols, div, nil)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
@@ -153,7 +153,7 @@ module IsoDoc::Function
     # subclause
     def symbols_parse(isoxml, out)
       isoxml.at(ns("./title")) or
-        isoxml.children.first.previous = "<title>#{@symbols_lbl}</title>"
+        isoxml.children.first.previous = "<title>#{@i18n.symbols}</title>"
       clause_parse(isoxml, out)
     end
 
@@ -162,7 +162,7 @@ module IsoDoc::Function
       title_attr = { class: "IntroTitle" }
       page_break(out)
       out.div **{ class: "Section3", id: f["id"] } do |div|
-        clause_name(nil, @introduction_lbl, div, title_attr)
+        clause_name(nil, @i18n.introduction, div, title_attr)
         f.elements.each do |e|
           parse(e, div) unless e.name == "title"
         end
@@ -173,7 +173,7 @@ module IsoDoc::Function
       f = isoxml.at(ns("//foreword")) || return
       page_break(out)
       out.div **attr_code(id: f["id"]) do |s|
-        s.h1(**{ class: "ForewordTitle" }) { |h1| h1 << @foreword_lbl }
+        s.h1(**{ class: "ForewordTitle" }) { |h1| h1 << @i18n.foreword }
         f.elements.each { |e| parse(e, s) unless e.name == "title" }
       end
     end
@@ -194,7 +194,7 @@ module IsoDoc::Function
       f = isoxml.at(ns("//preface/abstract")) || return
       page_break(out)
       out.div **attr_code(id: f["id"]) do |s|
-        s.h1(**{ class: "AbstractTitle" }) { |h1| h1 << @abstract_lbl }
+        s.h1(**{ class: "AbstractTitle" }) { |h1| h1 << @i18n.abstract }
         f.elements.each { |e| parse(e, s) unless e.name == "title" }
       end
     end

@@ -21,11 +21,11 @@ module IsoDoc::Function
     def recommendation_attributes1(node) 
       out = [] 
       oblig = node["obligation"] and
-        out << l10n("#{@labels['obligation']}: #{oblig}")
+        out << l10n("#{@i18n.obligation}: #{oblig}")
       subj = node&.at(ns("./subject"))&.text and
-        out << l10n("#{@labels['subject']}: #{subj}")
+        out << l10n("#{@i18n.subject}: #{subj}")
       node.xpath(ns("./inherit")).each do |i|
-        out << recommendation_attr_parse(i, @labels["inherits"])
+        out << recommendation_attr_parse(i, @i18n.inherits)
       end
       node.xpath(ns("./classification")).each do |c|
         line = recommendation_attr_keyvalue(c, "tag", "value") and out << line
@@ -67,7 +67,7 @@ module IsoDoc::Function
 
     def recommendation_parse(node, out)
       out.div **reqt_attrs(node, "recommend") do |t|
-        recommendation_name(node, t, @recommendation_lbl)
+        recommendation_name(node, t, @i18n.recommendation)
         recommendation_attributes(node, out)
         node.children.each do |n|
           parse(n, t) unless reqt_metadata_node(n)
@@ -77,7 +77,7 @@ module IsoDoc::Function
 
     def requirement_parse(node, out)
       out.div **reqt_attrs(node, "require") do |t|
-        recommendation_name(node, t, @requirement_lbl)
+        recommendation_name(node, t, @i18n.requirement)
         recommendation_attributes(node, out)
         node.children.each do |n|
           parse(n, t) unless reqt_metadata_node(n)
@@ -87,7 +87,7 @@ module IsoDoc::Function
 
     def permission_parse(node, out)
       out.div **reqt_attrs(node, "permission") do |t|
-        recommendation_name(node, t, @permission_lbl)
+        recommendation_name(node, t, @i18n.permission)
         recommendation_attributes(node, out)
         node.children.each do |n|
           parse(n, t) unless reqt_metadata_node(n)

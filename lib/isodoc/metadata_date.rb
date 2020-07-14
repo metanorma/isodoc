@@ -20,7 +20,7 @@ module IsoDoc
     def monthyr(isodate)
       m = /(?<yr>\d\d\d\d)-(?<mo>\d\d)/.match isodate
       return isodate unless m && m[:yr] && m[:mo]
-      IsoDoc::Function::I18n::l10n("#{months[m[:mo].to_sym]} #{m[:yr]}",
+      l10n("#{months[m[:mo].to_sym]} #{m[:yr]}",
                                    @lang, @script)
     end
 

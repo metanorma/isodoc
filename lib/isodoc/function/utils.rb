@@ -97,8 +97,8 @@ module IsoDoc::Function
       return "" if array.nil? || array.empty?
       if array.length == 1 then array[0]
       else
-        IsoDoc::Function::I18n::l10n("#{array[0..-2].join(', ')} "\
-                                     "#{@and_lbl} #{array.last}",
+        @i18n.l10n("#{array[0..-2].join(', ')} "\
+                   "#{@i18n.and} #{array.last}",
                                      @lang, @script)
       end
     end
@@ -147,7 +147,7 @@ module IsoDoc::Function
     end
 
     def populate_template(docxml, _format = nil)
-      meta = @meta.get.merge(@labels || {}).merge(@meta.labels || {})
+      meta = @meta.get.merge(@i18n.get || {}).merge(@meta.labels || {})
       template = liquid(docxml)
       template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h).
         gsub('&lt;', '&#x3c;').gsub('&gt;', '&#x3e;').gsub('&amp;', '&#x26;')

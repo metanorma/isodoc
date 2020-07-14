@@ -7,10 +7,10 @@ module IsoDoc::Function
     def termref_cleanup(docxml)
       docxml.
         gsub(%r{\s*\[/TERMREF\]\s*</p>\s*<p>\s*\[TERMREF\]}, "; ").
-        gsub(/\[TERMREF\]\s*/, l10n("[#{@source_lbl}: ")).
-        gsub(/\s*\[MODIFICATION\]\s*\[\/TERMREF\]/, l10n(", #{@modified_lbl} [/TERMREF]")).
+        gsub(/\[TERMREF\]\s*/, l10n("[#{@i18n.source}: ")).
+        gsub(/\s*\[MODIFICATION\]\s*\[\/TERMREF\]/, l10n(", #{@i18n.modified} [/TERMREF]")).
         gsub(%r{\s*\[\/TERMREF\]\s*}, l10n("]")).
-        gsub(/\s*\[MODIFICATION\]/, l10n(", #{@modified_lbl} &mdash; "))
+        gsub(/\s*\[MODIFICATION\]/, l10n(", #{@i18n.modified} &mdash; "))
     end
 
     def passthrough_cleanup(docxml)
@@ -21,6 +21,7 @@ module IsoDoc::Function
     end
 
     def cleanup(docxml)
+      @i18n ||= i18n_init(@lang, @script) 
       comment_cleanup(docxml)
       footnote_cleanup(docxml)
       inline_header_cleanup(docxml)
@@ -80,7 +81,7 @@ module IsoDoc::Function
     def figure_get_or_make_dl(t)
       dl = t.at(".//dl")
       if dl.nil?
-        t.add_child("<p><b>#{@key_lbl}</b></p><dl></dl>")
+        t.add_child("<p><b>#{@i18n.key}</b></p><dl></dl>")
         dl = t.at(".//dl")
       end
       dl
