@@ -164,7 +164,7 @@ module IsoDoc
       stylesheet = convert_scss(filename, stylesheet) if File.extname(filename) == '.scss'
       Tempfile.open([File.basename(filename, ".*"), "css"],
                     :encoding => "utf-8") do |f|
-        f.write(convert_scss(filename, stylesheet))
+        f.write(stylesheet)
         f
       end
     end
