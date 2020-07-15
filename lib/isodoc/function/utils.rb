@@ -96,7 +96,7 @@ module IsoDoc::Function
     end
 
     def sentence_join(array)
-      return '' if array.blank?
+      return '' if array.nil? || array.empty?
       if array.length == 1 then array[0]
       else
         IsoDoc::Function::I18n::l10n("#{array[0..-2].join(', ')} "\
