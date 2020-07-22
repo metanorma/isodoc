@@ -1,10 +1,13 @@
 term_def_boilerplate: 
 scope: Scope
-symbols: Symbols and abbreviated terms
+symbolsabbrev: Symbols and abbreviated terms
+abbrev: Abbreviated terms
+symbols: Symbols
 table_of_contents: Table of contents
 introduction: Introduction
 foreword: Foreword
 abstract: Abstract
+acknowledgements: Acknowledgements
 termsdef: Terms and definitions
 termsdefsymbolsabbrev: Terms, definitions, symbols and abbreviated terms
 termsdefsymbols: Terms, definitions and symbols

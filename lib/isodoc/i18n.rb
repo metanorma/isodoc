@@ -4,8 +4,13 @@ require "yaml"
 module IsoDoc
   class I18n
     def load_yaml(lang, script, i18nyaml = nil)
-      if i18nyaml then YAML.load_file(i18nyaml)
-      elsif lang == "en"
+      ret = load_yaml1(lang, script)
+      return ret.merge(YAML.load_file(i18nyaml)) if i18nyaml
+      ret
+    end
+
+    def load_yaml1(lang, script)
+      if lang == "en"
         YAML.load_file(File.join(File.dirname(__FILE__),
                                  "../isodoc-yaml/i18n-en.yaml"))
       elsif lang == "fr"
@@ -102,8 +107,8 @@ module IsoDoc
         xml.traverse do |n|
           next unless n.text?
           n.replace(n.text.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、").
-            gsub(/\(/, "（").gsub(/\)/, "）").
-            gsub(/\[/, "【").gsub(/\]/, "】"))
+                    gsub(/\(/, "（").gsub(/\)/, "）").
+                    gsub(/\[/, "【").gsub(/\]/, "】"))
         end
         xml.to_xml.gsub(/<b>/, "").gsub("</b>", "").gsub(/<\?[^>]+>/, "")
       else

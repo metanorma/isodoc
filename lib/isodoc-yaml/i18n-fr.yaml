@@ -1,10 +1,13 @@
 term_def_boilerplate: 
 scope: Domaine d'application
-symbols: Symboles et termes abrégés
+symbolabbrev: Symboles et termes abrégés
+abbrev: Termes abrégés
+symbols: Symboles
 table_of_contents: Sommaire
 introduction: Introduction
 foreword: Avant-propos
 abstract: Résumé
+acknowledgements: Remerciements
 termsdef: Terms et définitions
 termsdefsymbolsabbrev: Terms, définitions, symboles et termes abrégés
 termsdefsymbols: Terms, définitions et symboles

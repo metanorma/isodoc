@@ -538,7 +538,7 @@ PRESXML
             #{HTML_HDR.gsub(/ lang="en">/, ' lang="fr">')}
                <br/>
                <div>
-                 <h1 class="ForewordTitle">Avant-propos</h1>
+                 <h1 class="ForewordTitle">Foreword</h1>
                  <p id='A'>
   See
   <a href='#M'>Article 5</a>
@@ -790,7 +790,7 @@ PRESXML
     #{HTML_HDR.gsub(/ lang="en">/, ' lang="zh">')}
                <br/>
                <div>
-                 <h1 class="ForewordTitle">&#21069;&#35328;</h1>
+                 <h1 class="ForewordTitle">Foreword</h1>
                  <p id='A'>
   See
   <a href='#M'>&#26465;5</a>
@@ -798,7 +798,7 @@ PRESXML
                </div>
                <br/>
                <div class="Section3" id="B">
-                 <h1 class="IntroTitle">&#24341;&#35328;</h1>
+                 <h1 class="IntroTitle">Introduction</h1>
                  <div id="C">
                 <h2>Introduction Subsection</h2>
               </div>
@@ -990,7 +990,7 @@ PRESXML
               </clause></clause>
 
               </sections><annex id="P" inline-header="false" obligation="normative">
-                <title><strong>Aldono A</strong><br/>(norma)<br/><br/><strong>Annex</strong></title>
+                <title><strong>Aldono A</strong><br/>(normative)<br/><br/><strong>Annex</strong></title>
                 <clause id="Q" inline-header="false" obligation="normative">
                 <title depth="2">A.1.<tab/>Annex A.1</title>
                 <clause id="Q1" inline-header="false" obligation="normative">
@@ -1034,7 +1034,7 @@ PRESXML
            <div class='main-section'>
              <br/>
              <div>
-               <h1 class='ForewordTitle'>Anta&#365;parolo</h1>
+               <h1 class='ForewordTitle'>Foreword</h1>
                <p id='A'>
   See
   <a href='#M'>kla&#365;zo 5</a>
@@ -1042,7 +1042,7 @@ PRESXML
              </div>
              <br/>
              <div class='Section3' id='B'>
-               <h1 class='IntroTitle'>Enkonduko</h1>
+               <h1 class='IntroTitle'>Introduction</h1>
                <div id='C'>
                  <h2>Introduction Subsection</h2>
                </div>

@@ -149,7 +149,7 @@ RSpec.describe IsoDoc do
     <p id="C">C.</p>
     <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
     </foreword>
-    <introduction>
+    <introduction><title>Introduction</title>
     <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
     </introduction>
     </preface>
@@ -203,7 +203,7 @@ RSpec.describe IsoDoc do
     <p id="C">C.</p>
     <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
     </foreword>
-    <introduction>
+    <introduction><title>Introduction</title>
     <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
     </introduction>
     </preface>
