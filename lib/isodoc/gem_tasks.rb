@@ -92,7 +92,12 @@ module IsoDoc
     def compile_scss(filename)
       require 'sassc'
 
-      [File.join('lib', 'isodoc'),
+      isodoc_path = if Gem.loaded_specs['isodoc']
+                      File.join(Gem.loaded_specs['isodoc'].full_gem_path, 'lib', 'isodoc')
+                    else
+                      File.join('lib', 'isodoc')
+                    end
+      [isodoc_path,
        File.dirname(filename)].each do |name|
         SassC.load_paths << name
       end
