@@ -155,8 +155,12 @@ module IsoDoc
       "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
     end
 
-    def html_doc_path(file)
-      File.join(@libdir, File.join('html', file))
+    def html_doc_path(*file)
+      file.each do |f|
+        ret = File.join(@libdir, File.join('html', f))
+        File.exist?(ret) and return ret
+      end
+      nil
     end
 
     def convert_scss(filename, stylesheet)
@@ -165,11 +169,11 @@ module IsoDoc
 
       [File.join(Gem.loaded_specs['isodoc'].full_gem_path,
                  'lib', 'isodoc'),
-       File.dirname(filename)].each do |name|
-        SassC.load_paths << name
-      end
-      SassC::Engine.new(scss_fontheader + stylesheet, syntax: :scss,
-                                                      importer: SasscImporter)
+                 File.dirname(filename)].each do |name|
+                   SassC.load_paths << name
+                 end
+                 SassC::Engine.new(scss_fontheader + stylesheet, syntax: :scss,
+                                   importer: SasscImporter)
                    .render
     end
 
@@ -239,7 +243,7 @@ module IsoDoc
 
     def middle_clause
       "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
-      '[not(descendant::terms)]'
+        '[not(descendant::terms)]'
     end
   end
 end
