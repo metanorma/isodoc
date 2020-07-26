@@ -16,8 +16,7 @@ module IsoDoc
           puts(current_task)
           compile_scss_task(current_task)
         rescue StandardError => e
-          puts(e.message)
-          puts("skiping #{current_task}")
+          notify_borken_compilation(e, current_task)
         end
       end
 
@@ -34,11 +33,35 @@ module IsoDoc
         process_css_files(scss_files) do |file_name|
           uncomment_out_liquid(File.read(file_name, encoding: 'UTF-8'))
         end
-        puts('Built scss!')
+        git_cache_compiled_files && puts('Built scss!')
       end
 
       Rake::Task['build'].enhance [:build_scss] do
+        git_rm_compiled_files
         Rake::Task[:clean].invoke
+      end
+    end
+
+    def notify_borken_compilation(error, current_task)
+      puts("Cannot compile #{current_task} because of #{error.message}")
+      puts('continue anyway[y|n]?')
+      answer = STDIN.gets.strip
+      if %w[y yes].include?(answer.strip.downcase)
+        puts("Cannot compile #{current_task} because of #{error.message}")
+      else
+        exit(0)
+      end
+    end
+
+    def git_cache_compiled_files
+      CLEAN.each do |css_file|
+        sh "git add #{css_file}"
+      end
+    end
+
+    def git_rm_compiled_files
+      CLEAN.each do |css_file|
+        sh "git rm --cached #{css_file}"
       end
     end
 
@@ -79,7 +102,13 @@ module IsoDoc
 
     def compile_scss(filename)
       require 'sassc'
-      [File.join(Gem.loaded_specs['isodoc'].full_gem_path, 'lib', 'isodoc'),
+
+      isodoc_path = if Gem.loaded_specs['isodoc']
+                      File.join(Gem.loaded_specs['isodoc'].full_gem_path, 'lib', 'isodoc')
+                    else
+                      File.join('lib', 'isodoc')
+                    end
+      [isodoc_path,
        File.dirname(filename)].each do |name|
         SassC.load_paths << name
       end
