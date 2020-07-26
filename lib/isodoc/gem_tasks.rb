@@ -33,8 +33,7 @@ module IsoDoc
         process_css_files(scss_files) do |file_name|
           uncomment_out_liquid(File.read(file_name, encoding: 'UTF-8'))
         end
-        git_cache_compiled_files
-        puts('Built scss!')
+        git_cache_compiled_files && puts('Built scss!')
       end
 
       Rake::Task['build'].enhance [:build_scss] do
@@ -92,7 +91,8 @@ module IsoDoc
 
     def compile_scss(filename)
       require 'sassc'
-      [File.join(Gem.loaded_specs['isodoc'].full_gem_path, 'lib', 'isodoc'),
+
+      [File.join('lib', 'isodoc'),
        File.dirname(filename)].each do |name|
         SassC.load_paths << name
       end
