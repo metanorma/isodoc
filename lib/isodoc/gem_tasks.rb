@@ -16,7 +16,7 @@ module IsoDoc
           puts(current_task)
           compile_scss_task(current_task)
         rescue StandardError => e
-          puts(e.message, "skiping #{current_task}")
+          notify_borken_compilation(e, current_task)
         end
       end
 
@@ -39,6 +39,17 @@ module IsoDoc
       Rake::Task['build'].enhance [:build_scss] do
         git_rm_compiled_files
         Rake::Task[:clean].invoke
+      end
+    end
+
+    def notify_borken_compilation(error, current_task)
+      puts("Cannot compile #{current_task} because of #{error.message}")
+      puts('continue anyway[y|n]?')
+      answer = STDIN.gets.strip
+      if %w[y yes].include?(answer.strip.downcase)
+        puts("Cannot compile #{current_task} because of #{error.message}")
+      else
+        exit(0)
       end
     end
 
