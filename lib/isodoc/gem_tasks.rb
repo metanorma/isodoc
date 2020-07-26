@@ -16,8 +16,7 @@ module IsoDoc
           puts(current_task)
           compile_scss_task(current_task)
         rescue StandardError => e
-          puts(e.message)
-          puts("skiping #{current_task}")
+          puts(e.message, "skiping #{current_task}")
         end
       end
 
@@ -34,17 +33,25 @@ module IsoDoc
         process_css_files(scss_files) do |file_name|
           uncomment_out_liquid(File.read(file_name, encoding: 'UTF-8'))
         end
-        CLEAN.each do |css_file|
-          sh "git add #{css_file}"
-        end
+        git_cache_compiled_files
         puts('Built scss!')
       end
 
       Rake::Task['build'].enhance [:build_scss] do
-        CLEAN.each do |css_file|
-          sh "git rm --cached #{css_file}"
-        end
+        git_rm_compiled_files
         Rake::Task[:clean].invoke
+      end
+    end
+
+    def git_cache_compiled_files
+      CLEAN.each do |css_file|
+        sh "git add #{css_file}"
+      end
+    end
+
+    def git_rm_compiled_files
+      CLEAN.each do |css_file|
+        sh "git rm --cached #{css_file}"
       end
     end
 
