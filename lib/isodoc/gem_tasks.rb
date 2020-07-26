@@ -34,10 +34,16 @@ module IsoDoc
         process_css_files(scss_files) do |file_name|
           uncomment_out_liquid(File.read(file_name, encoding: 'UTF-8'))
         end
+        CLEAN.each do |css_file|
+          sh "git add #{css_file}"
+        end
         puts('Built scss!')
       end
 
       Rake::Task['build'].enhance [:build_scss] do
+        CLEAN.each do |css_file|
+          sh "git rm --cached #{css_file}"
+        end
         Rake::Task[:clean].invoke
       end
     end
