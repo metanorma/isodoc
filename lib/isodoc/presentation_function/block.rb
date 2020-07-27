@@ -130,6 +130,7 @@ module IsoDoc
 
     def table1(f)
       return if labelled_ancestor(f)
+      return if f["unnumbered"] && !f.at(ns("./name"))
       n = @xrefs.anchor(f['id'], :label, false)
       prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.table} #{n}"), "name")
     end
