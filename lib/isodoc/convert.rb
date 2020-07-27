@@ -1,5 +1,5 @@
+# frozen_string_literal: true
 require "isodoc/common"
-require "sassc"
 require "fileutils"
 require "tempfile"
 require_relative "i18n"
@@ -28,15 +28,25 @@ module IsoDoc
     # scripts_pdf: Scripts file for PDF
     # datauriimage: Encode images in HTML output as data URIs
     def initialize(options)
-      @libdir = File.dirname(__FILE__) unless @libdir
-      options.merge!(default_fonts(options)) { |_, old, new| old || new }.
-        merge!(default_file_locations(options)) { |_, old, new| old || new }
+      @libdir ||= File.dirname(__FILE__)
+      options.merge!(default_fonts(options)) do |_, old, new|
+        old || new
+      end
+             .merge!(default_file_locations(options)) do |_, old, new|
+        old || new
+      end
       @options = options
       @files_to_delete = []
       @tempfile_cache = []
-      @htmlstylesheet_name = options[:htmlstylesheet]
-      @wordstylesheet_name = options[:wordstylesheet]
-      @standardstylesheet_name = options[:standardstylesheet]
+      @htmlstylesheet_name = precompiled_style_or_original(
+        options[:htmlstylesheet]
+      )
+      @wordstylesheet_name = precompiled_style_or_original(
+        options[:wordstylesheet]
+      )
+      @standardstylesheet_name = precompiled_style_or_original(
+        options[:standardstylesheet]
+      )
       @header = options[:header]
       @htmlcoverpage = options[:htmlcoverpage]
       @wordcoverpage = options[:wordcoverpage]
@@ -49,8 +59,8 @@ module IsoDoc
       @olstyle = options[:olstyle]
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
-      @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
-      @termdomain = ""
+      @break_up_urls_in_tables = options[:break_up_urls_in_tables] == 'true'
+      @termdomain = ''
       @termexample = false
       @note = false
       @sourcecode = false
@@ -69,32 +79,45 @@ module IsoDoc
       @maxwidth = 1200
       @maxheight = 800
       @wordToClevels = options[:doctoclevels].to_i
-      @wordToClevels = 2 if @wordToClevels == 0
+      @wordToClevels = 2 if @wordToClevels.zero?
       @htmlToClevels = options[:htmltoclevels].to_i
-      @htmlToClevels = 2 if @htmlToClevels == 0
-      @bookmarks_allocated = {"X" => true}
+      @htmlToClevels = 2 if @htmlToClevels.zero?
+      @bookmarks_allocated = { 'X' => true }
       @fn_bookmarks = {}
+    end
+
+    # Check if already compiled version(.css) exists,
+    #   if not, return original scss file. During release
+    #   we compile scss into css files in order to not depend on scss
+    def precompiled_style_or_original(stylesheet_path)
+      # Already have compiled stylesheet, use it
+      return stylesheet_path if stylesheet_path.nil? ||
+                                File.extname(stylesheet_path) == '.css'
+
+      basename = File.basename(stylesheet_path, '.*')
+      compiled_path = File.join(File.dirname(stylesheet_path),
+                                "#{basename}.css")
+      return stylesheet_path unless File.file?(compiled_path)
+
+      compiled_path
     end
 
     # run this after @meta is populated
     def populate_css
-      @htmlstylesheet = generate_css(@htmlstylesheet_name, true, 
-                                     extract_fonts(options))
-      @wordstylesheet = generate_css(@wordstylesheet_name, false, 
-                                     extract_fonts(options))
-      @standardstylesheet = generate_css(@standardstylesheet_name, false, 
-                                         extract_fonts(options))
+      @htmlstylesheet = generate_css(@htmlstylesheet_name, true)
+      @wordstylesheet = generate_css(@wordstylesheet_name, false)
+      @standardstylesheet = generate_css(@standardstylesheet_name, false)
     end
 
     def tmpimagedir_suffix
-      "_images"
+      '_images'
     end
 
     def default_fonts(_options)
       {
-        bodyfont: "Arial",
-        headerfont: "Arial",
-        monospacefont: "Courier",
+        bodyfont: 'Arial',
+        headerfont: 'Arial',
+        monospacefont: 'Courier'
       }
     end
 
@@ -117,30 +140,55 @@ module IsoDoc
       {}
     end
 
-    # extract fonts for use in generate_css
-    def extract_fonts(options)
-      b = options[:bodyfont] || "Arial"
-      h = options[:headerfont] || "Arial"
-      m = options[:monospacefont] || "Courier"
+    def fonts_options
+      {
+        'bodyfont' => options[:bodyfont] || 'Arial',
+        'headerfont' => options[:headerfont] || 'Arial',
+        'monospacefont' => options[:monospacefont] || 'Courier'
+      }
+    end
+
+    def scss_fontheader
+      b = options[:bodyfont] || 'Arial'
+      h = options[:headerfont] || 'Arial'
+      m = options[:monospacefont] || 'Courier'
       "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
     end
 
-    def html_doc_path(file)
-      File.join(@libdir, File.join("html", file))
+    def html_doc_path(*file)
+      file.each do |f|
+        ret = File.join(@libdir, File.join('html', f))
+        File.exist?(ret) and return ret
+      end
+      nil
     end
 
-    def generate_css(filename, stripwordcss, fontheader)
-      return nil unless filename
-      stylesheet = File.read(filename, encoding: "UTF-8")
+    def convert_scss(filename, stylesheet)
+      require 'sassc'
+      require 'isodoc/sassc_importer'
+
+      [File.join(Gem.loaded_specs['isodoc'].full_gem_path,
+                 'lib', 'isodoc'),
+                 File.dirname(filename)].each do |name|
+                   SassC.load_paths << name
+                 end
+                 SassC::Engine.new(scss_fontheader + stylesheet, syntax: :scss,
+                                   importer: SasscImporter)
+                   .render
+    end
+
+    def generate_css(filename, stripwordcss)
+      return nil if filename.nil?
+
+      stylesheet = File.read(filename, encoding: 'UTF-8')
       stylesheet = populate_template(stylesheet, :word)
-      stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
-      SassC.load_paths << File.join(Gem.loaded_specs['isodoc'].full_gem_path,
-                                    "lib", "isodoc")
-      SassC.load_paths << File.dirname(filename)
-      engine = SassC::Engine.new(fontheader + stylesheet, syntax: :scss)
-      Tempfile.open([File.basename(filename, ".*"), "css"],
-                    :encoding => "utf-8") do |f|
-        f.write(engine.render)
+      stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, '\\1') if stripwordcss
+      if File.extname(filename) == '.scss'
+        stylesheet = convert_scss(filename, stylesheet)
+      end
+      Tempfile.open([File.basename(filename, '.*'), 'css'],
+                    encoding: 'utf-8') do |f|
+        f.write(stylesheet)
         f
       end
     end
@@ -148,10 +196,10 @@ module IsoDoc
     def convert1(docxml, filename, dir)
       @xrefs.parse docxml
       noko do |xml|
-        xml.html **{ lang: "#{@lang}" } do |html|
-          html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
+        xml.html **{ lang: @lang.to_s } do |html|
+          html.parent.add_namespace('epub', 'http://www.idpf.org/2007/ops')
           info docxml, nil
-          populate_css()
+          populate_css
           html.head { |head| define_head head, filename, dir }
           make_body(html, docxml)
         end
@@ -200,8 +248,8 @@ module IsoDoc
     end
 
     def middle_clause
-      "//clause[parent::sections][not(@type = 'scope')]"\
-      "[not(descendant::terms)]".freeze
+      "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
+        '[not(descendant::terms)]'
     end
   end
 end
