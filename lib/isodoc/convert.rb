@@ -38,15 +38,9 @@ module IsoDoc
       @options = options
       @files_to_delete = []
       @tempfile_cache = []
-      @htmlstylesheet_name = precompiled_style_or_original(
-        options[:htmlstylesheet]
-      )
-      @wordstylesheet_name = precompiled_style_or_original(
-        options[:wordstylesheet]
-      )
-      @standardstylesheet_name = precompiled_style_or_original(
-        options[:standardstylesheet]
-      )
+      @htmlstylesheet_name = options[:htmlstylesheet]
+      @wordstylesheet_name = options[:wordstylesheet]
+      @standardstylesheet_name = options[:standardstylesheet]
       @header = options[:header]
       @htmlcoverpage = options[:htmlcoverpage]
       @wordcoverpage = options[:wordcoverpage]
@@ -180,6 +174,7 @@ module IsoDoc
     def generate_css(filename, stripwordcss)
       return nil if filename.nil?
 
+      filename = precompiled_style_or_original(filename)
       stylesheet = File.read(filename, encoding: 'UTF-8')
       stylesheet = populate_template(stylesheet, :word)
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, '\\1') if stripwordcss
