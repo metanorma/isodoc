@@ -19,7 +19,7 @@ module IsoDoc
       @i18n.l10n(a, b, c)
     end
 
-    def initialize(lang, script, i18n)
+    def initialize(lang, script, i18n, fonts_options = {})
       @metadata = {}
       DATETYPES.each { |w| @metadata["#{w.gsub(/-/, '_')}date".to_sym] = 'XXX' }
       @lang = lang
@@ -27,7 +27,7 @@ module IsoDoc
       @c = HTMLEntities.new
       @i18n = i18n
       @labels = @i18n.get
-      #@fonts_options = fonts_options
+      @fonts_options = fonts_options
     end
 
     def get

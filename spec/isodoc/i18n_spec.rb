@@ -1101,7 +1101,7 @@ PRESXML
                <h1 class='Annex'>
                  <b>Aldono A</b>
                  <br/>
-                 (norma)
+                 (normative)
                  <br/>
                  <br/>
                  <b>Annex</b>

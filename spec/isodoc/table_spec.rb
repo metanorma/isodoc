@@ -139,7 +139,6 @@ RSpec.describe IsoDoc do
                </note>
              </table>
              <table id='tableD-2' unnumbered='true'>
-               <name>Table </name>
                <tbody>
                  <tr>
                    <td>A</td>

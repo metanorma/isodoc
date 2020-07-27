@@ -248,7 +248,7 @@ module IsoDoc
     end
 
     def middle_clause
-      "//clause[parent::sections][not(xmlns:title = 'Scope')]"\
+      "//clause[parent::sections][not(@type = 'scope')]"\
         '[not(descendant::terms)]'
     end
   end
