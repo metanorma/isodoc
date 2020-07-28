@@ -805,18 +805,18 @@ PRESXML
                </div>
                <p class="zzSTDTitle1"/>
                <div id="D">
-                 <h1>1.&#160; Scope</h1>
+                 <h1>1.&#12288;Scope</h1>
                  <p id="E">
                  <a href='#ISO712'>ISO 712&#12289;&#31532;1&#8211;1&#34920;</a>
                  </p>
                </div>
                <div>
-                 <h1>2.&#160; Normative References</h1>
+                 <h1>2.&#12288;Normative References</h1>
                  <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i></p>
                </div>
-               <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
+               <div id="H"><h1>3.&#12288;Terms, definitions, symbols and abbreviated terms</h1>
        <div id="I">
-                <h2>3.1.&#160; Normal Terms</h2>
+                <h2>3.1.&#12288;Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;">Term2</p>
 
@@ -833,21 +833,21 @@ PRESXML
                  </dl>
                </div>
                <div id="M">
-                 <h1>5.&#160; Clause 4</h1>
+                 <h1>5.&#12288;Clause 4</h1>
                  <div id="N">
-                <h2>5.1.&#160; Introduction</h2>
+                <h2>5.1.&#12288;Introduction</h2>
               </div>
                  <div id="O">
-                <h2>5.2.&#160; Clause 4.2</h2>
+                <h2>5.2.&#12288;Clause 4.2</h2>
               </div>
                </div>
                <br/>
                <div id="P" class="Section3">
                  <h1 class="Annex"><b>&#38468;&#20214;A</b><br/>&#65288;&#35268;&#33539;&#24615;&#38468;&#24405;&#65289;<br/><br/><b>Annex</b></h1>
                  <div id="Q">
-                <h2>A.1.&#160; Annex A.1</h2>
+                <h2>A.1.&#12288;Annex A.1</h2>
                 <div id="Q1">
-                <h3>A.1.1.&#160; Annex A.1a</h3>
+                <h3>A.1.1.&#12288;Annex A.1a</h3>
                 </div>
                 </div>
                </div>

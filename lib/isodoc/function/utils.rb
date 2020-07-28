@@ -11,7 +11,8 @@ module IsoDoc::Function
     end
 
     def insert_tab(out, n)
-      [1..n].each { out << '&nbsp; ' }
+      tab = %w(Hans Hant).include?(@script) ? "&#x3000;" : "&nbsp; "
+      [1..n].each { out << tab }
     end
 
     # add namespaces for Word fragments
