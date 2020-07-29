@@ -154,7 +154,7 @@ module IsoDoc::Function
              .get
              .merge(@labels || {})
              .merge(@meta.labels || {})
-             .merge(@meta.fonts_options || {})
+             .merge(fonts_options || {})
       template = liquid(docxml)
       template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
               .gsub('&lt;', '&#x3c;').gsub('&gt;', '&#x3e;').gsub('&amp;', '&#x26;')
