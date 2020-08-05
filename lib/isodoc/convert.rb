@@ -6,7 +6,7 @@ require_relative "i18n"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
-    attr_reader :options
+    attr_accessor :options
     attr_accessor :i18n
 
     # htmlstylesheet: Generic stylesheet for HTML
