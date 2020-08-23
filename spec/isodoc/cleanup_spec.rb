@@ -1084,6 +1084,7 @@ INPUT
            [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
        [/TERMREF]</p>
        <p>[TERMREF] Termbase IEV, term ID xyz [/TERMREF]</p>
+<p>[TERMREF] Termbase IEV, term ID xyz [MODIFICATION] [/TERMREF]</p>
 <p>[TERMREF] Termbase IEV, term ID xyz [MODIFICATION]with adjustments [/TERMREF]</p>
 <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice</p>
        <p class="AltTerms" style="text-align:left;">rough rice</p>
@@ -1140,7 +1141,8 @@ INPUT
           <a href='#ISO7301'>ISO 7301:2011, Clause 3.1</a>
           , modified &mdash; The term "cargo rice" is shown as deprecated, and
           Note 1 to entry is not included here; Termbase IEV, term ID xyz;
-          Termbase IEV, term ID xyz, modified &mdash; with adjustments]
+          Termbase IEV, term ID xyz, modified; Termbase IEV, term ID xyz,
+modified &mdash; with adjustments]
         </p>
         <p class='TermNum' id='paddy'>1.2.</p>
         <p class='Terms' style='text-align:left;'>paddy</p>
