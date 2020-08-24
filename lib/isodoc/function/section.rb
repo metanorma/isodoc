@@ -201,6 +201,19 @@ module IsoDoc::Function
       end
     end
 
+    def is_clause?(name)
+      %w(clause references definitions terms foreword introduction abstract
+      acknowledgements).include? name
+    end
+
+    def preface_block(isoxml, out)
+      p = isoxml.at(ns("//preface")) or return
+      p.elements.each do |e|
+        next if is_clause?(e.name)
+        parse(e, out)
+      end
+    end
+
     def copyright_parse(node, out)
       out.div **{class: "boilerplate-copyright"} do |div|
         node.children.each { |n| parse(n, div) }

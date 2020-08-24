@@ -1,6 +1,131 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+         it "processes prefatory blocks" do
+           input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <abstract id="A"><title>abstract</title></abstract>
+      <introduction id="B"><title>introduction</title></introduction>
+      <note id="C">note</note>
+      </preface>
+      <sections>
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+         <title>Introduction</title>
+       </clause>
+       <clause id="O" inline-header="true" obligation="normative">
+         <title>Clause 4.2</title>
+       </clause></clause>
+       <admonition id="L" type="caution"><p>admonition</p></admonition>
+       </sections>
+      </iso-standard>
+    INPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <html lang='en'>
+  <head/>
+  <body lang='en'>
+    <div class='title-section'>
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class='prefatory-section'>
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class='main-section'>
+      <div id='C' class='Note'>note</div>
+      <br/>
+      <div id='A'>
+        <h1 class='AbstractTitle'>abstract</h1>
+      </div>
+      <br/>
+      <div class='Section3' id='B'>
+        <h1 class='IntroTitle'>introduction</h1>
+      </div>
+      <p class='zzSTDTitle1'/>
+      <div id='L' class='Admonition'>
+        <p class='AdmonitionTitle' style='text-align:center;'>CAUTION</p>
+        <p>admonition</p>
+      </div>
+      <div id='M'>
+        <h1>Clause 4</h1>
+        <div id='N'>
+          <h2>Introduction</h2>
+        </div>
+        <div id='O'>
+          <span class='zzMoveToFollowing'>
+            <b>Clause 4.2&#160; </b>
+          </span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+  <head>
+    <style>
+    </style>
+  </head>
+  <body lang='EN-US' link='blue' vlink='#954F72'>
+    <div class='WordSection1'>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection2'>
+      <div id='C' class='Note'>
+        <p class='Note'>
+          <span class='note_label'/>
+          <span style='mso-tab-count:1'>&#160; </span>
+        </p>
+        note
+      </div>
+      <p>
+        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+      </p>
+      <div id='A'>
+        <h1 class='AbstractTitle'>abstract</h1>
+      </div>
+      <p>
+        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+      </p>
+      <div class='Section3' id='B'>
+        <h1 class='IntroTitle'>introduction</h1>
+      </div>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection3'>
+      <p class='zzSTDTitle1'/>
+      <div id='L' class='Admonition'>
+        <p class='AdmonitionTitle' style='text-align:center;'>CAUTION</p>
+        <p>admonition</p>
+      </div>
+      <div id='M'>
+        <h1>Clause 4</h1>
+        <div id='N'>
+          <h2>Introduction</h2>
+        </div>
+        <div id='O'>
+          <span class='zzMoveToFollowing'>
+            <b>
+              Clause 4.2
+              <span style='mso-tab-count:1'>&#160; </span>
+            </b>
+          </span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+    OUTPUT
+    end
+
   it "processes document with no content" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -988,6 +1113,5 @@ OUTPUT
             expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
             expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
             end
-
 
 end
