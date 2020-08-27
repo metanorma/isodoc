@@ -182,7 +182,6 @@ module IsoDoc::Function
       page_break(out)
       out.div **attr_code(id: f["id"]) do |s|
         clause_name(nil, f.at(ns("./title")), s, { class: "AbstractTitle" })
-        #s.h1(**{ class: "AbstractTitle" }) { |h1| h1 << @i18n.abstract }
         f.elements.each { |e| parse(e, s) unless e.name == "title" }
       end
     end
