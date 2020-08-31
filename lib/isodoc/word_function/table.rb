@@ -34,11 +34,13 @@ module IsoDoc::WordFunction
     end
 
     def table_attrs(node)
+      require "byebug"; byebug
       super.merge(attr_code({
         summary: node["summary"],
         width: node["width"],
         style: "mso-table-anchor-horizontal:column;"\
-        "mso-table-overlap:never;border-spacing:0;border-width:1px;#{keep_style(node)}"
+        "mso-table-overlap:never;border-spacing:0;border-width:1px;#{keep_style(node)}",
+        class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable")
       }))
     end
 
