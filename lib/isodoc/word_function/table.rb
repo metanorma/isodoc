@@ -34,7 +34,6 @@ module IsoDoc::WordFunction
     end
 
     def table_attrs(node)
-      require "byebug"; byebug
       super.merge(attr_code({
         summary: node["summary"],
         width: node["width"],
