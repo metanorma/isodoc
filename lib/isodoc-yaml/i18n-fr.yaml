@@ -1,6 +1,6 @@
 term_def_boilerplate: 
 scope: Domaine d'application
-symbolabbrev: Symboles et termes abrégés
+symbolsabbrev: Symboles et termes abrégés
 abbrev: Termes abrégés
 symbols: Symboles
 table_of_contents: Sommaire
