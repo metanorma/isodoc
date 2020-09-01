@@ -846,6 +846,14 @@ TOCLEVEL
     <formula id="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62">
     <stem type="AsciiMath">D1</stem>
     </formula>
+    <dl id="_f8fb7ed7-7874-44a8-933f-06e0e86fb264">
+<dt>
+<em>n</em>
+</dt>
+<dd>
+<p id="_a27281a4-b20e-4d0b-a780-bab9e851b03e">is the number of coating layers</p>
+</dd>
+</dl>
     </ul></li>
     </ol>
     </foreword></preface>
@@ -901,6 +909,23 @@ TOCLEVEL
                  </div>
                </div>
              </div>
+             <div class='ListContLevel2'>
+  <table class='dl'>
+    <tr>
+      <td valign='top' align='left'>
+        <p align='left' style='margin-left:0pt;text-align:left;' class='MsoNormal'>
+          <i>n</i>
+        </p>
+      </td>
+      <td valign='top'>
+        <p class='MsoNormal'>
+          <a name='_a27281a4-b20e-4d0b-a780-bab9e851b03e' id='_a27281a4-b20e-4d0b-a780-bab9e851b03e'/>
+          is the number of coating layers
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>
            </p>
          </div>
          <p class='MsoNormal'>&#xA0;</p>

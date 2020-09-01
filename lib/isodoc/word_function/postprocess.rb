@@ -127,7 +127,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def list_add(xpath, lvl)
       xpath.each do |list|
         (list.xpath(".//li") - list.xpath(".//ol//li | .//ul//li")).each do |l|
-          l.xpath("./p | ./div").each_with_index do |p, i|
+          l.xpath("./p | ./div | ./table").each_with_index do |p, i|
             next if i == 0
             p.wrap(%{<div class="ListContLevel#{lvl}"/>})
           end
