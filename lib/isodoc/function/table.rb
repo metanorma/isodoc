@@ -82,6 +82,7 @@ module IsoDoc::Function
     def make_tr_attr(td, row, totalrows, header)
       style = td.name == "th" ? "font-weight:bold;" : ""
       td["align"] and style += "text-align:#{td['align']};"
+      td["valign"] and style += "vertical-align:#{td['valign']};"
       rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
       style += <<~STYLE
         border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}

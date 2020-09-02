@@ -14,11 +14,11 @@ RSpec.describe IsoDoc do
       <td colspan="4" align="center">Rice sample</td>
     </tr>
     <tr>
-      <td align="left">Arborio</td>
-      <td align="center">Drago<fn reference="a">
+      <td valign="top" align="left">Arborio</td>
+      <td valign="middle" align="center">Drago<fn reference="a">
   <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
 </fn></td>
-      <td align="center">Balilla<fn reference="a">
+      <td valign="bottom" align="center">Balilla<fn reference="a">
   <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
 </fn></td>
       <td align="center">Thaibonnet</td>
@@ -83,14 +83,14 @@ RSpec.describe IsoDoc do
                    <td colspan='4' align='center'>Rice sample</td>
                  </tr>
                  <tr>
-                   <td align='left'>Arborio</td>
-                   <td align='center'>
+                   <td valign="top" align='left'>Arborio</td>
+                   <td valign="middle" align='center'>
                      Drago
                      <fn reference='a'>
                        <p id='_0fe65e9a-5531-408e-8295-eeff35f41a55'>Parboiled rice.</p>
                      </fn>
                    </td>
-                   <td align='center'>
+                   <td valign="bottom" align='center'>
                      Balilla
                      <fn reference='a'>
                        <p id='_0fe65e9a-5531-408e-8295-eeff35f41a55'>Parboiled rice.</p>
@@ -171,11 +171,11 @@ html = <<~OUTPUT
                      <td colspan="4" style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="colgroup">Rice sample</td>
                    </tr>
                    <tr>
-                     <td style="text-align:left;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
+                     <td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
+                     <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
        </div></aside></td>
-                     <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
+                     <td style="text-align:center;vertical-align:bottom;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
                      <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Thaibonnet</td>
                    </tr>
                  </thead>
@@ -265,8 +265,8 @@ html = <<~OUTPUT
                        <td colspan='4' align='center' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>Rice sample</td>
                      </tr>
                      <tr>
-                       <td align='left' style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>Arborio</td>
-                       <td align='center' style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
+                       <td align='left' valign="top" style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>Arborio</td>
+                       <td align='center' valign="middle" style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
                           Drago
                          <a href='#tableD-1a' class='TableFootnoteRef'>a</a>
                          <aside>
@@ -279,7 +279,7 @@ html = <<~OUTPUT
                            </div>
                          </aside>
                        </td>
-                       <td align='center' style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
+                       <td align='center' valign="bottom" style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
                           Balilla
                          <a href='#tableD-1a' class='TableFootnoteRef'>a</a>
                        </td>

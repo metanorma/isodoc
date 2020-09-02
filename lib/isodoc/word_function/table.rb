@@ -29,7 +29,7 @@ module IsoDoc::WordFunction
         border-bottom:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
         mso-border-bottom-alt:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
       STYLE
-      { rowspan: td["rowspan"], colspan: td["colspan"],
+      { rowspan: td["rowspan"], colspan: td["colspan"], valign: td["valign"],
         align: td["align"], style: style.gsub(/\n/, "") }
     end
 
