@@ -1,6 +1,5 @@
 require "yaml"
 
-# TODO: Cleanup and generalize
 module IsoDoc
   class I18n
     def load_yaml(lang, script, i18nyaml = nil)

@@ -54,7 +54,8 @@ module IsoDoc::Function
     def bibitem_ref_code(b)
       id = b.at(ns("./docidentifier[@type = 'metanorma']"))
       id1 = pref_ref_code(b)
-      id2 = b.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or @type = 'ISBN']")) 
+      id2 = b.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or "\
+                    "@type = 'ISBN']")) 
       return [id, id1, id2] if id || id1 || id2
       id = Nokogiri::XML::Node.new("docidentifier", b.document)
       id << "(NO ID)"
@@ -193,7 +194,8 @@ module IsoDoc::Function
     def bibliography_parse(node, out)
       title = node&.at(ns("./title"))&.text || ""
       out.div do |div|
-        clause_parse_title(node, div, node.at(ns("./title")), out, { class: "Section3" })
+        clause_parse_title(node, div, node.at(ns("./title")), out,
+                           { class: "Section3" })
         biblio_list(node, div, true)
       end
     end

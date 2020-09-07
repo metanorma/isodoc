@@ -184,7 +184,7 @@ module IsoDoc::Function
 
     def labelled_ancestor(node)
       !node.ancestors('example, requirement, recommendation, permission, '\
-                             'table, figure, sourcecode').empty?
+                             'note, table, figure, sourcecode').empty?
     end
   end
 end
