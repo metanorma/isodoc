@@ -204,5 +204,15 @@ module IsoDoc::Function
         !(node["format"].split(/,/).include? @format.to_s)
       out.passthrough node.text
     end
+
+    def amend_parse(node, out)
+      node.at(ns("./description")).children.each do |e|
+        parse(e, out)
+      end
+      e = node.at(ns("./replacement")) and
+        out.div **{ class: "Quote" } do |d|
+        e.children.each { |n| parse(n, d) }
+      end
+    end
   end
 end

@@ -1,6 +1,249 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "processes amend blocks" do
+    input = <<~INPUT
+    <standard-document xmlns='https://www.metanorma.org/ns/standoc'>
+         <bibdata type='standard'>
+           <title language='en' format='text/plain'>Document title</title>
+           <language>en</language>
+           <script>Latn</script>
+           <status>
+             <stage>published</stage>
+           </status>
+           <copyright>
+             <from>2020</from>
+           </copyright>
+           <ext>
+             <doctype>article</doctype>
+           </ext>
+         </bibdata>
+         <sections>
+           <clause id='A' inline-header='false' obligation='normative'>
+             <title>Change Clause</title>
+             <amend id='B' change='modify' path='//table[2]' path_end='//table[2]/following-sibling:example[1]' title='Change'>
+               <autonumber type='table'>2</autonumber>
+               <autonumber type='example'>7</autonumber>
+               <description>
+                 <p id='C'>
+                   <em>
+                     This table contains information on polygon cells which are not
+                     included in ISO 10303-52. Remove table 2 completely and replace
+                     with:
+                   </em>
+                 </p>
+               </description>
+               <replacement id='D'>
+                 <table id='E'>
+                   <name>Edges of triangle and quadrilateral cells</name>
+                   <tbody>
+                     <tr>
+                       <th colspan='2' valign='middle' align='center'>triangle</th>
+                       <th colspan='2' valign='middle' align='center'>quadrilateral</th>
+                     </tr>
+                     <tr>
+                       <td valign='middle' align='center'>edge</td>
+                       <td valign='middle' align='center'>vertices</td>
+                       <td valign='middle' align='center'>edge</td>
+                       <td valign='middle' align='center'>vertices</td>
+                     </tr>
+                     <tr>
+                       <td valign='middle' align='center'>1</td>
+                       <td valign='middle' align='center'>1, 2</td>
+                       <td valign='middle' align='center'>1</td>
+                       <td valign='middle' align='center'>1, 2</td>
+                     </tr>
+                     <tr>
+                       <td valign='middle' align='center'>2</td>
+                       <td valign='middle' align='center'>2, 3</td>
+                       <td valign='middle' align='center'>2</td>
+                       <td valign='middle' align='center'>2, 3</td>
+                     </tr>
+                     <tr>
+                       <td valign='middle' align='center'>3</td>
+                       <td valign='middle' align='center'>3, 1</td>
+                       <td valign='middle' align='center'>3</td>
+                       <td valign='middle' align='center'>3, 4</td>
+                     </tr>
+                     <tr>
+                       <td valign='top' align='left'/>
+                       <td valign='top' align='left'/>
+                       <td valign='middle' align='center'>4</td>
+                       <td valign='middle' align='center'>4, 1</td>
+                     </tr>
+                   </tbody>
+                 </table>
+                 <figure id="H"><name>Figure</name></figure>
+                 <example id='F'>
+                   <p id='G'>This is not generalised further.</p>
+                 </example>
+               </replacement>
+             </amend>
+           </clause>
+         </sections>
+       </standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+    <standard-document xmlns="https://www.metanorma.org/ns/standoc">
+            <bibdata type="standard">
+              <title language="en" format="text/plain">Document title</title>
+              <language>en</language>
+              <script>Latn</script>
+              <status>
+                <stage>published</stage>
+              </status>
+              <copyright>
+                <from>2020</from>
+              </copyright>
+              <ext>
+                <doctype>article</doctype>
+              </ext>
+            </bibdata>
+            <sections>
+              <clause id="A" inline-header="false" obligation="normative">
+                <title depth="1">1.<tab/>Change Clause</title>
+                <amend id="B" change="modify" path="//table[2]" path_end="//table[2]/following-sibling:example[1]" title="Change">
+                  <autonumber type="table">2</autonumber>
+                  <autonumber type="example">7</autonumber>
+                  <description>
+                    <p id="C">
+                      <em>
+                        This table contains information on polygon cells which are not
+                        included in ISO 10303-52. Remove table 2 completely and replace
+                        with:
+                      </em>
+                    </p>
+                  </description>
+                  <replacement id="D">
+                    <table id="E" number="2">
+                      <name>Table 2&#xA0;&#x2014; Edges of triangle and quadrilateral cells</name>
+                      <tbody>
+                        <tr>
+                          <th colspan="2" valign="middle" align="center">triangle</th>
+                          <th colspan="2" valign="middle" align="center">quadrilateral</th>
+                        </tr>
+                        <tr>
+                          <td valign="middle" align="center">edge</td>
+                          <td valign="middle" align="center">vertices</td>
+                          <td valign="middle" align="center">edge</td>
+                          <td valign="middle" align="center">vertices</td>
+                        </tr>
+                        <tr>
+                          <td valign="middle" align="center">1</td>
+                          <td valign="middle" align="center">1, 2</td>
+                          <td valign="middle" align="center">1</td>
+                          <td valign="middle" align="center">1, 2</td>
+                        </tr>
+                        <tr>
+                          <td valign="middle" align="center">2</td>
+                          <td valign="middle" align="center">2, 3</td>
+                          <td valign="middle" align="center">2</td>
+                          <td valign="middle" align="center">2, 3</td>
+                        </tr>
+                        <tr>
+                          <td valign="middle" align="center">3</td>
+                          <td valign="middle" align="center">3, 1</td>
+                          <td valign="middle" align="center">3</td>
+                          <td valign="middle" align="center">3, 4</td>
+                        </tr>
+                        <tr>
+                          <td valign="top" align="left"/>
+                          <td valign="top" align="left"/>
+                          <td valign="middle" align="center">4</td>
+                          <td valign="middle" align="center">4, 1</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <figure id="H" unnumbered="true"><name>Figure</name></figure>
+                    <example id="F" number="7"><name>EXAMPLE  7</name>
+                      <p id="G">This is not generalised further.</p>
+                    </example>
+                  </replacement>
+                </amend>
+              </clause>
+            </sections>
+          </standard-document>
+    OUTPUT
+    html = <<~OUTPUT
+    <html lang='en'>
+         <head/>
+         <body lang='en'>
+           <div class='title-section'>
+             <p>&#160;</p>
+           </div>
+           <br/>
+           <div class='prefatory-section'>
+             <p>&#160;</p>
+           </div>
+           <br/>
+           <div class='main-section'>
+             <p class='zzSTDTitle1'>Document title</p>
+             <div id='A'>
+               <h1>1.&#160; Change Clause</h1>
+               <p id='C'>
+                 <i>
+                    This table contains information on polygon cells which are not
+                   included in ISO 10303-52. Remove table 2 completely and replace
+                   with:
+                 </i>
+               </p>
+               <div class='Quote'>
+                 <p class='TableTitle' style='text-align:center;'>Table 2&#160;&#8212; Edges of triangle and quadrilateral cells</p>
+                 <table id='E' class='MsoISOTable' style='border-width:1px;border-spacing:0;'>
+                   <tbody>
+                     <tr>
+                       <th colspan='2' style='font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;' scope='row'>triangle</th>
+                       <th colspan='2' style='font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;' scope='row'>quadrilateral</th>
+                     </tr>
+                     <tr>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>edge</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>vertices</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>edge</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>vertices</td>
+                     </tr>
+                     <tr>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1, 2</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1, 2</td>
+                     </tr>
+                     <tr>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2, 3</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2, 3</td>
+                     </tr>
+                     <tr>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3, 1</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3, 4</td>
+                     </tr>
+                     <tr>
+                       <td style='text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;'/>
+                       <td style='text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;'/>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;'>4</td>
+                       <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;'>4, 1</td>
+                     </tr>
+                   </tbody>
+                 </table>
+                 <div id='H' class='figure'>
+                   <p class='FigureTitle' style='text-align:center;'>Figure</p>
+                 </div>
+                 <div id='F' class='example'>
+                   <p class='example-title'>EXAMPLE 7</p>
+                   <p id='G'>This is not generalised further.</p>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+  end
+
   it "processes unlabelled notes (Presentation XML)" do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
