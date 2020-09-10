@@ -102,10 +102,6 @@ RSpec.describe IsoDoc do
             <sections>
               <clause id="A" inline-header="false" obligation="normative">
                 <title depth="1">1.<tab/>Change Clause</title>
-                <amend id="B" change="modify" path="//table[2]" path_end="//table[2]/following-sibling:example[1]" title="Change">
-                  <autonumber type="table">2</autonumber>
-                  <autonumber type="example">7</autonumber>
-                  <description>
                     <p id="C">
                       <em>
                         This table contains information on polygon cells which are not
@@ -113,8 +109,7 @@ RSpec.describe IsoDoc do
                         with:
                       </em>
                     </p>
-                  </description>
-                  <replacement id="D">
+                  <quote id="D">
                     <table id="E" number="2">
                       <name>Table 2&#xA0;&#x2014; Edges of triangle and quadrilateral cells</name>
                       <tbody>
@@ -158,8 +153,7 @@ RSpec.describe IsoDoc do
                     <example id="F" number="7"><name>EXAMPLE  7</name>
                       <p id="G">This is not generalised further.</p>
                     </example>
-                  </replacement>
-                </amend>
+                  </quote>
               </clause>
             </sections>
           </standard-document>
@@ -187,7 +181,7 @@ RSpec.describe IsoDoc do
                    with:
                  </i>
                </p>
-               <div class='Quote'>
+               <div class='Quote' id="D">
                  <p class='TableTitle' style='text-align:center;'>Table 2&#160;&#8212; Edges of triangle and quadrilateral cells</p>
                  <table id='E' class='MsoISOTable' style='border-width:1px;border-spacing:0;'>
                    <tbody>

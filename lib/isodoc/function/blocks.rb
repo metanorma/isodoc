@@ -181,6 +181,7 @@ module IsoDoc::Function
     def quote_attribution(node, out)
       author = node.at(ns("./author"))
       source = node.at(ns("./source"))
+      return if author.nil? && source.nil?
       out.p **{ class: "QuoteAttribution" } do |p|
         p << "&mdash; #{author.text}" if author
         p << ", " if author && source
@@ -205,6 +206,7 @@ module IsoDoc::Function
       out.passthrough node.text
     end
 
+=begin
     def amend_parse(node, out)
       node.at(ns("./description")).children.each do |e|
         parse(e, out)
@@ -214,5 +216,6 @@ module IsoDoc::Function
         e.children.each { |n| parse(n, d) }
       end
     end
+=end
   end
 end
