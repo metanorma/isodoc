@@ -1087,9 +1087,20 @@ word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="
                    <thead>
                      <tr>
                        <td rowspan="2" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;">
-               <p class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"></a>Output wavelength <span class="stem"><m:oMath>
-           <m:r><m:t>(&#x3BC;m)</m:t></m:r>
-       </m:oMath>
+               <p class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"></a>Output wavelength <span class="stem">
+               <m:oMath>
+                           <span style='font-style:normal;'>
+                             <m:r>
+                               <m:rPr>
+                                 <m:sty m:val='p'/>
+                               </m:rPr>
+                               <m:t>(</m:t>
+                             </m:r>
+                           </span>
+                           <m:r>
+                             <m:t>&#x3BC;m)</m:t>
+                           </m:r>
+                         </m:oMath>
        </span></p>
              </td>
                        <th colspan="3" align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Predictive wavelengths</th>
