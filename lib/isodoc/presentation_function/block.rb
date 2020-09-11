@@ -134,5 +134,19 @@ module IsoDoc
       n = @xrefs.anchor(f['id'], :label, false)
       prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.table} #{n}"), "name")
     end
+
+    # we use this to eliminate the semantic amend blocks from rendering
+    def amend(docxml)
+      docxml.xpath(ns("//amend")).each do |f|
+        amend1(f)
+      end
+    end
+
+    def amend1(f)
+      f.xpath(ns("./autonumber")).each { |a| a.remove }
+      f.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
+      f.xpath(ns("./description")).each { |a| a.replace(a.children) }
+      f.replace(f.children)
+    end
   end
 end

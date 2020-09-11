@@ -221,6 +221,7 @@ module IsoDoc::Function
         when "feedback-statement" then feedback_parse(node, out)
         when "passthrough" then passthrough_parse(node, out)
         when "variant" then variant_parse(node, out)
+        when "amend" then amend_parse(node, out)
         when "tab" then clausedelimspace(out) # in Presentation XML only
         else
           error_parse(node, out)

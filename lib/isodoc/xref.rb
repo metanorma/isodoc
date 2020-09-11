@@ -41,6 +41,7 @@ module IsoDoc
 
     # extract names for all anchors, xref and label
     def parse(docxml)
+      amend_preprocess(docxml)
       initial_anchor_names(docxml)
       back_anchor_names(docxml)
       # preempt clause notes with all other types of note (ISO default)

@@ -30,6 +30,7 @@ module IsoDoc
     end
 
     def block(docxml)
+      amend docxml
       table docxml
       figure docxml
       sourcecode docxml

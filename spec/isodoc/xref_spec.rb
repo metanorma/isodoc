@@ -2661,6 +2661,9 @@ INPUT
     <xref target="N8"/>
     <xref target="N9"/>
     <xref target="N10"/>
+    <xref target="N11"/>
+    <xref target="N12"/>
+    <xref target="N13"/>
     </p>
     </foreword>
         <introduction id="intro">
@@ -2694,6 +2697,15 @@ INPUT
         <figure id="N10" subsequence="C"> <name>Split-it-right sample divider</name>
            <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
         </figure>
+        <figure id="N11" number="A.1"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N12"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="N13" number="100"> <name>Split-it-right sample divider</name>
+           <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
   </introduction>
   </iso-standard>
 INPUT
@@ -2712,6 +2724,9 @@ INPUT
 <xref target='N8'>Figure 9d</xref>
 <xref target='N9'>Figure 20f</xref>
 <xref target='N10'>Figure 20g</xref>
+<xref target='N11'>Figure A.1</xref>
+<xref target='N12'>Figure A.2</xref>
+<xref target='N13'>Figure 100</xref>
       </p>
     </foreword>
     <introduction id='intro'>
@@ -2755,6 +2770,19 @@ INPUT
         <name>Figure 20g&#xA0;&#x2014; Split-it-right sample divider</name>
         <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
       </figure>
+       <figure id='N11' number='A.1'>
+   <name>Figure A.1&#xA0;&#x2014; Split-it-right sample divider</name>
+   <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
+ </figure>
+ <figure id='N12'>
+   <name>Figure A.2&#xA0;&#x2014; Split-it-right sample divider</name>
+   <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
+ </figure>
+ <figure id='N13' number='100'>
+   <name>Figure 100&#xA0;&#x2014; Split-it-right sample divider</name>
+   <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
+ </figure>
+
     </introduction>
   </preface>
 </iso-standard>

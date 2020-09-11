@@ -181,6 +181,7 @@ module IsoDoc::Function
     def quote_attribution(node, out)
       author = node.at(ns("./author"))
       source = node.at(ns("./source"))
+      return if author.nil? && source.nil?
       out.p **{ class: "QuoteAttribution" } do |p|
         p << "&mdash; #{author.text}" if author
         p << ", " if author && source

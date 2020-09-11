@@ -8,17 +8,20 @@ module IsoDoc::XrefGen
       @subseq = ""
       @letter_override = nil
       @number_override = nil
+      @base = ""
     end
 
     def new_subseq_increment(node)
       @subseq = node["subsequence"]
       @num += 1
       @letter = node["subsequence"] ? "a" : ""
+      @base = ""
       if node["number"]
-        /^(?<n>\d*)(?<a>[a-z]*)$/ =~ node["number"]
-        if n || a
-          @letter_override = @letter = a if a
-          @number_override = @num = n.to_i if n
+        /^(?<b>.*?)(?<n>\d*)(?<a>[a-z]*)$/ =~ node["number"]
+        if !n.empty? || !a.empty?
+          @letter_override = @letter = a unless a.empty?
+          @number_override = @num = n.to_i unless n.empty?
+          @base = b
         else
           @letter_override = node["number"]
           @letter = @letter_override if /^[a-z]$/.match(@letter_override)
@@ -28,8 +31,13 @@ module IsoDoc::XrefGen
 
     def sequence_increment(node)
       if node["number"]
+        @base = ""
         @number_override = node["number"]
-        @num = @number_override.to_i if /^\d+$/.match(@number_override)
+        /^(?<b>.*?)(?<n>\d+)$/ =~ node["number"]
+        unless n.nil? || n.empty?
+          @num = n.to_i
+          @base = b
+        end
       else
         @num += 1
       end
@@ -37,8 +45,14 @@ module IsoDoc::XrefGen
 
     def subsequence_increment(node)
       if node["number"]
+        @base = ""
         @letter_override = node["number"]
-        @letter = @letter_override if /^[a-z]$/.match(@letter_override)
+        /^(?<b>.*?)(?<n>\d*)(?<a>[a-z]+)$/ =~ node["number"]
+        unless a.empty?
+          @letter = a
+          @base = b
+          @number_override = @num = n.to_i unless n.empty?
+        end
       else
         @letter = (@letter.ord + 1).chr.to_s
       end
@@ -59,7 +73,7 @@ module IsoDoc::XrefGen
     end
 
     def print
-      "#{@number_override || @num}#{@letter_override || @letter}"
+      "#{@base}#{@number_override || @num}#{@letter_override || @letter}"
     end
 
     def listlabel(depth)
