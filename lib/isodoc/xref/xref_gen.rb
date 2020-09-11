@@ -6,10 +6,10 @@ module IsoDoc::XrefGen
     recommendation permission figure table formula admonition sourcecode).freeze
 
     def amend_preprocess(xmldoc)
-      xmldoc.xpath(ns("//amend[replacement]")).each do |a|
+      xmldoc.xpath(ns("//amend[newcontent]")).each do |a|
         autonum = amend_autonums(a)
         NUMBERED_BLOCKS.each do |b|
-          a.xpath(ns("./replacement//#{b}")).each_with_index do |e, i|
+          a.xpath(ns("./newcontent//#{b}")).each_with_index do |e, i|
             autonum[b] and i == 0 and e["number"] = autonum[b]
             !autonum[b] and e["unnumbered"] = "true"
           end

@@ -33,7 +33,7 @@ RSpec.describe IsoDoc do
                    </em>
                  </p>
                </description>
-               <replacement id='D'>
+               <newcontent id='D'>
                  <table id='E'>
                    <name>Edges of triangle and quadrilateral cells</name>
                    <tbody>
@@ -77,7 +77,7 @@ RSpec.describe IsoDoc do
                  <example id='F'>
                    <p id='G'>This is not generalised further.</p>
                  </example>
-               </replacement>
+               </newcontent>
              </amend>
            </clause>
          </sections>

@@ -144,7 +144,7 @@ module IsoDoc
 
     def amend1(f)
       f.xpath(ns("./autonumber")).each { |a| a.remove }
-      f.xpath(ns("./replacement")).each { |a| a.name = "quote" }
+      f.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       f.xpath(ns("./description")).each { |a| a.replace(a.children) }
       f.replace(f.children)
     end
