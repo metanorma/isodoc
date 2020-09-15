@@ -7,15 +7,21 @@ module IsoDoc
     def anchor_linkend(node, linkend)
       if node["citeas"].nil? && node["bibitemid"]
         return @xrefs.anchor(node["bibitemid"] ,:xref) || "???"
+      elsif node["target"] && node["droploc"]
+        return @xrefs.anchor(node["target"], :value) || "???"
       elsif node["target"] && !/.#./.match(node["target"])
-        linkend = @xrefs.anchor(node["target"], :xref)
-        container = @xrefs.anchor(node["target"], :container, false)
-        (container && get_note_container_id(node) != container &&
-         @xrefs.get[node["target"]]) &&
-        linkend = prefix_container(container, linkend, node["target"])
-        linkend = capitalise_xref(node, linkend)
+        linkend = anchor_linkend1(node)
       end
       linkend || "???"
+    end
+
+    def anchor_linkend1(node)
+      linkend = @xrefs.anchor(node["target"], :xref)
+      container = @xrefs.anchor(node["target"], :container, false)
+      (container && get_note_container_id(node) != container &&
+       @xrefs.get[node["target"]]) &&
+      linkend = prefix_container(container, linkend, node["target"])
+      capitalise_xref(node, linkend)
     end
 
     def capitalise_xref(node, linkend)
@@ -59,14 +65,19 @@ module IsoDoc
       refs.each_with_index do |r, i|
         delim = ","
         delim = ";" if r.name == "localityStack" && i>0
-        if r.name == "localityStack"
-          r.elements.each_with_index do |rr, j|
-            ret += eref_localities0(rr, j, target, delim)
-            delim = ","
-          end
-        else
-          ret += eref_localities0(r, i, target, delim)
+        ret = eref_locality_stack(r, i, target, delim, ret)
+      end
+      ret
+    end
+
+    def eref_locality_stack(r, i, target, delim, ret)
+      if r.name == "localityStack"
+        r.elements.each_with_index do |rr, j|
+          ret += eref_localities0(rr, j, target, delim)
+          delim = ","
         end
+      else
+        ret += eref_localities0(r, i, target, delim)
       end
       ret
     end
@@ -79,7 +90,7 @@ module IsoDoc
       end
     end
 
-     # TODO: move to localization file
+    # TODO: move to localization file
     def eref_localities1_zh(target, type, from, to, delim)
       ret = "#{delim} 第#{from.text}" if from
       ret += "&ndash;#{to.text}" if to

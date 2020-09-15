@@ -41,7 +41,7 @@ module IsoDoc::XrefGen
       return if clause.nil?
       @anchors[clause["id"]] =
         { label: nil, level: 1, xref: preface_clause_name(clause),
-          type: "clause" }
+          type: "clause", value: preface_clause_name(clause) }
       clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
         preface_names1(c, c.at(ns("./title"))&.text,
                        "#{preface_clause_name(clause)}, #{i+1}", 2)
@@ -51,7 +51,7 @@ module IsoDoc::XrefGen
     def preface_names1(clause, title, parent_title, level)
       label = title || parent_title
       @anchors[clause["id"]] =
-        { label: nil, level: level, xref: label, type: "clause" }
+        { label: nil, level: level, xref: label, type: "clause", value: label }
       clause.xpath(ns(SUBCLAUSES)).
         each_with_index do |c, i|
         preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i+1}",
@@ -78,7 +78,7 @@ module IsoDoc::XrefGen
       num = num + 1
       @anchors[clause["id"]] =
         { label: num.to_s, xref: l10n("#{@labels["clause"]} #{num}"), level: lvl,
-          type: "clause" }
+          type: "clause", value: num.to_s }
       clause.xpath(ns(SUBCLAUSES)).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", lvl + 1)
@@ -89,7 +89,7 @@ module IsoDoc::XrefGen
     def section_names1(clause, num, level)
       @anchors[clause["id"]] =
         { label: num, level: level, xref: l10n("#{@labels["clause"]} #{num}"),
-          type: "clause" }
+          type: "clause", value: num }
       clause.xpath(ns(SUBCLAUSES)).
         each_with_index do |c, i|
         section_names1(c, "#{num}.#{i + 1}", level + 1)
@@ -113,7 +113,7 @@ module IsoDoc::XrefGen
 
     def annex_names(clause, num)
       @anchors[clause["id"]] = { label: annex_name_lbl(clause, num),
-                                 type: "clause",
+                                 type: "clause", value: num.to_s,
                                  xref: "#{@labels["annex"]} #{num}", level: 1 }
       if a = single_annex_special_section(clause)
         annex_names1(a, "#{num}", 1)
@@ -127,7 +127,7 @@ module IsoDoc::XrefGen
 
     def annex_names1(clause, num, level)
       @anchors[clause["id"]] = { label: num, xref: "#{@labels["annex"]} #{num}",
-                                 level: level, type: "clause" }
+                                 level: level, type: "clause", value: num.to_s }
       clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
         annex_names1(c, "#{num}.#{i + 1}", level + 1)
       end

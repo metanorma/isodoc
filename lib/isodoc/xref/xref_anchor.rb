@@ -35,11 +35,15 @@ module IsoDoc::XrefGen
     end
 
     def anchor_struct_xref(lbl, elem)
+      l10n("#{elem} #{anchor_struct_value(lbl, elem)}")
+    end
+
+    def anchor_struct_value(lbl, elem)
       case elem
-      when @labels["formula"] then l10n("#{elem} (#{lbl})")
-      when @labels["inequality"] then l10n("#{elem} (#{lbl})")
+      when @labels["formula"] then "(#{lbl})"
+      when @labels["inequality"] then "(#{lbl})"
       else
-        l10n("#{elem} #{lbl}")
+        lbl
       end
     end
 
@@ -50,6 +54,7 @@ module IsoDoc::XrefGen
       ret[:xref].gsub!(/ $/, "")
       ret[:container] = @klass.get_clause_id(container) unless container.nil?
       ret[:type] = type
+      ret[:value] = anchor_struct_value(lbl, elem)
       ret
     end
   end

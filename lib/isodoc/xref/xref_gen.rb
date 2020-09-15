@@ -36,7 +36,7 @@ module IsoDoc::XrefGen
           return if n["id"].nil? || n["id"].empty?
           c.increment(n)
           @anchors[n["id"]] =
-            { label: termnote_label(c.print), type: "termnote",
+            { label: termnote_label(c.print), type: "termnote", value: c.print,
               xref: l10n("#{anchor(t['id'], :xref)}, "\
                          "#{@labels["note_xref"]} #{c.print}") }
         end
@@ -52,7 +52,7 @@ module IsoDoc::XrefGen
           c.increment(n)
           idx = examples.size == 1 && !n["number"] ? "" : c.print
           @anchors[n["id"]] = {
-            type: "termexample", label: idx, 
+            type: "termexample", label: idx, value: c.print,
             xref: l10n("#{anchor(t['id'], :xref)}, "\
                        "#{@labels["example_xref"]} #{c.print}") }
         end
