@@ -72,6 +72,30 @@ end
 </sections>
 </iso-standard>
 INPUT
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <sections>
+    <clause id='A'>
+      <title>1.</title>
+      <formula id='B'>
+        <name>1</name>
+      </formula>
+    </clause>
+    <clause id='C'>
+      <title>2.</title>
+      <p>
+        This is
+        <xref target='A'>kla&#x16D;zo 1</xref>
+         and
+        <xref target='B'>kla&#x16D;zo 1, Formula (1)</xref>
+        . This is
+        <xref target='A' droploc='true'>1</xref>
+         and
+        <xref target='B' droploc='true'>(1)</xref>
+        .
+      </p>
+    </clause>
+  </sections>
+</iso-standard>
 OUTPUT
    end
 

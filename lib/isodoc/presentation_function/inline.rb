@@ -8,7 +8,9 @@ module IsoDoc
       if node["citeas"].nil? && node["bibitemid"]
         return @xrefs.anchor(node["bibitemid"] ,:xref) || "???"
       elsif node["target"] && node["droploc"]
-        return @xrefs.anchor(node["target"], :value) || "???"
+        return @xrefs.anchor(node["target"], :value) || 
+          @xrefs.anchor(node["target"], :label) || 
+          @xrefs.anchor(node["target"], :xref) || "???"
       elsif node["target"] && !/.#./.match(node["target"])
         linkend = anchor_linkend1(node)
       end
