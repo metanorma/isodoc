@@ -57,6 +57,48 @@ INPUT
 OUTPUT
 end
 
+   it "droplocs xrefs" do
+  expect(xmlpp(IsoDoc::PresentationXMLConvert.new({i18nyaml: "spec/assets/i18n.yaml"}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <sections>
+    <clause id="A">
+    <formula id="B">
+    </formula>
+    </clause>
+    <clause id="C">
+    <p>This is <xref target="A"/> and <xref target="B"/>.
+    This is <xref target="A" droploc="true"/> and <xref target="B" droploc="true"/>.</p>
+</clause>
+</sections>
+</iso-standard>
+INPUT
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <sections>
+    <clause id='A'>
+      <title>1.</title>
+      <formula id='B'>
+        <name>1</name>
+      </formula>
+    </clause>
+    <clause id='C'>
+      <title>2.</title>
+      <p>
+        This is
+        <xref target='A'>kla&#x16D;zo 1</xref>
+         and
+        <xref target='B'>kla&#x16D;zo 1, Formula (1)</xref>
+        . This is
+        <xref target='A' droploc='true'>1</xref>
+         and
+        <xref target='B' droploc='true'>(1)</xref>
+        .
+      </p>
+    </clause>
+  </sections>
+</iso-standard>
+OUTPUT
+   end
+
   it "processes inline formatting" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
