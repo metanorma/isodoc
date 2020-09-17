@@ -68,7 +68,7 @@ RSpec.describe IsoDoc do
         INPUT
 
         presxml = <<~"PRESXML"
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
            <language>en</language>
          </bibdata>
@@ -296,7 +296,7 @@ PRESXML
        </iso-standard>
         INPUT
         <?xml version='1.0'?>
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
            <language>tlh</language>
          </bibdata>
@@ -449,7 +449,7 @@ PRESXML
         INPUT
 
         presxml = <<~"PRESXML"
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
            <language>fr</language>
          </bibdata>
@@ -689,7 +689,7 @@ PRESXML
         INPUT
 
         presxml = <<~"PRESXML"
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
            <language>zh</language>
            <script>Hans</script>
@@ -944,7 +944,7 @@ PRESXML
         INPUT
 
         presxml = <<~OUTPUT
-         <iso-standard xmlns="http://riboseinc.com/isoxml">
+         <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
              <bibdata>
              <language>eo</language>
              <script>Latn</script>

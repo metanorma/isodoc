@@ -84,7 +84,7 @@ RSpec.describe IsoDoc do
        </standard-document>
     INPUT
     presxml = <<~OUTPUT
-    <standard-document xmlns="https://www.metanorma.org/ns/standoc">
+    <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
             <bibdata type="standard">
               <title language="en" format="text/plain">Document title</title>
               <language>en</language>
@@ -249,7 +249,7 @@ RSpec.describe IsoDoc do
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword>
       <note id='A' keep-with-next='true' keep-lines-together='true'>
@@ -352,7 +352,7 @@ OUTPUT
     </iso-standard>
 INPUT
 <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword>
       <note id='note1'>
@@ -640,7 +640,7 @@ B</pre>
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-     <iso-standard xmlns="http://riboseinc.com/isoxml">
+     <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
     <preface><foreword>
     <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
   <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
@@ -940,7 +940,7 @@ OUTPUT
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword>
       <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
@@ -1056,7 +1056,7 @@ OUTPUT
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword>
       <example id='samplecode'>
@@ -1092,7 +1092,7 @@ Que?
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword>
       <sourcecode lang='ruby' id='samplecode'>
@@ -1330,7 +1330,7 @@ Que?
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword>
       <formula id='_be9158af-7e93-4ee2-90c5-26d31c181934' unnumbered='true' keep-with-next='true' keep-lines-together='true'>
@@ -1583,7 +1583,7 @@ it "processes blockquotes (Presentation XML)" do
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword>
              <quote id='_044bd364-c832-4b78-8fea-92242402a1d1'>
@@ -1722,7 +1722,7 @@ it "processes blockquotes (Presentation XML)" do
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword>
              <permission id='_' keep-with-next='true' keep-lines-together='true'>
@@ -2082,7 +2082,7 @@ Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
     </iso-standard>
     INPUT
      <?xml version='1.0'?>
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword>
              <requirement id='A' unnumbered='true' keep-with-next='true' keep-lines-together='true'>
@@ -2282,7 +2282,7 @@ end
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
            <language>fr</language>
            <script>Latn</script>
@@ -2513,7 +2513,7 @@ end
     </iso-standard>
     INPUT
     <?xml version='1.0'?>
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword>
              <recommendation id='_' obligation='shall,could' keep-with-next='true' keep-lines-together='true'>
@@ -2677,7 +2677,7 @@ end
 </preface></itu-standard>
 INPUT
 <?xml version='1.0'?>
-<itu-standard xmlns='http://riboseinc.com/isoxml'>
+<itu-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <bibdata>
     <language>en</language>
   </bibdata>

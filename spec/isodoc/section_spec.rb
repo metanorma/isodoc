@@ -260,7 +260,7 @@ OUTPUT
     INPUT
 
     presxml = <<~"PRESXML"
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <boilerplate>
     <copyright-statement>
       <clause>
@@ -755,7 +755,7 @@ OUTPUT
        </iso-standard>
     INPUT
     <?xml version='1.0'?>
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword obligation='informative'>
               <title>Foreword</title>
@@ -849,7 +849,7 @@ OUTPUT
        </iso-standard>
        INPUT
        <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <introduction id='B' obligation='informative'>
       <title>Introduction</title>
@@ -876,7 +876,7 @@ OUTPUT
     INPUT
 
     presxml = <<~"OUTPUT"
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <terms id='H' obligation='normative'>
     <title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -921,7 +921,7 @@ OUTPUT
     INPUT
 
     presxml = <<~"PRESXML"
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <clause id='M' inline-header='false' obligation='normative'>
     <title depth='1'>1.<tab/>Clause 4</title>
@@ -973,7 +973,7 @@ OUTPUT
       </iso-standard>
     INPUT
     <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <clause id='M' inline-header='false' obligation='normative'>
       <title depth="1">Clause 4</title>
@@ -991,7 +991,7 @@ OUTPUT
 
         it "processes sections without titles" do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <preface>
        <introduction id="M" inline-header="false" obligation="normative"><clause id="N" inline-header="false" obligation="normative">
          <title>Intro</title>
@@ -1009,7 +1009,7 @@ OUTPUT
       </iso-standard>
     INPUT
     <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <introduction id='M' inline-header='false' obligation='normative'>
       <clause id='N' inline-header='false' obligation='normative'>
@@ -1059,7 +1059,7 @@ OUTPUT
        </iso-standard>
 INPUT
 presxml = <<~OUTPUT
-<iso-standard xmlns="http://riboseinc.com/isoxml">
+<iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
             <bibliography>
         <clause id="D" obligation="informative">
          <title depth="1">Bibliography</title>
