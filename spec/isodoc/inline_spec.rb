@@ -72,7 +72,7 @@ end
 </sections>
 </iso-standard>
 INPUT
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <clause id='A'>
       <title>1.</title>
