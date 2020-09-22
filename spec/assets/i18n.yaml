@@ -13,4 +13,13 @@ inform_annex: informa
 all_parts: ĉiuj partoj
 locality: {
   table: Tabelo
+  }
+doctype: {
+  brochure: broŝuro
+  }
+docstage: {
+  published: publikigita
 }
+docsubstage: {
+  withdrawn: fortirita
+  }
