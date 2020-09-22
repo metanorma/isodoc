@@ -14,12 +14,12 @@ all_parts: ĉiuj partoj
 locality: {
   table: Tabelo
   }
-doctype: {
+doctype_dict: {
   brochure: broŝuro
   }
-docstage: {
+stage_dict: {
   published: publikigita
 }
-docsubstage: {
+substage_dict: {
   withdrawn: fortirita
   }

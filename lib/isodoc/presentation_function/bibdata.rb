@@ -9,9 +9,9 @@ module IsoDoc
     end
 
     def bibdata_i18n(b)
-      hash_translate(b, @i18n.get["doctype"], "./ext/doctype")
-      hash_translate(b, @i18n.get["docstage"], "./status/stage")
-      hash_translate(b, @i18n.get["docsubstage"], "./status/substage")
+      hash_translate(b, @i18n.get["doctype_dict"], "./ext/doctype")
+      hash_translate(b, @i18n.get["stage_dict"], "./status/stage")
+      hash_translate(b, @i18n.get["substage_dict"], "./status/substage")
     end
 
     def hash_translate(bibdata, hash, xpath)
