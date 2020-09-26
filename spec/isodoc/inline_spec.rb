@@ -20,7 +20,7 @@ RSpec.describe IsoDoc do
 </iso-standard>
 INPUT
 <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <clause id='A'>
     <title>1.</title>
@@ -72,7 +72,7 @@ end
 </sections>
 </iso-standard>
 INPUT
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <clause id='A'>
       <title>1.</title>
@@ -280,7 +280,7 @@ OUTPUT
     </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
            <preface><foreword>
            <p>
            <ul>
@@ -648,7 +648,7 @@ OUTPUT
     </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
            <preface><foreword>
            <p>
            <eref type="inline" bibitemid="ISO712" citeas="ISO 712">ISO 712</eref>
@@ -770,7 +770,7 @@ html = <<~OUTPUT
     </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns='http://riboseinc.com/isoxml'>
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword>
              <p>
@@ -997,7 +997,7 @@ it "cases xrefs" do
 </iso-standard>
 INPUT
 <?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <sections>
     <clause id='A'>
     <title>1.</title>

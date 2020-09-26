@@ -14,6 +14,7 @@ module IsoDoc
       @xrefs.parse docxml
       info docxml, nil
       conversions(docxml)
+      docxml.root["type"] = "presentation"
       docxml.to_xml
     end
 
