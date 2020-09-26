@@ -98,8 +98,9 @@ module IsoDoc
 
     def doctype(isoxml, _out)
       b = isoxml&.at(ns('//bibdata/ext/doctype'))&.text || return
-      t = b.split(/[- ]/).map(&:capitalize).join(' ')
-      set(:doctype, t)
+      set(:doctype, status_print(b))
+      b = isoxml&.at(ns('//local_bibdata/ext/doctype'))&.text || return
+      set(:doctype_display, status_print(b))
     end
 
     def iso?(org)
@@ -135,9 +136,14 @@ module IsoDoc
       docstatus = isoxml.at(ns('//bibdata/status/stage'))
       set(:unpublished, true)
       if docstatus
+        docstatus_local = isoxml.at(ns('//local_bibdata/status/stage'))
         set(:stage, status_print(docstatus.text))
+        docstatus_local and
+          set(:stage_display, status_print(docstatus_local.text))
         (i = isoxml&.at(ns('//bibdata/status/substage'))&.text) &&
           set(:substage, i)
+        (i = isoxml&.at(ns('//local_bibdata/status/substage'))&.text) &&
+          set(:substage_display, i)
         (i = isoxml&.at(ns('//bibdata/status/iteration'))&.text) &&
           set(:iteration, i)
         set(:unpublished, unpublished(docstatus.text))
@@ -148,7 +154,7 @@ module IsoDoc
 
     def stage_abbr(docstatus)
       status_print(docstatus).split(/ /)
-                             .map { |s| s[0].upcase }.join('')
+        .map { |s| s[0].upcase }.join('')
     end
 
     def unpublished(status)
@@ -156,7 +162,7 @@ module IsoDoc
     end
 
     def status_print(status)
-      status.split(/-/).map(&:capitalize).join(' ')
+      status.split(/[- ]/).map(&:capitalize).join(' ')
     end
 
     def docid(isoxml, _out)

@@ -99,6 +99,20 @@ RSpec.describe IsoDoc do
                 <doctype>article</doctype>
               </ext>
             </bibdata>
+            <local_bibdata type='standard'>
+  <title language='en' format='text/plain'>Document title</title>
+  <language>en</language>
+  <script>Latn</script>
+  <status>
+    <stage>published</stage>
+  </status>
+  <copyright>
+    <from>2020</from>
+  </copyright>
+  <ext>
+    <doctype>article</doctype>
+  </ext>
+</local_bibdata>
             <sections>
               <clause id="A" inline-header="false" obligation="normative">
                 <title depth="1">1.<tab/>Change Clause</title>
@@ -2287,6 +2301,10 @@ end
            <language>fr</language>
            <script>Latn</script>
          </bibdata>
+         <local_bibdata>
+  <language>fr</language>
+  <script>Latn</script>
+</local_bibdata>
          <preface>
            <foreword>
              <requirement id='A' unnumbered='true'>
@@ -2351,6 +2369,10 @@ end
     <language>fr</language>
     <script>Latn</script>
     </bibdata>
+    <local_bibdata>
+  <language>fr</language>
+  <script>Latn</script>
+</local_bibdata>
     <preface><foreword>
     <requirement id="A" unnumbered="true">
     <name>Exigence</name>
@@ -2681,6 +2703,9 @@ INPUT
   <bibdata>
     <language>en</language>
   </bibdata>
+  <local_bibdata>
+  <language>en</language>
+</local_bibdata>
   <preface>
     <foreword>
       <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>
@@ -2709,6 +2734,9 @@ end
   <bibdata>
     <language>en</language>
   </bibdata>
+  <local_bibdata>
+  <language>en</language>
+</local_bibdata>
   <preface>
     <foreword>
       <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>
@@ -2751,6 +2779,9 @@ OUTPUT
   <bibdata>
     <language>en</language>
   </bibdata>
+  <local_bibdata>
+  <language>en</language>
+</local_bibdata>
   <preface>
     <foreword>
       <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>

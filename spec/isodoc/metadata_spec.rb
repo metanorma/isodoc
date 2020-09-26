@@ -95,6 +95,8 @@ RSpec.describe IsoDoc do
   <doctype>international-standard</doctype>
   </ext>
 </bibdata>
+    <local_bibdata type="standard">
+    </local_bibdata>
 </iso-standard>
 INPUT
 {:accesseddate=>"2012",
@@ -127,7 +129,7 @@ INPUT
 :receiveddate=>"XXX",
 :revdate=>"2016-05-01",
 :revdate_monthyear=>"May 2016",
-:stage=>"Committee draft",
+:stage=>"Committee Draft",
 :stageabbr=>"CD",
 :substage=>"Withdrawn",
 :transmitteddate=>"2020",

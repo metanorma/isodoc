@@ -72,6 +72,9 @@ RSpec.describe IsoDoc do
          <bibdata>
            <language>en</language>
          </bibdata>
+         <local_bibdata>
+  <language>en</language>
+</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -300,6 +303,9 @@ PRESXML
          <bibdata>
            <language>tlh</language>
          </bibdata>
+         <local_bibdata>
+  <language>tlh</language>
+</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -453,6 +459,9 @@ PRESXML
          <bibdata>
            <language>fr</language>
          </bibdata>
+         <local_bibdata>
+  <language>fr</language>
+</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -694,6 +703,10 @@ PRESXML
            <language>zh</language>
            <script>Hans</script>
          </bibdata>
+         <local_bibdata>
+  <language>zh</language>
+  <script>Hans</script>
+</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -872,6 +885,13 @@ PRESXML
       <bibdata>
       <language>eo</language>
       <script>Latn</script>
+      <status>
+      <stage>published</stage>
+      <substage>withdrawn</substage>
+      </status>
+      <ext>
+      <doctype>brochure</doctype>
+      </ext>
       </bibdata>
       <preface>
       <foreword obligation="informative">
@@ -948,7 +968,25 @@ PRESXML
              <bibdata>
              <language>eo</language>
              <script>Latn</script>
+             <status>
+  <stage>published</stage>
+  <substage>withdrawn</substage>
+</status>
+<ext>
+  <doctype>brochure</doctype>
+</ext>
              </bibdata>
+             <local_bibdata>
+  <language>eo</language>
+  <script>Latn</script>
+  <status>
+    <stage>publikigita</stage>
+    <substage>fortirita</substage>
+  </status>
+  <ext>
+    <doctype>bro&#x15D;uro</doctype>
+  </ext>
+</local_bibdata>
              <preface>
              <foreword obligation="informative">
                 <title>Foreword</title>

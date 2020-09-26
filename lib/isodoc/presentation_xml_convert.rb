@@ -1,6 +1,7 @@
 require_relative "presentation_function/block"
 require_relative "presentation_function/inline"
 require_relative "presentation_function/section"
+require_relative "presentation_function/bibdata"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -19,6 +20,7 @@ module IsoDoc
     end
 
     def conversions(docxml)
+      bibdata docxml
       section docxml
       block docxml
       inline docxml
