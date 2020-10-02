@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "liquid"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "metanorma", "~> 1.1.0"
+  spec.add_dependency "relaton-cli"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "byebug", "~> 9.1"
