@@ -23,6 +23,10 @@ module IsoDoc
       nil
     end
 
+    def pdf_options(docxml)
+      ""
+    end
+
     def convert(input_filename, file = nil, debug = false, output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
       docxml, filename, dir = convert_init(file, input_filename, debug)
@@ -34,7 +38,8 @@ module IsoDoc
       FileUtils.rm_rf dir
       ::Metanorma::Output::XslfoPdf.new.convert(input_filename,
                                                 output_filename || "#{filename}.#{@suffix}", 
-                                               File.join(@libdir, pdf_stylesheet(docxml)))
+                                               File.join(@libdir, pdf_stylesheet(docxml)),
+                                               pdf_options(docxml))
     end
 
     def xref_parse(node, out)
