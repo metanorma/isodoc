@@ -173,6 +173,7 @@ OUTPUT
     <role type="publisher"/>
     <organization>
       <name>International Organization for Standardization</name>
+      <subdivision>Subdivision</subdivision>
       <abbreviation>ISO</abbreviation>
      </organization>
   </contributor>
@@ -246,6 +247,7 @@ INPUT
 :revdate=>"2016-05",
 :revdate_monthyear=>"May 2016",
 :stage=>"Published",
+:subdivision=>"Subdivision",
 :title_footnote=>[],
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",

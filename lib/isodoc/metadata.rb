@@ -105,7 +105,7 @@ module IsoDoc
        name == 'International Organization for Standardization')
     end
 
-    def agency(xml)
+    def agency1(xml)
       agency = ''
       publisher = []
       xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = 'publisher']/"\
@@ -115,8 +115,16 @@ module IsoDoc
         publisher << name if name
         agency = iso?(org) ? "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
+      [agency, publisher]
+    end
+
+    def agency(xml)
+      agency, publisher = agency1(xml)
       set(:agency, agency.sub(%r{/$}, ''))
       set(:publisher, @i18n.multiple_and(publisher, @labels['and']))
+      a = xml.at(ns("//bibdata/contributor[xmlns:role/@type = 'publisher'][1]/"\
+                         "organization/subdivision")) and
+                        set(:subdivision, a.text)
     end
 
     def docstatus(isoxml, _out)
