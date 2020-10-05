@@ -42,55 +42,6 @@ module IsoDoc
       @labels.each do |k, v|
         self.class.send(:define_method, k.downcase) { v }
       end
-=begin
-      @term_def_boilerplate = y["term_def_boilerplate"]
-      @scope_lbl = y["scope"]
-      @symbols_lbl = y["symbols"]
-      @table_of_contents_lbl = y["table_of_contents"]
-      @introduction_lbl = y["introduction"]
-      @foreword_lbl = y["foreword"]
-      @abstract_lbl = y["abstract"]
-      @termsdef_lbl = y["termsdef"]
-      @termsdefsymbols_lbl = y["termsdefsymbols"]
-      @normref_lbl = y["normref"]
-      @bibliography_lbl = y["bibliography"]
-      @clause_lbl = y["clause"]
-      @annex_lbl = y["annex"]
-      @appendix_lbl = y["appendix"]
-      @no_terms_boilerplate = y["no_terms_boilerplate"]
-      @internal_terms_boilerplate = y["internal_terms_boilerplate"]
-      @norm_with_refs_pref = y["norm_with_refs_pref"]
-      @norm_empty_pref = y["norm_empty_pref"]
-      @external_terms_boilerplate = y["external_terms_boilerplate"]
-      @internal_external_terms_boilerplate =
-        y["internal_external_terms_boilerplate"]
-      @note_lbl = y["note"]
-      @note_xref_lbl = y["note_xref"]
-      @termnote_lbl = y["termnote"]
-      @figure_lbl = y["figure"]
-      @list_lbl = y["list"]
-      @formula_lbl = y["formula"]
-      @inequality_lbl = y["inequality"]
-      @table_lbl = y["table"]
-      @key_lbl = y["key"]
-      @example_lbl = y["example"]
-      @example_xref_lbl = y["example_xref"]
-      @where_lbl = y["where"]
-      @wholeoftext_lbl = y["wholeoftext"]
-      @draft_lbl = y["draft_label"]
-      @inform_annex_lbl = y["inform_annex"]
-      @norm_annex_lbl = y["norm_annex"]
-      @modified_lbl = y["modified"]
-      @deprecated_lbl = y["deprecated"]
-      @source_lbl = y["source"]
-      @and_lbl = y["and"]
-      @all_parts_lbl = y["all_parts"]
-      @permission_lbl = y["permission"]
-      @recommendation_lbl = y["recommendation"]
-      @requirement_lbl = y["requirement"]
-      @locality = y["locality"]
-      @admonition = y["admonition"]
-=end
     end
 
     def self.l10n(x, lang = @lang, script = @script)
@@ -113,6 +64,14 @@ module IsoDoc
       else
         x
       end
+    end
+
+    def multiple_and(names, andword)
+      return '' if names.empty?
+      return names[0] if names.length == 1
+      (names.length == 2) &&
+        (return l10n("#{names[0]} #{andword} #{names[1]}", @lang, @script))
+      l10n(names[0..-2].join(', ') + " #{andword} #{names[-1]}", @lang, @script)
     end
 
     #module_function :l10n

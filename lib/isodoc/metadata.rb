@@ -4,11 +4,6 @@ require_relative './metadata_date'
 
 module IsoDoc
   class Metadata
-    DATETYPES = %w{published accessed created implemented obsoleted confirmed
-                   updated issued received transmitted copied unchanged
-                   circulated vote-started
-                   vote-ended}.freeze
-
     attr_accessor :fonts_options
 
     def ns(xpath)
@@ -121,15 +116,7 @@ module IsoDoc
         agency = iso?(org) ? "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
       set(:agency, agency.sub(%r{/$}, ''))
-      set(:publisher, multiple_and(publisher, @labels['and']))
-    end
-
-    def multiple_and(names, andword)
-      return '' if names.empty?
-      return names[0] if names.length == 1
-      (names.length == 2) &&
-        (return l10n("#{names[0]} #{andword} #{names[1]}", @lang, @script))
-      l10n(names[0..-2].join(', ') + " #{andword} #{names[-1]}", @lang, @script)
+      set(:publisher, @i18n.multiple_and(publisher, @labels['and']))
     end
 
     def docstatus(isoxml, _out)
@@ -236,6 +223,14 @@ module IsoDoc
       ret = []
       isoxml.xpath(ns('//bibdata/keyword')).each { |kw| ret << kw.text }
       set(:keywords, ret)
+    end
+
+    def note(isoxml, _out)
+      ret = []
+      isoxml.xpath(ns("//bibdata/note[@type = 'title-footnote']")).each do |n|
+        ret << n.text
+      end
+      set(:title_footnote, ret)
     end
   end
 end

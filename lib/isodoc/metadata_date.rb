@@ -1,5 +1,10 @@
 module IsoDoc
   class Metadata
+    DATETYPES = %w{published accessed created implemented obsoleted confirmed
+                   updated issued received transmitted copied unchanged
+                   circulated vote-started
+                   vote-ended}.freeze
+
     def months
     {
         "01": @labels["month_january"],
