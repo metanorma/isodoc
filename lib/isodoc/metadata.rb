@@ -122,15 +122,23 @@ module IsoDoc
       agency, publisher = agency1(xml)
       set(:agency, agency.sub(%r{/$}, ''))
       set(:publisher, @i18n.multiple_and(publisher, @labels['and']))
+      agency_addr(xml)
+    end
+
+    def agency_addr(xml)
       a = xml.at(ns("//bibdata/contributor[xmlns:role/@type = 'publisher'][1]/"\
-                         "organization/subdivision")) and
-                        set(:subdivision, a.text)
+                         "organization")) or return
+      n = a.at(ns("./subdivision")) and set(:subdivision, n.text)
+      n = a.at(ns("./address/formattedAddress")) and set(:pub_address, n.text)
+      n = a.at(ns("./phone[not(@type = 'fax')]")) and set(:pub_phone, n.text)
+      n = a.at(ns("./phone[@type = 'fax']")) and set(:pub_fax, n.text)
+      n = a.at(ns("./email")) and set(:pub_email, n.text)
+      n = a.at(ns("./uri")) and set(:pub_uri, n.text)
     end
 
     def docstatus(isoxml, _out)
-      docstatus = isoxml.at(ns('//bibdata/status/stage'))
       set(:unpublished, true)
-      if docstatus
+      return unless docstatus = isoxml.at(ns('//bibdata/status/stage'))
         docstatus_local = isoxml.at(ns('//local_bibdata/status/stage'))
         set(:stage, status_print(docstatus.text))
         docstatus_local and
@@ -144,12 +152,10 @@ module IsoDoc
         set(:unpublished, unpublished(docstatus.text))
         unpublished(docstatus.text) &&
           set(:stageabbr, stage_abbr(docstatus.text))
-      end
     end
 
     def stage_abbr(docstatus)
-      status_print(docstatus).split(/ /)
-        .map { |s| s[0].upcase }.join('')
+      status_print(docstatus).split(/ /).map { |s| s[0].upcase }.join('')
     end
 
     def unpublished(status)
@@ -171,12 +177,10 @@ module IsoDoc
     end
 
     def draftinfo(draft, revdate)
-      draftinfo = ''
-      if draft
-        draftinfo = " (#{@labels['draft_label']} #{draft}"
-        draftinfo += ", #{revdate}" if revdate
-        draftinfo += ')'
-      end
+      return "" unless draft
+      draftinfo = " (#{@labels['draft_label']} #{draft}"
+      draftinfo += ", #{revdate}" if revdate
+      draftinfo += ')'
       l10n(draftinfo, @lang, @script)
     end
 

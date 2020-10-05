@@ -175,6 +175,13 @@ OUTPUT
       <name>International Organization for Standardization</name>
       <subdivision>Subdivision</subdivision>
       <abbreviation>ISO</abbreviation>
+      <address>
+  <formattedAddress>1 Infinity Loop + California</formattedAddress>
+</address>
+<phone>3333333</phone>
+<phone type='fax'>4444444</phone>
+<email>x@example.com</email>
+<uri>http://www.example.com</uri>
      </organization>
   </contributor>
   <contributor>
@@ -241,6 +248,11 @@ INPUT
 :obsoletes=>"IEC 8121",
 :obsoletes_part=>"3.1",
 :partof=>"IEC 8122",
+:pub_address=>"1 Infinity Loop + California",
+:pub_email=>"x@example.com",
+:pub_fax=>"4444444",
+:pub_phone=>"3333333",
+:pub_uri=>"http://www.example.com",
 :publisheddate=>"2011-01",
 :publisher=>"International Organization for Standardization, International Electrotechnical Commission and Institute of Electrical and Electronics Engineers",
 :receiveddate=>"XXX",
