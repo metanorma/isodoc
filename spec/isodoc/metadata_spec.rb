@@ -73,6 +73,9 @@ RSpec.describe IsoDoc do
       </name>
     </person>
   </contributor>
+  <note type="title-footnote"><p>A footnote</p></note>
+  <note type="iso"><p>A note</p></note>
+  <note type="title-footnote"><p>Another footnote</p></note>
   <language>en</language>
   <script>Latn</script>
   <status>
@@ -132,6 +135,7 @@ INPUT
 :stage=>"Committee Draft",
 :stageabbr=>"CD",
 :substage=>"Withdrawn",
+:title_footnote=>["A footnote", "Another footnote"],
 :transmitteddate=>"2020",
 :unchangeddate=>"2019",
 :unpublished=>true,
@@ -242,6 +246,7 @@ INPUT
 :revdate=>"2016-05",
 :revdate_monthyear=>"May 2016",
 :stage=>"Published",
+:title_footnote=>[],
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
 :unpublished=>false,
@@ -331,6 +336,7 @@ INPUT
 :revdate=>"2016-05",
 :revdate_monthyear=>"Mai 2016",
 :stage=>"Published",
+:title_footnote=>[],
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
 :unpublished=>false,
