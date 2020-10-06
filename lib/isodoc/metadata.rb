@@ -105,7 +105,7 @@ module IsoDoc
        name == 'International Organization for Standardization')
     end
 
-    def agency(xml)
+    def agency1(xml)
       agency = ''
       publisher = []
       xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = 'publisher']/"\
@@ -115,33 +115,48 @@ module IsoDoc
         publisher << name if name
         agency = iso?(org) ? "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
+      [agency, publisher]
+    end
+
+    def agency(xml)
+      agency, publisher = agency1(xml)
       set(:agency, agency.sub(%r{/$}, ''))
       set(:publisher, @i18n.multiple_and(publisher, @labels['and']))
+      agency_addr(xml)
+    end
+
+    def agency_addr(xml)
+      a = xml.at(ns("//bibdata/contributor[xmlns:role/@type = 'publisher'][1]/"\
+                    "organization")) or return
+      n = a.at(ns("./subdivision")) and set(:subdivision, n.text)
+      n = a.at(ns("./address/formattedAddress")) and
+        set(:pub_address, n.children.to_xml)
+      n = a.at(ns("./phone[not(@type = 'fax')]")) and set(:pub_phone, n.text)
+      n = a.at(ns("./phone[@type = 'fax']")) and set(:pub_fax, n.text)
+      n = a.at(ns("./email")) and set(:pub_email, n.text)
+      n = a.at(ns("./uri")) and set(:pub_uri, n.text)
     end
 
     def docstatus(isoxml, _out)
-      docstatus = isoxml.at(ns('//bibdata/status/stage'))
       set(:unpublished, true)
-      if docstatus
-        docstatus_local = isoxml.at(ns('//local_bibdata/status/stage'))
-        set(:stage, status_print(docstatus.text))
-        docstatus_local and
-          set(:stage_display, status_print(docstatus_local.text))
-        (i = isoxml&.at(ns('//bibdata/status/substage'))&.text) &&
-          set(:substage, i)
-        (i = isoxml&.at(ns('//local_bibdata/status/substage'))&.text) &&
-          set(:substage_display, i)
-        (i = isoxml&.at(ns('//bibdata/status/iteration'))&.text) &&
-          set(:iteration, i)
-        set(:unpublished, unpublished(docstatus.text))
-        unpublished(docstatus.text) &&
-          set(:stageabbr, stage_abbr(docstatus.text))
-      end
+      return unless docstatus = isoxml.at(ns('//bibdata/status/stage'))
+      docstatus_local = isoxml.at(ns('//local_bibdata/status/stage'))
+      set(:stage, status_print(docstatus.text))
+      docstatus_local and
+        set(:stage_display, status_print(docstatus_local.text))
+      (i = isoxml&.at(ns('//bibdata/status/substage'))&.text) &&
+        set(:substage, i)
+      (i = isoxml&.at(ns('//local_bibdata/status/substage'))&.text) &&
+        set(:substage_display, i)
+      (i = isoxml&.at(ns('//bibdata/status/iteration'))&.text) &&
+        set(:iteration, i)
+      set(:unpublished, unpublished(docstatus.text))
+      unpublished(docstatus.text) &&
+        set(:stageabbr, stage_abbr(docstatus.text))
     end
 
     def stage_abbr(docstatus)
-      status_print(docstatus).split(/ /)
-        .map { |s| s[0].upcase }.join('')
+      status_print(docstatus).split(/ /).map { |s| s[0].upcase }.join('')
     end
 
     def unpublished(status)
@@ -163,12 +178,10 @@ module IsoDoc
     end
 
     def draftinfo(draft, revdate)
-      draftinfo = ''
-      if draft
-        draftinfo = " (#{@labels['draft_label']} #{draft}"
-        draftinfo += ", #{revdate}" if revdate
-        draftinfo += ')'
-      end
+      return "" unless draft
+      draftinfo = " (#{@labels['draft_label']} #{draft}"
+      draftinfo += ", #{revdate}" if revdate
+      draftinfo += ')'
       l10n(draftinfo, @lang, @script)
     end
 
