@@ -127,9 +127,10 @@ module IsoDoc
 
     def agency_addr(xml)
       a = xml.at(ns("//bibdata/contributor[xmlns:role/@type = 'publisher'][1]/"\
-                         "organization")) or return
+                    "organization")) or return
       n = a.at(ns("./subdivision")) and set(:subdivision, n.text)
-      n = a.at(ns("./address/formattedAddress")) and set(:pub_address, n.text)
+      n = a.at(ns("./address/formattedAddress")) and
+        set(:pub_address, n.children.to_xml)
       n = a.at(ns("./phone[not(@type = 'fax')]")) and set(:pub_phone, n.text)
       n = a.at(ns("./phone[@type = 'fax']")) and set(:pub_fax, n.text)
       n = a.at(ns("./email")) and set(:pub_email, n.text)
@@ -139,19 +140,19 @@ module IsoDoc
     def docstatus(isoxml, _out)
       set(:unpublished, true)
       return unless docstatus = isoxml.at(ns('//bibdata/status/stage'))
-        docstatus_local = isoxml.at(ns('//local_bibdata/status/stage'))
-        set(:stage, status_print(docstatus.text))
-        docstatus_local and
-          set(:stage_display, status_print(docstatus_local.text))
-        (i = isoxml&.at(ns('//bibdata/status/substage'))&.text) &&
-          set(:substage, i)
-        (i = isoxml&.at(ns('//local_bibdata/status/substage'))&.text) &&
-          set(:substage_display, i)
-        (i = isoxml&.at(ns('//bibdata/status/iteration'))&.text) &&
-          set(:iteration, i)
-        set(:unpublished, unpublished(docstatus.text))
-        unpublished(docstatus.text) &&
-          set(:stageabbr, stage_abbr(docstatus.text))
+      docstatus_local = isoxml.at(ns('//local_bibdata/status/stage'))
+      set(:stage, status_print(docstatus.text))
+      docstatus_local and
+        set(:stage_display, status_print(docstatus_local.text))
+      (i = isoxml&.at(ns('//bibdata/status/substage'))&.text) &&
+        set(:substage, i)
+      (i = isoxml&.at(ns('//local_bibdata/status/substage'))&.text) &&
+        set(:substage_display, i)
+      (i = isoxml&.at(ns('//bibdata/status/iteration'))&.text) &&
+        set(:iteration, i)
+      set(:unpublished, unpublished(docstatus.text))
+      unpublished(docstatus.text) &&
+        set(:stageabbr, stage_abbr(docstatus.text))
     end
 
     def stage_abbr(docstatus)
