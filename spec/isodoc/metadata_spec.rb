@@ -7,7 +7,7 @@ RSpec.describe IsoDoc do
     arr = c.convert_init(<<~"INPUT", "test", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     INPUT
-  expect(Hash[c.info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
+  expect(metadata(c.info(Nokogiri::XML(<<~"INPUT"), nil))).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
   <title>The Incredible Mr Ripley</title>
@@ -128,7 +128,6 @@ INPUT
 :obsoleteddate=>"2014",
 :pdf=>"URL D",
 :publisheddate=>"2011",
-:publisher=>"",
 :receiveddate=>"XXX",
 :revdate=>"2016-05-01",
 :revdate_monthyear=>"May 2016",
@@ -152,7 +151,7 @@ OUTPUT
     arr = c.convert_init(<<~"INPUT", "test", false)
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     INPUT
-  expect(Hash[c.info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
+  expect(metadata(c.info(Nokogiri::XML(<<~"INPUT"), nil))).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
   <title language="fr" format="text/plain">Céréales et légumineuses</ti>
@@ -227,8 +226,6 @@ OUTPUT
 INPUT
 {:accesseddate=>"XXX",
 :agency=>"ISO/IEC/IEEE",
-:authors=>[],
-:authors_affiliations=>{},
 :circulateddate=>"XXX",
 :confirmeddate=>"XXX",
 :copieddate=>"XXX",
@@ -240,10 +237,8 @@ INPUT
 :docyear=>"2016",
 :draft=>"12",
 :draftinfo=>" (draft 12, 2016-05)",
-:edition=>nil,
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
-:keywords=>[],
 :obsoleteddate=>"XXX",
 :obsoletes=>"IEC 8121",
 :obsoletes_part=>"3.1",
@@ -260,7 +255,6 @@ INPUT
 :revdate_monthyear=>"May 2016",
 :stage=>"Published",
 :subdivision=>"Subdivision",
-:title_footnote=>[],
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
 :unpublished=>false,
@@ -280,7 +274,7 @@ OUTPUT
   </bibdata>
   </iso-standard>
     INPUT
-  expect(Hash[c.info(Nokogiri::XML(<<~"INPUT"), nil).sort]).to be_equivalent_to <<~"OUTPUT"
+  expect(metadata(c.info(Nokogiri::XML(<<~"INPUT"), nil))).to be_equivalent_to <<~"OUTPUT"
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
   <title language="fr" format="text/plain">Céréales et légumineuses</ti>
@@ -327,8 +321,6 @@ OUTPUT
 INPUT
 {:accesseddate=>"XXX",
 :agency=>"ISO/IEC",
-:authors=>[],
-:authors_affiliations=>{},
 :circulateddate=>"XXX",
 :confirmeddate=>"XXX",
 :copieddate=>"XXX",
@@ -337,12 +329,8 @@ INPUT
 :docnumeric=>"17301",
 :doctitle=>"Cereals and pulses",
 :docyear=>"2016",
-:draft=>nil,
-:draftinfo=>"",
-:edition=>nil,
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
-:keywords=>[],
 :obsoleteddate=>"XXX",
 :publisheddate=>"2011-01",
 :publisher=>"International Organization for Standardization et International Electrotechnical Commission",
@@ -350,7 +338,6 @@ INPUT
 :revdate=>"2016-05",
 :revdate_monthyear=>"Mai 2016",
 :stage=>"Published",
-:title_footnote=>[],
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
 :unpublished=>false,

@@ -29,6 +29,10 @@ def xmlpp(x)
   s
 end
 
+def metadata(x)
+  Hash[x.sort].delete_if{ |k, v| v.nil? || v.respond_to?(:empty?) && v.empty? }
+end
+
 def strip_guid(x)
   x.gsub(%r{ id="_[^"]+"}, ' id="_"').gsub(%r{ target="_[^"]+"}, ' target="_"').
     gsub(%r( href="#[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' href="#_"').
