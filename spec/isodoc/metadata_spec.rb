@@ -18,6 +18,8 @@ RSpec.describe IsoDoc do
   <uri type="pdf">URL D</uri>
   <uri type="doc">URL E</uri>
   <docidentifier>17301-1</docidentifier>
+  <docidentifier type="ISBN">ISBN 13</docidentifier>
+  <docidentifier type="ISBN10">ISBN 10</docidentifier>
   <docnumber>17301</docnumber>
   <date type="published"><on>2011</on></date>
   <date type="accessed"><on>2012</on></date>
@@ -122,6 +124,8 @@ INPUT
 :edition=>"2",
 :html=>"URL B",
 :implementeddate=>"XXX",
+:isbn=>"ISBN 13",
+:isbn10=>"ISBN 10",
 :issueddate=>"XXX",
 :iteration=>"2",
 :keywords=>["KW2", "KW1", "KW3"],
