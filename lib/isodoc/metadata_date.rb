@@ -40,5 +40,11 @@ module IsoDoc
                Date.parse(isodate).strftime("%B %d, %Y")
              end
     end
+
+    def bibdate(isoxml, _out)
+      isoxml.xpath(ns('//bibdata/date')).each do |d|
+        set("#{d['type'].gsub(/-/, '_')}date".to_sym, Common::date_range(d))
+      end
+    end
   end
 end

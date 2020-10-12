@@ -116,20 +116,7 @@ module IsoDoc
     end
 
     # none for this parent gem, but will be populated in child gems 
-    # which have access to stylesheets &c; e.g.
-    # {
-    #      htmlstylesheet: html_doc_path("htmlstyle.scss"),
-    #      htmlcoverpage: html_doc_path("html_rsd_titlepage.html"),
-    #      htmlintropage: html_doc_path("html_rsd_intro.html"),
-    #      scripts: html_doc_path("scripts.html"),
-    #      wordstylesheet: html_doc_path("wordstyle.scss"),
-    #      standardstylesheet: html_doc_path("rsd.scss"),
-    #      header: html_doc_path("header.html"),
-    #      wordcoverpage: html_doc_path("word_rsd_titlepage.html"),
-    #      wordintropage: html_doc_path("word_rsd_intro.html"),
-    #      ulstyle: l3
-    #      olstyle: l2
-    # }
+    # which have access to stylesheets &c
     def default_file_locations(_options)
       {}
     end
