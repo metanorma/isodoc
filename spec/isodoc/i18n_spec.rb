@@ -229,12 +229,12 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "defaults to English" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
       <language>tlh</language>
@@ -616,7 +616,7 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -875,11 +875,12 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes i18n file" do
+    mock_i18n
     input = <<~"INPUT"
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
@@ -986,6 +987,43 @@ PRESXML
   <ext>
     <doctype>bro&#x15D;uro</doctype>
   </ext>
+  <i18nyaml>
+  <i18n_foreword>Anta&#x16D;parolo</i18n_foreword>
+  <i18n_introduction>Enkonduko</i18n_introduction>
+  <i18n_clause>kla&#x16D;zo</i18n_clause>
+  <i18n_table>Tabelo</i18n_table>
+  <i18n_source>SOURCE</i18n_source>
+  <i18n_modified>modified</i18n_modified>
+  <i18n_scope>Amplekso</i18n_scope>
+  <i18n_symbols>Simboloj kai mallongigitaj terminoj</i18n_symbols>
+  <i18n_annex>Aldono</i18n_annex>
+  <i18n_normref>Normaj cita&#x135;oj</i18n_normref>
+  <i18n_bibliography>Bibliografio</i18n_bibliography>
+  <i18n_inform_annex>informa</i18n_inform_annex>
+  <i18n_all_parts>&#x109;iuj partoj</i18n_all_parts>
+  <i18n_norm_annex>normative</i18n_norm_annex>
+  <i18n_locality>
+    <i18n_table>Tabelo</i18n_table>
+  </i18n_locality>
+  <i18n_doctype_dict>
+    <i18n_brochure>bro&#x15D;uro</i18n_brochure>
+    <i18n_conference_proceedings>konferencaktoj</i18n_conference_proceedings>
+  </i18n_doctype_dict>
+  <i18n_stage_dict>
+    <i18n_published>publikigita</i18n_published>
+  </i18n_stage_dict>
+  <i18n_substage_dict>
+    <i18n_withdrawn>fortirita</i18n_withdrawn>
+  </i18n_substage_dict>
+  <i18n_array>elem1</i18n_array>
+  <i18n_array>elem2</i18n_array>
+  <i18n_array>
+    <i18n_elem3>elem4</i18n_elem3>
+    <i18n_elem5>elem6</i18n_elem5>
+  </i18n_array>
+  <i18n_language>eo</i18n_language>
+  <i18n_script>Latn</i18n_script>
+</i18nyaml>
 </local_bibdata>
              <preface>
              <foreword obligation="informative">
@@ -1166,4 +1204,11 @@ PRESXML
         expect(xmlpp(IsoDoc::PresentationXMLConvert.new({i18nyaml: "spec/assets/i18n.yaml"}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({i18nyaml: "spec/assets/i18n.yaml"}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
+
+  private
+
+  def mock_i18n
+    allow_any_instance_of(::IsoDoc::I18n).to receive(:load_yaml).with("eo", "Latn", "spec/assets/i18n.yaml").and_return(YAML.load_file("spec/assets/i18n.yaml"))
+  end
+
 end
