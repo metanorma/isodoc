@@ -11,15 +11,22 @@ normref: Normaj citaĵoj
 bibliography: Bibliografio
 inform_annex: informa
 all_parts: ĉiuj partoj
+norm_annex: normative
 locality: {
   table: Tabelo
-  }
+}
 doctype_dict: {
-  brochure: broŝuro
-  }
+  brochure: broŝuro,
+  conference proceedings: konferencaktoj
+}
 stage_dict: {
   published: publikigita
 }
 substage_dict: {
   withdrawn: fortirita
-  }
+}
+array:
+    - elem1
+    - elem2
+    - {elem3: elem4, elem5: elem6}
+void:

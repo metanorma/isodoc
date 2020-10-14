@@ -248,7 +248,7 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect((IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
 
@@ -2240,8 +2240,8 @@ end
     OUTPUT
   end
 
-   it "processes requirements in French (Presentation XML)" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+   it "processes requirements in French" do
+   input = <<~INPUT
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata>
     <language>fr</language>
@@ -2295,133 +2295,66 @@ end
     </foreword></preface>
     </iso-standard>
     INPUT
-    <?xml version='1.0'?>
-       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-         <bibdata>
+
+    presxml = <<~OUTPUT
+    <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
            <language>fr</language>
            <script>Latn</script>
-         </bibdata>
-         <local_bibdata>
-  <language>fr</language>
-  <script>Latn</script>
-</local_bibdata>
-         <preface>
-           <foreword>
-             <requirement id='A' unnumbered='true'>
-               <name>Exigence</name>
-               <title>A New Requirement</title>
-               <label>/ogc/recommendation/wfs/2</label>
-               <inherit>/ss/584/2015/level/1</inherit>
-               <subject>user</subject>
-               <description>
-                 <p id='_'>
-                   I recommend
-                   <em>this</em>
-                   .
-                 </p>
-               </description>
-               <specification exclude='true' type='tabular'>
-                 <p id='_'>This is the object of the recommendation:</p>
-                 <table id='_'>
-                   <tbody>
-                     <tr>
-                       <td style='text-align:left;'>Object</td>
-                       <td style='text-align:left;'>Value</td>
-                     </tr>
-                     <tr>
-                       <td style='text-align:left;'>Mission</td>
-                       <td style='text-align:left;'>Accomplished</td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </specification>
-               <description>
-                 <p id='_'>As for the measurement targets,</p>
-               </description>
-               <measurement-target exclude='false'>
-                 <p id='_'>The measurement target shall be measured as:</p>
-                 <formula id='B'>
-                   <name>1</name>
-                   <stem type='AsciiMath'>r/1 = 0</stem>
-                 </formula>
-               </measurement-target>
-               <verification exclude='false'>
-                 <p id='_'>The following code will be run for verification:</p>
-                 <sourcecode id='_'>
-                   CoreRoot(success): HttpResponse if (success) recommendation(label:
-                   success-response) end
-                 </sourcecode>
-               </verification>
-               <import exclude='true'>
-                 <sourcecode id='_'>success-response()</sourcecode>
-               </import>
-             </requirement>
-           </foreword>
-         </preface>
-         </iso-standard>
+           </bibdata><local_bibdata>
+           <language>fr</language>
+           <script>Latn</script>
+           </local_bibdata>
+           <preface><foreword>
+           <requirement id="A" unnumbered="true"><name>Exigence</name>
+         <title>A New Requirement</title>
+         <label>/ogc/recommendation/wfs/2</label>
+         <inherit>/ss/584/2015/level/1</inherit>
+         <subject>user</subject>
+         <description>
+           <p id="_">I recommend <em>this</em>.</p>
+         </description>
+         <specification exclude="true" type="tabular">
+           <p id="_">This is the object of the recommendation:</p>
+           <table id="_">
+             <tbody>
+               <tr>
+                 <td style="text-align:left;">Object</td>
+                 <td style="text-align:left;">Value</td>
+               </tr>
+               <tr>
+                 <td style="text-align:left;">Mission</td>
+                 <td style="text-align:left;">Accomplished</td>
+               </tr>
+             </tbody>
+           </table>
+         </specification>
+         <description>
+           <p id="_">As for the measurement targets,</p>
+         </description>
+         <measurement-target exclude="false">
+           <p id="_">The measurement target shall be measured as:</p>
+           <formula id="B"><name>1</name>
+             <stem type="AsciiMath">r/1 = 0</stem>
+           </formula>
+         </measurement-target>
+         <verification exclude="false">
+           <p id="_">The following code will be run for verification:</p>
+<sourcecode id="_">CoreRoot(success): HttpResponse
+  if (success)
+  recommendation(label: success-response)
+  end
+</sourcecode>
+         </verification>
+         <import exclude="true">
+           <sourcecode id="_">success-response()</sourcecode>
+         </import>
+       </requirement>
+           </foreword></preface>
+           </iso-standard>
 OUTPUT
-end
 
-   it "processes requirements in French (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <bibdata>
-    <language>fr</language>
-    <script>Latn</script>
-    </bibdata>
-    <local_bibdata>
-  <language>fr</language>
-  <script>Latn</script>
-</local_bibdata>
-    <preface><foreword>
-    <requirement id="A" unnumbered="true">
-    <name>Exigence</name>
-  <title>A New Requirement</title>
-  <label>/ogc/recommendation/wfs/2</label>
-  <inherit>/ss/584/2015/level/1</inherit>
-  <subject>user</subject>
-  <description>
-    <p id="_">I recommend <em>this</em>.</p>
-  </description>
-  <specification exclude="true" type="tabular">
-    <p id="_">This is the object of the recommendation:</p>
-    <table id="_">
-      <tbody>
-        <tr>
-          <td style="text-align:left;">Object</td>
-          <td style="text-align:left;">Value</td>
-        </tr>
-        <tr>
-          <td style="text-align:left;">Mission</td>
-          <td style="text-align:left;">Accomplished</td>
-        </tr>
-      </tbody>
-    </table>
-  </specification>
-  <description>
-    <p id="_">As for the measurement targets,</p>
-  </description>
-  <measurement-target exclude="false">
-    <p id="_">The measurement target shall be measured as:</p>
-    <formula id="B">
-      <stem type="AsciiMath">r/1 = 0</stem>
-    </formula>
-  </measurement-target>
-  <verification exclude="false">
-    <p id="_">The following code will be run for verification:</p>
-    <sourcecode id="_">CoreRoot(success): HttpResponse
-      if (success)
-      recommendation(label: success-response)
-      end
-    </sourcecode>
-  </verification>
-  <import exclude="true">
-    <sourcecode id="_">success-response()</sourcecode>
-  </import>
-</requirement>
-    </foreword></preface>
-    </iso-standard>
-    INPUT
+html = <<~OUTPUT
 #{HTML_HDR.gsub(/"en"/, '"fr"')}
              <br/>
              <div>
@@ -2454,6 +2387,7 @@ end
                    <div id='B'><div class='formula'>
                      <p>
                        <span class='stem'>(#(r/1 = 0)#)</span>
+                       &#160; (1)
                      </p>
                      </div>
                    </div>
@@ -2463,14 +2397,12 @@ end
                    <pre id='_' class='prettyprint '>
                      CoreRoot(success): HttpResponse
                      <br/>
-                     &#160;&#160;&#160;&#160;&#160; if (success)
+                     &#160; if (success)
                      <br/>
-                     &#160;&#160;&#160;&#160;&#160; recommendation(label:
-                     success-response)
+                     &#160; recommendation(label: success-response)
                      <br/>
-                     &#160;&#160;&#160;&#160;&#160; end
+                     &#160; end
                      <br/>
-                     &#160;&#160;&#160;
                    </pre>
                  </div>
                </div>
@@ -2480,6 +2412,8 @@ end
          </body>
        </html>
 OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
 end
 
  it "processes recommendation (Presentation XML)" do
@@ -2686,8 +2620,8 @@ end
     OUTPUT
   end
 
-  it "processes pseudocode (Presentation XML)" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes pseudocode" do
+    input = <<~INPUT
 <itu-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata>
     <language>en</language>
@@ -2698,65 +2632,24 @@ end
 <p id="_">  <em>C</em></p></figure>
 </preface></itu-standard>
 INPUT
-<?xml version='1.0'?>
-<itu-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-  <bibdata>
-    <language>en</language>
-  </bibdata>
-  <local_bibdata>
-  <language>en</language>
-</local_bibdata>
-  <preface>
-    <foreword>
-      <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>
-        <name>Figure 1&#xA0;&#x2014; Label</name>
-        <p id='_'>
-          &#xA0;&#xA0;
-          <strong>A</strong>
-          <br/>
-           &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;
-          <smallcap>B</smallcap>
-        </p>
-        <p id='_'>
-          &#xA0;&#xA0;
-          <em>C</em>
-        </p>
-      </figure>
-    </foreword>
-  </preface>
-</itu-standard>
-OUTPUT
-end
 
- it "processes pseudocode (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-<itu-standard xmlns='http://riboseinc.com/isoxml'>
-  <bibdata>
-    <language>en</language>
-  </bibdata>
-  <local_bibdata>
-  <language>en</language>
-</local_bibdata>
-  <preface>
-    <foreword>
-      <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>
-        <name>Figure 1&#xA0;&#x2014; Label</name>
-        <p id='_'>
-          &#xA0;&#xA0;
-          <strong>A</strong>
-          <br/>
-           &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;
-          <smallcap>B</smallcap>
-        </p>
-        <p id='_'>
-          &#xA0;&#xA0;
-          <em>C</em>
-        </p>
-      </figure>
-    </foreword>
-  </preface>
-</itu-standard>
-INPUT
+presxml = <<~OUTPUT
+       <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
+           <language>en</language>
+           </bibdata><local_bibdata>
+           <language>en</language>
+       </local_bibdata>
+               <preface><foreword>
+         <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Figure 1&#xA0;&#x2014; Label</name><p id="_">&#xA0;&#xA0;<strong>A</strong><br/>
+       &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<smallcap>B</smallcap></p>
+       <p id="_">&#xA0;&#xA0;<em>C</em></p></figure>
+       </foreword></preface>
+       </itu-standard>
+
+OUTPUT
+
+html = <<~OUTPUT
     #{HTML_HDR}
              <br/>
              <div>
@@ -2770,38 +2663,11 @@ INPUT
          </body>
 </html>
 OUTPUT
-  end
 
-  it "processes pseudocode (Word)" do
     FileUtils.rm_f "test.doc"
-    IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", false)
-    <itu-standard xmlns='http://riboseinc.com/isoxml'>
-  <bibdata>
-    <language>en</language>
-  </bibdata>
-  <local_bibdata>
-  <language>en</language>
-</local_bibdata>
-  <preface>
-    <foreword>
-      <figure id='_' class='pseudocode' keep-with-next='true' keep-lines-together='true'>
-        <name>Figure 1&#xA0;&#x2014; Label</name>
-        <p id='_'>
-          &#xA0;&#xA0;
-          <strong>A</strong>
-          <br/>
-           &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;
-          <smallcap>B</smallcap>
-        </p>
-        <p id='_'>
-          &#xA0;&#xA0;
-          <em>C</em>
-        </p>
-      </figure>
-    </foreword>
-  </preface>
-</itu-standard>
-INPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    IsoDoc::WordConvert.new({}).convert("test", presxml, false)
     expect(xmlpp( File.read("test.doc").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{</div>.*}m, "</div>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
