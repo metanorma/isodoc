@@ -183,7 +183,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     def generate_header(filename, _dir)
       return nil unless @header
       template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
-      meta = @meta.get
+      meta = @meta.get.merge(@labels || {}).merge(@meta.labels || {})
       meta[:filename] = filename
       params = meta.map { |k, v| [k.to_s, v] }.to_h
       Tempfile.open(%w(header html), :encoding => "utf-8") do |f|
