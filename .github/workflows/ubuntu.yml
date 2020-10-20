@@ -31,16 +31,24 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+      - name: Cache gems
+        uses: actions/cache@preview
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-${{ matrix.ruby }}-gem-${{ hashFiles('Gemfile') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.ruby }}-gem-
+      - name: Update gems
+        run: |
+          gem install bundler
+          bundle config --local path vendor/bundle
+          bundle install --jobs 4 --retry 3
       - name: Install Inkscape
         run: |
           sudo add-apt-repository ppa:inkscape.dev/stable
           sudo apt update
           sudo apt install inkscape
           inkscape --version
-      - name: Update gems
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
       - name: Run specs
         run: |
           bundle exec rake
