@@ -127,3 +127,8 @@ b, strong {
 div.document-stage-band, div.document-type-band {
   background-color: #333333;
 }
+
+a.FootnoteRef + a.FootnoteRef:before {
+    content: ", ";
+    vertical-align: super;
+  }
