@@ -4,24 +4,30 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def bibdata(docxml)
       a = docxml.at(ns("//bibdata")) or return
-      b = a.dup
-      b.name = "local_bibdata"
-      bibdata_i18n(b)
-      a.next = b
+      a.xpath(ns("./language")).each do |l|
+        l.text == @lang and l["current"] = "true"
+      end
+      a.xpath(ns("./script")).each do |l|
+        l.text == @script and l["current"] = "true"
+      end
+      bibdata_i18n(a)
+      a.next = "<localized-strings>#{Gyoku.xml(i8n_name(trim_hash(@i18n.get)))}</localized-strings>"
     end
 
     def bibdata_i18n(b)
-      b << "<i18nyaml>#{Gyoku.xml(i8n_name(trim_hash(@i18n.get)))}</i18nyaml>"
       hash_translate(b, @i18n.get["doctype_dict"], "./ext/doctype")
       hash_translate(b, @i18n.get["stage_dict"], "./status/stage")
       hash_translate(b, @i18n.get["substage_dict"], "./status/substage")
     end
 
     def hash_translate(bibdata, hash, xpath)
-      hash.is_a? Hash or return
       x = bibdata.at(ns(xpath)) or return
+      x["language"] = ""
+      hash.is_a? Hash or return
       hash[x.text] or return
-      x.children = hash[x.text]
+      x.next = x.dup
+      x.next["language"] = @lang
+      x.next.children = hash[x.text]
     end
 
     def i8n_name(h)

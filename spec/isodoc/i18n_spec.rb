@@ -70,11 +70,8 @@ RSpec.describe IsoDoc do
         presxml = <<~"PRESXML"
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
-           <language>en</language>
+           <language current="true">en</language>
          </bibdata>
-         <local_bibdata>
-  <language>en</language>
-</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -229,12 +226,12 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "defaults to English" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
       <language>tlh</language>
@@ -301,11 +298,8 @@ PRESXML
         <?xml version='1.0'?>
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
-           <language>tlh</language>
+           <language current="true">tlh</language>
          </bibdata>
-         <local_bibdata>
-  <language>tlh</language>
-</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -457,11 +451,8 @@ PRESXML
         presxml = <<~"PRESXML"
         <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
-           <language>fr</language>
+           <language current="true">fr</language>
          </bibdata>
-         <local_bibdata>
-  <language>fr</language>
-</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -616,7 +607,7 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -700,13 +691,9 @@ PRESXML
         presxml = <<~"PRESXML"
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
-           <language>zh</language>
-           <script>Hans</script>
+           <language current="true">zh</language>
+           <script current="true">Hans</script>
          </bibdata>
-         <local_bibdata>
-  <language>zh</language>
-  <script>Hans</script>
-</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -875,7 +862,7 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -967,27 +954,20 @@ PRESXML
         presxml = <<~OUTPUT
          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
              <bibdata>
-             <language>eo</language>
-             <script>Latn</script>
+             <language current="true">eo</language>
+             <script current="true">Latn</script>
              <status>
-  <stage>published</stage>
-  <substage>withdrawn</substage>
+             <stage language=''>published</stage>
+<stage language='eo'>publikigita</stage>
+<substage language=''>withdrawn</substage>
+<substage language='eo'>fortirita</substage>
 </status>
 <ext>
-  <doctype>brochure</doctype>
+<doctype language=''>brochure</doctype>
+<doctype language='eo'>bro&#x15D;uro</doctype>
 </ext>
              </bibdata>
-             <local_bibdata>
-  <language>eo</language>
-  <script>Latn</script>
-  <status>
-    <stage>publikigita</stage>
-    <substage>fortirita</substage>
-  </status>
-  <ext>
-    <doctype>bro&#x15D;uro</doctype>
-  </ext>
-  <i18nyaml>
+  <localized-strings>
   <i18n_foreword>Anta&#x16D;parolo</i18n_foreword>
   <i18n_introduction>Enkonduko</i18n_introduction>
   <i18n_clause>kla&#x16D;zo</i18n_clause>
@@ -1023,8 +1003,7 @@ PRESXML
   </i18n_array>
   <i18n_language>eo</i18n_language>
   <i18n_script>Latn</i18n_script>
-</i18nyaml>
-</local_bibdata>
+</localized-strings>
              <preface>
              <foreword obligation="informative">
                 <title>Foreword</title>

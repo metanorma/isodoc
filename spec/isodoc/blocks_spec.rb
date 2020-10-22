@@ -87,32 +87,18 @@ RSpec.describe IsoDoc do
     <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
             <bibdata type="standard">
               <title language="en" format="text/plain">Document title</title>
-              <language>en</language>
-              <script>Latn</script>
+              <language current="true">en</language>
+              <script current="true">Latn</script>
               <status>
-                <stage>published</stage>
+                <stage language="">published</stage>
               </status>
               <copyright>
                 <from>2020</from>
               </copyright>
               <ext>
-                <doctype>article</doctype>
+                <doctype language="">article</doctype>
               </ext>
             </bibdata>
-            <local_bibdata type='standard'>
-  <title language='en' format='text/plain'>Document title</title>
-  <language>en</language>
-  <script>Latn</script>
-  <status>
-    <stage>published</stage>
-  </status>
-  <copyright>
-    <from>2020</from>
-  </copyright>
-  <ext>
-    <doctype>article</doctype>
-  </ext>
-</local_bibdata>
             <sections>
               <clause id="A" inline-header="false" obligation="normative">
                 <title depth="1">1.<tab/>Change Clause</title>
@@ -248,7 +234,7 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect((IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<localized-strings>.*</localized-strings>}m, "")).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
 
@@ -2299,12 +2285,9 @@ end
     presxml = <<~OUTPUT
     <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
            <bibdata>
-           <language>fr</language>
-           <script>Latn</script>
-           </bibdata><local_bibdata>
-           <language>fr</language>
-           <script>Latn</script>
-           </local_bibdata>
+           <language current="true">fr</language>
+           <script current="true">Latn</script>
+           </bibdata>
            <preface><foreword>
            <requirement id="A" unnumbered="true"><name>Exigence</name>
          <title>A New Requirement</title>
@@ -2412,7 +2395,7 @@ html = <<~OUTPUT
          </body>
        </html>
 OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<localized-strings>.*</localized-strings>}m, "")).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
 end
 
@@ -2636,10 +2619,8 @@ INPUT
 presxml = <<~OUTPUT
        <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
            <bibdata>
-           <language>en</language>
-           </bibdata><local_bibdata>
-           <language>en</language>
-       </local_bibdata>
+           <language current="true">en</language>
+           </bibdata>
                <preface><foreword>
          <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Figure 1&#xA0;&#x2014; Label</name><p id="_">&#xA0;&#xA0;<strong>A</strong><br/>
        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<smallcap>B</smallcap></p>
@@ -2665,7 +2646,7 @@ html = <<~OUTPUT
 OUTPUT
 
     FileUtils.rm_f "test.doc"
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<localized-strings>.*</localized-strings>}m, "")).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     IsoDoc::WordConvert.new({}).convert("test", presxml, false)
     expect(xmlpp( File.read("test.doc").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{</div>.*}m, "</div>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
