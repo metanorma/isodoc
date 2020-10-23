@@ -40,7 +40,7 @@ jobs:
       - name: Install Inkscape macOS
         if: matrix.os == 'macos-latest'
         run: |
-          brew install caskformula/caskformula/inkscape
+          brew cask install inkscape
           inkscape --version
 
       - name: Install Inkscape Ubuntu
