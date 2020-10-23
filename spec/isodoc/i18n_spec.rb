@@ -70,11 +70,8 @@ RSpec.describe IsoDoc do
         presxml = <<~"PRESXML"
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
-           <language>en</language>
+           <language current="true">en</language>
          </bibdata>
-         <local_bibdata>
-  <language>en</language>
-</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -229,12 +226,12 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "defaults to English" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
       <language>tlh</language>
@@ -301,11 +298,8 @@ PRESXML
         <?xml version='1.0'?>
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
-           <language>tlh</language>
+           <language current="true">tlh</language>
          </bibdata>
-         <local_bibdata>
-  <language>tlh</language>
-</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -457,11 +451,8 @@ PRESXML
         presxml = <<~"PRESXML"
         <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
-           <language>fr</language>
+           <language current="true">fr</language>
          </bibdata>
-         <local_bibdata>
-  <language>fr</language>
-</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -616,7 +607,7 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -700,13 +691,9 @@ PRESXML
         presxml = <<~"PRESXML"
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <bibdata>
-           <language>zh</language>
-           <script>Hans</script>
+           <language current="true">zh</language>
+           <script current="true">Hans</script>
          </bibdata>
-         <local_bibdata>
-  <language>zh</language>
-  <script>Hans</script>
-</local_bibdata>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -875,7 +862,7 @@ PRESXML
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -967,64 +954,46 @@ PRESXML
         presxml = <<~OUTPUT
          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
              <bibdata>
-             <language>eo</language>
-             <script>Latn</script>
+             <language current="true">eo</language>
+             <script current="true">Latn</script>
              <status>
-  <stage>published</stage>
-  <substage>withdrawn</substage>
+             <stage language=''>published</stage>
+<stage language='eo'>publikigita</stage>
+<substage language=''>withdrawn</substage>
+<substage language='eo'>fortirita</substage>
 </status>
 <ext>
-  <doctype>brochure</doctype>
+<doctype language=''>brochure</doctype>
+<doctype language='eo'>bro&#x15D;uro</doctype>
 </ext>
              </bibdata>
-             <local_bibdata>
-  <language>eo</language>
-  <script>Latn</script>
-  <status>
-    <stage>publikigita</stage>
-    <substage>fortirita</substage>
-  </status>
-  <ext>
-    <doctype>bro&#x15D;uro</doctype>
-  </ext>
-  <i18nyaml>
-  <i18n_foreword>Anta&#x16D;parolo</i18n_foreword>
-  <i18n_introduction>Enkonduko</i18n_introduction>
-  <i18n_clause>kla&#x16D;zo</i18n_clause>
-  <i18n_table>Tabelo</i18n_table>
-  <i18n_source>SOURCE</i18n_source>
-  <i18n_modified>modified</i18n_modified>
-  <i18n_scope>Amplekso</i18n_scope>
-  <i18n_symbols>Simboloj kai mallongigitaj terminoj</i18n_symbols>
-  <i18n_annex>Aldono</i18n_annex>
-  <i18n_normref>Normaj cita&#x135;oj</i18n_normref>
-  <i18n_bibliography>Bibliografio</i18n_bibliography>
-  <i18n_inform_annex>informa</i18n_inform_annex>
-  <i18n_all_parts>&#x109;iuj partoj</i18n_all_parts>
-  <i18n_norm_annex>normative</i18n_norm_annex>
-  <i18n_locality>
-    <i18n_table>Tabelo</i18n_table>
-  </i18n_locality>
-  <i18n_doctype_dict>
-    <i18n_brochure>bro&#x15D;uro</i18n_brochure>
-    <i18n_conference_proceedings>konferencaktoj</i18n_conference_proceedings>
-  </i18n_doctype_dict>
-  <i18n_stage_dict>
-    <i18n_published>publikigita</i18n_published>
-  </i18n_stage_dict>
-  <i18n_substage_dict>
-    <i18n_withdrawn>fortirita</i18n_withdrawn>
-  </i18n_substage_dict>
-  <i18n_array>elem1</i18n_array>
-  <i18n_array>elem2</i18n_array>
-  <i18n_array>
-    <i18n_elem3>elem4</i18n_elem3>
-    <i18n_elem5>elem6</i18n_elem5>
-  </i18n_array>
-  <i18n_language>eo</i18n_language>
-  <i18n_script>Latn</i18n_script>
-</i18nyaml>
-</local_bibdata>
+  <localized-strings>
+  <localized-string key='foreword' language='eo'>Anta&#x16D;parolo</localized-string>
+<localized-string key='introduction' language='eo'>Enkonduko</localized-string>
+<localized-string key='clause' language='eo'>kla&#x16D;zo</localized-string>
+<localized-string key='table' language='eo'>Tabelo</localized-string>
+<localized-string key='source' language='eo'>SOURCE</localized-string>
+<localized-string key='modified' language='eo'>modified</localized-string>
+<localized-string key='scope' language='eo'>Amplekso</localized-string>
+<localized-string key='symbols' language='eo'>Simboloj kai mallongigitaj terminoj</localized-string>
+<localized-string key='annex' language='eo'>Aldono</localized-string>
+<localized-string key='normref' language='eo'>Normaj cita&#x135;oj</localized-string>
+<localized-string key='bibliography' language='eo'>Bibliografio</localized-string>
+<localized-string key='inform_annex' language='eo'>informa</localized-string>
+<localized-string key='all_parts' language='eo'>&#x109;iuj partoj</localized-string>
+<localized-string key='norm_annex' language='eo'>normative</localized-string>
+<localized-string key='locality.table' language='eo'>Tabelo</localized-string>
+<localized-string key='doctype_dict.brochure' language='eo'>bro&#x15D;uro</localized-string>
+<localized-string key='doctype_dict.conference_proceedings' language='eo'>konferencaktoj</localized-string>
+<localized-string key='stage_dict.published' language='eo'>publikigita</localized-string>
+<localized-string key='substage_dict.withdrawn' language='eo'>fortirita</localized-string>
+<localized-string key='array.0' language='eo'>elem1</localized-string>
+<localized-string key='array.1' language='eo'>elem2</localized-string>
+<localized-string key='array.2.elem3' language='eo'>elem4</localized-string>
+<localized-string key='array.2.elem5' language='eo'>elem6</localized-string>
+<localized-string key='language' language='eo'>eo</localized-string>
+<localized-string key='script' language='eo'>Latn</localized-string>
+</localized-strings>
              <preface>
              <foreword obligation="informative">
                 <title>Foreword</title>

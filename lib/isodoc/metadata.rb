@@ -38,29 +38,33 @@ module IsoDoc
       @metadata[key] = value
     end
 
-    def doctype(isoxml, _out)
-      b = isoxml&.at(ns('//bibdata/ext/doctype'))&.text || return
-      set(:doctype, status_print(b))
-      b = isoxml&.at(ns('//local_bibdata/ext/doctype'))&.text || return
-      set(:doctype_display, status_print(b))
+    NOLANG = "[not(@language) or @language = '']".freeze
+
+    def currlang
+      "[@language = '#{@lang}']"
     end
 
-    def docstatus(isoxml, _out)
+    def doctype(isoxml, _out)
+      b = isoxml&.at(ns("//bibdata/ext/doctype#{NOLANG}"))&.text || return
+      set(:doctype, status_print(b))
+      b1 = isoxml&.at(ns("//bibdata/ext/doctype#{currlang}"))&.text || b
+      set(:doctype_display, status_print(b1))
+    end
+
+    def docstatus(xml, _out)
       set(:unpublished, true)
-      return unless docstatus = isoxml.at(ns('//bibdata/status/stage'))
-      docstatus_local = isoxml.at(ns('//local_bibdata/status/stage'))
-      set(:stage, status_print(docstatus.text))
-      docstatus_local and
-        set(:stage_display, status_print(docstatus_local.text))
-      (i = isoxml&.at(ns('//bibdata/status/substage'))&.text) &&
+      return unless s = xml.at(ns("//bibdata/status/stage#{NOLANG}"))
+      s1 = xml.at(ns("//bibdata/status/stage#{currlang}")) || s
+      set(:stage, status_print(s.text))
+      s1 and set(:stage_display, status_print(s1.text))
+      (i = xml&.at(ns("//bibdata/status/substage#{NOLANG}"))&.text) and
         set(:substage, i)
-      (i = isoxml&.at(ns('//local_bibdata/status/substage'))&.text) &&
-        set(:substage_display, i)
-      (i = isoxml&.at(ns('//bibdata/status/iteration'))&.text) &&
-        set(:iteration, i)
-      set(:unpublished, unpublished(docstatus.text))
-      unpublished(docstatus.text) &&
-        set(:stageabbr, stage_abbr(docstatus.text))
+      (i1 = xml&.at(ns("//bibdata/status/substage#{currlang}"))&.text || i) and
+        set(:substage_display, i1)
+      (i2 = xml&.at(ns('//bibdata/status/iteration'))&.text) and
+        set(:iteration, i2)
+      set(:unpublished, unpublished(s.text))
+      unpublished(s.text) && set(:stageabbr, stage_abbr(s.text))
     end
 
     def stage_abbr(docstatus)
@@ -112,7 +116,7 @@ module IsoDoc
     end
 
     def title(isoxml, _out)
-      main = isoxml&.at(ns("//bibdata/title[@language='en']"))&.text
+      main = isoxml&.at(ns("//bibdata/title[@language='#{@lang}']"))&.text
       set(:doctitle, main)
     end
 

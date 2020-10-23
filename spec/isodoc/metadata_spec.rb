@@ -100,8 +100,6 @@ RSpec.describe IsoDoc do
   <doctype>international-standard</doctype>
   </ext>
 </bibdata>
-    <local_bibdata type="standard">
-    </local_bibdata>
 </iso-standard>
 INPUT
 {:accesseddate=>"2012",
@@ -118,6 +116,7 @@ INPUT
 :docnumeric=>"17301",
 :doctitle=>"Cereals and pulses",
 :doctype=>"International Standard",
+:doctype_display=>"International Standard",
 :docyear=>"2016",
 :draft=>"0.4",
 :draftinfo=>" (draft 0.4, 2016-05-01)",
@@ -138,8 +137,10 @@ INPUT
 :revdate_monthyear=>"May 2016",
 :script=>"Latn",
 :stage=>"Committee Draft",
+:stage_display=>"Committee Draft",
 :stageabbr=>"CD",
 :substage=>"Withdrawn",
+:substage_display=>"Withdrawn",
 :title_footnote=>["A footnote", "Another footnote"],
 :transmitteddate=>"2020",
 :unchangeddate=>"2019",
@@ -240,6 +241,7 @@ INPUT
 :docnumeric=>"17301",
 :doctitle=>"Cereals and pulses",
 :doctype=>"International Standard",
+:doctype_display=>"International Standard",
 :docyear=>"2016",
 :draft=>"12",
 :draftinfo=>" (draft 12, 2016-05)",
@@ -262,6 +264,7 @@ INPUT
 :revdate_monthyear=>"May 2016",
 :script=>"Latn",
 :stage=>"Published",
+:stage_display=>"Published",
 :subdivision=>"Subdivision",
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
@@ -279,6 +282,17 @@ OUTPUT
     <bibdata type="standard">
   <language>fr</language>
   <script>Latn</script>
+  <status>
+    <stage lang="">Committee Draft</stage>
+    <stage lang=fr">Projet de comité</stage>
+    <substage lang="">Withdrawn</substage>
+    <substage lang="fr">Rétiré</substage>
+    <iteration>2</iteration>
+  </status>
+<ext>
+<doctype lang="">international-standard</doctype>
+<doctype lang="fr">Standard international</doctype>
+</ext>
   </bibdata>
   </iso-standard>
     INPUT
@@ -315,7 +329,13 @@ OUTPUT
   </contributor>
   <language>fr</language>
   <script>Latn</script>
-  <status><stage>Published</stage></status>
+  <status>
+    <stage language="">Committee Draft</stage>
+    <stage language="fr">Projet de comité</stage>
+    <substage language="">Withdrawn</substage>
+    <substage language="fr">Rétiré</substage>
+    <iteration>2</iteration>
+  </status>
   <copyright>
     <from>2016</from>
     <owner>
@@ -324,6 +344,10 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
+<ext>
+<doctype language="">international-standard</doctype>
+<doctype language="fr">Standard international</doctype>
+</ext>
 </bibdata>
 </iso-standard>
 INPUT
@@ -335,10 +359,13 @@ INPUT
 :createddate=>"XXX",
 :docnumber=>"17301-1-3",
 :docnumeric=>"17301",
-:doctitle=>"Cereals and pulses",
+:doctitle=>"Céréales et légumineuses",
+:doctype=>"International Standard",
+:doctype_display=>"Standard International",
 :docyear=>"2016",
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
+:iteration=>"2",
 :lang=>"fr",
 :obsoleteddate=>"XXX",
 :publisheddate=>"2011-01",
@@ -347,10 +374,14 @@ INPUT
 :revdate=>"2016-05",
 :revdate_monthyear=>"Mai 2016",
 :script=>"Latn",
-:stage=>"Published",
+:stage=>"Committee Draft",
+:stage_display=>"Projet De Comité",
+:stageabbr=>"CD",
+:substage=>"Withdrawn",
+:substage_display=>"Rétiré",
 :transmitteddate=>"XXX",
 :unchangeddate=>"XXX",
-:unpublished=>false,
+:unpublished=>true,
 :updateddate=>"XXX",
 :vote_endeddate=>"XXX",
 :vote_starteddate=>"XXX"}
