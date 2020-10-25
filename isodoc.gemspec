@@ -38,7 +38,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "roman-numerals"
   spec.add_dependency "metanorma", "~> 1.2.0"
   spec.add_dependency "relaton-cli"
-  spec.add_dependency "gyoku", "~> 1.3"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "byebug", "~> 9.1"
