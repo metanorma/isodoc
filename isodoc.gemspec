@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "html2doc", "~> 1.0.0"
   spec.add_dependency "liquid"
   spec.add_dependency "roman-numerals"
-  spec.add_dependency "metanorma", "~> 1.1.0"
+  spec.add_dependency "metanorma", "~> 1.2.0"
   spec.add_dependency "relaton-cli"
   spec.add_dependency "gyoku", "~> 1.3"
 
