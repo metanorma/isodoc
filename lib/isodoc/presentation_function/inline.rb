@@ -1,3 +1,5 @@
+require "twitter_cldr"
+
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_container(container, linkend, _target)
@@ -51,13 +53,13 @@ module IsoDoc
       end
     end
 
-    def get_linkend(node)
-      contents = non_locality_elems(node).select { |c| !c.text? || /\S/.match(c) }
+    def get_linkend(n)
+      contents = non_locality_elems(n).select { |c| !c.text? || /\S/.match(c) }
       return unless contents.empty?
-      link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
-      link += eref_localities(node.xpath(ns("./locality | ./localityStack")), link)
-      non_locality_elems(node).each { |n| n.remove }
-      node.add_child(link)
+      link = anchor_linkend(n, docid_l10n(n["target"] || n["citeas"]))
+      link += eref_localities(n.xpath(ns("./locality | ./localityStack")), link)
+      non_locality_elems(n).each { |n| n.remove }
+      n.add_child(link)
     end
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
     # <locality type="section"><reference>3.1</reference></locality></origin>
@@ -104,7 +106,8 @@ module IsoDoc
     # TODO: move to localization file
     def eref_localities1(target, type, from, to, delim, lang = "en")
       return "" if type == "anchor"
-      return l10n(eref_localities1_zh(target, type, from, to, delim)) if lang == "zh"
+      lang == "zh" and
+        return l10n(eref_localities1_zh(target, type, from, to, delim))
       ret = delim
       loc = @i18n.locality[type] || type.sub(/^locality:/, "").capitalize
       ret += " #{loc}"
@@ -114,31 +117,58 @@ module IsoDoc
     end
 
     def xref(docxml)
-      docxml.xpath(ns("//xref")).each do |f|
-        xref1(f)
-      end
+      docxml.xpath(ns("//xref")).each { |f| xref1(f) }
     end
 
     def eref(docxml)
-      docxml.xpath(ns("//eref")).each do |f|
-        xref1(f)
-      end
+      docxml.xpath(ns("//eref")).each { |f| xref1(f) }
     end
 
     def origin(docxml)
-      docxml.xpath(ns("//origin[not(termref)]")).each do |f|
-        xref1(f)
-      end
+      docxml.xpath(ns("//origin[not(termref)]")).each { |f| xref1(f) }
     end
 
     def quotesource(docxml)
-      docxml.xpath(ns("//quote/source")).each do |f|
-        xref1(f)
-      end
+      docxml.xpath(ns("//quote/source")).each { |f| xref1(f) }
     end
 
     def xref1(f)
       get_linkend(f)
+    end
+
+    MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
+
+    def mathml(docxml)
+      locale = twitter_cldr_localiser()
+      docxml.xpath("//m:math", MATHML).each do |f|
+        mathml1(f, locale)
+      end
+    end
+
+    # symbols is merged into
+    # TwitterCldr::DataReaders::NumberDataReader.new(locale).symbols
+    def localize_maths(f, locale)
+      f.xpath(".//m:mn", MATHML).each do |x|
+        num = /\./.match(x.text) ? x.text.to_f : x.text.to_i
+        x.children = num.localize(locale).to_s
+      end
+    end
+
+    def twitter_cldr_localiser_symbols
+      {}
+    end
+
+    def twitter_cldr_localiser()
+      locale = TwitterCldr.supported_locale?(@lang.to_sym) ? @lang.to_sym : :en
+      num = TwitterCldr::DataReaders::NumberDataReader.new(locale)
+      num.symbols.merge!(twitter_cldr_localiser_symbols)
+      locale
+    end
+
+    def mathml1(f, locale)
+      localize_maths(f, locale)
+      return unless f.elements.size == 1 && f.elements.first.name == "mn"
+      f.replace(f.at("./m:mn", MATHML).children)
     end
   end
 end

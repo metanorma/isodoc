@@ -52,6 +52,7 @@ module IsoDoc
       eref docxml
       origin docxml
       quotesource docxml
+      mathml docxml
     end
 
     def postprocess(result, filename, dir)
