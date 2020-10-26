@@ -159,9 +159,10 @@ module IsoDoc
     end
 
     def twitter_cldr_localiser()
-      num = TwitterCldr::DataReaders::NumberDataReader.new(@lang.to_sym)
+      locale = TwitterCldr.supported_locale?(@lang.to_sym) ? @lang.to_sym : :en
+      num = TwitterCldr::DataReaders::NumberDataReader.new(locale)
       num.symbols.merge!(twitter_cldr_localiser_symbols)
-      return @lang.to_sym
+      locale
     end
 
     def mathml1(f, locale)
