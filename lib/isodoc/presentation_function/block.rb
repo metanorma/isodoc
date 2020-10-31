@@ -12,7 +12,7 @@ module IsoDoc
       return if labelled_ancestor(f) && f.ancestors("figure").empty?
       return if f.at(ns("./figure")) and !f.at(ns("./name"))
       lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.figure} #{lbl}"), "name")
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.figure.capitalize} #{lbl}"), "name")
     end
 
     def prefix_name(f, delim, number, elem)
@@ -36,7 +36,7 @@ module IsoDoc
       return if labelled_ancestor(f)
       return unless f.ancestors("example").empty?
       lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.figure} #{lbl}"), "name")
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.figure.capitalize} #{lbl}"), "name")
     end
 
     def formula(docxml)
@@ -65,7 +65,7 @@ module IsoDoc
 
     def example1(f)
       n = @xrefs.get[f["id"]]
-      lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @i18n.example :
+      lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @i18n.example:
         l10n("#{@i18n.example} #{n[:label]}")
       prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
     end
@@ -81,7 +81,7 @@ module IsoDoc
       return if f.parent.name == "bibitem"
       n = @xrefs.get[f["id"]]
       lbl = (@i18n.note if n.nil? || n[:label].nil? || n[:label].empty?) ?
-        @i18n.note : l10n("#{@i18n.note} #{n[:label]}")
+        @i18n.note: l10n("#{@i18n.note} #{n[:label]}")
       prefix_name(f, "", lbl, "name")
     end
 
@@ -94,24 +94,24 @@ module IsoDoc
     # introduce name element
     def termnote1(f)
       lbl = l10n(@xrefs.anchor(f['id'], :label) || '???')
-      prefix_name(f, "", lbl, "name")
+      prefix_name(f, "", lbl.capitalize, "name")
     end
 
     def recommendation(docxml)
       docxml.xpath(ns("//recommendation")).each do |f|
-        recommendation1(f, @i18n.recommendation)
+        recommendation1(f, @i18n.recommendation.capitalize)
       end
     end
 
     def requirement(docxml)
       docxml.xpath(ns("//requirement")).each do |f|
-        recommendation1(f, @i18n.requirement)
+        recommendation1(f, @i18n.requirement.capitalize)
       end
     end
 
     def permission(docxml)
       docxml.xpath(ns("//permission")).each do |f|
-        recommendation1(f, @i18n.permission)
+        recommendation1(f, @i18n.permission.capitalize)
       end
     end
 
@@ -132,7 +132,7 @@ module IsoDoc
       return if labelled_ancestor(f)
       return if f["unnumbered"] && !f.at(ns("./name"))
       n = @xrefs.anchor(f['id'], :label, false)
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.table} #{n}"), "name")
+      prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.table.capitalize} #{n}"), "name")
     end
 
     # we use this to eliminate the semantic amend blocks from rendering
