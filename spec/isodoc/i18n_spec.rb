@@ -885,6 +885,8 @@ PRESXML
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">See <xref target="M"/></p>
+         <p id="A">See <xref target="tab"/></p>
+         <table id="tab"/>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
@@ -971,7 +973,7 @@ PRESXML
   <localized-string key='foreword' language='eo'>Anta&#x16D;parolo</localized-string>
 <localized-string key='introduction' language='eo'>Enkonduko</localized-string>
 <localized-string key='clause' language='eo'>kla&#x16D;zo</localized-string>
-<localized-string key='table' language='eo'>Tabelo</localized-string>
+<localized-string key='table' language='eo'>tabelo</localized-string>
 <localized-string key='source' language='eo'>SOURCE</localized-string>
 <localized-string key='modified' language='eo'>modified</localized-string>
 <localized-string key='scope' language='eo'>Amplekso</localized-string>
@@ -998,6 +1000,10 @@ PRESXML
              <foreword obligation="informative">
                 <title>Foreword</title>
                 <p id='A'>See <xref target='M'>kla&#x16D;zo 5</xref></p>
+                <p id='A'>See <xref target='tab'>tabelo 1</xref></p>
+<table id='tab'>
+  <name>Tabelo 1</name>
+</table>
               </foreword>
                <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
                 <title depth="2">Introduction Subsection</title>
@@ -1084,6 +1090,12 @@ PRESXML
   See
   <a href='#M'>kla&#365;zo 5</a>
 </p>
+<p id='A'>
+  See
+  <a href='#tab'>tabelo 1</a>
+</p>
+<p class='TableTitle' style='text-align:center;'>Tabelo 1</p>
+<table id='tab' class='MsoISOTable' style='border-width:1px;border-spacing:0;'/>
              </div>
              <br/>
              <div class='Section3' id='B'>
