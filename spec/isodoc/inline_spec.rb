@@ -1,62 +1,6 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-  it "cases xrefs" do
-  expect(xmlpp(IsoDoc::PresentationXMLConvert.new({i18nyaml: "spec/assets/i18n.yaml"}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <sections>
-    <clause id="A">
-    <table id="B">
-    </table>
-    </clause>
-    <clause id="C">
-    <p>This is <xref target="A"/> and <xref target="B"/>.
-    This is <xref target="A" case="capital"/> and <xref target="B" case="lowercase"/>.
-    <xref target="A"/> is clause <em>initial.</em><br/>
-    <xref target="A"/> is too.  </p>
-    <p><xref target="A"/> is also.</p>
-</clause>
-</sections>
-</iso-standard>
-INPUT
-<?xml version='1.0'?>
-<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-  <sections>
-    <clause id='A'>
-    <title>1.</title>
-      <table id='B'>
-        <name>Tabelo 1</name>
-      </table>
-    </clause>
-    <clause id='C'>
-    <title>2.</title>
-      <p>
-        This is
-        <xref target='A'>kla&#x16D;zo 1</xref>
-         and
-        <xref target='B'>Tabelo 1</xref>
-        . This is
-        <xref target='A' case='capital'>Kla&#x16D;zo 1</xref>
-         and
-        <xref target='B' case='lowercase'>tabelo 1</xref>
-        .
-        <xref target='A'>Kla&#x16D;zo 1</xref>
-         is clause
-        <em>initial.</em>
-        <br/>
-        <xref target='A'>Kla&#x16D;zo 1</xref>
-         is too.
-      </p>
-      <p>
-        <xref target='A'>Kla&#x16D;zo 1</xref>
-         is also.
-      </p>
-    </clause>
-  </sections>
-</iso-standard>
-OUTPUT
-end
-
    it "droplocs xrefs" do
   expect(xmlpp(IsoDoc::PresentationXMLConvert.new({i18nyaml: "spec/assets/i18n.yaml"}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -989,6 +933,7 @@ it "cases xrefs" do
     <clause id="C">
     <p>This is <xref target="A"/> and <xref target="B"/>.
     This is <xref target="A" case="capital"/> and <xref target="B" case="lowercase"/>.
+    This is <xref target="A" case="lowercase"/> and <xref target="B" case="capital"/>.
     <xref target="A"/> is clause <em>initial.</em><br/>
     <xref target="A"/> is too.  </p>
     <p><xref target="A"/> is also.</p>
@@ -1011,11 +956,15 @@ INPUT
         This is 
         <xref target='A'>kla&#x16D;zo 1</xref>
          and 
-        <xref target='B'>Tabelo 1</xref>
+        <xref target='B'>tabelo 1</xref>
         . This is 
         <xref target='A' case='capital'>Kla&#x16D;zo 1</xref>
          and 
         <xref target='B' case='lowercase'>tabelo 1</xref>
+        . This is 
+        <xref target='A' case='lowercase'>kla&#x16D;zo 1</xref>
+         and 
+        <xref target='B' case='capital'>Tabelo 1</xref>
         . 
         <xref target='A'>Kla&#x16D;zo 1</xref>
          is clause 
