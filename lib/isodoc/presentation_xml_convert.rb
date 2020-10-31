@@ -53,6 +53,7 @@ module IsoDoc
       origin docxml
       quotesource docxml
       mathml docxml
+      variant docxml
     end
 
     def postprocess(result, filename, dir)

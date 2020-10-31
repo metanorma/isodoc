@@ -889,7 +889,7 @@ OUTPUT
       end
 
     it "processes variant" do
-          expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata>
     <language>en</language>
@@ -897,28 +897,46 @@ OUTPUT
     </bibdata>
     <preface>
         <clause id="A"><title><variant lang="en" script="Latn">ABC</variant><variant lang="fr" script="Latn">DEF</variant></title></clause>
+        <clause id="A1"><title><variant lang="en" script="Grek">ABC</variant><variant lang="fr" script="Grek">DEF</variant></title></clause>
+        <clause id="A2"><title><variant lang="en">ABC</variant><variant lang="fr">DEF</variant></title></clause>
         <clause id="B"><title><variant lang="de" script="Latn">GHI</variant><variant lang="es" script="Latn">JKL</variant></title></clause>
         <clause id="C"><title><variant lang="fr" script="Latn">ABC</variant><variant lang="en" script="Latn">DEF</variant></title></clause>
+        <clause id="C1"><title><variant lang="fr" script="Grek">ABC</variant><variant lang="en" script="Grek">DEF</variant></title></clause>
+        <clause id="C2"><title><variant lang="fr">ABC</variant><variant lang="en">DEF</variant></title></clause>
+        <p>A <variant><variant lang="en">B</variant><variant lang="fr">C</variant></variant> D <variant><variant lang="en" script="Latn">E</variant><variant lang="fr" script="Latn">F</variant></variant></p>
     </preface>
     </iso-standard>
     INPUT
-        #{HTML_HDR}
-        <br/>
-      <div class='Section3' id='A'>
-        <h1 class='IntroTitle'>ABC</h1>
-          </div>
-  <br/>
-  <div class='Section3' id='B'>
-    <h1 class='IntroTitle'>GHI</h1>
-  </div>
-  <br/>
-  <div class='Section3' id='C'>
-    <h1 class='IntroTitle'>DEF</h1>
-  </div>
-      <p class='zzSTDTitle1'/>
-    </div>
-  </body>
-</html>
+    <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+  <bibdata>
+    <language current='true'>en</language>
+    <script current='true'>Latn</script>
+  </bibdata>
+  <preface>
+    <clause id='A'>
+      <title depth='1'>ABC</title>
+    </clause>
+    <clause id='A1'>
+      <title depth='1'>ABC/DEF</title>
+    </clause>
+    <clause id='A2'>
+      <title depth='1'>ABC</title>
+    </clause>
+    <clause id='B'>
+      <title depth='1'>GHI/JKL</title>
+    </clause>
+    <clause id='C'>
+      <title depth='1'>DEF</title>
+    </clause>
+    <clause id='C1'>
+      <title depth='1'>ABC/DEF</title>
+    </clause>
+    <clause id='C2'>
+      <title depth='1'>DEF</title>
+    </clause>
+    <p>A B D E</p>
+  </preface>
+</iso-standard>
     OUTPUT
     end
 

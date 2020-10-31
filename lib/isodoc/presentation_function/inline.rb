@@ -170,5 +170,36 @@ module IsoDoc
       return unless f.elements.size == 1 && f.elements.first.name == "mn"
       f.replace(f.at("./m:mn", MATHML).children)
     end
+
+    def variant(docxml)
+      docxml.xpath(ns("//variant")).each { |f| variant1(f) }
+      docxml.xpath(ns("//variant[@remove = 'true']")).each { |f| f.remove }
+      docxml.xpath(ns("//variant")).each do |v|
+        next unless v&.next&.name == "variant"
+        v.next = "/"
+      end
+      docxml.xpath(ns("//variant")).each { |f| f.replace(f.children) }
+    end
+
+    def variant1(node)
+      if (!node["lang"] || node["lang"] == @lang) &&
+          (!node["script"] || node["script"] == @script)
+      elsif found_matching_variant_sibling(node)
+        node["remove"] = "true"
+      else
+        #return unless !node.at("./preceding-sibling::xmlns:variant")
+      end
+    end
+
+    def found_matching_variant_sibling(node)
+      prev = node.xpath("./preceding-sibling::xmlns:variant")
+      foll = node.xpath("./following-sibling::xmlns:variant")
+      found = false
+      (prev + foll).each do |n|
+        found = true if n["lang"] == @lang &&
+          (!n["script"] || n["script"] == @script)
+      end
+      found
+    end
   end
 end

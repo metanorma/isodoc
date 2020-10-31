@@ -131,25 +131,5 @@ module IsoDoc::Function
         p.b(**{ role: "strong" }) { |e| e << text }
       end
     end
-
-    def variant_parse(node, out)
-      if node["lang"] == @lang && node["script"] == @script
-        node.children.each { |n| parse(n, out) }
-      else
-        return if found_matching_variant_sibling(node)
-        return unless !node.at("./preceding-sibling::xmlns:variant")
-        node.children.each { |n| parse(n, out) }
-      end
-    end
-
-    def found_matching_variant_sibling(node)
-      prev = node.xpath("./preceding-sibling::xmlns:variant")
-      foll = node.xpath("./following-sibling::xmlns:variant")
-      found = false
-      (prev + foll).each do |n|
-        found = true if n["lang"] == @lang && n["script"] == @script
-      end
-      found
-    end
   end
 end
