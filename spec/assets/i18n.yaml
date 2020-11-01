@@ -1,22 +1,22 @@
-foreword: Antaŭparolo
+foreword: Antaŭparolo
 introduction: Enkonduko
-clause: klaŭzo
+clause: klaŭzo
 table: tabelo
 source: SOURCE
 modified: modified
 scope: Amplekso
 symbols: Simboloj kai mallongigitaj terminoj
 annex: Aldono
-normref: Normaj citaĵoj
+normref: Normaj citaĵoj
 bibliography: Bibliografio
 inform_annex: informa
-all_parts: ĉiuj partoj
+all_parts: ĉiuj partoj
 norm_annex: normative
 locality: {
   table: Tabelo
 }
 doctype_dict: {
-  brochure: broŝuro,
+  brochure: broŝuro,
   conference proceedings: konferencaktoj
 }
 stage_dict: {

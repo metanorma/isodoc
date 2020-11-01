@@ -4,8 +4,21 @@ module IsoDoc
   class I18n
     def load_yaml(lang, script, i18nyaml = nil)
       ret = load_yaml1(lang, script)
-      return ret.merge(YAML.load_file(i18nyaml)) if i18nyaml
-      ret
+      return normalise_hash(ret.merge(YAML.load_file(i18nyaml))) if i18nyaml
+      normalise_hash(ret)
+    end
+
+    def normalise_hash(ret)
+      if ret.is_a? Hash 
+        ret.each do |k, v|
+          ret[k] = normalise_hash(v)
+        end
+        ret
+      elsif ret.is_a? Array then ret.map { |n| normalise_hash(n) }
+      elsif ret.is_a? String then ret.unicode_normalize(:nfc) 
+      else
+        ret
+      end
     end
 
     def load_yaml1(lang, script)

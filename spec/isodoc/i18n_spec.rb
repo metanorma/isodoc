@@ -1189,7 +1189,7 @@ PRESXML
   private
 
   def mock_i18n
-    allow_any_instance_of(::IsoDoc::I18n).to receive(:load_yaml).with("eo", "Latn", "spec/assets/i18n.yaml").and_return(YAML.load_file("spec/assets/i18n.yaml"))
+    allow_any_instance_of(::IsoDoc::I18n).to receive(:load_yaml).with("eo", "Latn", "spec/assets/i18n.yaml").and_return(IsoDoc::I18n.new("eo", "Latn").normalise_hash(YAML.load_file("spec/assets/i18n.yaml")))
   end
 
 end
