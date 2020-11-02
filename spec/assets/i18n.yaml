@@ -12,6 +12,7 @@ bibliography: Bibliografio
 inform_annex: informa
 all_parts: ĉiuj partoj
 norm_annex: normative
+note: NOTO
 locality: {
   table: Tabelo
 }

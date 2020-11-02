@@ -918,6 +918,7 @@ PRESXML
        </definitions>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
+         <note id="M-n1"/>
        </clause>
        <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
@@ -984,6 +985,7 @@ PRESXML
 <localized-string key='inform_annex' language='eo'>informa</localized-string>
 <localized-string key='all_parts' language='eo'>&#x109;iuj partoj</localized-string>
 <localized-string key='norm_annex' language='eo'>normative</localized-string>
+<localized-string key='note' language='eo'>NOTO</localized-string>
 <localized-string key='locality.table' language='eo'>Tabelo</localized-string>
 <localized-string key='doctype_dict.brochure' language='eo'>bro&#x15D;uro</localized-string>
 <localized-string key='doctype_dict.conference_proceedings' language='eo'>konferencaktoj</localized-string>
@@ -1035,6 +1037,7 @@ PRESXML
               </definitions>
               <clause id="M" inline-header="false" obligation="normative"><title depth="1">5.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
                 <title depth="2">5.1.<tab/>Introduction</title>
+                <note id='M-n1'><name>NOTO </name></note>
               </clause>
               <clause id="O" inline-header="false" obligation="normative">
                 <title depth="2">5.2.<tab/>Clause 4.2</title>
@@ -1148,6 +1151,12 @@ PRESXML
                <h1>5.&#160; Clause 4</h1>
                <div id='N'>
                  <h2>5.1.&#160; Introduction</h2>
+                 <div id='M-n1' class='Note'>
+  <p>
+    <span class='note_label'>NOTO </span>
+    &#160;
+  </p>
+</div>
                </div>
                <div id='O'>
                  <h2>5.2.&#160; Clause 4.2</h2>
