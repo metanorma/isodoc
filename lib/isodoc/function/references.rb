@@ -90,7 +90,7 @@ module IsoDoc::Function
     end
 
     def date_note_process(b, ref)
-      date_note = b.at(ns("./note[@type = 'ISO DATE']"))
+      date_note = b.at(ns("./note[@type = 'Unpublished-Status']"))
       return if date_note.nil?
       date_note.children.first.replace("<p>#{date_note.content}</p>")
       footnote_parse(date_note, ref)
