@@ -221,6 +221,7 @@ module IsoDoc::HtmlFunction
     MATHJAX = <<~"MATHJAX".freeze
       <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
+          "HTML-CSS": { preferredFont: "STIX" },
           asciimath2jax: { delimiters: [['OPEN', 'CLOSE']] }
        });
       </script>
