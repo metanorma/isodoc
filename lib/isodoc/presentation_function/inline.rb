@@ -172,7 +172,7 @@ module IsoDoc
       fract = fract.slice(0..(twitter_cldr_reader_symbols[:precision] || -1))
       fr_group_digits = twitter_cldr_reader_symbols[:fraction_group_digits] || 1
       until fract.empty?
-        result.push(fraction.slice!(0, fr_group_digits))
+        result.push(fract.slice!(0, fr_group_digits))
       end
       result.join(twitter_cldr_reader_symbols[:fraction_group].to_s)
     end
