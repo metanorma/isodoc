@@ -10,8 +10,8 @@ module IsoDoc
       if node["citeas"].nil? && node["bibitemid"]
         return @xrefs.anchor(node["bibitemid"] ,:xref) || "???"
       elsif node["target"] && node["droploc"]
-        return @xrefs.anchor(node["target"], :value) || 
-          @xrefs.anchor(node["target"], :label) || 
+        return @xrefs.anchor(node["target"], :value) ||
+          @xrefs.anchor(node["target"], :label) ||
           @xrefs.anchor(node["target"], :xref) || "???"
       elsif node["target"] && !/.#./.match(node["target"])
         linkend = anchor_linkend1(node)
@@ -40,7 +40,7 @@ module IsoDoc
     end
 
     def nearest_block_parent(node)
-      until %w(p title td th name formula 
+      until %w(p title td th name formula
         li dt dd sourcecode pre).include?(node.name)
         node = node.parent
       end
@@ -150,18 +150,46 @@ module IsoDoc
     def localize_maths(f, locale)
       f.xpath(".//m:mn", MATHML).each do |x|
         num = /\./.match(x.text) ? x.text.to_f : x.text.to_i
-        x.children = num.localize(locale).to_s
+        x.children = localized_number(num, locale)
       end
+    end
+
+    def localized_number(num, locale)
+      localized = num.localize(locale).to_s
+      twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
+      return localized unless twitter_cldr_reader_symbols[:decimal]
+
+      integer, fraction = localized.split(twitter_cldr_reader_symbols[:decimal])
+      return localized if fraction.nil? || fraction.length.zero?
+
+      # By itself twiiter cldr does not support fraction part digits groupping
+      # and custom delimeter, will decorate fraction part manually
+      [integer, decorate_fraction_part(fraction, locale)].join(twitter_cldr_reader_symbols[:decimal])
+    end
+
+    def decorate_fraction_part(fraction, locale)
+      result = []
+      twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
+      fraction = fraction.slice(0..(twitter_cldr_reader_symbols[:precision] || -1))
+      fraction_group_digits = twitter_cldr_reader_symbols[:fraction_group_digits] || 1
+      until fraction.empty?
+        result.push(fraction.slice!(0, fraction_group_digits))
+      end
+      result.join(twitter_cldr_reader_symbols[:fraction_group].to_s)
     end
 
     def twitter_cldr_localiser_symbols
       {}
     end
 
-    def twitter_cldr_localiser()
-      locale = TwitterCldr.supported_locale?(@lang.to_sym) ? @lang.to_sym : :en
+    def twitter_cldr_reader(locale)
       num = TwitterCldr::DataReaders::NumberDataReader.new(locale)
       num.symbols.merge!(twitter_cldr_localiser_symbols)
+    end
+
+    def twitter_cldr_localiser()
+      locale = TwitterCldr.supported_locale?(@lang.to_sym) ? @lang.to_sym : :en
+      twitter_cldr_reader(locale)
       locale
     end
 
