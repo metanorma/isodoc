@@ -1455,6 +1455,7 @@ end
                <div id='_be9158af-7e93-4ee2-90c5-26d31c181934' style='page-break-after: avoid;page-break-inside: avoid;'><div class='formula'>
                  <p>
                    <span class='stem'>(#(r = 1 %)#)</span>
+                   <span style='mso-tab-count:1'>&#160; </span>
                  </p>
                </div>
                <p>where</p>
