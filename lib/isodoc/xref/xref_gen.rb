@@ -129,7 +129,7 @@ module IsoDoc::XrefGen
         label = "#{prev_label}.#{label}" unless prev_label.empty?
         label = "#{list_anchor[:xref]} #{label}" if refer_list
         li["id"] and @anchors[li["id"]] =
-          { xref: "#{label})", type: "listitem", 
+          { xref: "#{l10n(label)})", type: "listitem", 
             container: list_anchor[:container] }
         li.xpath(ns("./ol")).each do |ol|
           list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
