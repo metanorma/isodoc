@@ -196,6 +196,18 @@ module IsoDoc::WordFunction
       out.parent.at("./table")["class"] = "formula_dl"
     end
 
+    def formula_parse1(node, out)
+      out.div **attr_code(class: "formula") do |div|
+        div.p do |p|
+          parse(node.at(ns("./stem")), div)
+          insert_tab(div, 1)
+          if lbl = node&.at(ns("./name"))&.text
+            div << "(#{lbl})"
+          end
+        end
+      end
+    end
+
     def li_parse(node, out)
       out.li  **attr_code(id: node["id"]) do |li|
         if node["uncheckedcheckbox"] == "true"
