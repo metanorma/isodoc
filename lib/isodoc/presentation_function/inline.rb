@@ -154,26 +154,25 @@ module IsoDoc
       end
     end
 
+      # By itself twiiter cldr does not support fraction part digits grouping
+      # and custom delimeter, will decorate fraction part manually
     def localized_number(num, locale)
       localized = num.localize(locale).to_s
       twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
       return localized unless twitter_cldr_reader_symbols[:decimal]
-
       integer, fraction = localized.split(twitter_cldr_reader_symbols[:decimal])
       return localized if fraction.nil? || fraction.length.zero?
-
-      # By itself twiiter cldr does not support fraction part digits groupping
-      # and custom delimeter, will decorate fraction part manually
-      [integer, decorate_fraction_part(fraction, locale)].join(twitter_cldr_reader_symbols[:decimal])
+      [integer, decorate_fraction_part(fraction, locale)].
+        join(twitter_cldr_reader_symbols[:decimal])
     end
 
-    def decorate_fraction_part(fraction, locale)
+    def decorate_fraction_part(fract, locale)
       result = []
       twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
-      fraction = fraction.slice(0..(twitter_cldr_reader_symbols[:precision] || -1))
-      fraction_group_digits = twitter_cldr_reader_symbols[:fraction_group_digits] || 1
-      until fraction.empty?
-        result.push(fraction.slice!(0, fraction_group_digits))
+      fract = fract.slice(0..(twitter_cldr_reader_symbols[:precision] || -1))
+      fr_group_digits = twitter_cldr_reader_symbols[:fraction_group_digits] || 1
+      until fract.empty?
+        result.push(fraction.slice!(0, fr_group_digits))
       end
       result.join(twitter_cldr_reader_symbols[:fraction_group].to_s)
     end
