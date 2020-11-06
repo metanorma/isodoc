@@ -67,19 +67,6 @@ module IsoDoc::Function
       out << "Termbase #{node['base']}, term ID #{node['target']}"
     end
 
-    def concept_parse(node, out)
-      content = node.first_element_child.children.select do |c|
-        !%w{locality localityStack}.include? c.name 
-      end.select { |c| !c.text? || /\S/.match(c) }
-      if content.empty?
-        out << "[Term defined in "
-        parse(node.first_element_child, out)
-        out << "]"
-      else
-        content.each { |n| parse(n, out) }
-      end
-    end
-
     def stem_parse(node, out)
       ooml = if node["type"] == "AsciiMath"
                "#{@openmathdelim}#{HTMLEntities.new.encode(node.text)}"\

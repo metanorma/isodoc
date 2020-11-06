@@ -29,6 +29,7 @@ external_terms_boilerplate: |
           <p>Pour les besoins du présent document, les termes et définitions de % s’appliquent.</p>
 internal_external_terms_boilerplate: |
           <p>Pour les besoins du présent document, les termes et définitions de % ainsi que les suivants, s’appliquent.</p>
+term_defined_in: "[terme défini dans %]"
 note: NOTE
 note_xref: Note
 termnote: Note % à l’article

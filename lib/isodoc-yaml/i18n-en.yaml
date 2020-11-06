@@ -36,6 +36,7 @@ external_terms_boilerplate: |
 internal_external_terms_boilerplate: |
           <p>For the purposes of this document, the terms and definitions 
             given in % and the following apply.</p>
+term_defined_in: "[term defined in %]"
 note: NOTE
 note_xref: Note
 termnote: Note % to entry
