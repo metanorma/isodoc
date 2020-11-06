@@ -136,6 +136,20 @@ module IsoDoc
       get_linkend(f)
     end
 
+    def concept(docxml)
+      docxml.xpath(ns("//concept")).each { |f| concept1(f) }
+    end
+
+    def concept1(node)
+      content = node.first_element_child.children.select do |c|
+        !%w{locality localityStack}.include? c.name
+      end.select { |c| !c.text? || /\S/.match(c) }
+      node.replace content.empty? ? 
+        @i18n.term_defined_in.sub(/%/, node.first_element_child.to_xml) :
+        "<em>#{node.children.to_xml}</em>"
+    end
+
+
     MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
 
     def mathml(docxml)
@@ -154,8 +168,8 @@ module IsoDoc
       end
     end
 
-      # By itself twiiter cldr does not support fraction part digits grouping
-      # and custom delimeter, will decorate fraction part manually
+    # By itself twiiter cldr does not support fraction part digits grouping
+    # and custom delimeter, will decorate fraction part manually
     def localized_number(num, locale)
       localized = num.localize(locale).to_s
       twitter_cldr_reader_symbols = twitter_cldr_reader(locale)

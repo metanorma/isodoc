@@ -51,6 +51,7 @@ module IsoDoc
       xref docxml
       eref docxml
       origin docxml
+      concept docxml
       quotesource docxml
       mathml docxml
       variant docxml
