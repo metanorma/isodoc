@@ -31,7 +31,7 @@ external_terms_boilerplate: |
           <p>% 界定的术语和定义适用于本文件。</p>
 internal_external_terms_boilerplate: |
           <p>% 界定的以及下列术语和定义适用于本文件。</p>
-term_defined_in: "〖terme défini dans %〗"
+term_defined_in: "〖术语于%中定义〗"
 note: 注
 note_xref: 注
 termnote: 注%
