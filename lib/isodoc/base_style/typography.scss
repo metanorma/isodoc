@@ -56,7 +56,7 @@
 
   &, th, td {
     border: $border;
-    font-size: 0.95em;
+    font-size: 0.95em; // NN 20201115: ??? normalfontsize - 0.05?
   }
   th, td {
     padding: 1em;

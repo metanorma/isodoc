@@ -50,7 +50,7 @@
   }
 
   background-color: $colorBg;
-  font-size: 0.8em;
+  font-size: $monospacefontsize;
   line-height: 1.6em;
   padding: 1.5em;
   margin: 2em 0 1em 0;
@@ -68,7 +68,7 @@
   }
 
   background-color: $colorBg;
-  font-size: 0.8em;
+  font-size: $monospacefontsize;
   line-height: 1.6em;
   padding: 1.5em;
   margin: 2em 0 1em 0;
