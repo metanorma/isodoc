@@ -2,8 +2,8 @@ require "roman-numerals"
 
 module IsoDoc::XrefGen
   class Counter
-    def initialize
-      @num = 0
+    def initialize(num = 0)
+      @num = num
       @letter = ""
       @subseq = ""
       @letter_override = nil
@@ -76,13 +76,24 @@ module IsoDoc::XrefGen
       "#{@base}#{@number_override || @num}#{@letter_override || @letter}"
     end
 
-    def listlabel(depth)
-      return @num.to_s if [2, 7].include? depth
-      return (96 + @num).chr.to_s if [1, 6].include? depth
-      return (64 + @num).chr.to_s if [4, 9].include? depth
-      return RomanNumerals.to_roman(@num).downcase if [3, 8].include? depth
-      return RomanNumerals.to_roman(@num).upcase if [5, 10].include? depth
-      return @num.to_s
+    def ol_type(list, depth)
+      return list["type"].to_sym if list["type"]
+      return :arabic if [2, 7].include? depth
+      return :alphabet if [1, 6].include? depth
+      return :alphabet_upper if [4, 9].include? depth
+      return :roman if [3, 8].include? depth
+      return :roman_upper if [5, 10].include? depth
+      return :arabic
+    end
+
+    def listlabel(list, depth)
+      case ol_type(list, depth)
+      when :arabic then @num.to_s
+      when :alphabet then (96 + @num).chr.to_s
+      when :alphabet_upper then (64 + @num).chr.to_s
+      when :roman then RomanNumerals.to_roman(@num).downcase
+      when :roman_upper then RomanNumerals.to_roman(@num).upcase
+      end
     end
   end
 end
