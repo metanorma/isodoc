@@ -2313,7 +2313,7 @@ OUTPUT
   <li id="N1"><p>A</p></li>
 </ol>
   <clause id="xyz"><title>Preparatory</title>
-     <ol id="N02">
+     <ol id="N02" type="arabic">
   <li id="N2"><p>A</p></li>
 </ol>
 </clause>
@@ -2321,17 +2321,17 @@ OUTPUT
     </preface>
     <sections>
     <clause id="scope" type="scope"><title>Scope</title>
-    <ol id="N0">
+    <ol id="N0" type="roman">
   <li id="N"><p>A</p></li>
 </ol>
     </clause>
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
     <clause id="widgets1">
-    <ol id="note1l">
+    <ol id="note1l" type="alphabet">
   <li id="note1"><p>A</p></li>
 </ol>
-    <ol id="note2l">
+    <ol id="note2l" type="roman_upper">
   <li id="note2"><p>A</p></li>
 </ol>
     </clause>
@@ -2339,12 +2339,12 @@ OUTPUT
     </sections>
     <annex id="annex1">
     <clause id="annex1a">
-    <ol id="ANl">
+    <ol id="ANl" type="alphabet_upper">
   <li id="AN"><p>A</p></li>
 </ol>
     </clause>
     <clause id="annex1b">
-    <ol id="Anote1l">
+    <ol id="Anote1l" type="roman" start="4">
   <li id="Anote1"><p>A</p></li>
 </ol>
     <ol id="Anote2l">
@@ -2360,12 +2360,12 @@ OUTPUT
             <foreword>
               <p>
                 <xref target='N1'>Introduction, a)</xref>
-                <xref target='N2'>Preparatory, a)</xref>
-                <xref target='N'>Clause 1, a)</xref>
+                <xref target='N2'>Preparatory, 1)</xref>
+                <xref target='N'>Clause 1, i)</xref>
                 <xref target='note1'>Clause 3.1, List 1 a)</xref>
-                <xref target='note2'>Clause 3.1, List 2 a)</xref>
-                <xref target='AN'>Annex A.1, a)</xref>
-                <xref target='Anote1'>Annex A.2, List 1 a)</xref>
+                <xref target='note2'>Clause 3.1, List 2 I)</xref>
+                <xref target='AN'>Annex A.1, A)</xref>
+                <xref target='Anote1'>Annex A.2, List 1 iv)</xref>
                 <xref target='Anote2'>Annex A.2, List 2 a)</xref>
               </p>
             </foreword>
@@ -2377,7 +2377,7 @@ OUTPUT
               </ol>
               <clause id='xyz'>
                 <title depth='2'>Preparatory</title>
-                <ol id='N02'>
+                <ol id='N02' type="arabic">
                   <li id='N2'>
                     <p>A</p>
                   </li>
@@ -2392,7 +2392,7 @@ OUTPUT
   <tab/>
   Scope
 </title>
-              <ol id='N0'>
+              <ol id='N0' type="roman">
                 <li id='N'>
                   <p>A</p>
                 </li>
@@ -2408,12 +2408,12 @@ OUTPUT
   Widgets
 </title>
               <clause id='widgets1'><title>3.1.</title>
-                <ol id='note1l'>
+                <ol id='note1l' type="alphabet">
                   <li id='note1'>
                     <p>A</p>
                   </li>
                 </ol>
-                <ol id='note2l'>
+                <ol id='note2l' type="roman_upper">
                   <li id='note2'>
                     <p>A</p>
                   </li>
@@ -2428,14 +2428,14 @@ OUTPUT
   (informative)
 </title>
             <clause id='annex1a'><title>A.1.</title>
-              <ol id='ANl'>
+              <ol id='ANl' type="alphabet_upper">
                 <li id='AN'>
                   <p>A</p>
                 </li>
               </ol>
             </clause>
             <clause id='annex1b'><title>A.2.</title>
-              <ol id='Anote1l'>
+              <ol id='Anote1l' type="roman" start="4">
                 <li id='Anote1'>
                   <p>A</p>
                 </li>

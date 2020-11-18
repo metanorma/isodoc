@@ -203,7 +203,7 @@ RSpec.describe IsoDoc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <ol type="a" id="_ae34a226-aab4-496d-987b-1aa7b6314026">
+                 <ol type="I" id="_ae34a226-aab4-496d-987b-1aa7b6314026">
          <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
            <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
          </li>
