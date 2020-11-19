@@ -80,7 +80,8 @@ module IsoDoc::Function
     end
 
     def docid_prefix(prefix, docid)
-      docid = "#{prefix} #{docid}" if prefix && !omit_docid_prefix(prefix)
+      docid = "#{prefix} #{docid}" if prefix && !omit_docid_prefix(prefix) &&
+        !/^#{prefix}\b/.match(docid)
       docid_l10n(docid)
     end
 
