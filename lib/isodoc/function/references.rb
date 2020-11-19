@@ -202,7 +202,7 @@ module IsoDoc::Function
 
     def format_ref(ref, prefix, isopub, date, allparts)
       ref = docid_prefix(prefix, ref)
-      return "[#{ref}]" if /^\d+$/.match(ref) && !prefix &&
+      return "[#{ref}]" if ref && /^\d+$/.match(ref) && !prefix &&
         !/^\[.*\]$/.match(ref)
         ref
     end
