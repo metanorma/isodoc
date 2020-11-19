@@ -63,7 +63,7 @@ RSpec.describe IsoDoc do
 </bibitem>
 <bibitem id="ref1">
   <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
-  <docidentifier type="ICC">167</docidentifier>
+  <docidentifier type="ICC">ICC/167</docidentifier>
 </bibitem>
 <note><p>This is an annotation of ISO 20483:2013-2014</p></note>
     <bibitem id="zip_ffs"><formattedref format="application/x-isodoc+xml">Title 5</formattedref><docidentifier type="metanorma">[5]</docidentifier></bibitem>
@@ -136,7 +136,7 @@ RSpec.describe IsoDoc do
                 <eref bibitemid='ISBN'>[1]</eref>
                 <eref bibitemid='ISSN'>[2]</eref>
                 <eref bibitemid='ISO16634'>ISO 16634:-- (all parts)</eref>
-                <eref bibitemid='ref1'>ICC 167</eref>
+                <eref bibitemid='ref1'>ICC/167</eref>
                 <eref bibitemid='ref10'>[10]</eref>
                 <eref bibitemid='ref12'>Citn</eref>
                 <eref bibitemid='zip_ffs'>[5]</eref>
@@ -213,7 +213,7 @@ RSpec.describe IsoDoc do
                   <link target='http://www.icc.or.at'/>
                   )
                 </formattedref>
-                <docidentifier type='ICC'>167</docidentifier>
+                <docidentifier type='ICC'>ICC/167</docidentifier>
               </bibitem>
               <note>
                 <name>NOTE</name>
@@ -309,7 +309,7 @@ RSpec.describe IsoDoc do
           <a href='#ISBN'>[1]</a>
           <a href='#ISSN'>[2]</a>
           <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
-          <a href='#ref1'>ICC 167</a>
+          <a href='#ref1'>ICC/167</a>
           <a href='#ref10'>[10]</a>
           <a href='#ref12'>Citn</a>
           <a href='#zip_ffs'>[5]</a>
@@ -342,7 +342,7 @@ RSpec.describe IsoDoc do
           <i>Cereals and pulses</i>
         </p>
         <p id='ref1' class='NormRef'>
-          ICC 167,
+          ICC/167,
           <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
           .
           <i>
