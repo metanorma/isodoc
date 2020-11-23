@@ -164,14 +164,16 @@ module IsoDoc
     def localize_maths(f, locale)
       f.xpath(".//m:mn", MATHML).each do |x|
         num = /\./.match(x.text) ? x.text.to_f : x.text.to_i
-        x.children = localized_number(num, locale)
+        precision = /\./.match(x.text) ? x.text.sub(/^.*\./, "").size : 0
+        x.children = localized_number(num, locale, precision)
       end
     end
 
     # By itself twiiter cldr does not support fraction part digits grouping
     # and custom delimeter, will decorate fraction part manually
-    def localized_number(num, locale)
-      localized = num.localize(locale).to_s
+    def localized_number(num, locale, precision)
+      localized = precision == 0 ? num.localize(locale).to_s :
+        num.localize(locale).to_decimal.to_s(:precision => precision)
       twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
       return localized unless twitter_cldr_reader_symbols[:decimal]
       integer, fraction = localized.split(twitter_cldr_reader_symbols[:decimal])
