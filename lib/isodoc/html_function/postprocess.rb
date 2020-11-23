@@ -186,14 +186,22 @@ module IsoDoc::HtmlFunction
       docxml
     end
 
+    def footnote_backlinks1(x, fn)
+      xdup = x.dup
+      xdup.remove["id"]
+      if fn.elements.empty?
+        fn.children.first.previous = xdup
+      else
+        fn.elements.first.children.first.previous = xdup
+      end
+    end
+
     def footnote_backlinks(docxml)
       seen = {}
       docxml.xpath('//a[@class = "FootnoteRef"]').each_with_index do |x, i|
         seen[x["href"]] and next or seen[x["href"]] = true
         fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
-        xdup = x.dup
-        xdup.remove["id"]
-        fn.elements.first.children.first.previous = xdup
+        footnote_backlinks1(x, fn)
         x["id"] ||= "fnref:#{i + 1}"
         fn.add_child "<a href='##{x['id']}'>&#x21A9;</a>"
       end
