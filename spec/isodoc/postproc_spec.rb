@@ -512,7 +512,7 @@ TOCLEVEL
   <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">This is a footnote.</p>
 </fn><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction to this<fn reference="2">
-  <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+  Formerly denoted as 15 % (m/m).
 </fn></title>
        </clause>
        <clause id="O" inline-header="false" obligation="normative">
@@ -548,7 +548,7 @@ TOCLEVEL
                </a>This is a footnote.</p>
        <a href="#fnref:1">&#x21A9;</a></aside>
              <aside id="fn:2" class="footnote">
-         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a class='FootnoteRef' href='#fn:2'><sup>2</sup></a>Formerly denoted as 15 % (m/m).</p>
+         <a class='FootnoteRef' href='#fn:2'><sup>2</sup></a>Formerly denoted as 15 % (m/m).
        <a href="#fnref:2">&#x21A9;</a></aside>
            </main>
     OUTPUT
