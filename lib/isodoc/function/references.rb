@@ -112,7 +112,7 @@ module IsoDoc::Function
     # reference not to be rendered because it is deemed implicit
     # in the standards environment
     def implicit_reference(b)
-      false
+      b["hidden"] == "true"
     end
 
     def prefix_bracketed_ref(ref, text)
@@ -161,7 +161,7 @@ module IsoDoc::Function
     end
 
     def norm_ref(isoxml, out, num)
-      f = isoxml.at(ns(norm_ref_xpath)) or return num
+      f = isoxml.at(ns(norm_ref_xpath)) and f["hidden"] != "true" or return num
       out.div do |div|
         num = num + 1
         clause_name(num, f.at(ns("./title")), div, nil)
@@ -181,10 +181,9 @@ module IsoDoc::Function
     end
 
     def bibliography(isoxml, out)
-      f = isoxml.at(ns(bibliography_xpath)) || return
+      f = isoxml.at(ns(bibliography_xpath)) and f["hidden"] != "true" or return
       page_break(out)
       out.div do |div|
-        #div.h1 @bibliography_lbl, **{ class: "Section3" }
         div.h1 **{class: "Section3"} do |h1|
           f&.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
         end
@@ -193,6 +192,7 @@ module IsoDoc::Function
     end
 
     def bibliography_parse(node, out)
+      node["hidden"] != true or return
       title = node&.at(ns("./title"))&.text || ""
       out.div do |div|
         clause_parse_title(node, div, node.at(ns("./title")), out,
@@ -207,11 +207,5 @@ module IsoDoc::Function
         !/^\[.*\]$/.match(ref)
         ref
     end
-
-    # def ref_names(ref)
-    #  linkend = ref.text
-    # linkend.gsub!(/[\[\]]/, "") unless /^\[\d+\]$/.match linkend
-    # @anchors[ref["id"]] = { xref: linkend }
-    # end
   end
 end
