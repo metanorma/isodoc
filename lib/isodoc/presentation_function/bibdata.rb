@@ -25,13 +25,13 @@ module IsoDoc
       hash_translate(b, @i18n.get["substage_dict"], "./status/substage")
     end
 
-    def hash_translate(bibdata, hash, xpath)
+    def hash_translate(bibdata, hash, xpath, lang = @lang)
       x = bibdata.at(ns(xpath)) or return
       x["language"] = ""
       hash.is_a? Hash or return
       hash[x.text] or return
       x.next = x.dup
-      x.next["language"] = @lang
+      x.next["language"] = lang
       x.next.children = hash[x.text]
     end
 
