@@ -40,7 +40,7 @@ module IsoDoc
     end
 
     def i18n_safe(k)
-      k.gsub(/\s|\./, "_")
+      k.to_s.gsub(/\s|\./, "_")
     end
 
     def i8n_name(h, pref)
