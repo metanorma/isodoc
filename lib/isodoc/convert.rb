@@ -3,6 +3,7 @@ require "isodoc/common"
 require "fileutils"
 require "tempfile"
 require_relative "i18n"
+require_relative "css"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
@@ -17,6 +18,10 @@ module IsoDoc
     # wordcoverpage: Cover page for Word
     # htmlintropage: Introductory page for HTML
     # wordintropage: Introductory page for Word
+    # normalfontsize: Font size for body text
+    # smallerfontsize: Font size for smaller than body text
+    # monospacefontsize: Font size for monospace font
+    # footnotefontsize: Font size for footnotes
     # i18nyaml: YAML file for internationalisation of text
     # ulstyle: list style in Word CSS for unordered lists
     # olstyle: list style in Word CSS for ordered lists
@@ -25,8 +30,10 @@ module IsoDoc
     # monospace: font to use for monospace text
     # suppressheadingnumbers: suppress heading numbers for clauses
     # scripts: Scripts file for HTML
-    # scripts_pdf: Scripts file for PDF
+    # scripts_pdf: Scripts file for PDF (not used in XSLT PDF)
     # datauriimage: Encode images in HTML output as data URIs
+    # break_up_urls_in_tables: whether to insert spaces in URLs in tables
+    #   every 40-odd chars
     def initialize(options)
       @libdir ||= File.dirname(__FILE__)
       options.merge!(default_fonts(options)) do |_, old, new|
@@ -46,6 +53,10 @@ module IsoDoc
       @wordcoverpage = options[:wordcoverpage]
       @htmlintropage = options[:htmlintropage]
       @wordintropage = options[:wordintropage]
+      @normalfontsize = options[:normalfontsize]
+      @smallerfontsize = options[:smallerfontsize]
+      @monospacefontsize = options[:monospacefontsize]
+      @footnotefontsize = options[:footnotefontsize]
       @scripts = options[:scripts]
       @scripts_pdf = options[:scripts_pdf]
       @i18nyaml = options[:i18nyaml]
@@ -80,60 +91,8 @@ module IsoDoc
       @fn_bookmarks = {}
     end
 
-    # Check if already compiled version(.css) exists,
-    #   if not, return original scss file. During release
-    #   we compile scss into css files in order to not depend on scss
-    def precompiled_style_or_original(stylesheet_path)
-      # Already have compiled stylesheet, use it
-      return stylesheet_path if stylesheet_path.nil? ||
-                                File.extname(stylesheet_path) == '.css'
-
-      basename = File.basename(stylesheet_path, '.*')
-      compiled_path = File.join(File.dirname(stylesheet_path),
-                                "#{basename}.css")
-      return stylesheet_path unless File.file?(compiled_path)
-
-      compiled_path
-    end
-
-    # run this after @meta is populated
-    def populate_css
-      @htmlstylesheet = generate_css(@htmlstylesheet_name, true)
-      @wordstylesheet = generate_css(@wordstylesheet_name, false)
-      @standardstylesheet = generate_css(@standardstylesheet_name, false)
-    end
-
     def tmpimagedir_suffix
       '_images'
-    end
-
-    def default_fonts(_options)
-      {
-        bodyfont: 'Arial',
-        headerfont: 'Arial',
-        monospacefont: 'Courier'
-      }
-    end
-
-    # none for this parent gem, but will be populated in child gems 
-    # which have access to stylesheets &c
-    def default_file_locations(_options)
-      {}
-    end
-
-    def fonts_options
-      {
-        'bodyfont' => options[:bodyfont] || 'Arial',
-        'headerfont' => options[:headerfont] || 'Arial',
-        'monospacefont' => options[:monospacefont] || 'Courier'
-      }
-    end
-
-    def scss_fontheader
-      b = options[:bodyfont] || 'Arial'
-      h = options[:headerfont] || 'Arial'
-      m = options[:monospacefont] || 'Courier'
-      "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
     end
 
     def html_doc_path(*file)
@@ -142,37 +101,6 @@ module IsoDoc
         File.exist?(ret) and return ret
       end
       nil
-    end
-
-    def convert_scss(filename, stylesheet)
-      require 'sassc'
-      require 'isodoc/sassc_importer'
-
-      [File.join(Gem.loaded_specs['isodoc'].full_gem_path,
-                 'lib', 'isodoc'),
-                 File.dirname(filename)].each do |name|
-                   SassC.load_paths << name
-                 end
-                 SassC::Engine.new(scss_fontheader + stylesheet, syntax: :scss,
-                                   importer: SasscImporter)
-                   .render
-    end
-
-    def generate_css(filename, stripwordcss)
-      return nil if filename.nil?
-
-      filename = precompiled_style_or_original(filename)
-      stylesheet = File.read(filename, encoding: 'UTF-8')
-      stylesheet = populate_template(stylesheet, :word)
-      stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, '\\1') if stripwordcss
-      if File.extname(filename) == '.scss'
-        stylesheet = convert_scss(filename, stylesheet)
-      end
-      Tempfile.open([File.basename(filename, '.*'), 'css'],
-                    encoding: 'utf-8') do |f|
-        f.write(stylesheet)
-        f
-      end
     end
 
     def convert1(docxml, filename, dir)

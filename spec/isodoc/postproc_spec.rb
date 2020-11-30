@@ -139,7 +139,7 @@ expect(File.exist?("test.doc")).to be true
   it "generates HTML output docs with complete configuration" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({bodyfont: "Zapf", htmlstylesheet: "spec/assets/html.scss", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
+    IsoDoc::HtmlConvert.new({bodyfont: "Zapf", monospacefont: "Consolas", headerfont: "Comic Sans", normalfontsize: "30pt", monospacefontsize: "29pt", smallerfontsize: "28pt", footnotefontsize: "27pt", htmlstylesheet: "spec/assets/html.scss", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -150,7 +150,13 @@ expect(File.exist?("test.doc")).to be true
     INPUT
     html = File.read("test.html")
     expect(html).to match(/another empty stylesheet/)
-    expect(html).to match(/font-family: Zapf/)
+    expect(html).to match(/p \{[^}]*?font-family: Zapf/m)
+    expect(html).to match(/code \{[^}]*?font-family: Consolas/m)
+    expect(html).to match(/h1 \{[^}]*?font-family: Comic Sans/m)
+    expect(html).to match(/p \{[^}]*?font-size: 30pt/m)
+    expect(html).to match(/code \{[^}]*?font-size: 29pt/m)
+    expect(html).to match(/p\.note \{[^}]*?font-size: 28pt/m)
+    expect(html).to match(/aside \{[^}]*?font-size: 27pt/m)
     expect(html).to match(/an empty html cover page/)
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
@@ -172,7 +178,13 @@ expect(File.exist?("test.doc")).to be true
     INPUT
     html = File.read("test.html")
     expect(html).to match(/another empty stylesheet/)
-    expect(html).to match(/font-family: Arial/)
+    expect(html).to match(/p \{[^}]*?font-family: Arial/m)
+    expect(html).to match(/code \{[^}]*?font-family: Courier/m)
+    expect(html).to match(/h1 \{[^}]*?font-family: Arial/m)
+    expect(html).to match(/p \{[^}]*?font-size: 1em;/m)
+    expect(html).to match(/code \{[^}]*?font-size: 0.8em/m)
+    expect(html).to match(/p\.note \{[^}]*?font-size: 0.9em/m)
+    expect(html).to match(/aside \{[^}]*?font-size: 0.9em/m)
     expect(html).to match(/an empty html cover page/)
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
@@ -183,7 +195,7 @@ expect(File.exist?("test.doc")).to be true
   it "generates Word output docs with complete configuration" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({bodyfont: "Zapf", wordstylesheet: "spec/assets/html.scss", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
+    IsoDoc::WordConvert.new({bodyfont: "Zapf", monospacefont: "Consolas", headerfont: "Comic Sans", normalfontsize: "30pt", monospacefontsize: "29pt", smallerfontsize: "28pt", footnotefontsize: "27pt", wordstylesheet: "spec/assets/html.scss", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -194,7 +206,13 @@ expect(File.exist?("test.doc")).to be true
     INPUT
     word = File.read("test.doc")
     expect(word).to match(/another empty stylesheet/)
-    expect(word).to match(/font-family: Zapf/)
+    expect(word).to match(/p \{[^}]*?font-family: Zapf/m)
+    expect(word).to match(/code \{[^}]*?font-family: Consolas/m)
+    expect(word).to match(/h1 \{[^}]*?font-family: Comic Sans/m)
+    expect(word).to match(/p \{[^}]*?font-size: 30pt/m)
+    expect(word).to match(/code \{[^}]*?font-size: 29pt/m)
+    expect(word).to match(/p\.note \{[^}]*?font-size: 28pt/m)
+    expect(word).to match(/aside \{[^}]*?font-size: 27pt/m)
     expect(word).to match(/a third empty stylesheet/)
     #expect(word).to match(/<title>test<\/title>/)
     expect(word).to match(/test_files\/header.html/)
@@ -217,7 +235,13 @@ expect(File.exist?("test.doc")).to be true
     INPUT
     word = File.read("test.doc")
     expect(word).to match(/another empty stylesheet/)
-    expect(word).to match(/font-family: Arial/)
+    expect(word).to match(/p \{[^}]*?font-family: Arial/m)
+    expect(word).to match(/code \{[^}]*?font-family: Courier/m)
+    expect(word).to match(/h1 \{[^}]*?font-family: Arial/m)
+    expect(word).to match(/p \{[^}]*?font-size: 12pt/m)
+    expect(word).to match(/code \{[^}]*?font-size: 11pt/m)
+    expect(word).to match(/p\.note \{[^}]*?font-size: 10pt/m)
+    expect(word).to match(/aside \{[^}]*?font-size: 9pt/m)
     expect(word).to match(/a third empty stylesheet/)
     #expect(word).to match(/<title>test<\/title>/)
     expect(word).to match(/test_files\/header.html/)

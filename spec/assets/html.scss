@@ -3,4 +3,18 @@
 
 p {
   font-family: $bodyfont;
+  font-size: $normalfontsize;
+}
+code {
+  font-family: $monospacefont;
+  font-size: $monospacefontsize;
+}
+aside {
+  font-size: $footnotefontsize;
+}
+h1 {
+  font-family: $headerfont;
+}
+p.note {
+  font-size: $smallerfontsize;
 }
