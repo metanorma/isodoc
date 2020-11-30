@@ -97,6 +97,10 @@ module IsoDoc
         $bodyfont: '{{bodyfont}}';
         $headerfont: '{{headerfont}}';
         $monospacefont: '{{monospacefont}}';
+        $normalfontsize: '{{normalfontsize}}';
+        $smallerfontsize: '{{smallerfontsize}}';
+        $footnotefontsize: '{{footnotefontsize}}';
+        $monospacefontsize: '{{monospacefontsize}}';
       TEXT
     end
 
