@@ -60,6 +60,7 @@ module IsoDoc::HtmlFunction
     <script type="text/javascript">#{toclevel}</script>
 
     <!--Google fonts-->
+      <link rel="preconnect" href="https://fonts.gstatic.com"> 
       #{googlefonts}
     <!--Font awesome import for the link icon-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
