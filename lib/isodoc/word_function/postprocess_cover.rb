@@ -75,5 +75,60 @@ module IsoDoc::WordFunction
       toc.sub(/(<p class="MsoToc1">)/,
               %{\\1#{word_toc_preface(level)}}) +  WORD_TOC_SUFFIX1
     end
+
+    def authority_cleanup1(docxml, klass)
+      dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
+      auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or @class = 'boilerplate-#{klass}']")
+      auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each { |h| h.remove }
+      auth&.xpath(".//h1 | .//h2")&.each do |h|
+        h.name = "p"
+        h["class"] = "TitlePageSubhead"
+      end
+      dest and auth and dest.replace(auth.remove)
+    end
+
+    def authority_cleanup(docxml)
+      %w(copyright license legal feedback).each do |t|
+        authority_cleanup1(docxml, t)
+      end
+    end
+
+    def generate_header(filename, _dir)
+      return nil unless @header
+      template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
+      meta = @meta.get.merge(@labels || {}).merge(@meta.labels || {})
+      meta[:filename] = filename
+      params = meta.map { |k, v| [k.to_s, v] }.to_h
+      Tempfile.open(%w(header html), :encoding => "utf-8") do |f|
+        f.write(template.render(params))
+        f
+      end
+    end
+
+    def word_section_breaks(docxml)
+      @landscapestyle = ""
+      word_section_breaks1(docxml, "WordSection2")
+      word_section_breaks1(docxml, "WordSection3")
+      word_remove_pb_before_annex(docxml)
+      docxml.xpath("//br[@orientation]").each { |br| br.delete("orientation") }
+    end
+
+    def word_section_breaks1(docxml, sect)
+      docxml.xpath("//div[@class = '#{sect}']//br[@orientation]").reverse.
+        each_with_index do |br, i|
+        @landscapestyle += "\ndiv.#{sect}_#{i} {page:#{sect}#{br["orientation"] == "landscape" ? "L" : "P"};}\n"
+        split_at_section_break(docxml, sect, br, i)
+      end
+    end
+
+    def split_at_section_break(docxml, sect, br, i)
+      move = br.parent.xpath("following::node()") &
+        br.document.xpath("//div[@class = '#{sect}']//*")
+      ins = docxml.at("//div[@class = '#{sect}']").after("<div class='#{sect}_#{i}'/>").next_element
+      move.each do |m|
+        next if m.at("./ancestor::div[@class = '#{sect}_#{i}']")
+        ins << m.remove
+      end
+    end
   end
 end

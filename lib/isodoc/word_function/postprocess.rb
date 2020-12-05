@@ -5,11 +5,9 @@ module IsoDoc::WordFunction
   module Postprocess
     # add namespaces for Word fragments
     WORD_NOKOHEAD = <<~HERE.freeze
-    <!DOCTYPE html SYSTEM
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    <!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:v="urn:schemas-microsoft-com:vml"
-xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
 xmlns:w="urn:schemas-microsoft-com:office:word"
 xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
     <head> <title></title> <meta charset="UTF-8" /> </head>
@@ -18,15 +16,13 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
 
     def to_word_xhtml_fragment(xml)
       doc = ::Nokogiri::XML.parse(WORD_NOKOHEAD)
-      fragment = ::Nokogiri::XML::DocumentFragment.new(doc, xml, doc.root)
-      fragment
+      ::Nokogiri::XML::DocumentFragment.new(doc, xml, doc.root)
     end
 
     def table_note_cleanup(docxml)
       super
       # preempt html2doc putting MsoNormal there
-      docxml.xpath("//p[not(self::*[@class])]"\
-                   "[ancestor::*[@class = 'Note']]").each do |p|
+      docxml.xpath("//p[not(self::*[@class])][ancestor::*[@class = 'Note']]").each do |p|
         p["class"] = "Note"
       end
     end
@@ -56,8 +52,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
 
     def word_admonition_images(docxml)
       docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
-        i["width"], i["height"] =
-          Html2Doc.image_resize(i, image_localfile(i), @maxheight, 300)
+        i["width"], i["height"] = Html2Doc.image_resize(i, image_localfile(i), @maxheight, 300)
       end
     end
 
@@ -65,6 +60,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       word_annex_cleanup(docxml)
       word_preface(docxml)
       word_nested_tables(docxml)
+      word_colgroup(docxml)
       word_table_align(docxml)
       word_table_separator(docxml)
       word_admonition_images(docxml)
@@ -78,28 +74,44 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       docxml
     end
 
+    def word_colgroup(docxml)
+      cells2d = {}
+      docxml.xpath("//table[colgroup]").each do |t|
+        w = colgroup_widths(t)
+        t.xpath(".//tr").each_with_index { |tr, r| cells2d[r] = {} }
+        t.xpath(".//tr").each_with_index do |tr, r|
+          tr.xpath("./td | ./th").each_with_index do |td, i|
+            x = 0
+            rs = td&.attr("rowspan")&.to_i || 1
+            cs = td&.attr("colspan")&.to_i || 1
+            while cells2d[r][x] do
+              x += 1 
+            end
+            for y2 in r..(r + rs - 1)
+              for x2 in x..(x + cs - 1)
+                cells2d[y2][x2] = 1
+              end
+            end
+            width = (x..(x+cs-1)).each_with_object({width: 0}) { |z, m| m[:width] += w[z] }
+            td["width"] = "#{width[:width]}%"
+            x += cs
+          end
+        end
+      end
+    end
+
+    # assume percentages
+    def colgroup_widths(t)
+      t.xpath("./colgroup/col").each_with_object([]) do |c, m|
+        m << c["width"].sub(/%$/, "").to_f
+      end
+    end
+
     def word_nested_tables(docxml)
       docxml.xpath("//table").each do |t|
         t.xpath(".//table").reverse.each do |tt|
           t.next = tt.remove
         end
-      end
-    end
-
-    def authority_cleanup1(docxml, klass)
-      dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
-      auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or @class = 'boilerplate-#{klass}']")
-      auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each { |h| h.remove }
-      auth&.xpath(".//h1 | .//h2")&.each do |h|
-        h.name = "p"
-        h["class"] = "TitlePageSubhead"
-      end
-      dest and auth and dest.replace(auth.remove)
-    end
-
-    def authority_cleanup(docxml)
-      %w(copyright license legal feedback).each do |t|
-        authority_cleanup1(docxml, t)
       end
     end
 
@@ -144,19 +156,6 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       end
     end
 
-=begin
-    EMPTY_PARA = "<p style='margin-top:0cm;margin-right:0cm;"\
-      "margin-bottom:0cm;margin-left:0.0pt;margin-bottom:.0001pt;"\
-      "line-height:1.0pt;mso-line-height-rule:exactly'>"\
-      "<span lang=EN-GB style='display:none;mso-hide:all'>&nbsp;</span></p>"
-
-    def table_after_table(docxml)
-     docxml.xpath("//table[following-sibling::*[1]/self::table]").each do |t|
-        t.add_next_sibling(EMPTY_PARA)
-      end
-    end
-=end
-
     def word_table_separator(docxml)
       docxml.xpath("//p[@class = 'TableTitle']").each do |t|
         next unless t.children.empty?
@@ -180,46 +179,6 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       end
     end
 
-    def generate_header(filename, _dir)
-      return nil unless @header
-      template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
-      meta = @meta.get.merge(@labels || {}).merge(@meta.labels || {})
-      meta[:filename] = filename
-      params = meta.map { |k, v| [k.to_s, v] }.to_h
-      Tempfile.open(%w(header html), :encoding => "utf-8") do |f|
-        f.write(template.render(params))
-        f
-      end
-    end
-
-    def word_section_breaks(docxml)
-      @landscapestyle = ""
-      word_section_breaks1(docxml, "WordSection2")
-      word_section_breaks1(docxml, "WordSection3")
-      word_remove_pb_before_annex(docxml)
-      docxml.xpath("//br[@orientation]").each { |br| br.delete("orientation") }
-    end
-
-    def word_section_breaks1(docxml, sect)
-      docxml.xpath("//div[@class = '#{sect}']//br[@orientation]").reverse.
-        each_with_index do |br, i|
-        @landscapestyle += "\ndiv.#{sect}_#{i} {page:#{sect}"\
-          "#{br["orientation"] == "landscape" ? "L" : "P"};}\n"
-        split_at_section_break(docxml, sect, br, i)
-      end
-    end
-
-    def split_at_section_break(docxml, sect, br, i)
-      move = br.parent.xpath("following::node()") &
-        br.document.xpath("//div[@class = '#{sect}']//*")
-      ins = docxml.at("//div[@class = '#{sect}']").
-        after("<div class='#{sect}_#{i}'/>").next_element
-      move.each do |m|
-        next if m.at("./ancestor::div[@class = '#{sect}_#{i}']")
-        ins << m.remove
-      end
-    end
-
     # applies for <div class="WordSectionN_M"><p><pagebreak/></p>...
     def word_remove_pb_before_annex(docxml)
       docxml.xpath("//div[p/br]").each do |d|
@@ -237,8 +196,7 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
       docxml.xpath("//a[@epub:type = 'footnote']").each do |x|
         footnote_reference_format(x)
       end
-      docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
-                   "//span[@class = 'TableFootnoteRef']").each do |x|
+      docxml.xpath("//a[@class = 'TableFootnoteRef'] | //span[@class = 'TableFootnoteRef']").each do |x|
         table_footnote_reference_format(x)
       end
       docxml

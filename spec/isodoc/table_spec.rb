@@ -8,6 +8,13 @@ RSpec.describe IsoDoc do
     <foreword>
       <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
   <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+  <colgroup>
+  <col width="30%"/>
+  <col width="20%"/>
+  <col width="20%"/>
+  <col width="20%"/>
+  <col width="10%"/>
+  </colgroup>
   <thead>
     <tr>
       <td rowspan="2" align="left">Description</td>
@@ -77,6 +84,13 @@ RSpec.describe IsoDoc do
                    <p>X</p>
                  </fn>
                </name>
+                <colgroup>
+   <col width='30%'/>
+   <col width='20%'/>
+   <col width='20%'/>
+   <col width='20%'/>
+   <col width='10%'/>
+ </colgroup>
                <thead>
                  <tr>
                    <td rowspan='2' align='left'>Description</td>
@@ -165,6 +179,13 @@ html = <<~OUTPUT
                <caption>
                <span style="display:none">long desc</span>
                </caption>
+                <colgroup>
+   <col style='width: 30%;'/>
+   <col style='width: 20%;'/>
+   <col style='width: 20%;'/>
+   <col style='width: 20%;'/>
+   <col style='width: 10%;'/>
+ </colgroup>
                  <thead>
                    <tr>
                      <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">Description</td>
@@ -259,6 +280,13 @@ html = <<~OUTPUT
                </p>
                <div align='center' class='table_container'>
                  <table id='tableD-1' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;' title='tool tip' summary='long desc' width='70%'>
+                 <colgroup>
+  <col width='30%'/>
+  <col width='20%'/>
+  <col width='20%'/>
+  <col width='20%'/>
+  <col width='10%'/>
+</colgroup>
                    <thead>
                      <tr>
                        <td rowspan='2' align='left' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>Description</td>
