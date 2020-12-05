@@ -58,11 +58,21 @@ module IsoDoc::Function
       end
     end
 
+    def colgroup(node, t)
+      colgroup = node.at(ns("./colgroup")) or return
+      t.colgroup do |cg|
+        colgroup.xpath(ns("./col")).each do |c|
+          cg.col **{ style: "width: #{c['width']};" }
+        end
+      end
+    end
+
     def table_parse(node, out)
       @in_table = true
       table_title_parse(node, out)
       out.table **table_attrs(node) do |t|
         tcaption(node, t)
+        colgroup(node, t)
         thead_parse(node, t)
         tbody_parse(node, t)
         tfoot_parse(node, t)
