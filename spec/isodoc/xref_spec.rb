@@ -2547,6 +2547,151 @@ OUTPUT
     OUTPUT
   end
 
+  it "cross-references bookmarks" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface>
+    <foreword>
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+    <introduction id="intro">
+    <p id="N01">
+  <bookmark id="N1"/>
+</p>
+  <clause id="xyz"><title>Preparatory</title>
+     <p id="N02" type="arabic">
+  <bookmark id="N2"/>
+</p>
+</clause>
+    </introduction>
+    </preface>
+    <sections>
+    <clause id="scope" type="scope"><title>Scope</title>
+    <p id="N0" type="roman">
+  <bookmark id="N"/>
+</p>
+    </clause>
+    <terms id="terms"/>
+    <clause id="widgets"><title>Widgets</title>
+    <clause id="widgets1">
+    <p id="note1l" type="alphabet">
+  <bookmark id="note1"/>
+</p>
+    <p id="note2l" type="roman_upper">
+  <bookmark id="note2"/>
+</p>
+    </clause>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <clause id="annex1a">
+    <p id="ANl" type="alphabet_upper">
+  <bookmark id="AN"/>
+</p>
+    </clause>
+    <clause id="annex1b">
+    <p id="Anote1l" type="roman" start="4">
+  <bookmark id="Anote1"/>
+</p>
+    <p id="Anote2l">
+  <bookmark id="Anote2"/>
+</p>
+    </clause>
+    </annex>
+    </iso-standard>
+    INPUT
+    <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <preface>
+           <foreword>
+             <p>
+               <xref target='N1'>Introduction</xref>
+               <xref target='N2'>Preparatory</xref>
+               <xref target='N'>Clause 1</xref>
+               <xref target='note1'>Clause 3.1</xref>
+               <xref target='note2'>Clause 3.1</xref>
+               <xref target='AN'>Annex A.1</xref>
+               <xref target='Anote1'>Annex A.2</xref>
+               <xref target='Anote2'>Annex A.2</xref>
+             </p>
+           </foreword>
+           <introduction id='intro'>
+             <p id='N01'>
+               <bookmark id='N1'/>
+             </p>
+             <clause id='xyz'>
+               <title depth='2'>Preparatory</title>
+               <p id='N02' type='arabic'>
+                 <bookmark id='N2'/>
+               </p>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <p id='N0' type='roman'>
+               <bookmark id='N'/>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <p id='note1l' type='alphabet'>
+                 <bookmark id='note1'/>
+               </p>
+               <p id='note2l' type='roman_upper'>
+                 <bookmark id='note2'/>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <p id='ANl' type='alphabet_upper'>
+               <bookmark id='AN'/>
+             </p>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <p id='Anote1l' type='roman' start='4'>
+               <bookmark id='Anote1'/>
+             </p>
+             <p id='Anote2l'>
+               <bookmark id='Anote2'/>
+             </p>
+           </clause>
+         </annex>
+       </iso-standard>
+OUTPUT
+end
+
    it "realises subsequences" do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <iso-standard xmlns="http://riboseinc.com/isoxml">
