@@ -66,6 +66,10 @@ module IsoDoc::XrefGen
       "//sections/clause | //sections/definitions | "\
       "//bibliography/references | //bibliography/clause".freeze
 
+    def sections_xpath
+      SECTIONS_XPATH
+    end
+
     CHILD_NOTES_XPATH =
       "./*[not(self::xmlns:clause) and not(self::xmlns:appendix) and "\
       "not(self::xmlns:terms) and not(self::xmlns:definitions)]//xmlns:note | "\
