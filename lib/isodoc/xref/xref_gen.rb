@@ -136,5 +136,19 @@ module IsoDoc::XrefGen
         end
       end
     end
+
+    def bookmark_anchor_names(sections)
+      sections.each do |s|
+        notes = s.xpath(ns(".//bookmark")) - s.xpath(ns(".//clause//bookmark")) -
+          s.xpath(ns(".//appendix//bookmark"))
+        notes.each do |n|
+          next if n["id"].nil? || n["id"].empty?
+          @anchors[n["id"]] = {
+            type: "bookmark", label: nil, value: nil,
+            xref: @anchors[s["id"]][:xref] }
+        end
+        bookmark_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+      end
+    end
   end
 end
