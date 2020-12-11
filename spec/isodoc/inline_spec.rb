@@ -120,7 +120,7 @@ OUTPUT
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
-    <p><index primary="A" secondary="B" tertiary="C"/></p>
+    <p><index primary="A" secondary="B" tertiary="C"/><index-xref primary="A" secondary="B" tertiary="C" target="D" also="false"/></p>
     </foreword></preface>
     <sections>
     </iso-standard>

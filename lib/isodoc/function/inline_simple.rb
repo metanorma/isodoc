@@ -23,7 +23,10 @@ module IsoDoc::Function
     def index_parse(node, out)
     end
 
-        def bookmark_parse(node, out)
+    def index_xref_parse(node, out)
+    end
+
+    def bookmark_parse(node, out)
       out.a **attr_code(id: node["id"])
     end
 
