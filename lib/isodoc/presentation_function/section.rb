@@ -42,5 +42,11 @@ module IsoDoc
       lbl = @xrefs.get[f["id"]][:label] or return
       prefix_name(f, "", "#{lbl}#{clausedelim}", "name")
     end
+
+    def index(docxml)
+      docxml.xpath(ns("//index | //index-xref")).each do |f|
+        f.remove
+      end
+    end
   end
 end

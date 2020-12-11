@@ -30,6 +30,7 @@ module IsoDoc
       clause docxml
       annex docxml
       term docxml
+      index docxml
     end
 
     def block(docxml)

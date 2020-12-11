@@ -215,6 +215,7 @@ module IsoDoc::Function
         when "verification" then requirement_component_parse(node, out)
         when "import" then requirement_component_parse(node, out)
         when "index" then index_parse(node, out)
+        when "index-xref" then index_xref_parse(node, out)
         when "termref" then termrefelem_parse(node, out)
         when "copyright-statement" then copyright_parse(node, out)
         when "license-statement" then license_parse(node, out)
