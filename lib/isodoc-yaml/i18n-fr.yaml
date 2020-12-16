@@ -90,3 +90,59 @@ locality: {
                       note: Note,
                       formula: Formule
                     }
+inflection:
+  Clause:
+    sg: Article
+    pl: Articles
+  Annex:
+    sg: Annexe
+    pl: Annexes
+  Appendix:
+    sg: Appendice
+    pl: Appendices
+  Note:
+    sg: Note
+    pl: Notes
+  "Note % à l’article":
+    sg: Note % à l’article
+    pl: Notes % à l’article
+  List:
+    sg: Liste
+    pl: Listes
+  Figure:
+    sg: Figure
+    pl: Figures
+  Formula:
+    sg: Formule
+    pl: Formules
+  Table:
+    sg: Tableau
+    pl: Tableaux
+  Requirement:
+    sg: Exigence
+    pl: Exigences
+  Recommendation:
+    sg: Recommandation
+    pl: Recommandations
+  Permission:
+    sg: Autorisation
+    pl: Autorisations
+  Example:
+    sg: Exemple
+    pl: Exemples
+  Part:
+    sg: Partie
+    pl: Parties
+  Section:
+    sg: Section
+    pl: Sections
+  Paragraph:
+    sg: Alinéa
+    pl: Alinéas
+  Chapter:
+    sg: Chapitre
+    pl: Chapitres
+  Page:
+    sg: Page
+    pl: Pages
+
