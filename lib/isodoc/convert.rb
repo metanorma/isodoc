@@ -157,7 +157,7 @@ module IsoDoc
       FileUtils.rm_rf dir
     end
 
-    def middle_clause
+    def middle_clause(docxml = nil)
       "//clause[parent::sections][not(@type = 'scope')]"\
         '[not(descendant::terms)]'
     end
