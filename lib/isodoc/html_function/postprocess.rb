@@ -1,35 +1,100 @@
 module IsoDoc::HtmlFunction
   module Html
-    def postprocess(result, filename, dir)
+    MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
+    MATHVARIANT_SPECIAL_CASE_MAPPINGS_1 = %w[bold italic sans-serif]
+      .permutation
+      .each_with_object(:sansbolditalic)
+      .map { |n, y| [n, y] }
+      .to_h
+      .freeze
+    MATHVARIANT_SPECIAL_CASE_MAPPINGS_2 = {
+      %w[bold fraktur] => :frakturbold,
+      %w[bold script] => :scriptbold,
+      %w[sans-serif bold] => :sansbold,
+      %w[sans-serif italic] => :sansitalic,
+      %w[sans-serif bold-italic] => :sansbolditalic,
+      %w[bold-sans-serif italic] => :sansbolditalic,
+      %w[sans-serif-italic bold] => :sansbolditalic,
+    }.freeze
+    MATHVARIANT_TO_PLANE_MAPPINGS = {
+      %w[double-struck] => :doublestruck,
+      %w[bold-fraktur] => :frakturbold,
+      %w[script] => :script,
+      %w[bold-script] => :scriptbold,
+      %w[fraktur] => :fraktur,
+      %w[sans-serif] => :sans,
+      %w[bold-sans-serif] => :sansbold,
+      %w[sans-serif-italic] => :sansitalic,
+      %w[sans-serif-bold-italic] => :sansbolditalic,
+      %w[monospace] => :monospace,
+    }.freeze
+
+    def postprocess(result, filename, _dir)
       result = from_xhtml(cleanup(to_xhtml(textcleanup(result))))
       toHTML(result, filename)
       @files_to_delete.each { |f| FileUtils.rm_rf f }
     end
 
     def script_cdata(result)
-      result.gsub(%r{<script([^>]*)>\s*<!\[CDATA\[}m, "<script\\1>").
-        gsub(%r{\]\]>\s*</script>}, "</script>").
-        gsub(%r{<!\[CDATA\[\s*<script([^>]*)>}m, "<script\\1>").
-        gsub(%r{</script>\s*\]\]>}, "</script>")
+      result.gsub(%r{<script([^>]*)>\s*<!\[CDATA\[}m, "<script\\1>")
+        .gsub(%r{\]\]>\s*</script>}, "</script>")
+        .gsub(%r{<!\[CDATA\[\s*<script([^>]*)>}m, "<script\\1>")
+        .gsub(%r{</script>\s*\]\]>}, "</script>")
     end
 
     def toHTML(result, filename)
-      result = (from_xhtml(html_cleanup(to_xhtml(result))))
-      #result = populate_template(result, :html)
+      result = from_xhtml(html_cleanup(to_xhtml(result)))
+      # result = populate_template(result, :html)
       result = from_xhtml(move_images(to_xhtml(result)))
       result = html5(script_cdata(inject_script(result)))
       File.open(filename, "w:UTF-8") { |f| f.write(result) }
     end
 
     def html5(doc)
-      doc.sub(%r{<!DOCTYPE html [^>]+>}, "<!DOCTYPE html>").
-        sub(%r{<\?xml[^>]+>}, "")
+      doc.sub(%r{<!DOCTYPE html [^>]+>}, "<!DOCTYPE html>")
+        .sub(%r{<\?xml[^>]+>}, "")
     end
 
     def html_cleanup(x)
-      footnote_format(footnote_backlinks(html_toc(
-        term_header((html_footnote_filter(html_preface(htmlstyle(x))))))
-                        ))
+      mathml(
+        footnote_format(
+          footnote_backlinks(
+            html_toc(
+              term_header(html_footnote_filter(html_preface(htmlstyle(x))))
+            )
+          )
+        )
+      )
+    end
+
+    # hotfix for #238, convert mathvariant text into associated plain chars
+    def mathml(docxml)
+      docxml.xpath("//m:math", MATHML).each do |elem|
+        mathml1(elem)
+      end
+    end
+
+    def mathml1(base_elem)
+      MATHVARIANT_SPECIAL_CASE_MAPPINGS_1
+        .merge(MATHVARIANT_SPECIAL_CASE_MAPPINGS_2)
+        .merge(MATHVARIANT_TO_PLANE_MAPPINGS)
+        .each_pair do |mathvariant_list, plain_font|
+          xpath = mathvariant_list
+            .map { |variant| "//*[@mathvariant = '#{variant}']" }
+            .join
+          base_elem.xpath(xpath).each do |elem|
+            toPlane(elem, plain_font)
+          end
+        end
+    end
+
+    def toPlane(elem, font)
+      elem.traverse do |n|
+        next unless n.text?
+
+        n.replace(Plane1Converter.conv(HTMLEntities.new.decode(n.text), font))
+      end
+      elem
     end
 
     def htmlstylesheet
@@ -64,7 +129,7 @@ module IsoDoc::HtmlFunction
       auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or @class = 'boilerplate-#{klass}']")
       auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each { |h| h.remove }
       auth&.xpath(".//h1 | .//h2")&.each { |h| h["class"] = "IntroTitle" }
-      dest and auth and dest.replace(auth.remove)
+      dest && auth && dest.replace(auth.remove)
     end
 
     def authority_cleanup(docxml)
@@ -76,14 +141,14 @@ module IsoDoc::HtmlFunction
     def html_cover(docxml)
       doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="title-section"]')
-      #d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
+      # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
       d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
     end
 
     def html_intro(docxml)
       doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="prefatory-section"]')
-      #d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
+      # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
       d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
     end
 
@@ -93,19 +158,19 @@ module IsoDoc::HtmlFunction
     end
 
     def toclevel_classes
-      (1..@htmlToClevels).inject([]) { |m, i| m << "h#{i}" }
+      (1..@htmlToClevels).reduce([]) { |m, i| m << "h#{i}" }
     end
 
     def toclevel
       ret = toclevel_classes.map { |l| "#{l}:not(:empty):not(.TermNum):not(.noTOC)" }
       <<~HEAD.freeze
-    function toclevel() { return "#{ret.join(',')}";}
+        function toclevel() { return "#{ret.join(',')}";}
       HEAD
     end
 
     # needs to be same output as toclevel
     def html_toc(docxml)
-      idx = docxml.at("//div[@id = 'toc']") or return docxml
+      (idx = docxml.at("//div[@id = 'toc']")) || (return docxml)
       toc = "<ul>"
       path = toclevel_classes.map do |l|
         "//main//#{l}[not(@class = 'TermNum')][not(@class = 'noTOC')][text()]"
@@ -141,8 +206,9 @@ module IsoDoc::HtmlFunction
     def image_suffix(i)
       type = i["mimetype"]&.sub(%r{^[^/*]+/}, "")
       matched = /\.(?<suffix>[^. \r\n\t]+)$/.match i["src"]
-      type and !type.empty? and return type
-      !matched.nil? and matched[:suffix] and return matched[:suffix]
+      return type if type && !type.empty?
+      return matched[:suffix] if !matched.nil? && matched[:suffix]
+
       "png"
     end
 
@@ -199,7 +265,7 @@ module IsoDoc::HtmlFunction
     def footnote_backlinks(docxml)
       seen = {}
       docxml.xpath('//a[@class = "FootnoteRef"]').each_with_index do |x, i|
-        seen[x["href"]] and next or seen[x["href"]] = true
+        seen[x["href"]] && next || (seen[x["href"]] = true)
         fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
         footnote_backlinks1(x, fn)
         x["id"] ||= "fnref:#{i + 1}"
