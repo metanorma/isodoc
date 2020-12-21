@@ -17,9 +17,10 @@ module IsoDoc
     def extract_person_affiliations(authors)
       authors.reduce([]) do |m, a|
         name = a&.at(ns('./affiliation/organization/name'))&.text
-        location = a&.at(ns('./affiliation/organization/address/'\
-                            'formattedAddress'))&.text
-        m << (!name.nil? && !location.nil? ? "#{name}, #{location}" :
+        subdivs = a&.xpath(ns('./affiliation/organization/subdivision'))&.map(&:text)&.join(", ")
+        name and subdivs and name = l10n("#{name}, #{subdivs}", @lang, @script)
+        location = a&.at(ns('./affiliation/organization/address/formattedAddress'))&.text
+        m << (!name.nil? && !location.nil? ? l10n("#{name}, #{location}", @lang, @script) :
           (name || location || ''))
         m
       end
