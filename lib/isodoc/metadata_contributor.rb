@@ -18,7 +18,7 @@ module IsoDoc
       authors.reduce([]) do |m, a|
         name = a&.at(ns('./affiliation/organization/name'))&.text
         subdivs = a&.xpath(ns('./affiliation/organization/subdivision'))&.map(&:text)&.join(", ")
-        name and subdivs and name = l10n("#{name}, #{subdivs}", @lang, @script)
+        name and subdivs and !subdivs.empty? and name = l10n("#{name}, #{subdivs}", @lang, @script)
         location = a&.at(ns('./affiliation/organization/address/formattedAddress'))&.text
         m << (!name.nil? && !location.nil? ? l10n("#{name}, #{location}", @lang, @script) :
           (name || location || ''))
