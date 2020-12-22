@@ -43,6 +43,9 @@ module IsoDoc
       prefix_name(f, "", "#{lbl}#{clausedelim}", "name")
     end
 
+    def references(docxml)
+    end
+
     def index(docxml)
       docxml.xpath(ns("//index | //index-xref")).each do |f|
         f.remove
