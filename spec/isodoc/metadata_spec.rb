@@ -60,6 +60,8 @@ RSpec.describe IsoDoc do
       </name>
       <affiliation>
       <organization><name>Slate Inc.</name>
+      <subdivision>Hermeneutics Unit</subdivision>
+      <subdivision>Exegesis Subunit</subdivision>
       <address>
       <formattedAddress>Bedrock</formattedAddress>
       </address>
@@ -106,7 +108,7 @@ INPUT
 :activateddate=>"2013",
 :agency=>"ISO",
 :authors=>["Barney Rubble", "Fred Flintstone"],
-:authors_affiliations=>{"Slate Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]},
+:authors_affiliations=>{"Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]},
 :circulateddate=>"2015",
 :confirmeddate=>"2017",
 :copieddate=>"2016",
