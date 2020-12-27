@@ -68,7 +68,7 @@ module IsoDoc::XrefGen
     end
 
     def clause_names(docxml, sect_num)
-      docxml.xpath(ns(@klass.middle_clause)).each_with_index do |c, i|
+      docxml.xpath(ns(@klass.middle_clause(docxml))).each_with_index do |c, i|
         section_names(c, (i + sect_num), 1)
       end
     end
