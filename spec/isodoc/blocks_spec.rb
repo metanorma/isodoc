@@ -534,7 +534,7 @@ INPUT
       <div>
         <h1 class='ForewordTitle'>Foreword</h1>
         <p id='A'>
-          ABC 
+          ABC
           <div id='B' class='Note'>
             <p>
               <span class='note_label'>NOTE 1</span>

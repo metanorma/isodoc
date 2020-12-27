@@ -617,6 +617,169 @@ TOCLEVEL
 
   end
 
+  describe "mathvariant to plain" do
+    context "when `mathvariant` attr equal to `script`" do
+      it "converts mathvariant text chars into associated plain chars" do
+        FileUtils.rm_f "test.html"
+        FileUtils.rm_rf "test_htmlimages"
+        input = <<~INPUT
+          <?xml version="1.0" encoding="UTF-8"?>
+          <iso-standard xmlns="https://www.metanorma.org/ns/iso" type="semantic" version="1.5.14">
+            <sections>
+              <clause id="_clause" inline-header="false" obligation="normative">
+                <title>Clause</title>
+                <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
+                  <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mi>x</mi>
+                      <mo>=</mo>
+                      <mstyle mathvariant="script">
+                        <mi>l</mi>
+                      </mstyle>
+                      <mo>+</mo>
+                      <mn>1</mn>
+                    </math></stem>
+                </p>
+              </clause>
+            </sections>
+          </iso-standard>
+        INPUT
+        output = <<~OUTPUT
+          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+            <p class="zzSTDTitle1"></p>
+            <div id="_clause">
+              <h1>Clause</h1>
+              <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
+              <span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <mi>x</mi>
+                  <mo>=</mo>
+                  <mstyle mathvariant="script">
+                    <mi>&#x1D4C1;</mi>
+                  </mstyle>
+                  <mo>+</mo>
+                  <mn>1</mn>
+                </math></span>
+            </p>
+            </div>
+          </main>
+        OUTPUT
+        IsoDoc::HtmlConvert.new({}).convert("test", input, false)
+        html = File.read("test.html")
+                .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
+                .sub(%r{</main>.*$}m, "</main>")
+        expect(html).to(be_equivalent_to(output))
+      end
+    end
+
+    context "when complex `mathvariant` combinations" do
+      it "converts mathvariant text chars into associated plain chars" do
+        FileUtils.rm_f "test.html"
+        FileUtils.rm_rf "test_htmlimages"
+        input = <<~INPUT
+          <?xml version="1.0" encoding="UTF-8"?>
+          <iso-standard xmlns="https://www.metanorma.org/ns/iso" type="semantic" version="1.5.14">
+            <sections>
+              <clause id="_clause" inline-header="false" obligation="normative">
+                <title>Clause</title>
+                <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
+                  <stem type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mstyle mathvariant="sans-serif">
+                        <mfrac>
+                          <mrow>
+                            <mrow>
+                              <mi>n</mi>
+                              <mfenced open="(" close=")">
+                                <mrow>
+                                  <mstyle mathvariant="bold">
+                                    <mrow>
+                                      <mi>n</mi>
+                                      <mo>+</mo>
+                                      <mn>1</mn>
+                                      <mo>+</mo>
+                                      <mstyle mathvariant="italic">
+                                        <mi>x</mi>
+                                      </mstyle>
+                                    </mrow>
+                                  </mstyle>
+                                </mrow>
+                              </mfenced>
+                            </mrow>
+                          </mrow>
+                          <mrow>
+                            <mstyle mathvariant="bold">
+                              <mrow>
+                                <mi>y</mi>
+                                <mo>+</mo>
+                                <mstyle mathvariant="fraktur">
+                                  <mi>z</mi>
+                                </mstyle>
+                              </mrow>
+                            </mstyle>
+                          </mrow>
+                        </mfrac>
+                      </mstyle>
+                    </math>
+                  </stem>
+                </p>
+              </clause>
+            </sections>
+          </iso-standard>
+        INPUT
+        output = <<~OUTPUT
+          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+            <p class="zzSTDTitle1"></p>
+            <div id="_clause">
+              <h1>Clause</h1>
+              <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
+              <span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <mstyle mathvariant="sans-serif">
+                    <mfrac>
+                      <mrow>
+                        <mrow>
+                          <mi>&#x1D5C7;</mi>
+                          <mfenced open="(" close=")">
+                            <mrow>
+                              <mstyle mathvariant="bold">
+                                <mrow>
+                                  <mi>&#x1D5FB;</mi>
+                                  <mo>+</mo>
+                                  <mn>&#x1D7ED;</mn>
+                                  <mo>+</mo>
+                                  <mstyle mathvariant="italic">
+                                    <mi>&#x1D66D;</mi>
+                                  </mstyle>
+                                </mrow>
+                              </mstyle>
+                            </mrow>
+                          </mfenced>
+                        </mrow>
+                      </mrow>
+                      <mrow>
+                        <mstyle mathvariant="bold">
+                          <mrow>
+                            <mi>&#x1D606;</mi>
+                            <mo>+</mo>
+                            <mstyle mathvariant="fraktur">
+                              <mi>&#x1D59F;</mi>
+                            </mstyle>
+                          </mrow>
+                        </mstyle>
+                      </mrow>
+                    </mfrac>
+                  </mstyle>
+                </math></span>
+            </p>
+            </div>
+          </main>
+        OUTPUT
+        IsoDoc::HtmlConvert.new({}).convert("test", input, false)
+        html = File.read("test.html")
+                .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
+                .sub(%r{</main>.*$}m, "</main>")
+        expect(html).to(be_equivalent_to(output))
+      end
+    end
+  end
 
   it "moves images in HTML with no file suffix" do
     FileUtils.rm_f "test.html"
@@ -1047,7 +1210,7 @@ TOCLEVEL
     OUTPUT
   end
 
-  it "deals with image captions (Word)" do 
+  it "deals with image captions (Word)" do
 FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss"}).convert("test", <<~"INPUT", false)
@@ -1366,7 +1529,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
            <div class='Section3' id=''>
              <h1 class='IntroTitle'>Preface 1</h1>
              <p align='center' style='text-align:center;' class='MsoNormal'>
-               This is a 
+               This is a
                <p class='MsoNormal'>
                  <br clear='all' class='section'/>
                </p>
@@ -1412,7 +1575,7 @@ expect(xmlpp(html.sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>"))).
                <p class='Note'>
                  <span class='note_label'/>
                  <span style='mso-tab-count:1'>&#xA0; </span>
-                 For further information on the Foreword, see 
+                 For further information on the Foreword, see
                  <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
                </p>
                <p class='Note'>

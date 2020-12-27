@@ -1,35 +1,47 @@
+require "isodoc/html_function/mathvariant_to_plain"
+
 module IsoDoc::HtmlFunction
   module Html
-    def postprocess(result, filename, dir)
+    def postprocess(result, filename, _dir)
       result = from_xhtml(cleanup(to_xhtml(textcleanup(result))))
       toHTML(result, filename)
       @files_to_delete.each { |f| FileUtils.rm_rf f }
     end
 
     def script_cdata(result)
-      result.gsub(%r{<script([^>]*)>\s*<!\[CDATA\[}m, "<script\\1>").
-        gsub(%r{\]\]>\s*</script>}, "</script>").
-        gsub(%r{<!\[CDATA\[\s*<script([^>]*)>}m, "<script\\1>").
-        gsub(%r{</script>\s*\]\]>}, "</script>")
+      result.gsub(%r{<script([^>]*)>\s*<!\[CDATA\[}m, "<script\\1>")
+        .gsub(%r{\]\]>\s*</script>}, "</script>")
+        .gsub(%r{<!\[CDATA\[\s*<script([^>]*)>}m, "<script\\1>")
+        .gsub(%r{</script>\s*\]\]>}, "</script>")
     end
 
     def toHTML(result, filename)
-      result = (from_xhtml(html_cleanup(to_xhtml(result))))
-      #result = populate_template(result, :html)
+      result = from_xhtml(html_cleanup(to_xhtml(result)))
+      # result = populate_template(result, :html)
       result = from_xhtml(move_images(to_xhtml(result)))
       result = html5(script_cdata(inject_script(result)))
       File.open(filename, "w:UTF-8") { |f| f.write(result) }
     end
 
     def html5(doc)
-      doc.sub(%r{<!DOCTYPE html [^>]+>}, "<!DOCTYPE html>").
-        sub(%r{<\?xml[^>]+>}, "")
+      doc.sub(%r{<!DOCTYPE html [^>]+>}, "<!DOCTYPE html>")
+        .sub(%r{<\?xml[^>]+>}, "")
     end
 
     def html_cleanup(x)
-      footnote_format(footnote_backlinks(html_toc(
-        term_header((html_footnote_filter(html_preface(htmlstyle(x))))))
-                        ))
+      mathml(
+        footnote_format(
+          footnote_backlinks(
+            html_toc(
+              term_header(html_footnote_filter(html_preface(htmlstyle(x))))
+            )
+          )
+        )
+      )
+    end
+
+    def mathml(docxml)
+      IsoDoc::HtmlFunction::MathvariantToPlain.new(docxml).convert
     end
 
     def htmlstylesheet
@@ -76,14 +88,14 @@ module IsoDoc::HtmlFunction
     def html_cover(docxml)
       doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="title-section"]')
-      #d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
+      # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
       d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
     end
 
     def html_intro(docxml)
       doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="prefatory-section"]')
-      #d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
+      # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
       d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
     end
 
@@ -93,19 +105,19 @@ module IsoDoc::HtmlFunction
     end
 
     def toclevel_classes
-      (1..@htmlToClevels).inject([]) { |m, i| m << "h#{i}" }
+      (1..@htmlToClevels).reduce([]) { |m, i| m << "h#{i}" }
     end
 
     def toclevel
       ret = toclevel_classes.map { |l| "#{l}:not(:empty):not(.TermNum):not(.noTOC)" }
       <<~HEAD.freeze
-    function toclevel() { return "#{ret.join(',')}";}
+        function toclevel() { return "#{ret.join(',')}";}
       HEAD
     end
 
     # needs to be same output as toclevel
     def html_toc(docxml)
-      idx = docxml.at("//div[@id = 'toc']") or return docxml
+      (idx = docxml.at("//div[@id = 'toc']")) or (return docxml)
       toc = "<ul>"
       path = toclevel_classes.map do |l|
         "//main//#{l}[not(@class = 'TermNum')][not(@class = 'noTOC')][text()]"
