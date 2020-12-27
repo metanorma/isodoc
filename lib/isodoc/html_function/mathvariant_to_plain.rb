@@ -40,12 +40,17 @@ module IsoDoc
 
       def convert
         docxml.xpath("//m:math", MATHML).each do |elem|
+          next if nothing_to_style(elem)
           mathml1(elem)
         end
         docxml
       end
 
       private
+
+      def nothing_to_style(elem)
+        !elem.at("./*[@mathvariant][not(@mathvariant = 'normal')][not(@mathvariant = 'italic')]")
+      end
 
       def mathml1(base_elem)
         MATHVARIANT_SPECIAL_CASE_MAPPINGS_1
