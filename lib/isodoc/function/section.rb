@@ -56,7 +56,7 @@ module IsoDoc::Function
     end
 
     def clause(isoxml, out)
-      isoxml.xpath(ns(middle_clause)).each do |c|
+      isoxml.xpath(ns(middle_clause(isoxml))).each do |c|
         out.div **attr_code(clause_attrs(c)) do |s|
           clause_name(nil, c&.at(ns("./title")), s, nil)
           c.elements.reject { |c1| c1.name == "title" }.each do |c1|
