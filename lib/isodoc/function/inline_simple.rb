@@ -71,5 +71,11 @@ module IsoDoc::Function
         node.children.each { |n| parse(n, e) }
       end
     end
+
+    def underline_parse(node, out)
+      out.u do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
   end
 end

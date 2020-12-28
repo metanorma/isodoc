@@ -157,6 +157,7 @@ module IsoDoc::Function
         when "sub" then sub_parse(node, out)
         when "tt" then tt_parse(node, out)
         when "strike" then strike_parse(node, out)
+        when "underline" then underline_parse(node, out)
         when "keyword" then keyword_parse(node, out)
         when "smallcap" then smallcap_parse(node, out)
         when "br" then br_parse(node, out)
