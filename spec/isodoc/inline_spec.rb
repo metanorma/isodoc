@@ -43,14 +43,14 @@ INPUT
 OUTPUT
    end
 
-  it "processes inline formatting" do
+  it "processes inline formatting (HTML)" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <p>
     <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
     <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
-    <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/>
+    <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/> <underline>J</underline>
     </p>
     </foreword></preface>
     <sections>
@@ -64,6 +64,7 @@ OUTPUT
        <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt>
        <s>F</s> <span style="font-variant:small-caps;">G</span> <span class="keyword">I</span> <br/> <hr/>
        <a id="H"/> <br/> <br/>
+       <span style='text-decoration: underline;'>J</span>
        </p>
                </div>
                <p class="zzSTDTitle1"/>
@@ -80,7 +81,7 @@ OUTPUT
     <p>
     <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
     <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
-    <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/>
+    <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/> <underline>J</underline>
     </p>
     </clause></sections>
     </iso-standard>
@@ -107,6 +108,7 @@ OUTPUT
           <p>
             <br clear='all' class='section' orientation='landscape'/>
           </p>
+          <u>J</u>
         </p>
       </div>
     </div>

@@ -111,6 +111,12 @@ module IsoDoc::HtmlFunction
       sourcecode_name_parse(node, out, name)
     end
 
+    def underline_parse(node, out)
+      out.span **{ style: "text-decoration: underline;" } do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
     def table_long_strings_cleanup(docxml)
     end
   end
