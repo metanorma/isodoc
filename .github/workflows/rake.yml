@@ -36,7 +36,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: vendor/bundle
           key: bundle-${{ matrix.os }}-${{ matrix.ruby }}-${{ hashFiles('**/*.gemspec') }}
@@ -67,3 +67,17 @@ jobs:
           inkscape --version
 
       - run: bundle exec rake
+
+  tests-passed:
+    needs: rake
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Trigger tests passed event
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{ secrets.METANORMA_CI_PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          context: 'tests-passed-successfully'
+          description: 'Tests passed successfully'
+          state: 'success'
+          sha: ${{ github.event.pull_request.head.sha || github.sha }}
