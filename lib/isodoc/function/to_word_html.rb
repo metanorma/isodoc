@@ -109,7 +109,7 @@ module IsoDoc::Function
       @meta.get
     end
 
-    def middle_title(out)
+    def middle_title(_isoxml, out)
       out.p(**{ class: "zzSTDTitle1" }) { |p| p << @meta.get[:doctitle] }
     end
 
@@ -120,7 +120,7 @@ module IsoDoc::Function
     end
 
     def middle(isoxml, out)
-      middle_title(out)
+      middle_title(isoxml, out)
       middle_admonitions(isoxml, out)
       i = scope isoxml, out, 0
       i = norm_ref isoxml, out, i
