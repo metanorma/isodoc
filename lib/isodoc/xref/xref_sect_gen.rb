@@ -121,7 +121,7 @@ module IsoDoc::XrefGen
       if a = single_annex_special_section(clause)
         annex_names1(a, "#{num}", 1)
       else
-      i = Counter.new
+        i = Counter.new
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           i.increment(c)
           annex_names1(c, "#{num}.#{i.print}", 2)
@@ -135,8 +135,8 @@ module IsoDoc::XrefGen
                                  level: level, type: "clause" }
       i = Counter.new
       clause.xpath(ns(SUBCLAUSES)).each_with_index do |c|
-          i.increment(c)
-          annex_names1(c, "#{num}.#{i.print}", level + 1)
+        i.increment(c)
+        annex_names1(c, "#{num}.#{i.print}", level + 1)
       end
     end
 

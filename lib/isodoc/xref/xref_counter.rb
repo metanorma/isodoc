@@ -2,12 +2,13 @@ require "roman-numerals"
 
 module IsoDoc::XrefGen
   class Counter
-    def initialize(num = 0)
+    def initialize(num = 0, opts = {numerals: :arabic})
       @num = num
       @letter = ""
       @subseq = ""
       @letter_override = nil
       @number_override = nil
+      @style = opts[:numerals]
       @base = ""
       if num.is_a? String
         if /^\d+$/.match(num)
@@ -102,7 +103,9 @@ module IsoDoc::XrefGen
     end
 
     def print
-      "#{@base}#{@number_override || @num}#{@letter_override || @letter}"
+      num = @number_override || @num
+      num_out = @style == :roman && !num.nil? ? RomanNumerals.to_roman(num) : num
+      "#{@base}#{num_out}#{@letter_override || @letter}"
     end
 
     def ol_type(list, depth)

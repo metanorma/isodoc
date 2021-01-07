@@ -3227,4 +3227,19 @@ INPUT
 OUTPUT
       end
 
+ it "realises roman counter for xrefs" do
+   a = IsoDoc::XrefGen::Counter.new(0, numerals: :roman)
+   a.increment({})
+   expect(a.print).to eq "I"
+   a.increment({})
+   expect(a.print).to eq "II"
+   a.increment({})
+   expect(a.print).to eq "III"
+   a.increment({})
+   expect(a.print).to eq "IV"
+   a.increment({})
+   expect(a.print).to eq "V"
+   
+    end
+
 end
