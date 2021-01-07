@@ -2810,6 +2810,31 @@ INPUT
     <xref target="N12"/>
     <xref target="N13"/>
     </p>
+    <p>
+    <xref target="S1"/>
+    <xref target="S2"/>
+    <xref target="S3"/>
+    <xref target="S4"/>
+    <xref target="S12"/>
+    <xref target="S13"/>
+    <xref target="S14"/>
+    <xref target="S15"/>
+    <xref target="S16"/>
+    <xref target="S17"/>
+    <xref target="S18"/>
+    <xref target="S19"/>
+    <xref target="S20"/>
+    <xref target="S21"/>
+    <xref target="S22"/>
+    <xref target="S23"/>
+    <xref target="S24"/>
+    <xref target="S25"/>
+    <xref target="S26"/>
+    <xref target="S27"/>
+    <xref target="S28"/>
+    <xref target="S29"/>
+    <xref target="S30"/>
+    </p>
     </foreword>
         <introduction id="intro">
         <figure id="N1"> <name>Split-it-right sample divider</name>
@@ -2852,6 +2877,83 @@ INPUT
            <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
         </figure>
   </introduction>
+  </preface>
+  <sections>
+  <clause id='S1' number='1bis' type='scope' inline-header='false' obligation='normative'>
+             <title>Scope</title>
+             <p id='_'>Text</p>
+           </clause>
+           <terms id='S3' number='3bis' obligation='normative'>
+             <title>Terms and definitions</title>
+             <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
+             <term id='S4' number='4bis'>
+               <preferred>Term1</preferred>
+             </term>
+           </terms>
+           <definitions id='S12' number='12bis' type='abbreviated_terms' obligation='normative'>
+             <title>Abbreviated terms</title>
+           </definitions>
+           <clause id='S13' number='13bis' inline-header='false' obligation='normative'>
+             <title>Clause 4</title>
+             <clause id='S14' number='14bis' inline-header='false' obligation='normative'>
+               <title>Introduction</title>
+             </clause>
+             <clause id='S15' inline-header='false' obligation='normative'>
+               <title>Clause A</title>
+             </clause>
+             <clause id='S16' inline-header='false' obligation='normative'>
+               <title>Clause B</title>
+             </clause>
+             <clause id='S17' number='0' inline-header='false' obligation='normative'>
+               <title>Clause C</title>
+             </clause>
+             <clause id='S18' inline-header='false' obligation='normative'>
+               <title>Clause D</title>
+             </clause>
+             <clause id='S19' inline-header='false' obligation='normative'>
+               <title>Clause E</title>
+             </clause>
+             <clause id='S20' number='a' inline-header='false' obligation='normative'>
+               <title>Clause F</title>
+             </clause>
+             <clause id='S21' inline-header='false' obligation='normative'>
+               <title>Clause G</title>
+             </clause>
+             <clause id='S22' number='B' inline-header='false' obligation='normative'>
+               <title>Clause H</title>
+             </clause>
+             <clause id='S23' inline-header='false' obligation='normative'>
+               <title>Clause I</title>
+             </clause>
+           </clause>
+           <clause id='S24' number='16bis' inline-header='false' obligation='normative'>
+             <title>Terms and Definitions</title>
+           </clause>
+         </sections>
+         <annex id='S25' obligation='normative'>
+         <title>First Annex</title>
+         </annex>
+         <annex id='S26' number='17bis' inline-header='false' obligation='normative'>
+           <title>Annex</title>
+           <clause id='S27' number='18bis' inline-header='false' obligation='normative'>
+             <title>Annex A.1</title>
+           </clause>
+         </annex>
+         <annex id='S28' inline-header='false' obligation='normative'>
+         <title>Another Annex</title>
+         </annex>
+         <bibliography>
+           <references id='S2' number='2bis' normative='true' obligation='informative'>
+             <title>Normative references</title>
+             <p id='_'>There are no normative references in this document.</p>
+           </references>
+           <clause id='S29' number='19bis' obligation='informative'>
+             <title>Bibliography</title>
+             <references id='S30' number='20bis' normative='false' obligation='informative'>
+               <title>Bibliography Subsection</title>
+             </references>
+           </clause>
+         </bibliography>
   </iso-standard>
 INPUT
 <?xml version='1.0'?>
@@ -2861,7 +2963,7 @@ INPUT
       <p>
         <xref target='N1'>Figure 1</xref>
 <xref target='N2'>Figure A</xref>
-<xref target='N3'>Figure 2</xref>
+<xref target='N3'>Figure B</xref>
 <xref target='N4'>Figure 7</xref>
 <xref target='N5'>Figure 8</xref>
 <xref target='N6'>Figure 9a</xref>
@@ -2873,6 +2975,31 @@ INPUT
 <xref target='N12'>Figure A.2</xref>
 <xref target='N13'>Figure 100</xref>
       </p>
+       <p>
+   <xref target='S1'>Clause 1bis</xref>
+   <xref target='S2'>Clause 2bis</xref>
+   <xref target='S3'>Clause 3bis</xref>
+   <xref target='S4'>Clause 3bis.4bis</xref>
+   <xref target='S12'>Clause 12bis</xref>
+   <xref target='S13'>Clause 13bis</xref>
+   <xref target='S14'>Clause 13bis.14bis</xref>
+   <xref target='S15'>Clause 13bis.14bit</xref>
+   <xref target='S16'>Clause 13bis.14biu</xref>
+   <xref target='S17'>Clause 13bis.0</xref>
+   <xref target='S18'>Clause 13bis.1</xref>
+   <xref target='S19'>Clause 13bis.2</xref>
+   <xref target='S20'>Clause 13bis.a</xref>
+   <xref target='S21'>Clause 13bis.b</xref>
+   <xref target='S22'>Clause 13bis.B</xref>
+   <xref target='S23'>Clause 13bis.C</xref>
+   <xref target='S24'>Clause 16bis</xref>
+   <xref target='S25'>Annex A</xref>
+   <xref target='S26'>Annex 17bis</xref>
+   <xref target='S27'>Annex 17bis.18bis</xref>
+   <xref target='S28'>Annex 17bit</xref>
+   <xref target='S29'>Bibliography</xref>
+   <xref target='S30'>Bibliography Subsection</xref>
+ </p>
     </foreword>
     <introduction id='intro'>
       <figure id='N1'>
@@ -2884,7 +3011,7 @@ INPUT
         <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
       </figure>
       <figure id='N3'>
-        <name>Figure 2&#xA0;&#x2014; Split-it-right sample divider</name>
+        <name>Figure B&#xA0;&#x2014; Split-it-right sample divider</name>
         <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
       </figure>
       <figure id='N4' number='7'>
@@ -2930,8 +3057,189 @@ INPUT
 
     </introduction>
   </preface>
+  <sections>
+           <clause id='S1' number='1bis' type='scope' inline-header='false' obligation='normative'>
+             <title depth='1'>
+               1bis.
+               <tab/>
+               Scope
+             </title>
+             <p id='_'>Text</p>
+           </clause>
+           <terms id='S3' number='3bis' obligation='normative'>
+             <title depth='1'>
+               3bis.
+               <tab/>
+               Terms and definitions
+             </title>
+             <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
+             <term id='S4' number='4bis'>
+               <name>3bis.4bis.</name>
+               <preferred>Term1</preferred>
+             </term>
+           </terms>
+           <definitions id='S12' number='12bis' type='abbreviated_terms' obligation='normative'>
+             <title depth='1'>
+               12bis.
+               <tab/>
+               Abbreviated terms
+             </title>
+           </definitions>
+           <clause id='S13' number='13bis' inline-header='false' obligation='normative'>
+             <title depth='1'>
+               13bis.
+               <tab/>
+               Clause 4
+             </title>
+             <clause id='S14' number='14bis' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.14bis.
+                 <tab/>
+                 Introduction
+               </title>
+             </clause>
+             <clause id='S15' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.14bit.
+                 <tab/>
+                 Clause A
+               </title>
+             </clause>
+             <clause id='S16' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.14biu.
+                 <tab/>
+                 Clause B
+               </title>
+             </clause>
+             <clause id='S17' number='0' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.0.
+                 <tab/>
+                 Clause C
+               </title>
+             </clause>
+             <clause id='S18' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.1.
+                 <tab/>
+                 Clause D
+               </title>
+             </clause>
+             <clause id='S19' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.2.
+                 <tab/>
+                 Clause E
+               </title>
+             </clause>
+             <clause id='S20' number='a' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.a.
+                 <tab/>
+                 Clause F
+               </title>
+             </clause>
+             <clause id='S21' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.b.
+                 <tab/>
+                 Clause G
+               </title>
+             </clause>
+             <clause id='S22' number='B' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.B.
+                 <tab/>
+                 Clause H
+               </title>
+             </clause>
+             <clause id='S23' inline-header='false' obligation='normative'>
+               <title depth='2'>
+                 13bis.C.
+                 <tab/>
+                 Clause I
+               </title>
+             </clause>
+           </clause>
+           <clause id='S24' number='16bis' inline-header='false' obligation='normative'>
+             <title depth='1'>
+               16bis.
+               <tab/>
+               Terms and Definitions
+             </title>
+           </clause>
+         </sections>
+         <annex id='S25' obligation='normative'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (normative)
+             <br/>
+             <br/>
+             <strong>First Annex</strong>
+           </title>
+         </annex>
+         <annex id='S26' number='17bis' inline-header='false' obligation='normative'>
+           <title>
+             <strong>Annex 17bis</strong>
+             <br/>
+             (normative)
+             <br/>
+             <br/>
+             <strong>Annex</strong>
+           </title>
+           <clause id='S27' number='18bis' inline-header='false' obligation='normative'>
+             <title depth='2'>
+               17bis.18bis.
+               <tab/>
+               Annex A.1
+             </title>
+           </clause>
+         </annex>
+         <annex id='S28' inline-header='false' obligation='normative'>
+           <title>
+             <strong>Annex 17bit</strong>
+             <br/>
+             (normative)
+             <br/>
+             <br/>
+             <strong>Another Annex</strong>
+           </title>
+         </annex>
+         <bibliography>
+           <references id='S2' number='2bis' normative='true' obligation='informative'>
+             <title depth='1'>
+               2bis.
+               <tab/>
+               Normative references
+             </title>
+             <p id='_'>There are no normative references in this document.</p>
+           </references>
+           <clause id='S29' number='19bis' obligation='informative'>
+             <title depth='1'>Bibliography</title>
+             <references id='S30' number='20bis' normative='false' obligation='informative'>
+               <title depth='2'>Bibliography Subsection</title>
+             </references>
+           </clause>
+         </bibliography>
 </iso-standard>
 OUTPUT
       end
+
+ it "realises roman counter for xrefs" do
+   a = IsoDoc::XrefGen::Counter.new(0, numerals: :roman)
+   a.increment({})
+   expect(a.print).to eq "I"
+   a.increment({})
+   expect(a.print).to eq "II"
+   a.increment({})
+   expect(a.print).to eq "III"
+   a.increment({})
+   expect(a.print).to eq "IV"
+   a.increment({})
+   expect(a.print).to eq "V"
+   
+    end
 
 end
