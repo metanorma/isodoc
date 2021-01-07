@@ -1,23 +1,25 @@
 module IsoDoc::XrefGen
   module Sections
     def back_anchor_names(docxml)
-      docxml.xpath(ns("//annex")).each_with_index do |c, i|
-        annex_names(c, (65 + i).chr.to_s)
+      i = Counter.new("@")
+      docxml.xpath(ns("//annex")).each do |c|
+        i.increment(c)
+        annex_names(c, i.print)
       end
-      docxml.xpath(
-           ns(@klass.bibliography_xpath)).each do |b|
-            preface_names(b)
-          end
-          docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
-            reference_names(ref)
-          end
+      docxml.xpath(ns(@klass.bibliography_xpath)).each do |b|
+        preface_names(b)
+      end
+      docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
+        reference_names(ref)
+      end
     end
 
     def initial_anchor_names(d)
       d.xpath(ns("//preface/*")).each { |c| c.element? and preface_names(c) }
       # potentially overridden in middle_section_asset_names()
       sequential_asset_names(d.xpath(ns("//preface/*")))
-      n = section_names(d.at(ns("//clause[@type = 'scope']")), 0, 1)
+      n = Counter.new
+      n = section_names(d.at(ns("//clause[@type = 'scope']")), n, 1)
       n = section_names(d.at(ns(@klass.norm_ref_xpath)), n, 1)
       n = section_names(d.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
@@ -52,8 +54,7 @@ module IsoDoc::XrefGen
       label = title || parent_title
       @anchors[clause["id"]] =
         { label: nil, level: level, xref: label, type: "clause" }
-      clause.xpath(ns(SUBCLAUSES)).
-        each_with_index do |c, i|
+      clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
         preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i+1}",
                        level + 1)
       end
@@ -67,21 +68,22 @@ module IsoDoc::XrefGen
       sequential_asset_names(d.xpath(ns(middle_sections)))
     end
 
-    def clause_names(docxml, sect_num)
+    def clause_names(docxml, n)
       docxml.xpath(ns(@klass.middle_clause(docxml))).each_with_index do |c, i|
-        section_names(c, (i + sect_num), 1)
+        section_names(c, n, 1)
       end
     end
 
     def section_names(clause, num, lvl)
       return num if clause.nil?
-      num = num + 1
+      num.increment(clause)
       @anchors[clause["id"]] =
-        { label: num.to_s, xref: l10n("#{@labels["clause"]} #{num}"), level: lvl,
+        { label: num.print, xref: l10n("#{@labels["clause"]} #{num.print}"), level: lvl,
           type: "clause" }
-      clause.xpath(ns(SUBCLAUSES)).
-        each_with_index do |c, i|
-        section_names1(c, "#{num}.#{i + 1}", lvl + 1)
+      i = Counter.new
+      clause.xpath(ns(SUBCLAUSES)).each do |c|
+        i.increment(c)
+        section_names1(c, "#{num.print}.#{i.print}", lvl + 1)
       end
       num
     end
@@ -90,9 +92,10 @@ module IsoDoc::XrefGen
       @anchors[clause["id"]] =
         { label: num, level: level, xref: l10n("#{@labels["clause"]} #{num}"),
           type: "clause" }
-      clause.xpath(ns(SUBCLAUSES)).
-        each_with_index do |c, i|
-        section_names1(c, "#{num}.#{i + 1}", level + 1)
+      i = Counter.new
+      clause.xpath(ns(SUBCLAUSES)).each do |c|
+        i.increment(c)
+        section_names1(c, "#{num}.#{i.print}", level + 1)
       end
     end
 
@@ -118,8 +121,10 @@ module IsoDoc::XrefGen
       if a = single_annex_special_section(clause)
         annex_names1(a, "#{num}", 1)
       else
-        clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-          annex_names1(c, "#{num}.#{i + 1}", 2)
+      i = Counter.new
+        clause.xpath(ns(SUBCLAUSES)).each do |c|
+          i.increment(c)
+          annex_names1(c, "#{num}.#{i.print}", 2)
         end
       end
       hierarchical_asset_names(clause, num)
@@ -128,8 +133,10 @@ module IsoDoc::XrefGen
     def annex_names1(clause, num, level)
       @anchors[clause["id"]] = { label: num, xref: "#{@labels["annex"]} #{num}",
                                  level: level, type: "clause" }
-      clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-        annex_names1(c, "#{num}.#{i + 1}", level + 1)
+      i = Counter.new
+      clause.xpath(ns(SUBCLAUSES)).each_with_index do |c|
+          i.increment(c)
+          annex_names1(c, "#{num}.#{i.print}", level + 1)
       end
     end
 
