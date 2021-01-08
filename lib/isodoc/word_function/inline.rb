@@ -24,7 +24,7 @@ module IsoDoc::WordFunction
 
     def imgsrc(node)
       ret = svg_to_emf(node) and return ret
-      return node["src"] unless %r{^data:image/}.match node["src"]
+      return node["src"] unless %r{^data:}.match node["src"]
       save_dataimage(node["src"])
     end
 
@@ -45,7 +45,7 @@ module IsoDoc::WordFunction
     def svg_to_emf(node)
       return unless node["mimetype"] == "image/svg+xml"
       uri = node["src"]
-      %r{^data:image/}.match(uri) and uri = save_dataimage(uri)
+      %r{^data:}.match(uri) and uri = save_dataimage(uri)
       ret = svg_to_emf_filename(uri)
       File.exists?(ret) and return ret
       exe = inkscape_installed? or return nil
