@@ -137,7 +137,7 @@ module IsoDoc::HtmlFunction
       docxml.xpath("//*[local-name() = 'img']").each do |i|
         i["width"], i["height"] = Html2Doc.image_resize(i, image_localfile(i),
                                                         @maxheight, @maxwidth)
-        next if /^data:image/.match i["src"]
+        next if /^data:/.match i["src"]
         @datauriimage ? datauri(i) : move_image1(i)
       end
       docxml
@@ -145,9 +145,10 @@ module IsoDoc::HtmlFunction
 
     def datauri(i)
       type = i["src"].split(".")[-1]
+      supertype = type == "xml" ? "application" : "image"
       bin = IO.binread(image_localfile(i))
       data = Base64.strict_encode64(bin)
-      i["src"] = "data:image/#{type};base64,#{data}"
+      i["src"] = "data:#{supertype}/#{type};base64,#{data}"
     end
 
     def image_suffix(i)
