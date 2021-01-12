@@ -211,7 +211,11 @@ module IsoDoc
     def mathml1(f, locale)
       localize_maths(f, locale)
       return unless f.elements.size == 1 && f.elements.first.name == "mn"
-      f.replace(f.at("./m:mn", MATHML).children)
+      if f.parent.name == "stem"
+        f.parent.replace(f.at("./m:mn", MATHML).children)
+      else
+        f.replace(f.at("./m:mn", MATHML).children)
+      end
     end
 
     def variant(docxml)
