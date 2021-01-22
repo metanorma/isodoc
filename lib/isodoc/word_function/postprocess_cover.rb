@@ -96,7 +96,7 @@ module IsoDoc::WordFunction
     def generate_header(filename, _dir)
       return nil unless @header
       template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
-      meta = @meta.get.merge(@labels || {}).merge(@meta.labels || {})
+      meta = @meta.get.merge(@labels ? { labels: @labels } : {}).merge(@meta.labels ? { labels: @meta.labels } : {})
       meta[:filename] = filename
       params = meta.map { |k, v| [k.to_s, v] }.to_h
       Tempfile.open(%w(header html), :encoding => "utf-8") do |f|
