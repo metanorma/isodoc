@@ -9,6 +9,7 @@ module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_accessor :options
     attr_accessor :i18n
+    attr_accessor :meta
 
     # htmlstylesheet: Generic stylesheet for HTML
     # wordstylesheet: Generic stylesheet for Word
