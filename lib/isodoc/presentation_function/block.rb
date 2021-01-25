@@ -9,6 +9,12 @@ module IsoDoc
       docxml.xpath(ns("//figure")).each do |f|
         figure1(f)
       end
+      docxml.xpath(ns("//svgmap")).each do |s|
+        if f = s.at(ns("./figure")) then s.replace(f)
+        else
+          s.remove
+        end
+      end
     end
 
     def figure1(f)
