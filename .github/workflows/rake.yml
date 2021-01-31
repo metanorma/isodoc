@@ -37,7 +37,7 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
 
-      - uses: metanorma/metanorma-build-scripts/inkscape-setup-action@feature/composite-workflow-concept
+      - uses: metanorma/metanorma-build-scripts/inkscape-setup-action@master
 
       - run: bundle exec rake
 
