@@ -2687,7 +2687,7 @@ expect(( File.read("test.html").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h
     expect(File.exist?("test.html.err")).to be true
   end
 
-     it "ignore passthrough with incompatible format" do
+     it "ignores passthrough with incompatible format" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
@@ -2707,6 +2707,62 @@ expect(( File.read("test.html").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h
     OUTPUT
   end
 
+it "processes svgmap" do
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~INPUT, true)).sub(%r{<localized-strings>.*</localized-strings>}m, "")).to be_equivalent_to xmlpp(<<~OUTPUT)
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <sections>
+  <svgmap id='_'>
+    <target href='http://www.example.com'>
+      <xref target='ref1'>Computer</xref>
+    </target>
+  </svgmap>
+  <figure id='_'>
+  <image src='action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'/>
+</figure>
+<svgmap id='_'>
+  <figure id='_'>
+    <image src='action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'/>
+  </figure>
+    <target href='mn://support_resource_schema'>
+      <eref bibitemid='express_action_schema' citeas=''>
+        <localityStack>
+          <locality type='anchor'>
+            <referenceFrom>action_schema.basic</referenceFrom>
+          </locality>
+        </localityStack>
+        Coffee
+      </eref>
+    </target>
+  </svgmap>
+</sections>
+<bibliography>
+  <references hidden='true' normative='false'>
+    <bibitem id='express_action_schema' type='internal'>
+      <docidentifier type='repository'>express/action_schema</docidentifier>
+    </bibitem>
+  </references>
+</bibliography>
+</iso-standard>
+INPUT
+<iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <sections>
+           <figure id='_'>
+             <image src='action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'/>
+           </figure>
+           <figure id='_'>
+             <image src='action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'/>
+           </figure>
+         </sections>
+         <bibliography>
+           <references hidden='true' normative='false'>
+             <bibitem id='express_action_schema' type='internal'>
+               <docidentifier type='repository'>express/action_schema</docidentifier>
+             </bibitem>
+           </references>
+         </bibliography>
+       </iso-standard>
+OUTPUT
 
+end
 
 end
