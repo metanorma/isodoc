@@ -39,7 +39,7 @@ module IsoDoc::Function
                        "uri[@type = 'citation']"))
       return href unless url
       href = suffix_url(url.text)
-      anchor = node&.at(ns(".//locality[@type = 'anchor']"))&.text
+      anchor = node&.at(ns(".//locality[@type = 'anchor']"))&.text&.strip
       anchor and href += "##{anchor}"
       href
     end
