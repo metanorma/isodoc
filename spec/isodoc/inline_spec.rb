@@ -124,7 +124,10 @@ OUTPUT
     <preface><foreword>
     <p><index primary="A" secondary="B" tertiary="C"/></p>
     </foreword></preface>
-    <sections>
+    <sections/>
+    <indexsect>
+      <title>Index</title>
+    </indexsect>
     </iso-standard>
     INPUT
     <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>

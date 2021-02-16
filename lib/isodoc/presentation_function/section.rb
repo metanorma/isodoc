@@ -47,7 +47,7 @@ module IsoDoc
     end
 
     def index(docxml)
-      docxml.xpath(ns("//index | //index-xref")).each do |f|
+      docxml.xpath(ns("//index | //index-xref | //indexsect")).each do |f|
         f.remove
       end
     end
