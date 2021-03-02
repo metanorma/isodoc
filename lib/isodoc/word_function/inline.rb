@@ -22,6 +22,12 @@ module IsoDoc::WordFunction
       end
     end
 
+    def svg_parse(node, out)
+      svg = Base64.strict_encode64(node.to_xml)
+      r = node.replace("<img src='data:image/svg+xml;base64,#{svg}' mimetype='image/svg+xml'/>").first
+      image_parse(r, out, nil)
+    end
+
     def imgsrc(node)
       ret = svg_to_emf(node) and return ret
       return node["src"] unless %r{^data:}.match node["src"]

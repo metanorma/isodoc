@@ -225,6 +225,7 @@ module IsoDoc::Function
         when "passthrough" then passthrough_parse(node, out)
         when "amend" then amend_parse(node, out)
         when "tab" then clausedelimspace(out) # in Presentation XML only
+        when "svg" then svg_parse(node, out) # introduced in Presentation XML only
         else
           error_parse(node, out)
         end

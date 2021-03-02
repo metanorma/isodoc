@@ -205,5 +205,9 @@ module IsoDoc::Function
         !(node["format"].split(/,/).include? @format.to_s)
       out.passthrough node.text
     end
+
+    def svg_parse(node, out)
+      out << node.to_xml
+    end
   end
 end
