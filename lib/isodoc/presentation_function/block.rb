@@ -1,3 +1,5 @@
+require "base64"
+
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def lower2cap(s)
@@ -6,9 +8,8 @@ module IsoDoc
     end
 
     def figure(docxml)
-      docxml.xpath(ns("//figure")).each do |f|
-        figure1(f)
-      end
+      docxml.xpath(ns("//image")).each { |f| svg_extract(f) }
+      docxml.xpath(ns("//figure")).each { |f| figure1(f) }
       docxml.xpath(ns("//svgmap")).each do |s|
         if f = s.at(ns("./figure")) then s.replace(f)
         else
@@ -17,9 +18,14 @@ module IsoDoc
       end
     end
 
+    def svg_extract(f)
+      return unless %r{^data:image/svg\+xml;base64,}.match(f["src"])
+      svg = Base64.strict_decode64(f["src"].sub(%r{^data:image/svg\+xml;base64,}, ""))
+      f.replace(svg.sub(/<\?xml[^>]*>/, ""))
+    end
+
     def figure1(f)
-      return sourcecode1(f) if f["class"] == "pseudocode" ||
-        f["type"] == "pseudocode"
+      return sourcecode1(f) if f["class"] == "pseudocode" || f["type"] == "pseudocode"
       return if labelled_ancestor(f) && f.ancestors("figure").empty?
       return if f.at(ns("./figure")) and !f.at(ns("./name"))
       lbl = @xrefs.anchor(f['id'], :label, false) or return

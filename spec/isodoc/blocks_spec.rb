@@ -768,6 +768,93 @@ B</pre>
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", presxml, true).gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(word)
   end
 
+  it "processes SVG" do
+    input = <<~INPUT
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <figure id="figureA-1">
+    <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
+</figure>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+    <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+  <preface>
+    <foreword>
+      <figure id='figureA-1'>
+        <name>Figure 1</name>
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+          <circle fill='#009' r='45' cx='50' cy='50'/>
+          <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
+        </svg>
+      </figure>
+    </foreword>
+  </preface>
+</iso-standard>
+    OUTPUT
+
+    html = <<~HTML
+    #{HTML_HDR}
+    <br/>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <div id='figureA-1' class='figure'>
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+            <circle fill='#009' r='45' cx='50' cy='50'/>
+            <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
+          </svg>
+          <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
+        </div>
+      </div>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+    HTML
+
+    doc = <<~DOC
+    <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+<head>
+<style>
+        </style>
+  </head>
+      <body lang='EN-US' link='blue' vlink='#954F72'>
+    <div class='WordSection1'>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection2'>
+      <p>
+        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+      </p>
+      <div>
+        <h1 class='ForewordTitle'>Foreword</h1>
+        <div id='figureA-1' class='figure'>
+        <img src='_.emf'/>
+          <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
+        </div>
+      </div>
+      <p>&#160;</p>
+    </div>
+    <p>
+      <br clear='all' class='section'/>
+    </p>
+    <div class='WordSection3'>
+      <p class='zzSTDTitle1'/>
+    </div>
+  </body>
+</html>
+    DOC
+
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true).gsub(/\&lt;/, "&#x3c;"))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", presxml, true).gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'").gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")))).to be_equivalent_to xmlpp(doc)
+  end
+
    it "converts SVG (Word)" do
     FileUtils.rm_rf "spec/assets/odf1.emf"
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'").gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
