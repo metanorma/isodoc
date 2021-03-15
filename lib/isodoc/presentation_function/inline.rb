@@ -1,4 +1,6 @@
 require "twitter_cldr"
+require "bigdecimal"
+require_relative "../../twitter-cldr/patch"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -10,8 +12,7 @@ module IsoDoc
       if node["citeas"].nil? && node["bibitemid"]
         return @xrefs.anchor(node["bibitemid"] ,:xref) || "???"
       elsif node["target"] && node["droploc"]
-        return @xrefs.anchor(node["target"], :value) ||
-          @xrefs.anchor(node["target"], :label) ||
+        return @xrefs.anchor(node["target"], :value) || @xrefs.anchor(node["target"], :label) ||
           @xrefs.anchor(node["target"], :xref) || "???"
       elsif node["target"] && !/.#./.match(node["target"])
         linkend = anchor_linkend1(node)
@@ -22,9 +23,8 @@ module IsoDoc
     def anchor_linkend1(node)
       linkend = @xrefs.anchor(node["target"], :xref)
       container = @xrefs.anchor(node["target"], :container, false)
-      (container && get_note_container_id(node) != container &&
-       @xrefs.get[node["target"]]) &&
-      linkend = prefix_container(container, linkend, node["target"])
+      (container && get_note_container_id(node) != container && @xrefs.get[node["target"]]) &&
+        linkend = prefix_container(container, linkend, node["target"])
       capitalise_xref(node, linkend)
     end
 
@@ -35,13 +35,11 @@ module IsoDoc
       return linkend if linkend[0,1].match(/\p{Upper}/)
       prec = nearest_block_parent(node).xpath("./descendant-or-self::text()") &
         node.xpath("./preceding::text()")
-      (prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map { |p| p.text }.join)) ?
-        linkend&.capitalize : linkend
+      (prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map { |p| p.text }.join)) ?  linkend&.capitalize : linkend
     end
 
     def nearest_block_parent(node)
-      until %w(p title td th name formula
-        li dt dd sourcecode pre).include?(node.name)
+      until %w(p title td th name formula li dt dd sourcecode pre).include?(node.name)
         node = node.parent
       end
       node
@@ -89,8 +87,7 @@ module IsoDoc
     def eref_localities0(r, i, target, delim)
       if r["type"] == "whole" then l10n("#{delim} #{@i18n.wholeoftext}")
       else
-        eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
-                         r.at(ns("./referenceTo")), delim, @lang)
+        eref_localities1(target, r["type"], r.at(ns("./referenceFrom")), r.at(ns("./referenceTo")), delim, @lang)
       end
     end
 
@@ -106,8 +103,7 @@ module IsoDoc
     # TODO: move to localization file
     def eref_localities1(target, type, from, to, delim, lang = "en")
       return "" if type == "anchor"
-      lang == "zh" and
-        return l10n(eref_localities1_zh(target, type, from, to, delim))
+      lang == "zh" and return l10n(eref_localities1_zh(target, type, from, to, delim))
       ret = delim
       loc = @i18n.locality[type] || type.sub(/^locality:/, "").capitalize
       ret += " #{loc}"
@@ -163,23 +159,23 @@ module IsoDoc
     # TwitterCldr::DataReaders::NumberDataReader.new(locale).symbols
     def localize_maths(f, locale)
       f.xpath(".//m:mn", MATHML).each do |x|
-        num = /\./.match(x.text) ? x.text.to_f : x.text.to_i
+        num = BigDecimal(x.text)
         precision = /\./.match(x.text) ? x.text.sub(/^.*\./, "").size : 0
         x.children = localized_number(num, locale, precision)
       end
     end
 
-    # By itself twiiter cldr does not support fraction part digits grouping
+    # By itself twitter-cldr does not support fraction part digits grouping
     # and custom delimeter, will decorate fraction part manually
     def localized_number(num, locale, precision)
-      localized = precision == 0 ? num.localize(locale).to_s :
+      TwitterCldr::Localized::LocalizedNumber.localize(BigDecimal)
+      localized = (precision == 0) ? num.localize(locale).to_s :
         num.localize(locale).to_decimal.to_s(:precision => precision)
       twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
       return localized unless twitter_cldr_reader_symbols[:decimal]
       integer, fraction = localized.split(twitter_cldr_reader_symbols[:decimal])
       return localized if fraction.nil? || fraction.length.zero?
-      [integer, decorate_fraction_part(fraction, locale)].
-        join(twitter_cldr_reader_symbols[:decimal])
+      [integer, decorate_fraction_part(fraction, locale)].join(twitter_cldr_reader_symbols[:decimal])
     end
 
     def decorate_fraction_part(fract, locale)
@@ -229,8 +225,7 @@ module IsoDoc
     end
 
     def variant1(node)
-      if (!node["lang"] || node["lang"] == @lang) &&
-          (!node["script"] || node["script"] == @script)
+      if (!node["lang"] || node["lang"] == @lang) && (!node["script"] || node["script"] == @script)
       elsif found_matching_variant_sibling(node)
         node["remove"] = "true"
       else
@@ -243,8 +238,7 @@ module IsoDoc
       foll = node.xpath("./following-sibling::xmlns:variant")
       found = false
       (prev + foll).each do |n|
-        found = true if n["lang"] == @lang &&
-          (!n["script"] || n["script"] == @script)
+        found = true if n["lang"] == @lang && (!n["script"] || n["script"] == @script)
       end
       found
     end
