@@ -169,7 +169,7 @@ module IsoDoc
     # and custom delimeter, will decorate fraction part manually
     def localized_number(num, locale, precision)
       TwitterCldr::Localized::LocalizedNumber.localize(BigDecimal)
-      localized = precision == 0 ? num.localize(locale).to_s :
+      localized = (precision == 0) ? num.localize(locale).to_s :
         num.localize(locale).to_decimal.to_s(:precision => precision)
       twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
       return localized unless twitter_cldr_reader_symbols[:decimal]
