@@ -19,6 +19,12 @@ module IsoDoc
       @htmlstylesheet = generate_css(@htmlstylesheet_name, true)
       @wordstylesheet = generate_css(@wordstylesheet_name, false)
       @standardstylesheet = generate_css(@standardstylesheet_name, false)
+      if @htmlstylesheet_override_name
+        @htmlstylesheet_override = File.open(@htmlstylesheet_override_name)
+      end
+      if @wordstylesheet_override_name
+        @wordstylesheet_override = File.open(@wordstylesheet_override_name)
+      end
     end
 
     def default_fonts(_options)
@@ -77,7 +83,6 @@ module IsoDoc
     # stripwordcss if HTML stylesheet, !stripwordcss if DOC stylesheet
     def generate_css(filename, stripwordcss)
       return nil if filename.nil?
-
       filename = precompiled_style_or_original(filename)
       stylesheet = File.read(filename, encoding: 'UTF-8')
       stylesheet = populate_template(stylesheet, :word)

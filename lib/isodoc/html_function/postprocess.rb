@@ -44,12 +44,14 @@ module IsoDoc::HtmlFunction
       IsoDoc::HtmlFunction::MathvariantToPlain.new(docxml).convert
     end
 
-    def htmlstylesheet
-      @htmlstylesheet.open
-      stylesheet = @htmlstylesheet.read
+    def htmlstylesheet(file)
+      return if file.nil?
+      file.open if file.is_a?(Tempfile)
+      stylesheet = file.read
       xml = Nokogiri::XML("<style/>")
       xml.children.first << Nokogiri::XML::Comment.new(xml, "\n#{stylesheet}\n")
-      @htmlstylesheet.close!
+      file.close
+      file.unlink if file.is_a?(Tempfile)
       xml.root.to_s
     end
 
@@ -57,7 +59,8 @@ module IsoDoc::HtmlFunction
       return docxml unless @htmlstylesheet
       title = docxml.at("//*[local-name() = 'head']/*[local-name() = 'title']")
       head = docxml.at("//*[local-name() = 'head']")
-      head << htmlstylesheet
+      head << htmlstylesheet(@htmlstylesheet)
+      s = htmlstylesheet(@htmlstylesheet_override) and head << s
       docxml
     end
 
