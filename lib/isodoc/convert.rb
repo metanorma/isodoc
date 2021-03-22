@@ -12,7 +12,9 @@ module IsoDoc
     attr_accessor :meta
 
     # htmlstylesheet: Generic stylesheet for HTML
+    # htmlstylesheet_override: Override stylesheet for HTML
     # wordstylesheet: Generic stylesheet for Word
+    # wordstylesheet_override: Override stylesheet for Word
     # standardsheet: Stylesheet specific to Standard
     # header: Header file for Word
     # htmlcoverpage: Cover page for HTML
@@ -48,6 +50,8 @@ module IsoDoc
       @tempfile_cache = []
       @htmlstylesheet_name = options[:htmlstylesheet]
       @wordstylesheet_name = options[:wordstylesheet]
+      @htmlstylesheet_override_name = options[:htmlstylesheet_override]
+      @wordstylesheet_override_name = options[:wordstylesheet_override]
       @standardstylesheet_name = options[:standardstylesheet]
       @header = options[:header]
       @htmlcoverpage = options[:htmlcoverpage]

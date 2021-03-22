@@ -83,6 +83,7 @@ expect(File.exist?("test.doc")).to be true
     expect(html).not_to match(/another empty stylesheet/)
     expect(html).to match(%r{cdnjs\.cloudflare\.com/ajax/libs/mathjax/})
     expect(html).to match(/delimiters: \[\['\(#\(', '\)#\)'\]\]/)
+    expect(html).not_to match(/html-override/)
   end
 
   it "generates Word output docs with null configuration" do
@@ -101,6 +102,7 @@ expect(File.exist?("test.doc")).to be true
     word = File.read("test.doc")
     expect(word).to match(/one empty stylesheet/)
     expect(word).to match(/div\.table_container/)
+    expect(word).not_to match(/word-override/)
   end
 
   it "generates HTML output docs with null configuration from file" do
@@ -139,7 +141,7 @@ expect(File.exist?("test.doc")).to be true
   it "generates HTML output docs with complete configuration" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({bodyfont: "Zapf", monospacefont: "Consolas", headerfont: "Comic Sans", normalfontsize: "30pt", monospacefontsize: "29pt", smallerfontsize: "28pt", footnotefontsize: "27pt", htmlstylesheet: "spec/assets/html.scss", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
+    IsoDoc::HtmlConvert.new({bodyfont: "Zapf", monospacefont: "Consolas", headerfont: "Comic Sans", normalfontsize: "30pt", monospacefontsize: "29pt", smallerfontsize: "28pt", footnotefontsize: "27pt", htmlstylesheet: "spec/assets/html.scss", htmlstylesheet_override: "spec/assets/html_override.css", htmlcoverpage: "spec/assets/htmlcover.html", htmlintropage: "spec/assets/htmlintro.html", scripts: "spec/assets/scripts.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -162,6 +164,7 @@ expect(File.exist?("test.doc")).to be true
     expect(html).to match(/This is > a script/)
     expect(html).not_to match(/CDATA/)
     expect(html).to match(%r{Anta&#x16D;parolo</h1>})
+    expect(html).to match(%r{html-override})
   end
 
   it "generates HTML output docs with default fonts" do
@@ -195,7 +198,7 @@ expect(File.exist?("test.doc")).to be true
   it "generates Word output docs with complete configuration" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({bodyfont: "Zapf", monospacefont: "Consolas", headerfont: "Comic Sans", normalfontsize: "30pt", monospacefontsize: "29pt", smallerfontsize: "28pt", footnotefontsize: "27pt", wordstylesheet: "spec/assets/html.scss", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
+    IsoDoc::WordConvert.new({bodyfont: "Zapf", monospacefont: "Consolas", headerfont: "Comic Sans", normalfontsize: "30pt", monospacefontsize: "29pt", smallerfontsize: "28pt", footnotefontsize: "27pt", wordstylesheet: "spec/assets/html.scss", wordstylesheet_override: "spec/assets/word_override.css", standardstylesheet: "spec/assets/std.css", header: "spec/assets/header.html", wordcoverpage: "spec/assets/wordcover.html", wordintropage: "spec/assets/wordintro.html", i18nyaml: "spec/assets/i18n.yaml", ulstyle: "l1", olstyle: "l2"}).convert("test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <note>
@@ -219,6 +222,7 @@ expect(File.exist?("test.doc")).to be true
     expect(word).to match(/an empty word cover page/)
     expect(word).to match(/an empty word intro page/)
     expect(word).to match(%r{Anta&#x16D;parolo</h1>})
+    expect(word).to match(%r{word-override})
   end
 
   it "generates Word output docs with default fonts" do
