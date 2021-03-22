@@ -37,17 +37,27 @@ xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
 
     def toWord(result, filename, dir, header)
       result = from_xhtml(word_cleanup(to_xhtml(result)))
-      unless @landscapestyle.empty?
-        @wordstylesheet&.open
-        @wordstylesheet&.write(@landscapestyle)
-        @wordstylesheet&.close
-      end
+      @wordstylesheet = wordstylesheet_update
       Html2Doc.process(result, filename: filename, stylesheet: @wordstylesheet&.path,
                        header_file: header&.path, dir: dir,
                        asciimathdelims: [@openmathdelim, @closemathdelim],
                        liststyles: { ul: @ulstyle, ol: @olstyle })
       header&.unlink
-      @wordstylesheet&.unlink
+      @wordstylesheet&.unlink if @wordstylesheet&.is_a?(Tempfile)
+    end
+
+    def wordstylesheet_update()
+      return if @wordstylesheet.nil?
+      f = File.open(@wordstylesheet.path, "a")
+      @landscapestyle.empty? or f.write(@landscapestyle)
+      if @wordstylesheet_override && @wordstylesheet
+        f.write(@wordstylesheet_override.read)
+        @wordstylesheet_override.close
+      elsif @wordstylesheet_override && !@wordstylesheet
+        @wordstylesheet = @wordstylesheet_override
+      end
+      f.close
+      @wordstylesheet
     end
 
     def word_admonition_images(docxml)
