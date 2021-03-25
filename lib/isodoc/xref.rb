@@ -49,7 +49,7 @@ module IsoDoc
       note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       list_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-      bookmark_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+      bookmark_anchor_names(docxml)
     end
 
     def ns(xpath)

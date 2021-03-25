@@ -2583,9 +2583,10 @@ OUTPUT
     <terms id="terms"/>
     <clause id="widgets"><title>Widgets</title>
     <clause id="widgets1">
-    <p id="note1l" type="alphabet">
+    <note id="note0"/>
+    <note id="note1l" type="alphabet">
   <bookmark id="note1"/>
-</p>
+</note>
     <p id="note2l" type="roman_upper">
   <bookmark id="note2"/>
 </p>
@@ -2599,9 +2600,9 @@ OUTPUT
 </p>
     </clause>
     <clause id="annex1b">
-    <p id="Anote1l" type="roman" start="4">
+    <figure id="Anote1l" type="roman" start="4">
   <bookmark id="Anote1"/>
-</p>
+</figure>
     <p id="Anote2l">
   <bookmark id="Anote2"/>
 </p>
@@ -2616,10 +2617,10 @@ OUTPUT
                <xref target='N1'>Introduction</xref>
                <xref target='N2'>Preparatory</xref>
                <xref target='N'>Clause 1</xref>
-               <xref target='note1'>Clause 3.1</xref>
+               <xref target='note1'>Note 2</xref>
                <xref target='note2'>Clause 3.1</xref>
                <xref target='AN'>Annex A.1</xref>
-               <xref target='Anote1'>Annex A.2</xref>
+               <xref target='Anote1'>Figure A.1</xref>
                <xref target='Anote2'>Annex A.2</xref>
              </p>
            </foreword>
@@ -2657,9 +2658,13 @@ OUTPUT
              </title>
              <clause id='widgets1'>
                <title>3.1.</title>
-               <p id='note1l' type='alphabet'>
+               <note id='note0'>
+                 <name>NOTE 1</name>
+               </note>
+               <note id='note1l' type='alphabet'>
+                 <name>NOTE 2</name>
                  <bookmark id='note1'/>
-               </p>
+               </note>
                <p id='note2l' type='roman_upper'>
                  <bookmark id='note2'/>
                </p>
@@ -2680,9 +2685,10 @@ OUTPUT
            </clause>
            <clause id='annex1b'>
              <title>A.2.</title>
-             <p id='Anote1l' type='roman' start='4'>
+             <figure id='Anote1l' type='roman' start='4'>
+               <name>Figure A.1</name>
                <bookmark id='Anote1'/>
-             </p>
+             </figure>
              <p id='Anote2l'>
                <bookmark id='Anote2'/>
              </p>

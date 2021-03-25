@@ -94,16 +94,17 @@ module IsoDoc::XrefGen
       "not(self::xmlns:terms) and not(self::xmlns:definitions)]//"\
       "xmlns:example | ./xmlns:example".freeze
 
-    CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | ./references"
+    CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | "\
+      "./references"
 
     def example_anchor_names(sections)
       sections.each do |s|
         notes = s.xpath(CHILD_EXAMPLES_XPATH)
         c = Counter.new
         notes.each do |n|
-          next if @anchors[n["id"]]
-          next if n["id"].nil? || n["id"].empty?
-          idx = notes.size == 1 && !n["number"]  ? "" : " #{c.increment(n).print}"
+          next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
+          idx = notes.size == 1 && !n["number"]  ? "" :
+            " #{c.increment(n).print}"
           @anchors[n["id"]] = anchor_struct(idx, n, @labels["example_xref"],
                                             "example", n["unnumbered"])
         end
@@ -119,7 +120,8 @@ module IsoDoc::XrefGen
         notes.each do |n|
           next if n["id"].nil? || n["id"].empty?
           idx = notes.size == 1 && !n["number"] ? "" : " #{c.increment(n).print}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @labels["list"], "list", false)
+          @anchors[n["id"]] = anchor_struct(idx, n, @labels["list"], "list",
+                                            false)
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
         list_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
@@ -141,17 +143,16 @@ module IsoDoc::XrefGen
       end
     end
 
-    def bookmark_anchor_names(sections)
-      sections.each do |s|
-        notes = s.xpath(ns(".//bookmark")) - s.xpath(ns(".//clause//bookmark")) -
-          s.xpath(ns(".//appendix//bookmark"))
-        notes.each do |n|
-          next if n["id"].nil? || n["id"].empty?
-          @anchors[n["id"]] = {
-            type: "bookmark", label: nil, value: nil,
-            xref: @anchors[s["id"]][:xref] }
+    def bookmark_anchor_names(docxml)
+      docxml.xpath(ns(".//bookmark")).each do |n|
+        next if n["id"].nil? || n["id"].empty?
+        parent = nil
+        n.ancestors.each do |a|
+          next unless a["id"] && parent = @anchors.dig(a["id"], :xref)
+          break
         end
-        bookmark_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+        @anchors[n["id"]] = { type: "bookmark", label: nil, value: nil,
+                              xref: parent || "???" }
       end
     end
   end
