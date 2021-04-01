@@ -25,7 +25,8 @@ module IsoDoc
 
     def pdf_options(docxml)
       font_manifest_file = @options.dig(:mn2pdf, :font_manifest_file)
-      "--font_manifest #{font_manifest_file}" if font_manifest_file
+      return "--font-manifest #{font_manifest_file}" if font_manifest_file
+
       ""
     end
 
