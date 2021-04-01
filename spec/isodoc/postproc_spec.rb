@@ -27,6 +27,27 @@ RSpec.describe IsoDoc do
     expect(html).to match(/delimiters: \[\['\(#\(', '\)#\)'\]\]/)
   end
 
+  it "generates file in a remote directory" do
+    FileUtils.rm_f "spec/assets/test.doc"
+    FileUtils.rm_f "spec/assets/test.html"
+    IsoDoc::HtmlConvert.new({wordstylesheet: "word.css", htmlstylesheet: "html.scss", filename: "test"}).convert("spec/assets/test", <<~"INPUT", false)
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+        <title language="en">test</title>
+        </bibdata>
+    <preface><foreword>
+    <note>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+</note>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+    expect(File.exist?("spec/assets/test.html")).to be true
+    html = File.read("spec/assets/test.html")
+    expect(html).to match(%r{<title>test</title>})
+    expect(html).to match(/another empty stylesheet/)
+  end
+
   it "ignores Liquid markup in the document body" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
@@ -108,7 +129,7 @@ expect(File.exist?("test.doc")).to be true
   it "generates HTML output docs with null configuration from file" do
     FileUtils.rm_f "spec/assets/iso.doc"
     FileUtils.rm_f "spec/assets/iso.html"
-    IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss"}).convert("spec/assets/iso.xml", nil, false)
+    IsoDoc::HtmlConvert.new({wordstylesheet: "word.css", htmlstylesheet: "html.scss"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.html")).to be true
     html = File.read("spec/assets/iso.html")
     expect(html).to match(/another empty stylesheet/)
@@ -118,7 +139,7 @@ expect(File.exist?("test.doc")).to be true
 
   it "generates Headless HTML output docs with null configuration from file" do
     FileUtils.rm_f "spec/assets/iso.html"
-    IsoDoc::HeadlessHtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss"}).convert("spec/assets/iso.xml", nil, false)
+    IsoDoc::HeadlessHtmlConvert.new({wordstylesheet: "word.css", htmlstylesheet: "html.scss"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.headless.html")).to be true
     html = File.read("spec/assets/iso.headless.html")
     expect(html).not_to match(/another empty stylesheet/)
@@ -132,7 +153,7 @@ expect(File.exist?("test.doc")).to be true
 
   it "generates Word output docs with null configuration from file" do
     FileUtils.rm_f "spec/assets/iso.doc"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss"}).convert("spec/assets/iso.xml", nil, false)
+    IsoDoc::WordConvert.new({wordstylesheet: "word.css", htmlstylesheet: "html.scss"}).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.doc")).to be true
     word = File.read("spec/assets/iso.doc")
     expect(word).to match(/one empty stylesheet/)
@@ -826,7 +847,7 @@ TOCLEVEL
   it "moves images in HTML, using relative file location" do
     FileUtils.rm_f "spec/test.html"
     FileUtils.rm_rf "spec/test_htmlimages"
-    IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss"}).convert("spec/test", <<~"INPUT", false)
+    IsoDoc::HtmlConvert.new({wordstylesheet: "assets/word.css", htmlstylesheet: "assets/html.scss"}).convert("spec/test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword>
          <figure id="_">
@@ -895,7 +916,7 @@ TOCLEVEL
     it "encodes images in HTML as data URIs, using relative file location" do
     FileUtils.rm_f "spec/test.html"
     FileUtils.rm_rf "spec/test_htmlimages"
-    IsoDoc::HtmlConvert.new({htmlstylesheet: "spec/assets/html.scss", datauriimage: true}).convert("spec/test", <<~"INPUT", false)
+    IsoDoc::HtmlConvert.new({htmlstylesheet: "assets/html.scss", datauriimage: true}).convert("spec/test", <<~"INPUT", false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword>
          <figure id="_">

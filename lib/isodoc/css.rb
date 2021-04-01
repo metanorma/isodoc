@@ -14,17 +14,22 @@ module IsoDoc
       compiled_path
     end
 
+    def localpath(path)
+      return path if %r{^[A-Z]:|^/|^file:/}.match(path)
+      return path unless @localdir && path
+      File.join(@localdir, path)
+    end
+
     # run this after @meta is populated
     def populate_css
-      @htmlstylesheet = generate_css(@htmlstylesheet_name, true)
-      @wordstylesheet = generate_css(@wordstylesheet_name, false)
-      @standardstylesheet = generate_css(@standardstylesheet_name, false)
-      if @htmlstylesheet_override_name
-        @htmlstylesheet_override = File.open(@htmlstylesheet_override_name)
-      end
-      if @wordstylesheet_override_name
-        @wordstylesheet_override = File.open(@wordstylesheet_override_name)
-      end
+      @htmlstylesheet = generate_css(localpath(@htmlstylesheet_name), true)
+      @wordstylesheet = generate_css(localpath(@wordstylesheet_name), false)
+      @standardstylesheet =
+        generate_css(localpath(@standardstylesheet_name), false)
+      @htmlstylesheet_override_name and @htmlstylesheet_override =
+        File.open(localpath(@htmlstylesheet_override_name))
+      @wordstylesheet_override_name and @wordstylesheet_override =
+        File.open(localpath(@wordstylesheet_override_name))
     end
 
     def default_fonts(_options)
