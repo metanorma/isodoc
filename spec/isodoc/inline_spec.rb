@@ -590,6 +590,8 @@ OUTPUT
     <eref type="inline" bibitemid="ISO712" citeas="ISO 712">A</eref>
     <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality></eref>
     <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" droploc="true" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
+    <eref type="inline" case="lowercase" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
     </p>
     </foreword></preface>
     <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
@@ -626,6 +628,8 @@ OUTPUT
            <eref type="inline" bibitemid="ISO712" citeas="ISO 712">A</eref>
            <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality>ISO 712</eref>
            <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, Clause 1</eref>
+           <eref type="inline" droploc="true" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, 1</eref>
+           <eref type="inline" case="lowercase" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, clause 1</eref>
            </p>
            </foreword></preface>
            <bibliography><references id="_normative_references" obligation="informative" normative="true"><title depth='1'>1.<tab/>Normative References</title>
@@ -665,6 +669,8 @@ html = <<~OUTPUT
            <a href="#ISO712">A</a>
            <a href='#ISO712'>ISO 712</a>
            <a href='#ISO712'>ISO 712, Clause 1</a>
+           <a href='#ISO712'>ISO 712, 1</a>
+           <a href='#ISO712'>ISO 712, clause 1</a>
            </p>
                </div>
                <p class="zzSTDTitle1"/>
