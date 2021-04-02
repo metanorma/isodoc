@@ -54,61 +54,73 @@ module IsoDoc
       contents = non_locality_elems(n).select { |c| !c.text? || /\S/.match(c) }
       return unless contents.empty?
       link = anchor_linkend(n, docid_l10n(n["target"] || n["citeas"]))
-      link += eref_localities(n.xpath(ns("./locality | ./localityStack")), link)
+      link += eref_localities(n.xpath(ns("./locality | ./localityStack")), link, n)
       non_locality_elems(n).each { |n| n.remove }
       n.add_child(link)
     end
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
     # <locality type="section"><reference>3.1</reference></locality></origin>
 
-    def eref_localities(refs, target)
+    def eref_localities(refs, target, n)
       ret = ""
       refs.each_with_index do |r, i|
         delim = ","
         delim = ";" if r.name == "localityStack" && i>0
-        ret = eref_locality_stack(r, i, target, delim, ret)
+        ret = eref_locality_stack(r, i, target, delim, ret, n)
       end
       ret
     end
 
-    def eref_locality_stack(r, i, target, delim, ret)
+    def eref_locality_stack(r, i, target, delim, ret, n)
       if r.name == "localityStack"
         r.elements.each_with_index do |rr, j|
-          ret += eref_localities0(rr, j, target, delim)
+          ret += eref_localities0(rr, j, target, delim, n)
           delim = ","
         end
       else
-        ret += eref_localities0(r, i, target, delim)
+        ret += eref_localities0(r, i, target, delim, n)
       end
       ret
     end
 
-    def eref_localities0(r, i, target, delim)
+    def eref_localities0(r, i, target, delim, n)
       if r["type"] == "whole" then l10n("#{delim} #{@i18n.wholeoftext}")
       else
-        eref_localities1(target, r["type"], r.at(ns("./referenceFrom")), r.at(ns("./referenceTo")), delim, @lang)
+        eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
+                         r.at(ns("./referenceTo")), delim, n, @lang)
       end
     end
 
     # TODO: move to localization file
-    def eref_localities1_zh(target, type, from, to, delim)
+    def eref_localities1_zh(target, type, from, to, n, delim)
       ret = "#{delim} 第#{from.text}" if from
       ret += "&ndash;#{to.text}" if to
       loc = (@i18n.locality[type] || type.sub(/^locality:/, "").capitalize )
-      ret += " #{loc}"
+      ret += " #{loc}" unless n["droploc"] == "true"
       ret
     end
 
     # TODO: move to localization file
-    def eref_localities1(target, type, from, to, delim, lang = "en")
+    def eref_localities1(target, type, from, to, delim, n, lang = "en")
       return "" if type == "anchor"
-      lang == "zh" and return l10n(eref_localities1_zh(target, type, from, to, delim))
+      lang == "zh" and return l10n(eref_localities1_zh(target, type, from, to, n, delim))
       ret = delim
-      loc = @i18n.locality[type] || type.sub(/^locality:/, "").capitalize
-      ret += " #{loc}"
+      ret += eref_locality_populate(type, n)
       ret += " #{from.text}" if from
       ret += "&ndash;#{to.text}" if to
       l10n(ret)
+    end
+
+    def eref_locality_populate(type, n)
+      return "" if n["droploc"] == "true"
+      loc = @i18n.locality[type] || type.sub(/^locality:/, "")
+      loc = case n["case"]
+            when "capital" then loc.capitalize
+            when "lowercase" then loc.downcase
+            else
+              loc.capitalize
+            end
+      " #{loc}"
     end
 
     def xref(docxml)
