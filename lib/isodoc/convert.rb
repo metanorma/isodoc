@@ -53,6 +53,7 @@ module IsoDoc
       @htmlstylesheet_override_name = options[:htmlstylesheet_override]
       @wordstylesheet_override_name = options[:wordstylesheet_override]
       @standardstylesheet_name = options[:standardstylesheet]
+      @sourcefilename = options[:sourcefilename]
       @header = options[:header]
       @htmlcoverpage = options[:htmlcoverpage]
       @wordcoverpage = options[:wordcoverpage]

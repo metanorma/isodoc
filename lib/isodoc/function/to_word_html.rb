@@ -19,14 +19,21 @@ module IsoDoc::Function
     def init_file(filename, debug)
       filepath = Pathname.new(filename)
       filename = filepath.sub_ext('').sub(/\.presentation$/, "").to_s
+      dir = init_dir(filename, debug)
+      @filename = filename
+      @localdir = filepath.parent.to_s + '/'
+      @sourcedir = @localdir
+      @sourcefilename and @sourcedir = Pathname.new(@sourcefilename).parent.to_s + '/'
+      [filename, dir]
+    end
+
+    def init_dir(filename, debug)
       dir = "#{filename}_files"
       unless debug
         Dir.mkdir(dir, 0777) unless File.exists?(dir)
         FileUtils.rm_rf "#{dir}/*"
       end
-      @filename = filename
-      @localdir = filepath.parent.to_s + '/'
-      [filename, dir]
+      dir
     end
 
     # tmp image dir is same directory as @filename
