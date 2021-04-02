@@ -16,8 +16,8 @@ module IsoDoc
 
     def localpath(path)
       return path if %r{^[A-Z]:|^/|^file:/}.match(path)
-      return path unless @localdir && path
-      File.join(@localdir, path)
+      return path unless (@sourcedir || @localdir) && path
+      File.expand_path(File.join((@sourcedir || @localdir), path))
     end
 
     # run this after @meta is populated
