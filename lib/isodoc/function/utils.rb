@@ -123,6 +123,7 @@ module IsoDoc::Function
       h1 = to_xhtml_fragment(h.dup)
       h1.traverse do |x|
         x.replace(' ') if x.name == 'span' && /mso-tab-count/.match(x['style'])
+        x.remove if x.name == 'img'
         x.remove if x.name == 'span' && x['class'] == 'MsoCommentReference'
         x.remove if x.name == 'a' && x['class'] == 'FootnoteRef'
         x.remove if x.name == 'span' && /mso-bookmark/.match(x['style'])
