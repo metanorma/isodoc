@@ -59,7 +59,7 @@ module IsoDoc
       variant docxml
     end
 
-    def postprocess(result, filename, dir)
+    def postprocess(result, filename, _dir)
       toXML(result, filename)
       @files_to_delete.each { |f| FileUtils.rm_rf f }
     end

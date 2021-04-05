@@ -1023,4 +1023,32 @@ INPUT
 OUTPUT
 end
 
+  it "processes add, del" do
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      <itu-standard xmlns="https://www.calconnect.org/standards/itu">
+      <preface><foreword id="A">
+      <add>ABC <xref target="A"></add> <del><strong>B</strong></del>
+      </foreword></preface>
+      </itu-standard>
+    INPUT
+      #{HTML_HDR}
+             <br/>
+             <div id='A'>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <span class='addition'>
+                 ABC
+                 <a href='#A'/>
+                 <span class='deletion'>
+                   <b>B</b>
+                 </span>
+               </span>
+             </div>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+  end
+
+
 end

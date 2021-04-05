@@ -132,3 +132,12 @@ a.FootnoteRef + a.FootnoteRef:before {
     content: ", ";
     vertical-align: super;
   }
+
+.addition {
+  color: blue;
+}
+
+.deletion {
+  color: red;
+  text-decoration: line-through;
+}

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "isodoc/common"
 require "fileutils"
 require "tempfile"
@@ -7,9 +8,7 @@ require_relative "css"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
-    attr_accessor :options
-    attr_accessor :i18n
-    attr_accessor :meta
+    attr_accessor :options, :i18n, :meta
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
@@ -41,8 +40,7 @@ module IsoDoc
       @libdir ||= File.dirname(__FILE__)
       options.merge!(default_fonts(options)) do |_, old, new|
         old || new
-      end
-             .merge!(default_file_locations(options)) do |_, old, new|
+      end.merge!(default_file_locations(options)) do |_, old, new|
         old || new
       end
       @options = options
@@ -70,8 +68,8 @@ module IsoDoc
       @olstyle = options[:olstyle]
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
-      @break_up_urls_in_tables = options[:break_up_urls_in_tables] == 'true'
-      @termdomain = ''
+      @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
+      @termdomain = ""
       @termexample = false
       @note = false
       @sourcecode = false
@@ -93,17 +91,17 @@ module IsoDoc
       @wordToClevels = 2 if @wordToClevels.zero?
       @htmlToClevels = options[:htmltoclevels].to_i
       @htmlToClevels = 2 if @htmlToClevels.zero?
-      @bookmarks_allocated = { 'X' => true }
+      @bookmarks_allocated = { "X" => true }
       @fn_bookmarks = {}
     end
 
     def tmpimagedir_suffix
-      '_images'
+      "_images"
     end
 
     def html_doc_path(*file)
       file.each do |f|
-        ret = File.join(@libdir, File.join('html', f))
+        ret = File.join(@libdir, File.join("html", f))
         File.exist?(ret) and return ret
       end
       nil
@@ -113,7 +111,7 @@ module IsoDoc
       @xrefs.parse docxml
       noko do |xml|
         xml.html **{ lang: @lang.to_s } do |html|
-          html.parent.add_namespace('epub', 'http://www.idpf.org/2007/ops')
+          html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
           info docxml, nil
           populate_css
           html.head { |head| define_head head, filename, dir }
@@ -135,8 +133,8 @@ module IsoDoc
       @i18n = I18n.new(lang, script, i18nyaml || @i18nyaml)
     end
 
-    def l10n(x, lang = @lang, script = @script)
-      @i18n.l10n(x, lang, script)
+    def l10n(expr, lang = @lang, script = @script)
+      @i18n.l10n(expr, lang, script)
     end
 
     def convert_init(file, input_filename, debug)
@@ -158,6 +156,7 @@ module IsoDoc
       docxml, filename, dir = convert_init(file, input_filename, debug)
       result = convert1(docxml, filename, dir)
       return result if debug
+
       output_filename ||= "#{filename}.#{@suffix}"
       postprocess(result, output_filename, dir)
       FileUtils.rm_rf dir

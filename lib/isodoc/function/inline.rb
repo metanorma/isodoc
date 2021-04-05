@@ -23,21 +23,26 @@ module IsoDoc::Function
     end
 
     def xref_parse(node, out)
-      target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".html#") :
-        "##{node["target"]}"
-        out.a(**{ "href": target }) { |l| no_locality_parse(node, l) }
+      target = if /#/.match?(node["target"])
+                 node["target"].sub(/#/, ".html#")
+               else
+                 "##{node['target']}"
+               end
+      out.a(**{ "href": target }) { |l| no_locality_parse(node, l) }
     end
 
     def suffix_url(url)
-      return url if %r{^http[s]?://}.match(url)
+      return url if %r{^https?://}.match?(url)
+
       url.sub(/#{File.extname(url)}$/, ".html")
     end
 
     def eref_target(node)
-      href = "#" + node["bibitemid"]
+      href = "##{node['bibitemid']}"
       url = node.at(ns("//bibitem[@id = '#{node['bibitemid']}']/"\
                        "uri[@type = 'citation']"))
       return href unless url
+
       href = suffix_url(url.text)
       anchor = node&.at(ns(".//locality[@type = 'anchor']"))&.text&.strip
       anchor and href += "##{anchor}"
@@ -68,10 +73,11 @@ module IsoDoc::Function
     end
 
     def stem_parse(node, out)
-      ooml = if node["type"] == "AsciiMath"
+      ooml = case node["type"]
+             when "AsciiMath"
                "#{@openmathdelim}#{HTMLEntities.new.encode(node.text)}"\
                  "#{@closemathdelim}"
-             elsif node["type"] == "MathML" then node.first_element_child.to_s
+             when "MathML" then node.first_element_child.to_s
              else
                HTMLEntities.new.encode(node.text)
              end
@@ -93,7 +99,7 @@ module IsoDoc::Function
                 height: node["height"] || "auto",
                 width: node["width"] || "auto",
                 title: node["title"],
-                alt: node["alt"]  }
+                alt: node["alt"] }
       out.img **attr_code(attrs)
       image_title_parse(out, caption)
     end
@@ -106,10 +112,25 @@ module IsoDoc::Function
 
     def text_parse(node, out)
       return if node.nil? || node.text.nil?
+
       text = node.to_s
-      text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&nbsp;").
-        gsub(/[ ](?=[ ])/, "&nbsp;") if in_sourcecode
+      if in_sourcecode
+        text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&nbsp;")
+          .gsub(/ (?= )/, "&nbsp;")
+      end
       out << text
+    end
+
+    def add_parse(node, out)
+      out.span **{class: "addition"} do |e|
+        node.children.each { |n| parse(n, e) }
+      end
+    end
+
+    def del_parse(node, out)
+      out.span **{class: "deletion"} do |e|
+        node.children.each { |n| parse(n, e) }
+      end
     end
 
     def error_parse(node, out)
