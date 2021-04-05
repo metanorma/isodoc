@@ -34,3 +34,11 @@ br.section
 br.pagebreak
     {page-break-before:always;
     mso-special-character:line-break;}
+
+span.addition {
+        color: blue;
+}
+span.deletion {
+        color: red;
+        text-decoration: line-through;
+}

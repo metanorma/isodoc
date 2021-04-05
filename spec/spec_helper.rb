@@ -25,41 +25,42 @@ def xmlpp(x)
   s = ""
   f = REXML::Formatters::Pretty.new(2)
   f.compact = true
-  f.write(REXML::Document.new(x),s)
+  f.write(REXML::Document.new(x), s)
   s
 end
 
-def metadata(x)
-  Hash[x.sort].delete_if{ |k, v| v.nil? || v.respond_to?(:empty?) && v.empty? }
+def metadata(hash)
+  Hash[hash.sort].delete_if do |_k, v|
+    v.nil? || v.respond_to?(:empty?) && v.empty?
+  end
 end
 
-#   expect(metadata(c.info(Nokogiri::XML(<<~"INPUT"), nil))).to be_equivalent_to <<~"OUTPUT"
-
-def strip_guid(x)
-  x.gsub(%r{ id="_[^"]+"}, ' id="_"').gsub(%r{ target="_[^"]+"}, ' target="_"').
-    gsub(%r( href="#[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' href="#_"').
-    gsub(%r( id="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="_"').
-    gsub(%r( id="ftn[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="ftn_"').
-    gsub(%r( id="fn:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="fn:_"').
-    gsub(%r[ src="([^/]+)/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.], ' src="\\1/_.')
+def strip_guid(xml)
+  xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
+    .gsub(%r{ target="_[^"]+"}, ' target="_"')
+    .gsub(%r( href="#[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' href="#_"')
+    .gsub(%r( id="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="_"')
+    .gsub(%r( id="ftn[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="ftn_"')
+    .gsub(%r( id="fn:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="fn:_"')
+    .gsub(%r[ src="([^/]+)/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.], ' src="\\1/_.')
 end
 
-HTML_HDR = <<~END
-        <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-          <head/>
-          <body lang="en">
-            <div class="title-section">
-              <p>&#160;</p>
-            </div>
-            <br/>
-            <div class="prefatory-section">
-              <p>&#160;</p>
-            </div>
-            <br/>
-            <div class="main-section">
+HTML_HDR = <<~END.freeze
+  <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+    <head/>
+    <body lang="en">
+      <div class="title-section">
+        <p>&#160;</p>
+      </div>
+      <br/>
+      <div class="prefatory-section">
+        <p>&#160;</p>
+      </div>
+      <br/>
+      <div class="main-section">
 END
 
-WORD_HDR = <<~END
+WORD_HDR = <<~END.freeze
        <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
            <head>
     <style>

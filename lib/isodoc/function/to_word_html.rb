@@ -51,15 +51,16 @@ module IsoDoc::Function
       if @standardstylesheet
         head.style do |style|
           @standardstylesheet.open
-          stylesheet = @standardstylesheet.read.
-            gsub("FILENAME", File.basename(filename).sub(/\.presentation$/, ""))
+          stylesheet = @standardstylesheet.read.gsub(
+            "FILENAME", File.basename(filename).sub(/\.presentation$/, "")
+          )
           style.comment "\n#{stylesheet}\n"
         end
       end
     end
 
     def body_attr
-      { lang: "#{@lang}" }
+      { lang: @lang.to_s }
     end
 
     def make_body(xml, docxml)
@@ -132,7 +133,7 @@ module IsoDoc::Function
       i = scope isoxml, out, 0
       i = norm_ref isoxml, out, i
       i = terms_defs isoxml, out, i
-      i = symbols_abbrevs isoxml, out, i
+      symbols_abbrevs isoxml, out, i
       clause isoxml, out
       annex isoxml, out
       bibliography isoxml, out
@@ -140,7 +141,7 @@ module IsoDoc::Function
 
     def boilerplate(node, out)
       boilerplate = node.at(ns("//boilerplate")) or return
-      out.div **{class: "authority"} do |s|
+      out.div **{ class: "authority" } do |s|
         boilerplate.children.each do |n|
           if n.name == "title"
             s.h1 do |h|
@@ -232,7 +233,9 @@ module IsoDoc::Function
         when "passthrough" then passthrough_parse(node, out)
         when "amend" then amend_parse(node, out)
         when "tab" then clausedelimspace(out) # in Presentation XML only
-        when "svg" then svg_parse(node, out) # introduced in Presentation XML only
+        when "svg" then svg_parse(node, out) # in Presentation XML only
+        when "add" then add_parse(node, out)
+        when "del" then del_parse(node, out)
         else
           error_parse(node, out)
         end
