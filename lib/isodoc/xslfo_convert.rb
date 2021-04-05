@@ -24,10 +24,11 @@ module IsoDoc
     end
 
     def pdf_options(docxml)
-      font_manifest_file = @options.dig(:mn2pdf, :font_manifest_file)
-      return "--font-manifest #{font_manifest_file}" if font_manifest_file
-
-      ""
+      if font_manifest_file = @options.dig(:mn2pdf, :font_manifest_file)
+        "--font-manifest #{font_manifest_file}"
+      else
+        ""
+      end
     end
 
     def convert(input_filename, file = nil, debug = false, output_filename = nil)
@@ -40,7 +41,7 @@ module IsoDoc
         end
       FileUtils.rm_rf dir
       ::Metanorma::Output::XslfoPdf.new.convert(input_filename,
-                                                output_filename || "#{filename}.#{@suffix}", 
+                                                output_filename || "#{filename}.#{@suffix}",
                                                File.join(@libdir, pdf_stylesheet(docxml)),
                                                pdf_options(docxml))
     end
