@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
 
   spec.add_dependency "asciimath"
-  spec.add_dependency "html2doc", "~> 1.1.0"
+  spec.add_dependency "html2doc", "~> 1.0.0"
   spec.add_dependency "htmlentities", "~> 4.3.4"
   spec.add_dependency "liquid", "~> 4"
   spec.add_dependency "metanorma", "~> 1.2.0"
