@@ -1,6 +1,6 @@
-require_relative "html_function/comments.rb"
-require_relative "html_function/footnotes.rb"
-require_relative "html_function/html.rb"
+require_relative "html_function/comments"
+require_relative "html_function/footnotes"
+require_relative "html_function/html"
 require "fileutils"
 
 module IsoDoc

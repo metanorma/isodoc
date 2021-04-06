@@ -36,8 +36,9 @@ module IsoDoc
     # datauriimage: Encode images in HTML output as data URIs
     # break_up_urls_in_tables: whether to insert spaces in URLs in tables
     #   every 40-odd chars
+    # sectionsplit: split up HTML output on sections
     def initialize(options)
-      @libdir ||= File.dirname(__FILE__)
+      @libdir = File.dirname(__FILE__)
       options.merge!(default_fonts(options)) do |_, old, new|
         old || new
       end.merge!(default_file_locations(options)) do |_, old, new|
@@ -69,6 +70,7 @@ module IsoDoc
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
       @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
+      @sectionsplit = options[:sectionsplit] == "true"
       @termdomain = ""
       @termexample = false
       @note = false
@@ -149,7 +151,7 @@ module IsoDoc
       [docxml, filename, dir]
     end
 
-    def convert(input_filename, file = nil, debug = false, 
+    def convert(input_filename, file = nil, debug = false,
                 output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)
@@ -162,9 +164,9 @@ module IsoDoc
       FileUtils.rm_rf dir
     end
 
-    def middle_clause(docxml = nil)
+    def middle_clause(_docxml = nil)
       "//clause[parent::sections][not(@type = 'scope')]"\
-        '[not(descendant::terms)]'
+        "[not(descendant::terms)]"
     end
   end
 end
