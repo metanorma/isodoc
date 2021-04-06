@@ -61,18 +61,15 @@ module IsoDoc::HtmlFunction
       ret << sectionfile(out, dir, "#{filename}.0", xml.at(ns("//preface")),
                          nil)
       xml.xpath(ns("//sections/*")).each do |s|
-        require "byebug"; byebug
         ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, "sections")
       end
       xml.xpath(ns("//annex")).each do |s|
-        require "byebug"; byebug
         ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, nil)
       end
       xml.xpath(ns("//bibliography/*")).each do |s|
         # hidden biblio is kept in out
         next if s.name == "references" && s["hidden"] == "true"
 
-        require "byebug"; byebug
         ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s,
                            "bibliography")
       end
@@ -197,7 +194,6 @@ module IsoDoc::HtmlFunction
           end,
         },
       }
-
       recursive_string_keys(ret).to_yaml
     end
   end
