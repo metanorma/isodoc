@@ -38,7 +38,7 @@ module IsoDoc::HtmlFunction
     def a_name_insert(docxml)
       docxml.xpath("//*[@id]").each do |e|
         if e.children.empty?
-          e.add_child("<a name='#{e['id']}'/>")
+          e.previous = "<a name='#{e['id']}'/>"
         else
           e.children.first.add_previous_sibling("<a name='#{e['id']}'/>")
         end

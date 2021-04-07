@@ -157,7 +157,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
     expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-     <body lang="en" xml:lang="en">
+      <body lang="en" xml:lang="en">
            <div class="title-section">
              <p>&#xA0;</p>
            </div>
@@ -166,16 +166,16 @@ RSpec.describe IsoDoc do
              <p>&#xA0;</p>
            </div>
            <br />
-           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+           <main class="main-section"><button onclick="topFunction()" title="Go to top"><a name="myBtn"/>Top</button>
              <br />
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <p id="A">A.</p>
-               <p id="B">B.</p>
-               <p id="C">C.</p>
+               <p><a name="A"/>A.</p>
+               <p><a name="B"/>B.</p>
+               <p><a name="C"/>C.</p>
              </div>
              <br />
-             <div class="Section3" id="">
+             <div class="Section3"><a name=""/>
                <h1 class="IntroTitle">Introduction</h1>
              </div>
              <p class="zzSTDTitle1"></p>
@@ -185,7 +185,7 @@ RSpec.describe IsoDoc do
   { delimiters: [['(#(', ')#)']] } });
 </script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=MML_HTMLorMML-full" async="async"></script>
-       <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script></body>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script></body>
     OUTPUT
   end
 
