@@ -38,7 +38,7 @@ module IsoDoc
     #   every 40-odd chars
     # sectionsplit: split up HTML output on sections
     def initialize(options)
-      @libdir = File.dirname(__FILE__)
+      @libdir ||= File.dirname(__FILE__) # rubocop:disable Lint/DisjunctiveAssignmentInConstructor
       options.merge!(default_fonts(options)) do |_, old, new|
         old || new
       end.merge!(default_file_locations(options)) do |_, old, new|
@@ -62,7 +62,8 @@ module IsoDoc
       @smallerfontsize = options[:smallerfontsize]
       @monospacefontsize = options[:monospacefontsize]
       @footnotefontsize = options[:footnotefontsize]
-      @scripts = options[:scripts]
+      @scripts = options[:scripts] ||
+        File.join(File.dirname(__FILE__), "base_style", "scripts.html")
       @scripts_pdf = options[:scripts_pdf]
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
