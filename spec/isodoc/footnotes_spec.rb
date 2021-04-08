@@ -155,17 +155,8 @@ RSpec.describe IsoDoc do
     </preface>
     </iso-standard>
     INPUT
-    html = File.read("test.html").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
+    html = File.read("test.html").sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")
     expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-     <body lang="en" xml:lang="en">
-           <div class="title-section">
-             <p>&#xA0;</p>
-           </div>
-           <br />
-           <div class="prefatory-section">
-             <p>&#xA0;</p>
-           </div>
-           <br />
            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br />
              <div>
@@ -180,12 +171,6 @@ RSpec.describe IsoDoc do
              </div>
              <p class="zzSTDTitle1"></p>
            </main>
-           <script type='text/x-mathjax-config'>
-   MathJax.Hub.Config({ "HTML-CSS": { preferredFont: "STIX" }, asciimath2jax:
-  { delimiters: [['(#(', ')#)']] } });
-</script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=MML_HTMLorMML-full" async="async"></script>
-       <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script></body>
     OUTPUT
   end
 
