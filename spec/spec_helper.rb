@@ -21,11 +21,11 @@ RSpec.configure do |config|
   end
 end
 
-def xmlpp(x)
+def xmlpp(xml)
   s = ""
   f = REXML::Formatters::Pretty.new(2)
   f.compact = true
-  f.write(REXML::Document.new(x), s)
+  f.write(REXML::Document.new(xml), s)
   s
 end
 
@@ -45,7 +45,7 @@ def strip_guid(xml)
     .gsub(%r[ src="([^/]+)/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.], ' src="\\1/_.')
 end
 
-HTML_HDR = <<~END.freeze
+HTML_HDR = <<~HEADER.freeze
   <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
     <head/>
     <body lang="en">
@@ -58,9 +58,9 @@ HTML_HDR = <<~END.freeze
       </div>
       <br/>
       <div class="main-section">
-END
+HEADER
 
-WORD_HDR = <<~END.freeze
+WORD_HDR = <<~HEADER.freeze
        <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
            <head>
     <style>
@@ -78,4 +78,4 @@ WORD_HDR = <<~END.freeze
            </div>
            <p><br clear="all" class="section"/></p>
            <div class="WordSection3">
-END
+HEADER
