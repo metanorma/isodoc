@@ -61,7 +61,8 @@ module IsoDoc
       @smallerfontsize = options[:smallerfontsize]
       @monospacefontsize = options[:monospacefontsize]
       @footnotefontsize = options[:footnotefontsize]
-      @scripts = options[:scripts]
+      @scripts = options[:scripts] ||
+        File.join(File.dirname(__FILE__), "base_style", "scripts.html")
       @scripts_pdf = options[:scripts_pdf]
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
