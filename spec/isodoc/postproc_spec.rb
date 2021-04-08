@@ -135,6 +135,8 @@ expect(File.exist?("test.doc")).to be true
     expect(html).to match(/another empty stylesheet/)
     expect(html).to match(%r{https://use.fontawesome.com})
     expect(html).to match(%r{libs/jquery})
+    expect(html).to include "$('#toggle')"
+    expect(html).not_to match(/CDATA/)
   end
 
   it "generates Headless HTML output docs with null configuration from file" do
