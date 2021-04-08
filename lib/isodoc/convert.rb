@@ -37,7 +37,7 @@ module IsoDoc
     # break_up_urls_in_tables: whether to insert spaces in URLs in tables
     #   every 40-odd chars
     def initialize(options)
-      @libdir ||= File.dirname(__FILE__)
+      @libdir ||= File.dirname(__FILE__) # rubocop:disable Lint/DisjunctiveAssignmentInConstructor
       options.merge!(default_fonts(options)) do |_, old, new|
         old || new
       end.merge!(default_file_locations(options)) do |_, old, new|
