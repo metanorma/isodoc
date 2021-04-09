@@ -33,7 +33,8 @@ module IsoDoc
     def convert(input_filename, file = nil, debug = false,
                 output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
-      input_filename, docxml = input_xml_path(input_filename, file, debug)
+      input_filename, docxml, filename = input_xml_path(input_filename,
+                                                        file, debug)
       ::Metanorma::Output::XslfoPdf.new.convert(
         input_filename,
         output_filename || "#{filename}.#{@suffix}",
@@ -57,7 +58,7 @@ module IsoDoc
       end
       FileUtils.rm_rf dir
 
-      [input_filename, docxml]
+      [input_filename, docxml, filename]
     end
   end
 end
