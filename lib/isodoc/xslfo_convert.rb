@@ -43,12 +43,7 @@ module IsoDoc
     end
 
     def xref_parse(node, out)
-      target = if /#/.match?(node["target"])
-                 node["target"].sub(/#/, ".pdf#")
-               else
-                 "##{node['target']}"
-               end
-      out.a(**{ "href": target }) { |l| l << get_linkend(node) }
+      out.a(**{ "href": target_pdf(node) }) { |l| l << get_linkend(node) }
     end
 
     def input_xml_path(input_filename, xml_file, debug)

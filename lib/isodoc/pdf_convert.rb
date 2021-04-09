@@ -42,9 +42,7 @@ module IsoDoc
     end
 
     def xref_parse(node, out)
-      target = /#/.match(node["target"]) ? node["target"].sub(/#/, ".pdf#") :
-        "##{node["target"]}"
-      out.a(**{ "href": target }) { |l| l << get_linkend(node) }
+      out.a(**{ "href": target_pdf(node) }) { |l| l << get_linkend(node) }
     end
   end
 end
