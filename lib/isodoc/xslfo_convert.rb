@@ -6,19 +6,13 @@ module IsoDoc
     MN2PDF_FONT_MANIFEST = :font_manifest_file
 
     def initialize(options)
+      @format = :pdf
+      @suffix = "pdf"
       super
-      @maxwidth = 500
-      @maxheight = 800
     end
 
     def tmpimagedir_suffix
       "_pdfimages"
-    end
-
-    def initialize(options)
-      @format = :pdf
-      @suffix = "pdf"
-      super
     end
 
     def pdf_stylesheet(_docxml)
