@@ -15,7 +15,9 @@ RSpec.describe IsoDoc do
     convert = IsoDoc::XslfoPdfConvert.new(
       {
         datauriimage: false,
-        mn2pdf: { font_manifest_file: nil },
+        IsoDoc::XslfoPdfConvert::MN2PDF_OPTIONS => {
+          IsoDoc::XslfoPdfConvert::MN2PDF_FONT_MANIFEST => nil,
+        },
       }
     )
 
@@ -26,7 +28,9 @@ RSpec.describe IsoDoc do
     convert = IsoDoc::XslfoPdfConvert.new(
       {
         datauriimage: false,
-        mn2pdf: { font_manifest_file: "/tmp/manifest.yml" },
+        IsoDoc::XslfoPdfConvert::MN2PDF_OPTIONS => {
+          IsoDoc::XslfoPdfConvert::MN2PDF_FONT_MANIFEST => "/tmp/manifest.yml",
+        },
       }
     )
 

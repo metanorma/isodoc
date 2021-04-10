@@ -2,6 +2,9 @@ require "metanorma"
 
 module IsoDoc
   class XslfoPdfConvert < ::IsoDoc::Convert
+    MN2PDF_OPTIONS = :mn2pdf
+    MN2PDF_FONT_MANIFEST = :font_manifest_file
+
     def initialize(options)
       super
       @maxwidth = 500
@@ -23,7 +26,8 @@ module IsoDoc
     end
 
     def pdf_options(_docxml)
-      if font_manifest_file = @options.dig(:mn2pdf, :font_manifest_file)
+      if font_manifest_file = @options.dig(MN2PDF_OPTIONS,
+                                           MN2PDF_FONT_MANIFEST)
         "--font-manifest #{font_manifest_file}"
       else
         ""
