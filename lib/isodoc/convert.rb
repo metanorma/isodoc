@@ -167,5 +167,13 @@ module IsoDoc
       "//clause[parent::sections][not(@type = 'scope')]"\
         '[not(descendant::terms)]'
     end
+
+    def target_pdf(node)
+      if /#/.match?(node["target"])
+        node["target"].sub(/#/, ".pdf#")
+      else
+        "##{node['target']}"
+      end
+    end
   end
 end

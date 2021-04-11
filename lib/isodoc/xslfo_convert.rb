@@ -2,15 +2,8 @@ require "metanorma"
 
 module IsoDoc
   class XslfoPdfConvert < ::IsoDoc::Convert
-    def initialize(options)
-      super
-      @maxwidth = 500
-      @maxheight = 800
-    end
-
-    def tmpimagedir_suffix
-      "_pdfimages"
-    end
+    MN2PDF_OPTIONS = :mn2pdf
+    MN2PDF_FONT_MANIFEST = :font_manifest_file
 
     def initialize(options)
       @format = :pdf
@@ -18,12 +11,17 @@ module IsoDoc
       super
     end
 
+    def tmpimagedir_suffix
+      "_pdfimages"
+    end
+
     def pdf_stylesheet(_docxml)
       nil
     end
 
     def pdf_options(_docxml)
-      if font_manifest_file = @options.dig(:mn2pdf, :font_manifest_file)
+      if font_manifest_file = @options.dig(MN2PDF_OPTIONS,
+                                           MN2PDF_FONT_MANIFEST)
         "--font-manifest #{font_manifest_file}"
       else
         ""
@@ -33,7 +31,8 @@ module IsoDoc
     def convert(input_filename, file = nil, debug = false,
                 output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
-      input_filename, docxml = input_xml_path(input_filename, file, debug)
+      input_filename, docxml, filename = input_xml_path(input_filename,
+                                                        file, debug)
       ::Metanorma::Output::XslfoPdf.new.convert(
         input_filename,
         output_filename || "#{filename}.#{@suffix}",
@@ -43,12 +42,7 @@ module IsoDoc
     end
 
     def xref_parse(node, out)
-      target = if /#/.match?(node["target"])
-                 node["target"].sub(/#/, ".pdf#")
-               else
-                 "##{node['target']}"
-               end
-      out.a(**{ "href": target }) { |l| l << get_linkend(node) }
+      out.a(**{ "href": target_pdf(node) }) { |l| l << get_linkend(node) }
     end
 
     def input_xml_path(input_filename, xml_file, debug)
@@ -62,7 +56,7 @@ module IsoDoc
       end
       FileUtils.rm_rf dir
 
-      [input_filename, docxml]
+      [input_filename, docxml, filename]
     end
   end
 end
