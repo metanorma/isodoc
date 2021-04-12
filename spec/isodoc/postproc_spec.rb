@@ -240,8 +240,7 @@ expect(File.exist?("test.doc")).to be true
     expect(word).to match(/p\.note \{[^}]*?font-size: 28pt/m)
     expect(word).to match(/aside \{[^}]*?font-size: 27pt/m)
     expect(word).to match(/a third empty stylesheet/)
-    #expect(word).to match(/<title>test<\/title>/)
-    expect(word).to match(/test_files\/header.html/)
+    expect(word).to match(/Content-Disposition: inline; filename="filelist.xml"/)
     expect(word).to match(/an empty word cover page/)
     expect(word).to match(/an empty word intro page/)
     expect(word).to match(%r{Anta&#x16D;parolo</h1>})
@@ -271,7 +270,7 @@ expect(File.exist?("test.doc")).to be true
     expect(word).to match(/aside \{[^}]*?font-size: 9pt/m)
     expect(word).to match(/a third empty stylesheet/)
     #expect(word).to match(/<title>test<\/title>/)
-    expect(word).to match(/test_files\/header.html/)
+    expect(word).to match(/Content-Disposition: inline; filename="filelist.xml"/)
     expect(word).to match(/an empty word cover page/)
     expect(word).to match(/an empty word intro page/)
     expect(word).to match(%r{Anta&#x16D;parolo</h1>})
@@ -362,10 +361,12 @@ expect(File.exist?("test.doc")).to be true
         </bibdata>
 </iso-standard>
     INPUT
-    word = File.read("test.doc").sub(%r{^.*Content-Location: file:///C:/Doc/test_files/header.html}m, "Content-Location: file:///C:/Doc/test_files/header.html").
-      sub(/------=_NextPart.*$/m, "")
+    word = File.read("test.doc")
+      .sub(%r{^.*Content-ID: <header.html>}m, "Content-ID: <header.html>")
+      .sub(/------=_NextPart.*$/m, "")
     expect(word).to be_equivalent_to <<~"OUTPUT"
-Content-Location: file:///C:/Doc/test_files/header.html
+Content-ID: <header.html>
+Content-Disposition: inline; filename="header.html"
 Content-Transfer-Encoding: base64
 Content-Type: text/html charset="utf-8"
 Ci8qIGFuIGVtcHR5IGhlYWRlciAqLwoKU1RBUlQgRE9DIElEOiAKICAgICAgICAgICAxMDAwCiAg
