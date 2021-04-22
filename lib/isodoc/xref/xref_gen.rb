@@ -1,4 +1,4 @@
-require_relative "xref_gen_seq.rb"
+require_relative "xref_gen_seq"
 
 module IsoDoc::XrefGen
   module Blocks
@@ -17,23 +17,24 @@ module IsoDoc::XrefGen
       end
     end
 
-    def amend_autonums(a)
+    def amend_autonums(amend)
       autonum = {}
-      a.xpath(ns("./autonumber")).each do |n|
+      amend.xpath(ns("./autonumber")).each do |n|
         autonum[n["type"]] = n.text
       end
       autonum
     end
 
-    def termnote_label(n)
-      @labels["termnote"].gsub(/%/, n.to_s)
+    def termnote_label(note)
+      @labels["termnote"].gsub(/%/, note.to_s)
     end
 
     def termnote_anchor_names(docxml)
       docxml.xpath(ns("//term[descendant::termnote]")).each do |t|
         c = Counter.new
         t.xpath(ns(".//termnote")).each do |n|
-          return if n["id"].nil? || n["id"].empty?
+          next if n["id"].nil? || n["id"].empty?
+
           c.increment(n)
           @anchors[n["id"]] =
             { label: termnote_label(c.print), type: "termnote", value: c.print,
@@ -48,7 +49,8 @@ module IsoDoc::XrefGen
         examples = t.xpath(ns(".//termexample"))
         c = Counter.new
         examples.each do |n|
-          return if n["id"].nil? || n["id"].empty?
+          next if n["id"].nil? || n["id"].empty?
+
           c.increment(n)
           idx = examples.size == 1 && !n["number"] ? "" : c.print
           @anchors[n["id"]] = {
@@ -81,6 +83,7 @@ module IsoDoc::XrefGen
         c = Counter.new
         notes.each do |n|
           next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
+
           idx = notes.size == 1 && !n["number"] ? "" : " #{c.increment(n).print}"
           @anchors[n["id"]] = anchor_struct(idx, n, @labels["note_xref"], 
                                             "note", false)
@@ -103,6 +106,7 @@ module IsoDoc::XrefGen
         c = Counter.new
         notes.each do |n|
           next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
+
           idx = notes.size == 1 && !n["number"]  ? "" :
             " #{c.increment(n).print}"
           @anchors[n["id"]] = anchor_struct(idx, n, @labels["example_xref"],
@@ -119,6 +123,7 @@ module IsoDoc::XrefGen
         c = Counter.new
         notes.each do |n|
           next if n["id"].nil? || n["id"].empty?
+
           idx = notes.size == 1 && !n["number"] ? "" : " #{c.increment(n).print}"
           @anchors[n["id"]] = anchor_struct(idx, n, @labels["list"], "list",
                                             false)

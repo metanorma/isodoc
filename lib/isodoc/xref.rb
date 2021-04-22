@@ -11,7 +11,7 @@ module IsoDoc
     include XrefGen::Blocks
     include XrefGen::Sections
 
-     def initialize(lang, script, klass, i18n, options = {})
+    def initialize(lang, script, klass, i18n, options = {})
       @anchors = {}
       @lang = lang
       @script = script
@@ -28,13 +28,12 @@ module IsoDoc
 
     def anchor(id, lbl, warning = true)
       return nil if id.nil? || id.empty?
-      unless @anchors[id]
-        if warning
-          @seen ||= Seen_Anchor.instance
-          @seen.seen(id) or warn "No label has been processed for ID #{id}"
-          @seen.add(id)
-          return "[#{id}]"
-        end
+
+      if warning && !@anchors[id]
+        @seen ||= Seen_Anchor.instance
+        @seen.seen(id) or warn "No label has been processed for ID #{id}"
+        @seen.add(id)
+        return "[#{id}]"
       end
       @anchors.dig(id, lbl)
     end
