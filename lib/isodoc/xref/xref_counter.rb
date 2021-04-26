@@ -81,10 +81,22 @@ module IsoDoc::XrefGen
           @number_override = @num = n.to_i unless n.empty?
         end
       else
-        @letter = (@letter.ord + 1).chr.to_s
-        @skip_i && %w(i I).include?(@letter) and
-          @letter = (@letter.ord + 1).chr.to_s
+        increment_letter
       end
+    end
+
+    def increment_letter
+      case @letter
+      when "Z"
+        @letter = "@"
+        @base = @base.empty? ? "A" : @base[0..-2] + (@base[-1].ord + 1).chr.to_s
+      when "z"
+        @letter = "`"
+        @base = @base.empty? ? "a" : @base[0..-2] + (@base[-1].ord + 1).chr.to_s
+      end
+      @letter = (@letter.ord + 1).chr.to_s
+      @skip_i && %w(i I).include?(@letter) and
+        @letter = (@letter.ord + 1).chr.to_s
     end
 
     def blank?(str)
