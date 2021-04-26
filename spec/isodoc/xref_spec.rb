@@ -3245,4 +3245,32 @@ RSpec.describe IsoDoc do
     a.increment({})
     expect(a.print).to eq "V"
   end
+
+  it "skips I in counter for xrefs" do
+    a = IsoDoc::XrefGen::Counter.new("@", skip_i: true)
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    expect(a.print).to eq "H"
+    a.increment({})
+    expect(a.print).to eq "J"
+    a = IsoDoc::XrefGen::Counter.new("@")
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    expect(a.print).to eq "H"
+    a.increment({})
+    expect(a.print).to eq "I"
+  end
+
 end
