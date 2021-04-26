@@ -9,6 +9,7 @@ module IsoDoc::XrefGen
       @letter_override = nil
       @number_override = nil
       @style = opts[:numerals]
+      @skip_i = opts[:skip_i]
       @base = ""
       if num.is_a? String
         if /^\d+$/.match?(num)
@@ -80,8 +81,22 @@ module IsoDoc::XrefGen
           @number_override = @num = n.to_i unless n.empty?
         end
       else
-        @letter = (@letter.ord + 1).chr.to_s
+        increment_letter
       end
+    end
+
+    def increment_letter
+      case @letter
+      when "Z"
+        @letter = "@"
+        @base = @base.empty? ? "A" : @base[0..-2] + (@base[-1].ord + 1).chr.to_s
+      when "z"
+        @letter = "`"
+        @base = @base.empty? ? "a" : @base[0..-2] + (@base[-1].ord + 1).chr.to_s
+      end
+      @letter = (@letter.ord + 1).chr.to_s
+      @skip_i && %w(i I).include?(@letter) and
+        @letter = (@letter.ord + 1).chr.to_s
     end
 
     def blank?(str)
@@ -96,10 +111,8 @@ module IsoDoc::XrefGen
       if node["subsequence"] != @subseq &&
           !(blank?(node["subsequence"]) && blank?(@subseq))
         new_subseq_increment(node)
-      elsif @letter.empty?
-        sequence_increment(node)
-      else
-        subsequence_increment(node)
+      elsif @letter.empty? then sequence_increment(node)
+      else subsequence_increment(node)
       end
       self
     end

@@ -118,7 +118,7 @@ module IsoDoc
 
     # introduce name element
     def termnote1(f)
-      lbl = l10n(@xrefs.anchor(f['id'], :label) || '???')
+      lbl = l10n(@xrefs.anchor(f["id"], :label) || "???")
       prefix_name(f, "", lower2cap(lbl), "name")
     end
 
@@ -142,7 +142,7 @@ module IsoDoc
 
     # introduce name element
     def recommendation1(f, type)
-      n = @xrefs.anchor(f['id'], :label, false)
+      n = @xrefs.anchor(f["id"], :label, false)
       lbl = (n.nil? ? type : l10n("#{type} #{n}"))
       prefix_name(f, "", lbl, "name")
     end
@@ -157,7 +157,7 @@ module IsoDoc
       return if labelled_ancestor(f)
       return if f["unnumbered"] && !f.at(ns("./name"))
 
-      n = @xrefs.anchor(f['id'], :label, false)
+      n = @xrefs.anchor(f["id"], :label, false)
       prefix_name(f, "&nbsp;&mdash; ", l10n("#{lower2cap @i18n.table} #{n}"), "name")
     end
 
@@ -169,7 +169,7 @@ module IsoDoc
     end
 
     def amend1(f)
-      f.xpath(ns("./autonumber")).each { |a| a.remove }
+      f.xpath(ns("./autonumber")).each(&:remove)
       f.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       f.xpath(ns("./description")).each { |a| a.replace(a.children) }
       f.replace(f.children)
