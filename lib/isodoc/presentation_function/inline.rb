@@ -243,6 +243,8 @@ module IsoDoc
       end
     end
 
+    private
+
     def found_matching_variant_sibling(node)
       prev = node.xpath("./preceding-sibling::xmlns:variant")
       foll = node.xpath("./following-sibling::xmlns:variant")
