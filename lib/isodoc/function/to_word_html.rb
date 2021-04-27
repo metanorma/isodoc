@@ -18,19 +18,19 @@ module IsoDoc::Function
 
     def init_file(filename, debug)
       filepath = Pathname.new(filename)
-      filename = filepath.sub_ext('').sub(/\.presentation$/, "").to_s
+      filename = filepath.sub_ext("").sub(/\.presentation$/, "").to_s
       dir = init_dir(filename, debug)
       @filename = filename
-      @localdir = filepath.parent.to_s + '/'
+      @localdir = filepath.parent.to_s + "/"
       @sourcedir = @localdir
-      @sourcefilename and @sourcedir = Pathname.new(@sourcefilename).parent.to_s + '/'
+      @sourcefilename and @sourcedir = Pathname.new(@sourcefilename).parent.to_s + "/"
       [filename, dir]
     end
 
     def init_dir(filename, debug)
       dir = "#{filename}_files"
       unless debug
-        Dir.mkdir(dir, 0777) unless File.exists?(dir)
+        Dir.mkdir(dir, 0o777) unless File.exists?(dir)
         FileUtils.rm_rf "#{dir}/*"
       end
       dir
@@ -78,7 +78,7 @@ module IsoDoc::Function
       section_break(body)
     end
 
-    def make_body2(body, docxml)
+    def make_body2(body, _docxml)
       body.div **{ class: "prefatory-section" } do |div2|
         div2.p { |p| p << "&nbsp;" } # placeholder
       end
@@ -117,16 +117,6 @@ module IsoDoc::Function
       @meta.get
     end
 
-    def middle_title(_isoxml, out)
-      out.p(**{ class: "zzSTDTitle1" }) { |p| p << @meta.get[:doctitle] }
-    end
-
-    def middle_admonitions(isoxml, out)
-      isoxml.xpath(ns("//sections/note | //sections/admonition")).each do |x|
-        parse(x, out)
-      end
-    end
-
     def middle(isoxml, out)
       middle_title(isoxml, out)
       middle_admonitions(isoxml, out)
@@ -147,16 +137,14 @@ module IsoDoc::Function
             s.h1 do |h|
               n.children.each { |nn| parse(nn, h) }
             end
-          else
-            parse(n, s)
+          else parse(n, s)
           end
         end
       end
     end
 
     def parse(node, out)
-      if node.text?
-        text_parse(node, out)
+      if node.text? then text_parse(node, out)
       else
         case node.name
         when "em" then em_parse(node, out)
@@ -236,8 +224,13 @@ module IsoDoc::Function
         when "svg" then svg_parse(node, out) # in Presentation XML only
         when "add" then add_parse(node, out)
         when "del" then del_parse(node, out)
-        else
-          error_parse(node, out)
+        when "form" then form_parse(node, out)
+        when "input" then input_parse(node, out)
+        when "select" then select_parse(node, out)
+        when "label" then label_parse(node, out)
+        when "option" then option_parse(node, out)
+        when "textarea" then textarea_parse(node, out)
+        else error_parse(node, out)
         end
       end
     end
