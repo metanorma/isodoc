@@ -51,6 +51,7 @@ module IsoDoc::Function
 
     def tcaption(node, t)
       return unless node["summary"]
+
       t.caption do |c|
         c.span **{ style: "display:none" } do |s|
           s << node["summary"]

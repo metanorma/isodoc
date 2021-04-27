@@ -4,6 +4,16 @@ module IsoDoc::Function
   module Blocks
     @annotation = false
 
+    def middle_title(_isoxml, out)
+      out.p(**{ class: "zzSTDTitle1" }) { |p| p << @meta.get[:doctitle] }
+    end
+
+    def middle_admonitions(isoxml, out)
+      isoxml.xpath(ns("//sections/note | //sections/admonition")).each do |x|
+        parse(x, out)
+      end
+    end
+
     def figure_name_parse(node, div, name)
       return if name.nil? 
       div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
