@@ -20,7 +20,10 @@ module IsoDoc::Function
     end
 
     def text_input(out, length = 10)
-      out << ("_" * (length || 10))
+      length ||= 10
+      length = length.to_i
+      length.zero? and length = 10
+      out << "_" * length
       out << " "
     end
 
