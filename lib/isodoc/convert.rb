@@ -8,7 +8,7 @@ require_relative "css"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
-    attr_accessor :options, :i18n, :meta
+    attr_accessor :options, :i18n, :meta, :xrefs
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
