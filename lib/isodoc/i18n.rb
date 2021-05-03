@@ -23,19 +23,21 @@ module IsoDoc
     end
 
     def load_yaml1(lang, script)
-      if lang == "en"
-        YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../isodoc-yaml/i18n-en.yaml"))
-      elsif lang == "fr"
-        YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../isodoc-yaml/i18n-fr.yaml"))
-      elsif lang == "zh" && script == "Hans"
-        YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../isodoc-yaml/i18n-zh-Hans.yaml"))
+      case lang
+      when "en", "fr", "ru", "de", "es", "ar"
+        load_yaml2(lang)
+      when "zh"
+        if script == "Hans" then load_yaml2("zh-Hans")
+        else load_yaml2("en")
+        end
       else
-        YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../isodoc-yaml/i18n-en.yaml"))
+        load_yaml2("en")
       end
+    end
+
+    def load_yaml2(str)
+      YAML.load_file(File.join(File.dirname(__FILE__),
+                               "../isodoc-yaml/i18n-#{str}.yaml"))
     end
 
     def get

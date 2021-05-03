@@ -1,0 +1,154 @@
+term_def_boilerplate: 
+scope: Сфера применения
+symbolsabbrev: Символы и сокращенные термины
+abbrev: Сокращенные термины
+symbols: Символы
+table_of_contents: Содержание
+introduction: Введение
+foreword: Предисловие
+abstract: Реферат
+acknowledgements: Подтверждения
+termsdef: Термины и определения
+termsdefsymbolsabbrev: Термины, определения, символы и сокращенные термины
+termsdefsymbols: Термины, определения и символы
+termsdefabbrev: Термины, определения и сокращенные термины
+normref: Нормативные ссылки
+bibliography: Библиография
+clause: Пункт
+annex: Дополнение
+appendix: Приложение
+no_terms_boilerplate: |
+          <p>Термины и определения не перечислены в этом документе.</p>
+internal_terms_boilerplate: |
+        <p>Для целей этого документа 
+            применяются следующие термины и определения.</p>
+norm_with_refs_pref: 
+      Следующие документы упоминаются в тексте таким образом, 
+      что некоторая часть или все их содержание являются требованиями 
+      настоящего  документа. Для датированных ссылок применяют только указанное издание.
+      Для недатированных ссылок применяют последнее издание 
+      указанного документа (включая любые поправки).
+norm_empty_pref: 
+          Нет нормативных ссылок в этом документе.
+external_terms_boilerplate: |
+          <p>Для целей этого документа применяются 
+            термины и определения, данные в %.</p>
+internal_external_terms_boilerplate: |
+          <p>Для целей этого документа применяются 
+            термины и определения, данные в % и следующие.</p>
+term_defined_in: "[термин, определенный в %]"
+note: ПРИМЕЧАНИЕ
+note_xref: Примечание
+termnote: Примечание % к определению
+list: Список
+figure: Рисунок
+formula: Формула
+inequality: Формула
+table: Таблица
+requirement: Требование
+recommendation: Рекомендация
+permission: Разрешение
+key: Условные обозначения
+example: ПРИМЕР
+example_xref: Пример
+where: где
+wholeoftext: Текст полностью
+draft_label: проект
+inform_annex: информативное
+norm_annex: нормативное
+modified: изменен
+deprecated: НЕ РЕКОМЕНДУЕТСЯ
+source: ИСТОЧНИК
+and: и
+all_parts: Все части
+month_january: Январь
+month_february: Февраль
+month_march: Март
+month_april: Апрель
+month_may: Май
+month_june: Июнь
+month_july: Июль
+month_august: Август
+month_september: Сентябрь
+month_october: Октябрь
+month_november: Ноябрь
+month_december: Декабрь
+obligation: Обязательство
+subject: Тема
+inherits: Наследует
+admonition: {
+  danger: Опасность,
+  warning: Предупреждение,
+  caution: Предостережение,
+  important: Важно,
+  safety precautions: Меры безопасности
+}
+locality: {
+                      section: Раздел,
+                      clause: Пункт,
+                      part: Часть,
+                      paragraph: Абзац,
+                      chapter: Глава,
+                      page: Стр.,
+                      table: Таблица,
+                      annex: Дополнение,
+                      figure: Рисунок,
+                      example: Пример,
+                      note: Примечание,
+                      formula: Формула
+                    }
+inflection:
+  Clause:
+    sg: Пункт
+    pl: Пункты
+  Annex:
+    sg: Дополнение
+    pl: Дополнения
+  Appendix:
+    sg: Приложение
+    pl: Приложения
+  Note:
+    sg: Примечание
+    pl: Примечания
+  "Note % to entry":
+    sg: Примечание % к записи
+    pl: Примечания % к записи
+  List:
+    sg: Список
+    pl: Списки
+  Figure:
+    sg: Рисунок
+    pl: Рисунки
+  Formula:
+    sg: Формула
+    pl: Формулы
+  Table:
+    sg: Таблица
+    pl: Таблицы
+  Requirement:
+    sg: Требование
+    pl: Требования
+  Recommendation:
+    sg: Рекомендация
+    pl: Рекомендации
+  Permission:
+    sg: Разрешение
+    pl: Разрешения
+  Example:
+    sg: Пример
+    pl: Примеры
+  Part:
+    sg: Часть
+    pl: Части
+  Section:
+    sg: Раздел
+    pl: Разделы
+  Paragraph:
+    sg: Абзац
+    pl: Абзацы
+  Chapter:
+    sg: Глава
+    pl: Главы
+  Page:
+    sg: Стр.
+    pl: Стр.
