@@ -96,57 +96,57 @@ locality:
   note: ملحوظة, ملاحظة
   formula: معادلة
 inflection:
-  Clause:
+  فقرة:
     sg: فقرة
     pl: فقرات
-  Annex:
-    sg: ملحق, مرفق
-    pl: ملحقات, مرفقات
-  Appendix:
+  ملحق:
+    sg: ملحق
+    pl: لحقات
+  تذييل:
     sg: تذييل
     pl: تذييلات
-  Note:
-    sg: ملحوظة, ملاحظة
+  ملاحظة:
+    sg: ملاحظة
     pl: ملاحظات
   "Note % to entry":
     sg: Note % to entry
     pl: Notes % to entry
-  List:
+  قائمة:
     sg: قائمة
     pl: قوائم
-  Figure:
+  شكل:
     sg: شكل
     pl: أشكال
-  Formula:
+  معادلة:
     sg: معادلة
     pl: معادلات
-  Table:
+  جدول:
     sg: جدول
     pl: جداول
-  Requirement:
+  مطلب:
     sg: مطلب
     pl: متطلبات
-  Recommendation:
+  توصية:
     sg: توصية
     pl: توصيات
-  Permission:
+  تصريح:
     sg: تصريح
     pl: تصريحات
-  Example:
+  مثال:
     sg: مثال
     pl: أمثلة
-  Part:
+  جزء:
     sg: جزء
     pl: أجزاء
-  Section:
+  قسم:
     sg: قسم
     pl: أقسام
-  Paragraph:
+  فقرة:
     sg: فقرة
     pl: فقرات
-  Chapter:
+  فصل:
     sg: فصل
     pl: فصول
-  Page:
+  صفحة:
     sg: صفحة
     pl: صفحات
