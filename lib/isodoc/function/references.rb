@@ -1,12 +1,12 @@
 module IsoDoc::Function
   module References
-
     # This is highly specific to ISO, but it's not a bad precedent for
     # references anyway; keeping here instead of in IsoDoc::Iso for now
-    def docid_l10n(x)
-      return x if x.nil?
-      x.gsub(/All Parts/i, @i18n.all_parts.downcase) if @i18n.all_parts
-      x
+    def docid_l10n(text)
+      return text if text.nil?
+
+      text.gsub(/All Parts/i, @i18n.all_parts.downcase) if @i18n.all_parts
+      text
     end
 
     # TODO generate formatted ref if not present
@@ -16,7 +16,7 @@ module IsoDoc::Function
         identifiers = render_identifier(ids)
         if biblio then ref_entry_code(ref, ordinal, identifiers, ids)
         else
-          ref << "#{identifiers[0] || identifiers[1]}"
+          ref << (identifiers[0] || identifiers[1]).to_s
           ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
         end
         ref << ", " unless biblio && !identifiers[1]
@@ -29,7 +29,7 @@ module IsoDoc::Function
         identifiers = render_identifier(bibitem_ref_code(b))
         if biblio then ref_entry_code(ref, ordinal, identifiers, nil)
         else
-          ref << "#{identifiers[0] || identifiers[1]}"
+          ref << (identifiers[0] || identifiers[1]).to_s
           ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
         end
         date_note_process(b, ref)
@@ -40,9 +40,9 @@ module IsoDoc::Function
 
     # if t is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and t
-    def ref_entry_code(r, ordinal, t, id)
+    def ref_entry_code(r, ordinal, t, _id)
       prefix_bracketed_ref(r, t[0] || "[#{ordinal}]")
-      t[1] and r << "#{t[1]}"
+      t[1] and r << (t[1]).to_s
     end
 
     def pref_ref_code(b)
@@ -55,27 +55,36 @@ module IsoDoc::Function
       id = b.at(ns("./docidentifier[@type = 'metanorma']"))
       id1 = pref_ref_code(b)
       id2 = b.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or "\
-                    "@type = 'ISBN']")) 
+                    "@type = 'ISBN']"))
       return [id, id1, id2] if id || id1 || id2
+
       id = Nokogiri::XML::Node.new("docidentifier", b.document)
       id << "(NO ID)"
       [nil, id, nil]
     end
 
-    def bracket_if_num(x)
-      return nil if x.nil?
-      x = x.text.sub(/^\[/, "").sub(/\]$/, "")
-      return "[#{x}]" if /^\d+$/.match(x)
-      x
+    def bracket_if_num(num)
+      return nil if num.nil?
+
+      num = num.text.sub(/^\[/, "").sub(/\]$/, "")
+      return "[#{num}]" if /^\d+$/.match?(num)
+
+      num
     end
 
     def render_identifier(id)
       [
         bracket_if_num(id[0]),
-        id[1].nil? ? nil :
-        docid_prefix(id[1]["type"], id[1].text.sub(/^\[/, "").sub(/\]$/, "")),
-        id[2].nil? ? nil :
-        docid_prefix(id[2]["type"], id[2].text.sub(/^\[/, "").sub(/\]$/, "")),
+        if id[1].nil?
+          nil
+        else
+          docid_prefix(id[1]["type"], id[1].text.sub(/^\[/, "").sub(/\]$/, ""))
+        end,
+        if id[2].nil?
+          nil
+        else
+          docid_prefix(id[2]["type"], id[2].text.sub(/^\[/, "").sub(/\]$/, ""))
+        end,
       ]
     end
 
@@ -87,12 +96,14 @@ module IsoDoc::Function
 
     def omit_docid_prefix(prefix)
       return true if prefix.nil? || prefix.empty?
-      return %w(ISO IEC IEV ITU W3C csd metanorma rfc-anchor).include? prefix
+
+      %w(ISO IEC IEV ITU W3C csd metanorma rfc-anchor).include? prefix
     end
 
     def date_note_process(b, ref)
       date_note = b.at(ns("./note[@type = 'Unpublished-Status']"))
       return if date_note.nil?
+
       date_note.children.first.replace("<p>#{date_note.content}</p>")
       footnote_parse(date_note, ref)
     end
@@ -101,18 +112,17 @@ module IsoDoc::Function
       { id: b["id"], class: biblio ? "Biblio" : "NormRef" }
     end
 
-    def iso_title(b)
-      title = b.at(ns("./title[@language = '#{@lang}' and @type = 'main']")) ||
-        b.at(ns("./title[@language = '#{@lang}']")) ||
-        b.at(ns("./title[@type = 'main']")) ||
-        b.at(ns("./title"))
-      title
+    def iso_title(bib)
+      bib.at(ns("./title[@language = '#{@lang}' and @type = 'main']")) ||
+        bib.at(ns("./title[@language = '#{@lang}']")) ||
+        bib.at(ns("./title[@type = 'main']")) ||
+        bib.at(ns("./title"))
     end
 
     # reference not to be rendered because it is deemed implicit
     # in the standards environment
-    def implicit_reference(b)
-      b["hidden"] == "true"
+    def implicit_reference(bib)
+      bib["hidden"] == "true"
     end
 
     def prefix_bracketed_ref(ref, text)
@@ -120,35 +130,38 @@ module IsoDoc::Function
       insert_tab(ref, 1)
     end
 
-    def reference_format(b, r)
-      if ftitle = b.at(ns("./formattedref"))
+    def reference_format(bib, r)
+      if ftitle = bib.at(ns("./formattedref"))
         ftitle&.children&.each { |n| parse(n, r) }
       else
-        title = iso_title(b)
+        title = iso_title(bib)
         r.i do |i|
           title&.children&.each { |n| parse(n, i) }
         end
       end
     end
 
-    def is_standard(b)
+    def is_standard(bib)
       ret = false
-      b.xpath(ns("./docidentifier")).each do |id|
+      bib.xpath(ns("./docidentifier")).each do |id|
         next if id["type"].nil? ||
           %w(metanorma DOI ISSN ISBN).include?(id["type"])
+
         ret = true
       end
       ret
     end
 
-    def biblio_list(f, div, biblio)
+    def biblio_list(refs, div, biblio)
       i = 0
-      f.children.each do |b|
+      refs.children.each do |b|
         if b.name == "bibitem"
           next if implicit_reference(b)
+
           i += 1
-          (is_standard(b)) ? std_bibitem_entry(div, b, i, biblio) :
-            nonstd_bibitem(div, b, i, biblio)
+          if is_standard(b) then std_bibitem_entry(div, b, i, biblio)
+          else nonstd_bibitem(div, b, i, biblio)
+          end
         else
           parse(b, div) unless %w(title).include? b.name
         end
@@ -174,7 +187,7 @@ module IsoDoc::Function
       num
     end
 
-    def bibliography_xpath 
+    def bibliography_xpath
       "//bibliography/clause[.//references]"\
         "[not(.//references[@normative = 'true'])] | "\
         "//bibliography/references[@normative = 'false']"
@@ -184,7 +197,7 @@ module IsoDoc::Function
       f = isoxml.at(ns(bibliography_xpath)) and f["hidden"] != "true" or return
       page_break(out)
       out.div do |div|
-        div.h1 **{class: "Section3"} do |h1|
+        div.h1 **{ class: "Section3" } do |h1|
           f&.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
         end
         biblio_list(f, div, true)
@@ -193,7 +206,6 @@ module IsoDoc::Function
 
     def bibliography_parse(node, out)
       node["hidden"] != true or return
-      title = node&.at(ns("./title"))&.text || ""
       out.div do |div|
         clause_parse_title(node, div, node.at(ns("./title")), out,
                            { class: "Section3" })
@@ -201,11 +213,12 @@ module IsoDoc::Function
       end
     end
 
-    def format_ref(ref, prefix, isopub, date, allparts)
+    def format_ref(ref, prefix, _isopub, _date, _allparts)
       ref = docid_prefix(prefix, ref)
       return "[#{ref}]" if ref && /^\d+$/.match(ref) && !prefix &&
         !/^\[.*\]$/.match(ref)
-        ref
+
+      ref
     end
   end
 end

@@ -22,10 +22,10 @@ no_terms_boilerplate: |
 internal_terms_boilerplate: |
         <p>Für die Zwecke dieses Dokuments gelten die folgenden Begriffe und Definitionen</p>
 norm_with_refs_pref:
-Auf die folgenden Dokumente wird im Text so verwiesen, dass ihr Inhalt ganz oder
-teilweise Anforderungen dieses Dokuments darstellt. Bei datierten Verweisen gilt
-nur die zitierte Ausgabe. Bei undatierten Verweisen gilt die neueste Ausgabe des
-referenzierten Dokuments (einschließlich eventueller Änderungen).
+  Auf die folgenden Dokumente wird im Text so verwiesen, dass ihr Inhalt ganz oder
+  teilweise Anforderungen dieses Dokuments darstellt. Bei datierten Verweisen gilt
+  nur die zitierte Ausgabe. Bei undatierten Verweisen gilt die neueste Ausgabe des
+  referenzierten Dokuments (einschließlich eventueller Änderungen).
 norm_empty_pref: In diesem Dokument sind keine normativen Verweise enthalten.
 external_terms_boilerplate: |
           <p>Für die Zwecke dieses Dokuments gelten die in % angegebenen Begriffe und Definitionen.</p>
