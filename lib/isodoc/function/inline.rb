@@ -33,6 +33,7 @@ module IsoDoc::Function
 
     def suffix_url(url)
       return url if %r{^https?://}.match?(url)
+      return url unless File.extname(url).empty?
 
       url.sub(/#{File.extname(url)}$/, ".html")
     end

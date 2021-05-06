@@ -3,6 +3,9 @@
 require "spec_helper"
 require "fileutils"
 
+OPTIONS = { wordstylesheet: "spec/assets/word.css",
+            htmlstylesheet: "spec/assets/html.scss" }
+
 RSpec.describe IsoDoc do
   it "generates file based on string input" do
     FileUtils.rm_f "test.doc"
@@ -10,7 +13,7 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
-        filename: "test" }
+        filename: "test" },
     ).convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
               <bibdata>
@@ -37,7 +40,7 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "word.css",
         htmlstylesheet: "html.scss",
-        filename: "test" }
+        filename: "test" },
     ).convert("spec/assets/test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <bibdata>
@@ -111,7 +114,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
-        htmlstylesheet: "spec/assets/html.scss" }
+        htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
@@ -133,7 +136,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "spec/assets/iso.html"
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "word.css",
-        htmlstylesheet: "html.scss" }
+        htmlstylesheet: "html.scss" },
     ).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.html")).to be true
     html = File.read("spec/assets/iso.html")
@@ -148,7 +151,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "spec/assets/iso.html"
     IsoDoc::HeadlessHtmlConvert.new(
       { wordstylesheet: "word.css",
-        htmlstylesheet: "html.scss" }
+        htmlstylesheet: "html.scss" },
     ).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.headless.html")).to be true
     html = File.read("spec/assets/iso.headless.html")
@@ -165,7 +168,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "spec/assets/iso.doc"
     IsoDoc::WordConvert.new(
       { wordstylesheet: "word.css",
-        htmlstylesheet: "html.scss" }
+        htmlstylesheet: "html.scss" },
     ).convert("spec/assets/iso.xml", nil, false)
     expect(File.exist?("spec/assets/iso.doc")).to be true
     word = File.read("spec/assets/iso.doc")
@@ -190,7 +193,7 @@ RSpec.describe IsoDoc do
         scripts: "spec/assets/scripts.html",
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
-        olstyle: "l2" }
+        olstyle: "l2" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
@@ -227,7 +230,7 @@ RSpec.describe IsoDoc do
         scripts: "spec/assets/scripts.html",
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
-        olstyle: "l2" }
+        olstyle: "l2" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
@@ -272,7 +275,7 @@ RSpec.describe IsoDoc do
         wordintropage: "spec/assets/wordintro.html",
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
-        olstyle: "l2" }
+        olstyle: "l2" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
@@ -311,7 +314,7 @@ RSpec.describe IsoDoc do
         wordintropage: "spec/assets/wordintro.html",
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
-        olstyle: "l2" }
+        olstyle: "l2" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
@@ -344,7 +347,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
-        htmlstylesheet: "spec/assets/html.scss" }
+        htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~"INPUT", false)
        <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
@@ -390,7 +393,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
-        htmlstylesheet: "spec/assets/html.scss" }
+        htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
@@ -426,7 +429,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
-        header: "spec/assets/header.html" }
+        header: "spec/assets/header.html" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
                      <bibdata type="article">
@@ -454,7 +457,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
-        wordintropage: "spec/assets/wordintro.html" }
+        wordintropage: "spec/assets/wordintro.html" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <sections>
@@ -478,55 +481,56 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc"))).to be_equivalent_to xmlpp(<<~'OUTPUT')
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
+      .to be_equivalent_to xmlpp(<<~'OUTPUT')
           <div class="WordSection2">
-      /* an empty word intro page */
+        /* an empty word intro page */
 
-      <p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"></span><span style="mso-spacerun:yes">&#xA0;</span>TOC
-        \o "1-2" \h \z \u <span style="mso-element:field-separator"></span></span>
-      <span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-      <a href="#_Toc">Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
-      <span style="mso-tab-count:1 dotted">. </span>
-      </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
-      <span style="mso-element:field-begin"></span></span>
-      <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
-        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
-        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span></span></p>
-      <p class="MsoToc2">
-        <span class="MsoHyperlink">
-          <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-      <a href="#_Toc">Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
-      <span style="mso-tab-count:1 dotted">. </span>
-      </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
-      <span style="mso-element:field-begin"></span></span>
-      <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
-        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
-        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span>
-        </span>
-      </p>
-      <p class="MsoToc2">
-        <span class="MsoHyperlink">
-          <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
-      <a href="#_Toc">Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
-      <span style="mso-tab-count:1 dotted">. </span>
-      </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
-      <span style="mso-element:field-begin"></span></span>
-      <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
-        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
-        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span>
-        </span>
-      </p>
-      <p class="MsoToc1">
-        <span lang="EN-GB" xml:lang="EN-GB">
-          <span style="mso-element:field-end"></span>
-        </span>
-        <span lang="EN-GB" xml:lang="EN-GB">
-          <p class="MsoNormal">&#xA0;</p>
-        </span>
-      </p>
-              <p class="MsoNormal">&#xA0;</p>
-            </div>
-    OUTPUT
+        <p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"></span><span style="mso-spacerun:yes">&#xA0;</span>TOC
+          \o "1-2" \h \z \u <span style="mso-element:field-separator"></span></span>
+        <span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
+        <a href="#_Toc">Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+        <span style="mso-tab-count:1 dotted">. </span>
+        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+        <span style="mso-element:field-begin"></span></span>
+        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
+          <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
+          <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span></span></p>
+        <p class="MsoToc2">
+          <span class="MsoHyperlink">
+            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
+        <a href="#_Toc">Introduction to this<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+        <span style="mso-tab-count:1 dotted">. </span>
+        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+        <span style="mso-element:field-begin"></span></span>
+        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
+          <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
+          <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span>
+          </span>
+        </p>
+        <p class="MsoToc2">
+          <span class="MsoHyperlink">
+            <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
+        <a href="#_Toc">Clause 4.2<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+        <span style="mso-tab-count:1 dotted">. </span>
+        </span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
+        <span style="mso-element:field-begin"></span></span>
+        <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
+          <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"></span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
+          <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span></a></span>
+          </span>
+        </p>
+        <p class="MsoToc1">
+          <span lang="EN-GB" xml:lang="EN-GB">
+            <span style="mso-element:field-end"></span>
+          </span>
+          <span lang="EN-GB" xml:lang="EN-GB">
+            <p class="MsoNormal">&#xA0;</p>
+          </span>
+        </p>
+                <p class="MsoNormal">&#xA0;</p>
+              </div>
+      OUTPUT
   end
 
   it "populates Word ToC with custom levels" do
@@ -535,7 +539,7 @@ RSpec.describe IsoDoc do
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
         wordintropage: "spec/assets/wordintro.html",
-        doctoclevels: 3 }
+        doctoclevels: 3 },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <sections>
@@ -648,7 +652,7 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
-        wordintropage: "spec/assets/wordintro.html" }
+        wordintropage: "spec/assets/wordintro.html" },
     ).convert("test", <<~"INPUT", false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <sections>
@@ -669,7 +673,8 @@ RSpec.describe IsoDoc do
               </iso-standard>
     INPUT
     html = File.read("test.html")
-      .sub(/^.*<main class="main-section">/m, '<main xmlns:epub="epub" class="main-section">')
+      .sub(/^.*<main class="main-section">/m,
+           '<main xmlns:epub="epub" class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
     expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
           <main  xmlns:epub="epub" class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
@@ -704,7 +709,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_rf "test_htmlimages"
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",
-        htmlstylesheet: "spec/assets/html.scss" }
+        htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
@@ -913,7 +918,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_rf "test_htmlimages"
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",
-        htmlstylesheet: "spec/assets/html.scss" }
+        htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
@@ -952,154 +957,161 @@ RSpec.describe IsoDoc do
   it "moves images in HTML, using relative file location" do
     FileUtils.rm_f "spec/test.html"
     FileUtils.rm_rf "spec/test_htmlimages"
-    IsoDoc::HtmlConvert.new({ wordstylesheet: "assets/word.css", htmlstylesheet: "assets/html.scss" }).convert("spec/test", <<~"INPUT", false)
-       <iso-standard xmlns="http://riboseinc.com/isoxml">
-       <preface><foreword>
-        <figure id="_">
-        <name>Split-it-right sample divider</name>
-                 <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
-                 <image src="assets/rice_image1.png" id="_" mimetype="image/png"/>
-                 <image src="assets/rice_image1.png" id="_" width="20000" height="300000" mimetype="image/png"/>
-                 <image src="assets/rice_image1.png" id="_" width="99" height="auto" mimetype="image/png"/>
-      </figure>
-      </foreword></preface>
-       </iso-standard>
-    INPUT
+    IsoDoc::HtmlConvert.new({ wordstylesheet: "assets/word.css", htmlstylesheet: "assets/html.scss" })
+      .convert("spec/test", <<~"INPUT", false)
+         <iso-standard xmlns="http://riboseinc.com/isoxml">
+         <preface><foreword>
+          <figure id="_">
+          <name>Split-it-right sample divider</name>
+                   <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
+                   <image src="assets/rice_image1.png" id="_" mimetype="image/png"/>
+                   <image src="assets/rice_image1.png" id="_" width="20000" height="300000" mimetype="image/png"/>
+                   <image src="assets/rice_image1.png" id="_" width="99" height="auto" mimetype="image/png"/>
+        </figure>
+        </foreword></preface>
+         </iso-standard>
+      INPUT
     html = File.read("spec/test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
     expect(`ls test_htmlimages`).to match(/\.png$/)
-    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-                 <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-                   <br />
-                   <div>
-                     <h1 class="ForewordTitle">Foreword</h1>
-                     <div id="_" class="figure">
-                     <img src="test_htmlimages/_.png" height="776" width="922" />
-                     <img src="test_htmlimages/_.png" height="776" width="922" />
-      <img src="test_htmlimages/_.png" height="800" width="53" />
-      <img src="test_htmlimages/_.png" height="83" width="99" />
-             <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
-                   </div>
-                   <p class="zzSTDTitle1"></p>
-                 </main>
-    OUTPUT
+    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")))
+      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+                   <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+                     <br />
+                     <div>
+                       <h1 class="ForewordTitle">Foreword</h1>
+                       <div id="_" class="figure">
+                       <img src="test_htmlimages/_.png" height="776" width="922" />
+                       <img src="test_htmlimages/_.png" height="776" width="922" />
+        <img src="test_htmlimages/_.png" height="800" width="53" />
+        <img src="test_htmlimages/_.png" height="83" width="99" />
+               <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
+                     </div>
+                     <p class="zzSTDTitle1"></p>
+                   </main>
+      OUTPUT
   end
 
   it "encodes images in HTML as data URIs" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_rf "test_htmlimages"
-    IsoDoc::HtmlConvert.new({ htmlstylesheet: "spec/assets/html.scss", datauriimage: true }).convert("test", <<~"INPUT", false)
-       <iso-standard xmlns="http://riboseinc.com/isoxml">
-       <preface><foreword>
-        <figure id="_">
-        <name>Split-it-right sample divider</name>
-                 <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
-                 <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
-      </figure>
-      </foreword></preface>
-       </iso-standard>
-    INPUT
+    IsoDoc::HtmlConvert.new({ htmlstylesheet: "spec/assets/html.scss", datauriimage: true })
+      .convert("test", <<~"INPUT", false)
+         <iso-standard xmlns="http://riboseinc.com/isoxml">
+         <preface><foreword>
+          <figure id="_">
+          <name>Split-it-right sample divider</name>
+                   <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
+                   <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
+        </figure>
+        </foreword></preface>
+         </iso-standard>
+      INPUT
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"}))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-            <br />
-            <div>
-              <h1 class="ForewordTitle">Foreword</h1>
-              <div id="_" class="figure">
-              <img src="data:image/png;base64,_" height="776" width="922" />
-              <img src="data:image/png;base64,_" height="776" width="922" />
-      <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
-            </div>
-            <p class="zzSTDTitle1"></p>
-          </main>
-    OUTPUT
+    expect(xmlpp(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
+      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+              <br />
+              <div>
+                <h1 class="ForewordTitle">Foreword</h1>
+                <div id="_" class="figure">
+                <img src="data:image/png;base64,_" height="776" width="922" />
+                <img src="data:image/png;base64,_" height="776" width="922" />
+        <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
+              </div>
+              <p class="zzSTDTitle1"></p>
+            </main>
+      OUTPUT
   end
 
   it "encodes images in HTML as data URIs, using relative file location" do
     FileUtils.rm_f "spec/test.html"
     FileUtils.rm_rf "spec/test_htmlimages"
-    IsoDoc::HtmlConvert.new({ htmlstylesheet: "assets/html.scss", datauriimage: true }).convert("spec/test", <<~"INPUT", false)
-       <iso-standard xmlns="http://riboseinc.com/isoxml">
-       <preface><foreword>
-        <figure id="_">
-        <name>Split-it-right sample divider</name>
-                 <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
-                 <image src="assets/rice_image1.png" id="_" mimetype="image/png"/>
-      </figure>
-      </foreword></preface>
-       </iso-standard>
-    INPUT
+    IsoDoc::HtmlConvert.new({ htmlstylesheet: "assets/html.scss", datauriimage: true })
+      .convert("spec/test", <<~"INPUT", false)
+         <iso-standard xmlns="http://riboseinc.com/isoxml">
+         <preface><foreword>
+          <figure id="_">
+          <name>Split-it-right sample divider</name>
+                   <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
+                   <image src="assets/rice_image1.png" id="_" mimetype="image/png"/>
+        </figure>
+        </foreword></preface>
+         </iso-standard>
+      INPUT
     html = File.read("spec/test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"}))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-            <br />
-            <div>
-              <h1 class="ForewordTitle">Foreword</h1>
-              <div id="_" class="figure">
-              <img src="data:image/png;base64,_" height="776" width="922" />
-              <img src="data:image/png;base64,_" height="776" width="922" />
-      <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
-            </div>
-            <p class="zzSTDTitle1"></p>
-          </main>
-    OUTPUT
+    expect(xmlpp(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
+      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+            <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+              <br />
+              <div>
+                <h1 class="ForewordTitle">Foreword</h1>
+                <div id="_" class="figure">
+                <img src="data:image/png;base64,_" height="776" width="922" />
+                <img src="data:image/png;base64,_" height="776" width="922" />
+        <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
+              </div>
+              <p class="zzSTDTitle1"></p>
+            </main>
+      OUTPUT
   end
 
   it "processes IsoXML terms for HTML" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_f "test.doc"
-    IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <sections>
-          <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
-      <term id="paddy1"><name>1.1.</name><preferred>paddy</preferred>
-      <domain>rice</domain>
-      <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-      <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
-        <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
-        <ul>
-        <li>A</li>
-        </ul>
-      </termexample>
-      <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894">
-        <ul>
-        <li>A</li>
-        </ul>
-      </termexample>
-      <termsource status="modified">
-        <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
-          <modification>
-          <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
-        </modification>
-      </termsource></term>
-      <term id="paddy"><name>1.2.</name><preferred>paddy</preferred><admitted>paddy rice</admitted>
-      <admitted>rough rice</admitted>
-      <deprecates>cargo rice</deprecates>
-      <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-      <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f893">
-        <ul>
-        <li>A</li>
-        </ul>
-      </termexample>
-      <termnote id="_671a1994-4783-40d0-bc81-987d06ffb74e">
-        <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
-      </termnote>
-      <termnote id="_671a1994-4783-40d0-bc81-987d06ffb74f">
-      <ul><li>A</li></ul>
-        <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
-      </termnote>
-      <termsource status="identical">
-        <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
-      </termsource></term>
-      </terms>
-      </sections>
-      </iso-standard>
-    INPUT
+    IsoDoc::HtmlConvert.new(OPTIONS)
+      .convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <sections>
+            <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+        <term id="paddy1"><name>1.1.</name><preferred>paddy</preferred>
+        <domain>rice</domain>
+        <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
+        <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
+          <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
+          <ul>
+          <li>A</li>
+          </ul>
+        </termexample>
+        <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894">
+          <ul>
+          <li>A</li>
+          </ul>
+        </termexample>
+        <termsource status="modified">
+          <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
+            <modification>
+            <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+          </modification>
+        </termsource></term>
+        <term id="paddy"><name>1.2.</name><preferred>paddy</preferred><admitted>paddy rice</admitted>
+        <admitted>rough rice</admitted>
+        <deprecates>cargo rice</deprecates>
+        <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
+        <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f893">
+          <ul>
+          <li>A</li>
+          </ul>
+        </termexample>
+        <termnote id="_671a1994-4783-40d0-bc81-987d06ffb74e">
+          <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+        </termnote>
+        <termnote id="_671a1994-4783-40d0-bc81-987d06ffb74f">
+        <ul><li>A</li></ul>
+          <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+        </termnote>
+        <termsource status="identical">
+          <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
+        </termsource></term>
+        </terms>
+        </sections>
+        </iso-standard>
+      INPUT
     expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
     expect(html).to match(%r{<h2 class="TermNum" id="paddy1">1\.1\.</h2>})
@@ -1109,34 +1121,35 @@ RSpec.describe IsoDoc do
   it "processes empty term modifications" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_f "test.doc"
-    IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <sections>
-          <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
-      <term id="paddy1"><preferred>paddy</preferred>
-      <domain>rice</domain>
-      <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-      <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
-        <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
-        <ul>
-        <li>A</li>
-        </ul>
-      </termexample>
-      <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894">
-        <ul>
-        <li>A</li>
-        </ul>
-      </termexample>
-      <termsource status="modified">
-        <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">ISO 7301:2011, Clause 3.1</origin>
-          <modification>
-          <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489"/>
-        </modification>
-      </termsource></term>
-      </terms>
-      </sections>
-      </iso-standard>
-    INPUT
+    IsoDoc::HtmlConvert.new(OPTIONS)
+      .convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <sections>
+            <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+        <term id="paddy1"><preferred>paddy</preferred>
+        <domain>rice</domain>
+        <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
+        <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
+          <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
+          <ul>
+          <li>A</li>
+          </ul>
+        </termexample>
+        <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894">
+          <ul>
+          <li>A</li>
+          </ul>
+        </termexample>
+        <termsource status="modified">
+          <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">ISO 7301:2011, Clause 3.1</origin>
+            <modification>
+            <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489"/>
+          </modification>
+        </termsource></term>
+        </terms>
+        </sections>
+        </iso-standard>
+      INPUT
     expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
     expect(html).to include '[SOURCE: <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>, modified]'
@@ -1145,37 +1158,38 @@ RSpec.describe IsoDoc do
   it "creates continuation styles for multiparagraph list items in Word" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <ul>
-          <li><p>A</p>
-          <p>B</p></li>
-          <li><ol><li><p>C</p>
-          <p>D</p>
-          <sourcecode>E</sourcecode></li>
-          </ol></li>
-          </ul>
-          <ol>
-          <li><p>A1</p>
-          <p>B1</p></li>
-          <li><ul><li><p>C1</p>
-          <formula id="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62">
-          <stem type="AsciiMath">D1</stem>
-          </formula>
-          <dl id="_f8fb7ed7-7874-44a8-933f-06e0e86fb264">
-      <dt>
-      <em>n</em>
-      </dt>
-      <dd>
-      <p id="_a27281a4-b20e-4d0b-a780-bab9e851b03e">is the number of coating layers</p>
-      </dd>
-      </dl>
-          </ul></li>
-          </ol>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
+    IsoDoc::WordConvert.new(OPTIONS)
+      .convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface><foreword>
+            <ul>
+            <li><p>A</p>
+            <p>B</p></li>
+            <li><ol><li><p>C</p>
+            <p>D</p>
+            <sourcecode>E</sourcecode></li>
+            </ol></li>
+            </ul>
+            <ol>
+            <li><p>A1</p>
+            <p>B1</p></li>
+            <li><ul><li><p>C1</p>
+            <formula id="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62">
+            <stem type="AsciiMath">D1</stem>
+            </formula>
+            <dl id="_f8fb7ed7-7874-44a8-933f-06e0e86fb264">
+        <dt>
+        <em>n</em>
+        </dt>
+        <dd>
+        <p id="_a27281a4-b20e-4d0b-a780-bab9e851b03e">is the number of coating layers</p>
+        </dd>
+        </dl>
+            </ul></li>
+            </ol>
+            </foreword></preface>
+            </iso-standard>
+      INPUT
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
@@ -1255,16 +1269,17 @@ RSpec.describe IsoDoc do
   it "does not lose HTML escapes in postprocessing" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <sourcecode id="samplecode">
-          <name>XML code</name>
-        &lt;xml&gt; &amp;
-      </sourcecode>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
+    IsoDoc::HtmlConvert.new(OPTIONS)
+      .convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface><foreword>
+            <sourcecode id="samplecode">
+            <name>XML code</name>
+          &lt;xml&gt; &amp;
+        </sourcecode>
+            </foreword></preface>
+            </iso-standard>
+      INPUT
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
@@ -1285,16 +1300,17 @@ RSpec.describe IsoDoc do
   it "does not lose HTML escapes in postprocessing (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <sourcecode id="samplecode">
-          <name>XML code</name>
-        &lt;xml&gt; &amp;
-      </sourcecode>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
+    IsoDoc::WordConvert.new(OPTIONS)
+      .convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface><foreword>
+            <sourcecode id="samplecode">
+            <name>XML code</name>
+          &lt;xml&gt; &amp;
+        </sourcecode>
+            </foreword></preface>
+            </iso-standard>
+      INPUT
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
@@ -1315,7 +1331,7 @@ RSpec.describe IsoDoc do
   it "propagates example style to paragraphs in postprocessing (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
+    IsoDoc::WordConvert.new(OPTIONS).convert("test", <<~"INPUT", false)
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <example id="samplecode">
@@ -1346,16 +1362,17 @@ RSpec.describe IsoDoc do
   it "deals with image captions (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-      <figure id="fig1">
-        <name>Typical arrangement of the far-field scan set-up</name>
-        <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
-        </figure>
-         </foreword></preface>
-          </iso-standard>
-    INPUT
+    IsoDoc::WordConvert.new(OPTIONS)
+      .convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface><foreword>
+        <figure id="fig1">
+          <name>Typical arrangement of the far-field scan set-up</name>
+          <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
+          </figure>
+           </foreword></preface>
+            </iso-standard>
+      INPUT
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
@@ -1379,20 +1396,21 @@ RSpec.describe IsoDoc do
   it "deals with empty table titles (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-      <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
-            <td rowspan="2">
-              <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>(</mo><mi>μ</mi><mi>m</mi><mo>)</mo></mrow></math></stem></p>
-            </td>
-            <th colspan="3" align="left">Predictive wavelengths</th>
-          </tr>
-          </thead>
-          </table>
-          </preface>
-          </iso-standard>
-    INPUT
+    IsoDoc::WordConvert.new(OPTIONS)
+      .convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface><foreword>
+        <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
+              <td rowspan="2">
+                <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>(</mo><mi>μ</mi><mi>m</mi><mo>)</mo></mrow></math></stem></p>
+              </td>
+              <th colspan="3" align="left">Predictive wavelengths</th>
+            </tr>
+            </thead>
+            </table>
+            </preface>
+            </iso-standard>
+      INPUT
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
@@ -1439,21 +1457,23 @@ RSpec.describe IsoDoc do
   it "propagates alignment of table cells (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss" }).convert("test", <<~"INPUT", false)
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-      <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
-            <td rowspan="2" align="left">
-              <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength</p>
-              <p id="_c47d9b39-adb2-431d-9320-78cb148fdb57">Output wavelength</p>
-            </td>
-            <th colspan="3" align="right"><p id="_c47d9b39-adb2-431d-9320-78cb148fdb58">Predictive wavelengths</p></th>
-          </tr>
-          </thead>
-          </table>
-          </preface>
-          </iso-standard>
-    INPUT
+    IsoDoc::WordConvert.new(OPTIONS)
+      .convert("test", <<~"INPUT", false)
+        #{'                  '}
+                <iso-standard xmlns="http://riboseinc.com/isoxml">
+                          <preface><foreword>
+                      <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
+                            <td rowspan="2" align="left">
+                              <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength</p>
+                              <p id="_c47d9b39-adb2-431d-9320-78cb148fdb57">Output wavelength</p>
+                            </td>
+                            <th colspan="3" align="right"><p id="_c47d9b39-adb2-431d-9320-78cb148fdb58">Predictive wavelengths</p></th>
+                          </tr>
+                          </thead>
+                          </table>
+                          </preface>
+                          </iso-standard>
+      INPUT
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
@@ -1580,7 +1600,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
-        htmlstylesheet: "spec/assets/html.scss", filename: "test" }
+        htmlstylesheet: "spec/assets/html.scss", filename: "test" },
     ).convert("test", <<~"INPUT", false)
               <standard-document xmlns="http://riboseinc.com/isoxml">
              <bibdata type="standard">

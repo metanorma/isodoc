@@ -705,6 +705,7 @@ RSpec.describe IsoDoc do
           <eref type="inline" bibitemid="ISO713" citeas="ISO 713">A</eref>
           <eref type="inline" bibitemid="ISO713"><locality type="anchor"><referenceFrom>xyz</referenceFrom></locality></eref>
           <eref type="inline" bibitemid="ISO713"><locality type="anchor"><referenceFrom>xyz</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
+          <eref type="inline" bibitemid="ISO714"/>
           </p>
           </foreword></preface>
           <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
@@ -723,6 +724,17 @@ RSpec.describe IsoDoc do
         <title format="text/plain">Cereals and cereal products</title>
         <uri type="citation">spec/assets/iso713</uri>
         <docidentifier>ISO 713</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <abbreviation>ISO</abbreviation>
+          </organization>
+        </contributor>
+      </bibitem>
+      <bibitem id="ISO714" type="standard">
+        <title format="text/plain">Cereals and cereal products</title>
+        <uri type="citation">spec/assets/iso714.svg</uri>
+        <docidentifier>ISO 714</docidentifier>
         <contributor>
           <role type="publisher"/>
           <organization>
@@ -767,6 +779,7 @@ RSpec.describe IsoDoc do
               <eref type='inline' bibitemid='ISO713' citeas='ISO 713'>A</eref>
               <eref type='inline' bibitemid='ISO713'><locality type='anchor'><referenceFrom>xyz</referenceFrom></locality>ISO 713</eref>
               <eref type='inline' bibitemid='ISO713'><locality type='anchor'><referenceFrom>xyz</referenceFrom></locality><locality type='clause'><referenceFrom>1</referenceFrom></locality>ISO 713, Clause 1</eref>
+              <eref type='inline' bibitemid='ISO714'>ISO 714</eref>
             </p>
           </foreword>
         </preface>
@@ -795,6 +808,17 @@ RSpec.describe IsoDoc do
                 </organization>
               </contributor>
             </bibitem>
+                         <bibitem id='ISO714' type='standard'>
+               <title format='text/plain'>Cereals and cereal products</title>
+               <uri type='citation'>spec/assets/iso714.svg</uri>
+               <docidentifier>ISO 714</docidentifier>
+               <contributor>
+                 <role type='publisher'/>
+                 <organization>
+                   <abbreviation>ISO</abbreviation>
+                 </organization>
+               </contributor>
+             </bibitem>
           </references>
         </bibliography>
       </iso-standard>
@@ -821,6 +845,7 @@ RSpec.describe IsoDoc do
                 <a href='spec/assets/iso713.html'>A</a>
                 <a href='spec/assets/iso713.html#xyz'>ISO 713</a>
                 <a href='spec/assets/iso713.html#xyz'>ISO 713, Clause 1</a>
+                <a href='spec/assets/iso714.svg'>ISO 714</a>
               </p>
             </div>
             <p class='zzSTDTitle1'/>
@@ -834,6 +859,10 @@ RSpec.describe IsoDoc do
         ISO 713,
         <i>Cereals and cereal products</i>
       </p>
+      <p id='ISO714' class='NormRef'>
+          ISO 714,
+        <i>Cereals and cereal products</i>
+        </p>
             </div>
           </div>
         </body>
@@ -875,6 +904,7 @@ RSpec.describe IsoDoc do
                       <a href='spec/assets/iso713.doc'>A</a>
                       <a href='spec/assets/iso713.doc#xyz'>ISO 713</a>
                       <a href='spec/assets/iso713.doc#xyz'>ISO 713, Clause 1</a>
+                      <a href='spec/assets/iso714.svg'>ISO 714</a>
                     </p>
                   </div>
                   <p>&#160;</p>
@@ -896,6 +926,10 @@ RSpec.describe IsoDoc do
                     </p>
                     <p id='ISO713' class='NormRef'>
                       ISO 713,
+                      <i>Cereals and cereal products</i>
+                    </p>
+                  <p id='ISO714' class='NormRef'>
+                      ISO 714,
                       <i>Cereals and cereal products</i>
                     </p>
                   </div>
