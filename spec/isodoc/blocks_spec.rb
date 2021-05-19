@@ -23,7 +23,7 @@ RSpec.describe IsoDoc do
                <title>Change Clause</title>
                <amend id='B' change='modify' path='//table[2]' path_end='//table[2]/following-sibling:example[1]' title='Change'>
                  <autonumber type='table'>2</autonumber>
-                 <autonumber type='example'>7</autonumber>
+                 <autonumber type='example'>A.7</autonumber>
                  <description>
                    <p id='C'>
                      <em>
@@ -150,7 +150,7 @@ RSpec.describe IsoDoc do
                         </tbody>
                       </table>
                       <figure id="H" unnumbered="true"><name>Figure</name></figure>
-                      <example id="F" number="7"><name>EXAMPLE  7</name>
+                      <example id="F" number="A.7"><name>EXAMPLE  A.7</name>
                         <p id="G">This is not generalised further.</p>
                       </example>
                     </quote>
@@ -225,7 +225,7 @@ RSpec.describe IsoDoc do
                      <p class='FigureTitle' style='text-align:center;'>Figure</p>
                    </div>
                    <div id='F' class='example'>
-                     <p class='example-title'>EXAMPLE 7</p>
+                     <p class='example-title'>EXAMPLE A.7</p>
                      <p id='G'>This is not generalised further.</p>
                    </div>
                  </div>

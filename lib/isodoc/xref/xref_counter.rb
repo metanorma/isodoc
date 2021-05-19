@@ -49,8 +49,7 @@ module IsoDoc::XrefGen
           @base = node["number"][0..-2]
           @letter = @letter_override = node["number"][-1]
         else
-          @number_override = node["number"]
-          @num = n.to_i
+          @number_override = @num = n.to_i
           @base = b
           @letter = ""
         end
