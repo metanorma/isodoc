@@ -10,7 +10,7 @@ module IsoDoc::XrefGen
         autonum = amend_autonums(a)
         NUMBERED_BLOCKS.each do |b|
           a.xpath(ns("./newcontent//#{b}")).each_with_index do |e, i|
-            autonum[b] and i == 0 and e["number"] = autonum[b]
+            autonum[b] && i.zero? and e["number"] = autonum[b]
             !autonum[b] and e["unnumbered"] = "true"
           end
         end
@@ -29,6 +29,13 @@ module IsoDoc::XrefGen
       @labels["termnote"].gsub(/%/, note.to_s)
     end
 
+    def increment_label(elems, node, counter, increment = true)
+      return "" if elems.size == 1 && !node["number"]
+
+      counter.increment(node) if increment
+      " #{counter.print}"
+    end
+
     def termnote_anchor_names(docxml)
       docxml.xpath(ns("//term[descendant::termnote]")).each do |t|
         c = Counter.new
@@ -39,7 +46,7 @@ module IsoDoc::XrefGen
           @anchors[n["id"]] =
             { label: termnote_label(c.print), type: "termnote", value: c.print,
               xref: l10n("#{anchor(t['id'], :xref)}, "\
-                         "#{@labels["note_xref"]} #{c.print}") }
+                         "#{@labels['note_xref']} #{c.print}") }
         end
       end
     end
@@ -52,11 +59,11 @@ module IsoDoc::XrefGen
           next if n["id"].nil? || n["id"].empty?
 
           c.increment(n)
-          idx = examples.size == 1 && !n["number"] ? "" : c.print
+          idx = increment_label(examples, n, c, false)
           @anchors[n["id"]] = {
             type: "termexample", label: idx, value: c.print,
             xref: l10n("#{anchor(t['id'], :xref)}, "\
-                       "#{@labels["example_xref"]} #{c.print}") }
+                       "#{@labels['example_xref']} #{c.print}") }
         end
       end
     end
@@ -84,9 +91,9 @@ module IsoDoc::XrefGen
         notes.each do |n|
           next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
 
-          idx = notes.size == 1 && !n["number"] ? "" : " #{c.increment(n).print}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @labels["note_xref"], 
-                                            "note", false)
+          @anchors[n["id"]] =
+            anchor_struct(increment_label(notes, n, c), n,
+                          @labels["note_xref"], "note", false)
         end
         note_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
       end
@@ -107,10 +114,9 @@ module IsoDoc::XrefGen
         notes.each do |n|
           next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
 
-          idx = notes.size == 1 && !n["number"]  ? "" :
-            " #{c.increment(n).print}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @labels["example_xref"],
-                                            "example", n["unnumbered"])
+          @anchors[n["id"]] =
+            anchor_struct(increment_label(notes, n, c), n,
+                          @labels["example_xref"], "example", n["unnumbered"])
         end
         example_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
       end
@@ -124,9 +130,8 @@ module IsoDoc::XrefGen
         notes.each do |n|
           next if n["id"].nil? || n["id"].empty?
 
-          idx = notes.size == 1 && !n["number"] ? "" : " #{c.increment(n).print}"
-          @anchors[n["id"]] = anchor_struct(idx, n, @labels["list"], "list",
-                                            false)
+          @anchors[n["id"]] = anchor_struct(increment_label(notes, n, c), n,
+                                            @labels["list"], "list", false)
           list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
         end
         list_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
@@ -151,9 +156,11 @@ module IsoDoc::XrefGen
     def bookmark_anchor_names(docxml)
       docxml.xpath(ns(".//bookmark")).each do |n|
         next if n["id"].nil? || n["id"].empty?
+
         parent = nil
         n.ancestors.each do |a|
           next unless a["id"] && parent = @anchors.dig(a["id"], :xref)
+
           break
         end
         @anchors[n["id"]] = { type: "bookmark", label: nil, value: nil,
