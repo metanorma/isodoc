@@ -68,53 +68,53 @@ module IsoDoc
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
     # <locality type="section"><reference>3.1</reference></locality></origin>
 
-    def eref_localities(refs, target, n)
+    def eref_localities(refs, target, node)
       ret = ""
       refs.each_with_index do |r, i|
         delim = ","
         delim = ";" if r.name == "localityStack" && i.positive?
-        ret = eref_locality_stack(r, i, target, delim, ret, n)
+        ret = eref_locality_stack(r, i, target, delim, ret, node)
       end
       ret
     end
 
-    def eref_locality_stack(r, idx, target, delim, ret, n)
-      if r.name == "localityStack"
-        r.elements.each_with_index do |rr, j|
-          ret += eref_localities0(rr, j, target, delim, n)
+    def eref_locality_stack(ref, idx, target, delim, ret, node)
+      if ref.name == "localityStack"
+        ref.elements.each_with_index do |rr, j|
+          ret += eref_localities0(rr, j, target, delim, node)
           delim = ","
         end
       else
-        ret += eref_localities0(r, idx, target, delim, n)
+        ret += eref_localities0(ref, idx, target, delim, node)
       end
       ret
     end
 
-    def eref_localities0(r, _i, target, delim, n)
-      if r["type"] == "whole" then l10n("#{delim} #{@i18n.wholeoftext}")
+    def eref_localities0(ref, _i, target, delim, node)
+      if ref["type"] == "whole" then l10n("#{delim} #{@i18n.wholeoftext}")
       else
-        eref_localities1(target, r["type"], r.at(ns("./referenceFrom")),
-                         r.at(ns("./referenceTo")), delim, n, @lang)
+        eref_localities1(target, ref["type"], ref.at(ns("./referenceFrom")),
+                         ref.at(ns("./referenceTo")), delim, node, @lang)
       end
     end
 
     # TODO: move to localization file
-    def eref_localities1_zh(_target, type, from, to, n, delim)
+    def eref_localities1_zh(_target, type, from, to, node, delim)
       ret = "#{delim} 第#{from.text}" if from
       ret += "&ndash;#{to.text}" if to
       loc = (@i18n.locality[type] || type.sub(/^locality:/, "").capitalize)
-      ret += " #{loc}" unless n["droploc"] == "true"
+      ret += " #{loc}" unless node["droploc"] == "true"
       ret
     end
 
     # TODO: move to localization file
-    def eref_localities1(target, type, from, to, delim, n, lang = "en")
+    def eref_localities1(target, type, from, to, delim, node, lang = "en")
       return "" if type == "anchor"
 
       lang == "zh" and
-        return l10n(eref_localities1_zh(target, type, from, to, n, delim))
+        return l10n(eref_localities1_zh(target, type, from, to, node, delim))
       ret = delim
-      ret += eref_locality_populate(type, n)
+      ret += eref_locality_populate(type, node)
       ret += " #{from.text}" if from
       ret += "&ndash;#{to.text}" if to
       l10n(ret)
@@ -158,12 +158,14 @@ module IsoDoc
     end
 
     def concept1(node)
-      content = node.first_element_child.children.select do |c|
-        !%w{locality localityStack}.include? c.name
+      content = node.first_element_child.children.reject do |c|
+        %w{locality localityStack}.include? c.name
       end.select { |c| !c.text? || /\S/.match(c) }
-      node.replace content.empty? ?
-        @i18n.term_defined_in.sub(/%/, node.first_element_child.to_xml) :
+      if node.replace content.empty?
+        @i18n.term_defined_in.sub(/%/, node.first_element_child.to_xml)
+      else
         "<em>#{node.children.to_xml}</em>"
+      end
     end
 
     def variant(docxml)

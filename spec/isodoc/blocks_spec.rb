@@ -242,294 +242,233 @@ RSpec.describe IsoDoc do
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
 
-  it "processes unlabelled notes (Presentation XML)" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <note id="A" keep-with-next="true" keep-lines-together="true">
-          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-        </note>
-            </foreword></preface>
-            </iso-standard>
-      INPUT
-            <?xml version='1.0'?>
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-          <preface>
-            <foreword>
-              <note id='A' keep-with-next='true' keep-lines-together='true'>
-                <name>NOTE</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-            </foreword>
-          </preface>
-        </iso-standard>
-      OUTPUT
-  end
-
-  it "processes unlabelled notes (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns='http://riboseinc.com/isoxml'>
-          <preface>
-            <foreword>
-              <note id='A' keep-with-next='true' keep-lines-together='true'>
-                <name>NOTE</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-            </foreword>
-          </preface>
-        </iso-standard>
-      INPUT
-        #{HTML_HDR}
-                     <br/>
-                     <div>
-                       <h1 class="ForewordTitle">Foreword</h1>
-                       <div id="A" class="Note" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
-                       </div>
-                     </div>
-                     <p class="zzSTDTitle1"/>
-                   </div>
-                 </body>
-             </html>
-      OUTPUT
-  end
-
-  it "processes unlabelled notes (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns='http://riboseinc.com/isoxml'>
-          <preface>
-            <foreword>
-              <note id='A' keep-with-next='true' keep-lines-together='true'>
-                <name>NOTE</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-            </foreword>
-          </preface>
-        </iso-standard>
-      INPUT
-            <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-          <head><style/></head>
-          <body lang="EN-US" link="blue" vlink="#954F72">
-            <div class="WordSection1">
-              <p>&#160;</p>
-            </div>
-            <p><br clear="all" class="section"/></p>
-            <div class="WordSection2">
-              <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-              <div>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <div id="A" class="Note"  style='page-break-after: avoid;page-break-inside: avoid;'>
-                  <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
-                </div>
-              </div>
-              <p>&#160;</p>
-            </div>
-            <p><br clear="all" class="section"/></p>
-            <div class="WordSection3">
-              <p class="zzSTDTitle1"/>
-            </div>
-          </body>
+  it "processes unlabelled notes" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <note id="A" keep-with-next="true" keep-lines-together="true">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+      </note>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+          <?xml version='1.0'?>
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <foreword>
+            <note id='A' keep-with-next='true' keep-lines-together='true'>
+              <name>NOTE</name>
+              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+                These results are based on a study carried out on three different
+                types of kernel.
+              </p>
+            </note>
+          </foreword>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+        <br/>
+        <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <div id="A" class="Note" style="page-break-after: avoid;page-break-inside: avoid;">
+        <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+        </div>
+        </div>
+        <p class="zzSTDTitle1"/>
+        </div>
+        </body>
         </html>
-      OUTPUT
-  end
-
-  it "processes sequences of notes (Presentation XML)" do
+    OUTPUT
+    doc = <<~OUTPUT
+        <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+        <head><style/></head>
+        <body lang="EN-US" link="blue" vlink="#954F72">
+          <div class="WordSection1">
+            <p>&#160;</p>
+          </div>
+          <p><br clear="all" class="section"/></p>
+          <div class="WordSection2">
+            <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+            <div>
+              <h1 class="ForewordTitle">Foreword</h1>
+              <div id="A" class="Note"  style='page-break-after: avoid;page-break-inside: avoid;'>
+                <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>These results are based on a study carried out on three different types of kernel.</p>
+              </div>
+            </div>
+            <p>&#160;</p>
+          </div>
+          <p><br clear="all" class="section"/></p>
+          <div class="WordSection3">
+            <p class="zzSTDTitle1"/>
+          </div>
+        </body>
+      </html>
+    OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <note id="note1">
-          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-        </note>
-            <note id="note2">
-          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
-        </note>
-            </foreword></preface>
-            </iso-standard>
-      INPUT
-        <?xml version='1.0'?>
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-          <preface>
-            <foreword>
-              <note id='note1'>
-                <name>NOTE 1</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-              <note id='note2'>
-                <name>NOTE 2</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-            </foreword>
-          </preface>
-        </iso-standard>
-      OUTPUT
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(doc)
   end
 
-  it "processes sequences of notes (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns='http://riboseinc.com/isoxml'>
-          <preface>
-            <foreword>
-              <note id='note1'>
-                <name>NOTE 1</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-              <note id='note2'>
-                <name>NOTE 2</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-            </foreword>
-          </preface>
-        </iso-standard>
-      INPUT
-        #{HTML_HDR}
-                     <br/>
-                     <div>
-                       <h1 class="ForewordTitle">Foreword</h1>
-                       <div id="note1" class="Note">
-                         <p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
-                       </div>
-                       <div id="note2" class="Note">
-                         <p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
-                       </div>
+  it "processes sequences of notes" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <note id="note1">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+      </note>
+          <note id="note2">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+      </note>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <?xml version='1.0'?>
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <foreword>
+            <note id='note1'>
+              <name>NOTE 1</name>
+              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+                These results are based on a study carried out on three different
+                types of kernel.
+              </p>
+            </note>
+            <note id='note2'>
+              <name>NOTE 2</name>
+              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
+                These results are based on a study carried out on three different
+                types of kernel.
+              </p>
+            </note>
+          </foreword>
+        </preface>
+      </iso-standard>
+    OUTPUT
+
+    output = <<~OUTPUT
+      #{HTML_HDR}
+                   <br/>
+                   <div>
+                     <h1 class="ForewordTitle">Foreword</h1>
+                     <div id="note1" class="Note">
+                       <p><span class="note_label">NOTE  1</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
                      </div>
-                     <p class="zzSTDTitle1"/>
+                     <div id="note2" class="Note">
+                       <p><span class="note_label">NOTE  2</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+                     </div>
                    </div>
-                 </body>
-             </html>
-      OUTPUT
+                   <p class="zzSTDTitle1"/>
+                 </div>
+               </body>
+           </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes multi-para notes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <note>
-            <name>NOTE</name>
-          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
-          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
-        </note>
-            </foreword></preface>
-            </iso-standard>
-      INPUT
-        #{HTML_HDR}
-                  <br/>
-                  <div>
-                    <h1 class="ForewordTitle">Foreword</h1>
-                    <div class="Note">
-                      <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
-                      <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
-                    </div>
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <note>
+          <name>NOTE</name>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+      </note>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      #{HTML_HDR}
+                <br/>
+                <div>
+                  <h1 class="ForewordTitle">Foreword</h1>
+                  <div class="Note">
+                    <p><span class="note_label">NOTE</span>&#160; These results are based on a study carried out on three different types of kernel.</p>
+                    <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
                   </div>
-                  <p class="zzSTDTitle1"/>
                 </div>
-              </body>
-          </html>
-      OUTPUT
+                <p class="zzSTDTitle1"/>
+              </div>
+            </body>
+        </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes non-para notes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <note id="A"><name>NOTE</name>
-            <dl>
-            <dt>A</dt>
-            <dd><p>B</p></dd>
-            </dl>
-            <ul>
-            <li>C</li></ul>
-        </note>
-            </foreword></preface>
-            </iso-standard>
-      INPUT
-        #{HTML_HDR}
-                  <br/>
-                  <div>
-                    <h1 class="ForewordTitle">Foreword</h1>
-                    <div id="A" class="Note"><p><span class="note_label">NOTE</span>&#160; </p>
-              <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
-              <ul>
-              <li>C</li></ul>
-          </div>
-                  </div>
-                  <p class="zzSTDTitle1"/>
-                </div>
-              </body>
-          </html>
-
-      OUTPUT
-  end
-
-  it "processes non-para notes (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <note id="A"><name>NOTE</name>
-            <dl>
-            <dt>A</dt>
-            <dd><p>B</p></dd>
-            </dl>
-            <ul>
-            <li>C</li></ul>
-        </note>
-            </foreword></preface>
-            </iso-standard>
-      INPUT
-            <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-          <head><style/></head>
-          <body lang="EN-US" link="blue" vlink="#954F72">
-            <div class="WordSection1">
-              <p>&#160;</p>
-            </div>
-            <p><br clear="all" class="section"/></p>
-            <div class="WordSection2">
-              <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-              <div>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <div id="A" class="Note"><p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span></p>
-            <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p class="Note">B</p></td></tr></table>
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <note id="A"><name>NOTE</name>
+          <dl>
+          <dt>A</dt>
+          <dd><p>B</p></dd>
+          </dl>
+          <ul>
+          <li>C</li></ul>
+      </note>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+                <br/>
+                <div>
+                  <h1 class="ForewordTitle">Foreword</h1>
+                  <div id="A" class="Note"><p><span class="note_label">NOTE</span>&#160; </p>
+            <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
             <ul>
             <li>C</li></ul>
         </div>
+                </div>
+                <p class="zzSTDTitle1"/>
               </div>
-              <p>&#160;</p>
-            </div>
-            <p><br clear="all" class="section"/></p>
-            <div class="WordSection3">
-              <p class="zzSTDTitle1"/>
-            </div>
-          </body>
+            </body>
         </html>
+
     OUTPUT
+    doc = <<~OUTPUT
+          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+        <head><style/></head>
+        <body lang="EN-US" link="blue" vlink="#954F72">
+          <div class="WordSection1">
+            <p>&#160;</p>
+          </div>
+          <p><br clear="all" class="section"/></p>
+          <div class="WordSection2">
+            <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+            <div>
+              <h1 class="ForewordTitle">Foreword</h1>
+              <div id="A" class="Note"><p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span></p>
+          <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p class="Note">B</p></td></tr></table>
+          <ul>
+          <li>C</li></ul>
+      </div>
+            </div>
+            <p>&#160;</p>
+          </div>
+          <p><br clear="all" class="section"/></p>
+          <div class="WordSection3">
+            <p class="zzSTDTitle1"/>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(doc)
   end
 
   it "processes paragraphs containing notes" do
@@ -896,41 +835,41 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
-                    <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-                <head>
-                <style>
-                        </style>
-                  </head>
-                  <body lang='EN-US' link='blue' vlink='#954F72'>
-                    <div class='WordSection1'>
-                      <p>&#160;</p>
-                    </div>
-                    <p>
-                      <br clear='all' class='section'/>
-                    </p>
-                    <div class='WordSection2'>
-                      <p>
-                        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-                      </p>
-                      <div>
-                        <h1 class='ForewordTitle'>Foreword</h1>
-                        <div id='figureA-1' class='figure'>
-                          <img src='spec/assets/odf.emf'/>
-                          <img src='spec/assets/odf1.emf'/>
-                          <img src='_.emf' height='auto' width='auto'/>
-                           <img src='_.xml' height='20' width='auto'/>
-                        </div>
-                      </div>
-                      <p>&#160;</p>
-                    </div>
-                    <p>
-                      <br clear='all' class='section'/>
-                    </p>
-                    <div class='WordSection3'>
-                      <p class='zzSTDTitle1'/>
-                    </div>
-                  </body>
-                </html>
+          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+      <head>
+      <style>
+              </style>
+        </head>
+        <body lang='EN-US' link='blue' vlink='#954F72'>
+          <div class='WordSection1'>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection2'>
+            <p>
+              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+            </p>
+            <div>
+              <h1 class='ForewordTitle'>Foreword</h1>
+              <div id='figureA-1' class='figure'>
+                <img src='spec/assets/odf.emf'/>
+                <img src='spec/assets/odf1.emf'/>
+                <img src='_.emf' height='auto' width='auto'/>
+                 <img src='_.xml' height='20' width='auto'/>
+              </div>
+            </div>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection3'>
+            <p class='zzSTDTitle1'/>
+          </div>
+        </body>
+      </html>
     OUTPUT
   end
 
@@ -944,50 +883,50 @@ RSpec.describe IsoDoc do
 
       expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
 .convert("test", <<~"INPUT", true).gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.svg['"]/, "'_.svg'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <figure id="figureA-1">
-          <image src="spec/assets/odf.svg" mimetype="image/svg+xml"/>
-          <image src="spec/assets/odf1.svg" mimetype="image/svg+xml"/>
-          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
-        </figure>
-            </foreword></preface>
-            </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword>
+      <figure id="figureA-1">
+    <image src="spec/assets/odf.svg" mimetype="image/svg+xml"/>
+    <image src="spec/assets/odf1.svg" mimetype="image/svg+xml"/>
+    <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
+  </figure>
+      </foreword></preface>
+      </iso-standard>
       INPUT
-                     <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-                    <head>
-                    <style>
-                            </style>
-                      </head>
-                      <body lang='EN-US' link='blue' vlink='#954F72'>
-                        <div class='WordSection1'>
-                          <p>&#160;</p>
-                        </div>
-                        <p>
-                          <br clear='all' class='section'/>
-                        </p>
-                        <div class='WordSection2'>
-                          <p>
-                            <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-                          </p>
-                          <div>
-                            <h1 class='ForewordTitle'>Foreword</h1>
-                            <div id='figureA-1' class='figure'>
-                              <img src='spec/assets/odf.emf'/>
-                              <img src='spec/assets/odf1.svg'/>
-                              <img src='_.svg' height='auto' width='auto'/>
-                            </div>
-                          </div>
-                          <p>&#160;</p>
-                        </div>
-                        <p>
-                          <br clear='all' class='section'/>
-                        </p>
-                        <div class='WordSection3'>
-                          <p class='zzSTDTitle1'/>
-                        </div>
-                      </body>
-                    </html>
+   <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+  <head>
+  <style>
+          </style>
+    </head>
+    <body lang='EN-US' link='blue' vlink='#954F72'>
+      <div class='WordSection1'>
+        <p>&#160;</p>
+      </div>
+      <p>
+        <br clear='all' class='section'/>
+      </p>
+      <div class='WordSection2'>
+        <p>
+          <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+        </p>
+        <div>
+          <h1 class='ForewordTitle'>Foreword</h1>
+          <div id='figureA-1' class='figure'>
+            <img src='spec/assets/odf.emf'/>
+            <img src='spec/assets/odf1.svg'/>
+            <img src='_.svg' height='auto' width='auto'/>
+          </div>
+        </div>
+        <p>&#160;</p>
+      </div>
+      <p>
+        <br clear='all' class='section'/>
+      </p>
+      <div class='WordSection3'>
+        <p class='zzSTDTitle1'/>
+      </div>
+    </body>
+  </html>
       OUTPUT
     end
   end
@@ -1639,15 +1578,15 @@ RSpec.describe IsoDoc do
 
   it "processes blockquotes (Presentation XML)" do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-                    <iso-standard xmlns="http://riboseinc.com/isoxml">
-                    <preface><foreword>
-                    <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
-                  <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality></source>
-                  <author>ISO</author>
-                  <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
-                </quote>
-                    </foreword></preface>
-                    </iso-standard>
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
+        <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality></source>
+        <author>ISO</author>
+        <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
+      </quote>
+          </foreword></preface>
+          </iso-standard>
     INPUT
       <?xml version='1.0'?>
          <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
@@ -1678,15 +1617,15 @@ RSpec.describe IsoDoc do
 
   it "processes blockquotes (HTML)" do
     expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-                    <iso-standard xmlns="http://riboseinc.com/isoxml">
-                    <preface><foreword>
-                    <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
-                  <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 7301:2011, Clause 1</source>
-                  <author>ISO</author>
-                  <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
-                </quote>
-                    </foreword></preface>
-                    </iso-standard>
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
+        <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 7301:2011, Clause 1</source>
+        <author>ISO</author>
+        <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
+      </quote>
+          </foreword></preface>
+          </iso-standard>
     INPUT
       #{HTML_HDR}
                      <br/>

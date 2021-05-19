@@ -14,20 +14,20 @@ module IsoDoc::XrefGen
       end
     end
 
-    def initial_anchor_names(d)
-      d.xpath(ns("//preface/*")).each { |c| c.element? and preface_names(c) }
+    def initial_anchor_names(doc)
+      doc.xpath(ns("//preface/*")).each { |c| c.element? and preface_names(c) }
       # potentially overridden in middle_section_asset_names()
-      sequential_asset_names(d.xpath(ns("//preface/*")))
+      sequential_asset_names(doc.xpath(ns("//preface/*")))
       n = Counter.new
-      n = section_names(d.at(ns("//clause[@type = 'scope']")), n, 1)
-      n = section_names(d.at(ns(@klass.norm_ref_xpath)), n, 1)
-      n = section_names(d.at(ns("//sections/terms | "\
+      n = section_names(doc.at(ns("//clause[@type = 'scope']")), n, 1)
+      n = section_names(doc.at(ns(@klass.norm_ref_xpath)), n, 1)
+      n = section_names(doc.at(ns("//sections/terms | "\
                                 "//sections/clause[descendant::terms]")), n, 1)
-      n = section_names(d.at(ns("//sections/definitions")), n, 1)
-      clause_names(d, n)
-      middle_section_asset_names(d)
-      termnote_anchor_names(d)
-      termexample_anchor_names(d)
+      n = section_names(doc.at(ns("//sections/definitions")), n, 1)
+      clause_names(doc, n)
+      middle_section_asset_names(doc)
+      termnote_anchor_names(doc)
+      termexample_anchor_names(doc)
     end
 
     def preface_clause_name(clause)

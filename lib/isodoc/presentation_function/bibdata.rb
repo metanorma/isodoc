@@ -4,7 +4,7 @@ module IsoDoc
       a = bibdata_current(docxml) or return
       bibdata_i18n(a)
       a.next =
-        "<localized-strings>#{i8n_name(trim_hash(@i18n.get), "").join("")}"\
+        "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join('')}"\
         "</localized-strings>"
     end
 
@@ -19,10 +19,10 @@ module IsoDoc
       a
     end
 
-    def bibdata_i18n(b)
-      hash_translate(b, @i18n.get["doctype_dict"], "./ext/doctype")
-      hash_translate(b, @i18n.get["stage_dict"], "./status/stage")
-      hash_translate(b, @i18n.get["substage_dict"], "./status/substage")
+    def bibdata_i18n(bib)
+      hash_translate(bib, @i18n.get["doctype_dict"], "./ext/doctype")
+      hash_translate(bib, @i18n.get["stage_dict"], "./status/stage")
+      hash_translate(bib, @i18n.get["substage_dict"], "./status/substage")
     end
 
     def hash_translate(bibdata, hash, xpath, lang = @lang)
@@ -46,8 +46,8 @@ module IsoDoc
     def i8n_name(h, pref)
       if h.is_a? Hash then i8n_name1(h, pref)
       elsif h.is_a? Array
-        h.reject { |a| blank?(a) }.each_with_object([]).
-          with_index do |(v1, g), i|
+        h.reject { |a| blank?(a) }.each_with_object([])
+          .with_index do |(v1, g), i|
           i8n_name(v1, "#{i18n_safe(k)}.#{i}").each { |x| g << x }
         end
       else [i18n_tag(pref, h)]
@@ -62,12 +62,12 @@ module IsoDoc
             i8n_name(v1, "#{i18n_safe(k)}.#{i}").each { |x| g << x }
           end
         else
-          g << i18n_tag("#{pref}#{pref.empty? ? "" : "."}#{i18n_safe(k)}", v)
+          g << i18n_tag("#{pref}#{pref.empty? ? '' : '.'}#{i18n_safe(k)}", v)
         end
       end
     end
 
-    #https://stackoverflow.com/a/31822406
+    # https://stackoverflow.com/a/31822406
     def blank?(v)
       v.nil? || v.respond_to?(:empty?) && v.empty?
     end
@@ -76,14 +76,17 @@ module IsoDoc
       loop do
         h_new = trim_hash1(h)
         break h if h==h_new
+
         h = h_new
       end
     end
 
     def trim_hash1(h)
       return h unless h.is_a? Hash
-      h.each_with_object({}) do |(k,v), g|
+
+      h.each_with_object({}) do |(k, v), g|
         next if blank?(v)
+
         g[k] = if v.is_a? Hash then trim_hash1(h[k])
                elsif v.is_a? Array
                  h[k].map { |a| trim_hash1(a) }.reject { |a| blank?(a) }

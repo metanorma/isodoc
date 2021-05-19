@@ -2,20 +2,21 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def clause(docxml)
       docxml.xpath(ns("//clause | "\
-                      "//terms | //definitions | //references")).
-                     each do |f|
+                      "//terms | //definitions | //references"))
+        .each do |f|
         clause1(f)
       end
     end
 
-    def clause1(f)
-      level = @xrefs.anchor(f['id'], :level, false) || "1"
-      t = f.at(ns("./title")) and t["depth"] = level
-      return if !f.ancestors("boilerplate").empty?
-      return if @suppressheadingnumbers || f["unnumbered"]
-      lbl = @xrefs.anchor(f['id'], :label,
-                          f.parent.name != "sections") or return
-      prefix_name(f, "<tab/>", "#{lbl}#{clausedelim}", "title")
+    def clause1(elem)
+      level = @xrefs.anchor(elem["id"], :level, false) || "1"
+      t = elem.at(ns("./title")) and t["depth"] = level
+      return if !elem.ancestors("boilerplate").empty? ||
+        @suppressheadingnumbers || elem["unnumbered"]
+
+      lbl = @xrefs.anchor(elem["id"], :label,
+                          elem.parent.name != "sections") or return
+      prefix_name(elem, "<tab/>", "#{lbl}#{clausedelim}", "title")
     end
 
     def annex(docxml)
@@ -24,12 +25,12 @@ module IsoDoc
       end
     end
 
-    def annex1(f)
-      lbl = @xrefs.anchor(f['id'], :label)
-      if t = f.at(ns("./title"))
+    def annex1(elem)
+      lbl = @xrefs.anchor(elem["id"], :label)
+      if t = elem.at(ns("./title"))
         t.children = "<strong>#{t.children.to_xml}</strong>"
       end
-      prefix_name(f, "<br/><br/>", lbl, "title")
+      prefix_name(elem, "<br/><br/>", lbl, "title")
     end
 
     def term(docxml)
@@ -38,18 +39,15 @@ module IsoDoc
       end
     end
 
-    def term1(f)
-      lbl = @xrefs.get[f["id"]][:label] or return
-      prefix_name(f, "", "#{lbl}#{clausedelim}", "name")
+    def term1(elem)
+      lbl = @xrefs.get[elem["id"]][:label] or return
+      prefix_name(elem, "", "#{lbl}#{clausedelim}", "name")
     end
 
-    def references(docxml)
-    end
+    def references(docxml); end
 
     def index(docxml)
-      docxml.xpath(ns("//index | //index-xref | //indexsect")).each do |f|
-        f.remove
-      end
+      docxml.xpath(ns("//index | //index-xref | //indexsect")).each(&:remove)
     end
   end
 end
