@@ -8,7 +8,6 @@ require "mime/types"
 require "image_size"
 require "set"
 require "pp"
-require "uuidtools"
 require "html2doc"
 require "liquid"
 require "htmlentities"
@@ -26,5 +25,4 @@ require "isodoc/xref"
 require "isodoc/i18n"
 
 module IsoDoc
-
 end

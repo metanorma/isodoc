@@ -3,11 +3,12 @@ require_relative "inline_simple"
 module IsoDoc::Function
   module Inline
     def link_parse(node, out)
-      out.a **attr_code(href: node["target"], title: node["alt"]) do |l|
+      url = node["target"]
+      node["updatetype"] == "true" and url = suffix_url(url)
+      out.a **attr_code(href: url, title: node["alt"]) do |l|
         if node.text.empty?
           l << node["target"].sub(/^mailto:/, "")
-        else
-          node.children.each { |n| parse(n, l) }
+        else node.children.each { |n| parse(n, l) }
         end
       end
     end
@@ -79,8 +80,7 @@ module IsoDoc::Function
                "#{@openmathdelim}#{HTMLEntities.new.encode(node.text)}"\
                  "#{@closemathdelim}"
              when "MathML" then node.first_element_child.to_s
-             else
-               HTMLEntities.new.encode(node.text)
+             else HTMLEntities.new.encode(node.text)
              end
       out.span **{ class: "stem" } do |span|
         span.parent.add_child ooml
@@ -123,13 +123,13 @@ module IsoDoc::Function
     end
 
     def add_parse(node, out)
-      out.span **{class: "addition"} do |e|
+      out.span **{ class: "addition" } do |e|
         node.children.each { |n| parse(n, e) }
       end
     end
 
     def del_parse(node, out)
-      out.span **{class: "deletion"} do |e|
+      out.span **{ class: "deletion" } do |e|
         node.children.each { |n| parse(n, e) }
       end
     end
