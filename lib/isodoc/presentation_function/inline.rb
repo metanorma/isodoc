@@ -9,8 +9,8 @@ module IsoDoc
         return @xrefs.anchor(node["bibitemid"], :xref) || "???"
       elsif node["target"] && node["droploc"]
         return @xrefs.anchor(node["target"], :value) ||
-          @xrefs.anchor(node["target"], :label) ||
-          @xrefs.anchor(node["target"], :xref) || "???"
+            @xrefs.anchor(node["target"], :label) ||
+            @xrefs.anchor(node["target"], :xref) || "???"
       elsif node["target"] && !/.#./.match(node["target"])
         linkend = anchor_linkend1(node)
       end
@@ -33,6 +33,10 @@ module IsoDoc
       return linkend&.downcase if node["case"] == "lowercase"
       return linkend if linkend[0, 1].match?(/\p{Upper}/)
 
+      capitalise_xref1(node, linkend)
+    end
+
+    def capitalise_xref1(node, linkend)
       prec = nearest_block_parent(node).xpath("./descendant-or-self::text()") &
         node.xpath("./preceding::text()")
       if prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map(&:text).join)
@@ -43,8 +47,8 @@ module IsoDoc
 
     def nearest_block_parent(node)
       until %w(p title td th name formula li dt dd sourcecode pre)
-        .include?(node.name)
-      node = node.parent
+          .include?(node.name)
+        node = node.parent
       end
       node
     end
@@ -90,7 +94,7 @@ module IsoDoc
       ret
     end
 
-    def eref_localities0(ref, _i, target, delim, node)
+    def eref_localities0(ref, _idx, target, delim, node)
       if ref["type"] == "whole" then l10n("#{delim} #{@i18n.wholeoftext}")
       else
         eref_localities1(target, ref["type"], ref.at(ns("./referenceFrom")),
@@ -99,24 +103,24 @@ module IsoDoc
     end
 
     # TODO: move to localization file
-    def eref_localities1_zh(_target, type, from, to, node, delim)
+    def eref_localities1_zh(_target, type, from, upto, node, delim)
       ret = "#{delim} 第#{from.text}" if from
-      ret += "&ndash;#{to.text}" if to
+      ret += "&ndash;#{upto.text}" if upto
       loc = (@i18n.locality[type] || type.sub(/^locality:/, "").capitalize)
       ret += " #{loc}" unless node["droploc"] == "true"
       ret
     end
 
     # TODO: move to localization file
-    def eref_localities1(target, type, from, to, delim, node, lang = "en")
+    def eref_localities1(target, type, from, upto, delim, node, lang = "en")
       return "" if type == "anchor"
 
       lang == "zh" and
-        return l10n(eref_localities1_zh(target, type, from, to, node, delim))
+        return l10n(eref_localities1_zh(target, type, from, upto, node, delim))
       ret = delim
       ret += eref_locality_populate(type, node)
       ret += " #{from.text}" if from
-      ret += "&ndash;#{to.text}" if to
+      ret += "&ndash;#{upto.text}" if upto
       l10n(ret)
     end
 
@@ -161,11 +165,12 @@ module IsoDoc
       content = node.first_element_child.children.reject do |c|
         %w{locality localityStack}.include? c.name
       end.select { |c| !c.text? || /\S/.match(c) }
-      if node.replace content.empty?
-        @i18n.term_defined_in.sub(/%/, node.first_element_child.to_xml)
-      else
-        "<em>#{node.children.to_xml}</em>"
-      end
+      n = if content.empty?
+            @i18n.term_defined_in.sub(/%/, node.first_element_child.to_xml)
+          else
+            "<em>#{node.children.to_xml}</em>"
+          end
+      node.replace(n)
     end
 
     def variant(docxml)

@@ -60,17 +60,17 @@ module IsoDoc::XrefGen
       end
     end
 
-    def middle_section_asset_names(d)
+    def middle_section_asset_names(doc)
       middle_sections = "//clause[@type = 'scope'] | "\
         "#{@klass.norm_ref_xpath} | "\
         "//sections/terms | //preface/* | "\
         "//sections/definitions | //clause[parent::sections]"
-      sequential_asset_names(d.xpath(ns(middle_sections)))
+      sequential_asset_names(doc.xpath(ns(middle_sections)))
     end
 
-    def clause_names(docxml, n)
+    def clause_names(docxml, num)
       docxml.xpath(ns(@klass.middle_clause(docxml))).each_with_index do |c, _i|
-        section_names(c, n, 1)
+        section_names(c, num, 1)
       end
     end
 
