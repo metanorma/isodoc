@@ -643,34 +643,34 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-    <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-  <bibdata>
-    <contributor>
-      <role type='author'/>
-      <person>
-        <name>
-          <completename>Fred Flintstone</completename>
-        </name>
-        <affiliation>
-          <organization>
-            <name>Slate Rock and Gravel Company</name>
-            <address>
-              <formattedAddress>
-                1 Infinity Loop
-                <br/>
-                Cupertino
-                <br/>
-                CA
-                <br/>
-                USA 95014
-              </formattedAddress>
-            </address>
-          </organization>
-        </affiliation>
-      </person>
-    </contributor>
-  </bibdata>
-</iso-standard>
+          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <bibdata>
+          <contributor>
+            <role type='author'/>
+            <person>
+              <name>
+                <completename>Fred Flintstone</completename>
+              </name>
+              <affiliation>
+                <organization>
+                  <name>Slate Rock and Gravel Company</name>
+                  <address>
+                    <formattedAddress>
+                      1 Infinity Loop
+                      <br/>
+                      Cupertino
+                      <br/>
+                      CA
+                      <br/>
+                      USA 95014
+                    </formattedAddress>
+                  </address>
+                </organization>
+              </affiliation>
+            </person>
+          </contributor>
+        </bibdata>
+      </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
