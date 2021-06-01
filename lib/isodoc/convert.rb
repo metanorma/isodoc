@@ -8,7 +8,7 @@ require_relative "css"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
-    attr_accessor :options, :i18n, :meta
+    attr_accessor :options, :i18n, :meta, :xrefs
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
@@ -37,6 +37,7 @@ module IsoDoc
     # break_up_urls_in_tables: whether to insert spaces in URLs in tables
     #   every 40-odd chars
     # sectionsplit: split up HTML output on sections
+    # bare: do not insert any prefatory material (coverpage, boilerplate)
     def initialize(options)
       @libdir ||= File.dirname(__FILE__) # rubocop:disable Lint/DisjunctiveAssignmentInConstructor
       options.merge!(default_fonts(options)) do |_, old, new|
@@ -72,6 +73,7 @@ module IsoDoc
       @suppressheadingnumbers = options[:suppressheadingnumbers]
       @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
       @sectionsplit = options[:sectionsplit] == "true"
+      @bare = options[:bare]
       @termdomain = ""
       @termexample = false
       @note = false
@@ -168,6 +170,14 @@ module IsoDoc
     def middle_clause(_docxml = nil)
       "//clause[parent::sections][not(@type = 'scope')]"\
         "[not(descendant::terms)]"
+    end
+
+    def target_pdf(node)
+      if /#/.match?(node["target"])
+        node["target"].sub(/#/, ".pdf#")
+      else
+        "##{node['target']}"
+      end
     end
   end
 end

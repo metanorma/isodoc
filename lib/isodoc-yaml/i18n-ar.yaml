@@ -1,0 +1,152 @@
+term_def_boilerplate:
+scope: مجال التطبيق
+symbolsabbrev: الرموز والاختصارات
+abbrev: الاختصارات
+symbols: الرموز
+table_of_contents: جدول المحتويات
+introduction: مقدمة
+foreword: تمهيد
+abstract: ملخص
+acknowledgements: شكر
+termsdef: مصطلحات معرفة
+termsdefsymbolsabbrev: المصطلحات والتعريفات والرموز والاختصارات
+termsdefsymbols: المصطلحات والتعريفات والرموز
+termsdefabbrev: المصطلحات والتعريفات والاختصارات
+normref: المراجع المعيارية
+bibliography: بيبليوغرافيا
+clause: فقرة
+annex: ملحق
+appendix: تذييل
+no_terms_boilerplate: |
+  <p>No terms and definitions are listed in this document.</p>
+internal_terms_boilerplate: |
+  <p>For the purposes of this document,
+            the following terms and definitions apply.</p>
+norm_with_refs_pref:
+  The following documents are referred to in the text in such a way
+      that some or all of their content constitutes requirements of this
+      document. For dated references, only the edition cited applies.
+      For undated references, the latest edition of the referenced
+      document (including any amendments) applies.
+norm_empty_pref:
+  There are no normative references in this document.
+external_terms_boilerplate: |
+  <p>For the purposes of this document,
+    the terms and definitions given in % apply.</p>
+internal_external_terms_boilerplate: |
+  <p>For the purposes of this document, the terms and definitions
+    given in % and the following apply.</p>
+term_defined_in: "[term defined in %]"
+note: ملاحظة
+note_xref: ملاحظة
+termnote: Note % to entry
+list: قائمة
+figure: شكل
+formula: معادلة
+inequality: عدم مساواة
+table: جدول
+requirement: مطلب
+recommendation: توصية
+permission: إذن
+key: Key
+example: مثال
+example_xref: مثال
+where: حيث
+wholeoftext: كامل النص
+draft_label: draft
+inform_annex: informative
+norm_annex: normative
+modified: معدلة
+deprecated: DEPRECATED
+source: مصدر
+and: و
+all_parts: كل الأجزاء
+month_january: يناير
+month_february: فبراير
+month_march: مارس
+month_april: أبريل
+month_may: مايو
+month_june: يونيو
+month_july: يوليو
+month_august: أعسطس
+month_september: سبتمبر
+month_october: أكتوبر
+month_november: نوفمبر
+month_december: ديسمبر
+obligation: التزام
+subject: موضوع
+inherits: يرث
+admonition:
+  danger: خطر
+  warning: Warning
+  caution: Caution
+  important: مهم
+  safety precautions: احتياطات السلامة
+locality:
+  section: قسم
+  clause: فقرة
+  part: جزء
+  paragraph: فقرة
+  chapter: فصل
+  page: صفحة
+  table: جدول
+  annex: ملحق, مرفق
+  figure: شكل
+  example: مثال
+  note: ملحوظة, ملاحظة
+  formula: معادلة
+inflection:
+  فقرة:
+    sg: فقرة
+    pl: فقرات
+  ملحق:
+    sg: ملحق
+    pl: لحقات
+  تذييل:
+    sg: تذييل
+    pl: تذييلات
+  ملاحظة:
+    sg: ملاحظة
+    pl: ملاحظات
+  "Note % to entry":
+    sg: Note % to entry
+    pl: Notes % to entry
+  قائمة:
+    sg: قائمة
+    pl: قوائم
+  شكل:
+    sg: شكل
+    pl: أشكال
+  معادلة:
+    sg: معادلة
+    pl: معادلات
+  جدول:
+    sg: جدول
+    pl: جداول
+  مطلب:
+    sg: مطلب
+    pl: متطلبات
+  توصية:
+    sg: توصية
+    pl: توصيات
+  تصريح:
+    sg: تصريح
+    pl: تصريحات
+  مثال:
+    sg: مثال
+    pl: أمثلة
+  جزء:
+    sg: جزء
+    pl: أجزاء
+  قسم:
+    sg: قسم
+    pl: أقسام
+  فقرة:
+    sg: فقرة
+    pl: فقرات
+  فصل:
+    sg: فصل
+    pl: فصول
+  صفحة:
+    sg: صفحة
+    pl: صفحات

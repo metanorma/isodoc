@@ -84,6 +84,7 @@ module IsoDoc::HtmlFunction
     def comment_attributes(docxml, x)
       fromlink = docxml.at("//*[@id='#{x['from']}']")
       return(nil) if fromlink.nil?
+
       tolink = docxml.at("//*[@id='#{x['to']}']") || fromlink
       target = docxml.at("//*[@id='#{x['target']}']")
       { from: fromlink, to: tolink, target: target }
@@ -122,6 +123,7 @@ module IsoDoc::HtmlFunction
       comments = []
       docxml.xpath("//div[@style='mso-element:comment']").each do |c|
         next unless c["id"] && !link_order[c["id"]].nil?
+
         comments << { text: c.remove.to_s, id: c["id"] }
       end
       comments.sort! { |a, b| link_order[a[:id]] <=> link_order[b[:id]] }

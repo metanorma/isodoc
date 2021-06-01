@@ -3,6 +3,7 @@ module IsoDoc::HtmlFunction
 
     def footnotes(div)
       return if @footnotes.empty?
+
       @footnotes.each { |fn| div.parent << fn }
     end
 
@@ -44,15 +45,19 @@ module IsoDoc::HtmlFunction
     def get_table_ancestor_id(node)
       table = node.ancestors("table") || node.ancestors("figure")
       return UUIDTools::UUID.random_create.to_s if table.empty?
+
       table.last["id"]
     end
+
+    # @seen_footnote:
+    # do not output footnote text if we have already seen it for this table
 
     def table_footnote_parse(node, out)
       fn = node["reference"] || UUIDTools::UUID.random_create.to_s
       tid = get_table_ancestor_id(node)
       make_table_footnote_link(out, tid + fn, fn)
-      # do not output footnote text if we have already seen it for this table
       return if @seen_footnote.include?(tid + fn)
+
       @in_footnote = true
       out.aside **{ class: "footnote" } do |a|
         a << make_table_footnote_text(node, tid + fn, fn)
@@ -62,8 +67,9 @@ module IsoDoc::HtmlFunction
     end
 
     def footnote_parse(node, out)
-       return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
-        !node.ancestors.map {|m| m.name }.include?("name")
+      return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
+        !node.ancestors.map(&:name).include?("name")
+
       fn = node["reference"] || UUIDTools::UUID.random_create.to_s
       attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
       out.a **attrs do |a|
@@ -72,12 +78,13 @@ module IsoDoc::HtmlFunction
       make_footnote(node, fn)
     end
 
-    def make_footnote(node, fn)
-      return if @seen_footnote.include?(fn)
+    def make_footnote(node, fnote)
+      return if @seen_footnote.include?(fnote)
+
       @in_footnote = true
-      @footnotes << make_generic_footnote_text(node, fn)
+      @footnotes << make_generic_footnote_text(node, fnote)
       @in_footnote = false
-      @seen_footnote << fn
+      @seen_footnote << fnote
     end
   end
 end

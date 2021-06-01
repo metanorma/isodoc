@@ -1,0 +1,151 @@
+term_def_boilerplate: 
+scope: Alcance
+symbolsabbrev: Símbolos y términos abreviados
+abbrev: Términos abreviados
+symbols: Símbolos
+table_of_contents: Índice
+introduction: Introducción
+foreword: Prólogo
+abstract: Resumen
+acknowledgements: Agradecimientos
+termsdef: Términos y definiciones
+termsdefsymbolsabbrev: Términos, definiciones, símbolos y términos abreviados
+termsdefsymbols: Términos, definiciones y símbolos
+termsdefabbrev: Términos, definiciones y términos abreviados
+normref: Referencias normativas
+bibliography: Bibliografía
+clause: Cláusula
+annex: Anexo
+appendix: Apéndice
+no_terms_boilerplate: |
+          <p>En este documento no se enumeran términos ni definiciones.</p>
+internal_terms_boilerplate: |
+        <p>Para los propósitos de este documento, se aplican los siguientes términos y definiciones.</p>
+norm_with_refs_pref: 
+      Los siguientes documentos se mencionan en el texto de tal manera que 
+      parte o todo su contenido constituye requisitos de este documento.
+      Para referencias con fecha, sólo se aplica la edición citada. Para 
+      referencias sin fecha, se aplica la última edición del documento 
+      referenciado (incluidas las enmiendas).
+norm_empty_pref: 
+          No hay referencias normativas en este documento.
+external_terms_boilerplate: |
+          <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en %.</p>
+internal_external_terms_boilerplate: |
+          <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en % y los siguientes.</p>
+term_defined_in: "[término definido en %]"
+note: NOTA
+note_xref: Nota
+termnote: Nota % a la entrada
+list: Lista
+figure: Figura
+formula: Fórmula
+inequality: Fórmula
+table: Tabla
+requirement: Requerimiento
+recommendation: Recomendación
+permission: Permiso
+key: Clave
+example: EJEMPLO
+example_xref: Ejemplo
+where: donde
+wholeoftext: Todo el texto
+draft_label: borrador
+inform_annex: informativo
+norm_annex: normativo
+modified: modificado
+deprecated: OBSOLETO
+source: FUENTE
+and: y
+all_parts: Todas las partes
+month_january: Enero
+month_february: Febrero
+month_march: Marzo
+month_april: Abril
+month_may: Mayo
+month_june: Junio
+month_july: Julio
+month_august: Agosto
+month_september: Septiembre
+month_october: Octubre
+month_november: Noviembre
+month_december: Diciembre
+obligation: Obligación
+subject: Tema
+inherits: Hereda
+admonition: {
+  danger: Peligro,
+  warning: Advertencia,
+  caution: Precaución,
+  important: Importante,
+  safety precautions: Precauciones de seguridad
+}
+locality: {
+                      section: Sección,
+                      clause: Cláusula,
+                      part: Parte,
+                      paragraph: Párrafo,
+                      chapter: Capítulo,
+                      page: Página,
+                      table: Tabla,
+                      annex: Anexo,
+                      figure: Figura,
+                      example: Ejemplo,
+                      note: Nota,
+                      formula: Fórmula
+                    }
+inflection:
+  Cláusula:
+    sg: Cláusula
+    pl: Cláusulas
+  Anexo:
+    sg: Anexo
+    pl: Anexos
+  Apéndice:
+    sg: Apéndice
+    pl: Apéndices
+  Nota:
+    sg: Nota
+    pl: Notas
+  "Nota % a la entrada":
+    sg: Nota % a la entrada
+    pl: Notas % a la entrada
+  Lista:
+    sg: Lista
+    pl: Listas
+  Figura:
+    sg: Figura
+    pl: Figuras
+  Fórmula:
+    sg: Fórmula
+    pl: Fórmulas
+  Tabla:
+    sg: Tabla
+    pl: Tablas
+  Requerimiento:
+    sg: Requerimiento
+    pl: Requerimientos
+  Recomendación:
+    sg: Recomendación
+    pl: Recomendaciones
+  Permiso:
+    sg: Permiso
+    pl: Permisos
+  Ejemplo:
+    sg: Ejemplo
+    pl: Ejemplos
+  Parte:
+    sg: Parte
+    pl: Partes
+  Sección:
+    sg: Sección
+    pl: Secciones
+  Párrafo:
+    sg: Párrafo
+    pl: Párrafos
+  Capítulo:
+    sg: Capítulo
+    pl: Capítulos
+  Página:
+    sg: Página
+    pl: Páginas

@@ -4,6 +4,16 @@ module IsoDoc::Function
   module Blocks
     @annotation = false
 
+    def middle_title(_isoxml, out)
+      out.p(**{ class: "zzSTDTitle1" }) { |p| p << @meta.get[:doctitle] }
+    end
+
+    def middle_admonitions(isoxml, out)
+      isoxml.xpath(ns("//sections/note | //sections/admonition")).each do |x|
+        parse(x, out)
+      end
+    end
+
     def figure_name_parse(node, div, name)
       return if name.nil? 
       div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
@@ -24,6 +34,7 @@ module IsoDoc::Function
     def figure_parse(node, out)
       return pseudocode_parse(node, out) if node["class"] == "pseudocode" ||
         node["type"] == "pseudocode"
+
       @in_figure = true
       out.div **figure_attrs(node) do |div|
         node.children.each do |n|
@@ -51,6 +62,7 @@ module IsoDoc::Function
 
     def sourcecode_name_parse(node, div, name)
       return if name.nil? 
+
       div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
         name.children.each { |n| parse(n, p) }
       end
@@ -91,14 +103,15 @@ module IsoDoc::Function
       @annotation = false
     end
 
-    def admonition_class(node)
+    def admonition_class(_node)
       "Admonition"
     end
 
     def admonition_name(node, type)
       name = node&.at(ns("./name")) and return name
-      name = Nokogiri::XML::Node.new('name', node.document)
+      name = Nokogiri::XML::Node.new("name", node.document)
       return unless type && @i18n.admonition[type]
+
       name << @i18n.admonition[type]&.upcase
       name
     end
@@ -119,7 +132,8 @@ module IsoDoc::Function
 
     def formula_where(dl, out)
       return unless dl
-      out.p **{ style: "page-break-after:avoid;"} do |p|
+
+      out.p **{ style: "page-break-after:avoid;" } do |p|
         p << @i18n.where
       end
       parse(dl, out)
@@ -148,6 +162,7 @@ module IsoDoc::Function
         formula_where(node.at(ns("./dl")), div)
         node.children.each do |n|
           next if %w(stem dl name).include? n.name
+
           parse(n, div)
         end
       end
@@ -182,6 +197,7 @@ module IsoDoc::Function
       author = node.at(ns("./author"))
       source = node.at(ns("./source"))
       return if author.nil? && source.nil?
+
       out.p **{ class: "QuoteAttribution" } do |p|
         p << "&mdash; #{author.text}" if author
         p << ", " if author && source
@@ -201,8 +217,9 @@ module IsoDoc::Function
     end
 
     def passthrough_parse(node, out)
-      return if node["format"] and
+      return if node["format"] &&
         !(node["format"].split(/,/).include? @format.to_s)
+
       out.passthrough node.text
     end
 

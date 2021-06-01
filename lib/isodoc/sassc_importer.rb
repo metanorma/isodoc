@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sassc'
+require "sassc"
 
 class SasscImporter < SassC::Importer
   def imports(path, _parent_path)

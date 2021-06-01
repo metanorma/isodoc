@@ -59,7 +59,7 @@ module IsoDoc::Function
       name = node&.at(ns("./name"))&.remove
       div.p do |p|
         name and p.span **{ class: "note_label" } do |s|
-          name and name.children.each { |n| parse(n, s) }
+          name.children.each { |n| parse(n, s) }
           s << note_delim
         end
         insert_tab(p, 1)
@@ -98,7 +98,7 @@ module IsoDoc::Function
       @note = true
       out.div **note_attrs(node) do |div|
         node&.at(ns("./*[local-name() != 'name'][1]"))&.name == "p" ?
-        #node.first_element_child.name == "p" ?
+        # node.first_element_child.name == "p" ?
           note_p_parse(node, div) : note_parse1(node, div)
       end
       @note = false

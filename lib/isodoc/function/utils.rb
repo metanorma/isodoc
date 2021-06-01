@@ -28,10 +28,10 @@ module IsoDoc::Function
     # to allow for HTMLentities
     def noko(&block)
       doc = ::Nokogiri::XML.parse(NOKOHEAD)
-      fragment = doc.fragment('')
+      fragment = doc.fragment("")
       ::Nokogiri::XML::Builder.with fragment, &block
-      fragment.to_xml(encoding: 'US-ASCII').lines.map do |l|
-        l.gsub(/\s*\n/, '')
+      fragment.to_xml(encoding: "US-ASCII").lines.map do |l|
+        l.gsub(/\s*\n/, "")
       end
     end
 
@@ -46,17 +46,18 @@ module IsoDoc::Function
       '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
 
     def to_xhtml(xml)
-      xml.gsub!(/<\?xml[^>]*>/, '')
+      xml.gsub!(/<\?xml[^>]*>/, "")
       /<!DOCTYPE /.match(xml) || (xml = DOCTYPE_HDR + xml)
       xml = xml.split(/(\&[^ \r\n\t#;]+;)/).map do |t|
         /^(\&[^ \t\r\n#;]+;)/.match?(t) ?
           HTMLEntities.new.encode(HTMLEntities.new.decode(t), :hexadecimal) : t
-      end.join('')
+      end.join("")
       begin
         Nokogiri::XML.parse(xml, &:strict)
       rescue Nokogiri::XML::SyntaxError => e
-        File.open("#{@filename}.#{@format}.err", 'w:UTF-8') { |f| f.write xml }
-        abort "Malformed Output XML for #{@format}: #{e} (see #{@filename}.#{@format}.err)"
+        File.open("#{@filename}.#{@format}.err", "w:UTF-8") { |f| f.write xml }
+        abort "Malformed Output XML for #{@format}: #{e} "\
+          "(see #{@filename}.#{@format}.err)"
       end
     end
 
@@ -67,11 +68,12 @@ module IsoDoc::Function
     end
 
     def from_xhtml(xml)
-      xml.to_xml.sub(%r{ xmlns="http://www.w3.org/1999/xhtml"}, '')
+      xml.to_xml.sub(%r{ xmlns="http://www.w3.org/1999/xhtml"}, "")
     end
 
     CLAUSE_ANCESTOR =
       ".//ancestor::*[local-name() = 'annex' or "\
+      "local-name() = 'definitions' or "\
       "local-name() = 'acknowledgements' or local-name() = 'term' or "\
       "local-name() = 'appendix' or local-name() = 'foreword' or "\
       "local-name() = 'introduction' or local-name() = 'terms' or "\
@@ -102,32 +104,32 @@ module IsoDoc::Function
       else
         @i18n.l10n("#{array[0..-2].join(', ')} "\
                    "#{@i18n.and} #{array.last}",
-                                     @lang, @script)
+                   @lang, @script)
       end
     end
 
     # avoid `; avoid {{ (Liquid Templates); avoid [[ (Javascript)
     def extract_delims(text)
-      @openmathdelim = '(#('
-      @closemathdelim = ')#)'
+      @openmathdelim = "(#("
+      @closemathdelim = ")#)"
       while text.include?(@openmathdelim) || text.include?(@closemathdelim)
-        @openmathdelim += '('
-        @closemathdelim += ')'
+        @openmathdelim += "("
+        @closemathdelim += ")"
       end
       [@openmathdelim, @closemathdelim]
     end
 
     def header_strip(h)
-      h = h.to_s.gsub(%r{<br\s*/>}, ' ').gsub(/<\/?h[123456][^>]*>/, '')
-           .gsub(/<\/?b[^>]*>/, '')
+      h = h.to_s.gsub(%r{<br\s*/>}, " ").gsub(/<\/?h[123456][^>]*>/, "")
+        .gsub(/<\/?b[^>]*>/, "")
       h1 = to_xhtml_fragment(h.dup)
       h1.traverse do |x|
-        x.replace(' ') if x.name == 'span' && /mso-tab-count/.match(x['style'])
-        x.remove if x.name == 'img'
-        x.remove if x.name == 'span' && x['class'] == 'MsoCommentReference'
-        x.remove if x.name == 'a' && x['class'] == 'FootnoteRef'
-        x.remove if x.name == 'span' && /mso-bookmark/.match(x['style'])
-        x.replace(x.children) if x.name == 'a'
+        x.replace(" ") if x.name == "span" && /mso-tab-count/.match(x["style"])
+        x.remove if x.name == "img"
+        x.remove if x.name == "span" && x["class"] == "MsoCommentReference"
+        x.remove if x.name == "a" && x["class"] == "FootnoteRef"
+        x.remove if x.name == "span" && /mso-bookmark/.match(x["style"])
+        x.replace(x.children) if x.name == "a"
       end
       from_xhtml(h1)
     end
@@ -139,9 +141,9 @@ module IsoDoc::Function
     def liquid(doc)
       # unescape HTML escapes in doc
       doc = doc.split(%r<(\{%|%\})>).each_slice(4).map do |a|
-        a[2] = a[2].gsub(/\&lt;/, '<').gsub(/\&gt;/, '>') if a.size > 2
-        a.join('')
-      end.join('')
+        a[2] = a[2].gsub(/\&lt;/, "<").gsub(/\&gt;/, ">") if a.size > 2
+        a.join("")
+      end.join("")
       Liquid::Template.parse(doc)
     end
 
@@ -152,20 +154,20 @@ module IsoDoc::Function
 
     def populate_template(docxml, _format = nil)
       meta = @meta
-             .get
-             .merge(@labels ? {labels: @labels} : {})
-             .merge(@meta.labels ? {labels: @meta.labels} : {})
-             .merge(fonts_options || {})
+        .get
+        .merge(@labels ? {labels: @labels} : {})
+        .merge(@meta.labels ? {labels: @meta.labels} : {})
+        .merge(fonts_options || {})
       template = liquid(docxml)
       template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
-              .gsub('&lt;', '&#x3c;').gsub('&gt;', '&#x3e;').gsub('&amp;', '&#x26;')
+        .gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;").gsub("&amp;", "&#x26;")
     end
 
     def save_dataimage(uri, _relative_dir = true)
       %r{^data:(image|application)/(?<imgtype>[^;]+);base64,(?<imgdata>.+)$} =~ uri
-      imgtype.sub!(/\+[a-z0-9]+$/, '') # svg+xml
-      imgtype = 'png' unless /^[a-z0-9]+$/.match imgtype
-      Tempfile.open(['image', ".#{imgtype}"]) do |f|
+      imgtype.sub!(/\+[a-z0-9]+$/, "") # svg+xml
+      imgtype = "png" unless /^[a-z0-9]+$/.match imgtype
+      Tempfile.open(["image", ".#{imgtype}"]) do |f|
         f.binmode
         f.write(Base64.strict_decode64(imgdata))
         @tempfile_cache << f # persist to the end
@@ -174,18 +176,18 @@ module IsoDoc::Function
     end
 
     def image_localfile(i)
-      if /^data:/.match? i['src']
-        save_dataimage(i['src'], false)
-      elsif %r{^([A-Z]:)?/}.match? i['src']
-        i['src']
+      if /^data:/.match? i["src"]
+        save_dataimage(i["src"], false)
+      elsif %r{^([A-Z]:)?/}.match? i["src"]
+        i["src"]
       else
-        File.join(@localdir, i['src'])
+        File.join(@localdir, i["src"])
       end
     end
 
     def labelled_ancestor(node)
-      !node.ancestors('example, requirement, recommendation, permission, '\
-                             'note, table, figure, sourcecode').empty?
+      !node.ancestors("example, requirement, recommendation, permission, "\
+                      "note, table, figure, sourcecode").empty?
     end
   end
 end

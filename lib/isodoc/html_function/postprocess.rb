@@ -1,4 +1,5 @@
 require "isodoc/html_function/mathvariant_to_plain"
+require_relative "postprocess_footnotes"
 
 module IsoDoc::HtmlFunction
   module Html
@@ -28,15 +29,15 @@ module IsoDoc::HtmlFunction
         .sub(%r{<\?xml[^>]+>}, "")
     end
 
-    def html_cleanup(x)
+    def html_cleanup(html)
       mathml(
         footnote_format(
           footnote_backlinks(
             html_toc(
-              term_header(html_footnote_filter(html_preface(htmlstyle(x))))
-            )
-          )
-        )
+              term_header(html_footnote_filter(html_preface(htmlstyle(html)))),
+            ),
+          ),
+        ),
       )
     end
 
@@ -46,6 +47,7 @@ module IsoDoc::HtmlFunction
 
     def htmlstylesheet(file)
       return if file.nil?
+
       file.open if file.is_a?(Tempfile)
       stylesheet = file.read
       xml = Nokogiri::XML("<style/>")
@@ -57,7 +59,7 @@ module IsoDoc::HtmlFunction
 
     def htmlstyle(docxml)
       return docxml unless @htmlstylesheet
-      title = docxml.at("//*[local-name() = 'head']/*[local-name() = 'title']")
+
       head = docxml.at("//*[local-name() = 'head']")
       head << htmlstylesheet(@htmlstylesheet)
       s = htmlstylesheet(@htmlstylesheet_override) and head << s
@@ -65,8 +67,8 @@ module IsoDoc::HtmlFunction
     end
 
     def html_preface(docxml)
-      html_cover(docxml) if @htmlcoverpage
-      html_intro(docxml) if @htmlintropage
+      html_cover(docxml) if @htmlcoverpage && !@bare
+      html_intro(docxml) if @htmlintropage && !@bare
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       docxml.at("//body") << sourcecode_highlighter
       html_main(docxml)
@@ -76,8 +78,9 @@ module IsoDoc::HtmlFunction
 
     def authority_cleanup1(docxml, klass)
       dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
-      auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or @class = 'boilerplate-#{klass}']")
-      auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each { |h| h.remove }
+      auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or "\
+                       "@class = 'boilerplate-#{klass}']")
+      auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each(&:remove)
       auth&.xpath(".//h1 | .//h2")&.each { |h| h["class"] = "IntroTitle" }
       dest and auth and dest.replace(auth.remove)
     end
@@ -92,14 +95,18 @@ module IsoDoc::HtmlFunction
       doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="title-section"]')
       # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
-      d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
+      d.children.first.add_previous_sibling(
+        populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
+      )
     end
 
     def html_intro(docxml)
       doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
       d = docxml.at('//div[@class="prefatory-section"]')
       # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
-      d.children.first.add_previous_sibling populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
+      d.children.first.add_previous_sibling(
+        populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
+      )
     end
 
     def html_toc_entry(level, header)
@@ -112,7 +119,9 @@ module IsoDoc::HtmlFunction
     end
 
     def toclevel
-      ret = toclevel_classes.map { |l| "#{l}:not(:empty):not(.TermNum):not(.noTOC)" }
+      ret = toclevel_classes.map do |l|
+        "#{l}:not(:empty):not(.TermNum):not(.noTOC)"
+      end
       <<~HEAD.freeze
         function toclevel() { return "#{ret.join(',')}";}
       HEAD
@@ -140,99 +149,46 @@ module IsoDoc::HtmlFunction
       docxml.xpath("//*[local-name() = 'img']").each do |i|
         i["width"], i["height"] = Html2Doc.image_resize(i, image_localfile(i),
                                                         @maxheight, @maxwidth)
-        next if /^data:/.match i["src"]
+        next if /^data:/.match? i["src"]
+
         @datauriimage ? datauri(i) : move_image1(i)
       end
       docxml
     end
 
-    def datauri(i)
-      type = i["src"].split(".")[-1]
+    def datauri(img)
+      type = img["src"].split(".")[-1]
       supertype = type == "xml" ? "application" : "image"
-      bin = IO.binread(image_localfile(i))
+      bin = IO.binread(image_localfile(img))
       data = Base64.strict_encode64(bin)
-      i["src"] = "data:#{supertype}/#{type};base64,#{data}"
+      img["src"] = "data:#{supertype}/#{type};base64,#{data}"
     end
 
-    def image_suffix(i)
-      type = i["mimetype"]&.sub(%r{^[^/*]+/}, "")
-      matched = /\.(?<suffix>[^. \r\n\t]+)$/.match i["src"]
+    def image_suffix(img)
+      type = img["mimetype"]&.sub(%r{^[^/*]+/}, "")
+      matched = /\.(?<suffix>[^. \r\n\t]+)$/.match img["src"]
       type and !type.empty? and return type
+
       !matched.nil? and matched[:suffix] and return matched[:suffix]
       "png"
     end
 
-    def move_image1(i)
-      suffix = image_suffix(i)
+    def move_image1(img)
+      suffix = image_suffix(img)
       uuid = UUIDTools::UUID.random_create.to_s
       fname = "#{uuid}.#{suffix}"
       new_full_filename = File.join(tmpimagedir, fname)
-      local_filename = image_localfile(i)
+      local_filename = image_localfile(img)
       FileUtils.cp local_filename, new_full_filename
-      i["src"] = File.join(rel_tmpimagedir, fname)
+      img["src"] = File.join(rel_tmpimagedir, fname)
     end
 
     def inject_script(doc)
       return doc unless @scripts
+
       scripts = File.read(@scripts, encoding: "UTF-8")
       a = doc.split(%r{</body>})
-      a[0] + scripts + "</body>" + a[1]
-    end
-
-    def update_footnote_filter(fn, x, i, seen)
-      if seen[fn.text]
-        x.at("./sup").content = seen[fn.text][:num].to_s
-        fn.remove unless x["href"] == seen[fn.text][:href]
-        x["href"] = seen[fn.text][:href]
-      else
-        seen[fn.text] = { num: i, href: x["href"] }
-        x.at("./sup").content = i.to_s
-        i += 1
-      end
-      [i, seen]
-    end
-
-    def html_footnote_filter(docxml)
-      seen = {}
-      i = 1
-      docxml.xpath('//a[@class = "FootnoteRef"]').each do |x|
-        fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
-        i, seen = update_footnote_filter(fn, x, i, seen)
-      end
-      docxml
-    end
-
-    def footnote_backlinks1(x, fn)
-      xdup = x.dup
-      xdup.remove["id"]
-      if fn.elements.empty?
-        fn.children.first.previous = xdup
-      else
-        fn.elements.first.children.first.previous = xdup
-      end
-    end
-
-    def footnote_backlinks(docxml)
-      seen = {}
-      docxml.xpath('//a[@class = "FootnoteRef"]').each_with_index do |x, i|
-        seen[x["href"]] and next or seen[x["href"]] = true
-        fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
-        footnote_backlinks1(x, fn)
-        x["id"] ||= "fnref:#{i + 1}"
-        fn.add_child "<a href='##{x['id']}'>&#x21A9;</a>"
-      end
-      docxml
-    end
-
-    def footnote_format(docxml)
-      docxml.xpath("//a[@class = 'FootnoteRef']/sup").each do |x|
-        footnote_reference_format(x)
-      end
-      docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
-                   "//span[@class = 'TableFootnoteRef']").each do |x|
-        table_footnote_reference_format(x)
-      end
-      docxml
+      "#{a[0]}#{scripts}</body>#{a[1]}"
     end
 
     def sourcecode_highlighter

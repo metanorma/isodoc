@@ -15,6 +15,8 @@ module IsoDoc::HtmlFunction
     end
 
     def make_body1(body, _docxml)
+      return if @bare
+
       body.div **{ class: "title-section" } do |div1|
         div1.p { |p| p << "&nbsp;" } # placeholder
       end
@@ -22,6 +24,8 @@ module IsoDoc::HtmlFunction
     end
 
     def make_body2(body, _docxml)
+      return if @bare
+
       body.div **{ class: "prefatory-section" } do |div2|
         div2.p { |p| p << "&nbsp;" } # placeholder
       end

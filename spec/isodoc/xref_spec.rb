@@ -3245,4 +3245,56 @@ RSpec.describe IsoDoc do
     a.increment({})
     expect(a.print).to eq "V"
   end
+
+  it "skips I in counter for xrefs" do
+    a = IsoDoc::XrefGen::Counter.new("@", skip_i: true)
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    expect(a.print).to eq "H"
+    a.increment({})
+    expect(a.print).to eq "J"
+    a = IsoDoc::XrefGen::Counter.new("@")
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    a.increment({})
+    expect(a.print).to eq "H"
+    a.increment({})
+    expect(a.print).to eq "I"
+  end
+
+  it "increments counter past Z for xrefs" do
+    a = IsoDoc::XrefGen::Counter.new("Z")
+    a.increment({})
+    expect(a.print).to eq "AA"
+    a.increment({})
+    expect(a.print).to eq "AB"
+    a = IsoDoc::XrefGen::Counter.new("BZ")
+    a.increment({})
+    expect(a.print).to eq "CA"
+    a.increment({})
+    expect(a.print).to eq "CB"
+    a = IsoDoc::XrefGen::Counter.new("z")
+    a.increment({})
+    expect(a.print).to eq "aa"
+    a.increment({})
+    expect(a.print).to eq "ab"
+    a = IsoDoc::XrefGen::Counter.new("Az")
+    a.increment({})
+    expect(a.print).to eq "Ba"
+    a.increment({})
+    expect(a.print).to eq "Bb"
+  end
+
+
 end

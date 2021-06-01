@@ -3,7 +3,8 @@ require "base64"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def lower2cap(s)
-      return s if /^[[:upper:]][[:upper:]]/.match(s)
+      return s if /^[[:upper:]][[:upper:]]/.match?(s)
+
       s.capitalize
     end
 
@@ -19,8 +20,10 @@ module IsoDoc
     end
 
     def svg_extract(f)
-      return unless %r{^data:image/svg\+xml;base64,}.match(f["src"])
-      svg = Base64.strict_decode64(f["src"].sub(%r{^data:image/svg\+xml;base64,}, ""))
+      return unless %r{^data:image/svg\+xml;base64,}.match?(f["src"])
+
+      svg = Base64.strict_decode64(f["src"]
+        .sub(%r{^data:image/svg\+xml;base64,}, ""))
       f.replace(svg.sub(/<\?xml[^>]*>/, ""))
     end
 
@@ -28,12 +31,15 @@ module IsoDoc
       return sourcecode1(f) if f["class"] == "pseudocode" || f["type"] == "pseudocode"
       return if labelled_ancestor(f) && f.ancestors("figure").empty?
       return if f.at(ns("./figure")) and !f.at(ns("./name"))
+
       lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
+      prefix_name(f, "&nbsp;&mdash; ",
+                  l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
 
     def prefix_name(f, delim, number, elem)
       return if number.nil? || number.empty?
+
       unless name = f.at(ns("./#{elem}"))
         f.children.empty? and f.add_child("<#{elem}></#{elem}>") or
           f.children.first.previous = "<#{elem}></#{elem}>"
@@ -52,6 +58,7 @@ module IsoDoc
     def sourcecode1(f)
       return if labelled_ancestor(f)
       return unless f.ancestors("example").empty?
+
       lbl = @xrefs.anchor(f['id'], :label, false) or return
       prefix_name(f, "&nbsp;&mdash; ", l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
@@ -96,6 +103,7 @@ module IsoDoc
     # introduce name element
     def note1(f)
       return if f.parent.name == "bibitem"
+
       n = @xrefs.get[f["id"]]
       lbl = (@i18n.note if n.nil? || n[:label].nil? || n[:label].empty?) ?
         @i18n.note: l10n("#{@i18n.note} #{n[:label]}")
@@ -110,7 +118,7 @@ module IsoDoc
 
     # introduce name element
     def termnote1(f)
-      lbl = l10n(@xrefs.anchor(f['id'], :label) || '???')
+      lbl = l10n(@xrefs.anchor(f["id"], :label) || "???")
       prefix_name(f, "", lower2cap(lbl), "name")
     end
 
@@ -134,7 +142,7 @@ module IsoDoc
 
     # introduce name element
     def recommendation1(f, type)
-      n = @xrefs.anchor(f['id'], :label, false)
+      n = @xrefs.anchor(f["id"], :label, false)
       lbl = (n.nil? ? type : l10n("#{type} #{n}"))
       prefix_name(f, "", lbl, "name")
     end
@@ -148,7 +156,8 @@ module IsoDoc
     def table1(f)
       return if labelled_ancestor(f)
       return if f["unnumbered"] && !f.at(ns("./name"))
-      n = @xrefs.anchor(f['id'], :label, false)
+
+      n = @xrefs.anchor(f["id"], :label, false)
       prefix_name(f, "&nbsp;&mdash; ", l10n("#{lower2cap @i18n.table} #{n}"), "name")
     end
 
@@ -160,7 +169,7 @@ module IsoDoc
     end
 
     def amend1(f)
-      f.xpath(ns("./autonumber")).each { |a| a.remove }
+      f.xpath(ns("./autonumber")).each(&:remove)
       f.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       f.xpath(ns("./description")).each { |a| a.replace(a.children) }
       f.replace(f.children)

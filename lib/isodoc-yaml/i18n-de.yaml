@@ -1,0 +1,149 @@
+term_def_boilerplate:
+scope: Umfang
+symbolsabbrev: Symbole und abgekürzte Begriffe
+abbrev: Abgekürzte Begriffe
+symbols: Symbole
+table_of_contents: Inhaltsübersicht
+introduction: Einführung
+foreword: Vorwort
+abstract: Abstrakt
+acknowledgements: Danksagung
+termsdef: Begriffe und Definitionen
+termsdefsymbolsabbrev: Begriffe, Definitionen, Symbole und abgekürzte Begriffe
+termsdefsymbols: Begriffe, Definitionen und Symbole
+termsdefabbrev: Begriffe, Definitionen und abgekürzte Begriffe
+normref: Normative Verweise
+bibliography: Bibliographie
+clause: Klausel
+annex: Anhang
+appendix: Appendix
+no_terms_boilerplate: |
+          <p>In diesem Dokument sind keine Begriffe und Definitionen aufgeführt.</p>
+internal_terms_boilerplate: |
+        <p>Für die Zwecke dieses Dokuments gelten die folgenden Begriffe und Definitionen</p>
+norm_with_refs_pref:
+  Auf die folgenden Dokumente wird im Text so verwiesen, dass ihr Inhalt ganz oder
+  teilweise Anforderungen dieses Dokuments darstellt. Bei datierten Verweisen gilt
+  nur die zitierte Ausgabe. Bei undatierten Verweisen gilt die neueste Ausgabe des
+  referenzierten Dokuments (einschließlich eventueller Änderungen).
+norm_empty_pref: In diesem Dokument sind keine normativen Verweise enthalten.
+external_terms_boilerplate: |
+          <p>Für die Zwecke dieses Dokuments gelten die in % angegebenen Begriffe und Definitionen.</p>
+internal_external_terms_boilerplate: |
+          <p>Für die Zwecke dieses Dokuments gelten die in % und im Folgenden aufgeführten Begriffe und Definitionen.</p>
+term_defined_in: "[Begriff definiert in %]"
+note: HINWEIS
+note_xref: Hinweis
+termnote: Hinweis % zum Eintrag
+list: Liste
+figure: Abbildung
+formula: Formel
+inequality: Formel
+table: Tabelle
+requirement: Anforderung
+recommendation: Empfehlung
+permission: Erlaubnis
+key: Taste
+example: BEISPIEL
+example_xref: Beispiel
+where: wobei
+wholeoftext: Ganzer Text
+draft_label: Entwurf
+inform_annex: informativ
+norm_annex: normativ
+modified: geändert
+deprecated: DEPRECATED
+source: QUELLE
+and: und
+all_parts: Alle Teile
+month_january: Januar
+month_february: Februar
+month_march: März
+month_april: April
+month_may: Mai
+month_june: Juni
+month_july: Juli
+month_august: August
+month_september: September
+month_october: Oktober
+month_november: November
+month_december: Dezember
+obligation: Verbindlichkeit
+subject: Thema
+inherits: Erbt
+admonition: {
+  danger: Gefahr,
+  warning: Warnung,
+  caution: Vorsicht,
+  important: Wichtig,
+  safety precautions: Sicherheitsvorkehrungen
+}
+locality: {
+  section: Abschnitt,
+  clause: Klausel,
+  part: Teil,
+  paragraph: Absatz,
+  chapter: Kapitel,
+  page: Seite,
+  table: Tabelle,
+  annex: Anhang,
+  figure: Abbildung,
+  example: Beispiel,
+  note: Hinweis,
+  formula: Formel
+}
+inflection:
+  Klausel:
+    sg: Klausel
+    pl: Klauseln
+  Anhang:
+    sg: Anhang
+    pl: Anhänge
+  Appendix:
+    sg: Appendix
+    pl: Appendixe
+  Note:
+    sg: Hinweis
+    pl: Hinweise
+  "Hinweis % zum Eintrag":
+    sg: Hinweis % zum Eintrag
+    pl: Anmerkungen % zum Eintrag
+  Liste:
+    sg: Liste
+    pl: Listen
+  Abbildung:
+    sg: Abbildung
+    pl: Abbildungen
+  Formel:
+    sg: Formel
+    pl: Formeln
+  Tabelle:
+    sg: Tabelle
+    pl: Tabellen
+  Anforderung:
+    sg: Anforderung
+    pl: Anforderungen
+  Empfehlung:
+    sg: Empfehlung
+    pl: Empfehlungen
+  Erlaubnis:
+    sg: Erlaubnis
+    pl: Berechtigungen
+  Beispiel:
+    sg: Beispiel
+    pl: Beispiele
+  Teil:
+    sg: Teil
+    pl: Teile
+  Abschnitt:
+    sg: Abschnitt
+    pl: Abschnitte
+  Absatz:
+    sg: Absatz
+    pl: Absätze
+  Kapitel:
+    sg: Kapitel
+    pl: Kapitel
+  Seite:
+    sg: Seite
+    pl: Seiten

@@ -5,44 +5,47 @@ module IsoDoc
     def load_yaml(lang, script, i18nyaml = nil)
       ret = load_yaml1(lang, script)
       return normalise_hash(ret.merge(YAML.load_file(i18nyaml))) if i18nyaml
+
       normalise_hash(ret)
     end
 
     def normalise_hash(ret)
-      if ret.is_a? Hash 
+      case ret
+      when Hash
         ret.each do |k, v|
           ret[k] = normalise_hash(v)
         end
         ret
-      elsif ret.is_a? Array then ret.map { |n| normalise_hash(n) }
-      elsif ret.is_a? String then ret.unicode_normalize(:nfc) 
-      else
-        ret
+      when Array then ret.map { |n| normalise_hash(n) }
+      when String then ret.unicode_normalize(:nfc)
+      else ret
       end
     end
 
     def load_yaml1(lang, script)
-      if lang == "en"
-        YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../isodoc-yaml/i18n-en.yaml"))
-      elsif lang == "fr"
-        YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../isodoc-yaml/i18n-fr.yaml"))
-      elsif lang == "zh" && script == "Hans"
-        YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../isodoc-yaml/i18n-zh-Hans.yaml"))
+      case lang
+      when "en", "fr", "ru", "de", "es", "ar"
+        load_yaml2(lang)
+      when "zh"
+        if script == "Hans" then load_yaml2("zh-Hans")
+        else load_yaml2("en")
+        end
       else
-        YAML.load_file(File.join(File.dirname(__FILE__),
-                                 "../isodoc-yaml/i18n-en.yaml"))
+        load_yaml2("en")
       end
+    end
+
+    def load_yaml2(str)
+      YAML.load_file(File.join(File.dirname(__FILE__),
+                               "../isodoc-yaml/i18n-#{str}.yaml"))
     end
 
     def get
       @labels
     end
 
-    def set(x, y)
-      @labels[x] = y
+    def set(key, val)
+      @labels[key] = val
     end
 
     def initialize(lang, script, i18nyaml = nil)
@@ -57,37 +60,36 @@ module IsoDoc
       end
     end
 
-    def self.l10n(x, lang = @lang, script = @script)
-      l10n(x, lang, script)
+    def self.l10n(text, lang = @lang, script = @script)
+      l10n(text, lang, script)
     end
 
     # TODO: move to localization file
     # function localising spaces and punctuation.
     # Not clear if period needs to be localised for zh
-    def l10n(x, lang = @lang, script = @script)
+    def l10n(text, lang = @lang, script = @script)
       if lang == "zh" && script == "Hans"
-        xml = Nokogiri::HTML::DocumentFragment.parse(x)
+        xml = Nokogiri::HTML::DocumentFragment.parse(text)
         xml.traverse do |n|
           next unless n.text?
-          n.replace(n.text.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、").
-                    gsub(/\(/, "（").gsub(/\)/, "）").
-                    gsub(/\[/, "【").gsub(/\]/, "】"))
+
+          n.replace(n.text.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、")
+            .gsub(/\(/, "（").gsub(/\)/, "）").gsub(/\[/, "【").gsub(/\]/, "】"))
         end
         xml.to_xml.gsub(/<b>/, "").gsub("</b>", "").gsub(/<\?[^>]+>/, "")
-      else
-        x
+      else text
       end
     end
 
     def multiple_and(names, andword)
-      return '' if names.empty?
+      return "" if names.empty?
       return names[0] if names.length == 1
+
       (names.length == 2) &&
         (return l10n("#{names[0]} #{andword} #{names[1]}", @lang, @script))
-      l10n(names[0..-2].join(', ') + " #{andword} #{names[-1]}", @lang, @script)
+      l10n(names[0..-2].join(", ") + " #{andword} #{names[-1]}", @lang, @script)
     end
 
-    #module_function :l10n
-
+    # module_function :l10n
   end
 end
