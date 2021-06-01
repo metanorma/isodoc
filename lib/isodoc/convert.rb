@@ -36,6 +36,7 @@ module IsoDoc
     # datauriimage: Encode images in HTML output as data URIs
     # break_up_urls_in_tables: whether to insert spaces in URLs in tables
     #   every 40-odd chars
+    # bare: do not insert any prefatory material (coverpage, boilerplate)
     def initialize(options)
       @libdir ||= File.dirname(__FILE__) # rubocop:disable Lint/DisjunctiveAssignmentInConstructor
       options.merge!(default_fonts(options)) do |_, old, new|
@@ -70,6 +71,7 @@ module IsoDoc
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
       @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
+      @bare = options[:bare]
       @termdomain = ""
       @termexample = false
       @note = false

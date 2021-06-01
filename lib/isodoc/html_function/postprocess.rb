@@ -29,15 +29,15 @@ module IsoDoc::HtmlFunction
         .sub(%r{<\?xml[^>]+>}, "")
     end
 
-    def html_cleanup(x)
+    def html_cleanup(html)
       mathml(
         footnote_format(
           footnote_backlinks(
             html_toc(
-              term_header(html_footnote_filter(html_preface(htmlstyle(x))))
-            )
-          )
-        )
+              term_header(html_footnote_filter(html_preface(htmlstyle(html)))),
+            ),
+          ),
+        ),
       )
     end
 
@@ -60,7 +60,6 @@ module IsoDoc::HtmlFunction
     def htmlstyle(docxml)
       return docxml unless @htmlstylesheet
 
-      title = docxml.at("//*[local-name() = 'head']/*[local-name() = 'title']")
       head = docxml.at("//*[local-name() = 'head']")
       head << htmlstylesheet(@htmlstylesheet)
       s = htmlstylesheet(@htmlstylesheet_override) and head << s
@@ -68,8 +67,8 @@ module IsoDoc::HtmlFunction
     end
 
     def html_preface(docxml)
-      html_cover(docxml) if @htmlcoverpage
-      html_intro(docxml) if @htmlintropage
+      html_cover(docxml) if @htmlcoverpage && !@bare
+      html_intro(docxml) if @htmlintropage && !@bare
       docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
       docxml.at("//body") << sourcecode_highlighter
       html_main(docxml)
@@ -79,7 +78,8 @@ module IsoDoc::HtmlFunction
 
     def authority_cleanup1(docxml, klass)
       dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
-      auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or @class = 'boilerplate-#{klass}']")
+      auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or "\
+                       "@class = 'boilerplate-#{klass}']")
       auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each(&:remove)
       auth&.xpath(".//h1 | .//h2")&.each { |h| h["class"] = "IntroTitle" }
       dest and auth and dest.replace(auth.remove)
@@ -96,7 +96,7 @@ module IsoDoc::HtmlFunction
       d = docxml.at('//div[@class="title-section"]')
       # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
       d.children.first.add_previous_sibling(
-        populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
+        populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
       )
     end
 
@@ -105,7 +105,7 @@ module IsoDoc::HtmlFunction
       d = docxml.at('//div[@class="prefatory-section"]')
       # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
       d.children.first.add_previous_sibling(
-        populate_template(doc.to_xml(encoding: "US-ASCII"), :html)
+        populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
       )
     end
 
@@ -149,7 +149,7 @@ module IsoDoc::HtmlFunction
       docxml.xpath("//*[local-name() = 'img']").each do |i|
         i["width"], i["height"] = Html2Doc.image_resize(i, image_localfile(i),
                                                         @maxheight, @maxwidth)
-        next if /^data:/.match i["src"]
+        next if /^data:/.match? i["src"]
 
         @datauriimage ? datauri(i) : move_image1(i)
       end
@@ -188,7 +188,7 @@ module IsoDoc::HtmlFunction
 
       scripts = File.read(@scripts, encoding: "UTF-8")
       a = doc.split(%r{</body>})
-      a[0] + scripts + "</body>" + a[1]
+      "#{a[0]}#{scripts}</body>#{a[1]}"
     end
 
     def sourcecode_highlighter
