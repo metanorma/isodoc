@@ -129,6 +129,8 @@ module IsoDoc::Function
         x.remove if x.name == "span" && x["class"] == "MsoCommentReference"
         x.remove if x.name == "a" && x["class"] == "FootnoteRef"
         x.remove if x.name == "span" && /mso-bookmark/.match(x["style"])
+        # nil parent means it has been removed
+        next if x.parent.nil?
         x.replace(x.children) if x.name == "a"
       end
       from_xhtml(h1)
