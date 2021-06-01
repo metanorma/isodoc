@@ -187,8 +187,11 @@ module IsoDoc::HtmlFunction
       return doc unless @scripts
 
       scripts = File.read(@scripts, encoding: "UTF-8")
+      scripts_override = ""
+      @scripts_override and
+        scripts_override = File.read(@scripts_override, encoding: "UTF-8")
       a = doc.split(%r{</body>})
-      "#{a[0]}#{scripts}</body>#{a[1]}"
+      "#{a[0]}#{scripts}#{scripts_override}</body>#{a[1]}"
     end
 
     def sourcecode_highlighter

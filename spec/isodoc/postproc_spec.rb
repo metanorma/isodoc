@@ -191,6 +191,7 @@ RSpec.describe IsoDoc do
         htmlcoverpage: "spec/assets/htmlcover.html",
         htmlintropage: "spec/assets/htmlintro.html",
         scripts: "spec/assets/scripts.html",
+        scripts_override: "spec/assets/scripts_override.html",
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
         olstyle: "l2" },
@@ -215,6 +216,7 @@ RSpec.describe IsoDoc do
     expect(html).to match(/an empty html cover page/)
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
+    expect(html).to match(/This is > also a script/)
     expect(html).not_to match(/CDATA/)
     expect(html).to match(%r{Anta&#x16D;parolo</h1>})
     expect(html).to match(%r{html-override})
