@@ -3,7 +3,7 @@
 require "spec_helper"
 require "fileutils"
 
-OPTIONS = { wordstylesheet: "spec/assets/word.css",
+options = { wordstylesheet: "spec/assets/word.css",
             htmlstylesheet: "spec/assets/html.scss" }
 
 RSpec.describe IsoDoc do
@@ -957,7 +957,9 @@ RSpec.describe IsoDoc do
   it "moves images in HTML, using relative file location" do
     FileUtils.rm_f "spec/test.html"
     FileUtils.rm_rf "spec/test_htmlimages"
-    IsoDoc::HtmlConvert.new({ wordstylesheet: "assets/word.css", htmlstylesheet: "assets/html.scss" })
+    IsoDoc::HtmlConvert
+      .new(wordstylesheet: "assets/word.css",
+           htmlstylesheet: "assets/html.scss")
       .convert("spec/test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
          <preface><foreword>
@@ -996,7 +998,7 @@ RSpec.describe IsoDoc do
   it "encodes images in HTML as data URIs" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_rf "test_htmlimages"
-    IsoDoc::HtmlConvert.new({ htmlstylesheet: "spec/assets/html.scss", datauriimage: true })
+    IsoDoc::HtmlConvert.new(htmlstylesheet: "spec/assets/html.scss", datauriimage: true)
       .convert("test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
          <preface><foreword>
@@ -1064,7 +1066,7 @@ RSpec.describe IsoDoc do
   it "processes IsoXML terms for HTML" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_f "test.doc"
-    IsoDoc::HtmlConvert.new(OPTIONS)
+    IsoDoc::HtmlConvert.new(options)
       .convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <sections>
@@ -1121,7 +1123,7 @@ RSpec.describe IsoDoc do
   it "processes empty term modifications" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_f "test.doc"
-    IsoDoc::HtmlConvert.new(OPTIONS)
+    IsoDoc::HtmlConvert.new(options)
       .convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <sections>
@@ -1158,7 +1160,7 @@ RSpec.describe IsoDoc do
   it "creates continuation styles for multiparagraph list items in Word" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(OPTIONS)
+    IsoDoc::WordConvert.new(options)
       .convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
@@ -1269,7 +1271,7 @@ RSpec.describe IsoDoc do
   it "does not lose HTML escapes in postprocessing" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new(OPTIONS)
+    IsoDoc::HtmlConvert.new(options)
       .convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
@@ -1300,7 +1302,7 @@ RSpec.describe IsoDoc do
   it "does not lose HTML escapes in postprocessing (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(OPTIONS)
+    IsoDoc::WordConvert.new(options)
       .convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
@@ -1331,7 +1333,7 @@ RSpec.describe IsoDoc do
   it "propagates example style to paragraphs in postprocessing (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(OPTIONS).convert("test", <<~"INPUT", false)
+    IsoDoc::WordConvert.new(options).convert("test", <<~"INPUT", false)
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <example id="samplecode">
@@ -1362,7 +1364,7 @@ RSpec.describe IsoDoc do
   it "deals with image captions (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(OPTIONS)
+    IsoDoc::WordConvert.new(options)
       .convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
@@ -1396,7 +1398,7 @@ RSpec.describe IsoDoc do
   it "deals with empty table titles (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(OPTIONS)
+    IsoDoc::WordConvert.new(options)
       .convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
@@ -1457,22 +1459,21 @@ RSpec.describe IsoDoc do
   it "propagates alignment of table cells (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(OPTIONS)
+    IsoDoc::WordConvert.new(options)
       .convert("test", <<~"INPUT", false)
-        #{'                  '}
-                <iso-standard xmlns="http://riboseinc.com/isoxml">
-                          <preface><foreword>
-                      <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
-                            <td rowspan="2" align="left">
-                              <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength</p>
-                              <p id="_c47d9b39-adb2-431d-9320-78cb148fdb57">Output wavelength</p>
-                            </td>
-                            <th colspan="3" align="right"><p id="_c47d9b39-adb2-431d-9320-78cb148fdb58">Predictive wavelengths</p></th>
-                          </tr>
-                          </thead>
-                          </table>
-                          </preface>
-                          </iso-standard>
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+                  <preface><foreword>
+              <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
+                    <td rowspan="2" align="left">
+                      <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength</p>
+                      <p id="_c47d9b39-adb2-431d-9320-78cb148fdb57">Output wavelength</p>
+                    </td>
+                    <th colspan="3" align="right"><p id="_c47d9b39-adb2-431d-9320-78cb148fdb58">Predictive wavelengths</p></th>
+                  </tr>
+                  </thead>
+                  </table>
+                  </preface>
+                  </iso-standard>
       INPUT
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
@@ -1517,7 +1518,7 @@ RSpec.describe IsoDoc do
   end
 
   it "cleans up boilerplate" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss", filename: "test" }).html_preface(Nokogiri::XML(<<~INPUT)).to_xml).sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <html>
       <head/>
       <body>
@@ -1535,6 +1536,7 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     INPUT
+    html = <<~OUTPUT
       <main class='main-section'>
         <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
         <hr/>
@@ -1552,27 +1554,7 @@ RSpec.describe IsoDoc do
         </div>
       </main>
     OUTPUT
-  end
-
-  it "cleans up boilerplate (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss", filename: "test" }).word_cleanup(Nokogiri::XML(<<~INPUT)).to_xml).sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")).to be_equivalent_to xmlpp(<<~"OUTPUT")
-      <html>
-      <head/>
-      <body>
-      <div class="main-section">
-      <div id="boilerplate-copyright"> <h1>Copyright</h1> </div>
-      <div id="boilerplate-license"> <h1>License</h1> </div>
-      <div id="boilerplate-legal"> <h1>Legal</h1> </div>
-      <div id="boilerplate-feedback"> <h1>Feedback</h1> </div>
-      <hr/>
-      <div id="boilerplate-feedback-destination"/>
-      <div id="boilerplate-legal-destination"/>
-      <div id="boilerplate-license-destination"/>
-      <div id="boilerplate-copyright-destination"/>
-      </div>
-      </body>
-      </html>
-    INPUT
+    doc = <<~OUTPUT
           <html>
         <head/>
         <body>
@@ -1594,6 +1576,18 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert
+      .new(wordstylesheet: "spec/assets/word.css",
+           htmlstylesheet: "spec/assets/html.scss", filename: "test")
+      .html_preface(Nokogiri::XML(input)).to_xml)
+      .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert
+      .new(wordstylesheet: "spec/assets/word.css",
+           htmlstylesheet: "spec/assets/html.scss", filename: "test")
+       .word_cleanup(Nokogiri::XML(input)).to_xml)
+       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .to be_equivalent_to xmlpp(doc)
   end
 
   it "deals with landscape and portrait pagebreaks (Word)" do
@@ -1796,7 +1790,7 @@ RSpec.describe IsoDoc do
   end
 
   it "expands out nested tables in Word" do
-    expect(xmlpp(IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss", filename: "test" }).word_cleanup(Nokogiri::XML(<<~INPUT)).to_xml).sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
           <html>
           <head/>
           <body>
@@ -1818,6 +1812,7 @@ RSpec.describe IsoDoc do
           </body>
           </html>
     INPUT
+    output = <<~OUTPUT
           <html>
         <head/>
         <body>
@@ -1913,10 +1908,16 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert
+      .new(wordstylesheet: "spec/assets/word.css",
+           htmlstylesheet: "spec/assets/html.scss", filename: "test")
+      .word_cleanup(Nokogiri::XML(input)).to_xml)
+      .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "allocate widths to tables (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss", filename: "test" }).word_cleanup(Nokogiri::XML(<<~INPUT)).to_xml).sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
              <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
                <head><style/></head>
                <body lang='EN-US' link='blue' vlink='#954F72'>
@@ -2050,6 +2051,7 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     INPUT
+    output = <<~OUTPUT
       <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
                <head>
                  <style/>
@@ -2185,5 +2187,57 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert
+      .new(wordstylesheet: "spec/assets/word.css",
+           htmlstylesheet: "spec/assets/html.scss", filename: "test")
+      .word_cleanup(Nokogiri::XML(input)).to_xml)
+      .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "generates bare HTML file" do
+    FileUtils.rm_f "test.html"
+    IsoDoc::HtmlConvert.new(
+      { bare: true,
+        htmlstylesheet: "spec/assets/html.scss",
+        filename: "test" },
+    ).convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+              <bibdata>
+              <title language="en">test</title>
+              </bibdata>
+          <preface><foreword>
+          <note>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+      </note>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <body lang='en' xml:lang='en'>
+        <main class='main-section'>
+          <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
+          <br/>
+          <div>
+            <h1 class='ForewordTitle'>Foreword</h1>
+            <div class='Note'>
+              <p>
+                &#xA0; These results are based on a study carried out on three
+                different types of kernel.
+              </p>
+            </div>
+          </div>
+          <p class='zzSTDTitle1'>test</p>
+        </main>
+        <script/>
+      </body>
+    OUTPUT
+    expect(File.exist?("test.html")).to be true
+    html = File.read("test.html")
+      .sub(%r{^.*<body}m, "<body")
+      .sub(%r{</body>.*$}m, "</body>")
+      .gsub(%r{<script.+?</script>}m, "<script/>")
+      .sub(%r{(<script/>\s+)+}m, "<script/>")
+    expect(xmlpp(html)).to be_equivalent_to xmlpp(output)
   end
 end

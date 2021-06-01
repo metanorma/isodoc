@@ -21,9 +21,10 @@ module IsoDoc::Function
       filename = filepath.sub_ext("").sub(/\.presentation$/, "").to_s
       dir = init_dir(filename, debug)
       @filename = filename
-      @localdir = filepath.parent.to_s + "/"
+      @localdir = "#{filepath.parent}/"
       @sourcedir = @localdir
-      @sourcefilename and @sourcedir = Pathname.new(@sourcefilename).parent.to_s + "/"
+      @sourcefilename and
+        @sourcedir = "#{Pathname.new(@sourcefilename).parent}/"
       [filename, dir]
     end
 
@@ -47,7 +48,7 @@ module IsoDoc::Function
 
     # isodoc.css overrides any CSS injected by Html2Doc, which
     # is inserted before this CSS.
-    def define_head(head, filename, _dir)
+    def define_head(head, _filename, _dir)
       if @standardstylesheet
         head.style do |style|
           @standardstylesheet.open

@@ -472,96 +472,90 @@ RSpec.describe IsoDoc do
   end
 
   it "processes paragraphs containing notes" do
-    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-                <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
-        <note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
-        </foreword></preface>
-            </iso-standard>
-      INPUT
-        #{HTML_HDR}
-                  <br/>
-                  <div>
-                    <h1 class='ForewordTitle'>Foreword</h1>
-                    <p id='A'>
-                      ABC
-                      <div id='B' class='Note'>
-                        <p>
-                          <span class='note_label'>NOTE 1</span>
-                          &#160; XYZ
-                        </p>
-                      </div>
-                      <div id='B1' class='Note'>
-                        <p>
-                          <span class='note_label'>NOTE 2</span>
-                          &#160; XYZ1
-                        </p>
-                      </div>
-                    </p>
-                  </div>
-                  <p class='zzSTDTitle1'/>
-                </div>
-              </body>
-            </html>
-      OUTPUT
-  end
-
-  it "processes paragraphs containing notes (Word)" do
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", <<~"INPUT", true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-                <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
-        <note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
-        </foreword></preface>
-            </iso-standard>
-      INPUT
-        <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-        <head>
-            <style/>
-          </head>
-          <body lang='EN-US' link='blue' vlink='#954F72'>
-            <div class='WordSection1'>
-              <p>&#160;</p>
-            </div>
-            <p>
-              <br clear='all' class='section'/>
-            </p>
-            <div class='WordSection2'>
-              <p>
-                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-              </p>
-              <div>
-                <h1 class='ForewordTitle'>Foreword</h1>
-                <p id='A'>ABC </p>
-                <div id='B' class='Note'>
-                  <p class='Note'>
-                    <span class='note_label'>NOTE 1</span>
-                    <span style='mso-tab-count:1'>&#160; </span>
-                    XYZ
+    input = <<~INPUT
+              <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
+      <note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
+      </foreword></preface>
+          </iso-standard>
+    INPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+                <br/>
+                <div>
+                  <h1 class='ForewordTitle'>Foreword</h1>
+                  <p id='A'>
+                    ABC
+                    <div id='B' class='Note'>
+                      <p>
+                        <span class='note_label'>NOTE 1</span>
+                        &#160; XYZ
+                      </p>
+                    </div>
+                    <div id='B1' class='Note'>
+                      <p>
+                        <span class='note_label'>NOTE 2</span>
+                        &#160; XYZ1
+                      </p>
+                    </div>
                   </p>
                 </div>
-                <div id='B1' class='Note'>
-                  <p class='Note'>
-                    <span class='note_label'>NOTE 2</span>
-                    <span style='mso-tab-count:1'>&#160; </span>
-                    XYZ1
-                  </p>
-                </div>
+                <p class='zzSTDTitle1'/>
               </div>
-              <p>&#160;</p>
-            </div>
+            </body>
+          </html>
+    OUTPUT
+
+    doc = <<~OUTPUT
+      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+      <head>
+          <style/>
+        </head>
+        <body lang='EN-US' link='blue' vlink='#954F72'>
+          <div class='WordSection1'>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection2'>
             <p>
-              <br clear='all' class='section'/>
+              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-            <div class='WordSection3'>
-              <p class='zzSTDTitle1'/>
+            <div>
+              <h1 class='ForewordTitle'>Foreword</h1>
+              <p id='A'>ABC </p>
+              <div id='B' class='Note'>
+                <p class='Note'>
+                  <span class='note_label'>NOTE 1</span>
+                  <span style='mso-tab-count:1'>&#160; </span>
+                  XYZ
+                </p>
+              </div>
+              <div id='B1' class='Note'>
+                <p class='Note'>
+                  <span class='note_label'>NOTE 2</span>
+                  <span style='mso-tab-count:1'>&#160; </span>
+                  XYZ1
+                </p>
+              </div>
             </div>
-          </body>
-        </html>
-      OUTPUT
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection3'>
+            <p class='zzSTDTitle1'/>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(doc)
   end
 
   it "processes figures" do
@@ -823,7 +817,7 @@ RSpec.describe IsoDoc do
 
   it "converts SVG (Word)" do
     FileUtils.rm_rf "spec/assets/odf1.emf"
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'").gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <figure id="figureA-1">
@@ -835,6 +829,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
+    output = <<~OUTPUT
           <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
       <head>
       <style>
@@ -871,6 +866,12 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)
+      .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
+      .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
+      .to be_equivalent_to xmlpp(output)
   end
 
   context "disable inkscape" do
@@ -881,58 +882,63 @@ RSpec.describe IsoDoc do
       allow_any_instance_of(IsoDoc::WordFunction::Body)
         .to receive(:inkscape_installed?)
 
-      expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
-.convert("test", <<~"INPUT", true).gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.svg['"]/, "'_.svg'").gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
-      <figure id="figureA-1">
-    <image src="spec/assets/odf.svg" mimetype="image/svg+xml"/>
-    <image src="spec/assets/odf1.svg" mimetype="image/svg+xml"/>
-    <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
-  </figure>
-      </foreword></preface>
-      </iso-standard>
+      input = <<~INPUT
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface><foreword>
+            <figure id="figureA-1">
+          <image src="spec/assets/odf.svg" mimetype="image/svg+xml"/>
+          <image src="spec/assets/odf1.svg" mimetype="image/svg+xml"/>
+          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
+        </figure>
+            </foreword></preface>
+            </iso-standard>
       INPUT
-   <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-  <head>
-  <style>
-          </style>
-    </head>
-    <body lang='EN-US' link='blue' vlink='#954F72'>
-      <div class='WordSection1'>
-        <p>&#160;</p>
-      </div>
-      <p>
-        <br clear='all' class='section'/>
-      </p>
-      <div class='WordSection2'>
-        <p>
-          <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-        </p>
-        <div>
-          <h1 class='ForewordTitle'>Foreword</h1>
-          <div id='figureA-1' class='figure'>
-            <img src='spec/assets/odf.emf'/>
-            <img src='spec/assets/odf1.svg'/>
-            <img src='_.svg' height='auto' width='auto'/>
-          </div>
-        </div>
-        <p>&#160;</p>
-      </div>
-      <p>
-        <br clear='all' class='section'/>
-      </p>
-      <div class='WordSection3'>
-        <p class='zzSTDTitle1'/>
-      </div>
-    </body>
-  </html>
+      output = <<~OUTPUT
+         <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+        <head>
+        <style>
+                </style>
+          </head>
+          <body lang='EN-US' link='blue' vlink='#954F72'>
+            <div class='WordSection1'>
+              <p>&#160;</p>
+            </div>
+            <p>
+              <br clear='all' class='section'/>
+            </p>
+            <div class='WordSection2'>
+              <p>
+                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+              </p>
+              <div>
+                <h1 class='ForewordTitle'>Foreword</h1>
+                <div id='figureA-1' class='figure'>
+                  <img src='spec/assets/odf.emf'/>
+                  <img src='spec/assets/odf1.svg'/>
+                  <img src='_.svg' height='auto' width='auto'/>
+                </div>
+              </div>
+              <p>&#160;</p>
+            </div>
+            <p>
+              <br clear='all' class='section'/>
+            </p>
+            <div class='WordSection3'>
+              <p class='zzSTDTitle1'/>
+            </div>
+          </body>
+        </html>
       OUTPUT
+      expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+        .convert("test", input, true)
+        .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.svg['"]/, "'_.svg'")
+        .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
+        .to be_equivalent_to xmlpp(output)
     end
   end
 
-  it "processes examples (Presentation XML)" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes examples" do
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <example id="samplecode" keep-with-next="true" keep-lines-together="true">
@@ -945,6 +951,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
+    presxml = <<~OUTPUT
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
@@ -960,22 +967,8 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-  end
 
-  it "processes examples (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <iso-standard xmlns='http://riboseinc.com/isoxml'>
-        <preface>
-          <foreword>
-            <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
-              <name>EXAMPLE&#xA0;&#x2014; Title</name>
-              <p>Hello</p>
-              <sourcecode id='X'><name>Sample</name></sourcecode>
-            </example>
-          </foreword>
-        </preface>
-      </iso-standard>
-    INPUT
+    html = <<~OUTPUT
       #{HTML_HDR}
                        <br/>
                        <div>
@@ -983,7 +976,12 @@ RSpec.describe IsoDoc do
                          <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
                          <p class="example-title">EXAMPLE&#160;&#8212; Title</p>
                  <p>Hello</p>
-                 <pre id='X' class='prettyprint '/>
+                 <pre id='X' class='prettyprint '>
+          <br/>
+          &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+          <br/>
+          &#160;&#160;&#160;&#160;&#160;&#160;&#160;
+             </pre>
           <p class='SourceTitle' style='text-align:center;'>Sample</p>
                          </div>
                        </div>
@@ -992,22 +990,7 @@ RSpec.describe IsoDoc do
                    </body>
                </html>
     OUTPUT
-  end
-
-  it "processes examples (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <iso-standard xmlns='http://riboseinc.com/isoxml'>
-        <preface>
-          <foreword>
-            <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
-              <name>EXAMPLE&#xA0;&#x2014; Title</name>
-              <p>Hello</p>
-              <sourcecode id='X'><name>Sample</name></sourcecode>
-            </example>
-          </foreword>
-        </preface>
-      </iso-standard>
-    INPUT
+    doc = <<~OUTPUT
           <html  xmlns:epub='http://www.idpf.org/2007/ops' lang='en'><head><style>
               </style>
         </head>
@@ -1027,7 +1010,12 @@ RSpec.describe IsoDoc do
               <div id='samplecode' class='example' style='page-break-after: avoid;page-break-inside: avoid;'>
                 <p class='example-title'>EXAMPLE&#160;&#8212; Title</p>
                 <p>Hello</p>
-                <p id='X' class='Sourcecode'/>
+                <p id='X' class='Sourcecode'>
+          <br/>
+          &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+          <br/>
+          &#160;&#160;&#160;&#160;&#160;&#160;&#160;
+          </p>
                 <p class='SourceTitle' style='text-align:center;'>Sample</p>
               </div>
             </div>
@@ -1042,10 +1030,13 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(doc)
   end
 
   it "processes sequences of examples" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <example id="samplecode">
@@ -1061,6 +1052,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
+    output = <<~OUTPUT
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
@@ -1081,10 +1073,11 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
-  it "processes sourcecode (Presentation XML)" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes sourcecode" do
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <sourcecode lang="ruby" id="samplecode">
@@ -1097,6 +1090,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
+    presxml = <<~OUTPUT
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
@@ -1113,98 +1107,55 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-  end
 
-  it "processes sourcecode (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <iso-standard xmlns='http://riboseinc.com/isoxml'>
-        <preface>
-          <foreword>
-            <sourcecode lang='ruby' id='samplecode'>
-              <name>
-                Figure 1&#xA0;&#x2014; Ruby
-                <em>code</em>
-              </name>
-        puts x
-      </sourcecode>
-            <sourcecode unnumbered='true'>
-      Que?
-      </sourcecode>
-          </foreword>
-        </preface>
-      </iso-standard>
-    INPUT
+    html = <<~OUTPUT
       #{HTML_HDR}
                          <br/>
                          <div>
                            <h1 class="ForewordTitle">Foreword</h1>
-                           <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160; puts x<br/></pre>
+                           <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; puts x<br/>&#160;&#160;&#160;&#160;&#160;</pre>
                            <p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
-                           <pre class='prettyprint '>
-            <br/>
-            Que?
-            <br/>
-          </pre>
+                           <pre class='prettyprint '> Que? </pre>
                          </div>
                          <p class="zzSTDTitle1"/>
                        </div>
                      </body>
                  </html>
     OUTPUT
-  end
 
-  it "processes sourcecode (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <iso-standard xmlns='http://riboseinc.com/isoxml'>
-        <preface>
-          <foreword>
-            <sourcecode lang='ruby' id='samplecode'>
-              <name>
-                Figure 1&#xA0;&#x2014; Ruby
-                <em>code</em>
-              </name>
-        puts x
-      </sourcecode>
-            <sourcecode unnumbered='true'>
-      Que?
-      </sourcecode>
-          </foreword>
-        </preface>
-      </iso-standard>
-    INPUT
-          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-               <head><style/></head>
-               <body lang="EN-US" link="blue" vlink="#954F72">
-                 <div class="WordSection1">
-                   <p>&#160;</p>
-                 </div>
-                 <p>
-                   <br clear="all" class="section"/>
-                 </p>
-                 <div class="WordSection2">
-                   <p>
-                     <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                   </p>
-                     <div>
-                       <h1 class="ForewordTitle">Foreword</h1>
-                       <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160; puts x<br/></p><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
-                       <p class='Sourcecode'>
-        <br/>
-        Que?
-        <br/>
+    doc = <<~OUTPUT
+         <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+              <head><style/></head>
+              <body lang="EN-US" link="blue" vlink="#954F72">
+                <div class="WordSection1">
+                  <p>&#160;</p>
+                </div>
+                <p>
+                  <br clear="all" class="section"/>
+                </p>
+                <div class="WordSection2">
+                  <p>
+                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                  </p>
+                    <div>
+                      <h1 class="ForewordTitle">Foreword</h1>
+                      <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; puts x<br/>&#160;&#160;&#160;&#160;&#160; </p><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
+                      <p class='Sourcecode'> Que? </p>
+                    </div>
+                       <p>&#160;</p>
+      </div>
+      <p>
+        <br clear="all" class="section"/>
       </p>
-                     </div>
-                        <p>&#160;</p>
-       </div>
-       <p>
-         <br clear="all" class="section"/>
-       </p>
-       <div class="WordSection3">
-                     <p class="zzSTDTitle1"/>
-                   </div>
-                 </body>
-             </html>
+      <div class="WordSection3">
+                    <p class="zzSTDTitle1"/>
+                  </div>
+                </body>
+            </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(doc)
   end
 
   it "processes sourcecode with escapes preserved" do

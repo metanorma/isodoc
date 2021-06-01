@@ -5,9 +5,9 @@ module IsoDoc::HtmlFunction
   module Html
     def convert1(docxml, filename, dir)
       noko do |xml|
-        xml.html **{ lang: "#{@lang}" } do |html|
+        xml.html **{ lang: @lang.to_s } do |html|
           info docxml, nil
-          populate_css()
+          populate_css
           html.head { |head| define_head head, filename, dir }
           make_body(html, docxml)
         end
@@ -15,13 +15,17 @@ module IsoDoc::HtmlFunction
     end
 
     def make_body1(body, _docxml)
+      return if @bare
+
       body.div **{ class: "title-section" } do |div1|
         div1.p { |p| p << "&nbsp;" } # placeholder
       end
       section_break(body)
     end
 
-    def make_body2(body, docxml)
+    def make_body2(body, _docxml)
+      return if @bare
+
       body.div **{ class: "prefatory-section" } do |div2|
         div2.p { |p| p << "&nbsp;" } # placeholder
       end
@@ -43,46 +47,47 @@ module IsoDoc::HtmlFunction
       end
     end
 
-    def googlefonts()
+    def googlefonts
       <<~HEAD.freeze
-      <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
       HEAD
     end
 
-    def html_head()
+    def html_head
       <<~HEAD.freeze
-    <title>#{@meta&.get&.dig(:doctitle)}</title>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <title>#{@meta&.get&.dig(:doctitle)}</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <!--TOC script import-->
-    <script type="text/javascript"  src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
-    <script type="text/javascript">#{toclevel}</script>
+        <!--TOC script import-->
+        <script type="text/javascript"  src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
+        <script type="text/javascript">#{toclevel}</script>
 
-    <!--Google fonts-->
-      <link rel="preconnect" href="https://fonts.gstatic.com"> 
-      #{googlefonts}
-    <!--Font awesome import for the link icon-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
-    <style class="anchorjs"></style>
+        <!--Google fonts-->
+          <link rel="preconnect" href="https://fonts.gstatic.com">#{' '}
+          #{googlefonts}
+        <!--Font awesome import for the link icon-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+        <style class="anchorjs"></style>
       HEAD
     end
 
-    def html_button()
+    def html_button
       '<button onclick="topFunction()" id="myBtn" '\
         'title="Go to top">Top</button>'.freeze
     end
 
     def html_main(docxml)
-      docxml.at("//head").add_child(html_head())
+      docxml.at("//head").add_child(html_head)
       d = docxml.at('//div[@class="main-section"]')
       d.name = "main"
-      d.children.empty? or d.children.first.previous = html_button()
+      d.children.empty? or d.children.first.previous = html_button
     end
 
     def sourcecodelang(lang)
       return unless lang
+
       case lang.downcase
       when "javascript" then "lang-js"
       when "c" then "lang-c"
@@ -117,7 +122,6 @@ module IsoDoc::HtmlFunction
       end
     end
 
-    def table_long_strings_cleanup(docxml)
-    end
+    def table_long_strings_cleanup(docxml); end
   end
 end
