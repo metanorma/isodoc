@@ -32,6 +32,7 @@ module IsoDoc
     # monospace: font to use for monospace text
     # suppressheadingnumbers: suppress heading numbers for clauses
     # scripts: Scripts file for HTML
+    # scripts_override: Override scripts file for HTML
     # scripts_pdf: Scripts file for PDF (not used in XSLT PDF)
     # datauriimage: Encode images in HTML output as data URIs
     # break_up_urls_in_tables: whether to insert spaces in URLs in tables
@@ -65,6 +66,7 @@ module IsoDoc
       @scripts = options[:scripts] ||
         File.join(File.dirname(__FILE__), "base_style", "scripts.html")
       @scripts_pdf = options[:scripts_pdf]
+      @scripts_override = options[:scripts_override]
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
       @olstyle = options[:olstyle]
