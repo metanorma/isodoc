@@ -2208,6 +2208,11 @@ RSpec.describe IsoDoc do
               <bibdata>
               <title language="en">test</title>
               </bibdata>
+              <boilerplate>
+              <feedback-statement>
+              <clause><title>I am boilerplate</title></clause>
+              </feedback-statement>
+              </boilerplate>
           <preface><foreword>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>

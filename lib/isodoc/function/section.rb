@@ -8,11 +8,11 @@ module IsoDoc::Function
       insert_tab(out, 1)
     end
 
-    def inline_header_title(out, node, title)
+    def inline_header_title(out, _node, title)
       out.span **{ class: "zzMoveToFollowing" } do |s|
         s.b do |b|
           title&.children&.each { |c2| parse(c2, b) }
-          clausedelimspace(out) if /\S/.match(title&.text)
+          clausedelimspace(out) if /\S/.match?(title&.text)
         end
       end
     end
@@ -20,12 +20,14 @@ module IsoDoc::Function
     # used for subclauses
     def clause_parse_title(node, div, title, out, header_class = {})
       return if title.nil?
+
       if node["inline-header"] == "true"
         inline_header_title(out, node, title)
       else
-        depth = (title && title["depth"]) ? title["depth"] :
-          node.ancestors("clause, annex, terms, references, definitions, "\
-                        "acknowledgements, introduction, foreword").size + 1
+        depth = if title && title["depth"] then title["depth"]
+                else node.ancestors("clause, annex, terms, references, definitions, "\
+                                    "acknowledgements, introduction, foreword").size + 1
+                end
         div.send "h#{depth}", **attr_code(header_class) do |h|
           title&.children&.each { |c2| parse(c2, h) }
         end
@@ -49,8 +51,11 @@ module IsoDoc::Function
     def clause_name(_num, title, div, header_class)
       header_class = {} if header_class.nil?
       div.h1 **attr_code(header_class) do |h1|
-        title.is_a?(String) ? h1 << title :
+        if title.is_a?(String)
+          h1 << title
+        else
           title&.children&.each { |c2| parse(c2, h1) }
+        end
       end
       div.parent.at(".//h1")
     end
@@ -66,8 +71,9 @@ module IsoDoc::Function
       end
     end
 
-    def annex_name(annex, name, div)
+    def annex_name(_annex, name, div)
       return if name.nil?
+
       div.h1 **{ class: "Annex" } do |t|
         name.children.each { |c2| parse(c2, t) }
       end
@@ -144,7 +150,6 @@ module IsoDoc::Function
 
     def introduction(isoxml, out)
       f = isoxml.at(ns("//introduction")) || return
-      title_attr = { class: "IntroTitle" }
       page_break(out)
       out.div **{ class: "Section3", id: f["id"] } do |div|
         clause_name(nil, f.at(ns("./title")), div, { class: "IntroTitle" })
@@ -160,7 +165,7 @@ module IsoDoc::Function
       out.div **attr_code(id: f["id"]) do |s|
         clause_name(nil, f.at(ns("./title")) || @i18n.foreword, s,
                     { class: "ForewordTitle" })
-        #s.h1(**{ class: "ForewordTitle" }) { |h1| h1 << @i18n.foreword }
+        # s.h1(**{ class: "ForewordTitle" }) { |h1| h1 << @i18n.foreword }
         f.elements.each { |e| parse(e, s) unless e.name == "title" }
       end
     end
@@ -187,12 +192,11 @@ module IsoDoc::Function
     end
 
     def preface(isoxml, out)
-      title_attr = { class: "IntroTitle" }
       isoxml.xpath(ns("//preface/clause | //preface/references | "\
                       "//preface/definitions | //preface/terms")).each do |f|
         page_break(out)
         out.div **{ class: "Section3", id: f["id"] } do |div|
-          clause_name(nil, f&.at(ns("./title")), div, title_attr)
+          clause_name(nil, f&.at(ns("./title")), div, { class: "IntroTitle" })
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
@@ -202,37 +206,46 @@ module IsoDoc::Function
 
     def is_clause?(name)
       %w(clause references definitions terms foreword introduction abstract
-      acknowledgements).include? name
+         acknowledgements).include? name
     end
 
     def preface_block(isoxml, out)
       p = isoxml.at(ns("//preface")) or return
       p.elements.each do |e|
         next if is_clause?(e.name)
+
         parse(e, out)
       end
     end
 
     def copyright_parse(node, out)
-      out.div **{class: "boilerplate-copyright"} do |div|
+      return if @bare
+
+      out.div **{ class: "boilerplate-copyright" } do |div|
         node.children.each { |n| parse(n, div) }
       end
     end
 
     def license_parse(node, out)
-      out.div **{class: "boilerplate-license"} do |div|
+      return if @bare
+
+      out.div **{ class: "boilerplate-license" } do |div|
         node.children.each { |n| parse(n, div) }
       end
     end
 
     def legal_parse(node, out)
-      out.div **{class: "boilerplate-legal"} do |div|
+      return if @bare
+
+      out.div **{ class: "boilerplate-legal" } do |div|
         node.children.each { |n| parse(n, div) }
       end
     end
 
     def feedback_parse(node, out)
-      out.div **{class: "boilerplate-feedback"} do |div|
+      return if @bare
+
+      out.div **{ class: "boilerplate-feedback" } do |div|
         node.children.each { |n| parse(n, div) }
       end
     end
