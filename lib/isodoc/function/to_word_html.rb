@@ -129,6 +129,8 @@ module IsoDoc::Function
     end
 
     def boilerplate(node, out)
+      return if @bare
+
       boilerplate = node.at(ns("//boilerplate")) or return
       out.div **{ class: "authority" } do |s|
         boilerplate.children.each do |n|
