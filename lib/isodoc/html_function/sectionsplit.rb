@@ -12,15 +12,15 @@ module IsoDoc::HtmlFunction
       origxml = File.read(orig_filename, encoding: "utf-8")
       presxml = File.read(input_filename, encoding: "utf-8")
       @openmathdelim, @closemathdelim = extract_delims(origxml)
-      xml, filename, dir = convert_init(origxml, input_filename, debug)
+      xml, filename, dir = convert_init(presxml, input_filename, debug)
       build_collection(xml, presxml, output_filename || filename, dir)
       #FileUtils.rm_rf dir
     end
 
-    def build_collection(origxml, presxml, filename, dir)
+    def build_collection(xml, presxml, filename, dir)
       collection_setup(filename, dir)
-      files = sectionsplit(origxml, filename, dir)
-      collection_manifest(filename, files, origxml, presxml, dir).render(
+      files = sectionsplit(xml, filename, dir)
+      collection_manifest(filename, files, xml, presxml, dir).render(
         format: %i(html), output_folder: "#{filename}_collection",
         coverpage: File.join(dir, "cover.html")
       )
@@ -28,7 +28,7 @@ module IsoDoc::HtmlFunction
 
     def collection_manifest(filename, files, origxml, presxml, dir)
       File.open(File.join(dir, "#{filename}.html.yaml"), "w:UTF-8") do |f|
-        f.write(collectionyaml(files, origxml, presxml))
+        f.write(collectionyaml(files, origxml))
       end
       Metanorma::Collection.parse File.join(dir, "#{filename}.html.yaml")
     end
@@ -145,9 +145,7 @@ module IsoDoc::HtmlFunction
 
     def titlerender(section)
       title = section.at(ns("./title")) or return "[Untitled]"
-      noko do |xml|
-        title.children.each { |c| parse(c, xml) }
-      end.join("\n")
+      title.text
     end
 
     # TODO refactor in isodoc xpaths of clauses in rendering order;
@@ -171,19 +169,20 @@ module IsoDoc::HtmlFunction
       ret
     end
 
-    def collectionyaml(files, origxml, presxml)
-      names = sectionnames(Nokogiri::XML(presxml))
+    def collectionyaml(files, xml)
+      names = sectionnames(xml)
       ret = {
+        directives: ["presentation-xml", "bare-after-first"],
         bibdata: {
           title: {
             type: "title-main",
             language: @lang,
-            content: origxml.at(ns("//bibdata/title")).text,
+            content: xml.at(ns("//bibdata/title")).text,
           },
           type: "collection",
           docid: {
-            type: origxml.at(ns("//bibdata/docidentifier/@type")).text,
-            id: origxml.at(ns("//bibdata/docidentifier")).text,
+            type: xml.at(ns("//bibdata/docidentifier/@type")).text,
+            id: xml.at(ns("//bibdata/docidentifier")).text,
           },
         },
         manifest: {
