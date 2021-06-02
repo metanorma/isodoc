@@ -103,18 +103,55 @@ module IsoDoc::HtmlFunction
 
     def xref_preprocess(xml)
       key = (0...8).map { rand(65..90).chr }.join # random string
-      refs = xref_to_internal_eref(xml, key)
+      refs = eref_to_internal_eref(xml, key)
+      refs += xref_to_internal_eref(xml, key)
       xml.root["type"] = key # to force recognition of internal refs
-      insert_indirect_biblio(xml, refs.keys, key)
+      insert_indirect_biblio(xml, refs, key)
+    end
+
+    def make_anchor(anchor)
+      "<localityStack><locality type='anchor'><referenceFrom>"\
+        "#{anchor}</referenceFrom></locality></localityStack>"
     end
 
     def xref_to_internal_eref(xml, key)
       xml.xpath(ns("//xref")).each_with_object({}) do |x, m|
-        x["bibitem"] = "#{key}_#{x['target']}"
-        m[x["bibitem"]] = true
+        x["bibitemid"] = "#{key}_#{x['target']}"
+        x << make_anchor(x["target"])
+        m[x["bibitemid"]] = true
         x.delete("target")
         x["type"] = key
         x.name = "eref"
+      end.keys
+    end
+
+    def eref_to_internal_eref(xml, key)
+      eref_to_internal_eref_select(xml).each_with_object([]) do |x, m|
+        url = xml.at(ns("//bibitem[@id = '#{x}']/url[@type = 'citation']"))
+        xml.xpath(ns("//eref[@bibitemid = '#{x}']")).each do |e|
+          id = eref_to_internal_eref1(e, key, url)
+          id and m << id
+        end
+      end
+    end
+
+    def eref_to_internal_eref1(elem, key, url)
+      if url
+        elem.name = "link"
+        elem["target"] = url
+        nil
+      else
+        elem["bibitemid"] = "#{key}_#{elem['bibitemid']}"
+        elem << make_anchor(elem["bibitemid"])
+        elem["type"] = key
+        elem["bibitemid"]
+      end
+    end
+
+    def eref_to_internal_eref_select(xml)
+      refs = xml.xpath(ns("//eref/@bibitemid")).map { |x| x.text } # rubocop:disable Style/SymbolProc
+      refs.uniq.reject do |x|
+        xml.at(ns("//bibitem[@id = '#{x}'][@type = 'internal']"))
       end
     end
 
