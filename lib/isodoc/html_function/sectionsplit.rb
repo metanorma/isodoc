@@ -8,10 +8,8 @@ module IsoDoc::HtmlFunction
       input_filename += ".xml" unless input_filename.match?(/\.xml$/)
       File.exist?(input_filename) or
         File.open(input_filename, "w:UTF-8") { |f| f.write(file) }
-      orig_filename = input_filename.sub(/presentation.xml$/, "xml")
-      origxml = File.read(orig_filename, encoding: "utf-8")
       presxml = File.read(input_filename, encoding: "utf-8")
-      @openmathdelim, @closemathdelim = extract_delims(origxml)
+      @openmathdelim, @closemathdelim = extract_delims(presxml)
       xml, filename, dir = convert_init(presxml, input_filename, debug)
       build_collection(xml, presxml, output_filename || filename, dir)
     end
