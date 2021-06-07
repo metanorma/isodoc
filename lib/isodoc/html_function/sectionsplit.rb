@@ -25,7 +25,7 @@ module IsoDoc::HtmlFunction
       )
     end
 
-    def collection_manifest(filename, files, origxml, presxml, dir)
+    def collection_manifest(filename, files, origxml, _presxml, dir)
       File.open(File.join(dir, "#{filename}.html.yaml"), "w:UTF-8") do |f|
         f.write(collectionyaml(files, origxml))
       end
@@ -57,8 +57,9 @@ module IsoDoc::HtmlFunction
       xref_preprocess(xml)
       out = emptydoc(xml)
       ret = []
-      ret << sectionfile(out, dir, "#{filename}.0", xml.at(ns("//preface")),
-                         nil)
+      xml.xpath(ns("//preface/*")).each do |s|
+        ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, "preface")
+      end
       xml.xpath(ns("//sections/*")).each do |s|
         ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, "sections")
       end
@@ -82,13 +83,18 @@ module IsoDoc::HtmlFunction
       out = xml.dup
       out.xpath(
         ns("//preface | //sections | //annex | //bibliography/clause | "\
-           "//bibliography/references[not(@hidden = 'true')] | //indexsect")
+           "//bibliography/references[not(@hidden = 'true')] | //indexsect"),
       ).each(&:remove)
       out
     end
 
     def sectionfile(xml, dir, file, chunk, parentnode)
-      out = xml.dup
+      fname = create_sectionfile(xml.dup, dir, file, chunk, parentnode)
+      { order: chunk["displayorder"].to_i, url: fname,
+        title: titlerender(chunk) }
+    end
+
+    def create_sectionfile(out, dir, file, chunk, parentnode)
       ins = out.at(ns("//misccontainer")) || out.at(ns("//bibdata"))
       if parentnode
         ins.next = "<#{parentnode}/>"
@@ -96,8 +102,9 @@ module IsoDoc::HtmlFunction
       else
         ins.next = chunk.dup
       end
-      File.open(File.join(dir, "#{file}.xml"), "w:UTF-8") { |f| f.write(out) }
-      "#{file}.xml"
+      outname = "#{file}.xml"
+      File.open(File.join(dir, outname), "w:UTF-8") { |f| f.write(out) }
+      outname
     end
 
     def xref_preprocess(xml)
@@ -183,32 +190,11 @@ module IsoDoc::HtmlFunction
       title = section.at(ns("./title")) or return "[Untitled]"
       t = title.dup
       t.xpath(ns(".//tab | .//br")).each { |x| x.replace(" ") }
+      t.xpath(ns(".//strong")).each { |x| x.replace(x.children) }
       t.children.to_xml
     end
 
-    # TODO refactor in isodoc xpaths of clauses in rendering order;
-    # also to be used in xref for each flavour
-    def sectionnames(xml)
-      ret = [@i18n.preface]
-      xml.xpath(ns("//sections/*")).each do |s|
-        ret << titlerender(s)
-      end
-      xml.xpath(ns("//annex")).each do |s|
-        ret << titlerender(s)
-      end
-      xml.xpath(ns("//bibliography/*")).each do |s|
-        next if s.name == "references" && s["hidden"] == "true"
-
-        ret << titlerender(s)
-      end
-      xml.xpath(ns("//indexsect")).each do |s|
-        ret << titlerender(s)
-      end
-      ret
-    end
-
     def collectionyaml(files, xml)
-      names = sectionnames(xml)
       ret = {
         directives: ["presentation-xml", "bare-after-first"],
         bibdata: {
@@ -226,8 +212,8 @@ module IsoDoc::HtmlFunction
         manifest: {
           level: "collection",
           title: "Collection",
-          docref: files.each_with_index.map do |f, i|
-            { fileref: f, identifier: names[i] }
+          docref: files.sort_by { |f| f[:order] }.each.map do |f|
+            { fileref: f[:url], identifier: f[:title] }
           end,
         },
       }

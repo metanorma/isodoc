@@ -125,7 +125,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
               <eref bibitemid='ISO712'>[110]</eref>
               <eref bibitemid='ISBN'>[1]</eref>
@@ -139,7 +139,7 @@ RSpec.describe IsoDoc do
           </foreword>
         </preface>
         <bibliography>
-          <references id='_normative_references' obligation='informative' normative='true'>
+          <references id='_normative_references' obligation='informative' normative='true' displayorder="2">
           <title depth='1'>1.<tab/>Normative References</title>
             <p>
               The following documents are referred to in the text in such a way that
@@ -219,7 +219,7 @@ RSpec.describe IsoDoc do
               <docidentifier type='metanorma'>[5]</docidentifier>
             </bibitem>
           </references>
-          <references id='_bibliography' obligation='informative' normative='false'>
+          <references id='_bibliography' obligation='informative' normative='false' displayorder="3">
             <title depth="1">Bibliography</title>
             <bibitem id='ISBN' type='ISBN'>
               <title format='text/plain'>Chemicals for analytical laboratory use</title>

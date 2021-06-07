@@ -129,30 +129,32 @@ RSpec.describe IsoDoc do
   end
 
   it "processes document with no content" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-.convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-  <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface/>
-        <sections/>
-      </iso-standard>
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface/>
+            <sections/>
+          </iso-standard>
     INPUT
-      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-    <head/>
-    <body lang="en">
-      <div class="title-section">
-        <p>&#160;</p>
-      </div>
-      <br/>
-      <div class="prefatory-section">
-        <p>&#160;</p>
-      </div>
-      <br/>
-      <div class="main-section">
-        <p class="zzSTDTitle1"/>
-      </div>
-    </body>
-  </html>
+    output = <<~OUTPUT
+          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+        <head/>
+        <body lang="en">
+          <div class="title-section">
+            <p>&#160;</p>
+          </div>
+          <br/>
+          <div class="prefatory-section">
+            <p>&#160;</p>
+          </div>
+          <br/>
+          <div class="main-section">
+            <p class="zzSTDTitle1"/>
+          </div>
+        </body>
+      </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+.convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes section names" do
@@ -261,50 +263,50 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~"PRESXML"
-             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <boilerplate>
           <copyright-statement>
             <clause>
-              <title depth="1">Copyright</title>
+              <title depth='1'>Copyright</title>
             </clause>
           </copyright-statement>
           <license-statement>
             <clause>
-              <title depth="1">License</title>
+              <title depth='1'>License</title>
             </clause>
           </license-statement>
           <legal-statement>
             <clause>
-              <title depth="1">Legal</title>
+              <title depth='1'>Legal</title>
             </clause>
           </legal-statement>
           <feedback-statement>
             <clause>
-              <title depth="1">Feedback</title>
+              <title depth='1'>Feedback</title>
             </clause>
           </feedback-statement>
         </boilerplate>
         <preface>
-          <abstract obligation='informative'>
+          <abstract obligation='informative' displayorder='1'>
             <title>Abstract</title>
           </abstract>
-          <foreword obligation='informative'>
+          <foreword obligation='informative' displayorder='2'>
             <title>Foreword</title>
             <p id='A'>This is a preamble</p>
           </foreword>
-          <introduction id='B' obligation='informative'>
+          <introduction id='B' obligation='informative' displayorder='3'>
             <title>Introduction</title>
             <clause id='C' inline-header='false' obligation='informative'>
               <title depth='2'>Introduction Subsection</title>
             </clause>
           </introduction>
-          <clause id='B1'>
+          <clause id='B1' displayorder='4'>
             <title depth='1'>Dedication</title>
           </clause>
-          <clause id='B2'>
+          <clause id='B2' displayorder='5'>
             <title depth='1'>Note to reader</title>
           </clause>
-          <acknowledgements obligation='informative'>
+          <acknowledgements obligation='informative' displayorder='6'>
             <title>Acknowledgements</title>
           </acknowledgements>
         </preface>
@@ -316,11 +318,11 @@ RSpec.describe IsoDoc do
           <admonition id='NN2' type='warning'>
             <p>Initial admonition</p>
           </admonition>
-          <clause id='D' obligation='normative' type='scope'>
+          <clause id='D' obligation='normative' type='scope' displayorder='7'>
             <title depth='1'>1.<tab/>Scope</title>
             <p id='E'>Text</p>
           </clause>
-          <clause id='H' obligation='normative'>
+          <clause id='H' obligation='normative' displayorder='9'>
             <title depth='1'>3.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
             <terms id='I' obligation='normative'>
               <title depth='2'>3.1.<tab/>Normal Terms</title>
@@ -330,21 +332,21 @@ RSpec.describe IsoDoc do
               </term>
             </terms>
             <definitions id='K'>
-            <title depth='2'>3.2.<tab/>Definitions</title>
+              <title depth='2'>3.2.<tab/>Definitions</title>
               <dl>
                 <dt>Symbol</dt>
                 <dd>Definition</dd>
               </dl>
             </definitions>
           </clause>
-          <definitions id='L'>
-          <title depth='1'>4.<tab/>Symbols and abbreviated terms</title>
+          <definitions id='L' displayorder='10'>
+            <title depth='1'>4.<tab/>Symbols and abbreviated terms</title>
             <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
             </dl>
           </definitions>
-          <clause id='M' inline-header='false' obligation='normative'>
+          <clause id='M' inline-header='false' obligation='normative' displayorder='11'>
             <title depth='1'>5.<tab/>Clause 4</title>
             <clause id='N' inline-header='false' obligation='normative'>
               <title depth='2'>5.1.<tab/>Introduction</title>
@@ -357,8 +359,14 @@ RSpec.describe IsoDoc do
             </clause>
           </clause>
         </sections>
-        <annex id='P' inline-header='false' obligation='normative'>
-          <title> <strong>Annex A</strong><br/>(normative)<br/><br/><strong>Annex</strong>
+        <annex id='P' inline-header='false' obligation='normative' displayorder='12'>
+          <title>
+            <strong>Annex A</strong>
+            <br/>
+            (normative)
+            <br/>
+            <br/>
+            <strong>Annex</strong>
           </title>
           <clause id='Q' inline-header='false' obligation='normative'>
             <title depth='2'>A.1.<tab/>Annex A.1</title>
@@ -370,17 +378,21 @@ RSpec.describe IsoDoc do
             </references>
           </clause>
         </annex>
-        <annex id='P1' inline-header='false' obligation='normative'>
-          <title><strong>Annex B</strong><br/>(normative)</title>
+        <annex id='P1' inline-header='false' obligation='normative' displayorder='13'>
+          <title>
+            <strong>Annex B</strong>
+            <br/>
+            (normative)
+          </title>
         </annex>
         <bibliography>
-          <references id='R' obligation='informative' normative='true'>
-          <title depth='1'>2.<tab/>Normative References</title>
+          <references id='R' obligation='informative' normative='true' displayorder='8'>
+            <title depth='1'>2.<tab/>Normative References</title>
           </references>
-          <clause id='S' obligation='informative'>
+          <clause id='S' obligation='informative' displayorder='14'>
             <title depth='1'>Bibliography</title>
             <references id='T' obligation='informative' normative='false'>
-              <title depth="2">Bibliography Subsection</title>
+              <title depth='2'>Bibliography Subsection</title>
             </references>
           </clause>
         </bibliography>
@@ -691,96 +703,95 @@ RSpec.describe IsoDoc do
   end
 
   it "processes section names suppressing section numbering" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({ suppressheadingnumbers: true })
-.convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-  <iso-standard xmlns="http://riboseinc.com/isoxml">
-  <preface>
-  <foreword obligation="informative">
-     <title>Foreword</title>
-     <p id="A">This is a preamble</p>
-   </foreword>
-    <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-     <title>Introduction Subsection</title>
-   </clause>
-   </introduction></preface><sections>
-   <clause id="D" obligation="normative" type="scope">
-     <title>Scope</title>
-     <p id="E">Text</p>
-   </clause>
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword obligation="informative">
+         <title>Foreword</title>
+         <p id="A">This is a preamble</p>
+       </foreword>
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+         <title>Introduction Subsection</title>
+       </clause>
+       </introduction></preface><sections>
+       <clause id="D" obligation="normative" type="scope">
+         <title>Scope</title>
+         <p id="E">Text</p>
+       </clause>
 
-   <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
-     <title>Normal Terms</title>
-     <term id="J">
-     <preferred>Term2</preferred>
-   </term>
-   </terms>
-   <definitions id="K">
-     <dl>
-     <dt>Symbol</dt>
-     <dd>Definition</dd>
-     </dl>
-   </definitions>
-   </clause>
-   <definitions id="L">
-     <dl>
-     <dt>Symbol</dt>
-     <dd>Definition</dd>
-     </dl>
-   </definitions>
-   <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-     <title>Introduction</title>
-   </clause>
-   <clause id="O" inline-header="false" obligation="normative">
-     <title>Clause 4.2</title>
-   </clause>
-   <clause id="O1" inline-header="false" obligation="normative">
-   </clause>
-    </clause>
+       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <title>Normal Terms</title>
+         <term id="J">
+         <preferred>Term2</preferred>
+       </term>
+       </terms>
+       <definitions id="K">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       </clause>
+       <definitions id="L">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+         <title>Introduction</title>
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+       </clause>
+       <clause id="O1" inline-header="false" obligation="normative">
+       </clause>
+        </clause>
 
-   </sections><annex id="P" inline-header="false" obligation="normative">
-     <title>Annex</title>
-     <clause id="Q" inline-header="false" obligation="normative">
-     <title>Annex A.1</title>
-     <clause id="Q1" inline-header="false" obligation="normative">
-     <title>Annex A.1a</title>
-     </clause>
-   </clause>
-   </annex><bibliography><references id="R" obligation="informative" normative="true">
-     <title>Normative References</title>
-   </references><clause id="S" obligation="informative">
-     <title>Bibliography</title>
-     <references id="T" obligation="informative" normative="false">
-     <title>Bibliography Subsection</title>
-   </references>
-   </clause>
-   </bibliography>
-   </iso-standard>
+       </sections><annex id="P" inline-header="false" obligation="normative">
+         <title>Annex</title>
+         <clause id="Q" inline-header="false" obligation="normative">
+         <title>Annex A.1</title>
+         <clause id="Q1" inline-header="false" obligation="normative">
+         <title>Annex A.1a</title>
+         </clause>
+       </clause>
+       </annex><bibliography><references id="R" obligation="informative" normative="true">
+         <title>Normative References</title>
+       </references><clause id="S" obligation="informative">
+         <title>Bibliography</title>
+         <references id="T" obligation="informative" normative="false">
+         <title>Bibliography Subsection</title>
+       </references>
+       </clause>
+       </bibliography>
+       </iso-standard>
     INPUT
-  <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-          <foreword obligation='informative'>
+          <foreword obligation='informative' displayorder='1'>
             <title>Foreword</title>
             <p id='A'>This is a preamble</p>
           </foreword>
-          <introduction id='B' obligation='informative'>
+          <introduction id='B' obligation='informative' displayorder='2'>
             <title>Introduction</title>
             <clause id='C' inline-header='false' obligation='informative'>
-              <title depth="2">Introduction Subsection</title>
+              <title depth='2'>Introduction Subsection</title>
             </clause>
           </introduction>
         </preface>
         <sections>
-          <clause id='D' obligation='normative' type="scope">
-            <title depth="1">Scope</title>
+          <clause id='D' obligation='normative' type='scope' displayorder='3'>
+            <title depth='1'>Scope</title>
             <p id='E'>Text</p>
           </clause>
-          <clause id='H' obligation='normative'>
-            <title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title>
+          <clause id='H' obligation='normative' displayorder='5'>
+            <title depth='1'>Terms, Definitions, Symbols and Abbreviated Terms</title>
             <terms id='I' obligation='normative'>
-              <title depth="2">Normal Terms</title>
+              <title depth='2'>Normal Terms</title>
               <term id='J'>
-              <name>3.1.1.</name>
+                <name>3.1.1.</name>
                 <preferred>Term2</preferred>
               </term>
             </terms>
@@ -791,24 +802,24 @@ RSpec.describe IsoDoc do
               </dl>
             </definitions>
           </clause>
-          <definitions id='L'>
+          <definitions id='L' displayorder='6'>
             <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
             </dl>
           </definitions>
-          <clause id='M' inline-header='false' obligation='normative'>
-            <title depth="1">Clause 4</title>
+          <clause id='M' inline-header='false' obligation='normative' displayorder='7'>
+            <title depth='1'>Clause 4</title>
             <clause id='N' inline-header='false' obligation='normative'>
-              <title depth="2">Introduction</title>
+              <title depth='2'>Introduction</title>
             </clause>
             <clause id='O' inline-header='false' obligation='normative'>
-              <title depth="2">Clause 4.2</title>
+              <title depth='2'>Clause 4.2</title>
             </clause>
             <clause id='O1' inline-header='false' obligation='normative'> </clause>
           </clause>
         </sections>
-        <annex id='P' inline-header='false' obligation='normative'>
+        <annex id='P' inline-header='false' obligation='normative' displayorder='8'>
           <title>
             <strong>Annex A</strong>
             <br/>
@@ -818,51 +829,55 @@ RSpec.describe IsoDoc do
             <strong>Annex</strong>
           </title>
           <clause id='Q' inline-header='false' obligation='normative'>
-            <title depth="2">Annex A.1</title>
+            <title depth='2'>Annex A.1</title>
             <clause id='Q1' inline-header='false' obligation='normative'>
-              <title depth="3">Annex A.1a</title>
+              <title depth='3'>Annex A.1a</title>
             </clause>
           </clause>
         </annex>
         <bibliography>
-          <references id='R' obligation='informative' normative='true'>
-            <title depth="1">Normative References</title>
+          <references id='R' obligation='informative' normative='true' displayorder='4'>
+            <title depth='1'>Normative References</title>
           </references>
-          <clause id='S' obligation='informative'>
-            <title depth="1">Bibliography</title>
+          <clause id='S' obligation='informative' displayorder='9'>
+            <title depth='1'>Bibliography</title>
             <references id='T' obligation='informative' normative='false'>
-              <title depth="2">Bibliography Subsection</title>
+              <title depth='2'>Bibliography Subsection</title>
             </references>
           </clause>
         </bibliography>
       </iso-standard>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({ suppressheadingnumbers: true })
+.convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes section titles without ID" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({ suppressheadingnumbers: true })
-.convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-  <iso-standard xmlns="http://riboseinc.com/isoxml">
-  <preface>
-    <introduction id="B" obligation="informative"><title>Introduction</title><clause obligation="informative">
-     <title>Introduction Subsection</title>
-   </clause>
-   </introduction>
-   </preface>
-   </iso-standard>
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+        <introduction id="B" obligation="informative"><title>Introduction</title><clause obligation="informative">
+         <title>Introduction Subsection</title>
+       </clause>
+       </introduction>
+       </preface>
+       </iso-standard>
     INPUT
-         <?xml version='1.0'?>
-  <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-    <preface>
-      <introduction id='B' obligation='informative'>
-        <title>Introduction</title>
-        <clause obligation='informative'>
-          <title depth="1">Introduction Subsection</title>
-        </clause>
-      </introduction>
-    </preface>
-  </iso-standard>
+    output = <<~OUTPUT
+             <?xml version='1.0'?>
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <introduction id='B' obligation='informative' displayorder="1">
+            <title>Introduction</title>
+            <clause obligation='informative'>
+              <title depth="1">Introduction Subsection</title>
+            </clause>
+          </introduction>
+        </preface>
+      </iso-standard>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({ suppressheadingnumbers: true })
+.convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes simple terms & definitions" do
@@ -881,7 +896,7 @@ RSpec.describe IsoDoc do
     presxml = <<~"OUTPUT"
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <sections>
-          <terms id='H' obligation='normative'>
+          <terms id='H' obligation='normative' displayorder="1">
           <title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
             <term id='J'>
             <name>1.1.</name>
@@ -928,7 +943,7 @@ RSpec.describe IsoDoc do
     presxml = <<~"PRESXML"
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <sections>
-          <clause id='M' inline-header='false' obligation='normative'>
+          <clause id='M' inline-header='false' obligation='normative' displayorder="1">
           <title depth='1'>1.<tab/>Clause 4</title>
             <clause id='N' inline-header='false' obligation='normative'>
              <title depth='2'>1.1.<tab/>Introduction</title>
@@ -983,7 +998,7 @@ RSpec.describe IsoDoc do
             <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <sections>
-            <clause id='M' inline-header='false' obligation='normative'>
+            <clause id='M' inline-header='false' obligation='normative' displayorder="1">
               <title depth="1">Clause 4</title>
               <clause id='N' inline-header='false' obligation='normative'>
                 <title depth="2">Introduction</title>
@@ -998,48 +1013,50 @@ RSpec.describe IsoDoc do
   end
 
   it "processes sections without titles" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface>
-         <introduction id="M" inline-header="false" obligation="normative"><clause id="N" inline-header="false" obligation="normative">
-           <title>Intro</title>
-         </clause>
-         <clause id="O" inline-header="true" obligation="normative">
-         </clause></clause>
-         </preface>
-         <sections>
-         <clause id="M1" inline-header="false" obligation="normative"><clause id="N1" inline-header="false" obligation="normative">
-         </clause>
-         <clause id="O1" inline-header="true" obligation="normative">
-         </clause></clause>
-         </sections>
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <preface>
+       <introduction id="M" inline-header="false" obligation="normative"><clause id="N" inline-header="false" obligation="normative">
+         <title>Intro</title>
+       </clause>
+       <clause id="O" inline-header="true" obligation="normative">
+       </clause></clause>
+       </preface>
+       <sections>
+       <clause id="M1" inline-header="false" obligation="normative"><clause id="N1" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O1" inline-header="true" obligation="normative">
+       </clause></clause>
+       </sections>
 
-        </iso-standard>
-      INPUT
-            <?xml version='1.0'?>
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-          <preface>
-            <introduction id='M' inline-header='false' obligation='normative'>
-              <clause id='N' inline-header='false' obligation='normative'>
-                <title depth="2">Intro</title>
-              </clause>
-              <clause id='O' inline-header='true' obligation='normative'> </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='M1' inline-header='false' obligation='normative'>
-              <title>1.</title>
-        <clause id='N1' inline-header='false' obligation='normative'>
-          <title>1.1.</title>
-        </clause>
-        <clause id='O1' inline-header='true' obligation='normative'>
-          <title>1.2.</title>
-        </clause>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+          <?xml version='1.0'?>
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <introduction id='M' inline-header='false' obligation='normative' displayorder="1">
+            <clause id='N' inline-header='false' obligation='normative'>
+              <title depth="2">Intro</title>
             </clause>
-          </sections>
-        </iso-standard>
-      OUTPUT
+            <clause id='O' inline-header='true' obligation='normative'> </clause>
+          </introduction>
+        </preface>
+        <sections>
+          <clause id='M1' inline-header='false' obligation='normative' displayorder="2">
+            <title>1.</title>
+      <clause id='N1' inline-header='false' obligation='normative'>
+        <title>1.1.</title>
+      </clause>
+      <clause id='O1' inline-header='true' obligation='normative'>
+        <title>1.2.</title>
+      </clause>
+          </clause>
+        </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes clauses containing normative references" do
@@ -1070,7 +1087,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
                   <bibliography>
-              <clause id="D" obligation="informative">
+              <clause id="D" obligation="informative" displayorder="2">
                <title depth="1">Bibliography</title>
                <references id="E" obligation="informative" normative="false">
                <title depth="2">Bibliography Subsection 1</title>
@@ -1079,7 +1096,7 @@ RSpec.describe IsoDoc do
                <title depth="2">Bibliography Subsection 2</title>
              </references>
              </clause>
-             <clause id="A" obligation="informative"><title depth="1">1.<tab/>First References</title>
+             <clause id="A" obligation="informative" displayorder="1"><title depth="1">1.<tab/>First References</title>
               <references id="B" obligation="informative" normative="true">
                <title depth="2">1.1.<tab/>Normative References 1</title>
              </references>
