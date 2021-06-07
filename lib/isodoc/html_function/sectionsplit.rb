@@ -14,7 +14,6 @@ module IsoDoc::HtmlFunction
       @openmathdelim, @closemathdelim = extract_delims(origxml)
       xml, filename, dir = convert_init(presxml, input_filename, debug)
       build_collection(xml, presxml, output_filename || filename, dir)
-      #FileUtils.rm_rf dir
     end
 
     def build_collection(xml, presxml, filename, dir)
@@ -128,7 +127,7 @@ module IsoDoc::HtmlFunction
     def eref_to_internal_eref(xml, key)
       eref_to_internal_eref_select(xml).each_with_object([]) do |x, m|
         url = xml.at(ns("//bibitem[@id = '#{x}']/url[@type = 'citation']"))
-        xml.xpath(ns("//eref[@bibitemid = '#{x}']")).each do |e|
+        xml.xpath(("//*[@bibitemid = '#{x}']")).each do |e|
           id = eref_to_internal_eref1(e, key, url)
           id and m << id
         end
@@ -149,7 +148,7 @@ module IsoDoc::HtmlFunction
     end
 
     def eref_to_internal_eref_select(xml)
-      refs = xml.xpath(ns("//eref/@bibitemid")).map { |x| x.text } # rubocop:disable Style/SymbolProc
+      refs = xml.xpath(("//*/@bibitemid")).map { |x| x.text } # rubocop:disable Style/SymbolProc
       refs.uniq.reject do |x|
         xml.at(ns("//bibitem[@id = '#{x}'][@type = 'internal']"))
       end
@@ -182,7 +181,9 @@ module IsoDoc::HtmlFunction
 
     def titlerender(section)
       title = section.at(ns("./title")) or return "[Untitled]"
-      title.text
+      t = title.dup
+      t.xpath(ns(".//tab | .//br")).each { |x| x.replace(" ") }
+      t.children.to_xml
     end
 
     # TODO refactor in isodoc xpaths of clauses in rendering order;
