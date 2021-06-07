@@ -55,6 +55,7 @@ RSpec.describe IsoDoc do
        </bibliography>
       </iso-standard>
     INPUT
+    mock_render
     IsoDoc::HtmlConvert.new({ sectionsplit: "true" })
       .convert("test", input, true)
     expect(File.exist?("test_collection/index.html")).to be true
@@ -130,5 +131,15 @@ RSpec.describe IsoDoc do
         - fileref: test.7.xml
           identifier: Bibliography
     OUTPUT
+  end
+
+  private
+
+  def mock_render
+    original_add = ::Metanorma::CollectionRenderer.method(:render)
+    allow(::Metanorma::CollectionRenderer)
+      .to receive(:render) do |col, opts|
+      original_add.call(col, opts.merge(no_install_fonts: true))
+    end
   end
 end
