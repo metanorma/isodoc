@@ -1000,14 +1000,15 @@ RSpec.describe IsoDoc do
   it "encodes images in HTML as data URIs" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_rf "test_htmlimages"
-    IsoDoc::HtmlConvert.new(htmlstylesheet: "spec/assets/html.scss", datauriimage: true)
+    IsoDoc::HtmlConvert
+      .new(htmlstylesheet: "spec/assets/html.scss", datauriimage: true)
       .convert("test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
          <preface><foreword>
           <figure id="_">
           <name>Split-it-right sample divider</name>
-                   <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
-                   <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
+             <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
+             <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
         </figure>
         </foreword></preface>
          </iso-standard>
@@ -1015,7 +1016,8 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
+    expect(xmlpp(html
+      .gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
       .to be_equivalent_to xmlpp(<<~"OUTPUT")
             <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
               <br />
@@ -1034,7 +1036,8 @@ RSpec.describe IsoDoc do
   it "encodes images in HTML as data URIs, using relative file location" do
     FileUtils.rm_f "spec/test.html"
     FileUtils.rm_rf "spec/test_htmlimages"
-    IsoDoc::HtmlConvert.new({ htmlstylesheet: "assets/html.scss", datauriimage: true })
+    IsoDoc::HtmlConvert
+      .new({ htmlstylesheet: "assets/html.scss", datauriimage: true })
       .convert("spec/test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
          <preface><foreword>
@@ -1049,7 +1052,8 @@ RSpec.describe IsoDoc do
     html = File.read("spec/test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html.gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
+    expect(xmlpp(html
+      .gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
       .to be_equivalent_to xmlpp(<<~"OUTPUT")
             <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
               <br />
@@ -2246,5 +2250,48 @@ RSpec.describe IsoDoc do
       .gsub(%r{<script.+?</script>}m, "<script/>")
       .sub(%r{(<script/>\s+)+}m, "<script/>")
     expect(xmlpp(html)).to be_equivalent_to xmlpp(output)
+  end
+
+  it "cleans up lists (HTML)" do
+    input = <<~INPUT
+      <html xmlns:epub="http://www.idpf.org/2007/ops">
+      <head/>
+      <body>
+        <div class="main-section">
+        <ul>
+        <div>N1</div>
+        <li>A</li>
+        <li>B</li>
+        <div>N2</div>
+        <li>C</li>
+        <div>N3</div>
+        </div>
+      </body>
+      </html>
+    INPUT
+    output = <<~OUTPUT
+      <main class='main-section'>
+        <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
+        <ul>
+          <li>
+            A
+            <div>N1</div>
+          </li>
+          <li>
+            B
+            <div>N2</div>
+          </li>
+          <li>
+            C
+            <div>N3</div>
+          </li>
+        </ul>
+      </main>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert
+  .new(htmlstylesheet: "spec/assets/html.scss", filename: "test")
+  .html_cleanup(Nokogiri::XML(input)).to_xml)
+  .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .to be_equivalent_to xmlpp(output)
   end
 end

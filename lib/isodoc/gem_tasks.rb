@@ -12,12 +12,10 @@ module IsoDoc
 
     def install
       rule ".css" => [proc { |tn| tn.sub(/\.css$/, ".scss") }] do |current_task|
-        begin
-          puts(current_task)
-          compile_scss_task(current_task)
-        rescue StandardError => e
-          notify_borken_compilation(e, current_task)
-        end
+        puts(current_task)
+        compile_scss_task(current_task)
+      rescue StandardError => e
+        notify_borken_compilation(e, current_task)
       end
 
       scss_files = Rake::FileList["lib/**/*.scss"]
@@ -88,7 +86,7 @@ module IsoDoc
       text
         .gsub("/* LIQUID_COMMENT", "")
         .gsub("LIQUID_COMMENT */", "")
-        .gsub('"{{', '{{').gsub('}}"', "}}")
+        .gsub('"{{', "{{").gsub('}}"', "}}")
     end
 
     def fonts_placeholder
@@ -107,7 +105,8 @@ module IsoDoc
       require "sassc"
 
       isodoc_path = if Gem.loaded_specs["isodoc"]
-                      File.join(Gem.loaded_specs["isodoc"].full_gem_path, "lib", "isodoc")
+                      File.join(Gem.loaded_specs["isodoc"].full_gem_path,
+                                "lib", "isodoc")
                     else
                       File.join("lib", "isodoc")
                     end
@@ -119,7 +118,7 @@ module IsoDoc
       SassC::Engine.new(fonts_placeholder + sheet_content,
                         syntax: :scss,
                         importer: SasscImporter)
-                   .render
+        .render
     end
 
     def compile_scss_task(current_task)
