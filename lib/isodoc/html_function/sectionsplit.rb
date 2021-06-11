@@ -54,27 +54,14 @@ module IsoDoc::HtmlFunction
     def sectionsplit(xml, filename, dir)
       xref_preprocess(xml)
       out = emptydoc(xml)
-      ret = []
-      xml.xpath(ns("//preface/*")).each do |s|
-        ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, "preface")
-      end
-      xml.xpath(ns("//sections/*")).each do |s|
-        ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, "sections")
-      end
-      xml.xpath(ns("//annex")).each do |s|
-        ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, nil)
-      end
-      xml.xpath(ns("//bibliography/*")).each do |s|
-        # hidden biblio is kept in out
-        next if s.name == "references" && s["hidden"] == "true"
-
-        ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s,
-                           "bibliography")
-      end
-      xml.xpath(ns("//indexsect")).each do |s|
-        ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, nil)
-      end
-      ret
+      [["//preface/*", "preface"], ["//sections/*", "sections"],
+       ["//annex", nil],
+       ["//bibliography/*[not(@hidden = 'true')]", "bibliography"],
+       ["//indexsect", nil]].each_with_object([]) do |n, ret|
+         xml.xpath(ns(n[0])).each do |s|
+           ret << sectionfile(out, dir, "#{filename}.#{ret.size}", s, n[1])
+         end
+       end
     end
 
     def emptydoc(xml)
@@ -106,11 +93,32 @@ module IsoDoc::HtmlFunction
     end
 
     def xref_preprocess(xml)
+      svg_preprocess(xml)
       key = (0...8).map { rand(65..90).chr }.join # random string
       refs = eref_to_internal_eref(xml, key)
       refs += xref_to_internal_eref(xml, key)
       xml.root["type"] = key # to force recognition of internal refs
       insert_indirect_biblio(xml, refs, key)
+    end
+
+    def svg_preprocess(xml)
+      xml.xpath("//m:svg", "m" => "http://www.w3.org/2000/svg").each do |s|
+        m = svgmap_wrap(s)
+        s.xpath(".//m:a", "m" => "http://www.w3.org/2000/svg").each do |a|
+          next unless /^#/.match? a["href"]
+
+          a["href"] = a["href"].sub(/^#/, "")
+          m << "<target href='#{a['href']}'>"\
+            "<xref target='#{a['href']}'/></target>"
+        end
+      end
+    end
+
+    def svgmap_wrap(svg)
+      ret = svg.at("./ancestor::xmlns:svgmap") and return ret
+      ret = svg.at("./ancestor::xmlns:figure")
+      ret.wrap("<svgmap/>")
+      svg.at("./ancestor::xmlns:svgmap")
     end
 
     def make_anchor(anchor)

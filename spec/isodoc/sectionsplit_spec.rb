@@ -23,6 +23,20 @@ RSpec.describe IsoDoc do
          <title>Introduction</title>
          <p><xref target="A">HE</xref></p>
          <p><eref bibitemid="R1">SHE</xref></p>
+         <svgmap>
+         <figure>
+           <svg xmlns="http://www.w3.org/2000/svg">
+             <a href="#A">A</a>
+             <a href="#B">B</a>
+           </svg>
+           <target href="B"><eref bibitemid="R1"/></target>
+         </figure>
+         </svgmap>
+         <figure>
+         <svg xmlns="http://www.w3.org/2000/svg">
+           <a href="#P">P</a>
+         </svg>
+         </figure>
        </clause>
        <clause id="O" inline-header="true" obligation="normative">
          <title>Clause 4.2</title>
@@ -80,22 +94,53 @@ RSpec.describe IsoDoc do
     expect(File.exist?("test_files/test.8.xml")).to be false
     expect(File.exist?("test_files/test.html.yaml")).to be true
     m = /type="([^"]+)"/.match(File.read("test_files/test.0.xml"))
-    expect(File.read("test_files/test.2.xml")).to include <<~OUTPUT.strip
-      <eref bibitemid="#{m[1]}_A" type="#{m[1]}">HE<localityStack><locality type="anchor"><referenceFrom>A</referenceFrom></locality></localityStack></eref>
-    OUTPUT
-    expect(File.read("test_files/test.2.xml")).to include <<~OUTPUT.strip
-      <eref bibitemid="#{m[1]}_R1" type="#{m[1]}">SHE<localityStack><locality type="anchor"><referenceFrom>#{m[1]}_R1</referenceFrom></locality></localityStack></eref>
-    OUTPUT
-    expect(File.read("test_files/test.2.xml")).to include <<~OUTPUT
-      <bibitem id="#{m[1]}_R1" type="internal">
-      <docidentifier type="repository">#{m[1]}/R1</docidentifier>
-      </bibitem>
-    OUTPUT
-    expect(File.read("test_files/test.2.xml")).to include <<~OUTPUT
-      <bibitem id="#{m[1]}_A" type="internal">
-      <docidentifier type="repository">#{m[1]}/A</docidentifier>
-      </bibitem>
-    OUTPUT
+    file2 = Nokogiri::XML(File.read("test_files/test.2.xml"))
+    expect(xmlpp(file2
+     .at("//xmlns:eref[@bibitemid = '#{m[1]}_A']").to_xml))
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
+        <eref bibitemid="#{m[1]}_A" type="#{m[1]}">HE<localityStack><locality type="anchor"><referenceFrom>A</referenceFrom></locality></localityStack></eref>
+      OUTPUT
+    expect(xmlpp(file2
+     .at("//xmlns:eref[@bibitemid = '#{m[1]}_R1']").to_xml))
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
+        <eref bibitemid="#{m[1]}_R1" type="#{m[1]}">SHE<localityStack><locality type="anchor"><referenceFrom>#{m[1]}_R1</referenceFrom></locality></localityStack></eref>
+      OUTPUT
+    expect(xmlpp(file2
+     .at("//xmlns:bibitem[@id = '#{m[1]}_R1']").to_xml))
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
+        <bibitem id="#{m[1]}_R1" type="internal">
+        <docidentifier type="repository">#{m[1]}/R1</docidentifier>
+        </bibitem>
+      OUTPUT
+    expect(xmlpp(file2
+     .at("//xmlns:bibitem[@id = '#{m[1]}_A']").to_xml))
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
+        <bibitem id="#{m[1]}_A" type="internal">
+        <docidentifier type="repository">#{m[1]}/A</docidentifier>
+        </bibitem>
+      OUTPUT
+    expect(xmlpp(file2
+     .at("//xmlns:svgmap[1]").to_xml))
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
+        <svgmap>
+        <figure>
+          <svg xmlns="http://www.w3.org/2000/svg">
+            <a href="A">A</a>
+            <a href="B">B</a>
+          </svg>
+          <target href="B"><eref bibitemid="#{m[1]}_R1" type="#{m[1]}"><localityStack><locality type="anchor"><referenceFrom>#{m[1]}_R1</referenceFrom></locality></localityStack></eref></target>
+        </figure>
+        <target href="A"><eref bibitemid="#{m[1]}_A" type="#{m[1]}"><localityStack><locality type="anchor"><referenceFrom>A</referenceFrom></locality></localityStack></eref></target><target href="B"><eref bibitemid="#{m[1]}_B" type="#{m[1]}"><localityStack><locality type="anchor"><referenceFrom>B</referenceFrom></locality></localityStack></eref></target></svgmap>
+      OUTPUT
+    expect(xmlpp(file2
+     .at("//xmlns:svgmap[2]").to_xml))
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
+        <svgmap><figure>
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <a href="P">P</a>
+        </svg>
+        </figure><target href="P"><eref bibitemid="#{m[1]}_P" type="#{m[1]}"><localityStack><locality type="anchor"><referenceFrom>P</referenceFrom></locality></localityStack></eref></target></svgmap>
+      OUTPUT
     expect(File.read("test_files/test.html.yaml")).to be_equivalent_to <<~OUTPUT
       ---
       directives:
