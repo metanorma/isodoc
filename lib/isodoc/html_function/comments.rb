@@ -24,16 +24,16 @@ module IsoDoc::HtmlFunction
 =end
     end
 
-    def comment_link_attrs(fn, node)
-      { style: "MsoCommentReference", target: fn,
+    def comment_link_attrs(fnote, node)
+      { style: "MsoCommentReference", target: fnote,
         class: "commentLink", from: node["from"],
         to: node["to"] }
     end
 
     # add in from and to links to move the comment into place
-    def make_comment_link(out, fn, node)
-      out.span(**comment_link_attrs(fn, node)) do |s1|
-          s1.a **{ style: "mso-comment-reference:SMC_#{fn};"\
+    def make_comment_link(out, fnote, node)
+      out.span(**comment_link_attrs(fnote, node)) do |s1|
+          s1.a **{ style: "mso-comment-reference:SMC_#{fnote};"\
                    "mso-comment-date:#{node['date'].gsub(/[-:Z]/, '')}" }
         end
     end
@@ -44,9 +44,9 @@ module IsoDoc::HtmlFunction
         end
     end
 
-    def make_comment_text(node, fn)
+    def make_comment_text(node, fnote)
       noko do |xml|
-        xml.div **{ style: "mso-element:comment", id: fn } do |div|
+        xml.div **{ style: "mso-element:comment", id: fnote } do |div|
           div.span **{ style: %{mso-comment-author:"#{node['reviewer']}"} }
           make_comment_target(div)
           node.children.each { |n| parse(n, div) }
@@ -99,13 +99,13 @@ module IsoDoc::HtmlFunction
       from["style"] != "mso-special-character:comment"
     end
 
-    def insert_comment_cont(from, to, target)
-      # includes_to = from.at(".//*[@id='#{to}']")
-      while !from.nil? && from["id"] != to
+    def insert_comment_cont(from, upto, target)
+      # includes_to = from.at(".//*[@id='#{upto}']")
+      while !from.nil? && from["id"] != upto
         following = from.xpath("./following::*")
-        (from = following.shift) && incl_to = from.at(".//*[@id='#{to}']")
+        (from = following.shift) && incl_to = from.at(".//*[@id='#{upto}']")
         while !incl_to.nil? && !from.nil? && skip_comment_wrap(from)
-          (from = following.shift) && incl_to = from.at(".//*[@id='#{to}']")
+          (from = following.shift) && incl_to = from.at(".//*[@id='#{upto}']")
         end
         wrap_comment_cont(from, target) if !from.nil?
       end
