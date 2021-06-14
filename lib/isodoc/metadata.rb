@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative './metadata_date'
-require_relative './metadata_contributor'
+require_relative "./metadata_date"
+require_relative "./metadata_contributor"
 
 module IsoDoc
   class Metadata
@@ -17,7 +17,7 @@ module IsoDoc
 
     def initialize(lang, script, i18n, fonts_options = {})
       @metadata = { lang: lang, script: script }
-      DATETYPES.each { |w| @metadata["#{w.gsub(/-/, '_')}date".to_sym] = 'XXX' }
+      DATETYPES.each { |w| @metadata["#{w.gsub(/-/, '_')}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
       @c = HTMLEntities.new
@@ -38,7 +38,7 @@ module IsoDoc
       @metadata[key] = value
     end
 
-    NOLANG = "[not(@language) or @language = '']".freeze
+    NOLANG = "[not(@language) or @language = '']"
 
     def currlang
       "[@language = '#{@lang}']"
@@ -54,6 +54,7 @@ module IsoDoc
     def docstatus(xml, _out)
       set(:unpublished, true)
       return unless s = xml.at(ns("//bibdata/status/stage#{NOLANG}"))
+
       s1 = xml.at(ns("//bibdata/status/stage#{currlang}")) || s
       set(:stage, status_print(s.text))
       s1 and set(:stage_display, status_print(s1.text))
@@ -61,26 +62,26 @@ module IsoDoc
         set(:substage, i)
       (i1 = xml&.at(ns("//bibdata/status/substage#{currlang}"))&.text || i) and
         set(:substage_display, i1)
-      (i2 = xml&.at(ns('//bibdata/status/iteration'))&.text) and
+      (i2 = xml&.at(ns("//bibdata/status/iteration"))&.text) and
         set(:iteration, i2)
       set(:unpublished, unpublished(s.text))
       unpublished(s.text) && set(:stageabbr, stage_abbr(s.text))
     end
 
     def stage_abbr(docstatus)
-      status_print(docstatus).split(/ /).map { |s| s[0].upcase }.join('')
+      status_print(docstatus).split(/ /).map { |s| s[0].upcase }.join("")
     end
 
     def unpublished(status)
-      !status.casecmp('published').zero?
+      !status.casecmp("published").zero?
     end
 
     def status_print(status)
-      status.split(/[- ]/).map(&:capitalize).join(' ')
+      status.split(/[- ]/).map(&:capitalize).join(" ")
     end
 
     def docid(isoxml, _out)
-      dn = isoxml.at(ns('//bibdata/docidentifier'))
+      dn = isoxml.at(ns("//bibdata/docidentifier"))
       set(:docnumber, dn&.text)
     end
 
@@ -92,23 +93,24 @@ module IsoDoc
     end
 
     def docnumeric(isoxml, _out)
-      dn = isoxml.at(ns('//bibdata/docnumber'))
+      dn = isoxml.at(ns("//bibdata/docnumber"))
       set(:docnumeric, dn&.text)
     end
 
     def draftinfo(draft, revdate)
       return "" unless draft
+
       draftinfo = " (#{@labels['draft_label']} #{draft}"
       draftinfo += ", #{revdate}" if revdate
-      draftinfo += ')'
+      draftinfo += ")"
       l10n(draftinfo, @lang, @script)
     end
 
     def version(isoxml, _out)
-      set(:edition, isoxml&.at(ns('//bibdata/edition'))&.text)
-      set(:docyear, isoxml&.at(ns('//bibdata/copyright/from'))&.text)
-      set(:draft, isoxml&.at(ns('//version/draft'))&.text)
-      revdate = isoxml&.at(ns('//version/revision-date'))&.text
+      set(:edition, isoxml&.at(ns("//bibdata/edition"))&.text)
+      set(:docyear, isoxml&.at(ns("//bibdata/copyright/from"))&.text)
+      set(:draft, isoxml&.at(ns("//bibdata/version/draft"))&.text)
+      revdate = isoxml&.at(ns("//bibdata/version/revision-date"))&.text
       set(:revdate, revdate)
       set(:revdate_monthyear, monthyr(revdate))
       set(:draftinfo,
@@ -131,20 +133,20 @@ module IsoDoc
 
     def relations_partof(isoxml)
       std = isoxml.at(ns("//bibdata/relation[@type = 'partOf']")) || return
-      id = std.at(ns('.//docidentifier'))
+      id = std.at(ns(".//docidentifier"))
       set(:partof, id.text) if id
     end
 
     def relations_obsoletes(isoxml)
       std = isoxml.at(ns("//bibdata/relation[@type = 'obsoletes']")) || return
-      locality = std.at(ns('.//locality'))
-      id = std.at(ns('.//docidentifier'))
+      locality = std.at(ns(".//locality"))
+      id = std.at(ns(".//docidentifier"))
       set(:obsoletes, id.text) if id
       set(:obsoletes_part, locality.text) if locality
     end
 
     def url(xml, _out)
-      (a = xml.at(ns('//bibdata/uri[not(@type)]'))) && set(:url, a.text)
+      (a = xml.at(ns("//bibdata/uri[not(@type)]"))) && set(:url, a.text)
       (a = xml.at(ns("//bibdata/uri[@type = 'html']"))) && set(:html, a.text)
       (a = xml.at(ns("//bibdata/uri[@type = 'xml']"))) && set(:xml, a.text)
       (a = xml.at(ns("//bibdata/uri[@type = 'pdf']"))) && set(:pdf, a.text)
@@ -153,7 +155,7 @@ module IsoDoc
 
     def keywords(isoxml, _out)
       ret = []
-      isoxml.xpath(ns('//bibdata/keyword')).each { |kw| ret << kw.text }
+      isoxml.xpath(ns("//bibdata/keyword")).each { |kw| ret << kw.text }
       set(:keywords, ret)
     end
 
