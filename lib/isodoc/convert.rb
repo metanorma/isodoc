@@ -37,6 +37,7 @@ module IsoDoc
     # datauriimage: Encode images in HTML output as data URIs
     # break_up_urls_in_tables: whether to insert spaces in URLs in tables
     #   every 40-odd chars
+    # sectionsplit: split up HTML output on sections
     # bare: do not insert any prefatory material (coverpage, boilerplate)
     def initialize(options)
       @libdir ||= File.dirname(__FILE__) # rubocop:disable Lint/DisjunctiveAssignmentInConstructor
@@ -73,6 +74,7 @@ module IsoDoc
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
       @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
+      @sectionsplit = options[:sectionsplit] == "true"
       @bare = options[:bare]
       @termdomain = ""
       @termexample = false
@@ -154,7 +156,7 @@ module IsoDoc
       [docxml, filename, dir]
     end
 
-    def convert(input_filename, file = nil, debug = false, 
+    def convert(input_filename, file = nil, debug = false,
                 output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)

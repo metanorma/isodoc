@@ -11,6 +11,8 @@ module IsoDoc
     include XrefGen::Blocks
     include XrefGen::Sections
 
+    attr_reader :klass
+
     def initialize(lang, script, klass, i18n, options = {})
       @anchors = {}
       @lang = lang

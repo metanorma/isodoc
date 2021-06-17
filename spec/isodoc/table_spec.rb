@@ -62,7 +62,6 @@ RSpec.describe IsoDoc do
             </dl>
             <note><p>This is a table about rice</p></note>
             </table>
-      #{'      '}
             <table id="tableD-2" unnumbered="true">
             <tbody><tr><td>A</td></tr></tbody>
             </table>
@@ -74,7 +73,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
               <preface>
-                <foreword>
+                <foreword displayorder="1">
                   <table id='tableD-1' alt='tool tip' summary='long desc' width='70%' keep-with-next='true' keep-lines-together='true'>
                     <name>
                       Table 1&#xA0;&#x2014; Repeatability and reproducibility of
@@ -406,46 +405,46 @@ RSpec.describe IsoDoc do
         <thead>
           <tr>
             <td>
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
-      Description Description Description Description Description Description Description Description Description#{' '}
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
+      Description Description Description Description Description Description Description Description Description
             </td>
             <td>Rice sample</td>
           </tr>

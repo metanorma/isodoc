@@ -28,6 +28,7 @@ module IsoDoc
     end
 
     def section(docxml)
+      display_order docxml
       clause docxml
       annex docxml
       term docxml

@@ -40,7 +40,7 @@ RSpec.describe IsoDoc do
           <title language='en'>test</title>
         </bibdata>
         <preface>
-          <p>
+          <p displayorder="1">
             64,212,149,677,264,515
             642,121,496,772,645.15 30,000
             <stem type='MathML'>
@@ -256,7 +256,7 @@ RSpec.describe IsoDoc do
           </bibdata>
 
           <preface>
-            <p>
+            <p displayorder="1">
               30,000
               <stem type='MathML'>
                 <math xmlns='http://www.w3.org/1998/Math/MathML'>
@@ -405,7 +405,7 @@ RSpec.describe IsoDoc do
           <language current='true'>fr</language>
         </bibdata>
         <preface>
-          <p>
+          <p displayorder="1">
             30&#x202F;000
             <stem type='MathML'>
               <math xmlns='http://www.w3.org/1998/Math/MathML'>
@@ -521,7 +521,7 @@ RSpec.describe IsoDoc do
              </bibdata>
 
              <preface>
-               <p>
+               <p displayorder="1">
                  30'000
                  <stem type='MathML'>
                    <math xmlns='http://www.w3.org/1998/Math/MathML'>

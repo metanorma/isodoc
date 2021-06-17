@@ -19,13 +19,13 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <sections>
-          <clause id='A'>
+          <clause id='A' displayorder="1">
             <title>1.</title>
             <formula id='B'>
               <name>1</name>
             </formula>
           </clause>
-          <clause id='C'>
+          <clause id='C' displayorder="2">
             <title>2.</title>
             <p>
               This is
@@ -122,7 +122,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <p/>
           </foreword>
         </preface>
@@ -221,7 +221,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
           <preface>
-            <foreword>
+            <foreword displayorder="1">
               <p>
                 <ul>
                   <li>
@@ -309,7 +309,7 @@ RSpec.describe IsoDoc do
             </foreword>
           </preface>
           <sections>
-            <clause id='clause1'>
+            <clause id='clause1' displayorder="3">
               <title depth='1'>
                 2.
                 <tab/>
@@ -318,7 +318,7 @@ RSpec.describe IsoDoc do
             </clause>
           </sections>
           <bibliography>
-            <references id='_normative_references' obligation='informative' normative='true'>
+            <references id='_normative_references' obligation='informative' normative='true' displayorder="2">
               <title depth='1'>
                 1.
                 <tab/>
@@ -746,7 +746,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <p>
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712">ISO 712</eref>
           <eref type="inline" bibitemid="ISO712">ISO 712</eref>
@@ -767,7 +767,8 @@ RSpec.describe IsoDoc do
           <eref type="inline" case="lowercase" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, clause 1</eref>
           </p>
           </foreword></preface>
-          <bibliography><references id="_normative_references" obligation="informative" normative="true"><title depth='1'>1.<tab/>Normative References</title>
+          <bibliography><references id="_normative_references" obligation="informative" normative="true" displayorder=
+"2"><title depth='1'>1.<tab/>Normative References</title>
       <bibitem id="ISO712" type="standard">
         <title format="text/plain">Cereals and cereal products</title>
         <docidentifier>ISO 712</docidentifier>
@@ -887,7 +888,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <p>
               <eref type='inline' bibitemid='ISO712' citeas='ISO 712'>ISO 712</eref>
               <eref type='inline' bibitemid='ISO712'>ISO 712</eref>
@@ -922,7 +923,7 @@ RSpec.describe IsoDoc do
           </foreword>
         </preface>
         <bibliography>
-          <references id='_normative_references' obligation='informative' normative='true'>
+          <references id='_normative_references' obligation='informative' normative='true' displayorder="2">
           <title depth='1'>1.<tab/>Normative References</title>
             <bibitem id='ISO712' type='standard'>
               <title format='text/plain'>Cereals and cereal products</title>
@@ -1103,36 +1104,36 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <bibdata>
-          <language current='true'>en</language>
-          <script current='true'>Latn</script>
-        </bibdata>
-        <preface>
-          <clause id='A'>
-            <title depth='1'>ABC</title>
-          </clause>
-          <clause id='A1'>
-            <title depth='1'>ABC/DEF</title>
-          </clause>
-          <clause id='A2'>
-            <title depth='1'>ABC</title>
-          </clause>
-          <clause id='B'>
-            <title depth='1'>GHI/JKL</title>
-          </clause>
-          <clause id='C'>
-            <title depth='1'>DEF</title>
-          </clause>
-          <clause id='C1'>
-            <title depth='1'>ABC/DEF</title>
-          </clause>
-          <clause id='C2'>
-            <title depth='1'>DEF</title>
-          </clause>
-          <p>A B D E</p>
-        </preface>
-      </iso-standard>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+          <bibdata>
+            <language current='true'>en</language>
+            <script current='true'>Latn</script>
+          </bibdata>
+          <preface>
+            <clause id='A' displayorder='1'>
+              <title depth='1'>ABC</title>
+            </clause>
+            <clause id='A1' displayorder='2'>
+              <title depth='1'>ABC/DEF</title>
+            </clause>
+            <clause id='A2' displayorder='3'>
+              <title depth='1'>ABC</title>
+            </clause>
+            <clause id='B' displayorder='4'>
+              <title depth='1'>GHI/JKL</title>
+            </clause>
+            <clause id='C' displayorder='5'>
+              <title depth='1'>DEF</title>
+            </clause>
+            <clause id='C1' displayorder='6'>
+              <title depth='1'>ABC/DEF</title>
+            </clause>
+            <clause id='C2' displayorder='7'>
+              <title depth='1'>DEF</title>
+            </clause>
+            <p displayorder='8'>A B D E</p>
+          </preface>
+        </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
@@ -1163,13 +1164,13 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <sections>
-          <clause id='A'>
+          <clause id='A' displayorder="1">
           <title>1.</title>
             <table id='B'>
               <name>Tabelo 1</name>
             </table>
           </clause>
-          <clause id='C'>
+          <clause id='C' displayorder="2">
           <title>2.</title>
             <p>
               This is

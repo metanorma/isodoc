@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.files         = `git ls-files`.split("\n")
   spec.test_files    = `git ls-files -- {spec}/*`.split("\n")
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
 
   spec.add_dependency "asciimath"
   spec.add_dependency "html2doc", "~> 1.1.1"
@@ -50,5 +50,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop", "~> 1.5.2"
   spec.add_development_dependency "sassc", "~> 2.4.0"
   spec.add_development_dependency "simplecov", "~> 0.15"
+  spec.add_development_dependency "metanorma-iso"
   spec.add_development_dependency "timecop", "~> 0.9"
 end

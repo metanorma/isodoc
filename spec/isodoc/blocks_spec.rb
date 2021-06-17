@@ -100,7 +100,7 @@ RSpec.describe IsoDoc do
                 </ext>
               </bibdata>
               <sections>
-                <clause id="A" inline-header="false" obligation="normative">
+                <clause id="A" inline-header="false" obligation="normative" displayorder="1">
                   <title depth="1">1.<tab/>Change Clause</title>
                       <p id="C">
                         <em>
@@ -256,7 +256,7 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <note id='A' keep-with-next='true' keep-lines-together='true'>
               <name>NOTE</name>
               <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
@@ -332,7 +332,7 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <note id='note1'>
               <name>NOTE 1</name>
               <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
@@ -591,7 +591,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <?xml version='1.0'?>
            <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
         <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
@@ -735,7 +735,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <figure id='figureA-1'>
               <name>Figure 1</name>
               <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
@@ -955,7 +955,7 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
               <name>EXAMPLE&#xA0;&#x2014; Title</name>
               <p>Hello</p>
@@ -1056,7 +1056,7 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <example id='samplecode'>
               <name>EXAMPLE 1</name>
               <p>Hello</p>
@@ -1094,7 +1094,7 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <sourcecode lang='ruby' id='samplecode'>
               <name>
                 Figure 1&#xA0;&#x2014; Ruby
@@ -1289,7 +1289,7 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <formula id='_be9158af-7e93-4ee2-90c5-26d31c181934' unnumbered='true' keep-with-next='true' keep-lines-together='true'>
               <stem type='AsciiMath'>r = 1 %</stem>
               <dl id='_e4fe94fe-1cde-49d9-b1ad-743293b7e21d'>
@@ -1542,7 +1542,7 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
          <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
            <preface>
-             <foreword>
+             <foreword displayorder="1">
                <quote id='_044bd364-c832-4b78-8fea-92242402a1d1'>
                  <source type='inline' bibitemid='ISO7301' citeas='ISO 7301:2011'>
                    <locality type='clause'>
@@ -1671,7 +1671,7 @@ RSpec.describe IsoDoc do
         </import>
       </permission>
           </foreword></preface>
-          <bibliography><references id="_bibliography" obligation="informative" normative="false">
+          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
       <title>Bibliography</title>
       <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
       </references></bibliography>
@@ -1680,7 +1680,7 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
          <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
            <preface>
-             <foreword>
+             <foreword displayorder="1">
                <permission id='_' keep-with-next='true' keep-lines-together='true'>
                  <name>Permission 1</name>
                  <label>/ogc/recommendation/wfs/2</label>
@@ -1751,7 +1751,7 @@ RSpec.describe IsoDoc do
              </foreword>
            </preface>
            <bibliography>
-             <references id='_bibliography' obligation='informative' normative='false'>
+             <references id='_bibliography' obligation='informative' normative='false' displayorder="2">
                <title depth="1">Bibliography</title>
                <bibitem id='rfc2616' type='standard'>
                  <fetched>2020-03-27</fetched>
@@ -2035,7 +2035,7 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
-            <foreword>
+            <foreword displayorder="1">
               <requirement id='A' unnumbered='true' keep-with-next='true' keep-lines-together='true'>
                 <name>Requirement</name>
                 <title>A New Requirement</title>
@@ -2234,7 +2234,7 @@ RSpec.describe IsoDoc do
                  <language current="true">fr</language>
                  <script current="true">Latn</script>
                  </bibdata>
-                 <preface><foreword>
+                 <preface><foreword displayorder="1">
                  <requirement id="A" unnumbered="true"><name>Exigence</name>
                <title>A New Requirement</title>
                <label>/ogc/recommendation/wfs/2</label>
@@ -2400,7 +2400,7 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
          <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
            <preface>
-             <foreword>
+             <foreword displayorder="1">
                <recommendation id='_' obligation='shall,could' keep-with-next='true' keep-lines-together='true'>
                  <name>Recommendation 1</name>
                  <label>/ogc/recommendation/wfs/2</label>
@@ -2563,7 +2563,7 @@ RSpec.describe IsoDoc do
           <bibdata>
           <language current="true">en</language>
           </bibdata>
-              <preface><foreword>
+              <preface><foreword displayorder="1">
         <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Figure 1&#xA0;&#x2014; Label</name><p id="_">&#xA0;&#xA0;<strong>A</strong><br/>
       &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<smallcap>B</smallcap></p>
       <p id="_">&#xA0;&#xA0;<em>C</em></p></figure>
@@ -2742,7 +2742,7 @@ RSpec.describe IsoDoc do
                  </figure>
                </sections>
                <bibliography>
-                 <references hidden='true' normative='false'>
+                 <references hidden='true' normative='false' displayorder="1">
                    <bibitem id='express_action_schema' type='internal'>
                      <docidentifier type='repository'>express/action_schema</docidentifier>
                    </bibitem>
