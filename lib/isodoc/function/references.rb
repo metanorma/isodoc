@@ -212,13 +212,5 @@ module IsoDoc::Function
         biblio_list(node, div, true)
       end
     end
-
-    def format_ref(ref, prefix, _isopub, _date, _allparts)
-      ref = docid_prefix(prefix, ref)
-      return "[#{ref}]" if ref && /^\d+$/.match(ref) && !prefix &&
-        !/^\[.*\]$/.match(ref)
-
-      ref
-    end
   end
 end

@@ -1,17 +1,16 @@
 module IsoDoc::Function
   module Table
-
     def table_title_parse(node, out)
       name = node.at(ns("./name")) or return
       out.p **{ class: "TableTitle", style: "text-align:center;" } do |p|
-        name and name.children.each { |n| parse(n, p) }
+        name&.children&.each { |n| parse(n, p) }
       end
     end
 
-    def thead_parse(node, t)
+    def thead_parse(node, table)
       thead = node.at(ns("./thead"))
       if thead
-        t.thead do |h|
+        table.thead do |h|
           thead.element_children.each_with_index do |n, i|
             tr_parse(n, h, i, thead.element_children.size, true)
           end
@@ -19,19 +18,19 @@ module IsoDoc::Function
       end
     end
 
-    def tbody_parse(node, t)
+    def tbody_parse(node, table)
       tbody = node.at(ns("./tbody")) || return
-      t.tbody do |h|
+      table.tbody do |h|
         tbody.element_children.each_with_index do |n, i|
           tr_parse(n, h, i, tbody.element_children.size, false)
         end
       end
     end
 
-    def tfoot_parse(node, t)
+    def tfoot_parse(node, table)
       tfoot = node.at(ns("./tfoot"))
       if tfoot
-        t.tfoot do |h|
+        table.tfoot do |h|
           tfoot.element_children.each_with_index do |n, i|
             tr_parse(n, h, i, tfoot.element_children.size, false)
           end
@@ -45,23 +44,23 @@ module IsoDoc::Function
         id: node["id"],
         class: "MsoISOTable",
         style: "border-width:1px;border-spacing:0;#{width}#{keep_style(node)}",
-        title: node["alt"]
+        title: node["alt"],
       )
     end
 
-    def tcaption(node, t)
+    def tcaption(node, table)
       return unless node["summary"]
 
-      t.caption do |c|
+      table.caption do |c|
         c.span **{ style: "display:none" } do |s|
           s << node["summary"]
         end
       end
     end
 
-    def colgroup(node, t)
+    def colgroup(node, table)
       colgroup = node.at(ns("./colgroup")) or return
-      t.colgroup do |cg|
+      table.colgroup do |cg|
         colgroup.xpath(ns("./col")).each do |c|
           cg.col **{ style: "width: #{c['width']};" }
         end
@@ -90,19 +89,19 @@ module IsoDoc::Function
     # border-left:#{col.zero? ? "#{SW} 1.5pt;" : "none;"}
     # border-right:#{SW} #{col == totalcols && !header ? "1.5" : "1.0"}pt;
 
-    def make_tr_attr(td, row, totalrows, header)
-      style = td.name == "th" ? "font-weight:bold;" : ""
-      td["align"] and style += "text-align:#{td['align']};"
-      td["valign"] and style += "vertical-align:#{td['valign']};"
-      rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
+    def make_tr_attr(cell, row, totalrows, header)
+      style = cell.name == "th" ? "font-weight:bold;" : ""
+      cell["align"] and style += "text-align:#{cell['align']};"
+      cell["valign"] and style += "vertical-align:#{cell['valign']};"
+      rowmax = cell["rowspan"] ? row + cell["rowspan"].to_i - 1 : row
       style += <<~STYLE
         border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
         border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
       STYLE
-      header and scope = (td["colspan"] ? "colgroup" : "col")
-      !header and td.name == "th" and scope =
-        (td["rowspan"] ? "rowgroup" : "row")
-      { rowspan: td["rowspan"], colspan: td["colspan"],
+      header and scope = (cell["colspan"] ? "colgroup" : "col")
+      !header and cell.name == "th" and scope =
+                                          (cell["rowspan"] ? "rowgroup" : "row")
+      { rowspan: cell["rowspan"], colspan: cell["colspan"],
         style: style.gsub(/\n/, ""), scope: scope }
     end
 

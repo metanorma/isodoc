@@ -11,27 +11,27 @@ module IsoDoc::Function
     end
 
     def deprecated_term_parse(node, out)
-      out.p **{ class: "DeprecatedTerms", style:"text-align:left;" } do |p|
+      out.p **{ class: "DeprecatedTerms", style: "text-align:left;" } do |p|
         p << l10n("#{@i18n.deprecated}: ")
         node.children.each { |c| parse(c, p) }
       end
     end
 
     def admitted_term_parse(node, out)
-      out.p **{ class: "AltTerms", style:"text-align:left;" } do |p|
+      out.p **{ class: "AltTerms", style: "text-align:left;" } do |p|
         node.children.each { |c| parse(c, p) }
       end
     end
 
     def term_parse(node, out)
-      out.p **{ class: "Terms", style:"text-align:left;" } do |p|
+      out.p **{ class: "Terms", style: "text-align:left;" } do |p|
         node.children.each { |c| parse(c, p) }
       end
     end
 
-    def para_then_remainder(first, node, p, div)
+    def para_then_remainder(first, node, para, div)
       if first.name == "p"
-        first.children.each { |n| parse(n, p) }
+        first.children.each { |n| parse(n, para) }
         node.elements.drop(1).each { |n| parse(n, div) }
       else
         node.elements.each { |n| parse(n, div) }
@@ -72,7 +72,6 @@ module IsoDoc::Function
       node.children.each { |n| parse(n, out) }
     end
 
-    def termdocsource_parse(_node, _out)
-    end
+    def termdocsource_parse(_node, _out); end
   end
 end

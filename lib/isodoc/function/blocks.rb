@@ -14,10 +14,11 @@ module IsoDoc::Function
       end
     end
 
-    def figure_name_parse(node, div, name)
-      return if name.nil? 
+    def figure_name_parse(_node, div, name)
+      return if name.nil?
+
       div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
-        name.children.each { |n| parse(n, div) }
+        name.children.each { |n| parse(n, p) }
       end
     end
 
@@ -61,7 +62,7 @@ module IsoDoc::Function
     end
 
     def sourcecode_name_parse(node, div, name)
-      return if name.nil? 
+      return if name.nil?
 
       div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
         name.children.each { |n| parse(n, p) }
