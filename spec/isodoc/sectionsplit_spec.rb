@@ -184,7 +184,7 @@ RSpec.describe IsoDoc do
     original_add = ::Metanorma::CollectionRenderer.method(:render)
     allow(::Metanorma::CollectionRenderer)
       .to receive(:render) do |col, opts|
-      original_add.call(col, opts.merge(no_install_fonts: true))
+      original_add.call(col, opts.merge(compile: { no_install_fonts: true }))
     end
   end
 end
