@@ -85,9 +85,10 @@ module IsoDoc::Function
     end
 
     def omit_docid_prefix(prefix)
-      omit_docid_prefixeturn true if prefix.nil? || prefix.empty?
+      return true if prefix.nil? || prefix.empty?
 
-      %w(ISO IEC IEV ITU W3C csd metanorma repository rfc-anchor).include? prefix
+      %w(ISO IEC IEV ITU W3C csd metanorma repository rfc-anchor)
+        .include? prefix
     end
 
     def date_note_process(bib, ref)
