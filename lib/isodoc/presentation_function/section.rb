@@ -44,7 +44,15 @@ module IsoDoc
       prefix_name(elem, "", "#{lbl}#{clausedelim}", "name")
     end
 
-    def references(docxml); end
+    def references(docxml)
+      docid_prefixes(docxml)
+    end
+
+    def docid_prefixes(docxml)
+      docxml.xpath(ns("//references/bibitem/docidentifier")).each do |i|
+        i.children = @xrefs.klass.docid_prefix(i["type"], i.text)
+      end
+    end
 
     def index(docxml)
       docxml.xpath(ns("//index | //index-xref | //indexsect")).each(&:remove)

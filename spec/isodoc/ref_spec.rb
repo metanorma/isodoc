@@ -278,7 +278,7 @@ RSpec.describe IsoDoc do
             </bibitem>
             <bibitem id='ref11'>
               <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
-              <docidentifier type='IETF'>RFC 10</docidentifier>
+              <docidentifier type='IETF'>IETF RFC 10</docidentifier>
             </bibitem>
             <bibitem id='ref12'>
               <formattedref format='application/x-isodoc+xml'>
@@ -287,7 +287,7 @@ RSpec.describe IsoDoc do
                 .
               </formattedref>
               <docidentifier type='metanorma'>[Citn]</docidentifier>
-              <docidentifier type='IETF'>RFC 20</docidentifier>
+              <docidentifier type='IETF'>IETF RFC 20</docidentifier>
             </bibitem>
           </references>
         </bibliography>
