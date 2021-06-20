@@ -1560,8 +1560,8 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-  it "processes permissions (Presentation XML)" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes permissions" do
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <permission id="_"   keep-with-next="true" keep-lines-together="true">
@@ -1616,308 +1616,106 @@ RSpec.describe IsoDoc do
       </references></bibliography>
           </iso-standard>
     INPUT
-      <?xml version='1.0'?>
-         <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-           <preface>
-             <foreword displayorder="1">
-               <permission id='_' keep-with-next='true' keep-lines-together='true'>
-                 <name>Permission 1</name>
-                 <label>/ogc/recommendation/wfs/2</label>
-                 <inherit>/ss/584/2015/level/1</inherit>
-                 <inherit>
-                   <eref type='inline' bibitemid='rfc2616' citeas='RFC 2616'>RFC 2616 (HTTP/1.1)</eref>
-                 </inherit>
-                 <subject>user</subject>
-                 <classification>
-                   <tag>control-class</tag>
-                   <value>Technical</value>
-                 </classification>
-                 <classification>
-                   <tag>priority</tag>
-                   <value>P0</value>
-                 </classification>
-                 <classification>
-                   <tag>family</tag>
-                   <value>System and Communications Protection</value>
-                 </classification>
-                 <classification>
-                   <tag>family</tag>
-                   <value>System and Communications Protocols</value>
-                 </classification>
-                 <description>
-                   <p id='_'>
-                     I recommend
-                     <em>this</em>
-                     .
-                   </p>
-                 </description>
-                 <specification exclude='true' type='tabular'>
-                   <p id='_'>This is the object of the recommendation:</p>
-                   <table id='_'>
-                     <tbody>
-                       <tr>
-                         <td style='text-align:left;'>Object</td>
-                         <td style='text-align:left;'>Value</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:left;'>Mission</td>
-                         <td style='text-align:left;'>Accomplished</td>
-                       </tr>
-                     </tbody>
-                   </table>
-                 </specification>
-                 <description>
-                   <p id='_'>As for the measurement targets,</p>
-                 </description>
-                 <measurement-target exclude='false'>
-                   <p id='_'>The measurement target shall be measured as:</p>
-                   <formula id='_'>
-                     <name>1</name>
-                     <stem type='AsciiMath'>r/1 = 0</stem>
-                   </formula>
-                 </measurement-target>
-                 <verification exclude='false'>
-                   <p id='_'>The following code will be run for verification:</p>
-                   <sourcecode id='_'>
-                     CoreRoot(success): HttpResponse if (success) recommendation(label:
-                     success-response) end
-                   </sourcecode>
-                 </verification>
-                 <import exclude='true'>
-                   <sourcecode id='_'>success-response()</sourcecode>
-                 </import>
-               </permission>
-             </foreword>
-           </preface>
-           <bibliography>
-             <references id='_bibliography' obligation='informative' normative='false' displayorder="2">
-               <title depth="1">Bibliography</title>
-               <bibitem id='rfc2616' type='standard'>
-                 <fetched>2020-03-27</fetched>
-                 <title format='text/plain' language='en' script='Latn'>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title>
-                 <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
-                 <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
-                 <docidentifier type='IETF'>RFC 2616</docidentifier>
-                 <docidentifier type='rfc-anchor'>RFC2616</docidentifier>
-                 <docidentifier type='DOI'>10.17487/RFC2616</docidentifier>
-                 <date type='published'>
-                   <on>1999-06</on>
-                 </date>
-                 <contributor>
-                   <role type='author'/>
-                   <person>
-                     <name>
-                       <completename language='en'>R. Fielding</completename>
-                     </name>
-                     <affiliation>
-                       <organization>
-                         <name>IETF</name>
-                         <abbreviation>IETF</abbreviation>
-                       </organization>
-                     </affiliation>
-                   </person>
-                 </contributor>
-                 <contributor>
-                   <role type='author'/>
-                   <person>
-                     <name>
-                       <completename language='en'>J. Gettys</completename>
-                     </name>
-                     <affiliation>
-                       <organization>
-                         <name>IETF</name>
-                         <abbreviation>IETF</abbreviation>
-                       </organization>
-                     </affiliation>
-                   </person>
-                 </contributor>
-                 <contributor>
-                   <role type='author'/>
-                   <person>
-                     <name>
-                       <completename language='en'>J. Mogul</completename>
-                     </name>
-                     <affiliation>
-                       <organization>
-                         <name>IETF</name>
-                         <abbreviation>IETF</abbreviation>
-                       </organization>
-                     </affiliation>
-                   </person>
-                 </contributor>
-                 <contributor>
-                   <role type='author'/>
-                   <person>
-                     <name>
-                       <completename language='en'>H. Frystyk</completename>
-                     </name>
-                     <affiliation>
-                       <organization>
-                         <name>IETF</name>
-                         <abbreviation>IETF</abbreviation>
-                       </organization>
-                     </affiliation>
-                   </person>
-                 </contributor>
-                 <contributor>
-                   <role type='author'/>
-                   <person>
-                     <name>
-                       <completename language='en'>L. Masinter</completename>
-                     </name>
-                     <affiliation>
-                       <organization>
-                         <name>IETF</name>
-                         <abbreviation>IETF</abbreviation>
-                       </organization>
-                     </affiliation>
-                   </person>
-                 </contributor>
-                 <contributor>
-                   <role type='author'/>
-                   <person>
-                     <name>
-                       <completename language='en'>P. Leach</completename>
-                     </name>
-                     <affiliation>
-                       <organization>
-                         <name>IETF</name>
-                         <abbreviation>IETF</abbreviation>
-                       </organization>
-                     </affiliation>
-                   </person>
-                 </contributor>
-                 <contributor>
-                   <role type='author'/>
-                   <person>
-                     <name>
-                       <completename language='en'>T. Berners-Lee</completename>
-                     </name>
-                     <affiliation>
-                       <organization>
-                         <name>IETF</name>
-                         <abbreviation>IETF</abbreviation>
-                       </organization>
-                     </affiliation>
-                   </person>
-                 </contributor>
-                 <language>en</language>
-                 <script>Latn</script>
-                 <abstract format='text/plain' language='en' script='Latn'>
-                   HTTP has been in use by the World-Wide Web global information
-                   initiative since 1990. This specification defines the protocol
-                   referred to as &#x201C;HTTP/1.1&#x201D;, and is an update to RFC 2068.
-                   [STANDARDS-TRACK]
-                 </abstract>
-                 <series type='main'>
-                   <title format='text/plain' language='en' script='Latn'>RFC</title>
-                   <number>2616</number>
-                 </series>
-                 <place>Fremont, CA</place>
-               </bibitem>
-             </references>
-           </bibliography>
-         </iso-standard>
-    OUTPUT
-  end
-
-  it "processes permissions (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <permission id="_"   keep-with-next="true" keep-lines-together="true">
-          <name>Permission 1</name>
-        <label>/ogc/recommendation/wfs/2</label>
-        <inherit>/ss/584/2015/level/1</inherit>
-        <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
-        <subject>user</subject>
-        <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
-        <description>
-          <p id="_">I recommend <em>this</em>.</p>
-        </description>
-        <specification exclude="true" type="tabular">
-          <p id="_">This is the object of the recommendation:</p>
-          <table id="_">
-            <tbody>
-              <tr>
-                <td style="text-align:left;">Object</td>
-                <td style="text-align:left;">Value</td>
-              </tr>
-              <tr>
-                <td style="text-align:left;">Mission</td>
-                <td style="text-align:left;">Accomplished</td>
-              </tr>
-            </tbody>
-          </table>
-        </specification>
-        <description>
-          <p id="_">As for the measurement targets,</p>
-        </description>
-        <measurement-target exclude="false">
-          <p id="_">The measurement target shall be measured as:</p>
-          <formula id="_">
-            <stem type="AsciiMath">r/1 = 0</stem>
-          </formula>
-        </measurement-target>
-        <verification exclude="false">
-          <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="_">CoreRoot(success): HttpResponse
-            if (success)
-            recommendation(label: success-response)
-            end
-          </sourcecode>
-        </verification>
-        <import exclude="true">
-          <sourcecode id="_">success-response()</sourcecode>
-        </import>
-      </permission>
-          </foreword></preface>
-          <bibliography><references id="_bibliography" obligation="informative" normative="false">
-      <title>Bibliography</title>
-      <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
-      </references></bibliography>
-          </iso-standard>
-    INPUT
-      #{HTML_HDR}
-                   <br/>
-                  <div>
-                    <h1 class="ForewordTitle">Foreword</h1>
-                    <div class="permission" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
-                    <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
-                    <p><i>Subject: user<br/>
-            Inherits: /ss/584/2015/level/1
-            <br/>
-            Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
-            <br/>Control-class: Technical<br/>Priority: P0<br/>Family: System and Communications Protection<br/>Family: System and Communications Protocols</i></p>
-              <div class="requirement-description">
-                <p id="_">I recommend <i>this</i>.</p>
-              </div>
-              <div class="requirement-description">
-                <p id="_">As for the measurement targets,</p>
-              </div>
-              <div class="requirement-measurement-target">
-                <p id="_">The measurement target shall be measured as:</p>
-                <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span></p></div></div>
-              </div>
-              <div class="requirement-verification">
-                <p id="_">The following code will be run for verification:</p>
-                <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
-              </div>
-            </div>
-                  </div>
-                  <p class="zzSTDTitle1"/>
-                   <br/>
-             <div>
-               <h1 class='Section3'>Bibliography</h1>
-               <p id='rfc2616' class='Biblio'>
-                 [1]&#160; IETF RFC 2616,
-                 <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
-               </p>
-             </div>
+    presxml = <<~OUTPUT
+            <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
+            <preface><foreword displayorder='1'>
+            <permission id="_"   keep-with-next="true" keep-lines-together="true">
+            <name>Permission 1</name>
+          <label>/ogc/recommendation/wfs/2</label>
+          <inherit>/ss/584/2015/level/1</inherit>
+          <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
+          <subject>user</subject>
+          <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+          <description>
+            <p id="_">I recommend <em>this</em>.</p>
+          </description>
+          <specification exclude="true" type="tabular">
+            <p id="_">This is the object of the recommendation:</p>
+            <table id="_">
+              <tbody>
+                <tr>
+                  <td style="text-align:left;">Object</td>
+                  <td style="text-align:left;">Value</td>
+                </tr>
+                <tr>
+                  <td style="text-align:left;">Mission</td>
+                  <td style="text-align:left;">Accomplished</td>
+                </tr>
+              </tbody>
+            </table>
+          </specification>
+          <description>
+            <p id="_">As for the measurement targets,</p>
+          </description>
+          <measurement-target exclude="false">
+            <p id="_">The measurement target shall be measured as:</p>
+            <formula id="_">
+            <name>1</name>
+              <stem type="AsciiMath">r/1 = 0</stem>
+            </formula>
+          </measurement-target>
+          <verification exclude="false">
+            <p id="_">The following code will be run for verification:</p>
+            <sourcecode id="_">CoreRoot(success): HttpResponse
+              if (success)
+              recommendation(label: success-response)
+              end
+            </sourcecode>
+          </verification>
+          <import exclude="true">
+            <sourcecode id="_">success-response()</sourcecode>
+          </import>
+        </permission>
+            </foreword></preface>
+            <bibliography><references id="_bibliography" obligation="informative" normative="false"  displayorder='2'>
+        <title depth='1'>Bibliography</title>
+        <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">IETF RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
+        </references></bibliography>
+            </iso-standard>
+      OUTPUT
+      html = <<~OUTPUT
+        #{HTML_HDR}
+                     <br/>
+                    <div>
+                      <h1 class="ForewordTitle">Foreword</h1>
+                      <div class="permission" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
+                      <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
+                      <p><i>Subject: user<br/>
+              Inherits: /ss/584/2015/level/1
+              <br/>
+              Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
+              <br/>Control-class: Technical<br/>Priority: P0<br/>Family: System and Communications Protection<br/>Family: System and Communications Protocols</i></p>
+                <div class="requirement-description">
+                  <p id="_">I recommend <i>this</i>.</p>
                 </div>
-              </body>
-            </html>
+                <div class="requirement-description">
+                  <p id="_">As for the measurement targets,</p>
+                </div>
+                <div class="requirement-measurement-target">
+                  <p id="_">The measurement target shall be measured as:</p>
+                  <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+                </div>
+                <div class="requirement-verification">
+                  <p id="_">The following code will be run for verification:</p>
+                  <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                </div>
+              </div>
+                    </div>
+                    <p class="zzSTDTitle1"/>
+                     <br/>
+               <div>
+                 <h1 class='Section3'>Bibliography</h1>
+                 <p id='rfc2616' class='Biblio'>
+                   [1]&#160; IETF RFC 2616,
+                   <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
+                 </p>
+               </div>
+                  </div>
+                </body>
+              </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
 
   it "processes requirements (Presentation XML)" do

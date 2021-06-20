@@ -10,9 +10,9 @@ module IsoDoc::Function
     end
 
     # TODO generate formatted ref if not present
-    def nonstd_bibitem(list, b, ordinal, biblio)
-      list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
-        ids = bibitem_ref_code(b)
+    def nonstd_bibitem(list, bib, ordinal, biblio)
+      list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
+        ids = bibitem_ref_code(bib)
         identifiers = render_identifier(ids)
         if biblio then ref_entry_code(ref, ordinal, identifiers, ids)
         else
@@ -20,21 +20,21 @@ module IsoDoc::Function
           ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
         end
         ref << ", " unless biblio && !identifiers[1]
-        reference_format(b, ref)
+        reference_format(bib, ref)
       end
     end
 
-    def std_bibitem_entry(list, b, ordinal, biblio)
-      list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
-        identifiers = render_identifier(bibitem_ref_code(b))
+    def std_bibitem_entry(list, bib, ordinal, biblio)
+      list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
+        identifiers = render_identifier(bibitem_ref_code(bib))
         if biblio then ref_entry_code(ref, ordinal, identifiers, nil)
         else
           ref << (identifiers[0] || identifiers[1]).to_s
           ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
         end
-        date_note_process(b, ref)
+        date_note_process(bib, ref)
         ref << ", " unless biblio && !identifiers[1]
-        reference_format(b, ref)
+        reference_format(bib, ref)
       end
     end
 
@@ -45,16 +45,16 @@ module IsoDoc::Function
       t[1] and r << (t[1]).to_s
     end
 
-    def pref_ref_code(b)
-      b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
+    def pref_ref_code(bib)
+      bib.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
               "or @type = 'ISSN' or @type = 'ISBN' or @type = 'rfc-anchor')]"))
     end
 
     # returns [metanorma, non-metanorma, DOI/ISSN/ISBN] identifiers
-    def bibitem_ref_code(b)
-      id = b.at(ns("./docidentifier[@type = 'metanorma']"))
-      id1 = pref_ref_code(b)
-      id2 = b.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or "\
+    def bibitem_ref_code(bib)
+      id = bib.at(ns("./docidentifier[@type = 'metanorma']"))
+      id1 = pref_ref_code(bib)
+      id2 = bib.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or "\
                     "@type = 'ISBN']"))
       return [id, id1, id2] if id || id1 || id2
 
@@ -72,20 +72,10 @@ module IsoDoc::Function
       num
     end
 
-    def render_identifier(id)
-      [
-        bracket_if_num(id[0]),
-        if id[1].nil?
-          nil
-        else
-          docid_prefix(id[1]["type"], id[1].text.sub(/^\[/, "").sub(/\]$/, ""))
-        end,
-        if id[2].nil?
-          nil
-        else
-          docid_prefix(id[2]["type"], id[2].text.sub(/^\[/, "").sub(/\]$/, ""))
-        end,
-      ]
+    def render_identifier(ident)
+      [bracket_if_num(ident[0]),
+       ident[1].nil? ? nil : ident[1].text.sub(/^\[/, "").sub(/\]$/, ""),
+       ident[2].nil? ? nil : ident[2].text.sub(/^\[/, "").sub(/\]$/, "")]
     end
 
     def docid_prefix(prefix, docid)
@@ -97,19 +87,20 @@ module IsoDoc::Function
     def omit_docid_prefix(prefix)
       return true if prefix.nil? || prefix.empty?
 
-      %w(ISO IEC IEV ITU W3C csd metanorma rfc-anchor).include? prefix
+      %w(ISO IEC IEV ITU W3C csd metanorma repository rfc-anchor)
+        .include? prefix
     end
 
-    def date_note_process(b, ref)
-      date_note = b.at(ns("./note[@type = 'Unpublished-Status']"))
+    def date_note_process(bib, ref)
+      date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
       return if date_note.nil?
 
       date_note.children.first.replace("<p>#{date_note.content}</p>")
       footnote_parse(date_note, ref)
     end
 
-    def iso_bibitem_entry_attrs(b, biblio)
-      { id: b["id"], class: biblio ? "Biblio" : "NormRef" }
+    def iso_bibitem_entry_attrs(bib, biblio)
+      { id: bib["id"], class: biblio ? "Biblio" : "NormRef" }
     end
 
     def iso_title(bib)
@@ -130,22 +121,21 @@ module IsoDoc::Function
       insert_tab(ref, 1)
     end
 
-    def reference_format(bib, r)
+    def reference_format(bib, out)
       if ftitle = bib.at(ns("./formattedref"))
-        ftitle&.children&.each { |n| parse(n, r) }
+        ftitle&.children&.each { |n| parse(n, out) }
       else
-        title = iso_title(bib)
-        r.i do |i|
-          title&.children&.each { |n| parse(n, i) }
+        out.i do |i|
+          iso_title(bib)&.children&.each { |n| parse(n, i) }
         end
       end
     end
 
     def is_standard(bib)
       ret = false
+      drop = %w(metanorma DOI ISSN ISBN)
       bib.xpath(ns("./docidentifier")).each do |id|
-        next if id["type"].nil? ||
-          %w(metanorma DOI ISSN ISBN).include?(id["type"])
+        next if id["type"].nil? || drop.include?(id["type"])
 
         ret = true
       end
@@ -180,8 +170,7 @@ module IsoDoc::Function
         clause_name(num, f.at(ns("./title")), div, nil)
         if f.name == "clause"
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
-        else
-          biblio_list(f, div, false)
+        else biblio_list(f, div, false)
         end
       end
       num
