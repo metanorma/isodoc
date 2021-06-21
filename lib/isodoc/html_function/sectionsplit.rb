@@ -15,9 +15,10 @@ module IsoDoc::HtmlFunction
     end
 
     def build_collection(xml, presxml, filename, dir)
-      collection_setup(filename, dir)
-      files = sectionsplit(xml, filename, dir)
-      collection_manifest(filename, files, xml, presxml, dir).render(
+      base = File.basename(filename)
+      collection_setup(base, dir)
+      files = sectionsplit(xml, base, dir)
+      collection_manifest(base, files, xml, presxml, dir).render(
         format: %i(html), output_folder: "#{filename}_collection",
         coverpage: File.join(dir, "cover.html")
       )
