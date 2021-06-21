@@ -24,6 +24,7 @@ module IsoDoc
       bibdata docxml
       section docxml
       block docxml
+      @xrefs.parse docxml
       inline docxml
     end
 
