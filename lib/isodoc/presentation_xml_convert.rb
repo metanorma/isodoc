@@ -22,9 +22,9 @@ module IsoDoc
 
     def conversions(docxml)
       bibdata docxml
+      @xrefs.parse docxml
       section docxml
       block docxml
-      @xrefs.parse docxml
       inline docxml
     end
 

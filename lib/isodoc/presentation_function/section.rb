@@ -45,7 +45,6 @@ module IsoDoc
     end
 
     def references(docxml)
-      docid_prefixes(docxml)
     end
 
     def docid_prefixes(docxml)

@@ -1,12 +1,19 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def bibdata(docxml)
+      docid_prefixes(docxml)
       a = bibdata_current(docxml) or return
       address_precompose(a)
       bibdata_i18n(a)
       a.next =
         "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join('')}"\
         "</localized-strings>"
+    end
+
+     def docid_prefixes(docxml)
+      docxml.xpath(ns("//references/bibitem/docidentifier")).each do |i|
+        i.children = @xrefs.klass.docid_prefix(i["type"], i.text)
+      end
     end
 
     def address_precompose(bib)
