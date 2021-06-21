@@ -58,7 +58,7 @@ module IsoDoc::Function
                     "@type = 'ISBN']"))
       return [id, id1, id2] if id || id1 || id2
 
-      id = Nokogiri::XML::Node.new("docidentifier", b.document)
+      id = Nokogiri::XML::Node.new("docidentifier", bib.document)
       id << "(NO ID)"
       [nil, id, nil]
     end
