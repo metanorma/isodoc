@@ -29,12 +29,12 @@ module IsoDoc
     end
 
     def section(docxml)
-      display_order docxml
       clause docxml
       annex docxml
       term docxml
       references docxml
       index docxml
+      display_order docxml
     end
 
     def block(docxml)
