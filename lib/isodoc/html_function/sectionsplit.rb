@@ -99,7 +99,9 @@ module IsoDoc::HtmlFunction
       refs = eref_to_internal_eref(xml, key)
       refs += xref_to_internal_eref(xml, key)
       xml.root["type"] = key # to force recognition of internal refs
-      insert_indirect_biblio(xml, refs, key)
+      ins = new_hidden_ref(xml)
+      copy_repo_items_biblio(ins, xml)
+      insert_indirect_biblio(ins, refs, key)
     end
 
     def svg_preprocess(xml)
@@ -164,15 +166,27 @@ module IsoDoc::HtmlFunction
     def eref_to_internal_eref_select(xml)
       refs = xml.xpath(("//*/@bibitemid")).map { |x| x.text } # rubocop:disable Style/SymbolProc
       refs.uniq.reject do |x|
-        xml.at(ns("//bibitem[@id = '#{x}'][@type = 'internal']"))
+        xml.at(ns("//bibitem[@id = '#{x}'][@type = 'internal']")) ||
+          xml.at(ns("//bibitem[@id = '#{x}']"\
+                    "[docidentifier/@type = 'repository']"))
       end
     end
 
     # from standoc
-    def insert_indirect_biblio(xmldoc, refs, prefix)
+    def new_hidden_ref(xmldoc)
       ins = xmldoc.at("bibliography") or
         xmldoc.root << "<bibliography/>" and ins = xmldoc.at("bibliography")
-      ins = ins.add_child("<references hidden='true' normative='false'/>").first
+      ins.add_child("<references hidden='true' normative='false'/>").first
+    end
+
+    def copy_repo_items_biblio(ins, xml)
+      xml.xpath(ns("//references/bibitem[docidentifier/@type = 'repository']"))
+        .each do |b|
+        ins << b.dup
+      end
+    end
+
+    def insert_indirect_biblio(ins, refs, prefix)
       refs.each do |x|
         ins << <<~BIBENTRY
           <bibitem id="#{x}" type="internal">
