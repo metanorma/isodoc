@@ -19,12 +19,15 @@ module IsoDoc
       end
     end
 
-    def svg_extract(f)
-      return unless %r{^data:image/svg\+xml;base64,}.match?(f["src"])
+    def svg_extract(elem)
+      return unless %r{^data:image/svg\+xml;base64,}.match?(elem["src"])
 
-      svg = Base64.strict_decode64(f["src"]
+      svg = Base64.strict_decode64(elem["src"]
         .sub(%r{^data:image/svg\+xml;base64,}, ""))
-      f.replace(svg.sub(/<\?xml[^>]*>/, ""))
+      x = Nokogiri::XML.fragment(svg.sub(/<\?xml[^>]*>/, "")) do |config|
+        config.huge
+      end
+      elem.replace(x)
     end
 
     def figure1(f)

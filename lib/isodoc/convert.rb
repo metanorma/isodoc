@@ -145,7 +145,7 @@ module IsoDoc
     end
 
     def convert_init(file, input_filename, debug)
-      docxml = Nokogiri::XML(file)
+      docxml = Nokogiri::XML(file) { |config| config.huge }
       filename, dir = init_file(input_filename, debug)
       docxml.root.default_namespace = ""
       lang = docxml&.at(ns("//bibdata/language"))&.text and @lang = lang
