@@ -225,7 +225,7 @@ module IsoDoc::Function
     end
 
     def svg_parse(node, out)
-      out << node.to_xml
+      out.parent.add_child(node)
     end
   end
 end
