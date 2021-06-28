@@ -36,6 +36,7 @@ note: HINWEIS
 note_xref: Hinweis
 termnote: Hinweis % zum Eintrag
 list: Liste
+deflist: Definitionsliste
 figure: Abbildung
 formula: Formel
 inequality: Formel

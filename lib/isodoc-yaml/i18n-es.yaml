@@ -38,6 +38,7 @@ note: NOTA
 note_xref: Nota
 termnote: Nota % a la entrada
 list: Lista
+deflist: Lista de definiciones
 figure: Figura
 formula: Fórmula
 inequality: Fórmula

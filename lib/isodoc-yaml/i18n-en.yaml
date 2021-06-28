@@ -42,6 +42,7 @@ note: NOTE
 note_xref: Note
 termnote: Note % to entry
 list: List
+deflist: Definition List
 figure: Figure
 formula: Formula
 inequality: Formula

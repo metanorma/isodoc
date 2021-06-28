@@ -41,6 +41,7 @@ note: ПРИМЕЧАНИЕ
 note_xref: Примечание
 termnote: Примечание % к определению
 list: Список
+deflist: Список определений
 figure: Рисунок
 formula: Формула
 inequality: Формула
