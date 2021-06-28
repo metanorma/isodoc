@@ -3,7 +3,7 @@ require_relative "xref_gen_seq"
 module IsoDoc::XrefGen
   module Blocks
     NUMBERED_BLOCKS = %w(termnote termexample note example requirement
-    recommendation permission figure table formula admonition sourcecode).freeze
+                         recommendation permission figure table formula admonition sourcecode).freeze
 
     def amend_preprocess(xmldoc)
       xmldoc.xpath(ns("//amend[newcontent]")).each do |a|
@@ -60,9 +60,9 @@ module IsoDoc::XrefGen
 
           c.increment(n)
           idx = increment_label(examples, n, c, false)
-          @anchors[n["id"]] = {
-            type: "termexample", label: idx, value: c.print,
-            xref: l10n("#{anchor(t['id'], :xref)}, "\
+          @anchors[n["id"]] =
+            { type: "termexample", label: idx, value: c.print,
+              xref: l10n("#{anchor(t['id'], :xref)}, "\
                        "#{@labels['example_xref']} #{c.print}") }
         end
       end
@@ -86,9 +86,8 @@ module IsoDoc::XrefGen
 
     def note_anchor_names(sections)
       sections.each do |s|
-        notes = s.xpath(CHILD_NOTES_XPATH)
         c = Counter.new
-        notes.each do |n|
+        (notes = s.xpath(CHILD_NOTES_XPATH)).each do |n|
           next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
 
           @anchors[n["id"]] =
@@ -105,13 +104,12 @@ module IsoDoc::XrefGen
       "xmlns:example | ./xmlns:example".freeze
 
     CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | "\
-      "./references"
+      "./references".freeze
 
     def example_anchor_names(sections)
       sections.each do |s|
-        notes = s.xpath(CHILD_EXAMPLES_XPATH)
         c = Counter.new
-        notes.each do |n|
+        (notes = s.xpath(CHILD_EXAMPLES_XPATH)).each do |n|
           next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
 
           @anchors[n["id"]] =
@@ -145,10 +143,40 @@ module IsoDoc::XrefGen
         label = "#{prev_label}.#{label}" unless prev_label.empty?
         label = "#{list_anchor[:xref]} #{label}" if refer_list
         li["id"] and @anchors[li["id"]] =
-          { xref: "#{label})", type: "listitem", 
-            container: list_anchor[:container] }
+                       { xref: "#{label})", type: "listitem",
+                         container: list_anchor[:container] }
         li.xpath(ns("./ol")).each do |ol|
           list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
+        end
+      end
+    end
+
+    def deflist_anchor_names(sections)
+      sections.each do |s|
+        notes = s.xpath(ns(".//dl")) - s.xpath(ns(".//clause//dl")) -
+          s.xpath(ns(".//appendix//dl")) - s.xpath(ns(".//dl//dl"))
+        c = Counter.new
+        notes.each do |n|
+          next if n["id"].nil? || n["id"].empty?
+
+          @anchors[n["id"]] =
+            anchor_struct(increment_label(notes, n, c), n,
+                          @labels["deflist"], "deflist", false)
+          deflist_term_anchor_names(n, @anchors[n["id"]])
+        end
+        deflist_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+      end
+    end
+
+    def deflist_term_anchor_names(list, list_anchor)
+      list.xpath(ns("./dt")).each do |li|
+        label = li.text
+        label = l10n("#{list_anchor[:xref]}: #{label}")
+        li["id"] and @anchors[li["id"]] =
+                       { xref: label, type: "deflistitem",
+                         container: list_anchor[:container] }
+        li.xpath(ns("./dl")).each do |dl|
+          deflist_term_anchor_names(dl, list_anchor)
         end
       end
     end

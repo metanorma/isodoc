@@ -38,6 +38,7 @@ figure: Figure
 formula: Formule
 inequality: Formule
 list: Liste
+deflist: Liste de définitions
 table: Tableau
 requirement: Exigence
 recommendation: Recommandation

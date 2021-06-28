@@ -28,16 +28,16 @@ module IsoDoc
       @anchors
     end
 
-    def anchor(id, lbl, warning = true)
-      return nil if id.nil? || id.empty?
+    def anchor(ident, lbl, warning = true)
+      return nil if ident.nil? || ident.empty?
 
-      if warning && !@anchors[id]
+      if warning && !@anchors[ident]
         @seen ||= Seen_Anchor.instance
-        @seen.seen(id) or warn "No label has been processed for ID #{id}"
-        @seen.add(id)
-        return "[#{id}]"
+        @seen.seen(ident) or warn "No label has been processed for ID #{ident}"
+        @seen.add(ident)
+        return "[#{ident}]"
       end
-      @anchors.dig(id, lbl)
+      @anchors.dig(ident, lbl)
     end
 
     # extract names for all anchors, xref and label
@@ -50,6 +50,7 @@ module IsoDoc
       note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       list_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+      deflist_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
       bookmark_anchor_names(docxml)
     end
 
