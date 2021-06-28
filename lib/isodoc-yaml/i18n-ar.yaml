@@ -18,28 +18,21 @@ clause: فقرة
 annex: ملحق
 appendix: تذييل
 no_terms_boilerplate: |
-  <p>No terms and definitions are listed in this document.</p>
+  <p>لم يتم سرد أي مصطلحات وتعريفات في هذا المستند.</p>
 internal_terms_boilerplate: |
-  <p>For the purposes of this document,
-            the following terms and definitions apply.</p>
+  <p>لأغراض هذا المستند، تنطبق المصطلحات والتعريفات التالية.</p>
 norm_with_refs_pref:
-  The following documents are referred to in the text in such a way
-      that some or all of their content constitutes requirements of this
-      document. For dated references, only the edition cited applies.
-      For undated references, the latest edition of the referenced
-      document (including any amendments) applies.
+  تتم الإشارة إلى المستندات التالية في النص بحيث يشكل بعض أو كل محتوياتها متطلبات هذا المستند. للحصول على مراجع مؤرخة، تطبق النسخة المشار إليها فقط. بالنسبة للمراجع غير المؤرخة ، تنطبق أحدث طبعة من الوثيقة المشار إليها (بما في ذلك أي تعديلات).
 norm_empty_pref:
-  There are no normative references in this document.
+  لا توجد مراجع معيارية في هذه الوثيقة.
 external_terms_boilerplate: |
-  <p>For the purposes of this document,
-    the terms and definitions given in % apply.</p>
+  <p> لأغراض هذا المستند ، تنطبق المصطلحات والتعريفات الواردة في%%. </ p>
 internal_external_terms_boilerplate: |
-  <p>For the purposes of this document, the terms and definitions
-    given in % and the following apply.</p>
-term_defined_in: "[term defined in %]"
+  <p>لأغراض هذه الوثيقة ،تنطبق المصطلحات والتعاريف الواردة في % وما يلي.</p>
+term_defined_in: "[المصطلح المحدد في %]"
 note: ملاحظة
 note_xref: ملاحظة
-termnote: Note % to entry
+termnote: ملاحظة % للقيد
 list: قائمة
 figure: شكل
 formula: معادلة
@@ -53,11 +46,11 @@ example: مثال
 example_xref: مثال
 where: حيث
 wholeoftext: كامل النص
-draft_label: draft
-inform_annex: informative
-norm_annex: normative
+draft_label: مسودة
+inform_annex: إخباري
+norm_annex: مقياسي
 modified: معدلة
-deprecated: DEPRECATED
+deprecated: مهمل
 source: مصدر
 and: و
 all_parts: كل الأجزاء
@@ -78,8 +71,8 @@ subject: موضوع
 inherits: يرث
 admonition:
   danger: خطر
-  warning: Warning
-  caution: Caution
+  warning: تحذير
+  caution: حذر
   important: مهم
   safety precautions: احتياطات السلامة
 locality:
@@ -108,9 +101,9 @@ inflection:
   ملاحظة:
     sg: ملاحظة
     pl: ملاحظات
-  "Note % to entry":
-    sg: Note % to entry
-    pl: Notes % to entry
+  "ملاحظة % للقيد":
+    sg: ملاحظة % للقيد
+    pl: ملاحظات % للقيد
   قائمة:
     sg: قائمة
     pl: قوائم
