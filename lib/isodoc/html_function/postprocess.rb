@@ -19,7 +19,6 @@ module IsoDoc
 
       def toHTML(result, filename)
         result = from_xhtml(html_cleanup(to_xhtml(result)))
-        # result = populate_template(result, :html)
         result = from_xhtml(move_images(to_xhtml(result)))
         result = html5(script_cdata(inject_script(result)))
         File.open(filename, "w:UTF-8") { |f| f.write(result) }
@@ -33,7 +32,14 @@ module IsoDoc
       def html_cleanup(html)
         html = term_header(html_footnote_filter(html_preface(htmlstyle(html))))
         html = footnote_format(footnote_backlinks(html_toc(html)))
-        mathml(html_list_clean(html))
+        mathml(html_list_clean(remove_placeholder_paras(html)))
+      end
+
+      def remove_placeholder_paras(html)
+        %w(title-section prefatory-section).each do |s|
+          html&.at("//div[@class = '#{s}']/p[last()]")&.remove
+        end
+        html
       end
 
       def html_list_clean(html)
@@ -99,7 +105,6 @@ module IsoDoc
       def html_cover(docxml)
         doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
         d = docxml.at('//div[@class="title-section"]')
-        # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
         d.children.first.add_previous_sibling(
           populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
         )
@@ -108,7 +113,6 @@ module IsoDoc
       def html_intro(docxml)
         doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
         d = docxml.at('//div[@class="prefatory-section"]')
-        # d.children.first.add_previous_sibling doc.to_xml(encoding: "US-ASCII")
         d.children.first.add_previous_sibling(
           populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
         )

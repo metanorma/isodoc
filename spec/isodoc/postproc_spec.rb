@@ -344,6 +344,62 @@ RSpec.describe IsoDoc do
     expect(word).to match(%r{Anta&#x16D;parolo</h1>})
   end
 
+  it "cleans up HTML output preface placeholder paragraphs" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::HtmlConvert.new(
+      { bodyfont: "Zapf",
+        monospacefont: "Consolas",
+        headerfont: "Comic Sans",
+        normalfontsize: "30pt",
+        monospacefontsize: "29pt",
+        smallerfontsize: "28pt",
+        footnotefontsize: "27pt",
+        htmlstylesheet: "spec/assets/html.scss",
+        htmlstylesheet_override: "spec/assets/html_override.css",
+        htmlcoverpage: "spec/assets/htmlcover.html",
+        htmlintropage: "spec/assets/htmlintro.html",
+        scripts: "spec/assets/scripts.html",
+        scripts_override: "spec/assets/scripts_override.html",
+        i18nyaml: "spec/assets/i18n.yaml",
+        ulstyle: "l1",
+        olstyle: "l2" },
+    ).convert("test", <<~"INPUT", false)
+              <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <note>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+      </note>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    html = Nokogiri::XML(File.read("test.html")).at("//body")
+    html.xpath("//script").each(&:remove)
+    expect(html.to_xml).to be_equivalent_to <<~OUTPUT
+      <body lang="en" xml:lang="en">
+          <div class="title-section">
+      /* an empty html cover page */
+          </div>
+          <br/>
+          <div class="prefatory-section">
+      /* an empty html intro page */
+      <ul id="toc-list"/>
+          </div>
+          <br/>
+          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+            <br/>
+            <div>
+              <h1 class="ForewordTitle">Anta&#x16D;parolo</h1>
+              <div class="Note">
+                <p>&#xA0; These results are based on a study carried out on three different types of kernel.</p>
+              </div>
+            </div>
+            <p class="zzSTDTitle1"/>
+          </main>
+      </body>
+    OUTPUT
+  end
+
   it "converts definition lists to tables for Word" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
@@ -1277,17 +1333,17 @@ RSpec.describe IsoDoc do
   it "does not lose HTML escapes in postprocessing" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new(options)
-      .convert("test", <<~"INPUT", false)
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <sourcecode id="samplecode">
-            <name>XML code</name>
-          &lt;xml&gt; &amp;
-        </sourcecode>
-            </foreword></preface>
-            </iso-standard>
-      INPUT
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <sourcecode id="samplecode">
+          <name>XML code</name>
+        &lt;xml&gt; &amp;
+      </sourcecode>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    IsoDoc::HtmlConvert.new(options).convert("test", input, false)
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
@@ -1303,22 +1359,10 @@ RSpec.describe IsoDoc do
         <p class="zzSTDTitle1"></p>
       </main>
     OUTPUT
-  end
 
-  it "does not lose HTML escapes in postprocessing (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(options)
-      .convert("test", <<~"INPUT", false)
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
-            <sourcecode id="samplecode">
-            <name>XML code</name>
-          &lt;xml&gt; &amp;
-        </sourcecode>
-            </foreword></preface>
-            </iso-standard>
-      INPUT
+    IsoDoc::WordConvert.new(options).convert("test", input, false)
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
