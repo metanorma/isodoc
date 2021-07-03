@@ -161,16 +161,25 @@ module IsoDoc
       docxml.xpath(ns("//concept")).each { |f| concept1(f) }
     end
 
+    # the content of the xref expression is the rendered term
+
     def concept1(node)
-      content = node.first_element_child.children.reject do |c|
-        %w{locality localityStack}.include? c.name
-      end.select { |c| !c.text? || /\S/.match(c) }
-      n = if content.empty?
-            @i18n.term_defined_in.sub(/%/, node.first_element_child.to_xml)
-          else
-            "<em>#{node.children.to_xml}</em>"
-          end
-      node.replace(n)
+      unless r = node.at(ns("./refterm"))
+        node.children.first.add_previous_child("<refterm/>")
+        r = node.at(ns("./refterm"))
+      end
+      d = node.at(ns("./xref | ./eref | ./termref"))
+      r&.children&.each(&:remove)
+      d&.children&.each do |n|
+        n.parent = r unless %(locality localityStack).include? n.name
+      end
+      r.remove if r.text.strip.empty?
+      r&.name = "em"
+      if d.text.empty?
+        d.replace(@i18n.term_defined_in.sub(/%/, d.to_xml))
+      elsif !r.text.strip.empty? then d.replace("(#{d.to_xml})")
+      end
+      node.replace(node.children)
     end
 
     def variant(docxml)
