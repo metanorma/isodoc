@@ -53,10 +53,10 @@ module IsoDoc
     end
 
     def inline(docxml)
+      concept docxml
       xref docxml
       eref docxml
       origin docxml
-      concept docxml
       quotesource docxml
       mathml docxml
       variant docxml
