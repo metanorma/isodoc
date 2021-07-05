@@ -380,7 +380,7 @@ RSpec.describe IsoDoc do
                    </li>
                    <li>
                      <i>word</i>
-                      [Termbase IEV, term ID 135-13-13]
+                      [The IEV database]
                    </li>
                  </ul>
                </p>

@@ -189,7 +189,7 @@ RSpec.describe IsoDoc do
                <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
                  [MODIFICATION] The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
              [/TERMREF]</p>
-             <p>[TERMREF] Termbase IEV, term ID xyz [/TERMREF]</p>
+             <p>[TERMREF] t1 [/TERMREF]</p>
       <p>[TERMREF] Termbase IEV, term ID xyz [MODIFICATION]with adjustments [/TERMREF]</p>
       <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice</p>
              <p class="AltTerms" style="text-align:left;">rough rice</p>
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc do
                <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
                  [MODIFICATION] The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
              [/TERMREF]</p>
-             <p>[TERMREF] Termbase IEV, term ID xyz [/TERMREF]</p>
+             <p>[TERMREF] t1 [/TERMREF]</p>
       <p>[TERMREF] Termbase IEV, term ID xyz [MODIFICATION]with adjustments [/TERMREF]</p>
       <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice</p>
              <p class="AltTerms" style="text-align:left;">rough rice</p>

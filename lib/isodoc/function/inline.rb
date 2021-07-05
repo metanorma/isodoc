@@ -71,7 +71,11 @@ module IsoDoc::Function
     end
 
     def termrefelem_parse(node, out)
-      out << "Termbase #{node['base']}, term ID #{node['target']}"
+      if node.text.strip.empty?
+        out << "Termbase #{node['base']}, term ID #{node['target']}"
+      else
+        node.children.each { |n| parse(n, out) }
+      end
     end
 
     def stem_parse(node, out)
