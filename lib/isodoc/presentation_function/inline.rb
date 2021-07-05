@@ -129,10 +129,8 @@ module IsoDoc
 
       loc = @i18n.locality[type] || type.sub(/^locality:/, "")
       loc = case node["case"]
-            when "capital" then loc.capitalize
             when "lowercase" then loc.downcase
-            else
-              loc.capitalize
+            else loc.capitalize
             end
       " #{loc}"
     end
@@ -161,24 +159,12 @@ module IsoDoc
       docxml.xpath(ns("//concept")).each { |f| concept1(f) }
     end
 
-    # the content of the xref expression is the rendered term
-
     def concept1(node)
-      unless r = node.at(ns("./refterm"))
-        node.children.first.add_previous_child("<refterm/>")
-        r = node.at(ns("./refterm"))
-      end
-      d = node.at(ns("./xref | ./eref | ./termref"))
-      r&.children&.each(&:remove)
-      d&.children&.each do |n|
-        n.parent = r unless %(locality localityStack).include? n.name
-      end
-      r.remove if r.text.strip.empty?
-      r&.name = "em"
-      if d.text.empty?
-        d.replace(@i18n.term_defined_in.sub(/%/, d.to_xml))
-      elsif !r.text.strip.empty? then d.replace("(#{d.to_xml})")
-      end
+      node&.at(ns("./refterm"))&.remove
+      d = node&.at(ns("./renderterm"))
+      d&.name = "em"
+      r = node.at(ns("./xref | ./eref | ./termref"))
+      r.replace(@i18n.term_defined_in.sub(/%/, r.to_xml))
       node.replace(node.children)
     end
 
