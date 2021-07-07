@@ -239,32 +239,26 @@ RSpec.describe IsoDoc do
                [term defined in <xref target="clause1">Clause 2</xref>]
              </li>
              <li>
-               <em>term</em>
-               [term defined in <xref target="clause1">Clause 2</xref>]
+               <em>term</em> [term defined in <xref target="clause1">Clause 2</xref>]
              </li>
            <li>
-               <em>w[o]rd</em>
-               [<xref target="clause1">Clause #1</xref>]
+               <em>w[o]rd</em> [<xref target="clause1">Clause #1</xref>]
              </li>
              <li>
-               <em>term</em>
-               [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712">ISO 712</eref>]
+               <em>term</em> [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712">ISO 712</eref>]
              </li>
              <li>
-               <em>word</em>
-               [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">The Aforementioned Citation</eref>]
+               <em>word</em> [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">The Aforementioned Citation</eref>]
              </li>
              <li>
-               <em>word</em>
-               [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712"><locality type="clause">
+               <em>word</em> [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712"><locality type="clause">
                    <referenceFrom>3.1</referenceFrom>
                  </locality><locality type="figure">
                    <referenceFrom>a</referenceFrom>
                  </locality>ISO 712, Clause 3.1, Figure a</eref>]
              </li>
              <li>
-               <em>word</em>
-               [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712"><localityStack>
+               <em>word</em> [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712"><localityStack>
                  <locality type="clause">
                    <referenceFrom>3.1</referenceFrom>
                  </locality>
@@ -275,8 +269,7 @@ RSpec.describe IsoDoc do
                </localityStack>ISO 712, Clause 3.1; Figure b</eref>]
              </li>
              <li>
-               <em>word</em>
-               [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">
+               <em>word</em> [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">
                <localityStack>
                  <locality type="clause">
                    <referenceFrom>3.1</referenceFrom>
@@ -291,12 +284,10 @@ RSpec.describe IsoDoc do
                </eref>]
              </li>
              <li>
-               <em>word</em>
-               [term defined in <termref base="IEV" target="135-13-13"/>]
+               <em>word</em> [term defined in <termref base="IEV" target="135-13-13"/>]
              </li>
              <li>
-               <em>word</em>
-               [<termref base="IEV" target="135-13-13">The IEV database</termref>]
+               <em>word</em> [<termref base="IEV" target="135-13-13">The IEV database</termref>]
              </li>
              </ul>
            </p>
