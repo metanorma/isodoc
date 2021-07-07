@@ -161,8 +161,8 @@ module IsoDoc
 
     def concept1(node)
       node&.at(ns("./refterm"))&.remove
-      node&.at(ns("./renderterm"))&.name = "em"
       node&.at(ns("./renderterm"))&.next = " "
+      node&.at(ns("./renderterm"))&.name = "em"
       if r = node.at(ns("./xref | ./eref | ./termref"))
         c1 = non_locality_elems(r).select { |c| !c.text? || /\S/.match(c) }
         if c1.empty?
