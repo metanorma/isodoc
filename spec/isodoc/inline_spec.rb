@@ -244,7 +244,7 @@ RSpec.describe IsoDoc do
              </li>
            <li>
                <em>w[o]rd</em>
-               [term defined in <xref target="clause1">Clause #1</xref>]
+               [<xref target="clause1">Clause #1</xref>]
              </li>
              <li>
                <em>term</em>
@@ -252,7 +252,7 @@ RSpec.describe IsoDoc do
              </li>
              <li>
                <em>word</em>
-               [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712">The Aforementioned Citation</eref>]
+               [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">The Aforementioned Citation</eref>]
              </li>
              <li>
                <em>word</em>
@@ -276,7 +276,7 @@ RSpec.describe IsoDoc do
              </li>
              <li>
                <em>word</em>
-               [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
+               [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">
                <localityStack>
                  <locality type="clause">
                    <referenceFrom>3.1</referenceFrom>
@@ -296,7 +296,7 @@ RSpec.describe IsoDoc do
              </li>
              <li>
                <em>word</em>
-               [term defined in <termref base="IEV" target="135-13-13">The IEV database</termref>]
+               [<termref base="IEV" target="135-13-13">The IEV database</termref>]
              </li>
              </ul>
            </p>
@@ -322,7 +322,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     output = <<~OUTPUT
       #{HTML_HDR}
-                  <br/>
+                 <br/>
              <div>
                <h1 class='ForewordTitle'>Foreword</h1>
                <p>
@@ -340,7 +340,7 @@ RSpec.describe IsoDoc do
                    </li>
                    <li>
                      <i>w[o]rd</i>
-                      [term defined in
+                      [
                      <a href='#clause1'>Clause #1</a>
                      ]
                    </li>
@@ -352,7 +352,7 @@ RSpec.describe IsoDoc do
                    </li>
                    <li>
                      <i>word</i>
-                      [term defined in
+                      [
                      <a href='#ISO712'>The Aforementioned Citation</a>
                      ]
                    </li>
@@ -370,7 +370,7 @@ RSpec.describe IsoDoc do
                    </li>
                    <li>
                      <i>word</i>
-                      [term defined in
+                      [
                      <a href='#ISO712'> The Aforementioned Citation </a>
                      ]
                    </li>
@@ -380,7 +380,7 @@ RSpec.describe IsoDoc do
                    </li>
                    <li>
                      <i>word</i>
-                      [term defined in Termbase IEV, term ID 135-13-13]
+                      [The IEV database]
                    </li>
                  </ul>
                </p>
