@@ -139,7 +139,8 @@ RSpec.describe IsoDoc do
           <preface><foreword>
           <p>
           <ul>
-          <li><concept><refterm>term</refterm>
+          <li>
+          <concept><refterm>term</refterm>
               <xref target='clause1'/>
             </concept></li>
             <li><concept><refterm>term</refterm>
@@ -208,6 +209,11 @@ RSpec.describe IsoDoc do
               <renderterm>word</renderterm>
               <termref base='IEV' target='135-13-13'>The IEV database</termref>
             </concept></li>
+            <li><concept><refterm>term</refterm>
+              <renderterm>word</renderterm>
+              <strong>error!</strong>
+              </concept>
+              </li>
             </ul>
           </p>
           </foreword></preface>
@@ -298,6 +304,7 @@ RSpec.describe IsoDoc do
                <em>word</em>
                [<termref base="IEV" target="135-13-13">The IEV database</termref>]
              </li>
+              <li> <em>word</em> <strong>error!</strong> </li>
              </ul>
            </p>
            </foreword></preface>
@@ -382,6 +389,7 @@ RSpec.describe IsoDoc do
                      <i>word</i>
                       [The IEV database]
                    </li>
+                   <li> <i>word</i> <b>error!</b> </li>
                  </ul>
                </p>
              </div>
