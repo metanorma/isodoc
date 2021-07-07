@@ -23,7 +23,7 @@ module IsoDoc::Function
     end
 
     def figure_key(out)
-      out.p **{ style: "page-break-after:avoid;"} do |p|
+      out.p **{ style: "page-break-after:avoid;" } do |p|
         p.b { |b| b << @i18n.key }
       end
     end
@@ -61,7 +61,7 @@ module IsoDoc::Function
       @in_figure = false
     end
 
-    def sourcecode_name_parse(node, div, name)
+    def sourcecode_name_parse(_node, div, name)
       return if name.nil?
 
       div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
@@ -143,7 +143,7 @@ module IsoDoc::Function
 
     def formula_parse1(node, out)
       out.div **attr_code(class: "formula") do |div|
-        div.p do |p|
+        div.p do |_p|
           parse(node.at(ns("./stem")), div)
           if lbl = node&.at(ns("./name"))&.text
             insert_tab(div, 1)
@@ -219,7 +219,7 @@ module IsoDoc::Function
 
     def passthrough_parse(node, out)
       return if node["format"] &&
-        !(node["format"].split(/,/).include? @format.to_s)
+        !(node["format"].split(",").include? @format.to_s)
 
       out.passthrough node.text
     end
