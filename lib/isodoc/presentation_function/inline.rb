@@ -161,9 +161,19 @@ module IsoDoc
 
     def concept1(node)
       node&.at(ns("./refterm"))&.remove
-      node&.at(ns("./renderterm"))&.next = " "
-      node&.at(ns("./renderterm"))&.name = "em"
+      r = node.at(ns("./renderterm"))
+      r&.next = " "
+      if node["noital"] == "true" then r&.replace(r&.children)
+      else r&.name = "em"
+      end
+      concept1_ref(node)
+      node.replace(node.children)
+    end
+
+    def concept1_ref(node)
       if r = node.at(ns("./xref | ./eref | ./termref"))
+        return r.remove if node["noref"] == "true"
+
         c1 = non_locality_elems(r).select { |c| !c.text? || /\S/.match(c) }
         if c1.empty?
           r.replace(@i18n.term_defined_in.sub(/%/, r.to_xml))
@@ -171,7 +181,6 @@ module IsoDoc
           r.replace("[#{r.to_xml}]")
         end
       end
-      node.replace(node.children)
     end
 
     def variant(docxml)
