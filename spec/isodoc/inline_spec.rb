@@ -490,6 +490,90 @@ RSpec.describe IsoDoc do
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
+  it "processes concept markup for symbols" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword>
+      <p>
+      <ul>
+      <li><concept>
+          <refterm>term</refterm>
+          <renderterm>ISO</renderterm>
+          <xref target='d1'/>
+        </concept></li>
+        </ul>
+        </p>
+        </foreword>
+        </preface>
+        <sections>
+        <definitions id="d">
+        <dl>
+        <dt id="d1">ISO</dt> <dd>xyz</xyz>
+        <dt id="d2">IEC</dt> <dd>abc</xyz>
+        </dl>
+        </definitions>
+        </sections>
+        </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+          <foreword displayorder='1'>
+            <p>
+              <ul>
+                <li>ISO</li>
+              </ul>
+            </p>
+          </foreword>
+          </preface>
+          <sections>
+            <definitions id='d' displayorder='2'>
+              <title>1.</title>
+              <dl>
+                <dt id='d1'>ISO</dt>
+                <dd>xyz</dd>
+                <dt id='d2'>IEC</dt>
+                <dd>abc</dd>
+              </dl>
+            </definitions>
+          </sections>
+      </iso-standard>
+    OUTPUT
+    output = <<~OUTPUT
+          #{HTML_HDR}
+            <br/>
+            <div>
+              <h1 class='ForewordTitle'>Foreword</h1>
+              <p>
+                <ul>
+                  <li>ISO</li>
+                </ul>
+              </p>
+            </div>
+            <p class='zzSTDTitle1'/>
+            <div id='d' class='Symbols'>
+              <h1>1.</h1>
+              <dl>
+                <dt id='d1'>
+                  <p>ISO</p>
+                </dt>
+                <dd>xyz</dd>
+                <dt id='d2'>
+                  <p>IEC</p>
+                </dt>
+                <dd>abc</dd>
+              </dl>
+            </div>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
+  end
+
   it "processes embedded inline formatting" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
