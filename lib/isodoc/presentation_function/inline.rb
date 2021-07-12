@@ -160,6 +160,19 @@ module IsoDoc
     end
 
     def concept1(node)
+      xref = node&.at(ns("./xref/@target"))&.text or
+        return concept_term1(node)
+      if node.at(ns("//definitions//dt[@id = '#{xref}']"))
+        concept_symbol1(node)
+      else concept_term1(node)
+      end
+    end
+
+    def concept_symbol1(node)
+      r = node.at(ns("./renderterm")) and node.replace(r.children)
+    end
+
+    def concept_term1(node)
       node&.at(ns("./refterm"))&.remove
       r = node.at(ns("./renderterm"))
       r&.next = " "
