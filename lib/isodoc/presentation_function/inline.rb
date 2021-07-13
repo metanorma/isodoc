@@ -161,10 +161,11 @@ module IsoDoc
 
     def concept1(node)
       xref = node&.at(ns("./xref/@target"))&.text or
-        return concept_term1(node)
+        return concept_render(node, node["ital"] || "true",
+                              node["ref"] || "true")
       if node.at(ns("//definitions//dt[@id = '#{xref}']"))
-        concept_symbol1(node)
-      else concept_term1(node)
+        concept_render(node, node["ital"] || "false", node["ref"] || "false")
+      else concept_render(node, node["ital"] || "true", node["ref"] || "true")
       end
     end
 
@@ -172,27 +173,24 @@ module IsoDoc
       r = node.at(ns("./renderterm")) and node.replace(r.children)
     end
 
-    def concept_term1(node)
+    def concept_render(node, ital, ref)
       node&.at(ns("./refterm"))&.remove
       r = node.at(ns("./renderterm"))
       r&.next = " "
-      if node["noital"] == "true" then r&.replace(r&.children)
-      else r&.name = "em"
+      if ital == "true" then r&.name = "em"
+      else r&.replace(r&.children)
       end
-      concept1_ref(node)
+      concept1_ref(node, ref)
       node.replace(node.children)
     end
 
-    def concept1_ref(node)
-      if r = node.at(ns("./xref | ./eref | ./termref"))
-        return r.remove if node["noref"] == "true"
+    def concept1_ref(node, ref)
+      r = node.at(ns("./xref | ./eref | ./termref")) or return
+      return r.remove if ref == "false"
 
-        c1 = non_locality_elems(r).select { |c| !c.text? || /\S/.match(c) }
-        if c1.empty?
-          r.replace(@i18n.term_defined_in.sub(/%/, r.to_xml))
-        else
-          r.replace("[#{r.to_xml}]")
-        end
+      if non_locality_elems(r).select { |c| !c.text? || /\S/.match(c) }.empty?
+        r.replace(@i18n.term_defined_in.sub(/%/, r.to_xml))
+      else r.replace("[#{r.to_xml}]")
       end
     end
 
