@@ -169,10 +169,6 @@ module IsoDoc
       end
     end
 
-    def concept_symbol1(node)
-      r = node.at(ns("./renderterm")) and node.replace(r.children)
-    end
-
     def concept_render(node, ital, ref)
       node&.at(ns("./refterm"))&.remove
       r = node.at(ns("./renderterm"))
