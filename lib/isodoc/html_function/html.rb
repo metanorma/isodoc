@@ -74,6 +74,8 @@ module IsoDoc::HtmlFunction
     end
 
     def html_button
+      return "" if @bare
+
       '<button onclick="topFunction()" id="myBtn" '\
         'title="Go to top">Top</button>'.freeze
     end

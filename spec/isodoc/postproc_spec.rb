@@ -2271,7 +2271,6 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <body lang='en' xml:lang='en'>
         <main class='main-section'>
-          <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
           <br/>
           <div>
             <h1 class='ForewordTitle'>Foreword</h1>
