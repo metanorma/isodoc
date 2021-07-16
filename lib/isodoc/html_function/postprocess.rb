@@ -74,6 +74,7 @@ module IsoDoc
         head = docxml.at("//*[local-name() = 'head']")
         head << htmlstylesheet(@htmlstylesheet)
         s = htmlstylesheet(@htmlstylesheet_override) and head << s
+        @bare and head << "<style>body {margin-left: 2em; margin-right: 2em;}</style>"
         docxml
       end
 
