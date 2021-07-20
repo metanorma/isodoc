@@ -2,7 +2,6 @@ require_relative "html_function/comments"
 require_relative "html_function/footnotes"
 require_relative "html_function/html"
 require_relative "html_function/postprocess"
-require_relative "html_function/sectionsplit"
 require_relative "html_function/form"
 
 module IsoDoc
@@ -24,9 +23,6 @@ module IsoDoc
     end
 
     def convert(filename, file = nil, debug = false, output_filename = nil)
-      @sectionsplit and
-        return sectionsplit_convert(filename, file, debug, output_filename)
-
       ret = super
       Dir.exists?(tmpimagedir) and Dir["#{tmpimagedir}/*"].empty? and
         FileUtils.rm_r tmpimagedir
