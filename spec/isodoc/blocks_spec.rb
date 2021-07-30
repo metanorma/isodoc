@@ -1535,7 +1535,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes term domains" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms>
@@ -1547,6 +1547,7 @@ RSpec.describe IsoDoc do
           </sections>
           </iso-standard>
     INPUT
+    output = <<~OUTPUT
       #{HTML_HDR}
                      <p class="zzSTDTitle1"/>
                      <div><h1/>
@@ -1558,6 +1559,8 @@ RSpec.describe IsoDoc do
                  </body>
              </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", input, true)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes permissions" do
@@ -1617,109 +1620,111 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-            <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
-            <preface><foreword displayorder='1'>
-            <permission id="_"   keep-with-next="true" keep-lines-together="true">
-            <name>Permission 1</name>
-          <label>/ogc/recommendation/wfs/2</label>
-          <inherit>/ss/584/2015/level/1</inherit>
-          <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
-          <subject>user</subject>
-          <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
-          <description>
-            <p id="_">I recommend <em>this</em>.</p>
-          </description>
-          <specification exclude="true" type="tabular">
-            <p id="_">This is the object of the recommendation:</p>
-            <table id="_">
-              <tbody>
-                <tr>
-                  <td style="text-align:left;">Object</td>
-                  <td style="text-align:left;">Value</td>
-                </tr>
-                <tr>
-                  <td style="text-align:left;">Mission</td>
-                  <td style="text-align:left;">Accomplished</td>
-                </tr>
-              </tbody>
-            </table>
-          </specification>
-          <description>
-            <p id="_">As for the measurement targets,</p>
-          </description>
-          <measurement-target exclude="false">
-            <p id="_">The measurement target shall be measured as:</p>
-            <formula id="_">
-            <name>1</name>
-              <stem type="AsciiMath">r/1 = 0</stem>
-            </formula>
-          </measurement-target>
-          <verification exclude="false">
-            <p id="_">The following code will be run for verification:</p>
-            <sourcecode id="_">CoreRoot(success): HttpResponse
-              if (success)
-              recommendation(label: success-response)
-              end
-            </sourcecode>
-          </verification>
-          <import exclude="true">
-            <sourcecode id="_">success-response()</sourcecode>
-          </import>
-        </permission>
-            </foreword></preface>
-            <bibliography><references id="_bibliography" obligation="informative" normative="false"  displayorder='2'>
-        <title depth='1'>Bibliography</title>
-        <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">IETF RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
-        </references></bibliography>
-            </iso-standard>
-      OUTPUT
-      html = <<~OUTPUT
-        #{HTML_HDR}
-                     <br/>
-                    <div>
-                      <h1 class="ForewordTitle">Foreword</h1>
-                      <div class="permission" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
-                      <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
-                      <p><i>Subject: user<br/>
-              Inherits: /ss/584/2015/level/1
-              <br/>
-              Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
-              <br/>Control-class: Technical<br/>Priority: P0<br/>Family: System and Communications Protection<br/>Family: System and Communications Protocols</i></p>
-                <div class="requirement-description">
-                  <p id="_">I recommend <i>this</i>.</p>
-                </div>
-                <div class="requirement-description">
-                  <p id="_">As for the measurement targets,</p>
-                </div>
-                <div class="requirement-measurement-target">
-                  <p id="_">The measurement target shall be measured as:</p>
-                  <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
-                </div>
-                <div class="requirement-verification">
-                  <p id="_">The following code will be run for verification:</p>
-                  <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
-                </div>
-              </div>
-                    </div>
-                    <p class="zzSTDTitle1"/>
-                     <br/>
-               <div>
-                 <h1 class='Section3'>Bibliography</h1>
-                 <p id='rfc2616' class='Biblio'>
-                   [1]&#160; IETF RFC 2616,
-                   <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
-                 </p>
-               </div>
-                  </div>
-                </body>
-              </html>
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
+          <preface><foreword displayorder='1'>
+          <permission id="_"   keep-with-next="true" keep-lines-together="true">
+          <name>Permission 1</name>
+        <label>/ogc/recommendation/wfs/2</label>
+        <inherit>/ss/584/2015/level/1</inherit>
+        <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
+        <subject>user</subject>
+        <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+        <description>
+          <p id="_">I recommend <em>this</em>.</p>
+        </description>
+        <specification exclude="true" type="tabular">
+          <p id="_">This is the object of the recommendation:</p>
+          <table id="_">
+            <tbody>
+              <tr>
+                <td style="text-align:left;">Object</td>
+                <td style="text-align:left;">Value</td>
+              </tr>
+              <tr>
+                <td style="text-align:left;">Mission</td>
+                <td style="text-align:left;">Accomplished</td>
+              </tr>
+            </tbody>
+          </table>
+        </specification>
+        <description>
+          <p id="_">As for the measurement targets,</p>
+        </description>
+        <measurement-target exclude="false">
+          <p id="_">The measurement target shall be measured as:</p>
+          <formula id="_">
+          <name>1</name>
+            <stem type="AsciiMath">r/1 = 0</stem>
+          </formula>
+        </measurement-target>
+        <verification exclude="false">
+          <p id="_">The following code will be run for verification:</p>
+          <sourcecode id="_">CoreRoot(success): HttpResponse
+            if (success)
+            recommendation(label: success-response)
+            end
+          </sourcecode>
+        </verification>
+        <import exclude="true">
+          <sourcecode id="_">success-response()</sourcecode>
+        </import>
+      </permission>
+          </foreword></preface>
+          <bibliography><references id="_bibliography" obligation="informative" normative="false"  displayorder='2'>
+      <title depth='1'>Bibliography</title>
+      <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">IETF RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
+      </references></bibliography>
+          </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    html = <<~OUTPUT
+      #{HTML_HDR}
+                   <br/>
+                  <div>
+                    <h1 class="ForewordTitle">Foreword</h1>
+                    <div class="permission" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
+                    <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
+                    <p><i>Subject: user<br/>
+            Inherits: /ss/584/2015/level/1
+            <br/>
+            Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
+            <br/>Control-class: Technical<br/>Priority: P0<br/>Family: System and Communications Protection<br/>Family: System and Communications Protocols</i></p>
+              <div class="requirement-description">
+                <p id="_">I recommend <i>this</i>.</p>
+              </div>
+              <div class="requirement-description">
+                <p id="_">As for the measurement targets,</p>
+              </div>
+              <div class="requirement-measurement-target">
+                <p id="_">The measurement target shall be measured as:</p>
+                <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+              </div>
+              <div class="requirement-verification">
+                <p id="_">The following code will be run for verification:</p>
+                <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+              </div>
+            </div>
+                  </div>
+                  <p class="zzSTDTitle1"/>
+                   <br/>
+             <div>
+               <h1 class='Section3'>Bibliography</h1>
+               <p id='rfc2616' class='Biblio'>
+                 [1]&#160; IETF RFC 2616,
+                 <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
+               </p>
+             </div>
+                </div>
+              </body>
+            </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
 
-  it "processes requirements (Presentation XML)" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes requirements" do
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
@@ -1769,6 +1774,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
+    presxml = <<~OUTPUT
       <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
@@ -1806,17 +1812,14 @@ RSpec.describe IsoDoc do
                 </description>
                 <measurement-target exclude='false' keep-with-next='true' keep-lines-together='true'>
                   <p id='_'>The measurement target shall be measured as:</p>
-                  <formula id='B'>
-                    <name>1</name>
-                    <stem type='AsciiMath'>r/1 = 0</stem>
-                  </formula>
-                </measurement-target>
+                  <formula id='B'><name>1</name><stem type='AsciiMath'>r/1 = 0</stem></formula></measurement-target>
                 <verification exclude='false'>
                   <p id='_'>The following code will be run for verification:</p>
-                  <sourcecode id='_'>
-                    CoreRoot(success): HttpResponse if (success) recommendation(label:
-                    success-response) end
-                  </sourcecode>
+                  <sourcecode id='_'>CoreRoot(success): HttpResponse
+            if (success)
+            recommendation(label: success-response)
+            end
+          </sourcecode>
                 </verification>
                 <import exclude='true'>
                   <sourcecode id='_'>success-response()</sourcecode>
@@ -1826,60 +1829,8 @@ RSpec.describe IsoDoc do
           </preface>
         </iso-standard>
     OUTPUT
-  end
 
-  it "processes requirements (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
-          <name>Requirement</name>
-        <title>A New Requirement</title>
-        <label>/ogc/recommendation/wfs/2</label>
-        <inherit>/ss/584/2015/level/1</inherit>
-        <subject>user</subject>
-        <description>
-          <p id="_">I recommend <em>this</em>.</p>
-        </description>
-        <specification exclude="true" type="tabular">
-          <p id="_">This is the object of the recommendation:</p>
-          <table id="_">
-            <tbody>
-              <tr>
-                <td style="text-align:left;">Object</td>
-                <td style="text-align:left;">Value</td>
-              </tr>
-              <tr>
-                <td style="text-align:left;">Mission</td>
-                <td style="text-align:left;">Accomplished</td>
-              </tr>
-            </tbody>
-          </table>
-        </specification>
-        <description>
-          <p id="_">As for the measurement targets,</p>
-        </description>
-        <measurement-target exclude="false"  keep-with-next="true" keep-lines-together="true">
-          <p id="_">The measurement target shall be measured as:</p>
-          <formula id="B">
-            <stem type="AsciiMath">r/1 = 0</stem>
-          </formula>
-        </measurement-target>
-        <verification exclude="false">
-          <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="_">CoreRoot(success): HttpResponse
-            if (success)
-            recommendation(label: success-response)
-            end
-          </sourcecode>
-        </verification>
-        <import exclude="true">
-          <sourcecode id="_">success-response()</sourcecode>
-        </import>
-      </requirement>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
+    output = <<~OUTPUT
       #{HTML_HDR}
                         <br/>
                       <div>
@@ -1894,7 +1845,7 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-measurement-target"  style='page-break-after: avoid;page-break-inside: avoid;'>
                     <p id="_">The measurement target shall be measured as:</p>
-                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span></p></div></div>
+                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span> &#160; (1)</p></div></div>
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
@@ -1907,6 +1858,10 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+  .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+  .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes requirements in French" do
@@ -2078,12 +2033,16 @@ RSpec.describe IsoDoc do
                    </body>
                  </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<localized-strings>.*</localized-strings>}m, "")).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
 
-  it "processes recommendation (Presentation XML)" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes recommendation" do
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <recommendation id="_" obligation="shall,could"   keep-with-next="true" keep-lines-together="true">
@@ -2134,6 +2093,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
+    presxml = <<~OUTPUT
       <?xml version='1.0'?>
          <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
            <preface>
@@ -2178,17 +2138,15 @@ RSpec.describe IsoDoc do
                  </description>
                  <measurement-target exclude='false'>
                    <p id='_'>The measurement target shall be measured as:</p>
-                   <formula id='_'>
-                     <name>1</name>
-                     <stem type='AsciiMath'>r/1 = 0</stem>
-                   </formula>
+                   <formula id='_'><name>1</name><stem type='AsciiMath'>r/1 = 0</stem></formula>
                  </measurement-target>
                  <verification exclude='false'>
                    <p id='_'>The following code will be run for verification:</p>
-                   <sourcecode id='_'>
-                     CoreRoot(success): HttpResponse if (success) recommendation(label:
-                     success-response) end
-                   </sourcecode>
+                   <sourcecode id='_'>CoreRoot(success): HttpResponse
+            if (success)
+            recommendation(label: success-response)
+            end
+          </sourcecode>
                  </verification>
                  <import exclude='true'>
                    <sourcecode id='_'>success-response()</sourcecode>
@@ -2198,61 +2156,8 @@ RSpec.describe IsoDoc do
            </preface>
          </iso-standard>
     OUTPUT
-  end
 
-  it "processes recommendation (HTML)" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <recommendation id="_" obligation="shall,could"   keep-with-next="true" keep-lines-together="true">
-          <name>Recommendation 1</name>
-        <label>/ogc/recommendation/wfs/2</label>
-        <inherit>/ss/584/2015/level/1</inherit>
-        <classification><tag>type</tag><value>text</value></classification>
-        <classification><tag>language</tag><value>BASIC</value></classification>
-        <subject>user</subject>
-        <description>
-          <p id="_">I recommend <em>this</em>.</p>
-        </description>
-        <specification exclude="true" type="tabular">
-          <p id="_">This is the object of the recommendation:</p>
-          <table id="_">
-            <tbody>
-              <tr>
-                <td style="text-align:left;">Object</td>
-                <td style="text-align:left;">Value</td>
-              </tr>
-              <tr>
-                <td style="text-align:left;">Mission</td>
-                <td style="text-align:left;">Accomplished</td>
-              </tr>
-            </tbody>
-          </table>
-        </specification>
-        <description>
-          <p id="_">As for the measurement targets,</p>
-        </description>
-        <measurement-target exclude="false">
-          <p id="_">The measurement target shall be measured as:</p>
-          <formula id="_">
-            <stem type="AsciiMath">r/1 = 0</stem>
-          </formula>
-        </measurement-target>
-        <verification exclude="false">
-          <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="_">CoreRoot(success): HttpResponse
-            if (success)
-            recommendation(label: success-response)
-            end
-          </sourcecode>
-        </verification>
-        <import exclude="true">
-          <sourcecode id="_">success-response()</sourcecode>
-        </import>
-      </recommendation>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
+    output = <<~OUTPUT
       #{HTML_HDR}
                        <br/>
                       <div>
@@ -2267,7 +2172,7 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-measurement-target">
                     <p id="_">The measurement target shall be measured as:</p>
-                    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span></p></div></div>
+                    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
@@ -2280,6 +2185,11 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes pseudocode" do
@@ -2325,18 +2235,25 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     FileUtils.rm_f "test.doc"
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", input, true)).sub(%r{<localized-strings>.*</localized-strings>}m, "")).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     IsoDoc::WordConvert.new({}).convert("test", presxml, false)
-    expect(xmlpp(File.read("test.doc").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{</div>.*}m, "</div>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-           <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
-      &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
-      <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
-    OUTPUT
+    expect(xmlpp(File.read("test.doc")
+      .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
+      .gsub(%r{</div>.*}m, "</div>")))
+      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+             <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
+        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
+        <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
+      OUTPUT
   end
 
   it "does not label embedded figures, sourcecode" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <itu-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata>
           <language>en</language>
@@ -2350,6 +2267,7 @@ RSpec.describe IsoDoc do
       </example>
       </preface></itu-standard>
     INPUT
+    output = <<~OUTPUT
       #{HTML_HDR}
             <br/>
             <div>
@@ -2380,6 +2298,8 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes passthrough with compatible format" do
@@ -2391,35 +2311,42 @@ RSpec.describe IsoDoc do
       </foreword></preface>
       </iso-standard>
     INPUT
-    expect((File.read("test.html").gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "").gsub(%r{</div>.*}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-      <A><i>Hello</i></A>
-    OUTPUT
+    expect((File.read("test.html")
+      .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
+      .gsub(%r{</div>.*}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <A><i>Hello</i></A>
+      OUTPUT
   end
 
   it "aborts if passthrough results in malformed XML" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_f "test.html.err"
     begin
-      expect { IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", false) }.to raise_error(SystemExit)
+      input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword>
         <passthrough format="html,rfc">&lt;A&gt;</passthrough><em>Hello</em>
         </foreword></preface>
         </iso-standard>
       INPUT
+      expect do
+        IsoDoc::HtmlConvert.new({})
+          .convert("test", input, false)
+      end.to raise_error(SystemExit)
     rescue SystemExit
     end
     expect(File.exist?("test.html.err")).to be true
   end
 
   it "ignores passthrough with incompatible format" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
       <passthrough format="doc,rfc">&lt;A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
     INPUT
+    output = <<~OUTPUT
       #{HTML_HDR}
                 <br/>
                 <div>
@@ -2430,10 +2357,12 @@ RSpec.describe IsoDoc do
             </body>
           </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+     .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes svgmap" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~INPUT, true)).sub(%r{<localized-strings>.*</localized-strings>}m, "")).to be_equivalent_to xmlpp(<<~OUTPUT)
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
         <svgmap id='_'>
@@ -2469,6 +2398,7 @@ RSpec.describe IsoDoc do
       </bibliography>
       </iso-standard>
     INPUT
+    output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
                <sections>
                  <figure id='_'>
@@ -2487,5 +2417,159 @@ RSpec.describe IsoDoc do
                </bibliography>
              </iso-standard>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes toc" do
+    input = <<~INPUT
+          <standard-document xmlns='https://www.metanorma.org/ns/standoc' type='semantic' version='1.10.2'>
+        <bibdata type='standard'>
+          <title language='en' format='text/plain'>Document title</title>
+          <language>en</language>
+          <script>Latn</script>
+          <status>
+            <stage>published</stage>
+          </status>
+          <copyright>
+            <from>2021</from>
+          </copyright>
+          <ext>
+            <doctype>article</doctype>
+          </ext>
+        </bibdata>
+        <sections>
+          <clause id='clause1' inline-header='false' obligation='normative'>
+            <title>Clause 1</title>
+            <clause id='clause1A' inline-header='false' obligation='normative'>
+              <title>Clause 1A</title>
+              <clause id='clause1Aa' inline-header='false' obligation='normative'>
+                <title>Clause 1Aa</title>
+              </clause>
+              <clause id='clause1Ab' inline-header='false' obligation='normative'>
+                <title>Clause 1Ab</title>
+              </clause>
+            </clause>
+            <clause id='clause1B' inline-header='false' obligation='normative'>
+              <title>Clause 1B</title>
+              <clause id='clause1Ba' inline-header='false' obligation='normative'>
+                <title>Clause 1Ba</title>
+              </clause>
+            </clause>
+          </clause>
+          <clause id='clause2' inline-header='false' obligation='normative'>
+            <title>Clause 2</title>
+            <p id='A'>And introducing: </p>
+            <toc>
+              <ul id='B'>
+                <li>
+                  <xref target='clause1A'>Clause 1A</xref>
+                </li>
+                <li>
+                  <ul id='C'>
+                    <li>
+                      <xref target='clause1Aa'>Clause 1Aa</xref>
+                    </li>
+                    <li>
+                      <xref target='clause1Ab'>Clause 1Ab</xref>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <xref target='clause1B'>Clause 1B</xref>
+                </li>
+                <li>
+                  <ul id='D'>
+                    <li>
+                      <xref target='clause1Ba'>Clause 1Ba</xref>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </toc>
+            <toc>
+              <ul id='E'>
+                <li>
+                  <xref target='clause1A'>Clause 1A</xref>
+                </li>
+                <li>
+                  <xref target='clause1B'>Clause 1B</xref>
+                </li>
+              </ul>
+            </toc>
+          </clause>
+        </sections>
+      </standard-document>
+    INPUT
+    output = <<~OUTPUT
+         #{HTML_HDR}
+            <p class='zzSTDTitle1'>Document title</p>
+            <div id='clause1'>
+              <h1>Clause 1</h1>
+              <div id='clause1A'>
+                <h2>Clause 1A</h2>
+                <div id='clause1Aa'>
+                  <h3>Clause 1Aa</h3>
+                </div>
+                <div id='clause1Ab'>
+                  <h3>Clause 1Ab</h3>
+                </div>
+              </div>
+              <div id='clause1B'>
+                <h2>Clause 1B</h2>
+                <div id='clause1Ba'>
+                  <h3>Clause 1Ba</h3>
+                </div>
+              </div>
+            </div>
+            <div id='clause2'>
+              <h1>Clause 2</h1>
+              <p id='A'>And introducing: </p>
+              <div class='toc'>
+                <ul id='B'>
+                  <li>
+                    <a href='#clause1A'>Clause 1A</a>
+                  </li>
+                  <li>
+                    <ul id='C'>
+                      <li>
+                        <a href='#clause1Aa'>Clause 1Aa</a>
+                      </li>
+                      <li>
+                        <a href='#clause1Ab'>Clause 1Ab</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href='#clause1B'>Clause 1B</a>
+                  </li>
+                  <li>
+                    <ul id='D'>
+                      <li>
+                        <a href='#clause1Ba'>Clause 1Ba</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class='toc'>
+                <ul id='E'>
+                  <li>
+                    <a href='#clause1A'>Clause 1A</a>
+                  </li>
+                  <li>
+                    <a href='#clause1B'>Clause 1B</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+  .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 end
