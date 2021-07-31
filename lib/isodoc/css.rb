@@ -39,7 +39,7 @@ module IsoDoc
       {
         bodyfont: "Arial",
         headerfont: "Arial",
-        monospacefont: "Courier",
+        monospacefont: "Courier New",
       }
     end
 
@@ -53,7 +53,7 @@ module IsoDoc
       {
         "bodyfont" => options[:bodyfont] || "Arial",
         "headerfont" => options[:headerfont] || "Arial",
-        "monospacefont" => options[:monospacefont] || "Courier",
+        "monospacefont" => options[:monospacefont] || "Courier New",
         "normalfontsize" => options[:normalfontsize],
         "monospacefontsize" => options[:monospacefontsize],
         "smallerfontsize" => options[:smallerfontsize],
@@ -64,7 +64,7 @@ module IsoDoc
     def scss_fontheader(is_html_css)
       b = options[:bodyfont] || "Arial"
       h = options[:headerfont] || "Arial"
-      m = options[:monospacefont] || "Courier"
+      m = options[:monospacefont] || "Courier New"
       ns = options[:normalfontsize] || (is_html_css ? "1.0em" : "12.0pt")
       ms = options[:monospacefontsize] || (is_html_css ? "0.8em" : "11.0pt")
       ss = options[:smallerfontsize] || (is_html_css ? "0.9em" : "10.0pt")
