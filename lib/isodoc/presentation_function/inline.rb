@@ -172,7 +172,7 @@ module IsoDoc
     def concept_render(node, ital, ref)
       node&.at(ns("./refterm"))&.remove
       r = node.at(ns("./renderterm"))
-      r&.next = " "
+      r&.next = " " if node.at(ns("./xref | ./eref | ./termref")) && ref != "false"
       if ital == "true" then r&.name = "em"
       else r&.replace(r&.children)
       end

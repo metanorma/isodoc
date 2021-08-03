@@ -419,30 +419,12 @@ RSpec.describe IsoDoc do
        <p>
        <ul>
        <li>
-       <concept ital="true"><refterm>term</refterm>
-           <renderterm>term</renderterm>
-           <xref target='clause1'/>
-         </concept></li>
-         <li><concept ref="true"><refterm>term</refterm>
-           <renderterm>term</renderterm>
-           <xref target='clause1'/>
-         </concept></li>
-       <li><concept ital="true" ref="true"><refterm>term</refterm>
-           <renderterm>term</renderterm>
-           <xref target='clause1'/>
-         </concept></li>
-        <li><concept ital="false"><refterm>term</refterm>
-           <renderterm>term</renderterm>
-           <xref target='clause1'/>
-         </concept></li>
-         <li><concept ref="false"><refterm>term</refterm>
-           <renderterm>term</renderterm>
-           <xref target='clause1'/>
-         </concept></li>
-       <li><concept ital="false" ref="false"><refterm>term</refterm>
-           <renderterm>term</renderterm>
-           <xref target='clause1'/>
-         </concept></li>
+       <concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+         <li><concept ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+        <li><concept ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+         <li><concept ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="false" ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
         </ul></p>
          </foreword></preface>
        <sections>
@@ -458,26 +440,26 @@ RSpec.describe IsoDoc do
         <li>
 
             <em>term</em>
-            [term defined in <xref target="clause1">Clause 1</xref>]
+            [term defined in <xref target="clause1">Clause 1</xref>],
           </li>
           <li>
             <em>term</em>
-            [term defined in <xref target="clause1">Clause 1</xref>]
+            [term defined in <xref target="clause1">Clause 1</xref>],
           </li>
         <li>
             <em>term</em>
-            [term defined in <xref target="clause1">Clause 1</xref>]
+            [term defined in <xref target="clause1">Clause 1</xref>],
           </li>
          <li>
             term
-            [term defined in <xref target="clause1">Clause 1</xref>]
+            [term defined in <xref target="clause1">Clause 1</xref>],
           </li>
           <li>
-            <em>term</em>
+            <em>term</em>,
 
           </li>
         <li>
-            term
+            term,
 
           </li>
          </ul></p>
@@ -498,29 +480,29 @@ RSpec.describe IsoDoc do
                      <i>term</i>
                       [term defined in
                      <a href='#clause1'>Clause 1</a>
-                     ]
+                     ],
                    </li>
                    <li>
                      <i>term</i>
                       [term defined in
                      <a href='#clause1'>Clause 1</a>
-                     ]
+                     ],
                    </li>
                    <li>
                      <i>term</i>
                       [term defined in
                      <a href='#clause1'>Clause 1</a>
-                     ]
+                     ],
                    </li>
                    <li>
                       term [term defined in
                      <a href='#clause1'>Clause 1</a>
-                     ]
+                     ],
                    </li>
                    <li>
-                     <i>term</i>
+                     <i>term</i>,
                    </li>
-                   <li> term </li>
+                   <li>term,</li>
                  </ul>
                </p>
              </div>
@@ -532,7 +514,7 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect((IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
