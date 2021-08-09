@@ -212,6 +212,7 @@ module IsoDoc
           when "measurement-target" then requirement_component_parse(node, out)
           when "verification" then requirement_component_parse(node, out)
           when "import" then requirement_component_parse(node, out)
+          when "component" then requirement_component_parse(node, out)
           when "index" then index_parse(node, out)
           when "index-xref" then index_xref_parse(node, out)
           when "termref" then termrefelem_parse(node, out)
