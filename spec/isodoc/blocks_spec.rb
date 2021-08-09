@@ -1611,6 +1611,9 @@ RSpec.describe IsoDoc do
         <import exclude="true">
           <sourcecode id="_">success-response()</sourcecode>
         </import>
+        <component exclude='false' class='component1'>
+                  <p id='_'>Hello</p>
+                </component>
       </permission>
           </foreword></preface>
           <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
@@ -1668,6 +1671,9 @@ RSpec.describe IsoDoc do
         <import exclude="true">
           <sourcecode id="_">success-response()</sourcecode>
         </import>
+        <component exclude='false' class='component1'>
+                  <p id='_'>Hello</p>
+                </component>
       </permission>
           </foreword></preface>
           <bibliography><references id="_bibliography" obligation="informative" normative="false"  displayorder='2'>
@@ -1702,6 +1708,7 @@ RSpec.describe IsoDoc do
                 <p id="_">The following code will be run for verification:</p>
                 <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
               </div>
+              <div class='requirement-component1'> <p id='_'>Hello</p> </div>
             </div>
                   </div>
                   <p class="zzSTDTitle1"/>
@@ -1770,6 +1777,9 @@ RSpec.describe IsoDoc do
         <import exclude="true">
           <sourcecode id="_">success-response()</sourcecode>
         </import>
+        <component exclude='false' class='component1'>
+                  <p id='_'>Hello</p>
+                </component>
       </requirement>
           </foreword></preface>
           </iso-standard>
@@ -1824,6 +1834,9 @@ RSpec.describe IsoDoc do
                 <import exclude='true'>
                   <sourcecode id='_'>success-response()</sourcecode>
                 </import>
+                <component exclude='false' class='component1'>
+                  <p id='_'>Hello</p>
+                </component>
               </requirement>
             </foreword>
           </preface>
@@ -1851,6 +1864,7 @@ RSpec.describe IsoDoc do
                     <p id="_">The following code will be run for verification:</p>
                     <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
                   </div>
+              <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
                       </div>
                       <p class="zzSTDTitle1"/>
@@ -1915,6 +1929,9 @@ RSpec.describe IsoDoc do
         <import exclude="true">
           <sourcecode id="_">success-response()</sourcecode>
         </import>
+        <component exclude='false' class='component1'>
+                  <p id='_'>Hello</p>
+                </component>
       </requirement>
           </foreword></preface>
           </iso-standard>
@@ -1970,6 +1987,9 @@ RSpec.describe IsoDoc do
                <import exclude="true">
                  <sourcecode id="_">success-response()</sourcecode>
                </import>
+               <component exclude='false' class='component1'>
+                  <p id='_'>Hello</p>
+                </component>
              </requirement>
                  </foreword></preface>
                  </iso-standard>
@@ -2026,6 +2046,7 @@ RSpec.describe IsoDoc do
                                <br/>
                              </pre>
                            </div>
+                          <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                          </div>
                        </div>
                        <p class='zzSTDTitle1'/>
@@ -2089,6 +2110,9 @@ RSpec.describe IsoDoc do
         <import exclude="true">
           <sourcecode id="_">success-response()</sourcecode>
         </import>
+        <component exclude='false' class='component1'>
+                  <p id='_'>Hello</p>
+                </component>
       </recommendation>
           </foreword></preface>
           </iso-standard>
@@ -2151,6 +2175,9 @@ RSpec.describe IsoDoc do
                  <import exclude='true'>
                    <sourcecode id='_'>success-response()</sourcecode>
                  </import>
+                 <component exclude='false' class='component1'>
+                  <p id='_'>Hello</p>
+                </component>
                </recommendation>
              </foreword>
            </preface>
@@ -2178,6 +2205,7 @@ RSpec.describe IsoDoc do
                     <p id="_">The following code will be run for verification:</p>
                     <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
                   </div>
+                          <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
                       </div>
                       <p class="zzSTDTitle1"/>
