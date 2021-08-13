@@ -23,8 +23,9 @@ module IsoDoc
         out = []
         oblig = node["obligation"] and
           out << l10n("#{@i18n.obligation}: #{oblig}")
-        subj = node&.at(ns("./subject"))&.text and
-          out << l10n("#{@i18n.subject}: #{subj}")
+        node.xpath(ns("./subject")).each do |subj|
+          out << l10n("#{@i18n.subject}: #{subj.text}")
+        end
         node.xpath(ns("./inherit")).each do |i|
           out << recommendation_attr_parse(i, @i18n.inherits)
         end

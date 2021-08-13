@@ -1572,6 +1572,7 @@ RSpec.describe IsoDoc do
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
         <subject>user</subject>
+        <subject>non-user</subject>
         <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
         <description>
           <p id="_">I recommend <em>this</em>.</p>
@@ -1631,6 +1632,7 @@ RSpec.describe IsoDoc do
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
         <subject>user</subject>
+        <subject>non-user</subject>
         <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
         <description>
           <p id="_">I recommend <em>this</em>.</p>
@@ -1690,6 +1692,7 @@ RSpec.describe IsoDoc do
                     <div class="permission" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
                     <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
                     <p><i>Subject: user<br/>
+                    Subject: non-user<br/>
             Inherits: /ss/584/2015/level/1
             <br/>
             Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
