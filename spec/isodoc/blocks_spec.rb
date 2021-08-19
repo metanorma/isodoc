@@ -2534,73 +2534,156 @@ RSpec.describe IsoDoc do
         </sections>
       </standard-document>
     INPUT
+    presxml = <<~INPUT
+           <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation" version="1.10.2">
+         <bibdata type="standard">
+           <title language="en" format="text/plain">Document title</title>
+           <language current="true">en</language>
+           <script current="true">Latn</script>
+           <status>
+             <stage language="">published</stage>
+           </status>
+           <copyright>
+             <from>2021</from>
+           </copyright>
+           <ext>
+             <doctype language="">article</doctype>
+           </ext>
+         </bibdata>
+         <sections>
+           <clause id="clause1" inline-header="false" obligation="normative" displayorder="1">
+             <title depth="1">1.<tab/>Clause 1</title>
+             <clause id="clause1A" inline-header="false" obligation="normative">
+               <title depth="2">1.1.<tab/>Clause 1A</title>
+               <clause id="clause1Aa" inline-header="false" obligation="normative">
+                 <title depth="3">1.1.1.<tab/>Clause 1Aa</title>
+               </clause>
+               <clause id="clause1Ab" inline-header="false" obligation="normative">
+                 <title depth="3">1.1.2.<tab/>Clause 1Ab</title>
+               </clause>
+             </clause>
+             <clause id="clause1B" inline-header="false" obligation="normative">
+               <title depth="2">1.2.<tab/>Clause 1B</title>
+               <clause id="clause1Ba" inline-header="false" obligation="normative">
+                 <title depth="3">1.2.1.<tab/>Clause 1Ba</title>
+               </clause>
+             </clause>
+           </clause>
+           <clause id="clause2" inline-header="false" obligation="normative" displayorder="2">
+             <title depth="1">2.<tab/>Clause 2</title>
+             <p id="A">And introducing: </p>
+             <toc>
+               <ul id="B">
+                 <li>
+                   <xref target="clause1A">1.1<tab/>Clause 1A</xref>
+                 </li>
+                 <li>
+                   <ul id="C">
+                     <li>
+                       <xref target="clause1Aa">1.1.1<tab/>Clause 1Aa</xref>
+                     </li>
+                     <li>
+                       <xref target="clause1Ab">1.1.2<tab/>Clause 1Ab</xref>
+                     </li>
+                   </ul>
+                 </li>
+                 <li>
+                   <xref target="clause1B">1.2<tab/>Clause 1B</xref>
+                 </li>
+                 <li>
+                   <ul id="D">
+                     <li>
+                       <xref target="clause1Ba">1.2.1<tab/>Clause 1Ba</xref>
+                     </li>
+                   </ul>
+                 </li>
+               </ul>
+             </toc>
+             <toc>
+               <ul id="E">
+                 <li>
+                   <xref target="clause1A">1.1<tab/>Clause 1A</xref>
+                 </li>
+                 <li>
+                   <xref target="clause1B">1.2<tab/>Clause 1B</xref>
+                 </li>
+               </ul>
+             </toc>
+           </clause>
+         </sections>
+       </standard-document>
+    INPUT
     output = <<~OUTPUT
          #{HTML_HDR}
-            <p class='zzSTDTitle1'>Document title</p>
-            <div id='clause1'>
-              <h1>Clause 1</h1>
-              <div id='clause1A'>
-                <h2>Clause 1A</h2>
-                <div id='clause1Aa'>
-                  <h3>Clause 1Aa</h3>
-                </div>
-                <div id='clause1Ab'>
-                  <h3>Clause 1Ab</h3>
-                </div>
-              </div>
-              <div id='clause1B'>
-                <h2>Clause 1B</h2>
-                <div id='clause1Ba'>
-                  <h3>Clause 1Ba</h3>
-                </div>
-              </div>
-            </div>
-            <div id='clause2'>
-              <h1>Clause 2</h1>
-              <p id='A'>And introducing: </p>
-              <div class='toc'>
-                <ul id='B'>
-                  <li>
-                    <a href='#clause1A'>Clause 1A</a>
-                  </li>
-                  <li>
-                    <ul id='C'>
-                      <li>
-                        <a href='#clause1Aa'>Clause 1Aa</a>
-                      </li>
-                      <li>
-                        <a href='#clause1Ab'>Clause 1Ab</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href='#clause1B'>Clause 1B</a>
-                  </li>
-                  <li>
-                    <ul id='D'>
-                      <li>
-                        <a href='#clause1Ba'>Clause 1Ba</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class='toc'>
-                <ul id='E'>
-                  <li>
-                    <a href='#clause1A'>Clause 1A</a>
-                  </li>
-                  <li>
-                    <a href='#clause1B'>Clause 1B</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+                      <p class='zzSTDTitle1'>Document title</p>
+             <div id='clause1'>
+               <h1>1.&#160; Clause 1</h1>
+               <div id='clause1A'>
+                 <h2>1.1.&#160; Clause 1A</h2>
+                 <div id='clause1Aa'>
+                   <h3>1.1.1.&#160; Clause 1Aa</h3>
+                 </div>
+                 <div id='clause1Ab'>
+                   <h3>1.1.2.&#160; Clause 1Ab</h3>
+                 </div>
+               </div>
+               <div id='clause1B'>
+                 <h2>1.2.&#160; Clause 1B</h2>
+                 <div id='clause1Ba'>
+                   <h3>1.2.1.&#160; Clause 1Ba</h3>
+                 </div>
+               </div>
+             </div>
+             <div id='clause2'>
+               <h1>2.&#160; Clause 2</h1>
+               <p id='A'>And introducing: </p>
+               <div class='toc'>
+                 <ul id='B'>
+                   <li>
+                     <a href='#clause1A'>1.1&#160; Clause 1A</a>
+                   </li>
+                   <li>
+                     <ul id='C'>
+                       <li>
+                         <a href='#clause1Aa'>1.1.1&#160; Clause 1Aa</a>
+                       </li>
+                       <li>
+                         <a href='#clause1Ab'>1.1.2&#160; Clause 1Ab</a>
+                       </li>
+                     </ul>
+                   </li>
+                   <li>
+                     <a href='#clause1B'>1.2&#160; Clause 1B</a>
+                   </li>
+                   <li>
+                     <ul id='D'>
+                       <li>
+                         <a href='#clause1Ba'>1.2.1&#160; Clause 1Ba</a>
+                       </li>
+                     </ul>
+                   </li>
+                 </ul>
+               </div>
+               <div class='toc'>
+                 <ul id='E'>
+                   <li>
+                     <a href='#clause1A'>1.1&#160; Clause 1A</a>
+                   </li>
+                   <li>
+                     <a href='#clause1B'>1.2&#160; Clause 1B</a>
+                   </li>
+                 </ul>
+               </div>
+             </div>
+           </div>
+         </body>
+       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+     .convert("test", input, true)
+     .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+     .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
-  .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 end

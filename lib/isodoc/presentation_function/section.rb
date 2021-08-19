@@ -89,5 +89,12 @@ module IsoDoc
     def clausetitle(docxml)
       docxml.xpath(ns("//variant-title")).each(&:remove)
     end
+
+    def toc(docxml)
+      docxml.xpath(ns("//toc//xref[text()]")).each do |x|
+        lbl = @xrefs.get[x["target"]][:label] or next
+        x.children.first.previous = "#{lbl}<tab/>"
+      end
+    end
   end
 end
