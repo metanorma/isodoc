@@ -78,12 +78,16 @@ module IsoDoc
       i = display_order_at(docxml, "//clause[@type = 'scope']", i)
       i = display_order_at(docxml, @xrefs.klass.norm_ref_xpath, i)
       i = display_order_at(docxml, "//sections/terms | "\
-                           "//sections/clause[descendant::terms]", i)
+                                   "//sections/clause[descendant::terms]", i)
       i = display_order_at(docxml, "//sections/definitions", i)
       i = display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml), i)
       i = display_order_xpath(docxml, "//annex", i)
       i = display_order_xpath(docxml, @xrefs.klass.bibliography_xpath, i)
       display_order_xpath(docxml, "//indexsect", i)
+    end
+
+    def clausetitle(docxml)
+      docxml.xpath(ns("//variant-title")).each(&:remove)
     end
   end
 end
