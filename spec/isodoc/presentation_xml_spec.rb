@@ -678,6 +678,89 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(output)
   end
 
+  it "strips variant-title" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+               <sections>
+           <clause id='_' inline-header='false' obligation='normative'>
+             <title>Clause</title>
+             <p id='_'>Text</p>
+             <clause id='_' inline-header='false' obligation='normative'>
+               <title>Subclause</title>
+               <variant-title variant_title='true' type='sub' id='_'>&#8220;A&#8221; &#8216;B&#8217;</variant-title>
+               <variant-title variant_title='true' type='toc' id='_'>
+                 Clause
+                 <em>A</em>
+                 <stem type='MathML'>
+                   <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                     <mi>x</mi>
+                   </math>
+                 </stem>
+               </variant-title>
+               <p id='_'>Text</p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='_' inline-header='false' obligation='normative'>
+           <title>Clause</title>
+           <variant-title variant_title='true' type='toc' id='_'>
+             Clause
+             <em>A</em>
+             <stem type='MathML'>
+               <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                 <mi>x</mi>
+               </math>
+             </stem>
+           </variant-title>
+           <p id='_'>Text</p>
+         </annex>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+      <bibdata/>
+      <sections>
+        <clause id='_' inline-header='false' obligation='normative' displayorder='1'>
+          <title depth='1'>
+            <strong>Annex A</strong>
+            <br/>
+            (normative).
+            <tab/>
+            Clause
+          </title>
+          <p id='_'>Text</p>
+          <clause id='_' inline-header='false' obligation='normative'>
+            <title depth='1'>
+              <strong>Annex A</strong>
+              <br/>
+              (normative).
+              <tab/>
+              Subclause
+            </title>
+            <p id='_'>Text</p>
+          </clause>
+        </clause>
+      </sections>
+      <annex id='_' inline-header='false' obligation='normative' displayorder='2'>
+        <title>
+          <strong>Annex A</strong>
+          <br/>
+          (normative)
+          <br/>
+          <br/>
+          <strong>Clause</strong>
+        </title>
+        <p id='_'>Text</p>
+      </annex>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   private
 
   def mock_symbols

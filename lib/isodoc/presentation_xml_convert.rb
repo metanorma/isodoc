@@ -34,6 +34,8 @@ module IsoDoc
       term docxml
       references docxml
       index docxml
+      clausetitle docxml
+      toc docxml
       display_order docxml
     end
 
