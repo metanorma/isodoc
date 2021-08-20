@@ -1,5 +1,6 @@
 require "twitter_cldr"
 require "bigdecimal"
+require "mathml2asciimath"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -70,7 +71,13 @@ module IsoDoc
       locale
     end
 
+    def asciimath_dup(node)
+      a = MathML2AsciiMath.m2a(node.to_xml)
+      node.next = "<!-- #{a} -->"
+    end
+
     def mathml1(node, locale)
+      asciimath_dup(node)
       localize_maths(node, locale)
       return unless node.elements.size == 1 && node.elements.first.name == "mn"
 
