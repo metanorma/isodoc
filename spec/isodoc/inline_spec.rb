@@ -433,86 +433,86 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface><foreword displayorder="1">
-        <p>
-        <ul>
-        <li>
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <preface><foreword displayorder="1">
+       <p>
+       <ul>
+       <li>
 
-            <em>term</em>
-            [term defined in <xref target="clause1">Clause 1</xref>],
-          </li>
-          <li>
-            <em>term</em>
-            [term defined in <xref target="clause1">Clause 1</xref>],
-          </li>
-        <li>
-            <em>term</em>
-            [term defined in <xref target="clause1">Clause 1</xref>],
-          </li>
+           <em>term</em>
+           [term defined in <xref target="clause1">Clause 1</xref>],
+         </li>
          <li>
-            term
-            [term defined in <xref target="clause1">Clause 1</xref>],
-          </li>
-          <li>
-            <em>term</em>,
-
-          </li>
+           <em>term</em>
+           [term defined in <xref target="clause1">Clause 1</xref>],
+         </li>
+       <li>
+           <em>term</em>
+           [term defined in <xref target="clause1">Clause 1</xref>],
+         </li>
         <li>
-            term,
+           term
+           [term defined in <xref target="clause1">Clause 1</xref>],
+         </li>
+         <li>
+           <em>term</em>,
 
-          </li>
-         </ul></p>
-          </foreword></preface>
-        <sections>
-        <clause id="clause1" displayorder="2"><title depth="1">1.<tab/>Clause 1</title></clause>
-        </sections>
-       </iso-standard>
+         </li>
+       <li>
+           term,
+
+         </li>
+        </ul></p>
+         </foreword></preface>
+       <sections>
+       <clause id="clause1" displayorder="2"><title depth="1">1.<tab/>Clause 1</title></clause>
+       </sections>
+      </iso-standard>
     OUTPUT
     output = <<~OUTPUT
-                #{HTML_HDR}
-            <br/>
-            <div>
-              <h1 class='ForewordTitle'>Foreword</h1>
-                             <p>
-                 <ul>
-                   <li>
-                     <i>term</i>
-                      [term defined in
-                     <a href='#clause1'>Clause 1</a>
-                     ],
-                   </li>
-                   <li>
-                     <i>term</i>
-                      [term defined in
-                     <a href='#clause1'>Clause 1</a>
-                     ],
-                   </li>
-                   <li>
-                     <i>term</i>
-                      [term defined in
-                     <a href='#clause1'>Clause 1</a>
-                     ],
-                   </li>
-                   <li>
-                      term [term defined in
-                     <a href='#clause1'>Clause 1</a>
-                     ],
-                   </li>
-                   <li>
-                     <i>term</i>,
-                   </li>
-                   <li>term,</li>
-                 </ul>
-               </p>
-             </div>
-             <p class='zzSTDTitle1'/>
-             <div id='clause1'>
-               <h1>1.&#160; Clause 1</h1>
-             </div>
-           </div>
-         </body>
-       </html>
+               #{HTML_HDR}
+           <br/>
+           <div>
+             <h1 class='ForewordTitle'>Foreword</h1>
+                            <p>
+                <ul>
+                  <li>
+                    <i>term</i>
+                     [term defined in
+                    <a href='#clause1'>Clause 1</a>
+                    ],
+                  </li>
+                  <li>
+                    <i>term</i>
+                     [term defined in
+                    <a href='#clause1'>Clause 1</a>
+                    ],
+                  </li>
+                  <li>
+                    <i>term</i>
+                     [term defined in
+                    <a href='#clause1'>Clause 1</a>
+                    ],
+                  </li>
+                  <li>
+                     term [term defined in
+                    <a href='#clause1'>Clause 1</a>
+                    ],
+                  </li>
+                  <li>
+                    <i>term</i>,
+                  </li>
+                  <li>term,</li>
+                </ul>
+              </p>
+            </div>
+            <p class='zzSTDTitle1'/>
+            <div id='clause1'>
+              <h1>1.&#160; Clause 1</h1>
+            </div>
+          </div>
+        </body>
+      </html>
     OUTPUT
     expect((IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
@@ -837,6 +837,102 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
+  it "duplicates MathML with AsciiMath" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" xmlns:m='http://www.w3.org/1998/Math/MathML'>
+      <preface><foreword>
+      <p>
+      <stem type="MathML"><m:math>
+        <m:msup> <m:mrow> <m:mo>(</m:mo> <m:mrow> <m:mi>x</m:mi> <m:mo>+</m:mo> <m:mi>y</m:mi> </m:mrow> <m:mo>)</m:mo> </m:mrow> <m:mn>2</m:mn> </m:msup>
+      </m:math></stem>
+      </p>
+      </foreword></preface>
+      <sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' xmlns:m='http://www.w3.org/1998/Math/MathML' type='presentation'>
+        <preface>
+          <foreword displayorder='1'>
+            <p>
+              <stem type='MathML'>
+                 <m:math>
+                   <m:msup>
+                     <m:mrow>
+                       <m:mo>(</m:mo>
+                       <m:mrow>
+                         <m:mi>x</m:mi>
+                         <m:mo>+</m:mo>
+                         <m:mi>y</m:mi>
+                       </m:mrow>
+                       <m:mo>)</m:mo>
+                     </m:mrow>
+                     <m:mn>2</m:mn>
+                   </m:msup>
+                 </m:math>
+                 <comment> ( x + y )^2 </comment>
+              </stem>
+            </p>
+          </foreword>
+        </preface>
+        <sections> </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .gsub("<!--", "<comment>")
+      .gsub("-->", "</comment>")))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "overrides duplication of MathML with AsciiMath" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml"  xmlns:m='http://www.w3.org/1998/Math/MathML'>
+      <preface><foreword>
+      <p>
+      <stem type="MathML"><m:math>
+        <m:msup> <m:mrow> <m:mo>(</m:mo> <m:mrow> <m:mi>x</m:mi> <m:mo>+</m:mo> <m:mi>y</m:mi> </m:mrow> <m:mo>)</m:mo> </m:mrow> <m:mn>2</m:mn> </m:msup>
+      </m:math></stem>
+      </p>
+      </foreword></preface>
+      <sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+          <iso-standard xmlns='http://riboseinc.com/isoxml' xmlns:m='http://www.w3.org/1998/Math/MathML' type='presentation'>
+        <preface>
+          <foreword displayorder='1'>
+            <p>
+              <stem type='MathML'>
+                 <m:math>
+                   <m:msup>
+                     <m:mrow>
+                       <m:mo>(</m:mo>
+                       <m:mrow>
+                         <m:mi>x</m:mi>
+                         <m:mo>+</m:mo>
+                         <m:mi>y</m:mi>
+                       </m:mrow>
+                       <m:mo>)</m:mo>
+                     </m:mrow>
+                     <m:mn>2</m:mn>
+                   </m:msup>
+                 </m:math>
+              </stem>
+            </p>
+          </foreword>
+        </preface>
+        <sections> </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+      .new({ suppressasciimathdup: "true" })
+      .convert("test", input, true)
+      .gsub("<!--", "<comment>")
+      .gsub("-->", "</comment>")))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   it "processes eref types" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -863,22 +959,27 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       #{HTML_HDR}
-                 <br/>
-                 <div>
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <p>
-             <sup><a href="#ISO712">A</a></sup>
-             <a href="#ISO712">A</a>
-             </p>
-                 </div>
-                 <p class="zzSTDTitle1"/>
-                 <div>
-                   <h1>Normative References</h1>
-                   <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i></p>
-                 </div>
-               </div>
-             </body>
-         </html>
+             <br/>
+             <div>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <p>
+                 <sup>
+                   <a href='#ISO712'>A</a>
+                 </sup>
+                 <a href='#ISO712'>A</a>
+               </p>
+             </div>
+             <p class='zzSTDTitle1'/>
+             <div>
+               <h1>Normative References</h1>
+               <p id='ISO712' class='NormRef'>
+                 ISO 712,
+                 <i>Cereals and cereal products</i>
+               </p>
+             </div>
+           </div>
+         </body>
+       </html>
     OUTPUT
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)

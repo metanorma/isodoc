@@ -41,6 +41,7 @@ module IsoDoc
       def convert
         docxml.xpath("//m:math", MATHML).each do |elem|
           next if nothing_to_style(elem)
+
           mathml1(elem)
         end
         docxml
@@ -49,7 +50,8 @@ module IsoDoc
       private
 
       def nothing_to_style(elem)
-        !elem.at("./*[@mathvariant][not(@mathvariant = 'normal')][not(@mathvariant = 'italic')]")
+        !elem.at("./*[@mathvariant][not(@mathvariant = 'normal')]"\
+                 "[not(@mathvariant = 'italic')]")
       end
 
       def mathml1(base_elem)
@@ -58,7 +60,7 @@ module IsoDoc
           .merge(MATHVARIANT_TO_PLANE_MAPPINGS)
           .each_pair do |mathvariant_list, plain_font|
             base_elem.xpath(mathvariant_xpath(mathvariant_list)).each do |elem|
-              toPlane(elem, plain_font)
+              to_plane(elem, plain_font)
             end
           end
       end
@@ -69,7 +71,7 @@ module IsoDoc
           .join
       end
 
-      def toPlane(elem, font)
+      def to_plane(elem, font)
         elem.traverse do |n|
           next unless n.text?
 
