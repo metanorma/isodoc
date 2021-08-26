@@ -72,6 +72,8 @@ module IsoDoc
     end
 
     def asciimath_dup(node)
+      return if @suppressasciimathdup
+
       a = MathML2AsciiMath.m2a(node.to_xml)
       node.next = "<!-- #{a} -->"
     end

@@ -75,6 +75,7 @@ module IsoDoc
       @suppressheadingnumbers = options[:suppressheadingnumbers]
       @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
       @sectionsplit = options[:sectionsplit] == "true"
+      @suppressasciimathdup = options[:suppressasciimathdup] == "true"
       @bare = options[:bare]
       @termdomain = ""
       @termexample = false
