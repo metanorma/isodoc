@@ -87,7 +87,7 @@ module IsoDoc
     end
 
     def clausetitle(docxml)
-      docxml.xpath(ns("//variant-title")).each(&:remove)
+      docxml.xpath(ns("//variant-title[@type = 'toc']")).each(&:remove)
     end
 
     def toc(docxml)

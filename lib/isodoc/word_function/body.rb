@@ -46,9 +46,9 @@ module IsoDoc::WordFunction
       end
     end
 
-    def insert_tab(out, n)
-      out.span **attr_code(style: "mso-tab-count:#{n}") do |span|
-        [1..n].each { span << "&#xA0; " }
+    def insert_tab(out, count)
+      out.span **attr_code(style: "mso-tab-count:#{count}") do |span|
+        [1..count].each { span << "&#xA0; " }
       end
     end
 
@@ -137,7 +137,7 @@ module IsoDoc::WordFunction
       name = node&.at(ns("./name"))&.remove
       div.p **{ class: "Note" } do |p|
         p.span **{ class: "note_label" } do |s|
-          name and name.children.each { |n| parse(n, s) }
+          name&.children&.each { |n| parse(n, s) }
         end
         insert_tab(p, 1)
         node.first_element_child.children.each { |n| parse(n, p) }
@@ -149,7 +149,7 @@ module IsoDoc::WordFunction
       name = node&.at(ns("./name"))&.remove
       div.p **{ class: "Note" } do |p|
         p.span **{ class: "note_label" } do |s|
-          name and name.children.each { |n| parse(n, s) }
+          name&.children&.each { |n| parse(n, s) }
         end
         insert_tab(p, 1)
       end
