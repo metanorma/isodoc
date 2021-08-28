@@ -738,6 +738,7 @@ RSpec.describe IsoDoc do
               <tab/>
               Subclause
             </title>
+        <variant-title variant_title='true' type='sub' id='_'>&#x201C;A&#x201D; &#x2018;B&#x2019;</variant-title>
             <p id='_'>Text</p>
           </clause>
         </clause>

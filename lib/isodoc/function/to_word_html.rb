@@ -233,6 +233,7 @@ module IsoDoc
           when "option" then option_parse(node, out)
           when "textarea" then textarea_parse(node, out)
           when "toc" then toc_parse(node, out)
+          when "variant-title" then variant_title(node, out)
           else error_parse(node, out)
           end
         end

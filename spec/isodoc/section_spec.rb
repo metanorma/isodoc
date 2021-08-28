@@ -702,6 +702,645 @@ RSpec.describe IsoDoc do
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(word)
   end
 
+  it "processes section subtitles" do
+    input = <<~"INPUT"
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <abstract obligation="informative">
+         <title>Abstract</title>
+         <variant-title type="sub">Variant 1</variant-title>
+      </abstract>
+      <foreword obligation="informative">
+         <title>Foreword</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         <p id="A">This is a preamble</p>
+       </foreword>
+        <introduction id="B" obligation="informative"><title>Introduction</title>
+        <clause id="C" inline-header="false" obligation="informative">
+         <title>Introduction Subsection</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       </clause>
+       </introduction>
+       <clause id="B1"><title>Dedication</title>
+         <variant-title type="sub">Variant 1</variant-title>
+      </clause>
+       <clause id="B2"><title>Note to reader</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       </clause>
+       <acknowledgements obligation="informative">
+         <title>Acknowledgements</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       </acknowledgements>
+        </preface><sections>
+        <note id="NN1"><p>Initial note</p></note>
+        <admonition id="NN2" type="warning"><p>Initial admonition</p></admonition>
+       <clause id="D" obligation="normative" type="scope">
+         <title>Scope</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         <p id="E">Text</p>
+       </clause>
+       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       <terms id="I" obligation="normative">
+         <title>Normal Terms</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         <term id="J">
+         <preferred>Term2</preferred>
+       </term>
+       </terms>
+       <definitions id="K">
+         <title>Definitions</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       </clause>
+       <definitions id="L">
+       <title>Symbols and abbreviated terms</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       <clause id="M" inline-header="false" obligation="normative">
+        <title>Clause 4</title>
+         <variant-title type="sub">Variant 1</variant-title>
+        <clause id="N" inline-header="false" obligation="normative">
+         <title>Introduction</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       </clause>
+       <clause id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       </clause>
+       <clause id="O1" inline-header="false" obligation="normative">
+       </clause>
+        </clause>
+       </sections><annex id="P" inline-header="false" obligation="normative">
+         <title>Annex</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         <clause id="Q" inline-header="false" obligation="normative">
+         <title>Annex A.1</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         <clause id="Q1" inline-header="false" obligation="normative">
+         <title>Annex A.1a</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         </clause>
+         <references id="Q2" normative="false">
+        <title>Annex Bibliography</title>
+         <variant-title type="sub">Variant 1</variant-title>
+        </references>
+       </clause>
+       </annex>
+       <annex id="P1" inline-header="false" obligation="normative">
+       </annex>
+        <bibliography><references id="R" obligation="informative" normative="true">
+         <title>Normative References</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       </references><clause id="S" obligation="informative">
+         <title>Bibliography</title>
+         <variant-title type="sub">Variant 1</variant-title>
+         <references id="T" obligation="informative" normative="false">
+         <title>Bibliography Subsection</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       </references>
+       </clause>
+       </bibliography>
+       </iso-standard>
+    INPUT
+    html = <<~OUTPUT
+           <html lang='en'>
+         <head/>
+         <body lang='en'>
+           <div class='title-section'>
+             <p>&#160;</p>
+           </div>
+           <br/>
+           <div class='prefatory-section'>
+             <p>&#160;</p>
+           </div>
+           <br/>
+           <div class='main-section'>
+             <br/>
+             <div>
+               <h1 class='AbstractTitle'>
+                 Abstract
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <br/>
+             <div>
+               <h1 class='ForewordTitle'>
+                 Foreword
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <p id='A'>This is a preamble</p>
+             </div>
+             <br/>
+             <div class='Section3' id='B'>
+               <h1 class='IntroTitle'>Introduction</h1>
+               <div id='C'>
+                 <h2>
+                   Introduction Subsection
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+               </div>
+             </div>
+             <br/>
+             <div class='Section3' id='B1'>
+               <h1 class='IntroTitle'>
+                 Dedication
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <br/>
+             <div class='Section3' id='B2'>
+               <h1 class='IntroTitle'>
+                 Note to reader
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <br/>
+             <div class='Section3' id=''>
+               <h1 class='IntroTitle'>
+                 Acknowledgements
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <p class='zzSTDTitle1'/>
+             <div id='NN1' class='Note'>
+               <p>
+                 <span class='note_label'>NOTE</span>
+                 &#160; Initial note
+               </p>
+             </div>
+             <div id='NN2' class='Admonition'>
+               <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+               <p>Initial admonition</p>
+             </div>
+             <div id='D'>
+               <h1>
+                 1.&#160; Scope
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <p id='E'>Text</p>
+             </div>
+             <div>
+               <h1>
+                 2.&#160; Normative References
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <div id='H'>
+               <h1>
+                 3.&#160; Terms, Definitions, Symbols and Abbreviated Terms
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <div id='I'>
+                 <h2>
+                   3.1.&#160; Normal Terms
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+                 <p class='TermNum' id='J'>3.1.1.</p>
+                 <p class='Terms' style='text-align:left;'>Term2</p>
+               </div>
+               <div id='K'>
+                 <h2>
+                   3.2.&#160; Definitions
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+                 <dl>
+                   <dt>
+                     <p>Symbol</p>
+                   </dt>
+                   <dd>Definition</dd>
+                 </dl>
+               </div>
+             </div>
+             <div id='L' class='Symbols'>
+               <h1>
+                 4.&#160; Symbols and abbreviated terms
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <dl>
+                 <dt>
+                   <p>Symbol</p>
+                 </dt>
+                 <dd>Definition</dd>
+               </dl>
+             </div>
+             <div id='M'>
+               <h1>
+                 5.&#160; Clause 4
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <div id='N'>
+                 <h2>
+                   5.1.&#160; Introduction
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+               </div>
+               <div id='O'>
+                 <h2>
+                   5.2.&#160; Clause 4.2
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+               </div>
+               <div id='O1'>
+                 <h2>5.3.</h2>
+               </div>
+             </div>
+             <br/>
+             <div id='P' class='Section3'>
+               <h1 class='Annex'>
+                 <b>Annex A</b>
+                 <br/>
+                 (normative)
+                 <br/>
+                 <br/>
+                 <b>Annex</b>
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <div id='Q'>
+                 <h2>
+                   A.1.&#160; Annex A.1
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+                 <div id='Q1'>
+                   <h3>
+                     A.1.1.&#160; Annex A.1a
+                     <br/>
+                     <br/>
+                     Variant 1
+                   </h3>
+                 </div>
+                 <div>
+                   <h3 class='Section3'>
+                     A.1.2.&#160; Annex Bibliography
+                     <br/>
+                     <br/>
+                     Variant 1
+                   </h3>
+                 </div>
+               </div>
+             </div>
+             <br/>
+             <div id='P1' class='Section3'>
+               <h1 class='Annex'>
+                 <b>Annex B</b>
+                 <br/>
+                 (normative)
+               </h1>
+             </div>
+             <br/>
+             <div>
+               <h1 class='Section3'>Bibliography</h1>
+               <div>
+                 <h2 class='Section3'>
+                   Bibliography Subsection
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+               </div>
+             </div>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    word = <<~OUTPUT
+           <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+         <head>
+           <style>
+           </style>
+         </head>
+         <body lang='EN-US' link='blue' vlink='#954F72'>
+           <div class='WordSection1'>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection2'>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div>
+               <h1 class='AbstractTitle'>
+                 Abstract
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div>
+               <h1 class='ForewordTitle'>
+                 Foreword
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <p id='A'>This is a preamble</p>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div class='Section3' id='B'>
+               <h1 class='IntroTitle'>Introduction</h1>
+               <div id='C'>
+                 <h2>
+                   Introduction Subsection
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+               </div>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div class='Section3' id='B1'>
+               <h1 class='IntroTitle'>
+                 Dedication
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div class='Section3' id='B2'>
+               <h1 class='IntroTitle'>
+                 Note to reader
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div class='Section3' id=''>
+               <h1 class='IntroTitle'>
+                 Acknowledgements
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection3'>
+             <p class='zzSTDTitle1'/>
+             <div id='NN1' class='Note'>
+               <p class='Note'>
+                 <span class='note_label'>NOTE</span>
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Initial note
+               </p>
+             </div>
+             <div id='NN2' class='Admonition'>
+               <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+               <p>Initial admonition</p>
+             </div>
+             <div id='D'>
+               <h1>
+                 1.
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Scope
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <p id='E'>Text</p>
+             </div>
+             <div>
+               <h1>
+                 2.
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Normative References
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+             </div>
+             <div id='H'>
+               <h1>
+                 3.
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Terms, Definitions, Symbols and Abbreviated Terms
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <div id='I'>
+                 <h2>
+                   3.1.
+                   <span style='mso-tab-count:1'>&#160; </span>
+                   Normal Terms
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+                 <p class='TermNum' id='J'>3.1.1.</p>
+                 <p class='Terms' style='text-align:left;'>Term2</p>
+               </div>
+               <div id='K'>
+                 <h2>
+                   3.2.
+                   <span style='mso-tab-count:1'>&#160; </span>
+                   Definitions
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+                 <table class='dl'>
+                   <tr>
+                     <td valign='top' align='left'>
+                       <p align='left' style='margin-left:0pt;text-align:left;'>Symbol</p>
+                     </td>
+                     <td valign='top'>Definition</td>
+                   </tr>
+                 </table>
+               </div>
+             </div>
+             <div id='L' class='Symbols'>
+               <h1>
+                 4.
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Symbols and abbreviated terms
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <table class='dl'>
+                 <tr>
+                   <td valign='top' align='left'>
+                     <p align='left' style='margin-left:0pt;text-align:left;'>Symbol</p>
+                   </td>
+                   <td valign='top'>Definition</td>
+                 </tr>
+               </table>
+             </div>
+             <div id='M'>
+               <h1>
+                 5.
+                 <span style='mso-tab-count:1'>&#160; </span>
+                 Clause 4
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <div id='N'>
+                 <h2>
+                   5.1.
+                   <span style='mso-tab-count:1'>&#160; </span>
+                   Introduction
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+               </div>
+               <div id='O'>
+                 <h2>
+                   5.2.
+                   <span style='mso-tab-count:1'>&#160; </span>
+                   Clause 4.2
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+               </div>
+               <div id='O1'>
+                 <h2>5.3.</h2>
+               </div>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div id='P' class='Section3'>
+               <h1 class='Annex'>
+                 <b>Annex A</b>
+                 <br/>
+                 (normative)
+                 <br/>
+                 <br/>
+                 <b>Annex</b>
+                 <br/>
+                 <br/>
+                 Variant 1
+               </h1>
+               <div id='Q'>
+                 <h2>
+                   A.1.
+                   <span style='mso-tab-count:1'>&#160; </span>
+                   Annex A.1
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+                 <div id='Q1'>
+                   <h3>
+                     A.1.1.
+                     <span style='mso-tab-count:1'>&#160; </span>
+                     Annex A.1a
+                     <br/>
+                     <br/>
+                     Variant 1
+                   </h3>
+                 </div>
+                 <div>
+                   <h3 class='Section3'>
+                     A.1.2.
+                     <span style='mso-tab-count:1'>&#160; </span>
+                     Annex Bibliography
+                     <br/>
+                     <br/>
+                     Variant 1
+                   </h3>
+                 </div>
+               </div>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div id='P1' class='Section3'>
+               <h1 class='Annex'>
+                 <b>Annex B</b>
+                 <br/>
+                 (normative)
+               </h1>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div>
+               <h1 class='Section3'>Bibliography</h1>
+               <div>
+                 <h2 class='Section3'>
+                   Bibliography Subsection
+                   <br/>
+                   <br/>
+                   Variant 1
+                 </h2>
+               </div>
+             </div>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    presxml = IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(word)
+  end
+
   it "processes section names suppressing section numbering" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
