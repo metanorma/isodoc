@@ -49,6 +49,7 @@ module IsoDoc
       termexample docxml
       note docxml
       termnote docxml
+      termdefinition docxml
       permission docxml
       requirement docxml
       recommendation docxml

@@ -261,4 +261,120 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(word)
   end
+
+  it "processes IsoXML term with multiple definitions" do
+    input = <<~"INPUT"
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <sections>
+          <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+          <p>For the purposes of this document, the following terms and definitions apply.</p>
+      <term id="paddy1"><preferred>paddy</preferred>
+      <domain>rice</domain>
+      <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
+      <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747e">rice retaining its husk after threshing, mark 2</p>
+      <termsource status="modified">
+        <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
+          <modification>
+          <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+        </modification>
+      </termsource>
+      </definition>
+      <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892"  keep-with-next="true" keep-lines-together="true">
+        <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
+        <ul>
+        <li>A</li>
+        </ul>
+      </termexample>
+      <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894">
+        <ul>
+        <li>A</li>
+        </ul>
+      </termexample>
+      <termsource status='identical'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'>t1</termref>
+          </origin>
+        </termsource>
+        <termsource status='modified'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'/>
+          </origin>
+          <modification>
+            <p id='_'>with adjustments</p>
+          </modification>
+        </termsource>
+      </term>
+    INPUT
+    presxml = <<~PRESXML
+          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <sections>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+            <title depth='1'>
+              1.
+              <tab/>
+              Terms and Definitions
+            </title>
+            <p>For the purposes of this document, the following terms and definitions apply.</p>
+            <term id='paddy1'>
+              <name>1.1.</name>
+              <preferred>paddy</preferred>
+              <domain>rice</domain>
+              <definition>
+                <ol>
+                  <li>
+                    <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+                  </li>
+                  <li>
+                    <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747e'>rice retaining its husk after threshing, mark 2</p>
+                    <termsource status='modified'>
+                      <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
+                        <locality type='clause'>
+                          <referenceFrom>3.1</referenceFrom>
+                        </locality>
+                        ISO 7301:2011, Clause 3.1
+                      </origin>
+                      <modification>
+                        <p id='_e73a417d-ad39-417d-a4c8-20e4e2529489'>
+                          The term "cargo rice" is shown as deprecated, and Note 1 to
+                          entry is not included here
+                        </p>
+                      </modification>
+                    </termsource>
+                  </li>
+                </ol>
+              </definition>
+              <termexample id='_bd57bbf1-f948-4bae-b0ce-73c00431f892' keep-with-next='true' keep-lines-together='true'>
+                <name>EXAMPLE 1</name>
+                <p id='_65c9a509-9a89-4b54-a890-274126aeb55c'>Foreign seeds, husks, bran, sand, dust.</p>
+                <ul>
+                  <li>A</li>
+                </ul>
+              </termexample>
+              <termexample id='_bd57bbf1-f948-4bae-b0ce-73c00431f894'>
+                <name>EXAMPLE 2</name>
+                <ul>
+                  <li>A</li>
+                </ul>
+              </termexample>
+              <termsource status='identical'>
+                <origin citeas=''>
+                  <termref base='IEV' target='xyz'>t1</termref>
+                </origin>
+              </termsource>
+              <termsource status='modified'>
+                <origin citeas=''>
+                  <termref base='IEV' target='xyz'/>
+                </origin>
+                <modification>
+                  <p id='_'>with adjustments</p>
+                </modification>
+              </termsource>
+            </term>
+          </terms>
+        </sections>
+      </iso-standard>
+    PRESXML
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+  end
 end
