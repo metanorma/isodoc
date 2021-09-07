@@ -2,10 +2,10 @@ require "base64"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def lower2cap(s)
-      return s if /^[[:upper:]][[:upper:]]/.match?(s)
+    def lower2cap(text)
+      return text if /^[[:upper:]][[:upper:]]/.match?(text)
 
-      s.capitalize
+      text.capitalize
     end
 
     def figure(docxml)
@@ -13,8 +13,7 @@ module IsoDoc
       docxml.xpath(ns("//figure")).each { |f| figure1(f) }
       docxml.xpath(ns("//svgmap")).each do |s|
         if f = s.at(ns("./figure")) then s.replace(f)
-        else
-          s.remove
+        else s.remove
         end
       end
     end
@@ -30,26 +29,28 @@ module IsoDoc
       elem.replace(x)
     end
 
-    def figure1(f)
-      return sourcecode1(f) if f["class"] == "pseudocode" || f["type"] == "pseudocode"
-      return if labelled_ancestor(f) && f.ancestors("figure").empty?
-      return if f.at(ns("./figure")) and !f.at(ns("./name"))
+    def figure1(elem)
+      return sourcecode1(elem) if elem["class"] == "pseudocode" ||
+        elem["type"] == "pseudocode"
+      return if labelled_ancestor(elem) && elem.ancestors("figure").empty? ||
+        elem.at(ns("./figure")) && !elem.at(ns("./name"))
 
-      lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ",
+      lbl = @xrefs.anchor(elem["id"], :label, false) or return
+      prefix_name(elem, "&nbsp;&mdash; ",
                   l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
 
-    def prefix_name(f, delim, number, elem)
+    def prefix_name(node, delim, number, elem)
       return if number.nil? || number.empty?
 
-      unless name = f.at(ns("./#{elem}"))
-        f.children.empty? and f.add_child("<#{elem}></#{elem}>") or
-          f.children.first.previous = "<#{elem}></#{elem}>"
-          name = f.children.first
+      unless name = node.at(ns("./#{elem}"))
+        node.children.empty? and node.add_child("<#{elem}></#{elem}>") or
+          node.children.first.previous = "<#{elem}></#{elem}>"
+        name = node.children.first
       end
-      name.children.empty? ? name.add_child(number) :
-        ( name.children.first.previous = "#{number}#{delim}" )
+      if name.children.empty? then name.add_child(number)
+      else (name.children.first.previous = "#{number}#{delim}")
+      end
     end
 
     def sourcecode(docxml)
@@ -58,12 +59,13 @@ module IsoDoc
       end
     end
 
-    def sourcecode1(f)
-      return if labelled_ancestor(f)
-      return unless f.ancestors("example").empty?
+    def sourcecode1(elem)
+      return if labelled_ancestor(elem)
+      return unless elem.ancestors("example").empty?
 
-      lbl = @xrefs.anchor(f['id'], :label, false) or return
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
+      lbl = @xrefs.anchor(elem["id"], :label, false) or return
+      prefix_name(elem, "&nbsp;&mdash; ",
+                  l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
 
     def formula(docxml)
@@ -73,9 +75,9 @@ module IsoDoc
     end
 
     # introduce name element
-    def formula1(f)
-      lbl = @xrefs.anchor(f['id'], :label, false)
-      prefix_name(f, "", lbl, "name")
+    def formula1(elem)
+      lbl = @xrefs.anchor(elem["id"], :label, false)
+      prefix_name(elem, "", lbl, "name")
     end
 
     def example(docxml)
@@ -90,11 +92,14 @@ module IsoDoc
       end
     end
 
-    def example1(f)
-      n = @xrefs.get[f["id"]]
-      lbl = (n.nil? || n[:label].nil? || n[:label].empty?) ? @i18n.example:
-        l10n("#{@i18n.example} #{n[:label]}")
-      prefix_name(f, "&nbsp;&mdash; ", lbl, "name")
+    def example1(elem)
+      n = @xrefs.get[elem["id"]]
+      lbl = if n.nil? || n[:label].nil? || n[:label].empty?
+              @i18n.example
+            else
+              l10n("#{@i18n.example} #{n[:label]}")
+            end
+      prefix_name(elem, "&nbsp;&mdash; ", lbl, "name")
     end
 
     def note(docxml)
@@ -104,13 +109,16 @@ module IsoDoc
     end
 
     # introduce name element
-    def note1(f)
-      return if f.parent.name == "bibitem"
+    def note1(elem)
+      return if elem.parent.name == "bibitem"
 
-      n = @xrefs.get[f["id"]]
-      lbl = (@i18n.note if n.nil? || n[:label].nil? || n[:label].empty?) ?
-        @i18n.note: l10n("#{@i18n.note} #{n[:label]}")
-      prefix_name(f, "", lbl, "name")
+      n = @xrefs.get[elem["id"]]
+      lbl = if n.nil? || n[:label].nil? || n[:label].empty?
+              @i18n.note
+            else
+              l10n("#{@i18n.note} #{n[:label]}")
+            end
+      prefix_name(elem, "", lbl, "name")
     end
 
     def termnote(docxml)
@@ -120,9 +128,27 @@ module IsoDoc
     end
 
     # introduce name element
-    def termnote1(f)
-      lbl = l10n(@xrefs.anchor(f["id"], :label) || "???")
-      prefix_name(f, "", lower2cap(lbl), "name")
+    def termnote1(elem)
+      lbl = l10n(@xrefs.anchor(elem["id"], :label) || "???")
+      prefix_name(elem, "", lower2cap(lbl), "name")
+    end
+
+    def termdefinition(docxml)
+      docxml.xpath(ns("//term[definition]")).each do |f|
+        termdefinition1(f)
+      end
+    end
+
+    def termdefinition1(elem)
+      return unless elem.xpath(ns("./definition")).size > 1
+
+      d = elem.at(ns("./definition"))
+      d = d.replace("<ol><li>#{d.children.to_xml}</li></ol>").first
+      elem.xpath(ns("./definition")).each do |f|
+        f = f.replace("<li>#{f.children.to_xml}</li>").first
+        d << f
+      end
+      d.wrap("<definition></definition>")
     end
 
     def recommendation(docxml)
@@ -144,10 +170,10 @@ module IsoDoc
     end
 
     # introduce name element
-    def recommendation1(f, type)
-      n = @xrefs.anchor(f["id"], :label, false)
+    def recommendation1(elem, type)
+      n = @xrefs.anchor(elem["id"], :label, false)
       lbl = (n.nil? ? type : l10n("#{type} #{n}"))
-      prefix_name(f, "", lbl, "name")
+      prefix_name(elem, "", lbl, "name")
     end
 
     def table(docxml)
@@ -156,12 +182,13 @@ module IsoDoc
       end
     end
 
-    def table1(f)
-      return if labelled_ancestor(f)
-      return if f["unnumbered"] && !f.at(ns("./name"))
+    def table1(elem)
+      return if labelled_ancestor(elem)
+      return if elem["unnumbered"] && !elem.at(ns("./name"))
 
-      n = @xrefs.anchor(f["id"], :label, false)
-      prefix_name(f, "&nbsp;&mdash; ", l10n("#{lower2cap @i18n.table} #{n}"), "name")
+      n = @xrefs.anchor(elem["id"], :label, false)
+      prefix_name(elem, "&nbsp;&mdash; ", l10n("#{lower2cap @i18n.table} #{n}"),
+                  "name")
     end
 
     # we use this to eliminate the semantic amend blocks from rendering
@@ -171,11 +198,11 @@ module IsoDoc
       end
     end
 
-    def amend1(f)
-      f.xpath(ns("./autonumber")).each(&:remove)
-      f.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
-      f.xpath(ns("./description")).each { |a| a.replace(a.children) }
-      f.replace(f.children)
+    def amend1(elem)
+      elem.xpath(ns("./autonumber")).each(&:remove)
+      elem.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
+      elem.xpath(ns("./description")).each { |a| a.replace(a.children) }
+      elem.replace(elem.children)
     end
   end
 end
