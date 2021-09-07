@@ -1,3 +1,5 @@
+require "metanorma-utils"
+
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_container(container, linkend, _target)
@@ -130,7 +132,7 @@ module IsoDoc
       loc = @i18n.locality[type] || type.sub(/^locality:/, "")
       loc = case node["case"]
             when "lowercase" then loc.downcase
-            else loc.capitalize
+            else Metanorma::Utils.strict_capitalize_first(loc)
             end
       " #{loc}"
     end

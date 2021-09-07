@@ -1002,6 +1002,7 @@ RSpec.describe IsoDoc do
           <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality>A</eref>
           <eref type="inline" bibitemid="ISO712"><locality type="whole"></locality></eref>
           <eref type="inline" bibitemid="ISO712"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality></eref>
+          <eref type="inline" bibitemid="ISO712"><locality type="locality:URI"><referenceFrom>7</referenceFrom></locality></eref>
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712">A</eref>
           <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality></eref>
           <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
@@ -1040,6 +1041,7 @@ RSpec.describe IsoDoc do
                 <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality>A</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="whole"/>ISO 712, Whole of text</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality>ISO 712, Prelude 7</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="locality:URI"><referenceFrom>7</referenceFrom></locality>ISO 712, URI 7</eref>
                 <eref type="inline" bibitemid="ISO712" citeas="ISO 712">A</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality>ISO 712</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, Clause 1</eref>
@@ -1082,6 +1084,7 @@ RSpec.describe IsoDoc do
                  <a href="#ISO712">A</a>
                  <a href="#ISO712">ISO 712, Whole of text</a>
                  <a href="#ISO712">ISO 712, Prelude 7</a>
+                 <a href="#ISO712">ISO 712, URI 7</a>
                  <a href="#ISO712">A</a>
                  <a href='#ISO712'>ISO 712</a>
                  <a href='#ISO712'>ISO 712, Clause 1</a>
