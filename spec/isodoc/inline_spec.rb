@@ -418,13 +418,16 @@ RSpec.describe IsoDoc do
        <preface><foreword>
        <p>
        <ul>
-       <li>
-       <concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-         <li><concept ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
        <li><concept ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-        <li><concept ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-         <li><concept ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
        <li><concept ital="false" ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="true" ref="true" linkmention="true" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="true" ref="true" linkmention="false" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="true" ref="true" linkmention="false" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
         </ul></p>
          </foreword></preface>
        <sections>
@@ -433,88 +436,97 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-       <preface><foreword displayorder="1">
-       <p>
-       <ul>
-       <li>
-
-           <em>term</em>
-           [term defined in <xref target="clause1">Clause 1</xref>],
-         </li>
-         <li>
-           <em>term</em>
-           [term defined in <xref target="clause1">Clause 1</xref>],
-         </li>
-       <li>
-           <em>term</em>
-           [term defined in <xref target="clause1">Clause 1</xref>],
-         </li>
-        <li>
-           term
-           [term defined in <xref target="clause1">Clause 1</xref>],
-         </li>
-         <li>
-           <em>term</em>,
-
-         </li>
-       <li>
-           term,
-
-         </li>
-        </ul></p>
-         </foreword></preface>
-       <sections>
-       <clause id="clause1" displayorder="2"><title depth="1">1.<tab/>Clause 1</title></clause>
-       </sections>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <preface><foreword displayorder="1">
+      <p>
+      <ul>
+      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+      <li>term [term defined in <xref target="clause1">Clause 1</xref>],</li>
+      <li><em>term</em>,</li>
+      <li>term,</li>
+      <li><xref target="clause1"><em>term</em></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+      <li><xref target="clause1"><em>term</em></xref> [term defined in Clause 1],</li>
+      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+      <li><em>term</em> [term defined in Clause 1],</li>
+      </ul></p>
+      </foreword></preface>
+      <sections>
+      <clause id="clause1" displayorder="2"><title depth="1">1.<tab/>Clause 1</title></clause>
+      </sections>
       </iso-standard>
     OUTPUT
     output = <<~OUTPUT
-               #{HTML_HDR}
-           <br/>
-           <div>
-             <h1 class='ForewordTitle'>Foreword</h1>
-                            <p>
-                <ul>
-                  <li>
-                    <i>term</i>
-                     [term defined in
-                    <a href='#clause1'>Clause 1</a>
-                    ],
-                  </li>
-                  <li>
-                    <i>term</i>
-                     [term defined in
-                    <a href='#clause1'>Clause 1</a>
-                    ],
-                  </li>
-                  <li>
-                    <i>term</i>
-                     [term defined in
-                    <a href='#clause1'>Clause 1</a>
-                    ],
-                  </li>
-                  <li>
-                     term [term defined in
-                    <a href='#clause1'>Clause 1</a>
-                    ],
-                  </li>
-                  <li>
-                    <i>term</i>,
-                  </li>
-                  <li>term,</li>
-                </ul>
-              </p>
-            </div>
-            <p class='zzSTDTitle1'/>
-            <div id='clause1'>
-              <h1>1.&#160; Clause 1</h1>
-            </div>
-          </div>
-        </body>
-      </html>
+                     #{HTML_HDR}
+                 <br/>
+                 <div>
+                   <h1 class='ForewordTitle'>Foreword</h1>
+                                  <p>
+                      <ul>
+                        <li>
+                          <i>term</i>
+                           [term defined in
+                          <a href='#clause1'>Clause 1</a>
+                          ],
+                        </li>
+                        <li>
+                          <i>term</i>
+                           [term defined in
+                          <a href='#clause1'>Clause 1</a>
+                          ],
+                        </li>
+                        <li>
+                          <i>term</i>
+                           [term defined in
+                          <a href='#clause1'>Clause 1</a>
+                          ],
+                        </li>
+                        <li>
+                           term [term defined in
+                          <a href='#clause1'>Clause 1</a>
+                          ],
+                        </li>
+                        <li>
+                          <i>term</i>,
+                        </li>
+                        <li>term,</li>
+                        <li>
+        <a href='#clause1'>
+          <i>term</i>
+        </a>
+         [term defined in
+        <a href='#clause1'>Clause 1</a>
+        ],
+      </li>
+      <li>
+        <a href='#clause1'>
+          <i>term</i>
+        </a>
+         [term defined in Clause 1],
+      </li>
+      <li>
+        <i>term</i>
+         [term defined in
+        <a href='#clause1'>Clause 1</a>
+        ],
+      </li>
+      <li>
+        <i>term</i>
+         [term defined in Clause 1],
+      </li>
+                      </ul>
+                    </p>
+                  </div>
+                  <p class='zzSTDTitle1'/>
+                  <div id='clause1'>
+                    <h1>1.&#160; Clause 1</h1>
+                  </div>
+                </div>
+              </body>
+            </html>
     OUTPUT
-    expect((IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
