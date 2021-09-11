@@ -428,6 +428,11 @@ RSpec.describe IsoDoc do
        <li><concept ital="true" ref="true" linkmention="false" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
        <li><concept ital="true" ref="true" linkmention="false" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
        <li><concept ital="true" ref="true" linkmention="true" linkref="true"><strong>error!</strong></concept></li>
+       <li><concept ital="false" ref="false" linkmention="true">
+<refterm>CV_DiscreteCoverage</refterm>
+<renderterm>CV_DiscreteCoverage</renderterm>
+<xref target="term-cv_discretecoverage"/>
+</concept></li>
         </ul></p>
          </foreword></preface>
        <sections>
@@ -451,6 +456,7 @@ RSpec.describe IsoDoc do
       <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
       <li><em>term</em> [term defined in Clause 1],</li>
       <li><strong>error!</strong></li>
+      <li><xref target='term-cv_discretecoverage'>CV_DiscreteCoverage</xref></li>
       </ul></p>
       </foreword></preface>
       <sections>
@@ -517,6 +523,7 @@ RSpec.describe IsoDoc do
          [term defined in Clause 1],
       </li>
       <li> <b>error!</b> </li>
+      <li> <a href='#term-cv_discretecoverage'>CV_DiscreteCoverage</a> </li>
                       </ul>
                     </p>
                   </div>

@@ -192,7 +192,7 @@ module IsoDoc
       end
       concept1_ref(node, ref, opts)
       if opts[:ital] == "false"
-        r = node.at(ns("./renderterm"))
+        r = node.at(ns(".//renderterm"))
         r&.replace(r&.children)
       end
       node.replace(node.children)
