@@ -209,8 +209,7 @@ RSpec.describe IsoDoc do
               <renderterm>word</renderterm>
               <termref base='IEV' target='135-13-13'>The IEV database</termref>
             </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>word</renderterm>
+            <li><concept>
               <strong>error!</strong>
               </concept>
               </li>
@@ -295,7 +294,7 @@ RSpec.describe IsoDoc do
             <li>
               <em>word</em> [<termref base="IEV" target="135-13-13">The IEV database</termref>]
             </li>
-             <li> <em>word</em> <strong>error!</strong> </li>
+             <li> <strong>error!</strong> </li>
             </ul>
           </p>
           </foreword></preface>
@@ -380,7 +379,7 @@ RSpec.describe IsoDoc do
                      <i>word</i>
                       [The IEV database]
                    </li>
-                   <li> <i>word</i> <b>error!</b> </li>
+                   <li> <b>error!</b> </li>
                  </ul>
                </p>
              </div>
@@ -428,6 +427,7 @@ RSpec.describe IsoDoc do
        <li><concept ital="true" ref="true" linkmention="true" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
        <li><concept ital="true" ref="true" linkmention="false" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
        <li><concept ital="true" ref="true" linkmention="false" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+       <li><concept ital="true" ref="true" linkmention="true" linkref="true"><strong>error!</strong></concept></li>
         </ul></p>
          </foreword></preface>
        <sections>
@@ -450,6 +450,7 @@ RSpec.describe IsoDoc do
       <li><xref target="clause1"><em>term</em></xref> [term defined in Clause 1],</li>
       <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
       <li><em>term</em> [term defined in Clause 1],</li>
+      <li><strong>error!</strong></li>
       </ul></p>
       </foreword></preface>
       <sections>
@@ -515,6 +516,7 @@ RSpec.describe IsoDoc do
         <i>term</i>
          [term defined in Clause 1],
       </li>
+      <li> <b>error!</b> </li>
                       </ul>
                     </p>
                   </div>

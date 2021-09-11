@@ -185,7 +185,7 @@ module IsoDoc
       ref = node.at(ns("./xref | ./eref | ./termref"))
       ref && opts[:ref] != "false" and r&.next = " "
       opts[:ital] == "true" and r&.name = "em"
-      if opts[:linkmention] == "true"
+      if opts[:linkmention] == "true" && !r.nil? && !ref.nil?
         ref2 = ref.clone
         r2 = r.clone
         r.replace(ref2).children = r2
