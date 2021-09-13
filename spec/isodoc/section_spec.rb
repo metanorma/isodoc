@@ -1778,4 +1778,129 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
+
+    it "processes annexes containing one, or more than one special sections" do
+    input = <<~INPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml">
+                    <annex id='PP' obligation='normative'>
+        <title>Glossary</title>
+        <terms id='PP1' obligation='normative'>
+          <term id='term-glossary'>
+            <preferred>Glossary</preferred>
+          </term>
+        </terms>
+      </annex>
+            <annex id='QQ' obligation='normative'>
+                 <title>Glossary</title>
+                   <terms id='QQ1' obligation='normative'>
+                     <title>Term Collection</title>
+                     <term id='term-term-1'>
+                       <preferred>Term</preferred>
+                     </term>
+                   </terms>
+                   <terms id='QQ2' obligation='normative'>
+                     <title>Term Collection 2</title>
+                     <term id='term-term-2'>
+                       <preferred>Term</preferred>
+                     </term>
+                   </terms>
+               </annex>
+                 <annex id='RR' obligation='normative'>
+                 <title>Glossary</title>
+                   <terms id='RR1' obligation='normative'>
+                     <title>Term Collection</title>
+                     <term id='term-term-3'>
+                       <preferred>Term</preferred>
+                     </term>
+                   </terms>
+                   <references id='RR2' obligation='normative'>
+                     <title>References</title>
+                   </terms>
+               </annex>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <annex id='PP' obligation='normative' displayorder='1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (normative)
+             <br/>
+             <br/>
+             <strong>Glossary</strong>
+           </title>
+           <terms id='PP1' obligation='normative'>
+             <title>A.</title>
+             <term id='term-glossary'>
+               <name>A.1.</name>
+               <preferred>Glossary</preferred>
+             </term>
+           </terms>
+         </annex>
+         <annex id='QQ' obligation='normative' displayorder='2'>
+           <title>
+             <strong>Annex B</strong>
+             <br/>
+             (normative)
+             <br/>
+             <br/>
+             <strong>Glossary</strong>
+           </title>
+           <terms id='QQ1' obligation='normative'>
+             <title depth='2'>
+               B.1.
+               <tab/>
+               Term Collection
+             </title>
+             <term id='term-term-1'>
+               <name>B.1.1.</name>
+               <preferred>Term</preferred>
+             </term>
+           </terms>
+           <terms id='QQ2' obligation='normative'>
+             <title depth='2'>
+               B.2.
+               <tab/>
+               Term Collection 2
+             </title>
+             <term id='term-term-2'>
+               <name>B.2.1.</name>
+               <preferred>Term</preferred>
+             </term>
+           </terms>
+         </annex>
+         <annex id='RR' obligation='normative' displayorder='3'>
+           <title>
+             <strong>Annex C</strong>
+             <br/>
+             (normative)
+             <br/>
+             <br/>
+             <strong>Glossary</strong>
+           </title>
+           <terms id='RR1' obligation='normative'>
+             <title depth='2'>
+               C.1.
+               <tab/>
+               Term Collection
+             </title>
+             <term id='term-term-3'>
+               <name>C.1.1.</name>
+               <preferred>Term</preferred>
+             </term>
+           </terms>
+           <references id='RR2' obligation='normative'>
+             <title depth='2'>
+               C.2.
+               <tab/>
+               References
+             </title>
+           </references>
+         </annex>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    end
 end
