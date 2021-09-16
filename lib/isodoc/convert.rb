@@ -101,7 +101,7 @@ module IsoDoc
       @htmlToClevels = 2 if @htmlToClevels.zero?
       @bookmarks_allocated = { "X" => true }
       @fn_bookmarks = {}
-      @baseassetpath = options[:base_asset_path]
+      @baseassetpath = options[:baseassetpath]
     end
 
     def tmpimagedir_suffix

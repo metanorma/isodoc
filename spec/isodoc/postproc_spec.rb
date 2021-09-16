@@ -811,7 +811,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     FileUtils.rm_rf "test_htmlimages"
     IsoDoc::HtmlConvert.new(
-      { base_asset_path: "spec/assets",
+      { baseassetpath: "spec/assets",
         wordstylesheet: "word.css",
         htmlstylesheet: "html.scss" },
     ).convert("test", <<~"INPUT", false)
