@@ -807,6 +807,44 @@ RSpec.describe IsoDoc do
       OUTPUT
   end
 
+  it "moves images in HTML" do
+    FileUtils.rm_f "test.html"
+    FileUtils.rm_rf "test_htmlimages"
+    IsoDoc::HtmlConvert.new(
+      { base_asset_path: "spec/assets",
+        wordstylesheet: "word.css",
+        htmlstylesheet: "html.scss" },
+    ).convert("test", <<~"INPUT", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword>
+       <figure id="_">
+       <name>Split-it-right sample divider</name>
+       <image src="rice_image1.png" id="_" mimetype="image/png"/>
+       </figure>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    html = File.read("test.html")
+      .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
+      .sub(%r{</main>.*$}m, "</main>")
+    expect(`ls test_htmlimages`).to match(/\.png$/)
+    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png")))
+      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+            <main class='main-section'>
+          <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
+          <br/>
+          <div>
+            <h1 class='ForewordTitle'>Foreword</h1>
+            <div id='_' class='figure'>
+              <img src='test_htmlimages/_.png' height='776' width='922'/>
+              <p class='FigureTitle' style='text-align:center;'>Split-it-right sample divider</p>
+            </div>
+          </div>
+          <p class='zzSTDTitle1'/>
+        </main>
+      OUTPUT
+  end
+
   describe "mathvariant to plain" do
     context "when `mathvariant` attr equal to `script`" do
       it "converts mathvariant text chars into associated plain chars" do
