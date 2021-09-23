@@ -1,4 +1,4 @@
-require "base64"
+require_relative "./image"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -6,38 +6,6 @@ module IsoDoc
       return text if /^[[:upper:]][[:upper:]]/.match?(text)
 
       text.capitalize
-    end
-
-    def figure(docxml)
-      docxml.xpath(ns("//image")).each { |f| svg_extract(f) }
-      docxml.xpath(ns("//figure")).each { |f| figure1(f) }
-      docxml.xpath(ns("//svgmap")).each do |s|
-        if f = s.at(ns("./figure")) then s.replace(f)
-        else s.remove
-        end
-      end
-    end
-
-    def svg_extract(elem)
-      return unless %r{^data:image/svg\+xml;base64,}.match?(elem["src"])
-
-      svg = Base64.strict_decode64(elem["src"]
-        .sub(%r{^data:image/svg\+xml;base64,}, ""))
-      x = Nokogiri::XML.fragment(svg.sub(/<\?xml[^>]*>/, "")) do |config|
-        config.huge
-      end
-      elem.replace(x)
-    end
-
-    def figure1(elem)
-      return sourcecode1(elem) if elem["class"] == "pseudocode" ||
-        elem["type"] == "pseudocode"
-      return if labelled_ancestor(elem) && elem.ancestors("figure").empty? ||
-        elem.at(ns("./figure")) && !elem.at(ns("./name"))
-
-      lbl = @xrefs.anchor(elem["id"], :label, false) or return
-      prefix_name(elem, "&nbsp;&mdash; ",
-                  l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
 
     def prefix_name(node, delim, number, elem)

@@ -762,6 +762,29 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(output)
   end
 
+  it "duplicates EMF and SVG files" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+           <clause id='A' inline-header='false' obligation='normative'>
+             <title>Clause</title>
+             <figure id="B">
+               <image src="spec/assets/odf.svg" mimetype="image/svg+xml" alt="1"/>
+               <image src="spec/assets/odf.emf" mimetype="image/x-emf" alt="2"/>
+             </figure>
+           </clause>
+         </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   private
 
   def mock_symbols
