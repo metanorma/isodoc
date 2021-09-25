@@ -68,9 +68,10 @@ module IsoDoc
       exe = inkscape_installed? or return nil
       warn "2. #{uri}: #{File.exists?(uri)}"
       warn "2.1. #{external_path(uri)}"
-      warn "Attempt on " + %(#{exe} --export-type="emf" #{uri})
-      if system %(#{exe} --export-type="emf" #{external_path uri})
+      warn "Attempt on " + %(#{external_path exe} --export-type="emf" #{external_path uri})
+      if system %(#{external_path exe} --export-type="emf" #{external_path uri})
         warn "3. #{ret}: #{File.exists?(ret)}"
+        warn "3.1. #{external_path ret}: #{File.exists?(external_path ret)}"
         warn "4. #{Metanorma::Utils::datauri(ret)}"
         return Metanorma::Utils::datauri(ret)
       end
