@@ -15,14 +15,15 @@ module IsoDoc
     end
 
     def svg_extract(elem)
-      return unless %r{^data:image/svg\+xml;base64,}.match?(elem["src"])
+      return unless %r{^data:image/svg\+xml;}.match?(elem["src"])
 
       svg = Base64.strict_decode64(elem["src"]
-        .sub(%r{^data:image/svg\+xml;base64,}, ""))
+        .sub(%r{^data:image/svg\+xml;(charset=[^;]+;)?base64,}, ""))
       x = Nokogiri::XML.fragment(svg.sub(/<\?xml[^>]*>/, "")) do |config|
         config.huge
       end
-      elem.replace(x)
+      elem["src"] = ""
+      elem.children = x
     end
 
     def figure1(elem)
@@ -37,12 +38,11 @@ module IsoDoc
     end
 
     def svg_emf_double(img)
-      if %w(application/emf application/x-emf image/x-emf image/x-mgx-emf
-            image/x-xbitmap).include? img["mimetype"]
+      if emf?(img["mimetype"])
         img = emf_encode(img)
         img.children.first.previous = emf_to_svg(img)
       elsif img["mimetype"] == "image/svg+xml"
-        img << "<emf src='#{svg_to_emf(img)}'/>"
+        src = svg_to_emf(img) and img << "<emf src='#{src}'/>"
       end
     end
 
@@ -58,12 +58,11 @@ module IsoDoc
 
     def emf_to_svg(img)
       emf = Metanorma::Utils::save_dataimage(img.at(ns("./emf/@src")).text)
-      Emf2svg.from_file(emf)
+      Emf2svg.from_file(emf).sub(/<\?[^>]+>/, "")
     end
 
     def svg_to_emf(node)
-      uri = node["src"]
-      %r{^data:}.match(uri) and uri = save_dataimage(uri)
+      uri = svg_to_emf_uri(node)
       ret = svg_to_emf_filename(uri)
       File.exists?(ret) and return ret
       exe = inkscape_installed? or return nil
@@ -72,6 +71,16 @@ module IsoDoc
       end
 
       nil
+    end
+
+    def svg_to_emf_uri(node)
+      uri = if node&.elements&.first&.name == "svg"
+              a = Base64.strict_encode64(node.children.to_xml)
+              "data:image/svg+xml;base64,#{a}"
+            else node["src"]
+            end
+      %r{^data:}.match(uri) and uri = save_dataimage(uri)
+      uri
     end
 
     def svg_to_emf_filename(uri)

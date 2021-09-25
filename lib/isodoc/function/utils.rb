@@ -37,14 +37,14 @@ module IsoDoc
       end
 
       def attr_code(attributes)
-        attributes = attributes.reject { |_, val| val.nil? }.map
+        attributes = attributes.compact.map
         attributes.map do |k, v|
           [k, v.is_a?(String) ? HTMLEntities.new.decode(v) : v]
         end.to_h
       end
 
       DOCTYPE_HDR = "<!DOCTYPE html SYSTEM "\
-        '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
+                    '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
 
       def to_xhtml(xml)
         xml = to_xhtml_prep(xml)
@@ -55,7 +55,7 @@ module IsoDoc
             f.write xml
           end
           abort "Malformed Output XML for #{@format}: #{e} "\
-            "(see #{@filename}.#{@format}.err)"
+                "(see #{@filename}.#{@format}.err)"
         end
       end
 
@@ -67,7 +67,7 @@ module IsoDoc
             HTMLEntities.new.encode(HTMLEntities.new.decode(t), :hexadecimal)
           else t
           end
-        end.join("")
+        end.join
       end
 
       def to_xhtml_fragment(xml)
@@ -148,18 +148,12 @@ module IsoDoc
           elem.name == "span" && /mso-bookmark/.match(elem["style"])
       end
 
-=begin
-      def liquid(doc)
-        self.class.liquid(doc)
-      end
-=end
-
       def liquid(doc)
         # unescape HTML escapes in doc
         doc = doc.split(%r<(\{%|%\})>).each_slice(4).map do |a|
           a[2] = a[2].gsub(/&lt;/, "<").gsub(/&gt;/, ">") if a.size > 2
-          a.join("")
-        end.join("")
+          a.join
+        end.join
         Liquid::Template.parse(doc)
       end
 
@@ -181,8 +175,9 @@ module IsoDoc
       end
 
       def save_dataimage(uri, _relative_dir = true)
-        %r{^data:(image|application)/(?<imgtype>[^;]+);base64,(?<imgdata>.+)$} =~ uri
-        imgtype.sub!(/\+[a-z0-9]+$/, "") # svg+xml
+        %r{^data:(?<imgclass>image|application)/(?<imgtype>[^;]+);(charset=[^;]+;)?base64,(?<imgdata>.+)$} =~ uri
+        imgtype = "emf" if emf?("#{imgclass}/#{imgtype}")
+        imgtype = imgtype.sub(/\+[a-z0-9]+$/, "") # svg+xml
         imgtype = "png" unless /^[a-z0-9]+$/.match? imgtype
         Tempfile.open(["image", ".#{imgtype}"]) do |f|
           f.binmode
@@ -205,6 +200,11 @@ module IsoDoc
       def labelled_ancestor(node)
         !node.ancestors("example, requirement, recommendation, permission, "\
                         "note, table, figure, sourcecode").empty?
+      end
+
+      def emf?(type)
+        %w(application/emf application/x-emf image/x-emf image/x-mgx-emf
+           application/x-msmetafile image/x-xbitmap).include? type
       end
     end
   end
