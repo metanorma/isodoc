@@ -70,7 +70,7 @@ module IsoDoc
       warn "2.1. #{external_path(uri)}"
       warn "Attempt on " + %(#{external_path exe} --export-type="emf" #{external_path uri})
       if system %(#{external_path exe} --export-type="emf" #{external_path uri})
-        warn `system "dir #{external_path File.dirname(exe)}"`
+        warn Dir.entries(File.dirname uri)
         warn "3. #{ret}: #{File.exists?(ret)}"
         warn "3.1. #{external_path ret}: #{File.exists?(external_path ret)}"
         warn "4. #{Metanorma::Utils::datauri(ret)}"
