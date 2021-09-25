@@ -70,6 +70,7 @@ module IsoDoc
       if system %(#{exe} --export-type="emf" #{uri})
         return Metanorma::Utils::datauri(ret)
       end
+      warn "Fail on " + %(#{exe} --export-type="emf" #{uri})
 
       nil
     end
