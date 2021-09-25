@@ -67,6 +67,7 @@ module IsoDoc
       File.exists?(ret) and return ret
       exe = inkscape_installed? or return nil
       warn "2. #{uri}: #{File.exists?(uri)}"
+      warn "2.1. #{File.realpath(uri)}"
       warn "Attempt on " + %(#{exe} --export-type="emf" #{uri})
       if system %(#{exe} --export-type="emf" #{uri})
         warn "3. #{ret}: #{File.exists?(ret)}"
