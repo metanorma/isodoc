@@ -413,32 +413,32 @@ RSpec.describe IsoDoc do
 
   it "processes concept attributes" do
     input = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml">
-       <preface><foreword>
-       <p>
-       <ul>
-       <li><concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ital="false" ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ital="true" ref="true" linkmention="true" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ital="true" ref="true" linkmention="false" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ital="true" ref="true" linkmention="false" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-       <li><concept ital="true" ref="true" linkmention="true" linkref="true"><strong>error!</strong></concept></li>
-       <li><concept ital="false" ref="false" linkmention="true">
-<refterm>CV_DiscreteCoverage</refterm>
-<renderterm>CV_DiscreteCoverage</renderterm>
-<xref target="term-cv_discretecoverage"/>
-</concept></li>
-        </ul></p>
-         </foreword></preface>
-       <sections>
-       <clause id="clause1"><title>Clause 1</title></clause>
-       </sections>
-      </iso-standard>
+             <iso-standard xmlns="http://riboseinc.com/isoxml">
+             <preface><foreword>
+             <p>
+             <ul>
+             <li><concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="false" ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="true" ref="true" linkmention="true" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="true" ref="true" linkmention="false" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="true" ref="true" linkmention="false" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="true" ref="true" linkmention="true" linkref="true"><strong>error!</strong></concept></li>
+             <li><concept ital="false" ref="false" linkmention="true">
+      <refterm>CV_DiscreteCoverage</refterm>
+      <renderterm>CV_DiscreteCoverage</renderterm>
+      <xref target="term-cv_discretecoverage"/>
+      </concept></li>
+              </ul></p>
+               </foreword></preface>
+             <sections>
+             <clause id="clause1"><title>Clause 1</title></clause>
+             </sections>
+            </iso-standard>
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
@@ -1386,6 +1386,65 @@ RSpec.describe IsoDoc do
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(word)
+  end
+
+  it "processes eref content with Unicode characters" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword>
+      <p>
+      <eref type="inline" bibitemid="ISO712" citeas="BSI BS EN ISO 19011:2018&#8201;&#8212;&#8201;TC"/>
+      </foreword></preface>
+              <bibliography>
+          <references id='_normative_references' obligation='informative' normative='true' displayorder="2">
+          <title>Normative References</title>
+            <bibitem id='ISO712' type='standard'>
+              <title format='text/plain'>Cereals and cereal products</title>
+              <uri type='citation'>http://www.example.com</uri>
+              <docidentifier>ISO 712</docidentifier>
+              <contributor>
+                <role type='publisher'/>
+                <organization>
+                  <abbreviation>ISO</abbreviation>
+                </organization>
+              </contributor>
+            </bibitem>
+           </references></bibliography>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+          <foreword displayorder='1'>
+            <p>
+              <eref type='inline' bibitemid='ISO712' citeas='BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</eref>
+            </p>
+          </foreword>
+          <bibliography displayorder='2'>
+            <references id='_normative_references' obligation='informative' normative='true' displayorder='3'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Normative References
+              </title>
+              <bibitem id='ISO712' type='standard'>
+                <title format='text/plain'>Cereals and cereal products</title>
+                <uri type='citation'>http://www.example.com</uri>
+                <docidentifier>ISO 712</docidentifier>
+                <contributor>
+                  <role type='publisher'/>
+                  <organization>
+                    <abbreviation>ISO</abbreviation>
+                  </organization>
+                </contributor>
+              </bibitem>
+            </references>
+          </bibliography>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes variant" do

@@ -23,8 +23,8 @@ module IsoDoc
       # unescape HTML escapes in doc
       doc = doc.split(%r<(\{%|%\})>).each_slice(4).map do |a|
         a[2] = a[2].gsub("&lt;", "<").gsub("&gt;", ">") if a.size > 2
-        a.join("")
-      end.join("")
+        a.join
+      end.join
       Liquid::Template.parse(doc)
     end
   end
