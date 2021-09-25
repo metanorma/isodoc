@@ -66,6 +66,7 @@ module IsoDoc
       ret = svg_to_emf_filename(uri)
       File.exists?(ret) and return ret
       exe = inkscape_installed? or return nil
+      warn "2. #{uri}: #{File.exists?(uri)}"
       if system %(#{exe} --export-type="emf" #{uri})
         return Metanorma::Utils::datauri(ret)
       end
@@ -82,6 +83,7 @@ module IsoDoc
       if %r{^data:}.match?(uri)
         uri = save_dataimage(uri)
         @tempfile_cache << uri
+        warn "1. #{uri}: #{File.exists?(uri)}"
       end
       uri
     end
