@@ -69,7 +69,7 @@ module IsoDoc
       link += eref_localities(node.xpath(ns("./locality | ./localityStack")),
                               link, node)
       non_locality_elems(node).each(&:remove)
-      node.add_child(link)
+      node.add_child(cleanup_entities(link))
     end
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
     # <locality type="section"><reference>3.1</reference></locality></origin>
