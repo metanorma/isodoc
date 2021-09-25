@@ -215,6 +215,12 @@ module IsoDoc
           a
         end.join
       end
+
+      def external_path(path)
+        win = !!((RUBY_PLATFORM =~ /(win|w)(32|64)$/) ||
+                 (RUBY_PLATFORM =~ /mswin|mingw/))
+        win ? path.gsub(%{/}, "\\") : path
+      end
     end
   end
 end
