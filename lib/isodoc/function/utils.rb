@@ -219,7 +219,12 @@ module IsoDoc
       def external_path(path)
         win = !!((RUBY_PLATFORM =~ /(win|w)(32|64)$/) ||
                  (RUBY_PLATFORM =~ /mswin|mingw/))
-        win ? path.gsub(%{/}, "\\") : path
+        if win
+          path.gsub!(%{/}, "\\")
+          path[/\s/] ? "\"#{path}\"" : path
+        else
+          path
+        end
       end
     end
   end
