@@ -738,10 +738,13 @@ RSpec.describe IsoDoc do
           <foreword displayorder="1">
             <figure id='figureA-1'>
               <name>Figure 1</name>
-              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-                <circle fill='#009' r='45' cx='50' cy='50'/>
-                <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
-              </svg>
+                <image id='_d3731866-1a07-435a-a6c2-1acd41023a4e' src='' mimetype='image/svg+xml' height='auto' width='auto'>
+                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+                   <circle fill='#009' r='45' cx='50' cy='50'/>
+                   <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
+                 </svg>
+                 <emf src='data:application/x-msmetafile;base64,AQAAAPgAAAAAAAAAAAAAAPsEAAD7BAAAAAAAAAAAAACLCgAAiwoAACBFTUYAAAEAVAQAACgAAAACAAAARgAAAGwAAAAAAAAA3ScAAH0zAADYAAAAFwEAAAAAAAAAAAAAAAAAAMBLAwDYQQQASQBuAGsAcwBjAGEAcABlACAAMQAuADEAIAAoAGMANABlADgAZgA5AGUALAAgADIAMAAyADEALQAwADUALQAyADQAKQAgAAAAaQBtAGEAZwBlADIAMAAyADEAMAA5ADIANQAtADMANQAzADAAOAAtADEAaAA2AG8AeABmAGYALgBlAG0AZgAAAAAAAAARAAAADAAAAAEAAAAkAAAAJAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAIAAABGAAAALAAAACAAAABTY3JlZW49MTAyMDV4MTMxODFweCwgMjE2eDI3OW1tAEYAAAAwAAAAIwAAAERyYXdpbmc9MTAwLjB4MTAwLjBweCwgMjYuNXgyNi41bW0AABIAAAAMAAAAAQAAABMAAAAMAAAAAgAAABYAAAAMAAAAGAAAABgAAAAMAAAAAAAAABQAAAAMAAAADQAAACcAAAAYAAAAAQAAAAAAAAAAAJkABgAAACUAAAAMAAAAAQAAADsAAAAIAAAAGwAAABAAAACkBAAAcQIAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAACkBAAAqAMAAKgDAACkBAAAcQIAAKQEAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAOgEAAKQEAAA/AAAAqAMAAD8AAABxAgAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAD8AAAA6AQAAOgEAAD8AAABxAgAAPwAAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAACoAwAAPwAAAKQEAAA6AQAApAQAAHECAAA9AAAACAAAADwAAAAIAAAAPgAAABgAAAAAAAAAAAAAAP//////////JQAAAAwAAAAFAACAKAAAAAwAAAABAAAAJwAAABgAAAABAAAAAAAAAP///wAGAAAAJQAAAAwAAAABAAAAOwAAAAgAAAAbAAAAEAAAAJ0BAABFAQAANgAAABAAAADPAwAARQEAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAABfBAAA7QEAAGQEAADjAgAA2wMAAJEDAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAUgMAAD4EAABhAgAAcwQAAJ0BAAAOBAAANgAAABAAAACdAQAAyQIAADYAAAAQAAAA4gIAAMkCAAA2AAAAEAAAAOICAAAaAgAANgAAABAAAACdAQAAGgIAAD0AAAAIAAAAPAAAAAgAAAA+AAAAGAAAAAAAAAAAAAAA//////////8lAAAADAAAAAUAAIAoAAAADAAAAAEAAAAOAAAAFAAAAAAAAAAAAAAAVAQAAA=='/>
+               </image>
             </figure>
           </foreword>
         </preface>
@@ -787,7 +790,7 @@ RSpec.describe IsoDoc do
             <div>
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='figureA-1' class='figure'>
-              <img src='_.emf'/>
+              <img src='_.emf' height='auto' width='auto'/>
                 <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
               </div>
             </div>
@@ -805,7 +808,9 @@ RSpec.describe IsoDoc do
 
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .gsub(/&lt;/, "&#x3c;"))).to be_equivalent_to xmlpp(presxml)
+      .gsub(/&lt;/, "&#x3c;")
+    .gsub(%r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile')
+                )).to be_equivalent_to xmlpp(presxml.gsub(%r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile'))
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
@@ -829,6 +834,31 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           </iso-standard>
     INPUT
+    presxml = <<~OUTPUT
+          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+          <foreword displayorder='1'>
+            <figure id='figureA-1'>
+              <name>Figure 1</name>
+              <image src='spec/assets/odf.svg' mimetype='image/svg+xml'>
+                <emf src='spec/assets/odf.emf'/>
+              </image>
+              <image src='spec/assets/odf1.svg' mimetype='image/svg+xml'>
+                <emf src='data:application/x-msmetafile;base64,AQAAAMwAAAAAAAAAAAAAAPsEAAD7BAAAAAAAAAAAAACLCgAAiwoAACBFTUYAAAEAKAQAACgAAAACAAAALwAAAGwAAAAAAAAA3ScAAH0zAADYAAAAFwEAAAAAAAAAAAAAAAAAAMBLAwDYQQQASQBuAGsAcwBjAGEAcABlACAAMQAuADEAIAAoAGMANABlADgAZgA5AGUALAAgADIAMAAyADEALQAwADUALQAyADQAKQAgAAAAbwBkAGYAMQAuAGUAbQBmAAAAAAAAAAAAEQAAAAwAAAABAAAAJAAAACQAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAACAAAARgAAACwAAAAgAAAAU2NyZWVuPTEwMjA1eDEzMTgxcHgsIDIxNngyNzltbQBGAAAAMAAAACMAAABEcmF3aW5nPTEwMC4weDEwMC4wcHgsIDI2LjV4MjYuNW1tAAASAAAADAAAAAEAAAATAAAADAAAAAIAAAAWAAAADAAAABgAAAAYAAAADAAAAAAAAAAUAAAADAAAAA0AAAAnAAAAGAAAAAEAAAAAAAAAAACZAAYAAAAlAAAADAAAAAEAAAA7AAAACAAAABsAAAAQAAAApAQAAHECAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAApAQAAKgDAACoAwAApAQAAHECAACkBAAABQAAADQAAAAAAAAAAAAAAP//////////AwAAADoBAACkBAAAPwAAAKgDAAA/AAAAcQIAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAAA/AAAAOgEAADoBAAA/AAAAcQIAAD8AAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAqAMAAD8AAACkBAAAOgEAAKQEAABxAgAAPQAAAAgAAAA8AAAACAAAAD4AAAAYAAAAAAAAAAAAAAD//////////yUAAAAMAAAABQAAgCgAAAAMAAAAAQAAACcAAAAYAAAAAQAAAAAAAAD///8ABgAAACUAAAAMAAAAAQAAADsAAAAIAAAAGwAAABAAAACdAQAARQEAADYAAAAQAAAAzwMAAEUBAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAXwQAAO0BAABkBAAA4wIAANsDAACRAwAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAFIDAAA+BAAAYQIAAHMEAACdAQAADgQAADYAAAAQAAAAnQEAAMkCAAA2AAAAEAAAAOICAADJAgAANgAAABAAAADiAgAAGgIAADYAAAAQAAAAnQEAABoCAAA9AAAACAAAADwAAAAIAAAAPgAAABgAAAAAAAAAAAAAAP//////////JQAAAAwAAAAFAACAKAAAAAwAAAABAAAADgAAABQAAAAAAAAAAAAAACgEAAA='/>
+              </image>
+              <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='auto' width='auto'>
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+                  <circle fill='#009' r='45' cx='50' cy='50'/>
+                  <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
+                </svg>
+                <emf src='data:application/x-msmetafile;base64,AQAAAPgAAAAAAAAAAAAAAPsEAAD7BAAAAAAAAAAAAACLCgAAiwoAACBFTUYAAAEAVAQAACgAAAACAAAARQAAAGwAAAAAAAAA3ScAAH0zAADYAAAAFwEAAAAAAAAAAAAAAAAAAMBLAwDYQQQASQBuAGsAcwBjAGEAcABlACAAMQAuADEAIAAoAGMANABlADgAZgA5AGUALAAgADIAMAAyADEALQAwADUALQAyADQAKQAgAAAAaQBtAGEAZwBlADIAMAAyADEAMAA5ADIANQAtADMANAA4ADgANQAtAHkAeQA0ADkANQA2AC4AZQBtAGYAAAAAAAAAAAARAAAADAAAAAEAAAAkAAAAJAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAIAAABGAAAALAAAACAAAABTY3JlZW49MTAyMDV4MTMxODFweCwgMjE2eDI3OW1tAEYAAAAwAAAAIwAAAERyYXdpbmc9MTAwLjB4MTAwLjBweCwgMjYuNXgyNi41bW0AABIAAAAMAAAAAQAAABMAAAAMAAAAAgAAABYAAAAMAAAAGAAAABgAAAAMAAAAAAAAABQAAAAMAAAADQAAACcAAAAYAAAAAQAAAAAAAAAAAJkABgAAACUAAAAMAAAAAQAAADsAAAAIAAAAGwAAABAAAACkBAAAcQIAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAACkBAAAqAMAAKgDAACkBAAAcQIAAKQEAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAOgEAAKQEAAA/AAAAqAMAAD8AAABxAgAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAD8AAAA6AQAAOgEAAD8AAABxAgAAPwAAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAACoAwAAPwAAAKQEAAA6AQAApAQAAHECAAA9AAAACAAAADwAAAAIAAAAPgAAABgAAAAAAAAAAAAAAP//////////JQAAAAwAAAAFAACAKAAAAAwAAAABAAAAJwAAABgAAAABAAAAAAAAAP///wAGAAAAJQAAAAwAAAABAAAAOwAAAAgAAAAbAAAAEAAAAJ0BAABFAQAANgAAABAAAADPAwAARQEAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAABfBAAA7QEAAGQEAADjAgAA2wMAAJEDAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAUgMAAD4EAABhAgAAcwQAAJ0BAAAOBAAANgAAABAAAACdAQAAyQIAADYAAAAQAAAA4gIAAMkCAAA2AAAAEAAAAOICAAAaAgAANgAAABAAAACdAQAAGgIAAD0AAAAIAAAAPAAAAAgAAAA+AAAAGAAAAAAAAAAAAAAA//////////8lAAAADAAAAAUAAIAoAAAADAAAAAEAAAAOAAAAFAAAAAAAAAAAAAAAVAQAAA=='/>
+              </image>
+              <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f2' mimetype='application/xml'/>
+            </figure>
+          </foreword>
+        </preface>
+      </iso-standard>
+    OUTPUT
     output = <<~OUTPUT
           <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
       <head>
@@ -850,9 +880,10 @@ RSpec.describe IsoDoc do
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='figureA-1' class='figure'>
                 <img src='spec/assets/odf.emf'/>
-                <img src='spec/assets/odf1.emf'/>
+                <img src='_.emf'/>
                 <img src='_.emf' height='auto' width='auto'/>
                  <img src='_.xml' height='20' width='auto'/>
+                 <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
               </div>
             </div>
             <p>&#160;</p>
@@ -866,8 +897,14 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+     .convert("test", input, true)
+     .gsub(/&lt;/, "&#x3c;")
+    .gsub(%r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile')))
+      .to be_equivalent_to xmlpp(presxml
+      .gsub( %r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile'))
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)
+      .convert("test", presxml, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
@@ -877,9 +914,9 @@ RSpec.describe IsoDoc do
   context "disable inkscape" do
     it "converts SVG (Word) with inkscape disabled" do
       FileUtils.rm_rf "spec/assets/odf1.emf"
-      allow(IsoDoc::WordFunction::Body)
+      allow(IsoDoc::PresentationXMLConvert)
         .to receive(:inkscape_installed?).and_return(nil)
-      allow_any_instance_of(IsoDoc::WordFunction::Body)
+      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
         .to receive(:inkscape_installed?)
 
       input = <<~INPUT
@@ -893,6 +930,27 @@ RSpec.describe IsoDoc do
             </foreword></preface>
             </iso-standard>
       INPUT
+      presxml = <<~OUTPUT
+              <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+          <preface>
+            <foreword displayorder='1'>
+              <figure id='figureA-1'>
+                <name>Figure 1</name>
+                <image src='spec/assets/odf.svg' mimetype='image/svg+xml'>
+                  <emf src='spec/assets/odf.emf'/>
+                </image>
+                <image src='spec/assets/odf1.svg' mimetype='image/svg+xml'/>
+                <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='auto' width='auto'>
+                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+                    <circle fill='#009' r='45' cx='50' cy='50'/>
+                    <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
+                  </svg>
+                </image>
+              </figure>
+            </foreword>
+          </preface>
+        </iso-standard>
+      OUTPUT
       output = <<~OUTPUT
          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
         <head>
@@ -915,7 +973,8 @@ RSpec.describe IsoDoc do
                 <div id='figureA-1' class='figure'>
                   <img src='spec/assets/odf.emf'/>
                   <img src='spec/assets/odf1.svg'/>
-                  <img src='_.svg' height='auto' width='auto'/>
+                  <img src='' height='auto' width='auto'/>
+                  <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
                 </div>
               </div>
               <p>&#160;</p>
@@ -929,8 +988,14 @@ RSpec.describe IsoDoc do
           </body>
         </html>
       OUTPUT
+      expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+       .convert("test", input, true)
+       .gsub(/&lt;/, "&#x3c;")
+        .gsub(%r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile')))
+        .to be_equivalent_to xmlpp(presxml
+        .gsub( %r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile'))
       expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
-        .convert("test", input, true)
+        .convert("test", presxml, true)
         .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.svg['"]/, "'_.svg'")
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
         .to be_equivalent_to xmlpp(output)
@@ -2433,10 +2498,14 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
                <sections>
                  <figure id='_'>
-                   <image src='action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'/>
+                   <image src='action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'>
+                      <emf src='./action_schemaexpg1.emf'/>
+                    </image>
                  </figure>
                  <figure id='_'>
-                   <image src='action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'/>
+                   <image src='action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'>
+                      <emf src='./action_schemaexpg2.emf'/>
+                    </image>
                  </figure>
                </sections>
                <bibliography>
@@ -2450,7 +2519,10 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .gsub(%r{"\.\\}, '"./')
+      .gsub(%r{'\.\\}, "'./")
+      )
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -2535,154 +2607,154 @@ RSpec.describe IsoDoc do
       </standard-document>
     INPUT
     presxml = <<~INPUT
-           <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation" version="1.10.2">
-         <bibdata type="standard">
-           <title language="en" format="text/plain">Document title</title>
-           <language current="true">en</language>
-           <script current="true">Latn</script>
-           <status>
-             <stage language="">published</stage>
-           </status>
-           <copyright>
-             <from>2021</from>
-           </copyright>
-           <ext>
-             <doctype language="">article</doctype>
-           </ext>
-         </bibdata>
-         <sections>
-           <clause id="clause1" inline-header="false" obligation="normative" displayorder="1">
-             <title depth="1">1.<tab/>Clause 1</title>
-             <clause id="clause1A" inline-header="false" obligation="normative">
-               <title depth="2">1.1.<tab/>Clause 1A</title>
-               <clause id="clause1Aa" inline-header="false" obligation="normative">
-                 <title depth="3">1.1.1.<tab/>Clause 1Aa</title>
-               </clause>
-               <clause id="clause1Ab" inline-header="false" obligation="normative">
-                 <title depth="3">1.1.2.<tab/>Clause 1Ab</title>
-               </clause>
-             </clause>
-             <clause id="clause1B" inline-header="false" obligation="normative">
-               <title depth="2">1.2.<tab/>Clause 1B</title>
-               <clause id="clause1Ba" inline-header="false" obligation="normative">
-                 <title depth="3">1.2.1.<tab/>Clause 1Ba</title>
-               </clause>
-             </clause>
-           </clause>
-           <clause id="clause2" inline-header="false" obligation="normative" displayorder="2">
-             <title depth="1">2.<tab/>Clause 2</title>
-             <p id="A">And introducing: </p>
-             <toc>
-               <ul id="B">
-                 <li>
-                   <xref target="clause1A">1.1<tab/>Clause 1A</xref>
-                 </li>
-                 <li>
-                   <ul id="C">
-                     <li>
-                       <xref target="clause1Aa">1.1.1<tab/>Clause 1Aa</xref>
-                     </li>
-                     <li>
-                       <xref target="clause1Ab">1.1.2<tab/>Clause 1Ab</xref>
-                     </li>
-                   </ul>
-                 </li>
-                 <li>
-                   <xref target="clause1B">1.2<tab/>Clause 1B</xref>
-                 </li>
-                 <li>
-                   <ul id="D">
-                     <li>
-                       <xref target="clause1Ba">1.2.1<tab/>Clause 1Ba</xref>
-                     </li>
-                   </ul>
-                 </li>
-               </ul>
-             </toc>
-             <toc>
-               <ul id="E">
-                 <li>
-                   <xref target="clause1A">1.1<tab/>Clause 1A</xref>
-                 </li>
-                 <li>
-                   <xref target="clause1B">1.2<tab/>Clause 1B</xref>
-                 </li>
-               </ul>
-             </toc>
-           </clause>
-         </sections>
-       </standard-document>
+          <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation" version="1.10.2">
+        <bibdata type="standard">
+          <title language="en" format="text/plain">Document title</title>
+          <language current="true">en</language>
+          <script current="true">Latn</script>
+          <status>
+            <stage language="">published</stage>
+          </status>
+          <copyright>
+            <from>2021</from>
+          </copyright>
+          <ext>
+            <doctype language="">article</doctype>
+          </ext>
+        </bibdata>
+        <sections>
+          <clause id="clause1" inline-header="false" obligation="normative" displayorder="1">
+            <title depth="1">1.<tab/>Clause 1</title>
+            <clause id="clause1A" inline-header="false" obligation="normative">
+              <title depth="2">1.1.<tab/>Clause 1A</title>
+              <clause id="clause1Aa" inline-header="false" obligation="normative">
+                <title depth="3">1.1.1.<tab/>Clause 1Aa</title>
+              </clause>
+              <clause id="clause1Ab" inline-header="false" obligation="normative">
+                <title depth="3">1.1.2.<tab/>Clause 1Ab</title>
+              </clause>
+            </clause>
+            <clause id="clause1B" inline-header="false" obligation="normative">
+              <title depth="2">1.2.<tab/>Clause 1B</title>
+              <clause id="clause1Ba" inline-header="false" obligation="normative">
+                <title depth="3">1.2.1.<tab/>Clause 1Ba</title>
+              </clause>
+            </clause>
+          </clause>
+          <clause id="clause2" inline-header="false" obligation="normative" displayorder="2">
+            <title depth="1">2.<tab/>Clause 2</title>
+            <p id="A">And introducing: </p>
+            <toc>
+              <ul id="B">
+                <li>
+                  <xref target="clause1A">1.1<tab/>Clause 1A</xref>
+                </li>
+                <li>
+                  <ul id="C">
+                    <li>
+                      <xref target="clause1Aa">1.1.1<tab/>Clause 1Aa</xref>
+                    </li>
+                    <li>
+                      <xref target="clause1Ab">1.1.2<tab/>Clause 1Ab</xref>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <xref target="clause1B">1.2<tab/>Clause 1B</xref>
+                </li>
+                <li>
+                  <ul id="D">
+                    <li>
+                      <xref target="clause1Ba">1.2.1<tab/>Clause 1Ba</xref>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </toc>
+            <toc>
+              <ul id="E">
+                <li>
+                  <xref target="clause1A">1.1<tab/>Clause 1A</xref>
+                </li>
+                <li>
+                  <xref target="clause1B">1.2<tab/>Clause 1B</xref>
+                </li>
+              </ul>
+            </toc>
+          </clause>
+        </sections>
+      </standard-document>
     INPUT
     output = <<~OUTPUT
-         #{HTML_HDR}
-                      <p class='zzSTDTitle1'>Document title</p>
-             <div id='clause1'>
-               <h1>1.&#160; Clause 1</h1>
-               <div id='clause1A'>
-                 <h2>1.1.&#160; Clause 1A</h2>
-                 <div id='clause1Aa'>
-                   <h3>1.1.1.&#160; Clause 1Aa</h3>
-                 </div>
-                 <div id='clause1Ab'>
-                   <h3>1.1.2.&#160; Clause 1Ab</h3>
-                 </div>
-               </div>
-               <div id='clause1B'>
-                 <h2>1.2.&#160; Clause 1B</h2>
-                 <div id='clause1Ba'>
-                   <h3>1.2.1.&#160; Clause 1Ba</h3>
-                 </div>
-               </div>
-             </div>
-             <div id='clause2'>
-               <h1>2.&#160; Clause 2</h1>
-               <p id='A'>And introducing: </p>
-               <div class='toc'>
-                 <ul id='B'>
-                   <li>
-                     <a href='#clause1A'>1.1&#160; Clause 1A</a>
-                   </li>
-                   <li>
-                     <ul id='C'>
-                       <li>
-                         <a href='#clause1Aa'>1.1.1&#160; Clause 1Aa</a>
-                       </li>
-                       <li>
-                         <a href='#clause1Ab'>1.1.2&#160; Clause 1Ab</a>
-                       </li>
-                     </ul>
-                   </li>
-                   <li>
-                     <a href='#clause1B'>1.2&#160; Clause 1B</a>
-                   </li>
-                   <li>
-                     <ul id='D'>
-                       <li>
-                         <a href='#clause1Ba'>1.2.1&#160; Clause 1Ba</a>
-                       </li>
-                     </ul>
-                   </li>
-                 </ul>
-               </div>
-               <div class='toc'>
-                 <ul id='E'>
-                   <li>
-                     <a href='#clause1A'>1.1&#160; Clause 1A</a>
-                   </li>
-                   <li>
-                     <a href='#clause1B'>1.2&#160; Clause 1B</a>
-                   </li>
-                 </ul>
-               </div>
-             </div>
-           </div>
-         </body>
-       </html>
+        #{HTML_HDR}
+                     <p class='zzSTDTitle1'>Document title</p>
+            <div id='clause1'>
+              <h1>1.&#160; Clause 1</h1>
+              <div id='clause1A'>
+                <h2>1.1.&#160; Clause 1A</h2>
+                <div id='clause1Aa'>
+                  <h3>1.1.1.&#160; Clause 1Aa</h3>
+                </div>
+                <div id='clause1Ab'>
+                  <h3>1.1.2.&#160; Clause 1Ab</h3>
+                </div>
+              </div>
+              <div id='clause1B'>
+                <h2>1.2.&#160; Clause 1B</h2>
+                <div id='clause1Ba'>
+                  <h3>1.2.1.&#160; Clause 1Ba</h3>
+                </div>
+              </div>
+            </div>
+            <div id='clause2'>
+              <h1>2.&#160; Clause 2</h1>
+              <p id='A'>And introducing: </p>
+              <div class='toc'>
+                <ul id='B'>
+                  <li>
+                    <a href='#clause1A'>1.1&#160; Clause 1A</a>
+                  </li>
+                  <li>
+                    <ul id='C'>
+                      <li>
+                        <a href='#clause1Aa'>1.1.1&#160; Clause 1Aa</a>
+                      </li>
+                      <li>
+                        <a href='#clause1Ab'>1.1.2&#160; Clause 1Ab</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href='#clause1B'>1.2&#160; Clause 1B</a>
+                  </li>
+                  <li>
+                    <ul id='D'>
+                      <li>
+                        <a href='#clause1Ba'>1.2.1&#160; Clause 1Ba</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class='toc'>
+                <ul id='E'>
+                  <li>
+                    <a href='#clause1A'>1.1&#160; Clause 1A</a>
+                  </li>
+                  <li>
+                    <a href='#clause1B'>1.2&#160; Clause 1B</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
      .convert("test", input, true)
      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-     .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
   .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end

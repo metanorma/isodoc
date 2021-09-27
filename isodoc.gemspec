@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["open.source@ribose.com"]
 
   spec.summary       = "Convert documents in IsoDoc into Word and HTML "\
-    "in AsciiDoc."
+                       "in AsciiDoc."
   spec.description   = <<~DESCRIPTION
     isodoc converts documents in the IsoDoc document model into
     Microsoft Word and HTML.
@@ -32,26 +32,27 @@ Gem::Specification.new do |spec|
   spec.add_dependency "html2doc", "~> 1.1.1"
   spec.add_dependency "htmlentities", "~> 4.3.4"
   spec.add_dependency "liquid", "~> 4"
-  #spec.add_dependency "metanorma", ">= 1.2.0"
-  spec.add_dependency "nokogiri", "~> 1.11.0"
+  # spec.add_dependency "metanorma", ">= 1.2.0"
+  spec.add_dependency "emf2svg", "~> 1"
+  spec.add_dependency "mathml2asciimath"
+  spec.add_dependency "metanorma-utils"
+  spec.add_dependency "nokogiri", "~> 1.12.0"
   spec.add_dependency "relaton-cli"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
   spec.add_dependency "uuidtools"
-  spec.add_dependency "mathml2asciimath"
-  spec.add_dependency "metanorma-utils"
 
   spec.add_development_dependency "byebug", "~> 9.1"
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
   spec.add_development_dependency "guard", "~> 2.14"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
+  spec.add_development_dependency "metanorma-iso"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rexml"
   spec.add_development_dependency "rspec", "~> 3.6"
   spec.add_development_dependency "rubocop", "~> 1.5.2"
   spec.add_development_dependency "sassc", "~> 2.4.0"
   spec.add_development_dependency "simplecov", "~> 0.15"
-  spec.add_development_dependency "metanorma-iso"
   spec.add_development_dependency "timecop", "~> 0.9"
 end
