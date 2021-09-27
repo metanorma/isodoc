@@ -2520,7 +2520,7 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
-      .sub(%r{^\.\\}, "./"))
+      .sub(%r{"\.\\}, '"./'))
       .to be_equivalent_to xmlpp(output)
   end
 
