@@ -62,21 +62,15 @@ module IsoDoc
     end
 
     def svg_to_emf(node)
-      uri = svg_to_emf_uri(node)
+      uri = Metanorma::Utils::external_path(svg_to_emf_uri(node))
       ret = svg_to_emf_filename(uri)
       File.exists?(ret) and return ret
-      exe = inkscape_installed? or return nil
-      warn "2. #{uri}: #{File.exists?(uri)}"
-      warn "2.1. #{external_path(uri)}"
-      warn "Attempt on " + %(#{external_path exe} --export-type="emf" #{external_path uri})
-      if system %(#{external_path exe} --export-type="emf" #{external_path uri})
-        warn Dir.entries(File.dirname uri)
-        warn "3. #{ret}: #{File.exists?(ret)}"
-        warn "3.1. #{external_path ret}: #{File.exists?(external_path ret)}"
-        warn "4. #{Metanorma::Utils::datauri(ret)}"
+      exe = Metanorma::Utils::external_path(inkscape_installed?) or return nil
+      if system %(#{exe} --export-type="emf" #{uri})
         return Metanorma::Utils::datauri(ret)
       end
-      warn "Fail on " + %(#{exe} --export-type="emf" #{uri})
+
+      warn %(Fail on #{exe} --export-type="emf" #{uri})
 
       nil
     end
@@ -90,7 +84,6 @@ module IsoDoc
       if %r{^data:}.match?(uri)
         uri = save_dataimage(uri)
         @tempfile_cache << uri
-        warn "1. #{uri}: #{File.exists?(uri)}"
       end
       uri
     end
