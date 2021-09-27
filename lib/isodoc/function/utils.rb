@@ -211,7 +211,7 @@ module IsoDoc
         c = HTMLEntities.new
         text.split(/([<>])/).each_slice(4).map do |a|
           a[0] = c.encode(c.decode(a[0]), :hexadecimal)
-          a[1] = c.encode(c.decode(a[1]), :hexadecimal)
+          a[2] = c.encode(c.decode(a[2]), :hexadecimal) if a.size >= 3
           a
         end.join
       end
