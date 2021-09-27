@@ -62,10 +62,11 @@ module IsoDoc
     end
 
     def svg_to_emf(node)
-      uri = Metanorma::Utils::external_path(svg_to_emf_uri(node))
+      uri = svg_to_emf_uri(node)
       ret = svg_to_emf_filename(uri)
       File.exists?(ret) and return ret
       exe = Metanorma::Utils::external_path(inkscape_installed?) or return nil
+      uri = Metanorma::Utils::external_path uri
       if system %(#{exe} --export-type="emf" #{uri})
         return Metanorma::Utils::datauri(ret)
       end
