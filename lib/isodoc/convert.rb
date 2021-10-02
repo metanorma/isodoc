@@ -102,6 +102,7 @@ module IsoDoc
       @bookmarks_allocated = { "X" => true }
       @fn_bookmarks = {}
       @baseassetpath = options[:baseassetpath]
+      @aligncrosselements = options[:aligncrosselements]
     end
 
     def tmpimagedir_suffix
