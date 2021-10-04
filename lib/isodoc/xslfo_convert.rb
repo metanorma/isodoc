@@ -20,12 +20,13 @@ module IsoDoc
     end
 
     def pdf_options(_docxml)
-      if font_manifest_file = @options.dig(MN2PDF_OPTIONS,
-                                           MN2PDF_FONT_MANIFEST)
-        "--font-manifest #{font_manifest_file}"
-      else
-        ""
-      end
+      ret = ""
+      font_manifest_file = @options.dig(MN2PDF_OPTIONS,
+                                        MN2PDF_FONT_MANIFEST) and
+        ret += " --font-manifest #{font_manifest_file}"
+      @aligncrosselements && !@aligncrosselements.empty? and
+        ret += %( --param align-cross-elements = "#{@aligncrosselements.gsub(/,/, ' ')}")
+      ret
     end
 
     def convert(input_filename, file = nil, debug = false,

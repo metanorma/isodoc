@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     convert = IsoDoc::XslfoPdfConvert.new(
       {
         datauriimage: false,
-      }
+      },
     )
 
     expect(convert.pdf_options(nil)).to eq("")
@@ -18,7 +18,7 @@ RSpec.describe IsoDoc do
         IsoDoc::XslfoPdfConvert::MN2PDF_OPTIONS => {
           IsoDoc::XslfoPdfConvert::MN2PDF_FONT_MANIFEST => nil,
         },
-      }
+      },
     )
 
     expect(convert.pdf_options(nil)).to eq("")
@@ -31,9 +31,21 @@ RSpec.describe IsoDoc do
         IsoDoc::XslfoPdfConvert::MN2PDF_OPTIONS => {
           IsoDoc::XslfoPdfConvert::MN2PDF_FONT_MANIFEST => "/tmp/manifest.yml",
         },
-      }
+      },
     )
 
-    expect(convert.pdf_options(nil)).to eq("--font-manifest /tmp/manifest.yml")
+    expect(convert.pdf_options(nil)).to eq(" --font-manifest /tmp/manifest.yml")
+  end
+
+  it "test --param align-cross-elements pdf_options" do
+    convert = IsoDoc::XslfoPdfConvert.new(
+      {
+        datauriimage: false,
+        aligncrosselements: "clause table note",
+      },
+    )
+
+    expect(convert.pdf_options(nil))
+      .to eq(" --param align-cross-elements = \"clause table note\"")
   end
 end
