@@ -6,12 +6,14 @@ source: SOURCE
 modified: modified
 scope: Amplekso
 symbols: Simboloj kai mallongigitaj terminoj
-annex: Aldono
+annex: <strong>aldono</strong>
 normref: Normaj citaĵoj
 bibliography: Bibliografio
 inform_annex: informa
 all_parts: ĉiuj partoj
 norm_annex: normative
+figure: figur-etikedo duvorta
+example: Ekzempl-etikedo Duvorta
 note: NOTO
 locality: {
   table: Tabelo

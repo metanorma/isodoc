@@ -27,5 +27,28 @@ module IsoDoc
       end.join
       Liquid::Template.parse(doc)
     end
+
+    def case_strict(text, casing, script)
+      return text unless %w(Latn Cyrl Grek Armn).include?(script)
+
+      letters = text.chars
+      case casing
+      when "capital" then letters.first.upcase!
+      when "lowercase" then letters.first.downcase!
+      end
+      letters.join
+    end
+
+    def case_with_markup(linkend, casing, script)
+      seen = false
+      xml = Nokogiri::XML("<root>#{linkend}</root>")
+      xml.traverse do |b|
+        next unless b.text? && !seen
+
+        b.replace(Common::case_strict(b.text, casing, script))
+        seen = true
+      end
+      xml.root.children.to_xml
+    end
   end
 end
