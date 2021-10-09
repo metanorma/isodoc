@@ -1507,6 +1507,122 @@ RSpec.describe IsoDoc do
   it "cases xrefs" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <clause id="CC"><title>Introduction</title></clause>
+          <sections>
+          <clause id="A">
+          <table id="B">
+          </table>
+          <figure id="B1"/>
+          <example id="B2"/>
+          </clause>
+          <clause id="C">
+          <p>This is <xref target="A"/> and <xref target="B"/>.
+          This is <xref target="A" case="capital"/> and <xref target="B" case="lowercase"/>.
+          This is <xref target="A" case="lowercase"/> and <xref target="B" case="capital"/>.
+          Downcasing an xref affects only the first letter: <xref target="B2" case="lowercase"/>.
+          Capitalising an xref affects only the first letter: <xref target="B1" case="capital"/>.
+          <xref target="A"/> is clause <em>initial.</em><br/>
+          <xref target="A"/> is too.  </p>
+          <p><xref target="A"/> is also.</p>
+          <p>Annex has formatting, and crossreferences ignore it when determining casing. <xref target="AA"/>.</p>
+          <p>Labels are not subject to casing: <xref target="CC" case="lowercase"/>
+      </clause>
+      <annex id="AA">
+      <clause id="AA1"/>
+      </annex>
+      </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+          <clause id='CC' displayorder='1'>
+            <title depth='1'>Introduction</title>
+          </clause>
+          <sections displayorder='2'>
+            <clause id='A' displayorder='3'>
+              <title>1.</title>
+              <table id='B'>
+                <name>Tabelo 1</name>
+              </table>
+              <figure id='B1'>
+                <name>Figur-etikedo duvorta 1</name>
+              </figure>
+              <example id='B2'>
+                <name>Ekzempl-etikedo Duvorta</name>
+              </example>
+            </clause>
+            <clause id='C' displayorder='4'>
+              <title>2.</title>
+              <p>
+                This is
+                <xref target='A'>kla&#x16D;zo 1</xref>
+                 and
+                <xref target='B'>tabelo 1</xref>
+                . This is
+                <xref target='A' case='capital'>Kla&#x16D;zo 1</xref>
+                 and
+                <xref target='B' case='lowercase'>tabelo 1</xref>
+                . This is
+                <xref target='A' case='lowercase'>kla&#x16D;zo 1</xref>
+                 and
+                <xref target='B' case='capital'>Tabelo 1</xref>
+                . Downcasing an xref affects only the first letter:
+                <xref target='B2' case='lowercase'>kla&#x16D;zo 1, Example</xref>
+                . Capitalising an xref affects only the first letter:
+                <xref target='B1' case='capital'>Figur-etikedo duvorta 1</xref>
+                .
+                <xref target='A'>Kla&#x16D;zo 1</xref>
+                 is clause
+                <em>initial.</em>
+                <br/>
+                <xref target='A'>Kla&#x16D;zo 1</xref>
+                 is too.
+              </p>
+              <p>
+                <xref target='A'>Kla&#x16D;zo 1</xref>
+                 is also.
+              </p>
+              <p>
+                Annex has formatting, and crossreferences ignore it when determining
+                casing.
+                <xref target='AA'>
+                  <strong>Aldono</strong>
+                   A
+                </xref>
+                .
+              </p>
+              <p>
+                Labels are not subject to casing:
+                <xref target='CC' case='lowercase'>Introduction</xref>
+              </p>
+              <annex id='AA' displayorder='5'>
+                <title>
+                  <strong>
+                    <strong>Aldono</strong>
+                     A
+                  </strong>
+                  <br/>
+                  (informa)
+                </title>
+                <clause id='AA1'>
+                  <title>A.1.</title>
+                </clause>
+              </annex>
+            </clause>
+          </sections>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+      .new({ i18nyaml: "spec/assets/i18n.yaml" })
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
+
+  it "ignores casing of xrefs in unicameral scripts" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <clause id="A">
           <table id="B">
@@ -1541,23 +1657,23 @@ RSpec.describe IsoDoc do
                and
               <xref target='B'>tabelo 1</xref>
               . This is
-              <xref target='A' case='capital'>Kla&#x16D;zo 1</xref>
+              <xref target='A' case='capital'>kla&#x16D;zo 1</xref>
                and
               <xref target='B' case='lowercase'>tabelo 1</xref>
               . This is
               <xref target='A' case='lowercase'>kla&#x16D;zo 1</xref>
                and
-              <xref target='B' case='capital'>Tabelo 1</xref>
+              <xref target='B' case='capital'>tabelo 1</xref>
               .
-              <xref target='A'>Kla&#x16D;zo 1</xref>
+              <xref target='A'>kla&#x16D;zo 1</xref>
                is clause
               <em>initial.</em>
               <br/>
-              <xref target='A'>Kla&#x16D;zo 1</xref>
+              <xref target='A'>kla&#x16D;zo 1</xref>
                is too.
             </p>
             <p>
-              <xref target='A'>Kla&#x16D;zo 1</xref>
+              <xref target='A'>kla&#x16D;zo 1</xref>
                is also.
             </p>
           </clause>
@@ -1565,7 +1681,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ i18nyaml: "spec/assets/i18n.yaml" })
+      .new({ i18nyaml: "spec/assets/i18n.yaml", script: "Hans" })
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 

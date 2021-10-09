@@ -7,13 +7,16 @@ module IsoDoc
       l10n("#{@xrefs.anchor(container, :xref)}, #{linkend}")
     end
 
+    def anchor_value(id)
+      @xrefs.anchor(id, :value) || @xrefs.anchor(id, :label) ||
+        @xrefs.anchor(id, :xref)
+    end
+
     def anchor_linkend(node, linkend)
       if node["citeas"].nil? && node["bibitemid"]
         return @xrefs.anchor(node["bibitemid"], :xref) || "???"
       elsif node["target"] && node["droploc"]
-        return @xrefs.anchor(node["target"], :value) ||
-            @xrefs.anchor(node["target"], :label) ||
-            @xrefs.anchor(node["target"], :xref) || "???"
+        return anchor_value(node["target"]) || "???"
       elsif node["target"] && !/.#./.match(node["target"])
         linkend = anchor_linkend1(node)
       end
@@ -27,14 +30,15 @@ module IsoDoc
       (container && get_note_container_id(node) != container &&
        @xrefs.get[node["target"]]) and
         linkend = prefix_container(container, linkend, node["target"])
-      capitalise_xref(node, linkend)
+      capitalise_xref(node, linkend, anchor_value(node["target"]))
     end
 
-    def capitalise_xref(node, linkend)
-      return linkend unless %w(Latn Cyrl Grek).include? @script
-      return linkend&.capitalize if node["case"] == "capital"
-      return linkend&.downcase if node["case"] == "lowercase"
-      return linkend if linkend[0, 1].match?(/\p{Upper}/)
+    def capitalise_xref(node, linkend, label)
+      linktext = linkend.gsub(/<[^>]+>/, "")
+      (label && !label.empty? && /^#{Regexp.escape(label)}/.match?(linktext) ||
+          linktext[0, 1].match?(/\p{Upper}/)) and return linkend
+      node["case"] and
+        return Common::case_with_markup(linkend, node["case"], @script)
 
       capitalise_xref1(node, linkend)
     end
@@ -43,7 +47,7 @@ module IsoDoc
       prec = nearest_block_parent(node).xpath("./descendant-or-self::text()") &
         node.xpath("./preceding::text()")
       if prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map(&:text).join)
-        linkend&.capitalize
+        Common::case_with_markup(linkend, "capital", @script)
       else linkend
       end
     end
