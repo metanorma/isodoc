@@ -46,6 +46,19 @@ RSpec.describe IsoDoc do
     )
 
     expect(convert.pdf_options(nil))
-      .to eq(" --param align-cross-elements = \"clause table note\"")
+      .to eq(" --param align-cross-elements=\"clause table note\"")
+  end
+
+
+  it "test --baseassetpath pdf_options" do
+    convert = IsoDoc::XslfoPdfConvert.new(
+      {
+        datauriimage: false,
+        baseassetpath: "ABC",
+      },
+    )
+
+    expect(convert.pdf_options(nil))
+      .to eq(" --param baseassetpath=\"ABC\"")
   end
 end

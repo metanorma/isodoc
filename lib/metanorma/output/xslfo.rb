@@ -1,5 +1,5 @@
-require 'mn2pdf'
-require_relative "./utils.rb"
+require "mn2pdf"
+require_relative "./utils"
 
 module Metanorma
   module Output
@@ -7,15 +7,16 @@ module Metanorma
       def convert(url_path, output_path, xsl_stylesheet, options = "")
         return if url_path.nil? || output_path.nil? || xsl_stylesheet.nil?
 
-        Mn2pdf.convert(quote(url_path), quote(output_path), quote(xsl_stylesheet), options)
+        Mn2pdf.convert(quote(url_path), quote(output_path),
+                       quote(xsl_stylesheet), options)
       end
 
-      def quote(x)
-        return x if /^'.*'$/.match(x)
-        return x if /^".*"$/.match(x)
-        %("#{x}")
+      def quote(text)
+        return text if /^'.*'$/.match?(text)
+        return text if /^".*"$/.match?(text)
+
+        %("#{text}")
       end
     end
   end
 end
-
