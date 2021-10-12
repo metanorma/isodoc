@@ -25,7 +25,9 @@ module IsoDoc
                                         MN2PDF_FONT_MANIFEST) and
         ret += " --font-manifest #{font_manifest_file}"
       @aligncrosselements && !@aligncrosselements.empty? and
-        ret += %( --param align-cross-elements = "#{@aligncrosselements.gsub(/,/, ' ')}")
+        ret += %( --param align-cross-elements="#{@aligncrosselements.gsub(/,/, ' ')}")
+      @baseassetpath and
+        ret += %( --param baseassetpath="#{@baseassetpath}")
       ret
     end
 
