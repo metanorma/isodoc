@@ -180,6 +180,18 @@ module IsoDoc
       end
     end
 
+    def designation(docxml)
+      docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
+        designation1(p)
+      end
+    end
+
+    def designation1(desgn)
+      return unless name = desgn.at(ns("./expression/name"))
+
+      desgn.children = name.children
+    end
+
     private
 
     def found_matching_variant_sibling(node)

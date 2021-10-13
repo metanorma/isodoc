@@ -7,7 +7,7 @@ RSpec.describe IsoDoc do
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
           <p>For the purposes of this document, the following terms and definitions apply.</p>
-      <term id="paddy1"><preferred>paddy</preferred>
+      <term id="paddy1"><preferred><expression><name>paddy</name></expression></preferred>
       <domain>rice</domain>
       <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
       <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892"  keep-with-next="true" keep-lines-together="true">
@@ -41,9 +41,10 @@ RSpec.describe IsoDoc do
           </modification>
         </termsource>
       </term>
-      <term id="paddy"><preferred>paddy</preferred><admitted>paddy rice</admitted>
-      <admitted>rough rice</admitted>
-      <deprecates>cargo rice</deprecates>
+      <term id="paddy"><preferred><expression><name>paddy</name></expression></preferred>
+      <admitted><expression><name>paddy rice</name></expression></admitted>
+      <admitted><expression><name>rough rice</name></expression></admitted>
+      <deprecates><expression><name>cargo rice</name></expression></deprecates>
       <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
       <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f893">
         <ul>
@@ -268,7 +269,7 @@ RSpec.describe IsoDoc do
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
           <p>For the purposes of this document, the following terms and definitions apply.</p>
-      <term id="paddy1"><preferred>paddy</preferred>
+      <term id="paddy1"><preferred><expression><name>paddy</name></expression></preferred>
       <domain>rice</domain>
       <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
       <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747e">rice retaining its husk after threshing, mark 2</p>

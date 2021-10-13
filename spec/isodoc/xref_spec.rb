@@ -1831,11 +1831,11 @@ RSpec.describe IsoDoc do
           <clause id="scope" type="scope"><title>Scope</title>
           </clause>
           <terms id="terms">
-      <term id="_waxy_rice"><preferred>waxy rice</preferred>
+      <term id="_waxy_rice"><preferred><expression><name>waxy rice</name></expression></preferred>
       <termnote id="note1">
         <p id="_b0cb3dfd-78fc-47dd-a339-84070d947463">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
       </termnote></term>
-      <term id="_nonwaxy_rice"><preferred>nonwaxy rice</preferred>
+      <term id="_nonwaxy_rice"><preferred><expression><name>nonwaxy rice</name></expression></preferred>
       <termnote id="note2">
         <p id="_b0cb3dfd-78fc-47dd-a339-84070d947463">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
       </termnote>
@@ -1945,7 +1945,7 @@ RSpec.describe IsoDoc do
        <terms id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
          <term id="J">
-         <preferred>Term2</preferred>
+         <preferred><expression><name>Term2</name></expression></preferred>
        </term>
        </terms>
        <definitions id="K">
@@ -2779,7 +2779,7 @@ RSpec.describe IsoDoc do
                  <title>Terms and definitions</title>
                  <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
                  <term id='S4' number='4bis'>
-                   <preferred>Term1</preferred>
+                   <preferred><expression><name>Term1</name></expression></preferred>
                  </term>
                </terms>
                <definitions id='S12' number='12bis' type='abbreviated_terms' obligation='normative'>

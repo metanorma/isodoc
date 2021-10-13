@@ -56,6 +56,7 @@ module IsoDoc
     end
 
     def inline(docxml)
+      designation docxml
       concept docxml
       xref docxml
       eref docxml
