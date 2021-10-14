@@ -181,8 +181,22 @@ module IsoDoc
     end
 
     def designation(docxml)
+      docxml.xpath(ns("//term")).each do |t|
+        merge_second_preferred(t)
+      end
       docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
         designation1(p)
+      end
+    end
+
+    def merge_second_preferred(term)
+      pref = nil
+      term.xpath(ns("./preferred/expression/name")).each_with_index do |p, i|
+        if i.zero? then pref = p
+        else
+          pref << l10n("; #{p.children.to_xml}")
+          p.parent.parent.remove
+        end
       end
     end
 
