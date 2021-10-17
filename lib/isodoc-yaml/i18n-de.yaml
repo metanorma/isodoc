@@ -93,6 +93,17 @@ locality: {
   note: Hinweis,
   formula: Formel
 }
+grammar_abbrevs:
+  masculine: mask
+  feminine: fem
+  neuter: neutr
+  common: gemein
+  isPreposition: Präp
+  isParticiple: Part
+  isAdjective: Adj
+  isAdverb: Adv
+  isNoun: Subs
+  isVerb: V
 inflection:
   Klausel:
     sg: Klausel

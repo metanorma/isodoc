@@ -92,6 +92,17 @@ locality: {
                       note: Note,
                       formula: Formule
                     }
+grammar_abbrevs:
+  masculine: masc
+  feminine: fem
+  neuter: neut
+  common: épicène
+  isPreposition: prép
+  isParticiple: part
+  isAdjective: adj
+  isAdverb: adv
+  isNoun: subst
+  isVerb: vb
 inflection:
   Clause:
     sg: Article

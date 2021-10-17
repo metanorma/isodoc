@@ -99,6 +99,17 @@ locality: {
                       note: Note,
                       formula: Formula
                     }
+grammar_abbrevs:
+  masculine: masc
+  feminine: fem
+  neuter: neut
+  common: common
+  isPreposition: prep
+  isParticiple: part
+  isAdjective: adj
+  isAdverb: adv
+  isNoun: n
+  isVerb: v
 inflection:
   Clause:
     sg: Clause

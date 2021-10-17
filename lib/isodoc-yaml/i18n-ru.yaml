@@ -97,7 +97,18 @@ locality: {
                       example: Пример,
                       note: Примечание,
                       formula: Формула
-                    }
+}
+grammar_abbrevs:
+  masculine: муж
+  feminine: жен
+  neuter: ср
+  common: общего рода
+  isPreposition: предл
+  isParticiple: прич
+  isAdjective: прил
+  isAdverb: нар
+  isNoun: сущ
+  isVerb: глаг
 inflection:
   Пункт:
     sg: Пункт

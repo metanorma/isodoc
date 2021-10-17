@@ -418,4 +418,58 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
   end
+
+  it "processes IsoXML term with grammatical information" do
+    input = <<~"INPUT"
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <sections>
+          <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+      <term id="paddy1">
+      <preferred><expression><name>paddy</name>
+                  <grammar>
+              <gender>masculine</gender>
+              <gender>feminine</gender>
+              <isPreposition>false</isPreposition>
+              <isNoun>true</isNoun>
+              <grammarValue>irregular declension</grammarValue>
+            </grammar>
+      </expression></preferred>
+      <preferred><expression><name>muddy rice</name>
+                        <grammar>
+              <gender>neuter</gender>
+              <isNoun>true</isNoun>
+              <grammarValue>irregular declension</grammarValue>
+            </grammar>
+      </expression></preferred>
+      <domain>rice</domain>
+      <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
+      </term>
+                </terms>
+        </sections>
+      </iso-standard>
+    INPUT
+    presxml = <<~PRESXML
+          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <sections>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+            <title depth='1'>
+              1.
+              <tab/>
+              Terms and Definitions
+            </title>
+            <term id='paddy1'>
+              <name>1.1.</name>
+              <preferred>paddy masc, fem, n; muddy rice neut, n</preferred>
+              <domain>rice</domain>
+              <definition>
+                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+              </definition>
+            </term>
+          </terms>
+        </sections>
+      </iso-standard>
+    PRESXML
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+  end
 end

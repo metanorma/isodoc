@@ -181,21 +181,21 @@ module IsoDoc
     end
 
     def designation(docxml)
-      docxml.xpath(ns("//term")).each do |t|
-        merge_second_preferred(t)
-      end
       docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
         designation1(p)
+      end
+      docxml.xpath(ns("//term")).each do |t|
+        merge_second_preferred(t)
       end
     end
 
     def merge_second_preferred(term)
       pref = nil
-      term.xpath(ns("./preferred/expression/name")).each_with_index do |p, i|
+      term.xpath(ns("./preferred")).each_with_index do |p, i|
         if i.zero? then pref = p
         else
           pref << l10n("; #{p.children.to_xml}")
-          p.parent.parent.remove
+          p.remove
         end
       end
     end
@@ -203,7 +203,23 @@ module IsoDoc
     def designation1(desgn)
       return unless name = desgn.at(ns("./expression/name"))
 
+      if g = desgn.at(ns("./expression/grammar"))
+        name << " #{designation_grammar(g).join(', ')}"
+      end
       desgn.children = name.children
+    end
+
+    def designation_grammar(grammar)
+      ret = []
+      grammar.xpath(ns("./gender")).each do |x|
+        ret << @i18n.grammar_abbrevs[x.text]
+      end
+      %w(isPreposition isParticiple isAdjective isVerb isAdverb isNoun)
+        .each do |x|
+        grammar.at(ns("./#{x}[text() = 'true']")) and
+          ret << @i18n.grammar_abbrevs[x]
+      end
+      ret
     end
 
     private
