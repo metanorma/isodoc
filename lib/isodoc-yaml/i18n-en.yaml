@@ -110,6 +110,15 @@ grammar_abbrevs:
   isAdverb: adv
   isNoun: n
   isVerb: v
+relatedterms:
+  deprecates: deprecates
+  supersedes: supersedes
+  narrower: narrower
+  broader: broader
+  equivalent: equivalent
+  compare: compare
+  contrast: contrast
+  see: see
 inflection:
   Clause:
     sg: Clause

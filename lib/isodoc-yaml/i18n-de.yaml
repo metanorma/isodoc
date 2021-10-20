@@ -104,6 +104,15 @@ grammar_abbrevs:
   isAdverb: Adv
   isNoun: Subs
   isVerb: V
+relatedterms:
+  deprecates: veraltet
+  supersedes: ersetzt
+  narrower: enger
+  broader: breiter
+  equivalent: entspricht
+  compare: vergleiche
+  contrast: dagegen
+  see: siehe
 inflection:
   Klausel:
     sg: Klausel

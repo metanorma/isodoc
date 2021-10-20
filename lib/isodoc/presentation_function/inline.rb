@@ -1,5 +1,5 @@
 require "metanorma-utils"
-require_relative "./concept"
+require_relative "./terms"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -35,8 +35,8 @@ module IsoDoc
 
     def capitalise_xref(node, linkend, label)
       linktext = linkend.gsub(/<[^>]+>/, "")
-      (label && !label.empty? && /^#{Regexp.escape(label)}/.match?(linktext) ||
-          linktext[0, 1].match?(/\p{Upper}/)) and return linkend
+      (label && !label.empty? && /^#{Regexp.escape(label)}/.match?(linktext)) ||
+        linktext[0, 1].match?(/\p{Upper}/) and return linkend
       node["case"] and
         return Common::case_with_markup(linkend, node["case"], @script)
 
@@ -178,48 +178,6 @@ module IsoDoc
       elsif found_matching_variant_sibling(node)
         node["remove"] = "true"
       end
-    end
-
-    def designation(docxml)
-      docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
-        designation1(p)
-      end
-      docxml.xpath(ns("//term")).each do |t|
-        merge_second_preferred(t)
-      end
-    end
-
-    def merge_second_preferred(term)
-      pref = nil
-      term.xpath(ns("./preferred")).each_with_index do |p, i|
-        if i.zero? then pref = p
-        else
-          pref << l10n("; #{p.children.to_xml}")
-          p.remove
-        end
-      end
-    end
-
-    def designation1(desgn)
-      return unless name = desgn.at(ns("./expression/name"))
-
-      if g = desgn.at(ns("./expression/grammar"))
-        name << " #{designation_grammar(g).join(', ')}"
-      end
-      desgn.children = name.children
-    end
-
-    def designation_grammar(grammar)
-      ret = []
-      grammar.xpath(ns("./gender")).each do |x|
-        ret << @i18n.grammar_abbrevs[x.text]
-      end
-      %w(isPreposition isParticiple isAdjective isVerb isAdverb isNoun)
-        .each do |x|
-        grammar.at(ns("./#{x}[text() = 'true']")) and
-          ret << @i18n.grammar_abbrevs[x]
-      end
-      ret
     end
 
     private

@@ -103,6 +103,15 @@ grammar_abbrevs:
   isAdverb: adv
   isNoun: subst
   isVerb: vb
+relatedterms:
+  deprecates: déprécie
+  supersedes: remplace
+  narrower: plus étroit
+  broader: plus large
+  equivalent: équivalent
+  compare: comparez
+  contrast: contrastez
+  see: voir
 inflection:
   Clause:
     sg: Article

@@ -58,6 +58,7 @@ module IsoDoc
     def inline(docxml)
       designation docxml
       concept docxml
+      related docxml
       xref docxml
       eref docxml
       origin docxml

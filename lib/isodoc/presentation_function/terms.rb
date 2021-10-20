@@ -64,5 +64,60 @@ module IsoDoc
       else ref.replace("[#{ref.to_xml}]")
       end
     end
+
+    def related(docxml)
+      docxml.xpath(ns("//related")).each { |f| related1(f) }
+    end
+
+    def related1(node)
+      p = node.at(ns("./preferred"))
+      ref = node.at(ns("./xref | ./eref | ./termref"))
+      label = Metanorma::Utils
+        .strict_capitalize_first(@i18n.relatedterms[node["type"]])
+      node.replace(l10n("<p><strong>#{label}:</strong> "\
+                        "<em>#{p.to_xml}</em> (#{ref.to_xml})</p>"))
+    end
+
+    def designation(docxml)
+      docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
+        designation1(p)
+      end
+      docxml.xpath(ns("//term")).each do |t|
+        merge_second_preferred(t)
+      end
+    end
+
+    def merge_second_preferred(term)
+      pref = nil
+      term.xpath(ns("./preferred")).each_with_index do |p, i|
+        if i.zero? then pref = p
+        else
+          pref << l10n("; #{p.children.to_xml}")
+          p.remove
+        end
+      end
+    end
+
+    def designation1(desgn)
+      return unless name = desgn.at(ns("./expression/name"))
+
+      if g = desgn.at(ns("./expression/grammar"))
+        name << " #{designation_grammar(g).join(', ')}"
+      end
+      desgn.children = name.children
+    end
+
+    def designation_grammar(grammar)
+      ret = []
+      grammar.xpath(ns("./gender")).each do |x|
+        ret << @i18n.grammar_abbrevs[x.text]
+      end
+      %w(isPreposition isParticiple isAdjective isVerb isAdverb isNoun)
+        .each do |x|
+        grammar.at(ns("./#{x}[text() = 'true']")) and
+          ret << @i18n.grammar_abbrevs[x]
+      end
+      ret
+    end
   end
 end

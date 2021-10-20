@@ -104,4 +104,13 @@ grammar_abbrevs:
   isAdverb: 副词
   isNoun: 名词
   isVerb: 动词
+relatedterms:
+  deprecates: deprecates
+  supersedes: supersedes
+  narrower: narrower
+  broader: broader
+  equivalent: equivalent
+  compare: compare
+  contrast: contrast
+  see: see
 

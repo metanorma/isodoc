@@ -100,6 +100,15 @@ grammar_abbrevs:
   isAdverb: ظرف
   isNoun: اسم
   isVerb: الفعل
+relatedterms:
+  deprecates: deprecates
+  supersedes: supersedes
+  narrower: narrower
+  broader: broader
+  equivalent: equivalent
+  compare: compare
+  contrast: contrast
+  see: see
 inflection:
   فقرة:
     sg: فقرة

@@ -625,6 +625,84 @@ RSpec.describe IsoDoc do
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
+  it "processes related terms" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <sections>
+      <terms id='A' obligation='normative'>
+            <title>Terms and definitions</title>
+            <term id='second'>
+        <preferred>
+          <expression>
+            <name>Second Term</name>
+          </expression>
+        </preferred>
+        <usageinfo>
+          <p id='B'>Usage Info 1.</p>
+        </usageinfo>
+        <definition>Definition 1</definition>
+      </term>
+      <term id="C">
+      <preferred language='fr' script='Latn' type='prefix'>
+                <expression>
+                  <name>First Designation</name>
+                  </expression></preferred>
+        <related type='contrast'>
+          <preferred>
+            <expression>
+              <name>Fifth Designation</name>
+              <grammar>
+                <gender>neuter</gender>
+              </grammar>
+            </expression>
+          </preferred>
+          <xref target='second'/>
+        </related>
+        <definition>Definition 2</definition>
+      </term>
+          </terms>
+        </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <sections>
+           <terms id='A' obligation='normative' displayorder='1'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Terms and definitions
+             </title>
+             <term id='second'>
+               <name>1.1.</name>
+               <preferred>Second Term</preferred>
+               <usageinfo>
+                 <p id='B'>Usage Info 1.</p>
+               </usageinfo>
+               <definition>Definition 1</definition>
+             </term>
+             <term id='C'>
+               <name>1.2.</name>
+               <preferred language='fr' script='Latn' type='prefix'>First Designation</preferred>
+               <p>
+                 <strong>Contrast:</strong>
+                 <em>
+                   <preferred>Fifth Designation neut</preferred>
+                 </em>
+                  (
+                 <xref target='second'>Clause 1.1</xref>
+                 )
+               </p>
+               <definition>Definition 2</definition>
+             </term>
+           </terms>
+         </sections>
+       </iso-standard>
+    OUTPUT
+   expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
+
   it "processes embedded inline formatting" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
