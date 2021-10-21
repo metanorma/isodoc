@@ -43,7 +43,7 @@ RSpec.describe IsoDoc do
         </termsource>
       </term>
       <term id="paddy"><preferred><expression><name>paddy</name></expression></preferred>
-      <admitted><expression><name>paddy rice</name></expression></admitted>
+      <admitted><letter-symbol><name>paddy rice</name></letter-symbol></admitted>
       <admitted><expression><name>rough rice</name></expression></admitted>
       <deprecates><expression><name>cargo rice</name></expression></deprecates>
       <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>

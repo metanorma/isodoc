@@ -99,11 +99,10 @@ module IsoDoc
     end
 
     def designation1(desgn)
-      return unless name = desgn.at(ns("./expression/name"))
+      name = desgn.at(ns("./expression/name | ./letter-symbol/name")) or return
 
-      if g = desgn.at(ns("./expression/grammar"))
+      g = desgn.at(ns("./expression/grammar")) and
         name << " #{designation_grammar(g).join(', ')}"
-      end
       s = desgn.at(ns("./termsource"))
       desgn.children = name.children
       s and desgn.next = s
