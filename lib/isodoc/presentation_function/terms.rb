@@ -104,7 +104,9 @@ module IsoDoc
       if g = desgn.at(ns("./expression/grammar"))
         name << " #{designation_grammar(g).join(', ')}"
       end
+      s = desgn.at(ns("./termsource"))
       desgn.children = name.children
+      s and desgn.next = s
     end
 
     def designation_grammar(grammar)
