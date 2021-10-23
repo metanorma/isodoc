@@ -640,7 +640,7 @@ RSpec.describe IsoDoc do
         <usageinfo>
           <p id='B'>Usage Info 1.</p>
         </usageinfo>
-        <definition>Definition 1</definition>
+        <definition><verbaldefinition>Definition 1</verbaldefinition></definition>
       </term>
       <term id="C">
       <preferred language='fr' script='Latn' type='prefix'>
@@ -658,7 +658,7 @@ RSpec.describe IsoDoc do
           </preferred>
           <xref target='second'/>
         </related>
-        <definition>Definition 2</definition>
+        <definition><verbaldefinition>Definition 2</verbaldefinition></definition>
       </term>
           </terms>
         </sections>

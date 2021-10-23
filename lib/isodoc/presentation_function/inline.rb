@@ -1,5 +1,4 @@
 require "metanorma-utils"
-require_relative "./terms"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
