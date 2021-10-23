@@ -72,8 +72,7 @@ module IsoDoc
     def related1(node)
       p = node.at(ns("./preferred"))
       ref = node.at(ns("./xref | ./eref | ./termref"))
-      label = Metanorma::Utils
-        .strict_capitalize_first(@i18n.relatedterms[node["type"]])
+      label = @i18n.relatedterms[node["type"]].upcase
       node.replace(l10n("<p><strong>#{label}:</strong> "\
                         "<em>#{p.to_xml}</em> (#{ref.to_xml})</p>"))
     end

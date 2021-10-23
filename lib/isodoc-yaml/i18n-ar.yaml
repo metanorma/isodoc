@@ -101,14 +101,16 @@ grammar_abbrevs:
   isNoun: اسم
   isVerb: الفعل
 relatedterms:
-  deprecates: deprecates
-  supersedes: supersedes
-  narrower: narrower
-  broader: broader
-  equivalent: equivalent
-  compare: compare
-  contrast: contrast
-  see: see
+  deprecates: يهمل
+  supersedes: حل محل
+  # حل محل
+  narrower: أضيق
+  broader: أوسع
+  equivalent: مُعادل
+  compare: قارن
+  contrast: مضاد
+  # تباين
+  see: انظر
 inflection:
   فقرة:
     sg: فقرة

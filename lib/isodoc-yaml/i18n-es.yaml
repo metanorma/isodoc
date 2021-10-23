@@ -107,14 +107,14 @@ grammar_abbrevs:
   isNoun: sust
   isVerb: v
 relatedterms:
-  deprecates: deprecates
-  supersedes: supersedes
-  narrower: narrower
-  broader: broader
-  equivalent: equivalent
-  compare: compare
-  contrast: contrast
-  see: see
+  deprecates: obsoleto
+  supersedes: reemplaza
+  narrower: incluye
+  broader: extiende
+  equivalent: equivalente
+  compare: relacionado
+  contrast: difiere
+  see: véase
 inflection:
   Cláusula:
     sg: Cláusula

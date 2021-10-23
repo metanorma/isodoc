@@ -685,7 +685,7 @@ RSpec.describe IsoDoc do
                <name>1.2.</name>
                <preferred language='fr' script='Latn' type='prefix'>First Designation</preferred>
                <p>
-                 <strong>Contrast:</strong>
+                 <strong>CONTRAST:</strong>
                  <em>
                    <preferred>Fifth Designation neut</preferred>
                  </em>
