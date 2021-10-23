@@ -8,7 +8,7 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil)).to eq("")
+    expect(convert.pdf_options(nil)).to eq({})
   end
 
   it "test empty pdf_options for nil font_manifest_file" do
@@ -21,20 +21,21 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil)).to eq("")
+    expect(convert.pdf_options(nil)).to eq({})
   end
 
   it "test --font-manifest pdf_options" do
+    mn2pdf_opts = {
+      IsoDoc::XslfoPdfConvert::MN2PDF_FONT_MANIFEST => "/tmp/manifest.yml",
+    }
     convert = IsoDoc::XslfoPdfConvert.new(
       {
         datauriimage: false,
-        IsoDoc::XslfoPdfConvert::MN2PDF_OPTIONS => {
-          IsoDoc::XslfoPdfConvert::MN2PDF_FONT_MANIFEST => "/tmp/manifest.yml",
-        },
+        IsoDoc::XslfoPdfConvert::MN2PDF_OPTIONS => mn2pdf_opts,
       },
     )
 
-    expect(convert.pdf_options(nil)).to eq(" --font-manifest /tmp/manifest.yml")
+    expect(convert.pdf_options(nil)).to eq(mn2pdf_opts)
   end
 
   it "test --param align-cross-elements pdf_options" do
@@ -46,9 +47,8 @@ RSpec.describe IsoDoc do
     )
 
     expect(convert.pdf_options(nil))
-      .to eq(" --param align-cross-elements=\"clause table note\"")
+      .to eq({ "--param align-cross-elements=" => "clause table note" })
   end
-
 
   it "test --baseassetpath pdf_options" do
     convert = IsoDoc::XslfoPdfConvert.new(
@@ -59,6 +59,6 @@ RSpec.describe IsoDoc do
     )
 
     expect(convert.pdf_options(nil))
-      .to eq(" --param baseassetpath=\"ABC\"")
+      .to eq({ "--param baseassetpath=" => "ABC" })
   end
 end

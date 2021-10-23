@@ -3,7 +3,7 @@ require "metanorma"
 module IsoDoc
   class XslfoPdfConvert < ::IsoDoc::Convert
     MN2PDF_OPTIONS = :mn2pdf
-    MN2PDF_FONT_MANIFEST = :font_manifest_file
+    MN2PDF_FONT_MANIFEST = :font_manifest
 
     def initialize(options)
       @format = :pdf
@@ -20,14 +20,15 @@ module IsoDoc
     end
 
     def pdf_options(_docxml)
-      ret = ""
-      font_manifest_file = @options.dig(MN2PDF_OPTIONS,
-                                        MN2PDF_FONT_MANIFEST) and
-        ret += " --font-manifest #{font_manifest_file}"
+      ret = {}
+      font_manifest = @options.dig(MN2PDF_OPTIONS,
+                                   MN2PDF_FONT_MANIFEST) and
+        ret[MN2PDF_FONT_MANIFEST] = font_manifest
       @aligncrosselements && !@aligncrosselements.empty? and
-        ret += %( --param align-cross-elements="#{@aligncrosselements.gsub(/,/, ' ')}")
+        ret["--param align-cross-elements="] =
+          @aligncrosselements.gsub(/,/, " ")
       @baseassetpath and
-        ret += %( --param baseassetpath="#{@baseassetpath}")
+        ret["--param baseassetpath="] = @baseassetpath
       ret
     end
 
