@@ -54,12 +54,6 @@ module IsoDoc
       end
     end
 
-    def termexample(docxml)
-      docxml.xpath(ns("//termexample")).each do |f|
-        example1(f)
-      end
-    end
-
     def example1(elem)
       n = @xrefs.get[elem["id"]]
       lbl = if n.nil? || n[:label].nil? || n[:label].empty?
@@ -87,36 +81,6 @@ module IsoDoc
               l10n("#{@i18n.note} #{n[:label]}")
             end
       prefix_name(elem, "", lbl, "name")
-    end
-
-    def termnote(docxml)
-      docxml.xpath(ns("//termnote")).each do |f|
-        termnote1(f)
-      end
-    end
-
-    # introduce name element
-    def termnote1(elem)
-      lbl = l10n(@xrefs.anchor(elem["id"], :label) || "???")
-      prefix_name(elem, "", lower2cap(lbl), "name")
-    end
-
-    def termdefinition(docxml)
-      docxml.xpath(ns("//term[definition]")).each do |f|
-        termdefinition1(f)
-      end
-    end
-
-    def termdefinition1(elem)
-      return unless elem.xpath(ns("./definition")).size > 1
-
-      d = elem.at(ns("./definition"))
-      d = d.replace("<ol><li>#{d.children.to_xml}</li></ol>").first
-      elem.xpath(ns("./definition")).each do |f|
-        f = f.replace("<li>#{f.children.to_xml}</li>").first
-        d << f
-      end
-      d.wrap("<definition></definition>")
     end
 
     def recommendation(docxml)

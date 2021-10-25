@@ -99,6 +99,26 @@ locality: {
                       note: Note,
                       formula: Formula
                     }
+grammar_abbrevs:
+  masculine: masc
+  feminine: fem
+  neuter: neut
+  common: common
+  isPreposition: prep
+  isParticiple: part
+  isAdjective: adj
+  isAdverb: adv
+  isNoun: n
+  isVerb: v
+relatedterms:
+  deprecates: deprecates
+  supersedes: supersedes
+  narrower: narrower
+  broader: broader
+  equivalent: equivalent
+  compare: compare
+  contrast: contrast
+  see: see
 inflection:
   Clause:
     sg: Clause

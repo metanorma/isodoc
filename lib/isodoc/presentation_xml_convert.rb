@@ -1,4 +1,5 @@
 require_relative "presentation_function/block"
+require_relative "presentation_function/terms"
 require_relative "presentation_function/inline"
 require_relative "presentation_function/math"
 require_relative "presentation_function/section"
@@ -25,6 +26,7 @@ module IsoDoc
       @xrefs.parse docxml
       section docxml
       block docxml
+      terms docxml
       inline docxml
     end
 
@@ -46,23 +48,28 @@ module IsoDoc
       sourcecode docxml
       formula docxml
       example docxml
-      termexample docxml
       note docxml
-      termnote docxml
-      termdefinition docxml
       permission docxml
       requirement docxml
       recommendation docxml
     end
 
     def inline(docxml)
-      concept docxml
       xref docxml
       eref docxml
       origin docxml
       quotesource docxml
       mathml docxml
       variant docxml
+    end
+
+    def terms(docxml)
+      termexample docxml
+      termnote docxml
+      termdefinition docxml
+      designation docxml
+      concept docxml
+      related docxml
     end
 
     def postprocess(result, filename, _dir)

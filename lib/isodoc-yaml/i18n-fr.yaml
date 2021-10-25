@@ -92,6 +92,26 @@ locality: {
                       note: Note,
                       formula: Formule
                     }
+grammar_abbrevs:
+  masculine: masc
+  feminine: fem
+  neuter: neut
+  common: épicène
+  isPreposition: prép
+  isParticiple: part
+  isAdjective: adj
+  isAdverb: adv
+  isNoun: subst
+  isVerb: vb
+relatedterms:
+  deprecates: déprécie
+  supersedes: remplace
+  narrower: plus étroit
+  broader: plus large
+  equivalent: équivalent
+  compare: comparez
+  contrast: contrastez
+  see: voir
 inflection:
   Clause:
     sg: Article

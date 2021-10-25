@@ -1,5 +1,4 @@
 require "metanorma-utils"
-require_relative "./concept"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -35,8 +34,8 @@ module IsoDoc
 
     def capitalise_xref(node, linkend, label)
       linktext = linkend.gsub(/<[^>]+>/, "")
-      (label && !label.empty? && /^#{Regexp.escape(label)}/.match?(linktext) ||
-          linktext[0, 1].match?(/\p{Upper}/)) and return linkend
+      (label && !label.empty? && /^#{Regexp.escape(label)}/.match?(linktext)) ||
+        linktext[0, 1].match?(/\p{Upper}/) and return linkend
       node["case"] and
         return Common::case_with_markup(linkend, node["case"], @script)
 

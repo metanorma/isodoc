@@ -97,7 +97,27 @@ locality: {
                       example: Пример,
                       note: Примечание,
                       formula: Формула
-                    }
+}
+grammar_abbrevs:
+  masculine: муж
+  feminine: жен
+  neuter: ср
+  common: общего рода
+  isPreposition: предл
+  isParticiple: прич
+  isAdjective: прил
+  isAdverb: нар
+  isNoun: сущ
+  isVerb: глаг
+relatedterms:
+  deprecates: устаревший
+  supersedes: заменяет
+  narrower: более узкий
+  broader: более широкий
+  equivalent: эквивалент
+  compare: наравне
+  contrast: противоположный
+  see: см.
 inflection:
   Пункт:
     sg: Пункт

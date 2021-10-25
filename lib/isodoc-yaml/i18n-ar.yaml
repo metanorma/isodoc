@@ -89,6 +89,28 @@ locality:
   example: مثال
   note: ملحوظة, ملاحظة
   formula: معادلة
+grammar_abbrevs:
+  masculine: مذكر
+  feminine: مؤ
+  neuter: محايد
+  common: خنثى
+  isPreposition: حرف جر
+  isParticiple: النعت
+  isAdjective: صفة
+  isAdverb: ظرف
+  isNoun: اسم
+  isVerb: الفعل
+relatedterms:
+  deprecates: يهمل
+  supersedes: حل محل
+  # حل محل
+  narrower: أضيق
+  broader: أوسع
+  equivalent: مُعادل
+  compare: قارن
+  contrast: مضاد
+  # تباين
+  see: انظر
 inflection:
   فقرة:
     sg: فقرة

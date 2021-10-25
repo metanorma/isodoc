@@ -95,6 +95,26 @@ locality: {
                       note: Nota,
                       formula: Fórmula
                     }
+grammar_abbrevs:
+  masculine: masc
+  feminine: fem
+  neuter: neut
+  common: epicen@
+  isPreposition: prep
+  isParticiple: part
+  isAdjective: adj
+  isAdverb: adv
+  isNoun: sust
+  isVerb: v
+relatedterms:
+  deprecates: obsoleto
+  supersedes: reemplaza
+  narrower: incluye
+  broader: extiende
+  equivalent: equivalente
+  compare: relacionado
+  contrast: difiere
+  see: véase
 inflection:
   Cláusula:
     sg: Cláusula

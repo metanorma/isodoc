@@ -165,6 +165,10 @@ module IsoDoc
             t << a.remove
           end
         end
+        table_footnote_cleanup_propagate(docxml)
+      end
+
+      def table_footnote_cleanup_propagate(docxml)
         docxml.xpath("//p[not(self::*[@class])]"\
                      "[ancestor::*[@class = 'TableFootnote']]").each do |p|
           p["class"] = "TableFootnote"

@@ -209,7 +209,7 @@ RSpec.describe IsoDoc do
        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
          <term id="J">
-         <preferred>Term2</preferred>
+         <preferred><expression><name>Term2</name></expression></preferred>
        </term>
        </terms>
        <definitions id="K">
@@ -745,7 +745,7 @@ RSpec.describe IsoDoc do
          <title>Normal Terms</title>
          <variant-title type="sub">Variant 1</variant-title>
          <term id="J">
-         <preferred>Term2</preferred>
+         <preferred><expression><name>Term2</name></expression></preferred>
        </term>
        </terms>
        <definitions id="K">
@@ -1361,7 +1361,7 @@ RSpec.describe IsoDoc do
        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
          <term id="J">
-         <preferred>Term2</preferred>
+         <preferred><expression><name>Term2</name></expression></preferred>
        </term>
        </terms>
        <definitions id="K">
@@ -1515,8 +1515,9 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({ suppressheadingnumbers: true })
-.convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+      .new({ suppressheadingnumbers: true })
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes simple terms & definitions" do
@@ -1525,7 +1526,7 @@ RSpec.describe IsoDoc do
       <sections>
       <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
         <term id="J">
-        <preferred>Term2</preferred>
+        <preferred><expression><name>Term2</name></expression></preferred>
       </term>
        </terms>
        </sections>
@@ -1786,7 +1787,7 @@ RSpec.describe IsoDoc do
         <title>Glossary</title>
         <terms id='PP1' obligation='normative'>
           <term id='term-glossary'>
-            <preferred>Glossary</preferred>
+            <preferred><expression><name>Glossary</name></expression></preferred>
           </term>
         </terms>
       </annex>
@@ -1795,13 +1796,13 @@ RSpec.describe IsoDoc do
                    <terms id='QQ1' obligation='normative'>
                      <title>Term Collection</title>
                      <term id='term-term-1'>
-                       <preferred>Term</preferred>
+                       <preferred><expression><name>Term</name></expression></preferred>
                      </term>
                    </terms>
                    <terms id='QQ2' obligation='normative'>
                      <title>Term Collection 2</title>
                      <term id='term-term-2'>
-                       <preferred>Term</preferred>
+                       <preferred><expression><name>Term</name></expression></preferred>
                      </term>
                    </terms>
                </annex>
@@ -1810,7 +1811,7 @@ RSpec.describe IsoDoc do
                    <terms id='RR1' obligation='normative'>
                      <title>Term Collection</title>
                      <term id='term-term-3'>
-                       <preferred>Term</preferred>
+                       <preferred><expression><name>Term</name></expression></preferred>
                      </term>
                    </terms>
                    <references id='RR2' obligation='normative'>

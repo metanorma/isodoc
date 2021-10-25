@@ -93,3 +93,24 @@ locality: {
   example: 示例,
   note: 注
 }
+grammar_abbrevs:
+  masculine: 男性性别
+  feminine: 阴性
+  neuter: 中性的
+  common: 通性
+  isPreposition: 介词
+  isParticiple: 分词
+  isAdjective: 形容词
+  isAdverb: 副词
+  isNoun: 名词
+  isVerb: 动词
+relatedterms:
+  deprecates: 旧词
+  supersedes: 取替
+  narrower: 狭义
+  broader: 广义
+  equivalent: 同义
+  compare: 比较
+  contrast: 对比
+  see: 见
+
