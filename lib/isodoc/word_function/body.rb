@@ -86,18 +86,28 @@ module IsoDoc
       end
 
       def dl_parse(node, out)
+        return super unless node.ancestors("table, dl").empty?
+
+        dl_parse_table(node, out)
+      end
+
+      def dl_parse_table(node, out)
         out.table **{ class: "dl" } do |v|
           node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
-            v.tr do |tr|
-              tr.td **{ valign: "top", align: "left" } do |term|
-                dt_parse(dt, term)
-              end
-              tr.td **{ valign: "top" } do |listitem|
-                dd.children.each { |n| parse(n, listitem) }
-              end
-            end
+            dl_parse_table1(v, dt, dd)
           end
           dl_parse_notes(node, v)
+        end
+      end
+
+      def dl_parse_table1(table, dterm, ddefn)
+        table.tr do |tr|
+          tr.td **{ valign: "top", align: "left" } do |term|
+            dt_parse(dterm, term)
+          end
+          tr.td **{ valign: "top" } do |listitem|
+            ddefn.children.each { |n| parse(n, listitem) }
+          end
         end
       end
 
