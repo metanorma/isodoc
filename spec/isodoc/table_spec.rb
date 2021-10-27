@@ -3,71 +3,71 @@ require "spec_helper"
 RSpec.describe IsoDoc do
   it "processes IsoXML tables" do
     input = <<~INPUT
-                <iso-standard xmlns="http://riboseinc.com/isoxml">
-                <preface>
-                <foreword>
-                  <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-              <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
-              <colgroup>
-              <col width="30%"/>
-              <col width="20%"/>
-              <col width="20%"/>
-              <col width="20%"/>
-              <col width="10%"/>
-              </colgroup>
-              <thead>
-                <tr>
-                  <td rowspan="2" align="left">Description</td>
-                  <td colspan="4" align="center">Rice sample</td>
-                </tr>
-                <tr>
-                  <td valign="top" align="left">Arborio</td>
-                  <td valign="middle" align="center">Drago<fn reference="a">
-              <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
-            </fn></td>
-                  <td valign="bottom" align="center">Balilla<fn reference="a">
-              <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
-            </fn></td>
-                  <td align="center">Thaibonnet</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <th align="left">Number of laboratories retained after eliminating outliers</th>
-                  <td align="center">13</td>
-                  <td align="center">11</td>
-                  <td align="center">13</td>
-                  <td align="center">13</td>
-                </tr>
-                <tr>
-                  <td align="left">Mean value, g/100 g</td>
-                  <td align="center">81,2</td>
-                  <td align="center">82,0</td>
-                  <td align="center">81,8</td>
-                  <td align="center">77,7</td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                  <td align="left">Reproducibility limit, <stem type="AsciiMath">R</stem> (= 2,83 <stem type="AsciiMath">s_R</stem>)</td>
-                  <td align="center">2,89</td>
-                  <td align="center">0,57</td>
-                  <td align="center">2,26</td>
-                  <td align="center">6,06</td>
-                </tr>
-              </tfoot>
-              <dl>
-              <dt>Drago</dt>
-            <dd>A type of rice</dd>
-            </dl>
-            <note><p>This is a table about rice</p></note>
-            </table>
-            <table id="tableD-2" unnumbered="true">
-            <tbody><tr><td>A</td></tr></tbody>
-            </table>
-            </foreword>
-            </preface>
-            </iso-standard>
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword>
+            <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
+        <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+        <colgroup>
+        <col width="30%"/>
+        <col width="20%"/>
+        <col width="20%"/>
+        <col width="20%"/>
+        <col width="10%"/>
+        </colgroup>
+        <thead>
+          <tr>
+            <td rowspan="2" align="left">Description</td>
+            <td colspan="4" align="center">Rice sample</td>
+          </tr>
+          <tr>
+            <td valign="top" align="left">Arborio</td>
+            <td valign="middle" align="center">Drago<fn reference="a">
+        <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
+      </fn></td>
+            <td valign="bottom" align="center">Balilla<fn reference="a">
+        <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
+      </fn></td>
+            <td align="center">Thaibonnet</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th align="left">Number of laboratories retained after eliminating outliers</th>
+            <td align="center">13</td>
+            <td align="center">11</td>
+            <td align="center">13</td>
+            <td align="center">13</td>
+          </tr>
+          <tr>
+            <td align="left">Mean value, g/100 g</td>
+            <td align="center">81,2</td>
+            <td align="center">82,0</td>
+            <td align="center">81,8</td>
+            <td align="center">77,7</td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td align="left">Reproducibility limit, <stem type="AsciiMath">R</stem> (= 2,83 <stem type="AsciiMath">s_R</stem>)</td>
+            <td align="center">2,89</td>
+            <td align="center">0,57</td>
+            <td align="center">2,26</td>
+            <td align="center">6,06</td>
+          </tr>
+        </tfoot>
+        <dl>
+        <dt>Drago</dt>
+      <dd>A type of rice</dd>
+      </dl>
+      <note><p>This is a table about rice</p></note>
+      </table>
+      <table id="tableD-2" unnumbered="true">
+      <tbody><tr><td>A</td></tr></tbody>
+      </table>
+      </foreword>
+      </preface>
+      </iso-standard>
     INPUT
 
     presxml = <<~OUTPUT
@@ -344,14 +344,12 @@ RSpec.describe IsoDoc do
                              <td align='center' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>6,06</td>
                            </tr>
                          </tfoot>
-                         <table class='dl'>
-                           <tr>
-                             <td valign='top' align='left'>
-                               <p align='left' style='margin-left:0pt;text-align:left;'>Drago</p>
-                             </td>
-                             <td valign='top'>A type of rice</td>
-                           </tr>
-                         </table>
+            <dl>
+              <dt>
+                <p align='left' style='margin-left:0pt;text-align:left;'>Drago</p>
+              </dt>
+              <dd>A type of rice</dd>
+            </dl>
                          <div class='Note'>
                            <p class='Note'>
                              <span class='note_label'>NOTE</span>

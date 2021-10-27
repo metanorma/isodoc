@@ -809,8 +809,11 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
       .gsub(/&lt;/, "&#x3c;")
-    .gsub(%r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile')
-                )).to be_equivalent_to xmlpp(presxml.gsub(%r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile'))
+    .gsub(%r{data:application/x-msmetafile[^"']+},
+          "data:application/x-msmetafile")))
+      .to be_equivalent_to xmlpp(presxml
+      .gsub(%r{data:application/x-msmetafile[^"']+},
+            "data:application/x-msmetafile"))
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
@@ -900,9 +903,11 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
      .convert("test", input, true)
      .gsub(/&lt;/, "&#x3c;")
-    .gsub(%r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile')))
+    .gsub(%r{data:application/x-msmetafile[^"']+},
+          "data:application/x-msmetafile")))
       .to be_equivalent_to xmlpp(presxml
-      .gsub( %r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile'))
+      .gsub(%r{data:application/x-msmetafile[^"']+},
+            "data:application/x-msmetafile"))
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
@@ -991,9 +996,11 @@ RSpec.describe IsoDoc do
       expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
        .convert("test", input, true)
        .gsub(/&lt;/, "&#x3c;")
-        .gsub(%r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile')))
+        .gsub(%r{data:application/x-msmetafile[^"']+},
+              "data:application/x-msmetafile")))
         .to be_equivalent_to xmlpp(presxml
-        .gsub( %r{data:application/x-msmetafile[^"']+}, 'data:application/x-msmetafile'))
+        .gsub(%r{data:application/x-msmetafile[^"']+},
+              "data:application/x-msmetafile"))
       expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
         .convert("test", presxml, true)
         .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.svg['"]/, "'_.svg'")
@@ -2521,8 +2528,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"\.\\}, '"./')
-      .gsub(%r{'\.\\}, "'./")
-      )
+      .gsub(%r{'\.\\}, "'./"))
       .to be_equivalent_to xmlpp(output)
   end
 
