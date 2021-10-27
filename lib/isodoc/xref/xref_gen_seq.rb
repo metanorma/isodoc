@@ -34,8 +34,7 @@ module IsoDoc::XrefGen
 
     def sequential_table_names(clause)
       c = Counter.new
-      clause.xpath(ns(".//table")).each do |t|
-        next if t["id"].nil? || t["id"].empty?
+      clause.xpath(ns(".//table")).reject { |n| blank?(n["id"]) }.each do |t|
 
         @anchors[t["id"]] = anchor_struct(
           c.increment(t).print, nil,
@@ -46,8 +45,7 @@ module IsoDoc::XrefGen
 
     def sequential_formula_names(clause)
       c = Counter.new
-      clause.xpath(ns(".//formula")).each do |t|
-        next if t["id"].nil? || t["id"].empty?
+      clause.xpath(ns(".//formula")).reject { |n| blank?(n["id"]) }.each do |t|
 
         @anchors[t["id"]] = anchor_struct(
           c.increment(t).print, t,
@@ -62,8 +60,8 @@ module IsoDoc::XrefGen
 
     def sequential_permission_names(clause, klass, label)
       c = Counter.new
-      clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
-        next if t["id"].nil? || t["id"].empty?
+      clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}"))
+        .reject { |n| blank?(n["id"]) }.each do |t|
 
         id = c.increment(t).print
         @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
@@ -82,8 +80,7 @@ module IsoDoc::XrefGen
 
     def sequential_permission_names1(block, lbl, klass, label)
       c = Counter.new
-      block.xpath(ns("./#{klass}")).each do |t|
-        next if t["id"].nil? || t["id"].empty?
+      block.xpath(ns("./#{klass}")).reject { |n| blank?(n["id"]) }.each do |t|
 
         id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
         @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
@@ -118,8 +115,7 @@ module IsoDoc::XrefGen
 
     def hierarchical_table_names(clause, num)
       c = Counter.new
-      clause.xpath(ns(".//table")).each do |t|
-        next if t["id"].nil? || t["id"].empty?
+      clause.xpath(ns(".//table")).reject { |n| blank?(n["id"]) }.each do |t|
 
         @anchors[t["id"]] =
           anchor_struct("#{num}#{hiersep}#{c.increment(t).print}",
@@ -141,8 +137,7 @@ module IsoDoc::XrefGen
 
     def hierarchical_formula_names(clause, num)
       c = Counter.new
-      clause.xpath(ns(".//formula")).each do |t|
-        next if t["id"].nil? || t["id"].empty?
+      clause.xpath(ns(".//formula")).reject { |n| blank?(n["id"]) }.each do |t|
 
         @anchors[t["id"]] = anchor_struct(
           "#{num}#{hiersep}#{c.increment(t).print}", nil,
@@ -154,8 +149,8 @@ module IsoDoc::XrefGen
 
     def hierarchical_permission_names(clause, num, klass, label)
       c = Counter.new
-      clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
-        next if t["id"].nil? || t["id"].empty?
+      clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}"))
+        .reject { |n| blank?(n["id"]) }.each do |t|
 
         id = "#{num}#{hiersep}#{c.increment(t).print}"
         @anchors[t["id"]] =
@@ -175,8 +170,7 @@ module IsoDoc::XrefGen
 
     def hierarchical_permission_names1(block, lbl, klass, label)
       c = Counter.new
-      block.xpath(ns("./#{klass}")).each do |t|
-        next if t["id"].nil? || t["id"].empty?
+      block.xpath(ns("./#{klass}")).reject { |n| blank?(n["id"]) }.each do |t|
 
         id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
         @anchors[t["id"]] =
