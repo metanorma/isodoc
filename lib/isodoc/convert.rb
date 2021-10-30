@@ -119,6 +119,7 @@ module IsoDoc
 
     def convert1(docxml, filename, dir)
       @xrefs.parse docxml
+      bibitem_lookup(docxml)
       noko do |xml|
         xml.html **{ lang: @lang.to_s } do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
@@ -128,6 +129,13 @@ module IsoDoc
           make_body(html, docxml)
         end
       end.join("\n")
+    end
+
+    def bibitem_lookup(docxml)
+      @bibitems = docxml.xpath(ns("//references/bibitem"))
+        .each_with_object({}) do |b, m|
+        m[b["id"]] = b
+      end
     end
 
     def metadata_init(lang, script, i18n)
