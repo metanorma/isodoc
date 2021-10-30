@@ -1,10 +1,6 @@
 module IsoDoc
   module WordFunction
     module Comments
-      def in_comment
-        @in_comment
-      end
-
       def comments(div)
         return if @comments.empty?
 

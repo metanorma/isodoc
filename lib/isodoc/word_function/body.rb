@@ -54,11 +54,11 @@ module IsoDoc
       end
 
       def para_class(_node)
-        classtype = nil
-        classtype = "Note" if @note
-        classtype = "MsoCommentText" if in_comment
-        classtype = "Sourcecode" if @annotation
-        classtype
+        return "Sourcecode" if @annotation
+        return "MsoCommentText" if @in_comment
+        return "Note" if @note
+
+        nil
       end
 
       def para_parse(node, out)
@@ -130,8 +130,8 @@ module IsoDoc
         dl
       end
 
+      # get rid of footnote link, it is in diagram
       def figure_aside_process(fig, aside, key)
-        # get rid of footnote link, it is in diagram
         fig&.at("./a[@class='TableFootnoteRef']")&.remove
         fnref = fig.at(".//span[@class='TableFootnoteRef']/..")
         tr = key.add_child("<tr></tr>").first
