@@ -5,6 +5,7 @@ module IsoDoc
   module HtmlFunction
     module Html
       def convert1(docxml, filename, dir)
+        bibitem_lookup(docxml)
         noko do |xml|
           xml.html **{ lang: @lang.to_s } do |html|
             info docxml, nil
