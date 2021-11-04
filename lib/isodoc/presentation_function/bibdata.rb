@@ -10,7 +10,7 @@ module IsoDoc
         "</localized-strings>"
     end
 
-     def docid_prefixes(docxml)
+    def docid_prefixes(docxml)
       docxml.xpath(ns("//references/bibitem/docidentifier")).each do |i|
         i.children = @xrefs.klass.docid_prefix(i["type"], i.text)
       end
@@ -97,7 +97,7 @@ module IsoDoc
 
     # https://stackoverflow.com/a/31822406
     def blank?(elem)
-      elem.nil? || elem.respond_to?(:empty?) && elem.empty?
+      elem.nil? || (elem.respond_to?(:empty?) && elem.empty?)
     end
 
     def trim_hash(hash)
