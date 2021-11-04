@@ -1,5 +1,6 @@
 require "isodoc/html_function/mathvariant_to_plain"
 require_relative "postprocess_footnotes"
+require "metanorma-utils"
 
 module IsoDoc
   module HtmlFunction
@@ -74,7 +75,8 @@ module IsoDoc
         head = docxml.at("//*[local-name() = 'head']")
         head << htmlstylesheet(@htmlstylesheet)
         s = htmlstylesheet(@htmlstylesheet_override) and head << s
-        @bare and head << "<style>body {margin-left: 2em; margin-right: 2em;}</style>"
+        @bare and
+          head << "<style>body {margin-left: 2em; margin-right: 2em;}</style>"
         docxml
       end
 
@@ -167,11 +169,7 @@ module IsoDoc
       end
 
       def datauri(img)
-        type = img["src"].split(".")[-1]
-        supertype = type == "xml" ? "application" : "image"
-        bin = IO.binread(image_localfile(img))
-        data = Base64.strict_encode64(bin)
-        img["src"] = "data:#{supertype}/#{type};base64,#{data}"
+        img["src"] = Metanorma::Utils::datauri(img["src"], @localdir)
       end
 
       def image_suffix(img)
