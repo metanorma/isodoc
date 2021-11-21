@@ -102,6 +102,9 @@ module IsoDoc
       name = desgn.at(ns("./expression/name | ./letter-symbol/name | "\
                          "./graphical-symbol")) or return
 
+      f = desgn.xpath(ns("./fieldofapplication | ./usageinfo"))
+        &.map { |u| u.children.to_xml }&.join(", ")
+      f&.empty? or name << ", &lt;#{f}&gt;"
       g = desgn.at(ns("./expression/grammar")) and
         name << " #{designation_grammar(g).join(', ')}"
       desgn.children = name.children
@@ -121,20 +124,20 @@ module IsoDoc
       ret
     end
 
-        def definition1(elem)
-          nodes = Nokogiri::XML::NodeSet.new(elem.document)
-          v = elem&.at(ns("./verbaldefinition"))&.children and nodes += v
-          n = elem&.at(ns("./nonverbalrepresentation"))&.children and nodes += n
-          elem.children = nodes
-        end
+    def definition1(elem)
+      nodes = Nokogiri::XML::NodeSet.new(elem.document)
+      v = elem&.at(ns("./verbaldefinition"))&.children and nodes += v
+      n = elem&.at(ns("./nonverbalrepresentation"))&.children and nodes += n
+      elem.children = nodes
+    end
 
-            def termexample(docxml)
+    def termexample(docxml)
       docxml.xpath(ns("//termexample")).each do |f|
         example1(f)
       end
     end
 
-                def termnote(docxml)
+    def termnote(docxml)
       docxml.xpath(ns("//termnote")).each do |f|
         termnote1(f)
       end
@@ -155,7 +158,7 @@ module IsoDoc
     def termdefinition1(elem)
       unwrap_definition(elem)
       multidef(elem) if elem.xpath(ns("./definition")).size > 1
-      end
+    end
 
     def multidef(elem)
       d = elem.at(ns("./definition"))
@@ -167,13 +170,13 @@ module IsoDoc
       d.wrap("<definition></definition>")
     end
 
-           def unwrap_definition(elem)
-             elem.xpath(ns("./definition")).each do |d|
-          nodes = Nokogiri::XML::NodeSet.new(elem.document)
-          v = d&.at(ns("./verbaldefinition"))&.children and nodes += v
-          n = d&.at(ns("./nonverbalrepresentation"))&.children and nodes += n
-          d.children = nodes
-             end
-        end
+    def unwrap_definition(elem)
+      elem.xpath(ns("./definition")).each do |d|
+        nodes = Nokogiri::XML::NodeSet.new(elem.document)
+        v = d&.at(ns("./verbaldefinition"))&.children and nodes += v
+        n = d&.at(ns("./nonverbalrepresentation"))&.children and nodes += n
+        d.children = nodes
+      end
+    end
   end
 end
