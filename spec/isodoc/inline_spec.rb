@@ -636,10 +636,10 @@ RSpec.describe IsoDoc do
           <expression>
             <name>Second Term</name>
           </expression>
-        <fieldofapplication>Field</fieldofapplication>
-        <usageinfo>Usage Info 1</usageinfo>
+        <field-of-application>Field</field-of-application>
+        <usage-info>Usage Info 1</usage-info>
         </preferred>
-        <definition><verbaldefinition>Definition 1</verbaldefinition></definition>
+        <definition><verbal-definition>Definition 1</verbal-definition></definition>
       </term>
       <term id="C">
       <preferred language='fr' script='Latn' type='prefix'>
@@ -657,7 +657,7 @@ RSpec.describe IsoDoc do
           </preferred>
           <xref target='second'/>
         </related>
-        <definition><verbaldefinition>Definition 2</verbaldefinition></definition>
+        <definition><verbal-definition>Definition 2</verbal-definition></definition>
       </term>
           </terms>
         </sections>
@@ -792,9 +792,9 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
       <p>
-      <link updatetype="true" target="http://example.com"/>
-      <link updatetype="true" target="list.adoc">example</link>
-      <link updatetype="true" target="list" alt="tip">example</link>
+      <link update-type="true" target="http://example.com"/>
+      <link update-type="true" target="list.adoc">example</link>
+      <link update-type="true" target="list" alt="tip">example</link>
       </p>
       </foreword></preface>
       <sections>

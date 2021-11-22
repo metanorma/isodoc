@@ -5,7 +5,7 @@ module IsoDoc
     module Inline
       def link_parse(node, out)
         url = node["target"]
-        node["updatetype"] == "true" and url = suffix_url(url)
+        node["update-type"] == "true" and url = suffix_url(url)
         out.a **attr_code(href: url, title: node["alt"]) do |l|
           if node.text.empty?
             l << node["target"].sub(/^mailto:/, "")

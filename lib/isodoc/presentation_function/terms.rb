@@ -102,7 +102,7 @@ module IsoDoc
       name = desgn.at(ns("./expression/name | ./letter-symbol/name | "\
                          "./graphical-symbol")) or return
 
-      f = desgn.xpath(ns("./fieldofapplication | ./usageinfo"))
+      f = desgn.xpath(ns("./field-of-application | ./usage-info"))
         &.map { |u| u.children.to_xml }&.join(", ")
       f&.empty? or name << ", &lt;#{f}&gt;"
       g = desgn.at(ns("./expression/grammar")) and
@@ -126,8 +126,8 @@ module IsoDoc
 
     def definition1(elem)
       nodes = Nokogiri::XML::NodeSet.new(elem.document)
-      v = elem&.at(ns("./verbaldefinition"))&.children and nodes += v
-      n = elem&.at(ns("./nonverbalrepresentation"))&.children and nodes += n
+      v = elem&.at(ns("./verbal-definition"))&.children and nodes += v
+      n = elem&.at(ns("./non-verbal-representation"))&.children and nodes += n
       elem.children = nodes
     end
 
@@ -173,8 +173,8 @@ module IsoDoc
     def unwrap_definition(elem)
       elem.xpath(ns("./definition")).each do |d|
         nodes = Nokogiri::XML::NodeSet.new(elem.document)
-        v = d&.at(ns("./verbaldefinition"))&.children and nodes += v
-        n = d&.at(ns("./nonverbalrepresentation"))&.children and nodes += n
+        v = d&.at(ns("./verbal-definition"))&.children and nodes += v
+        n = d&.at(ns("./non-verbal-representation"))&.children and nodes += n
         d.children = nodes
       end
     end
