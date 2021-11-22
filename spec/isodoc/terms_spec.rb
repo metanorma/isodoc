@@ -8,8 +8,8 @@ RSpec.describe IsoDoc do
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
           <p>For the purposes of this document, the following terms and definitions apply.</p>
       <term id="paddy1"><preferred><expression><name>paddy</name></expression>
-      <fieldofapplication>in agriculture</fieldofapplication>
-      <usageinfo>dated</usageinfo>
+      <field-of-application>in agriculture</field-of-application>
+      <usage-info>dated</usage-info>
             <termsource status="modified">
         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
           <modification>
@@ -18,7 +18,7 @@ RSpec.describe IsoDoc do
       </termsource>
       </preferred>
       <domain>rice</domain>
-      <definition><verbaldefinition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbaldefinition></definition>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
       <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892"  keep-with-next="true" keep-lines-together="true">
         <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
         <ul>
@@ -46,11 +46,11 @@ RSpec.describe IsoDoc do
       </term>
       <term id="paddy"><preferred><expression><name>paddy</name></expression></preferred>
       <admitted><letter-symbol><name>paddy rice</name></letter-symbol>
-      <fieldofapplication>in agriculture</fieldofapplication>
+      <field-of-application>in agriculture</field-of-application>
       </admitted>
       <admitted><expression><name>rough rice</name></expression></admitted>
       <deprecates><expression><name>cargo rice</name></expression></deprecates>
-      <definition><verbaldefinition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbaldefinition></definition>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
       <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f893">
         <ul>
         <li>A</li>
@@ -268,15 +268,15 @@ RSpec.describe IsoDoc do
           <p>For the purposes of this document, the following terms and definitions apply.</p>
       <term id="paddy1"><preferred><expression><name>paddy</name></expression></preferred>
       <domain>rice</domain>
-      <definition><verbaldefinition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbaldefinition></definition>
-      <definition><verbaldefinition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747e">rice retaining its husk after threshing, mark 2</p>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747e">rice retaining its husk after threshing, mark 2</p>
       <termsource status="modified">
         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
           <modification>
           <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
         </modification>
       </termsource>
-      </verbaldefinition>
+      </verbal-definition>
       </definition>
       <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892"  keep-with-next="true" keep-lines-together="true">
         <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
@@ -386,7 +386,7 @@ RSpec.describe IsoDoc do
       <preferred><expression><name>paddy</name></expression></preferred>
       <preferred><expression><name>muddy rice</name></expression></preferred>
       <domain>rice</domain>
-      <definition><verbaldefinition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbaldefinition></definition>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
                 </terms>
         </sections>
@@ -429,18 +429,18 @@ RSpec.describe IsoDoc do
               <gender>feminine</gender>
               <isPreposition>false</isPreposition>
               <isNoun>true</isNoun>
-              <grammarValue>irregular declension</grammarValue>
+              <grammar-value>irregular declension</grammar-value>
             </grammar>
       </expression></preferred>
       <preferred><expression><name>muddy rice</name>
                         <grammar>
               <gender>neuter</gender>
               <isNoun>true</isNoun>
-              <grammarValue>irregular declension</grammarValue>
+              <grammar-value>irregular declension</grammar-value>
             </grammar>
       </expression></preferred>
       <domain>rice</domain>
-      <definition><verbaldefinition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbaldefinition></definition>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
                 </terms>
         </sections>
@@ -482,7 +482,7 @@ RSpec.describe IsoDoc do
                  </graphical-symbol>
                </preferred>
       <domain>rice</domain>
-      <definition><verbaldefinition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbaldefinition></definition>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
                 </terms>
         </sections>
@@ -528,7 +528,7 @@ RSpec.describe IsoDoc do
                   </expression>
                 </preferred>
                 <definition>
-                  <verbaldefinition>
+                  <verbal-definition>
                     <p id='C'>Definition</p>
                     <termsource status='identical' type='authoritative'>
                       <origin bibitemid='ISO2191' type='inline' citeas=''>
@@ -539,8 +539,8 @@ RSpec.describe IsoDoc do
                         </localityStack>
                       </origin>
                     </termsource>
-                  </verbaldefinition>
-                  <nonverbalrepresentation>
+                  </verbal-definition>
+                  <non-verbal-representation>
                     <table id='D'>
                       <thead>
                         <tr>
@@ -555,7 +555,7 @@ RSpec.describe IsoDoc do
                         </tr>
                       </tbody>
                     </table>
-                  </nonverbalrepresentation>
+                  </non-verbal-representation>
                 </definition>
                 <termsource status='identical' type='authoritative'>
                   <origin bibitemid='ISO2191' type='inline' citeas=''>
@@ -574,7 +574,7 @@ RSpec.describe IsoDoc do
                   </expression>
                 </preferred>
                 <definition>
-                  <nonverbalrepresentation>
+                  <non-verbal-representation>
                     <figure id='E'>
                       <pre id='F'>Literal</pre>
                     </figure>
@@ -596,7 +596,7 @@ RSpec.describe IsoDoc do
                         </localityStack>
                       </origin>
                     </termsource>
-                  </nonverbalrepresentation>
+                  </non-verbal-representation>
                 </definition>
               </term>
             </terms>
