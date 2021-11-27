@@ -82,23 +82,33 @@ module IsoDoc
     end
 
     def designation(docxml)
-      docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
-        designation1(p)
-      end
       docxml.xpath(ns("//term")).each do |t|
         merge_second_preferred(t)
+      end
+      docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
+        designation1(p)
       end
     end
 
     def merge_second_preferred(term)
       pref = nil
-      term.xpath(ns("./preferred")).each_with_index do |p, i|
+      term.xpath(ns("./preferred[expression/name]")).each_with_index do |p, i|
         if i.zero? then pref = p
-        elsif pref["language"] == p["language"]
-          pref << l10n("; #{p.children.to_xml}")
+        elsif merge_preferred_eligible?(pref, p)
+          pref.at(ns("./expression/name")) <<
+            l10n("; #{p.at(ns('./expression/name')).children.to_xml}")
           p.remove
         end
       end
+    end
+
+    def merge_preferred_eligible?(first, second)
+      firstex = first.at(ns("./expression")) || {}
+      secondex = second.at(ns("./expression")) || {}
+      first["geographic-area"] == second["geographic-area"] &&
+        firstex["language"] == secondex["language"] &&
+        !first.at(ns("./pronunciation | ./grammar")) &&
+        !second.at(ns("./pronunciation | ./grammar"))
     end
 
     def designation1(desgn)
@@ -106,12 +116,18 @@ module IsoDoc
       name = desgn.at(ns("./expression/name | ./letter-symbol/name | "\
                          "./graphical-symbol")) or return
 
+      designation_annotate(desgn, name)
+      s and desgn.next = s
+    end
+
+    def designation_annotate(desgn, name)
       designation_boldface(desgn)
       designation_field(desgn, name)
       g = desgn.at(ns("./expression/grammar")) and
         name << ", #{designation_grammar(g).join(', ')}"
+      designation_localization(desgn, name)
+      designation_pronunciation(desgn, name)
       desgn.children = name.children
-      s and desgn.next = s
     end
 
     def designation_boldface(desgn)
@@ -139,6 +155,21 @@ module IsoDoc
           ret << @i18n.grammar_abbrevs[x]
       end
       ret
+    end
+
+    def designation_localization(desgn, name)
+      loc = [desgn&.at(ns("./expression/@language"))&.text,
+             desgn&.at(ns("./expression/@script"))&.text,
+             desgn&.at(ns("./@geographic-area"))&.text].compact
+      return if loc.empty?
+
+      name << ", #{loc.join(' ')}"
+    end
+
+    def designation_pronunciation(desgn, name)
+      f = desgn.at(ns("./expression/pronunciation")) or return
+
+      name << ", /#{f.children.to_xml}/"
     end
 
     def termexample(docxml)

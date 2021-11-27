@@ -389,20 +389,20 @@ RSpec.describe IsoDoc do
       <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
       <term id="paddy2">
-      <preferred language="eng"><expression><name>paddy</name></expression></preferred>
-      <preferred language="eng"><expression><name>muddy rice</name></expression></preferred>
+      <preferred><expression><name language="eng">paddy</name></expression></preferred>
+      <preferred><expression><name language="eng">muddy rice</name></expression></preferred>
       <domain>rice</domain>
       <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747a">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
       <term id="paddy3">
-      <preferred language="eng"><expression><name>paddy</name></expression></preferred>
+      <preferred geographic-area="US"><expression><name>paddy</name></expression></preferred>
       <preferred><expression><name>muddy rice</name></expression></preferred>
       <domain>rice</domain>
       <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747b">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
-            <term id="paddy3">
-      <preferred language="eng"><expression><name>paddy</name></expression></preferred>
-      <preferred language="fra"><expression><name>muddy rice</name></expression></preferred>
+            <term id="paddy4">
+      <preferred><expression language="eng"><name>paddy</name></expression></preferred>
+      <preferred><expression language="fra"><name>muddy rice</name></expression></preferred>
       <domain>rice</domain>
       <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747c">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
@@ -421,7 +421,7 @@ RSpec.describe IsoDoc do
             </title>
             <term id='paddy1'>
               <name>1.1.</name>
-              <preferred><strong>paddy</strong>; <strong>muddy rice</strong></preferred>
+              <preferred><strong>paddy; muddy rice</strong></preferred>
               <domain>rice</domain>
               <definition>
                 <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
@@ -429,10 +429,8 @@ RSpec.describe IsoDoc do
             </term>
                   <term id='paddy2'>
         <name>1.2.</name>
-        <preferred language='eng'>
-          <strong>paddy</strong>
-          ;
-          <strong>muddy rice</strong>
+        <preferred>
+          <strong>paddy; muddy rice</strong>
         </preferred>
         <domain>rice</domain>
         <definition>
@@ -440,9 +438,9 @@ RSpec.describe IsoDoc do
         </definition>
       </term>
       <term id='paddy3'>
-        <name>1.4.</name>
-        <preferred language='eng'>
-          <strong>paddy</strong>
+        <name>1.3.</name>
+        <preferred geographic-area="US">
+          <strong>paddy</strong>, US
         </preferred>
         <preferred>
           <strong>muddy rice</strong>
@@ -452,13 +450,13 @@ RSpec.describe IsoDoc do
           <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747b'>rice retaining its husk after threshing</p>
         </definition>
       </term>
-      <term id='paddy3'>
+      <term id='paddy4'>
         <name>1.4.</name>
-        <preferred language='eng'>
-          <strong>paddy</strong>
+        <preferred>
+          <strong>paddy</strong>, eng
         </preferred>
-        <preferred language='fra'>
-          <strong>muddy rice</strong>
+        <preferred>
+          <strong>muddy rice</strong>, fra
         </preferred>
         <domain>rice</domain>
         <definition>
@@ -479,7 +477,8 @@ RSpec.describe IsoDoc do
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
       <term id="paddy1">
-      <preferred><expression><name>paddy</name>
+      <preferred geographic-area="US"><expression language="en" script="Latn"><name>paddy</name>
+         <pronunciation>pædiː</pronunciation>
                   <grammar>
               <gender>masculine</gender>
               <gender>feminine</gender>
@@ -514,7 +513,8 @@ RSpec.describe IsoDoc do
             </title>
             <term id='paddy1'>
               <name>1.1.</name>
-              <preferred><strong>paddy</strong>, m, f, sg, noun; <strong>muddy rice</strong>, n, noun</preferred>
+              <preferred geographic-area='US'><strong>paddy</strong>, m, f, sg, noun, en Latn US, /p&#xE6;di&#x2D0;/</preferred>
+              <preferred><strong>muddy rice</strong>, n, noun</preferred>
               <domain>rice</domain>
               <definition>
                 <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
@@ -553,7 +553,8 @@ RSpec.describe IsoDoc do
             <title depth='1'>1.<tab/>Terms and Definitions</title>
             <term id='paddy1'>
               <name>1.1.</name>
-              <preferred><strong/>; <figure id='_'>
+              <preferred><strong/></preferred>
+              <preferred isInternational='true'><figure id='_'>
                   <name>Figure 1</name>
                   <pre id='_'>&lt;LITERAL&gt; FIGURATIVE</pre>
                 </figure>
