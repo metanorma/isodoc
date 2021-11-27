@@ -97,6 +97,9 @@ grammar_abbrevs:
   feminine: fem
   neuter: neut
   common: épicène
+  singular: sg
+  dual: duel
+  plural: pl
   isPreposition: prép
   isParticiple: part
   isAdjective: adj

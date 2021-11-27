@@ -98,6 +98,9 @@ grammar_abbrevs:
   feminine: fem
   neuter: neutr
   common: gemein
+  singular: Sg
+  dual: Dual
+  plural: Pl
   isPreposition: Präp
   isParticiple: Part
   isAdjective: Adj

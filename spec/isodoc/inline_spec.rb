@@ -664,23 +664,23 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-    <?xml version='1.0'?>
+       <?xml version='1.0'?>
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <sections>
           <terms id='A' obligation='normative' displayorder='1'>
             <title depth='1'>1.<tab/>Terms and definitions</title>
             <term id='second'>
               <name>1.1.</name>
-              <preferred>Second Term, &lt;Field, Usage Info 1&gt;</preferred>
+              <preferred><strong>Second Term</strong>, &lt;Field, Usage Info 1&gt;</preferred>
               <definition>Definition 1</definition>
             </term>
             <term id='C'>
               <name>1.2.</name>
-              <preferred language='fr' script='Latn' type='prefix'>First Designation</preferred>
+              <preferred language='fr' script='Latn' type='prefix'><strong>First Designation</strong></preferred>
               <p>
                 <strong>CONTRAST:</strong>
                 <em>
-                  <preferred>Fifth Designation neut</preferred>
+                  <preferred><strong>Fifth Designation</strong>, n</preferred>
                 </em> (<xref target='second'>Clause 1.1</xref>)
               </p>
               <definition>Definition 2</definition>

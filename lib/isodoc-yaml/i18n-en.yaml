@@ -100,16 +100,19 @@ locality: {
                       formula: Formula
                     }
 grammar_abbrevs:
-  masculine: masc
-  feminine: fem
-  neuter: neut
+  masculine: m
+  feminine: f
+  neuter: n
   common: common
+  singular: sg
+  dual: dual
+  pl: pl
   isPreposition: prep
   isParticiple: part
   isAdjective: adj
   isAdverb: adv
-  isNoun: n
-  isVerb: v
+  isNoun: noun
+  isVerb: verb
 relatedterms:
   deprecates: deprecates
   supersedes: supersedes

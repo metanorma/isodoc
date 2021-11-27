@@ -28,17 +28,21 @@ module IsoDoc
       ref = node.at(ns("./xref | ./eref | ./termref"))
       ref && opts[:ref] != "false" and r&.next = " "
       opts[:ital] == "true" and r&.name = "em"
-      if opts[:linkmention] == "true" && !r.nil? && !ref.nil?
-        ref2 = ref.clone
-        r2 = r.clone
-        r.replace(ref2).children = r2
-      end
+      concept1_linkmention(ref, r, opts)
       concept1_ref(node, ref, opts)
       if opts[:ital] == "false"
         r = node.at(ns(".//renderterm"))
         r&.replace(r&.children)
       end
       node.replace(node.children)
+    end
+
+    def concept1_linkmention(ref, renderterm, opts)
+      if opts[:linkmention] == "true" && !renderterm.nil? && !ref.nil?
+        ref2 = ref.clone
+        r2 = renderterm.clone
+        renderterm.replace(ref2).children = r2
+      end
     end
 
     def concept1_ref(_node, ref, opts)
@@ -102,18 +106,31 @@ module IsoDoc
       name = desgn.at(ns("./expression/name | ./letter-symbol/name | "\
                          "./graphical-symbol")) or return
 
-      f = desgn.xpath(ns("./field-of-application | ./usage-info"))
-        &.map { |u| u.children.to_xml }&.join(", ")
-      f&.empty? or name << ", &lt;#{f}&gt;"
+      designation_boldface(desgn)
+      designation_field(desgn, name)
       g = desgn.at(ns("./expression/grammar")) and
-        name << " #{designation_grammar(g).join(', ')}"
+        name << ", #{designation_grammar(g).join(', ')}"
       desgn.children = name.children
       s and desgn.next = s
     end
 
+    def designation_boldface(desgn)
+      desgn.name == "preferred" or return
+      name = desgn.at(ns("./expression/name | ./letter-symbol/name")) or return
+      name.children = "<strong>#{name.children}</strong>"
+    end
+
+    def designation_field(desgn, name)
+      f = desgn.xpath(ns("./field-of-application | ./usage-info"))
+        &.map { |u| u.children.to_xml }&.join(", ")
+      return nil if f&.empty?
+
+      name << ", &lt;#{f}&gt;"
+    end
+
     def designation_grammar(grammar)
       ret = []
-      grammar.xpath(ns("./gender")).each do |x|
+      grammar.xpath(ns("./gender | ./number")).each do |x|
         ret << @i18n.grammar_abbrevs[x.text]
       end
       %w(isPreposition isParticiple isAdjective isVerb isAdverb isNoun)
@@ -122,13 +139,6 @@ module IsoDoc
           ret << @i18n.grammar_abbrevs[x]
       end
       ret
-    end
-
-    def definition1(elem)
-      nodes = Nokogiri::XML::NodeSet.new(elem.document)
-      v = elem&.at(ns("./verbal-definition"))&.children and nodes += v
-      n = elem&.at(ns("./non-verbal-representation"))&.children and nodes += n
-      elem.children = nodes
     end
 
     def termexample(docxml)
@@ -172,10 +182,10 @@ module IsoDoc
 
     def unwrap_definition(elem)
       elem.xpath(ns("./definition")).each do |d|
-        nodes = Nokogiri::XML::NodeSet.new(elem.document)
-        v = d&.at(ns("./verbal-definition"))&.children and nodes += v
-        n = d&.at(ns("./non-verbal-representation"))&.children and nodes += n
-        d.children = nodes
+        %w(verbal-definition non-verbal-representation).each do |e|
+          v = d&.at(ns("./#{e}"))
+          v&.replace(v.children)
+        end
       end
     end
   end

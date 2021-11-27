@@ -103,6 +103,9 @@ grammar_abbrevs:
   feminine: жен
   neuter: ср
   common: общего рода
+  singular: ед
+  dual: дв
+  plural: мн
   isPreposition: предл
   isParticiple: прич
   isAdjective: прил
