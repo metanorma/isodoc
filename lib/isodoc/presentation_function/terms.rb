@@ -94,7 +94,7 @@ module IsoDoc
       pref = nil
       term.xpath(ns("./preferred")).each_with_index do |p, i|
         if i.zero? then pref = p
-        else
+        elsif pref["language"] == p["language"]
           pref << l10n("; #{p.children.to_xml}")
           p.remove
         end

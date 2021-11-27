@@ -388,6 +388,24 @@ RSpec.describe IsoDoc do
       <domain>rice</domain>
       <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
       </term>
+      <term id="paddy2">
+      <preferred language="eng"><expression><name>paddy</name></expression></preferred>
+      <preferred language="eng"><expression><name>muddy rice</name></expression></preferred>
+      <domain>rice</domain>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747a">rice retaining its husk after threshing</p></verbal-definition></definition>
+      </term>
+      <term id="paddy3">
+      <preferred language="eng"><expression><name>paddy</name></expression></preferred>
+      <preferred><expression><name>muddy rice</name></expression></preferred>
+      <domain>rice</domain>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747b">rice retaining its husk after threshing</p></verbal-definition></definition>
+      </term>
+            <term id="paddy3">
+      <preferred language="eng"><expression><name>paddy</name></expression></preferred>
+      <preferred language="fra"><expression><name>muddy rice</name></expression></preferred>
+      <domain>rice</domain>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747c">rice retaining its husk after threshing</p></verbal-definition></definition>
+      </term>
                 </terms>
         </sections>
       </iso-standard>
@@ -409,6 +427,44 @@ RSpec.describe IsoDoc do
                 <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
               </definition>
             </term>
+                  <term id='paddy2'>
+        <name>1.2.</name>
+        <preferred language='eng'>
+          <strong>paddy</strong>
+          ;
+          <strong>muddy rice</strong>
+        </preferred>
+        <domain>rice</domain>
+        <definition>
+          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747a'>rice retaining its husk after threshing</p>
+        </definition>
+      </term>
+      <term id='paddy3'>
+        <name>1.4.</name>
+        <preferred language='eng'>
+          <strong>paddy</strong>
+        </preferred>
+        <preferred>
+          <strong>muddy rice</strong>
+        </preferred>
+        <domain>rice</domain>
+        <definition>
+          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747b'>rice retaining its husk after threshing</p>
+        </definition>
+      </term>
+      <term id='paddy3'>
+        <name>1.4.</name>
+        <preferred language='eng'>
+          <strong>paddy</strong>
+        </preferred>
+        <preferred language='fra'>
+          <strong>muddy rice</strong>
+        </preferred>
+        <domain>rice</domain>
+        <definition>
+          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747c'>rice retaining its husk after threshing</p>
+        </definition>
+      </term>
           </terms>
         </sections>
       </iso-standard>
