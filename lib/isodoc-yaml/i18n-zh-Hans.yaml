@@ -98,6 +98,9 @@ grammar_abbrevs:
   feminine: 阴性
   neuter: 中性的
   common: 通性
+  singular: 单数
+  dual: 双
+  plural: 复数
   isPreposition: 介词
   isParticiple: 分词
   isAdjective: 形容词

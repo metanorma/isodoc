@@ -397,70 +397,70 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-        <head>
-          <style>
-          </style>
-        </head>
-                 <body lang='EN-US' link='blue' vlink='#954F72'>
-           <div class='WordSection1'>
-             <p>&#160;</p>
-           </div>
-           <p>
-             <br clear='all' class='section'/>
-           </p>
-           <div class='WordSection2'>
-             <p>
-               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-             </p>
-             <div>
-               <h1 class='ForewordTitle'>Foreword</h1>
-               <table class='dl'>
-                 <tr>
-                   <td valign='top' align='left'>
-                     <p align='left' style='margin-left:0pt;text-align:left;'>A Deflist</p>
-                   </td>
-                   <td valign='top'>
-                     <dl id='_732d3f57-4f88-40bf-9ae9-633891edc395'>
-                       <dt>
-                         <p align='left' style='margin-left:0pt;text-align:left;'>W</p>
-                       </dt>
-                       <dd>
-                         <p id='_05d81174-3a41-44af-94d8-c78b8d2e175d'>mass fraction of gelatinized kernels</p>
-                       </dd>
-                     </dl>
-                   </td>
-                 </tr>
-               </table>
-               <div align='center' class='table_container'>
-                                <table id='_732d3f57-4f88-40bf-9ae9-633891edc396' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
-                   <tbody>
-                     <tr>
-                       <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
-                         <dl id='_732d3f57-4f88-40bf-9ae9-633891edc397'>
-                           <dt>
-                             <p align='left' style='margin-left:0pt;text-align:left;'>X</p>
-                           </dt>
-                           <dd>
-                             <p id='_05d81174-3a41-44af-94d8-c78b8d2e175e'>expressed in per cent</p>
-                           </dd>
-                         </dl>
-                       </td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </div>
-             </div>
-             <p>&#160;</p>
-           </div>
-           <p>
-             <br clear='all' class='section'/>
-           </p>
-           <div class='WordSection3'>
-             <p class='zzSTDTitle1'/>
-           </div>
-         </body>
-       </html>
+         <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+       <head>
+         <style>
+         </style>
+       </head>
+                <body lang='EN-US' link='blue' vlink='#954F72'>
+          <div class='WordSection1'>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection2'>
+            <p>
+              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+            </p>
+            <div>
+              <h1 class='ForewordTitle'>Foreword</h1>
+              <table class='dl'>
+                <tr>
+                  <td valign='top' align='left'>
+                    <p align='left' style='margin-left:0pt;text-align:left;'>A Deflist</p>
+                  </td>
+                  <td valign='top'>
+                    <dl id='_732d3f57-4f88-40bf-9ae9-633891edc395'>
+                      <dt>
+                        <p align='left' style='margin-left:0pt;text-align:left;'>W</p>
+                      </dt>
+                      <dd>
+                        <p id='_05d81174-3a41-44af-94d8-c78b8d2e175d'>mass fraction of gelatinized kernels</p>
+                      </dd>
+                    </dl>
+                  </td>
+                </tr>
+              </table>
+              <div align='center' class='table_container'>
+                               <table id='_732d3f57-4f88-40bf-9ae9-633891edc396' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
+                  <tbody>
+                    <tr>
+                      <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
+                        <dl id='_732d3f57-4f88-40bf-9ae9-633891edc397'>
+                          <dt>
+                            <p align='left' style='margin-left:0pt;text-align:left;'>X</p>
+                          </dt>
+                          <dd>
+                            <p id='_05d81174-3a41-44af-94d8-c78b8d2e175e'>expressed in per cent</p>
+                          </dd>
+                        </dl>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection3'>
+            <p class='zzSTDTitle1'/>
+          </div>
+        </body>
+      </html>
     OUTPUT
     expect(xmlpp(IsoDoc::WordConvert.new({})
       .convert("test", input, true)))

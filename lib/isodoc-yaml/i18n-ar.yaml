@@ -94,6 +94,9 @@ grammar_abbrevs:
   feminine: مؤ
   neuter: محايد
   common: خنثى
+  singular: مفرد
+  dual: مزدوج
+  plural: جمع
   isPreposition: حرف جر
   isParticiple: النعت
   isAdjective: صفة

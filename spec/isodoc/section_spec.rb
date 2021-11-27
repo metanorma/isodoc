@@ -328,7 +328,7 @@ RSpec.describe IsoDoc do
               <title depth='2'>3.1.<tab/>Normal Terms</title>
               <term id='J'>
                 <name>3.1.1.</name>
-                <preferred>Term2</preferred>
+                <preferred><strong>Term2</strong></preferred>
               </term>
             </terms>
             <definitions id='K'>
@@ -473,7 +473,7 @@ RSpec.describe IsoDoc do
                                <div id="I">
                                   <h2>3.1.&#160; Normal Terms</h2>
                                   <p class="TermNum" id="J">3.1.1.</p>
-                                  <p class="Terms" style="text-align:left;">Term2</p>
+                                  <p class="Terms" style="text-align:left;"><b>Term2</b></p>
                                 </div><div id="K"><h2>3.2.&#160; Definitions</h2>
                                   <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                                 </div></div>
@@ -628,7 +628,7 @@ RSpec.describe IsoDoc do
 
               <p class="TermNum" id="J">3.1.1.</p>
 
-                <p class="Terms" style="text-align:left;">Term2</p>
+                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
 
             </div>
               <div id="K"><h2>3.2.<span style="mso-tab-count:1">&#160; </span>Definitions</h2>
@@ -925,7 +925,7 @@ RSpec.describe IsoDoc do
                    Variant 1
                  </h2>
                  <p class='TermNum' id='J'>3.1.1.</p>
-                 <p class='Terms' style='text-align:left;'>Term2</p>
+                 <p class='Terms' style='text-align:left;'><b>Term2</b></p>
                </div>
                <div id='K'>
                  <h2>
@@ -1187,7 +1187,7 @@ RSpec.describe IsoDoc do
                    Variant 1
                  </h2>
                  <p class='TermNum' id='J'>3.1.1.</p>
-                 <p class='Terms' style='text-align:left;'>Term2</p>
+                 <p class='Terms' style='text-align:left;'><b>Term2</b></p>
                </div>
                <div id='K'>
                  <h2>
@@ -1431,7 +1431,7 @@ RSpec.describe IsoDoc do
               <title depth='2'>Normal Terms</title>
               <term id='J'>
                 <name>3.1.1.</name>
-                <preferred>Term2</preferred>
+                <preferred><strong>Term2</strong></preferred>
               </term>
             </terms>
             <definitions id='K'>
@@ -1540,7 +1540,7 @@ RSpec.describe IsoDoc do
           <title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
             <term id='J'>
             <name>1.1.</name>
-              <preferred>Term2</preferred>
+              <preferred><strong>Term2</strong></preferred>
             </term>
           </terms>
         </sections>
@@ -1552,7 +1552,7 @@ RSpec.describe IsoDoc do
                    <p class="zzSTDTitle1"/>
                    <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
            <p class="TermNum" id="J">1.1.</p>
-             <p class="Terms" style="text-align:left;">Term2</p>
+             <p class="Terms" style="text-align:left;"><b>Term2</b></p>
            </div>
                  </div>
                </body>
@@ -1835,7 +1835,7 @@ RSpec.describe IsoDoc do
              <title>A.</title>
              <term id='term-glossary'>
                <name>A.1.</name>
-               <preferred>Glossary</preferred>
+               <preferred><strong>Glossary</strong></preferred>
              </term>
            </terms>
          </annex>
@@ -1856,7 +1856,7 @@ RSpec.describe IsoDoc do
              </title>
              <term id='term-term-1'>
                <name>B.1.1.</name>
-               <preferred>Term</preferred>
+               <preferred><strong>Term</strong></preferred>
              </term>
            </terms>
            <terms id='QQ2' obligation='normative'>
@@ -1867,7 +1867,7 @@ RSpec.describe IsoDoc do
              </title>
              <term id='term-term-2'>
                <name>B.2.1.</name>
-               <preferred>Term</preferred>
+               <preferred><strong>Term</strong></preferred>
              </term>
            </terms>
          </annex>
@@ -1888,7 +1888,7 @@ RSpec.describe IsoDoc do
              </title>
              <term id='term-term-3'>
                <name>C.1.1.</name>
-               <preferred>Term</preferred>
+               <preferred><strong>Term</strong></preferred>
              </term>
            </terms>
            <references id='RR2' obligation='normative'>

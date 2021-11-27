@@ -88,7 +88,7 @@ RSpec.describe IsoDoc do
        <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
          <title depth="2">3.1.<tab/>Normal Terms</title>
          <term id="J"><name>3.1.1.</name>
-         <preferred>Term2</preferred>
+         <preferred><strong>Term2</strong></preferred>
        </term>
        </terms>
        <definitions id="K"><title>3.2.</title>
@@ -159,7 +159,7 @@ RSpec.describe IsoDoc do
              <div id="I">
                 <h2>3.1.&#160; Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
-                <p class="Terms" style="text-align:left;">Term2</p>
+                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
               </div><div id="K"><h2>3.2.</h2>
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
               </div></div>
@@ -211,7 +211,7 @@ RSpec.describe IsoDoc do
   end
 
   it "defaults to English" do
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).sub(%r{<localized-strings>.*</localized-strings>}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
       <language>tlh</language>
@@ -275,6 +275,7 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
     INPUT
+    output = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata>
       <language current="true">tlh</language>
@@ -295,7 +296,7 @@ RSpec.describe IsoDoc do
        <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
          <title depth="2">3.1.<tab/>Normal Terms</title>
          <term id="J"><name>3.1.1.</name>
-         <preferred>Term2</preferred>
+         <preferred><strong>Term2</strong></preferred>
        </term>
        </terms>
        <definitions id="K"><title>3.2.</title>
@@ -336,6 +337,10 @@ RSpec.describe IsoDoc do
        </bibliography>
        </iso-standard>
     OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes French" do
@@ -425,7 +430,7 @@ RSpec.describe IsoDoc do
        <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
          <title depth="2">3.1.<tab/>Normal Terms</title>
          <term id="J"><name>3.1.1.</name>
-         <preferred>Term2</preferred>
+         <preferred><strong>Term2</strong></preferred>
        </term>
        </terms>
        <definitions id="K"><title>3.2.</title>
@@ -496,7 +501,7 @@ RSpec.describe IsoDoc do
              <div id="I">
                 <h2>3.1.&#160; Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
-                <p class="Terms" style="text-align:left;">Term2</p>
+                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
               </div><div id="K"><h2>3.2.</h2>
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
               </div></div>
@@ -644,7 +649,7 @@ RSpec.describe IsoDoc do
              <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
                <title depth="2">3.1.<tab/>Normal Terms</title>
                <term id="J"><name>3.1.1.</name>
-               <preferred>Term2</preferred>
+               <preferred><strong>Term2</strong></preferred>
              </term>
              </terms>
              <definitions id="K"><title>3.2.</title>
@@ -728,7 +733,7 @@ RSpec.describe IsoDoc do
              <div id="I">
                       <h2>3.1.&#12288;Normal Terms</h2>
                       <p class="TermNum" id="J">3.1.1.</p>
-                      <p class="Terms" style="text-align:left;">Term2</p>
+                      <p class="Terms" style="text-align:left;"><b>Term2</b></p>
                     </div><div id="K"><h2>3.2.</h2>
                       <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                     </div></div>
@@ -896,7 +901,7 @@ RSpec.describe IsoDoc do
              <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
                <title depth="2">3.1.<tab/>Normal Terms</title>
                <term id="J"><name>3.1.1.</name>
-               <preferred>Term2</preferred>
+               <preferred><strong>Term2</strong></preferred>
              </term>
              </terms>
              <definitions id="K"><title>3.2.</title>
@@ -1002,7 +1007,7 @@ RSpec.describe IsoDoc do
                      <div id='I'>
                        <h2>3.1.&#160; Normal Terms</h2>
                        <p class='TermNum' id='J'>3.1.1.</p>
-                       <p class='Terms' style='text-align:left;'>Term2</p>
+                       <p class='Terms' style='text-align:left;'><b>Term2</b></p>
                      </div>
                      <div id='K'>
                        <h2>3.2.</h2>

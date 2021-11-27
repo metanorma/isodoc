@@ -80,7 +80,7 @@ RSpec.describe IsoDoc do
                    <title depth='1'>1.<tab/>Terms and Definitions</title>
                      <p>For the purposes of this document, the following terms and definitions apply.</p>
                      <term id='paddy1'><name>1.1.</name>
-                       <preferred>paddy, &lt;in agriculture, dated&gt;</preferred>
+                       <preferred><strong>paddy</strong>, &lt;in agriculture, dated&gt;</preferred>
                                             <termsource status='modified'>
                          <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'><locality type='clause'>
           <referenceFrom>3.1</referenceFrom>
@@ -121,7 +121,7 @@ RSpec.describe IsoDoc do
                        </termsource>
                      </term>
                      <term id='paddy'><name>1.2.</name>
-                       <preferred>paddy</preferred>
+                       <preferred><strong>paddy</strong></preferred>
                        <admitted>paddy rice, &lt;in agriculture&gt;</admitted>
                        <admitted>rough rice</admitted>
                        <deprecates>cargo rice</deprecates>
@@ -168,7 +168,7 @@ RSpec.describe IsoDoc do
                      <h1>1.&#160; Terms and Definitions</h1>
               <p>For the purposes of this document,
                  the following terms and definitions apply.</p>
-             <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;">paddy, &lt;in agriculture, dated&gt;</p>
+             <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p>
                           <p>[TERMREF]
                <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
                  [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
@@ -188,7 +188,7 @@ RSpec.describe IsoDoc do
              <p>[TERMREF] t1 [/TERMREF]</p>
       <p>[TERMREF] Termbase IEV, term ID xyz [MODIFICATION]with adjustments [/TERMREF]</p>
       <p class="TermNum" id="paddy">1.2.</p>
-             <p class="Terms" style="text-align:left;">paddy</p><p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
+             <p class="Terms" style="text-align:left;"><b>paddy</b></p><p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
              <p class="AltTerms" style="text-align:left;">rough rice</p>
              <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
              <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
@@ -213,7 +213,7 @@ RSpec.describe IsoDoc do
                    <p class="zzSTDTitle1"/>
                    <div id="_terms_and_definitions"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
                  the following terms and definitions apply.</p>
-             <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;">paddy, &lt;in agriculture, dated&gt;</p>
+             <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p>
                           <p>[TERMREF]
                <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
                  [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
@@ -232,7 +232,7 @@ RSpec.describe IsoDoc do
              </div>
              <p>[TERMREF] t1 [/TERMREF]</p>
       <p>[TERMREF] Termbase IEV, term ID xyz [MODIFICATION]with adjustments [/TERMREF]</p>
-      <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;">paddy</p>
+      <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;"><b>paddy</b></p>
              <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
              <p class="AltTerms" style="text-align:left;">rough rice</p>
              <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
@@ -316,7 +316,7 @@ RSpec.describe IsoDoc do
             <p>For the purposes of this document, the following terms and definitions apply.</p>
             <term id='paddy1'>
               <name>1.1.</name>
-              <preferred>paddy</preferred>
+              <preferred><strong>paddy</strong></preferred>
               <domain>rice</domain>
               <definition>
                 <ol>
@@ -403,7 +403,7 @@ RSpec.describe IsoDoc do
             </title>
             <term id='paddy1'>
               <name>1.1.</name>
-              <preferred>paddy; muddy rice</preferred>
+              <preferred><strong>paddy</strong>; <strong>muddy rice</strong></preferred>
               <domain>rice</domain>
               <definition>
                 <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
@@ -427,6 +427,7 @@ RSpec.describe IsoDoc do
                   <grammar>
               <gender>masculine</gender>
               <gender>feminine</gender>
+              <number>singular</number>
               <isPreposition>false</isPreposition>
               <isNoun>true</isNoun>
               <grammar-value>irregular declension</grammar-value>
@@ -457,7 +458,7 @@ RSpec.describe IsoDoc do
             </title>
             <term id='paddy1'>
               <name>1.1.</name>
-              <preferred>paddy masc, fem, n; muddy rice neut, n</preferred>
+              <preferred><strong>paddy</strong>, m, f, sg, noun; <strong>muddy rice</strong>, n, noun</preferred>
               <domain>rice</domain>
               <definition>
                 <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
@@ -496,7 +497,7 @@ RSpec.describe IsoDoc do
             <title depth='1'>1.<tab/>Terms and Definitions</title>
             <term id='paddy1'>
               <name>1.1.</name>
-              <preferred>; <figure id='_'>
+              <preferred><strong/>; <figure id='_'>
                   <name>Figure 1</name>
                   <pre id='_'>&lt;LITERAL&gt; FIGURATIVE</pre>
                 </figure>
@@ -615,7 +616,7 @@ RSpec.describe IsoDoc do
             <p id='B'>For the purposes of this document, the following terms and definitions apply.</p>
             <term id='term-term'>
               <name>1.1.</name>
-              <preferred>Term</preferred>
+              <preferred><strong>Term</strong></preferred>
               <definition>
                 <p id='C'>Definition</p>
                 <termsource status='identical' type='authoritative'>
@@ -657,7 +658,7 @@ RSpec.describe IsoDoc do
             </term>
             <term id='term-term-2'>
               <name>1.2.</name>
-              <preferred>Term 2</preferred>
+              <preferred><strong>Term 2</strong></preferred>
               <definition>
                 <figure id='E'>
                   <name>Figure 1</name>
