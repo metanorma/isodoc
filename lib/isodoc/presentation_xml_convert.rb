@@ -18,7 +18,7 @@ module IsoDoc
       info docxml, nil
       conversions(docxml)
       docxml.root["type"] = "presentation"
-      docxml.to_xml
+      docxml.to_xml.gsub(/&lt;/, "&#x3c;").gsub(/&gt;/, "&#x3e;")
     end
 
     def conversions(docxml)

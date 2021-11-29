@@ -31,7 +31,7 @@ end
 
 def metadata(hash)
   Hash[hash.sort].delete_if do |_k, v|
-    v.nil? || v.respond_to?(:empty?) && v.empty?
+    v.nil? || (v.respond_to?(:empty?) && v.empty?)
   end
 end
 

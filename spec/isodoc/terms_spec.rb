@@ -80,7 +80,7 @@ RSpec.describe IsoDoc do
                    <title depth='1'>1.<tab/>Terms and Definitions</title>
                      <p>For the purposes of this document, the following terms and definitions apply.</p>
                      <term id='paddy1'><name>1.1.</name>
-                       <preferred><strong>paddy, &lt;in agriculture, dated&gt;</strong></preferred>
+                       <preferred><strong>paddy, &#x3c;in agriculture, dated&#x3e;</strong></preferred>
                                             <termsource status='modified'>
                          <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'><locality type='clause'>
           <referenceFrom>3.1</referenceFrom>
@@ -122,7 +122,7 @@ RSpec.describe IsoDoc do
                      </term>
                      <term id='paddy'><name>1.2.</name>
                        <preferred><strong>paddy</strong></preferred>
-                       <admitted>paddy rice, &lt;in agriculture&gt;</admitted>
+                       <admitted>paddy rice, &#x3c;in agriculture&#x3e;</admitted>
                        <admitted>rough rice</admitted>
                        <deprecates>cargo rice</deprecates>
                        <definition>
@@ -556,7 +556,7 @@ RSpec.describe IsoDoc do
               <preferred><strong/></preferred>
               <preferred isInternational='true'><figure id='_'>
                   <name>Figure 1</name>
-                  <pre id='_'>&lt;LITERAL&gt; FIGURATIVE</pre>
+                  <pre id='_'>&#x3c;LITERAL&#x3e; FIGURATIVE</pre>
                 </figure>
               </preferred>
               <domain>rice</domain>
