@@ -671,7 +671,7 @@ RSpec.describe IsoDoc do
             <title depth='1'>1.<tab/>Terms and definitions</title>
             <term id='second'>
               <name>1.1.</name>
-              <preferred><strong>Second Term</strong>, &lt;Field, Usage Info 1&gt;</preferred>
+              <preferred><strong>Second Term, &lt;Field, Usage Info 1&gt;</strong></preferred>
               <definition>Definition 1</definition>
             </term>
             <term id='C'>

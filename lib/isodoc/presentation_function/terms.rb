@@ -121,8 +121,8 @@ module IsoDoc
     end
 
     def designation_annotate(desgn, name)
-      designation_boldface(desgn)
       designation_field(desgn, name)
+      designation_boldface(desgn)
       g = desgn.at(ns("./expression/grammar")) and
         name << ", #{designation_grammar(g).join(', ')}"
       designation_localization(desgn, name)
@@ -141,7 +141,7 @@ module IsoDoc
         &.map { |u| u.children.to_xml }&.join(", ")
       return nil if f&.empty?
 
-      name << ", &lt;#{f}&gt;"
+      name << ", &#x3c;#{f}&#x3e;"
     end
 
     def designation_grammar(grammar)
