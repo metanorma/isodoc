@@ -2800,6 +2800,77 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(output)
   end
 
+  it "cross-references definition list terms that are stem expressions" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword>
+      <p>
+      <xref target="N1"/>
+      </p>
+      </foreword>
+      <introduction id="intro">
+      <dl id="N01">
+      <dt id="N1"><stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mover accent="true"><mrow><mi>e</mi></mrow><mo>^</mo></mover></mrow><mrow><mi>r</mi></mrow></msub></math></stem>
+      <index><primary>
+      <stem type="MathML">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <msub>
+            <mrow>
+              <mover accent="true">
+                <mrow>
+                  <mi>e</mi>
+                </mrow>
+                <mo>^</mo>
+              </mover>
+            </mrow>
+            <mrow>
+              <mi>r</mi>
+            </mrow>
+          </msub>
+        </math>
+      </stem>
+      </primary></index></dt><dd>
+      <p id="_543e0447-dfc6-477e-00cb-1738d6853190"><stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>r</mi></math></stem>-direction</p>
+      </dd>
+            </dl>
+                </clause>
+                </annex>
+                </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <foreword displayorder='1'>
+        <p>
+     <xref target='N1'>
+     Introduction, Definition List: 
+     <stem type='MathML'>
+       <math xmlns='http://www.w3.org/1998/Math/MathML'>
+         <msub>
+           <mrow>
+             <mover accent='true'>
+               <mrow>
+                 <mi>e</mi>
+               </mrow>
+               <mo>^</mo>
+             </mover>
+           </mrow>
+           <mrow>
+             <mi>r</mi>
+           </mrow>
+         </msub>
+       </math>
+       <!-- (hat e)_((r)) -->
+     </stem>
+   </xref>
+        </p>
+      </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   it "cross-references bookmarks" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">

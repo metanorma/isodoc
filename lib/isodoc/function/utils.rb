@@ -37,10 +37,9 @@ module IsoDoc
       end
 
       def attr_code(attributes)
-        attributes = attributes.compact.map
-        attributes.map do |k, v|
-          [k, v.is_a?(String) ? HTMLEntities.new.decode(v) : v]
-        end.to_h
+        attributes.compact.transform_values do |v|
+          v.is_a?(String) ? HTMLEntities.new.decode(v) : v
+        end
       end
 
       DOCTYPE_HDR = "<!DOCTYPE html SYSTEM "\
@@ -188,10 +187,17 @@ module IsoDoc
       end
 
       def image_localfile(img)
+        case img["src"]
+        when /^data:/
+          save_dataimage(img["src"], false)
+        when %r{^([A-Z]:)?/}
+          img["src"]
+=begin
         if /^data:/.match? img["src"]
           save_dataimage(img["src"], false)
         elsif %r{^([A-Z]:)?/}.match? img["src"]
           img["src"]
+=end
         else
           File.join(@localdir, img["src"])
         end
@@ -211,7 +217,7 @@ module IsoDoc
         c = HTMLEntities.new
         text.split(/([<>])/).each_slice(4).map do |a|
           a[0] = c.encode(c.decode(a[0]), :hexadecimal)
-          a[2] = c.encode(c.decode(a[2]), :hexadecimal) if a.size >= 3
+          # a[2] = c.encode(c.decode(a[2]), :hexadecimal) if a.size >= 3
           a
         end.join
       end

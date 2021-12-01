@@ -170,8 +170,7 @@ module IsoDoc
 
       def deflist_term_anchor_names(list, list_anchor)
         list.xpath(ns("./dt")).each do |li|
-          label = li.text
-          label = l10n("#{list_anchor[:xref]}: #{label}")
+          label = l10n("#{list_anchor[:xref]}: #{dt2xreflabel(li)}")
           li["id"] and @anchors[li["id"]] =
                          { xref: label, type: "deflistitem",
                            container: list_anchor[:container] }
@@ -179,6 +178,13 @@ module IsoDoc
             deflist_term_anchor_names(dl, list_anchor)
           end
         end
+      end
+
+      def dt2xreflabel(dterm)
+        label = dterm.dup
+        label.xpath(ns(".//p")).each { |x| x.replace(x.children) }
+        label.xpath(ns(".//index")).each(&:remove)
+        label.children.to_xml
       end
 
       def bookmark_anchor_names(xml)
