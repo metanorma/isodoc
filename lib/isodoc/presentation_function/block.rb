@@ -12,7 +12,7 @@ module IsoDoc
       return if number.nil? || number.empty?
 
       unless name = node.at(ns("./#{elem}"))
-        node.children.empty? and node.add_child("<#{elem}></#{elem}>") or
+        (node.children.empty? and node.add_child("<#{elem}></#{elem}>")) or
           node.children.first.previous = "<#{elem}></#{elem}>"
         name = node.children.first
       end
@@ -29,7 +29,6 @@ module IsoDoc
 
     def sourcecode1(elem)
       return if labelled_ancestor(elem)
-      return unless elem.ancestors("example").empty?
 
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
       prefix_name(elem, "&nbsp;&mdash; ",

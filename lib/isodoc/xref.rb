@@ -4,12 +4,14 @@ require_relative "xref/xref_gen_seq"
 require_relative "xref/xref_gen"
 require_relative "xref/xref_sect_gen"
 require_relative "class_utils"
+require_relative "function/utils"
 
 module IsoDoc
   class Xref
     include XrefGen::Anchor
     include XrefGen::Blocks
     include XrefGen::Sections
+    include Function::Utils
 
     attr_reader :klass
 
