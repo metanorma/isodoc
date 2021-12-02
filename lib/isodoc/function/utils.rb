@@ -37,10 +37,9 @@ module IsoDoc
       end
 
       def attr_code(attributes)
-        attributes = attributes.compact.map
-        attributes.map do |k, v|
-          [k, v.is_a?(String) ? HTMLEntities.new.decode(v) : v]
-        end.to_h
+        attributes.compact.transform_values do |v|
+          v.is_a?(String) ? HTMLEntities.new.decode(v) : v
+        end
       end
 
       DOCTYPE_HDR = "<!DOCTYPE html SYSTEM "\

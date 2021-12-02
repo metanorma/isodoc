@@ -63,11 +63,8 @@ module IsoDoc
             c.increment(n)
             idx = increment_label(examples, n, c, false)
             @anchors[n["id"]] =
-              # { type: "termexample", label: idx, value: c.print,
-              # xref: l10n("#{anchor(t['id'], :xref)}, "\
-              # "#{@labels['example_xref']} #{c.print}") }
-              anchor_struct(idx, n,
-                            @labels["example_xref"], "termexample", n["unnumbered"])
+              anchor_struct(idx, n, @labels["example_xref"], "termexample",
+                            n["unnumbered"])
           end
         end
       end

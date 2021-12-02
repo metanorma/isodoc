@@ -4,8 +4,7 @@ module IsoDoc
       def back_anchor_names(docxml)
         i = Counter.new("@")
         docxml.xpath(ns("//annex")).each do |c|
-          i.increment(c)
-          annex_names(c, i.print)
+          annex_names(c, i.increment(c).print)
         end
         docxml.xpath(ns(@klass.bibliography_xpath)).each do |b|
           preface_names(b)
@@ -86,8 +85,7 @@ module IsoDoc
             level: lvl, type: "clause" }
         i = Counter.new
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          i.increment(c)
-          section_names1(c, "#{num.print}.#{i.print}", lvl + 1)
+          section_names1(c, "#{num.print}.#{i.increment(c).print}", lvl + 1)
         end
         num
       end
@@ -98,8 +96,7 @@ module IsoDoc
             type: "clause" }
         i = Counter.new
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          i.increment(c)
-          section_names1(c, "#{num}.#{i.print}", level + 1)
+          section_names1(c, "#{num}.#{i.increment(c).print}", level + 1)
         end
       end
 
@@ -129,8 +126,7 @@ module IsoDoc
         else
           i = Counter.new
           clause.xpath(ns(SUBCLAUSES)).each do |c|
-            i.increment(c)
-            annex_names1(c, "#{num}.#{i.print}", 2)
+            annex_names1(c, "#{num}.#{i.increment(c).print}", 2)
           end
         end
         hierarchical_asset_names(clause, num)
@@ -141,8 +137,7 @@ module IsoDoc
                                    label: num, level: level, type: "clause" }
         i = Counter.new
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          i.increment(c)
-          annex_names1(c, "#{num}.#{i.print}", level + 1)
+          annex_names1(c, "#{num}.#{i.increment(c).print}", level + 1)
         end
       end
 
