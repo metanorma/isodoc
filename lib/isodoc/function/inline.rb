@@ -41,8 +41,8 @@ module IsoDoc
       end
 
       def eref_target(node)
-        return "##{node['bibitemid']}" unless url = @bibitems[node["bibitemid"]]
-          &.at(ns("./uri[@type = 'citation']"))
+        return "##{node['bibitemid']}" unless @bibitems &&
+          url = @bibitems[node["bibitemid"]]&.at(ns("./uri[@type = 'citation']"))
 
         href = suffix_url(url.text)
         anchor = node&.at(ns(".//locality[@type = 'anchor']"))&.text&.strip
