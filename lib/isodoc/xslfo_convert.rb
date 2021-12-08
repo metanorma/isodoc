@@ -8,7 +8,28 @@ module IsoDoc
     def initialize(options)
       @format = :pdf
       @suffix = "pdf"
+      @pdf_cmd_options = extract_cmd_options(options)
       super
+    end
+
+    def extract_cmd_options(options)
+      ret = {}
+      a = options[:pdfencryptionlength] and ret["--encryption-length"] = a
+      a = options[:pdfownerpassword] and ret["--owner-password"] = a
+      a = options[:pdfuserpassword] and ret["--user-password"] = a
+      a = options[:pdfallowprint] and ret["--allow-print"] = a
+      a = options[:pdfallowcopycontent] and ret["--allow-copy-content"] = a
+      a = options[:pdfalloweditcontent] and ret["--allow-edit-content"] = a
+      a = options[:pdfalloweditannotations] and
+        ret["--allow-edit-annotations"] = a
+      a = options[:pdfallowfillinforms] and ret["--allow-fill-in-forms"] = a
+      a = options[:pdfallowaccesscontent] and
+        ret["--allow-access-content"] = a
+      a = options[:pdfallowassembledocument] and
+        ret["--allow-assemble-document"] = a
+      a = options[:pdfallowprinthq] and ret["--allow-print-hq"] = a
+      a = options[:pdfencryptmetadata] and ret["--encrypt-metadata"] = a
+      ret
     end
 
     def tmpimagedir_suffix
@@ -29,7 +50,7 @@ module IsoDoc
           @aligncrosselements.gsub(/,/, " ")
       @baseassetpath and
         ret["--param baseassetpath="] = @baseassetpath
-      ret
+      ret.merge(@pdf_cmd_options)
     end
 
     def convert(input_filename, file = nil, debug = false,
@@ -37,6 +58,7 @@ module IsoDoc
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
       input_filename, docxml, filename = input_xml_path(input_filename,
                                                         file, debug)
+      warn pdf_options(docxml).merge(@options)
       ::Metanorma::Output::XslfoPdf.new.convert(
         input_filename,
         output_filename || "#{filename}.#{@suffix}",
