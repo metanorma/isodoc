@@ -61,4 +61,39 @@ RSpec.describe IsoDoc do
     expect(convert.pdf_options(nil))
       .to eq({ "--param baseassetpath=" => "ABC" })
   end
+
+  it "test pdf encryption options" do
+    convert = IsoDoc::XslfoPdfConvert.new(
+      {
+        pdfencryptionlength: "a",
+        pdfownerpassword: "b",
+        pdfuserpassword: "c",
+        pdfallowprint: "d",
+        pdfallowcopycontent: "e",
+        pdfalloweditcontent: "f",
+        pdfalloweditannotations: "g",
+        pdfallowfillinforms: "h",
+        pdfallowaccesscontent: "i",
+        pdfallowassembledocument: "j",
+        pdfallowprinthq: "k",
+        pdfencryptmetadata: "l",
+      },
+    )
+
+    expect(convert.pdf_options(nil))
+      .to eq({
+               "--allow-access-content" => "i",
+               "--allow-assemble-document" => "j",
+               "--allow-copy-content" => "e",
+               "--allow-edit-annotations" => "g",
+               "--allow-edit-content" => "f",
+               "--allow-fill-in-forms" => "h",
+               "--allow-print" => "d",
+               "--allow-print-hq" => "k",
+               "--encrypt-metadata" => "l",
+               "--encryption-length" => "a",
+               "--owner-password" => "b",
+               "--user-password" => "c",
+             })
+  end
 end
