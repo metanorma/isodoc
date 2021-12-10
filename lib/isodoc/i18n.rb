@@ -56,7 +56,7 @@ module IsoDoc
       @labels["language"] = @lang
       @labels["script"] = @script
       @labels.each do |k, v|
-        self.class.send(:define_method, k.downcase) { v }
+        self.class.send(:define_method, k.downcase) { get[k] }
       end
     end
 
