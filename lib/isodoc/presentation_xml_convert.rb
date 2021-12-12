@@ -68,6 +68,7 @@ module IsoDoc
       termnote docxml
       termdefinition docxml
       designation docxml
+      termsource docxml
       concept docxml
       related docxml
     end

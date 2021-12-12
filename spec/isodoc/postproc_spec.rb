@@ -446,42 +446,6 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-  it "populates Word template with terms reference labels" do
-    FileUtils.rm_f "test.doc"
-    FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(
-      { wordstylesheet: "spec/assets/word.css",
-        htmlstylesheet: "spec/assets/html.scss" },
-    ).convert("test", <<~"INPUT", false)
-              <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <sections>
-          <terms id="_terms_and_definitions" obligation="normative"><title>1.<tab/>Terms and Definitions</title>
-      <term id="paddy1"><name>1.1.</name><preferred>paddy</preferred>
-      <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-      <termsource status="modified">
-        <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">ISO 7301:2011, Clause 3.1</origin>
-          <modification>
-          <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
-        </modification>
-      </termsource></term>
-      </terms>
-      </sections>
-      </iso-standard>
-    INPUT
-    word = File.read("test.doc")
-      .sub(/^.*<div class="WordSection3">/m, '<div class="WordSection3">')
-      .sub(%r{<div style="mso-element:footnote-list"/>.*$}m, "")
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-          <div class="WordSection3">
-              <p class="zzSTDTitle1"></p>
-              <div><a name="_terms_and_definitions" id="_terms_and_definitions"></a><h1>1.<span style="mso-tab-count:1">&#xA0; </span>Terms and Definitions</h1>
-      <p class="TermNum"><a name="paddy1" id="paddy1"></a>1.1.</p><p class="Terms" style="text-align:left;">paddy</p>
-      <p class="MsoNormal"><a name="_eb29b35e-123e-4d1c-b50b-2714d41e747f" id="_eb29b35e-123e-4d1c-b50b-2714d41e747f"></a>rice retaining its husk after threshing</p>
-      <p class="MsoNormal">[SOURCE: <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>, modified &#x2014; The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p></div>
-            </div>
-    OUTPUT
-  end
-
   it "populates Word header" do
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new(
@@ -1218,43 +1182,6 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
     expect(html).to match(%r{<h2 class="TermNum" id="paddy1">1\.1\.</h2>})
     expect(html).to match(%r{<h2 class="TermNum" id="paddy">1\.2\.</h2>})
-  end
-
-  it "processes empty term modifications" do
-    FileUtils.rm_f "test.html"
-    FileUtils.rm_f "test.doc"
-    IsoDoc::HtmlConvert.new(options)
-      .convert("test", <<~"INPUT", false)
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <sections>
-            <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
-        <term id="paddy1"><preferred>paddy</preferred>
-        <domain>rice</domain>
-        <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-        <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
-          <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
-          <ul>
-          <li>A</li>
-          </ul>
-        </termexample>
-        <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894">
-          <ul>
-          <li>A</li>
-          </ul>
-        </termexample>
-        <termsource status="modified">
-          <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">ISO 7301:2011, Clause 3.1</origin>
-            <modification>
-            <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489"/>
-          </modification>
-        </termsource></term>
-        </terms>
-        </sections>
-        </iso-standard>
-      INPUT
-    expect(File.exist?("test.html")).to be true
-    html = File.read("test.html")
-    expect(html).to include '[SOURCE: <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>, modified]'
   end
 
   it "creates continuation styles for multiparagraph list items in Word" do

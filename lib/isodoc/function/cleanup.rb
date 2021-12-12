@@ -2,7 +2,7 @@ module IsoDoc
   module Function
     module Cleanup
       def textcleanup(docxml)
-        termref_cleanup(passthrough_cleanup(docxml))
+        passthrough_cleanup(docxml)
       end
 
       def termref_cleanup(docxml)
