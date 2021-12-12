@@ -16,7 +16,7 @@ module IsoDoc
           node.children.first.previous = "<#{elem}></#{elem}>"
         name = node.children.first
       end
-      if name.children.empty? then name.add_child(number)
+      if name.children.empty? then name.add_child(cleanup_entities(number))
       else (name.children.first.previous = "#{number}#{delim}")
       end
     end
