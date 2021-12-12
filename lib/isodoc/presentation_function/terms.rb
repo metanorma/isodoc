@@ -121,8 +121,8 @@ module IsoDoc
     end
 
     def designation_annotate(desgn, name)
-      designation_field(desgn, name)
       designation_boldface(desgn)
+      designation_field(desgn, name)
       g = desgn.at(ns("./expression/grammar")) and
         name << ", #{designation_grammar(g).join(', ')}"
       designation_localization(desgn, name)

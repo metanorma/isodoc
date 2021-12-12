@@ -80,7 +80,7 @@ RSpec.describe IsoDoc do
                    <title depth='1'>1.<tab/>Terms and Definitions</title>
                      <p>For the purposes of this document, the following terms and definitions apply.</p>
                      <term id='paddy1'><name>1.1.</name>
-                       <preferred><strong>paddy, &#x3c;in agriculture, dated&#x3e;</strong></preferred>
+                       <preferred><strong>paddy</strong>, &#x3c;in agriculture, dated&#x3e;</preferred>
                                             <termsource status='modified'>
                          <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'><locality type='clause'>
           <referenceFrom>3.1</referenceFrom>
@@ -168,7 +168,7 @@ RSpec.describe IsoDoc do
                      <h1>1.&#160; Terms and Definitions</h1>
               <p>For the purposes of this document,
                  the following terms and definitions apply.</p>
-             <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy, &lt;in agriculture, dated&gt;</b></p>
+             <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p>
                           <p>[TERMREF]
                <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
                  [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
@@ -213,7 +213,7 @@ RSpec.describe IsoDoc do
                    <p class="zzSTDTitle1"/>
                    <div id="_terms_and_definitions"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document,
                  the following terms and definitions apply.</p>
-             <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy, &lt;in agriculture, dated&gt;</b></p>
+             <p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p>
                           <p>[TERMREF]
                <a href="#ISO7301">ISO 7301:2011, Clause 3.1</a>
                  [MODIFICATION]The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
