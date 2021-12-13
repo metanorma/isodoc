@@ -101,8 +101,8 @@ RSpec.describe IsoDoc do
        </termexample>
        <termsource status="identical">[SOURCE: <origin citeas="">
              <termref base="IEV" target="xyz">t1</termref>
-           </origin>, modified]</termsource>;
-         <termsource status="modified">[SOURCE: <origin citeas="">
+           </origin>, modified ;
+         <origin citeas="">
              <termref base="IEV" target="xyz"/>
            </origin>, modified
             &#x2013;
@@ -155,8 +155,8 @@ RSpec.describe IsoDoc do
           <li>A</li>
           </ul>
         </div>
-        <p>[SOURCE: t1, modified]</p>;
-          <p>[SOURCE: Termbase IEV, term ID xyz, modified
+        <p>[SOURCE: t1, modified ;
+          Termbase IEV, term ID xyz, modified
              &#8211;
               with adjustments]</p>
         <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;"><b>paddy</b></p>
@@ -197,8 +197,8 @@ RSpec.describe IsoDoc do
           <li>A</li>
           </ul>
         </div>
-        <p>[SOURCE: t1, modified]</p>;
-          <p>[SOURCE: Termbase IEV, term ID xyz, modified
+        <p>[SOURCE: t1, modified ;
+          Termbase IEV, term ID xyz, modified
              &#8211;
               with adjustments]</p>
         <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;"><b>paddy</b></p>
@@ -321,9 +321,7 @@ RSpec.describe IsoDoc do
               <termsource status='identical'>[SOURCE:
                 <origin citeas=''>
                   <termref base='IEV' target='xyz'>t1</termref>
-                </origin>]
-              </termsource>;
-              <termsource status='modified'>[SOURCE:
+                </origin>;
                 <origin citeas=''>
                   <termref base='IEV' target='xyz'/>
                 </origin>, modified &#x2013; with adjustments]
