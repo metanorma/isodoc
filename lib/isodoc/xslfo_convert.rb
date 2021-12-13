@@ -10,9 +10,6 @@ module IsoDoc
       @suffix = "pdf"
       @pdf_cmd_options = extract_cmd_options(options)
       super
-      %i(bodyfont headerfont monospacefont).each do |x|
-        @options.delete(x)
-      end
     end
 
     def extract_cmd_options(options)
@@ -61,7 +58,6 @@ module IsoDoc
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
       input_filename, docxml, filename = input_xml_path(input_filename,
                                                         file, debug)
-      warn pdf_options(docxml).merge(@options)
       ::Metanorma::Output::XslfoPdf.new.convert(
         input_filename,
         output_filename || "#{filename}.#{@suffix}",
