@@ -55,7 +55,7 @@ module IsoDoc
       @labels = y
       @labels["language"] = @lang
       @labels["script"] = @script
-      @labels.each do |k, v|
+      @labels.each do |k, _v|
         self.class.send(:define_method, k.downcase) { get[k] }
       end
     end
@@ -68,17 +68,38 @@ module IsoDoc
     # function localising spaces and punctuation.
     # Not clear if period needs to be localised for zh
     def l10n(text, lang = @lang, script = @script)
-      if lang == "zh" && script == "Hans"
-        xml = Nokogiri::HTML::DocumentFragment.parse(text)
-        xml.traverse do |n|
-          next unless n.text?
+      if lang == "zh" && script == "Hans" then l10n_zh(text)
+      else bidiwrap(text, lang, script)
+      end
+    end
 
-          n.replace(n.text.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、")
-            .gsub(/\(/, "（").gsub(/\)/, "）").gsub(/\[/, "【").gsub(/\]/, "】"))
-        end
-        xml.to_xml.gsub(/<b>/, "").gsub("</b>", "").gsub(/<\?[^>]+>/, "")
+    def bidiwrap(text, lang, script)
+      my_script, my_rtl, outer_rtl = bidiwrap_vars(lang, script)
+      if my_rtl && !outer_rtl
+        mark = %w(Arab Aran).include?(my_script) ? "&#x61c;" : "&#x200f;"
+        "#{mark}#{text}#{mark}"
+      elsif !my_rtl && outer_rtl then "&#x200e;#{text}&#x200e;"
       else text
       end
+    end
+
+    def bidiwrap_vars(lang, script)
+      my_script = script || Metanorma::Utils.default_script(lang)
+      [my_script,
+       Metanorma::Utils.rtl_script?(my_script),
+       Metanorma::Utils.rtl_script?(@script || Metanorma::Utils
+         .default_script(@lang))]
+    end
+
+    def l10n_zh(text)
+      xml = Nokogiri::HTML::DocumentFragment.parse(text)
+      xml.traverse do |n|
+        next unless n.text?
+
+        n.replace(n.text.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、")
+          .gsub(/\(/, "（").gsub(/\)/, "）").gsub(/\[/, "【").gsub(/\]/, "】"))
+      end
+      xml.to_xml.gsub(/<b>/, "").gsub("</b>", "").gsub(/<\?[^>]+>/, "")
     end
 
     def multiple_and(names, andword)

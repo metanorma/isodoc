@@ -1082,6 +1082,44 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(output)
   end
 
+  it "processes LTR within RTL" do
+    c = IsoDoc::Convert.new({})
+    c.convert_init(<<~"INPUT", "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata type="standard">
+      <language>fa</language>
+      <script>Arab</script>
+      </bibdata>
+      </iso-standard>
+    INPUT
+    expect(c.i18n.l10n("hello!", "en", "Latn")).to eq "&#x200e;hello!&#x200e;"
+  end
+
+  it "processes Hebrew RTL within LTR" do
+    c = IsoDoc::Convert.new({})
+    c.convert_init(<<~"INPUT", "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata type="standard">
+      <language>en</language>
+      </bibdata>
+      </iso-standard>
+    INPUT
+    expect(c.i18n.l10n("hello!", "he", "Hebr")).to eq "&#x200f;hello!&#x200f;"
+  end
+
+  it "processes Arabic RTL within LTR" do
+    c = IsoDoc::Convert.new({})
+    c.convert_init(<<~"INPUT", "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata type="standard">
+      <language>en</language>
+      </bibdata>
+      </iso-standard>
+    INPUT
+    expect(c.i18n.l10n("hello!", "fa", "Arab")).to eq "&#x61c;hello!&#x61c;"
+  end
+
+
   private
 
   def mock_i18n
