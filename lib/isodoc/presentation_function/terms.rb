@@ -219,5 +219,26 @@ module IsoDoc
         end
       end
     end
+
+    def termsource(docxml)
+      docxml.xpath(ns("//termsource")).each do |f|
+        termsource1(f)
+      end
+    end
+
+    def termsource1(elem)
+      mod = elem.at(ns("./modification")) and
+        termsource_modification(mod)
+      elem.children = l10n("[#{@i18n.source}: #{elem.children.to_xml.strip}]")
+      elem&.next_element&.name == "termsource" and elem.next = "; "
+    end
+
+    def termsource_modification(mod)
+      mod.previous_element.next = ", #{@i18n.modified}"
+      mod.text.strip.empty? or mod.previous = " &#x2013; "
+      mod.elements.size == 1 and
+        mod.elements[0].replace(mod.elements[0].children)
+      mod.replace(mod.children)
+    end
   end
 end

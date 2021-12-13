@@ -6,7 +6,6 @@ module IsoDoc
       end
 
       def modification_parse(node, out)
-        out << "[MODIFICATION]"
         para = node.at(ns("./p"))
         para.children.each { |n| parse(n, out) }
       end
@@ -58,9 +57,7 @@ module IsoDoc
 
       def termref_parse(node, out)
         out.p do |p|
-          p << "[TERMREF]"
           node.children.each { |n| parse(n, p) }
-          p << "[/TERMREF]"
         end
       end
 
