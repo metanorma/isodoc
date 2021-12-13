@@ -10,6 +10,9 @@ module IsoDoc
       @suffix = "pdf"
       @pdf_cmd_options = extract_cmd_options(options)
       super
+      %i(bodyfont headerfont monospacefont).each do |x|
+        @options.delete(x)
+      end
     end
 
     def extract_cmd_options(options)
