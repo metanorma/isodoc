@@ -1,4 +1,5 @@
 require "yaml"
+require_relative "function/utils"
 
 module IsoDoc
   class I18n
@@ -17,7 +18,7 @@ module IsoDoc
         end
         ret
       when Array then ret.map { |n| normalise_hash(n) }
-      when String then ret.unicode_normalize(:nfc)
+      when String then cleanup_entities(ret.unicode_normalize(:nfc))
       else ret
       end
     end
@@ -111,6 +112,7 @@ module IsoDoc
       l10n(names[0..-2].join(", ") + " #{andword} #{names[-1]}", @lang, @script)
     end
 
+    include Function::Utils
     # module_function :l10n
   end
 end

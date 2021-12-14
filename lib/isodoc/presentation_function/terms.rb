@@ -237,7 +237,7 @@ module IsoDoc
     end
 
     def termsource_modification(mod)
-      mod.previous_element.next = ", #{@i18n.modified}"
+      mod.previous_element.next = l10n(", #{@i18n.modified}")
       mod.text.strip.empty? or mod.previous = " &#x2013; "
       mod.elements.size == 1 and
         mod.elements[0].replace(mod.elements[0].children)
