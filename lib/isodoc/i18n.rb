@@ -97,8 +97,9 @@ module IsoDoc
       xml.traverse do |n|
         next unless n.text?
 
-        n.replace(n.text.gsub(/ /, "").gsub(/:/, "：").gsub(/,/, "、")
-          .gsub(/\(/, "（").gsub(/\)/, "）").gsub(/\[/, "【").gsub(/\]/, "】"))
+        n.replace(cleanup_entities(n.text.gsub(/ /, "").gsub(/:/, "：")
+          .gsub(/,/, "、").gsub(/\(/, "（").gsub(/\)/, "）")
+          .gsub(/\[/, "【").gsub(/\]/, "】"), is_xml: false))
       end
       xml.to_xml.gsub(/<b>/, "").gsub("</b>", "").gsub(/<\?[^>]+>/, "")
     end

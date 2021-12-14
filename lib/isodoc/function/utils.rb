@@ -142,9 +142,9 @@ module IsoDoc
 
       def header_strip_elem?(elem)
         elem.name == "img" ||
-          elem.name == "span" && elem["class"] == "MsoCommentReference" ||
-          elem.name == "a" && elem["class"] == "FootnoteRef" ||
-          elem.name == "span" && /mso-bookmark/.match(elem["style"])
+          (elem.name == "span" && elem["class"] == "MsoCommentReference") ||
+          (elem.name == "a" && elem["class"] == "FootnoteRef") ||
+          (elem.name == "span" && /mso-bookmark/.match(elem["style"]))
       end
 
       def liquid(doc)
@@ -192,12 +192,6 @@ module IsoDoc
           save_dataimage(img["src"], false)
         when %r{^([A-Z]:)?/}
           img["src"]
-=begin
-        if /^data:/.match? img["src"]
-          save_dataimage(img["src"], false)
-        elsif %r{^([A-Z]:)?/}.match? img["src"]
-          img["src"]
-=end
         else
           File.join(@localdir, img["src"])
         end
@@ -213,12 +207,16 @@ module IsoDoc
            application/x-msmetafile image/x-xbitmap).include? type
       end
 
-      def cleanup_entities(text)
+      def cleanup_entities(text, is_xml: true)
         c = HTMLEntities.new
-        text.split(/([<>])/).each_slice(4).map do |a|
-          a[0] = c.encode(c.decode(a[0]), :hexadecimal)
-          a
-        end.join
+        if is_xml
+          text.split(/([<>])/).each_slice(4).map do |a|
+            a[0] = c.encode(c.decode(a[0]), :hexadecimal)
+            a
+          end.join
+        else
+          c.encode(c.decode(text), :hexadecimal)
+        end
       end
 
       def external_path(path)
