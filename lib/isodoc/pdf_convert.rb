@@ -20,7 +20,7 @@ module IsoDoc
     end
 
     def tmpimagedir_suffix
-      "_pdfimages"
+      "_#{SecureRandom.hex(8)}_pdfimages"
     end
 
     def convert(input_filename, file = nil, debug = false, output_filename = nil)

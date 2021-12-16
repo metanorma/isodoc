@@ -10,7 +10,7 @@ module IsoDoc
     include HtmlFunction::Html
 
     def tmpimagedir_suffix
-      "_headlessimages"
+      "_#{SecureRandom.hex(8)}_headlessimages"
     end
 
     def initialize(options)

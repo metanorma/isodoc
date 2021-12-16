@@ -30,7 +30,7 @@ module IsoDoc
       end
 
       def init_dir(filename, debug)
-        dir = "#{filename}_files"
+        dir = "#{filename}#{@tmpfilesdir_suffix}"
         unless debug
           Dir.mkdir(dir, 0o777) unless File.exists?(dir)
           FileUtils.rm_rf "#{dir}/*"
@@ -40,11 +40,11 @@ module IsoDoc
 
       # tmp image dir is same directory as @filename
       def tmpimagedir
-        @filename + tmpimagedir_suffix
+        @filename + @tmpimagedir_suffix
       end
 
       def rel_tmpimagedir
-        Pathname.new(@filename).basename.to_s + tmpimagedir_suffix
+        Pathname.new(@filename).basename.to_s + @tmpimagedir_suffix
       end
 
       # isodoc.css overrides any CSS injected by Html2Doc, which
