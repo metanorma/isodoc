@@ -5,6 +5,7 @@ require "fileutils"
 require "tempfile"
 require_relative "i18n"
 require_relative "css"
+require "securerandom"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
@@ -103,10 +104,16 @@ module IsoDoc
       @fn_bookmarks = {}
       @baseassetpath = options[:baseassetpath]
       @aligncrosselements = options[:aligncrosselements]
+      @tmpimagedir_suffix = tmpimagedir_suffix
+      @tmpfilesdir_suffix = tmpfilesdir_suffix
     end
 
     def tmpimagedir_suffix
-      "_images"
+      "_#{SecureRandom.hex(8)}_images"
+    end
+
+    def tmpfilesdir_suffix
+      "_#{SecureRandom.hex(8)}_files"
     end
 
     def html_doc_path(*file)

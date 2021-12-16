@@ -33,7 +33,7 @@ module IsoDoc
     end
 
     def tmpimagedir_suffix
-      "_pdfimages"
+      "_#{SecureRandom.hex(8)}_pdfimages"
     end
 
     def pdf_stylesheet(_docxml)
