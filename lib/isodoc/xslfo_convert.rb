@@ -55,7 +55,8 @@ module IsoDoc
 
     def convert(input_filename, file = nil, debug = false,
                 output_filename = nil)
-      file = File.read(input_filename, encoding: "utf-8") if file.nil?
+      #file = File.read(input_filename, encoding: "utf-8") if file.nil?
+      file = @filehelper.read(input_filename) if file.nil?
       input_filename, docxml, filename = input_xml_path(input_filename,
                                                         file, debug)
       ::Metanorma::Output::XslfoPdf.new.convert(

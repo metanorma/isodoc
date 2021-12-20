@@ -5,6 +5,7 @@ require "fileutils"
 require "tempfile"
 require_relative "i18n"
 require_relative "css"
+require_relative "function/mutex_file"
 require "securerandom"
 
 module IsoDoc
@@ -106,6 +107,7 @@ module IsoDoc
       @aligncrosselements = options[:aligncrosselements]
       @tmpimagedir_suffix = tmpimagedir_suffix
       @tmpfilesdir_suffix = tmpfilesdir_suffix
+      @filehelper = ::Metanorma::FileHelper.instance
     end
 
     def tmpimagedir_suffix
@@ -176,7 +178,8 @@ module IsoDoc
 
     def convert(input_filename, file = nil, debug = false,
                 output_filename = nil)
-      file = File.read(input_filename, encoding: "utf-8") if file.nil?
+      #file = File.read(input_filename, encoding: "utf-8") if file.nil?
+      file = @filehelper.read(input_filename) if file.nil?
       @openmathdelim, @closemathdelim = extract_delims(file)
       docxml, filename, dir = convert_init(file, input_filename, debug)
       result = convert1(docxml, filename, dir)

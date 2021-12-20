@@ -106,7 +106,8 @@ module IsoDoc
       end
 
       def html_cover(docxml)
-        doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
+        #doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
+        doc = to_xhtml_fragment(@filehelper.read(@htmlcoverpage))
         d = docxml.at('//div[@class="title-section"]')
         d.children.first.add_previous_sibling(
           populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
@@ -114,7 +115,8 @@ module IsoDoc
       end
 
       def html_intro(docxml)
-        doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
+        #doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
+        doc = to_xhtml_fragment(@filehelper.read(@htmlintropage))
         d = docxml.at('//div[@class="prefatory-section"]')
         d.children.first.add_previous_sibling(
           populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
@@ -194,10 +196,12 @@ module IsoDoc
       def inject_script(doc)
         return doc unless @scripts
 
-        scripts = File.read(@scripts, encoding: "UTF-8")
+        #scripts = File.read(@scripts, encoding: "UTF-8")
+        scripts = @filehelper.read(@scripts)
         scripts_override = ""
         @scripts_override and
-          scripts_override = File.read(@scripts_override, encoding: "UTF-8")
+          #scripts_override = File.read(@scripts_override, encoding: "UTF-8")
+          scripts_override = @filehelper.read(@scripts_override)
         a = doc.split(%r{</body>})
         "#{a[0]}#{scripts}#{scripts_override}</body>#{a[1]}"
       end

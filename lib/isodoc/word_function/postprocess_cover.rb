@@ -7,7 +7,8 @@ module IsoDoc
       end
 
       def word_cover(docxml)
-        cover = File.read(@wordcoverpage, encoding: "UTF-8")
+        #cover = File.read(@wordcoverpage, encoding: "UTF-8")
+        cover = @filehelper.read(@wordcoverpage)
         cover = populate_template(cover, :word)
         coverxml = to_word_xhtml_fragment(cover)
         docxml.at('//div[@class="WordSection1"]').children.first.previous =
@@ -15,8 +16,8 @@ module IsoDoc
       end
 
       def word_intro(docxml, level)
-        intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"),
-                           docxml, level)
+        #intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"), docxml, level)
+        intro = insert_toc(@filehelper.read(@wordintropage), docxml, level)
         intro = populate_template(intro, :word)
         introxml = to_word_xhtml_fragment(intro)
         docxml.at('//div[@class="WordSection2"]').children.first.previous =
@@ -98,7 +99,8 @@ module IsoDoc
       def generate_header(filename, _dir)
         return nil unless @header
 
-        template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
+        #template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
+        template = IsoDoc::Common.liquid(@filehelper.read(@header))
         meta = @meta.get.merge(@labels ? { labels: @labels } : {})
           .merge(@meta.labels ? { labels: @meta.labels } : {})
         meta[:filename] = filename

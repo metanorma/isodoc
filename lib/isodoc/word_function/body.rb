@@ -8,7 +8,8 @@ module IsoDoc
         head.style do |style|
           loc = File.join(File.dirname(__FILE__), "..", "base_style",
                           "metanorma_word.scss")
-          stylesheet = File.read(loc, encoding: "utf-8")
+          #stylesheet = File.read(loc, encoding: "utf-8")
+          stylesheet = @filehelper.read(loc)
           style.comment "\n#{stylesheet}\n"
         end
         super

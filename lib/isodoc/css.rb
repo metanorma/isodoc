@@ -93,7 +93,8 @@ module IsoDoc
       return nil if filename.nil?
 
       filename = precompiled_style_or_original(filename)
-      stylesheet = File.read(filename, encoding: "UTF-8")
+      #stylesheet = File.read(filename, encoding: "UTF-8")
+      stylesheet = @filehelper.read(filename)
       stylesheet = populate_template(stylesheet, :word)
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
       if File.extname(filename) == ".scss"
