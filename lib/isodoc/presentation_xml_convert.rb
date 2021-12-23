@@ -37,6 +37,7 @@ module IsoDoc
       references docxml
       index docxml
       clausetitle docxml
+      floattitle docxml
       toc docxml
       display_order docxml
     end
