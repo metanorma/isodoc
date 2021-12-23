@@ -174,10 +174,13 @@ module IsoDoc
         end
       end
 
-      def para_class(_node)
+      def para_class(node)
         classtype = nil
         classtype = "MsoCommentText" if in_comment
         classtype = "Sourcecode" if @annotation
+        if node["type"] == "floating-title"
+          classtype = "h#{node['depth']}"
+        end
         classtype
       end
 
