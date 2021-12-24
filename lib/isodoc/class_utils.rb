@@ -28,25 +28,37 @@ module IsoDoc
       Liquid::Template.parse(doc)
     end
 
-    def case_strict(text, casing, script)
+    def case_strict(text, casing, script, firstonly: true)
       return text unless %w(Latn Cyrl Grek Armn).include?(script)
 
-      letters = text.chars
+      seen = false
+      text.split(/(\s+)/).map do |w|
+        letters = w.chars
+        case_strict1(letters, casing) if !seen || !firstonly
+        seen ||= /\S/.match?(w)
+        letters.join
+      end.join
+    end
+
+    def case_strict1(letters, casing)
+      return letters if letters.empty?
+
       case casing
       when "capital" then letters.first.upcase!
       when "lowercase" then letters.first.downcase!
+      when "allcaps" then letters.map(&:upcase!)
       end
-      letters.join
     end
 
-    def case_with_markup(linkend, casing, script)
+    def case_with_markup(linkend, casing, script, firstonly: true)
       seen = false
       xml = Nokogiri::XML("<root>#{linkend}</root>")
       xml.traverse do |b|
         next unless b.text? && !seen
 
-        b.replace(Common::case_strict(b.text, casing, script))
-        seen = true
+        b.replace(Common::case_strict(b.text, casing, script,
+                                      firstonly: firstonly))
+        seen = true if firstonly
       end
       xml.root.children.to_xml
     end
