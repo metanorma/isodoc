@@ -6,35 +6,40 @@ module IsoDoc
 
     def concept1(node)
       xref = node&.at(ns("./xref/@target"))&.text or
-        return concept_render(node, ital: node["ital"] || "true",
-                                    ref: node["ref"] || "true",
-                                    linkref: node["linkref"] || "true",
-                                    linkmention: node["linkmention"] || "false")
+        return concept_render(node, ital: "true", ref: "true",
+                                    linkref: "true", linkmention: "false")
       if node.at(ns("//definitions//dt[@id = '#{xref}']"))
-        concept_render(node, ital: node["ital"] || "false",
-                             ref: node["ref"] || "false",
-                             linkref: node["linkref"] || "true",
-                             linkmention: node["linkmention"] || "false")
-      else concept_render(node, ital: node["ital"] || "true",
-                                ref: node["ref"] || "true",
-                                linkref: node["linkref"] || "true",
-                                linkmention: node["linkmention"] || "false")
+        concept_render(node, ital: "false", ref: "false",
+                             linkref: "true", linkmention: "false")
+      else concept_render(node, ital: "true", ref: "true",
+                                linkref: "true", linkmention: "false")
       end
     end
 
-    def concept_render(node, opts)
+    def concept_render(node, defaults)
+      opts, render, ref = concept_render_init(node, defaults)
       node&.at(ns("./refterm"))&.remove
-      r = node.at(ns("./renderterm"))
-      ref = node.at(ns("./xref | ./eref | ./termref"))
-      ref && opts[:ref] != "false" and r&.next = " "
-      opts[:ital] == "true" and r&.name = "em"
-      concept1_linkmention(ref, r, opts)
+      ref && opts[:ref] != "false" and render&.next = " "
+      opts[:ital] == "true" and render&.name = "em"
+      concept1_linkmention(ref, render, opts)
       concept1_ref(node, ref, opts)
+      concept1_nonital(node, opts)
+      node.replace(node.children)
+    end
+
+    def concept1_nonital(node, opts)
       if opts[:ital] == "false"
         r = node.at(ns(".//renderterm"))
         r&.replace(r&.children)
       end
-      node.replace(node.children)
+    end
+
+    def concept_render_init(node, defaults)
+      opts = %i(ital ref linkref linkmention).each_with_object({}) do |x, m|
+        m[x] = node[x.to_s] || defaults[x]
+      end
+      [opts, node.at(ns("./renderterm")),
+       node.at(ns("./xref | ./eref | ./termref"))]
     end
 
     def concept1_linkmention(ref, renderterm, opts)
