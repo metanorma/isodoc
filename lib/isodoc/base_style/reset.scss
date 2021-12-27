@@ -74,6 +74,13 @@ code *, pre *, tt *, kbd *, samp * {
   font-variant-ligatures: none;
 }
 
+p code, dt code, li code, label code, legend code, caption code, th code, td code, 
+p tt, dt tt, li tt, label tt, legend tt, caption tt, th tt, td tt, 
+p kbd, dt kbd, li kbd, label kbd, legend kbd, caption kbd, th kbd, td kbd, 
+p samp, dt samp, li samp, label samp, legend samp, caption samp, th samp, td samp {
+  font-size: $monospacefontsize;
+}
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
