@@ -20,19 +20,14 @@ module IsoDoc
     end
 
     def floattitle(docxml)
-      docxml.xpath(ns("//clause | //annex | //appendix | //introduction | "\
-                      "//foreword | //preface/abstract | //acknowledgements | "\
-                      "//terms | //definitions | //references"))
-        .each do |f|
+      docxml.xpath(ns("//floating-title")).each do |f|
         floattitle1(f)
       end
     end
 
     def floattitle1(elem)
-      level = @xrefs.anchor(elem["id"], :level, false) || "1"
-      elem.xpath(ns("./p[@type = 'floating-title']")).each do |p|
-        p["depth"] = level.to_i + 1
-      end
+      elem.name = "p"
+      elem["type"]="floating-title"
     end
 
     def annex(docxml)
