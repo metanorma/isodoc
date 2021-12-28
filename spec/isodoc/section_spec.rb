@@ -1498,142 +1498,58 @@ RSpec.describe IsoDoc do
       <preface>
         <introduction id="B" obligation="informative">
         <title>Introduction</title>
-        <p type="floating-title">A</p>
+        <floating-title depth="1">A</p>
         <clause id="B1" obligation="informative">
          <title>Introduction Subsection</title>
         <p type="floating-title">B</p>
         <clause id="B2" obligation="informative">
          <title>Introduction Sub-subsection</title>
-        <p type="floating-title">C</p>
+        <floating-title depth="1">C</p>
        </clause>
        </clause>
        </introduction>
        </preface>
-       <sections>
-        <clause id="A" obligation="informative">
-        <title>Introduction</title>
-        <p type="floating-title">A</p>
-        <clause id="A1" obligation="informative">
-         <title>Introduction Subsection</title>
-        <p type="floating-title">B</p>
-        <clause id="A2" obligation="informative">
-         <title>Introduction Sub-subsection</title>
-        <p type="floating-title">C</p>
-       </clause>
-       </clause>
-       </clause>
-       </sections>
-       <annex id="C" obligation="informative">
-        <title>Introduction</title>
-        <p type="floating-title">A</p>
-        <clause id="C1" obligation="informative">
-         <title>Introduction Subsection</title>
-        <p type="floating-title">B</p>
-        <clause id="C2" obligation="informative">
-         <title>Introduction Sub-subsection</title>
-        <p type="floating-title">C</p>
-       </clause>
-       </clause>
-       </annex>
        </iso-standard>
     INPUT
 
     presxml = <<~PRESXML
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-      <preface>
-        <introduction id="B" obligation="informative" displayorder="1">
-        <title>Introduction</title>
-        <p type="floating-title" depth="2">A</p>
-        <clause id="B1" obligation="informative">
-         <title depth="2">Introduction Subsection</title>
-        <p type="floating-title" depth="3">B</p>
-        <clause id="B2" obligation="informative">
-         <title depth="3">Introduction Sub-subsection</title>
-        <p type="floating-title" depth="4">C</p>
-       </clause>
-       </clause>
-       </introduction>
-       </preface>
-       <sections>
-        <clause id="A" obligation="informative" displayorder="2">
-        <title depth="1">1.<tab/>Introduction</title>
-        <p type="floating-title" depth="2">A</p>
-        <clause id="A1" obligation="informative">
-         <title depth="2">1.1.<tab/>Introduction Subsection</title>
-        <p type="floating-title" depth="3">B</p>
-        <clause id="A2" obligation="informative">
-         <title depth="3">1.1.1.<tab/>Introduction Sub-subsection</title>
-        <p type="floating-title" depth="4">C</p>
-       </clause>
-       </clause>
-       </clause>
-       </sections>
-       <annex id="C" obligation="informative" displayorder="3">
-        <title><strong>Annex A</strong><br/>(informative)<br/><br/><strong>Introduction</strong></title>
-        <p type="floating-title" depth="2">A</p>
-        <clause id="C1" obligation="informative">
-         <title depth="2">A.1.<tab/>Introduction Subsection</title>
-        <p type="floating-title" depth="3">B</p>
-        <clause id="C2" obligation="informative">
-         <title depth="3">A.1.1.<tab/>Introduction Sub-subsection</title>
-        <p type="floating-title" depth="4">C</p>
-       </clause>
-       </clause>
-       </annex>
+           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <preface>
+           <introduction id='B' obligation='informative' displayorder='1'>
+             <title>Introduction</title>
+             <p depth='1' type='floating-title'>A</p>
+             <clause id='B1' obligation='informative'>
+               <title depth='2'>Introduction Subsection</title>
+               <p type='floating-title'>B</p>
+               <clause id='B2' obligation='informative'>
+                 <title depth='3'>Introduction Sub-subsection</title>
+                 <p depth='1' type='floating-title'>C</p>
+               </clause>
+             </clause>
+           </introduction>
+         </preface>
        </iso-standard>
     PRESXML
 
     html = <<~OUTPUT
       #{HTML_HDR}
-            <br/>
-            <div class='Section3' id='B'>
-              <h1 class='IntroTitle'>Introduction</h1>
-              <p class='h2'>A</p>
-              <div id='B1'>
-                <h2>Introduction Subsection</h2>
-                <p class='h3'>B</p>
-                <div id='B2'>
-                  <h3>Introduction Sub-subsection</h3>
-                  <p class='h4'>C</p>
-                </div>
-              </div>
-            </div>
-            <p class='zzSTDTitle1'/>
-            <div id='A'>
-              <h1>1.&#160; Introduction</h1>
-              <p class='h2'>A</p>
-              <div id='A1'>
-                <h2>1.1.&#160; Introduction Subsection</h2>
-                <p class='h3'>B</p>
-                <div id='A2'>
-                  <h3>1.1.1.&#160; Introduction Sub-subsection</h3>
-                  <p class='h4'>C</p>
-                </div>
-              </div>
-            </div>
-            <br/>
-            <div id='C' class='Section3'>
-              <h1 class='Annex'>
-                <b>Annex A</b>
-                <br/>
-                (informative)
-                <br/>
-                <br/>
-                <b>Introduction</b>
-              </h1>
-              <p class='h2'>A</p>
-              <div id='C1'>
-                <h2>A.1.&#160; Introduction Subsection</h2>
-                <p class='h3'>B</p>
-                <div id='C2'>
-                  <h3>A.1.1.&#160; Introduction Sub-subsection</h3>
-                  <p class='h4'>C</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+             <br/>
+             <div class='Section3' id='B'>
+               <h1 class='IntroTitle'>Introduction</h1>
+               <p class='h1'>A</p>
+               <div id='B1'>
+                 <h2>Introduction Subsection</h2>
+                 <p class='h'>B</p>
+                 <div id='B2'>
+                   <h3>Introduction Sub-subsection</h3>
+                   <p class='h1'>C</p>
+                 </div>
+               </div>
+             </div>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
     OUTPUT
 
     word = <<~OUTPUT
@@ -1641,93 +1557,39 @@ RSpec.describe IsoDoc do
       <head>
         <style></style>
       </head>
-      <body lang='EN-US' link='blue' vlink='#954F72'>
-        <div class='WordSection1'>
-          <p>&#160;</p>
-        </div>
-        <p>
-          <br clear='all' class='section'/>
-        </p>
-        <div class='WordSection2'>
-          <p>
-            <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-          </p>
-          <div class='Section3' id='B'>
-                         <h1 class='IntroTitle'>Introduction</h1>
-                   <p>A</p>
-                   <div id='B1'>
-                     <h2>Introduction Subsection</h2>
-                     <p>B</p>
-                     <div id='B2'>
-                       <h3>Introduction Sub-subsection</h3>
-                       <p>C</p>
-                     </div>
-                   </div>
-                 </div>
-                 <p>&#160;</p>
-               </div>
-               <p>
-                 <br clear='all' class='section'/>
-               </p>
-               <div class='WordSection3'>
-                 <p class='zzSTDTitle1'/>
-                 <div id='A'>
-                   <h1>
-                     1.
-                     <span style='mso-tab-count:1'>&#160; </span>
-                     Introduction
-                   </h1>
-                   <p>A</p>
-                   <div id='A1'>
-                     <h2>
-                       1.1.
-                       <span style='mso-tab-count:1'>&#160; </span>
-                       Introduction Subsection
-                     </h2>
-                     <p>B</p>
-                     <div id='A2'>
-                       <h3>
-                         1.1.1.
-                         <span style='mso-tab-count:1'>&#160; </span>
-                         Introduction Sub-subsection
-                       </h3>
-                       <p>C</p>
-                     </div>
-                   </div>
-                 </div>
-                 <p>
-                   <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-                 </p>
-                 <div id='C' class='Section3'>
-                   <h1 class='Annex'>
-                     <b>Annex A</b>
-                     <br/>
-                     (informative)
-                     <br/>
-                     <br/>
-                     <b>Introduction</b>
-                   </h1>
-                   <p>A</p>
-                   <div id='C1'>
-                     <h2>
-                       A.1.
-                       <span style='mso-tab-count:1'>&#160; </span>
-                       Introduction Subsection
-                     </h2>
-                     <p>B</p>
-                     <div id='C2'>
-                       <h3>
-                         A.1.1.
-                         <span style='mso-tab-count:1'>&#160; </span>
-                         Introduction Sub-subsection
-                       </h3>
-                       <p>C</p>
-                     </div>
-                   </div>
+               <body lang='EN-US' link='blue' vlink='#954F72'>
+           <div class='WordSection1'>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection2'>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div class='Section3' id='B'>
+               <h1 class='IntroTitle'>Introduction</h1>
+               <p>A</p>
+               <div id='B1'>
+                 <h2>Introduction Subsection</h2>
+                 <p>B</p>
+                 <div id='B2'>
+                   <h3>Introduction Sub-subsection</h3>
+                   <p>C</p>
                  </div>
                </div>
-             </body>
-           </html>
+             </div>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection3'>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
