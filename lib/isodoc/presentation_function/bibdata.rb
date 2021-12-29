@@ -10,12 +10,6 @@ module IsoDoc
         "</localized-strings>"
     end
 
-    def docid_prefixes(docxml)
-      docxml.xpath(ns("//references/bibitem/docidentifier")).each do |i|
-        i.children = @xrefs.klass.docid_prefix(i["type"], i.text)
-      end
-    end
-
     def address_precompose(bib)
       bib.xpath(ns("//bibdata//address")).each do |b|
         next if b.at(ns("./formattedAddress"))
