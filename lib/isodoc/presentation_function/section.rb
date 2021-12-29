@@ -66,7 +66,8 @@ module IsoDoc
 
     def bibliography_bibitem_number_skip(bibitem)
       @xrefs.klass.implicit_reference(bibitem) ||
-        bibitem.at(ns(".//docidentifier[@type = 'metanorma']"))
+        bibitem.at(ns(".//docidentifier[@type = 'metanorma']")) ||
+        bibitem.at(ns(".//docidentifier[@type = 'metanorma-ordinal']"))
       # || @xrefs.klass.standard?(bibitem)
     end
 
