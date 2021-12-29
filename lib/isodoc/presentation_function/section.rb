@@ -20,14 +20,19 @@ module IsoDoc
     end
 
     def floattitle(docxml)
-      docxml.xpath(ns("//floating-title")).each do |f|
+      docxml.xpath(ns("//clause | //annex | //appendix | //introduction | "\
+                      "//foreword | //preface/abstract | //acknowledgements | "\
+                      "//terms | //definitions | //references"))
+        .each do |f|
         floattitle1(f)
       end
     end
 
     def floattitle1(elem)
-      elem.name = "p"
-      elem["type"]="floating-title"
+      elem.xpath(ns(".//floating-title")).each do |p|
+        p.name = "p"
+        p["type"] = "floating-title"
+      end
     end
 
     def annex(docxml)
@@ -59,15 +64,18 @@ module IsoDoc
       bibliography_bibitem_number(docxml)
     end
 
+    def bibliography_bibitem_number_skip(bibitem)
+      @xrefs.klass.implicit_reference(bibitem) ||
+        bibitem.at(ns(".//docidentifier[@type = 'metanorma']"))
+      # || @xrefs.klass.standard?(bibitem)
+    end
+
     def bibliography_bibitem_number(docxml)
       i = 0
       docxml.xpath(ns("//references[@normative = 'false']/bibitem")).each do |b|
-        next if @xrefs.klass.implicit_reference(b)
-        next if b.at(ns(".//docidentifier[@type = 'metanorma']"))
+        next if bibliography_bibitem_number_skip(b)
 
         i += 1
-        # next if @xrefs.klass.standard?(b)
-
         id = b.at(ns(".//docidentifier"))
         id.previous = "<docidentifier type='metanorma'>[#{i}]</docidentifier>"
       end

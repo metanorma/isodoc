@@ -1501,7 +1501,7 @@ RSpec.describe IsoDoc do
         <floating-title depth="1">A</p>
         <clause id="B1" obligation="informative">
          <title>Introduction Subsection</title>
-        <p type="floating-title">B</p>
+        <floating-title depth="2">B</p>
         <clause id="B2" obligation="informative">
          <title>Introduction Sub-subsection</title>
         <floating-title depth="1">C</p>
@@ -1513,14 +1513,14 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~PRESXML
-           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <preface>
            <introduction id='B' obligation='informative' displayorder='1'>
              <title>Introduction</title>
              <p depth='1' type='floating-title'>A</p>
              <clause id='B1' obligation='informative'>
                <title depth='2'>Introduction Subsection</title>
-               <p type='floating-title'>B</p>
+               <p type='floating-title' depth="2">B</p>
                <clause id='B2' obligation='informative'>
                  <title depth='3'>Introduction Sub-subsection</title>
                  <p depth='1' type='floating-title'>C</p>
@@ -1539,7 +1539,7 @@ RSpec.describe IsoDoc do
                <p class='h1'>A</p>
                <div id='B1'>
                  <h2>Introduction Subsection</h2>
-                 <p class='h'>B</p>
+                 <p class='h2'>B</p>
                  <div id='B2'>
                    <h3>Introduction Sub-subsection</h3>
                    <p class='h1'>C</p>
