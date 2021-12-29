@@ -152,7 +152,7 @@ module IsoDoc
         identifiers = @klass.render_identifier(ids)
         reference = @klass
           .docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
-                                     identifiers[:ordinal])
+                                     identifiers[:ordinal] || identifiers[:doi])
         @anchors[ref["id"]] = { xref: reference }
       end
     end
