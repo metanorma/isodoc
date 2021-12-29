@@ -66,7 +66,8 @@ module IsoDoc
 
     def bibliography_bibitem_number_skip(bibitem)
       @xrefs.klass.implicit_reference(bibitem) ||
-        bibitem.at(ns(".//docidentifier[@type = 'metanorma']"))
+        bibitem.at(ns(".//docidentifier[@type = 'metanorma']")) ||
+        bibitem.at(ns(".//docidentifier[@type = 'metanorma-ordinal']"))
       # || @xrefs.klass.standard?(bibitem)
     end
 
@@ -80,7 +81,7 @@ module IsoDoc
         id.previous =
           "<docidentifier type='metanorma-ordinal'>[#{i}]</docidentifier>"
       end
-      @xrefs.parse docxml
+      @xrefs.references docxml
     end
 
     def docid_prefixes(docxml)
