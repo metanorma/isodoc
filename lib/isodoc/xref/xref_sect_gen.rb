@@ -9,6 +9,10 @@ module IsoDoc
         docxml.xpath(ns(@klass.bibliography_xpath)).each do |b|
           preface_names(b)
         end
+        references(docxml)
+      end
+
+      def references(docxml)
         docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
           reference_names(ref)
         end

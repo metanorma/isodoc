@@ -80,7 +80,7 @@ module IsoDoc
         id.previous =
           "<docidentifier type='metanorma-ordinal'>[#{i}]</docidentifier>"
       end
-      @xrefs.parse docxml
+      @xrefs.references docxml
     end
 
     def docid_prefixes(docxml)
