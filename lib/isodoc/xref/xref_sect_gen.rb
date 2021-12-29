@@ -148,11 +148,11 @@ module IsoDoc
         "xmlns:name = 'International Electrotechnical Commission']".freeze
 
       def reference_names(ref)
-        # isopub = ref.at(ns(ISO_PUBLISHER_XPATH))
         ids = @klass.bibitem_ref_code(ref)
         identifiers = @klass.render_identifier(ids)
-        # date = ref.at(ns("./date[@type = 'published']"))
-        reference = @klass.docid_l10n(identifiers[0] || identifiers[1])
+        reference = @klass
+          .docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
+                                     identifiers[:ordinal] || identifiers[:doi])
         @anchors[ref["id"]] = { xref: reference }
       end
     end

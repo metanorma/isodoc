@@ -233,7 +233,7 @@ RSpec.describe IsoDoc do
             <title depth="1">Bibliography</title>
             <bibitem id='ISBN' type='ISBN'>
               <title format='text/plain'>Chemicals for analytical laboratory use</title>
-              <docidentifier type='metanorma'>[1]</docidentifier>
+              <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
               <docidentifier type='ISBN'>ISBN</docidentifier>
               <contributor>
                 <role type='publisher'/>
@@ -244,7 +244,7 @@ RSpec.describe IsoDoc do
             </bibitem>
             <bibitem id='ISSN' type='ISSN'>
               <title format='text/plain'>Instruments for analytical laboratory use</title>
-              <docidentifier type='metanorma'>[2]</docidentifier>
+              <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
               <docidentifier type='ISSN'>ISSN</docidentifier>
               <contributor>
                 <role type='publisher'/>
@@ -263,7 +263,7 @@ RSpec.describe IsoDoc do
             </note>
             <bibitem id='ISO3696' type='standard'>
               <title format='text/plain'>Water for analytical laboratory use</title>
-              <docidentifier type='metanorma'>[3]</docidentifier>
+              <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
               <docidentifier type='ISO'>ISO 3696</docidentifier>
               <contributor>
                 <role type='publisher'/>
@@ -293,7 +293,7 @@ RSpec.describe IsoDoc do
             </bibitem>
             <bibitem id='ref11'>
               <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
-              <docidentifier type='metanorma'>[4]</docidentifier>
+              <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
               <docidentifier type='IETF'>IETF RFC 10</docidentifier>
             </bibitem>
             <bibitem id='ref12'>
@@ -307,12 +307,12 @@ RSpec.describe IsoDoc do
             </bibitem>
             <bibitem id="ref10b">
               <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
-              <docidentifier type='metanorma'>[5]</docidentifier>
+              <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
               <docidentifier type="IETF">IETF RFC 20</docidentifier>
             </bibitem>
             <bibitem id='ref10c'>
         <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
-        <docidentifier type='metanorma'>[6]</docidentifier>
+        <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
         <docidentifier type='DOI'>DOI ABC 20</docidentifier>
       </bibitem>
           </references>
