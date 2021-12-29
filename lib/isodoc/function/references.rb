@@ -14,27 +14,28 @@ module IsoDoc
       def nonstd_bibitem(list, bib, ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
           ids = bibitem_ref_code(bib)
-          identifiers = render_identifier(ids)
-          if biblio then ref_entry_code(ref, ordinal, identifiers, ids)
+          idents = render_identifier(ids)
+          if biblio then ref_entry_code(ref, ordinal, idents, ids)
           else
-            ref << (identifiers[0] || identifiers[1]).to_s
-            ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
+            ref << (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
+            ref << ", #{idents[sdo]}" if idents[:ordinal] && idents[:sdo]
           end
-          ref << ", " unless biblio && !identifiers[1]
+          ref << ", " unless biblio && !idents[:sdo]
           reference_format(bib, ref)
         end
       end
 
       def std_bibitem_entry(list, bib, ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
-          identifiers = render_identifier(bibitem_ref_code(bib))
-          if biblio then ref_entry_code(ref, ordinal, identifiers, nil)
+          idents = render_identifier(bibitem_ref_code(bib))
+          if biblio then ref_entry_code(ref, ordinal, idents, nil)
           else
-            ref << (identifiers[0] || identifiers[1]).to_s
-            ref << ", #{identifiers[1]}" if identifiers[0] && identifiers[1]
+            ref << (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
+            ref << ", #{idents[:sdo]}" if (idents[:ordinal] ||
+                                          idents[:metanorma]) && idents[:sdo]
           end
           date_note_process(bib, ref)
-          ref << ", " unless biblio && !identifiers[1]
+          ref << ", " unless biblio && !idents[:sdo]
           reference_format(bib, ref)
         end
       end
@@ -42,13 +43,15 @@ module IsoDoc
       # if ids is just a number, only use that ([1] Non-Standard)
       # else, use both ordinal, as prefix, and ids
       def ref_entry_code(ref, ordinal, ids, _id)
-        prefix_bracketed_ref(ref, ids[0] || "[#{ordinal}]")
-        ids[1] and ref << (ids[1]).to_s
+        prefix_bracketed_ref(ref, ids[:ordinal] || ids[:metanorma] ||
+                             "[#{ordinal}]")
+        ids[:sdo] and ref << (ids[:sdo]).to_s
       end
 
       def pref_ref_code(bib)
         bib.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
-                  "or @type = 'ISSN' or @type = 'ISBN' or "\
+                  "or @type = 'metanorma-ordinal' or "\
+                  "@type = 'ISSN' or @type = 'ISBN' or "\
                   "@type = 'rfc-anchor')]"))
       end
 
@@ -58,11 +61,12 @@ module IsoDoc
         id1 = pref_ref_code(bib)
         id2 = bib.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or "\
                         "@type = 'ISBN']"))
-        return [id, id1, id2] if id || id1 || id2
+        id3 = bib.at(ns("./docidentifier[@type = 'metanorma-ordinal']"))
+        return [id, id1, id2, id3] if id || id1 || id2 || id3
 
         id = Nokogiri::XML::Node.new("docidentifier", bib.document)
         id << "(NO ID)"
-        [nil, id, nil]
+        [nil, id, nil, nil]
       end
 
       def bracket_if_num(num)
@@ -74,10 +78,15 @@ module IsoDoc
         num
       end
 
+      def unbracket(ident)
+        ident&.text&.sub(/^\[/, "")&.sub(/\]$/, "")
+      end
+
       def render_identifier(ident)
-        [bracket_if_num(ident[0]),
-         ident[1].nil? ? nil : ident[1].text.sub(/^\[/, "").sub(/\]$/, ""),
-         ident[2].nil? ? nil : ident[2].text.sub(/^\[/, "").sub(/\]$/, "")]
+        { metanorma: bracket_if_num(ident[0]),
+          sdo: unbracket(ident[1]),
+          doi: unbracket(ident[2]),
+          ordinal: bracket_if_num(ident[3]) }
       end
 
       def docid_prefix(prefix, docid)
@@ -166,7 +175,7 @@ module IsoDoc
       end
 
       def norm_ref(isoxml, out, num)
-        f = isoxml.at(ns(norm_ref_xpath)) and f["hidden"] != "true" or
+        (f = isoxml.at(ns(norm_ref_xpath)) and f["hidden"] != "true") or
           return num
         out.div do |div|
           num = num + 1
@@ -186,7 +195,7 @@ module IsoDoc
       end
 
       def bibliography(isoxml, out)
-        f = isoxml.at(ns(bibliography_xpath)) and f["hidden"] != "true" or
+        (f = isoxml.at(ns(bibliography_xpath)) and f["hidden"] != "true") or
           return
         page_break(out)
         out.div do |div|

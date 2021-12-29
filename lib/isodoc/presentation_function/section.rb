@@ -77,7 +77,8 @@ module IsoDoc
 
         i += 1
         id = b.at(ns(".//docidentifier"))
-        id.previous = "<docidentifier type='metanorma'>[#{i}]</docidentifier>"
+        id.previous =
+          "<docidentifier type='metanorma-ordinal'>[#{i}]</docidentifier>"
       end
       @xrefs.parse docxml
     end
