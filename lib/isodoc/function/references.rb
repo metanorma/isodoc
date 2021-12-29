@@ -133,7 +133,7 @@ module IsoDoc
         end
       end
 
-      def is_standard(bib)
+      def standard?(bib)
         ret = false
         drop = %w(metanorma DOI ISSN ISBN)
         bib.xpath(ns("./docidentifier")).each do |id|
@@ -151,7 +151,7 @@ module IsoDoc
             next if implicit_reference(b)
 
             i += 1
-            if is_standard(b) then std_bibitem_entry(div, b, i, biblio)
+            if standard?(b) then std_bibitem_entry(div, b, i, biblio)
             else nonstd_bibitem(div, b, i, biblio)
             end
           else

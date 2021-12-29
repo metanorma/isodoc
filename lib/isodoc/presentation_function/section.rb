@@ -55,7 +55,24 @@ module IsoDoc
       prefix_name(elem, "", "#{lbl}#{clausedelim}", "name")
     end
 
-    def references(docxml); end
+    def references(docxml)
+      bibliography_bibitem_number(docxml)
+    end
+
+    def bibliography_bibitem_number(docxml)
+      i = 0
+      docxml.xpath(ns("//references[@normative = 'false']/bibitem")).each do |b|
+        next if @xrefs.klass.implicit_reference(b)
+        next if b.at(ns(".//docidentifier[@type = 'metanorma']"))
+
+        i += 1
+        # next if @xrefs.klass.standard?(b)
+
+        id = b.at(ns(".//docidentifier"))
+        id.previous = "<docidentifier type='metanorma'>[#{i}]</docidentifier>"
+      end
+      @xrefs.parse docxml
+    end
 
     def docid_prefixes(docxml)
       docxml.xpath(ns("//references/bibitem/docidentifier")).each do |i|
