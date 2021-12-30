@@ -144,7 +144,7 @@ module IsoDoc
         idx = docxml.at("//div[@id = 'toc']") or return docxml
         toc = "<ul>"
         path = toclevel_classes.map do |l|
-          "//main//#{l}[not(@class = 'TermNum')][not(@class = 'noTOC')][text()]"
+          "//main//#{l}#{toc_exclude_class}"
         end
         docxml.xpath(path.join(" | ")).each_with_index do |h, tocidx|
           h["id"] ||= "toc#{tocidx}"
@@ -152,6 +152,11 @@ module IsoDoc
         end
         idx.children = "#{toc}</ul>"
         docxml
+      end
+
+      def toc_exclude_class
+        "[not(@class = 'TermNum')][not(@class = 'noTOC')]"\
+          "[string-length(normalize-space(.))>0]"
       end
 
       # presupposes that the image source is local
