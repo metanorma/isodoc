@@ -122,8 +122,10 @@ module IsoDoc
       end
 
       def html_toc_entry(level, header)
+        content = header.at("./following-sibling::xmlns:p"\
+                            "[@class = 'variant-title-toc']") || header
         %(<li class="#{level}"><a href="##{header['id']}">\
-      #{header_strip(header)}</a></li>)
+      #{header_strip(content)}</a></li>)
       end
 
       def toclevel_classes

@@ -717,49 +717,220 @@ RSpec.describe IsoDoc do
          </annex>
       </iso-standard>
     INPUT
-    output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-      <bibdata/>
-      <sections>
-        <clause id='_' inline-header='false' obligation='normative' displayorder='1'>
-          <title depth='1'>
-            <strong>Annex A</strong>
+    presxml = <<~OUTPUT
+            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+            <bibdata/>
+            <sections>
+              <clause id='_' inline-header='false' obligation='normative' displayorder='1'>
+                <title depth='1'>
+                  <strong>Annex A</strong>
+                  <br/>
+                  (normative).
+                  <tab/>
+                  Clause
+                </title>
+                <p id='_'>Text</p>
+                <clause id='_' inline-header='false' obligation='normative'>
+                  <title depth='1'>
+                    <strong>Annex A</strong>
+                    <br/>
+                    (normative).
+                    <tab/>
+                    Subclause
+                  </title>
+              <variant-title variant_title='true' type='sub' id='_'>&#x201C;A&#x201D; &#x2018;B&#x2019;</variant-title>
+              <variant-title variant_title='true' type='toc' id='_'>
+         Clause
+        <em>A</em>
+        <stem type='MathML'>
+          <math xmlns='http://www.w3.org/1998/Math/MathML'>
+            <mi>x</mi>
+          </math>
+          <!-- x -->
+        </stem>
+      </variant-title>
+                  <p id='_'>Text</p>
+                </clause>
+              </clause>
+            </sections>
+            <annex id='_' inline-header='false' obligation='normative' displayorder='2'>
+              <title>
+                <strong>Annex A</strong>
+                <br/>
+                (normative)
+                <br/>
+                <br/>
+                <strong>Clause</strong>
+              </title>
+                  <variant-title variant_title='true' type='toc' id='_'>
+             Clause
+            <em>A</em>
+            <stem type='MathML'>
+              <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                <mi>x</mi>
+              </math>
+              <!-- x -->
+            </stem>
+          </variant-title>
+              <p id='_'>Text</p>
+            </annex>
+            </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+          <html lang='en'>
+        <head/>
+        <body lang='en'>
+          <div class='title-section'>
+            <p>&#160;</p>
+          </div>
+          <br/>
+          <div class='prefatory-section'>
+            <p>&#160;</p>
+          </div>
+          <br/>
+          <div class='main-section'>
+            <p class='zzSTDTitle1'/>
+            <div id='_'>
+              <h1>
+                <b>Annex A</b>
+                <br/>
+                 (normative). &#160; Clause
+              </h1>
+              <p id='_'>Text</p>
+              <div id='_'>
+                <h1>
+                  <b>Annex A</b>
+                  <br/>
+                   (normative). &#160; Subclause
+                  <br/>
+                  <br/>
+                  &#8220;A&#8221; &#8216;B&#8217;
+                </h1>
+                <p style='display:none;' class='variant-title-toc'>
+                   Clause
+                  <i>A</i>
+                  <span class='stem'>
+                    <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                      <mi>x</mi>
+                    </math>
+                  </span>
+                </p>
+                <p id='_'>Text</p>
+              </div>
+            </div>
             <br/>
-            (normative).
-            <tab/>
-            Clause
-          </title>
-          <p id='_'>Text</p>
-          <clause id='_' inline-header='false' obligation='normative'>
-            <title depth='1'>
-              <strong>Annex A</strong>
-              <br/>
-              (normative).
-              <tab/>
-              Subclause
-            </title>
-        <variant-title variant_title='true' type='sub' id='_'>&#x201C;A&#x201D; &#x2018;B&#x2019;</variant-title>
-            <p id='_'>Text</p>
-          </clause>
-        </clause>
-      </sections>
-      <annex id='_' inline-header='false' obligation='normative' displayorder='2'>
-        <title>
-          <strong>Annex A</strong>
-          <br/>
-          (normative)
-          <br/>
-          <br/>
-          <strong>Clause</strong>
-        </title>
-        <p id='_'>Text</p>
-      </annex>
-      </iso-standard>
+            <div id='_' class='Section3'>
+              <h1 class='Annex'>
+                <b>Annex A</b>
+                <br/>
+                 (normative)
+                <br/>
+                <br/>
+                <b>Clause</b>
+              </h1>
+              <p style='display:none;' class='variant-title-toc'>
+                 Clause
+                <i>A</i>
+                <span class='stem'>
+                  <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                    <mi>x</mi>
+                  </math>
+                </span>
+              </p>
+              <p id='_'>Text</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    doc = <<~OUTPUT
+           <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+         <head>
+           <style>
+           </style>
+         </head>
+         <body lang='EN-US' link='blue' vlink='#954F72'>
+           <div class='WordSection1'>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection2'>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection3'>
+             <p class='zzSTDTitle1'/>
+             <div id='_'>
+               <h1>
+                 <b>Annex A</b>
+                 <br/>
+                  (normative).
+                 <span style='mso-tab-count:1'>&#160; </span>
+                  Clause
+               </h1>
+               <p id='_'>Text</p>
+               <div id='_'>
+                 <h1>
+                   <b>Annex A</b>
+                   <br/>
+                    (normative).
+                   <span style='mso-tab-count:1'>&#160; </span>
+                    Subclause
+                   <br/>
+                   <br/>
+                   &#8220;A&#8221; &#8216;B&#8217;
+                 </h1>
+                 <p style='display:none;' class='variant-title-toc'>
+                    Clause
+                   <i>A</i>
+                   <span class='stem'>
+                     <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                       <mi>x</mi>
+                     </math>
+                   </span>
+                 </p>
+                 <p id='_'>Text</p>
+               </div>
+             </div>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div id='_' class='Section3'>
+               <h1 class='Annex'>
+                 <b>Annex A</b>
+                 <br/>
+                  (normative)
+                 <br/>
+                 <br/>
+                 <b>Clause</b>
+               </h1>
+               <p style='display:none;' class='variant-title-toc'>
+                  Clause
+                 <i>A</i>
+                 <span class='stem'>
+                   <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                     <mi>x</mi>
+                   </math>
+                 </span>
+               </p>
+               <p id='_'>Text</p>
+             </div>
+           </div>
+         </body>
+       </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(doc)
   end
 
   it "duplicates EMF and SVG files" do

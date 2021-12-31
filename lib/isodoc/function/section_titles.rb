@@ -76,7 +76,12 @@ module IsoDoc
         end
       end
 
-      def variant_title(_node, _out); end
+      def variant_title(node, out)
+        out.p **attr_code(style: "display:none;",
+                          class: "variant-title-#{node['type']}") do |p|
+          node.children.each { |c| parse(c, p) }
+        end
+      end
     end
   end
 end

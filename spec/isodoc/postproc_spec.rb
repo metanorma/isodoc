@@ -474,6 +474,33 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+=begin
+  it "populates HTML ToC" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    IsoDoc::HtmlConvert.new({ htmltoclevels: 3 })
+      .convert("test", <<~"INPUT", false)
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface><foreword><title>Foreword</title>
+        <variant-title type="toc">FORVORT</variant-title>
+        </foreword></preface>
+        <sections>
+        <clause><title>First Clause</title>
+        <clause><title>First Subclause</title>
+        <variant-title type="toc">SUBCLOZ</variant-title>
+        </clause>
+        </clause>
+        </sections>
+        </iso-standard>
+      INPUT
+    html = Nokogiri::XML(File.read("test.html")).
+      at("//div[@id = 'toc']")
+    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~OUTPUT)
+    HAJSHJAS
+    OUTPUT
+  end
+=end
+
   it "populates Word ToC" do
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new(
@@ -495,6 +522,7 @@ RSpec.describe IsoDoc do
       </fn></p>
       <clause id="P" inline-header="false" obligation="normative">
       <title>Clause 4.2.1</title>
+      <variant-title type="toc">SUBCLOZ</variant-title>
       </clause>
              </clause></clause>
               </sections>
