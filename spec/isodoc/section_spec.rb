@@ -996,6 +996,7 @@ RSpec.describe IsoDoc do
                 <br/>
                 Variant 1
               </h1>
+              <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div id='Q'>
                 <h2>
                   A.1.&#160; Annex A.1
@@ -1032,6 +1033,7 @@ RSpec.describe IsoDoc do
             <br/>
             <div>
               <h1 class='Section3'>Bibliography</h1>
+              <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div>
                 <h2 class='Section3'>
                   Bibliography Subsection
@@ -1274,6 +1276,7 @@ RSpec.describe IsoDoc do
                 <br/>
                 Variant 1
               </h1>
+              <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div id='Q'>
                 <h2>
                   A.1.
@@ -1320,6 +1323,7 @@ RSpec.describe IsoDoc do
             </p>
             <div>
               <h1 class='Section3'>Bibliography</h1>
+              <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div>
                 <h2 class='Section3'>
                   Bibliography Subsection

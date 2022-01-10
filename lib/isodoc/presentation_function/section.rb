@@ -124,9 +124,7 @@ module IsoDoc
       display_order_xpath(docxml, "//indexsect", i)
     end
 
-    def clausetitle(docxml)
-      docxml.xpath(ns("//variant-title[@type = 'toc']")).each(&:remove)
-    end
+    def clausetitle(docxml); end
 
     def toc(docxml)
       docxml.xpath(ns("//toc//xref[text()]")).each do |x|
