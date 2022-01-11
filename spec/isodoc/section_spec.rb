@@ -1500,6 +1500,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
+        <floating-title depth="1">A0</p>
         <introduction id="B" obligation="informative">
         <title>Introduction</title>
         <floating-title depth="1">A</p>
@@ -1517,26 +1518,28 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~PRESXML
-         <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-         <preface>
-           <introduction id='B' obligation='informative' displayorder='1'>
-             <title>Introduction</title>
-             <p depth='1' type='floating-title'>A</p>
-             <clause id='B1' obligation='informative'>
-               <title depth='2'>Introduction Subsection</title>
-               <p type='floating-title' depth="2">B</p>
-               <clause id='B2' obligation='informative'>
-                 <title depth='3'>Introduction Sub-subsection</title>
-                 <p depth='1' type='floating-title'>C</p>
-               </clause>
-             </clause>
-           </introduction>
-         </preface>
-       </iso-standard>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+        <p depth='1' type='floating-title' displayorder='1'>A0</p>
+          <introduction id='B' obligation='informative' displayorder='2'>
+            <title>Introduction</title>
+            <p depth='1' type='floating-title'>A</p>
+            <clause id='B1' obligation='informative'>
+              <title depth='2'>Introduction Subsection</title>
+              <p type='floating-title' depth="2">B</p>
+              <clause id='B2' obligation='informative'>
+                <title depth='3'>Introduction Sub-subsection</title>
+                <p depth='1' type='floating-title'>C</p>
+              </clause>
+            </clause>
+          </introduction>
+        </preface>
+      </iso-standard>
     PRESXML
 
     html = <<~OUTPUT
       #{HTML_HDR}
+             <p class='h1'>A0</p>
              <br/>
              <div class='Section3' id='B'>
                <h1 class='IntroTitle'>Introduction</h1>
@@ -1569,6 +1572,7 @@ RSpec.describe IsoDoc do
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection2'>
+            <p>A0</p>
              <p>
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
