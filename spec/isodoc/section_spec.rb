@@ -1500,6 +1500,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
+        <floating-title depth="1">A0</p>
         <introduction id="B" obligation="informative">
         <title>Introduction</title>
         <floating-title depth="1">A</p>
@@ -1587,6 +1588,7 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       #{HTML_HDR}
+             <p class='h1'>A0</p>
              <br/>
              <div class='Section3' id='B'>
                <h1 class='IntroTitle'>Introduction</h1>
@@ -1634,6 +1636,7 @@ RSpec.describe IsoDoc do
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection2'>
+            <p>A0</p>
              <p>
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>

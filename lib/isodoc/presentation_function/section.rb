@@ -26,6 +26,8 @@ module IsoDoc
         .each do |f|
         floattitle1(f)
       end
+      # top-level
+      docxml.xpath(ns("//sections | //preface")).each { |f| floattitle1(f) }
     end
 
     def floattitle1(elem)
