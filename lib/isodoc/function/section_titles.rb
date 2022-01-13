@@ -54,11 +54,12 @@ module IsoDoc
         end
       end
 
+      # top level clause names
       def clause_name(_num, title, div, header_class)
+        preceding_floating_titles(title, div)
         header_class = {} if header_class.nil?
         div.h1 **attr_code(header_class) do |h1|
-          if title.is_a?(String)
-            h1 << title
+          if title.is_a?(String) then h1 << title
           else
             title&.children&.each { |c2| parse(c2, h1) }
             clause_parse_subtitle(title, h1)
@@ -68,6 +69,7 @@ module IsoDoc
       end
 
       def annex_name(_annex, name, div)
+        preceding_floating_titles(name, div)
         return if name.nil?
 
         div.h1 **{ class: "Annex" } do |t|
@@ -81,6 +83,18 @@ module IsoDoc
                           class: "variant-title-#{node['type']}") do |p|
           node.children.each { |c| parse(c, p) }
         end
+      end
+
+      def preceding_floating_titles(name, div)
+        return if name.nil? || name.is_a?(String)
+
+        out = name.parent.xpath("./preceding-sibling::*")
+          .reverse.each_with_object([]) do |p, m|
+          break m unless p.name == "p"
+
+          m << p
+        end or return
+        out.each { |c| parse(c, div) }
       end
     end
   end
