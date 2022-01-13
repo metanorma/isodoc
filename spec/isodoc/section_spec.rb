@@ -1513,6 +1513,22 @@ RSpec.describe IsoDoc do
        </clause>
        </introduction>
        </preface>
+       <sections>
+        <clause id="C" obligation="informative">
+        <title>Introduction</title>
+        <floating-title depth="1">A</p>
+        <clause id="C1" obligation="informative">
+         <title>Introduction Subsection</title>
+        <floating-title depth="2">B</p>
+        <clause id="C2" obligation="informative">
+         <title>Introduction Sub-subsection</title>
+        <floating-title depth="1">C</p>
+       </clause>
+       </clause>
+       </clause>
+        <floating-title depth="1">D</p>
+       <clause id="C4"><title>Clause 2</title></clause>
+       </sections>
        </iso-standard>
     INPUT
 
@@ -1532,6 +1548,40 @@ RSpec.describe IsoDoc do
              </clause>
            </introduction>
          </preface>
+           <sections>
+    <clause id='C' obligation='informative' displayorder='2'>
+      <title depth='1'>
+        1.
+        <tab/>
+        Introduction
+      </title>
+      <p depth='1' type='floating-title'>A</p>
+      <clause id='C1' obligation='informative'>
+        <title depth='2'>
+          1.1.
+          <tab/>
+          Introduction Subsection
+        </title>
+        <p depth='2' type='floating-title'>B</p>
+        <clause id='C2' obligation='informative'>
+          <title depth='3'>
+            1.1.1.
+            <tab/>
+            Introduction Sub-subsection
+          </title>
+          <p depth='1' type='floating-title'>C</p>
+        </clause>
+      </clause>
+      </clause>
+          <p type="floating-title" depth='1'>D</p>
+    <clause id='C4' displayorder='3'>
+      <title depth='1'>
+        2.
+        <tab/>
+        Clause 2
+      </title>
+    </clause>
+  </sections>
        </iso-standard>
     PRESXML
 
@@ -1551,6 +1601,21 @@ RSpec.describe IsoDoc do
                </div>
              </div>
              <p class='zzSTDTitle1'/>
+                   <div id='C'>
+        <h1> 1. &#160; Introduction </h1>
+        <p class='h1'>A</p>
+        <div id='C1'>
+          <h2> 1.1. &#160; Introduction Subsection </h2>
+          <p class='h2'>B</p>
+          <div id='C2'>
+            <h3> 1.1.1. &#160; Introduction Sub-subsection </h3>
+            <p class='h1'>C</p>
+          </div>
+        </div>
+      </div>
+      <div id='C4'>
+        <h1> 2. &#160; Clause 2 </h1>
+      </div>
            </div>
          </body>
        </html>
