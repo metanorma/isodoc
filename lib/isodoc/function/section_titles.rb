@@ -86,13 +86,15 @@ module IsoDoc
       end
 
       def preceding_floating_titles(name, div)
+        return if name.nil? || name.is_a?(String)
+
         out = name.parent.xpath("./preceding-sibling::*")
-          &.each_with_object([]) do |p, m|
-          break unless p.name == "p"
+          .reverse.each_with_object([]) do |p, m|
+          break m unless p.name == "p"
 
           m << p
         end or return
-        out.reverse.each { |c| parse(c, div) }
+        out.each { |c| parse(c, div) }
       end
     end
   end
