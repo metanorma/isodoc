@@ -50,6 +50,7 @@ module IsoDoc
       formula docxml
       example docxml
       note docxml
+      ol docxml
       permission docxml
       requirement docxml
       recommendation docxml

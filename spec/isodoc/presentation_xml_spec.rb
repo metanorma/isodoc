@@ -844,84 +844,84 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     doc = <<~OUTPUT
-           <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-         <head>
-           <style>
-           </style>
-         </head>
-         <body lang='EN-US' link='blue' vlink='#954F72'>
-           <div class='WordSection1'>
-             <p>&#160;</p>
-           </div>
-           <p>
-             <br clear='all' class='section'/>
-           </p>
-           <div class='WordSection2'>
-             <p>&#160;</p>
-           </div>
-           <p>
-             <br clear='all' class='section'/>
-           </p>
-           <div class='WordSection3'>
-             <p class='zzSTDTitle1'/>
-             <div id='_'>
-               <h1>
-                 <b>Annex A</b>
-                 <br/>
-                  (normative).
-                 <span style='mso-tab-count:1'>&#160; </span>
-                  Clause
-               </h1>
-               <p id='_'>Text</p>
-               <div id='_'>
-                 <h1>
-                   <b>Annex A</b>
-                   <br/>
-                    (normative).
-                   <span style='mso-tab-count:1'>&#160; </span>
-                    Subclause
-                   <br/>
-                   <br/>
-                   &#8220;A&#8221; &#8216;B&#8217;
-                 </h1>
-                 <p style='display:none;' class='variant-title-toc'>
-                    Clause
-                   <i>A</i>
-                   <span class='stem'>
-                     <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                       <mi>x</mi>
-                     </math>
-                   </span>
-                 </p>
-                 <p id='_'>Text</p>
-               </div>
-             </div>
-             <p>
-               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-             </p>
-             <div id='_' class='Section3'>
-               <h1 class='Annex'>
-                 <b>Annex A</b>
-                 <br/>
-                  (normative)
-                 <br/>
-                 <br/>
-                 <b>Clause</b>
-               </h1>
-               <p style='display:none;' class='variant-title-toc'>
-                  Clause
-                 <i>A</i>
-                 <span class='stem'>
-                   <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                     <mi>x</mi>
-                   </math>
-                 </span>
-               </p>
-               <p id='_'>Text</p>
-             </div>
-           </div>
-         </body>
-       </html>
+          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+        <head>
+          <style>
+          </style>
+        </head>
+        <body lang='EN-US' link='blue' vlink='#954F72'>
+          <div class='WordSection1'>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection2'>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection3'>
+            <p class='zzSTDTitle1'/>
+            <div id='_'>
+              <h1>
+                <b>Annex A</b>
+                <br/>
+                 (normative).
+                <span style='mso-tab-count:1'>&#160; </span>
+                 Clause
+              </h1>
+              <p id='_'>Text</p>
+              <div id='_'>
+                <h1>
+                  <b>Annex A</b>
+                  <br/>
+                   (normative).
+                  <span style='mso-tab-count:1'>&#160; </span>
+                   Subclause
+                  <br/>
+                  <br/>
+                  &#8220;A&#8221; &#8216;B&#8217;
+                </h1>
+                <p style='display:none;' class='variant-title-toc'>
+                   Clause
+                  <i>A</i>
+                  <span class='stem'>
+                    <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                      <mi>x</mi>
+                    </math>
+                  </span>
+                </p>
+                <p id='_'>Text</p>
+              </div>
+            </div>
+            <p>
+              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+            </p>
+            <div id='_' class='Section3'>
+              <h1 class='Annex'>
+                <b>Annex A</b>
+                <br/>
+                 (normative)
+                <br/>
+                <br/>
+                <b>Clause</b>
+              </h1>
+              <p style='display:none;' class='variant-title-toc'>
+                 Clause
+                <i>A</i>
+                <span class='stem'>
+                  <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                    <mi>x</mi>
+                  </math>
+                </span>
+              </p>
+              <p id='_'>Text</p>
+            </div>
+          </div>
+        </body>
+      </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
@@ -991,6 +991,169 @@ RSpec.describe IsoDoc do
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
             '"data:application/x-msmetafile;base64"'))
       .to be_equivalent_to (output)
+  end
+
+  it "adds types to ordered lists" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+           <clause id='A' inline-header='false' obligation='normative'>
+             <title>Clause</title>
+             <ol id="B1">
+             <li>A1
+             <ol id="B2">
+             <li>A2
+             <ol id="B3">
+             <li>A3
+             <ol id="B4">
+             <li>A4
+             <ol id="B5">
+             <li>A5
+             <ol id="B6">
+             <li>A6
+             <ol id="B7">
+             <li>A7
+             <ol id="B8">
+             <li>A8
+             <ol id="B9">
+             <li>A9
+             <ol id="B0">
+             <li>A0</li>
+             </ol></li>
+             </ol></li>
+             </ol></li>
+             </ol></li>
+             </ol></li>
+             </ol></li>
+             </ol></li>
+             </ol></li>
+             </ol></li>
+             </ol>
+           </clause>
+         </sections>
+       </iso-standard>#{'  '}
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <bibdata/>
+        <sections>
+          <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+            <title depth='1'>
+              1.
+              <tab/>
+              Clause
+            </title>
+            <ol id='B1' type='alphabet'>
+              <li>
+                A1
+                <ol id='B2' type='arabic'>
+                  <li>
+                    A2
+                    <ol id='B3' type='roman'>
+                      <li>
+                        A3
+                        <ol id='B4' type='alphabet_upper'>
+                          <li>
+                            A4
+                            <ol id='B5' type='roman_upper'>
+                              <li>
+                                A5
+                                <ol id='B6' type='alphabet'>
+                                  <li>
+                                    A6
+                                    <ol id='B7' type='arabic'>
+                                      <li>
+                                        A7
+                                        <ol id='B8' type='roman'>
+                                          <li>
+                                            A8
+                                            <ol id='B9' type='alphabet_upper'>
+                                              <li>
+                                                A9
+                                                <ol id='B0' type='roman_upper'>
+                                                  <li>A0</li>
+                                                </ol>
+                                              </li>
+                                            </ol>
+                                          </li>
+                                        </ol>
+                                      </li>
+                                    </ol>
+                                  </li>
+                                </ol>
+                              </li>
+                            </ol>
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </clause>
+        </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "considers ul when adding types to ordered lists" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+           <clause id='A' inline-header='false' obligation='normative'>
+             <title>Clause</title>
+             <ol id="B1">
+             <li>A1
+             <ul id="B2">
+             <li>A2
+             <ol id="B3">
+             <li>A3
+             </ol></li>
+             </ul></li>
+             </ol>
+           </clause>
+         </sections>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <bibdata/>
+
+        <sections>
+          <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+            <title depth='1'>
+              1.
+              <tab/>
+              Clause
+            </title>
+            <ol id='B1' type='alphabet'>
+              <li>
+                A1
+                <ul id='B2'>
+                  <li>
+                    A2
+                    <ol id='B3' type='roman'>
+                      <li>A3 </li>
+                    </ol>
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </clause>
+        </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   private

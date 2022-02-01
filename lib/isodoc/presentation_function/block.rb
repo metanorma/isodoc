@@ -135,5 +135,29 @@ module IsoDoc
       elem.xpath(ns("./description")).each { |a| a.replace(a.children) }
       elem.replace(elem.children)
     end
+
+    def ol(docxml)
+      docxml.xpath(ns("//ol")).each do |f|
+        ol1(f)
+      end
+      @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
+    end
+
+    # We don't really want users to specify type of ordered list;
+    # we will use by default a fixed hierarchy as practiced by ISO (though not
+    # fully spelled out): a) 1) i) A) I)
+    def ol_depth(node)
+      depth = node.ancestors("ul, ol").size + 1
+      type = :alphabet
+      type = :arabic if [2, 7].include? depth
+      type = :roman if [3, 8].include? depth
+      type = :alphabet_upper if [4, 9].include? depth
+      type = :roman_upper if [5, 10].include? depth
+      type
+    end
+
+    def ol1(elem)
+      elem["type"] ||= ol_depth(elem).to_s
+    end
   end
 end
