@@ -2504,6 +2504,8 @@ RSpec.describe IsoDoc do
           <foreword>
           <p>
           <xref target="N1"/>
+          <xref target="N11"/>
+          <xref target="N12"/>
           <xref target="N2"/>
           <xref target="N"/>
           <xref target="note1"/>
@@ -2515,8 +2517,13 @@ RSpec.describe IsoDoc do
           </foreword>
           <introduction id="intro">
           <ol id="N01">
-        <li id="N1"><p>A</p></li>
-      </ol>
+        <li id="N1"><p>A</p>
+          <ol id="N011">
+        <li id="N11"><p>A</p>
+          <ol id="N012">
+        <li id="N12"><p>A</p>
+         </li>
+      </ol></li></ol></li></ol>
         <clause id="xyz"><title>Preparatory</title>
            <ol id="N02" type="arabic">
         <li id="N2"><p>A</p></li>
@@ -2563,6 +2570,8 @@ RSpec.describe IsoDoc do
       <foreword displayorder='1'>
         <p>
           <xref target='N1'>Introduction, a)</xref>
+          <xref target='N11'>Introduction, a.1)</xref>
+          <xref target='N12'>Introduction, a.1.i)</xref>
           <xref target='N2'>Preparatory, 1)</xref>
           <xref target='N'>Clause 1, i)</xref>
           <xref target='note1'>Clause 3.1, List 1 a)</xref>

@@ -69,7 +69,7 @@ module IsoDoc
     end
 
     def stage_abbr(docstatus)
-      status_print(docstatus).split(/ /).map { |s| s[0].upcase }.join("")
+      status_print(docstatus).split(/ /).map { |s| s[0].upcase }.join
     end
 
     def unpublished(status)
