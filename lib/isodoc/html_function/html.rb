@@ -128,6 +128,12 @@ module IsoDoc
 
       def table_long_strings_cleanup(docxml); end
 
+      def table_attrs(node)
+        ret = super
+        node.at(ns("./colgroup")) and ret[:style] += "table-layout:fixed;"
+        ret
+      end
+
       def image_parse(node, out, caption)
         if svg = node.at("./m:svg", "m" => "http://www.w3.org/2000/svg")
           svg_parse(svg, out)
