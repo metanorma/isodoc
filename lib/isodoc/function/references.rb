@@ -49,10 +49,14 @@ module IsoDoc
       end
 
       def pref_ref_code(bib)
-        bib.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
-                  "or @type = 'metanorma-ordinal' or "\
-                  "@type = 'ISSN' or @type = 'ISBN' or "\
-                  "@type = 'rfc-anchor')]"))
+        ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
+        ret.empty? and
+          ret = bib.at(ns("./docidentifier[not(@type = 'DOI' or "\
+                          "@type = 'metanorma' "\
+                          "or @type = 'metanorma-ordinal' or "\
+                          "@type = 'ISSN' or @type = 'ISBN' or "\
+                          "@type = 'rfc-anchor')]"))
+        ret
       end
 
       # returns [metanorma, non-metanorma, DOI/ISSN/ISBN] identifiers
@@ -78,8 +82,16 @@ module IsoDoc
         num
       end
 
-      def unbracket(ident)
+      def unbracket1(ident)
         ident&.text&.sub(/^\[/, "")&.sub(/\]$/, "")
+      end
+
+      def unbracket(ident)
+        if ident.respond_to?(:size)
+          ident.map { |x| unbracket1(x) }.join("&#xA0;/ ")
+        else
+          unbracket1(ident)
+        end
       end
 
       def render_identifier(ident)
