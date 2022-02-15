@@ -1782,4 +1782,41 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
+
+  it "processes formatting in eref/@citeas" do
+    input = <<~INPUT
+      <itu-standard xmlns="https://www.calconnect.org/standards/itu">
+               <preface>
+           <foreword id='_' obligation='informative'>
+             <title>Foreword</title>
+             <p id='_'>
+               <eref type='inline' bibitemid='iso124' citeas='[&amp;#x3c;strong&amp;#x3e;A&amp;#x3c;/strong&amp;#x3e;.&amp;#x3c;fn reference=&amp;#x22;1&amp;#x22;&amp;#x3e;&amp;#xa;  &amp;#x3c;p&amp;#x3e;hello&amp;#x3c;/p&amp;#x3e;&amp;#xa;&amp;#x3c;/fn&amp;#x3e;]'/>
+             </p>
+           </foreword>
+         </preface>
+      </itu-standard>
+    INPUT
+    output = <<~OUTPUT
+      <itu-standard xmlns='https://www.calconnect.org/standards/itu' type='presentation'>
+         <preface>
+           <foreword id='_' obligation='informative' displayorder='1'>
+             <title>Foreword</title>
+             <p id='_'>
+               <eref type='inline' bibitemid='iso124' citeas='[&amp;#x3c;strong&amp;#x3e;A&amp;#x3c;/strong&amp;#x3e;.&amp;#x3c;fn reference=&amp;#x22;1&amp;#x22;&amp;#x3e;&amp;#xa;  &amp;#x3c;p&amp;#x3e;hello&amp;#x3c;/p&amp;#x3e;&amp;#xa;&amp;#x3c;/fn&amp;#x3e;]'>
+                 [
+                 <strong>A</strong>
+                 .
+                 <fn reference='1'>
+                   <p>hello</p>
+                 </fn>
+                 ]
+               </eref>
+             </p>
+           </foreword>
+         </preface>
+       </itu-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
 end
