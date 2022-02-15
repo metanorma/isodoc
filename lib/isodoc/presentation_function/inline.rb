@@ -69,7 +69,8 @@ module IsoDoc
       c1 = non_locality_elems(node).select { |c| !c.text? || /\S/.match(c) }
       return unless c1.empty?
 
-      link = anchor_linkend(node, docid_l10n(node["target"] || node["citeas"]))
+      link = anchor_linkend(node, docid_l10n(node["target"] ||
+                                             expand_citeas(node["citeas"])))
       link += eref_localities(node.xpath(ns("./locality | ./localityStack")),
                               link, node)
       non_locality_elems(node).each(&:remove)
@@ -77,6 +78,11 @@ module IsoDoc
     end
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
     # <locality type="section"><reference>3.1</reference></locality></origin>
+
+    def expand_citeas(text)
+      text.nil? and return text
+      HTMLEntities.new.decode(text.gsub(/&amp;#x/, "&#"))
+    end
 
     def eref_localities(refs, target, node)
       ret = ""
