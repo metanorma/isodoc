@@ -38,6 +38,14 @@ internal_external_terms_boilerplate: |
           <p>For the purposes of this document, the terms and definitions 
             given in % and the following apply.</p>
 term_defined_in: "[term defined in %]"
+binary_and: "%1 and %2"
+multiple_and: "%1, and %2"
+binary_or: "%1 or %2"
+multiple_or: "%1, or %2"
+chain_and: "%1 and %2"
+chain_or: "%1 or %2"
+chain_from: "%1 from %2"
+chain_to: "%1 to %2"
 note: NOTE
 note_xref: Note
 termnote: Note % to entry

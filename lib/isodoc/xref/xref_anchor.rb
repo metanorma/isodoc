@@ -54,6 +54,7 @@ module IsoDoc
         ret[:xref].gsub!(/ $/, "")
         ret[:container] = @klass.get_clause_id(container) unless container.nil?
         ret[:type] = type
+        ret[:elem] = elem
         ret[:value] = anchor_struct_value(lbl, elem)
         ret
       end

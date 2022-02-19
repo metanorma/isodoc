@@ -1156,6 +1156,108 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "processes multiple-target xrefs" do
+     input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+       <clause id="A" inline-header="false" obligation="normative">
+       <title>Section</title>
+       <p id="A"><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/></xref>
+       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/><location target="ref3" connective="and"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/><location target="ref3" connective="or"/></xref>
+       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref></p>
+       </clause>
+       <clause id="ref1"/>
+       <clause id="ref2"/>
+       <clause id="ref3"/>
+       <clause id="ref4"/>
+         </sections>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <bibdata/>
+
+         <sections>
+           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Section
+             </title>
+                          <p id='A'>
+               <xref target='ref1'>
+                 <location target='ref1' connective='from'/>
+                 <location target='ref2' connective='to'/>
+                 Clause 2 to 3
+               </xref>
+               <xref target='ref1'>
+                 <location target='ref1' connective='from'/>
+                 <location target='ref2' connective='to'/>
+                 text
+               </xref>
+               <xref target='ref1'>
+                 <location target='ref1' connective='and'/>
+                 <location target='ref2' connective='and'/>
+                 Clause 2 and 3
+               </xref>
+               <xref target='ref1'>
+                 <location target='ref1' connective='and'/>
+                 <location target='ref2' connective='and'/>
+                 <location target='ref3' connective='and'/>
+                 Clause 2, 3, and 4
+               </xref>
+               <xref target='ref1'>
+                 <location target='ref1' connective='and'/>
+                 <location target='ref2' connective='and'/>
+                 text
+               </xref>
+               <xref target='ref1'>
+                 <location target='ref1' connective='and'/>
+                 <location target='ref2' connective='or'/>
+                 Clause 2 or 3
+               </xref>
+               <xref target='ref1'>
+                 <location target='ref1' connective='and'/>
+                 <location target='ref2' connective='or'/>
+                 <location target='ref3' connective='or'/>
+                 Clause 2, 3, or 4
+               </xref>
+               <xref target='ref1'>
+                 <location target='ref1' connective='from'/>
+                 <location target='ref2' connective='to'/>
+                 <location target='ref3' connective='and'/>
+                 <location target='ref4' connective='to'/>
+                 Clause 2 to 3 and 4 to 5
+               </xref>
+             </p>
+           </clause>
+           <clause id='ref1' displayorder='2'>
+             <title>2.</title>
+           </clause>
+           <clause id='ref2' displayorder='3'>
+             <title>3.</title>
+           </clause>
+           <clause id='ref3' displayorder='4'>
+             <title>4.</title>
+           </clause>
+           <clause id='ref4' displayorder='5'>
+             <title>5.</title>
+           </clause>
+         </sections>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   private
 
   def mock_symbols
