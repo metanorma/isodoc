@@ -173,12 +173,12 @@ RSpec.describe IsoDoc do
             <li><concept><refterm>term</refterm>
               <renderterm>word</renderterm>
               <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
-              <localityStack>
+              <localityStack connective="and">
                 <locality type='clause'>
                   <referenceFrom>3.1</referenceFrom>
                 </locality>
               </localityStack>
-              <localityStack>
+              <localityStack connective="and">
                 <locality type='figure'>
                   <referenceFrom>b</referenceFrom>
                 </locality>
@@ -188,12 +188,12 @@ RSpec.describe IsoDoc do
             <li><concept><refterm>term</refterm>
               <renderterm>word</renderterm>
               <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
-              <localityStack>
+              <localityStack connective="and">
                 <locality type='clause'>
                   <referenceFrom>3.1</referenceFrom>
                 </locality>
               </localityStack>
-              <localityStack>
+              <localityStack connective="and">
                 <locality type='figure'>
                   <referenceFrom>b</referenceFrom>
                 </locality>
@@ -263,24 +263,24 @@ RSpec.describe IsoDoc do
                 </locality>ISO 712, Clause 3.1, Figure a</eref>]
             </li>
             <li>
-              <em>word</em> [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712"><localityStack>
+              <em>word</em> [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712"><localityStack connective="and">
                 <locality type="clause">
                   <referenceFrom>3.1</referenceFrom>
                 </locality>
-              </localityStack><localityStack>
+              </localityStack><localityStack connective="and">
                 <locality type="figure">
                   <referenceFrom>b</referenceFrom>
                 </locality>
-              </localityStack>ISO 712, Clause 3.1; Figure b</eref>]
+              </localityStack>ISO 712, Clause 3.1 and Figure b</eref>]
             </li>
             <li>
               <em>word</em> [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">
-              <localityStack>
+              <localityStack connective="and">
                 <locality type="clause">
                   <referenceFrom>3.1</referenceFrom>
                 </locality>
               </localityStack>
-              <localityStack>
+              <localityStack connective="and">
                 <locality type="figure">
                   <referenceFrom>b</referenceFrom>
                 </locality>
@@ -362,7 +362,7 @@ RSpec.describe IsoDoc do
                    <li>
                      <i>word</i>
                       [term defined in
-                     <a href='#ISO712'>ISO 712, Clause 3.1; Figure b</a>
+                     <a href='#ISO712'>ISO 712, Clause 3.1 and Figure b</a>
                      ]
                    </li>
                    <li>
@@ -1082,8 +1082,8 @@ RSpec.describe IsoDoc do
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
           <eref type="inline" bibitemid="ISO712"/>
           <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
-          <eref type="inline" bibitemid="ISO712"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
-          <eref type="inline" bibitemid="ISO712"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+          <eref type="inline" bibitemid="ISO712"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+          <eref type="inline" bibitemid="ISO712"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
           <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref>
           <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
           <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
@@ -1121,8 +1121,8 @@ RSpec.describe IsoDoc do
                 <eref type="inline" bibitemid="ISO712" citeas="ISO 712">ISO 712</eref>
                 <eref type="inline" bibitemid="ISO712">ISO 712</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality>ISO 712, Table 1</eref>
-                <eref type="inline" bibitemid="ISO712"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack>ISO 712, Table 1</eref>
-                <eref type="inline" bibitemid="ISO712"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack>ISO 712, Table 1; Clause 1</eref>
+                <eref type="inline" bibitemid="ISO712"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack>ISO 712, Table 1</eref>
+                <eref type="inline" bibitemid="ISO712"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack>ISO 712, Table 1 and Clause 1</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO 712, Table 1&#x2013;1</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality>ISO 712, Clause 1, Table 1</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, Clause 1</eref>
@@ -1165,7 +1165,7 @@ RSpec.describe IsoDoc do
                  <a href="#ISO712">ISO 712</a>
                  <a href="#ISO712">ISO 712, Table 1</a>
                  <a href='#ISO712'>ISO 712, Table 1</a>
-      <a href='#ISO712'>ISO 712, Table 1; Clause 1</a>
+      <a href='#ISO712'>ISO 712, Table 1 and Clause 1</a>
                  <a href="#ISO712">ISO 712, Table 1&#8211;1</a>
                  <a href="#ISO712">ISO 712, Clause 1, Table 1</a>
                  <a href="#ISO712">ISO 712, Clause 1</a>
@@ -1204,8 +1204,8 @@ RSpec.describe IsoDoc do
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
           <eref type="inline" bibitemid="ISO712"/>
           <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
-          <eref type="inline" bibitemid="ISO713"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
-          <eref type="inline" bibitemid="ISO713"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+          <eref type="inline" bibitemid="ISO713"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+          <eref type="inline" bibitemid="ISO713"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
           <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref>
           <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
           <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
@@ -1267,8 +1267,8 @@ RSpec.describe IsoDoc do
               <eref type='inline' bibitemid='ISO713'><locality type='table'>
                   <referenceFrom>1</referenceFrom>
                 </locality>ISO 713, Table 1</eref>
-              <eref type='inline' bibitemid='ISO713'><localityStack><locality type='table'><referenceFrom>1</referenceFrom></locality></localityStack>ISO 713, Table 1</eref>
-              <eref type='inline' bibitemid='ISO713'><localityStack><locality type='table'><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type='clause'><referenceFrom>1</referenceFrom></locality></localityStack>ISO 713, Table 1; Clause 1</eref>
+              <eref type='inline' bibitemid='ISO713'><localityStack connective="and"><locality type='table'><referenceFrom>1</referenceFrom></locality></localityStack>ISO 713, Table 1</eref>
+              <eref type='inline' bibitemid='ISO713'><localityStack connective="and"><locality type='table'><referenceFrom>1</referenceFrom></locality></localityStack><localityStack connective="and"><locality type='clause'><referenceFrom>1</referenceFrom></locality></localityStack>ISO 713, Table 1 and Clause 1</eref>
               <eref type='inline' bibitemid='ISO713'><locality type='table'>
                   <referenceFrom>1</referenceFrom>
                   <referenceTo>1</referenceTo>
@@ -1345,7 +1345,7 @@ RSpec.describe IsoDoc do
                 <a href='http://www.example.com'>ISO 712</a>
                 <a href='spec/assets/iso713.html'>ISO 713, Table 1</a>
                 <a href='spec/assets/iso713.html'>ISO 713, Table 1</a>
-                <a href='spec/assets/iso713.html'>ISO 713, Table 1; Clause 1</a>
+                <a href='spec/assets/iso713.html'>ISO 713, Table 1 and Clause 1</a>
                 <a href='spec/assets/iso713.html'>ISO 713, Table 1&#8211;1</a>
                 <a href='spec/assets/iso713.html'>ISO 713, Clause 1, Table 1</a>
                 <a href='spec/assets/iso713.html'>ISO 713, Clause 1</a>
@@ -1404,7 +1404,7 @@ RSpec.describe IsoDoc do
                 <a href='http://www.example.com'>ISO 712</a>
                 <a href='spec/assets/iso713.doc'>ISO 713, Table 1</a>
                 <a href='spec/assets/iso713.doc'>ISO 713, Table 1</a>
-                <a href='spec/assets/iso713.doc'>ISO 713, Table 1; Clause 1</a>
+                <a href='spec/assets/iso713.doc'>ISO 713, Table 1 and Clause 1</a>
                 <a href='spec/assets/iso713.doc'>ISO 713, Table 1&#8211;1</a>
                 <a href='spec/assets/iso713.doc'>ISO 713, Clause 1, Table 1</a>
                 <a href='spec/assets/iso713.doc'>ISO 713, Clause 1</a>
@@ -1814,6 +1814,252 @@ RSpec.describe IsoDoc do
              </p>
            </foreword>
          </preface>
+       </itu-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
+
+  it "combines locality stacks with connectives" do
+    input = <<~INPUT
+      <itu-standard xmlns="https://www.calconnect.org/standards/itu">
+                  <p id='_'>
+              <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+                <localityStack connective='from'>
+                  <locality type='clause'>
+                    <referenceFrom>3</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='to'>
+                  <locality type='clause'>
+                    <referenceFrom>5</referenceFrom>
+                  </locality>
+                </localityStack>
+              </eref>
+              <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+                <localityStack connective='from'>
+                  <locality type='clause'>
+                    <referenceFrom>3</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='to'>
+                  <locality type='clause'>
+                    <referenceFrom>5</referenceFrom>
+                  </locality>
+                  <locality type="table">
+                    <referenceFrom>2</referenceFrom>
+                  </locality>
+                  </locality>
+                </localityStack>
+                text
+              </eref>
+              <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+                <localityStack connective='and'>
+                  <locality type='clause'>
+                    <referenceFrom>3</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='and'>
+                  <locality type='clause'>
+                    <referenceFrom>5</referenceFrom>
+                  </locality>
+                </localityStack>
+              </eref>
+              <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+                <localityStack connective='and'>
+                  <locality type='clause'>
+                    <referenceFrom>3</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='and'>
+                  <locality type='clause'>
+                    <referenceFrom>5</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='and'>
+                  <locality type='clause'>
+                    <referenceFrom>7</referenceFrom>
+                  </locality>
+                </localityStack>
+              </eref>
+              <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+                <localityStack connective='and'>
+                  <locality type='clause'>
+                    <referenceFrom>3</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='and'>
+                  <locality type='annex'>
+                    <referenceFrom>5</referenceFrom>
+                  </locality>
+                </localityStack>
+              </eref>
+              <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+                <localityStack connective='and'>
+                  <locality type='clause'>
+                    <referenceFrom>3</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='or'>
+                  <locality type='clause'>
+                    <referenceFrom>5</referenceFrom>
+                  </locality>
+                </localityStack>
+                text
+              </eref>
+              <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+                <localityStack connective='from'>
+                  <locality type='clause'>
+                    <referenceFrom>3</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='to'>
+                  <locality type='clause'>
+                    <referenceFrom>5</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='and'>
+                  <locality type='clause'>
+                    <referenceFrom>8</referenceFrom>
+                  </locality>
+                </localityStack>
+                <localityStack connective='to'>
+                  <locality type='clause'>
+                    <referenceFrom>10</referenceFrom>
+                  </locality>
+                </localityStack>
+              </eref>
+            </p>
+          </clause>
+        </sections>
+        <bibliography>
+          <references id='_' normative='false' obligation='informative'>
+            <title>Bibliography</title>
+            <bibitem id='ref1'>
+              <formattedref format='application/x-isodoc+xml'>
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+          </references>
+        </bibliography>
+
+      </itu-standard>
+    INPUT
+    output = <<~OUTPUT
+           <itu-standard xmlns='https://www.calconnect.org/standards/itu' type='presentation'>
+         <p id='_'>
+           <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
+             <localityStack connective='from'>
+               <locality type='clause'>
+                 <referenceFrom>3</referenceFrom>
+               </locality>
+             </localityStack>
+             <localityStack connective='to'>
+               <locality type='clause'>
+                 <referenceFrom>5</referenceFrom>
+               </locality>
+             </localityStack>
+             XYZ, Clause 3 to 5
+           </eref>
+           <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+             <localityStack connective='from'>
+               <locality type='clause'>
+                 <referenceFrom>3</referenceFrom>
+               </locality>
+             </localityStack>
+             <localityStack connective='to'>
+               <locality type='clause'>
+                 <referenceFrom>5</referenceFrom>
+               </locality>
+               <locality type='table'>
+                 <referenceFrom>2</referenceFrom>
+               </locality>
+             </localityStack>
+             XYZ, Clause 3 to Clause 5, Table 2
+           </eref>
+            text
+         </p>
+         <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
+           <localityStack connective='and'>
+             <locality type='clause'>
+               <referenceFrom>3</referenceFrom>
+             </locality>
+           </localityStack>
+           <localityStack connective='and'>
+             <locality type='clause'>
+               <referenceFrom>5</referenceFrom>
+             </locality>
+           </localityStack>
+           XYZ, Clause 3 and 5
+         </eref>
+         <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
+           <localityStack connective='and'>
+             <locality type='clause'>
+               <referenceFrom>3</referenceFrom>
+             </locality>
+           </localityStack>
+           <localityStack connective='and'>
+             <locality type='clause'>
+               <referenceFrom>5</referenceFrom>
+             </locality>
+           </localityStack>
+           <localityStack connective='and'>
+             <locality type='clause'>
+               <referenceFrom>7</referenceFrom>
+             </locality>
+           </localityStack>
+           XYZ, Clause 3, 5, and 7
+         </eref>
+         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+           <localityStack connective='and'>
+             <locality type='clause'>
+               <referenceFrom>3</referenceFrom>
+             </locality>
+           </localityStack>
+           <localityStack connective='and'>
+             <locality type='annex'>
+               <referenceFrom>5</referenceFrom>
+             </locality>
+           </localityStack>
+           XYZ, Clause 3 and Annex 5
+         </eref>
+         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
+           <localityStack connective='and'>
+             <locality type='clause'>
+               <referenceFrom>3</referenceFrom>
+             </locality>
+           </localityStack>
+           <localityStack connective='or'>
+             <locality type='clause'>
+               <referenceFrom>5</referenceFrom>
+             </locality>
+           </localityStack>
+            text
+         </eref>
+         <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
+           <localityStack connective='from'>
+             <locality type='clause'>
+               <referenceFrom>3</referenceFrom>
+             </locality>
+           </localityStack>
+           <localityStack connective='to'>
+             <locality type='clause'>
+               <referenceFrom>5</referenceFrom>
+             </locality>
+           </localityStack>
+           <localityStack connective='and'>
+             <locality type='clause'>
+               <referenceFrom>8</referenceFrom>
+             </locality>
+           </localityStack>
+           <localityStack connective='to'>
+             <locality type='clause'>
+               <referenceFrom>10</referenceFrom>
+             </locality>
+           </localityStack>
+           XYZ, Clause 3 to 5 and 8 to 10
+         </eref>
        </itu-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
