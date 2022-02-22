@@ -1947,7 +1947,7 @@ RSpec.describe IsoDoc do
       </itu-standard>
     INPUT
     output = <<~OUTPUT
-           <itu-standard xmlns='https://www.calconnect.org/standards/itu' type='presentation'>
+      <itu-standard xmlns='https://www.calconnect.org/standards/itu' type='presentation'>
          <p id='_'>
            <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
              <localityStack connective='from'>

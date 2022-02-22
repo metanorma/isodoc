@@ -37,17 +37,23 @@ module IsoDoc
     end
 
     def eref_localities(refs, target, node)
-      if conflate = can_conflate_eref_rendering?(refs)
-        droploc = node["droploc"]
-        node["droploc"] = true
+      if can_conflate_eref_rendering?(refs)
+        l10n(", #{eref_localities_conflated(refs, target, node)}")
+      else
+        ret = resolve_eref_connectives(eref_locality_stacks(refs, target, node))
+        l10n(ret.join)
       end
-      ret = resolve_eref_connectives(eref_locality_stacks(refs, target, node))
-      return l10n(ret.join) unless conflate
+    end
 
+    def eref_localities_conflated(refs, target, node)
+      droploc = node["droploc"]
+      node["droploc"] = true
+      ret = resolve_eref_connectives(eref_locality_stacks(refs, target,
+                                                          node))
       node["droploc"] = droploc
-      l10n(", #{eref_localities1(target,
-                                 refs.first.at(ns('./locality/@type')).text,
-                                 l10n(ret[1..-1].join), nil, node, @lang)}")
+      eref_localities1(target,
+                       refs.first.at(ns("./locality/@type")).text,
+                       l10n(ret[1..-1].join), nil, node, @lang)
     end
 
     def can_conflate_eref_rendering?(refs)
@@ -76,7 +82,7 @@ module IsoDoc
       locs1 = []
       add = ""
       until locs.empty?
-        if locs[1] == ", "
+        if [", ", " "].include?(locs[1])
           add += locs[0..2].join
           locs.shift(3)
         else
@@ -102,14 +108,18 @@ module IsoDoc
     end
 
     def eref_locality_stacks(refs, target, node)
-      refs.each_with_index.with_object([]) do |(r, i), m|
-        delim = ", "
-        delim = r["connective"] if r.name == "localityStack" && i.positive?
+      ret = refs.each_with_index.with_object([]) do |(r, i), m|
         added = eref_locality_stack(r, i, target, node)
         added.empty? and next
-        m << delim
         added.each { |a| m << a }
+        next if i == refs.size - 1
+
+        m << if r&.next_element&.name == "localityStack"
+               r.next_element["connective"]
+             else locality_delimiter(r)
+             end
       end
+      ret.empty? ? ret : [", "] + ret
     end
 
     def eref_locality_stack(ref, idx, target, node)
@@ -119,12 +129,16 @@ module IsoDoc
           l = eref_localities0(rr, j, target, node) or next
 
           ret << l
-          ret << ", " unless j == ref.elements.size - 1
+          ret << locality_delimiter(rr) unless j == ref.elements.size - 1
         end
       else
         l = eref_localities0(ref, idx, target, node) and ret << l
       end
       ret
+    end
+
+    def locality_delimiter(_loc)
+      ", "
     end
 
     def eref_localities0(ref, _idx, target, node)
@@ -140,7 +154,7 @@ module IsoDoc
     def eref_localities1_zh(_target, type, from, upto, node)
       ret = "第#{from}" if from
       ret += "&ndash;#{upto}" if upto
-      loc = (@i18n.locality[type] || type.sub(/^locality:/, "").capitalize)
+      loc = eref_locality_populate(type, node)
       ret += " #{loc}" unless node["droploc"] == "true"
       ret
     end
