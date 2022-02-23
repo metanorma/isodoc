@@ -20,6 +20,7 @@ module IsoDoc
         num = BigDecimal(x.text)
         precision = /\./.match?(x.text) ? x.text.sub(/^.*\./, "").size : 0
         x.children = localized_number(num, locale, precision)
+      rescue ArgumentError => e
       end
     end
 
