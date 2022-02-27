@@ -1,13 +1,28 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def bibdata(docxml)
+      toc_metadata(docxml)
       docid_prefixes(docxml)
       a = bibdata_current(docxml) or return
       address_precompose(a)
       bibdata_i18n(a)
       a.next =
-        "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join('')}"\
+        "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join}"\
         "</localized-strings>"
+    end
+
+    def toc_metadata(docxml)
+      return unless @tocfigures || @toctables || @tocrecommendations
+
+      ins = docxml.at(ns("//misc-container")) ||
+        xmldoc.at(ns("//bibdata")).after("<misc-container/>").next_element
+      @tocfigures and
+        ins << "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"
+      @toctables and
+        ins << "<toc type='table'><title>#{@i18n.toc_tables}</title></toc>"
+      @tocfigures and
+        ins << "<toc type='recommendation'><title>#{@i18n.toc_recommendations}"\
+               "</title></toc>"
     end
 
     def address_precompose(bib)
@@ -66,8 +81,9 @@ module IsoDoc
     end
 
     def i8n_name(hash, pref)
-      if hash.is_a? Hash then i8n_name1(hash, pref)
-      elsif hash.is_a? Array
+      case hash
+      when Hash then i8n_name1(hash, pref)
+      when Array
         hash.reject { |a| blank?(a) }.each_with_object([])
           .with_index do |(v1, g), i|
           i8n_name(v1, "#{i18n_safe(k)}.#{i}").each { |x| g << x }
@@ -78,8 +94,9 @@ module IsoDoc
 
     def i8n_name1(hash, pref)
       hash.reject { |_k, v| blank?(v) }.each_with_object([]) do |(k, v), g|
-        if v.is_a? Hash then i8n_name(v, i18n_safe(k)).each { |x| g << x }
-        elsif v.is_a? Array
+        case v
+        when Hash then i8n_name(v, i18n_safe(k)).each { |x| g << x }
+        when Array
           v.reject { |a| blank?(a) }.each_with_index do |v1, i|
             i8n_name(v1, "#{i18n_safe(k)}.#{i}").each { |x| g << x }
           end
@@ -109,11 +126,11 @@ module IsoDoc
       hash.each_with_object({}) do |(k, v), g|
         next if blank?(v)
 
-        g[k] = if v.is_a? Hash then trim_hash1(hash[k])
-               elsif v.is_a? Array
+        g[k] = case v
+               when Hash then trim_hash1(hash[k])
+               when Array
                  hash[k].map { |a| trim_hash1(a) }.reject { |a| blank?(a) }
-               else
-                 v
+               else v
                end
       end
     end

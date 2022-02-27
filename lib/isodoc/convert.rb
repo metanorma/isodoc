@@ -40,6 +40,9 @@ module IsoDoc
     #   every 40-odd chars
     # sectionsplit: split up HTML output on sections
     # bare: do not insert any prefatory material (coverpage, boilerplate)
+    # tocfigures: add ToC for figures
+    # toctables: add ToC for tables
+    # tocrecommendations: add ToC for rcommendations
     def initialize(options)
       @libdir ||= File.dirname(__FILE__) # rubocop:disable Lint/DisjunctiveAssignmentInConstructor
       options.merge!(default_fonts(options)) do |_, old, new|
@@ -50,25 +53,14 @@ module IsoDoc
       @options = options
       @files_to_delete = []
       @tempfile_cache = []
-      @htmlstylesheet_name = options[:htmlstylesheet]
-      @wordstylesheet_name = options[:wordstylesheet]
-      @htmlstylesheet_override_name = options[:htmlstylesheet_override]
-      @wordstylesheet_override_name = options[:wordstylesheet_override]
-      @standardstylesheet_name = options[:standardstylesheet]
       @sourcefilename = options[:sourcefilename]
-      @header = options[:header]
-      @htmlcoverpage = options[:htmlcoverpage]
-      @wordcoverpage = options[:wordcoverpage]
-      @htmlintropage = options[:htmlintropage]
-      @wordintropage = options[:wordintropage]
+      init_stylesheets(options)
+      init_covers(options)
+      init_toc(options)
       @normalfontsize = options[:normalfontsize]
       @smallerfontsize = options[:smallerfontsize]
       @monospacefontsize = options[:monospacefontsize]
       @footnotefontsize = options[:footnotefontsize]
-      @scripts = options[:scripts] ||
-        File.join(File.dirname(__FILE__), "base_style", "scripts.html")
-      @scripts_pdf = options[:scripts_pdf]
-      @scripts_override = options[:scripts_override]
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
       @olstyle = options[:olstyle]
@@ -96,16 +88,42 @@ module IsoDoc
       @script = options[:script] || "Latn"
       @maxwidth = 1200
       @maxheight = 800
-      @wordToClevels = options[:doctoclevels].to_i
-      @wordToClevels = 2 if @wordToClevels.zero?
-      @htmlToClevels = options[:htmltoclevels].to_i
-      @htmlToClevels = 2 if @htmlToClevels.zero?
       @bookmarks_allocated = { "X" => true }
       @fn_bookmarks = {}
       @baseassetpath = options[:baseassetpath]
       @aligncrosselements = options[:aligncrosselements]
       @tmpimagedir_suffix = tmpimagedir_suffix
       @tmpfilesdir_suffix = tmpfilesdir_suffix
+    end
+
+    def init_covers(options)
+      @header = options[:header]
+      @htmlcoverpage = options[:htmlcoverpage]
+      @wordcoverpage = options[:wordcoverpage]
+      @htmlintropage = options[:htmlintropage]
+      @wordintropage = options[:wordintropage]
+      @scripts = options[:scripts] ||
+        File.join(File.dirname(__FILE__), "base_style", "scripts.html")
+      @scripts_pdf = options[:scripts_pdf]
+      @scripts_override = options[:scripts_override]
+    end
+
+    def init_stylesheets(options)
+      @htmlstylesheet_name = options[:htmlstylesheet]
+      @wordstylesheet_name = options[:wordstylesheet]
+      @htmlstylesheet_override_name = options[:htmlstylesheet_override]
+      @wordstylesheet_override_name = options[:wordstylesheet_override]
+      @standardstylesheet_name = options[:standardstylesheet]
+    end
+
+    def init_toc(options)
+      @wordToClevels = options[:doctoclevels].to_i
+      @wordToClevels = 2 if @wordToClevels.zero?
+      @htmlToClevels = options[:htmltoclevels].to_i
+      @htmlToClevels = 2 if @htmlToClevels.zero?
+      @tocfigures = options[:tocfigures] == "true"
+      @toctables = options[:toctables] == "true"
+      @tocrecommendations = options[:tocrecommendations] == "true"
     end
 
     def tmpimagedir_suffix

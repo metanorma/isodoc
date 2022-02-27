@@ -63,6 +63,9 @@ deprecated: DEPRECATED
 source: SOURCE
 and: and
 all_parts: All Parts
+toc_figures: List of figures
+toc_tables: List of tables
+toc_recommendations: List of recommendations
 month_january: January
 month_february: February
 month_march: March
