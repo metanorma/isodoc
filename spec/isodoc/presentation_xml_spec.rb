@@ -1158,6 +1158,40 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "inserts toc metadata" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+         </sections>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <bibdata/>
+        <misc-container>
+          <toc type='figure'>
+            <title>List of figures</title>
+          </toc>
+          <toc type='table'>
+            <title>List of tables</title>
+          </toc>
+          <toc type='recommendation'>
+            <title>List of recommendations</title>
+          </toc>
+        </misc-container>
+        <sections> </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+      .new({ tocfigures: true,
+             toctables: true,
+             tocrecommendations: true })
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   private
 
   def mock_symbols

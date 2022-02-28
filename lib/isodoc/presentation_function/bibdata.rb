@@ -15,7 +15,7 @@ module IsoDoc
       return unless @tocfigures || @toctables || @tocrecommendations
 
       ins = docxml.at(ns("//misc-container")) ||
-        xmldoc.at(ns("//bibdata")).after("<misc-container/>").next_element
+        docxml.at(ns("//bibdata")).after("<misc-container/>").next_element
       @tocfigures and
         ins << "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"
       @toctables and

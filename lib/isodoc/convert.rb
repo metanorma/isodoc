@@ -121,9 +121,9 @@ module IsoDoc
       @wordToClevels = 2 if @wordToClevels.zero?
       @htmlToClevels = options[:htmltoclevels].to_i
       @htmlToClevels = 2 if @htmlToClevels.zero?
-      @tocfigures = options[:tocfigures] == "true"
-      @toctables = options[:toctables] == "true"
-      @tocrecommendations = options[:tocrecommendations] == "true"
+      @tocfigures = options[:tocfigures]
+      @toctables = options[:toctables]
+      @tocrecommendations = options[:tocrecommendations]
     end
 
     def tmpimagedir_suffix
