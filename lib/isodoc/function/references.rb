@@ -118,7 +118,7 @@ module IsoDoc
         date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
         return if date_note.nil?
 
-        date_note.children.first.replace("<p>#{date_note.content}</p>")
+        date_note.children = "<p>#{date_note.content}</p>"
         footnote_parse(date_note, ref)
       end
 
