@@ -1529,7 +1529,7 @@ RSpec.describe IsoDoc do
 
 
         <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<i>Oryza sativa</i> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
-      <p class="QuoteAttribution">&#8212; ISO, <a href="#ISO7301">ISO 7301:2011, Clause 1</a></p></div>
+      <p class="QuoteAttribution">&#8212; ISO, ISO 7301:2011, Clause 1</p></div>
               </div>
               <p class="zzSTDTitle1"/>
             </div>
