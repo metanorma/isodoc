@@ -26,13 +26,14 @@ RSpec.describe IsoDoc do
 
   it "test --font-manifest pdf_options" do
     mn2pdf_opts = {
-      IsoDoc::XslfoPdfConvert::MN2PDF_FONT_MANIFEST => "/tmp/manifest.yml",
       "--syntax-highlight": nil,
+      font_manifest: "/tmp/manifest.yml",
     }
     convert = IsoDoc::XslfoPdfConvert.new(
       {
         datauriimage: false,
         IsoDoc::XslfoPdfConvert::MN2PDF_OPTIONS => mn2pdf_opts,
+        font_manifest: "/tmp/manifest.yml",
       },
     )
 
