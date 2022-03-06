@@ -1658,22 +1658,54 @@ RSpec.describe IsoDoc do
                </p>
              </div>
              <p class='zzSTDTitle1'/>
-             <div>
-               <h1> 1. &#160; Normative References </h1>
-               <p id='ISO712' class='NormRef'>
-                 ISO 712,
-                 <i>Cereals and cereal products</i>
-               </p>
-               <p id='ISO713' class='NormRef'>
-                 ISO 713,
-                 <i>Cereals and cereal products</i>
-               </p>
-             </div>
            </div>
          </body>
        </html>
     OUTPUT
     word = <<~OUTPUT
+      <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+        <head><style/></head>
+             <body lang='EN-US' link='blue' vlink='#954F72'>
+           <div class='WordSection1'>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection2'>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <p>
+                 <a href='http://www.example.com'>ISO 712</a>
+                 <a href='http://www.example.com'>ISO 712</a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1; Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1&#8211;1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1.5 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> A </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Whole of text </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Prelude 7 </a>
+                 <a href='https://www.iso.org/standard/3944.html'>A</a>
+                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO 713 </a>
+                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO 713, Clause 1 </a>
+               </p>
+             </div>
+             <p>&#160;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection3'>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
     OUTPUT
 
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
