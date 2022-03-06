@@ -474,7 +474,6 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-=begin
   it "populates HTML ToC" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
@@ -499,7 +498,6 @@ RSpec.describe IsoDoc do
     HAJSHJAS
     OUTPUT
   end
-=end
 
   it "populates Word ToC" do
     FileUtils.rm_f "test.doc"

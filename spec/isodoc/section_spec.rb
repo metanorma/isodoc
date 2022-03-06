@@ -1,7 +1,6 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-=begin
   it "processes prefatory blocks" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1496,7 +1495,7 @@ RSpec.describe IsoDoc do
       .new({ suppressheadingnumbers: true })
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
-=end
+
   it "processes floating titles" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
