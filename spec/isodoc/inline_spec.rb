@@ -1464,8 +1464,8 @@ RSpec.describe IsoDoc do
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
           <eref type="inline" bibitemid="ISO712"/>
           <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
-          <eref type="inline" bibitemid="ISO713"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
-          <eref type="inline" bibitemid="ISO713"><localityStack><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+          <eref type="inline" bibitemid="ISO713"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
+          <eref type="inline" bibitemid="ISO713"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack></eref>
           <eref type="inline" bibitemid="ISO713"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality></eref>
           <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
           <eref type="inline" bibitemid="ISO713"><locality type="clause"><referenceFrom>1</referenceFrom></locality></eref>
@@ -1517,7 +1517,7 @@ RSpec.describe IsoDoc do
                  ISO 713, Table 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
-                 <localityStack>
+                 <localityStack connective="and">
                    <locality type='table'>
                      <referenceFrom>1</referenceFrom>
                    </locality>
@@ -1525,17 +1525,17 @@ RSpec.describe IsoDoc do
                  ISO 713, Table 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
-                 <localityStack>
+                 <localityStack connective="and">
                    <locality type='table'>
                      <referenceFrom>1</referenceFrom>
                    </locality>
                  </localityStack>
-                 <localityStack>
+                 <localityStack connective="and">
                    <locality type='clause'>
                      <referenceFrom>1</referenceFrom>
                    </locality>
                  </localityStack>
-                 ISO 713, Table 1; Clause 1
+                 ISO 713, Table 1 and Clause 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='table'>
@@ -1644,7 +1644,7 @@ RSpec.describe IsoDoc do
                  <a href='http://www.example.com'>ISO 712</a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1; Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 and Clause 1 </a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1&#8211;1 </a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1, Table 1 </a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1 </a>
@@ -1683,7 +1683,7 @@ RSpec.describe IsoDoc do
                  <a href='http://www.example.com'>ISO 712</a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1; Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 and Clause 1 </a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1&#8211;1 </a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1, Table 1 </a>
                  <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1 </a>
