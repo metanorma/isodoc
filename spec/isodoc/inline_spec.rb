@@ -2203,7 +2203,6 @@ RSpec.describe IsoDoc do
             </bibitem>
           </references>
         </bibliography>
-
       </itu-standard>
     INPUT
     output = <<~OUTPUT

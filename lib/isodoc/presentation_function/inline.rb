@@ -134,6 +134,7 @@ module IsoDoc
       else
         l = eref_localities0(ref, idx, target, node) and ret << l
       end
+      ret[-1] == ", " and ret.pop
       ret
     end
 
