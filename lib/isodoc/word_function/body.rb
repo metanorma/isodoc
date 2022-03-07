@@ -233,7 +233,7 @@ module IsoDoc
       end
 
       def suffix_url(url)
-        return url if url.nil? || %r{^https?://}.match?(url)
+        return url if url.nil? || %r{^https?://|^#}.match?(url)
         return url unless File.extname(url).empty?
 
         url.sub(/#{File.extname(url)}$/, ".doc")

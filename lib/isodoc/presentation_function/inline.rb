@@ -50,7 +50,7 @@ module IsoDoc
       node["droploc"] = true
       ret = resolve_eref_connectives(eref_locality_stacks(refs, target,
                                                           node))
-      node["droploc"] = droploc
+      node.delete("droploc") unless droploc
       eref_localities1(target,
                        refs.first.at(ns("./locality/@type")).text,
                        l10n(ret[1..-1].join), nil, node, @lang)
@@ -114,12 +114,16 @@ module IsoDoc
         added.each { |a| m << a }
         next if i == refs.size - 1
 
-        m << if r&.next_element&.name == "localityStack"
-               r.next_element["connective"]
-             else locality_delimiter(r)
-             end
+        m << eref_locality_delimiter(r)
       end
       ret.empty? ? ret : [", "] + ret
+    end
+
+    def eref_locality_delimiter(ref)
+      if ref&.next_element&.name == "localityStack"
+        ref.next_element["connective"]
+      else locality_delimiter(ref)
+      end
     end
 
     def eref_locality_stack(ref, idx, target, node)

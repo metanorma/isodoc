@@ -2208,7 +2208,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <itu-standard xmlns='https://www.calconnect.org/standards/itu' type='presentation'>
          <p id='_'>
-           <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
+           <eref type='inline' bibitemid='ref1' citeas='XYZ'>
              <localityStack connective='from'>
                <locality type='clause'>
                  <referenceFrom>3</referenceFrom>
@@ -2239,7 +2239,7 @@ RSpec.describe IsoDoc do
            </eref>
             text
          </p>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
+         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
            <localityStack connective='and'>
              <locality type='clause'>
                <referenceFrom>3</referenceFrom>
@@ -2252,7 +2252,7 @@ RSpec.describe IsoDoc do
            </localityStack>
            XYZ, Clause 3 and 5
          </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
+         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
            <localityStack connective='and'>
              <locality type='clause'>
                <referenceFrom>3</referenceFrom>
@@ -2296,7 +2296,7 @@ RSpec.describe IsoDoc do
            </localityStack>
             text
          </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ' droploc=''>
+         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
            <localityStack connective='from'>
              <locality type='clause'>
                <referenceFrom>3</referenceFrom>
