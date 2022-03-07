@@ -104,14 +104,27 @@ module IsoDoc
       xml.to_xml.gsub(/<b>/, "").gsub("</b>", "").gsub(/<\?[^>]+>/, "")
     end
 
-    def multiple_and(names, andword)
-      return "" if names.empty?
-      return names[0] if names.length == 1
-
-      (names.length == 2) &&
-        (return l10n("#{names[0]} #{andword} #{names[1]}", @lang, @script))
-      l10n(names[0..-2].join(", ") + " #{andword} #{names[-1]}", @lang, @script)
+    def boolean_conj(list, conn)
+      case list.size
+      when 0 then ""
+      when 1 then list.first
+      when 2 then @labels["binary_#{conn}"].sub(/%1/, list[0])
+        .sub(/%2/, list[1])
+      else
+        @labels["multiple_#{conn}"]
+          .sub(/%1/, l10n(list[0..-2].join(", "), @lang, @script))
+          .sub(/%2/, list[-1])
+      end
     end
+
+    #     def multiple_and(names, andword)
+    #       return "" if names.empty?
+    #       return names[0] if names.length == 1
+    #
+    #       (names.length == 2) &&
+    #         (return l10n("#{names[0]} #{andword} #{names[1]}", @lang, @script))
+    #       l10n(names[0..-2].join(", ") + " #{andword} #{names[-1]}", @lang, @script)
+    #     end
 
     include Function::Utils
     # module_function :l10n

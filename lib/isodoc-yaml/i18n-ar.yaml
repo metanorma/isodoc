@@ -30,6 +30,14 @@ external_terms_boilerplate: |
 internal_external_terms_boilerplate: |
   <p>لأغراض هذه الوثيقة ،تنطبق المصطلحات والتعاريف الواردة في % وما يلي.</p>
 term_defined_in: "[المصطلح المحدد في %]"
+binary_and: "%1 و %2"
+multiple_and: "%1, و %2"
+binary_or: "%1 او %2"
+multiple_or: "%1, او %2"
+chain_and: "%1 و %2"
+chain_or: "%1 او %2"
+chain_from: "%1 %من 2"
+chain_to: "من %1 إلى %2"
 note: ملاحظة
 note_xref: ملاحظة
 termnote: ملاحظة % للقيد
