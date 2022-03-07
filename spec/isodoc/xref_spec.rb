@@ -152,9 +152,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-           <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
           <foreword displayorder='1'>
             <p>
               <xref target='N1'>Introduction, Note</xref>
@@ -167,111 +164,11 @@ RSpec.describe IsoDoc do
       <xref target='Anote2'>Annex A.2, Note 2</xref>
             </p>
           </foreword>
-          <introduction id='intro' displayorder="2">
-            <note id='N1'>
-              <name>NOTE</name>
-              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e'>
-                These results are based on a study carried out on three different
-                types of kernel.
-              </p>
-            </note>
-            <clause id='xyz'>
-              <title depth='2'>Preparatory</title>
-              <note id='N2'>
-                <name>NOTE</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83d'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type="scope" displayorder="3">
-            <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-            <note id='N'>
-              <name>NOTE</name>
-              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                These results are based on a study carried out on three different
-                types of kernel.
-              </p>
-            </note>
-            <p>
-            <xref target='N'>Note</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder="4">
-        <title>2.</title>
-      </terms>
-          <clause id='widgets' displayorder="5">
-            <title depth='1'>
-        3.
-        <tab/>
-        Widgets
-      </title>
-            <clause id='widgets1'><title>3.1.</title>
-              <note id='note1'>
-                <name>NOTE 1</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-              <note id='note2'>
-                <name>NOTE 2</name>
-                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
-                  These results are based on a study carried out on three different
-                  types of kernel.
-                </p>
-              </note>
-              <p>
-                <xref target='note1'>Note 1</xref>
-      <xref target='note2'>Note 2</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder="6">
-        <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-      </title>
-          <clause id='annex1a'><title>A.1.</title>
-            <note id='AN'>
-              <name>NOTE</name>
-              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                These results are based on a study carried out on three different
-                types of kernel.
-              </p>
-            </note>
-          </clause>
-          <clause id='annex1b'><title>A.2.</title>
-            <note id='Anote1'>
-              <name>NOTE 1</name>
-              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                These results are based on a study carried out on three different
-                types of kernel.
-              </p>
-            </note>
-            <note id='Anote2'>
-              <name>NOTE 2</name>
-              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
-                These results are based on a study carried out on three different
-                types of kernel.
-              </p>
-            </note>
-          </clause>
-        </annex>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references figures" do
@@ -365,9 +262,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-           <?xml version='1.0'?>
-             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-               <preface>
                  <foreword id='fwd' displayorder="1">
                    <p>
                       <xref target='N1'>Figure 1</xref>
@@ -384,103 +278,11 @@ RSpec.describe IsoDoc do
        <xref target='Anote3'>Figure A.3</xref>
                    </p>
                  </foreword>
-                 <introduction id='intro' displayorder="2">
-                   <figure id='N1'>
-                     <name>Figure 1&#xA0;&#x2014; Split-it-right sample divider</name>
-                     <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                   </figure>
-                   <clause id='xyz'>
-                     <title depth='2'>Preparatory</title>
-                     <figure id='N2' unnumbered='true'>
-                       <name>Split-it-right sample divider</name>
-                       <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                     </figure>
-                   </clause>
-                 </introduction>
-               </preface>
-               <sections>
-                 <clause id='scope' type="scope" displayorder="3">
-                   <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-                   <figure id='N'>
-                     <name>Figure 2&#xA0;&#x2014; Split-it-right sample divider</name>
-                     <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                   </figure>
-                   <p>
-                   <xref target='N'>Figure 2</xref>
-                   </p>
-                 </clause>
-                 <terms id='terms' displayorder="4">
-        <title>2.</title>
-      </terms>
-                 <clause id='widgets' displayorder="5">
-                   <title depth='1'>
-        3.
-        <tab/>
-        Widgets
-      </title>
-                   <clause id='widgets1'><title>3.1.</title>
-                     <figure id='note1'>
-                       <name>Figure 3&#xA0;&#x2014; Split-it-right sample divider</name>
-                       <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                     </figure>
-                     <figure id='note3' class='pseudocode'>
-                       <name>Figure 4</name>
-                       <p>pseudocode</p>
-                     </figure>
-                     <sourcecode id='note4'>
-                       <name>Figure 5&#xA0;&#x2014; Source! Code!</name>
-                        A B C
-                     </sourcecode>
-                     <example id='note5'>
-                     <name>EXAMPLE</name>
-                       <sourcecode id='note51'> A B C </sourcecode>
-                     </example>
-                     <figure id='note2'>
-                       <name>Figure 6&#xA0;&#x2014; Split-it-right sample divider</name>
-                       <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                     </figure>
-                     <p>
-                       <xref target='note1'>Figure 3</xref>
-      <xref target='note2'>Figure 6</xref>
-                     </p>
-                   </clause>
-                 </clause>
-               </sections>
-               <annex id='annex1' displayorder="6">
-               <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-      </title>
-                 <clause id='annex1a'><title>A.1.</title>
-                   <figure id='AN'>
-                     <name>Figure A.1&#xA0;&#x2014; Split-it-right sample divider</name>
-                     <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                   </figure>
-                 </clause>
-                 <clause id='annex1b'><title>A.2.</title>
-                   <figure id='Anote1' unnumbered='true'>
-                     <name>Split-it-right sample divider</name>
-                     <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                   </figure>
-                   <figure id='Anote2'>
-                     <name>Figure A.2&#xA0;&#x2014; Split-it-right sample divider</name>
-                     <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                   </figure>
-                   <sourcecode id='Anote3'>
-                     <name>Figure A.3&#xA0;&#x2014; Source! Code!</name>
-                      A B C
-                   </sourcecode>
-                 </clause>
-               </annex>
-             </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references subfigures" do
@@ -537,9 +339,6 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <?xml version='1.0'?>
-             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-               <preface>
                  <foreword id='fwd' displayorder="1">
                    <p>
                      <xref target='N'>Figure 1</xref>
@@ -550,67 +349,11 @@ RSpec.describe IsoDoc do
       <xref target='Anote2'>Figure A.1-2</xref>
                    </p>
                  </foreword>
-               </preface>
-               <sections>
-                 <clause id='scope' type="scope" displayorder="2">
-                 <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-                 </clause>
-                 <terms id='terms' displayorder="3">
-        <title>2.</title>
-      </terms>
-                 <clause id='widgets' displayorder="4">
-                   <title depth='1'>
-        3.
-        <tab/>
-        Widgets
-      </title>
-                   <clause id='widgets1'><title>3.1.</title>
-                     <figure id='N'>
-                       <figure id='note1'>
-                         <name>Figure 1-1&#xA0;&#x2014; Split-it-right sample divider</name>
-                         <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                       </figure>
-                       <figure id='note2'>
-                         <name>Figure 1-2&#xA0;&#x2014; Split-it-right sample divider</name>
-                         <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                       </figure>
-                     </figure>
-                     <p>
-                       <xref target='note1'>Figure 1-1</xref>
-      <xref target='note2'>Figure 1-2</xref>
-                     </p>
-                   </clause>
-                 </clause>
-               </sections>
-               <annex id='annex1' displayorder="5">
-               <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-      </title>
-                 <clause id='annex1a'>     <title>A.1.</title>
-        </clause>
-                 <clause id='annex1b'><title>A.2.</title>
-                   <figure id='AN'>
-                     <figure id='Anote1'>
-                       <name>Figure A.1-1&#xA0;&#x2014; Split-it-right sample divider</name>
-                       <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                     </figure>
-                     <figure id='Anote2'>
-                       <name>Figure A.1-2&#xA0;&#x2014; Split-it-right sample divider</name>
-                       <image src='rice_images/rice_image1.png' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png'/>
-                     </figure>
-                   </figure>
-                 </clause>
-               </annex>
-             </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references examples" do
@@ -678,9 +421,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
           <foreword displayorder='1'>
             <p>
               <xref target='N1'>Introduction, Example</xref>
@@ -693,87 +433,11 @@ RSpec.describe IsoDoc do
       <xref target='Anote2'>Annex A.2, Example 1</xref>
             </p>
           </foreword>
-          <introduction id='intro' displayorder="2">
-            <example id='N1'>
-              <name>EXAMPLE</name>
-              <p>Hello</p>
-            </example>
-            <clause id='xyz'>
-              <title depth='2'>Preparatory</title>
-              <example id='N2' unnumbered='true'>
-                <name>EXAMPLE</name>
-                <p>Hello</p>
-              </example>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type="scope" displayorder="3">
-            <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-            <example id='N'>
-              <name>EXAMPLE</name>
-              <p>Hello</p>
-            </example>
-            <p>
-            <xref target='N'>Example</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder="4">
-        <title>2.</title>
-      </terms>
-          <clause id='widgets' displayorder="5">
-            <title depth='1'>
-        3.
-        <tab/>
-        Widgets
-      </title>
-            <clause id='widgets1'><title>3.1.</title>
-              <example id='note1'>
-                <name>EXAMPLE 1</name>
-                <p>Hello</p>
-              </example>
-              <example id='note2' unnumbered='true'>
-                <name>EXAMPLE</name>
-                <p>Hello</p>
-              </example>
-              <p>
-              <xref target='note1'>Example 1</xref>
-      <xref target='note2'>Example (??)</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder="6">
-        <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-      </title>
-          <clause id='annex1a'><title>A.1.</title>
-            <example id='AN'>
-              <name>EXAMPLE</name>
-              <p>Hello</p>
-            </example>
-          </clause>
-          <clause id='annex1b'><title>A.2.</title>
-            <example id='Anote1' unnumbered='true'>
-              <name>EXAMPLE</name>
-              <p>Hello</p>
-            </example>
-            <example id='Anote2'>
-              <name>EXAMPLE 1</name>
-              <p>Hello</p>
-            </example>
-          </clause>
-        </annex>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-     .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references formulae" do
@@ -841,9 +505,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
           <foreword displayorder='1'>
             <p>
               <xref target='N1'>Introduction, Formula (1)</xref>
@@ -856,85 +517,11 @@ RSpec.describe IsoDoc do
       <xref target='Anote2'>Formula (A.2)</xref>
             </p>
           </foreword>
-          <introduction id='intro' displayorder="2">
-            <formula id='N1'>
-              <name>1</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </formula>
-            <clause id='xyz'>
-              <title depth='2'>Preparatory</title>
-              <formula id='N2' unnumbered='true'>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </formula>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type="scope" displayorder="3">
-          <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-            <formula id='N'>
-              <name>2</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </formula>
-            <p>
-            <xref target='N'>Formula (2)</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder="4">
-        <title>2.</title>
-      </terms>
-          <clause id='widgets' displayorder="5">
-            <title depth='1'>
-        3.
-        <tab/>
-        Widgets
-      </title>
-            <clause id='widgets1'><title>3.1.</title>
-              <formula id='note1'>
-                <name>3</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </formula>
-              <formula id='note2'>
-                <name>4</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </formula>
-              <p>
-                <xref target='note1'>Formula (3)</xref>
-      <xref target='note2'>Formula (4)</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder="6">
-        <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-      </title>
-          <clause id='annex1a'><title>A.1.</title>
-            <formula id='AN'>
-              <name>A.1</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </formula>
-          </clause>
-          <clause id='annex1b'><title>A.2.</title>
-            <formula id='Anote1' unnumbered='true'>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </formula>
-            <formula id='Anote2'>
-              <name>A.2</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </formula>
-          </clause>
-        </annex>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references requirements" do
@@ -1002,9 +589,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
           <foreword displayorder='1'>
             <p>
               <xref target='N1'>Introduction, Requirement 1</xref>
@@ -1017,87 +601,11 @@ RSpec.describe IsoDoc do
       <xref target='Anote2'>Requirement A.2</xref>
             </p>
           </foreword>
-          <introduction id='intro' displayorder="2">
-            <requirement id='N1'>
-              <name>Requirement 1</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </requirement>
-            <clause id='xyz'>
-              <title depth='2'>Preparatory</title>
-              <requirement id='N2' unnumbered='true'>
-                <name>Requirement</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type="scope" displayorder="3">
-            <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-            <requirement id='N'>
-              <name>Requirement 2</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </requirement>
-            <p>
-              <xref target='N'>Requirement 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder="4">
-        <title>2.</title>
-      </terms>
-          <clause id='widgets' displayorder="5">
-          <title depth='1'>
-        3.
-        <tab/>
-        Widgets
-      </title>
-            <clause id='widgets1'><title>3.1.</title>
-              <requirement id='note1'>
-                <name>Requirement 3</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-              <requirement id='note2'>
-                <name>Requirement 4</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-              <p>
-                <xref target='note1'>Requirement 3</xref>
-      <xref target='note2'>Requirement 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder="6">
-        <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-      </title>
-          <clause id='annex1a'><title>A.1.</title>
-            <requirement id='AN'>
-              <name>Requirement A.1</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </requirement>
-          </clause>
-          <clause id='annex1b'><title>A.2.</title>
-            <requirement id='Anote1' unnumbered='true'>
-              <name>Requirement</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </requirement>
-            <requirement id='Anote2'>
-              <name>Requirement A.2</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </requirement>
-          </clause>
-        </annex>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-     .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references recommendations" do
@@ -1165,9 +673,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
           <foreword displayorder='1'>
             <p>
               <xref target='N1'>Introduction, Recommendation 1</xref>
@@ -1180,87 +685,11 @@ RSpec.describe IsoDoc do
       <xref target='Anote2'>Recommendation A.2</xref>
             </p>
           </foreword>
-          <introduction id='intro' displayorder="2">
-            <recommendation id='N1'>
-              <name>Recommendation 1</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </recommendation>
-            <clause id='xyz'>
-              <title depth='2'>Preparatory</title>
-              <recommendation id='N2' unnumbered='true'>
-                <name>Recommendation</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type="scope" displayorder="3">
-            <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-            <recommendation id='N'>
-              <name>Recommendation 2</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </recommendation>
-            <p>
-            <xref target='N'>Recommendation 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder="4">
-        <title>2.</title>
-      </terms>
-          <clause id='widgets' displayorder="5">
-          <title depth='1'>
-        3.
-        <tab/>
-        Widgets
-      </title>
-            <clause id='widgets1'><title>3.1.</title>
-              <recommendation id='note1'>
-                <name>Recommendation 3</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-              <recommendation id='note2'>
-                <name>Recommendation 4</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-              <p>
-                 <xref target='note1'>Recommendation 3</xref>
-       <xref target='note2'>Recommendation 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder="6">
-        <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-      </title>
-          <clause id='annex1a'><title>A.1.</title>
-            <recommendation id='AN'>
-              <name>Recommendation A.1</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </recommendation>
-          </clause>
-          <clause id='annex1b'><title>A.2.</title>
-            <recommendation id='Anote1' unnumbered='true'>
-              <name>Recommendation</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </recommendation>
-            <recommendation id='Anote2'>
-              <name>Recommendation A.2</name>
-              <stem type='AsciiMath'>r = 1 %</stem>
-            </recommendation>
-          </clause>
-        </annex>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references permissions" do
@@ -1328,9 +757,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <?xml version='1.0'?>
-             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-               <preface>
                  <foreword displayorder='1'>
                    <p>
                      <xref target='N1'>Introduction, Permission 1</xref>
@@ -1343,87 +769,11 @@ RSpec.describe IsoDoc do
       <xref target='Anote2'>Permission A.2</xref>
                    </p>
                  </foreword>
-                 <introduction id='intro' displayorder="2">
-                   <permission id='N1'>
-                     <name>Permission 1</name>
-                     <stem type='AsciiMath'>r = 1 %</stem>
-                   </permission>
-                   <clause id='xyz'>
-                     <title depth='2'>Preparatory</title>
-                     <permission id='N2' unnumbered='true'>
-                       <name>Permission</name>
-                       <stem type='AsciiMath'>r = 1 %</stem>
-                     </permission>
-                   </clause>
-                 </introduction>
-               </preface>
-               <sections>
-                 <clause id='scope' type="scope" displayorder="3">
-                   <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-                   <permission id='N'>
-                     <name>Permission 2</name>
-                     <stem type='AsciiMath'>r = 1 %</stem>
-                   </permission>
-                   <p>
-                     <xref target='N'>Permission 2</xref>
-                   </p>
-                 </clause>
-                 <terms id='terms' displayorder="4">
-        <title>2.</title>
-      </terms>
-                 <clause id='widgets' displayorder="5">
-                 <title depth='1'>
-        3.
-        <tab/>
-        Widgets
-      </title>
-                   <clause id='widgets1'><title>3.1.</title>
-                     <permission id='note1'>
-                       <name>Permission 3</name>
-                       <stem type='AsciiMath'>r = 1 %</stem>
-                     </permission>
-                     <permission id='note2'>
-                       <name>Permission 4</name>
-                       <stem type='AsciiMath'>r = 1 %</stem>
-                     </permission>
-                     <p>
-                     <xref target='note1'>Permission 3</xref>
-      <xref target='note2'>Permission 4</xref>
-                     </p>
-                   </clause>
-                 </clause>
-               </sections>
-               <annex id='annex1' displayorder="6">
-               <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-      </title>
-                 <clause id='annex1a'><title>A.1.</title>
-                   <permission id='AN'>
-                     <name>Permission A.1</name>
-                     <stem type='AsciiMath'>r = 1 %</stem>
-                   </permission>
-                 </clause>
-                 <clause id='annex1b'><title>A.2.</title>
-                   <permission id='Anote1' unnumbered='true'>
-                     <name>Permission</name>
-                     <stem type='AsciiMath'>r = 1 %</stem>
-                   </permission>
-                   <permission id='Anote2'>
-                     <name>Permission A.2</name>
-                     <stem type='AsciiMath'>r = 1 %</stem>
-                   </permission>
-                 </clause>
-               </annex>
-             </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "labels and cross-references nested requirements" do
@@ -1474,9 +824,6 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <?xml version='1.0'?>
-             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-               <preface>
                  <foreword displayorder='1'>
                    <p>
                       <xref target='N1'>Clause 1, Permission 1</xref>
@@ -1491,59 +838,11 @@ RSpec.describe IsoDoc do
        <xref target='AR1'>Recommendation A.1-1</xref>
                    </p>
                  </foreword>
-               </preface>
-               <sections>
-                 <clause id='xyz' displayorder="2">
-                 <title depth='1'>
-        1.
-        <tab/>
-        Preparatory
-      </title>
-                   <permission id='N1'>
-                     <name>Permission 1</name>
-                     <permission id='N2'>
-                       <name>Permission 1-1</name>
-                       <permission id='N'>
-                         <name>Permission 1-1-1</name>
-                       </permission>
-                     </permission>
-                     <requirement id='Q1'>
-                       <name>Requirement 1-1</name>
-                     </requirement>
-                     <recommendation id='R1'>
-                       <name>Recommendation 1-1</name>
-                     </recommendation>
-                   </permission>
-                 </clause>
-               </sections>
-               <annex id='Axyz' displayorder="3">
-               <title>
-        <strong>Annex A</strong>
-        <br/>
-        (informative)
-        <br/>
-        <br/>
-                 <strong>Preparatory</strong></title>
-                 <permission id='AN1'>
-                   <name>Permission A.1</name>
-                   <permission id='AN2'>
-                     <name>Permission A.1-1</name>
-                     <permission id='AN'>
-                       <name>Permission A.1-1-1</name>
-                     </permission>
-                   </permission>
-                   <requirement id='AQ1'>
-                     <name>Requirement A.1-1</name>
-                   </requirement>
-                   <recommendation id='AR1'>
-                     <name>Recommendation A.1-1</name>
-                   </recommendation>
-                 </permission>
-               </annex>
-             </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references tables" do
@@ -1667,8 +966,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
           <foreword displayorder='1'>
             <p>
               <xref target='N1'>Table 1</xref>
@@ -1681,138 +978,11 @@ RSpec.describe IsoDoc do
               <xref target='Anote2'>Table A.2</xref>
             </p>
           </foreword>
-          <introduction id='intro' displayorder='2'>
-            <table id='N1'>
-              <name>Table 1&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
-              <tbody>
-                <tr>
-                  <td align='left'>Number of laboratories retained after eliminating outliers</td>
-                  <td align='center'>13</td>
-                  <td align='center'>11</td>
-                </tr>
-              </tbody>
-            </table>
-            <clause id='xyz'>
-              <title depth='2'>Preparatory</title>
-              <table id='N2' unnumbered='true'>
-                <name>Table &#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
-                <tbody>
-                  <tr>
-                    <td align='left'>Number of laboratories retained after eliminating outliers</td>
-                    <td align='center'>13</td>
-                    <td align='center'>11</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder='3'>
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-            <table id='N'>
-              <name>Table 2&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
-              <tbody>
-                <tr>
-                  <td align='left'>Number of laboratories retained after eliminating outliers</td>
-                  <td align='center'>13</td>
-                  <td align='center'>11</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              <xref target='N'>Table 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder='4'>
-            <title>2.</title>
-          </terms>
-          <clause id='widgets' displayorder='5'>
-            <title depth='1'>
-              3.
-              <tab/>
-              Widgets
-            </title>
-            <clause id='widgets1'>
-              <title>3.1.</title>
-              <table id='note1'>
-                <name>Table 3&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
-                <tbody>
-                  <tr>
-                    <td align='left'>Number of laboratories retained after eliminating outliers</td>
-                    <td align='center'>13</td>
-                    <td align='center'>11</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table id='note2'>
-                <name>Table 4&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
-                <tbody>
-                  <tr>
-                    <td align='left'>Number of laboratories retained after eliminating outliers</td>
-                    <td align='center'>13</td>
-                    <td align='center'>11</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <xref target='note1'>Table 3</xref>
-                <xref target='note2'>Table 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder='6'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (informative)
-          </title>
-          <clause id='annex1a'>
-            <title>A.1.</title>
-            <table id='AN'>
-              <name>Table A.1&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
-              <tbody>
-                <tr>
-                  <td align='left'>Number of laboratories retained after eliminating outliers</td>
-                  <td align='center'>13</td>
-                  <td align='center'>11</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-          <clause id='annex1b'>
-            <title>A.2.</title>
-            <table id='Anote1' unnumbered='true'>
-              <name>Table &#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
-              <tbody>
-                <tr>
-                  <td align='left'>Number of laboratories retained after eliminating outliers</td>
-                  <td align='center'>13</td>
-                  <td align='center'>11</td>
-                </tr>
-              </tbody>
-            </table>
-            <table id='Anote2'>
-              <name>Table A.2&#xA0;&#x2014; Repeatability and reproducibility of husked rice yield</name>
-              <tbody>
-                <tr>
-                  <td align='left'>Number of laboratories retained after eliminating outliers</td>
-                  <td align='center'>13</td>
-                  <td align='center'>11</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-        </annex>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references term notes" do
@@ -1846,9 +1016,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
           <foreword displayorder="1">
             <p>
               <xref target='note1'>Clause 2.1, Note 1</xref>
@@ -1856,52 +1023,11 @@ RSpec.describe IsoDoc do
       <xref target='note3'>Clause 2.2, Note 2</xref>
             </p>
           </foreword>
-        </preface>
-        <sections>
-          <clause id='scope' type="scope" displayorder="2">
-            <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-          </clause>
-          <terms id='terms'displayorder="3">
-        <title>2.</title>
-            <term id='_waxy_rice'>
-             <name>2.1.</name>
-              <preferred><strong>waxy rice</strong></preferred>
-              <termnote id='note1'>
-                <name>Note 1 to entry</name>
-                <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                  The starch of waxy rice consists almost entirely of amylopectin. The
-                  kernels have a tendency to stick together after cooking.
-                </p>
-              </termnote>
-            </term>
-            <term id='_nonwaxy_rice'>
-             <name>2.2.</name>
-              <preferred><strong>nonwaxy rice</strong></preferred>
-              <termnote id='note2'>
-                <name>Note 1 to entry</name>
-                <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                  The starch of waxy rice consists almost entirely of amylopectin. The
-                  kernels have a tendency to stick together after cooking.
-                </p>
-              </termnote>
-              <termnote id='note3'>
-                <name>Note 2 to entry</name>
-                <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                  The starch of waxy rice consists almost entirely of amylopectin. The
-                  kernels have a tendency to stick together after cooking.
-                </p>
-              </termnote>
-            </term>
-          </terms>
-        </sections>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references nested term notes" do
@@ -1935,8 +1061,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
           <foreword displayorder='1'>
             <p>
               <xref target='note1'>Clause 2.1, Note 1</xref>
@@ -1944,52 +1068,11 @@ RSpec.describe IsoDoc do
               <xref target='note3'>Clause 2.1.1, Note 2</xref>
             </p>
           </foreword>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder='2'>
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-          </clause>
-          <terms id='terms' displayorder='3'>
-            <title>2.</title>
-            <term id='_waxy_rice'>
-              <name>2.1.</name>
-              <preferred><strong>waxy rice</strong></preferred>
-              <termnote id='note1'>
-                <name>Note 1 to entry</name>
-                <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                  The starch of waxy rice consists almost entirely of amylopectin. The
-                  kernels have a tendency to stick together after cooking.
-                </p>
-              </termnote>
-              <term id='_nonwaxy_rice'>
-                <name>2.1.1.</name>
-                <preferred><strong>nonwaxy rice</strong></preferred>
-                <termnote id='note2'>
-                  <name>Note 1 to entry</name>
-                  <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                    The starch of waxy rice consists almost entirely of amylopectin.
-                    The kernels have a tendency to stick together after cooking.
-                  </p>
-                </termnote>
-                <termnote id='note3'>
-                  <name>Note 2 to entry</name>
-                  <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                    The starch of waxy rice consists almost entirely of amylopectin.
-                    The kernels have a tendency to stick together after cooking.
-                  </p>
-                </termnote>
-              </term>
-            </term>
-          </terms>
-        </sections>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references term examples" do
@@ -2023,9 +1106,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
           <foreword displayorder="1">
             <p>
               <xref target='note1'>Clause 2.1, Example</xref>
@@ -2033,52 +1113,11 @@ RSpec.describe IsoDoc do
       <xref target='note3'>Clause 2.2, Example 2</xref>
             </p>
           </foreword>
-        </preface>
-        <sections>
-          <clause id='scope' type="scope" displayorder="2">
-            <title depth='1'>
-        1.
-        <tab/>
-        Scope
-      </title>
-          </clause>
-          <terms id='terms'displayorder="3">
-        <title>2.</title>
-            <term id='_waxy_rice'>
-             <name>2.1.</name>
-              <preferred><strong>waxy rice</strong></preferred>
-              <termexample id='note1'>
-                <name>EXAMPLE</name>
-                <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                  The starch of waxy rice consists almost entirely of amylopectin. The
-                  kernels have a tendency to stick together after cooking.
-                </p>
-              </termexample>
-            </term>
-            <term id='_nonwaxy_rice'>
-             <name>2.2.</name>
-              <preferred><strong>nonwaxy rice</strong></preferred>
-              <termexample id='note2'>
-                <name>EXAMPLE 1</name>
-                <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                  The starch of waxy rice consists almost entirely of amylopectin. The
-                  kernels have a tendency to stick together after cooking.
-                </p>
-              </termexample>
-              <termexample id='note3'>
-                <name>EXAMPLE 2</name>
-                <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                  The starch of waxy rice consists almost entirely of amylopectin. The
-                  kernels have a tendency to stick together after cooking.
-                </p>
-              </termexample>
-            </term>
-          </terms>
-        </sections>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references nested term examples" do
@@ -2112,8 +1151,6 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
           <foreword displayorder='1'>
             <p>
               <xref target='note1'>Clause 2.1, Example</xref>
@@ -2121,52 +1158,11 @@ RSpec.describe IsoDoc do
               <xref target='note3'>Clause 2.1.1, Example 2</xref>
             </p>
           </foreword>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder='2'>
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-          </clause>
-          <terms id='terms' displayorder='3'>
-            <title>2.</title>
-            <term id='_waxy_rice'>
-              <name>2.1.</name>
-              <preferred><strong>waxy rice</strong></preferred>
-              <termexample id='note1'>
-                <name>EXAMPLE</name>
-                <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                  The starch of waxy rice consists almost entirely of amylopectin. The
-                  kernels have a tendency to stick together after cooking.
-                </p>
-              </termexample>
-              <term id='_nonwaxy_rice'>
-                <name>2.1.1.</name>
-                <preferred><strong>nonwaxy rice</strong></preferred>
-                <termexample id='note2'>
-                  <name>EXAMPLE 1</name>
-                  <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                    The starch of waxy rice consists almost entirely of amylopectin.
-                    The kernels have a tendency to stick together after cooking.
-                  </p>
-                </termexample>
-                <termexample id='note3'>
-                  <name>EXAMPLE 2</name>
-                  <p id='_b0cb3dfd-78fc-47dd-a339-84070d947463'>
-                    The starch of waxy rice consists almost entirely of amylopectin.
-                    The kernels have a tendency to stick together after cooking.
-                  </p>
-                </termexample>
-              </term>
-            </term>
-          </terms>
-        </sections>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references sections" do
@@ -2259,8 +1255,6 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
           <foreword obligation='informative' displayorder='1'>
             <title>Foreword</title>
             <p id='A'>
@@ -2286,133 +1280,11 @@ RSpec.describe IsoDoc do
               <xref target='S'>Bibliography</xref>
             </p>
           </foreword>
-          <introduction id='B' obligation='informative' displayorder='2'>
-            <title>Introduction</title>
-            <clause id='C' inline-header='false' obligation='informative'>
-              <title depth='2'>Introduction Subsection</title>
-            </clause>
-            <clause id='C1' inline-header='false' obligation='informative'>Text</clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='D' obligation='normative' type='scope' displayorder='3'>
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-            <p id='E'>Text</p>
-          </clause>
-          <terms id='H' obligation='normative' displayorder='5'>
-            <title depth='1'>
-              3.
-              <tab/>
-              Terms, definitions, symbols and abbreviated terms
-            </title>
-            <terms id='I' obligation='normative'>
-              <title depth='2'>
-                3.1.
-                <tab/>
-                Normal Terms
-              </title>
-              <term id='J'>
-                <name>3.1.1.</name>
-                <preferred><strong>Term2</strong></preferred>
-              </term>
-            </terms>
-            <definitions id='K'>
-              <title>3.2.</title>
-              <dl>
-                <dt>Symbol</dt>
-                <dd>Definition</dd>
-              </dl>
-            </definitions>
-          </terms>
-          <definitions id='L' displayorder='6'>
-            <title>4.</title>
-            <dl>
-              <dt>Symbol</dt>
-              <dd>Definition</dd>
-            </dl>
-          </definitions>
-          <clause id='M' inline-header='false' obligation='normative' displayorder='7'>
-            <title depth='1'>
-              5.
-              <tab/>
-              Clause 4
-            </title>
-            <clause id='N' inline-header='false' obligation='normative'>
-              <title depth='2'>
-                5.1.
-                <tab/>
-                Introduction
-              </title>
-            </clause>
-            <clause id='O' inline-header='false' obligation='normative'>
-              <title depth='2'>
-                5.2.
-                <tab/>
-                Clause 4.2
-              </title>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='P' inline-header='false' obligation='normative' displayorder='8'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (normative)
-            <br/>
-            <br/>
-            <strong>Annex</strong>
-          </title>
-          <clause id='Q' inline-header='false' obligation='normative'>
-            <title depth='2'>
-              A.1.
-              <tab/>
-              Annex A.1
-            </title>
-            <clause id='Q1' inline-header='false' obligation='normative'>
-              <title depth='3'>
-                A.1.1.
-                <tab/>
-                Annex A.1a
-              </title>
-            </clause>
-          </clause>
-        </annex>
-        <annex id='QQ' displayorder='9'>
-          <title>
-            <strong>Annex B</strong>
-            <br/>
-            (informative)
-          </title>
-          <terms id='QQ1'>
-            <title>B.</title>
-            <term id='QQ2'>
-              <name>B.1.</name>
-            </term>
-          </terms>
-        </annex>
-        <bibliography>
-          <references id='R' obligation='informative' normative='true' displayorder='4'>
-            <title depth='1'>
-              2.
-              <tab/>
-              Normative References
-            </title>
-          </references>
-          <clause id='S' obligation='informative' displayorder='10'>
-            <title depth='1'>Bibliography</title>
-            <references id='T' obligation='informative' normative='false'>
-              <title depth='2'>Bibliography Subsection</title>
-            </references>
-          </clause>
-        </bibliography>
-      </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "cross-references lists" do

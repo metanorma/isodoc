@@ -48,7 +48,8 @@ module IsoDoc
           t.xpath(ns("./termnote")).reject { |n| blank?(n["id"]) }.each do |n|
             c.increment(n)
             @anchors[n["id"]] =
-              { label: termnote_label(c.print), type: "termnote", value: c.print,
+              { label: termnote_label(c.print), type: "termnote",
+                value: c.print, elem: @labels["termnote"],
                 xref: l10n("#{anchor(t['id'], :xref)}, "\
                            "#{@labels['note_xref']} #{c.print}") }
           end

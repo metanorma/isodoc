@@ -165,9 +165,7 @@ module IsoDoc
         xpath.each do |list|
           (list.xpath(".//li") - list.xpath(".//ol//li | .//ul//li")).each do |l|
             l.xpath("./p | ./div | ./table").each_with_index do |p, i|
-              next if i.zero?
-
-              p.wrap(%{<div class="ListContLevel#{lvl}"/>})
+              i.zero? or p.wrap(%{<div class="ListContLevel#{lvl}"/>})
             end
             list_add(l.xpath(".//ul") - l.xpath(".//ul//ul | .//ol//ul"),
                      lvl + 1)
@@ -212,10 +210,10 @@ module IsoDoc
       def word_remove_pb_before_annex(docxml)
         docxml.xpath("//div[p/br]").each do |d|
           /^WordSection\d+_\d+$/.match(d["class"]) or next
-          d.elements[0].name == "p" && !d.elements[0].elements.empty? or next
-          d.elements[0].elements[0].name == "br" &&
+          (d.elements[0].name == "p" && !d.elements[0].elements.empty?) or next
+          (d.elements[0].elements[0].name == "br" &&
             d.elements[0].elements[0]["style"] ==
-              "mso-special-character:line-break;page-break-before:always" or next
+              "mso-special-character:line-break;page-break-before:always") or next
           d.elements[0].remove
         end
       end

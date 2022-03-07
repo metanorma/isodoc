@@ -37,6 +37,14 @@ internal_external_terms_boilerplate: |
           <p>Для целей этого документа применяются 
             термины и определения, данные в % и следующие.</p>
 term_defined_in: "[термин, определенный в %]"
+binary_and: "%1 и %2"
+multiple_and: "%1, и %2"
+binary_or: "%1 или %2"
+multiple_or: "%1, или %2"
+chain_and: "%1 и %2"
+chain_or: "%1 или %2"
+chain_from: "%1 от %2"
+chain_to: "%1 до %2"
 note: ПРИМЕЧАНИЕ
 note_xref: Примечание
 termnote: Примечание % к определению

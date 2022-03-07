@@ -34,6 +34,14 @@ external_terms_boilerplate: |
 internal_external_terms_boilerplate: |
           <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en % y los siguientes.</p>
 term_defined_in: "[término definido en %]"
+binary_and: "%1 y %2"
+multiple_and: "%1, y %2"
+binary_or: "%1 o %2"
+multiple_or: "%1, o %2"
+chain_and: "%1 y %2"
+chain_or: "%1 o %2"
+chain_from: "%1 del %2"
+chain_to: "%1 al %2"
 note: NOTA
 note_xref: Nota
 termnote: Nota % a la entrada

@@ -1,17 +1,17 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-  it "test empty pdf_options" do
+  it "test default pdf_options" do
     convert = IsoDoc::XslfoPdfConvert.new(
       {
         datauriimage: false,
       },
     )
 
-    expect(convert.pdf_options(nil)).to eq({})
+    expect(convert.pdf_options(nil)).to eq({ "--syntax-highlight": nil })
   end
 
-  it "test empty pdf_options for nil font_manifest_file" do
+  it "test default pdf_options for nil font_manifest_file" do
     convert = IsoDoc::XslfoPdfConvert.new(
       {
         datauriimage: false,
@@ -21,17 +21,19 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil)).to eq({})
+    expect(convert.pdf_options(nil)).to eq({ "--syntax-highlight": nil })
   end
 
   it "test --font-manifest pdf_options" do
     mn2pdf_opts = {
-      IsoDoc::XslfoPdfConvert::MN2PDF_FONT_MANIFEST => "/tmp/manifest.yml",
+      "--syntax-highlight": nil,
+      font_manifest: "/tmp/manifest.yml",
     }
     convert = IsoDoc::XslfoPdfConvert.new(
       {
         datauriimage: false,
         IsoDoc::XslfoPdfConvert::MN2PDF_OPTIONS => mn2pdf_opts,
+        font_manifest: "/tmp/manifest.yml",
       },
     )
 
@@ -47,7 +49,8 @@ RSpec.describe IsoDoc do
     )
 
     expect(convert.pdf_options(nil))
-      .to eq({ "--param align-cross-elements=" => "clause table note" })
+      .to eq({ "--param align-cross-elements=" => "clause table note",
+               "--syntax-highlight": nil })
   end
 
   it "test --baseassetpath pdf_options" do
@@ -59,7 +62,8 @@ RSpec.describe IsoDoc do
     )
 
     expect(convert.pdf_options(nil))
-      .to eq({ "--param baseassetpath=" => "ABC" })
+      .to eq({ "--param baseassetpath=" => "ABC",
+               "--syntax-highlight": nil })
   end
 
   it "test pdf encryption options" do
@@ -93,6 +97,7 @@ RSpec.describe IsoDoc do
                "--encrypt-metadata" => "l",
                "--encryption-length" => "a",
                "--owner-password" => "b",
+               :"--syntax-highlight" => nil,
                "--user-password" => "c",
              })
   end

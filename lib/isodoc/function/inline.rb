@@ -34,30 +34,41 @@ module IsoDoc
       end
 
       def suffix_url(url)
-        return url if %r{^https?://}.match?(url)
+        return url if url.nil? || %r{^https?://|^#}.match?(url)
         return url unless File.extname(url).empty?
 
         url.sub(/#{File.extname(url)}$/, ".html")
       end
 
       def eref_target(node)
-        return "##{node['bibitemid']}" unless (!@bibitems.nil? &&
-          url = @bibitems[node["bibitemid"]]&.at(ns("./uri[@type = 'citation']")))
+        url = suffix_url(eref_url(node["bibitemid"]))
+        anchor = node&.at(ns(".//locality[@type = 'anchor']"))
+        return url if url.nil? || /^#/.match?(url) || !anchor
 
-        href = suffix_url(url.text)
-        anchor = node&.at(ns(".//locality[@type = 'anchor']"))&.text&.strip
-        anchor and href += "##{anchor}"
-        href
+        "#{url}##{anchor.text.strip}"
+      end
+
+      def eref_url(bibitemid)
+        return nil if @bibitems.nil? || @bibitems[bibitemid].nil?
+
+        if url = @bibitems[bibitemid].at(ns("./uri[@type = 'citation']"))
+          url.text
+        elsif @bibitems[bibitemid]["hidden"] == "true"
+          @bibitems[bibitemid]&.at(ns("./uri"))&.text
+        else "##{bibitemid}"
+        end
       end
 
       def eref_parse(node, out)
-        href = eref_target(node)
-        if node["type"] == "footnote"
-          out.sup do |s|
-            s.a(**{ href: href }) { |l| no_locality_parse(node, l) }
+        if href = eref_target(node)
+          if node["type"] == "footnote"
+            out.sup do |s|
+              s.a(**{ href: href }) { |l| no_locality_parse(node, l) }
+            end
+          else
+            out.a(**{ href: href }) { |l| no_locality_parse(node, l) }
           end
-        else
-          out.a(**{ href: href }) { |l| no_locality_parse(node, l) }
+        else no_locality_parse(node, out)
         end
       end
 

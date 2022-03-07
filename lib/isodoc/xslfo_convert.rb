@@ -2,8 +2,21 @@ require "metanorma"
 
 module IsoDoc
   class XslfoPdfConvert < ::IsoDoc::Convert
-    MN2PDF_OPTIONS = :mn2pdf
+    # MN2PDF_OPTIONS = :mn2pdf
     MN2PDF_FONT_MANIFEST = :font_manifest
+    MN2PDF_OPTIONS = { pdfencryptionlength: "--encryption-length",
+                       pdfownerpassword: "--owner-password",
+                       pdfuserpassword: "--user-password",
+                       pdfallowprint: "--allow-print",
+                       pdfallowcopycontent: "--allow-copy-content",
+                       pdfalloweditcontent: "--allow-edit-content",
+                       pdfalloweditannotations: "--allow-edit-annotations",
+                       pdfallowfillinforms: "--allow-fill-in-forms",
+                       pdfallowaccesscontent: "--allow-access-content",
+                       pdfallowassembledocument: "--allow-assemble-document",
+                       pdfallowprinthq: "--allow-print-hq",
+                       pdfencryptmetadata: "--encrypt-metadata" }.freeze
+    MN2PDF_DEFAULT_ARGS = { "--syntax-highlight": nil }.freeze
 
     def initialize(options)
       @format = :pdf
@@ -13,22 +26,10 @@ module IsoDoc
     end
 
     def extract_cmd_options(options)
-      ret = {}
-      a = options[:pdfencryptionlength] and ret["--encryption-length"] = a
-      a = options[:pdfownerpassword] and ret["--owner-password"] = a
-      a = options[:pdfuserpassword] and ret["--user-password"] = a
-      a = options[:pdfallowprint] and ret["--allow-print"] = a
-      a = options[:pdfallowcopycontent] and ret["--allow-copy-content"] = a
-      a = options[:pdfalloweditcontent] and ret["--allow-edit-content"] = a
-      a = options[:pdfalloweditannotations] and
-        ret["--allow-edit-annotations"] = a
-      a = options[:pdfallowfillinforms] and ret["--allow-fill-in-forms"] = a
-      a = options[:pdfallowaccesscontent] and
-        ret["--allow-access-content"] = a
-      a = options[:pdfallowassembledocument] and
-        ret["--allow-assemble-document"] = a
-      a = options[:pdfallowprinthq] and ret["--allow-print-hq"] = a
-      a = options[:pdfencryptmetadata] and ret["--encrypt-metadata"] = a
+      ret = MN2PDF_DEFAULT_ARGS.dup
+      MN2PDF_OPTIONS.each do |key, opt|
+        value = options[key] and ret[opt] = value
+      end
       ret
     end
 
@@ -42,8 +43,7 @@ module IsoDoc
 
     def pdf_options(_docxml)
       ret = {}
-      font_manifest = @options.dig(MN2PDF_OPTIONS,
-                                   MN2PDF_FONT_MANIFEST) and
+      font_manifest = @options[MN2PDF_FONT_MANIFEST] and
         ret[MN2PDF_FONT_MANIFEST] = font_manifest
       @aligncrosselements && !@aligncrosselements.empty? and
         ret["--param align-cross-elements="] =

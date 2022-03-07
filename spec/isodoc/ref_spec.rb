@@ -731,14 +731,14 @@ RSpec.describe IsoDoc do
                    <div>
                      <h1 class='ForewordTitle'>Foreword</h1>
                      <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                       <a href='#ISO712'>[110]</a>
-                       <a href='#ISBN'>[1]</a>
-                       <a href='#ISSN'>[2]</a>
+                       [110]
+                       [1]
+                       [2]
                        <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
-                       <a href='#ref1'>ICC/167</a>
-                       <a href='#ref10'>[10]</a>
-                       <a href='#ref12'>Citn</a>
-                       <a href='#zip_ffs'>[5]</a>
+                       ICC/167
+                       [10]
+                       Citn
+                       [5]
                      </p>
                    </div>
                    <p class='zzSTDTitle1'/>

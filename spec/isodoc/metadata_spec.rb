@@ -262,7 +262,7 @@ RSpec.describe IsoDoc do
       :pub_phone=>"3333333",
       :pub_uri=>"http://www.example.com",
       :publisheddate=>"2011-01",
-      :publisher=>"International Organization for Standardization, International Electrotechnical Commission and Institute of Electrical and Electronics Engineers",
+      :publisher=>"International Organization for Standardization, International Electrotechnical Commission, and Institute of Electrical and Electronics Engineers",
       :receiveddate=>"XXX",
       :revdate=>"2016-05",
       :revdate_monthyear=>"May 2016",

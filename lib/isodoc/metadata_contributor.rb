@@ -75,7 +75,7 @@ module IsoDoc
     def agency(xml)
       agency, publisher = agency1(xml)
       set(:agency, agency.sub(%r{/$}, ""))
-      set(:publisher, @i18n.multiple_and(publisher, @labels["and"]))
+      set(:publisher, @i18n.boolean_conj(publisher, "and"))
       agency_addr(xml)
     end
 
