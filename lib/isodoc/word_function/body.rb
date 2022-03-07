@@ -238,6 +238,16 @@ module IsoDoc
 
         url.sub(/#{File.extname(url)}$/, ".doc")
       end
+
+      def info(isoxml, out)
+        @tocfigurestitle =
+          isoxml&.at(ns("//misc-container/toc[@type = 'figure']/title"))&.text
+        @toctablestitle =
+          isoxml&.at(ns("//misc-container/toc[@type = 'table']/title"))&.text
+        @tocrecommendationstitle = isoxml
+          &.at(ns("//misc-container/toc[@type = 'recommendation']/title"))&.text
+        super
+      end
     end
   end
 end

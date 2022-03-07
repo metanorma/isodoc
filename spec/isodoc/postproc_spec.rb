@@ -675,6 +675,472 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+  it "populates Word ToC with figures, tables, recommendations" do
+    FileUtils.rm_f "test.doc"
+    input = <<~INPUT
+                      <iso-standard xmlns="http://riboseinc.com/isoxml">
+              <sections>
+                     <clause id="A" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+               <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
+        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+      </fn></title>
+             </clause>
+             <clause id="O" inline-header="false" obligation="normative">
+               <title>Clause 4.2</title>
+               <recommendation id="AC" type="abstracttest">
+               <name>Recommendation Verification 1</name>
+        <label>/ogc/recommendation/wfs/3</label>
+        </recommendation>
+               <recommendation id="AA">
+        <label>/ogc/recommendation/wfs/2</label>
+        </recommendation>
+               <recommendation id="AB" type="abstracttest">
+               <name>Recommendation Verification 2</name>
+        <label>/ogc/recommendation/wfs/3</label>
+        </recommendation>
+        <figure id="BA"><name>First figure</name></figure>
+        <table id="CA"><name>First table</name></table>
+               <p>A<fn reference="1">
+        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+      </fn></p>
+      <clause id="P" inline-header="false" obligation="normative">
+      <title>Clause 4.2.1</title>
+      </clause>
+             </clause></clause>
+              </sections>
+              </iso-standard>
+    INPUT
+    IsoDoc::WordConvert.new(
+      { wordstylesheet: "spec/assets/word.css",
+        htmlstylesheet: "spec/assets/html.scss",
+        wordintropage: "spec/assets/wordintro.html",
+        doctoclevels: 3 },
+    ).convert("test", input, false)
+    word = File.read("test.doc")
+      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
+      .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
+      .to be_equivalent_to xmlpp(<<~'OUTPUT')
+           <div class='WordSection2'>
+          /* an empty word intro page */
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-begin'/>
+             <span style='mso-spacerun:yes'>&#xA0;</span>
+             TOC \o "1-3" \h \z \u
+             <span style='mso-element:field-separator'/>
+           </span>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Clause 4
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc2'>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Introduction to this
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc2'>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Clause 4.2
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc3'>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Clause 4.2.1
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-end'/>
+           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <p class='MsoNormal'>&#xA0;</p>
+           </span>
+         </p>
+         <p class='MsoNormal'>&#xA0;</p>
+       </div>
+      OUTPUT
+
+    toc_input = input.sub(%r{<iso-standard xmlns="http://riboseinc.com/isoxml">},
+                          <<~MISC,
+                            <iso-standard xmlns="http://riboseinc.com/isoxml">
+                            <misc-container>
+                            <toc type="table"><title>List of tables</title></toc>
+                            <toc type="figure"><title>List of figures</title></toc>
+                            <toc type="recommendation"><title>List of recommendations</title></toc>
+                            </misc-container>
+                          MISC
+                         )
+    IsoDoc::WordConvert.new(
+      { wordstylesheet: "spec/assets/word.css",
+        htmlstylesheet: "spec/assets/html.scss",
+        wordintropage: "spec/assets/wordintro.html",
+        doctoclevels: 3 },
+    ).convert("test", toc_input, false)
+    word = File.read("test.doc")
+      .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
+      .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
+      .to be_equivalent_to xmlpp(<<~'OUTPUT')
+           <div class='WordSection2'>
+          /* an empty word intro page */
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-begin'/>
+             <span style='mso-spacerun:yes'>&#xA0;</span>
+             TOC \o "1-3" \h \z \u
+             <span style='mso-element:field-separator'/>
+           </span>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Clause 4
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc2'>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Introduction to this
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc2'>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Clause 4.2
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc3'>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Clause 4.2.1
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-end'/>
+           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <p class='MsoNormal'>&#xA0;</p>
+           </span>
+         </p>
+         <p class='TOCTitle'>List of tables</p>
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-begin'/>
+             <span style='mso-spacerun:yes'>&#xA0;</span>
+             TOC \h \z \t "TableTitle,tabletitle"
+             <span style='mso-element:field-separator'/>
+           </span>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 First table
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-end'/>
+           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <p class='MsoNormal'>&#xA0;</p>
+           </span>
+         </p>
+         <p class='TOCTitle'>List of figures</p>
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-begin'/>
+             <span style='mso-spacerun:yes'>&#xA0;</span>
+             TOC \h \z \t "FigureTitle,figuretitle"
+             <span style='mso-element:field-separator'/>
+           </span>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 First figure
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-end'/>
+           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <p class='MsoNormal'>&#xA0;</p>
+           </span>
+         </p>
+         <p class='TOCTitle'>List of recommendations</p>
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-begin'/>
+             <span style='mso-spacerun:yes'>&#xA0;</span>
+             TOC \h \z \t
+             "RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle"
+             <span style='mso-element:field-separator'/>
+           </span>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 : /ogc/recommendation/wfs/2
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc1'>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Recommendation Verification 1: /ogc/recommendation/wfs/3
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc1'>
+           <span class='MsoHyperlink'>
+             <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+               <a href='#_Toc'>
+                 Recommendation Verification 2: /ogc/recommendation/wfs/3
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-tab-count:1 dotted'>. </span>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-begin'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-separator'/>
+                 </span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+                 <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+                   <span style='mso-element:field-end'/>
+                 </span>
+               </a>
+             </span>
+           </span>
+         </p>
+         <p class='MsoToc1'>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <span style='mso-element:field-end'/>
+           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'>
+             <p class='MsoNormal'>&#xA0;</p>
+           </span>
+         </p>
+         <p class='MsoNormal'>&#xA0;</p>
+       </div>
+      OUTPUT
+  end
+
   it "generates HTML output with custom ToC levels function" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"

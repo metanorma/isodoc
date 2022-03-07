@@ -65,6 +65,9 @@ deprecated: DEPRECATED
 source: QUELLE
 and: und
 all_parts: Alle Teile
+toc_figures: Abbildungsverzeichnis
+toc_tables: Tabellenverzeichnis
+toc_recommendations: Empfehlungenverzeichnis
 month_january: Januar
 month_february: Februar
 month_march: März

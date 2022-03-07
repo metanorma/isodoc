@@ -66,6 +66,9 @@ deprecated: 被取代
 source: 定义
 and: 和
 all_parts: 所有部分
+toc_figures: 数字列表
+toc_tables: 表列表
+toc_recommendations: 建议清单
 month_january: 一月
 month_february: 二月
 month_march: 三月

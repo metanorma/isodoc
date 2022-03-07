@@ -70,6 +70,9 @@ deprecated: НЕ РЕКОМЕНДУЕТСЯ
 source: ИСТОЧНИК
 and: и
 all_parts: Все части
+toc_figures: Таблица фигур
+toc_tables: Таблица таблиц
+toc_recommendations: Таблица рекомендаций
 month_january: Январь
 month_february: Февраль
 month_march: Март

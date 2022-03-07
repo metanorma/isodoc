@@ -64,6 +64,9 @@ deprecated: DÉCONSEILLÉ
 source: SOURCE
 and: et
 all_parts: toutes les parties
+toc_figures: Table des figures
+toc_tables: Table des tableaux
+toc_recommendations: Table de recommandations
 month_january: Janvier
 month_february: Février
 month_march: Mars

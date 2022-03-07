@@ -67,6 +67,9 @@ deprecated: OBSOLETO
 source: FUENTE
 and: y
 all_parts: Todas las partes
+toc_figures: Table de figuras
+toc_tables: Tabla de tablas
+toc_recommendations: Tabla de recomendaciones
 month_january: Enero
 month_february: Febrero
 month_march: Marzo
