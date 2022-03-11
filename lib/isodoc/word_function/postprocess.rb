@@ -107,9 +107,8 @@ module IsoDoc
                 x += 1
               end
               (r..(r + rs - 1)).each do |y2|
-                (x..(x + cs - 1)).each do |x2|
-                  cells2d[y2][x2] = 1
-                end
+                cells2d[y2].nil? and next
+                (x..(x + cs - 1)).each { |x2| cells2d[y2][x2] = 1 }
               end
               width = (x..(x + cs - 1)).each_with_object({ width: 0 }) do |z, m|
                 m[:width] += w[z]

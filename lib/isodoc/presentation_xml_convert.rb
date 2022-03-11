@@ -13,7 +13,7 @@ module IsoDoc
       super
     end
 
-    def convert1(docxml, filename, dir)
+    def convert1(docxml, _filename, _dir)
       @xrefs.parse docxml
       info docxml, nil
       conversions(docxml)
@@ -76,11 +76,11 @@ module IsoDoc
     end
 
     def postprocess(result, filename, _dir)
-      toXML(result, filename)
+      to_xml(result, filename)
       @files_to_delete.each { |f| FileUtils.rm_rf f }
     end
 
-    def toXML(result, filename)
+    def to_xml(result, filename)
       File.open(filename, "w:UTF-8") { |f| f.write(result) }
     end
   end

@@ -35,7 +35,7 @@ module IsoDoc
         @labels["termnote"].gsub(/%/, note.to_s)
       end
 
-      def increment_label(elems, node, counter, increment = true)
+      def increment_label(elems, node, counter, increment: true)
         return "" if elems.size == 1 && !node["number"]
 
         counter.increment(node) if increment
@@ -62,10 +62,9 @@ module IsoDoc
           c = Counter.new
           examples.reject { |n| blank?(n["id"]) }.each do |n|
             c.increment(n)
-            idx = increment_label(examples, n, c, false)
-            @anchors[n["id"]] =
-              anchor_struct(idx, n, @labels["example_xref"], "termexample",
-                            n["unnumbered"])
+            idx = increment_label(examples, n, c, increment: false)
+            @anchors[n["id"]] = anchor_struct(idx, n, @labels["example_xref"],
+                                              "termexample", n["unnumbered"])
           end
         end
       end

@@ -5,10 +5,9 @@ module IsoDoc
         if a.at(ns("./name/completename"))
           ret << a.at(ns("./name/completename")).text
         else
-          forenames = a.xpath(ns("./name/forename"))
-          fn = forenames.each_with_object([]) { |f, m| m << f.text }
-          surname = a&.at(ns("./name/surname"))&.text
-          ret << "#{fn.join(' ')} #{surname}"
+          fn = a.xpath(ns("./name/forename"))
+            .each_with_object([]) { |f, m| m << f.text }
+          ret << "#{fn.join(' ')} #{a&.at(ns('./name/surname'))&.text}"
         end
       end
     end

@@ -1,10 +1,9 @@
-
 module Metanorma
   module Output
 
     class Base
 
-      def convert(in_path, out_path)
+      def convert(_in_path, _out_path)
         raise "This is an abstract class"
       end
 
