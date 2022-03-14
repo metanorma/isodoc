@@ -2,7 +2,7 @@ require "metanorma"
 
 module IsoDoc
   class XslfoPdfConvert < ::IsoDoc::Convert
-    # MN2PDF_OPTIONS = :mn2pdf
+    MN_OPTIONS_KEY = :mn2pdf
     MN2PDF_FONT_MANIFEST = :font_manifest
     MN2PDF_OPTIONS = { pdfencryptionlength: "--encryption-length",
                        pdfownerpassword: "--owner-password",
@@ -43,7 +43,7 @@ module IsoDoc
 
     def pdf_options(_docxml)
       ret = {}
-      font_manifest = @options[MN2PDF_FONT_MANIFEST] and
+      font_manifest = @options.dig(MN_OPTIONS_KEY, MN2PDF_FONT_MANIFEST) and
         ret[MN2PDF_FONT_MANIFEST] = font_manifest
       @aligncrosselements && !@aligncrosselements.empty? and
         ret["--param align-cross-elements="] =
