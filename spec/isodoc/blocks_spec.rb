@@ -558,6 +558,49 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(doc)
   end
 
+  it "numbers notes in tables and figures separately from notes outside them" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <figure id="F"><note id="FB"><p>XYZ</p></note></figure>
+          <table id="T"><note id="TB"><p>XYZ</p></note></table>
+          <p id="A">ABC <note id="B"><p id="C">XYZ</p></note>
+      </foreword></preface>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <preface>
+           <foreword displayorder='1'>
+             <figure id='F'>
+               <name>Figure 1</name>
+               <note id='FB'>
+                 <name>NOTE</name>
+                 <p>XYZ</p>
+               </note>
+             </figure>
+             <table id='T'>
+               <name>Table 1</name>
+               <note id='TB'>
+                 <name>NOTE</name>
+                 <p>XYZ</p>
+               </note>
+             </table>
+             <p id='A'>
+               ABC
+               <note id='B'>
+                 <name>NOTE</name>
+                 <p id='C'>XYZ</p>
+               </note>
+             </p>
+           </foreword>
+         </preface>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
+
   it "processes figures" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
