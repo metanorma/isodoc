@@ -87,15 +87,20 @@ module IsoDoc
 
       def note_anchor_names(sections)
         sections.each do |s|
-          c = Counter.new
-          (notes = s.xpath(CHILD_NOTES_XPATH)).each do |n|
-            next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
-
-            @anchors[n["id"]] =
-              anchor_struct(increment_label(notes, n, c), n,
-                            @labels["note_xref"], "note", false)
-          end
+          notes = s.xpath(CHILD_NOTES_XPATH) -
+            s.xpath(ns(".//figure//note | .//table//note"))
+          note_anchor_names1(notes, Counter.new)
           note_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+        end
+      end
+
+      def note_anchor_names1(notes, counter)
+        notes.each do |n|
+          next if @anchors[n["id"]] || blank?(n["id"])
+
+          @anchors[n["id"]] =
+            anchor_struct(increment_label(notes, n, counter), n,
+                          @labels["note_xref"], "note", false)
         end
       end
 
@@ -109,15 +114,19 @@ module IsoDoc
 
       def example_anchor_names(sections)
         sections.each do |s|
-          c = Counter.new
-          (notes = s.xpath(CHILD_EXAMPLES_XPATH)).each do |n|
-            next if @anchors[n["id"]] || n["id"].nil? || n["id"].empty?
-
-            @anchors[n["id"]] =
-              anchor_struct(increment_label(notes, n, c), n,
-                            @labels["example_xref"], "example", n["unnumbered"])
-          end
+          notes = s.xpath(CHILD_EXAMPLES_XPATH)
+          example_anchor_names1(notes, Counter.new)
           example_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+        end
+      end
+
+      def example_anchor_names1(notes, counter)
+        notes.each do |n|
+          next if @anchors[n["id"]] || blank?(n["id"])
+
+          @anchors[n["id"]] =
+            anchor_struct(increment_label(notes, n, counter), n,
+                          @labels["example_xref"], "example", n["unnumbered"])
         end
       end
 
@@ -154,14 +163,17 @@ module IsoDoc
         sections.each do |s|
           notes = s.xpath(ns(".//dl")) - s.xpath(ns(".//clause//dl")) -
             s.xpath(ns(".//appendix//dl")) - s.xpath(ns(".//dl//dl"))
-          c = Counter.new
-          notes.reject { |n| blank?(n["id"]) }.each do |n|
-            @anchors[n["id"]] =
-              anchor_struct(increment_label(notes, n, c), n,
-                            @labels["deflist"], "deflist", false)
-            deflist_term_anchor_names(n, @anchors[n["id"]])
-          end
+          deflist_anchor_names1(notes, Counter.new)
           deflist_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+        end
+      end
+
+      def deflist_anchor_names1(notes, counter)
+        notes.reject { |n| blank?(n["id"]) }.each do |n|
+          @anchors[n["id"]] =
+            anchor_struct(increment_label(notes, n, counter), n,
+                          @labels["deflist"], "deflist", false)
+          deflist_term_anchor_names(n, @anchors[n["id"]])
         end
       end
 
