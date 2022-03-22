@@ -64,7 +64,7 @@ module IsoDoc
     def svg_to_emf(node)
       uri = svg_to_emf_uri(node)
       ret = svg_to_emf_filename(uri)
-      File.exists?(ret) and return ret
+      File.exist?(ret) and return ret
       exe = inkscape_installed? or raise "Inkscape missing in PATH, unable" \
                                          "to convert EMF to SVG. Aborting."
       uri = Metanorma::Utils::external_path uri

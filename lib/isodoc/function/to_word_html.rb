@@ -32,7 +32,7 @@ module IsoDoc
       def init_dir(filename, debug)
         dir = "#{filename}#{@tmpfilesdir_suffix}"
         unless debug
-          Dir.mkdir(dir, 0o777) unless File.exists?(dir)
+          Dir.mkdir(dir, 0o777) unless File.exist?(dir)
           FileUtils.rm_rf "#{dir}/*"
         end
         dir

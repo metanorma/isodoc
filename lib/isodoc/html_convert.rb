@@ -24,7 +24,7 @@ module IsoDoc
 
     def convert(filename, file = nil, debug = false, output_filename = nil)
       ret = super
-      Dir.exists?(tmpimagedir) and Dir["#{tmpimagedir}/*"].empty? and
+      Dir.exist?(tmpimagedir) and Dir["#{tmpimagedir}/*"].empty? and
         FileUtils.rm_r tmpimagedir
       ret
     end

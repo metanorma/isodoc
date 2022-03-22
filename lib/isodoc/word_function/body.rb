@@ -206,7 +206,7 @@ module IsoDoc
 
         out.p { |p| p << @i18n.where }
         parse(deflist, out)
-        out.parent.at("./table")["class"] = "formula_dl"
+        t = out.parent.at("./table") and t["class"] = "formula_dl"
       end
 
       def formula_parse1(node, out)
