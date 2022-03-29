@@ -854,4 +854,52 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "enforces consistent metanorma-ordinal numbering" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata>
+          <language>en</language>
+          </bibdata>
+          <bibliography><references id="_normative_references" obligation="informative" normative="false"><title>Bibliography</title>
+      <bibitem id="ref1" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <docidentifier type="IEC">IEC 217</docidentifier>
+      </bibitem>
+      <bibitem id="ref2" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <docidentifier type="metanorma">[3]</docidentifier>
+      </bibitem>
+      <bibitem id="ref3" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <docidentifier>ABC</docidentifier>
+      </bibitem>
+      </references></bibliography></iso-standard>
+    INPUT
+    presxml = <<~PRESXML
+      <bibliography>
+         <references id='_normative_references' obligation='informative' normative='false' displayorder='1'>
+           <title depth='1'>Bibliography</title>
+           <bibitem id='ref1' type='standard'>
+             <title format='text/plain'>Cereals or cereal products</title>
+             <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
+             <docidentifier type='IEC'>IEC 217</docidentifier>
+           </bibitem>
+           <bibitem id='ref2' type='standard'>
+             <title format='text/plain'>Cereals or cereal products</title>
+             <docidentifier type='metanorma'>[3]</docidentifier>
+           </bibitem>
+           <bibitem id='ref3' type='standard'>
+             <title format='text/plain'>Cereals or cereal products</title>
+             <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
+             <docidentifier>ABC</docidentifier>
+           </bibitem>
+         </references>
+       </bibliography>
+    PRESXML
+    expect(xmlpp(Nokogiri::XML(
+      IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true),
+    ).at("//xmlns:bibliography").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
+  end
 end
