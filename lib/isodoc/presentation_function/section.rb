@@ -76,14 +76,23 @@ module IsoDoc
     def bibliography_bibitem_number(docxml)
       i = 0
       docxml.xpath(ns("//references[@normative = 'false']/bibitem")).each do |b|
-        next if bibliography_bibitem_number_skip(b)
-
-        i += 1
-        id = b.at(ns(".//docidentifier"))
-        id.previous =
-          "<docidentifier type='metanorma-ordinal'>[#{i}]</docidentifier>"
+        i = bibliography_bibitem_number1(b, i)
       end
       @xrefs.references docxml
+    end
+
+    def bibliography_bibitem_number1(bibitem, idx)
+      if mn = bibitem.at(ns(".//docidentifier[@type = 'metanorma']"))
+        /^\[?\d\]?$/.match?(mn&.text) and
+          idx = mn.text.sub(/^\[/, "").sub(/\]$/, "").to_i
+      end
+      unless bibliography_bibitem_number_skip(bibitem)
+
+        idx += 1
+        bibitem.at(ns(".//docidentifier")).previous =
+          "<docidentifier type='metanorma-ordinal'>[#{idx}]</docidentifier>"
+      end
+      idx
     end
 
     def docid_prefixes(docxml)
