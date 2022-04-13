@@ -1158,7 +1158,6 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
-
   it "inserts toc metadata" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1194,7 +1193,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes multiple-target xrefs" do
-     input = <<~INPUT
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
         <sections>
@@ -1285,6 +1284,72 @@ RSpec.describe IsoDoc do
            </clause>
            <clause id='ref4' displayorder='5'>
              <title>5.</title>
+           </clause>
+         </sections>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "captions embedded figures" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+       <clause id="A" inline-header="false" obligation="normative">
+       <title>Section</title>
+       <figure id="B1">
+       <name>First</name>
+       </figure>
+       <example id="C1">
+       <figure id="B2">
+       <name>Second</name>
+       </figure>
+       </example>
+       <example id="C2">
+       <figure id="B4" unnumbered="true">
+       <name>Unnamed</name>
+       </figure>
+       </example>
+       <figure id="B3">
+       <name>Third</name>
+       </figure>
+       </clause>
+         </sections>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <bibdata/>
+
+         <sections>
+           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Section
+             </title>
+             <figure id='B1'>
+               <name>Figure 1&#xA0;&#x2014; First</name>
+             </figure>
+             <example id='C1'>
+               <name>EXAMPLE 1</name>
+               <figure id='B2'>
+                 <name>Figure 2&#xA0;&#x2014; Second</name>
+               </figure>
+             </example>
+             <example id='C2'>
+                <name>EXAMPLE 2</name>
+                <figure id='B4' unnumbered='true'>
+                  <name>Unnamed</name>
+                </figure>
+              </example>
+             <figure id='B3'>
+               <name>Figure 3&#xA0;&#x2014; Third</name>
+             </figure>
            </clause>
          </sections>
        </iso-standard>

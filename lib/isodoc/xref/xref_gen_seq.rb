@@ -25,7 +25,7 @@ module IsoDoc
         j = 0
         clause.xpath(ns(".//figure | .//sourcecode[not(ancestor::example)]"))
           .each do |t|
-          next if labelled_ancestor(t) && t.ancestors("figure").empty?
+          # next if labelled_ancestor(t) && t.ancestors("figure").empty?
 
           j = subfigure_increment(j, c, t)
           label = c.print + (j.zero? ? "" : "-#{j}")
@@ -111,7 +111,7 @@ module IsoDoc
         j = 0
         clause.xpath(ns(".//figure |  .//sourcecode[not(ancestor::example)]"))
           .each do |t|
-          next if labelled_ancestor(t) && t.ancestors("figure").empty?
+          # next if labelled_ancestor(t) && t.ancestors("figure").empty?
 
           j = subfigure_increment(j, c, t)
           label = "#{num}#{hiersep}#{c.print}" +
