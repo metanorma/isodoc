@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "isodoc-i18n", "~> 1.0.0"
   spec.add_dependency "liquid", "~> 4"
   # spec.add_dependency "metanorma", ">= 1.2.0"
-  spec.add_dependency "emf2svg", "~> 1"
+  spec.add_dependency "emf2svg", "<= 1.3"
   spec.add_dependency "mathml2asciimath"
   spec.add_dependency "metanorma-utils"
   spec.add_dependency "nokogiri", "~> 1.12.0"

@@ -29,8 +29,7 @@ module IsoDoc
     def figure1(elem)
       return sourcecode1(elem) if elem["class"] == "pseudocode" ||
         elem["type"] == "pseudocode"
-      return if (labelled_ancestor(elem) && elem.ancestors("figure").empty?) ||
-        (elem.at(ns("./figure")) && !elem.at(ns("./name")))
+      return if elem.at(ns("./figure")) && !elem.at(ns("./name"))
 
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
       prefix_name(elem, "&nbsp;&mdash; ",
