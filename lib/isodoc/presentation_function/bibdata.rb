@@ -1,7 +1,10 @@
+require "csv"
+
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def bibdata(docxml)
       toc_metadata(docxml)
+      fonts_metadata(docxml)
       docid_prefixes(docxml)
       a = bibdata_current(docxml) or return
       address_precompose(a)
@@ -32,6 +35,23 @@ module IsoDoc
         x = address_precompose1(b)
         b.children = "<formattedAddress>#{x}</formattedAddress>"
       end
+    end
+
+    def fonts_metadata(xmldoc)
+      return unless @fontist_fonts
+
+      ins = xmldoc.at(ns("//presentation-metadata")) ||
+        xmldoc.at(ns("//misc-container")) || xmldoc.at(ns("//bibdata"))
+      CSV.parse_line(@fontist_fonts, col_sep: ";").map(&:strip).each do |f|
+        ins.next = presmeta("fonts", f)
+      end
+      @fontlicenseagreement and
+        ins.next = presmeta("font-license-agreement", @fontlicenseagreement)
+    end
+
+    def presmeta(name, value)
+      "<presentation-metadata><name>#{name}</name><value>#{value}</value>"\
+        "</presentation-metadata>"
     end
 
     def address_precompose1(addr)

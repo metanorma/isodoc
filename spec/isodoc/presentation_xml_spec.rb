@@ -1360,6 +1360,56 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "passes font names to Presentation XML" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+      <sections>
+       <clause id="A" inline-header="false" obligation="normative">
+       <title>Section</title>
+       <figure id="B1">
+       <name>First</name>
+       </figure>
+       </clause>
+         </sections>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <bibdata/>
+          <presentation-metadata>
+          <name>font-license-agreement</name>
+          <value>no-install-fonts</value>
+        </presentation-metadata>
+        <presentation-metadata>
+          <name>fonts</name>
+          <value>font2</value>
+        </presentation-metadata>
+        <presentation-metadata>
+          <name>fonts</name>
+          <value>font1</value>
+        </presentation-metadata>
+                 <sections>
+           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Section
+             </title>
+             <figure id='B1'>
+               <name>Figure 1&#xA0;&#x2014; First</name>
+             </figure>
+           </clause>
+         </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+      .new({ fonts: "font1; font2", fontlicenseagreement: "no-install-fonts" })
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   private
 
   def mock_symbols

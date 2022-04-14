@@ -43,6 +43,8 @@ module IsoDoc
     # tocfigures: add ToC for figures
     # toctables: add ToC for tables
     # tocrecommendations: add ToC for rcommendations
+    # fonts: fontist fonts to install
+    # fontlicenseagreement: fontist font license agreement
     def initialize(options)
       @libdir ||= File.dirname(__FILE__) # rubocop:disable Lint/DisjunctiveAssignmentInConstructor
       options.merge!(default_fonts(options)) do |_, old, new|
@@ -57,10 +59,7 @@ module IsoDoc
       init_stylesheets(options)
       init_covers(options)
       init_toc(options)
-      @normalfontsize = options[:normalfontsize]
-      @smallerfontsize = options[:smallerfontsize]
-      @monospacefontsize = options[:monospacefontsize]
-      @footnotefontsize = options[:footnotefontsize]
+      init_fonts(options)
       @i18nyaml = options[:i18nyaml]
       @ulstyle = options[:ulstyle]
       @olstyle = options[:olstyle]
@@ -94,6 +93,15 @@ module IsoDoc
       @aligncrosselements = options[:aligncrosselements]
       @tmpimagedir_suffix = tmpimagedir_suffix
       @tmpfilesdir_suffix = tmpfilesdir_suffix
+    end
+
+    def init_fonts(options)
+      @normalfontsize = options[:normalfontsize]
+      @smallerfontsize = options[:smallerfontsize]
+      @monospacefontsize = options[:monospacefontsize]
+      @footnotefontsize = options[:footnotefontsize]
+      @fontist_fonts = options[:fonts]
+      @fontlicenseagreement = options[:fontlicenseagreement]
     end
 
     def init_covers(options)
