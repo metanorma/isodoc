@@ -1360,6 +1360,63 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "skips numbering of hidden sections" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <bibdata/>
+      <sections><clause id="_scope" type="scope" inline-header="false" obligation="normative">
+      <title>Scope</title>
+      <p id="_8d98c053-85d7-e8cc-75bb-183a14209d61">A</p>
+
+      <p id="_2141c040-93a4-785a-73f0-ffad4fa1779f"><eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2"/></p>
+      </clause>
+
+      <terms id="_terms_and_definitions" obligation="normative">
+      <title>Terms and definitions</title><p id="_36938d4b-05e5-bd0f-a082-0415db50e8f7">No terms and definitions are listed in this document.</p>
+
+      </terms>
+      </sections><bibliography><references hidden="true" normative="true">
+      <title>Normative references</title>
+      </references>
+      </bibliography></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+      <bibdata/>
+       <sections>
+          <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='1'>
+            <title depth='1'>
+              1.
+              <tab/>
+              Scope
+            </title>
+            <p id='_8d98c053-85d7-e8cc-75bb-183a14209d61'>A</p>
+            <p id='_2141c040-93a4-785a-73f0-ffad4fa1779f'>
+              <eref type='inline' bibitemid='_607373b1-0cc4-fcdb-c482-fd86ae572bd1' citeas='ISO 639-2'>ISO 639-2</eref>
+            </p>
+          </clause>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='3'>
+            <title depth='1'>
+              2.
+              <tab/>
+              Terms and definitions
+            </title>
+            <p id='_36938d4b-05e5-bd0f-a082-0415db50e8f7'>No terms and definitions are listed in this document.</p>
+          </terms>
+        </sections>
+        <bibliography>
+          <references hidden='true' normative='true' displayorder='2'>
+            <title depth='1'>Normative references</title>
+          </references>
+        </bibliography>
+      </standard-document>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   private
 
   def mock_symbols
