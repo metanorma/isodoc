@@ -112,7 +112,7 @@ module IsoDoc
       end
 
       def increment(node)
-        return self if node["unnumbered"]
+        return self if node["unnumbered"] || node["hidden"]
 
         @letter_override = nil
         @number_override = nil

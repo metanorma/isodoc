@@ -262,22 +262,22 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <foreword id='fwd' displayorder="1">
-                   <p>
-                      <xref target='N1'>Figure 1</xref>
-       <xref target='N2'>Figure (??)</xref>
-       <xref target='N'>Figure 2</xref>
-       <xref target='note1'>Figure 3</xref>
-       <xref target='note3'>Figure 4</xref>
-       <xref target='note4'>Figure 5</xref>
-       <xref target='note2'>Figure 6</xref>
-       <xref target='note51'>[note51]</xref>
-       <xref target='AN'>Figure A.1</xref>
-       <xref target='Anote1'>Figure (??)</xref>
-       <xref target='Anote2'>Figure A.2</xref>
-       <xref target='Anote3'>Figure A.3</xref>
-                   </p>
-                 </foreword>
+                <foreword id='fwd' displayorder="1">
+                  <p>
+                     <xref target='N1'>Figure 1</xref>
+      <xref target='N2'>Figure (??)</xref>
+      <xref target='N'>Figure 2</xref>
+      <xref target='note1'>Figure 3</xref>
+      <xref target='note3'>Figure 4</xref>
+      <xref target='note4'>Figure 5</xref>
+      <xref target='note2'>Figure 6</xref>
+      <xref target='note51'>[note51]</xref>
+      <xref target='AN'>Figure A.1</xref>
+      <xref target='Anote1'>Figure (??)</xref>
+      <xref target='Anote2'>Figure A.2</xref>
+      <xref target='Anote3'>Figure A.3</xref>
+                  </p>
+                </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
@@ -824,20 +824,20 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <foreword displayorder='1'>
-                   <p>
-                      <xref target='N1'>Clause 1, Permission 1</xref>
-       <xref target='N2'>Clause 1, Permission 1-1</xref>
-       <xref target='N'>Clause 1, Permission 1-1-1</xref>
-       <xref target='Q1'>Clause 1, Requirement 1-1</xref>
-       <xref target='R1'>Clause 1, Recommendation 1-1</xref>
-       <xref target='AN1'>Permission A.1</xref>
-       <xref target='AN2'>Permission A.1-1</xref>
-       <xref target='AN'>Permission A.1-1-1</xref>
-       <xref target='AQ1'>Requirement A.1-1</xref>
-       <xref target='AR1'>Recommendation A.1-1</xref>
-                   </p>
-                 </foreword>
+                <foreword displayorder='1'>
+                  <p>
+                     <xref target='N1'>Clause 1, Permission 1</xref>
+      <xref target='N2'>Clause 1, Permission 1-1</xref>
+      <xref target='N'>Clause 1, Permission 1-1-1</xref>
+      <xref target='Q1'>Clause 1, Requirement 1-1</xref>
+      <xref target='R1'>Clause 1, Recommendation 1-1</xref>
+      <xref target='AN1'>Permission A.1</xref>
+      <xref target='AN2'>Permission A.1-1</xref>
+      <xref target='AN'>Permission A.1-1-1</xref>
+      <xref target='AQ1'>Requirement A.1-1</xref>
+      <xref target='AR1'>Recommendation A.1-1</xref>
+                  </p>
+                </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
@@ -966,18 +966,18 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='1'>
-            <p>
-              <xref target='N1'>Table 1</xref>
-              <xref target='N2'>Table (??)</xref>
-              <xref target='N'>Table 2</xref>
-              <xref target='note1'>Table 3</xref>
-              <xref target='note2'>Table 4</xref>
-              <xref target='AN'>Table A.1</xref>
-              <xref target='Anote1'>Table (??)</xref>
-              <xref target='Anote2'>Table A.2</xref>
-            </p>
-          </foreword>
+      <foreword displayorder='1'>
+        <p>
+          <xref target='N1'>Table 1</xref>
+          <xref target='N2'>Table (??)</xref>
+          <xref target='N'>Table 2</xref>
+          <xref target='note1'>Table 3</xref>
+          <xref target='note2'>Table 4</xref>
+          <xref target='AN'>Table A.1</xref>
+          <xref target='Anote1'>Table (??)</xref>
+          <xref target='Anote2'>Table A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
@@ -1061,13 +1061,13 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='1'>
-            <p>
-              <xref target='note1'>Clause 2.1, Note 1</xref>
-              <xref target='note2'>Clause 2.1.1, Note 1</xref>
-              <xref target='note3'>Clause 2.1.1, Note 2</xref>
-            </p>
-          </foreword>
+      <foreword displayorder='1'>
+        <p>
+          <xref target='note1'>Clause 2.1, Note 1</xref>
+          <xref target='note2'>Clause 2.1.1, Note 1</xref>
+          <xref target='note3'>Clause 2.1.1, Note 2</xref>
+        </p>
+      </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
@@ -1151,13 +1151,13 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='1'>
-            <p>
-              <xref target='note1'>Clause 2.1, Example</xref>
-              <xref target='note2'>Clause 2.1.1, Example 1</xref>
-              <xref target='note3'>Clause 2.1.1, Example 2</xref>
-            </p>
-          </foreword>
+      <foreword displayorder='1'>
+        <p>
+          <xref target='note1'>Clause 2.1, Example</xref>
+          <xref target='note2'>Clause 2.1.1, Example 1</xref>
+          <xref target='note3'>Clause 2.1.1, Example 2</xref>
+        </p>
+      </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
@@ -1255,31 +1255,31 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword obligation='informative' displayorder='1'>
-            <title>Foreword</title>
-            <p id='A'>
-              This is a preamble
-              <xref target='C'>Introduction Subsection</xref>
-              <xref target='C1'>Introduction, 2</xref>
-              <xref target='D'>Clause 1</xref>
-              <xref target='H'>Clause 3</xref>
-              <xref target='I'>Clause 3.1</xref>
-              <xref target='J'>Clause 3.1.1</xref>
-              <xref target='K'>Clause 3.2</xref>
-              <xref target='L'>Clause 4</xref>
-              <xref target='M'>Clause 5</xref>
-              <xref target='N'>Clause 5.1</xref>
-              <xref target='O'>Clause 5.2</xref>
-              <xref target='P'>Annex A</xref>
-              <xref target='Q'>Annex A.1</xref>
-              <xref target='Q1'>Annex A.1.1</xref>
-              <xref target='QQ'>Annex B</xref>
-              <xref target='QQ1'>Annex B</xref>
-              <xref target='QQ2'>Annex B.1</xref>
-              <xref target='R'>Clause 2</xref>
-              <xref target='S'>Bibliography</xref>
-            </p>
-          </foreword>
+      <foreword obligation='informative' displayorder='1'>
+        <title>Foreword</title>
+        <p id='A'>
+          This is a preamble
+          <xref target='C'>Introduction Subsection</xref>
+          <xref target='C1'>Introduction, 2</xref>
+          <xref target='D'>Clause 1</xref>
+          <xref target='H'>Clause 3</xref>
+          <xref target='I'>Clause 3.1</xref>
+          <xref target='J'>Clause 3.1.1</xref>
+          <xref target='K'>Clause 3.2</xref>
+          <xref target='L'>Clause 4</xref>
+          <xref target='M'>Clause 5</xref>
+          <xref target='N'>Clause 5.1</xref>
+          <xref target='O'>Clause 5.2</xref>
+          <xref target='P'>Annex A</xref>
+          <xref target='Q'>Annex A.1</xref>
+          <xref target='Q1'>Annex A.1.1</xref>
+          <xref target='QQ'>Annex B</xref>
+          <xref target='QQ1'>Annex B</xref>
+          <xref target='QQ2'>Annex B.1</xref>
+          <xref target='R'>Clause 2</xref>
+          <xref target='S'>Bibliography</xref>
+        </p>
+      </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
@@ -1720,31 +1720,31 @@ RSpec.describe IsoDoc do
                 </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='1'>
-        <p>
-     <xref target='N1'>
-     Introduction, Definition List: 
-     <stem type='MathML'>
-       <math xmlns='http://www.w3.org/1998/Math/MathML'>
-         <msub>
-           <mrow>
-             <mover accent='true'>
-               <mrow>
-                 <mi>e</mi>
-               </mrow>
-               <mo>^</mo>
-             </mover>
-           </mrow>
-           <mrow>
-             <mi>r</mi>
-           </mrow>
-         </msub>
-       </math>
-       <!-- (hat e)_((r)) -->
-     </stem>
-   </xref>
-        </p>
-      </foreword>
+         <foreword displayorder='1'>
+           <p>
+        <xref target='N1'>
+        Introduction, Definition List:
+        <stem type='MathML'>
+          <math xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mover accent='true'>
+                  <mrow>
+                    <mi>e</mi>
+                  </mrow>
+                  <mo>^</mo>
+                </mover>
+              </mrow>
+              <mrow>
+                <mi>r</mi>
+              </mrow>
+            </msub>
+          </math>
+          <!-- (hat e)_((r)) -->
+        </stem>
+      </xref>
+           </p>
+         </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
