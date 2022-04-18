@@ -2497,7 +2497,6 @@ RSpec.describe IsoDoc do
                <bibliography>
                  <references hidden='true' normative='false' displayorder="1">
                    <bibitem id='express_action_schema' type='internal'>
-                     <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
                      <docidentifier type='repository'>express/action_schema</docidentifier>
                    </bibitem>
                  </references>

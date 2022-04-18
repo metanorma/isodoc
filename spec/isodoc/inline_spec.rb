@@ -1603,7 +1603,7 @@ RSpec.describe IsoDoc do
          <bibliography>
            <references id='_normative_references' obligation='informative' normative='true' displayorder='2' hidden="true">
              <title depth='1'>
-               1.
+               0.
                <tab/>
                Normative References
              </title>
@@ -1709,7 +1709,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-  .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})

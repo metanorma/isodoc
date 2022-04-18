@@ -171,7 +171,7 @@ module IsoDoc
           if b.name == "bibitem"
             next if implicit_reference(b)
 
-            i += 1
+            i += 1 unless b["hidden"]
             if standard?(b) then std_bibitem_entry(div, b, i, biblio)
             else nonstd_bibitem(div, b, i, biblio)
             end
@@ -190,7 +190,7 @@ module IsoDoc
         (f = isoxml.at(ns(norm_ref_xpath)) and f["hidden"] != "true") or
           return num
         out.div do |div|
-          num = num + 1
+          num += 1
           clause_name(num, f.at(ns("./title")), div, nil)
           if f.name == "clause"
             f.elements.each { |e| parse(e, div) unless e.name == "title" }
