@@ -4,6 +4,7 @@ module IsoDoc
   module XrefGen
     class Counter
       def initialize(num = 0, opts = { numerals: :arabic })
+        @unnumbered = false
         @num = num
         @letter = ""
         @subseq = ""
@@ -112,7 +113,7 @@ module IsoDoc
       end
 
       def increment(node)
-        return self if node["unnumbered"] || node["hidden"]
+        @unnumbered = (node["unnumbered"] || node["hidden"]) and return self
 
         @letter_override = nil
         @number_override = nil
@@ -126,6 +127,8 @@ module IsoDoc
       end
 
       def print
+        return nil if @unnumbered
+
         num = @number_override || @num
         out = @style == :roman && !num.nil? ? RomanNumerals.to_roman(num) : num
         "#{@base}#{out}#{@letter_override || @letter}"
