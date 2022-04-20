@@ -29,10 +29,10 @@ module IsoDoc
       @wordstylesheet = generate_css(localpath(@wordstylesheet_name), false)
       @standardstylesheet =
         generate_css(localpath(@standardstylesheet_name), false)
-      @htmlstylesheet_override_name and @htmlstylesheet_override =
-        File.open(localpath(@htmlstylesheet_override_name))
-      @wordstylesheet_override_name and @wordstylesheet_override =
-        File.open(localpath(@wordstylesheet_override_name))
+      @htmlstylesheet_override_name and
+        @htmlstylesheet_override = File.open(localpath(@htmlstylesheet_override_name))
+      @wordstylesheet_override_name and
+        @wordstylesheet_override = File.open(localpath(@wordstylesheet_override_name))
     end
 
     def default_fonts(_options)
@@ -80,12 +80,12 @@ module IsoDoc
 
       [File.join(Gem.loaded_specs["isodoc"].full_gem_path,
                  "lib", "isodoc"),
-                 File.dirname(filename)].each do |name|
-                   SassC.load_paths << name
-                 end
-                 SassC::Engine.new(scss_fontheader(stripwordcss) + stylesheet,
-                                   syntax: :scss, importer: SasscImporter)
-                   .render
+       File.dirname(filename)].each do |name|
+        SassC.load_paths << name
+      end
+      SassC::Engine.new(scss_fontheader(stripwordcss) + stylesheet,
+                        syntax: :scss, importer: SasscImporter)
+        .render
     end
 
     # stripwordcss if HTML stylesheet, !stripwordcss if DOC stylesheet
@@ -96,6 +96,7 @@ module IsoDoc
       stylesheet = File.read(filename, encoding: "UTF-8")
       stylesheet = populate_template(stylesheet, :word)
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
+      stylesheet.gsub!(/--/, "-DOUBLE_HYPHEN_ESCAPE-") unless stripwordcss
       if File.extname(filename) == ".scss"
         stylesheet = convert_scss(filename, stylesheet, stripwordcss)
       end
