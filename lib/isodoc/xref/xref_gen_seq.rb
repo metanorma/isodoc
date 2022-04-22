@@ -25,11 +25,11 @@ module IsoDoc
         j = 0
         clause.xpath(ns(".//figure | .//sourcecode[not(ancestor::example)]"))
           .each do |t|
-          # next if labelled_ancestor(t) && t.ancestors("figure").empty?
+          next if blank?(t["id"])
 
           j = subfigure_increment(j, c, t)
-          label = c.print + (j.zero? ? "" : "-#{j}")
-          next if t["id"].nil? || t["id"].empty?
+          label = c.print
+          label &&= label + (j.zero? ? "" : "-#{j}")
 
           @anchors[t["id"]] = anchor_struct(
             label, nil, @labels["figure"], "figure", t["unnumbered"]

@@ -344,4 +344,35 @@ RSpec.describe IsoDoc do
     a.increment({})
     expect(a.print).to eq "Bb"
   end
+
+  it "returns initial unincremented value" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword id="fwd">
+      <note id="A" unnumbered="true"/>
+      <note id="B" unnumbered="false"/>
+      <note id="C" unnumbered="true"/>
+      </foreword>
+      </preface>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+           <foreword id='fwd' displayorder='1'>
+         <note id='A' unnumbered='true'>
+           <name>NOTE </name>
+         </note>
+         <note id='B' unnumbered='false'>
+           <name>NOTE </name>
+         </note>
+         <note id='C' unnumbered='true'>
+           <name>NOTE </name>
+         </note>
+       </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
 end
