@@ -159,12 +159,12 @@ RSpec.describe IsoDoc do
               amendments) applies.
             </p>
             <bibitem id='ISO712' type='standard'>
-               <formattedref>International Organization for Standardization. <em>Cereals or cereal products</em>.</formattedref>
+               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type='ISO'>ISO 712</docidentifier>
               <docidentifier type='metanorma'>[110]</docidentifier>
             </bibitem>
             <bibitem id='ISO16634' type='standard'>
-               <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
+               <formattedref><em>Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</em>.</formattedref>
               <docidentifier type='ISO'>ISO 16634:-- (all parts)</docidentifier>
               <note format='text/plain' type='Unpublished-Status' reference='1'>Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
             </bibitem>
@@ -270,141 +270,141 @@ RSpec.describe IsoDoc do
     PRESXML
 
     html = <<~OUTPUT
-          #{HTML_HDR}
-                       <br/>
-             <div>
-               <h1 class='ForewordTitle'>Foreword</h1>
-               <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-                 <a href='#ISO712'>[110]</a>
-                 <a href='#ISBN'>[1]</a>
-                 <a href='#ISSN'>[2]</a>
-                 <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
-                 <a href='#ref1'>ICC/167</a>
-                 <a href='#ref10'>[10]</a>
-                 <a href='#ref12'>Citn</a>
-                 <a href='#zip_ffs'>[5]</a>
-               </p>
-             </div>
-             <p class='zzSTDTitle1'/>
-             <div>
-               <h1>1.&#160; Normative References</h1>
-               <p>
-                  The following documents are referred to in the text in such a way
-                 that some or all of their content constitutes requirements of this
-                 document. For dated references, only the edition cited applies. For
-                 undated references, the latest edition of the referenced document
-                 (including any amendments) applies.
-               </p>
-               <p id='ISO712' class='NormRef'>
-                 [110], ISO 712, International Organization for Standardization.
-                 <i>Cereals or cereal products</i>
+         #{HTML_HDR}
+                      <br/>
+            <div>
+              <h1 class='ForewordTitle'>Foreword</h1>
+              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+                <a href='#ISO712'>[110]</a>
+                <a href='#ISBN'>[1]</a>
+                <a href='#ISSN'>[2]</a>
+                <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
+                <a href='#ref1'>ICC/167</a>
+                <a href='#ref10'>[10]</a>
+                <a href='#ref12'>Citn</a>
+                <a href='#zip_ffs'>[5]</a>
+              </p>
+            </div>
+            <p class='zzSTDTitle1'/>
+            <div>
+              <h1>1.&#160; Normative References</h1>
+              <p>
+                 The following documents are referred to in the text in such a way
+                that some or all of their content constitutes requirements of this
+                document. For dated references, only the edition cited applies. For
+                undated references, the latest edition of the referenced document
+                (including any amendments) applies.
+              </p>
+              <p id='ISO712' class='NormRef'>
+                [110], ISO 712, International Organization for Standardization.
+                <i>Cereals and cereal products</i>
+                .
+              </p>
+              <p id='ISO16634' class='NormRef'>
+                ISO 16634:-- (all parts)
+                <a class='FootnoteRef' href='#fn:1'>
+                  <sup>1</sup>
+                </a>
+                ,
+                <i>Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</i>
+                .
+              </p>
+              <p id='ISO20483' class='NormRef'>
+                ISO 20483:2013-2014, International Organization for Standardization.
+                <i>Cereals and pulses</i>
+                . 2013&#8211;2014.
+              </p>
+              <p id='ref1' class='NormRef'>
+                ICC/167,
+                <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
                  .
-               </p>
-               <p id='ISO16634' class='NormRef'>
-                 ISO 16634:-- (all parts)
-                 <a class='FootnoteRef' href='#fn:1'>
-                   <sup>1</sup>
-                 </a>
-                 ,
-                 <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>
+                <i>
+                   Determination of the protein content in cereal and cereal products
+                  for food and animal feeding stuffs according to the Dumas combustion
+                  method
+                </i>
+                 (see
+                <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
+                 ) [ICC/167]
+              </p>
+              <div class='Note'>
+                <p>
+                  <span class='note_label'>NOTE</span>
+                  &#160; This is an annotation of ISO 20483:2013-2014
+                </p>
+              </div>
+              <p id='zip_ffs' class='NormRef'>[5], Title 5</p>
+            </div>
+            <br/>
+            <div>
+              <h1 class='Section3'>Bibliography</h1>
+              <p id='ISBN' class='Biblio'>
+                [1]&#160;
+                <i>Chemicals for analytical laboratory use</i>
+                . ISBN.
+              </p>
+              <p id='ISSN' class='Biblio'>
+                [2]&#160;
+                <i>Instruments for analytical laboratory use</i>
+                . ISSN.
+              </p>
+              <div class='Note'>
+                <p>
+                  <span class='note_label'>NOTE</span>
+                  &#160; This is an annotation of document ISSN.
+                </p>
+              </div>
+              <div class='Note'>
+                <p>
+                  <span class='note_label'>NOTE</span>
+                  &#160; This is another annotation of document ISSN.
+                </p>
+              </div>
+              <p id='ISO3696' class='Biblio'>
+                [3]&#160; ISO 3696,
+                <i>Water for analytical laboratory use</i>
+                .
+              </p>
+              <p id='ref10' class='Biblio'>
+                [10]&#160;
+                <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
                  .
-               </p>
-               <p id='ISO20483' class='NormRef'>
-                 ISO 20483:2013-2014, International Organization for Standardization.
-                 <i>Cereals and pulses</i>
-                 . 2013&#8211;2014.
-               </p>
-               <p id='ref1' class='NormRef'>
-                 ICC/167,
-                 <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
-                  .
-                 <i>
-                    Determination of the protein content in cereal and cereal products
-                   for food and animal feeding stuffs according to the Dumas combustion
-                   method
-                 </i>
-                  (see
-                 <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
-                  ) [ICC/167]
-               </p>
-               <div class='Note'>
-                 <p>
-                   <span class='note_label'>NOTE</span>
-                   &#160; This is an annotation of ISO 20483:2013-2014
-                 </p>
-               </div>
-               <p id='zip_ffs' class='NormRef'>[5], Title 5</p>
-             </div>
-             <br/>
-             <div>
-               <h1 class='Section3'>Bibliography</h1>
-               <p id='ISBN' class='Biblio'>
-                 [1]&#160;
-                 <i>Chemicals for analytical laboratory use</i>
-                 . ISBN.
-               </p>
-               <p id='ISSN' class='Biblio'>
-                 [2]&#160;
-                 <i>Instruments for analytical laboratory use</i>
-                 . ISSN.
-               </p>
-               <div class='Note'>
-                 <p>
-                   <span class='note_label'>NOTE</span>
-                   &#160; This is an annotation of document ISSN.
-                 </p>
-               </div>
-               <div class='Note'>
-                 <p>
-                   <span class='note_label'>NOTE</span>
-                   &#160; This is another annotation of document ISSN.
-                 </p>
-               </div>
-               <p id='ISO3696' class='Biblio'>
-                 [3]&#160; ISO 3696,
-                 <i>Water for analytical laboratory use</i>
-                 .
-               </p>
-               <p id='ref10' class='Biblio'>
-                 [10]&#160;
-                 <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
-                  .
-                 <i>
-                    Determination of the protein content in cereal and cereal products
-                   for food and animal feeding stuffs according to the Dumas combustion
-                   method
-                 </i>
-                  (see
-                 <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
-                  )
-               </p>
-               <p id='ref11' class='Biblio'>
-                 [4]&#160; IETF RFC 10,
-                 <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
-                 .
-               </p>
-               <p id='ref12' class='Biblio'>
-                 Citn&#160; IETF RFC 20, CitationWorks. 2019.
-                 <i>How to cite a reference</i>
-                  . [IETF RFC 20]
-               </p>
-               <p id='ref10b' class='Biblio'>
-                 [5]&#160; IETF RFC 20,
-                 <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
-                 .
-               </p>
-               <p id='ref10c' class='Biblio'>
-                 [6]&#160;
-                 <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
-                 .
-               </p>
-             </div>
-             <aside id='fn:1' class='footnote'>
-               <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
-             </aside>
-           </div>
-         </body>
-       </html>
+                <i>
+                   Determination of the protein content in cereal and cereal products
+                  for food and animal feeding stuffs according to the Dumas combustion
+                  method
+                </i>
+                 (see
+                <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
+                 )
+              </p>
+              <p id='ref11' class='Biblio'>
+                [4]&#160; IETF RFC 10,
+                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
+                .
+              </p>
+              <p id='ref12' class='Biblio'>
+                Citn&#160; IETF RFC 20, CitationWorks. 2019.
+                <i>How to cite a reference</i>
+                 . [IETF RFC 20]
+              </p>
+              <p id='ref10b' class='Biblio'>
+                [5]&#160; IETF RFC 20,
+                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
+                .
+              </p>
+              <p id='ref10c' class='Biblio'>
+                [6]&#160;
+                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
+                .
+              </p>
+            </div>
+            <aside id='fn:1' class='footnote'>
+              <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
+            </aside>
+          </div>
+        </body>
+      </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)

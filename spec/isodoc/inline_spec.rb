@@ -304,7 +304,7 @@ RSpec.describe IsoDoc do
           <bibliography><references id="_normative_references" obligation="informative" normative="true" displayorder="2"><title depth="1">1.<tab/>Normative References</title>
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
       <bibitem id="ISO712" type="standard">
-        <formattedref>International Organization for Standardization. <em>Cereals or cereal products</em>.</formattedref>
+        <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
         <docidentifier type="ISO">ISO 712</docidentifier>
       </bibitem>
       </references></bibliography>
@@ -388,7 +388,7 @@ RSpec.describe IsoDoc do
                </p>
                <p id='ISO712' class='NormRef'>
                  ISO 712, International Organization for Standardization.
-                 <i>Cereals or cereal products</i>.
+                 <i>Cereals and cereal products</i>.
                </p>
              </div>
              <div id='clause1'>
