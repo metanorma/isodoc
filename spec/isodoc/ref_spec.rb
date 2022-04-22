@@ -164,7 +164,7 @@ RSpec.describe IsoDoc do
               <docidentifier type='metanorma'>[110]</docidentifier>
             </bibitem>
             <bibitem id='ISO16634' type='standard'>
-               <formattedref><em>Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</em>.</formattedref>
+               <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
               <docidentifier type='ISO'>ISO 16634:-- (all parts)</docidentifier>
               <note format='text/plain' type='Unpublished-Status' reference='1'>Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
             </bibitem>
@@ -306,7 +306,7 @@ RSpec.describe IsoDoc do
                   <sup>1</sup>
                 </a>
                 ,
-                <i>Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</i>
+                <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>
                 .
               </p>
               <p id='ISO20483' class='NormRef'>
