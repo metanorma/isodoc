@@ -31,10 +31,12 @@ module IsoDoc
     end
 
     def section(docxml)
+      references docxml
+      # triggers xrefs reparse, so put references before all other sections,
+      # which alter titles and thus can alter xrefs
       clause docxml
       annex docxml
       term docxml
-      references docxml
       index docxml
       clausetitle docxml
       floattitle docxml

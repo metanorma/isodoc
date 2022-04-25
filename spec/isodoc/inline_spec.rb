@@ -1026,7 +1026,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
       <bibitem id="ISO712" type="standard">
-        <title format="text/plain">Cereals and cereal products</title>
+        <formattedref format="text/plain"><em>Cereals and cereal products</em></formattedref>
         <docidentifier>ISO 712</docidentifier>
         <contributor>
           <role type="publisher"/>

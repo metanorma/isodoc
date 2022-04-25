@@ -660,11 +660,7 @@ RSpec.describe IsoDoc do
                       </contributor>
                     </bibitem>
                     <bibitem id='ISO16634' type='standard'>
-                      <title language='x' format='text/plain'>
-                        Cereals, pulses, milled cereal products, xxxx, oilseeds and animal
-                        feeding stuffs
-                      </title>
-                      <title language='en' format='text/plain'>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
+                      <formattedref language='en' format='text/plain'><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em></formattedref>
                       <docidentifier type='ISO'>ISO 16634:-- (all parts)</docidentifier>
                       <date type='published'>
                         <on>--</on>

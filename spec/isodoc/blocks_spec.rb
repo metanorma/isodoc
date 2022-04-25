@@ -1733,10 +1733,10 @@ RSpec.describe IsoDoc do
       <title depth='1'>Bibliography</title>
       <bibitem id="rfc2616" type="standard">
                      <formattedref>
-                 R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK and L. MASINTER.
+                 R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. 
                  <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>
                  . In: RFC. June 1999. Fremont, CA.
-                 <link target='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</link>.
+                 <link target='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</link>.
                </formattedref>
                <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
                <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
@@ -1786,7 +1786,7 @@ RSpec.describe IsoDoc do
                  [1]&#160; IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK and L. MASINTER.
                  <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
                  . In: RFC. June 1999. Fremont, CA.
-                <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>.
+                <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>.
                </p>
              </div>
                 </div>

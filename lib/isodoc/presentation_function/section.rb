@@ -69,7 +69,7 @@ module IsoDoc
       docxml.xpath(ns("//references/bibitem")).each do |x|
         bibitem(x)
       end
-      @xrefs.parse docxml
+      @xrefs.parse_inclusions(refs: true).parse(docxml)
     end
 
     def bibitem(xml)
