@@ -2,7 +2,7 @@ require "spec_helper"
 require "nokogiri"
 
 RSpec.describe IsoDoc do
-  it "processes IsoXML metadata" do
+  it "processes IsoXML metadata #1" do
     c = IsoDoc::Convert.new({})
     c.convert_init(<<~"INPUT", "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -158,7 +158,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to output
   end
 
-  it "processes IsoXML metadata" do
+  it "processes IsoXML metadata #2" do
     c = IsoDoc::Convert.new({})
     c.convert_init(<<~"INPUT", "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -295,6 +295,7 @@ RSpec.describe IsoDoc do
           <substage lang="fr">Rétiré</substage>
           <iteration>2</iteration>
         </status>
+        <edition>2</edition>
       <ext>
       <doctype lang="">international-standard</doctype>
       <doctype lang="fr">Standard international</doctype>

@@ -33,3 +33,9 @@ array:
     - elem2
     - {elem3: elem4, elem5: elem6}
 void:
+ordinal_keys: [number]
+SpelloutRules: 
+  sg: spellout-ordinal
+  pl: spellout-ordinal
+edition_ordinal: "eldono %Spellout"
+edition: eldono
