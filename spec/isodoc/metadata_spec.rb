@@ -34,7 +34,7 @@ RSpec.describe IsoDoc do
         <date type="transmitted"><on>2020</on></date>
         <date type="vote-started"><on>2021</on></date>
         <date type="vote-ended"><on>2022</on></date>
-        <edition>2</edition>
+        <edition>2</edition><edition language="en">second edition</edition>
       <version>
         <revision-date>2016-05-01</revision-date>
         <draft>0.4</draft>
@@ -124,6 +124,7 @@ RSpec.describe IsoDoc do
       :draft=>"0.4",
       :draftinfo=>" (draft 0.4, 2016-05-01)",
       :edition=>"2",
+      :edition_display=>"second edition",
       :html=>"URL B",
       :implementeddate=>"XXX",
       :isbn=>"ISBN 13",
