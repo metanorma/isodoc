@@ -41,6 +41,8 @@ chain_and: "%1和%2"
 chain_or: "%1或%2"
 chain_from: "%1从%2"
 chain_to: "%1到%2"
+ordinal_keys: []
+SpelloutRules: spellout-ordinal
 note: 注
 note_xref: 注
 termnote: 注%
@@ -66,6 +68,8 @@ deprecated: 被取代
 source: 定义
 and: 和
 all_parts: 所有部分
+edition_ordinal: "第%Spellout版"
+edition: 版
 toc_figures: 数字列表
 toc_tables: 表列表
 toc_recommendations: 建议清单

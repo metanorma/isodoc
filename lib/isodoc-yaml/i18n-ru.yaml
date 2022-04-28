@@ -45,6 +45,14 @@ chain_and: "%1 и %2"
 chain_or: "%1 или %2"
 chain_from: "%1 от %2"
 chain_to: "%1 до %2"
+ordinal_keys: [gender,number]
+SpelloutRules:
+  m.sg: spellout-ordinal-masculine
+  f.sg: spellout-ordinal-feminine
+  n.sg: spellout-ordinal-neuter
+  m.pl: spellout-ordinal-plural
+  f.pl: spellout-ordinal-plural
+  n.pl: spellout-ordinal-plural
 note: ПРИМЕЧАНИЕ
 note_xref: Примечание
 termnote: Примечание % к определению
@@ -70,6 +78,8 @@ deprecated: НЕ РЕКОМЕНДУЕТСЯ
 source: ИСТОЧНИК
 and: и
 all_parts: Все части
+edition_ordinal: "%Spellout издание"
+edition: издание
 toc_figures: Таблица фигур
 toc_tables: Таблица таблиц
 toc_recommendations: Таблица рекомендаций

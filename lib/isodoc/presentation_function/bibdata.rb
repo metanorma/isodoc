@@ -79,16 +79,40 @@ module IsoDoc
       hash_translate(bib, @i18n.get["doctype_dict"], "./ext/doctype")
       hash_translate(bib, @i18n.get["stage_dict"], "./status/stage")
       hash_translate(bib, @i18n.get["substage_dict"], "./status/substage")
+      edition_translate(bib)
     end
 
     def hash_translate(bibdata, hash, xpath, lang = @lang)
       x = bibdata.at(ns(xpath)) or return
-      x["language"] = ""
       hash.is_a? Hash or return
       hash[x.text] or return
-      x.next = x.dup
-      x.next["language"] = lang
-      x.next.children = hash[x.text]
+      tag_translate(x, lang, hash[x.text])
+    end
+
+    # does not allow %Spellout and %Ordinal in the ordinal expression to be mixed
+    def edition_translate(bibdata)
+      x = bibdata.at(ns("./edition")) or return
+      /^\d+$/.match?(x.text) or return
+      tag_translate(x, @lang,
+                    @i18n.edition_ordinal.sub(/%(Spellout|Ordinal)/,
+                                              edition_translate1(x.text.to_i)))
+    end
+
+    def edition_translate1(num)
+      ruleset = case @i18n.edition_ordinal
+                when /%Spellout/ then "SpelloutRules"
+                when /%Ordinal/ then "OrdinalRules"
+                end
+      ed = @c.decode(@i18n.edition)
+      @i18n.inflect_ordinal(num, @i18n.inflection&.dig(ed) || {},
+                            ruleset)
+    end
+
+    def tag_translate(tag, lang, value)
+      tag["language"] = ""
+      tag.next = tag.dup
+      tag.next["language"] = lang
+      tag.next.children = value
     end
 
     def i18n_tag(key, value)

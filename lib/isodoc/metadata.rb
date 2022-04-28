@@ -107,7 +107,8 @@ module IsoDoc
     end
 
     def version(isoxml, _out)
-      set(:edition, isoxml&.at(ns("//bibdata/edition"))&.text)
+      set(:edition, isoxml&.at(ns("//bibdata/edition#{NOLANG}"))&.text)
+      set(:edition_display, isoxml&.at(ns("//bibdata/edition#{currlang}"))&.text)
       set(:docyear, isoxml&.at(ns("//bibdata/copyright/from"))&.text)
       set(:draft, isoxml&.at(ns("//bibdata/version/draft"))&.text)
       revdate = isoxml&.at(ns("//bibdata/version/revision-date"))&.text
