@@ -73,7 +73,7 @@ deprecated: OBSOLETO
 source: FUENTE
 and: y
 all_parts: Todas las partes
-edition: "%Spellout edición"
+edition_ordinal: "%Spellout edición"
 edition: edición
 toc_figures: Table de figuras
 toc_tables: Tabla de tablas

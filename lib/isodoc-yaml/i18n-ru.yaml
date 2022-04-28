@@ -197,3 +197,5 @@ inflection:
   "Стр.":
     sg: Стр.
     pl: Стр.
+  издание:
+    gender: n
