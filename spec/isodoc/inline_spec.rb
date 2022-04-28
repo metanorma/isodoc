@@ -1577,11 +1577,7 @@ RSpec.describe IsoDoc do
          </preface>
          <bibliography>
            <references id='_normative_references' obligation='informative' normative='true' displayorder='2' hidden="true">
-             <title depth='1'>
-               0.
-               <tab/>
-               Normative References
-             </title>
+             <title depth='1'>Normative References</title>
              <bibitem id='ISO712' type='standard' hidden="true">
                <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
                <uri type='citation'>http://www.example.com</uri>

@@ -90,13 +90,13 @@ RSpec.describe IsoDoc do
                 <language current="true">en</language>
                 <script current="true">Latn</script>
                 <status>
-                  <stage language="">published</stage>
+                  <stage>published</stage>
                 </status>
                 <copyright>
                   <from>2020</from>
                 </copyright>
                 <ext>
-                  <doctype language="">article</doctype>
+                  <doctype>article</doctype>
                 </ext>
               </bibdata>
               <sections>
@@ -2613,13 +2613,13 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
           <script current="true">Latn</script>
           <status>
-            <stage language="">published</stage>
+            <stage>published</stage>
           </status>
           <copyright>
             <from>2021</from>
           </copyright>
           <ext>
-            <doctype language="">article</doctype>
+            <doctype>article</doctype>
           </ext>
         </bibdata>
         <sections>

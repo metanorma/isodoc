@@ -38,6 +38,10 @@ chain_and: "%1 و %2"
 chain_or: "%1 او %2"
 chain_from: "%1 %من 2"
 chain_to: "من %1 إلى %2"
+ordinal_keys: [gender]
+SpelloutRules:
+  f: spellout-ordinal-feminine
+  m: spellout-ordinal-masculine
 note: ملاحظة
 note_xref: ملاحظة
 termnote: ملاحظة % للقيد
@@ -63,6 +67,8 @@ deprecated: مهمل
 source: مصدر
 and: و
 all_parts: كل الأجزاء
+edition_ordinal: "الطبعة؜ %Spellout؜"
+edition: الطبعة؜ ؜
 toc_figures: جدول الأرقام
 toc_tables: جدول الجداول
 toc_recommendations: جدول التوصيات
@@ -180,3 +186,5 @@ inflection:
   صفحة:
     sg: صفحة
     pl: صفحات
+  الطبعة؜:
+    gender: f

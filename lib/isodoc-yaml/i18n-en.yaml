@@ -46,6 +46,8 @@ chain_and: "%1 and %2"
 chain_or: "%1 or %2"
 chain_from: "%1 from %2"
 chain_to: "%1 to %2"
+ordinal_keys: []
+SpelloutRules: spellout-ordinal
 note: NOTE
 note_xref: Note
 termnote: Note % to entry
@@ -71,6 +73,8 @@ deprecated: DEPRECATED
 source: SOURCE
 and: and
 all_parts: All Parts
+edition_ordinal: "%Spellout edition"
+edition: edition
 toc_figures: List of figures
 toc_tables: List of tables
 toc_recommendations: List of recommendations

@@ -2,7 +2,7 @@ require "spec_helper"
 require "nokogiri"
 
 RSpec.describe IsoDoc do
-  it "processes IsoXML metadata" do
+  it "processes IsoXML metadata #1" do
     c = IsoDoc::Convert.new({})
     c.convert_init(<<~"INPUT", "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -34,7 +34,7 @@ RSpec.describe IsoDoc do
         <date type="transmitted"><on>2020</on></date>
         <date type="vote-started"><on>2021</on></date>
         <date type="vote-ended"><on>2022</on></date>
-        <edition>2</edition>
+        <edition>2</edition><edition language="en">second edition</edition>
       <version>
         <revision-date>2016-05-01</revision-date>
         <draft>0.4</draft>
@@ -124,6 +124,7 @@ RSpec.describe IsoDoc do
       :draft=>"0.4",
       :draftinfo=>" (draft 0.4, 2016-05-01)",
       :edition=>"2",
+      :edition_display=>"second edition",
       :html=>"URL B",
       :implementeddate=>"XXX",
       :isbn=>"ISBN 13",
@@ -158,7 +159,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to output
   end
 
-  it "processes IsoXML metadata" do
+  it "processes IsoXML metadata #2" do
     c = IsoDoc::Convert.new({})
     c.convert_init(<<~"INPUT", "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -295,6 +296,7 @@ RSpec.describe IsoDoc do
           <substage lang="fr">Rétiré</substage>
           <iteration>2</iteration>
         </status>
+        <edition>2</edition>
       <ext>
       <doctype lang="">international-standard</doctype>
       <doctype lang="fr">Standard international</doctype>

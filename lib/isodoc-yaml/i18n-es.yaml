@@ -42,6 +42,12 @@ chain_and: "%1 y %2"
 chain_or: "%1 o %2"
 chain_from: "%1 del %2"
 chain_to: "%1 al %2"
+ordinal_keys: [gender,number]
+SpelloutRules:
+  m.sg: spellout-ordinal-masculine
+  f.sg: spellout-ordinal-feminine
+  m.pl: spellout-ordinal-masculine-plural
+  f.pl: spellout-ordinal-feminine-plural
 note: NOTA
 note_xref: Nota
 termnote: Nota % a la entrada
@@ -67,6 +73,8 @@ deprecated: OBSOLETO
 source: FUENTE
 and: y
 all_parts: Todas las partes
+edition_ordinal: "%Spellout edición"
+edition: edición
 toc_figures: Table de figuras
 toc_tables: Tabla de tablas
 toc_recommendations: Tabla de recomendaciones
@@ -184,3 +192,5 @@ inflection:
   Página:
     sg: Página
     pl: Páginas
+  edición:
+    gender: f
