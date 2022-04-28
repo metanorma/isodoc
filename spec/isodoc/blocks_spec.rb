@@ -1783,7 +1783,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class='Section3'>Bibliography</h1>
                <p id='rfc2616' class='Biblio'>
-                 [1]&#160; IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK and L. MASINTER.
+                 [1]&#160; IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. 
                  <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
                  . In: RFC. June 1999. Fremont, CA.
                 <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>.
