@@ -45,7 +45,6 @@ RSpec.describe IsoDoc do
               </div>
               <p class='zzSTDTitle1'/>
               <div id='L' class='Admonition'>
-                <p class='AdmonitionTitle' style='text-align:center;'>CAUTION</p>
                 <p>admonition</p>
               </div>
               <div id='M'>
@@ -105,7 +104,6 @@ RSpec.describe IsoDoc do
             <div class='WordSection3'>
               <p class='zzSTDTitle1'/>
               <div id='L' class='Admonition'>
-                <p class='AdmonitionTitle' style='text-align:center;'>CAUTION</p>
                 <p>admonition</p>
               </div>
               <div id='M'>
@@ -201,7 +199,9 @@ RSpec.describe IsoDoc do
        </acknowledgements>
         </preface><sections>
         <note id="NN1"><p>Initial note</p></note>
-        <admonition id="NN2" type="warning"><p>Initial admonition</p></admonition>
+        <admonition id="NN2" type="warning">
+        <name>WARNING</name>
+        <p>Initial admonition</p></admonition>
        <clause id="D" obligation="normative" type="scope">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -316,6 +316,7 @@ RSpec.describe IsoDoc do
             <p>Initial note</p>
           </note>
           <admonition id='NN2' type='warning'>
+            <name>WARNING</name>
             <p>Initial admonition</p>
           </admonition>
           <clause id='D' obligation='normative' type='scope' displayorder='7'>

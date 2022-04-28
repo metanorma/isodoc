@@ -114,12 +114,7 @@ module IsoDoc
       end
 
       def admonition_name(node, type)
-        name = node&.at(ns("./name")) and return name
-        name = Nokogiri::XML::Node.new("name", node.document)
-        return unless type && @i18n.admonition[type]
-
-        name << @i18n.admonition[type]&.upcase
-        name
+        node&.at(ns("./name"))
       end
 
       def admonition_attrs(node)
