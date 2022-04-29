@@ -103,6 +103,16 @@ module IsoDoc
         %w(copyright license legal feedback).each do |t|
           authority_cleanup1(docxml, t)
         end
+        coverpage_note_cleanup(docxml)
+      end
+
+      def coverpage_note_cleanup(docxml)
+        if dest = docxml.at("//div[@id = 'coverpage-note-destination']")
+          docxml.xpath("//*[@coverpage]").each do |x|
+            dest << x.remove
+          end
+        end
+        docxml.xpath("//*[@coverpage]").each { |x| x.delete("coverpage") }
       end
 
       def html_cover(docxml)

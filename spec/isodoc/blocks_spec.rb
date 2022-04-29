@@ -286,13 +286,13 @@ RSpec.describe IsoDoc do
                  <p>
                    <span class='note_label'>NOTE 1</span>
                    &#160; These results are based on a study carried out on three
-                   different types of kernel. 
+                   different types of kernel.#{' '}
                  </p>
                </div>
                <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p>
                    &#160; These results are based on a study carried out on three
-                   different types of kernel. 
+                   different types of kernel.#{' '}
                  </p>
                </div>
              </div>
@@ -318,7 +318,7 @@ RSpec.describe IsoDoc do
                    <span class='note_label'>NOTE 1</span>
                    <span style='mso-tab-count:1'>&#160; </span>
                     These results are based on a study carried out on three different
-                   types of kernel. 
+                   types of kernel.#{' '}
                  </p>
                </div>
                <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
@@ -326,7 +326,7 @@ RSpec.describe IsoDoc do
                    <span class='note_label'/>
                    <span style='mso-tab-count:1'>&#160; </span>
                     These results are based on a study carried out on three different
-                   types of kernel. 
+                   types of kernel.#{' '}
                  </p>
                </div>
             </div>
@@ -590,6 +590,101 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(doc)
   end
 
+  it "converts notes and admonitions intended for coverpage" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <note id="FB" coverpage="true" unnumbered="true"><p>XYZ</p></note>
+          <admonition id="FC" coverpage="true" unnumbered="true" type="warning"><p>XYZ</p></admonition>
+      </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+          <foreword displayorder='1'>
+            <note id='FB' coverpage='true' unnumbered='true'>
+               <name>NOTE</name>
+               <p>XYZ</p>
+             </note>
+             <admonition id='FC' coverpage='true' unnumbered='true' type='warning'>
+               <name>WARNING</name>
+               <p>XYZ</p>
+             </admonition>
+          </foreword>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+            <br/>
+            <div>
+              <h1 class='ForewordTitle'>Foreword</h1>
+                <div id='FB' class='Note' coverpage='true'>
+                 <p>
+                   <span class='note_label'>NOTE</span>
+                   &#160; XYZ
+                 </p>
+               </div>
+               <div id='FC' class='Admonition' coverpage='true'>
+                 <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+                 <p>XYZ</p>
+               </div>
+            </div>
+            <p class='zzSTDTitle1'/>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    doc = <<~OUTPUT
+                <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+            <head>
+                <style/>
+              </head>
+      <body lang='EN-US' link='blue' vlink='#954F72'>
+          <div class='WordSection1'>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection2'>
+            <p>
+              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+            </p>
+            <div>
+              <h1 class='ForewordTitle'>Foreword</h1>
+                <div id='FB' class='Note' coverpage='true'>
+                 <p class='Note'>
+                   <span class='note_label'>NOTE</span>
+                   <span style='mso-tab-count:1'>&#160; </span>
+                   XYZ
+                 </p>
+               </div>
+               <div id='FC' class='Admonition' coverpage='true'>
+                 <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+                 <p>XYZ</p>
+               </div>
+            </div>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection3'>
+            <p class='zzSTDTitle1'/>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true)))).to be_equivalent_to xmlpp(doc)
+  end
+
   it "numbers notes in tables and figures separately from notes outside them" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -601,33 +696,33 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-         <preface>
-           <foreword displayorder='1'>
-             <figure id='F'>
-               <name>Figure 1</name>
-               <note id='FB'>
-                 <name>NOTE</name>
-                 <p>XYZ</p>
-               </note>
-             </figure>
-             <table id='T'>
-               <name>Table 1</name>
-               <note id='TB'>
-                 <name>NOTE</name>
-                 <p>XYZ</p>
-               </note>
-             </table>
-             <p id='A'>
-               ABC
-               <note id='B'>
-                 <name>NOTE</name>
-                 <p id='C'>XYZ</p>
-               </note>
-             </p>
-           </foreword>
-         </preface>
-       </iso-standard>
+          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+          <foreword displayorder='1'>
+            <figure id='F'>
+              <name>Figure 1</name>
+              <note id='FB'>
+                <name>NOTE</name>
+                <p>XYZ</p>
+              </note>
+            </figure>
+            <table id='T'>
+              <name>Table 1</name>
+              <note id='TB'>
+                <name>NOTE</name>
+                <p>XYZ</p>
+              </note>
+            </table>
+            <p id='A'>
+              ABC
+              <note id='B'>
+                <name>NOTE</name>
+                <p id='C'>XYZ</p>
+              </note>
+            </p>
+          </foreword>
+        </preface>
+      </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
