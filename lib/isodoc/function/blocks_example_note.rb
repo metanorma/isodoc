@@ -94,7 +94,8 @@ module IsoDoc
       end
 
       def note_attrs(node)
-        attr_code(id: node["id"], class: "Note", style: keep_style(node))
+        attr_code(id: node["id"], class: "Note", style: keep_style(node),
+                  coverpage: node["coverpage"])
       end
 
       def note_parse(node, out)
@@ -107,6 +108,40 @@ module IsoDoc
           end
         end
         @note = false
+      end
+
+      def middle_admonitions(isoxml, out)
+        isoxml.xpath(ns("//sections/note | //sections/admonition")).each do |x|
+          parse(x, out)
+        end
+      end
+
+      def admonition_name_parse(_node, div, name)
+        div.p **{ class: "AdmonitionTitle", style: "text-align:center;" } do |p|
+          name.children.each { |n| parse(n, p) }
+        end
+      end
+
+      def admonition_class(_node)
+        "Admonition"
+      end
+
+      def admonition_name(node, _type)
+        node&.at(ns("./name"))
+      end
+
+      def admonition_attrs(node)
+        attr_code(id: node["id"], class: admonition_class(node),
+                  style: keep_style(node), coverpage: node["coverpage"])
+      end
+
+      def admonition_parse(node, out)
+        type = node["type"]
+        name = admonition_name(node, type)
+        out.div **admonition_attrs(node) do |t|
+          admonition_name_parse(node, t, name) if name
+          node.children.each { |n| parse(n, t) unless n.name == "name" }
+        end
       end
     end
   end

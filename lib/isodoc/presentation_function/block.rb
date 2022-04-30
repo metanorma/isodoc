@@ -71,7 +71,7 @@ module IsoDoc
 
     # introduce name element
     def note1(elem)
-      return if elem.parent.name == "bibitem"
+      return if elem.parent.name == "bibitem" || elem["notag"] == "true"
 
       n = @xrefs.get[elem["id"]]
       lbl = if n.nil? || n[:label].nil? || n[:label].empty?
@@ -80,6 +80,18 @@ module IsoDoc
               l10n("#{@i18n.note} #{n[:label]}")
             end
       prefix_name(elem, "", lbl, "name")
+    end
+
+    def admonition(docxml)
+      docxml.xpath(ns("//admonition")).each do |f|
+        admonition1(f)
+      end
+    end
+
+    def admonition1(elem)
+      return if elem.at(ns("./name")) || elem["notag"] == "true"
+
+      prefix_name(elem, "", @i18n.admonition[elem["type"]]&.upcase, "name")
     end
 
     def recommendation(docxml)
