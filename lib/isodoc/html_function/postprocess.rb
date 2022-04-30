@@ -108,8 +108,12 @@ module IsoDoc
 
       def coverpage_note_cleanup(docxml)
         if dest = docxml.at("//div[@id = 'coverpage-note-destination']")
-          docxml.xpath("//*[@coverpage]").each do |x|
-            dest << x.remove
+          auth = docxml.xpath("//*[@coverpage]")
+          if auth.empty? then dest.remove
+          else
+            auth.each do |x|
+              dest << x.remove
+            end
           end
         end
         docxml.xpath("//*[@coverpage]").each { |x| x.delete("coverpage") }

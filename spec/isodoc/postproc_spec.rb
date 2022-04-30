@@ -2106,17 +2106,87 @@ RSpec.describe IsoDoc do
       <body>
       <div class="main-section">
                       <div id='FB' class='Note' coverpage='true'>
-                 <p>
-                   <span class='note_label'>NOTE</span>
-                   &#160; XYZ
-                 </p>
+                 <p><span class='note_label'>NOTE</span>&#160; XYZ</p>
                </div>
                <div id='FC' class='Admonition' coverpage='true'>
                  <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
                  <p>XYZ</p>
                </div>
       <hr/>
-      <div id="coverpage"/>
+      <div id="coverpage-note-destination"/>
+      </div>
+      </body>
+      </html>
+    INPUT
+    html = <<~OUTPUT
+      <main class='main-section'>
+        <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
+        <hr/>
+        <div id='coverpage-note-destination'>
+          <div id='FB' class='Note'>
+            <p>
+              <span class='note_label'>NOTE</span>
+              &#xA0; XYZ
+            </p>
+          </div>
+          <div id='FC' class='Admonition'>
+            <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+            <p>XYZ</p>
+          </div>
+        </div>
+      </main>
+    OUTPUT
+    doc = <<~OUTPUT
+          <html>
+        <head/>
+        <body>
+          <div class='main-section'>
+            <hr/>
+            <div id='coverpage-note-destination'>
+              <div id='FB' class='Note'>
+                <p>
+                  <span class='note_label'>NOTE</span>
+                  &#xA0; XYZ
+                </p>
+              </div>
+              <div id='FC' class='Admonition'>
+                <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+                <p>XYZ</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert
+  .new(wordstylesheet: "spec/assets/word.css",
+       htmlstylesheet: "spec/assets/html.scss", filename: "test")
+  .html_preface(Nokogiri::XML(input)).to_xml)
+  .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert
+      .new(wordstylesheet: "spec/assets/word.css",
+           htmlstylesheet: "spec/assets/html.scss", filename: "test")
+       .word_cleanup(Nokogiri::XML(input)).to_xml)
+       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .to be_equivalent_to xmlpp(doc)
+  end
+
+  it "removes coverpage note destination if unused" do
+    input = <<~INPUT
+      <html>
+      <head/>
+      <body>
+      <div class="main-section">
+                      <div id='FB' class='Note'>
+                 <p><span class='note_label'>NOTE</span>&#160; XYZ</p>
+               </div>
+               <div id='FC' class='Admonition'>
+                 <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+                 <p>XYZ</p>
+               </div>
+      <hr/>
+      <div id="coverpage-note-destination"/>
       </div>
       </body>
       </html>
@@ -2127,7 +2197,7 @@ RSpec.describe IsoDoc do
         <div id='FB' class='Note'>
           <p>
             <span class='note_label'>NOTE</span>
-             &#xA0; XYZ
+            &#xA0; XYZ
           </p>
         </div>
         <div id='FC' class='Admonition'>
@@ -2135,7 +2205,6 @@ RSpec.describe IsoDoc do
           <p>XYZ</p>
         </div>
         <hr/>
-        <div id='coverpage'/>
       </main>
     OUTPUT
     doc = <<~OUTPUT
@@ -2146,7 +2215,7 @@ RSpec.describe IsoDoc do
             <div id='FB' class='Note'>
               <p>
                 <span class='note_label'>NOTE</span>
-                 &#xA0; XYZ
+                &#xA0; XYZ
               </p>
             </div>
             <div id='FC' class='Admonition'>
@@ -2154,7 +2223,6 @@ RSpec.describe IsoDoc do
               <p>XYZ</p>
             </div>
             <hr/>
-            <div id='coverpage'/>
           </div>
         </body>
       </html>
