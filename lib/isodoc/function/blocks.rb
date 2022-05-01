@@ -9,12 +9,6 @@ module IsoDoc
         out.p(**{ class: "zzSTDTitle1" }) { |p| p << @meta.get[:doctitle] }
       end
 
-      def middle_admonitions(isoxml, out)
-        isoxml.xpath(ns("//sections/note | //sections/admonition")).each do |x|
-          parse(x, out)
-        end
-      end
-
       def figure_name_parse(_node, div, name)
         return if name.nil?
 
@@ -74,12 +68,6 @@ module IsoDoc
         end
       end
 
-      def admonition_name_parse(_node, div, name)
-        div.p **{ class: "AdmonitionTitle", style: "text-align:center;" } do |p|
-          name.children.each { |n| parse(n, p) }
-        end
-      end
-
       def sourcecode_attrs(node)
         attr_code(id: node["id"], class: "Sourcecode", style: keep_style(node))
       end
@@ -107,33 +95,6 @@ module IsoDoc
         out << "<br/>&lt;#{callout.text}&gt; "
         out << node&.children&.text&.strip
         @annotation = false
-      end
-
-      def admonition_class(_node)
-        "Admonition"
-      end
-
-      def admonition_name(node, type)
-        name = node&.at(ns("./name")) and return name
-        name = Nokogiri::XML::Node.new("name", node.document)
-        return unless type && @i18n.admonition[type]
-
-        name << @i18n.admonition[type]&.upcase
-        name
-      end
-
-      def admonition_attrs(node)
-        attr_code(id: node["id"], class: admonition_class(node),
-                  style: keep_style(node))
-      end
-
-      def admonition_parse(node, out)
-        type = node["type"]
-        name = admonition_name(node, type)
-        out.div **admonition_attrs(node) do |t|
-          admonition_name_parse(node, t, name) if name
-          node.children.each { |n| parse(n, t) unless n.name == "name" }
-        end
       end
 
       def formula_where(dlist, out)
