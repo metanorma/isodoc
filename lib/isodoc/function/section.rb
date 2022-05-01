@@ -157,6 +157,11 @@ module IsoDoc
            acknowledgements).include? name
       end
 
+      def single_term_clause?(elem)
+        t = elem.xpath(ns("./clause | ./terms | ./definitions | ./references"))
+        t.size == 1 && %w(terms definitions references).include?(t[0].name)
+      end
+
       def preface_block(isoxml, out)
         p = isoxml.at(ns("//preface")) or return
         p.elements.each do |e|

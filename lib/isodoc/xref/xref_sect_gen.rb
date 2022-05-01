@@ -112,15 +112,6 @@ module IsoDoc
         l10n("<strong>#{title} #{num}</strong><br/>#{obl}")
       end
 
-      def single_annex_special_section(clause)
-        a = clause.xpath(ns("./references | ./terms | ./definitions"))
-        a.size == 1 or return nil
-        clause.xpath(ns("./clause | ./p | ./table | ./ol | ./ul | ./dl | "\
-                        "./note | ./admonition | ./figure")).empty? or
-          return nil
-        a[0]
-      end
-
       def annex_name_anchors(clause, num)
         { label: annex_name_lbl(clause, num),
           elem: @labels["annex"],
@@ -130,8 +121,9 @@ module IsoDoc
 
       def annex_names(clause, num)
         @anchors[clause["id"]] = annex_name_anchors(clause, num)
-        if a = single_annex_special_section(clause)
-          annex_names1(a, num.to_s, 1)
+        if @klass.single_term_clause?(clause)
+          annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
+                       num.to_s, 1)
         else
           i = Counter.new
           clause.xpath(ns(SUBCLAUSES)).each do |c|

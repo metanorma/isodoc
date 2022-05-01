@@ -30,11 +30,13 @@ module IsoDoc
       inline docxml
     end
 
+    # parse annex after term, references,
+    # to deal with single-term and single-ref annexes
     def section(docxml)
       clause docxml
-      annex docxml
       term docxml
       references docxml
+      annex docxml
       index docxml
       clausetitle docxml
       floattitle docxml
