@@ -80,6 +80,7 @@ and: и
 all_parts: Все части
 edition_ordinal: "%Spellout издание"
 edition: издание
+version: версия
 toc_figures: Таблица фигур
 toc_tables: Таблица таблиц
 toc_recommendations: Таблица рекомендаций

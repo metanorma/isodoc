@@ -69,6 +69,7 @@ modified: modifié
 deprecated: DÉCONSEILLÉ
 source: SOURCE
 edition: édition
+version: version
 and: et
 all_parts: toutes les parties
 edition_ordinal: "%Spellout édition"

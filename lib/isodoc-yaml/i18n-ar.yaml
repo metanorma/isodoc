@@ -69,6 +69,7 @@ and: و
 all_parts: كل الأجزاء
 edition_ordinal: "الطبعة؜ %Spellout؜"
 edition: الطبعة؜ ؜
+version: الإصدار
 toc_figures: جدول الأرقام
 toc_tables: جدول الجداول
 toc_recommendations: جدول التوصيات

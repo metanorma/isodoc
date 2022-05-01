@@ -75,6 +75,7 @@ and: and
 all_parts: All Parts
 edition_ordinal: "%Spellout edition"
 edition: edition
+version: version
 toc_figures: List of figures
 toc_tables: List of tables
 toc_recommendations: List of recommendations

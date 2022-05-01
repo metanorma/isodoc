@@ -75,6 +75,7 @@ and: y
 all_parts: Todas las partes
 edition_ordinal: "%Spellout edición"
 edition: edición
+version: versión
 toc_figures: Table de figuras
 toc_tables: Tabla de tablas
 toc_recommendations: Tabla de recomendaciones

@@ -70,6 +70,7 @@ and: 和
 all_parts: 所有部分
 edition_ordinal: "第%Spellout版"
 edition: 版
+version: 版本
 toc_figures: 数字列表
 toc_tables: 表列表
 toc_recommendations: 建议清单
