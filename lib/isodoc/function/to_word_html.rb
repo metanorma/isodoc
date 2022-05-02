@@ -183,7 +183,7 @@ module IsoDoc
           when "formula" then formula_parse(node, out)
           when "table" then table_parse(node, out)
           when "figure" then figure_parse(node, out)
-          when "example" then example_parse(node, out)
+          when "example", "termexample" then example_parse(node, out)
           when "image" then image_parse(node, out, nil)
           when "sourcecode" then sourcecode_parse(node, out)
           when "pre" then pre_parse(node, out)
@@ -197,7 +197,6 @@ module IsoDoc
           when "termsource" then termref_parse(node, out)
           when "modification" then modification_parse(node, out)
           when "termnote" then termnote_parse(node, out)
-          when "termexample" then example_parse(node, out)
           when "terms" then terms_parse(node, out)
           when "definitions" then symbols_parse(node, out)
           when "references" then bibliography_parse(node, out)
@@ -205,15 +204,11 @@ module IsoDoc
           when "requirement" then requirement_parse(node, out)
           when "recommendation" then recommendation_parse(node, out)
           when "permission" then permission_parse(node, out)
-          when "subject" then requirement_skip_parse(node, out)
-          when "classification" then requirement_skip_parse(node, out)
-          when "inherit" then requirement_component_parse(node, out)
-          when "description" then requirement_component_parse(node, out)
-          when "specification" then requirement_component_parse(node, out)
-          when "measurement-target" then requirement_component_parse(node, out)
-          when "verification" then requirement_component_parse(node, out)
-          when "import" then requirement_component_parse(node, out)
-          when "component" then requirement_component_parse(node, out)
+          when "subject", "classification"
+            requirement_skip_parse(node, out)
+          when "inherit", "description", "specification", "measurement-target",
+           "verification", "import", "component"
+            requirement_component_parse(node, out)
           when "index" then index_parse(node, out)
           when "index-xref" then index_xref_parse(node, out)
           when "termref" then termrefelem_parse(node, out)
@@ -235,6 +230,7 @@ module IsoDoc
           when "textarea" then textarea_parse(node, out)
           when "toc" then toc_parse(node, out)
           when "variant-title" then variant_title(node, out)
+          when "span" then span_parse(node, out)
           else error_parse(node, out)
           end
         end

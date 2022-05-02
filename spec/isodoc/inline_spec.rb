@@ -55,47 +55,68 @@ RSpec.describe IsoDoc do
       <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
       <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
       <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/> <underline>J</underline>
+      <span class="A"><em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt> F</span>
       </p>
       </foreword></preface>
       <sections>
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-              <div>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <p>
-      <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt>
-      <s>F</s> <span style="font-variant:small-caps;">G</span> <span class="keyword">I</span> <br/> <hr/>
-      <a id="H"/> <br/> <br/>
-      <span style='text-decoration: underline;'>J</span>
-      </p>
-              </div>
+      <div><h1 class='ForewordTitle'>Foreword</h1>
+          <p>
+            <i>A</i>
+            <b>B</b>
+            <sup>C</sup>
+            <sub>D</sub>
+            <tt>E</tt>
+            <s>F</s>
+            <span style='font-variant:small-caps;'>G</span>
+            <span class='keyword'>I</span>
+            <br/>
+            <hr/>
+            <a id='H'/>
+            <br/>
+            <br/>
+            <span style='text-decoration: underline;'>J</span>
+            <i>A</i>
+            <b>B</b>
+            <sup>C</sup>
+            <sub>D</sub>
+            <tt>E</tt>
+             F
+          </p>
+        </div>
     OUTPUT
 
     doc = <<~OUTPUT
-      <div>
-        <h1 class='ForewordTitle'>Foreword</h1>
-        <p>
-          <i>A</i>
-          <b>B</b>
-          <sup>C</sup>
-          <sub>D</sub>
-          <tt>E</tt>
-          <s>F</s>
-          <span style='font-variant:small-caps;'>G</span>
-          <span class='keyword'>I</span>
-          <br/>
-          <hr/>
-          <a id='H'/>
+      <div><h1 class='ForewordTitle'>Foreword</h1>
           <p>
-            <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+            <i>A</i>
+            <b>B</b>
+            <sup>C</sup>
+            <sub>D</sub>
+            <tt>E</tt>
+            <s>F</s>
+            <span style='font-variant:small-caps;'>G</span>
+            <span class='keyword'>I</span>
+            <br/>
+            <hr/>
+            <a id='H'/>
+            <p>
+              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+            </p>
+            <p>
+              <br clear='all' class='section' orientation='landscape'/>
+            </p>
+            <u>J</u>
+            <i>A</i>
+            <b>B</b>
+            <sup>C</sup>
+            <sub>D</sub>
+            <tt>E</tt>
+             F
           </p>
-          <p>
-            <br clear='all' class='section' orientation='landscape'/>
-          </p>
-          <u>J</u>
-        </p>
-      </div>
+        </div>
     OUTPUT
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
