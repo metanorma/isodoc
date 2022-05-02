@@ -3,7 +3,7 @@ require "singleton"
 module IsoDoc
   module XrefGen
     module Anchor
-      class Seen_Anchor
+      class SeenAnchor
         include Singleton
 
         def initialize

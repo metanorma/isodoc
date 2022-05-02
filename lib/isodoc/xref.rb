@@ -24,17 +24,25 @@ module IsoDoc
       @i18n = i18n
       @labels = @i18n.get
       @klass.i18n = @i18n
+      @parse_settings = {}
     end
 
     def get
       @anchors
     end
 
+    # parse only the elements set, if any are set
+    # defined are: clause: true, refs: true
+    def parse_inclusions(options)
+      @parse_settings.merge!(options)
+      self
+    end
+
     def anchor(ident, lbl, warning = true)
       return nil if ident.nil? || ident.empty?
 
       if warning && !@anchors[ident]
-        @seen ||= Seen_Anchor.instance
+        @seen ||= SeenAnchor.instance
         @seen.seen(ident) or warn "No label has been processed for ID #{ident}"
         @seen.add(ident)
         return "[#{ident}]"
@@ -44,16 +52,19 @@ module IsoDoc
 
     # extract names for all anchors, xref and label
     def parse(docxml)
-      amend_preprocess(docxml)
+      amend_preprocess(docxml) if  @parse_settings.empty?
       initial_anchor_names(docxml)
       back_anchor_names(docxml)
       # preempt clause notes with all other types of note (ISO default)
-      note_anchor_names(docxml.xpath(ns("//table | //figure")))
-      note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-      example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-      list_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-      deflist_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-      bookmark_anchor_names(docxml)
+      if @parse_settings.empty?
+        note_anchor_names(docxml.xpath(ns("//table | //figure")))
+        note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+        example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+        list_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+        deflist_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
+        bookmark_anchor_names(docxml)
+      end
+      @parse_settings = {}
     end
 
     def ns(xpath)

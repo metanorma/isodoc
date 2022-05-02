@@ -750,14 +750,8 @@ RSpec.describe IsoDoc do
              </annex><bibliography><references id="R" obligation="informative" normative="true" displayorder="4">
                <title depth="1">2.<tab/>Normative References</title>
                <bibitem id="ISO712" type="standard">
-        <title format="text/plain">Cereals and cereal products</title>
+                 <formattedref><em>Cereals and cereal products</em>.</formattedref>
         <docidentifier>ISO 712</docidentifier>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-            <abbreviation>ISO</abbreviation>
-          </organization>
-        </contributor>
       </bibitem>
              </references><clause id="S" obligation="informative" displayorder="9">
                <title depth="1">Bibliography</title>
@@ -795,7 +789,7 @@ RSpec.describe IsoDoc do
                      </div>
                      <div>
                        <h1>2.&#12288;Normative References</h1>
-                       <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i></p>
+                       <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i>.</p>
                      </div>
                      <div id="H"><h1>3.&#12288;Terms, definitions, symbols and abbreviated terms</h1>
              <div id="I">
@@ -1012,14 +1006,8 @@ RSpec.describe IsoDoc do
              </annex><bibliography><references id="R" obligation="informative" normative="true" displayorder="4">
                <title depth="1">2.<tab/>Normative References</title>
                <bibitem id="ISO712" type="standard">
-        <title format="text/plain">Cereals and cereal products</title>
+               <formattedref><em>Cereals and cereal products</em>.</formattedref>
         <docidentifier>ISO 712</docidentifier>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-            <abbreviation>ISO</abbreviation>
-          </organization>
-        </contributor>
       </bibitem>
              </references><clause id="S" obligation="informative" displayorder="9">
                <title depth="1">Bibliography</title>
@@ -1076,7 +1064,7 @@ RSpec.describe IsoDoc do
                      <h1>2.&#160; Normative References</h1>
                      <p id='ISO712' class='NormRef'>
                        ISO 712,
-                       <i>Cereals and cereal products</i>
+                       <i>Cereals and cereal products</i>.
                      </p>
                    </div>
                    <div id='H'>
@@ -1199,6 +1187,11 @@ RSpec.describe IsoDoc do
   private
 
   def mock_i18n
+    allow_any_instance_of(::IsoDoc::I18n)
+    .to receive(:load_yaml)
+      .with("eo", "Latn", nil)
+      .and_return(IsoDoc::I18n.new("eo", "Latn")
+      .normalise_hash(YAML.load_file("spec/assets/i18n.yaml")))
     allow_any_instance_of(::IsoDoc::I18n)
       .to receive(:load_yaml)
       .with("eo", "Latn", "spec/assets/i18n.yaml")

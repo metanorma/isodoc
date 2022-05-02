@@ -10,7 +10,6 @@ module IsoDoc
         text
       end
 
-      # TODO generate formatted ref if not present
       def nonstd_bibitem(list, bib, ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
           ids = bibitem_ref_code(bib)
@@ -126,13 +125,6 @@ module IsoDoc
         { id: bib["id"], class: biblio ? "Biblio" : "NormRef" }
       end
 
-      def iso_title(bib)
-        bib.at(ns("./title[@language = '#{@lang}' and @type = 'main']")) ||
-          bib.at(ns("./title[@language = '#{@lang}']")) ||
-          bib.at(ns("./title[@type = 'main']")) ||
-          bib.at(ns("./title"))
-      end
-
       # reference not to be rendered because it is deemed implicit
       # in the standards environment
       def implicit_reference(bib)
@@ -145,13 +137,8 @@ module IsoDoc
       end
 
       def reference_format(bib, out)
-        if ftitle = bib.at(ns("./formattedref"))
-          ftitle&.children&.each { |n| parse(n, out) }
-        else
-          out.i do |i|
-            iso_title(bib)&.children&.each { |n| parse(n, i) }
-          end
-        end
+        ftitle = bib.at(ns("./formattedref"))
+        ftitle&.children&.each { |n| parse(n, out) }
       end
 
       def standard?(bib)

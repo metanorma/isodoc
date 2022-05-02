@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "metanorma-utils"
   spec.add_dependency "nokogiri", "~> 1.12.0"
   spec.add_dependency "relaton-cli"
+  spec.add_dependency "relaton-render", ">= 0.3.1"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
@@ -56,4 +57,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sassc", "~> 2.4.0"
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
+  spec.metadata["rubygems_mfa_required"] = "true"
 end
