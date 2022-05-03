@@ -129,8 +129,8 @@ module IsoDoc
 
       def annex_name_anchors(clause, num)
         { label: annex_name_lbl(clause, num),
-          elem: @labels["annex"],
-          type: "clause", value: num.to_s, level: 1,
+          elem: @labels["annex"], type: "clause",
+          subtype: "annex", value: num.to_s, level: 1,
           xref: "#{@labels['annex']} #{num}" }
       end
 
@@ -149,8 +149,8 @@ module IsoDoc
 
       def annex_names1(clause, num, level)
         @anchors[clause["id"]] = { xref: "#{@labels['annex']} #{num}",
-                                   elem: @labels["annex"],
-                                   label: num, level: level, type: "clause" }
+                                   elem: @labels["annex"], type: "clause",
+                                   label: num, level: level, subtype: "annex" }
         i = Counter.new
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           annex_names1(c, "#{num}.#{i.increment(c).print}", level + 1)
