@@ -42,7 +42,7 @@ module IsoDoc
     def annex(docxml)
       docxml.xpath(ns("//annex")).each do |f|
         annex1(f)
-        @xrefs.klass.single_term_clause?(elem) and single_term_clause(elem)
+        @xrefs.klass.single_term_clause?(f) and single_term_clause(f)
       end
     end
 
