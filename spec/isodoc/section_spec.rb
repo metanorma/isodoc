@@ -2049,7 +2049,6 @@ RSpec.describe IsoDoc do
             <strong>Glossary</strong>
           </title>
           <terms id='PP1' obligation='normative'>
-            <title>A.</title>
             <term id='term-glossary'>
               <name>A.1.</name>
               <preferred><strong>Glossary</strong></preferred>

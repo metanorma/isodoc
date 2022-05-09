@@ -30,13 +30,15 @@ module IsoDoc
       inline docxml
     end
 
+    # parse annex after term, references,
+    # to deal with single-term and single-ref annexes
     def section(docxml)
       references docxml
       # triggers xrefs reparse, so put references before all other sections,
       # which alter titles and thus can alter xrefs
       clause docxml
-      annex docxml
       term docxml
+      annex docxml
       index docxml
       clausetitle docxml
       floattitle docxml

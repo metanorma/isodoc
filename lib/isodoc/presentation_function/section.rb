@@ -42,6 +42,7 @@ module IsoDoc
     def annex(docxml)
       docxml.xpath(ns("//annex")).each do |f|
         annex1(f)
+        @xrefs.klass.single_term_clause?(elem) and single_term_clause(elem)
       end
     end
 
@@ -51,6 +52,16 @@ module IsoDoc
         t.children = "<strong>#{t.children.to_xml}</strong>"
       end
       prefix_name(elem, "<br/><br/>", lbl, "title")
+    end
+
+    def single_term_clause(elem)
+      t = elem.at(ns("./terms | ./definitions | ./references"))
+      t.at(ns("./title")).remove
+      t.xpath(ns(".//clause | .//terms | .//definitions | .//references"))
+        .each do |c|
+          tit = c.at(ns("./title")) or return
+          tit["depth"] = tit["depth"].to_i - 1
+        end
     end
 
     def term(docxml)
