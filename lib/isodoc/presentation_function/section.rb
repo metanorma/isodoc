@@ -60,7 +60,7 @@ module IsoDoc
       t.xpath(ns(".//clause | .//terms | .//definitions | .//references"))
         .each do |c|
           tit = c.at(ns("./title")) or return
-          tit["depth"] = tit["depth"].to_i - 1
+          tit["depth"] = tit["depth"].to_i - 1 unless tit["depth"] == "1"
         end
     end
 
