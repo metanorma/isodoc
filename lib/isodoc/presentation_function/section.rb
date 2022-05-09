@@ -1,3 +1,5 @@
+require_relative "../../relaton/render/general"
+
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def clause(docxml)
@@ -75,6 +77,29 @@ module IsoDoc
 
     def references(docxml)
       bibliography_bibitem_number(docxml)
+      docxml.xpath(ns("//references/bibitem")).each do |x|
+        bibitem(x)
+      end
+      @xrefs.parse_inclusions(refs: true).parse(docxml)
+    end
+
+    def bibitem(xml)
+      bibrender(xml)
+    end
+
+    def bibrender(xml)
+      if f = xml.at(ns("./formattedref"))
+        code = render_identifier(bibitem_ref_code(xml))
+        f << " [#{code[:sdo]}] " if code[:sdo]
+      else
+        xml.children =
+          "#{bibrenderer.render(xml.to_xml)}"\
+          "#{xml.xpath(ns('./docidentifier | ./uri | ./note')).to_xml}"
+      end
+    end
+
+    def bibrenderer
+      ::Relaton::Render::IsoDoc::General.new(language: @lang)
     end
 
     def bibliography_bibitem_number_skip(bibitem)
