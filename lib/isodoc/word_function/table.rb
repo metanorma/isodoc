@@ -2,8 +2,8 @@ module IsoDoc::WordFunction
   module Body
     def remove_bottom_border(td)
       td["style"] =
-        td["style"].gsub(/border-bottom:[^;]+;/, "border-bottom:0pt;").
-        gsub(/mso-border-bottom-alt:[^;]+;/, "mso-border-bottom-alt:0pt;")
+        td["style"].gsub(/border-bottom:[^;]+;/, "border-bottom:0pt;")
+          .gsub(/mso-border-bottom-alt:[^;]+;/, "mso-border-bottom-alt:0pt;")
     end
 
     SW1 = "solid windowtext".freeze
@@ -15,7 +15,7 @@ module IsoDoc::WordFunction
         cols += (td["colspan"] ? td["colspan"].to_i : 1)
       end
       style = "border-top:0pt;mso-border-top-alt:0pt;"\
-        "border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;"
+              "border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;"
       tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
       tfoot.xpath(".//td").last
     end
@@ -34,13 +34,15 @@ module IsoDoc::WordFunction
     end
 
     def table_attrs(node)
-      super.merge(attr_code({
-        summary: node["summary"],
-        width: node["width"],
-        style: "mso-table-anchor-horizontal:column;"\
-        "mso-table-overlap:never;border-spacing:0;border-width:1px;#{keep_style(node)}",
-        class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable")
-      }))
+      super.merge(attr_code(
+                    {
+                      summary: node["summary"],
+                      width: node["width"],
+                      style: "mso-table-anchor-horizontal:column;"\
+                             "mso-table-overlap:never;border-spacing:0;border-width:1px;#{keep_style(node)}",
+                      class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable"),
+                    },
+                  ))
     end
 
     def colgroup(node, t)

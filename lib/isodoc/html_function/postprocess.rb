@@ -180,8 +180,8 @@ module IsoDoc
         FileUtils.rm_rf tmpimagedir
         FileUtils.mkdir tmpimagedir
         docxml.xpath("//*[local-name() = 'img']").each do |i|
-          i["width"], i["height"] = Html2Doc.image_resize(i, image_localfile(i),
-                                                          @maxheight, @maxwidth)
+          i["width"], i["height"] = Html2Doc.new({})
+            .image_resize(i, image_localfile(i), @maxheight, @maxwidth)
           next if /^data:/.match? i["src"]
 
           @datauriimage ? datauri(i) : move_image1(i)

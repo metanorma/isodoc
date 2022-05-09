@@ -1,0 +1,4 @@
+template:
+  # skip standardidentifier, it is inserted in front of formattedref within metanorma
+  standard: "{{ creatornames }} ({{ role}}) . <em>{{ title }}</em> . {{ labels['in'] | capitalize }}:_{{ series_title }}. {{ medium | capitalize }}. {{ edition | capitalize_first }}. {{date}}. {{place}} : {%if  creatornames == publisher %}{% else %}{{publisher}}{% endif %} . {{size}}. {{ extent }}. {{ uri }}. {{ labels['at'] | capitalize}}:_{{ access_location }}. [{{ labels['viewed'] }}:_{{date_accessed}}]."
+

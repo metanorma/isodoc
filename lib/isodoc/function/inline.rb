@@ -14,6 +14,10 @@ module IsoDoc
         end
       end
 
+      def span_parse(node, out)
+        node.children.each { |n| parse(n, out) }
+      end
+
       def callout_parse(node, out)
         out << " &lt;#{node.text}&gt;"
       end
