@@ -113,7 +113,7 @@ RSpec.describe IsoDoc do
       :circulateddate=>"2015",
       :confirmeddate=>"2017",
       :copieddate=>"2016",
-      :createddate=>"2010&ndash;2011",
+      :createddate=>"2010&#x2013;2011",
       :doc=>"URL E",
       :docnumber=>"17301-1",
       :docnumeric=>"17301",

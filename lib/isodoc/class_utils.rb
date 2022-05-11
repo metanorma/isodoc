@@ -7,7 +7,7 @@ module IsoDoc
       return date.text unless from || on || to
       return on.text if on
 
-      ret = "#{from.text}&ndash;"
+      ret = "#{from.text}&#x2013;"
       ret += to.text if to
       ret
     end
