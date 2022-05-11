@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "emf2svg"
   spec.add_dependency "mathml2asciimath"
   spec.add_dependency "metanorma-utils"
+
   spec.add_dependency "relaton-cli"
   spec.add_dependency "relaton-render", ">= 0.3.1"
   spec.add_dependency "roman-numerals"
