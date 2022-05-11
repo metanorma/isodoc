@@ -169,7 +169,7 @@ module IsoDoc
         return if author.nil? && source.nil?
 
         out.p **{ class: "QuoteAttribution" } do |p|
-          p << "&mdash; #{author.text}" if author
+          p << "&#x2014; #{author.text}" if author
           p << ", " if author && source
           eref_parse(source, p) if source
         end

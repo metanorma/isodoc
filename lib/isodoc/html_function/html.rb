@@ -20,7 +20,7 @@ module IsoDoc
         return if @bare
 
         body.div **{ class: "title-section" } do |div1|
-          div1.p { |p| p << "&nbsp;" } # placeholder
+          div1.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
@@ -29,7 +29,7 @@ module IsoDoc
         return if @bare
 
         body.div **{ class: "prefatory-section" } do |div2|
-          div2.p { |p| p << "&nbsp;" } # placeholder
+          div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end

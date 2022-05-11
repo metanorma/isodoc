@@ -158,7 +158,7 @@ module IsoDoc
     # TODO: move to localization file
     def eref_localities1_zh(_target, type, from, upto, node)
       ret = "第#{from}" if from
-      ret += "&ndash;#{upto}" if upto
+      ret += "&#x2013;#{upto}" if upto
       loc = eref_locality_populate(type, node)
       ret += " #{loc}" unless node["droploc"] == "true"
       ret
@@ -172,7 +172,7 @@ module IsoDoc
         return l10n(eref_localities1_zh(target, type, from, upto, node))
       ret = eref_locality_populate(type, node)
       ret += " #{from}" if from
-      ret += "&ndash;#{upto}" if upto
+      ret += "&#x2013;#{upto}" if upto
       l10n(ret)
     end
 

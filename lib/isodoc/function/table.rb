@@ -82,7 +82,7 @@ module IsoDoc
           node.xpath(ns("./note")).each { |n| parse(n, out) }
         end
         @in_table = false
-        # out.p { |p| p << "&nbsp;" }
+        # out.p { |p| p << "&#xa0;" }
       end
 
       SW = "solid windowtext".freeze

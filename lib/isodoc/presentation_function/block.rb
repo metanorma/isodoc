@@ -31,7 +31,7 @@ module IsoDoc
       return if labelled_ancestor(elem)
 
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
-      prefix_name(elem, "&nbsp;&mdash; ",
+      prefix_name(elem, "&#xa0;&#x2014; ",
                   l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
 
@@ -60,7 +60,7 @@ module IsoDoc
             else
               l10n("#{@i18n.example} #{n[:label]}")
             end
-      prefix_name(elem, "&nbsp;&mdash; ", lbl, "name")
+      prefix_name(elem, "&#xa0;&#x2014; ", lbl, "name")
     end
 
     def note(docxml)
@@ -130,7 +130,7 @@ module IsoDoc
       return if elem["unnumbered"] && !elem.at(ns("./name"))
 
       n = @xrefs.anchor(elem["id"], :label, false)
-      prefix_name(elem, "&nbsp;&mdash; ", l10n("#{lower2cap @i18n.table} #{n}"),
+      prefix_name(elem, "&#xa0;&#x2014; ", l10n("#{lower2cap @i18n.table} #{n}"),
                   "name")
     end
 

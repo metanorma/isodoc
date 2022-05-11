@@ -20,7 +20,7 @@ module IsoDoc
 
       def make_body1(body, _docxml)
         body.div **{ class: "WordSection1" } do |div1|
-          div1.p { |p| p << "&nbsp;" } # placeholder
+          div1.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
@@ -34,7 +34,7 @@ module IsoDoc
           introduction docxml, div2
           preface docxml, div2
           acknowledgements docxml, div2
-          div2.p { |p| p << "&nbsp;" } # placeholder
+          div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
@@ -64,7 +64,7 @@ module IsoDoc
       def para_parse(node, out)
         out.p **attr_code(para_attrs(node)) do |p|
           unless @termdomain.empty?
-            p << "&lt;#{@termdomain}&gt; "
+            p << "&#x3c;#{@termdomain}&#x3e; "
             @termdomain = ""
           end
           node.children.each { |n| parse(n, p) unless n.name == "note" }

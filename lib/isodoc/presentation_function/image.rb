@@ -32,7 +32,7 @@ module IsoDoc
       return if elem.at(ns("./figure")) && !elem.at(ns("./name"))
 
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
-      prefix_name(elem, "&nbsp;&mdash; ",
+      prefix_name(elem, "&#xa0;&#x2014; ",
                   l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
 

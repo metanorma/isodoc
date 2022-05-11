@@ -187,7 +187,7 @@ module IsoDoc
           next unless t.children.empty?
 
           t["style"] = t["style"].sub(/;?$/, ";font-size:0pt;")
-          t.children = "&nbsp;"
+          t.children = "&#xa0;"
         end
       end
 

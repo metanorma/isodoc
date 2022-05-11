@@ -66,7 +66,7 @@ module IsoDoc
           title = d.at("./title")
           n = title.next_element
           n&.children&.first
-            &.add_previous_sibling("#{title.remove.text}&mdash;")
+            &.add_previous_sibling("#{title.remove.text}&#x2014;")
         end
         docxml
       end

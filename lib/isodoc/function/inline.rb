@@ -134,8 +134,8 @@ module IsoDoc
 
         text = node.to_s
         if in_sourcecode
-          text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&nbsp;")
-            .gsub(/ (?= )/, "&nbsp;")
+          text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&#xa0;")
+            .gsub(/ (?= )/, "&#xa0;")
         end
         out << text
       end

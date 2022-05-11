@@ -60,7 +60,7 @@ module IsoDoc
           <span lang="EN-GB"><span
             style='mso-element:field-begin'></span><span
             style='mso-spacerun:yes'>&#xA0;</span>TOC
-            \\o &quot;1-#{level}&quot; \\h \\z \\u <span
+            \\o "1-#{level}" \\h \\z \\u <span
             style='mso-element:field-separator'></span></span>
         TOC
       end
@@ -68,7 +68,7 @@ module IsoDoc
       WORD_TOC_SUFFIX1 = <<~TOC.freeze
         <p class="MsoToc1"><span lang="EN-GB"><span
           style='mso-element:field-end'></span></span><span
-          lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
+          lang="EN-GB"><o:p>&#xA0;</o:p></span></p>
       TOC
 
       def make_WordToC(docxml, level)
@@ -86,7 +86,7 @@ module IsoDoc
         <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle&quot;
+        \\h \\z \\t "RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle"
         <span style='mso-element:field-separator'></span></span>
       TOC
 
@@ -94,7 +94,7 @@ module IsoDoc
         <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;TableTitle,tabletitle&quot; <span
+        \\h \\z \\t "TableTitle,tabletitle" <span
         style='mso-element:field-separator'></span></span>
       TOC
 
@@ -102,7 +102,7 @@ module IsoDoc
         <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;FigureTitle,figuretitle&quot; <span
+        \\h \\z \\t "FigureTitle,figuretitle" <span
         style='mso-element:field-separator'></span></span>
       TOC
 

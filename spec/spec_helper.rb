@@ -22,6 +22,13 @@ RSpec.configure do |config|
 end
 
 def xmlpp(xml)
+  c = HTMLEntities.new
+  xml &&= xml.split(/(&\S+?;)/).map do |n|
+    if /^&\S+?;$/.match?(n)
+      c.encode(c.decode(n), :hexadecimal)
+    else n
+    end
+  end.join
   s = ""
   f = REXML::Formatters::Pretty.new(2)
   f.compact = true
@@ -30,7 +37,7 @@ def xmlpp(xml)
 end
 
 def metadata(hash)
-  Hash[hash.sort].delete_if do |_k, v|
+  hash.sort.to_h.delete_if do |_k, v|
     v.nil? || (v.respond_to?(:empty?) && v.empty?)
   end
 end

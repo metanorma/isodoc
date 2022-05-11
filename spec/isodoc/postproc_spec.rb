@@ -529,7 +529,8 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")
+      .gsub(/<o:p>&#xA0;<\/o:p>/, "")))
       .to be_equivalent_to xmlpp(<<~'OUTPUT')
           <div class="WordSection2">
         /* an empty word intro page */
@@ -573,7 +574,6 @@ RSpec.describe IsoDoc do
             <span style="mso-element:field-end"></span>
           </span>
           <span lang="EN-GB" xml:lang="EN-GB">
-            <p class="MsoNormal">&#xA0;</p>
           </span>
         </p>
                 <p class="MsoNormal">&#xA0;</p>
@@ -611,7 +611,8 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")
+                .gsub(/<o:p>&#xA0;<\/o:p>/, "")))
       .to be_equivalent_to xmlpp(<<~'OUTPUT')
                    <div class="WordSection2">
                /* an empty word intro page */
@@ -667,7 +668,6 @@ RSpec.describe IsoDoc do
                    <span style="mso-element:field-end"></span>
                  </span>
                  <span lang="EN-GB" xml:lang="EN-GB">
-                   <p class="MsoNormal">&#xA0;</p>
                  </span>
                </p>
                        <p class="MsoNormal">&#xA0;</p>
@@ -719,7 +719,8 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")
+                .gsub(/<o:p>&#xA0;<\/o:p>/, "")))
       .to be_equivalent_to xmlpp(<<~'OUTPUT')
             <div class='WordSection2'>
            /* an empty word intro page */
@@ -830,7 +831,6 @@ RSpec.describe IsoDoc do
               <span style='mso-element:field-end'/>
             </span>
             <span lang='EN-GB' xml:lang='EN-GB'>
-              <p class='MsoNormal'>&#xA0;</p>
             </span>
           </p>
           <p class='MsoNormal'>&#xA0;</p>
@@ -856,7 +856,8 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
+    expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")
+                .gsub(/<o:p>&#xA0;<\/o:p>/, "")))
       .to be_equivalent_to xmlpp(<<~'OUTPUT')
             <div class='WordSection2'>
            /* an empty word intro page */
@@ -967,7 +968,6 @@ RSpec.describe IsoDoc do
               <span style='mso-element:field-end'/>
             </span>
             <span lang='EN-GB' xml:lang='EN-GB'>
-              <p class='MsoNormal'>&#xA0;</p>
             </span>
           </p>
           <p class='TOCTitle'>List of tables</p>
@@ -1006,7 +1006,6 @@ RSpec.describe IsoDoc do
               <span style='mso-element:field-end'/>
             </span>
             <span lang='EN-GB' xml:lang='EN-GB'>
-              <p class='MsoNormal'>&#xA0;</p>
             </span>
           </p>
           <p class='TOCTitle'>List of figures</p>
@@ -1045,7 +1044,6 @@ RSpec.describe IsoDoc do
               <span style='mso-element:field-end'/>
             </span>
             <span lang='EN-GB' xml:lang='EN-GB'>
-              <p class='MsoNormal'>&#xA0;</p>
             </span>
           </p>
           <p class='TOCTitle'>List of recommendations</p>
@@ -1133,7 +1131,6 @@ RSpec.describe IsoDoc do
               <span style='mso-element:field-end'/>
             </span>
             <span lang='EN-GB' xml:lang='EN-GB'>
-              <p class='MsoNormal'>&#xA0;</p>
             </span>
           </p>
           <p class='MsoNormal'>&#xA0;</p>
