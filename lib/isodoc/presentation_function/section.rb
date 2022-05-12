@@ -56,7 +56,7 @@ module IsoDoc
 
     def single_term_clause(elem)
       t = elem.at(ns("./terms | ./definitions | ./references"))
-      t.at(ns("./title")).remove
+      t.at(ns("./title"))&.remove
       t.xpath(ns(".//clause | .//terms | .//definitions | .//references"))
         .each do |c|
           tit = c.at(ns("./title")) or return
