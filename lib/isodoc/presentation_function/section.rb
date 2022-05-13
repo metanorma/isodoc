@@ -84,6 +84,8 @@ module IsoDoc
     end
 
     def bibitem(xml)
+      @xrefs.klass.implicit_reference(xml) and
+        xml["hidden"] = "true"
       bibrender(xml)
     end
 
