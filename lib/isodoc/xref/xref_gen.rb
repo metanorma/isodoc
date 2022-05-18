@@ -43,7 +43,7 @@ module IsoDoc
       end
 
       def termnote_anchor_names(docxml)
-        docxml.xpath(ns("//term[termnote]")).each do |t|
+        docxml.xpath(ns("//*[termnote]")).each do |t|
           c = Counter.new
           t.xpath(ns("./termnote")).reject { |n| blank?(n["id"]) }.each do |n|
             c.increment(n)
@@ -57,7 +57,7 @@ module IsoDoc
       end
 
       def termexample_anchor_names(docxml)
-        docxml.xpath(ns("//term[termexample]")).each do |t|
+        docxml.xpath(ns("//*[termexample]")).each do |t|
           examples = t.xpath(ns("./termexample"))
           c = Counter.new
           examples.reject { |n| blank?(n["id"]) }.each do |n|
