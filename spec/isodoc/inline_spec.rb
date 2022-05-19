@@ -2298,4 +2298,38 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
+
+  it "ignores locations in xrefs" do
+    input = <<~INPUT
+      <itu-standard xmlns="https://www.calconnect.org/standards/itu">
+      <preface><foreword>
+                  <p id='_'>
+              <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/>6.4 List 1.a) to 2.b)</xref>
+              </p>
+              </foreword></preface>
+              </itu-standard>
+    INPUT
+    html = <<~OUTPUT
+      <div><h1 class='ForewordTitle'>Foreword</h1>
+          <p id='_'>
+            <a href='#item_6-4-a'>6.4 List 1.a) to 2.b)</a>
+          </p>
+        </div>
+    OUTPUT
+    doc = <<~OUTPUT
+      <div><h1 class='ForewordTitle'>Foreword</h1>
+          <p id='_'>
+            <a href='#item_6-4-a'>6.4 List 1.a) to 2.b)</a>
+          </p>
+        </div>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+    .convert("test", input, true))
+    .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
+      .to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))
+      .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
+      .to be_equivalent_to xmlpp(doc)
+  end
 end

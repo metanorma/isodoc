@@ -231,6 +231,7 @@ module IsoDoc
           when "toc" then toc_parse(node, out)
           when "variant-title" then variant_title(node, out)
           when "span" then span_parse(node, out)
+          when "location" then location_parse(node, out)
           else error_parse(node, out)
           end
         end

@@ -35,13 +35,23 @@ module IsoDoc
     def combine_xref_locations(node)
       locs = gather_xref_locations(node)
       linkend = if can_conflate_xref_rendering?(locs)
-                  out = locs.each { |l| l[:target] = anchor_value(l[:target]) }
-                  l10n("#{locs.first[:elem]} #{combine_conn(out)}")
+                  combine_conflated_xref_locations(locs)
                 else
                   out = locs.each { |l| l[:target] = anchor_linked1(l[:node]) }
                   l10n(combine_conn(out))
                 end
       capitalise_xref(node, linkend, anchor_value(node["target"]))
+    end
+
+    def combine_conflated_xref_locations(locs)
+      out = locs.each { |l| l[:target] = anchor_value(l[:target]) }
+      ret = l10n("#{locs.first[:elem]} #{combine_conn(out)}")
+      container = @xrefs.anchor(locs.first[:node]["target"], :container,
+                                false)
+      (container && get_note_container_id(locs.first[:node]) != container &&
+       @xrefs.get[locs.first[:node]["target"]]) and
+        ret = prefix_container(container, ret, locs.first[:node]["target"])
+      ret
     end
 
     def gather_xref_locations(node)
@@ -74,7 +84,8 @@ module IsoDoc
     end
 
     def can_conflate_xref_rendering?(locs)
-      !locs.all? { |l| l[:container].nil? } &&
+      (locs.all? { |l| l[:container].nil? } ||
+       locs.all? { |l| l[:container] == locs.first[:container] }) &&
         locs.all? { |l| l[:type] == locs[0][:type] }
     end
 
