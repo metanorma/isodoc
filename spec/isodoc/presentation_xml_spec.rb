@@ -1206,12 +1206,30 @@ RSpec.describe IsoDoc do
        <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
        <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/></xref>
        <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/><location target="ref3" connective="or"/></xref>
-       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref></p>
+       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref>
+       <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/></xref>
+        </p>
        </clause>
        <clause id="ref1"/>
        <clause id="ref2"/>
        <clause id="ref3"/>
        <clause id="ref4"/>
+       <clause id="id1">
+       <ol id="_5eebf861-525f-0ece-7502-b1c94611db4e"><li><p id="_01fc71c0-8f76-228a-5a0d-7b9d0003d219">The following CRScsd strings represent the CRS types supported by
+this document:</p>
+       <ol id="_7450988f-2dc2-3937-1aa0-a73d21b28ecc"><li id="item_6-4-a"><p id="_9ff8eeb0-5384-41af-e0f6-7143331f59f2">CRS1d: one-dimensional spatial or temporal CRS.</p>
+        </li>
+        </ol>
+        </li>
+        <li><p id="_2375be59-1c5e-d3ef-0882-fc5e2b852ea9">Additionally, in each component of a GPL representation string, the
+        following characters shall also act as delimiters:</p>
+        <ol id="_81d60fdc-e0ef-e94e-4f59-d41181945c98"><li id="item_6-4-i"><p id="_db51305f-60ad-1714-a497-bc9aa305e02b"><em>a solidus</em> [ / ] shall act as the terminator character
+        and any GPL string shall always be terminated.</p>
+        </li>
+        </ol>
+        </li>
+        </ol>
+       </clause>
          </sections>
        </iso-standard>
     INPUT
@@ -1271,6 +1289,11 @@ RSpec.describe IsoDoc do
                  <location target='ref4' connective='to'/>
                  Clause 2 to 3 and 4 to 5
                </xref>
+               <xref target='item_6-4-a'>
+          <location target='item_6-4-a' connective='from'/>
+          <location target='item_6-4-i' connective='to'/>
+          Clause 6, a.1) to b.1)
+        </xref>
              </p>
            </clause>
            <clause id='ref1' displayorder='2'>
@@ -1285,6 +1308,37 @@ RSpec.describe IsoDoc do
            <clause id='ref4' displayorder='5'>
              <title>5.</title>
            </clause>
+               <clause id='id1' displayorder='6'>
+      <title>6.</title>
+      <ol id='_5eebf861-525f-0ece-7502-b1c94611db4e' type='alphabet'>
+        <li>
+          <p id='_01fc71c0-8f76-228a-5a0d-7b9d0003d219'>
+            The following CRScsd strings represent the CRS types supported by
+            this document:
+          </p>
+          <ol id='_7450988f-2dc2-3937-1aa0-a73d21b28ecc' type='arabic'>
+            <li id='item_6-4-a'>
+              <p id='_9ff8eeb0-5384-41af-e0f6-7143331f59f2'>CRS1d: one-dimensional spatial or temporal CRS.</p>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <p id='_2375be59-1c5e-d3ef-0882-fc5e2b852ea9'>
+            Additionally, in each component of a GPL representation string, the
+            following characters shall also act as delimiters:
+          </p>
+          <ol id='_81d60fdc-e0ef-e94e-4f59-d41181945c98' type='arabic'>
+            <li id='item_6-4-i'>
+              <p id='_db51305f-60ad-1714-a497-bc9aa305e02b'>
+                <em>a solidus</em>
+                 [ / ] shall act as the terminator character and any GPL string
+                shall always be terminated.
+              </p>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </clause>
          </sections>
        </iso-standard>
     OUTPUT
