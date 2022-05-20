@@ -2952,13 +2952,13 @@ RSpec.describe IsoDoc do
       .convert("test", input, false)
     expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
-    expect(html).to contain "&#x3c;X&#x3e;"
-    expect(html).not_to contain "&lt;X&gt;"
+    expect(html).to include "&#x3c;X&#x3e;"
+    expect(html).not_to include "&lt;X&gt;"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css" })
       .convert("test", input, false)
     expect(File.exist?("test.doc")).to be true
     html = File.read("test.doc")
-    expect(html).to contain "&#x3c;X&#x3e;"
-    expect(html).not_to contain "&lt;X&gt;"
+    expect(html).not_to include "&#x3c;X&#x3e;"
+    expect(html).to include "&lt;X&gt;"
   end
 end
