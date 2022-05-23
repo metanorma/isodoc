@@ -37,7 +37,7 @@ module IsoDoc
       linkend = if can_conflate_xref_rendering?(locs)
                   combine_conflated_xref_locations(locs)
                 else
-                  out = locs.each { |l| l[:target] = anchor_linked1(l[:node]) }
+                  out = locs.each { |l| l[:target] = anchor_linkend1(l[:node]) }
                   l10n(combine_conn(out))
                 end
       capitalise_xref(node, linkend, anchor_value(node["target"]))
