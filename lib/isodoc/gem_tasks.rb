@@ -8,14 +8,20 @@ module IsoDoc
   module GemTasks
     extend Rake::DSL if defined? Rake::DSL
 
+    @@css_list = []
+
     module_function
+
+    def self.css_list
+      @@css_list
+    end
 
     def install
       rule ".css" => [proc { |tn| tn.sub(/\.css$/, ".scss") }] do |current_task|
         puts(current_task)
         compile_scss_task(current_task)
       rescue StandardError => e
-        notify_borken_compilation(e, current_task)
+        notify_broken_compilation(e, current_task)
       end
 
       scss_files = Rake::FileList["lib/**/*.scss"]
@@ -40,25 +46,27 @@ module IsoDoc
       end
     end
 
-    def notify_borken_compilation(error, current_task)
+    def interactive?
+      ENV["CI"] == nil
+    end
+
+    def notify_broken_compilation(error, current_task)
       puts("Cannot compile #{current_task} because of #{error.message}")
+      return unless interactive?
+
       puts("continue anyway[y|n]?")
-      answer = STDIN.gets.strip
-      if %w[y yes].include?(answer.strip.downcase)
-        puts("Cannot compile #{current_task} because of #{error.message}")
-      else
-        exit(0)
-      end
+      answer = $stdin.gets.strip
+      exit(0) unless %w[y yes].include?(answer.strip.downcase)
     end
 
     def git_cache_compiled_files
-      CLEAN.each do |css_file|
+      @@css_list.each do |css_file|
         sh "git add #{css_file}"
       end
     end
 
     def git_rm_compiled_files
-      CLEAN.each do |css_file|
+      @@css_list.each do |css_file|
         sh "git rm --cached #{css_file}"
       end
     end
@@ -129,6 +137,7 @@ module IsoDoc
       File.open(compiled_path, "w:UTF-8") do |f|
         f.write(content)
       end
+      @@css_list << compiled_path
       CLEAN << compiled_path
     end
   end

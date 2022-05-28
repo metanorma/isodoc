@@ -2935,4 +2935,30 @@ RSpec.describe IsoDoc do
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_equivalent_to xmlpp(output)
   end
+
+  it "has hex-only XML escapes" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    input = <<~INPUT
+              <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <note>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">&lt;X&gt;</p>
+      </note>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css" })
+      .convert("test", input, false)
+    expect(File.exist?("test.html")).to be true
+    html = File.read("test.html")
+    expect(html).to include "&#x3c;X&#x3e;"
+    expect(html).not_to include "&lt;X&gt;"
+    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css" })
+      .convert("test", input, false)
+    expect(File.exist?("test.doc")).to be true
+    html = File.read("test.doc")
+    expect(html).not_to include "&#x3c;X&#x3e;"
+    expect(html).to include "&lt;X&gt;"
+  end
 end

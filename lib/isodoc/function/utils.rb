@@ -58,15 +58,20 @@ module IsoDoc
         end
       end
 
-      def to_xhtml_prep(xml)
-        xml.gsub!(/<\?xml[^>]*>/, "")
-        /<!DOCTYPE /.match(xml) || (xml = DOCTYPE_HDR + xml)
+      def numeric_escapes(xml)
+        c = HTMLEntities.new
         xml.split(/(&[^ \r\n\t#;]+;)/).map do |t|
           if /^(&[^ \t\r\n#;]+;)/.match?(t)
-            HTMLEntities.new.encode(HTMLEntities.new.decode(t), :hexadecimal)
+            c.encode(c.decode(t), :hexadecimal)
           else t
           end
         end.join
+      end
+
+      def to_xhtml_prep(xml)
+        xml.gsub!(/<\?xml[^>]*>/, "")
+        /<!DOCTYPE /.match(xml) || (xml = DOCTYPE_HDR + xml)
+        numeric_escapes(xml)
       end
 
       def to_xhtml_fragment(xml)
@@ -75,7 +80,8 @@ module IsoDoc
       end
 
       def from_xhtml(xml)
-        xml.to_xml.sub(%r{ xmlns="http://www.w3.org/1999/xhtml"}, "")
+        numeric_escapes(xml.to_xml
+          .sub(%r{ xmlns="http://www.w3.org/1999/xhtml"}, ""))
       end
 
       CLAUSE_ANCESTOR =
