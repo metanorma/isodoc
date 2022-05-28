@@ -397,7 +397,7 @@ RSpec.describe IsoDoc do
         <p>Hello</p>
       </example>
               <example id="note2" unnumbered="true">
-        <p>Hello</p>
+        <p>Hello <xref target="note1"/></p>
       </example>
       <p>    <xref target="note1"/> <xref target="note2"/> </p>
           </clause>
@@ -420,6 +420,7 @@ RSpec.describe IsoDoc do
           </annex>
           </iso-standard>
     INPUT
+
     output = <<~OUTPUT
           <foreword displayorder='1'>
             <p>
@@ -437,6 +438,31 @@ RSpec.describe IsoDoc do
     expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+
+    output = <<~OUTPUT
+      <clause id='widgets1'>
+         <title>3.1.</title>
+         <example id='note1'>
+           <name>EXAMPLE 1</name>
+           <p>Hello</p>
+         </example>
+         <example id='note2' unnumbered='true'>
+           <name>EXAMPLE</name>
+           <p>
+             Hello
+             <xref target='note1'>Example 1</xref>
+           </p>
+         </example>
+         <p>
+           <xref target='note1'>Example 1</xref>
+           <xref target='note2'>Example (??)</xref>
+         </p>
+       </clause>
+    OUTPUT
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:clause[@id='widgets1']").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 

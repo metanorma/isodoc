@@ -100,8 +100,12 @@ module IsoDoc
         "local-name() = 'figure' or local-name() = 'formula' or "\
         "local-name() = 'table' or local-name() = 'example']/@id"
 
-      def get_note_container_id(node)
-        container = node.xpath(NOTE_CONTAINER_ANCESTOR)
+      # no recursion on references
+      def get_note_container_id(node, type)
+        xpath = NOTE_CONTAINER_ANCESTOR.dup
+        %w(figure table example).include?(type) and
+          xpath.sub!(%r[ or local-name\(\) = '#{type}'], "")
+        container = node.xpath(xpath)
         container&.last&.text || nil
       end
 
