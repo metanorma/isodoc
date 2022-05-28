@@ -26,10 +26,16 @@ module IsoDoc
     def anchor_linkend1(node)
       linkend = @xrefs.anchor(node["target"], :xref)
       container = @xrefs.anchor(node["target"], :container, false)
-      (container && get_note_container_id(node) != container &&
-       @xrefs.get[node["target"]]) and
+      prefix_container?(container, node) and
         linkend = prefix_container(container, linkend, node["target"])
       capitalise_xref(node, linkend, anchor_value(node["target"]))
+    end
+
+    def prefix_container?(container, node)
+      type = @xrefs.anchor(node["target"], :type)
+      container &&
+        get_note_container_id(node, type) != container &&
+        @xrefs.get[node["target"]]
     end
 
     def combine_xref_locations(node)
@@ -48,8 +54,7 @@ module IsoDoc
       ret = l10n("#{locs.first[:elem]} #{combine_conn(out)}")
       container = @xrefs.anchor(locs.first[:node]["target"], :container,
                                 false)
-      (container && get_note_container_id(locs.first[:node]) != container &&
-       @xrefs.get[locs.first[:node]["target"]]) and
+      prefix_container?(container, locs.first[:node]) and
         ret = prefix_container(container, ret, locs.first[:node]["target"])
       ret
     end
