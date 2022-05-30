@@ -16,7 +16,8 @@ figure: figur-etikedo duvorta
 example: Ekzempl-etikedo Duvorta
 note: NOTO
 locality: {
-  table: Tabelo
+  table: Tabelo,
+  prelude: preludo
 }
 doctype_dict: {
   brochure: broŝuro,
