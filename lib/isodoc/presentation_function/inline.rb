@@ -226,6 +226,12 @@ module IsoDoc
       end
     end
 
+    def identifier(docxml)
+      docxml.xpath(ns("//identifier")).each do |n|
+        n.name = "tt"
+      end
+    end
+
     private
 
     def found_matching_variant_sibling(node)

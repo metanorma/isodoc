@@ -1521,6 +1521,40 @@ this document:</p>
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "processes identifier" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <bibdata/>
+      <sections><clause id="_scope" type="scope" inline-header="false" obligation="normative">
+      <title>Scope</title>
+      <p id="_8d98c053-85d7-e8cc-75bb-183a14209d61"><identifier>http://www.example.com</identifier></p>
+      </clause>
+      </standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns='https://www.metanorma.org/ns/standoc' type='presentation'>
+         <bibdata/>
+
+         <sections>
+           <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='1'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <p id='_8d98c053-85d7-e8cc-75bb-183a14209d61'>
+               <tt>http://www.example.com</tt>
+             </p>
+           </clause>
+         </sections>
+       </standard-document>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   private
 
   def mock_symbols
