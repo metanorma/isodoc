@@ -947,7 +947,7 @@ RSpec.describe IsoDoc do
             <ext>
             <doctype language="">brochure</doctype><doctype language="eo">bro&#x15D;uro</doctype>
             </ext>
-            </bibdata><localized-strings><localized-string key="foreword" language="eo">Anta&#x16D;parolo</localized-string><localized-string key="introduction" language="eo">Enkonduko</localized-string><localized-string key="clause" language="eo">kla&#x16D;zo</localized-string><localized-string key="table" language="eo">tabelo</localized-string><localized-string key="source" language="eo">SOURCE</localized-string><localized-string key="modified" language="eo">modified</localized-string><localized-string key="scope" language="eo">Amplekso</localized-string><localized-string key="symbols" language="eo">Simboloj kai mallongigitaj terminoj</localized-string><localized-string key="annex" language="eo"><strong>aldono</strong></localized-string><localized-string key="normref" language="eo">Normaj cita&#x135;oj</localized-string><localized-string key="bibliography" language="eo">Bibliografio</localized-string><localized-string key="inform_annex" language="eo">informa</localized-string><localized-string key="all_parts" language="eo">&#x109;iuj partoj</localized-string><localized-string key="norm_annex" language="eo">normative</localized-string><localized-string key='figure' language='eo'>figur-etikedo duvorta</localized-string><localized-string key='example' language='eo'>Ekzempl-etikedo Duvorta</localized-string><localized-string key="note" language="eo">NOTO</localized-string><localized-string key="locality.table" language="eo">Tabelo</localized-string><localized-string key="doctype_dict.brochure" language="eo">bro&#x15D;uro</localized-string><localized-string key="doctype_dict.conference_proceedings" language="eo">konferencaktoj</localized-string><localized-string key="stage_dict.published" language="eo">publikigita</localized-string><localized-string key="substage_dict.withdrawn" language="eo">fortirita</localized-string><localized-string key="array.0" language="eo">elem1</localized-string><localized-string key="array.1" language="eo">elem2</localized-string><localized-string key="array.2.elem3" language="eo">elem4</localized-string><localized-string key="array.2.elem5" language="eo">elem6</localized-string>
+            </bibdata><localized-strings><localized-string key="foreword" language="eo">Anta&#x16D;parolo</localized-string><localized-string key="introduction" language="eo">Enkonduko</localized-string><localized-string key="clause" language="eo">kla&#x16D;zo</localized-string><localized-string key="table" language="eo">tabelo</localized-string><localized-string key="source" language="eo">SOURCE</localized-string><localized-string key="modified" language="eo">modified</localized-string><localized-string key="scope" language="eo">Amplekso</localized-string><localized-string key="symbols" language="eo">Simboloj kai mallongigitaj terminoj</localized-string><localized-string key="annex" language="eo"><strong>aldono</strong></localized-string><localized-string key="normref" language="eo">Normaj cita&#x135;oj</localized-string><localized-string key="bibliography" language="eo">Bibliografio</localized-string><localized-string key="inform_annex" language="eo">informa</localized-string><localized-string key="all_parts" language="eo">&#x109;iuj partoj</localized-string><localized-string key="norm_annex" language="eo">normative</localized-string><localized-string key='figure' language='eo'>figur-etikedo duvorta</localized-string><localized-string key='example' language='eo'>Ekzempl-etikedo Duvorta</localized-string><localized-string key="note" language="eo">NOTO</localized-string><localized-string key="locality.table" language="eo">Tabelo</localized-string><localized-string key='locality.prelude' language='eo'>preludo</localized-string><localized-string key="doctype_dict.brochure" language="eo">bro&#x15D;uro</localized-string><localized-string key="doctype_dict.conference_proceedings" language="eo">konferencaktoj</localized-string><localized-string key="stage_dict.published" language="eo">publikigita</localized-string><localized-string key="substage_dict.withdrawn" language="eo">fortirita</localized-string><localized-string key="array.0" language="eo">elem1</localized-string><localized-string key="array.1" language="eo">elem2</localized-string><localized-string key="array.2.elem3" language="eo">elem4</localized-string><localized-string key="array.2.elem5" language="eo">elem6</localized-string>
             <localized-string key='ordinal_keys.0' language='eo'>number</localized-string>
             <localized-string key='SpelloutRules.sg' language='eo'>spellout-ordinal</localized-string>
             <localized-string key='SpelloutRules.pl' language='eo'>spellout-ordinal</localized-string>
@@ -1145,6 +1145,63 @@ RSpec.describe IsoDoc do
       .new({ i18nyaml: "spec/assets/i18n.yaml" })
       .convert("test", presxml, true)))
       .to be_equivalent_to xmlpp(output)
+  end
+
+  it "internationalises locality" do
+    mock_i18n
+    input = <<~"INPUT"
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata>
+      <language>eo</language>
+      <script>Latn</script>
+      <status>
+      <stage>published</stage>
+      <substage>withdrawn</substage>
+      </status>
+      <edition>2</edition>
+      <ext>
+      <doctype>brochure</doctype>
+      </ext>
+      </bibdata>
+      <preface>
+      <foreword obligation="informative">
+         <title>Foreword</title>
+         <p id="A"><eref type="inline" bibitemid="ISO712"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality></eref></p>
+       </foreword>
+       </preface>
+       <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+      <bibitem id="ISO712" type="standard">
+        <title format="text/plain">Cereals and cereal products</title>
+        <docidentifier>ISO 712</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <abbreviation>ISO</abbreviation>
+          </organization>
+        </contributor>
+      </bibitem>
+          </references>
+          </bibliography>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <foreword obligation='informative' displayorder='1'>
+        <title>Foreword</title>
+        <p id='A'>
+          <eref type='inline' bibitemid='ISO712'>
+            <locality type='locality:prelude'>
+              <referenceFrom>7</referenceFrom>
+            </locality>
+            ISO 712, Preludo 7
+          </eref>
+        </p>
+      </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new({ i18nyaml: "spec/assets/i18n.yaml" })
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes LTR within RTL" do

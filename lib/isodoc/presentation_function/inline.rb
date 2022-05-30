@@ -179,12 +179,13 @@ module IsoDoc
     def eref_locality_populate(type, node)
       return "" if node["droploc"] == "true"
 
-      loc = @i18n.locality[type] || type.sub(/^locality:/, "")
-      loc = case node["case"]
+      loc = type.sub(/^locality:/, "")
+      ret = @i18n.locality[loc] || loc
+      ret = case node["case"]
             when "lowercase" then loc.downcase
-            else Metanorma::Utils.strict_capitalize_first(loc)
+            else Metanorma::Utils.strict_capitalize_first(ret)
             end
-      " #{loc}"
+      " #{ret}"
     end
 
     def xref(docxml)
