@@ -68,6 +68,7 @@ module IsoDoc
       quotesource docxml
       mathml docxml
       variant docxml
+      identifier docxml
     end
 
     def terms(docxml)
