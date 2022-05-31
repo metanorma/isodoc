@@ -1,13 +1,21 @@
 module IsoDoc
   module Function
     module Lists
+      def list_title_parse(node, out)
+        name = node.at(ns("./name")) or return
+        out.p **{ class: "ListTitle" } do |p|
+          name&.children&.each { |n| parse(n, p) }
+        end
+      end
+
       def ul_attrs(node)
         { id: node["id"], style: keep_style(node) }
       end
 
       def ul_parse(node, out)
+        list_title_parse(node, out)
         out.ul **attr_code(ul_attrs(node)) do |ul|
-          node.children.each { |n| parse(n, ul) }
+          node.children.each { |n| n.name == "name" or parse(n, ul) }
         end
       end
 
@@ -44,8 +52,9 @@ module IsoDoc
       end
 
       def ol_parse(node, out)
+        list_title_parse(node, out)
         out.ol **attr_code(ol_attrs(node)) do |ol|
-          node.children.each { |n| parse(n, ol) }
+          node.children.each { |n| n.name == "name" or parse(n, ol) }
         end
       end
 
@@ -82,17 +91,23 @@ module IsoDoc
       end
 
       def dl_parse(node, out)
+        list_title_parse(node, out)
         out.dl **dl_attrs(node) do |v|
           node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
-            v.dt **attr_code(id: dt["id"]) do |term|
-              dt_parse(dt, term)
-            end
-            v.dd **attr_code(id: dd["id"]) do |listitem|
-              dd.children.each { |n| parse(n, listitem) }
-            end
+            dl_parse1(v, dt, dd)
           end
         end
-        node.elements.reject { |n| dt_dd? n }.each { |n| parse(n, out) }
+        node.elements.reject { |n| dt_dd?(n) || n.name == "name" }
+          .each { |n| parse(n, out) }
+      end
+
+      def dl_parse1(dlist, dterm, ddef)
+        dlist.dt **attr_code(id: dterm["id"]) do |term|
+          dt_parse(dterm, term)
+        end
+        dlist.dd **attr_code(id: ddef["id"]) do |listitem|
+          ddef.children.each { |n| parse(n, listitem) }
+        end
       end
     end
   end
