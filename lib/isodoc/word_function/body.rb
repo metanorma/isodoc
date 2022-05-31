@@ -92,8 +92,10 @@ module IsoDoc
       end
 
       def dl_parse_table(node, out)
+        list_title_parse(node, out)
         out.table **{ class: "dl" } do |v|
-          node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
+          node.elements.select { |n| dt_dd?(n) }
+            .each_slice(2) do |dt, dd|
             dl_parse_table1(v, dt, dd)
           end
           dl_parse_notes(node, v)
@@ -112,11 +114,12 @@ module IsoDoc
       end
 
       def dl_parse_notes(node, out)
-        return if node.elements.reject { |n| dt_dd? n }.empty?
+        remainder = node.elements.reject { |n| dt_dd?(n) || n.name == "name" }
+        return if remainder.empty?
 
         out.tr do |tr|
           tr.td **{ colspan: 2 } do |td|
-            node.elements.reject { |n| dt_dd? n }.each { |n| parse(n, td) }
+            remainder.each { |n| parse(n, td) }
           end
         end
       end
