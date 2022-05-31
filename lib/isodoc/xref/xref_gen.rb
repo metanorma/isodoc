@@ -148,12 +148,12 @@ module IsoDoc
         c = Counter.new(list["start"] ? list["start"].to_i - 1 : 0)
         list.xpath(ns("./li")).each do |li|
           label = c.increment(li).listlabel(list, depth)
-          label = "#{prev_label}.#{label}" unless prev_label.empty?
+          label = "#{prev_label}) #{label}" unless prev_label.empty?
           label = "#{list_anchor[:xref]} #{label}" if refer_list
           li["id"] and @anchors[li["id"]] =
                          { xref: "#{label})", type: "listitem",
                            container: list_anchor[:container] }
-          li.xpath(ns("./ol")).each do |ol|
+          (li.xpath(ns(".//ol")) - li.xpath(ns(".//ol//ol"))).each do |ol|
             list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
           end
         end

@@ -1292,7 +1292,7 @@ this document:</p>
                <xref target='item_6-4-a'>
           <location target='item_6-4-a' connective='from'/>
           <location target='item_6-4-i' connective='to'/>
-          Clause 6, a.1) to b.1)
+          Clause 6, a) 1) to b) 1)
         </xref>
              </p>
            </clause>
