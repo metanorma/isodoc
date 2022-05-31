@@ -23,6 +23,13 @@
   }
 }
 
+@mixin listBlock() {
+  .ListTitle {
+    @include blockTitle();
+    text-align: left;
+  }
+}
+
 @mixin figureBlock() {
   .FigureTitle, .figure-title {
     @include blockTitle();
