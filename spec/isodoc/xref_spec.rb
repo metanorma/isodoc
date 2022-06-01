@@ -1468,8 +1468,8 @@ RSpec.describe IsoDoc do
       <foreword displayorder='1'>
         <p>
           <xref target='N1'>Introduction, a)</xref>
-          <xref target='N11'>Introduction, a.1)</xref>
-          <xref target='N12'>Introduction, a.1.i)</xref>
+          <xref target='N11'>Introduction, a) 1)</xref>
+          <xref target='N12'>Introduction, a) 1) i)</xref>
           <xref target='N2'>Preparatory, 1)</xref>
           <xref target='N'>Clause 1, i)</xref>
           <xref target='note1'>Clause 3.1, List 1 a)</xref>
@@ -1526,16 +1526,16 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder="1">
-        <p>
-          <xref target='N'>Clause 1, a)</xref>
-          <xref target='note1'>Clause 1, a.1)</xref>
-          <xref target='note2'>Clause 1, a.1.i)</xref>
-          <xref target='AN'>Clause 1, a.1.i.A)</xref>
-          <xref target='Anote1'>Clause 1, a.1.i.A.I)</xref>
-          <xref target='Anote2'>Clause 1, a.1.i.A.I.a)</xref>
-        </p>
-      </foreword>
+       <foreword displayorder='1'>
+         <p>
+           <xref target='N'>Clause 1, a)</xref>
+           <xref target='note1'>Clause 1, a) 1)</xref>
+           <xref target='note2'>Clause 1, a) 1) i)</xref>
+           <xref target='AN'>Clause 1, a) 1) i) A)</xref>
+           <xref target='Anote1'>Clause 1, a) 1) i) A) I)</xref>
+           <xref target='Anote2'>Clause 1, a) 1) i) A) I) a)</xref>
+         </p>
+       </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))
