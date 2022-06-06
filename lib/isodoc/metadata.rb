@@ -11,8 +11,8 @@ module IsoDoc
       Common::ns(xpath)
     end
 
-    def l10n(a, b, c)
-      @i18n.l10n(a, b, c)
+    def l10n(expr, lang, script)
+      @i18n.l10n(expr, lang, script)
     end
 
     def initialize(lang, script, i18n, fonts_options = {})

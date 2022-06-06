@@ -3,198 +3,163 @@ require "fileutils"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML footnotes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface>
-    <foreword>
-    <p>A.<fn reference="2">
-  <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-</fn></p>
-    <p>B.<fn reference="2">
-  <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-</fn></p>
-    <p>C.<fn reference="1">
-  <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
-</fn></p>
-    </foreword>
-    </preface>
-    </iso-standard>
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword>
+          <p>A.<fn reference="2">
+        <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
+      </fn></p>
+          <p>B.<fn reference="2">
+        <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
+      </fn></p>
+          <p>C.<fn reference="1">
+        <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
+      </fn></p>
+          </foreword>
+          </preface>
+          </iso-standard>
     INPUT
-    #{HTML_HDR}
-               <br/>
-               <div>
-                 <h1 class="ForewordTitle">Foreword</h1>
+    html = <<~OUTPUT
+      #{HTML_HDR}
+                 <br/>
+                 <div>
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <p>
+                   A.
+                   <a class='FootnoteRef' href='#fn:2'>
+                     <sup>2</sup>
+                   </a>
+                 </p>
                  <p>
-                 A.
-                 <a class='FootnoteRef' href='#fn:2'>
-                   <sup>2</sup>
-                 </a>
-               </p>
-               <p>
-                 B.
-                 <a class='FootnoteRef' href='#fn:2'>
-                   <sup>2</sup>
-                 </a>
-               </p>
-               <p>
-                 C.
-                 <a class='FootnoteRef' href='#fn:1'>
-                   <sup>1</sup>
-                 </a>
-               </p>
+                   B.
+                   <a class='FootnoteRef' href='#fn:2'>
+                     <sup>2</sup>
+                   </a>
+                 </p>
+                 <p>
+                   C.
+                   <a class='FootnoteRef' href='#fn:1'>
+                     <sup>1</sup>
+                   </a>
+                 </p>
+                 </div>
+                 <p class="zzSTDTitle1"/>
+                               <aside id="fn:2" class="footnote">
+            <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
+          </aside>
+                <aside id="fn:1" class="footnote">
+            <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
+          </aside>
                </div>
-               <p class="zzSTDTitle1"/>
-                             <aside id="fn:2" class="footnote">
-          <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-        </aside>
-              <aside id="fn:1" class="footnote">
-          <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
-        </aside>
-             </div>
-           </body>
-       </html>
+             </body>
+         </html>
     OUTPUT
+    word = <<~OUTPUT
+          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+        <head>
+          <style>
+          </style>
+        </head>
+        <body lang='EN-US' link='blue' vlink='#954F72'>
+          <div class='WordSection1'>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection2'>
+            <p>
+              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+            </p>
+            <div>
+              <h1 class='ForewordTitle'>Foreword</h1>
+              <p>
+                A.
+                <span style='mso-bookmark:_Ref'>
+                  <a href='#ftn2' epub:type='footnote'  class='FootnoteRef'>
+                    <sup>2</sup>
+                  </a>
+                </span>
+              </p>
+              <p>
+                B.
+                <span style='mso-element:field-begin'/>
+                 NOTEREF _Ref \\f \\h
+                <span style='mso-element:field-separator'/>
+                <span class='MsoFootnoteReference'>2</span>
+                <span style='mso-element:field-end'/>
+              </p>
+              <p>
+                C.
+                <span style='mso-bookmark:_Ref'>
+                  <a href='#ftn1' epub:type='footnote'  class='FootnoteRef'>
+                    <sup>1</sup>
+                  </a>
+                </span>
+              </p>
+            </div>
+            <p>&#160;</p>
+          </div>
+          <p>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection3'>
+            <p class='zzSTDTitle1'/>
+            <aside id='ftn2'>
+              <p id='_1e228e29-baef-4f38-b048-b05a051747e4'>Formerly denoted as 15 % (m/m).</p>
+            </aside>
+            <aside id='ftn1'>
+              <p id='_1e228e29-baef-4f38-b048-b05a051747e4'>Hello! denoted as 15 % (m/m).</p>
+            </aside>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", input, true)))
+      .to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", input, true)
+      .gsub(/_Ref\d+/, "_Ref")))
+      .to be_equivalent_to xmlpp(word)
   end
 
-  it "processes IsoXML footnotes (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", <<~"INPUT", true).gsub(/_Ref\d+/, "_Ref"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface>
-    <foreword>
-    <p>A.<fn reference="2">
-  <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-</fn></p>
-    <p>B.<fn reference="2">
-  <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-</fn></p>
-    <p>C.<fn reference="1">
-  <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
-</fn></p>
-    </foreword>
-    </preface>
-    </iso-standard>
-    INPUT
-    <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-  <head>
-    <style>
-    </style>
-  </head>
-  <body lang='EN-US' link='blue' vlink='#954F72'>
-    <div class='WordSection1'>
-      <p>&#160;</p>
-    </div>
-    <p>
-      <br clear='all' class='section'/>
-    </p>
-    <div class='WordSection2'>
-      <p>
-        <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-      </p>
-      <div>
-        <h1 class='ForewordTitle'>Foreword</h1>
-        <p>
-          A.
-          <span style='mso-bookmark:_Ref'>
-            <a href='#ftn2' epub:type='footnote'  class='FootnoteRef'>
-              <sup>2</sup>
-            </a>
-          </span>
-        </p>
-        <p>
-          B.
-          <span style='mso-element:field-begin'/>
-           NOTEREF _Ref \\f \\h
-          <span style='mso-element:field-separator'/>
-          <span class='MsoFootnoteReference'>2</span>
-          <span style='mso-element:field-end'/>
-        </p>
-        <p>
-          C.
-          <span style='mso-bookmark:_Ref'>
-            <a href='#ftn1' epub:type='footnote'  class='FootnoteRef'>
-              <sup>1</sup>
-            </a>
-          </span>
-        </p>
-      </div>
-      <p>&#160;</p>
-    </div>
-    <p>
-      <br clear='all' class='section'/>
-    </p>
-    <div class='WordSection3'>
-      <p class='zzSTDTitle1'/>
-      <aside id='ftn2'>
-        <p id='_1e228e29-baef-4f38-b048-b05a051747e4'>Formerly denoted as 15 % (m/m).</p>
-      </aside>
-      <aside id='ftn1'>
-        <p id='_1e228e29-baef-4f38-b048-b05a051747e4'>Hello! denoted as 15 % (m/m).</p>
-      </aside>
-    </div>
-  </body>
-</html>
-    OUTPUT
-  end
-
-  it "processes IsoXML reviewer notes (HTML)" do
+  it "processes IsoXML reviewer notes" do
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss"}).convert("test", <<~"INPUT", false)
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface>
-    <foreword>
-    <p id="A">A.</p>
-    <p id="B">B.</p>
-    <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c711" date="20170101T0000" from="A" to="B"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-<p id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p></review>
-    <p id="C">C.</p>
-    <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
-    </foreword>
-    <introduction><title>Introduction</title>
-    <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
-    </introduction>
-    </preface>
-    </iso-standard>
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword>
+          <p id="A">A.</p>
+          <p id="B">B.</p>
+          <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c711" date="20170101T0000" from="A" to="B"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
+      <p id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p></review>
+          <p id="C">C.</p>
+          <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
+          </foreword>
+          <introduction><title>Introduction</title>
+          <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
+          </introduction>
+          </preface>
+          </iso-standard>
     INPUT
-    html = File.read("test.html").sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
-           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-             <br />
-             <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <p id="A">A.</p>
-               <p id="B">B.</p>
-               <p id="C">C.</p>
-             </div>
-             <br />
-             <div class="Section3" id="">
-               <h1 class="IntroTitle">Introduction</h1>
-             </div>
-             <p class="zzSTDTitle1"></p>
-           </main>
+    html = <<~OUTPUT
+      <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+        <br />
+        <div>
+          <h1 class="ForewordTitle">Foreword</h1>
+          <p id="A">A.</p>
+          <p id="B">B.</p>
+          <p id="C">C.</p>
+        </div>
+        <br />
+        <div class="Section3" id="">
+          <h1 class="IntroTitle">Introduction</h1>
+        </div>
+        <p class="zzSTDTitle1"></p>
+      </main>
     OUTPUT
-  end
 
-  it "processes IsoXML reviewer notes (Word)" do
-    FileUtils.rm_f "test.doc"
-    IsoDoc::WordConvert.new({wordstylesheet: "spec/assets/word.css", htmlstylesheet: "spec/assets/html.scss"}).convert("test", <<~"INPUT", false)
-    <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface>
-    <foreword>
-    <p id="A">A.</p>
-    <p id="B">B.</p>
-    <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c711" date="20170101T0000" from="A" to="B"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-<p id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p></review>
-    <p id="C">C.</p>
-    <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
-    </foreword>
-    <introduction><title>Introduction</title>
-    <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
-    </introduction>
-    </preface>
-    </iso-standard>
-    INPUT
-    html = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
-    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    word = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
              <div class="WordSection1">
                <p class="MsoNormal">&#xA0;</p>
@@ -258,7 +223,19 @@ RSpec.describe IsoDoc do
              </div>
            <div style="mso-element:footnote-list"/></body>
     OUTPUT
+    IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
+                              htmlstylesheet: "spec/assets/html.scss" })
+      .convert("test", input, false)
+    out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
+      %r{</main>.*$}m, "</main>"
+    )
+    expect(xmlpp(out)).to be_equivalent_to xmlpp(html)
+    FileUtils.rm_f "test.doc"
+    IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
+                              htmlstylesheet: "spec/assets/html.scss" })
+      .convert("test", input, false)
+    out = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m,
+                                                              "</body>")
+    expect(xmlpp(out)).to be_equivalent_to xmlpp(word)
   end
-
-
 end
