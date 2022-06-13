@@ -177,7 +177,7 @@ module IsoDoc
 
     def toc(docxml)
       docxml.xpath(ns("//toc//xref[text()]")).each do |x|
-        lbl = @xrefs.get[x["target"]][:label] or next
+        lbl = @xrefs.anchor(x["target"], :label) or next
         x.children.first.previous = "#{lbl}<tab/>"
       end
     end
