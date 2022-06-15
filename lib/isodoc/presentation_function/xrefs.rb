@@ -105,9 +105,7 @@ module IsoDoc
     end
 
     def capitalise_xref1(node, linkend)
-      prec = nearest_block_parent(node).xpath("./descendant-or-self::text()") &
-        node.xpath("./preceding::text()")
-      if prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map(&:text).join)
+      if start_of_sentence(node)
         Common::case_with_markup(linkend, "capital", @script)
       else linkend
       end

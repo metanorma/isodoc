@@ -11,6 +11,10 @@ module IsoDoc
         self.class.ns(xpath)
       end
 
+      def start_of_sentence(node)
+        self.class.start_of_sentence(node)
+      end
+
       def insert_tab(out, count)
         tab = %w(Hans Hant).include?(@script) ? "&#x3000;" : "&#xa0; "
         [1..count].each { out << tab }
