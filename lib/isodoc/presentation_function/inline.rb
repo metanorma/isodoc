@@ -3,14 +3,6 @@ require_relative "xrefs"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def nearest_block_parent(node)
-      until %w(p title td th name formula li dt dd sourcecode pre)
-          .include?(node.name)
-        node = node.parent
-      end
-      node
-    end
-
     def non_locality_elems(node)
       node.children.reject do |c|
         %w{locality localityStack location}.include? c.name

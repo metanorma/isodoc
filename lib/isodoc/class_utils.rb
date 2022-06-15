@@ -62,5 +62,21 @@ module IsoDoc
       end
       xml.root.children.to_xml
     end
+
+    def nearest_block_parent(node)
+      until %w(p title td th name formula li dt dd sourcecode pre quote
+               note example)
+          .include?(node.name)
+        node = node.parent
+      end
+      node
+    end
+
+    # node is at the start of sentence in a Metanorma XML context
+    def start_of_sentence(node)
+      prec = nearest_block_parent(node).xpath("./descendant-or-self::text()") &
+        node.xpath("./preceding::text()")
+      prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map(&:text).join)
+    end
   end
 end
