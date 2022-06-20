@@ -1,9 +1,14 @@
 module IsoDoc
   module WordFunction
     module Body
-      def section_break(body)
+      def section_break(body, continuous: false)
         body.p do |p|
-          p.br **{ clear: "all", class: "section" }
+          if continuous
+            p.br **{ clear: "all", style: "page-break-before:auto;"\
+                                          "mso-break-type:section-break" }
+          else
+            p.br **{ clear: "all", class: "section" }
+          end
         end
       end
 
