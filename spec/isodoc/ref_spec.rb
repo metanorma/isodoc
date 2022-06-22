@@ -952,4 +952,81 @@ RSpec.describe IsoDoc do
     ).at("//xmlns:bibliography").to_xml))
       .to be_equivalent_to xmlpp(presxml)
   end
+
+  it "suppresses document identifier if requested to" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata>
+          <language>en</language>
+          </bibdata>
+          <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+      <bibitem id="ISO712" type="standard" suppress_identifier="true">
+        <title format="text/plain">Cereals or cereal products</title>
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="ISO">ISO 712</docidentifier>
+        <docidentifier type="metanorma">[110]</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+      <bibitem id="ref1" suppress_identifier="true">
+        <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
+        <docidentifier type="ICC">ICC/167</docidentifier>
+      </bibitem>
+      </references>
+      </bibliography>
+      </iso-standard>
+    INPUT
+    presxml = <<~PRESXML
+           <bibliography>
+         <references id='_normative_references' obligation='informative' normative='true' displayorder='1'>
+           <title depth='1'>
+             1.
+             <tab/>
+             Normative References
+           </title>
+           <p>
+             The following documents are referred to in the text in such a way that
+             some or all of their content constitutes requirements of this document.
+             For dated references, only the edition cited applies. For undated
+             references, the latest edition of the referenced document (including any
+             amendments) applies.
+           </p>
+           <bibitem id='ISO712' type='standard' suppress_identifier='true'>
+             <formattedref>
+               International Organization for Standardization.
+               <em>Cereals and cereal products</em>
+               .
+             </formattedref>
+             <docidentifier type='ISO'>ISO 712</docidentifier>
+             <docidentifier type='metanorma'>[110]</docidentifier>
+           </bibitem>
+           <bibitem id='ref1' suppress_identifier='true'>
+             <formattedref format='application/x-isodoc+xml'>
+               <smallcap>Standard No I.C.C 167</smallcap>
+               .
+               <em>
+                 Determination of the protein content in cereal and cereal products for
+                 food and animal feeding stuffs according to the Dumas combustion
+                 method
+               </em>
+                (see
+               <link target='http://www.icc.or.at'/>
+               )
+             </formattedref>
+             <docidentifier type='ICC'>ICC/167</docidentifier>
+           </bibitem>
+         </references>
+       </bibliography>
+    PRESXML
+    expect(xmlpp(Nokogiri::XML(
+      IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true),
+    ).at("//xmlns:bibliography").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
+  end
 end

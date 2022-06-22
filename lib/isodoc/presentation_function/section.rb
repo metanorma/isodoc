@@ -91,13 +91,24 @@ module IsoDoc
 
     def bibrender(xml)
       if f = xml.at(ns("./formattedref"))
-        code = render_identifier(bibitem_ref_code(xml))
-        f << " [#{code[:sdo]}] " if code[:sdo]
-      else
-        xml.children =
-          "#{bibrenderer.render(xml.to_xml)}"\
-          "#{xml.xpath(ns('./docidentifier | ./uri | ./note')).to_xml}"
+        bibrender_formattedref(f, xml)
+      else bibrender_relaton(xml)
       end
+    end
+
+    def bibrender_formattedref(formattedref, xml)
+      code = render_identifier(bibitem_ref_code(xml))
+      (code[:sdo] && xml["suppress_identifier"] != "true") and
+        formattedref << " [#{code[:sdo]}] "
+    end
+
+    def bibrender_relaton(xml)
+      bib = xml.dup
+      bib["suppress_identifier"] == true and
+        bib.xpath(ns("./docidentifier")).each(&:remove)
+      xml.children =
+        "#{bibrenderer.render(bib.to_xml)}"\
+        "#{xml.xpath(ns('./docidentifier | ./uri | ./note')).to_xml}"
     end
 
     def bibrenderer
