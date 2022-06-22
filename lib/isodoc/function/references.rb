@@ -19,7 +19,8 @@ module IsoDoc
             ref << (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
             ref << ", #{idents[sdo]}" if idents[:ordinal] && idents[:sdo]
           end
-          ref << ", " unless biblio && !idents[:sdo]
+          ref << "," if idents[:sdo]
+          ref << " "
           reference_format(bib, ref)
         end
       end
@@ -34,7 +35,8 @@ module IsoDoc
                                           idents[:metanorma]) && idents[:sdo]
           end
           date_note_process(bib, ref)
-          ref << ", " unless biblio && !idents[:sdo]
+          ref << "," if idents[:sdo]
+          ref << " "
           reference_format(bib, ref)
         end
       end
@@ -48,6 +50,8 @@ module IsoDoc
       end
 
       def pref_ref_code(bib)
+        return nil if bib["suppress_identifier"] == "true"
+
         ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
         ret.empty? and
           ret = bib.at(ns("./docidentifier[not(@type = 'DOI' or "\
@@ -66,6 +70,7 @@ module IsoDoc
                         "@type = 'ISBN']"))
         id3 = bib.at(ns("./docidentifier[@type = 'metanorma-ordinal']"))
         return [id, id1, id2, id3] if id || id1 || id2 || id3
+        return [nil, nil, nil, nil] if bib["suppress_identifier"] == "true"
 
         id = Nokogiri::XML::Node.new("docidentifier", bib.document)
         id << "(NO ID)"
