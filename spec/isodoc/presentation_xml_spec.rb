@@ -19,6 +19,38 @@ RSpec.describe IsoDoc do
     expect(File.exist?("test.presentation.xml")).to be true
   end
 
+  it "calculates depth of clauses regardless of whether they have anchors" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <sections>
+          <clause><title>A</title>
+          <clause><title>B</title>
+          <clause><title>C</title>
+          </clause></clause></clause>
+        </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <sections>
+           <clause displayorder='1'>
+             <title depth='1'>A</title>
+             <clause>
+               <title depth='2'>B</title>
+               <clause>
+                 <title depth='3'>C</title>
+               </clause>
+             </clause>
+           </clause>
+         </sections>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+  .convert("test", input, true))
+  .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   it "localises numbers in MathML" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1194,153 +1226,153 @@ RSpec.describe IsoDoc do
 
   it "processes multiple-target xrefs" do
     input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <bibdata/>
-        <sections>
-       <clause id="A" inline-header="false" obligation="normative">
-       <title>Section</title>
-       <p id="A"><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/></xref>
-       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
-       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/></xref>
-       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/><location target="ref3" connective="and"/></xref>
-       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
-       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/></xref>
-       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/><location target="ref3" connective="or"/></xref>
-       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref>
-       <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/></xref>
-        </p>
-       </clause>
-       <clause id="ref1"/>
-       <clause id="ref2"/>
-       <clause id="ref3"/>
-       <clause id="ref4"/>
-       <clause id="id1">
-       <ol id="_5eebf861-525f-0ece-7502-b1c94611db4e"><li><p id="_01fc71c0-8f76-228a-5a0d-7b9d0003d219">The following CRScsd strings represent the CRS types supported by
-this document:</p>
-       <ol id="_7450988f-2dc2-3937-1aa0-a73d21b28ecc"><li id="item_6-4-a"><p id="_9ff8eeb0-5384-41af-e0f6-7143331f59f2">CRS1d: one-dimensional spatial or temporal CRS.</p>
-        </li>
-        </ol>
-        </li>
-        <li><p id="_2375be59-1c5e-d3ef-0882-fc5e2b852ea9">Additionally, in each component of a GPL representation string, the
-        following characters shall also act as delimiters:</p>
-        <ol id="_81d60fdc-e0ef-e94e-4f59-d41181945c98"><li id="item_6-4-i"><p id="_db51305f-60ad-1714-a497-bc9aa305e02b"><em>a solidus</em> [ / ] shall act as the terminator character
-        and any GPL string shall always be terminated.</p>
-        </li>
-        </ol>
-        </li>
-        </ol>
-       </clause>
-         </sections>
-       </iso-standard>
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <bibdata/>
+              <sections>
+             <clause id="A" inline-header="false" obligation="normative">
+             <title>Section</title>
+             <p id="A"><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/></xref>
+             <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
+             <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/></xref>
+             <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/><location target="ref3" connective="and"/></xref>
+             <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+             <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/></xref>
+             <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/><location target="ref3" connective="or"/></xref>
+             <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref>
+             <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/></xref>
+              </p>
+             </clause>
+             <clause id="ref1"/>
+             <clause id="ref2"/>
+             <clause id="ref3"/>
+             <clause id="ref4"/>
+             <clause id="id1">
+             <ol id="_5eebf861-525f-0ece-7502-b1c94611db4e"><li><p id="_01fc71c0-8f76-228a-5a0d-7b9d0003d219">The following CRScsd strings represent the CRS types supported by
+      this document:</p>
+             <ol id="_7450988f-2dc2-3937-1aa0-a73d21b28ecc"><li id="item_6-4-a"><p id="_9ff8eeb0-5384-41af-e0f6-7143331f59f2">CRS1d: one-dimensional spatial or temporal CRS.</p>
+              </li>
+              </ol>
+              </li>
+              <li><p id="_2375be59-1c5e-d3ef-0882-fc5e2b852ea9">Additionally, in each component of a GPL representation string, the
+              following characters shall also act as delimiters:</p>
+              <ol id="_81d60fdc-e0ef-e94e-4f59-d41181945c98"><li id="item_6-4-i"><p id="_db51305f-60ad-1714-a497-bc9aa305e02b"><em>a solidus</em> [ / ] shall act as the terminator character
+              and any GPL string shall always be terminated.</p>
+              </li>
+              </ol>
+              </li>
+              </ol>
+             </clause>
+               </sections>
+             </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-         <bibdata/>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+           <bibdata/>
 
-         <sections>
-           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
-             <title depth='1'>
-               1.
-               <tab/>
-               Section
-             </title>
-                          <p id='A'>
-               <xref target='ref1'>
-                 <location target='ref1' connective='from'/>
-                 <location target='ref2' connective='to'/>
-                 Clause 2 to 3
-               </xref>
-               <xref target='ref1'>
-                 <location target='ref1' connective='from'/>
-                 <location target='ref2' connective='to'/>
-                 text
-               </xref>
-               <xref target='ref1'>
-                 <location target='ref1' connective='and'/>
-                 <location target='ref2' connective='and'/>
-                 Clause 2 and 3
-               </xref>
-               <xref target='ref1'>
-                 <location target='ref1' connective='and'/>
-                 <location target='ref2' connective='and'/>
-                 <location target='ref3' connective='and'/>
-                 Clause 2, 3, and 4
-               </xref>
-               <xref target='ref1'>
-                 <location target='ref1' connective='and'/>
-                 <location target='ref2' connective='and'/>
-                 text
-               </xref>
-               <xref target='ref1'>
-                 <location target='ref1' connective='and'/>
-                 <location target='ref2' connective='or'/>
-                 Clause 2 or 3
-               </xref>
-               <xref target='ref1'>
-                 <location target='ref1' connective='and'/>
-                 <location target='ref2' connective='or'/>
-                 <location target='ref3' connective='or'/>
-                 Clause 2, 3, or 4
-               </xref>
-               <xref target='ref1'>
-                 <location target='ref1' connective='from'/>
-                 <location target='ref2' connective='to'/>
-                 <location target='ref3' connective='and'/>
-                 <location target='ref4' connective='to'/>
-                 Clause 2 to 3 and 4 to 5
-               </xref>
-               <xref target='item_6-4-a'>
-          <location target='item_6-4-a' connective='from'/>
-          <location target='item_6-4-i' connective='to'/>
-          Clause 6, a) 1) to b) 1)
-        </xref>
-             </p>
-           </clause>
-           <clause id='ref1' displayorder='2'>
-             <title>2.</title>
-           </clause>
-           <clause id='ref2' displayorder='3'>
-             <title>3.</title>
-           </clause>
-           <clause id='ref3' displayorder='4'>
-             <title>4.</title>
-           </clause>
-           <clause id='ref4' displayorder='5'>
-             <title>5.</title>
-           </clause>
-               <clause id='id1' displayorder='6'>
-      <title>6.</title>
-      <ol id='_5eebf861-525f-0ece-7502-b1c94611db4e' type='alphabet'>
-        <li>
-          <p id='_01fc71c0-8f76-228a-5a0d-7b9d0003d219'>
-            The following CRScsd strings represent the CRS types supported by
-            this document:
-          </p>
-          <ol id='_7450988f-2dc2-3937-1aa0-a73d21b28ecc' type='arabic'>
-            <li id='item_6-4-a'>
-              <p id='_9ff8eeb0-5384-41af-e0f6-7143331f59f2'>CRS1d: one-dimensional spatial or temporal CRS.</p>
-            </li>
-          </ol>
-        </li>
-        <li>
-          <p id='_2375be59-1c5e-d3ef-0882-fc5e2b852ea9'>
-            Additionally, in each component of a GPL representation string, the
-            following characters shall also act as delimiters:
-          </p>
-          <ol id='_81d60fdc-e0ef-e94e-4f59-d41181945c98' type='arabic'>
-            <li id='item_6-4-i'>
-              <p id='_db51305f-60ad-1714-a497-bc9aa305e02b'>
-                <em>a solidus</em>
-                 [ / ] shall act as the terminator character and any GPL string
-                shall always be terminated.
-              </p>
-            </li>
-          </ol>
-        </li>
-      </ol>
-    </clause>
-         </sections>
-       </iso-standard>
+           <sections>
+             <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+               <title depth='1'>
+                 1.
+                 <tab/>
+                 Section
+               </title>
+                            <p id='A'>
+                 <xref target='ref1'>
+                   <location target='ref1' connective='from'/>
+                   <location target='ref2' connective='to'/>
+                   Clause 2 to 3
+                 </xref>
+                 <xref target='ref1'>
+                   <location target='ref1' connective='from'/>
+                   <location target='ref2' connective='to'/>
+                   text
+                 </xref>
+                 <xref target='ref1'>
+                   <location target='ref1' connective='and'/>
+                   <location target='ref2' connective='and'/>
+                   Clause 2 and 3
+                 </xref>
+                 <xref target='ref1'>
+                   <location target='ref1' connective='and'/>
+                   <location target='ref2' connective='and'/>
+                   <location target='ref3' connective='and'/>
+                   Clause 2, 3, and 4
+                 </xref>
+                 <xref target='ref1'>
+                   <location target='ref1' connective='and'/>
+                   <location target='ref2' connective='and'/>
+                   text
+                 </xref>
+                 <xref target='ref1'>
+                   <location target='ref1' connective='and'/>
+                   <location target='ref2' connective='or'/>
+                   Clause 2 or 3
+                 </xref>
+                 <xref target='ref1'>
+                   <location target='ref1' connective='and'/>
+                   <location target='ref2' connective='or'/>
+                   <location target='ref3' connective='or'/>
+                   Clause 2, 3, or 4
+                 </xref>
+                 <xref target='ref1'>
+                   <location target='ref1' connective='from'/>
+                   <location target='ref2' connective='to'/>
+                   <location target='ref3' connective='and'/>
+                   <location target='ref4' connective='to'/>
+                   Clause 2 to 3 and 4 to 5
+                 </xref>
+                 <xref target='item_6-4-a'>
+            <location target='item_6-4-a' connective='from'/>
+            <location target='item_6-4-i' connective='to'/>
+            Clause 6, a) 1) to b) 1)
+          </xref>
+               </p>
+             </clause>
+             <clause id='ref1' displayorder='2'>
+               <title>2.</title>
+             </clause>
+             <clause id='ref2' displayorder='3'>
+               <title>3.</title>
+             </clause>
+             <clause id='ref3' displayorder='4'>
+               <title>4.</title>
+             </clause>
+             <clause id='ref4' displayorder='5'>
+               <title>5.</title>
+             </clause>
+                 <clause id='id1' displayorder='6'>
+        <title>6.</title>
+        <ol id='_5eebf861-525f-0ece-7502-b1c94611db4e' type='alphabet'>
+          <li>
+            <p id='_01fc71c0-8f76-228a-5a0d-7b9d0003d219'>
+              The following CRScsd strings represent the CRS types supported by
+              this document:
+            </p>
+            <ol id='_7450988f-2dc2-3937-1aa0-a73d21b28ecc' type='arabic'>
+              <li id='item_6-4-a'>
+                <p id='_9ff8eeb0-5384-41af-e0f6-7143331f59f2'>CRS1d: one-dimensional spatial or temporal CRS.</p>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <p id='_2375be59-1c5e-d3ef-0882-fc5e2b852ea9'>
+              Additionally, in each component of a GPL representation string, the
+              following characters shall also act as delimiters:
+            </p>
+            <ol id='_81d60fdc-e0ef-e94e-4f59-d41181945c98' type='arabic'>
+              <li id='item_6-4-i'>
+                <p id='_db51305f-60ad-1714-a497-bc9aa305e02b'>
+                  <em>a solidus</em>
+                   [ / ] shall act as the terminator character and any GPL string
+                  shall always be terminated.
+                </p>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </clause>
+           </sections>
+         </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))

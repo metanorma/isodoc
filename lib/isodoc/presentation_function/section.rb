@@ -11,7 +11,8 @@ module IsoDoc
     end
 
     def clause1(elem)
-      level = @xrefs.anchor(elem["id"], :level, false) || "1"
+      level = @xrefs.anchor(elem["id"], :level, false) ||
+        (elem.ancestors("clause, annex").size + 1)
       t = elem.at(ns("./title")) and t["depth"] = level
       return if !elem.ancestors("boilerplate").empty? ||
         @suppressheadingnumbers || elem["unnumbered"]

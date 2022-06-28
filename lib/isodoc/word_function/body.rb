@@ -176,7 +176,7 @@ module IsoDoc
           div.p **{ class: "Note" } do |p|
             if name
               name.children.each { |n| parse(n, p) }
-              p << l10n(": ")
+              p << termnote_delim
             end
             para_then_remainder(node.first_element_child, node, p, div)
           end
