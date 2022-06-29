@@ -99,7 +99,8 @@ admonition: {
   warning: Warnung,
   caution: Vorsicht,
   important: Wichtig,
-  safety precautions: Sicherheitsvorkehrungen
+  safety precautions: Sicherheitsvorkehrungen,
+  editorial: Redaktioneller Hinweis
 }
 locality: {
   section: Abschnitt,

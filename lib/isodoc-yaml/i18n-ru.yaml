@@ -104,7 +104,8 @@ admonition: {
   warning: Предупреждение,
   caution: Предостережение,
   important: Важно,
-  safety precautions: Меры безопасности
+  safety precautions: Меры безопасности,
+  editorial: Редакционная Заметка
 }
 locality: {
                       section: Раздел,

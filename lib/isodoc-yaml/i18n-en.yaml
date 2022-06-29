@@ -99,7 +99,8 @@ admonition: {
   warning: Warning,
   caution: Caution,
   important: Important,
-  safety precautions: Safety Precautions
+  safety precautions: Safety Precautions,
+  editorial: Editorial Note
 }
 locality: {
                       section: Section,

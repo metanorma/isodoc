@@ -95,6 +95,7 @@ admonition: {
   caution: 注意,
   important: 重要,
   safety precautions: 安全须知,
+  editorial: 编辑说明
 }
 locality: {
   section: 条,
