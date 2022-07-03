@@ -20,8 +20,8 @@ module IsoDoc
           node.children.first.previous = "<#{elem}></#{elem}>"
         name = node.children.first
       end
-      if name.children.empty? then name.add_child(cleanup_entities(number))
-      else (name.children.first.previous = "#{number}#{delim}")
+      if name.children.empty? then name.add_child(cleanup_entities(number.strip))
+      else (name.children.first.previous = "#{number.strip}#{delim}")
       end
     end
 

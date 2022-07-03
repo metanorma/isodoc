@@ -88,9 +88,18 @@ module IsoDoc
         word_pseudocode_cleanup(docxml)
         word_image_caption(docxml)
         word_section_breaks(docxml)
+        word_tab_clean(docxml)
         authority_cleanup(docxml)
         word_footnote_format(docxml)
         docxml
+      end
+
+      def word_tab_clean(docxml)
+        docxml.xpath("//p[@class='Biblio']//span[@style='mso-tab-count:1']")
+          .each do |s|
+          s.next.text? or next
+          s.next.replace(s.next.text.sub(/^\s+/, ""))
+        end
       end
 
       def word_colgroup(docxml)
