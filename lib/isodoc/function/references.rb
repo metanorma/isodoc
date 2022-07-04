@@ -52,13 +52,19 @@ module IsoDoc
       def pref_ref_code(bib)
         return nil if bib["suppress_identifier"] == "true"
 
-        ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
+        ret = bib.xpath(ns("./docidentifier[@primary = 'true'][@language = '#{@lang}']"))
+        ret.empty? and
+          ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
         ret.empty? and
           ret = bib.at(ns("./docidentifier[not(@type = 'DOI' or "\
                           "@type = 'metanorma' "\
                           "or @type = 'metanorma-ordinal' or "\
-                          "@type = 'ISSN' or @type = 'ISBN' or "\
-                          "@type = 'rfc-anchor')]"))
+                          "@type = 'ISSN' or @type = 'ISBN')]"\
+                          "[@language = '#{@lang}']")) ||
+            bib.at(ns("./docidentifier[not(@type = 'DOI' or "\
+                      "@type = 'metanorma' "\
+                      "or @type = 'metanorma-ordinal' or "\
+                      "@type = 'ISSN' or @type = 'ISBN')]"))
         ret
       end
 
