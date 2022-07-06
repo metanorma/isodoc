@@ -415,6 +415,44 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(html)
   end
 
+  it "marks references sections as hidden" do
+    input = <<~INPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml'>
+      <bibliography>
+      <references>
+      <bibitem hidden="true"/>
+      <bibitem hidden="true"/>
+      <bibitem hidden="true"/>
+      </references>
+      <references>
+      <bibitem hidden="true"/>
+      <bibitem>
+      <bibitem hidden="true"/>
+      </references>
+      </bibliography>
+      </iso-standard>
+    INPUT
+    presxml = <<~PRESXML
+           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <bibliography>
+           <references hidden='true'>
+             <bibitem hidden='true'/>
+             <bibitem hidden='true'/>
+             <bibitem hidden='true'/>
+           </references>
+           <references>
+             <bibitem hidden='true'/>
+             <bibitem/>
+           </references>
+         </bibliography>
+       </iso-standard>
+    PRESXML
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   it "processes hidden references sections in Relaton bibliographies" do
     presxml = <<~PRESXML
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
