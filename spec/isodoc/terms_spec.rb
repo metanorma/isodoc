@@ -184,7 +184,7 @@ RSpec.describe IsoDoc do
              <div id="_terms_and_definitions"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO 7301:2011, Clause 3.1, modified
              &#8211;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
-     
+
         <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">&lt;rice&gt; rice retaining its husk after threshing</p>
         <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example" style="page-break-after: avoid;page-break-inside: avoid;"><p class="example-title">EXAMPLE  1</p>
           <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
@@ -298,7 +298,7 @@ RSpec.describe IsoDoc do
                           <referenceFrom>3.1</referenceFrom>
                         </locality>
                         ISO 7301:2011, Clause 3.1
-                      </origin>, modified &#x2013; 
+                      </origin>, modified &#x2013;#{' '}
                           The term "cargo rice" is shown as deprecated, and Note 1 to
                           entry is not included here]
                     </termsource>
@@ -710,7 +710,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
   end
 
-    it "processes related terms" do
+  it "processes related terms" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
@@ -742,6 +742,19 @@ RSpec.describe IsoDoc do
           </preferred>
           <xref target='second'/>
         </related>
+        <related type='see'>
+          <preferred>
+            <expression>
+              <name>Fifth Designation</name>
+              <grammar>
+                <gender>neuter</gender>
+              </grammar>
+            </expression>
+          </preferred>
+        </related>
+        <related type='seealso'>
+          <xref target='second'/>
+        </related>
         <definition><verbal-definition>Definition 2</verbal-definition></definition>
       </term>
           </terms>
@@ -768,6 +781,8 @@ RSpec.describe IsoDoc do
                   <preferred><strong>Fifth Designation</strong>, n</preferred>
                 </em> (<xref target='second'>Clause 1.1</xref>)
               </p>
+             <p><strong>SEE:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
+            <p> <strong>SEE ALSO:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
               <definition>Definition 2</definition>
             </term>
           </terms>
