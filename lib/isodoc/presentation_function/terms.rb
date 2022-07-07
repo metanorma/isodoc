@@ -82,8 +82,13 @@ module IsoDoc
       p = node.at(ns("./preferred"))
       ref = node.at(ns("./xref | ./eref | ./termref"))
       label = @i18n.relatedterms[node["type"]].upcase
-      node.replace(l10n("<p><strong>#{label}:</strong> "\
-                        "<em>#{p.to_xml}</em> (#{ref.to_xml})</p>"))
+      if p && ref
+        node.replace(l10n("<p><strong>#{label}:</strong> "\
+                          "<em>#{p.to_xml}</em> (#{ref.to_xml})</p>"))
+      else
+        node.replace(l10n("<p><strong>#{label}:</strong> "\
+                          "<strong>**RELATED TERM NOT FOUND**</strong></p>"))
+      end
     end
 
     def designation(docxml)
