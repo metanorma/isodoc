@@ -218,7 +218,7 @@ module IsoDoc
           when "feedback-statement" then feedback_parse(node, out)
           when "passthrough" then passthrough_parse(node, out)
           when "amend" then amend_parse(node, out)
-          when "tab" then clausedelimspace(out) # in Presentation XML only
+          when "tab" then clausedelimspace(node, out) # in Presentation XML only
           when "svg" then svg_parse(node, out) # in Presentation XML only
           when "add" then add_parse(node, out)
           when "del" then del_parse(node, out)

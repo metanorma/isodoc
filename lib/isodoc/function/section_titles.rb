@@ -5,15 +5,15 @@ module IsoDoc
         "."
       end
 
-      def clausedelimspace(out)
+      def clausedelimspace(_node, out)
         insert_tab(out, 1)
       end
 
-      def inline_header_title(out, _node, title)
+      def inline_header_title(out, node, title)
         out.span **{ class: "zzMoveToFollowing" } do |s|
           s.b do |b|
             title&.children&.each { |c2| parse(c2, b) }
-            clausedelimspace(out) if /\S/.match?(title&.text)
+            clausedelimspace(node, out) if /\S/.match?(title&.text)
           end
         end
       end
