@@ -122,7 +122,7 @@ RSpec.describe IsoDoc do
         <docidentifier type="IETF">RFC 20</docidentifier>
       </bibitem>
       <bibitem id="ref10c">
-        <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
+        <title>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</title>
         <docidentifier type="DOI">ABC 20</docidentifier>
       </bibitem>
       </references>
@@ -260,7 +260,7 @@ RSpec.describe IsoDoc do
               <docidentifier type="IETF">IETF RFC 20</docidentifier>
             </bibitem>
             <bibitem id='ref10c'>
-            <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
+            <formattedref><em>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
         <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
         <docidentifier type='DOI'>DOI ABC 20</docidentifier>
       </bibitem>
@@ -395,7 +395,7 @@ RSpec.describe IsoDoc do
               </p>
               <p id='ref10c' class='Biblio'>
                 [6]&#160;
-                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
+                <i>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</i>
                 .
               </p>
             </div>
@@ -406,6 +406,210 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
+
+    doc = <<~OUTPUT
+           <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
+         <div class='WordSection1'>
+           <p class='MsoNormal'>&#xa0;</p>
+         </div>
+         <p class='MsoNormal'>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection2'>
+           <p class='MsoNormal'>
+             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+           </p>
+           <div>
+             <h1 class='ForewordTitle'>Foreword</h1>
+             <p class='MsoNormal'>
+               <a name='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f' id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'/>
+               <a href='#ISO712'>[110]</a>
+               <a href='#ISBN'>[1]</a>
+               <a href='#ISSN'>[2]</a>
+               <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
+               <a href='#ref1'>ICC/167</a>
+               <a href='#ref10'>[10]</a>
+               <a href='#ref12'>Citn</a>
+               <a href='#zip_ffs'>[5]</a>
+             </p>
+           </div>
+           <p class='MsoNormal'>&#xa0;</p>
+         </div>
+         <p class='MsoNormal'>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection3'>
+           <p class='zzSTDTitle1'/>
+           <div>
+             <h1>
+               1.
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               Normative References
+             </h1>
+             <p class='MsoNormal'>
+                The following documents are referred to in the text in such a way that
+               some or all of their content constitutes requirements of this document.
+               For dated references, only the edition cited applies. For undated
+               references, the latest edition of the referenced document (including any
+               amendments) applies.
+             </p>
+             <p class='NormRef'>
+               <a name='ISO712' id='ISO712'/>
+               [110], ISO 712, International Organization for Standardization.
+               <i>Cereals and cereal products</i>
+               .
+             </p>
+             <p class='NormRef'>
+               <a name='ISO16634' id='ISO16634'/>
+               ISO 16634:-- (all parts)
+               <span style='mso-bookmark:_Ref'>
+                 <a class='FootnoteRef' href='#_ftn1' type='footnote' style='mso-footnote-id:ftn1' name='_ftnref1' title='' id='_ftnref1'>
+                   <span class='MsoFootnoteReference'>
+                     <span style='mso-special-character:footnote'/>
+                   </span>
+                 </a>
+               </span>
+               ,
+               <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>
+               .
+             </p>
+             <p class='NormRef'>
+               <a name='ISO20483' id='ISO20483'/>
+               ISO 20483:2013-2014, International Organization for Standardization.
+               <i>Cereals and pulses</i>
+               . 2013&#x2013;2014.
+             </p>
+             <p class='NormRef'>
+               <a name='ref1' id='ref1'/>
+               ICC/167,
+               <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
+                .
+               <i>
+                  Determination of the protein content in cereal and cereal products
+                 for food and animal feeding stuffs according to the Dumas combustion
+                 method
+               </i>
+                (see
+               <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
+                ) [ICC/167]
+             </p>
+             <div class='Note'>
+               <p class='Note'>
+                 <span class='note_label'>NOTE</span>
+                 <span style='mso-tab-count:1'>&#xa0; </span>
+                 This is an annotation of ISO 20483:2013-2014
+               </p>
+             </div>
+             <p class='NormRef'>
+               <a name='zip_ffs' id='zip_ffs'/>
+               [5] Title 5
+             </p>
+           </div>
+           <p class='MsoNormal'>
+             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+           </p>
+           <div>
+             <h1 class='Section3'>Bibliography</h1>
+             <p class='Biblio'>
+               <a name='ISBN' id='ISBN'/>
+               [1]
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               <i>Chemicals for analytical laboratory use</i>
+               . ISBN.
+             </p>
+             <p class='Biblio'>
+               <a name='ISSN' id='ISSN'/>
+               [2]
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               <i>Instruments for analytical laboratory use</i>
+               . ISSN.
+             </p>
+             <div class='Note'>
+               <p class='Note'>
+                 <span class='note_label'>NOTE</span>
+                 <span style='mso-tab-count:1'>&#xa0; </span>
+                 This is an annotation of document ISSN.
+               </p>
+             </div>
+             <div class='Note'>
+               <p class='Note'>
+                 <span class='note_label'>NOTE</span>
+                 <span style='mso-tab-count:1'>&#xa0; </span>
+                 This is another annotation of document ISSN.
+               </p>
+             </div>
+             <p class='Biblio'>
+               <a name='ISO3696' id='ISO3696'/>
+               [3]
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               ISO 3696,
+               <i>Water for analytical laboratory use</i>
+               .
+             </p>
+             <p class='Biblio'>
+               <a name='ref10' id='ref10'/>
+               [10]
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
+                .
+               <i>
+                  Determination of the protein content in cereal and cereal products
+                 for food and animal feeding stuffs according to the Dumas combustion
+                 method
+               </i>
+                (see
+               <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
+                )
+             </p>
+             <p class='Biblio'>
+               <a name='ref11' id='ref11'/>
+               [4]
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               IETF RFC 10,
+               <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
+               .
+             </p>
+             <p class='Biblio'>
+               <a name='ref12' id='ref12'/>
+               Citn
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               IETF RFC 20, CitationWorks. 2019.
+               <i>How to cite a reference</i>
+                . [IETF RFC 20]
+             </p>
+             <p class='Biblio'>
+               <a name='ref10b' id='ref10b'/>
+               [5]
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               IETF RFC 20,
+               <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
+               .
+             </p>
+             <p class='Biblio'>
+               <a name='ref10c' id='ref10c'/>
+               [6]
+               <span style='mso-tab-count:1'>&#xa0; </span>
+               <i>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</i>
+               .
+             </p>
+           </div>
+         </div>
+         <div style='mso-element:footnote-list'>
+           <div style='mso-element:footnote' id='ftn1'>
+             <p class='MsoFootnoteText'>
+               <a style='mso-footnote-id:ftn1' href='#_ftn1' name='_ftnref1' title='' id='_ftnref1'>
+                 <span class='MsoFootnoteReference'>
+                   <span style='mso-special-character:footnote'/>
+                 </span>
+               </a>
+               Under preparation. (Stage at the time of publication ISO/DIS 16634)
+             </p>
+           </div>
+         </div>
+       </body>
+    OUTPUT
+
+    FileUtils.rm_rf("test.doc")
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -413,6 +617,16 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
       .to be_equivalent_to xmlpp(html)
+    IsoDoc::WordConvert.new({})
+      .convert("test", presxml, false)
+    expect(File.exist?("test.doc")).to be true
+    html = File.read("test.doc")
+      .sub(/^.*<body/m, "<body")
+      .sub(%r{</body>.*$}m, "</body>")
+      .gsub(/epub:/, "")
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+    expect(xmlpp(html))
+      .to be_equivalent_to xmlpp(doc)
   end
 
   it "marks references sections as hidden" do
@@ -433,19 +647,19 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-         <bibliography>
-           <references hidden='true'>
-             <bibitem hidden='true'/>
-             <bibitem hidden='true'/>
-             <bibitem hidden='true'/>
-           </references>
-           <references>
-             <bibitem hidden='true'/>
-             <bibitem/>
-           </references>
-         </bibliography>
-       </iso-standard>
+          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <bibliography>
+          <references hidden='true'>
+            <bibitem hidden='true'/>
+            <bibitem hidden='true'/>
+            <bibitem hidden='true'/>
+          </references>
+          <references>
+            <bibitem hidden='true'/>
+            <bibitem/>
+          </references>
+        </bibliography>
+      </iso-standard>
     PRESXML
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
