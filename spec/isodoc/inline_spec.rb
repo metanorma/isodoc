@@ -56,6 +56,7 @@ RSpec.describe IsoDoc do
       <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
       <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/> <underline>J</underline>
       <span class="A"><em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt> F</span>
+      <span style="font-family:&quot;Arial&quot;"><em>A</em> F</span>
       </p>
       </foreword></preface>
       <sections>
@@ -84,6 +85,7 @@ RSpec.describe IsoDoc do
             <sub>D</sub>
             <tt>E</tt>
              F
+            <span style='font-family:&#x22;Arial&#x22;'><i>A</i> F</span>
           </p>
         </div>
     OUTPUT
@@ -115,6 +117,7 @@ RSpec.describe IsoDoc do
             <sub>D</sub>
             <tt>E</tt>
              F
+            <span style='font-family:&#x22;Arial&#x22;'><i>A</i> F</span>
           </p>
         </div>
     OUTPUT

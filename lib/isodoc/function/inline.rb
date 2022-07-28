@@ -17,7 +17,13 @@ module IsoDoc
       def location_parse(node, out); end
 
       def span_parse(node, out)
-        node.children.each { |n| parse(n, out) }
+        if node["style"]
+          out.span **{ style: node["style"] } do |s|
+            node.children.each { |n| parse(n, s) }
+          end
+        else
+          node.children.each { |n| parse(n, out) }
+        end
       end
 
       def callout_parse(node, out)
@@ -57,12 +63,11 @@ module IsoDoc
       def eref_url(bibitemid)
         return nil if @bibitems.nil? || @bibitems[bibitemid].nil?
 
-        if url = @bibitems[bibitemid].at(ns("./uri[@type = 'citation']"))
-          url.text
-        elsif @bibitems[bibitemid]["hidden"] == "true"
-          @bibitems[bibitemid]&.at(ns("./uri"))&.text
-        else "##{bibitemid}"
-        end
+        url = @bibitems[bibitemid].at(ns("./uri[@type = 'citation']")) and
+          return url.text
+        @bibitems[bibitemid]["hidden"] == "true" and
+          return @bibitems[bibitemid].at(ns("./uri"))&.text
+        "##{bibitemid}"
       end
 
       def eref_parse(node, out)
