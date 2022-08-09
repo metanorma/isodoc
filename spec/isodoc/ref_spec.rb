@@ -199,12 +199,12 @@ RSpec.describe IsoDoc do
           <references id='_bibliography' obligation='informative' normative='false' displayorder="3">
             <title depth="1">Bibliography</title>
             <bibitem id='ISBN' type='book'>
-              <formattedref><em>Chemicals for analytical laboratory use</em>. ISBN.</formattedref>
+              <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: n.d. ISBN.</formattedref>
               <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
               <docidentifier type='ISBN'>ISBN</docidentifier>
             </bibitem>
             <bibitem id='ISSN' type='journal'>
-            <formattedref><em>Instruments for analytical laboratory use</em>. ISSN.</formattedref>
+            <formattedref><em>Instruments for analytical laboratory use</em>. n.d. ISSN.</formattedref>
               <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
               <docidentifier type='ISSN'>ISSN</docidentifier>
             </bibitem>
@@ -341,12 +341,12 @@ RSpec.describe IsoDoc do
               <p id='ISBN' class='Biblio'>
                 [1]&#160;
                 <i>Chemicals for analytical laboratory use</i>
-                . ISBN.
+                . n.p.: n.d. ISBN.
               </p>
               <p id='ISSN' class='Biblio'>
                 [2]&#160;
                 <i>Instruments for analytical laboratory use</i>
-                . ISSN.
+                . n.d. ISSN.
               </p>
               <div class='Note'>
                 <p>
@@ -515,14 +515,14 @@ RSpec.describe IsoDoc do
                [1]
                <span style='mso-tab-count:1'>&#xa0; </span>
                <i>Chemicals for analytical laboratory use</i>
-               . ISBN.
+               . n.p.: n.d. ISBN.
              </p>
              <p class='Biblio'>
                <a name='ISSN' id='ISSN'/>
                [2]
                <span style='mso-tab-count:1'>&#xa0; </span>
                <i>Instruments for analytical laboratory use</i>
-               . ISSN.
+               . n.d. ISSN.
              </p>
              <div class='Note'>
                <p class='Note'>

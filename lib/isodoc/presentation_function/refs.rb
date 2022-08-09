@@ -29,6 +29,7 @@ module IsoDoc
     def prep_for_rendering(bib)
       bib["suppress_identifier"] == true and
         bib.xpath(ns("./docidentifier")).each(&:remove)
+      bib["type"] ||= "standard"
     end
 
     def bibitem(xml, renderings)
