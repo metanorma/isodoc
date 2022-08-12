@@ -222,6 +222,10 @@ module IsoDoc
            application/x-msmetafile image/x-xbitmap).include? type
       end
 
+      def eps?(type)
+        %w(application/postscript image/x-eps).include? type
+      end
+
       def cleanup_entities(text, is_xml: true)
         c = HTMLEntities.new
         if is_xml

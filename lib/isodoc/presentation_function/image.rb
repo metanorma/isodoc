@@ -11,7 +11,14 @@ module IsoDoc
         else s.remove
         end
       end
-      docxml.xpath(ns("//image")).each { |f| svg_emf_double(f) }
+      imageconvert(docxml)
+    end
+
+    def imageconvert(docxml)
+      docxml.xpath(ns("//image")).each do |f|
+        eps2svg(f)
+        svg_emf_double(f)
+      end
     end
 
     def svg_extract(elem)
@@ -36,6 +43,16 @@ module IsoDoc
                   l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
 
+    def eps2svg(img)
+      return unless eps?(img["mimetype"])
+
+      img["mimetype"] = "image/svg+xml"
+      if src = eps_to_svg(img)
+        img["src"] = src
+        img.children = ""
+      end
+    end
+
     def svg_emf_double(img)
       if emf?(img["mimetype"])
         img = emf_encode(img)
@@ -46,13 +63,16 @@ module IsoDoc
     end
 
     def emf_encode(img)
-      img["mimetype"] = "image/svg+xml"
-      unless %r{^data:image}.match?(img["src"])
-        img["src"] = Metanorma::Utils::datauri(img["src"])
-      end
+      svg_prep(img)
       img.children = "<emf src='#{img['src']}'/>"
       img["src"] = ""
       img
+    end
+
+    def svg_prep(img)
+      img["mimetype"] = "image/svg+xml"
+      %r{^data:image}.match?(img["src"]) or
+        img["src"] = Metanorma::Utils::datauri(img["src"])
     end
 
     def emf_to_svg(img)
@@ -60,26 +80,42 @@ module IsoDoc
       Emf2svg.from_file(emf).sub(/<\?[^>]+>/, "")
     end
 
+    def eps_to_svg(node)
+      uri = eps_to_svg_uri(node)
+      ret = imgfile_suffix(uri, "svg")
+      File.exist?(ret) and return ret
+      inkscape_convert(uri, ret, "--export-plain-svg")
+    end
+
     def svg_to_emf(node)
       uri = svg_to_emf_uri(node)
-      ret = svg_to_emf_filename(uri)
+      ret = imgfile_suffix(uri, "emf")
       File.exist?(ret) and return ret
+      inkscape_convert(uri, ret, '--export-type="emf"')
+    end
+
+    def inkscape_convert(uri, file, option)
       exe = inkscape_installed? or raise "Inkscape missing in PATH, unable" \
-                                         "to convert EMF to SVG. Aborting."
+                                         "to convert image #{uri}. Aborting."
       uri = Metanorma::Utils::external_path uri
       exe = Metanorma::Utils::external_path exe
-      system(%(#{exe} --export-type="emf" #{uri})) and
-        return Metanorma::Utils::datauri(ret)
+      system(%(#{exe} #{option} #{uri})) and
+        return Metanorma::Utils::datauri(file)
 
-      raise %(Fail on #{exe} --export-type="emf" #{uri})
+      raise %(Fail on #{exe} #{option} #{uri})
     end
 
     def svg_to_emf_uri(node)
-      uri = if node&.elements&.first&.name == "svg"
-              a = Base64.strict_encode64(node.children.to_xml)
-              "data:image/svg+xml;base64,#{a}"
-            else node["src"]
-            end
+      uri = svg_to_emf_uri_convert(node)
+      cache_dataimage(uri)
+    end
+
+    def eps_to_svg_uri(node)
+      uri = eps_to_svg_uri_convert(node)
+      cache_dataimage(uri)
+    end
+
+    def cache_dataimage(uri)
       if %r{^data:}.match?(uri)
         uri = save_dataimage(uri)
         @tempfile_cache << uri
@@ -87,12 +123,25 @@ module IsoDoc
       uri
     end
 
-    def svg_to_emf_filename(uri)
-      "#{File.join(File.dirname(uri), File.basename(uri, '.*'))}.emf"
+    def svg_to_emf_uri_convert(node)
+      if node&.elements&.first&.name == "svg"
+        a = Base64.strict_encode64(node.children.to_xml)
+        "data:image/svg+xml;base64,#{a}"
+      else node["src"]
+      end
     end
 
-    def emf_to_svgfilename(uri)
-      "#{File.join(File.dirname(uri), File.basename(uri, '.*'))}.svg"
+    def eps_to_svg_uri_convert(node)
+      if node.text.strip.empty?
+        node["src"]
+      else
+        a = Base64.strict_encode64(node.children.to_xml)
+        "data:application/postscript;base64,#{a}"
+      end
+    end
+
+    def imgfile_suffix(uri, suffix)
+      "#{File.join(File.dirname(uri), File.basename(uri, '.*'))}.#{suffix}"
     end
 
     def inkscape_installed?
