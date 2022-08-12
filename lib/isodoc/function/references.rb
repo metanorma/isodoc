@@ -120,7 +120,7 @@ module IsoDoc
       def omit_docid_prefix(prefix)
         return true if prefix.nil? || prefix.empty?
 
-        %w(ISO IEC IEV ITU W3C csd metanorma repository metanorma-ordinal)
+        %w(ISO IEC IEV ITU W3C BIPM csd metanorma repository metanorma-ordinal)
           .include? prefix
       end
 
