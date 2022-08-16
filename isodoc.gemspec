@@ -34,12 +34,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency "asciimath"
   spec.add_dependency "html2doc", "~> 1.4.1"
   spec.add_dependency "htmlentities", "~> 4.3.4"
-  spec.add_dependency "isodoc-i18n", "~> 1.0.0"
+  spec.add_dependency "isodoc-i18n", "~> 1.0.6"
   spec.add_dependency "liquid", "~> 4"
   # spec.add_dependency "metanorma", ">= 1.2.0"
   spec.add_dependency "emf2svg"
   spec.add_dependency "mathml2asciimath"
-  spec.add_dependency "metanorma-utils"
 
   spec.add_dependency "relaton-cli"
   spec.add_dependency "relaton-render", "~> 0.4.0"
