@@ -28,10 +28,9 @@ module IsoDoc
     end
 
     def concept1_nonital(node, opts)
-      if opts[:ital] == "false"
-        r = node.at(ns(".//renderterm"))
-        r&.replace(r&.children)
-      end
+      opts[:ital] == "false" or return
+      r = node.at(ns(".//renderterm"))
+      r&.replace(r&.children)
     end
 
     def concept_render_init(node, defaults)
@@ -43,11 +42,11 @@ module IsoDoc
     end
 
     def concept1_linkmention(ref, renderterm, opts)
-      if opts[:linkmention] == "true" && !renderterm.nil? && !ref.nil?
-        ref2 = ref.clone
-        r2 = renderterm.clone
-        renderterm.replace(ref2).children = r2
-      end
+      return unless opts[:linkmention] == "true" && !renderterm.nil? && !ref.nil?
+
+      ref2 = ref.clone
+      r2 = renderterm.clone
+      renderterm.replace(ref2).children = r2
     end
 
     def concept1_ref(_node, ref, opts)
@@ -92,9 +91,7 @@ module IsoDoc
     end
 
     def designation(docxml)
-      docxml.xpath(ns("//term")).each do |t|
-        merge_second_preferred(t)
-      end
+      docxml.xpath(ns("//term")).each { |t| merge_second_preferred(t) }
       docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
         designation1(p)
       end
@@ -194,7 +191,6 @@ module IsoDoc
       end
     end
 
-    # introduce name element
     def termnote1(elem)
       lbl = l10n(@xrefs.anchor(elem["id"], :label) || "???")
       prefix_name(elem, "", lower2cap(lbl), "name")

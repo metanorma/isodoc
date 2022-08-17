@@ -45,7 +45,6 @@ module IsoDoc
       end
     end
 
-    # introduce name element
     def formula1(elem)
       lbl = @xrefs.anchor(elem["id"], :label, false)
       prefix_name(elem, "", lbl, "name")
@@ -73,7 +72,6 @@ module IsoDoc
       end
     end
 
-    # introduce name element
     def note1(elem)
       return if elem.parent.name == "bibitem" || elem["notag"] == "true"
 
@@ -116,7 +114,6 @@ module IsoDoc
       end
     end
 
-    # introduce name element
     def recommendation1(elem, type)
       n = @xrefs.anchor(elem["id"], :label, false)
       lbl = (n.nil? ? type : l10n("#{type} #{n}"))
@@ -174,6 +171,21 @@ module IsoDoc
 
     def ol1(elem)
       elem["type"] ||= ol_depth(elem).to_s
+    end
+
+    def requirement_render_preprocessing(docxml); end
+
+    def requirement_render(docxml)
+      requirement_render_preprocessing(docxml)
+      docxml.xpath(ns("//requirement | //recommendation | //permission"))
+        .each do |r|
+        requirement_render1(r)
+      end
+    end
+
+    def requirement_render1(node)
+      node.replace(@reqt_models.model(node["model"].to_sym)
+        .requirement_render1(node))
     end
   end
 end

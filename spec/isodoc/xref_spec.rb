@@ -567,11 +567,11 @@ RSpec.describe IsoDoc do
           </p>
           </foreword>
           <introduction id="intro">
-          <requirement id="N1">
+          <requirement id="N1" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
         <clause id="xyz"><title>Preparatory</title>
-          <requirement id="N2" unnumbered="true">
+          <requirement id="N2" unnumbered="true" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
       </clause>
@@ -579,7 +579,7 @@ RSpec.describe IsoDoc do
           </preface>
           <sections>
           <clause id="scope" type="scope"><title>Scope</title>
-          <requirement id="N">
+          <requirement id="N" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
         <p><xref target="N"/></p>
@@ -587,10 +587,10 @@ RSpec.describe IsoDoc do
           <terms id="terms"/>
           <clause id="widgets"><title>Widgets</title>
           <clause id="widgets1">
-          <requirement id="note1">
+          <requirement id="note1" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
-          <requirement id="note2">
+          <requirement id="note2" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
         <p>    <xref target="note1"/> <xref target="note2"/> </p>
@@ -599,15 +599,15 @@ RSpec.describe IsoDoc do
           </sections>
           <annex id="annex1">
           <clause id="annex1a">
-          <requirement id="AN">
+          <requirement id="AN" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
           </clause>
           <clause id="annex1b">
-          <requirement id="Anote1" unnumbered="true">
+          <requirement id="Anote1" unnumbered="true" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
-          <requirement id="Anote2">
+          <requirement id="Anote2" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
           </clause>
@@ -651,11 +651,11 @@ RSpec.describe IsoDoc do
           </p>
           </foreword>
           <introduction id="intro">
-          <recommendation id="N1">
+          <recommendation id="N1" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </recommendation>
         <clause id="xyz"><title>Preparatory</title>
-          <recommendation id="N2" unnumbered="true">
+          <recommendation id="N2" unnumbered="true" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </recommendation>
       </clause>
@@ -663,7 +663,7 @@ RSpec.describe IsoDoc do
           </preface>
           <sections>
           <clause id="scope" type="scope"><title>Scope</title>
-          <recommendation id="N">
+          <recommendation id="N" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </recommendation>
         <p><xref target="N"/></p>
@@ -671,10 +671,10 @@ RSpec.describe IsoDoc do
           <terms id="terms"/>
           <clause id="widgets"><title>Widgets</title>
           <clause id="widgets1">
-          <recommendation id="note1">
+          <recommendation id="note1" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </recommendation>
-          <recommendation id="note2">
+          <recommendation id="note2" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </recommendation>
         <p>    <xref target="note1"/> <xref target="note2"/> </p>
@@ -683,15 +683,15 @@ RSpec.describe IsoDoc do
           </sections>
           <annex id="annex1">
           <clause id="annex1a">
-          <recommendation id="AN">
+          <recommendation id="AN" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </recommendation>
           </clause>
           <clause id="annex1b">
-          <recommendation id="Anote1" unnumbered="true">
+          <recommendation id="Anote1" unnumbered="true" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </recommendation>
-          <recommendation id="Anote2">
+          <recommendation id="Anote2" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </recommendation>
           </clause>
@@ -735,11 +735,11 @@ RSpec.describe IsoDoc do
           </p>
           </foreword>
           <introduction id="intro">
-          <permission id="N1">
+          <permission id="N1" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </permission>
         <clause id="xyz"><title>Preparatory</title>
-          <permission id="N2" unnumbered="true">
+          <permission id="N2" unnumbered="true" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </permission>
       </clause>
@@ -747,7 +747,7 @@ RSpec.describe IsoDoc do
           </preface>
           <sections>
           <clause id="scope" type="scope"><title>Scope</title>
-          <permission id="N">
+          <permission id="N" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </permission>
         <p><xref target="N"/></p>
@@ -755,10 +755,10 @@ RSpec.describe IsoDoc do
           <terms id="terms"/>
           <clause id="widgets"><title>Widgets</title>
           <clause id="widgets1">
-          <permission id="note1">
+          <permission id="note1" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </permission>
-          <permission id="note2">
+          <permission id="note2" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </permission>
         <p>    <xref target="note1"/> <xref target="note2"/> </p>
@@ -767,15 +767,15 @@ RSpec.describe IsoDoc do
           </sections>
           <annex id="annex1">
           <clause id="annex1a">
-          <permission id="AN">
+          <permission id="AN" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </permission>
           </clause>
           <clause id="annex1b">
-          <permission id="Anote1" unnumbered="true">
+          <permission id="Anote1" unnumbered="true" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </permission>
-          <permission id="Anote2">
+          <permission id="Anote2" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </permission>
           </clause>
@@ -823,27 +823,27 @@ RSpec.describe IsoDoc do
       </preface>
       <sections>
       <clause id="xyz"><title>Preparatory</title>
-      <permission id="N1">
-      <permission id="N2">
-      <permission id="N">
+      <permission id="N1" model="default">
+      <permission id="N2" model="default">
+      <permission id="N" model="default">
       </permission>
       </permission>
-      <requirement id="Q1">
+      <requirement id="Q1" model="default">
       </requirement>
-      <recommendation id="R1">
+      <recommendation id="R1" model="default">
       </recommendation>
       </permission>
       </clause>
       </sections>
       <annex id="Axyz"><title>Preparatory</title>
-      <permission id="AN1">
-      <permission id="AN2">
-      <permission id="AN">
+      <permission id="AN1" model="default">
+      <permission id="AN2" model="default">
+      <permission id="AN" model="default">
       </permission>
       </permission>
-      <requirement id="AQ1">
+      <requirement id="AQ1" model="default">
       </requirement>
-      <recommendation id="AR1">
+      <recommendation id="AR1" model="default">
       </recommendation>
       </permission>
       </annex>

@@ -688,15 +688,13 @@ RSpec.describe IsoDoc do
              <clause id="O" inline-header="false" obligation="normative">
                <title>Clause 4.2</title>
                <recommendation id="AC" type="abstracttest">
-               <name>Recommendation Verification 1</name>
-        <label>/ogc/recommendation/wfs/3</label>
+        <name>/ogc/recommendation/wfs/3</name>
         </recommendation>
                <recommendation id="AA">
-        <label>/ogc/recommendation/wfs/2</label>
+        <name>/ogc/recommendation/wfs/2</name>
         </recommendation>
                <recommendation id="AB" type="abstracttest">
-               <name>Recommendation Verification 2</name>
-        <label>/ogc/recommendation/wfs/3</label>
+        <name>/ogc/recommendation/wfs/3</name>
         </recommendation>
         <figure id="BA"><name>First figure</name></figure>
         <table id="CA"><name>First table</name></table>
@@ -1058,7 +1056,7 @@ RSpec.describe IsoDoc do
             <span class='MsoHyperlink'>
               <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                 <a href='#_Toc'>
-                  : /ogc/recommendation/wfs/2
+                  /ogc/recommendation/wfs/2
                   <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                     <span style='mso-tab-count:1 dotted'>. </span>
                   </span>
@@ -1082,7 +1080,7 @@ RSpec.describe IsoDoc do
             <span class='MsoHyperlink'>
               <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                 <a href='#_Toc'>
-                  Recommendation Verification 1: /ogc/recommendation/wfs/3
+                  /ogc/recommendation/wfs/3
                   <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                     <span style='mso-tab-count:1 dotted'>. </span>
                   </span>
@@ -1106,7 +1104,7 @@ RSpec.describe IsoDoc do
             <span class='MsoHyperlink'>
               <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                 <a href='#_Toc'>
-                  Recommendation Verification 2: /ogc/recommendation/wfs/3
+                  /ogc/recommendation/wfs/3
                   <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                     <span style='mso-tab-count:1 dotted'>. </span>
                   </span>

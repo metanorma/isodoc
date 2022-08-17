@@ -5,7 +5,9 @@ require "fileutils"
 require "tempfile"
 require_relative "i18n"
 require_relative "css"
+require_relative "init"
 require "securerandom"
+require "mn-requirements"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
@@ -45,22 +47,28 @@ module IsoDoc
     # tocrecommendations: add ToC for rcommendations
     # fonts: fontist fonts to install
     # fontlicenseagreement: fontist font license agreement
-    def initialize(options)
-      @libdir ||= File.dirname(__FILE__) # rubocop:disable Lint/DisjunctiveAssignmentInConstructor
+    def initialize(options) # rubocop:disable Lint/MissingSuper
+      @options = options_preprocess(options)
+      init_stylesheets(@options)
+      init_covers(@options)
+      init_toc(@options)
+      init_fonts(@options)
+      init_processing
+      init_locations(@options)
+      init_i18n(@options)
+      init_rendering(@options)
+    end
+
+    def options_preprocess(options)
       options.merge!(default_fonts(options)) do |_, old, new|
         old || new
       end.merge!(default_file_locations(options)) do |_, old, new|
         old || new
       end
-      @options = options
-      @files_to_delete = []
-      @tempfile_cache = []
-      @sourcefilename = options[:sourcefilename]
-      init_stylesheets(options)
-      init_covers(options)
-      init_toc(options)
-      init_fonts(options)
-      @i18nyaml = options[:i18nyaml]
+      options
+    end
+
+    def init_rendering(options)
       @ulstyle = options[:ulstyle]
       @olstyle = options[:olstyle]
       @datauriimage = options[:datauriimage]
@@ -69,6 +77,26 @@ module IsoDoc
       @sectionsplit = options[:sectionsplit] == "true"
       @suppressasciimathdup = options[:suppressasciimathdup] == "true"
       @bare = options[:bare]
+      @aligncrosselements = options[:aligncrosselements]
+    end
+
+    def init_i18n(options)
+      @i18nyaml = options[:i18nyaml]
+      @lang = options[:language] || "en"
+      @script = options[:script] || "Latn"
+    end
+
+    def init_locations(options)
+      @libdir ||= File.dirname(__FILE__)
+      @baseassetpath = options[:baseassetpath]
+      @tmpimagedir_suffix = tmpimagedir_suffix
+      @tmpfilesdir_suffix = tmpfilesdir_suffix
+      @sourcefilename = options[:sourcefilename]
+      @files_to_delete = []
+      @tempfile_cache = []
+    end
+
+    def init_processing
       @termdomain = ""
       @termexample = false
       @note = false
@@ -83,16 +111,10 @@ module IsoDoc
       @c = HTMLEntities.new
       @openmathdelim = "`"
       @closemathdelim = "`"
-      @lang = options[:language] || "en"
-      @script = options[:script] || "Latn"
       @maxwidth = 1200
       @maxheight = 800
       @bookmarks_allocated = { "X" => true }
       @fn_bookmarks = {}
-      @baseassetpath = options[:baseassetpath]
-      @aligncrosselements = options[:aligncrosselements]
-      @tmpimagedir_suffix = tmpimagedir_suffix
-      @tmpfilesdir_suffix = tmpfilesdir_suffix
     end
 
     def init_fonts(options)
@@ -171,23 +193,6 @@ module IsoDoc
       end
     end
 
-    def metadata_init(lang, script, i18n)
-      @meta = Metadata.new(lang, script, i18n)
-    end
-
-    def xref_init(lang, script, _klass, i18n, options)
-      html = HtmlConvert.new(language: @lang, script: @script)
-      @xrefs = Xref.new(lang, script, html, i18n, options)
-    end
-
-    def i18n_init(lang, script, i18nyaml = nil)
-      @i18n = I18n.new(lang, script, i18nyaml: i18nyaml || @i18nyaml)
-    end
-
-    def l10n(expr, lang = @lang, script = @script)
-      @i18n.l10n(expr, lang, script)
-    end
-
     def convert_init(file, input_filename, debug)
       docxml = Nokogiri::XML(file) { |config| config.huge }
       filename, dir = init_file(input_filename, debug)
@@ -219,10 +224,8 @@ module IsoDoc
     end
 
     def target_pdf(node)
-      if /#/.match?(node["target"])
-        node["target"].sub(/#/, ".pdf#")
-      else
-        "##{node['target']}"
+      if /#/.match?(node["target"]) then node["target"].sub(/#/, ".pdf#")
+      else "##{node['target']}"
       end
     end
   end
