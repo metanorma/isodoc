@@ -24,6 +24,12 @@ module IsoDoc
       @i18n = i18n
       @labels = @i18n.get
       @klass.i18n = @i18n
+      @reqt_models = Metanorma::Requirements
+        .new({
+               default: "default", lang: lang, script: script,
+               labels: @i18n.get
+             })
+      @i18n
       @parse_settings = {}
     end
 

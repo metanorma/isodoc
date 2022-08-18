@@ -16,6 +16,7 @@ module IsoDoc
                default: "default", lang: lang, script: script,
                labels: @i18n.get
              })
+      @i18n
     end
 
     def l10n(expr, lang = @lang, script = @script)

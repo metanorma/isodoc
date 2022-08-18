@@ -1,5 +1,13 @@
 require_relative "xref_gen_seq"
 
+module Enumerable
+  def noblank
+    reject do |n|
+      n["id"].nil? || n["id"].empty?
+    end
+  end
+end
+
 module IsoDoc
   module XrefGen
     module Blocks
@@ -9,6 +17,10 @@ module IsoDoc
 
       def blank?(text)
         text.nil? || text.empty?
+      end
+
+      def noblank(xpath)
+        xpath.reject { |n| blank?(n["id"]) }
       end
 
       def amend_preprocess(xmldoc)
@@ -45,7 +57,7 @@ module IsoDoc
       def termnote_anchor_names(docxml)
         docxml.xpath(ns("//*[termnote]")).each do |t|
           c = Counter.new
-          t.xpath(ns("./termnote")).reject { |n| blank?(n["id"]) }.each do |n|
+          t.xpath(ns("./termnote")).noblank.each do |n|
             c.increment(n)
             @anchors[n["id"]] =
               { label: termnote_label(c.print), type: "termnote",
@@ -60,7 +72,7 @@ module IsoDoc
         docxml.xpath(ns("//*[termexample]")).each do |t|
           examples = t.xpath(ns("./termexample"))
           c = Counter.new
-          examples.reject { |n| blank?(n["id"]) }.each do |n|
+          examples.noblank.each do |n|
             c.increment(n)
             idx = increment_label(examples, n, c, increment: false)
             @anchors[n["id"]] = anchor_struct(idx, n, @labels["example_xref"],
@@ -135,7 +147,7 @@ module IsoDoc
           notes = s.xpath(ns(".//ol")) - s.xpath(ns(".//clause//ol")) -
             s.xpath(ns(".//appendix//ol")) - s.xpath(ns(".//ol//ol"))
           c = Counter.new
-          notes.reject { |n| blank?(n["id"]) }.each do |n|
+          notes.noblank.each do |n|
             @anchors[n["id"]] = anchor_struct(increment_label(notes, n, c), n,
                                               @labels["list"], "list", false)
             list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
@@ -169,7 +181,7 @@ module IsoDoc
       end
 
       def deflist_anchor_names1(notes, counter)
-        notes.reject { |n| blank?(n["id"]) }.each do |n|
+        notes.noblank.each do |n|
           @anchors[n["id"]] =
             anchor_struct(increment_label(notes, n, counter), n,
                           @labels["deflist"], "deflist", false)
@@ -197,7 +209,7 @@ module IsoDoc
       end
 
       def bookmark_anchor_names(xml)
-        xml.xpath(ns(".//bookmark")).reject { |n| blank?(n["id"]) }.each do |n|
+        xml.xpath(ns(".//bookmark")).noblank.each do |n|
           parent = nil
           n.ancestors.each do |a|
             next unless a["id"] && parent = @anchors.dig(a["id"], :xref)

@@ -184,7 +184,7 @@ module IsoDoc
     end
 
     def requirement_render1(node)
-      node.replace(@reqt_models.model(node["model"].to_sym)
+      node.replace(@reqt_models.model(node["model"])
         .requirement_render1(node))
     end
   end
