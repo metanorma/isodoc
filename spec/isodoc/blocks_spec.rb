@@ -1792,7 +1792,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <permission id="_"   keep-with-next="true" keep-lines-together="true" model="default">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
         <subject>user</subject>
@@ -1930,7 +1930,7 @@ RSpec.describe IsoDoc do
               </body>
             </html>
     OUTPUT
-    expect((IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -1942,7 +1942,7 @@ RSpec.describe IsoDoc do
           <preface><foreword>
           <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true" model="default">
         <title>A New Requirement</title>
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <subject>user</subject>
         <description>
@@ -2046,165 +2046,10 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect((IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
   .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
   .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
-  end
-
-  it "processes requirements in French" do
-    input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <bibdata>
-          <language>fr</language>
-          <script>Latn</script>
-          </bibdata>
-          <preface><foreword>
-          <requirement id="A" unnumbered="true" model="default">
-        <title>A New Requirement</title>
-        <label>/ogc/recommendation/wfs/2</label>
-        <inherit>/ss/584/2015/level/1</inherit>
-        <subject>user</subject>
-        <description>
-          <p id="_">I recommend <em>this</em>.</p>
-        </description>
-        <specification exclude="true" type="tabular">
-          <p id="_">This is the object of the recommendation:</p>
-          <table id="_">
-            <tbody>
-              <tr>
-                <td style="text-align:left;">Object</td>
-                <td style="text-align:left;">Value</td>
-              </tr>
-              <tr>
-                <td style="text-align:left;">Mission</td>
-                <td style="text-align:left;">Accomplished</td>
-              </tr>
-            </tbody>
-          </table>
-        </specification>
-        <description>
-          <p id="_">As for the measurement targets,</p>
-        </description>
-        <measurement-target exclude="false">
-          <p id="_">The measurement target shall be measured as:</p>
-          <formula id="B">
-            <stem type="AsciiMath">r/1 = 0</stem>
-          </formula>
-        </measurement-target>
-        <verification exclude="false">
-          <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="_">CoreRoot(success): HttpResponse
-            if (success)
-            recommendation(label: success-response)
-            end
-          </sourcecode>
-        </verification>
-        <import exclude="true">
-          <sourcecode id="_">success-response()</sourcecode>
-        </import>
-        <component exclude='false' class='component1'>
-                  <p id='_'>Hello</p>
-                </component>
-      </requirement>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
-
-    presxml = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata>
-          <language current="true">fr</language>
-          <script current="true">Latn</script>
-          </bibdata>
-          <preface><foreword displayorder="1">
-          <requirement id="A" unnumbered="true" model="default"><name>Exigence:<br/>/ogc/recommendation/wfs/2. A New Requirement</name><p><em>Sujet: user</em><br/>
-      <em>H&#xE9;rite: /ss/584/2015/level/1</em></p><div type="requirement-description">
-          <p id="_">I recommend <em>this</em>.</p>
-        </div><div type="requirement-description">
-          <p id="_">As for the measurement targets,</p>
-        </div><div exclude="false" type="requirement-measurement-target">
-          <p id="_">The measurement target shall be measured as:</p>
-          <formula id="B"><name>1</name>
-            <stem type="AsciiMath">r/1 = 0</stem>
-          </formula>
-        </div><div exclude="false" type="requirement-verification">
-          <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="_">CoreRoot(success): HttpResponse
-        if (success)
-        recommendation(label: success-response)
-       end
-       </sourcecode>
-        </div><div exclude="false" class="component1" type="requirement-component1">
-                  <p id="_">Hello</p>
-                </div></requirement>
-          </foreword></preface>
-          </iso-standard>
-    OUTPUT
-
-    html = <<~OUTPUT
-      #{HTML_HDR.gsub(/"en"/, '"fr"')}
-                       <br/>
-                       <div>
-                         <h1 class='ForewordTitle'>Avant-propos</h1>
-                         <div class='require' id="A">
-                           <p class='RecommendationTitle'>
-                             Exigence:
-                             <br/>
-                             /ogc/recommendation/wfs/2. A New Requirement
-                           </p>
-                           <p>
-                             <i>Sujet: user</i><br/>
-                               <i>H&#233;rite: /ss/584/2015/level/1</i>
-                           </p>
-                           <div class='requirement-description'>
-                             <p id='_'>
-                               I recommend
-                               <i>this</i>
-                               .
-                             </p>
-                           </div>
-                           <div class='requirement-description'>
-                             <p id='_'>As for the measurement targets,</p>
-                           </div>
-                           <div class='requirement-measurement-target'>
-                             <p id='_'>The measurement target shall be measured as:</p>
-                             <div id='B'><div class='formula'>
-                               <p>
-                                 <span class='stem'>(#(r/1 = 0)#)</span>
-                                 &#160; (1)
-                               </p>
-                               </div>
-                             </div>
-                           </div>
-                           <div class='requirement-verification'>
-                             <p id='_'>The following code will be run for verification:</p>
-                             <pre id='_' class='prettyprint '>
-                               CoreRoot(success): HttpResponse
-                               <br/>
-                               &#160; if (success)
-                               <br/>
-                               &#160; recommendation(label: success-response)
-                               <br/>
-                               &#160;end
-                               <br/>
-                               &#160;
-                             </pre>
-                           </div>
-                          <div class='requirement-component1'> <p id='_'>Hello</p> </div>
-                         </div>
-                       </div>
-                       <p class='zzSTDTitle1'/>
-                     </div>
-                   </body>
-                 </html>
-    OUTPUT
-    expect(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
 
   it "processes recommendation" do
@@ -2212,7 +2057,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <recommendation id="_" obligation="shall,could"   keep-with-next="true" keep-lines-together="true" model="default">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <classification><tag>type</tag><value>text</value></classification>
         <classification><tag>language</tag><value>BASIC</value></classification>
@@ -2321,7 +2166,7 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect((IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))

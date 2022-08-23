@@ -115,9 +115,9 @@ module IsoDoc
     end
 
     def recommendation1(elem, type)
-      n = @xrefs.anchor(elem["id"], :label, false)
-      lbl = (n.nil? ? type : l10n("#{type} #{n}"))
-      prefix_name(elem, "", lbl, "name")
+      lbl = @reqt_models.model(elem["model"])
+        .recommendation_label(elem, type, xrefs)
+      prefix_name(elem, "", l10n(lbl), "name")
     end
 
     def table(docxml)
@@ -175,12 +175,17 @@ module IsoDoc
 
     def requirement_render_preprocessing(docxml); end
 
+    REQS = %w(requirement recommendation permission).freeze
+
     def requirement_render(docxml)
       requirement_render_preprocessing(docxml)
-      docxml.xpath(ns("//requirement | //recommendation | //permission"))
-        .each do |r|
-        requirement_render1(r)
+      REQS.each do |x|
+        REQS.each do |y|
+          docxml.xpath(ns("//#{x}//#{y}")).each { |r| requirement_render1(r) }
+        end
       end
+      docxml.xpath(ns("//requirement | //recommendation | //permission"))
+        .each { |r| requirement_render1(r) }
     end
 
     def requirement_render1(node)

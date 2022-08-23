@@ -55,6 +55,14 @@ table: 表
 requirement: 要求
 recommendation: 建议
 permission: 容許
+recommendationtest: 推荐测试
+requirementtest: 需求测试
+permissiontest: 权限测试
+recommendationclass: 推荐类
+requirementclass: 需求类
+permissionclass: 权限类
+abstracttest: 抽象测试
+conformanceclass: 一致性等级
 key: 说明
 example: 示例
 example_xref: 示例

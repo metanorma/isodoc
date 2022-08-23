@@ -26,13 +26,17 @@ module IsoDoc
         clause.xpath(ns(".//figure | .//sourcecode[not(ancestor::example)]"))
           .noblank.each do |t|
           j = subfigure_increment(j, c, t)
-          label = c.print
-          label &&= label + (j.zero? ? "" : "-#{j}")
-
-          @anchors[t["id"]] = anchor_struct(
-            label, nil, @labels["figure"], "figure", t["unnumbered"]
-          )
+          sequential_figure_body(j, c, t)
         end
+      end
+
+      def sequential_figure_body(subfignum, counter, block)
+        label = counter.print
+        label &&= label + (subfignum.zero? ? "" : "-#{subfignum}")
+
+        @anchors[block["id"]] = anchor_struct(
+          label, nil, @labels["figure"], "figure", block["unnumbered"]
+        )
       end
 
       def sequential_table_names(clause)
@@ -66,6 +70,10 @@ module IsoDoc
         .//permission#{FIRST_LVL_REQ_RULE} | .//requirement#{FIRST_LVL_REQ_RULE} | .//recommendation#{FIRST_LVL_REQ_RULE}
       XPATH
 
+      REQ_CHILDREN = <<~XPATH.freeze
+        ./permission | ./requirement | ./recommendation
+      XPATH
+
       def sequential_permission_names(clause)
         c = ReqCounter.new
         clause.xpath(ns(FIRST_LVL_REQ)).noblank.each do |t|
@@ -73,25 +81,31 @@ module IsoDoc
           klass, label = reqt2class_label(t, m)
           id = c.increment(label, t).print
           sequential_permission_body(id, t, label, klass, m)
+          sequential_permission_children(t, id)
         end
       end
 
       def sequential_permission_children(block, lbl)
         c = ReqCounter.new
-        block.xpath(ns("./permission | ./requirement | ./recommendation"))
-          .noblank.each do |t|
+        block.xpath(ns(REQ_CHILDREN)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
           id = "#{lbl}#{hierfigsep}#{c.increment(label, t).print}"
           sequential_permission_body(id, t, label, klass, m)
+          sequential_permission_children(t, id)
         end
       end
 
       def sequential_permission_body(id, block, label, klass, model)
-        @anchors[block["id"]] =
-          anchor_struct(id, block, label, klass, block["unnumbered"])
-        model.permission_parts(block, label, klass)
-        sequential_permission_children(block, id)
+        @anchors[block["id"]] = model.postprocess_anchor_struct(
+          block, anchor_struct(id, block,
+                               label, klass, block["unnumbered"])
+        )
+
+        model.permission_parts(block, id, label, klass).each do |n|
+          @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
+                                           n[:klass], false)
+        end
       end
 
       def reqt2class_label(block, model)
@@ -121,17 +135,20 @@ module IsoDoc
         c = Counter.new
         j = 0
         clause.xpath(ns(".//figure |  .//sourcecode[not(ancestor::example)]"))
-          .each do |t|
+          .noblank.each do |t|
           # next if labelled_ancestor(t) && t.ancestors("figure").empty?
 
           j = subfigure_increment(j, c, t)
-          label = "#{num}#{hiersep}#{c.print}" +
-            (j.zero? ? "" : "#{hierfigsep}#{j}")
-          next if t["id"].nil? || t["id"].empty?
-
-          @anchors[t["id"]] = anchor_struct(label, nil, @labels["figure"],
-                                            "figure", t["unnumbered"])
+          hierarchical_figure_body(num, j, c, t)
         end
+      end
+
+      def hierarchical_figure_body(num, subfignum, counter, block)
+        label = "#{num}#{hiersep}#{counter.print}" +
+          (subfignum.zero? ? "" : "#{hierfigsep}#{subfignum}")
+
+        @anchors[block["id"]] = anchor_struct(label, nil, @labels["figure"],
+                                              "figure", block["unnumbered"])
       end
 
       def hierarchical_table_names(clause, num)
@@ -167,28 +184,34 @@ module IsoDoc
         c = ReqCounter.new
         clause.xpath(ns(FIRST_LVL_REQ)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
-          klass, label = reqt2class_nested_label(t, m)
+          klass, label = reqt2class_label(t, m)
           id = "#{num}#{hiersep}#{c.increment(label, t).print}"
           hierarchical_permission_body(id, t, label, klass, m)
+          hierarchical_permission_children(t, id)
         end
       end
 
       def hierarchical_permission_children(block, lbl)
         c = ReqCounter.new
-        block.xpath(ns("./permission | ./requirement | ./recommendation"))
-          .noblank.each do |t|
+        block.xpath(ns(REQ_CHILDREN)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
           id = "#{lbl}#{hierfigsep}#{c.increment(label, t).print}"
           hierarchical_permission_body(id, t, label, klass, m)
+          hierarchical_permission_children(t, id)
         end
       end
 
       def hierarchical_permission_body(id, block, label, klass, model)
-        @anchors[block["id"]] =
-          anchor_struct(id, nil, label, klass, block["unnumbered"])
-        model.permission_parts(block, label, klass)
-        hierarchical_permission_children(block, id)
+        @anchors[block["id"]] = model.postprocess_anchor_struct(
+          block, anchor_struct(id, nil,
+                               label, klass, block["unnumbered"])
+        )
+
+        model.permission_parts(block, id, label, klass).each do |n|
+          @anchors[n[:id]] = anchor_struct(n[:number], nil, n[:label],
+                                           n[:klass], false)
+        end
       end
     end
   end

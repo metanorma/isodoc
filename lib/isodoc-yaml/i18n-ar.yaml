@@ -54,6 +54,14 @@ table: جدول
 requirement: مطلب
 recommendation: توصية
 permission: إذن
+recommendationtest: اختبار التوصية
+requirementtest: اختبار المتطلبات
+permissiontest: اختبار الإذن
+recommendationclass: فئة التوصيات
+requirementclass: فئة المتطلبات
+permissionclass: فئة الأذونات
+abstracttest: اختبار تجريدي
+conformanceclass: فئة المطابقة
 key: مفتاح
 example: مثال
 example_xref: مثال

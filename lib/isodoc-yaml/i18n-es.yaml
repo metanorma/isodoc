@@ -60,6 +60,14 @@ table: Tabla
 requirement: Requerimiento
 recommendation: Recomendación
 permission: Permiso
+recommendationtest: Prueba de recomendación
+requirementtest: Prueba de requerimiento
+permissiontest: Prueba de permiso
+recommendationclass: Clase de recomendaciones
+requirementclass: Clase de requerimientos
+permissionclass: Clase de permisos
+abstracttest: Prueba abstracta
+conformanceclass: Clase de conformidad
 key: Clave
 example: EJEMPLO
 example_xref: Ejemplo

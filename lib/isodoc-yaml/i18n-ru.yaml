@@ -65,6 +65,14 @@ table: Таблица
 requirement: Требование
 recommendation: Рекомендация
 permission: Разрешение
+recommendationtest: Проверка рекомендации
+requirementtest: Проверка требований
+permissiontest: Проверка разрешения
+recommendationclass: Класс рекомендаций
+requirementclass: Класс требований
+permissionclass: Класс разрешений
+abstracttest: Абстрактная проверка
+conformanceclass: Класс соответствия
 key: Условные обозначения
 example: ПРИМЕР
 example_xref: Пример

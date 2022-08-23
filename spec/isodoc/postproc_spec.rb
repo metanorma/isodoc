@@ -687,13 +687,13 @@ RSpec.describe IsoDoc do
              </clause>
              <clause id="O" inline-header="false" obligation="normative">
                <title>Clause 4.2</title>
-               <recommendation id="AC" type="abstracttest">
+               <recommendation id="AC" type="abstracttest" model="default">
         <name>/ogc/recommendation/wfs/3</name>
         </recommendation>
-               <recommendation id="AA">
+               <recommendation id="AA" model="default">
         <name>/ogc/recommendation/wfs/2</name>
         </recommendation>
-               <recommendation id="AB" type="abstracttest">
+               <recommendation id="AB" type="abstracttest" model="default">
         <name>/ogc/recommendation/wfs/3</name>
         </recommendation>
         <figure id="BA"><name>First figure</name></figure>

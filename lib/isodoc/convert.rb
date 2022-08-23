@@ -197,12 +197,21 @@ module IsoDoc
       docxml = Nokogiri::XML(file) { |config| config.huge }
       filename, dir = init_file(input_filename, debug)
       docxml.root.default_namespace = ""
-      lang = docxml&.at(ns("//bibdata/language"))&.text and @lang = lang
-      script = docxml&.at(ns("//bibdata/script"))&.text and @script = script
-      i18n_init(@lang, @script)
+      convert_i18n_init(docxml)
       metadata_init(@lang, @script, @i18n)
       xref_init(@lang, @script, self, @i18n, {})
       [docxml, filename, dir]
+    end
+
+    def convert_i18n_init(docxml)
+      lang = docxml&.at(ns("//bibdata/language"))&.text and @lang = lang
+      script = docxml&.at(ns("//bibdata/script"))&.text and @script = script
+      i18n_init(@lang, @script)
+      @reqt_models = Metanorma::Requirements
+        .new({
+               default: "default", lang: lang, script: script,
+               labels: @i18n.get
+             })
     end
 
     def convert(input_filename, file = nil, debug = false,
