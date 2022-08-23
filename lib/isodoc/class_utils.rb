@@ -13,10 +13,7 @@ module IsoDoc
     end
 
     def ns(xpath)
-      xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1")
-        .gsub(%r{::([a-zA-z])}, "::xmlns:\\1")
-        .gsub(%r{\[([a-zA-z][a-z0-9A-Z@/-]* ?=)}, "[xmlns:\\1")
-        .gsub(%r{\[([a-zA-z][a-z0-9A-Z@/-]*[/\[\]])}, "[xmlns:\\1")
+      Metanorma::Utils::ns(xpath)
     end
 
     def liquid(doc)

@@ -2,6 +2,18 @@ require "roman-numerals"
 
 module IsoDoc
   module XrefGen
+    class ReqCounter
+      # one counter for each requirements label
+      def initialize
+        @counters = {}
+      end
+
+      def increment(label, node)
+        @counters[label] ||= Counter.new
+        @counters[label].increment(node)
+      end
+    end
+
     class Counter
       def initialize(num = 0, opts = { numerals: :arabic })
         @unnumbered = false

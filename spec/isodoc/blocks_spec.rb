@@ -1791,8 +1791,8 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
-          <permission id="_"   keep-with-next="true" keep-lines-together="true">
-        <label>/ogc/recommendation/wfs/2</label>
+          <permission id="_"   keep-with-next="true" keep-lines-together="true" model="default">
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
         <subject>user</subject>
@@ -1848,76 +1848,38 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
-          <preface><foreword displayorder='1'>
-          <permission id="_"   keep-with-next="true" keep-lines-together="true">
-          <name>Permission 1</name>
-        <label>/ogc/recommendation/wfs/2</label>
-        <inherit>/ss/584/2015/level/1</inherit>
-        <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
-        <subject>user</subject>
-        <subject>non-user</subject>
-        <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
-        <description>
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface><foreword displayorder="1">
+          <permission id="_" keep-with-next="true" keep-lines-together="true" model="default"><name>Permission 1:<br/>/ogc/recommendation/wfs/2</name><p><em>Subject: user</em><br/>
+      <em>Subject: non-user</em><br/>
+      <em>Inherits: /ss/584/2015/level/1</em><br/>
+      <em>Inherits: <eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></em><br/>
+      <em>Control-class: Technical</em><br/>
+      <em>Priority: P0</em><br/>
+      <em>Family: System and Communications Protection</em><br/>
+      <em>Family: System and Communications Protocols</em></p><div type="requirement-description">
           <p id="_">I recommend <em>this</em>.</p>
-        </description>
-        <specification exclude="true" type="tabular">
-          <p id="_">This is the object of the recommendation:</p>
-          <table id="_">
-            <tbody>
-              <tr>
-                <td style="text-align:left;">Object</td>
-                <td style="text-align:left;">Value</td>
-              </tr>
-              <tr>
-                <td style="text-align:left;">Mission</td>
-                <td style="text-align:left;">Accomplished</td>
-              </tr>
-            </tbody>
-          </table>
-        </specification>
-        <description>
+        </div><div type="requirement-description">
           <p id="_">As for the measurement targets,</p>
-        </description>
-        <measurement-target exclude="false">
+        </div><div exclude="false" type="requirement-measurement-target">
           <p id="_">The measurement target shall be measured as:</p>
-          <formula id="_">
-          <name>1</name>
+          <formula id="_"><name>1</name>
             <stem type="AsciiMath">r/1 = 0</stem>
           </formula>
-        </measurement-target>
-        <verification exclude="false">
+        </div><div exclude="false" type="requirement-verification">
           <p id="_">The following code will be run for verification:</p>
           <sourcecode id="_">CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
           </sourcecode>
-        </verification>
-        <import exclude="true">
-          <sourcecode id="_">success-response()</sourcecode>
-        </import>
-        <component exclude='false' class='component1'>
-                  <p id='_'>Hello</p>
-                </component>
-      </permission>
+        </div><div exclude="false" class="component1" type="requirement-component1">
+                  <p id="_">Hello</p>
+                </div></permission>
           </foreword></preface>
-          <bibliography><references id="_bibliography" obligation="informative" normative="false"  displayorder='2'>
-      <title depth='1'>Bibliography</title>
-      <bibitem id="rfc2616" type="standard">
-                     <formattedref>
-                 R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. 
-                 <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>
-                 . In: RFC. June 1999. Fremont, CA.
-                 <link target='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</link>.
-               </formattedref>
-               <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
-               <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
-               <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
-               <docidentifier type='IETF'>IETF RFC 2616</docidentifier>
-               <docidentifier type='IETF' scope='anchor'>IETF RFC2616</docidentifier>
-               <docidentifier type='DOI'>DOI 10.17487/RFC2616</docidentifier>
-      </bibitem>
+          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
+      <title depth="1">Bibliography</title>
+      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. June 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF RFC 2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier></bibitem>
       </references></bibliography>
           </iso-standard>
     OUTPUT
@@ -1928,12 +1890,14 @@ RSpec.describe IsoDoc do
                     <h1 class="ForewordTitle">Foreword</h1>
                     <div class="permission" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
                     <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
-                    <p><i>Subject: user<br/>
-                    Subject: non-user<br/>
-            Inherits: /ss/584/2015/level/1
-            <br/>
-            Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
-            <br/>Control-class: Technical<br/>Priority: P0<br/>Family: System and Communications Protection<br/>Family: System and Communications Protocols</i></p>
+                    <p><i>Subject: user</i><br/>
+                    <i>Subject: non-user</i><br/>
+            <i>Inherits: /ss/584/2015/level/1</i><br/>
+            <i>Inherits: <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a></i><br/>
+            <i>Control-class: Technical</i><br/>
+            <i>Priority: P0</i><br/>
+            <i>Family: System and Communications Protection</i><br/>
+            <i>Family: System and Communications Protocols</i></p>
               <div class="requirement-description">
                 <p id="_">I recommend <i>this</i>.</p>
               </div>
@@ -1956,7 +1920,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class='Section3'>Bibliography</h1>
                <p id='rfc2616' class='Biblio'>
-                 [1]&#160; IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. 
+                 [1]&#160; IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.#{' '}
                  <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
                  . In: RFC. June 1999. Fremont, CA.
                 <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>.
@@ -1976,9 +1940,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
-          <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
+          <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true" model="default">
         <title>A New Requirement</title>
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <subject>user</subject>
         <description>
@@ -2027,62 +1991,30 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <?xml version='1.0'?>
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-          <preface>
-            <foreword displayorder="1">
-              <requirement id='A' unnumbered='true' keep-with-next='true' keep-lines-together='true'>
-                <name>Requirement</name>
-                <title>A New Requirement</title>
-                <label>/ogc/recommendation/wfs/2</label>
-                <inherit>/ss/584/2015/level/1</inherit>
-                <subject>user</subject>
-                <description>
-                  <p id='_'>
-                    I recommend
-                    <em>this</em>
-                    .
-                  </p>
-                </description>
-                <specification exclude='true' type='tabular'>
-                  <p id='_'>This is the object of the recommendation:</p>
-                  <table id='_'>
-                    <tbody>
-                      <tr>
-                        <td style='text-align:left;'>Object</td>
-                        <td style='text-align:left;'>Value</td>
-                      </tr>
-                      <tr>
-                        <td style='text-align:left;'>Mission</td>
-                        <td style='text-align:left;'>Accomplished</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </specification>
-                <description>
-                  <p id='_'>As for the measurement targets,</p>
-                </description>
-                <measurement-target exclude='false' keep-with-next='true' keep-lines-together='true'>
-                  <p id='_'>The measurement target shall be measured as:</p>
-                  <formula id='B'><name>1</name><stem type='AsciiMath'>r/1 = 0</stem></formula></measurement-target>
-                <verification exclude='false'>
-                  <p id='_'>The following code will be run for verification:</p>
-                  <sourcecode id='_'>CoreRoot(success): HttpResponse
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface><foreword displayorder="1">
+          <requirement id="A" unnumbered="true" keep-with-next="true" keep-lines-together="true" model="default"><name>Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</name><p><em>Subject: user</em><br/>
+      <em>Inherits: /ss/584/2015/level/1</em></p><div type="requirement-description">
+          <p id="_">I recommend <em>this</em>.</p>
+        </div><div type="requirement-description">
+          <p id="_">As for the measurement targets,</p>
+        </div><div exclude="false" keep-with-next="true" keep-lines-together="true" type="requirement-measurement-target">
+          <p id="_">The measurement target shall be measured as:</p>
+          <formula id="B"><name>1</name>
+            <stem type="AsciiMath">r/1 = 0</stem>
+          </formula>
+        </div><div exclude="false" type="requirement-verification">
+          <p id="_">The following code will be run for verification:</p>
+          <sourcecode id="_">CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
           </sourcecode>
-                </verification>
-                <import exclude='true'>
-                  <sourcecode id='_'>success-response()</sourcecode>
-                </import>
-                <component exclude='false' class='component1'>
-                  <p id='_'>Hello</p>
-                </component>
-              </requirement>
-            </foreword>
-          </preface>
-        </iso-standard>
+        </div><div exclude="false" class="component1" type="requirement-component1">
+                  <p id="_">Hello</p>
+                </div></requirement>
+          </foreword></preface>
+          </iso-standard>
     OUTPUT
 
     output = <<~OUTPUT
@@ -2091,7 +2023,7 @@ RSpec.describe IsoDoc do
                       <div>
                         <h1 class="ForewordTitle">Foreword</h1>
                         <div class="require" id='A' style='page-break-after: avoid;page-break-inside: avoid;'>
-                <p class="RecommendationTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user<br/>Inherits: /ss/584/2015/level/1</i></p>
+                <p class="RecommendationTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user</i><br/><i>Inherits: /ss/584/2015/level/1</i></p>
                   <div class="requirement-description">
                     <p id="_">I recommend <i>this</i>.</p>
                   </div>
@@ -2120,196 +2052,12 @@ RSpec.describe IsoDoc do
   .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
-  it "processes requirements in French" do
-    input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <bibdata>
-          <language>fr</language>
-          <script>Latn</script>
-          </bibdata>
-          <preface><foreword>
-          <requirement id="A" unnumbered="true">
-        <title>A New Requirement</title>
-        <label>/ogc/recommendation/wfs/2</label>
-        <inherit>/ss/584/2015/level/1</inherit>
-        <subject>user</subject>
-        <description>
-          <p id="_">I recommend <em>this</em>.</p>
-        </description>
-        <specification exclude="true" type="tabular">
-          <p id="_">This is the object of the recommendation:</p>
-          <table id="_">
-            <tbody>
-              <tr>
-                <td style="text-align:left;">Object</td>
-                <td style="text-align:left;">Value</td>
-              </tr>
-              <tr>
-                <td style="text-align:left;">Mission</td>
-                <td style="text-align:left;">Accomplished</td>
-              </tr>
-            </tbody>
-          </table>
-        </specification>
-        <description>
-          <p id="_">As for the measurement targets,</p>
-        </description>
-        <measurement-target exclude="false">
-          <p id="_">The measurement target shall be measured as:</p>
-          <formula id="B">
-            <stem type="AsciiMath">r/1 = 0</stem>
-          </formula>
-        </measurement-target>
-        <verification exclude="false">
-          <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="_">CoreRoot(success): HttpResponse
-            if (success)
-            recommendation(label: success-response)
-            end
-          </sourcecode>
-        </verification>
-        <import exclude="true">
-          <sourcecode id="_">success-response()</sourcecode>
-        </import>
-        <component exclude='false' class='component1'>
-                  <p id='_'>Hello</p>
-                </component>
-      </requirement>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
-
-    presxml = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-                 <bibdata>
-                 <language current="true">fr</language>
-                 <script current="true">Latn</script>
-                 </bibdata>
-                 <preface><foreword displayorder="1">
-                 <requirement id="A" unnumbered="true"><name>Exigence</name>
-               <title>A New Requirement</title>
-               <label>/ogc/recommendation/wfs/2</label>
-               <inherit>/ss/584/2015/level/1</inherit>
-               <subject>user</subject>
-               <description>
-                 <p id="_">I recommend <em>this</em>.</p>
-               </description>
-               <specification exclude="true" type="tabular">
-                 <p id="_">This is the object of the recommendation:</p>
-                 <table id="_">
-                   <tbody>
-                     <tr>
-                       <td style="text-align:left;">Object</td>
-                       <td style="text-align:left;">Value</td>
-                     </tr>
-                     <tr>
-                       <td style="text-align:left;">Mission</td>
-                       <td style="text-align:left;">Accomplished</td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </specification>
-               <description>
-                 <p id="_">As for the measurement targets,</p>
-               </description>
-               <measurement-target exclude="false">
-                 <p id="_">The measurement target shall be measured as:</p>
-                 <formula id="B"><name>1</name>
-                   <stem type="AsciiMath">r/1 = 0</stem>
-                 </formula>
-               </measurement-target>
-               <verification exclude="false">
-                 <p id="_">The following code will be run for verification:</p>
-      <sourcecode id="_">CoreRoot(success): HttpResponse
-        if (success)
-        recommendation(label: success-response)
-        end
-      </sourcecode>
-               </verification>
-               <import exclude="true">
-                 <sourcecode id="_">success-response()</sourcecode>
-               </import>
-               <component exclude='false' class='component1'>
-                  <p id='_'>Hello</p>
-                </component>
-             </requirement>
-                 </foreword></preface>
-                 </iso-standard>
-    OUTPUT
-
-    html = <<~OUTPUT
-      #{HTML_HDR.gsub(/"en"/, '"fr"')}
-                       <br/>
-                       <div>
-                         <h1 class='ForewordTitle'>Avant-propos</h1>
-                         <div class='require' id="A">
-                           <p class='RecommendationTitle'>
-                             Exigence:
-                             <br/>
-                             /ogc/recommendation/wfs/2. A New Requirement
-                           </p>
-                           <p>
-                             <i>
-                               Sujet: user
-                               <br/>
-                               H&#233;rite: /ss/584/2015/level/1
-                             </i>
-                           </p>
-                           <div class='requirement-description'>
-                             <p id='_'>
-                               I recommend
-                               <i>this</i>
-                               .
-                             </p>
-                           </div>
-                           <div class='requirement-description'>
-                             <p id='_'>As for the measurement targets,</p>
-                           </div>
-                           <div class='requirement-measurement-target'>
-                             <p id='_'>The measurement target shall be measured as:</p>
-                             <div id='B'><div class='formula'>
-                               <p>
-                                 <span class='stem'>(#(r/1 = 0)#)</span>
-                                 &#160; (1)
-                               </p>
-                               </div>
-                             </div>
-                           </div>
-                           <div class='requirement-verification'>
-                             <p id='_'>The following code will be run for verification:</p>
-                             <pre id='_' class='prettyprint '>
-                               CoreRoot(success): HttpResponse
-                               <br/>
-                               &#160; if (success)
-                               <br/>
-                               &#160; recommendation(label: success-response)
-                               <br/>
-                               &#160; end
-                               <br/>
-                             </pre>
-                           </div>
-                          <div class='requirement-component1'> <p id='_'>Hello</p> </div>
-                         </div>
-                       </div>
-                       <p class='zzSTDTitle1'/>
-                     </div>
-                   </body>
-                 </html>
-    OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-  end
-
   it "processes recommendation" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
-          <recommendation id="_" obligation="shall,could"   keep-with-next="true" keep-lines-together="true">
-        <label>/ogc/recommendation/wfs/2</label>
+          <recommendation id="_" obligation="shall,could"   keep-with-next="true" keep-lines-together="true" model="default">
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <classification><tag>type</tag><value>text</value></classification>
         <classification><tag>language</tag><value>BASIC</value></classification>
@@ -2360,70 +2108,33 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <?xml version='1.0'?>
-         <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-           <preface>
-             <foreword displayorder="1">
-               <recommendation id='_' obligation='shall,could' keep-with-next='true' keep-lines-together='true'>
-                 <name>Recommendation 1</name>
-                 <label>/ogc/recommendation/wfs/2</label>
-                 <inherit>/ss/584/2015/level/1</inherit>
-                 <classification>
-                   <tag>type</tag>
-                   <value>text</value>
-                 </classification>
-                 <classification>
-                   <tag>language</tag>
-                   <value>BASIC</value>
-                 </classification>
-                 <subject>user</subject>
-                 <description>
-                   <p id='_'>
-                     I recommend
-                     <em>this</em>
-                     .
-                   </p>
-                 </description>
-                 <specification exclude='true' type='tabular'>
-                   <p id='_'>This is the object of the recommendation:</p>
-                   <table id='_'>
-                     <tbody>
-                       <tr>
-                         <td style='text-align:left;'>Object</td>
-                         <td style='text-align:left;'>Value</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:left;'>Mission</td>
-                         <td style='text-align:left;'>Accomplished</td>
-                       </tr>
-                     </tbody>
-                   </table>
-                 </specification>
-                 <description>
-                   <p id='_'>As for the measurement targets,</p>
-                 </description>
-                 <measurement-target exclude='false'>
-                   <p id='_'>The measurement target shall be measured as:</p>
-                   <formula id='_'><name>1</name><stem type='AsciiMath'>r/1 = 0</stem></formula>
-                 </measurement-target>
-                 <verification exclude='false'>
-                   <p id='_'>The following code will be run for verification:</p>
-                   <sourcecode id='_'>CoreRoot(success): HttpResponse
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface><foreword displayorder="1">
+          <recommendation id="_" obligation="shall,could" keep-with-next="true" keep-lines-together="true" model="default"><name>Recommendation 1:<br/>/ogc/recommendation/wfs/2</name><p><em>Obligation: shall,could</em><br/>
+      <em>Subject: user</em><br/>
+      <em>Inherits: /ss/584/2015/level/1</em><br/>
+      <em>Type: text</em><br/>
+      <em>Language: BASIC</em></p><div type="requirement-description">
+          <p id="_">I recommend <em>this</em>.</p>
+        </div><div type="requirement-description">
+          <p id="_">As for the measurement targets,</p>
+        </div><div exclude="false" type="requirement-measurement-target">
+          <p id="_">The measurement target shall be measured as:</p>
+          <formula id="_"><name>1</name>
+            <stem type="AsciiMath">r/1 = 0</stem>
+          </formula>
+        </div><div exclude="false" type="requirement-verification">
+          <p id="_">The following code will be run for verification:</p>
+          <sourcecode id="_">CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
           </sourcecode>
-                 </verification>
-                 <import exclude='true'>
-                   <sourcecode id='_'>success-response()</sourcecode>
-                 </import>
-                 <component exclude='false' class='component1'>
-                  <p id='_'>Hello</p>
-                </component>
-               </recommendation>
-             </foreword>
-           </preface>
-         </iso-standard>
+        </div><div exclude="false" class="component1" type="requirement-component1">
+                  <p id="_">Hello</p>
+                </div></recommendation>
+          </foreword></preface>
+          </iso-standard>
     OUTPUT
 
     output = <<~OUTPUT
@@ -2432,7 +2143,7 @@ RSpec.describe IsoDoc do
                       <div>
                         <h1 class="ForewordTitle">Foreword</h1>
                 <div class="recommend"  id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
-                <p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could<br/>Subject: user<br/>Inherits: /ss/584/2015/level/1<br/>Type: text<br/>Language: BASIC</i></p>
+                <p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could</i><br/><i>Subject: user</i><br/><i>Inherits: /ss/584/2015/level/1</i><br/><i>Type: text</i><br/><i>Language: BASIC</i></p>
                   <div class="requirement-description">
                     <p id="_">I recommend <i>this</i>.</p>
                   </div>

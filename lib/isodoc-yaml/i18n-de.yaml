@@ -60,6 +60,14 @@ table: Tabelle
 requirement: Anforderung
 recommendation: Empfehlung
 permission: Erlaubnis
+recommendationtest: Empfehlungstest
+requirementtest: Anforderungstest
+permissiontest: Berechtigungstest
+recommendationclass: Empfehlungsklasse
+requirementclass: Anforderungsklasse
+permissionclass: Berechtigungsklasse
+abstracttest: Abstrakter Test
+conformanceclass: Konformitätsklasse
 key: Taste
 example: BEISPIEL
 example_xref: Beispiel

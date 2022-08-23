@@ -60,6 +60,15 @@ table: Table
 requirement: Requirement
 recommendation: Recommendation
 permission: Permission
+# OGC
+recommendationtest: Recommendation test
+requirementtest: Requirement test
+permissiontest: Permission test
+recommendationclass: Recommendations class
+requirementclass: Requirements class
+permissionclass: Permissions class
+abstracttest: Abstract test
+conformanceclass: Conformance class
 key: Key
 example: EXAMPLE
 example_xref: Example

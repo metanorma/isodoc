@@ -59,6 +59,7 @@ module IsoDoc
       permission docxml
       requirement docxml
       recommendation docxml
+      requirement_render docxml
     end
 
     def inline(docxml)

@@ -204,11 +204,12 @@ module IsoDoc
           when "requirement" then requirement_parse(node, out)
           when "recommendation" then recommendation_parse(node, out)
           when "permission" then permission_parse(node, out)
-          when "subject", "classification"
-            requirement_skip_parse(node, out)
-          when "inherit", "description", "specification", "measurement-target",
-           "verification", "import", "component"
-            requirement_component_parse(node, out)
+          when "div" then div_parse(node, out)
+          #when "subject", "classification"
+          #  requirement_skip_parse(node, out)
+          #when "inherit", "description", "specification", "measurement-target",
+          #"verification", "import", "component"
+          # requirement_component_parse(node, out)
           when "index" then index_parse(node, out)
           when "index-xref" then index_xref_parse(node, out)
           when "termref" then termrefelem_parse(node, out)
