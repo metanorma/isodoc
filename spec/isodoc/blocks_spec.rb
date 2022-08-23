@@ -1111,7 +1111,7 @@ RSpec.describe IsoDoc do
         IsoDoc::PresentationXMLConvert.new({})
           .convert("test", input, true)
       end.to raise_error("Inkscape missing in PATH, unable" \
-                         "to convert EMF to SVG. Aborting.")
+                         "to convert image spec/assets/odf1.svg. Aborting.")
     end
   end
 
