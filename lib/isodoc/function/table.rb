@@ -43,7 +43,7 @@ module IsoDoc
         width = node["width"] ? "width:#{node['width']};" : nil
         attr_code(
           id: node["id"],
-          class: "MsoISOTable",
+          class: node["class"] || "MsoISOTable",
           style: "border-width:1px;border-spacing:0;"\
                  "#{width}#{keep_style(node)}",
           title: node["alt"],
