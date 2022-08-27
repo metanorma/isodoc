@@ -208,10 +208,8 @@ module IsoDoc
       script = docxml&.at(ns("//bibdata/script"))&.text and @script = script
       i18n_init(@lang, @script)
       @reqt_models = Metanorma::Requirements
-        .new({
-               default: "default", lang: lang, script: script,
-               labels: @i18n.get
-             })
+        .new({ default: "default", lang: lang, script: script,
+               labels: @i18n.get })
     end
 
     def convert(input_filename, file = nil, debug = false,

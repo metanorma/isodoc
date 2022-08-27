@@ -393,6 +393,83 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(word)
   end
 
+  it "passes on classes of tables from Presentation XML" do
+    presxml = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword>
+        <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" class="modspec">
+          <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
+        </table>
+      </foreword>
+      </preface>
+      </iso-standard>
+    INPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <p class='TableTitle' style='text-align:center;'>
+                 Repeatability and reproducibility of
+                 <i>husked</i>
+                  rice yield
+               </p>
+               <table id='tableD-1' class='modspec' style='border-width:1px;border-spacing:0;width:70%;page-break-after: avoid;page-break-inside: avoid;' title='tool tip'>
+                 <caption>
+                   <span style='display:none'>long desc</span>
+                 </caption>
+               </table>
+             </div>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    word = <<~OUTPUT
+      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+               <head><style/></head>
+             <body lang='EN-US' link='blue' vlink='#954F72'>
+           <div class='WordSection1'>
+             <p>&#xa0;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection2'>
+             <p>
+               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+             </p>
+             <div>
+               <h1 class='ForewordTitle'>Foreword</h1>
+               <p class='TableTitle' style='text-align:center;'>
+                 Repeatability and reproducibility of
+                 <i>husked</i>
+                  rice yield
+               </p>
+               <div align='center' class='table_container'>
+                 <table id='tableD-1' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;' title='tool tip' summary='long desc' width='70%'/>
+               </div>
+             </div>
+             <p>&#xa0;</p>
+           </div>
+           <p>
+             <br clear='all' class='section'/>
+           </p>
+           <div class='WordSection3'>
+             <p class='zzSTDTitle1'/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+  .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+      .to be_equivalent_to xmlpp(word)
+  end
+
   it "processes big tables" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
