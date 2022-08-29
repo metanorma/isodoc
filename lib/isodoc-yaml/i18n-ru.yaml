@@ -65,14 +65,6 @@ table: Таблица
 requirement: Требование
 recommendation: Рекомендация
 permission: Разрешение
-recommendationtest: Проверка рекомендации
-requirementtest: Проверка требований
-permissiontest: Проверка разрешения
-recommendationclass: Класс рекомендаций
-requirementclass: Класс требований
-permissionclass: Класс разрешений
-abstracttest: Абстрактная проверка
-conformanceclass: Класс соответствия
 key: Условные обозначения
 example: ПРИМЕР
 example_xref: Пример
@@ -105,8 +97,6 @@ month_october: Октябрь
 month_november: Ноябрь
 month_december: Декабрь
 obligation: Обязательство
-subject: Тема
-inherits: Наследует
 admonition: {
   danger: Опасность,
   warning: Предупреждение,

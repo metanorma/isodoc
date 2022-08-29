@@ -111,7 +111,7 @@ module IsoDoc
       def reqt2class_label(block, model)
         model.req_class_paths.each do |n|
           v1 = ns("/#{n[:xpath]}").sub(%r{^/}, "")
-          block.at("./self::#{v1}") and return [n[:klass], @labels[n[:label]]]
+          block.at("./self::#{v1}") and return [n[:klass], n[:label]]
         end
         [nil, nil]
       end
@@ -119,7 +119,7 @@ module IsoDoc
       def reqt2class_nested_label(block, model)
         model.req_nested_class_paths.each do |n|
           v1 = ns("/#{n[:xpath]}").sub(%r{^/}, "")
-          block.at("./self::#{v1}") and return [n[:klass], @labels[n[:label]]]
+          block.at("./self::#{v1}") and return [n[:klass], n[:label]]
         end
         [nil, nil]
       end

@@ -57,14 +57,6 @@ table: Tableau
 requirement: Exigence
 recommendation: Recommandation
 permission: Autorisation
-recommendationtest: Test de recommendation
-requirementtest: Test d’exigence
-permissiontest: Test d’autorisation
-recommendationclass: Classe de recommendations
-requirementclass: Classe d’exigences
-permissionclass: Classe d’autorisations
-abstracttest: Test abstrait
-conformanceclass: Classe de confirmité
 key: Légende
 example: EXEMPLE
 example_xref: Exemple
@@ -98,8 +90,6 @@ month_october: Octobre
 month_november: Novembre
 month_december: Décembre
 obligation: Obligation
-subject: Sujet
-inherits: Hérite
 admonition: {
   danger: Danger,
   warning: Avertissement,
