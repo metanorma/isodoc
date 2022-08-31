@@ -11,7 +11,7 @@ require "mn-requirements"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
-    attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models
+    attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models, :requirements_processor
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
@@ -172,6 +172,10 @@ module IsoDoc
       nil
     end
 
+    def requirements_processor
+      Metanorma::Requirements
+    end
+
     def convert1(docxml, filename, dir)
       @xrefs.parse docxml
       bibitem_lookup(docxml)
@@ -207,7 +211,7 @@ module IsoDoc
       lang = docxml&.at(ns("//bibdata/language"))&.text and @lang = lang
       script = docxml&.at(ns("//bibdata/script"))&.text and @script = script
       i18n_init(@lang, @script)
-      @reqt_models = Metanorma::Requirements
+      @reqt_models = requirements_processor
         .new({ default: "default", lang: lang, script: script,
                labels: @i18n.get })
     end
