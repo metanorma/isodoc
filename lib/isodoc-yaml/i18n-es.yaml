@@ -60,14 +60,6 @@ table: Tabla
 requirement: Requerimiento
 recommendation: Recomendación
 permission: Permiso
-recommendationtest: Prueba de recomendación
-requirementtest: Prueba de requerimiento
-permissiontest: Prueba de permiso
-recommendationclass: Clase de recomendaciones
-requirementclass: Clase de requerimientos
-permissionclass: Clase de permisos
-abstracttest: Prueba abstracta
-conformanceclass: Clase de conformidad
 key: Clave
 example: EJEMPLO
 example_xref: Ejemplo
@@ -100,8 +92,6 @@ month_october: Octubre
 month_november: Noviembre
 month_december: Diciembre
 obligation: Obligación
-subject: Tema
-inherits: Hereda
 admonition: {
   danger: Peligro,
   warning: Advertencia,

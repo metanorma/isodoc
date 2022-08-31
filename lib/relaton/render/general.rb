@@ -1,4 +1,5 @@
 require "relaton-render"
+require "metanorma-utils"
 
 module Relaton
   module Render
@@ -13,23 +14,5 @@ module Relaton
         end
       end
     end
-  end
-end
-
-class ::Hash
-  def deep_merge(second)
-    merger = proc { |_, v1, v2|
-      if Hash === v1 && Hash === v2
-        v1.merge(v2, &merger)
-      elsif Array === v1 && Array === v2
-        v1 | v2
-      elsif [:undefined, nil,
-             :nil].include?(v2)
-        v1
-      else
-        v2
-      end
-    }
-    merge(second.to_h, &merger)
   end
 end
