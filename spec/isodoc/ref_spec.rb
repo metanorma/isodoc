@@ -142,7 +142,7 @@ RSpec.describe IsoDoc do
               <eref bibitemid='ISSN'>[2]</eref>
               <eref bibitemid='ISO16634'>ISO 16634:-- (all parts)</eref>
               <eref bibitemid='ref1'>ICC/167</eref>
-              <eref bibitemid='ref10'>[10]</eref>
+              <eref bibitemid='ref10'>[4]</eref>
               <eref bibitemid='ref12'>Citn</eref>
               <eref bibitemid='zip_ffs'>[5]</eref>
             </p>
@@ -234,7 +234,7 @@ RSpec.describe IsoDoc do
                 <link target='http://www.icc.or.at'/>
                 )
               </formattedref>
-              <docidentifier type='metanorma'>[10]</docidentifier>
+              <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
             </bibitem>
             <bibitem id="ref10a" hidden="true">
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
@@ -242,7 +242,7 @@ RSpec.describe IsoDoc do
             </bibitem>
             <bibitem id='ref11'>
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
-              <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
+              <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
               <docidentifier type='IETF'>IETF RFC 10</docidentifier>
             </bibitem>
             <bibitem id='ref12'>
@@ -256,12 +256,12 @@ RSpec.describe IsoDoc do
             </bibitem>
             <bibitem id="ref10b">
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
-              <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
+              <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
               <docidentifier type="IETF">IETF RFC 20</docidentifier>
             </bibitem>
             <bibitem id='ref10c'>
             <formattedref><em>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
-        <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
+        <docidentifier type='metanorma-ordinal'>[7]</docidentifier>
         <docidentifier type='DOI'>DOI ABC 20</docidentifier>
       </bibitem>
           </references>
@@ -271,7 +271,7 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
          #{HTML_HDR}
-                      <br/>
+            <br/>
             <div>
               <h1 class='ForewordTitle'>Foreword</h1>
               <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
@@ -280,7 +280,7 @@ RSpec.describe IsoDoc do
                 <a href='#ISSN'>[2]</a>
                 <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
                 <a href='#ref1'>ICC/167</a>
-                <a href='#ref10'>[10]</a>
+                <a href='#ref10'>[4]</a>
                 <a href='#ref12'>Citn</a>
                 <a href='#zip_ffs'>[5]</a>
               </p>
@@ -366,7 +366,7 @@ RSpec.describe IsoDoc do
                 .
               </p>
               <p id='ref10' class='Biblio'>
-                [10]&#160;
+                [4]&#160;
                 <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
                  .
                 <i>
@@ -379,7 +379,7 @@ RSpec.describe IsoDoc do
                  )
               </p>
               <p id='ref11' class='Biblio'>
-                [4]&#160; IETF RFC 10,
+                [5]&#160; IETF RFC 10,
                 <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
                 .
               </p>
@@ -389,12 +389,12 @@ RSpec.describe IsoDoc do
                  . [IETF RFC 20]
               </p>
               <p id='ref10b' class='Biblio'>
-                [5]&#160; IETF RFC 20,
+                [6]&#160; IETF RFC 20,
                 <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
                 .
               </p>
               <p id='ref10c' class='Biblio'>
-                [6]&#160;
+                [7]&#160;
                 <i>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</i>
                 .
               </p>
@@ -408,7 +408,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-           <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
+      <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
          <div class='WordSection1'>
            <p class='MsoNormal'>&#xa0;</p>
          </div>
@@ -428,7 +428,7 @@ RSpec.describe IsoDoc do
                <a href='#ISSN'>[2]</a>
                <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
                <a href='#ref1'>ICC/167</a>
-               <a href='#ref10'>[10]</a>
+               <a href='#ref10'>[4]</a>
                <a href='#ref12'>Citn</a>
                <a href='#zip_ffs'>[5]</a>
              </p>
@@ -548,7 +548,7 @@ RSpec.describe IsoDoc do
              </p>
              <p class='Biblio'>
                <a name='ref10' id='ref10'/>
-               [10]
+               [4]
                <span style='mso-tab-count:1'>&#xa0; </span>
                <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
                 .
@@ -563,7 +563,7 @@ RSpec.describe IsoDoc do
              </p>
              <p class='Biblio'>
                <a name='ref11' id='ref11'/>
-               [4]
+               [5]
                <span style='mso-tab-count:1'>&#xa0; </span>
                IETF RFC 10,
                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
@@ -579,7 +579,7 @@ RSpec.describe IsoDoc do
              </p>
              <p class='Biblio'>
                <a name='ref10b' id='ref10b'/>
-               [5]
+               [6]
                <span style='mso-tab-count:1'>&#xa0; </span>
                IETF RFC 20,
                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
@@ -587,7 +587,7 @@ RSpec.describe IsoDoc do
              </p>
              <p class='Biblio'>
                <a name='ref10c' id='ref10c'/>
-               [6]
+               [7]
                <span style='mso-tab-count:1'>&#xa0; </span>
                <i>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</i>
                .
@@ -1092,11 +1092,11 @@ RSpec.describe IsoDoc do
            </bibitem>
            <bibitem id='ref2' type='standard'>
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
-             <docidentifier type='metanorma'>[3]</docidentifier>
+             <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
            </bibitem>
            <bibitem id='ref3' type='standard'>
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
-             <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
+             <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
              <docidentifier>ABC</docidentifier>
            </bibitem>
          </references>
@@ -1136,15 +1136,14 @@ RSpec.describe IsoDoc do
           <title depth='1'>Bibliography</title>
           <bibitem id='ref1' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
-            <docidentifier type='metanorma'>[1]</docidentifier>
+            <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
           </bibitem>
           <bibitem id='ref2' type='standard' hidden='true'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
-            <docidentifier type='metanorma'>[2]</docidentifier>
           </bibitem>
           <bibitem id='ref3' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
-            <docidentifier type='metanorma'>[3]</docidentifier>
+            <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
           </bibitem>
         </references>
       </bibliography>
