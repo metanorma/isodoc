@@ -1,5 +1,3 @@
-require "metanorma"
-
 module IsoDoc
   class XslfoPdfConvert < ::IsoDoc::Convert
     MN_OPTIONS_KEY = :mn2pdf

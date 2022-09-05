@@ -1,7 +1,6 @@
 require_relative "html_function/comments"
 require_relative "html_function/footnotes"
 require_relative "html_function/html"
-require "metanorma"
 
 module IsoDoc
   class PdfConvert < ::IsoDoc::Convert

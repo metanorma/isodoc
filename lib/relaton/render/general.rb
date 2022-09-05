@@ -5,8 +5,11 @@ module Relaton
   module Render
     module IsoDoc
       class General < ::Relaton::Render::General
+        Hash.include Metanorma::Utils::Hash
+
         def config_loc
-          YAML.load_file(File.join(File.dirname(__FILE__), "config.yml"))
+          YAML.load_file(File.join(File.dirname(__FILE__),
+                                   "config.yml"))
         end
 
         def read_config
