@@ -81,14 +81,13 @@ module IsoDoc
     end
 
     def bibliography_bibitem_number1(bibitem, idx)
-      if mn = bibitem.at(ns(".//docidentifier[@type = 'metanorma']"))
-        /^\[?\d\]?$/.match?(mn&.text) and
-          idx = mn.text.sub(/^\[/, "").sub(/\]$/, "").to_i
-      end
+      ins = bibitem.at(ns(".//docidentifier")).previous_element
+      mn = bibitem.at(ns(".//docidentifier[@type = 'metanorma']")) and
+        /^\[?\d+\]?$/.match?(mn.text) and
+        mn.remove # ignore numbers already inserted
       unless bibliography_bibitem_number_skip(bibitem)
-
         idx += 1
-        bibitem.at(ns(".//docidentifier")).previous =
+        ins.next =
           "<docidentifier type='metanorma-ordinal'>[#{idx}]</docidentifier>"
       end
       idx
