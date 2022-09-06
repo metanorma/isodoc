@@ -81,7 +81,7 @@ module IsoDoc
     end
 
     def bibliography_bibitem_number1(bibitem, idx)
-      ins = bibitem.at(ns(".//docidentifier")).previous_element
+      ins = bibliography_bibitem_number_insert_pt(bibitem)
       mn = bibitem.at(ns(".//docidentifier[@type = 'metanorma']")) and
         /^\[?\d+\]?$/.match?(mn.text) and
         mn.remove # ignore numbers already inserted
@@ -91,6 +91,14 @@ module IsoDoc
           "<docidentifier type='metanorma-ordinal'>[#{idx}]</docidentifier>"
       end
       idx
+    end
+
+    def bibliography_bibitem_number_insert_pt(bibitem)
+      unless ins = bibitem.at(ns(".//docidentifier")).previous_element
+        bibitem.at(ns(".//docidentifier")).previous = " "
+        ins = bibitem.at(ns(".//docidentifier")).previous
+      end
+      ins
     end
 
     def docid_prefixes(docxml)
