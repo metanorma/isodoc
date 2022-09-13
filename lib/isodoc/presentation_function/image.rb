@@ -3,15 +3,27 @@ require "emf2svg"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
+    SVG = { "m" => "http://www.w3.org/2000/svg" }.freeze
+
     def figure(docxml)
+      docxml.xpath("//m:svg", SVG).each { |f| svg_wrap(f) }
       docxml.xpath(ns("//image")).each { |f| svg_extract(f) }
       docxml.xpath(ns("//figure")).each { |f| figure1(f) }
-      docxml.xpath(ns("//svgmap")).each do |s|
-        if f = s.at(ns("./figure")) then s.replace(f)
-        else s.remove
-        end
-      end
+      docxml.xpath(ns("//svgmap")).each { |s| svgmap_extract(s) }
       imageconvert(docxml)
+    end
+
+    def svg_wrap(elem)
+      return if elem.parent.name == "image"
+
+      elem.replace("<image src='' mimetype='image/svg+xml' height='auto' "\
+                   "width='auto'>#{elem.to_xml}</image>")
+    end
+
+    def svgmap_extract(elem)
+      if f = elem.at(ns("./figure")) then elem.replace(f)
+      else elem.remove
+      end
     end
 
     def imageconvert(docxml)
@@ -23,6 +35,7 @@ module IsoDoc
 
     def svg_extract(elem)
       return unless %r{^data:image/svg\+xml;}.match?(elem["src"])
+      return if elem.at("./m:svg", SVG)
 
       svg = Base64.strict_decode64(elem["src"]
         .sub(%r{^data:image/svg\+xml;(charset=[^;]+;)?base64,}, ""))
