@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module IsoDoc
   module Function
     module Utils
@@ -21,7 +19,7 @@ module IsoDoc
       end
 
       # add namespaces for Word fragments
-      NOKOHEAD = <<~HERE
+      NOKOHEAD = <<~HERE.freeze
         <!DOCTYPE html SYSTEM
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml">
@@ -47,7 +45,7 @@ module IsoDoc
       end
 
       DOCTYPE_HDR = "<!DOCTYPE html SYSTEM "\
-                    '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
+                    '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.freeze
 
       def to_xhtml(xml)
         xml = to_xhtml_prep(xml)
@@ -94,11 +92,10 @@ module IsoDoc
         "local-name() = 'acknowledgements' or local-name() = 'term' or "\
         "local-name() = 'appendix' or local-name() = 'foreword' or "\
         "local-name() = 'introduction' or local-name() = 'terms' or "\
-        "local-name() = 'clause' or local-name() = 'references']/@id"
+        "local-name() = 'clause' or local-name() = 'references']/@id".freeze
 
       def get_clause_id(node)
-        clause = node.xpath(CLAUSE_ANCESTOR)
-        clause&.last&.text || nil
+        node.xpath(CLAUSE_ANCESTOR)&.last&.text || nil
       end
 
       NOTE_CONTAINER_ANCESTOR =
@@ -108,7 +105,7 @@ module IsoDoc
         "local-name() = 'acknowledgements' or local-name() = 'term' or "\
         "local-name() = 'clause' or local-name() = 'references' or "\
         "local-name() = 'figure' or local-name() = 'formula' or "\
-        "local-name() = 'table' or local-name() = 'example']/@id"
+        "local-name() = 'table' or local-name() = 'example']/@id".freeze
 
       # no recursion on references
       def get_note_container_id(node, type)
@@ -172,8 +169,7 @@ module IsoDoc
       end
 
       def empty2nil(str)
-        return nil if !str.nil? && str.is_a?(String) && str.empty?
-
+        !str.nil? && str.is_a?(String) && str.empty? and return nil
         str
       end
 
@@ -189,7 +185,7 @@ module IsoDoc
       end
 
       def save_dataimage(uri, _relative_dir = true)
-        %r{^data:(?<imgclass>image|application)/(?<imgtype>[^;]+);(charset=[^;]+;)?base64,(?<imgdata>.+)$} =~ uri
+        %r{^data:(?<imgclass>image|application)/(?<imgtype>[^;]+);(?:charset=[^;]+;)?base64,(?<imgdata>.+)$} =~ uri
         imgtype = "emf" if emf?("#{imgclass}/#{imgtype}")
         imgtype = imgtype.sub(/\+[a-z0-9]+$/, "") # svg+xml
         imgtype = "png" unless /^[a-z0-9]+$/.match? imgtype
@@ -203,12 +199,9 @@ module IsoDoc
 
       def image_localfile(img)
         case img["src"]
-        when /^data:/
-          save_dataimage(img["src"], false)
-        when %r{^([A-Z]:)?/}
-          img["src"]
-        else
-          File.join(@localdir, img["src"])
+        when /^data:/ then save_dataimage(img["src"], false)
+        when %r{^([A-Z]:)?/} then img["src"]
+        else File.join(@localdir, img["src"])
         end
       end
 
@@ -219,7 +212,7 @@ module IsoDoc
 
       def emf?(type)
         %w(application/emf application/x-emf image/x-emf image/x-mgx-emf
-           application/x-msmetafile image/x-xbitmap).include? type
+           application/x-msmetafile image/x-xbitmap image/emf).include? type
       end
 
       def eps?(type)
@@ -244,8 +237,7 @@ module IsoDoc
         if win
           path.gsub!(%{/}, "\\")
           path[/\s/] ? "\"#{path}\"" : path
-        else
-          path
+        else path
         end
       end
     end
