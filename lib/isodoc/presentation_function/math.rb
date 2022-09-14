@@ -62,14 +62,31 @@ module IsoDoc
     end
 
     def twitter_cldr_reader(locale)
+      return @twitter_cldr_reader if @twitter_cldr_reader
+
       num = TwitterCldr::DataReaders::NumberDataReader.new(locale)
-      num.symbols.merge!(twitter_cldr_localiser_symbols)
+      @twitter_cldr_reader = num.symbols.merge!(twitter_cldr_localiser_symbols)
+        .merge!(parse_localize_number)
+      @twitter_cldr_reader
     end
 
     def twitter_cldr_localiser
       locale = TwitterCldr.supported_locale?(@lang.to_sym) ? @lang.to_sym : :en
       twitter_cldr_reader(locale)
       locale
+    end
+
+    def parse_localize_number
+      return {} unless @localizenumber
+
+      m = %r{(?<group>[^#])?(?<groupdigits>#+0)(?<decimal>.)(?<fractdigits>#+)(?<fractgroup>[^#])?}
+        .match(@localizenumber) or return {}
+      ret = { decimal: m[:decimal], group_digits: m[:groupdigits].size,
+              fraction_group_digits: m[:fractdigits].size,
+              group: m[:group] || "",
+              fraction_group: m[:fractgroup] || "" }.compact
+      %i(group fraction_group).each { |x| ret[x] == " " and ret[x] = "\u00A0" }
+      ret
     end
 
     def asciimath_dup(node)

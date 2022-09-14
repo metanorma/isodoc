@@ -84,6 +84,7 @@ module IsoDoc
       @i18nyaml = options[:i18nyaml]
       @lang = options[:language] || "en"
       @script = options[:script] || "Latn"
+      @localizenumber = options[:localizenumber]
     end
 
     def init_locations(options)

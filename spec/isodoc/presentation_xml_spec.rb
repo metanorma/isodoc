@@ -649,6 +649,80 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(output)
   end
 
+  context "overrides localisation of numbers in MathML" do
+    it "overrides localisation of numbers in MathML, with no grouping of digits" do
+      input = <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+             <title language="en">test</title>
+             <language>de</language>
+             </bibdata>
+             <preface>
+             <p>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>...</mn></math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>64212149677264515</mn></math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>642121496772.64515</mn></math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>30000</mn></math></stem>
+             </preface>
+        </iso-standard>
+      INPUT
+      output2 = <<~OUTPUT
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+           <bibdata>
+             <title language='en'>test</title>
+             <language current='true'>de</language>
+           </bibdata>
+
+           <preface>
+             <p displayorder='1'> ... 64212149677264515 642121496772;64515 30000 </p>
+           </preface>
+         </iso-standard>
+      OUTPUT
+      TwitterCldr.reset_locale_fallbacks
+      expect(xmlpp(IsoDoc::PresentationXMLConvert
+        .new({ localizenumber: "##0;###" })
+          .convert("test", input, true))
+          .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+        .to be_equivalent_to xmlpp(output2)
+    end
+  end
+
+  context "overrides localisation of numbers in MathML" do
+    it "overrides localisation of numbers in MathML with grouping of digits" do
+      input = <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+             <title language="en">test</title>
+             </bibdata>
+             <preface>
+             <p>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>...</mn></math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>64212149677264515</mn></math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>642121496772.64515</mn></math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>30000</mn></math></stem>
+             </preface>
+        </iso-standard>
+      INPUT
+      output1 = <<~OUTPUT
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+           <bibdata>
+             <title language='en'>test</title>
+           </bibdata>
+
+           <preface>
+             <p displayorder='1'> ... 64=212=149=677=264=515 642=121=496=772;64$51$5 30=000 </p>
+           </preface>
+         </iso-standard>
+      OUTPUT
+      TwitterCldr.reset_locale_fallbacks
+      expect(xmlpp(IsoDoc::PresentationXMLConvert
+    .new({ localizenumber: "#=#0;##$#" })
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+        .to be_equivalent_to xmlpp(output1)
+    end
+  end
+
   it "resolve address components" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1025,8 +1099,7 @@ RSpec.describe IsoDoc do
       .gsub(%r{"data:image/emf;base64,[^"]+"},
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
-            '"data:application/x-msmetafile;base64"'),
-      )
+            '"data:application/x-msmetafile;base64"'))
       .to be_equivalent_to (output)
   end
 
@@ -1244,17 +1317,17 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     output = <<~OUTPUT
-           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-       <bibdata/>
-       <sections>
-        <clause id="A" inline-header="false" obligation="normative" displayorder="1">
-        <title depth="1">1.<tab/>Clause</title>
-        <figure id="B"><name>Figure 1</name>
-        <image mimetype="image/svg+xml" alt="3" src="_.svg"><emf src="_.emf"/></image>
-                    </figure>
-                  </clause>
-                </sections>
-             </iso-standard>
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <bibdata/>
+      <sections>
+       <clause id="A" inline-header="false" obligation="normative" displayorder="1">
+       <title depth="1">1.<tab/>Clause</title>
+       <figure id="B"><name>Figure 1</name>
+       <image mimetype="image/svg+xml" alt="3" src="_.svg"><emf src="_.emf"/></image>
+                   </figure>
+                 </clause>
+               </sections>
+            </iso-standard>
     OUTPUT
     expect(IsoDoc::PresentationXMLConvert.new({})
   .convert("test", input, true)
