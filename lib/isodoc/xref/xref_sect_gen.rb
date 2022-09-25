@@ -35,11 +35,20 @@ module IsoDoc
           n = section_names(doc.at(ns("//sections/definitions")), n, 1)
           clause_names(doc, n)
         end
-        if @parse_settings.empty?
-          middle_section_asset_names(doc)
-          termnote_anchor_names(doc)
-          termexample_anchor_names(doc)
-        end
+      end
+
+      # preempt clause notes with all other types of note (ISO default)
+      def asset_anchor_names(doc)
+        @parse_settings.empty? or return
+        middle_section_asset_names(doc)
+        termnote_anchor_names(doc)
+        termexample_anchor_names(doc)
+        note_anchor_names(doc.xpath(ns("//table | //figure")))
+        note_anchor_names(doc.xpath(ns(sections_xpath)))
+        example_anchor_names(doc.xpath(ns(sections_xpath)))
+        list_anchor_names(doc.xpath(ns(sections_xpath)))
+        deflist_anchor_names(doc.xpath(ns(sections_xpath)))
+        bookmark_anchor_names(doc)
       end
 
       def preface_clause_name(clause)
