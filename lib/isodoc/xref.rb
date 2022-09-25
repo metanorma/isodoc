@@ -61,15 +61,7 @@ module IsoDoc
       amend_preprocess(docxml) if @parse_settings.empty?
       initial_anchor_names(docxml)
       back_anchor_names(docxml)
-      # preempt clause notes with all other types of note (ISO default)
-      if @parse_settings.empty?
-        note_anchor_names(docxml.xpath(ns("//table | //figure")))
-        note_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-        example_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-        list_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-        deflist_anchor_names(docxml.xpath(ns(SECTIONS_XPATH)))
-        bookmark_anchor_names(docxml)
-      end
+      asset_anchor_names(docxml)
       @parse_settings = {}
     end
 
