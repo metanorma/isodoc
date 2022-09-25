@@ -11,8 +11,8 @@ module IsoDoc
       Common::ns(xpath)
     end
 
-    def l10n(expr, lang, script)
-      @i18n.l10n(expr, lang, script)
+    def l10n(expr, lang = @lang, script = @script, locale = @locale)
+      @i18n.l10n(expr, lang, script, locale)
     end
 
     def initialize(lang, script, i18n, fonts_options = {})
@@ -103,7 +103,7 @@ module IsoDoc
       draftinfo = " (#{@labels['draft_label']} #{draft}"
       draftinfo += ", #{revdate}" if revdate
       draftinfo += ")"
-      l10n(draftinfo, @lang, @script)
+      l10n(draftinfo, @lang, @script, @locale)
     end
 
     def version(isoxml, _out)

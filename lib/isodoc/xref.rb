@@ -69,8 +69,8 @@ module IsoDoc
       Common::ns(xpath)
     end
 
-    def l10n(text, lang = @lang, script = @script)
-      @i18n.l10n(text, lang, script)
+    def l10n(text, lang = @lang, script = @script, locale = @locale)
+      @i18n.l10n(text, lang, script, locale)
     end
   end
 end

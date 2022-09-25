@@ -9,12 +9,13 @@ module IsoDoc
       @xrefs = Xref.new(lang, script, html, i18n, options)
     end
 
-    def i18n_init(lang, script, i18nyaml = nil)
-      @i18n = I18n.new(lang, script, i18nyaml: i18nyaml || @i18nyaml)
+    def i18n_init(lang, script, locale, i18nyaml = nil)
+      @i18n = I18n.new(lang, script, locale: locale,
+                                     i18nyaml: i18nyaml || @i18nyaml)
     end
 
-    def l10n(expr, lang = @lang, script = @script)
-      @i18n.l10n(expr, lang, script)
+    def l10n(expr, lang = @lang, script = @script, locale = @locale)
+      @i18n.l10n(expr, lang, script, locale)
     end
   end
 end
