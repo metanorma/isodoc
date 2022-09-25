@@ -84,6 +84,7 @@ module IsoDoc
       @i18nyaml = options[:i18nyaml]
       @lang = options[:language] || "en"
       @script = options[:script] || "Latn"
+      @locale = options[:locale]
       @localizenumber = options[:localizenumber]
     end
 
@@ -209,11 +210,12 @@ module IsoDoc
     end
 
     def convert_i18n_init(docxml)
-      lang = docxml&.at(ns("//bibdata/language"))&.text and @lang = lang
-      script = docxml&.at(ns("//bibdata/script"))&.text and @script = script
-      i18n_init(@lang, @script)
+      lang = docxml.at(ns("//bibdata/language")) and @lang = lang.text
+      script = docxml.at(ns("//bibdata/script")) and @script = script.text
+      locale = docxml.at(ns("//bibdata/locale")) and @locale = locale.text
+      i18n_init(@lang, @script, @locale)
       @reqt_models = requirements_processor
-        .new({ default: "default", lang: lang, script: script,
+        .new({ default: "default", lang: @lang, script: @script, locale: @locale,
                labels: @i18n.get })
     end
 

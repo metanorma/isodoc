@@ -17,10 +17,10 @@ module IsoDoc
         name = a&.at(ns("./affiliation/organization/name"))&.text
         subdivs = a&.xpath(ns("./affiliation/organization/subdivision"))&.map(&:text)&.join(", ")
         name and subdivs and !subdivs.empty? and
-          name = l10n("#{name}, #{subdivs}", @lang, @script)
+          name = l10n("#{name}, #{subdivs}")
         location = a&.at(ns("./affiliation/organization/address/formattedAddress"))&.text
         m << (if !name.nil? && !location.nil?
-                l10n("#{name}, #{location}", @lang, @script)
+                l10n("#{name}, #{location}")
               else
                 (name || location || "")
               end)

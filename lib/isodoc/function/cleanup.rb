@@ -14,7 +14,7 @@ module IsoDoc
       end
 
       def cleanup(docxml)
-        @i18n ||= i18n_init(@lang, @script)
+        @i18n ||= i18n_init(@lang, @script, @locale)
         comment_cleanup(docxml)
         footnote_cleanup(docxml)
         inline_header_cleanup(docxml)

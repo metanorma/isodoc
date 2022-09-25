@@ -26,21 +26,18 @@ module IsoDoc
       m = /(?<yr>\d\d\d\d)-(?<mo>\d\d)/.match isodate
       return isodate unless m && m[:yr] && m[:mo]
 
-      l10n("#{months[m[:mo].to_sym]} #{m[:yr]}",
-           @lang, @script)
+      l10n("#{months[m[:mo].to_sym]} #{m[:yr]}")
     end
 
     def MMMddyyyy(isodate)
-      return nil if isodate.nil?
+      isodate.nil? and return nil
 
       arr = isodate.split("-")
-      if arr.size == 1 && (/^\d+$/.match isodate)
-        Date.new(*arr.map(&:to_i)).strftime("%Y")
-      elsif arr.size == 2
-        Date.new(*arr.map(&:to_i)).strftime("%B %Y")
-      else
-        Date.parse(isodate).strftime("%B %d, %Y")
-      end
+      arr.size == 1 && (/^\d+$/.match isodate) and
+        return Date.new(*arr.map(&:to_i)).strftime("%Y")
+      arr.size == 2 and
+        return Date.new(*arr.map(&:to_i)).strftime("%B %Y")
+      Date.parse(isodate).strftime("%B %d, %Y")
     end
 
     def bibdate(isoxml, _out)
