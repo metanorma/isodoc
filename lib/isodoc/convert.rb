@@ -204,8 +204,8 @@ module IsoDoc
       filename, dir = init_file(input_filename, debug)
       docxml.root.default_namespace = ""
       convert_i18n_init(docxml)
-      metadata_init(@lang, @script, @i18n)
-      xref_init(@lang, @script, self, @i18n, {})
+      metadata_init(@lang, @script, @locale, @i18n)
+      xref_init(@lang, @script, self, @i18n, {locale: @locale})
       [docxml, filename, dir]
     end
 

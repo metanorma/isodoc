@@ -1,7 +1,7 @@
 module IsoDoc
   class Convert < ::IsoDoc::Common
-    def metadata_init(lang, script, i18n)
-      @meta = Metadata.new(lang, script, i18n)
+    def metadata_init(lang, script, locale, i18n)
+      @meta = Metadata.new(lang, script, locale, i18n)
     end
 
     def xref_init(lang, script, _klass, i18n, options)
