@@ -41,7 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mathml2asciimath"
   spec.add_dependency "metanorma-utils", "~> 1.4.3"
   spec.add_dependency "mn2pdf"
-  spec.add_dependency "mn-requirements", "~> 0.1.3"
+  spec.add_dependency "mn-requirements", "~> 0.1.7"
   spec.add_dependency "relaton-cli"
   spec.add_dependency "relaton-render", "~> 0.5.0"
   spec.add_dependency "roman-numerals"
