@@ -101,11 +101,16 @@ module IsoDoc
       pref = nil
       term.xpath(ns("./preferred[expression/name]")).each_with_index do |p, i|
         if i.zero? then pref = p
-        elsif merge_preferred_eligible?(pref, p)
-          pref.at(ns("./expression/name")) <<
-            l10n("; #{p.at(ns('./expression/name')).children.to_xml}")
-          p.remove
+        else merge_second_preferred1(pref, p)
         end
+      end
+    end
+
+    def merge_second_preferred1(pref, second)
+      if merge_preferred_eligible?(pref, second)
+        n1 = pref.at(ns("./expression/name"))
+        n2 = second.remove.at(ns("./expression/name"))
+        n1.children = l10n("#{n1.children.to_xml}; #{n2.children.to_xml}")
       end
     end
 
