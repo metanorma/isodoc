@@ -60,14 +60,17 @@ module IsoDoc
         "#{url}##{anchor.text.strip}"
       end
 
-      def eref_url(bibitemid)
-        return nil if @bibitems.nil? || @bibitems[bibitemid].nil?
+      def eref_url(id)
+        @bibitems.nil? and return nil
 
-        url = @bibitems[bibitemid].at(ns("./uri[@type = 'citation']")) and
+        b = @bibitems[id]
+        b.nil? and return nil
+
+        url = b.at(ns("./uri[@type = 'citation'][@language = '#{@lang}']")) and
           return url.text
-        @bibitems[bibitemid]["hidden"] == "true" and
-          return @bibitems[bibitemid].at(ns("./uri"))&.text
-        "##{bibitemid}"
+        url = b.at(ns("./uri[@type = 'citation']")) and return url.text
+        b["hidden"] == "true" and return b.at(ns("./uri"))&.text
+        "##{id}"
       end
 
       def eref_parse(node, out)
