@@ -1418,12 +1418,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-      <html  xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-          <head>
-          <style>
-          </style>
-        </head>
-                 <body lang='EN-US' link='blue' vlink='#954F72'>
+        <body lang='EN-US' link='blue' vlink='#954F72'>
            <div class='WordSection1'>
              <p>&#xa0;</p>
            </div>
@@ -1492,7 +1487,6 @@ RSpec.describe IsoDoc do
              </div>
            </div>
          </body>
-       </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
@@ -1500,8 +1494,10 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(word)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true))
+      .at("//body").to_xml))
+      .to be_equivalent_to xmlpp(word)
   end
 
   it "processes eref content pointing to hidden bibliographic entries" do
