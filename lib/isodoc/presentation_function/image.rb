@@ -53,7 +53,13 @@ module IsoDoc
 
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
       prefix_name(elem, block_delim,
-                  l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
+                  l10n("#{figure_label(elem)} #{lbl}"), "name")
+    end
+
+    def figure_label(elem)
+      klass = elem["class"] || "figure"
+      klasslbl = @i18n.get[klass] || klass
+      lower2cap klasslbl
     end
 
     def eps2svg(img)

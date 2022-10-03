@@ -54,6 +54,7 @@ termnote: Nota % a la entrada
 list: Lista
 deflist: Lista de definiciones
 figure: Figura
+diagram: Diagrama
 formula: Fórmula
 inequality: Fórmula
 table: Tabla

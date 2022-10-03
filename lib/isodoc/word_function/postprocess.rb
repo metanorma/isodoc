@@ -42,8 +42,7 @@ module IsoDoc
           .gsub(/-DOUBLE_HYPHEN_ESCAPE-/, "--")
         @wordstylesheet = wordstylesheet_update
         Html2Doc.new(
-          filename: filename,
-          imagedir: @localdir,
+          filename: filename, imagedir: @localdir,
           stylesheet: @wordstylesheet&.path,
           header_file: header&.path, dir: dir,
           asciimathdelims: [@openmathdelim, @closemathdelim],
@@ -110,8 +109,8 @@ module IsoDoc
           t.xpath(".//tr").each_with_index do |tr, r|
             tr.xpath("./td | ./th").each_with_index do |td, _i|
               x = 0
-              rs = td&.attr("rowspan")&.to_i || 1
-              cs = td&.attr("colspan")&.to_i || 1
+              rs = td.attr("rowspan")&.to_i || 1
+              cs = td.attr("colspan")&.to_i || 1
               while cells2d[r][x]
                 x += 1
               end
