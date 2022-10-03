@@ -49,6 +49,7 @@ note: NOTE
 note_xref: Note
 termnote: Note % à l’article
 figure: Figure
+diagram: Diagramme
 formula: Formule
 inequality: Formule
 list: Liste

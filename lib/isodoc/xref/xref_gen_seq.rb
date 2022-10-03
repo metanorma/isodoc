@@ -20,22 +20,38 @@ module IsoDoc
         idx
       end
 
+      FIGURE_NO_CLASS = <<~XPATH.freeze
+        .//figure[not(@class)] | .//figure[@class = 'pseudocode'] | .//sourcecode[not(ancestor::example)]
+      XPATH
+
       def sequential_figure_names(clause)
         c = Counter.new
         j = 0
-        clause.xpath(ns(".//figure | .//sourcecode[not(ancestor::example)]"))
-          .noblank.each do |t|
+        clause.xpath(ns(FIGURE_NO_CLASS)).noblank.each do |t|
           j = subfigure_increment(j, c, t)
-          sequential_figure_body(j, c, t)
+          sequential_figure_body(j, c, t, "figure")
+        end
+        sequential_figure_class_names(clause)
+      end
+
+      def sequential_figure_class_names(clause)
+        c = {}
+        j = 0
+        clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
+          .each do |t|
+          c[t["class"]] ||= Counter.new
+          j = subfigure_increment(j, c[t["class"]], t)
+          sequential_figure_body(j, c[t["class"]], t, t["class"])
         end
       end
 
-      def sequential_figure_body(subfignum, counter, block)
+      def sequential_figure_body(subfignum, counter, block, klass)
         label = counter.print
         label &&= label + (subfignum.zero? ? "" : "-#{subfignum}")
 
         @anchors[block["id"]] = anchor_struct(
-          label, nil, @labels["figure"], "figure", block["unnumbered"]
+          label, nil, @labels[klass] || klass.capitalize, klass,
+          block["unnumbered"]
         )
       end
 
@@ -134,21 +150,32 @@ module IsoDoc
       def hierarchical_figure_names(clause, num)
         c = Counter.new
         j = 0
-        clause.xpath(ns(".//figure |  .//sourcecode[not(ancestor::example)]"))
-          .noblank.each do |t|
+        clause.xpath(ns(FIGURE_NO_CLASS)).noblank.each do |t|
           # next if labelled_ancestor(t) && t.ancestors("figure").empty?
-
           j = subfigure_increment(j, c, t)
-          hierarchical_figure_body(num, j, c, t)
+          hierarchical_figure_body(num, j, c, t, "figure")
+        end
+        hierarchical_figure_class_names(clause, num)
+      end
+
+      def hierarchical_figure_class_names(clause, num)
+        c = {}
+        j = 0
+        clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
+          .noblank.each do |t|
+          c[t["class"]] ||= Counter.new
+          j = subfigure_increment(j, c[t["class"]], t)
+          hierarchical_figure_body(num, j, c[t["class"]], t, t["class"])
         end
       end
 
-      def hierarchical_figure_body(num, subfignum, counter, block)
+      def hierarchical_figure_body(num, subfignum, counter, block, klass)
         label = "#{num}#{hiersep}#{counter.print}" +
           (subfignum.zero? ? "" : "#{hierfigsep}#{subfignum}")
 
-        @anchors[block["id"]] = anchor_struct(label, nil, @labels["figure"],
-                                              "figure", block["unnumbered"])
+        @anchors[block["id"]] =
+          anchor_struct(label, nil, @labels[klass] || klass.capitalize,
+                        klass, block["unnumbered"])
       end
 
       def hierarchical_table_names(clause, num)

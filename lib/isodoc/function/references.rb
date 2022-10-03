@@ -56,15 +56,14 @@ module IsoDoc
         ret.empty? and
           ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
         ret.empty? and
-          ret = bib.at(ns("./docidentifier[not(@type = 'DOI' or "\
-                          "@type = 'metanorma' "\
-                          "or @type = 'metanorma-ordinal' or "\
-                          "@type = 'ISSN' or @type = 'ISBN')]"\
-                          "[@language = '#{@lang}']")) ||
-            bib.at(ns("./docidentifier[not(@type = 'DOI' or "\
-                      "@type = 'metanorma' "\
-                      "or @type = 'metanorma-ordinal' or "\
-                      "@type = 'ISSN' or @type = 'ISBN')]"))
+          ret = bib.at(ns(<<~XPATH,
+            ./docidentifier[not(@type = 'DOI' or @type = 'metanorma' or @type = 'metanorma-ordinal' or @type = 'ISSN' or @type = 'ISBN')][@language = '#{@lang}']
+          XPATH
+                         )) ||
+            bib.at(ns(<<~XPATH,
+              ./docidentifier[not(@type = 'DOI' or @type = 'metanorma' or @type = 'metanorma-ordinal' or @type = 'ISSN' or @type = 'ISBN')]
+            XPATH
+                     ))
         ret
       end
 
@@ -210,7 +209,7 @@ module IsoDoc
         page_break(out)
         out.div do |div|
           div.h1 **{ class: "Section3" } do |h1|
-            f&.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
+            f.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
           end
           biblio_list(f, div, true)
         end
