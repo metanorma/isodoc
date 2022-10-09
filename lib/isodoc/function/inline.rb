@@ -104,15 +104,32 @@ module IsoDoc
 
       def stem_parse(node, out)
         ooml = case node["type"]
-               when "AsciiMath"
-                 "#{@openmathdelim}#{HTMLEntities.new.encode(node.text)}"\
-                 "#{@closemathdelim}"
-               when "MathML" then node.first_element_child.to_s
+               when "AsciiMath" then asciimath_parse(node)
+               when "MathML" then mathml_parse(node)
+               when "LaTeX" then latexmath_parse(node)
                else HTMLEntities.new.encode(node.text)
                end
         out.span **{ class: "stem" } do |span|
           span.parent.add_child ooml
         end
+      end
+
+      MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
+
+      def mathml_parse(node)
+        node.at("./m:math", MATHML)&.to_xml
+      end
+
+      def asciimath_parse(node)
+        a = node.at(ns("./asciimath"))&.text || node.text
+
+        "#{@openmathdelim}#{HTMLEntities.new.encode(a)}"\
+          "#{@closemathdelim}"
+      end
+
+      def latexmath_parse(node)
+        a = node.at(ns("./latexmath"))&.text || node.text
+        HTMLEntities.new.encode(a)
       end
 
       def image_title_parse(out, caption)

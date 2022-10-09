@@ -810,11 +810,14 @@ RSpec.describe IsoDoc do
 
   it "processes AsciiMath and MathML" do
     input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
       <preface><foreword>
       <p>
       <stem type="AsciiMath">&lt;A&gt;</stem>
+      <stem type="AsciiMath"><m:math><m:row>X</m:row></m:math><asciimath>&lt;A&gt;</asciimath></stem>
       <stem type="MathML"><m:math><m:row>X</m:row></m:math></stem>
+      <stem type="LaTeX">Latex?</stem>
+      <stem type="LaTeX"><asciimath>&lt;A&gt;</asciimath><latexmath>Latex?</latexmath></stem>
       <stem type="None">Latex?</stem>
       </p>
       </foreword></preface>
@@ -828,9 +831,12 @@ RSpec.describe IsoDoc do
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
          <span class="stem">(#(&lt;A&gt;)#)</span>
+         <span class="stem">(#(&lt;A&gt;)#)</span>
          <span class="stem"><m:math>
            <m:row>X</m:row>
          </m:math></span>
+         <span class="stem">Latex?</span>
+         <span class="stem">Latex?</span>
          <span class="stem">Latex?</span>
          </p>
                  </div>
