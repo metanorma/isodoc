@@ -914,7 +914,7 @@ RSpec.describe IsoDoc do
                      <m:mn>2</m:mn>
                    </m:msup>
                  </m:math>
-                 <comment> ( x + y )^2 </comment>
+                 <asciimath>(x+y)^2</asciimath>
               </stem>
             </p>
           </foreword>
@@ -923,9 +923,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub("<!--", "<comment>")
-      .gsub("-->", "</comment>")))
+      .convert("test", input, true)))
       .to be_equivalent_to xmlpp(output)
   end
 
