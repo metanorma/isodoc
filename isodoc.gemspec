@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "metanorma", ">= 1.2.0"
   spec.add_dependency "emf2svg"
   spec.add_dependency "mathml2asciimath"
-  spec.add_dependency "metanorma-utils", "~> 1.4.3"
+  spec.add_dependency "metanorma-utils", "~> 1.4.5"
   spec.add_dependency "mn2pdf"
   spec.add_dependency "mn-requirements", "~> 0.1.7"
   spec.add_dependency "relaton-cli"

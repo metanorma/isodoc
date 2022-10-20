@@ -1224,6 +1224,15 @@ RSpec.describe IsoDoc do
             <preface><foreword>
              <figure id="_">
              <name>Split-it-right sample divider</name>
+                      <svg xmlns="http://www.w3.org/2000/svg" src="spec/assets/rice_image1.png" id="_" width="20000" height="300000"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
+      <g transform="translate(-0.0000, -0.0000)">
+      <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
+      <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
+      <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
+      </g>
+      </g>
+      </svg>
                       <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
                       <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
                       <image src="spec/assets/rice_image1.png" id="_" width="20000" height="300000" mimetype="image/png"/>
@@ -1246,6 +1255,15 @@ RSpec.describe IsoDoc do
                      <div>
                        <h1 class="ForewordTitle">Foreword</h1>
                        <div id="_" class="figure">
+                                    <svg xmlns='http://www.w3.org/2000/svg' src='spec/assets/rice_image1.png' id='_' width='53' height='800'/>
+             <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' width='800' height='800'>
+               <g transform='translate(-0.0000, -0.0000)'>
+                 <g transform='matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)'>
+                   <path d='M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z ' fill='#000099' stroke='none'/>
+                   <path d='M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z ' fill='#FFFFFF' stroke='none'/>
+                 </g>
+               </g>
+             </svg>
                        <img src="test_htmlimages/_.png" height="776" width="922" />
                        <img src="test_htmlimages/_.png" height="776" width="922" />
         <img src="test_htmlimages/_.png" height="800" width="53" />

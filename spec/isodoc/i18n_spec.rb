@@ -1246,12 +1246,12 @@ RSpec.describe IsoDoc do
   def mock_i18n
     allow_any_instance_of(::IsoDoc::I18n)
       .to receive(:load_yaml)
-      .with("eo", "Latn", nil, nil)
+      .with("eo", "Latn", nil, anything)
       .and_return(IsoDoc::I18n.new("eo", "Latn")
       .normalise_hash(YAML.load_file("spec/assets/i18n.yaml")))
     allow_any_instance_of(::IsoDoc::I18n)
       .to receive(:load_yaml)
-      .with("eo", "Latn", "spec/assets/i18n.yaml", nil)
+      .with("eo", "Latn", "spec/assets/i18n.yaml", anything)
       .and_return(IsoDoc::I18n.new("eo", "Latn")
       .normalise_hash(YAML.load_file("spec/assets/i18n.yaml")))
   end
