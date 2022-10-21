@@ -987,7 +987,7 @@ RSpec.describe IsoDoc do
            <foreword displayorder='1'>
              <figure id='figureA-1'>
                <name>Figure 1</name>
-               <image src='' mimetype='image/svg+xml' height='auto' width='auto'>
+               <image src='' mimetype='image/svg+xml' height='' width=''>
                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
                    <circle fill='#009' r='45' cx='50' cy='50'/>
                    <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
@@ -1025,7 +1025,7 @@ RSpec.describe IsoDoc do
            <foreword displayorder='1'>
              <figure id='figureA-1'>
                <name>Figure 1</name>
-               <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='auto' width='auto'>
+               <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='' width=''>
                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
                    <circle fill='#009' r='45' cx='50' cy='50'/>
                    <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
@@ -1077,7 +1077,7 @@ RSpec.describe IsoDoc do
             <div>
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='figureA-1' class='figure'>
-              <img src='_.emf' height='auto' width='auto'/>
+              <img src='_.emf' height='' width=''/>
                 <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
               </div>
             </div>
@@ -1134,7 +1134,7 @@ RSpec.describe IsoDoc do
               <image src='spec/assets/odf1.svg' mimetype='image/svg+xml'>
                 <emf src='data:image/emf;base64,AQAAANAAAAAAAAAAAAAAAPsEAAD7BAAAAAAAAAAAAACLCgAAiwoAACBFTUYAAAEALAQAACgAAAACAAAAMQAAAGwAAAAAAAAA3ScAAH0zAADYAAAAFwEAAAAAAAAAAAAAAAAAAMBLAwDYQQQASQBuAGsAcwBjAGEAcABlACAAMQAuADIALgAxACAAKAA5AGMANgBkADQAMQBlACwAIAAyADAAMgAyAC0AMAA3AC0AMQA0ACkAIAAAAG8AZABmADEALgBlAG0AZgAAAAAAAAAAABEAAAAMAAAAAQAAACQAAAAkAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAgAAAEYAAAAsAAAAIAAAAFNjcmVlbj0xMDIwNXgxMzE4MXB4LCAyMTZ4Mjc5bW0ARgAAADAAAAAjAAAARHJhd2luZz0xMDAuMHgxMDAuMHB4LCAyNi41eDI2LjVtbQAAEgAAAAwAAAABAAAAEwAAAAwAAAACAAAAFgAAAAwAAAAYAAAAGAAAAAwAAAAAAAAAFAAAAAwAAAANAAAAJwAAABgAAAABAAAAAAAAAAAAmQAGAAAAJQAAAAwAAAABAAAAOwAAAAgAAAAbAAAAEAAAAKQEAABxAgAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAKQEAACoAwAAqAMAAKQEAABxAgAApAQAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAAA6AQAApAQAAD8AAACoAwAAPwAAAHECAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAPwAAADoBAAA6AQAAPwAAAHECAAA/AAAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAKgDAAA/AAAApAQAADoBAACkBAAAcQIAAD0AAAAIAAAAPAAAAAgAAAA+AAAAGAAAAAAAAAAAAAAA//////////8lAAAADAAAAAUAAIAoAAAADAAAAAEAAAAnAAAAGAAAAAEAAAAAAAAA////AAYAAAAlAAAADAAAAAEAAAA7AAAACAAAABsAAAAQAAAAnQEAAEUBAAA2AAAAEAAAAM8DAABFAQAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAF8EAADtAQAAZAQAAOMCAADbAwAAkQMAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAABSAwAAPgQAAGECAABzBAAAnQEAAA4EAAA2AAAAEAAAAJ0BAADJAgAANgAAABAAAADiAgAAyQIAADYAAAAQAAAA4gIAABoCAAA2AAAAEAAAAJ0BAAAaAgAAPQAAAAgAAAA8AAAACAAAAD4AAAAYAAAAAAAAAAAAAAD//////////yUAAAAMAAAABQAAgCgAAAAMAAAAAQAAAA4AAAAUAAAAAAAAAAAAAAAsBAAA'/>
               </image>
-              <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='auto' width='auto'>
+              <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='' width=''>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
                   <circle fill='#009' r='45' cx='50' cy='50'/>
                   <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
@@ -1167,9 +1167,9 @@ RSpec.describe IsoDoc do
             <div>
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='figureA-1' class='figure'>
-                <img src='spec/assets/odf.emf'/>
-                <img src='_.emf'/>
-                <img src='_.emf' height='auto' width='auto'/>
+                <img src='spec/assets/odf.emf'  height='' width=''/>
+                <img src='_.emf'  height='' width=''/>
+                <img src='_.emf' height='' width=''/>
                  <img src='_.xml' height='20' width='auto'/>
                  <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
               </div>

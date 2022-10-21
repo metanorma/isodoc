@@ -1255,8 +1255,8 @@ RSpec.describe IsoDoc do
                      <div>
                        <h1 class="ForewordTitle">Foreword</h1>
                        <div id="_" class="figure">
-                                    <svg xmlns='http://www.w3.org/2000/svg' src='spec/assets/rice_image1.png' id='_' width='53' height='800'/>
-             <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' width='800' height='800'>
+                                    <svg xmlns='http://www.w3.org/2000/svg' src='spec/assets/rice_image1.png' id='_' width='53' height='800' viewBox='0 0 20000 300000'/>
+             <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' width='800' height='800' viewBox='0 0 1275 1275'>
                <g transform='translate(-0.0000, -0.0000)'>
                  <g transform='matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)'>
                    <path d='M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z ' fill='#000099' stroke='none'/>

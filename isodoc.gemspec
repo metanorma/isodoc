@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
 
   spec.add_dependency "asciimath"
-  spec.add_dependency "html2doc", "~> 1.4.1"
+  spec.add_dependency "html2doc", "~> 1.4.3"
   spec.add_dependency "htmlentities", "~> 4.3.4"
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
   spec.add_dependency "liquid", "~> 4"

@@ -35,7 +35,7 @@
     @include blockTitle();
   }
 
-  > img {
+  > img, > svg {
     margin-left: auto;
     margin-right: auto;
     display: block;
