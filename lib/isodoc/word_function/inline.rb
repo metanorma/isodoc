@@ -38,6 +38,8 @@ module IsoDoc
       def image_parse(node, out, caption)
         if emf = node.at(ns("./emf"))
           node["src"] = emf["src"]
+          node["height"] ||= emf["height"]
+          node["width"] ||= emf["width"]
           node["mimetype"] = "image/x-emf"
           node.children.remove
         end

@@ -1,3 +1,5 @@
+require "metanorma-utils"
+
 module IsoDoc
   module Function
     module Utils
@@ -18,24 +20,8 @@ module IsoDoc
         [1..count].each { out << tab }
       end
 
-      # add namespaces for Word fragments
-      NOKOHEAD = <<~HERE.freeze
-        <!DOCTYPE html SYSTEM
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-        <html xmlns="http://www.w3.org/1999/xhtml">
-        <head> <title></title> <meta charset="UTF-8" /> </head>
-        <body> </body> </html>
-      HERE
-
-      # block for processing XML document fragments as XHTML,
-      # to allow for HTMLentities
       def noko(&block)
-        doc = ::Nokogiri::XML.parse(NOKOHEAD)
-        fragment = doc.fragment("")
-        ::Nokogiri::XML::Builder.with fragment, &block
-        fragment.to_xml(encoding: "US-ASCII").lines.map do |l|
-          l.gsub(/\s*\n/, "")
-        end
+        Metanorma::Utils::noko_html(&block)
       end
 
       def attr_code(attributes)
@@ -44,7 +30,7 @@ module IsoDoc
         end
       end
 
-      DOCTYPE_HDR = "<!DOCTYPE html SYSTEM "\
+      DOCTYPE_HDR = "<!DOCTYPE html SYSTEM " \
                     '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.freeze
 
       def to_xhtml(xml)
@@ -55,19 +41,13 @@ module IsoDoc
           File.open("#{@filename}.#{@format}.err", "w:UTF-8") do |f|
             f.write xml
           end
-          abort "Malformed Output XML for #{@format}: #{e} "\
+          abort "Malformed Output XML for #{@format}: #{e} " \
                 "(see #{@filename}.#{@format}.err)"
         end
       end
 
       def numeric_escapes(xml)
-        c = HTMLEntities.new
-        xml.split(/(&[^ \r\n\t#;]+;)/).map do |t|
-          if /^(&[^ \t\r\n#;]+;)/.match?(t)
-            c.encode(c.decode(t), :hexadecimal)
-          else t
-          end
-        end.join
+        Metanorma::Utils::numeric_escapes(xml)
       end
 
       def to_xhtml_prep(xml)
@@ -77,8 +57,7 @@ module IsoDoc
       end
 
       def to_xhtml_fragment(xml)
-        doc = ::Nokogiri::XML.parse(NOKOHEAD)
-        doc.fragment(xml)
+        Metanorma::Utils::to_xhtml_fragment(xml)
       end
 
       def from_xhtml(xml)
@@ -87,11 +66,11 @@ module IsoDoc
       end
 
       CLAUSE_ANCESTOR =
-        ".//ancestor::*[local-name() = 'annex' or "\
-        "local-name() = 'definitions' or "\
-        "local-name() = 'acknowledgements' or local-name() = 'term' or "\
-        "local-name() = 'appendix' or local-name() = 'foreword' or "\
-        "local-name() = 'introduction' or local-name() = 'terms' or "\
+        ".//ancestor::*[local-name() = 'annex' or " \
+        "local-name() = 'definitions' or " \
+        "local-name() = 'acknowledgements' or local-name() = 'term' or " \
+        "local-name() = 'appendix' or local-name() = 'foreword' or " \
+        "local-name() = 'introduction' or local-name() = 'terms' or " \
         "local-name() = 'clause' or local-name() = 'references']/@id".freeze
 
       def get_clause_id(node)
@@ -99,12 +78,12 @@ module IsoDoc
       end
 
       NOTE_CONTAINER_ANCESTOR =
-        ".//ancestor::*[local-name() = 'annex' or "\
-        "local-name() = 'foreword' or local-name() = 'appendix' or "\
-        "local-name() = 'introduction' or local-name() = 'terms' or "\
-        "local-name() = 'acknowledgements' or local-name() = 'term' or "\
-        "local-name() = 'clause' or local-name() = 'references' or "\
-        "local-name() = 'figure' or local-name() = 'formula' or "\
+        ".//ancestor::*[local-name() = 'annex' or " \
+        "local-name() = 'foreword' or local-name() = 'appendix' or " \
+        "local-name() = 'introduction' or local-name() = 'terms' or " \
+        "local-name() = 'acknowledgements' or local-name() = 'term' or " \
+        "local-name() = 'clause' or local-name() = 'references' or " \
+        "local-name() = 'figure' or local-name() = 'formula' or " \
         "local-name() = 'table' or local-name() = 'example']/@id".freeze
 
       # no recursion on references
@@ -121,7 +100,7 @@ module IsoDoc
 
         if array.length == 1 then array[0]
         else
-          @i18n.l10n("#{array[0..-2].join(', ')} "\
+          @i18n.l10n("#{array[0..-2].join(', ')} " \
                      "#{@i18n.and} #{array.last}",
                      @lang, @script)
         end
@@ -197,7 +176,17 @@ module IsoDoc
         end
       end
 
+      def save_svg(img)
+        Tempfile.open(["image", ".svg"]) do |f|
+          f.write(img.to_xml)
+          @tempfile_cache << f # persist to the end
+          f.path
+        end
+      end
+
       def image_localfile(img)
+        img.name == "svg" && !img["src"] and
+          return save_svg(img)
         case img["src"]
         when /^data:/ then save_dataimage(img["src"], false)
         when %r{^([A-Z]:)?/} then img["src"]
@@ -206,7 +195,7 @@ module IsoDoc
       end
 
       def labelled_ancestor(node)
-        !node.ancestors("example, requirement, recommendation, permission, "\
+        !node.ancestors("example, requirement, recommendation, permission, " \
                         "note, table, figure, sourcecode").empty?
       end
 
