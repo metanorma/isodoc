@@ -212,9 +212,9 @@ module IsoDoc
     end
 
     def variant1(node)
-      if (!node["lang"] || node["lang"] == @lang) &&
-          (!node["script"] || node["script"] == @script)
-      elsif found_matching_variant_sibling(node)
+      if !((!node["lang"] || node["lang"] == @lang) &&
+          (!node["script"] || node["script"] == @script)) &&
+          found_matching_variant_sibling(node)
         node["remove"] = "true"
       end
     end
