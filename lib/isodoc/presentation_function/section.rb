@@ -3,9 +3,12 @@ require_relative "refs"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def clause(docxml)
-      docxml.xpath(ns("//clause | "\
+      docxml.xpath(ns("//clause | " \
                       "//terms | //definitions | //references"))
         .each do |f|
+        f.parent.name == "annex" &&
+          @xrefs.klass.single_term_clause?(f.parent) and next
+
         clause1(f)
       end
     end
@@ -23,8 +26,8 @@ module IsoDoc
     end
 
     def floattitle(docxml)
-      docxml.xpath(ns("//clause | //annex | //appendix | //introduction | "\
-                      "//foreword | //preface/abstract | //acknowledgements | "\
+      docxml.xpath(ns("//clause | //annex | //appendix | //introduction | " \
+                      "//foreword | //preface/abstract | //acknowledgements | " \
                       "//terms | //definitions | //references"))
         .each do |f|
         floattitle1(f)
@@ -42,9 +45,11 @@ module IsoDoc
 
     def annex(docxml)
       docxml.xpath(ns("//annex")).each do |f|
+        @xrefs.klass.single_term_clause?(f) and single_term_clause_retitle(f)
         annex1(f)
-        @xrefs.klass.single_term_clause?(f) and single_term_clause(f)
+        @xrefs.klass.single_term_clause?(f) and single_term_clause_unnest(f)
       end
+      @xrefs.parse_inclusions(clauses: true).parse(docxml)
     end
 
     def annex1(elem)
@@ -55,9 +60,16 @@ module IsoDoc
       prefix_name(elem, "<br/><br/>", lbl, "title")
     end
 
-    def single_term_clause(elem)
+    def single_term_clause_retitle(elem)
       t = elem.at(ns("./terms | ./definitions | ./references"))
-      t.at(ns("./title"))&.remove
+      title1 = elem.at(ns("./title"))
+      title2 = t.at(ns("./title"))&.remove
+      !title1 && title2 and
+        elem.first_element_child.previous = title2
+    end
+
+    def single_term_clause_unnest(elem)
+      t = elem.at(ns("./terms | ./definitions | ./references"))
       t.xpath(ns(".//clause | .//terms | .//definitions | .//references"))
         .each do |c|
           tit = c.at(ns("./title")) or return
@@ -72,7 +84,7 @@ module IsoDoc
     end
 
     def term1(elem)
-      lbl = @xrefs.get[elem["id"]][:label] or return
+      lbl = @xrefs.anchor(elem["id"], :label) or return
       prefix_name(elem, "", "#{lbl}#{clausedelim}", "name")
     end
 
@@ -101,7 +113,7 @@ module IsoDoc
       i = display_order_xpath(docxml, "//preface/*", i)
       i = display_order_at(docxml, "//clause[@type = 'scope']", i)
       i = display_order_at(docxml, @xrefs.klass.norm_ref_xpath, i)
-      i = display_order_at(docxml, "//sections/terms | "\
+      i = display_order_at(docxml, "//sections/terms | " \
                                    "//sections/clause[descendant::terms]", i)
       i = display_order_at(docxml, "//sections/definitions", i)
       i = display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml), i)
