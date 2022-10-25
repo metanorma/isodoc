@@ -30,7 +30,7 @@ module IsoDoc
           n = Counter.new
           n = section_names(doc.at(ns("//clause[@type = 'scope']")), n, 1)
           n = section_names(doc.at(ns(@klass.norm_ref_xpath)), n, 1)
-          n = section_names(doc.at(ns("//sections/terms | "\
+          n = section_names(doc.at(ns("//sections/terms | " \
                                       "//sections/clause[descendant::terms]")), n, 1)
           n = section_names(doc.at(ns("//sections/definitions")), n, 1)
           clause_names(doc, n)
@@ -92,9 +92,9 @@ module IsoDoc
       end
 
       def middle_section_asset_names(doc)
-        middle_sections = "//clause[@type = 'scope'] | "\
-                          "#{@klass.norm_ref_xpath} | "\
-                          "//sections/terms | //preface/* | "\
+        middle_sections = "//clause[@type = 'scope'] | " \
+                          "#{@klass.norm_ref_xpath} | " \
+                          "//sections/terms | //preface/* | " \
                           "//sections/definitions | //clause[parent::sections]"
         sequential_asset_names(doc.xpath(ns(middle_sections)))
       end
@@ -141,7 +141,9 @@ module IsoDoc
       end
 
       def annex_name_anchors(clause, num, level)
-        label = level == 1 ? annex_name_lbl(clause, num) : num
+        label = num
+        level == 1 && clause.name == "annex" and
+          label = annex_name_lbl(clause, num)
         @anchors[clause["id"]] =
           { label: label,
             elem: @labels["annex"], type: "clause",
@@ -172,9 +174,9 @@ module IsoDoc
       end
 
       ISO_PUBLISHER_XPATH =
-        "./contributor[xmlns:role/@type = 'publisher']/"\
-        "organization[abbreviation = 'ISO' or xmlns:abbreviation = 'IEC' or "\
-        "xmlns:name = 'International Organization for Standardization' or "\
+        "./contributor[xmlns:role/@type = 'publisher']/" \
+        "organization[abbreviation = 'ISO' or xmlns:abbreviation = 'IEC' or " \
+        "xmlns:name = 'International Organization for Standardization' or " \
         "xmlns:name = 'International Electrotechnical Commission']".freeze
 
       def reference_names(ref)
