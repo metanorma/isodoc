@@ -1,7 +1,8 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def prefix_container(container, linkend, _target)
-      l10n("#{@xrefs.anchor(container, :xref)}, #{linkend}")
+    def prefix_container(container, linkend, node, _target)
+      # l10n("#{@xrefs.anchor(container, :xref)}, #{linkend}")
+      l10n("#{anchor_xref(node, container)}, #{linkend}")
     end
 
     def anchor_value(id)
@@ -24,11 +25,22 @@ module IsoDoc
     end
 
     def anchor_linkend1(node)
-      linkend = @xrefs.anchor(node["target"], :xref)
+      linkend = anchor_xref(node, node["target"])
       container = @xrefs.anchor(node["target"], :container, false)
       prefix_container?(container, node) and
-        linkend = prefix_container(container, linkend, node["target"])
+        linkend = prefix_container(container, linkend, node, node["target"])
       capitalise_xref(node, linkend, anchor_value(node["target"]))
+    end
+
+    def anchor_xref(node, target)
+      x = @xrefs.anchor(target, :xref)
+      t = @xrefs.anchor(target, :title)
+      if node["style"] == "basic" && t then t
+      elsif node["style"] == "full" && t
+        l10n("#{x}, #{t}")
+      else
+        x
+      end
     end
 
     def prefix_container?(container, node)
@@ -55,7 +67,8 @@ module IsoDoc
       container = @xrefs.anchor(locs.first[:node]["target"], :container,
                                 false)
       prefix_container?(container, locs.first[:node]) and
-        ret = prefix_container(container, ret, locs.first[:node]["target"])
+        ret = prefix_container(container, ret, locs.first[:node],
+                               locs.first[:node]["target"])
       ret
     end
 

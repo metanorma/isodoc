@@ -3,7 +3,7 @@ require "nokogiri"
 
 RSpec.describe IsoDoc do
   it "cleans up admonitions" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <html>
       <body>
         <div class="Admonition">
@@ -13,6 +13,7 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     INPUT
+    output = <<~OUTPUT
           <?xml version="1.0"?>
       <html>
       <body>
@@ -23,10 +24,12 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "cleans up figures" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <html xmlns:epub="http://www.idpf.org/2007/ops">
       <body>
         <div class="figure">
@@ -38,6 +41,7 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     INPUT
+    output = <<~OUTPUT
              <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
       <body>
@@ -50,10 +54,12 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "cleans up figures (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <html xmlns:epub="http://www.idpf.org/2007/ops">
       <body>
         <div class="figure">
@@ -65,6 +71,7 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     INPUT
+    output = <<~OUTPUT
              <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
       <body>
@@ -77,10 +84,12 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "cleans up inline headers" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
             <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
           <title>test</title>
@@ -113,6 +122,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     INPUT
+    output = <<~OUTPUT
              <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
@@ -146,10 +156,12 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "cleans up footnotes" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       #{HTML_HDR}
       <br/>
                  <div>
@@ -169,6 +181,7 @@ RSpec.describe IsoDoc do
              </body>
          </html>
     INPUT
+    output = <<~OUTPUT
       #{HTML_HDR}
       <br/>
                  <div>
@@ -188,10 +201,12 @@ RSpec.describe IsoDoc do
              </body>
          </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "cleans up footnotes (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
           <head/>
             <body lang="EN-US" link="blue" vlink="#954F72">
@@ -225,6 +240,7 @@ RSpec.describe IsoDoc do
             </body>
         </html>
     INPUT
+    output = <<~OUTPUT
       <?xml version="1.0"?>
           <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
               <head/>
@@ -259,10 +275,12 @@ RSpec.describe IsoDoc do
                 </body>
             </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "cleans up tables with tfoot" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
           <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
           <title>test</title>
@@ -339,6 +357,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     INPUT
+    output = <<~OUTPUT
       <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
@@ -416,10 +435,12 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "cleans up tables with tfoot (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
           <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
           <title>test</title>
@@ -496,6 +517,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     INPUT
+    output = <<~OUTPUT
       <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
@@ -573,10 +595,12 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "cleans up tables without tfoot" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
           <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
           <title>test</title>
@@ -644,6 +668,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     INPUT
+    output = <<~OUTPUT
       <?xml version="1.0"?>
       <html xmlns:epub="http://www.idpf.org/2007/ops">
         <head>
@@ -712,10 +737,12 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "does not break up very long strings in tables by default" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
         <html xmlns:epub="http://www.idpf.org/2007/ops">
       <head>
         <title>test</title>
@@ -752,6 +779,7 @@ RSpec.describe IsoDoc do
                   </body>
                   </html>
     INPUT
+    output = <<~OUTPUT
                            <?xml version='1.0'?>
       <html xmlns:epub='http://www.idpf.org/2007/ops'>
         <head>
@@ -795,10 +823,12 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "does not break up very long strings in tables on request in HTML" do
-    expect(xmlpp(IsoDoc::HtmlConvert.new({ break_up_urls_in_tables: "true" }).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
         <html xmlns:epub="http://www.idpf.org/2007/ops">
       <head>
         <title>test</title>
@@ -835,6 +865,7 @@ RSpec.describe IsoDoc do
                   </body>
                   </html>
     INPUT
+    output = <<~OUTPUT
                            <?xml version='1.0'?>
       <html xmlns:epub='http://www.idpf.org/2007/ops'>
         <head>
@@ -878,10 +909,12 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({ break_up_urls_in_tables: "true" })
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "does not break up very long strings in tables by default (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
         <html xmlns:epub="http://www.idpf.org/2007/ops">
       <head>
         <title>test</title>
@@ -924,6 +957,7 @@ RSpec.describe IsoDoc do
                   </body>
                   </html>
     INPUT
+    output = <<~OUTPUT
                            <?xml version='1.0'?>
       <html xmlns:epub='http://www.idpf.org/2007/ops'>
         <head>
@@ -968,10 +1002,12 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
   it "breaks up very long strings in tables on request (Word)" do
-    expect(xmlpp(IsoDoc::WordConvert.new({ break_up_urls_in_tables: "true" }).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
         <html xmlns:epub="http://www.idpf.org/2007/ops">
       <head>
         <title>test</title>
@@ -1008,6 +1044,7 @@ RSpec.describe IsoDoc do
                   </body>
                   </html>
     INPUT
+    output = <<~OUTPUT
                            <?xml version='1.0'?>
       <html xmlns:epub='http://www.idpf.org/2007/ops'>
         <head>
@@ -1052,5 +1089,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
+    expect(xmlpp(IsoDoc::WordConvert.new({ break_up_urls_in_tables: "true" })
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 end

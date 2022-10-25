@@ -1075,7 +1075,7 @@ RSpec.describe IsoDoc do
       </g>
       </svg>
       <emf src="data:image/emf;base64"/></image>
-      <image src="" mimetype="image/svg+xml" alt="3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="#009" r="45" cx="50" cy="50"/><path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/></svg><emf src="data:image/emf;base64"/></image>
+      <image src="" mimetype="image/svg+xml" alt="3"  height="" width=""><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="#009" r="45" cx="50" cy="50"/><path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/></svg><emf src="data:image/emf;base64"/></image>
                <image src="" mimetype="image/svg+xml" alt="4">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
       <g transform="translate(-0.0000, -0.0000)">

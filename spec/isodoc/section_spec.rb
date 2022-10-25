@@ -2035,6 +2035,14 @@ RSpec.describe IsoDoc do
                      <title>References</title>
                    </terms>
                </annex>
+               <annex id='SS' obligation='normative'>
+                   <terms id='SS1' obligation='normative'>
+                     <title>Term Collection</title>
+                     <term id='term-term-4'>
+                       <preferred><expression><name>Term</name></expression></preferred>
+                     </term>
+                   </terms>
+               </annex>
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
@@ -2114,6 +2122,24 @@ RSpec.describe IsoDoc do
               References
             </title>
           </references>
+        </annex>
+          <annex id='SS' obligation='normative' displayorder='4'>
+          <title>
+            <strong>Annex D</strong>
+            <br/>
+            (normative)
+            <br/>
+            <br/>
+            <strong>Term Collection</strong>
+          </title>
+          <terms id='SS1' obligation='normative'>
+            <term id='term-term-4'>
+              <name>D.1.</name>
+              <preferred>
+                <strong>Term</strong>
+              </preferred>
+            </term>
+          </terms>
         </annex>
       </iso-standard>
     OUTPUT

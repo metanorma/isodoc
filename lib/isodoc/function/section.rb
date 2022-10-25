@@ -82,7 +82,7 @@ module IsoDoc
         f = isoxml.at(ns("//sections/definitions")) or return num
         out.div **attr_code(id: f["id"], class: "Symbols") do |div|
           num = num + 1
-          clause_name(num, f&.at(ns("./title")) || @i18n.symbols, div, nil)
+          clause_name(num, f.at(ns("./title")), div, nil)
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end

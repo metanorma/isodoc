@@ -47,6 +47,83 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
+  it "renders xrefs with style" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <sections>
+          <clause id="A"><title>My section</title>
+          <formula id="B">
+          </formula>
+          </clause>
+          <clause id="C">
+          <p>This is <xref target="A"/> and <xref target="B"/> and <xref target="C"/>.</p>
+          <p>This is <xref style="basic" target="A"/> and <xref style="basic" target="B"/> and <xref style="basic" target="C"/>.</p>
+          <p>This is <xref style="short" target="A"/> and <xref style="short" target="B"/> and <xref style="short" target="C"/>.</p>
+          <p>This is <xref style="full" target="A"/> and <xref style="full" target="B"/> and <xref style="full" target="C"/>.</p>
+          </clause>
+      </clause>
+      </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <sections>
+          <clause id='A' displayorder='1'>
+            <title depth='1'>
+              1.
+              <tab/>
+              My section
+            </title>
+            <formula id='B'>
+              <name>1</name>
+            </formula>
+          </clause>
+          <clause id='C' displayorder='2'>
+            <title>2.</title>
+            <p>
+              This is
+              <xref target='A'>Clause 1</xref>
+               and
+              <xref target='B'>Clause 1, Formula (1)</xref>
+               and
+              <xref target='C'>Clause 2</xref>
+              .
+            </p>
+            <p>
+              This is
+              <xref style='basic' target='A'>My section</xref>
+               and
+              <xref style='basic' target='B'>My section, Formula (1)</xref>
+               and
+              <xref style='basic' target='C'>Clause 2</xref>
+              .
+            </p>
+            <p>
+              This is
+              <xref style='short' target='A'>Clause 1</xref>
+               and
+              <xref style='short' target='B'>Clause 1, Formula (1)</xref>
+               and
+              <xref style='short' target='C'>Clause 2</xref>
+              .
+            </p>
+            <p>
+              This is
+              <xref style='full' target='A'>Clause 1, My section</xref>
+               and
+              <xref style='full' target='B'>Clause 1, My section, Formula (1)</xref>
+               and
+              <xref style='full' target='C'>Clause 2</xref>
+              .
+            </p>
+          </clause>
+        </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
+
   it "processes inline formatting" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1422,75 +1499,75 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-        <body lang='EN-US' link='blue' vlink='#954F72'>
-           <div class='WordSection1'>
-             <p>&#xa0;</p>
-           </div>
+      <body lang='EN-US' link='blue' vlink='#954F72'>
+         <div class='WordSection1'>
+           <p>&#xa0;</p>
+         </div>
+         <p>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection2'>
            <p>
-             <br clear='all' class='section'/>
+             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
            </p>
-           <div class='WordSection2'>
+           <div>
+             <h1 class='ForewordTitle'>Avant-propos</h1>
              <p>
-               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+               <a href='http://www.example.com/fr'>ISO 712</a>
+               <a href='http://www.example.com/fr'>ISO 712</a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 et Article 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1&#x2013;1 </a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Article 1, Tableau 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Article 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Article 1.5 </a>
+               <a href='spec/assets/iso713.doc'> A </a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Ensemble du texte </a>
+               <a href='spec/assets/iso713.doc'> ISO 713, Prelude 7 </a>
+               <a href='spec/assets/iso713.doc'>A</a>
+               <a href='spec/assets/iso713.doc#xyz'> ISO 713 </a>
+               <a href='spec/assets/iso713.doc#xyz'> ISO 713, Article 1 </a>
+               <a href='spec/assets/iso714.svg'>ISO 714</a>
              </p>
-             <div>
-               <h1 class='ForewordTitle'>Avant-propos</h1>
-               <p>
-                 <a href='http://www.example.com/fr'>ISO 712</a>
-                 <a href='http://www.example.com/fr'>ISO 712</a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 </a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 </a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 et Article 1 </a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1&#x2013;1 </a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Article 1, Tableau 1 </a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Article 1 </a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Article 1.5 </a>
-                 <a href='spec/assets/iso713.doc'> A </a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Ensemble du texte </a>
-                 <a href='spec/assets/iso713.doc'> ISO 713, Prelude 7 </a>
-                 <a href='spec/assets/iso713.doc'>A</a>
-                 <a href='spec/assets/iso713.doc#xyz'> ISO 713 </a>
-                 <a href='spec/assets/iso713.doc#xyz'> ISO 713, Article 1 </a>
-                 <a href='spec/assets/iso714.svg'>ISO 714</a>
-               </p>
-             </div>
-             <p>&#xa0;</p>
            </div>
-           <p>
-             <br clear='all' class='section'/>
-           </p>
-           <div class='WordSection3'>
-             <p class='zzSTDTitle1'/>
-             <div>
-               <h1>
-                  1.
-                 <span style='mso-tab-count:1'>&#xa0; </span>
-                  Normative References
-               </h1>
-               <p id='ISO712' class='NormRef'>
-                 ISO 712,
-                 <i>Cereals and cereal products</i>
-                  .
-                 <a href='http://www.example.com/fr'>http://www.example.com/fr</a>
-                  .
-               </p>
-               <p id='ISO713' class='NormRef'>
-                 ISO 713,
-                 <i>Cereals and cereal products</i>
-                  .
-                 <a href='spec/assets/iso713'>spec/assets/iso713</a>
-                  .
-               </p>
-               <p id='ISO714' class='NormRef'>
-                 ISO 714,
-                 <i>Cereals and cereal products</i>
-                  .
-                 <a href='spec/assets/iso714.svg'>spec/assets/iso714.svg</a>
-                  .
-               </p>
-             </div>
+           <p>&#xa0;</p>
+         </div>
+         <p>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection3'>
+           <p class='zzSTDTitle1'/>
+           <div>
+             <h1>
+                1.
+               <span style='mso-tab-count:1'>&#xa0; </span>
+                Normative References
+             </h1>
+             <p id='ISO712' class='NormRef'>
+               ISO 712,
+               <i>Cereals and cereal products</i>
+                .
+               <a href='http://www.example.com/fr'>http://www.example.com/fr</a>
+                .
+             </p>
+             <p id='ISO713' class='NormRef'>
+               ISO 713,
+               <i>Cereals and cereal products</i>
+                .
+               <a href='spec/assets/iso713'>spec/assets/iso713</a>
+                .
+             </p>
+             <p id='ISO714' class='NormRef'>
+               ISO 714,
+               <i>Cereals and cereal products</i>
+                .
+               <a href='spec/assets/iso714.svg'>spec/assets/iso714.svg</a>
+                .
+             </p>
            </div>
-         </body>
+         </div>
+       </body>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)

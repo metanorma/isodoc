@@ -108,6 +108,11 @@ module IsoDoc
 
     def svg_to_emf(node)
       uri = svg_to_emf_uri(node)
+      if node.elements&.first&.name == "svg" &&
+          (!node["height"] || node["height"] == "auto")
+        node["height"] = node.elements.first["height"]
+        node["width"] = node.elements.first["width"]
+      end
       ret = imgfile_suffix(uri, "emf")
       File.exist?(ret) and return ret
       inkscape_convert(uri, ret, '--export-type="emf"')
@@ -143,7 +148,7 @@ module IsoDoc
     end
 
     def svg_to_emf_uri_convert(node)
-      if node&.elements&.first&.name == "svg"
+      if node.elements&.first&.name == "svg"
         a = Base64.strict_encode64(node.children.to_xml)
         "data:image/svg+xml;base64,#{a}"
       else node["src"]
