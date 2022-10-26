@@ -44,11 +44,7 @@ module IsoDoc
       end
     end
 
-    def bibrender_formattedref(formattedref, xml)
-      code = render_identifier(bibitem_ref_code(xml))
-      (code[:sdo] && xml["suppress_identifier"] != "true") and
-        formattedref << " [#{code[:sdo]}] "
-    end
+    def bibrender_formattedref(formattedref, xml); end
 
     def bibrender_relaton(xml, renderings)
       f = renderings[xml["id"]][:formattedref]
