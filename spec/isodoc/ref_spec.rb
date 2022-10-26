@@ -183,7 +183,7 @@ RSpec.describe IsoDoc do
                 </em>
                  (see
                 <link target='http://www.icc.or.at'/>
-                ) [ICC/167]
+                ) 
               </formattedref>
               <docidentifier type='ICC'>ICC/167</docidentifier>
             </bibitem>
@@ -249,7 +249,7 @@ RSpec.describe IsoDoc do
               <formattedref format='application/x-isodoc+xml'>
                 CitationWorks. 2019.
                 <em>How to cite a reference</em>
-                . [IETF RFC 20]
+                . 
               </formattedref>
               <docidentifier type='metanorma'>[Citn]</docidentifier>
               <docidentifier type='IETF'>IETF RFC 20</docidentifier>
@@ -325,7 +325,7 @@ RSpec.describe IsoDoc do
                 </i>
                  (see
                 <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
-                 ) [ICC/167]
+                 ) 
               </p>
               <div class='Note'>
                 <p>
@@ -386,7 +386,7 @@ RSpec.describe IsoDoc do
               <p id='ref12' class='Biblio'>
                 Citn&#160; IETF RFC 20, CitationWorks. 2019.
                 <i>How to cite a reference</i>
-                 . [IETF RFC 20]
+                 . 
               </p>
               <p id='ref10b' class='Biblio'>
                 [6]&#160; IETF RFC 20,
@@ -491,7 +491,7 @@ RSpec.describe IsoDoc do
                </i>
                 (see
                <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
-                ) [ICC/167]
+                ) 
              </p>
              <div class='Note'>
                <p class='Note'>
@@ -575,7 +575,7 @@ RSpec.describe IsoDoc do
                <span style='mso-tab-count:1'>&#xa0; </span>
                IETF RFC 20, CitationWorks. 2019.
                <i>How to cite a reference</i>
-                . [IETF RFC 20]
+                . 
              </p>
              <p class='Biblio'>
                <a name='ref10b' id='ref10b'/>
