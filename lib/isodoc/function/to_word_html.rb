@@ -32,7 +32,8 @@ module IsoDoc
       def init_dir(filename, debug)
         dir = "#{filename}#{@tmpfilesdir_suffix}"
         unless debug
-          Dir.mkdir(dir, 0o777) unless File.exist?(dir)
+          FileUtils.mkdir_p(dir)
+          FileUtils.chmod 0o777, dir
           FileUtils.rm_rf "#{dir}/*"
         end
         dir
@@ -205,10 +206,10 @@ module IsoDoc
           when "recommendation" then recommendation_parse(node, out)
           when "permission" then permission_parse(node, out)
           when "div" then div_parse(node, out)
-          #when "subject", "classification"
+          # when "subject", "classification"
           #  requirement_skip_parse(node, out)
-          #when "inherit", "description", "specification", "measurement-target",
-          #"verification", "import", "component"
+          # when "inherit", "description", "specification", "measurement-target",
+          # "verification", "import", "component"
           # requirement_component_parse(node, out)
           when "index" then index_parse(node, out)
           when "index-xref" then index_xref_parse(node, out)

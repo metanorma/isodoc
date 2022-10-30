@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
     || f.match(%r{\.[a-zA-Z0-9_-]+\.yml|Rakefile|bin/rspec})
   end
   spec.test_files    = `git ls-files -- {spec}/*`.split("\n")
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
   spec.add_dependency "asciimath"
   spec.add_dependency "html2doc", "~> 1.4.3"

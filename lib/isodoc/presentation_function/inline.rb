@@ -147,7 +147,6 @@ module IsoDoc
       end
     end
 
-    # TODO: move to localization file
     def eref_localities1_zh(_target, type, from, upto, node)
       ret = "第#{from}" if from
       ret += "&#x2013;#{upto}" if upto
@@ -156,7 +155,6 @@ module IsoDoc
       ret
     end
 
-    # TODO: move to localization file
     def eref_localities1(target, type, from, upto, node, lang = "en")
       return nil if type == "anchor"
 
