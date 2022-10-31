@@ -10,8 +10,8 @@ module IsoDoc
     end
 
     def get_linkend(node)
-      c1 = non_locality_elems(node).select { |c| !c.text? || /\S/.match(c) }
-      return unless c1.empty?
+      node["style"] == "id" and anchor_id_postprocess(node)
+      return unless xref_empty?(node)
 
       link = anchor_linkend(node, docid_l10n(node["target"] ||
                                              expand_citeas(node["citeas"])))
@@ -22,6 +22,13 @@ module IsoDoc
     end
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
     # <locality type="section"><reference>3.1</reference></locality></origin>
+
+    def xref_empty?(node)
+      c1 = non_locality_elems(node).select { |c| !c.text? || /\S/.match(c) }
+      c1.empty?
+    end
+
+    def anchor_id_postrocess(node); end
 
     def expand_citeas(text)
       text.nil? and return text
