@@ -28,6 +28,14 @@ module IsoDoc
       HTMLEntities.new.decode(text.gsub(/&amp;#x/, "&#"))
     end
 
+    def erefstack1(elem)
+      locs = elem.xpath(ns("./eref")).map do |e|
+        [e["connective"], e.to_xml]
+      end.flatten
+      ret = resolve_eref_connectives(locs)
+      elem.replace(ret[1])
+    end
+
     def eref_localities(refs, target, node)
       if can_conflate_eref_rendering?(refs)
         l10n(", #{eref_localities_conflated(refs, target, node)}")
@@ -186,6 +194,7 @@ module IsoDoc
 
     def eref(docxml)
       docxml.xpath(ns("//eref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//erefstack")).each { |f| erefstack1(f) }
     end
 
     def origin(docxml)
