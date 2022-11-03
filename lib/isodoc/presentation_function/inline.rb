@@ -28,7 +28,7 @@ module IsoDoc
       c1.empty?
     end
 
-    def anchor_id_postrocess(node); end
+    def anchor_id_postprocess(node); end
 
     def expand_citeas(text)
       text.nil? and return text
