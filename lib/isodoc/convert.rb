@@ -47,6 +47,7 @@ module IsoDoc
     # tocrecommendations: add ToC for rcommendations
     # fonts: fontist fonts to install
     # fontlicenseagreement: fontist font license agreement
+    # modspecidentifierbase: base prefix for any Modspec identifiers
     def initialize(options) # rubocop:disable Lint/MissingSuper
       @options = options_preprocess(options)
       init_stylesheets(@options)
@@ -78,6 +79,7 @@ module IsoDoc
       @suppressasciimathdup = options[:suppressasciimathdup] == "true"
       @bare = options[:bare]
       @aligncrosselements = options[:aligncrosselements]
+      @modspecidentifierbase = options[:modspecidentifierbase]
     end
 
     def init_i18n(options)
@@ -216,7 +218,7 @@ module IsoDoc
       i18n_init(@lang, @script, @locale)
       @reqt_models = requirements_processor
         .new({ default: "default", lang: @lang, script: @script, locale: @locale,
-               labels: @i18n.get })
+               labels: @i18n.get, modspecidentifierbase: @modspecidentifierbase })
     end
 
     def convert(input_filename, file = nil, debug = false,
