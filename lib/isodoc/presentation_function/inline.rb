@@ -195,6 +195,7 @@ module IsoDoc
 
     def xref(docxml)
       docxml.xpath(ns("//xref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//xref//xref")).each { |f| f.replace(f.children) }
     end
 
     def eref(docxml)
