@@ -38,7 +38,7 @@ module IsoDoc
     end
 
     def bibrender(xml, renderings)
-      if f = xml.at(ns("./formattedref")) && xml.at(ns("./title")).nil?
+      if (f = xml.at(ns("./formattedref"))) && xml.at(ns("./title")).nil?
         bibrender_formattedref(f, xml)
       else bibrender_relaton(xml, renderings)
       end
