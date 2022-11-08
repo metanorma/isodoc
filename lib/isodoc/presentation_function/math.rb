@@ -93,7 +93,7 @@ module IsoDoc
       return if @suppressasciimathdup
 
       math = node.to_xml.gsub(/ xmlns=["'][^"']+["']/, "")
-        .gsub(%r{<[^:/]+:}, "<").gsub(%r{</[^:/]+:}, "</")
+        .gsub(%r{<[^:/>]+:}, "<").gsub(%r{</[^:/>]+:}, "</")
       ret = Plurimath::Math.parse(math, "mathml").to_asciimath
       ret = HTMLEntities.new.encode(ret, :basic)
       node.next = "<asciimath>#{ret}</asciimath>"
