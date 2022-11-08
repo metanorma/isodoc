@@ -57,6 +57,7 @@ RSpec.describe IsoDoc do
           </clause>
           <clause id="C">
           <p>This is <xref target="A"/> and <xref target="B"/> and <xref target="C"/>.</p>
+          <p>This is <xref style="id" target="A"/> and <xref style="id" target="B"/> and <xref style="id" target="C"/>.</p>
           <p>This is <xref style="basic" target="A"/> and <xref style="basic" target="B"/> and <xref style="basic" target="C"/>.</p>
           <p>This is <xref style="short" target="A"/> and <xref style="short" target="B"/> and <xref style="short" target="C"/>.</p>
           <p>This is <xref style="full" target="A"/> and <xref style="full" target="B"/> and <xref style="full" target="C"/>.</p>
@@ -80,6 +81,14 @@ RSpec.describe IsoDoc do
           </clause>
           <clause id='C' displayorder='2'>
             <title>2.</title>
+            <p>This is
+        <xref style='id' target='A'>A</xref>
+         and
+        <xref style='id' target='B'>B</xref>
+         and
+        <xref style='id' target='C'>C</xref>
+        .
+      </p>
             <p>
               This is
               <xref target='A'>Clause 1</xref>

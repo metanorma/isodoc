@@ -8,10 +8,10 @@ introduction: Introduction
 foreword: Avant-propos
 abstract: Résumé
 acknowledgements: Remerciements
-termsdef: Terms et définitions
-termsdefsymbolsabbrev: Terms, définitions, symboles et termes abrégés
-termsdefsymbols: Terms, définitions et symboles
-termsdefabbrev: Terms, définitions et termes abrégés
+termsdef: Termes et définitions
+termsdefsymbolsabbrev: Termes, définitions, symboles et termes abrégés
+termsdefsymbols: Termes, définitions et symboles
+termsdefabbrev: Termes, définitions et termes abrégés
 normref: Références normatives
 bibliography: Bibliographie
 preface: Préface
@@ -19,7 +19,7 @@ clause: Article
 annex: Annexe
 appendix: Appendice
 no_terms_boilerplate: |
-          <p>Aucun terme n’est defini dans le présent document.</p>
+          <p>Aucun terme n’est défini dans le présent document.</p>
 internal_terms_boilerplate: |
          <p>Pour les besoins du présent document, les termes et définitions suivants s’appliquent.</p>
 norm_with_refs_pref: 

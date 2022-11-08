@@ -10,8 +10,8 @@ module IsoDoc
     end
 
     def get_linkend(node)
-      c1 = non_locality_elems(node).select { |c| !c.text? || /\S/.match(c) }
-      return unless c1.empty?
+      node["style"] == "id" and anchor_id_postprocess(node)
+      return unless xref_empty?(node)
 
       link = anchor_linkend(node, docid_l10n(node["target"] ||
                                              expand_citeas(node["citeas"])))
@@ -23,9 +23,24 @@ module IsoDoc
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
     # <locality type="section"><reference>3.1</reference></locality></origin>
 
+    def xref_empty?(node)
+      c1 = non_locality_elems(node).select { |c| !c.text? || /\S/.match(c) }
+      c1.empty?
+    end
+
+    def anchor_id_postprocess(node); end
+
     def expand_citeas(text)
       text.nil? and return text
       HTMLEntities.new.decode(text.gsub(/&amp;#x/, "&#"))
+    end
+
+    def erefstack1(elem)
+      locs = elem.xpath(ns("./eref")).map do |e|
+        [e["connective"], e.to_xml]
+      end.flatten
+      ret = resolve_eref_connectives(locs)
+      elem.replace(ret[1])
     end
 
     def eref_localities(refs, target, node)
@@ -147,7 +162,6 @@ module IsoDoc
       end
     end
 
-    # TODO: move to localization file
     def eref_localities1_zh(_target, type, from, upto, node)
       ret = "第#{from}" if from
       ret += "&#x2013;#{upto}" if upto
@@ -156,7 +170,6 @@ module IsoDoc
       ret
     end
 
-    # TODO: move to localization file
     def eref_localities1(target, type, from, upto, node, lang = "en")
       return nil if type == "anchor"
 
@@ -182,10 +195,12 @@ module IsoDoc
 
     def xref(docxml)
       docxml.xpath(ns("//xref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//xref//xref")).each { |f| f.replace(f.children) }
     end
 
     def eref(docxml)
       docxml.xpath(ns("//eref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//erefstack")).each { |f| erefstack1(f) }
     end
 
     def origin(docxml)

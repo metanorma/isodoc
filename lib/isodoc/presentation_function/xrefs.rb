@@ -1,7 +1,6 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_container(container, linkend, node, _target)
-      # l10n("#{@xrefs.anchor(container, :xref)}, #{linkend}")
       l10n("#{anchor_xref(node, container)}, #{linkend}")
     end
 
@@ -11,17 +10,21 @@ module IsoDoc
     end
 
     def anchor_linkend(node, linkend)
-      if node["citeas"].nil? && node["bibitemid"]
+      node["style"] == "id" and
+        return anchor_id_postproc(node)
+      node["citeas"].nil? && node["bibitemid"] and
         return @xrefs.anchor(node["bibitemid"], :xref) || "???"
-      elsif node.at(ns("./location"))
-        linkend = combine_xref_locations(node)
-      elsif node["target"] && node["droploc"]
+      node.at(ns("./location")) and
+        return combine_xref_locations(node) || "???"
+      node["target"] && node["droploc"] and
         return anchor_value(node["target"]) || "???"
-      elsif node["target"] && !/.#./.match(node["target"])
-        linkend = anchor_linkend1(node)
-      end
-
+      node["target"] && !/.#./.match(node["target"]) and
+        return anchor_linkend1(node) || "???"
       linkend || "???"
+    end
+
+    def anchor_id_postproc(node)
+      node["target"]
     end
 
     def anchor_linkend1(node)

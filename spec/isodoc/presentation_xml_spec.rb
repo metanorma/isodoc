@@ -1688,6 +1688,78 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "processes erefstack" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+       <clause id="A1" inline-header="false" obligation="normative">
+       <title>Section</title>
+       <p id="A2">
+       <erefstack><eref connective="from" bibitemid="A" citeas="A" type="inline" /><eref connective="to" bibitemid="B" citeas="B" type="inline" /></erefstack>
+       </p>
+       </clause>
+       </sections>
+       <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+      <bibitem id="ISO712" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="ISO">ISO 712</docidentifier>
+        <docidentifier type="metanorma">[110]</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+      <bibitem id="ISO16634" type="standard">
+        <title language="x" format="text/plain">Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</title>
+        <title language="en" format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
+        <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+        <date type="published"><on>--</on></date>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <abbreviation>ISO</abbreviation>
+          </organization>
+        </contributor>
+        <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
+        <extent type="part">
+        <referenceFrom>all</referenceFrom>
+        </extent>
+      </bibitem>
+      </bibliography>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+         <bibdata/>
+         <sections>
+           <clause id='A1' inline-header='false' obligation='normative' displayorder='2'>
+             <title depth='1'>
+               2.
+               <tab/>
+               Section
+             </title>
+             <p id='A2'>
+               <eref connective='from' bibitemid='A' citeas='A' type='inline'>A</eref>
+                to
+               <eref connective='to' bibitemid='B' citeas='B' type='inline'>B</eref>
+             </p>
+           </clause>
+         </sections>
+       </iso-standard>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+        .convert("test", input, true))
+    xml.at("//xmlns:localized-strings")&.remove
+    xml.at("//xmlns:bibliography")&.remove
+    expect(xmlpp(xml.to_xml))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   it "captions embedded figures" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">

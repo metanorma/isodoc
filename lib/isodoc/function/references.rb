@@ -71,7 +71,7 @@ module IsoDoc
       def bibitem_ref_code(bib)
         id = bib.at(ns("./docidentifier[@type = 'metanorma']"))
         id1 = pref_ref_code(bib)
-        id2 = bib.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or "\
+        id2 = bib.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or " \
                         "@type = 'ISBN']"))
         id3 = bib.at(ns("./docidentifier[@type = 'metanorma-ordinal']"))
         return [id, id1, id2, id3] if id || id1 || id2 || id3
@@ -179,7 +179,7 @@ module IsoDoc
       end
 
       def norm_ref_xpath
-        "//bibliography/references[@normative = 'true'] | "\
+        "//bibliography/references[@normative = 'true'] | " \
           "//bibliography/clause[.//references[@normative = 'true']]"
       end
 
@@ -198,8 +198,8 @@ module IsoDoc
       end
 
       def bibliography_xpath
-        "//bibliography/clause[.//references]"\
-          "[not(.//references[@normative = 'true'])] | "\
+        "//bibliography/clause[.//references]" \
+          "[not(.//references[@normative = 'true'])] | " \
           "//bibliography/references[@normative = 'false']"
       end
 
