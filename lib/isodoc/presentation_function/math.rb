@@ -98,7 +98,8 @@ module IsoDoc
       ret = HTMLEntities.new.encode(ret, :basic)
       node.next = "<asciimath>#{ret}</asciimath>"
     rescue StandardError => e
-      warn math
+      warn "Failure to convert MathML to AsciiMath"
+      warn node.parent.to_xml
       warn e
     end
 
