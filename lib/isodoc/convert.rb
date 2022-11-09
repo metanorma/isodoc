@@ -151,9 +151,9 @@ module IsoDoc
     end
 
     def init_toc(options)
-      @wordToClevels = options[:doctoclevels].to_i
+      @wordToClevels = (options[:doctoclevels] || options[:toclevels]).to_i
       @wordToClevels = 2 if @wordToClevels.zero?
-      @htmlToClevels = options[:htmltoclevels].to_i
+      @htmlToClevels = (options[:htmltoclevels] || options[:toclevels]).to_i
       @htmlToClevels = 2 if @htmlToClevels.zero?
       @tocfigures = options[:tocfigures]
       @toctables = options[:toctables]
