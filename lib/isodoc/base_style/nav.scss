@@ -30,6 +30,18 @@
     padding-left: 50px;
   }
 
+  .h4 {
+    padding-left: 70px;
+  }
+
+  .h5 {
+    padding-left: 90px;
+  }
+
+  .h6 {
+    padding-left: 110px;
+  }
+
   .toc-active, li:hover {
     background: $colorLinkActiveBg;
     box-shadow: inset -5px 0px 10px -5px $colorLinkActiveBg !important;
