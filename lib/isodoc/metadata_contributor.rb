@@ -2,23 +2,29 @@ module IsoDoc
   class Metadata
     def extract_person_names(authors)
       authors.reduce([]) do |ret, a|
-        if a.at(ns("./name/completename"))
-          ret << a.at(ns("./name/completename")).text
-        else
-          fn = a.xpath(ns("./name/forename"))
-            .each_with_object([]) { |f, m| m << f.text }
-          ret << "#{fn.join(' ')} #{a&.at(ns('./name/surname'))&.text}"
-        end
+        ret << if a.at(ns("./name/completename"))
+                 a.at(ns("./name/completename")).text
+               else
+                 extract_person_name_from_components(a)
+               end
       end
+    end
+
+    def extract_person_name_from_components(person)
+      name = person.xpath(ns("./name/forename"))
+      name.empty? and name = person.xpath(ns("./name/formatted-initials"))
+      out = name.map(&:text)
+      out << person.at(ns("./name/surname"))&.text
+      l10n(out.compact.join(" "))
     end
 
     def extract_person_affiliations(authors)
       authors.reduce([]) do |m, a|
-        name = a&.at(ns("./affiliation/organization/name"))&.text
-        subdivs = a&.xpath(ns("./affiliation/organization/subdivision"))&.map(&:text)&.join(", ")
+        name = a.at(ns("./affiliation/organization/name"))&.text
+        subdivs = a.xpath(ns("./affiliation/organization/subdivision"))&.map(&:text)&.join(", ")
         name and subdivs and !subdivs.empty? and
           name = l10n("#{name}, #{subdivs}")
-        location = a&.at(ns("./affiliation/organization/address/formattedAddress"))&.text
+        location = a.at(ns("./affiliation/organization/address/formattedAddress"))&.text
         m << (if !name.nil? && !location.nil?
                 l10n("#{name}, #{location}")
               else
@@ -40,7 +46,7 @@ module IsoDoc
     end
 
     def personal_authors(isoxml)
-      authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author' "\
+      authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author' " \
                                 "or xmlns:role/@type = 'editor']/person"))
       set(:authors, extract_person_names(authors))
       set(:authors_affiliations, extract_person_names_affiliations(authors))
@@ -61,10 +67,10 @@ module IsoDoc
     def agency1(xml)
       agency = ""
       publisher = []
-      xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = 'publisher']/"\
+      xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = 'publisher']/" \
                    "organization")).each do |org|
-        name = org&.at(ns("./name"))&.text
-        agency1 = org&.at(ns("./abbreviation"))&.text || name
+        name = org.at(ns("./name"))&.text
+        agency1 = org.at(ns("./abbreviation"))&.text || name
         publisher << name if name
         agency = iso?(org) ? "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
@@ -79,7 +85,7 @@ module IsoDoc
     end
 
     def agency_addr(xml)
-      a = xml.at(ns("//bibdata/contributor[xmlns:role/@type = 'publisher'][1]/"\
+      a = xml.at(ns("//bibdata/contributor[xmlns:role/@type = 'publisher'][1]/" \
                     "organization")) or return
       { subdivision: "./subdivision", pub_phone: "./phone[not(@type = 'fax')]",
         pub_fax: "./phone[@type = 'fax']", pub_email: "./email",
