@@ -77,6 +77,15 @@ RSpec.describe IsoDoc do
             </name>
           </person>
         </contributor>
+        <contributor>
+          <role type="author"/>
+          <person>
+          <name>
+            <formatted-initials>B. B.</formatted-initials>
+            <surname>Rubble</surname>
+            </name>
+          </person>
+        </contributor>
         <note type="title-footnote"><p>A footnote</p></note>
         <note type="iso"><p>A note</p></note>
         <note type="title-footnote"><p>Another footnote</p></note>
@@ -108,8 +117,8 @@ RSpec.describe IsoDoc do
       {:accesseddate=>"2012",
       :activateddate=>"2013",
       :agency=>"ISO",
-      :authors=>["Barney Rubble", "Fred Flintstone"],
-      :authors_affiliations=>{"Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]},
+      :authors=>["Barney Rubble", "Fred Flintstone", "B. B. Rubble"],
+      :authors_affiliations=>{"Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone", "B. B. Rubble"]},
       :circulateddate=>"2015",
       :confirmeddate=>"2017",
       :copieddate=>"2016",
