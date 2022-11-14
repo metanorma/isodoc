@@ -19,6 +19,10 @@ module IsoDoc
                               link, node)
       non_locality_elems(node).each(&:remove)
       node.add_child(cleanup_entities(link))
+      if node.at("./xref[@nested]")
+        node.xpath("//xref[@nested]").each { |x| x.delete("nested") }
+        node.replace(node.children)
+      end
     end
     # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
     # <locality type="section"><reference>3.1</reference></locality></origin>
@@ -80,7 +84,7 @@ module IsoDoc
       return locs if locs.size < 3
 
       locs = locs.each_slice(2).with_object([]) do |a, m|
-        m << { conn: a[0], target: a[1] }
+        m << { conn: a[0], label: a[1] }
       end
       [", ", combine_conn(locs)]
     end
@@ -200,6 +204,7 @@ module IsoDoc
 
     def eref(docxml)
       docxml.xpath(ns("//eref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//eref//xref")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//erefstack")).each { |f| erefstack1(f) }
     end
 
@@ -209,6 +214,7 @@ module IsoDoc
 
     def quotesource(docxml)
       docxml.xpath(ns("//quote/source")).each { |f| xref1(f) }
+      docxml.xpath(ns("//quote/source//xref")).each { |f| f.replace(f.children) }
     end
 
     def xref1(node)
