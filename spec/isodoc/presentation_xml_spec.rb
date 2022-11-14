@@ -1590,7 +1590,7 @@ RSpec.describe IsoDoc do
                  <xref target='ref1'>
                    <location target='ref1' connective='from'/>
                    <location target='ref2' connective='to'/>
-                   Clause 2 to 3
+                   Clauses 2 to 3
                  </xref>
                  <xref target='ref1'>
                    <location target='ref1' connective='from'/>
@@ -1600,13 +1600,13 @@ RSpec.describe IsoDoc do
                  <xref target='ref1'>
                    <location target='ref1' connective='and'/>
                    <location target='ref2' connective='and'/>
-                   Clause 2 and 3
+                   Clauses 2 and 3
                  </xref>
                  <xref target='ref1'>
                    <location target='ref1' connective='and'/>
                    <location target='ref2' connective='and'/>
                    <location target='ref3' connective='and'/>
-                   Clause 2, 3, and 4
+                   Clauses 2, 3, and 4
                  </xref>
                  <xref target='ref1'>
                    <location target='ref1' connective='and'/>
@@ -1616,20 +1616,20 @@ RSpec.describe IsoDoc do
                  <xref target='ref1'>
                    <location target='ref1' connective='and'/>
                    <location target='ref2' connective='or'/>
-                   Clause 2 or 3
+                   Clauses 2 or 3
                  </xref>
                  <xref target='ref1'>
                    <location target='ref1' connective='and'/>
                    <location target='ref2' connective='or'/>
                    <location target='ref3' connective='or'/>
-                   Clause 2, 3, or 4
+                   Clauses 2, 3, or 4
                  </xref>
                  <xref target='ref1'>
                    <location target='ref1' connective='from'/>
                    <location target='ref2' connective='to'/>
                    <location target='ref3' connective='and'/>
                    <location target='ref4' connective='to'/>
-                   Clause 2 to 3 and 4 to 5
+                   Clauses 2 to 3 and 4 to 5
                  </xref>
                  <xref target='item_6-4-a'>
             <location target='item_6-4-a' connective='from'/>

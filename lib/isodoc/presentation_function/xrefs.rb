@@ -41,8 +41,7 @@ module IsoDoc
       if node["style"] == "basic" && t then t
       elsif node["style"] == "full" && t
         l10n("#{x}, #{t}")
-      else
-        x
+      else x
       end
     end
 
@@ -66,7 +65,12 @@ module IsoDoc
 
     def combine_conflated_xref_locations(locs)
       out = locs.each { |l| l[:target] = anchor_value(l[:target]) }
-      ret = l10n("#{locs.first[:elem]} #{combine_conn(out)}")
+      label = @i18n.inflect(locs.first[:elem], number: "pl")
+      ret = l10n("#{label} #{combine_conn(out)}")
+      combine_conflated_xref_locations_container(locs, ret)
+    end
+
+    def combine_conflated_xref_locations_container(locs, ret)
       container = @xrefs.anchor(locs.first[:node]["target"], :container,
                                 false)
       prefix_container?(container, locs.first[:node]) and
