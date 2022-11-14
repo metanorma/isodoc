@@ -1,5 +1,7 @@
 require_relative "presentation_function/block"
 require_relative "presentation_function/terms"
+require_relative "presentation_function/xrefs"
+require_relative "presentation_function/erefs"
 require_relative "presentation_function/inline"
 require_relative "presentation_function/math"
 require_relative "presentation_function/section"
