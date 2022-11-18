@@ -75,6 +75,9 @@ module IsoDoc
       end
 
       # inheriting gems need to add native Word name of style, if different
+      # including both CSS style name and human readable style name.
+      # Any human readable style name needs to come first for the Word template
+      # to work in regenerating the ToC
       def table_toc_class
         %w(TableTitle tabletitle)
       end
@@ -88,10 +91,16 @@ module IsoDoc
            recommendationtitle recommendationtesttitle)
       end
 
+      def toc_word_class_list(classes)
+        classes.map do |x|
+          / /.match?(x) ? %(&quot;#{x}&quot;) : x
+        end.join(",")
+      end
+
       def word_toc_reqt_preface1
         <<~TOC
           <span lang="EN-GB"><span style='mso-element:field-begin'></span><span
-          style='mso-spacerun:yes'>&#xA0;</span>TOC \\h \\z \\t "#{reqt_toc_class.join(',')}"
+          style='mso-spacerun:yes'>&#xA0;</span>TOC \\h \\z \\t #{toc_word_class_list reqt_toc_class}
           <span style='mso-element:field-separator'></span></span>
         TOC
       end
@@ -99,14 +108,14 @@ module IsoDoc
       def word_toc_table_preface1
         <<~TOC
           <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
-          \\h \\z \\t "#{table_toc_class.join(',')}" <span style='mso-element:field-separator'></span></span>
+          \\h \\z \\t #{toc_word_class_list table_toc_class} <span style='mso-element:field-separator'></span></span>
         TOC
       end
 
       def word_toc_figure_preface1
         <<~TOC
           <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
-          \\h \\z \\t "#{figure_toc_class.join(',')}" <span style='mso-element:field-separator'></span></span>
+          \\h \\z \\t #{toc_word_class_list figure_toc_class} <span style='mso-element:field-separator'></span></span>
         TOC
       end
 
