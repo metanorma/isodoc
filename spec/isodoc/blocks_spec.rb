@@ -2405,7 +2405,7 @@ RSpec.describe IsoDoc do
       </foreword></preface>
       </iso-standard>
     INPUT
-    expect((File.read("test.html")
+    expect(xmlpp(File.read("test.html")
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
       .gsub(%r{</div>.*}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <A><i>Hello</i></A>
