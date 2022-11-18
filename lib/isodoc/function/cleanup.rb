@@ -26,7 +26,7 @@ module IsoDoc
       end
 
       def table_long_strings_cleanup(docxml)
-        return unless @break_up_urls_in_tables == true
+        return unless @break_up_urls_in_tables
 
         docxml.xpath("//td | //th").each do |d|
           d.traverse do |n|

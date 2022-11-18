@@ -26,41 +26,33 @@ module IsoDoc
       def insert_toc(intro, docxml, level)
         toc = ""
         toc += make_WordToC(docxml, level)
-        toc += make_TableWordToC(docxml)
-        toc += make_FigureWordToC(docxml)
-        toc += make_RecommendationWordToC(docxml)
+        toc += make_table_word_toc(docxml)
+        toc += make_figure_word_toc(docxml)
+        toc += make_recommendation_word_toc(docxml)
         intro.sub(/WORDTOC/, toc)
       end
 
       def word_toc_entry(toclevel, heading)
         bookmark = bookmarkid # Random.rand(1000000000)
         <<~TOC
-          <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span
-          lang="EN-GB" style='mso-no-proof:yes'>
-          <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB"
-          class="MsoTocTextSpan">
+          <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span lang="EN-GB" style='mso-no-proof:yes'>
+          <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB" class="MsoTocTextSpan">
           <span style='mso-tab-count:1 dotted'>. </span>
           </span><span lang="EN-GB" class="MsoTocTextSpan">
           <span style='mso-element:field-begin'></span></span>
-          <span lang="EN-GB"
-          class="MsoTocTextSpan"> PAGEREF _Toc#{bookmark} \\h </span>
-            <span lang="EN-GB" class="MsoTocTextSpan"><span
-            style='mso-element:field-separator'></span></span><span
+          <span lang="EN-GB" class="MsoTocTextSpan"> PAGEREF _Toc#{bookmark} \\h </span>
+            <span lang="EN-GB" class="MsoTocTextSpan"><span style='mso-element:field-separator'></span></span><span
             lang="EN-GB" class="MsoTocTextSpan">1</span>
-            <span lang="EN-GB"
-            class="MsoTocTextSpan"></span><span
-            lang="EN-GB" class="MsoTocTextSpan"><span
-            style='mso-element:field-end'></span></span></a></span></span></p>
+            <span lang="EN-GB" class="MsoTocTextSpan"></span><span
+            lang="EN-GB" class="MsoTocTextSpan"><span style='mso-element:field-end'></span></span></a></span></span></p>
 
         TOC
       end
 
       def word_toc_preface(level)
-        <<~TOC.freeze
-          <span lang="EN-GB"><span
-            style='mso-element:field-begin'></span><span
-            style='mso-spacerun:yes'>&#xA0;</span>TOC
-            \\o "1-#{level}" \\h \\z \\u <span
+        <<~TOC
+          <span lang="EN-GB"><span style='mso-element:field-begin'></span><span
+            style='mso-spacerun:yes'>&#xA0;</span>TOC \\o "1-#{level}" \\h \\z \\u <span
             style='mso-element:field-separator'></span></span>
         TOC
       end
@@ -82,63 +74,96 @@ module IsoDoc
                 %{\\1#{word_toc_preface(level)}}) + WORD_TOC_SUFFIX1
       end
 
-      WORD_TOC_RECOMMENDATION_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle"
-        <span style='mso-element:field-separator'></span></span>
-      TOC
+      # inheriting gems need to add native Word name of style, if different
+      # including both CSS style name and human readable style name.
+      # Any human readable style name needs to come first for the Word template
+      # to work in regenerating the ToC
+      def table_toc_class
+        %w(TableTitle tabletitle)
+      end
 
-      WORD_TOC_TABLE_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "TableTitle,tabletitle" <span
-        style='mso-element:field-separator'></span></span>
-      TOC
+      def figure_toc_class
+        %w(FigureTitle figuretitle)
+      end
 
-      WORD_TOC_FIGURE_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "FigureTitle,figuretitle" <span
-        style='mso-element:field-separator'></span></span>
-      TOC
+      def reqt_toc_class
+        %w(RecommendationTitle RecommendationTestTitle
+           recommendationtitle recommendationtesttitle)
+      end
 
-      def make_TableWordToC(docxml)
-        (docxml.at("//p[@class = 'TableTitle']") && @toctablestitle) or
-          return ""
+      def toc_word_class_list(classes)
+        classes.map do |x|
+          / /.match?(x) ? %(&quot;#{x}&quot;) : x
+        end.join(",")
+      end
+
+      def word_toc_reqt_preface1
+        <<~TOC
+          <span lang="EN-GB"><span style='mso-element:field-begin'></span><span
+          style='mso-spacerun:yes'>&#xA0;</span>TOC \\h \\z \\t #{toc_word_class_list reqt_toc_class}
+          <span style='mso-element:field-separator'></span></span>
+        TOC
+      end
+
+      def word_toc_table_preface1
+        <<~TOC
+          <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
+          \\h \\z \\t #{toc_word_class_list table_toc_class} <span style='mso-element:field-separator'></span></span>
+        TOC
+      end
+
+      def word_toc_figure_preface1
+        <<~TOC
+          <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
+          \\h \\z \\t #{toc_word_class_list figure_toc_class} <span style='mso-element:field-separator'></span></span>
+        TOC
+      end
+
+      def table_toc_xpath
+        attr = table_toc_class.map { |x| "@class = '#{x}'" }
+        "//p[#{attr.join(' or ')}]"
+      end
+
+      def make_table_word_toc(docxml)
+        (docxml.at(table_toc_xpath) && @toctablestitle) or return ""
         toc = %{<p class="TOCTitle">#{@toctablestitle}</p>}
-        docxml.xpath("//p[@class = 'TableTitle']").each do |h|
+        docxml.xpath(table_toc_xpath).each do |h|
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_TABLE_PREFACE1}}) + WORD_TOC_SUFFIX1
+                %{\\1#{word_toc_table_preface1}}) + WORD_TOC_SUFFIX1
       end
 
-      def make_FigureWordToC(docxml)
-        (docxml.at("//p[@class = 'FigureTitle']") && @tocfigurestitle) or
-          return ""
+      def figure_toc_xpath
+        attr = figure_toc_class.map { |x| "@class = '#{x}'" }
+        "//p[#{attr.join(' or ')}]"
+      end
+
+      def make_figure_word_toc(docxml)
+        (docxml.at(figure_toc_xpath) && @tocfigurestitle) or return ""
         toc = %{<p class="TOCTitle">#{@tocfigurestitle}</p>}
-        docxml.xpath("//p[@class = 'FigureTitle']").each do |h|
+        docxml.xpath(figure_toc_xpath).each do |h|
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_FIGURE_PREFACE1}}) + WORD_TOC_SUFFIX1
+                %{\\1#{word_toc_figure_preface1}}) + WORD_TOC_SUFFIX1
       end
 
-      def make_RecommendationWordToC(docxml)
-        (docxml.at("//p[@class = 'RecommendationTitle']") &&
-          @tocrecommendationstitle) or return ""
+      def reqt_toc_xpath
+        attr = reqt_toc_class.map { |x| "@class = '#{x}'" }
+        "//p[#{attr.join(' or ')}]"
+      end
+
+      def make_recommendation_word_toc(docxml)
+        (docxml.at(reqt_toc_xpath) && @tocrecommendationstitle) or return ""
         toc = %{<p class="TOCTitle">#{@tocrecommendationstitle}</p>}
-        docxml.xpath("//p[@class = 'RecommendationTitle' or @class = 'RecommendationTestTitle']").sort_by do |h|
+        docxml.xpath(reqt_toc_xpath).sort_by do |h|
           recommmendation_sort_key(h.text)
         end.each do |h|
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) + WORD_TOC_SUFFIX1
+                %{\\1#{word_toc_reqt_preface1}}) + WORD_TOC_SUFFIX1
       end
 
       def recommmendation_sort_key(header)
@@ -160,7 +185,7 @@ module IsoDoc
 
       def authority_cleanup1(docxml, klass)
         dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
-        auth = docxml.at("//div[@id = 'boilerplate-#{klass}' "\
+        auth = docxml.at("//div[@id = 'boilerplate-#{klass}' " \
                          "or @class = 'boilerplate-#{klass}']")
         auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each(&:remove)
         auth&.xpath(".//h1 | .//h2")&.each do |h|
@@ -218,7 +243,7 @@ module IsoDoc
         docxml.xpath("//div[@class = '#{sect}']//br[@orientation]").reverse
           .each_with_index do |br, i|
           @landscapestyle +=
-            "\ndiv.#{sect}_#{i} {page:#{sect}"\
+            "\ndiv.#{sect}_#{i} {page:#{sect}" \
             "#{br['orientation'] == 'landscape' ? 'L' : 'P'};}\n"
           split_at_section_break(docxml, sect, br, i)
         end

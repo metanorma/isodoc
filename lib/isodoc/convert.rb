@@ -38,7 +38,7 @@ module IsoDoc
     # scripts_override: Override scripts file for HTML
     # scripts_pdf: Scripts file for PDF (not used in XSLT PDF)
     # datauriimage: Encode images in HTML output as data URIs
-    # break_up_urls_in_tables: whether to insert spaces in URLs in tables
+    # breakupurlsintables: whether to insert spaces in URLs in tables
     #   every 40-odd chars
     # sectionsplit: split up HTML output on sections
     # bare: do not insert any prefatory material (coverpage, boilerplate)
@@ -74,7 +74,7 @@ module IsoDoc
       @olstyle = options[:olstyle]
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
-      @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
+      @break_up_urls_in_tables = options[:breakupurlsintables]
       @sectionsplit = options[:sectionsplit] == "true"
       @suppressasciimathdup = options[:suppressasciimathdup] == "true"
       @bare = options[:bare]

@@ -909,7 +909,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({ break_up_urls_in_tables: "true" })
+    expect(xmlpp(IsoDoc::HtmlConvert.new({ breakupurlsintables: "true" })
       .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 
@@ -1089,7 +1089,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::WordConvert.new({ break_up_urls_in_tables: "true" })
+    expect(xmlpp(IsoDoc::WordConvert.new({ breakupurlsintables: "true" })
       .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
   end
 end
