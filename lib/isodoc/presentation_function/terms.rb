@@ -54,8 +54,8 @@ module IsoDoc
       return ref.remove if opts[:ref] == "false"
 
       r = concept1_ref_content(ref)
-      ref = r.at("./descendant-or-self::xmlns:xref | "\
-                 "./descendant-or-self::xmlns:eref | "\
+      ref = r.at("./descendant-or-self::xmlns:xref | " \
+                 "./descendant-or-self::xmlns:eref | " \
                  "./descendant-or-self::xmlns:termref")
       %w(xref eref).include? ref&.name and get_linkend(ref)
       if opts[:linkref] == "false" && %w(xref eref).include?(ref&.name)
@@ -82,10 +82,10 @@ module IsoDoc
       ref = node.at(ns("./xref | ./eref | ./termref"))
       label = @i18n.relatedterms[node["type"]].upcase
       if p && ref
-        node.replace(l10n("<p><strong>#{label}:</strong> "\
+        node.replace(l10n("<p><strong>#{label}:</strong> " \
                           "<em>#{p.to_xml}</em> (#{ref.to_xml})</p>"))
       else
-        node.replace(l10n("<p><strong>#{label}:</strong> "\
+        node.replace(l10n("<p><strong>#{label}:</strong> " \
                           "<strong>**RELATED TERM NOT FOUND**</strong></p>"))
       end
     end
@@ -125,7 +125,7 @@ module IsoDoc
 
     def designation1(desgn)
       s = desgn.at(ns("./termsource"))
-      name = desgn.at(ns("./expression/name | ./letter-symbol/name | "\
+      name = desgn.at(ns("./expression/name | ./letter-symbol/name | " \
                          "./graphical-symbol")) or return
 
       designation_annotate(desgn, name)
