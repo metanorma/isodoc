@@ -74,27 +74,45 @@ module IsoDoc
                 %{\\1#{word_toc_preface(level)}}) + WORD_TOC_SUFFIX1
       end
 
-      WORD_TOC_RECOMMENDATION_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle"
-        <span style='mso-element:field-separator'></span></span>
-      TOC
-
-      WORD_TOC_TABLE_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "TableTitle,tabletitle" <span style='mso-element:field-separator'></span></span>
-      TOC
-
-      WORD_TOC_FIGURE_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "FigureTitle,figuretitle" <span style='mso-element:field-separator'></span></span>
-      TOC
-
       # inheriting gems need to add native Word name of style, if different
+      def table_toc_class
+        %w(TableTitle tabletitle)
+      end
+
+      def figure_toc_class
+        %w(FigureTitle figuretitle)
+      end
+
+      def reqt_toc_class
+        %w(RecommendationTitle RecommendationTestTitle
+           recommendationtitle recommendationtesttitle)
+      end
+
+      def word_toc_reqt_preface1
+        <<~TOC
+          <span lang="EN-GB"><span style='mso-element:field-begin'></span><span
+          style='mso-spacerun:yes'>&#xA0;</span>TOC \\h \\z \\t "#{reqt_toc_class.join(',')}"
+          <span style='mso-element:field-separator'></span></span>
+        TOC
+      end
+
+      def word_toc_table_preface1
+        <<~TOC
+          <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
+          \\h \\z \\t "#{table_toc_class.join(',')}" <span style='mso-element:field-separator'></span></span>
+        TOC
+      end
+
+      def word_toc_figure_preface1
+        <<~TOC
+          <span lang="EN-GB"><span style='mso-element:field-begin'></span><span style='mso-spacerun:yes'>&#xA0;</span>TOC
+          \\h \\z \\t "#{figure_toc_class.join(',')}" <span style='mso-element:field-separator'></span></span>
+        TOC
+      end
+
       def table_toc_xpath
-        "//p[@class = 'TableTitle']"
+        attr = table_toc_class.map { |x| "@class = '#{x}'" }
+        "//p[#{attr.join(' or ')}]"
       end
 
       def make_table_word_toc(docxml)
@@ -104,27 +122,27 @@ module IsoDoc
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_TABLE_PREFACE1}}) + WORD_TOC_SUFFIX1
+                %{\\1#{word_toc_table_preface1}}) + WORD_TOC_SUFFIX1
       end
 
       def figure_toc_xpath
-        "//p[@class = 'FigureTitle']"
+        attr = figure_toc_class.map { |x| "@class = '#{x}'" }
+        "//p[#{attr.join(' or ')}]"
       end
 
       def make_figure_word_toc(docxml)
-        (docxml.at(figure_toc_xpath) && @tocfigurestitle) or
-          return ""
+        (docxml.at(figure_toc_xpath) && @tocfigurestitle) or return ""
         toc = %{<p class="TOCTitle">#{@tocfigurestitle}</p>}
         docxml.xpath(figure_toc_xpath).each do |h|
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_FIGURE_PREFACE1}}) + WORD_TOC_SUFFIX1
+                %{\\1#{word_toc_figure_preface1}}) + WORD_TOC_SUFFIX1
       end
 
       def reqt_toc_xpath
-        "//p[@class = 'RecommendationTitle' or " \
-          "@class = 'RecommendationTestTitle']"
+        attr = reqt_toc_class.map { |x| "@class = '#{x}'" }
+        "//p[#{attr.join(' or ')}]"
       end
 
       def make_recommendation_word_toc(docxml)
@@ -136,7 +154,7 @@ module IsoDoc
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) + WORD_TOC_SUFFIX1
+                %{\\1#{word_toc_reqt_preface1}}) + WORD_TOC_SUFFIX1
       end
 
       def recommmendation_sort_key(header)
