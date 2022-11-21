@@ -66,8 +66,8 @@ module IsoDoc
     def combine_conflated_xref_locations(locs)
       out = locs.each { |l| l[:label] = anchor_value(l[:target]) }
       label = @i18n.inflect(locs.first[:elem], number: "pl")
-      ret = l10n("#{label} #{combine_conn(out)}")
-      combine_conflated_xref_locations_container(locs, ret)
+      out[0][:label] = l10n("#{label} #{out[0][:label]}")
+      combine_conflated_xref_locations_container(locs, l10n(combine_conn(out)))
     end
 
     def combine_conflated_xref_locations_container(locs, ret)

@@ -2333,7 +2333,7 @@ RSpec.describe IsoDoc do
                  <referenceFrom>5</referenceFrom>
                </locality>
              </localityStack>
-             XYZ, Clause 3 to 5
+             XYZ, Clauses 3 to 5
            </eref>
            <eref type='inline' bibitemid='ref1' citeas='XYZ'>
              <localityStack connective='from'>
@@ -2349,7 +2349,7 @@ RSpec.describe IsoDoc do
                  <referenceFrom>2</referenceFrom>
                </locality>
              </localityStack>
-             XYZ, Clause 3 to Clause 5, Table 2
+             XYZ, Clauses 3 to Clause 5, Table 2
            </eref>
             text
          </p>
@@ -2364,7 +2364,7 @@ RSpec.describe IsoDoc do
                <referenceFrom>5</referenceFrom>
              </locality>
            </localityStack>
-           XYZ, Clause 3 and 5
+           XYZ, Clauses 3 and 5
          </eref>
          <eref type='inline' bibitemid='ref1' citeas='XYZ'>
            <localityStack connective='and'>
@@ -2382,7 +2382,7 @@ RSpec.describe IsoDoc do
                <referenceFrom>7</referenceFrom>
              </locality>
            </localityStack>
-           XYZ, Clause 3, 5, and 7
+           XYZ, Clauses 3, 5, and 7
          </eref>
          <eref type='inline' bibitemid='ref1' citeas='XYZ'>
            <localityStack connective='and'>
@@ -2431,7 +2431,7 @@ RSpec.describe IsoDoc do
                <referenceFrom>10</referenceFrom>
              </locality>
            </localityStack>
-           XYZ, Clause 3 to 5 and 8 to 10
+           XYZ, Clauses 3 to 5 and 8 to 10
          </eref>
        </itu-standard>
     OUTPUT
