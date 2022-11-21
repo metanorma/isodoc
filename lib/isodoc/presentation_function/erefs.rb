@@ -148,7 +148,7 @@ module IsoDoc
     def eref_localities1_zh(opt)
       ret = "第#{opt[:from]}" if opt[:from]
       ret += "&#x2013;#{opt[:upto]}" if opt[:upto]
-      loc = eref_locality_populate(opt[:type], opt[:node])
+      loc = eref_locality_populate(opt[:type], opt[:node], "sg")
       ret += " #{loc}" unless opt[:node]["droploc"] == "true"
       ret
     end
