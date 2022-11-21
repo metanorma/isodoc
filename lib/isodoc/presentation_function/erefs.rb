@@ -30,9 +30,9 @@ module IsoDoc
       ret = resolve_eref_connectives(eref_locality_stacks(refs, target,
                                                           node))
       node.delete("droploc") unless droploc
-      eref_localities1(target,
-                       refs.first.at(ns("./locality/@type")).text,
-                       l10n(ret[1..-1].join), nil, node, @lang)
+      eref_localities1({ target: target, number: "pl",
+                         type: refs.first.at(ns("./locality/@type")).text,
+                         from: l10n(ret[1..-1].join), node: node, lang: @lang })
     end
 
     def can_conflate_eref_rendering?(refs)
@@ -61,17 +61,22 @@ module IsoDoc
       locs1 = []
       add = ""
       until locs.empty?
-        if [", ", " "].include?(locs[1])
-          add += locs[0..2].join
-          locs.shift(3)
-        else
-          locs1 << add unless add.empty?
-          add = ""
-          locs1 << locs.shift
-        end
+        locs, locs1, add = resolve_comma_connectives1(locs, locs1, add)
       end
       locs1 << add unless add.empty?
       locs1
+    end
+
+    def resolve_comma_connectives1(locs, locs1, add)
+      if [", ", " "].include?(locs[1])
+        add += locs[0..2].join
+        locs.shift(3)
+      else
+        locs1 << add unless add.empty?
+        add = ""
+        locs1 << locs.shift
+      end
+      [locs, locs1, add]
     end
 
     def resolve_to_connectives(locs)
@@ -108,16 +113,20 @@ module IsoDoc
     def eref_locality_stack(ref, idx, target, node)
       ret = []
       if ref.name == "localityStack"
-        ref.elements.each_with_index do |rr, j|
-          l = eref_localities0(rr, j, target, node) or next
-
-          ret << l
-          ret << locality_delimiter(rr) unless j == ref.elements.size - 1
-        end
+        ret = eref_locality_stack1(ref, target, node, ret)
       else
         l = eref_localities0(ref, idx, target, node) and ret << l
       end
       ret[-1] == ", " and ret.pop
+      ret
+    end
+
+    def eref_locality_stack1(ref, target, node, ret)
+      ref.elements.each_with_index do |rr, j|
+        l = eref_localities0(rr, j, target, node) or next
+        ret << l
+        ret << locality_delimiter(rr) unless j == ref.elements.size - 1
+      end
       ret
     end
 
@@ -128,38 +137,43 @@ module IsoDoc
     def eref_localities0(ref, _idx, target, node)
       if ref["type"] == "whole" then @i18n.wholeoftext
       else
-        eref_localities1(target, ref["type"],
-                         ref&.at(ns("./referenceFrom"))&.text,
-                         ref&.at(ns("./referenceTo"))&.text, node, @lang)
+        eref_localities1({ target: target, type: ref["type"], number: "sg",
+                           from: ref.at(ns("./referenceFrom"))&.text,
+                           upto: ref.at(ns("./referenceTo"))&.text, node: node,
+                           lang: @lang })
       end
     end
 
-    def eref_localities1_zh(_target, type, from, upto, node)
-      ret = "第#{from}" if from
-      ret += "&#x2013;#{upto}" if upto
-      loc = eref_locality_populate(type, node)
-      ret += " #{loc}" unless node["droploc"] == "true"
+    # def eref_localities1_zh(_target, type, from, upto, node)
+    def eref_localities1_zh(opt)
+      ret = "第#{opt[:from]}" if opt[:from]
+      ret += "&#x2013;#{opt[:upto]}" if opt[:upto]
+      loc = eref_locality_populate(opt[:type], opt[:node])
+      ret += " #{loc}" unless opt[:node]["droploc"] == "true"
       ret
     end
 
-    def eref_localities1(target, type, from, upto, node, lang = "en")
-      return nil if type == "anchor"
+    # def eref_localities1(target, type, from, upto, node, lang = "en")
+    def eref_localities1(opt)
+      return nil if opt[:type] == "anchor"
 
-      lang == "zh" and
-        return l10n(eref_localities1_zh(target, type, from, upto, node))
-      ret = eref_locality_populate(type, node)
-      ret += " #{from}" if from
-      ret += "&#x2013;#{upto}" if upto
+      opt[:lang] == "zh" and
+        # return l10n(eref_localities1_zh(target, type, from, upto, node))
+        return l10n(eref_localities1_zh(opt))
+      ret = eref_locality_populate(opt[:type], opt[:node], opt[:number])
+      ret += " #{opt[:from]}" if opt[:from]
+      ret += "&#x2013;#{opt[:upto]}" if opt[:upto]
       l10n(ret)
     end
 
-    def eref_locality_populate(type, node)
+    def eref_locality_populate(type, node, number)
       return "" if node["droploc"] == "true"
 
       loc = type.sub(/^locality:/, "")
       ret = @i18n.locality[loc] || loc
+      number == "pl" and ret = @i18n.inflect(ret, number: "pl")
       ret = case node["case"]
-            when "lowercase" then loc.downcase
+            when "lowercase" then ret.downcase
             else Metanorma::Utils.strict_capitalize_first(ret)
             end
       " #{ret}"
