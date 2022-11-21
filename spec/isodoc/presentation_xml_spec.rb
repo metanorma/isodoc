@@ -1576,9 +1576,8 @@ RSpec.describe IsoDoc do
              </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <bibdata/>
-         
          <sections>
            <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
              <title depth='1'>
@@ -1587,8 +1586,7 @@ RSpec.describe IsoDoc do
                Section
              </title>
              <p id='A'>
-               Clauses 
-               <xref target='ref1'>2</xref>
+               <xref target='ref1'>CLauses 2</xref>
                 to 
                <xref target='ref2'>3</xref>
                <xref target='ref1'>
@@ -1596,12 +1594,10 @@ RSpec.describe IsoDoc do
                  <location target='ref2' connective='to'/>
                  text
                </xref>
-                Clauses 
-               <xref target='ref1'>2</xref>
+               <xref target='ref1'>Clauses 2</xref>
                 and 
                <xref target='ref2'>3</xref>
-                Clauses 
-               <xref target='ref1'>2</xref>
+               <xref target='ref1'>Clauses 2</xref>
                , 
                <xref target='ref2'>3</xref>
                , and 
@@ -1611,18 +1607,15 @@ RSpec.describe IsoDoc do
                  <location target='ref2' connective='and'/>
                  text
                </xref>
-                Clauses 
-               <xref target='ref1'>2</xref>
+               <xref target='ref1'>Clauses 2</xref>
                 or 
                <xref target='ref2'>3</xref>
-                Clauses 
-               <xref target='ref1'>2</xref>
+               <xref target='ref1'>Clauses 2</xref>
                , 
                <xref target='ref2'>3</xref>
                , or 
                <xref target='ref3'>4</xref>
-                Clauses 
-               <xref target='ref1'>2</xref>
+               <xref target='ref1'>Clauses 2</xref>
                 to 
                <xref target='ref2'>3</xref>
                 and 
