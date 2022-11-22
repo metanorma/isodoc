@@ -20,7 +20,7 @@ module IsoDoc
       d.remove_namespaces!
       refs = d.xpath("//references/bibitem").each_with_object([]) do |b, m|
         prep_for_rendering(b)
-        m << b.to_xml
+        m << to_xml(b)
       end.join
       bibrenderer.render_all("<references>#{refs}</references>",
                              type: citestyle)

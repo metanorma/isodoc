@@ -3,6 +3,10 @@ require "metanorma-utils"
 module IsoDoc
   module Function
     module Utils
+      def to_xml(node)
+        self.class.to_xml(node)
+      end
+
       def date_range(date)
         self.class.date_range(date)
       end

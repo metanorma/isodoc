@@ -10,7 +10,7 @@ module IsoDoc
       address_precompose(a)
       bibdata_i18n(a)
       a.next =
-        "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join}"\
+        "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join}" \
         "</localized-strings>"
     end
 
@@ -24,7 +24,7 @@ module IsoDoc
       @toctables and
         ins << "<toc type='table'><title>#{@i18n.toc_tables}</title></toc>"
       @tocfigures and
-        ins << "<toc type='recommendation'><title>#{@i18n.toc_recommendations}"\
+        ins << "<toc type='recommendation'><title>#{@i18n.toc_recommendations}" \
                "</title></toc>"
     end
 
@@ -50,17 +50,17 @@ module IsoDoc
     end
 
     def presmeta(name, value)
-      "<presentation-metadata><name>#{name}</name><value>#{value}</value>"\
+      "<presentation-metadata><name>#{name}</name><value>#{value}</value>" \
         "</presentation-metadata>"
     end
 
     def address_precompose1(addr)
       ret = []
-      addr.xpath(ns("./street")).each { |s| ret << s.children.to_xml }
-      a = addr.at(ns("./city")) and ret << a.children.to_xml
-      addr.xpath(ns("./state")).each { |s| ret << s.children.to_xml }
-      a = addr.at(ns("./country")) and ret << a.children.to_xml
-      a = addr.at(ns("./postcode")) and ret[-1] += " #{a.children.to_xml}"
+      addr.xpath(ns("./street")).each { |s| ret << to_xml(s.children) }
+      a = addr.at(ns("./city")) and ret << to_xml(a.children)
+      addr.xpath(ns("./state")).each { |s| ret << to_xml(s.children) }
+      a = addr.at(ns("./country")) and ret << to_xml(a.children)
+      a = addr.at(ns("./postcode")) and ret[-1] += " #{to_xml a.children}"
       ret.join("<br/>")
     end
 
@@ -118,7 +118,7 @@ module IsoDoc
     end
 
     def i18n_tag(key, value)
-      "<localized-string key='#{key}' language='#{@lang}'>#{value}"\
+      "<localized-string key='#{key}' language='#{@lang}'>#{value}" \
         "</localized-string>"
     end
 
