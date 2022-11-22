@@ -205,7 +205,7 @@ module IsoDoc
         label = dterm.dup
         label.xpath(ns(".//p")).each { |x| x.replace(x.children) }
         label.xpath(ns(".//index")).each(&:remove)
-        label.children.to_xml
+        Common::to_xml(label.children)
       end
 
       def bookmark_anchor_names(xml)

@@ -68,8 +68,8 @@ module IsoDoc
            !c.text? || /\S/.match(c)
          end.empty?
         ref.replace(@i18n.term_defined_in.sub(/%/,
-                                              ref.to_xml))
-      else ref.replace("[#{ref.to_xml}]")
+                                              to_xml(ref)))
+      else ref.replace("[#{to_xml(ref)}]")
       end
     end
 
@@ -83,7 +83,7 @@ module IsoDoc
       label = @i18n.relatedterms[node["type"]].upcase
       if p && ref
         node.replace(l10n("<p><strong>#{label}:</strong> " \
-                          "<em>#{p.to_xml}</em> (#{ref.to_xml})</p>"))
+                          "<em>#{to_xml(p)}</em> (#{Common::to_xml(ref)})</p>"))
       else
         node.replace(l10n("<p><strong>#{label}:</strong> " \
                           "<strong>**RELATED TERM NOT FOUND**</strong></p>"))
@@ -110,7 +110,7 @@ module IsoDoc
       if merge_preferred_eligible?(pref, second)
         n1 = pref.at(ns("./expression/name"))
         n2 = second.remove.at(ns("./expression/name"))
-        n1.children = l10n("#{n1.children.to_xml}; #{n2.children.to_xml}")
+        n1.children = l10n("#{to_xml(n1.children)}; #{Common::to_xml(n2.children)}")
       end
     end
 
@@ -150,7 +150,7 @@ module IsoDoc
 
     def designation_field(desgn, name)
       f = desgn.xpath(ns("./field-of-application | ./usage-info"))
-        &.map { |u| u.children.to_xml }&.join(", ")
+        &.map { |u| to_xml(u.children) }&.join(", ")
       return nil if f&.empty?
 
       name << ", &#x3c;#{f}&#x3e;"
@@ -181,7 +181,7 @@ module IsoDoc
     def designation_pronunciation(desgn, name)
       f = desgn.at(ns("./expression/pronunciation")) or return
 
-      name << ", /#{f.children.to_xml}/"
+      name << ", /#{to_xml(f.children)}/"
     end
 
     def termexample(docxml)
@@ -214,9 +214,9 @@ module IsoDoc
 
     def multidef(elem)
       d = elem.at(ns("./definition"))
-      d = d.replace("<ol><li>#{d.children.to_xml}</li></ol>").first
+      d = d.replace("<ol><li>#{to_xml(d.children)}</li></ol>").first
       elem.xpath(ns("./definition")).each do |f|
-        f = f.replace("<li>#{f.children.to_xml}</li>").first
+        f = f.replace("<li>#{to_xml(f.children)}</li>").first
         d << f
       end
       d.wrap("<definition></definition>")
@@ -242,9 +242,9 @@ module IsoDoc
 
     def termsource1(elem)
       while elem&.next_element&.name == "termsource"
-        elem << "; #{elem.next_element.remove.children.to_xml}"
+        elem << "; #{to_xml(elem.next_element.remove.children)}"
       end
-      elem.children = l10n("[#{@i18n.source}: #{elem.children.to_xml.strip}]")
+      elem.children = l10n("[#{@i18n.source}: #{to_xml(elem.children).strip}]")
     end
 
     def termsource_modification(mod)

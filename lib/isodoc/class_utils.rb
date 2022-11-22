@@ -47,6 +47,11 @@ module IsoDoc
       end
     end
 
+    def to_xml(node)
+      node.to_xml(encoding: "UTF-8", indent: 0,
+                  save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
+    end
+
     def case_with_markup(linkend, casing, script, firstonly: true)
       seen = false
       xml = Nokogiri::XML("<root>#{linkend}</root>")
@@ -57,7 +62,7 @@ module IsoDoc
                                       firstonly: firstonly))
         seen = true if firstonly
       end
-      xml.root.children.to_xml
+      to_xml(xml.root.children)
     end
 
     def nearest_block_parent(node)

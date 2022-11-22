@@ -9,7 +9,7 @@ module IsoDoc
 
     def erefstack1(elem)
       locs = elem.xpath(ns("./eref")).map do |e|
-        [e["connective"], e.to_xml]
+        [e["connective"], to_xml(e)]
       end.flatten
       ret = resolve_eref_connectives(locs)
       elem.replace(ret[1])
