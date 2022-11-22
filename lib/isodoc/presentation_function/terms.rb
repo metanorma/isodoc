@@ -24,7 +24,7 @@ module IsoDoc
       concept1_linkmention(ref, render, opts)
       concept1_ref(node, ref, opts)
       concept1_nonital(node, opts)
-      node.replace(node.children.to_xml.strip)
+      node.replace(node.children)
     end
 
     def concept1_nonital(node, opts)
