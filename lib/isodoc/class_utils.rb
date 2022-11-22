@@ -48,8 +48,8 @@ module IsoDoc
     end
 
     def to_xml(node)
-      node.to_xml(encoding: "UTF-8", indent: 0,
-                  save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
+      node&.to_xml(encoding: "UTF-8", indent: 0,
+                   save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
     end
 
     def case_with_markup(linkend, casing, script, firstonly: true)
