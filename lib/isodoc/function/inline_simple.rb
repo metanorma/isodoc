@@ -72,7 +72,8 @@ module IsoDoc
       end
 
       def underline_parse(node, out)
-        out.u do |e|
+        node["style"] and style = "text-decoration: #{node['style']}"
+        out.u **attr_code(style: style) do |e|
           node.children.each { |n| parse(n, e) }
         end
       end
