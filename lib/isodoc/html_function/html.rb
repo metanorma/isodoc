@@ -78,7 +78,7 @@ module IsoDoc
       def html_button
         return "" if @bare
 
-        '<button onclick="topFunction()" id="myBtn" '\
+        '<button onclick="topFunction()" id="myBtn" ' \
         'title="Go to top">Top</button>'.freeze
       end
 
@@ -121,7 +121,9 @@ module IsoDoc
       end
 
       def underline_parse(node, out)
-        out.span **{ style: "text-decoration: underline;" } do |e|
+        style = node["style"] ? " #{node['style']}" : ""
+        attr = { style: "text-decoration: underline#{style}" }
+        out.span **attr do |e|
           node.children.each { |n| parse(n, e) }
         end
       end

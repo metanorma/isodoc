@@ -141,6 +141,7 @@ RSpec.describe IsoDoc do
       <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
       <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
       <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/> <underline>J</underline>
+      <underline style="wavy">J1</underline>
       <span class="A"><em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt> F</span>
       <span style="font-family:&quot;Arial&quot;"><em>A</em> F</span>
       </p>
@@ -149,31 +150,16 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <div><h1 class='ForewordTitle'>Foreword</h1>
-          <p>
-            <i>A</i>
-            <b>B</b>
-            <sup>C</sup>
-            <sub>D</sub>
-            <tt>E</tt>
-            <s>F</s>
-            <span style='font-variant:small-caps;'>G</span>
-            <span class='keyword'>I</span>
-            <br/>
-            <hr/>
-            <a id='H'/>
-            <br/>
-            <br/>
-            <span style='text-decoration: underline;'>J</span>
-            <i>A</i>
-            <b>B</b>
-            <sup>C</sup>
-            <sub>D</sub>
-            <tt>E</tt>
-             F
-            <span style='font-family:&#x22;Arial&#x22;'><i>A</i> F</span>
-          </p>
-        </div>
+      <div><h1 class="ForewordTitle">Foreword</h1>
+               <p>
+       <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt>
+       <s>F</s> <span style="font-variant:small-caps;">G</span> <span class="keyword">I</span> <br/> <hr/>
+       <a id="H"/> <br/> <br/> <span style="text-decoration: underline">J</span>
+       <span style="text-decoration: underline wavy">J1</span>
+       <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt> F
+       <span style="font-family:&quot;Arial&quot;"><i>A</i> F</span>
+       </p>
+             </div>
     OUTPUT
 
     doc = <<~OUTPUT
@@ -197,6 +183,7 @@ RSpec.describe IsoDoc do
               <br clear='all' class='section' orientation='landscape'/>
             </p>
             <u>J</u>
+            <u style="text-decoration: wavy">J1</u>
             <i>A</i>
             <b>B</b>
             <sup>C</sup>
@@ -2320,119 +2307,17 @@ RSpec.describe IsoDoc do
       </itu-standard>
     INPUT
     output = <<~OUTPUT
-      <itu-standard xmlns='https://www.calconnect.org/standards/itu' type='presentation'>
-         <p id='_'>
-           <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-             <localityStack connective='from'>
-               <locality type='clause'>
-                 <referenceFrom>3</referenceFrom>
-               </locality>
-             </localityStack>
-             <localityStack connective='to'>
-               <locality type='clause'>
-                 <referenceFrom>5</referenceFrom>
-               </locality>
-             </localityStack>
-             XYZ, Clauses 3 to 5
-           </eref>
-           <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-             <localityStack connective='from'>
-               <locality type='clause'>
-                 <referenceFrom>3</referenceFrom>
-               </locality>
-             </localityStack>
-             <localityStack connective='to'>
-               <locality type='clause'>
-                 <referenceFrom>5</referenceFrom>
-               </locality>
-               <locality type='table'>
-                 <referenceFrom>2</referenceFrom>
-               </locality>
-             </localityStack>
-             XYZ, Clauses 3 to Clause 5, Table 2
-           </eref>
-            text
-         </p>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-           XYZ, Clauses 3 and 5
-         </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>7</referenceFrom>
-             </locality>
-           </localityStack>
-           XYZ, Clauses 3, 5, and 7
-         </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='annex'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-           XYZ, Clause 3 and Annex 5
-         </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='or'>
-             <locality type='clause'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-            text
-         </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='from'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='to'>
-             <locality type='clause'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>8</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='to'>
-             <locality type='clause'>
-               <referenceFrom>10</referenceFrom>
-             </locality>
-           </localityStack>
-           XYZ, Clauses 3 to 5 and 8 to 10
-         </eref>
+      <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
+         <p id="_"><eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clauses  3 to  5</eref><eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality><locality type="table"><referenceFrom>2</referenceFrom></locality></localityStack>XYZ,  Clause 3 to  Clause 5,  Table 2</eref>
+                 text
+               </p>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clauses  3 and  5</eref>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>7</referenceFrom></locality></localityStack>XYZ,  Clauses  3,  5, and  7</eref>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="annex"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clause 3 and  Annex 5</eref>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="or"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>
+                 text
+               </eref>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>8</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>10</referenceFrom></locality></localityStack>XYZ,  Clauses  3 to  5 and  8 to  10</eref>
        </itu-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
