@@ -695,8 +695,7 @@ RSpec.describe IsoDoc do
               <stage>published</stage>
               <substage>withdrawn</substage>
             </status>
-            <edition language=''>2</edition>
-            <edition language='zh'>&#x7B2C;&#x7B2C;&#x4E8C;&#x7248;</edition>
+            <edition language=''>2</edition><edition language='zh'>&#x7B2C;&#x7B2C;&#x4E8C;&#x7248;</edition>
             <ext>
               <doctype>brochure</doctype>
             </ext>
@@ -712,7 +711,7 @@ RSpec.describe IsoDoc do
              </introduction></preface><sections>
              <clause id="D" obligation="normative" type="scope" displayorder="3">
                <title depth="1">1.<tab/>Scope</title>
-               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO 712&#xff0c;&#x7B2C;1&#x2013;1 &#x8868;</eref></p>
+               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO 712，第1～1  表</eref></p>
              </clause>
              <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
                <title depth="2">3.1.<tab/>Normal Terms</title>
@@ -749,10 +748,7 @@ RSpec.describe IsoDoc do
              </clause>
              </annex><bibliography><references id="R" obligation="informative" normative="true" displayorder="4">
                <title depth="1">2.<tab/>Normative References</title>
-               <bibitem id="ISO712" type="standard">
-                 <formattedref><em>Cereals and cereal products</em>.</formattedref>
-        <docidentifier>ISO 712</docidentifier>
-      </bibitem>
+               <bibitem id="ISO712" type="standard"><formattedref><em>Cereals and cereal products</em>．</formattedref><docidentifier>ISO 712</docidentifier></bibitem>
              </references><clause id="S" obligation="informative" displayorder="9">
                <title depth="1">Bibliography</title>
                <references id="T" obligation="informative" normative="false">
@@ -765,78 +761,79 @@ RSpec.describe IsoDoc do
 
     output = <<~"OUTPUT"
           #{HTML_HDR.gsub(/ lang="en">/, ' lang="zh">')}
-                     <br/>
-                     <div>
-                       <h1 class="ForewordTitle">Foreword</h1>
-                       <p id='A'>
-        See
-        <a href='#M'>&#26465;5</a>
-      </p>
-                     </div>
-                     <br/>
-                     <div class="Section3" id="B">
-                       <h1 class="IntroTitle">Introduction</h1>
-                       <div id="C">
-                      <h2>Introduction Subsection</h2>
-                    </div>
-                     </div>
-                     <p class="zzSTDTitle1"/>
-                     <div id="D">
-                       <h1>1.&#12288;Scope</h1>
-                       <p id="E">
-                       <a href='#ISO712'>ISO 712&#xff0c;&#31532;1&#8211;1 &#34920;</a>
-                       </p>
-                     </div>
-                     <div>
-                       <h1>2.&#12288;Normative References</h1>
-                       <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i>.</p>
-                     </div>
-                     <div id="H"><h1>3.&#12288;Terms, definitions, symbols and abbreviated terms</h1>
-             <div id="I">
-                      <h2>3.1.&#12288;Normal Terms</h2>
-                      <p class="TermNum" id="J">3.1.1.</p>
-                      <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-                    </div><div id="K"><h2>3.2.</h2>
-                      <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
-                    </div></div>
-                     <div id="L" class="Symbols">
-                       <h1>4.</h1>
-                       <dl>
-                         <dt>
-                           <p>Symbol</p>
-                         </dt>
-                         <dd>Definition</dd>
-                       </dl>
-                     </div>
-                     <div id="M">
-                       <h1>5.&#12288;Clause 4</h1>
-                       <div id="N">
-                      <h2>5.1.&#12288;Introduction</h2>
-                    </div>
-                       <div id="O">
-                      <h2>5.2.&#12288;Clause 4.2</h2>
-                    </div>
-                     </div>
-                     <br/>
-                     <div id="P" class="Section3">
-                       <h1 class="Annex"><b>&#38468;&#20214;A</b><br/>&#65288;&#35268;&#33539;&#24615;&#38468;&#24405;&#65289;<br/><br/><b>Annex</b></h1>
-                       <div id="Q">
-                      <h2>A.1.&#12288;Annex A.1</h2>
-                      <div id="Q1">
-                      <h3>A.1.1.&#12288;Annex A.1a</h3>
-                      </div>
-                      </div>
-                     </div>
-                     <br/>
-                     <div>
-                       <h1 class="Section3">Bibliography</h1>
-                       <div>
-                         <h2 class="Section3">Bibliography Subsection</h2>
-                       </div>
-                     </div>
-                   </div>
-                 </body>
-             </html>
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p id="A">See <a href="#M">条5</a></p>
+             </div>
+             <br/>
+             <div class="Section3" id="B">
+               <h1 class="IntroTitle">Introduction</h1>
+               <div id="C"><h2>Introduction Subsection</h2>
+
+              </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div id="D">
+               <h1>1.　Scope</h1>
+               <p id="E">
+                 <a href="#ISO712">ISO 712，第1～1  表</a>
+               </p>
+             </div>
+             <div><h1>2.　Normative References</h1>
+
+                <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i>．</p>
+              </div>
+             <div id="H">
+               <h1>3.　Terms, definitions, symbols and abbreviated terms</h1>
+               <div id="I"><h2>3.1.　Normal Terms</h2>
+
+                <p class="TermNum" id="J">3.1.1.</p>
+                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+
+              </div>
+               <div id="K"><h2>3.2.</h2>
+                <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+              </div>
+             </div>
+             <div id="L" class="Symbols">
+               <h1>4.</h1>
+               <dl>
+                 <dt>
+                   <p>Symbol</p>
+                 </dt>
+                 <dd>Definition</dd>
+               </dl>
+             </div>
+             <div id="M">
+               <h1>5.　Clause 4</h1>
+               <div id="N"><h2>5.1.　Introduction</h2>
+
+              </div>
+               <div id="O"><h2>5.2.　Clause 4.2</h2>
+
+              </div>
+             </div>
+             <br/>
+             <div id="P" class="Section3">
+               <h1 class="Annex"><b>附件A</b><br/>（规范性附录）<br/><br/><b>Annex</b></h1>
+               <div id="Q"><h2>A.1.　Annex A.1</h2>
+
+                <div id="Q1"><h3>A.1.1.　Annex A.1a</h3>
+
+                </div>
+              </div>
+             </div>
+             <br/>
+             <div><h1 class="Section3">Bibliography</h1>
+
+                <div><h2 class="Section3">Bibliography Subsection</h2>
+
+              </div>
+              </div>
+           </div>
+         </body>
+       </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
