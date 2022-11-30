@@ -10,8 +10,9 @@ module IsoDoc
         text
       end
 
-      def nonstd_bibitem(list, bib, ordinal, biblio)
+      def nonstd_bibitem(list, bib, ordinal, biblio) # %%%
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
+=begin
           ids = bibitem_ref_code(bib)
           idents = render_identifier(ids)
           if biblio then ref_entry_code(ref, ordinal, idents, ids)
@@ -20,13 +21,17 @@ module IsoDoc
             ref << ", #{idents[sdo]}" if idents[:ordinal] && idents[:sdo]
           end
           ref << "," if idents[:sdo]
+=end
+          tag = bib.at(ns("./biblio-tag"))
+          tag&.children&.each { |n| parse(n, ref) }
           ref << " "
           reference_format(bib, ref)
         end
       end
 
-      def std_bibitem_entry(list, bib, ordinal, biblio)
+      def std_bibitem_entry(list, bib, ordinal, biblio) #%%%
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
+=begin
           idents = render_identifier(bibitem_ref_code(bib))
           if biblio then ref_entry_code(ref, ordinal, idents, nil)
           else
@@ -36,36 +41,38 @@ module IsoDoc
           end
           date_note_process(bib, ref)
           ref << "," if idents[:sdo]
+=end
+tag = bib.at(ns("./biblio-tag"))
+          tag&.children&.each { |n| parse(n, ref) }
           ref << " "
           reference_format(bib, ref)
         end
       end
 
+=begin
       # if ids is just a number, only use that ([1] Non-Standard)
       # else, use both ordinal, as prefix, and ids
-      def ref_entry_code(ref, ordinal, ids, _id)
+      def ref_entry_code(ref, ordinal, ids, _id) #%%%
         prefix_bracketed_ref(ref, ids[:ordinal] || ids[:metanorma] ||
                              "[#{ordinal}]")
         ids[:sdo] and ref << (ids[:sdo]).to_s
       end
+=end
 
-      def pref_ref_code(bib)
-        return nil if bib["suppress_identifier"] == "true"
+    SKIP_DOCID = "@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or " \
+                 "@type = 'metanorma-ordinal' or @type = 'ISBN'".freeze
 
-        ret = bib.xpath(ns("./docidentifier[@primary = 'true'][@language = '#{@lang}']"))
-        ret.empty? and
-          ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
-        ret.empty? and
-          ret = bib.at(ns(<<~XPATH,
-            ./docidentifier[not(@type = 'DOI' or @type = 'metanorma' or @type = 'metanorma-ordinal' or @type = 'ISSN' or @type = 'ISBN')][@language = '#{@lang}']
-          XPATH
-                         )) ||
-            bib.at(ns(<<~XPATH,
-              ./docidentifier[not(@type = 'DOI' or @type = 'metanorma' or @type = 'metanorma-ordinal' or @type = 'ISSN' or @type = 'ISBN')]
-            XPATH
-                     ))
-        ret
-      end
+    def pref_ref_code(bib)
+      bib["suppress_identifier"] == "true" and return nil
+      lang = "[@language = '#{@lang}']"
+      ret = bib.xpath(ns("./docidentifier[@primary = 'true']#{lang}"))
+      ret.empty? and
+        ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
+      ret.empty? and
+        ret = bib.at(ns("./docidentifier[not(#{SKIP_DOCID})]#{lang}")) ||
+          bib.at(ns("./docidentifier[not(#{SKIP_DOCID})]"))
+      ret
+    end
 
       # returns [metanorma, non-metanorma, DOI/ISSN/ISBN] identifiers
       def bibitem_ref_code(bib)
@@ -123,13 +130,15 @@ module IsoDoc
           .include? prefix
       end
 
-      def date_note_process(bib, ref)
+=begin
+      def date_note_process(bib, ref) #%%%
         date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
         return if date_note.nil?
 
         date_note.children = "<p>#{date_note.content}</p>"
         footnote_parse(date_note, ref)
       end
+=end
 
       def iso_bibitem_entry_attrs(bib, biblio)
         { id: bib["id"], class: biblio ? "Biblio" : "NormRef" }
@@ -151,7 +160,7 @@ module IsoDoc
         ftitle&.children&.each { |n| parse(n, out) }
       end
 
-      def standard?(bib)
+      def standard?(bib) # %%%
         ret = false
         drop = %w(metanorma DOI ISSN ISBN)
         bib.xpath(ns("./docidentifier")).each do |id|

@@ -37,7 +37,7 @@ def xmlpp(xml)
       </xsl:template>
     </xsl:stylesheet>
   XSL
-  Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml))
+  Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml, &:noblanks))
     .to_xml(indent: 2, encoding: "UTF-8")
 end
 

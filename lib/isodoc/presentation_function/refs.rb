@@ -49,8 +49,8 @@ module IsoDoc
     def bibrender_relaton(xml, renderings)
       f = renderings[xml["id"]][:formattedref]
       f &&= "<formattedref>#{f}</formattedref>"
-      xml.children =
-        "#{f}#{xml.xpath(ns('./docidentifier | ./uri | ./note')).to_xml}"
+      x = xml.xpath(ns("./docidentifier | ./uri | ./note | ./biblio-tag"))
+      xml.children = "#{f}#{x.to_xml}"
     end
 
     def bibrenderer
@@ -74,6 +74,7 @@ module IsoDoc
         i = bibliography_bibitem_number1(b, i)
       end
       @xrefs.references docxml
+      bibliography_bibitem_tag(docxml)
     end
 
     def bibliography_bibitem_number1(bibitem, idx)
@@ -101,6 +102,71 @@ module IsoDoc
       docxml.xpath(ns("//references/bibitem/docidentifier")).each do |i|
         i.children = @xrefs.klass.docid_prefix(i["type"], i.text)
       end
+    end
+
+    def standard?(bib)
+      ret = false
+      drop = %w(metanorma DOI ISSN ISBN)
+      bib.xpath(ns("./docidentifier")).each do |id|
+        next if id["type"].nil? || drop.include?(id["type"])
+
+        ret = true
+      end
+      ret
+    end
+
+    def bibliography_bibitem_tag(docxml)
+      [true, false].each do |norm|
+        i = 0
+        docxml.xpath(ns("//references[@normative = '#{norm}']")).each do |r|
+          r.xpath(ns("./bibitem")).each do |b|
+            @xrefs.klass.implicit_reference(b) and next
+            i += 1 unless b["hidden"]
+            insert_biblio_tag(b, i, !norm, standard?(b))
+          end
+        end
+      end
+    end
+
+    def insert_biblio_tag(bib, ordinal, biblio, standard)
+      ids = @xrefs.klass.bibitem_ref_code(bib)
+      idents = @xrefs.klass.render_identifier(ids)
+      ret = if biblio then biblio_ref_entry_code(ordinal, idents, ids, standard)
+            else norm_ref_entry_code(ordinal, idents, ids, standard)
+            end
+      standard and ret = date_note_process(bib, ret)
+      ret += "," if idents[:sdo]
+      bib << "<biblio-tag>#{ret}</biblio-tag>"
+    end
+
+    def norm_ref_entry_code(_ordinal, idents, _ids, standard)
+      ret = (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
+      if (!standard && idents[:ordinal] && idents[:sdo]) ||
+          (standard && (idents[:ordinal] || idents[:metanorma]) && idents[:sdo])
+        ret += ", #{idents[:sdo]}"
+      end
+      ret
+    end
+
+    def prefix_bracketed_ref(text)
+      text.to_s
+    end
+
+    # if ids is just a number, only use that ([1] Non-Standard)
+    # else, use both ordinal, as prefix, and ids
+    def biblio_ref_entry_code(ordinal, ids, _id, standard)
+      standard and id = nil
+      ret = prefix_bracketed_ref(ids[:ordinal] || ids[:metanorma] ||
+                           "[#{ordinal}]")
+      ids[:sdo] and ret += " #{ids[:sdo]}"
+      ret
+    end
+
+    def date_note_process(bib, ref)
+      date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
+      date_note.nil? and return ref
+      id = UUIDTools::UUID.random_create.to_s
+      "#{ref}<fn reference='#{id}'><p>#{date_note.content}</p></fn>"
     end
   end
 end
