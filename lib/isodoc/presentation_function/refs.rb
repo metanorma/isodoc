@@ -104,28 +104,22 @@ module IsoDoc
       end
     end
 
-    def standard?(bib)
-      ret = false
-      drop = %w(metanorma DOI ISSN ISBN)
-      bib.xpath(ns("./docidentifier")).each do |id|
-        next if id["type"].nil? || drop.include?(id["type"])
-
-        ret = true
-      end
-      ret
-    end
-
     def bibliography_bibitem_tag(docxml)
       [true, false].each do |norm|
         i = 0
         docxml.xpath(ns("//references[@normative = '#{norm}']")).each do |r|
-          r.xpath(ns("./bibitem")).each do |b|
-            @xrefs.klass.implicit_reference(b) and next
-            i += 1 unless b["hidden"]
-            insert_biblio_tag(b, i, !norm, standard?(b))
-          end
+          i = bibliography_bibitem_tag1(r, i, norm)
         end
       end
+    end
+
+    def bibliography_bibitem_tag1(ref, idx, norm)
+      ref.xpath(ns("./bibitem")).each do |b|
+        @xrefs.klass.implicit_reference(b) and return
+        idx += 1 unless b["hidden"]
+        insert_biblio_tag(b, idx, !norm, @xrefs.klass.standard?(b))
+      end
+      idx
     end
 
     def insert_biblio_tag(bib, ordinal, biblio, standard)
