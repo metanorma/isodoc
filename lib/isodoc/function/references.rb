@@ -22,7 +22,6 @@ module IsoDoc
           #           ref << "," if idents[:sdo]
           tag = bib.at(ns("./biblio-tag"))
           tag&.children&.each { |n| parse(n, ref) }
-          ref << " "
           reference_format(bib, ref)
         end
       end
@@ -40,7 +39,6 @@ module IsoDoc
           #           ref << "," if idents[:sdo]
           tag = bib.at(ns("./biblio-tag"))
           tag&.children&.each { |n| parse(n, ref) }
-          ref << " "
           reference_format(bib, ref)
         end
       end

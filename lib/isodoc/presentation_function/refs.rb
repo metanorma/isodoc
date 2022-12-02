@@ -125,19 +125,34 @@ module IsoDoc
     def insert_biblio_tag(bib, ordinal, biblio, standard)
       ids = @xrefs.klass.bibitem_ref_code(bib)
       idents = @xrefs.klass.render_identifier(ids)
-      ret = if biblio then biblio_ref_entry_code(ordinal, idents, ids, standard)
-            else norm_ref_entry_code(ordinal, idents, ids, standard)
+      datefn = date_note_process(bib)
+      ret = if biblio then biblio_ref_entry_code(ordinal, idents, ids,
+                                                 standard, datefn)
+            else norm_ref_entry_code(ordinal, idents, ids, standard, datefn)
             end
-      standard and ret = date_note_process(bib, ret)
-      ret += "," if idents[:sdo]
       bib << "<biblio-tag>#{ret}</biblio-tag>"
     end
 
-    def norm_ref_entry_code(_ordinal, idents, _ids, standard)
+    def norm_ref_entry_code(_ordinal, idents, _ids, _standard, datefn)
       ret = (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
-      if (!standard && idents[:ordinal] && idents[:sdo]) ||
-          (standard && (idents[:ordinal] || idents[:metanorma]) && idents[:sdo])
+      (idents[:ordinal] || idents[:metanorma]) && idents[:sdo] and
         ret += ", #{idents[:sdo]}"
+      ret += datefn
+      ret.empty? and return ret
+      idents[:sdo] and ret += ","
+      "#{ret} "
+    end
+
+    # if ids is just a number, only use that ([1] Non-Standard)
+    # else, use both ordinal, as prefix, and ids
+    def biblio_ref_entry_code(ordinal, ids, _id, standard, datefn)
+      standard and id = nil
+      ret = (ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]")
+      if ids[:sdo]
+        ret = prefix_bracketed_ref(ret)
+        ret += "#{ids[:sdo]},#{datefn} "
+      else
+        ret = prefix_bracketed_ref("#{ret}#{datefn}")
       end
       ret
     end
@@ -146,21 +161,11 @@ module IsoDoc
       "#{text}<tab/>"
     end
 
-    # if ids is just a number, only use that ([1] Non-Standard)
-    # else, use both ordinal, as prefix, and ids
-    def biblio_ref_entry_code(ordinal, ids, _id, standard)
-      standard and id = nil
-      ret = prefix_bracketed_ref(ids[:ordinal] || ids[:metanorma] ||
-                           "[#{ordinal}]")
-      ids[:sdo] and ret += ids[:sdo]
-      ret
-    end
-
-    def date_note_process(bib, ref)
+    def date_note_process(bib)
       date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
-      date_note.nil? and return ref
+      date_note.nil? and return ""
       id = UUIDTools::UUID.random_create.to_s
-      "#{ref}<fn reference='#{id}'><p>#{date_note.content}</p></fn>"
+      "<fn reference='#{id}'><p>#{date_note.content}</p></fn>"
     end
   end
 end

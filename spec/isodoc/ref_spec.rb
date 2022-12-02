@@ -163,18 +163,18 @@ RSpec.describe IsoDoc do
                <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type='ISO'>ISO 712</docidentifier>
               <docidentifier type='metanorma'>[110]</docidentifier>
-              <biblio-tag>[110], ISO 712,</biblio-tag>
+              <biblio-tag>[110], ISO 712, </biblio-tag>
             </bibitem>
             <bibitem id='ISO16634' type='standard'>
                <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
               <docidentifier type='ISO'>ISO 16634:-- (all parts)</docidentifier>
               <note format='text/plain' type='Unpublished-Status' reference='1'>Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
-              <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>,</biblio-tag>
+              <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
             </bibitem>
             <bibitem id='ISO20483' type='standard'>
               <formattedref>International Organization for Standardization. <em>Cereals and pulses</em>. 2013&#x2013;2014.</formattedref>
               <docidentifier type='ISO'>ISO 20483:2013-2014</docidentifier>
-              <biblio-tag>ISO 20483:2013-2014,</biblio-tag>
+              <biblio-tag>ISO 20483:2013-2014, </biblio-tag>
             </bibitem>
             <bibitem id='ref1'>
               <formattedref format='application/x-isodoc+xml'>
@@ -190,7 +190,7 @@ RSpec.describe IsoDoc do
                 ) 
               </formattedref>
               <docidentifier type='ICC'>ICC/167</docidentifier>
-              <biblio-tag>ICC/167,</biblio-tag>
+              <biblio-tag>ICC/167, </biblio-tag>
             </bibitem>
             <note>
               <name>NOTE</name>
@@ -199,7 +199,7 @@ RSpec.describe IsoDoc do
             <bibitem id='zip_ffs'>
               <formattedref format='application/x-isodoc+xml'>Title 5</formattedref>
               <docidentifier type='metanorma'>[5]</docidentifier>
-              <biblio-tag>[5]</biblio-tag>
+              <biblio-tag>[5] </biblio-tag>
             </bibitem>
           </references>
           <references id='_bibliography' obligation='informative' normative='false' displayorder="3">
@@ -228,7 +228,7 @@ RSpec.describe IsoDoc do
               <formattedref><em>Water for analytical laboratory use</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
               <docidentifier type='ISO'>ISO 3696</docidentifier>
-              <biblio-tag>[3]<tab/>ISO 3696,</biblio-tag>
+              <biblio-tag>[3]<tab/>ISO 3696, </biblio-tag>
             </bibitem>
             <bibitem id='ref10'>
               <formattedref format='application/x-isodoc+xml'>
@@ -254,7 +254,7 @@ RSpec.describe IsoDoc do
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
               <docidentifier type='IETF'>IETF RFC 10</docidentifier>
-              <biblio-tag>[5]<tab/>IETF RFC 10,</biblio-tag>
+              <biblio-tag>[5]<tab/>IETF RFC 10, </biblio-tag>
             </bibitem>
             <bibitem id='ref12'>
               <formattedref format='application/x-isodoc+xml'>
@@ -264,13 +264,13 @@ RSpec.describe IsoDoc do
               </formattedref>
               <docidentifier type='metanorma'>[Citn]</docidentifier>
               <docidentifier type='IETF'>IETF RFC 20</docidentifier>
-              <biblio-tag>Citn<tab/>IETF RFC 20,</biblio-tag>
+              <biblio-tag>Citn<tab/>IETF RFC 20, </biblio-tag>
             </bibitem>
             <bibitem id="ref10b">
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
               <docidentifier type="IETF">IETF RFC 20</docidentifier>
-              <biblio-tag>[6]<tab/>IETF RFC 20,</biblio-tag>
+              <biblio-tag>[6]<tab/>IETF RFC 20, </biblio-tag>
             </bibitem>
             <bibitem id='ref10c'>
             <formattedref><em>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
@@ -794,7 +794,7 @@ RSpec.describe IsoDoc do
                       <extent type='part'>
                         <referenceFrom>all</referenceFrom>
                       </extent>
-                      <biblio-tag>ISO 16634:-- (all parts),</biblio-tag>
+                      <biblio-tag>ISO 16634:-- (all parts), </biblio-tag>
                     </bibitem>
       </references></bibliography></iso-standard>
     PRESXML
@@ -950,7 +950,7 @@ RSpec.describe IsoDoc do
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
              <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
              <docidentifier type='IEC'>IEC 217</docidentifier>
-             <biblio-tag>[1]<tab/>IEC 217,</biblio-tag>
+             <biblio-tag>[1]<tab/>IEC 217, </biblio-tag>
            </bibitem>
            <bibitem id='ref2' type='standard'>
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -961,7 +961,7 @@ RSpec.describe IsoDoc do
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
              <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
              <docidentifier>ABC</docidentifier>
-             <biblio-tag>[3]<tab/>ABC,</biblio-tag>
+             <biblio-tag>[3]<tab/>ABC, </biblio-tag>
            </bibitem>
          </references>
        </bibliography>
@@ -1050,7 +1050,7 @@ RSpec.describe IsoDoc do
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
             <docidentifier>ABC</docidentifier>
-            <biblio-tag>[1]<tab/>ABC,</biblio-tag>
+            <biblio-tag>[1]<tab/>ABC, </biblio-tag>
           </bibitem>
           <bibitem id='ref2' type='standard' hidden='true'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1060,7 +1060,7 @@ RSpec.describe IsoDoc do
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
             <docidentifier>ABE</docidentifier>
-            <biblio-tag>[2]<tab/>ABE,</biblio-tag>
+            <biblio-tag>[2]<tab/>ABE, </biblio-tag>
           </bibitem>
         </references>
       </bibliography>
@@ -1123,7 +1123,7 @@ RSpec.describe IsoDoc do
             </formattedref>
             <docidentifier type='ISO'>ISO 712</docidentifier>
             <docidentifier type='metanorma'>[110]</docidentifier>
-            <biblio-tag>[110]</biblio-tag>
+            <biblio-tag>[110] </biblio-tag>
           </bibitem>
           <bibitem id='ref1' suppress_identifier='true'>
             <formattedref format='application/x-isodoc+xml'>
