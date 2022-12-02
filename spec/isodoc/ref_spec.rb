@@ -208,13 +208,13 @@ RSpec.describe IsoDoc do
               <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: n.d. ISBN: ISBN.</formattedref>
               <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
               <docidentifier type='ISBN'>ISBN</docidentifier>
-              <biblio-tag>[1]</biblio-tag>
+              <biblio-tag>[1]<tab/></biblio-tag>
             </bibitem>
             <bibitem id='ISSN' type='journal'>
             <formattedref><em>Instruments for analytical laboratory use</em>. n.d. ISSN: ISSN.</formattedref>
               <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
               <docidentifier type='ISSN'>ISSN</docidentifier>
-              <biblio-tag>[2]</biblio-tag>
+              <biblio-tag>[2]<tab/></biblio-tag>
             </bibitem>
             <note>
               <name>NOTE</name>
@@ -228,7 +228,7 @@ RSpec.describe IsoDoc do
               <formattedref><em>Water for analytical laboratory use</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
               <docidentifier type='ISO'>ISO 3696</docidentifier>
-              <biblio-tag>[3] ISO 3696,</biblio-tag>
+              <biblio-tag>[3]<tab/>ISO 3696,</biblio-tag>
             </bibitem>
             <bibitem id='ref10'>
               <formattedref format='application/x-isodoc+xml'>
@@ -244,7 +244,7 @@ RSpec.describe IsoDoc do
                 )
               </formattedref>
               <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
-              <biblio-tag>[4]</biblio-tag>
+              <biblio-tag>[4]<tab/></biblio-tag>
             </bibitem>
             <bibitem id="ref10a" hidden="true">
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
@@ -254,7 +254,7 @@ RSpec.describe IsoDoc do
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
               <docidentifier type='IETF'>IETF RFC 10</docidentifier>
-              <biblio-tag>[5] IETF RFC 10,</biblio-tag>
+              <biblio-tag>[5]<tab/>IETF RFC 10,</biblio-tag>
             </bibitem>
             <bibitem id='ref12'>
               <formattedref format='application/x-isodoc+xml'>
@@ -264,19 +264,19 @@ RSpec.describe IsoDoc do
               </formattedref>
               <docidentifier type='metanorma'>[Citn]</docidentifier>
               <docidentifier type='IETF'>IETF RFC 20</docidentifier>
-              <biblio-tag>Citn IETF RFC 20,</biblio-tag>
+              <biblio-tag>Citn<tab/>IETF RFC 20,</biblio-tag>
             </bibitem>
             <bibitem id="ref10b">
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
               <docidentifier type="IETF">IETF RFC 20</docidentifier>
-              <biblio-tag>[6] IETF RFC 20,</biblio-tag>
+              <biblio-tag>[6]<tab/>IETF RFC 20,</biblio-tag>
             </bibitem>
             <bibitem id='ref10c'>
             <formattedref><em>Internet Calendaring &#x26; Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
         <docidentifier type='metanorma-ordinal'>[7]</docidentifier>
         <docidentifier type='DOI'>DOI ABC 20</docidentifier>
-        <biblio-tag>[7]</biblio-tag>
+        <biblio-tag>[7]<tab/></biblio-tag>
       </bibitem>
           </references>
         </bibliography>
@@ -284,7 +284,7 @@ RSpec.describe IsoDoc do
     PRESXML
 
     html = <<~OUTPUT
-         #{HTML_HDR}
+      #{HTML_HDR}
                       <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
@@ -330,18 +330,18 @@ RSpec.describe IsoDoc do
                <p id="zip_ffs" class="NormRef">[5] Title 5</p>
              </div>
              <br/>
-             <div>
+                          <div>
                <h1 class="Section3">Bibliography</h1>
-               <p id="ISBN" class="Biblio">[1] <i>Chemicals for analytical laboratory use</i>. n.p.: n.d. ISBN: ISBN.</p>
-               <p id="ISSN" class="Biblio">[2] <i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.</p>
+               <p id="ISBN" class="Biblio">[1]   <i>Chemicals for analytical laboratory use</i>. n.p.: n.d. ISBN: ISBN.</p>
+               <p id="ISSN" class="Biblio">[2]   <i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.</p>
                <div class="Note">
                  <p><span class="note_label">NOTE</span>  This is an annotation of document ISSN.</p>
                </div>
                <div class="Note">
                  <p><span class="note_label">NOTE</span>  This is another annotation of document ISSN.</p>
                </div>
-               <p id="ISO3696" class="Biblio">[3] ISO 3696, <i>Water for analytical laboratory use</i>.</p>
-               <p id="ref10" class="Biblio">[4]
+               <p id="ISO3696" class="Biblio">[3]  ISO 3696, <i>Water for analytical laboratory use</i>.</p>
+               <p id="ref10" class="Biblio">[4] 
                  <span style="font-variant:small-caps;">Standard No I.C.C 167</span>
                  .
                  <i>
@@ -353,14 +353,14 @@ RSpec.describe IsoDoc do
                  <a href="http://www.icc.or.at">http://www.icc.or.at</a>
                  )
                </p>
-               <p id="ref11" class="Biblio">[5] IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>.</p>
-               <p id="ref12" class="Biblio">Citn IETF RFC 20,
+               <p id="ref11" class="Biblio">[5]  IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>.</p>
+               <p id="ref12" class="Biblio">Citn  IETF RFC 20,
                  CitationWorks. 2019.
                  <i>How to cite a reference</i>
                  .
                </p>
-               <p id="ref10b" class="Biblio">[6] IETF RFC 20, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>.</p>
-               <p id="ref10c" class="Biblio">[7] <i>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</i>.</p>
+               <p id="ref10b" class="Biblio">[6]  IETF RFC 20, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>.</p>
+               <p id="ref10c" class="Biblio">[7]   <i>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</i>.</p>
              </div>
              <aside id="fn:_" class="footnote">
                <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
@@ -371,7 +371,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-           <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
          <div class="WordSection1">
            <p class="MsoNormal"> </p>
          </div>
@@ -435,19 +435,18 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
-           <div>
+                      <div>
              <h1 class="Section3">Bibliography</h1>
-             <p class="Biblio"><a name="ISBN" id="ISBN"/>[1] <i>Chemicals for analytical laboratory use</i>. n.p.: n.d. ISBN: ISBN.</p>
-             <p class="Biblio"><a name="ISSN" id="ISSN"/>[2] <i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.</p>
+             <p class="Biblio"><a name="ISBN" id="ISBN"/>[1]<span style="mso-tab-count:1">  </span><i>Chemicals for analytical laboratory use</i>. n.p.: n.d. ISBN: ISBN.</p>
+             <p class="Biblio"><a name="ISSN" id="ISSN"/>[2]<span style="mso-tab-count:1">  </span><i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.</p>
              <div class="Note">
                <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is an annotation of document ISSN.</p>
              </div>
              <div class="Note">
                <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is another annotation of document ISSN.</p>
              </div>
-             <p class="Biblio"><a name="ISO3696" id="ISO3696"/>[3] ISO 3696, <i>Water for analytical laboratory use</i>.</p>
-             <p class="Biblio"><a name="ref10" id="ref10"/>[4]
-                 <span style="font-variant:small-caps;">Standard No I.C.C 167</span>
+             <p class="Biblio"><a name="ISO3696" id="ISO3696"/>[3]<span style="mso-tab-count:1">  </span>ISO 3696, <i>Water for analytical laboratory use</i>.</p>
+             <p class="Biblio"><a name="ref10" id="ref10"/>[4]<span style="mso-tab-count:1">  </span><span style="font-variant:small-caps;">Standard No I.C.C 167</span>
                  .
                  <i>
                    Determination of the protein content in cereal and cereal products
@@ -458,14 +457,14 @@ RSpec.describe IsoDoc do
                  <a href="http://www.icc.or.at">http://www.icc.or.at</a>
                  )
                </p>
-             <p class="Biblio"><a name="ref11" id="ref11"/>[5] IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>.</p>
-             <p class="Biblio"><a name="ref12" id="ref12"/>Citn IETF RFC 20,
-                 CitationWorks. 2019.
+             <p class="Biblio"><a name="ref11" id="ref11"/>[5]<span style="mso-tab-count:1">  </span>IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>.</p>
+             <p class="Biblio"><a name="ref12" id="ref12"/>Citn<span style="mso-tab-count:1">  </span>IETF RFC 20,
+       CitationWorks. 2019.
                  <i>How to cite a reference</i>
                  .
                </p>
-             <p class="Biblio"><a name="ref10b" id="ref10b"/>[6] IETF RFC 20, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>.</p>
-             <p class="Biblio"><a name="ref10c" id="ref10c"/>[7] <i>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</i>.</p>
+             <p class="Biblio"><a name="ref10b" id="ref10b"/>[6]<span style="mso-tab-count:1">  </span>IETF RFC 20, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>.</p>
+             <p class="Biblio"><a name="ref10c" id="ref10c"/>[7]<span style="mso-tab-count:1">  </span><i>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</i>.</p>
            </div>
          </div>
          <div style="mso-element:footnote-list">
@@ -951,18 +950,18 @@ RSpec.describe IsoDoc do
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
              <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
              <docidentifier type='IEC'>IEC 217</docidentifier>
-             <biblio-tag>[1] IEC 217,</biblio-tag>
+             <biblio-tag>[1]<tab/>IEC 217,</biblio-tag>
            </bibitem>
            <bibitem id='ref2' type='standard'>
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
              <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
-             <biblio-tag>[2]</biblio-tag>
+             <biblio-tag>[2]<tab/></biblio-tag>
            </bibitem>
            <bibitem id='ref3' type='standard'>
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
              <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
              <docidentifier>ABC</docidentifier>
-             <biblio-tag>[3] ABC,</biblio-tag>
+             <biblio-tag>[3]<tab/>ABC,</biblio-tag>
            </bibitem>
          </references>
        </bibliography>
@@ -1002,7 +1001,7 @@ RSpec.describe IsoDoc do
           <bibitem id='ref1' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
-            <biblio-tag>[1]</biblio-tag>
+            <biblio-tag>[1]<tab/></biblio-tag>
           </bibitem>
           <bibitem id='ref2' type='standard' hidden='true'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1010,7 +1009,7 @@ RSpec.describe IsoDoc do
           <bibitem id='ref3' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
-            <biblio-tag>[2]</biblio-tag>
+            <biblio-tag>[2]<tab/></biblio-tag>
           </bibitem>
         </references>
       </bibliography>
@@ -1051,7 +1050,7 @@ RSpec.describe IsoDoc do
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
             <docidentifier>ABC</docidentifier>
-            <biblio-tag>[1] ABC,</biblio-tag>
+            <biblio-tag>[1]<tab/>ABC,</biblio-tag>
           </bibitem>
           <bibitem id='ref2' type='standard' hidden='true'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1061,7 +1060,7 @@ RSpec.describe IsoDoc do
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
             <docidentifier>ABE</docidentifier>
-            <biblio-tag>[2] ABE,</biblio-tag>
+            <biblio-tag>[2]<tab/>ABE,</biblio-tag>
           </bibitem>
         </references>
       </bibliography>

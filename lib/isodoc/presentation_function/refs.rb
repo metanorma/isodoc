@@ -143,7 +143,7 @@ module IsoDoc
     end
 
     def prefix_bracketed_ref(text)
-      text.to_s
+      "#{text}<tab/>"
     end
 
     # if ids is just a number, only use that ([1] Non-Standard)
@@ -152,7 +152,7 @@ module IsoDoc
       standard and id = nil
       ret = prefix_bracketed_ref(ids[:ordinal] || ids[:metanorma] ||
                            "[#{ordinal}]")
-      ids[:sdo] and ret += " #{ids[:sdo]}"
+      ids[:sdo] and ret += ids[:sdo]
       ret
     end
 

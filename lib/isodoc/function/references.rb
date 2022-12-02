@@ -134,11 +134,6 @@ module IsoDoc
         bib["hidden"] == "true"
       end
 
-      def prefix_bracketed_ref(ref, text)
-        ref << text.to_s
-        insert_tab(ref, 1)
-      end
-
       def reference_format(bib, out)
         ftitle = bib.at(ns("./formattedref"))
         ftitle&.children&.each { |n| parse(n, out) }
