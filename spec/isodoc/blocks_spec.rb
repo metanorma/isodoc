@@ -1992,7 +1992,9 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
       <title depth="1">Bibliography</title>
-      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. June 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF RFC 2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier></bibitem>
+      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. June 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF RFC 2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
+      <biblio-tag>[1]<tab/>IETF RFC 2616, </biblio-tag>
+      </bibitem>
       </references></bibliography>
           </iso-standard>
     OUTPUT
@@ -2032,12 +2034,7 @@ RSpec.describe IsoDoc do
                    <br/>
              <div>
                <h1 class='Section3'>Bibliography</h1>
-               <p id='rfc2616' class='Biblio'>
-                 [1]&#160; IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.#{' '}
-                 <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
-                 . In: RFC. June 1999. Fremont, CA.
-                <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>.
-               </p>
+               <p id="rfc2616" class="Biblio">[1]  IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. In: RFC. June 1999. Fremont, CA. <a href="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</a>.</p>
              </div>
                 </div>
               </body>
@@ -2510,6 +2507,7 @@ RSpec.describe IsoDoc do
                  <references hidden='true' normative='false' displayorder="1">
                    <bibitem id='express_action_schema' type='internal'>
                      <docidentifier type='repository'>express/action_schema</docidentifier>
+                     <biblio-tag>[1]<tab/>express/action_schema,</biblio-tag>
                    </bibitem>
                  </references>
                </bibliography>

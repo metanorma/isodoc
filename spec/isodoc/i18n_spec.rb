@@ -748,7 +748,10 @@ RSpec.describe IsoDoc do
              </clause>
              </annex><bibliography><references id="R" obligation="informative" normative="true" displayorder="4">
                <title depth="1">2.<tab/>Normative References</title>
-               <bibitem id="ISO712" type="standard"><formattedref><em>Cereals and cereal products</em>．</formattedref><docidentifier>ISO 712</docidentifier></bibitem>
+               <bibitem id="ISO712" type="standard">
+                  <formattedref><em>Cereals and cereal products</em>．</formattedref><docidentifier>ISO 712</docidentifier>
+                  <biblio-tag>ISO 712,</biblio-tag>
+               </bibitem>
              </references><clause id="S" obligation="informative" displayorder="9">
                <title depth="1">Bibliography</title>
                <references id="T" obligation="informative" normative="false">
@@ -760,7 +763,7 @@ RSpec.describe IsoDoc do
     PRESXML
 
     output = <<~"OUTPUT"
-          #{HTML_HDR.gsub(/ lang="en">/, ' lang="zh">')}
+      #{HTML_HDR.gsub(/ lang="en">/, ' lang="zh">')}
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
@@ -1005,6 +1008,7 @@ RSpec.describe IsoDoc do
                <bibitem id="ISO712" type="standard">
                <formattedref><em>Cereals and cereal products</em>.</formattedref>
         <docidentifier>ISO 712</docidentifier>
+         <biblio-tag>ISO 712,</biblio-tag>
       </bibitem>
              </references><clause id="S" obligation="informative" displayorder="9">
                <title depth="1">Bibliography</title>

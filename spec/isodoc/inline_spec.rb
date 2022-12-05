@@ -403,6 +403,7 @@ RSpec.describe IsoDoc do
       <bibitem id="ISO712" type="standard">
         <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
         <docidentifier type="ISO">ISO 712</docidentifier>
+        <biblio-tag>ISO 712, </biblio-tag>
       </bibitem>
       </references></bibliography>
           </iso-standard>
@@ -1069,6 +1070,7 @@ RSpec.describe IsoDoc do
             <abbreviation>ISO</abbreviation>
           </organization>
         </contributor>
+        <biblio-tag>ISO 712,</biblio-tag>
       </bibitem>
           </references>
           </bibliography>
@@ -1171,6 +1173,7 @@ RSpec.describe IsoDoc do
             <bibitem id="ISO712" type="standard">
               <formattedref><em>Cereals and cereal products</em>.</formattedref>
               <docidentifier>ISO 712</docidentifier>
+              <biblio-tag>ISO 712,</biblio-tag>
             </bibitem>
                 </references>
                 </bibliography>
@@ -1404,6 +1407,7 @@ RSpec.describe IsoDoc do
                <uri type='citation' language='en'>http://www.example.com/en</uri>
                <uri type='citation' language='fr'>http://www.example.com/fr</uri>
                <docidentifier>ISO 712</docidentifier>
+               <biblio-tag>ISO 712,</biblio-tag>
              </bibitem>
              <bibitem id='ISO713' type='standard'>
                <formattedref>
@@ -1415,6 +1419,7 @@ RSpec.describe IsoDoc do
                <uri type='citation'>spec/assets/iso713</uri>
                <uri type='citation'>spec/assets/iso714</uri>
                <docidentifier>ISO 713</docidentifier>
+               <biblio-tag>ISO 713,</biblio-tag>
              </bibitem>
              <bibitem id='ISO714' type='standard'>
                <formattedref>
@@ -1425,6 +1430,7 @@ RSpec.describe IsoDoc do
                </formattedref>
                <uri type='citation'>spec/assets/iso714.svg</uri>
                <docidentifier>ISO 714</docidentifier>
+               <biblio-tag>ISO 714,</biblio-tag>
              </bibitem>
            </references>
          </bibliography>
@@ -1866,6 +1872,7 @@ RSpec.describe IsoDoc do
                  <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
                  <uri type='citation'>http://www.example.com</uri>
                 <docidentifier>ISO 712</docidentifier>
+                <biblio-tag>ISO 712,</biblio-tag>
               </bibitem>
             </references>
           </bibliography>
