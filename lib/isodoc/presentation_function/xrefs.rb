@@ -38,14 +38,20 @@ module IsoDoc
     def anchor_xref(node, target)
       x = @xrefs.anchor(target, :xref)
       t = @xrefs.anchor(target, :title)
-      if node["style"] == "basic" && t then t
-      elsif node["style"] == "full" && t
-        l10n("#{x}, #{t}")
-      else x
+      case node["style"]
+      when "basic" then t || x
+      when "full" then t ? anchor_xref_full(x, t) : x
+      when "short", nil then x
+      else @xrefs.anchor(target, node[:style].to_sym)
       end
     end
 
+    def anchor_xref_full(num, title)
+      l10n("#{num}, #{title}")
+    end
+
     def prefix_container?(container, node)
+      node["style"] == "modspec" and return false # TODO: move to mn-requirements?
       type = @xrefs.anchor(node["target"], :type)
       container &&
         get_note_container_id(node, type) != container &&

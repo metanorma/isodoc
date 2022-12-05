@@ -62,7 +62,7 @@ module IsoDoc
             @anchors[n["id"]] =
               { label: termnote_label(c.print), type: "termnote",
                 value: c.print, elem: @labels["termnote"],
-                xref: l10n("#{anchor(t['id'], :xref)}, "\
+                xref: l10n("#{anchor(t['id'], :xref)}, " \
                            "#{@labels['note_xref']} #{c.print}") }
           end
         end
@@ -82,10 +82,10 @@ module IsoDoc
       end
 
       SECTIONS_XPATH =
-        "//foreword | //introduction | //acknowledgements | "\
-        "//preface/terms | preface/definitions | preface/references | "\
-        "//preface/clause | //sections/terms | //annex | "\
-        "//sections/clause | //sections/definitions | "\
+        "//foreword | //introduction | //acknowledgements | " \
+        "//preface/terms | preface/definitions | preface/references | " \
+        "//preface/clause | //sections/terms | //annex | " \
+        "//sections/clause | //sections/definitions | " \
         "//bibliography/references | //bibliography/clause".freeze
 
       def sections_xpath
@@ -93,8 +93,8 @@ module IsoDoc
       end
 
       CHILD_NOTES_XPATH =
-        "./*[not(self::xmlns:clause) and not(self::xmlns:appendix) and "\
-        "not(self::xmlns:terms) and not(self::xmlns:definitions)]//xmlns:note | "\
+        "./*[not(self::xmlns:clause) and not(self::xmlns:appendix) and " \
+        "not(self::xmlns:terms) and not(self::xmlns:definitions)]//xmlns:note | " \
         "./xmlns:note".freeze
 
       def note_anchor_names(sections)
@@ -117,11 +117,11 @@ module IsoDoc
       end
 
       CHILD_EXAMPLES_XPATH =
-        "./*[not(self::xmlns:clause) and not(self::xmlns:appendix) and "\
-        "not(self::xmlns:terms) and not(self::xmlns:definitions)]//"\
+        "./*[not(self::xmlns:clause) and not(self::xmlns:appendix) and " \
+        "not(self::xmlns:terms) and not(self::xmlns:definitions)]//" \
         "xmlns:example | ./xmlns:example".freeze
 
-      CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | "\
+      CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | " \
                        "./references".freeze
 
       def example_anchor_names(sections)
