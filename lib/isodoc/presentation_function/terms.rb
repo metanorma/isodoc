@@ -6,12 +6,12 @@ module IsoDoc
 
     def concept1(node)
       xref = node&.at(ns("./xref/@target"))&.text or
-        return concept_render(node, ital: "true", ref: "true",
+        return concept_render(node, ital: "true", ref: "true", bold: "false",
                                     linkref: "true", linkmention: "false")
       if node.at(ns("//definitions//dt[@id = '#{xref}']"))
-        concept_render(node, ital: "false", ref: "false",
+        concept_render(node, ital: "false", ref: "false", bold: "false",
                              linkref: "true", linkmention: "false")
-      else concept_render(node, ital: "true", ref: "true",
+      else concept_render(node, ital: "true", ref: "true", bold: "false",
                                 linkref: "true", linkmention: "false")
       end
     end
@@ -20,21 +20,23 @@ module IsoDoc
       opts, render, ref = concept_render_init(node, defaults)
       node&.at(ns("./refterm"))&.remove
       ref && opts[:ref] != "false" and render&.next = " "
-      opts[:ital] == "true" and render&.name = "em"
       concept1_linkmention(ref, render, opts)
       concept1_ref(node, ref, opts)
-      concept1_nonital(node, opts)
+      concept1_style(node, opts)
       node.replace(node.children)
     end
 
-    def concept1_nonital(node, opts)
-      opts[:ital] == "false" or return
-      r = node.at(ns(".//renderterm"))
-      r&.replace(r&.children)
+    def concept1_style(node, opts)
+      r = node.at(ns(".//renderterm")) or return
+      opts[:ital] == "true" and r.children = "<em>#{to_xml(r.children)}</em>"
+      opts[:bold] == "true" and
+        r.children = "<strong>#{to_xml(r.children)}</strong>"
+      r.replace(r.children)
     end
 
     def concept_render_init(node, defaults)
-      opts = %i(ital ref linkref linkmention).each_with_object({}) do |x, m|
+      opts = %i(bold ital ref linkref linkmention)
+        .each_with_object({}) do |x, m|
         m[x] = node[x.to_s] || defaults[x]
       end
       [opts, node.at(ns("./renderterm")),
@@ -42,7 +44,8 @@ module IsoDoc
     end
 
     def concept1_linkmention(ref, renderterm, opts)
-      return unless opts[:linkmention] == "true" && !renderterm.nil? && !ref.nil?
+      return unless opts[:linkmention] == "true" &&
+        !renderterm.nil? && !ref.nil?
 
       ref2 = ref.clone
       r2 = renderterm.clone

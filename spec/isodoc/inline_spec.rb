@@ -509,17 +509,21 @@ RSpec.describe IsoDoc do
              <p>
              <ul>
              <li><concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept bold="true" ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept bold="true" ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="false" bold="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="false" ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept bold="true" ital="false" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept bold="true" ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="true" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="false" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="false" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="true" linkref="true"><strong>error!</strong></concept></li>
-             <li><concept ital="false" ref="false" linkmention="true">
+             <li><concept ital="false" bold="false" ref="false" linkmention="true">
       <refterm>CV_DiscreteCoverage</refterm>
       <renderterm>CV_DiscreteCoverage</renderterm>
       <xref target="term-cv_discretecoverage"/>
@@ -534,21 +538,30 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <preface><foreword displayorder="1">
-      <p>
-      <ul>
-      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li>term [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><em>term</em>,</li>
-      <li>term,</li>
-      <li><xref target="clause1"><em>term</em></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><xref target="clause1"><em>term</em></xref> [term defined in Clause 1],</li>
-      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><em>term</em> [term defined in Clause 1],</li>
-      <li><strong>error!</strong></li>
-      <li><xref target='term-cv_discretecoverage'>CV_DiscreteCoverage</xref></li>
-      </ul></p>
+                   <p>
+               <ul>
+                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><strong>term</strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><strong><em>term</em></strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><strong>term</strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em>,</li>
+                 <li>term,</li>
+                 <li><xref target="clause1"><em>term</em></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><xref target="clause1"><strong>term</strong></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><xref target="clause1"><strong><em>term</em></strong></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><xref target="clause1"><em>term</em></xref> [term defined in Clause 1],</li>
+                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em> [term defined in Clause 1],</li>
+                 <li>
+                   <strong>error!</strong>
+                 </li>
+                 <li>
+                   <xref target="term-cv_discretecoverage">CV_DiscreteCoverage</xref>
+                 </li>
+               </ul>
+             </p>
       </foreword></preface>
       <sections>
       <clause id="clause1" displayorder="2"><title depth="1">1.<tab/>Clause 1</title></clause>
@@ -556,75 +569,42 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     output = <<~OUTPUT
-                     #{HTML_HDR}
-                 <br/>
-                 <div>
-                   <h1 class='ForewordTitle'>Foreword</h1>
-                                  <p>
-                      <ul>
-                        <li>
-                          <i>term</i>
-                           [term defined in
-                          <a href='#clause1'>Clause 1</a>
-                          ],
-                        </li>
-                        <li>
-                          <i>term</i>
-                           [term defined in
-                          <a href='#clause1'>Clause 1</a>
-                          ],
-                        </li>
-                        <li>
-                          <i>term</i>
-                           [term defined in
-                          <a href='#clause1'>Clause 1</a>
-                          ],
-                        </li>
-                        <li>
-                           term [term defined in
-                          <a href='#clause1'>Clause 1</a>
-                          ],
-                        </li>
-                        <li>
-                          <i>term</i>,
-                        </li>
-                        <li>term,</li>
-                        <li>
-        <a href='#clause1'>
-          <i>term</i>
-        </a>
-         [term defined in
-        <a href='#clause1'>Clause 1</a>
-        ],
-      </li>
-      <li>
-        <a href='#clause1'>
-          <i>term</i>
-        </a>
-         [term defined in Clause 1],
-      </li>
-      <li>
-        <i>term</i>
-         [term defined in
-        <a href='#clause1'>Clause 1</a>
-        ],
-      </li>
-      <li>
-        <i>term</i>
-         [term defined in Clause 1],
-      </li>
-      <li> <b>error!</b> </li>
-      <li> <a href='#term-cv_discretecoverage'>CV_DiscreteCoverage</a> </li>
-                      </ul>
-                    </p>
-                  </div>
-                  <p class='zzSTDTitle1'/>
-                  <div id='clause1'>
-                    <h1>1.&#160; Clause 1</h1>
-                  </div>
-                </div>
-              </body>
-            </html>
+      #{HTML_HDR}
+           <br/>
+           <div>
+             <h1 class='ForewordTitle'>Foreword</h1>
+                            <p>
+           <ul>
+             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><b>term</b> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><b><i>term</i></b> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><b>term</b> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><i>term</i>,</li>
+             <li>term,</li>
+             <li><a href="#clause1"><i>term</i></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><a href="#clause1"><b>term</b></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><a href="#clause1"><b><i>term</i></b></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><a href="#clause1"><i>term</i></a> [term defined in Clause 1],</li>
+             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><i>term</i> [term defined in Clause 1],</li>
+             <li>
+               <b>error!</b>
+             </li>
+             <li>
+               <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
+             </li>
+           </ul>
+         </p>
+            </div>
+            <p class='zzSTDTitle1'/>
+            <div id='clause1'>
+              <h1>1.&#160; Clause 1</h1>
+            </div>
+          </div>
+        </body>
+      </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
