@@ -150,7 +150,7 @@ module IsoDoc
       ret = (ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]")
       if ids[:sdo]
         ret = prefix_bracketed_ref(ret)
-        ret += "#{ids[:sdo]},#{datefn} "
+        ret += "#{ids[:sdo]}#{datefn}, "
       else
         ret = prefix_bracketed_ref("#{ret}#{datefn}")
       end

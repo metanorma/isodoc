@@ -99,6 +99,7 @@ RSpec.describe IsoDoc do
             <abbreviation>ISO</abbreviation>
           </organization>
         </contributor>
+        <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 3696)</note>
       </bibitem>
       <bibitem id="ref10">
         <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
@@ -228,7 +229,8 @@ RSpec.describe IsoDoc do
               <formattedref><em>Water for analytical laboratory use</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
               <docidentifier type='ISO'>ISO 3696</docidentifier>
-              <biblio-tag>[3]<tab/>ISO 3696, </biblio-tag>
+              <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 3696)</note>
+              <biblio-tag>[3]<tab/>ISO 3696<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p></fn>, </biblio-tag>
             </bibitem>
             <bibitem id='ref10'>
               <formattedref format='application/x-isodoc+xml'>
@@ -340,7 +342,7 @@ RSpec.describe IsoDoc do
                <div class="Note">
                  <p><span class="note_label">NOTE</span>  This is another annotation of document ISSN.</p>
                </div>
-               <p id="ISO3696" class="Biblio">[3]  ISO 3696, <i>Water for analytical laboratory use</i>.</p>
+               <p id="ISO3696" class="Biblio">[3]  ISO 3696<a class="FootnoteRef" href="#fn:_"><sup>_</sup></a>, <i>Water for analytical laboratory use</i>.</p>
                <p id="ref10" class="Biblio">[4] 
                  <span style="font-variant:small-caps;">Standard No I.C.C 167</span>
                  .
@@ -445,7 +447,7 @@ RSpec.describe IsoDoc do
              <div class="Note">
                <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is another annotation of document ISSN.</p>
              </div>
-             <p class="Biblio"><a name="ISO3696" id="ISO3696"/>[3]<span style="mso-tab-count:1">  </span>ISO 3696, <i>Water for analytical laboratory use</i>.</p>
+             <p class="Biblio"><a name="ISO3696" id="ISO3696"/>[3]<span style="mso-tab-count:1">  </span>ISO 3696<span style="mso-element:field-begin"/> NOTEREF _Ref \\f \\h<span style="mso-element:field-separator"/><span class="MsoFootnoteReference">_</span><span style="mso-element:field-end"/>, <i>Water for analytical laboratory use</i>.</p>
              <p class="Biblio"><a name="ref10" id="ref10"/>[4]<span style="mso-tab-count:1">  </span><span style="font-variant:small-caps;">Standard No I.C.C 167</span>
                  .
                  <i>
@@ -479,7 +481,7 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
-      .sub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
+      .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
@@ -492,6 +494,7 @@ RSpec.describe IsoDoc do
       .sub(%r{</body>.*$}m, "</body>")
       .gsub(/epub:/, "")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
+      .gsub(/NOTEREF _Ref\d+/, "NOTEREF _Ref")
     expect(xmlpp(html))
       .to be_equivalent_to xmlpp(doc)
   end
