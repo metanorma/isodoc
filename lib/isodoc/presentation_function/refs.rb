@@ -123,9 +123,9 @@ module IsoDoc
     end
 
     def insert_biblio_tag(bib, ordinal, biblio, standard)
+      datefn = date_note_process(bib)
       ids = @xrefs.klass.bibitem_ref_code(bib)
       idents = @xrefs.klass.render_identifier(ids)
-      datefn = date_note_process(bib)
       ret = if biblio then biblio_ref_entry_code(ordinal, idents, ids,
                                                  standard, datefn)
             else norm_ref_entry_code(ordinal, idents, ids, standard, datefn)
@@ -161,11 +161,18 @@ module IsoDoc
       "#{text}<tab/>"
     end
 
+    # strip any fns in docidentifier before they are extracted for rendering
     def date_note_process(bib)
+      ret = ident_fn(bib)
       date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
-      date_note.nil? and return ""
+      date_note.nil? and return ret
       id = UUIDTools::UUID.random_create.to_s
-      "<fn reference='#{id}'><p>#{date_note.content}</p></fn>"
+      "#{ret}<fn reference='#{id}'><p>#{date_note.content}</p></fn>"
+    end
+
+    def ident_fn(bib)
+      ret = bib.at(ns("./docidentifier//fn")) or return ""
+      to_xml(ret.remove)
     end
   end
 end
