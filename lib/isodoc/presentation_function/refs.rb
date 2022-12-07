@@ -100,7 +100,7 @@ module IsoDoc
 
     def docid_prefixes(docxml)
       docxml.xpath(ns("//references/bibitem/docidentifier")).each do |i|
-        i.children = @xrefs.klass.docid_prefix(i["type"], i.text)
+        i.children = @xrefs.klass.docid_prefix(i["type"], to_xml(i.children))
       end
     end
 

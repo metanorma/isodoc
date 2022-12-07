@@ -188,7 +188,7 @@ RSpec.describe IsoDoc do
                 </em>
                  (see
                 <link target='http://www.icc.or.at'/>
-                ) 
+                )#{' '}
               </formattedref>
               <docidentifier type='ICC'>ICC/167</docidentifier>
               <biblio-tag>ICC/167, </biblio-tag>
@@ -262,7 +262,7 @@ RSpec.describe IsoDoc do
               <formattedref format='application/x-isodoc+xml'>
                 CitationWorks. 2019.
                 <em>How to cite a reference</em>
-                . 
+                .#{' '}
               </formattedref>
               <docidentifier type='metanorma'>[Citn]</docidentifier>
               <docidentifier type='IETF'>IETF RFC 20</docidentifier>
@@ -1193,112 +1193,71 @@ RSpec.describe IsoDoc do
 
   it "renders footnote in metanorma docidentifier" do
     input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <bibdata>
-          <language>en</language>
-          </bibdata>
-          <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
-          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-      <bibitem id="ISO712" type="standard" suppress_identifier="true">
-        <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
-        <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
-        <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
-        <uri type="src">https://www.iso.org/standard/45324.html</uri>  <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>  <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>  <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>  <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier><docidentifier type="metanorma">[ISO/IEC Guide 99:2007<fn reference="1"><p id="_f6ba916e-f2ee-05fe-7ee3-b5d891a37db3">Also known as JCGM 200</p>
-         </fn>]</docidentifier>  <docidentifier type="URN">urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>  <docnumber>99</docnumber>  <date type="published">    <on>2007-12</on>  </date>  <contributor>    <role type="publisher"/>    <organization>
-          <name>International Organization for Standardization</name>
-            <abbreviation>ISO</abbreviation>      <uri>www.iso.org</uri>    </organization>  </contributor>  <contributor>    <role type="publisher"/>    <organization>
-<name>International Electrotechnical Commission</name>
-          <abbreviation>IEC</abbreviation>      <uri>www.iec.ch</uri>    </organization>  </contributor>  <edition>1</edition>  <language>en</language>  <script>Latn</script>
-      </bibitem>
-      </references>
-      </bibliography>
-      </iso-standard>
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+                <bibdata>
+                <language>en</language>
+                </bibdata>
+                <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+            <bibitem id="ISO712" type="standard" suppress_identifier="true">
+              <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
+              <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
+              <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
+              <uri type="src">https://www.iso.org/standard/45324.html</uri>  <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>  <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>  <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>  
+                    <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
+                    <docidentifier type="metanorma">[ISO/IEC Guide 99:2007<fn reference="1"><p id="_f6ba916e-f2ee-05fe-7ee3-b5d891a37db3">Also known as JCGM 200</p></fn>]</docidentifier>  
+                    <docidentifier type="URN">urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>  
+                  <docnumber>99</docnumber>  <date type="published">    <on>2007-12</on>  </date>  <contributor>    <role type="publisher"/>    <organization>
+                <name>International Organization for Standardization</name>
+                  <abbreviation>ISO</abbreviation>      <uri>www.iso.org</uri>    </organization>  </contributor>  <contributor>    <role type="publisher"/>    <organization>
+      <name>International Electrotechnical Commission</name>
+                <abbreviation>IEC</abbreviation>      <uri>www.iec.ch</uri>    </organization>  </contributor>  <edition>1</edition>  <language>en</language>  <script>Latn</script>
+            </bibitem>
+            </references>
+            </bibliography>
+            </iso-standard>
     INPUT
-       presxml = <<~PRESXML
-          <bibliography>
-        <references id='_normative_references' obligation='informative' normative='true' displayorder='1'>
-          <title depth='1'>
-            1.
-            <tab/>
-            Normative References
-          </title>
-          <p>
-            The following documents are referred to in the text in such a way that
-            some or all of their content constitutes requirements of this document.
-            For dated references, only the edition cited applies. For undated
-            references, the latest edition of the referenced document (including any
-            amendments) applies.
-          </p>
-          <bibitem id='ISO712' type='standard' suppress_identifier='true'>
-            <formattedref>
-              International Organization for Standardization.
-              <em>Cereals and cereal products</em>
-              .
-            </formattedref>
-            <docidentifier type='ISO'>ISO 712</docidentifier>
-            <docidentifier type='metanorma'>[110]</docidentifier>
-            <biblio-tag>[110] </biblio-tag>
-          </bibitem>
-          <bibitem id='ref1' suppress_identifier='true'>
-            <formattedref format='application/x-isodoc+xml'>
-              <smallcap>Standard No I.C.C 167</smallcap>
-              .
-              <em>
-                Determination of the protein content in cereal and cereal products for
-                food and animal feeding stuffs according to the Dumas combustion
-                method
-              </em>
-               (see
-              <link target='http://www.icc.or.at'/>
-              )
-            </formattedref>
-            <docidentifier type='ICC'>ICC/167</docidentifier>
-            <biblio-tag/>
-          </bibitem>
-        </references>
-      </bibliography>
+    presxml = <<~PRESXML
+      <bibliography>
+         <references id="_" obligation="informative" normative="true" displayorder="1">
+           <title depth="1">1.<tab/>Normative References</title>
+           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+           <bibitem id="ISO712" type="standard" suppress_identifier="true">
+             <formattedref>International Organization for Standardization and International Electrotechnical Commission. <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. 1st edition. December 2007. <link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</link>.</formattedref>
+             <uri type="src">https://www.iso.org/standard/45324.html</uri>
+             <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
+             <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
+             <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
+             <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC Guide 99:2007]</docidentifier>
+             <docidentifier type="URN">URN urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <biblio-tag>ISO/IEC Guide 99:2007<fn reference="1"><p id="_">Also known as JCGM 200</p></fn> </biblio-tag>
+           </bibitem>
+         </references>
+       </bibliography>
     PRESXML
-   html = <<~OUTPUT
+    html = <<~OUTPUT
       #{HTML_HDR}
-             <p class='zzSTDTitle1'/>
+             <p class="zzSTDTitle1"/>
              <div>
-               <h1>1.&#xa0; Normative References</h1>
-               <p>
-                 The following documents are referred to in the text in such a way that
-                 some or all of their content constitutes requirements of this
-                 document. For dated references, only the edition cited applies. For
-                 undated references, the latest edition of the referenced document
-                 (including any amendments) applies.
-               </p>
-               <p id='ISO712' class='NormRef'>
-                 [110] International Organization for Standardization.
-                 <i>Cereals and cereal products</i>
-                 .
-               </p>
-               <p id='ref1' class='NormRef'>
-                 <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
-                 .
-                 <i>
-                   Determination of the protein content in cereal and cereal products
-                   for food and animal feeding stuffs according to the Dumas combustion
-                   method
-                 </i>
-                  (see
-                 <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
-                 )
-               </p>
+               <h1>1.  Normative References</h1>
+               <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+               <p id="ISO712" class="NormRef">ISO/IEC Guide 99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. 1st edition. December 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>.</p>
              </div>
+             <aside id="fn:1" class="footnote">
+               <p id="_">Also known as JCGM 200</p>
+             </aside>
            </div>
          </body>
        </html>
     OUTPUT
     doc = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(xmlpp(Nokogiri::XML(doc)
-    .at("//xmlns:bibliography").to_xml))
+    expect(strip_guid(xmlpp(Nokogiri::XML(doc)
+    .at("//xmlns:bibliography").to_xml)))
       .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-   .convert("test", doc, true)))
+    expect(strip_guid(xmlpp(IsoDoc::HtmlConvert.new({})
+   .convert("test", doc, true))))
       .to be_equivalent_to xmlpp(html)
   end
 end
