@@ -23,13 +23,13 @@ module IsoDoc::HtmlFunction
       docxml
     end
 
-    def footnote_backlinks1(x, fn)
-      xdup = x.dup
+    def footnote_backlinks1(link, fnote)
+      xdup = link.dup
       xdup.remove["id"]
       if fn.elements.empty?
-        fn.children.first.previous = xdup
+        fnote.children.first.previous = xdup
       else
-        fn.elements.first.children.first.previous = xdup
+        fnote.elements.first.children.first.previous = xdup
       end
     end
 
@@ -49,7 +49,7 @@ module IsoDoc::HtmlFunction
       docxml.xpath("//a[@class = 'FootnoteRef']/sup").each do |x|
         footnote_reference_format(x)
       end
-      docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
+      docxml.xpath("//a[@class = 'TableFootnoteRef'] | " \
                    "//span[@class = 'TableFootnoteRef']").each do |x|
         table_footnote_reference_format(x)
       end

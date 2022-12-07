@@ -1902,6 +1902,40 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "resolves markup in eref/@citeas" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <sections><clause id="_scope" type="scope" inline-header="false" obligation="normative">
+      <title>Scope</title>
+      <p id="_8d98c053-85d7-e8cc-75bb-183a14209d61">
+      <eref type="inline" bibitemid="ISO_10303_32" citeas="[ISO 10303-32&lt;fn reference=&quot;1&quot;&gt;&lt;p&gt;To be published.&lt;/p&gt;&#10;&lt;/fn&gt;]"/>
+      </p>
+      </clause>
+      </standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns='https://www.metanorma.org/ns/standoc' type='presentation'>
+         <sections>
+           <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='1'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <p id='_8d98c053-85d7-e8cc-75bb-183a14209d61'>
+               <eref type="inline" bibitemid="ISO_10303_32" citeas="[ISO 10303-32&lt;fn reference=&quot;1&quot;&gt;&lt;p&gt;To be published.&lt;/p&gt;&#10;&lt;/fn&gt;]">[ISO 10303-32<fn reference="1"><p>To be published.</p></fn>]</eref>
+             </p>
+           </clause>
+         </sections>
+       </standard-document>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+
   private
 
   def mock_symbols
