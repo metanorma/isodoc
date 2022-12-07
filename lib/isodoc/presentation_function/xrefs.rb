@@ -38,15 +38,18 @@ module IsoDoc
     def anchor_xref(node, target)
       x = @xrefs.anchor(target, :xref)
       t = @xrefs.anchor(target, :title)
-      case node["style"]
-      when "basic" then t || x
-      when "full" then t ? anchor_xref_full(x, t) : x
-      when "short", nil then x
-      else @xrefs.anchor(target, node[:style].to_sym)
-      end
+      ret = case node["style"]
+            when "basic" then t
+            when "full" then anchor_xref_full(x, t)
+            when "short", nil then x
+            else @xrefs.anchor(target, node[:style].to_sym)
+            end
+      ret || x
     end
 
     def anchor_xref_full(num, title)
+      (!title.nil? && !title.empty?) or return nil
+
       l10n("#{num}, #{title}")
     end
 
