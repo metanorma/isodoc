@@ -1,6 +1,8 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def concept(docxml)
+      @definition_ids = docxml.xpath(ns("//definitions//dt"))
+        .each_with_object({}) { |x, m| m[x["id"]] = true }
       docxml.xpath(ns("//concept")).each { |f| concept1(f) }
     end
 
@@ -8,7 +10,7 @@ module IsoDoc
       xref = node&.at(ns("./xref/@target"))&.text or
         return concept_render(node, ital: "true", ref: "true", bold: "false",
                                     linkref: "true", linkmention: "false")
-      if node.at(ns("//definitions//dt[@id = '#{xref}']"))
+      if @definition_ids[xref]
         concept_render(node, ital: "false", ref: "false", bold: "false",
                              linkref: "true", linkmention: "false")
       else concept_render(node, ital: "true", ref: "true", bold: "false",
