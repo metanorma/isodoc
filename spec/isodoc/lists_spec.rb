@@ -493,7 +493,7 @@ RSpec.describe IsoDoc do
                                <table id='_732d3f57-4f88-40bf-9ae9-633891edc396' class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
                   <tbody>
                     <tr>
-                      <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
+                       <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
                         <dl id='_732d3f57-4f88-40bf-9ae9-633891edc397'>
                           <dt>
                             <p align='left' style='margin-left:0pt;text-align:left;'>X</p>

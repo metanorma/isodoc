@@ -15,30 +15,35 @@ module IsoDoc
         table.at(".//tr").xpath("./td | ./th").each do |td|
           cols += (td["colspan"] ? td["colspan"].to_i : 1)
         end
-        style = "border-top:0pt;mso-border-top-alt:0pt;"\
+        style = "border-top:0pt;mso-border-top-alt:0pt;" \
                 "border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;"
         tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
         tfoot.xpath(".//td").last
       end
 
-      def make_tr_attr(td, row, totalrows, _header)
-        style = td.name == "th" ? "font-weight:bold;" : ""
-        rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
-        style += <<~STYLE
+      def make_tr_attr(cell, row, totalrows, header)
+        style = cell.name == "th" ? "font-weight:bold;" : ""
+        rowmax = cell["rowspan"] ? row + cell["rowspan"].to_i - 1 : row
+        style += make_tr_attr_style(row, rowmax, totalrows, header)
+        { rowspan: cell["rowspan"], colspan: cell["colspan"],
+          valign: cell["valign"], align: cell["align"], style: style }
+      end
+
+      def make_tr_attr_style(row, rowmax, totalrows, header)
+        <<~STYLE.gsub(/\n/, "")
           border-top:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
           mso-border-top-alt:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
-          border-bottom:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-          mso-border-bottom-alt:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+          border-bottom:#{SW1} #{rowmax >= totalrows ? '1.5' : '1.0'}pt;
+          mso-border-bottom-alt:#{SW1} #{rowmax >= totalrows ? '1.5' : '1.0'}pt;
+          page-break-after:#{header || (totalrows <= 10 && rowmax < totalrows) ? 'avoid' : 'auto'};
         STYLE
-        { rowspan: td["rowspan"], colspan: td["colspan"], valign: td["valign"],
-          align: td["align"], style: style.gsub(/\n/, "") }
       end
 
       def table_attrs(node)
         ret = {
           summary: node["summary"],
           width: node["width"],
-          style: "mso-table-anchor-horizontal:column;mso-table-overlap:never;"\
+          style: "mso-table-anchor-horizontal:column;mso-table-overlap:never;" \
                  "border-spacing:0;border-width:1px;#{keep_style(node)}",
           class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable"),
         }

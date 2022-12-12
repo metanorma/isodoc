@@ -1572,7 +1572,7 @@ RSpec.describe IsoDoc do
                   <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;"><a name="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7"></a>
                     <thead>
                       <tr>
-                        <td rowspan="2" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;">
+                         <td rowspan="2" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
                 <p class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"></a>Output wavelength <span class="stem">
                 <m:oMath>
                             <span style='font-style:normal;'>
@@ -1589,7 +1589,7 @@ RSpec.describe IsoDoc do
                           </m:oMath>
         </span></p>
               </td>
-                        <th colspan="3" align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">Predictive wavelengths</th>
+               <th colspan="3" align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Predictive wavelengths</th>
                       </tr>
                     </thead>
                   </table>
@@ -1633,26 +1633,17 @@ RSpec.describe IsoDoc do
              <div align='center' class="table_container">
                <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
                  <a name='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7' id='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7'/>
-                 <thead>
-                   <tr>
-                     <td rowspan='2' align='left' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>
-                       <p style='text-align: left' class='MsoNormal'>
-                         <a name='_c47d9b39-adb2-431d-9320-78cb148fdb56' id='_c47d9b39-adb2-431d-9320-78cb148fdb56'/>
-                         Output wavelength
-                       </p>
-                       <p style='text-align: left' class='MsoNormal'>
-                         <a name='_c47d9b39-adb2-431d-9320-78cb148fdb57' id='_c47d9b39-adb2-431d-9320-78cb148fdb57'/>
-                         Output wavelength
-                       </p>
-                     </td>
-                     <th colspan='3' align='right' style='font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
-                       <p style='text-align: right' class='MsoNormal'>
-                         <a name='_c47d9b39-adb2-431d-9320-78cb148fdb58' id='_c47d9b39-adb2-431d-9320-78cb148fdb58'/>
-                         Predictive wavelengths
-                       </p>
-                     </th>
-                   </tr>
-                 </thead>
+                                <thead>
+                 <tr>
+                   <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
+                     <p style="text-align: left" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"/>Output wavelength</p>
+                     <p style="text-align: left" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb57" id="_c47d9b39-adb2-431d-9320-78cb148fdb57"/>Output wavelength</p>
+                   </td>
+                   <th colspan="3" align="right" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
+                     <p style="text-align: right" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb58" id="_c47d9b39-adb2-431d-9320-78cb148fdb58"/>Predictive wavelengths</p>
+                   </th>
+                 </tr>
+               </thead>
                </table>
              </div>
            </div>
@@ -1975,103 +1966,94 @@ RSpec.describe IsoDoc do
                      </p>
                    </div>
                  </div>
-                 <div class='WordSection2_1'>
-                   <div align='center' class='table_container'>
-                     <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
-                       <tbody>
-                         <tr>
-                           <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>A</td>
-                           <td style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>B</td>
-                         </tr>
-                       </tbody>
-                     </table>
-                   </div>
-                   <div>
-                     <h2>Preface 1.1</h2>
-                     <p class='MsoNormal'>On my side</p>
-                     <p class='MsoNormal'>
-                       <br clear='all' class='section'/>
-                     </p>
-                   </div>
-                 </div>
-                 <div class='WordSection2_0'>
-                   <p class='MsoNormal'>Upright again</p>
-                   <div>
-                     <h2>Preface 1.3</h2>
-                     <p class='MsoNormal'>And still upright</p>
-                   </div>
-                   <p class='MsoNormal'>&#xA0;</p>
-                 </div>
-                 <p class='MsoNormal'>
-                   <br clear='all' class='section'/>
-                 </p>
-                 <div class='WordSection3'>
-                   <p class='zzSTDTitle1'>Document title</p>
-                   <div>
-                     <h1>Foreword</h1>
-                     <div class='Note'>
-                       <p class='Note'>
-                         <span class='note_label'/>
-                         <span style='mso-tab-count:1'>&#xA0; </span>
-                         For further information on the Foreword, see
-                         <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
-                       </p>
-                       <p class='Note'>
-                         <br clear='all' class='section'/>
-                       </p>
+                          <div class="WordSection2_1">
+           <div align="center" class="table_container">
+             <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+               <tbody>
+                 <tr>
+                   <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
+                   <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+           <div>
+             <h2>Preface 1.1</h2>
+             <p class="MsoNormal">On my side</p>
+             <p class="MsoNormal">
+               <br clear="all" class="section"/>
+             </p>
+           </div>
+         </div>
+         <div class="WordSection2_0">
+           <p class="MsoNormal">Upright again</p>
+           <div>
+             <h2>Preface 1.3</h2>
+             <p class="MsoNormal">And still upright</p>
+           </div>
+           <p class="MsoNormal"> </p>
+         </div>
+         <p class="MsoNormal">
+           <br clear="all" class="section"/>
+         </p>
+         <div class="WordSection3">
+           <p class="zzSTDTitle1">Document title</p>
+           <div>
+             <h1>Foreword</h1>
+             <div class="Note">
+               <p class="Note"><span class="note_label"/><span style="mso-tab-count:1">  </span>For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
+               <p class="Note">
+                 <br clear="all" class="section"/>
+               </p>
+             </div>
+           </div>
+         </div>
+         <div class="WordSection3_2">
+           <div align="center" class="table_container">
+             <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+               <a name="_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249" id="_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249"/>
+               <thead>
+                 <tr>
+                   <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">A</th>
+                   <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">B</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">C</td>
+                   <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">D</td>
+                 </tr>
+               </tbody>
+               <tfoot>
+                 <tr>
+                   <td colspan="2" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
+                     <div class="Note">
+                       <a name="_8fff1596-290e-4314-b03c-7a8aab97eebe" id="_8fff1596-290e-4314-b03c-7a8aab97eebe"/>
+                       <p class="Note"><span class="note_label"/><span style="mso-tab-count:1">  </span>B</p>
                      </div>
-                   </div>
-                 </div>
-                 <div class='WordSection3_2'>
-                   <div align='center' class='table_container'>
-                     <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
-                       <a name='_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249' id='_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249'/>
-                       <thead>
-                         <tr>
-                           <th align='left' style='font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>A</th>
-                           <th align='left' style='font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>B</th>
-                         </tr>
-                       </thead>
-                       <tbody>
-                         <tr>
-                           <td align='left' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>C</td>
-                           <td align='left' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>D</td>
-                         </tr>
-                       </tbody>
-                       <tfoot>
-                         <tr>
-                           <td colspan='2' style='border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
-                             <div class='Note'>
-                               <a name='_8fff1596-290e-4314-b03c-7a8aab97eebe' id='_8fff1596-290e-4314-b03c-7a8aab97eebe'/>
-                               <p class='Note'>
-                                 <span class='note_label'/>
-                                 <span style='mso-tab-count:1'>&#xA0; </span>
-                                 B
-                               </p>
-                             </div>
-                           </td>
-                         </tr>
-                       </tfoot>
-                     </table>
-                   </div>
-                   <p class='Note'>
-                     <br clear='all' class='section'/>
-                   </p>
-                 </div>
-                 <div class='WordSection3_1'>
-                   <p class='Note'>And up</p>
-                      <p class='MsoNormal'>
-             <br clear='all' class='section'/>
+                   </td>
+                 </tr>
+               </tfoot>
+             </table>
+           </div>
+           <p class="Note">
+             <br clear="all" class="section"/>
            </p>
          </div>
-         <div class='WordSection3_0'>
-           <div class='Section3'>
-             <a name='_level_1' id='_level_1'/>
-             <h1 class='Annex'>Annex 1</h1>
+         <div class="WordSection3_1">
+           <p class="Note">And up</p>
+           <p class="MsoNormal">
+             <br clear="all" class="section"/>
+           </p>
+         </div>
+         <div class="WordSection3_0">
+           <div class="Section3">
+             <a name="_level_1" id="_level_1"/>
+             <h1 class="Annex">Annex 1</h1>
            </div>
-                 </div>
-                 <div style='mso-element:footnote-list'/>
-               </body>
+         </div>
+         <div style="mso-element:footnote-list"/>
+       </body>
       OUTPUT
   end
 

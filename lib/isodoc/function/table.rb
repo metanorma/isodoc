@@ -13,7 +13,7 @@ module IsoDoc
         if thead
           table.thead do |h|
             thead.element_children.each_with_index do |n, i|
-              tr_parse(n, h, i, thead.element_children.size, true)
+              tr_parse(n, h, i, thead.xpath(ns("./tr")).size, true)
             end
           end
         end
@@ -23,7 +23,7 @@ module IsoDoc
         tbody = node.at(ns("./tbody")) || return
         table.tbody do |h|
           tbody.element_children.each_with_index do |n, i|
-            tr_parse(n, h, i, tbody.element_children.size, false)
+            tr_parse(n, h, i, tbody.xpath(ns("./tr")).size, false)
           end
         end
       end
@@ -33,7 +33,7 @@ module IsoDoc
         if tfoot
           table.tfoot do |h|
             tfoot.element_children.each_with_index do |n, i|
-              tr_parse(n, h, i, tfoot.element_children.size, false)
+              tr_parse(n, h, i, tfoot.xpath(ns("./tr")).size, false)
             end
           end
         end
@@ -44,7 +44,7 @@ module IsoDoc
         attr_code(
           id: node["id"],
           class: node["class"] || "MsoISOTable",
-          style: "border-width:1px;border-spacing:0;"\
+          style: "border-width:1px;border-spacing:0;" \
                  "#{width}#{keep_style(node)}",
           title: node["alt"],
         )
@@ -96,15 +96,19 @@ module IsoDoc
         cell["align"] and style += "text-align:#{cell['align']};"
         cell["valign"] and style += "vertical-align:#{cell['valign']};"
         rowmax = cell["rowspan"] ? row + cell["rowspan"].to_i - 1 : row
-        style += <<~STYLE
-          border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
-          border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-        STYLE
+        style += make_tr_attr_style(row, rowmax, totalrows, header)
         header and scope = (cell["colspan"] ? "colgroup" : "col")
         !header && cell.name == "th" and
           scope = (cell["rowspan"] ? "rowgroup" : "row")
         { rowspan: cell["rowspan"], colspan: cell["colspan"],
           style: style.gsub(/\n/, ""), scope: scope }
+      end
+
+      def make_tr_attr_style(row, rowmax, totalrows, _header)
+        <<~STYLE.gsub(/\n/, "")
+          border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
+          border-bottom:#{SW} #{rowmax >= totalrows ? '1.5' : '1.0'}pt;
+        STYLE
       end
 
       def tr_parse(node, out, ord, totalrows, header)
