@@ -24,8 +24,8 @@
     background: $colorHighlightBg;
     box-shadow: 3px 0 0 $colorHighlightBg, -3px 0 0 $colorHighlightBg;
   }
-  ::selection,
-  ::-moz-selection {
+  *::selection,
+  *::-moz-selection {
     background: $colorHighlightBg;
     color: $colorHighlightFg;
   }
