@@ -101,6 +101,7 @@ module IsoDoc
       end
 
       def info(isoxml, out)
+        @meta.code_css isoxml, out
         @meta.title isoxml, out
         @meta.subtitle isoxml, out
         @meta.docstatus isoxml, out

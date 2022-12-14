@@ -1,4 +1,5 @@
 require_relative "./image"
+require "rouge"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -25,13 +26,65 @@ module IsoDoc
       end
     end
 
+    def sourcehighlighter_theme
+      "igorpro"
+    end
+
+    def sourcehighlighter_css(docxml)
+      @sourcehighlighter or return
+      ins = docxml.at(ns("//misc-container")) ||
+        docxml.at(ns("//bibdata")).after("<misc-container/>").next_element
+      x = Rouge::Theme.find(sourcehighlighter_theme)
+        .render(scope: "sourcecode")
+      ins << "<source-highlighter-css>#{x}</source-highlighter-css>"
+    end
+
+    def sourcehighlighter
+      @sourcehighlighter or return
+      f = Rouge::Formatters::HTML.new
+      { formatter: f,
+        formatter_line: Rouge::Formatters::HTMLTable.new(f, {}) }
+    end
+
     def sourcecode(docxml)
+      sourcehighlighter_css(docxml)
+      @highlighter = sourcehighlighter
       docxml.xpath(ns("//sourcecode")).each do |f|
         sourcecode1(f)
       end
     end
 
     def sourcecode1(elem)
+      source_highlight(elem)
+      source_label(elem)
+    end
+
+    def source_highlight(elem)
+      @highlighter or return
+      name = elem.at(ns("./name"))&.remove
+      p = source_lex(elem)
+      if elem["linenums"] == "true"
+        pre = sourcecode_table_to_elem(elem, p)
+        elem.children = "#{name}#{pre}"
+      else
+        elem.children = "#{name}#{@highlighter[:formatter].format(p)}"
+      end
+    end
+
+    def sourcecode_table_to_elem(elem, tokens)
+      r = Nokogiri::XML(@highlighter[:formatter_line].format(tokens)).root
+      pre = r.at("//td[@class = 'rouge-code']/pre")
+      %w(style).each { |n| elem[n] and pre[n] = elem[n] }
+      r
+    end
+
+    def source_lex(elem)
+      l = (Rouge::Lexer.find(elem["lang"] || "plaintext") ||
+       Rouge::Lexer.find("plaintext"))
+      l.lex(@c.decode(elem.children.to_xml))
+    end
+
+    def source_label(elem)
       return if labelled_ancestor(elem)
 
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
