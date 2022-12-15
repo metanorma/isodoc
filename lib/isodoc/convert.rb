@@ -78,11 +78,11 @@ module IsoDoc
       @suppressheadingnumbers = options[:suppressheadingnumbers]
       @break_up_urls_in_tables = options[:breakupurlsintables]
       @sectionsplit = options[:sectionsplit] == "true"
-      @suppressasciimathdup = options[:suppressasciimathdup] == "true"
+      @suppressasciimathdup = options[:suppressasciimathdup]
       @bare = options[:bare]
       @aligncrosselements = options[:aligncrosselements]
       @modspecidentifierbase = options[:modspecidentifierbase]
-      @sourcehighlighter = options[:sourcehighlighter] == "true"
+      @sourcehighlighter = options[:sourcehighlighter]
     end
 
     def init_i18n(options)

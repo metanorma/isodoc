@@ -1025,7 +1025,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ suppressasciimathdup: "true" })
+      .new({ suppressasciimathdup: true })
       .convert("test", input, true)
       .gsub("<!--", "<comment>")
       .gsub("-->", "</comment>")))

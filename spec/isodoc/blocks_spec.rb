@@ -1630,7 +1630,7 @@ RSpec.describe IsoDoc do
       </body>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ sourcehighlighter: "true" })
+      .new({ sourcehighlighter: true })
       .convert("test", input, true))
     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1718,7 +1718,7 @@ RSpec.describe IsoDoc do
           </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: "true" })
+  .new({ sourcehighlighter: true })
   .convert("test", input, true))
   .sub(%r{<misc-container>.*</misc-container>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
@@ -1772,7 +1772,7 @@ RSpec.describe IsoDoc do
           </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: "true" })
+  .new({ sourcehighlighter: true })
   .convert("test", input, true))
   .sub(%r{<misc-container>.*</misc-container>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
