@@ -38,7 +38,7 @@ module IsoDoc
         STYLE
         bordered or ret = ""
         pb = header || (totalrows <= 10 && rowmax < totalrows) ? "avoid" : "auto"
-        "#{ret};page-break-after:#{pb}"
+        "#{ret}page-break-after:#{pb};"
       end
 
       def table_attrs(node)
@@ -56,9 +56,9 @@ module IsoDoc
         super.merge(attr_code(ret))
       end
 
-      def colgroup(node, t)
+      def colgroup(node, table)
         colgroup = node.at(ns("./colgroup")) or return
-        t.colgroup do |cg|
+        table.colgroup do |cg|
           colgroup.xpath(ns("./col")).each do |c|
             cg.col **{ width: c["width"] }
           end

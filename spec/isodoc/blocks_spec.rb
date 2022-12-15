@@ -1457,7 +1457,7 @@ RSpec.describe IsoDoc do
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(doc)
   end
 
-  it "processes sourcecode with sourceode highlighting" do
+  it "processes sourcecode with sourcecode highlighting" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata/>
@@ -1533,9 +1533,9 @@ RSpec.describe IsoDoc do
        </pre>
                      </td>
                      <td class="rouge-code">
-                       <pre>Hey
+                       <sourcecode>Hey
        Que?
-       </pre>
+       </sourcecode>
                      </td>
                    </tr>
                  </tbody>
@@ -1551,16 +1551,27 @@ RSpec.describe IsoDoc do
                    <br/>
                    <div>
                      <h1 class="ForewordTitle">Foreword</h1>
-                     <pre id="samplecode" class="sourcecode"><br/>        <br/>        puts x<br/>      </pre>
+                     <pre id="samplecode" class="sourcecode"><br/>        <br/>        <span class="nb">puts</span> <span class="n">x</span><br/>      </pre>
          <p class="SourceTitle" style="text-align:center;">
            Figure 1 — Ruby
            <i>code</i>
          </p>
-        <pre class="sourcecode" id="A"><br/>         <br/>         <table class="rouge-table" style=""><tbody><tr><td style=""><br/>                 <pre>1
+                        <pre id="A" class="sourcecode">
+                 <table class="rouge-table" style="">
+                   <tbody>
+                     <tr>
+                       <td style="">
+                         <pre>1
         2
-        </pre><br/>               </td><td style=""><br/>                 <pre>Hey
-        Que?
-        </pre><br/>               </td></tr></tbody></table><br/>       </pre>
+        </pre>
+                       </td>
+                       <td style="">
+                         <pre class="sourcecode">Hey<br/> Que?<br/> </pre>
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </pre>
         <p class="SourceTitle" style="text-align:center;">More</p>
                    </div>
                    <p class="zzSTDTitle1"/>
@@ -1570,49 +1581,53 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-           <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-         <div class="WordSection1">
-           <p class="MsoNormal"> </p>
-         </div>
-         <p class="MsoNormal">
-           <br clear="all" class="section"/>
-         </p>
-         <div class="WordSection2">
-           <p class="MsoNormal">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div>
-             <h1 class="ForewordTitle">Foreword</h1>
-             <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"/><br/>        <br/>        puts x<br/>      </p>
-             <p class="SourceTitle" style="text-align:center;">
-                 Figure 1 — Ruby
-                 <i>code</i>
-               </p>
-             <div align="center" class="table_container" style="page-break-after:avoid;">
-               <a name="A" id="A"/>
-               <table class="rouge-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+          <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+        <div class="WordSection1">
+          <p class="MsoNormal"> </p>
+        </div>
+        <p class="MsoNormal">
+          <br clear="all" class="section"/>
+        </p>
+        <div class="WordSection2">
+          <p class="MsoNormal">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div>
+            <h1 class="ForewordTitle">Foreword</h1>
+            <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"/><br/>        <br/>        <span class="nb">puts</span> <span class="n">x</span><br/>      </p>
+            <p class="SourceTitle" style="text-align:center;">
+                Figure 1 — Ruby
+                <i>code</i>
+              </p>
+            <div align="center" class="table_container" style="page-break-after:avoid;">
+              <a name="A" id="A"/>
+                             <table class="rouge-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
                  <tbody>
                    <tr>
-                     <td style=";page-break-after:auto"><br/>                 <pre>1
+                     <td style="page-break-after:auto;">
+                       <pre>1
         2
-        </pre><br/>               </td>
-                     <td style=";page-break-after:auto"><br/>                 <Sourcecode>Hey<br/> Que?<br/> </Sourcecode><br/>               </td>
+        </pre>
+                     </td>
+                     <td style="page-break-after:auto;">
+                       <p class="Sourcecode">Hey<br/> Que?<br/> </p>
+                     </td>
                    </tr>
                  </tbody>
                </table>
-             </div>
-             <p class="SourceTitle" style="text-align:center;">More</p>
-           </div>
-           <p class="MsoNormal"> </p>
-         </div>
-         <p class="MsoNormal">
-           <br clear="all" class="section"/>
-         </p>
-         <div class="WordSection3">
-           <p class="zzSTDTitle1"/>
-         </div>
-         <div style="mso-element:footnote-list"/>
-       </body>
+            </div>
+            <p class="SourceTitle" style="text-align:center;">More</p>
+          </div>
+          <p class="MsoNormal"> </p>
+        </div>
+        <p class="MsoNormal">
+          <br clear="all" class="section"/>
+        </p>
+        <div class="WordSection3">
+          <p class="zzSTDTitle1"/>
+        </div>
+        <div style="mso-element:footnote-list"/>
+      </body>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: "true" })
@@ -1629,36 +1644,73 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(doc)
   end
 
-  it "processes sourcecode with escapes preserved" do
+  it "processes sourcecode with escapes preserved, and XML sourcecode highlighting" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata/>
           <preface><foreword>
-          <sourcecode id="samplecode">
+          <sourcecode id="samplecode" lang="xml">
           <name>XML code</name>
-        &lt;xml&gt;
+        &lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;
+      </sourcecode>
+          <sourcecode id="samplecode1" lang="xml" linenums="true">
+          <name>XML code</name>
+        &lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;
       </sourcecode>
           </foreword></preface>
           </iso-standard>
     INPUT
     presxml = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata/>
-          <preface><foreword displayorder="1">
-          <sourcecode id="samplecode">
-          <name>Figure 1 — XML code</name>
-        &lt;xml&gt;
-      </sourcecode>
-          </foreword></preface>
-          </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <bibdata/>
+      <preface><foreword displayorder="1">
+      <sourcecode id="samplecode" lang="xml"><name>Figure 1 — XML code</name><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></sourcecode>
+                   <sourcecode id="samplecode1" lang="xml" linenums="true">
+               <name>Figure 2 — XML code</name>
+               <table class="rouge-table">
+                 <tbody>
+                   <tr>
+                     <td class="rouge-gutter gl">
+                       <pre class="lineno">1
+       2
+       3
+       </pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></sourcecode>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+             </sourcecode>
+      </foreword></preface>
+      </iso-standard>
     INPUT
     output = <<~OUTPUT
       #{HTML_HDR}
                   <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <pre id="samplecode" class="sourcecode"><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/></pre>
+                    <pre id="samplecode" class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
                     <p class="SourceTitle" style="text-align:center;">Figure 1 — XML code</p>
+                                  <pre id="samplecode1" class="sourcecode">
+                 <table class="rouge-table" style="">
+                   <tbody>
+                     <tr>
+                       <td style="">
+                         <pre>1
+        2
+        3
+        </pre>
+                       </td>
+                       <td style="">
+                         <pre class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </pre>
+               <p class="SourceTitle" style="text-align:center;">Figure 2 — XML code</p>
                   </div>
                   <p class="zzSTDTitle1"/>
                 </div>
@@ -1694,8 +1746,8 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata/>
-      <preface><foreword>
-      <sourcecode id="_">puts "Hello, world." <callout target="A">1</callout>
+      <preface><foreword displayorder="1">
+      <sourcecode id="_"><name>Figure 1</name>puts "Hello, world." <callout target="A">1</callout>
          %w{a b c}.each do |x|
            puts x <callout target="B">2</callout>
          end<annotation id="A">
@@ -1712,6 +1764,7 @@ RSpec.describe IsoDoc do
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
                     <pre id="_" class="sourcecode">puts "Hello, world."  &lt;1&gt;<br/>&#160;&#160; %w{a b c}.each do |x|<br/>&#160;&#160;&#160;&#160; puts x  &lt;2&gt;<br/>&#160;&#160; end<br/><br/>&lt;1&gt; This is one callout<br/>&lt;2&gt; This is another callout</pre>
+                    <p class="SourceTitle" style="text-align:center;">Figure 1</p>
                   </div>
                   <p class="zzSTDTitle1"/>
                 </div>

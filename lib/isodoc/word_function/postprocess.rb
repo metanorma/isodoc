@@ -61,7 +61,7 @@ module IsoDoc
 
         f = File.open(@wordstylesheet.path, "a")
         @landscapestyle.empty? or f.write(@landscapestyle)
-        s = @meta.get(:code_css) and
+        s = @meta.get[:code_css] and
           f.write(s.gsub(/sourcecode/, "p.#{sourcecode_style}"))
         if @wordstylesheet_override && @wordstylesheet
           f.write(@wordstylesheet_override.read)
@@ -104,9 +104,7 @@ module IsoDoc
       def word_sourcecode_table(docxml)
         docxml.xpath("//p[@class='Sourcecode']/div[@class='table_container']")
           .each do |d|
-            pre = d.at(".//td[2]/pre")
-            pre.name = "p"
-            pre.name = "Sourcecode"
+            pre = d.at(".//p[@class='Sourcecode']")
             to_sourcecode_para(pre)
             d["id"] = d.parent["id"]
             d.parent.replace(d)
