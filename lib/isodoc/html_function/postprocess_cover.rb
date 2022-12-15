@@ -32,7 +32,8 @@ module IsoDoc
         head << htmlstylesheet(@htmlstylesheet)
         s = htmlstylesheet(@htmlstylesheet_override) and head << s
         s = @meta.get[:code_css] and
-          head << s.gsub(/sourcecode/, "pre.sourcecode")
+          head << "<style><!--#{s.gsub(/sourcecode/,
+                                       'pre.sourcecode')}--></style>"
         @bare and
           head << "<style>body {margin-left: 2em; margin-right: 2em;}</style>"
         docxml
