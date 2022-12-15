@@ -156,7 +156,7 @@ RSpec.describe IsoDoc do
        <s>F</s> <span style="font-variant:small-caps;">G</span> <span class="keyword">I</span> <br/> <hr/>
        <a id="H"/> <br/> <br/> <span style="text-decoration: underline">J</span>
        <span style="text-decoration: underline wavy">J1</span>
-       <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt> F
+       <span class="A"><i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt> F</span>
        <span style="font-family:&quot;Arial&quot;"><i>A</i> F</span>
        </p>
              </div>
@@ -184,12 +184,13 @@ RSpec.describe IsoDoc do
             </p>
             <u>J</u>
             <u style="text-decoration: wavy">J1</u>
+            <span class="A">
             <i>A</i>
             <b>B</b>
             <sup>C</sup>
             <sub>D</sub>
             <tt>E</tt>
-             F
+             F</span>
             <span style='font-family:&#x22;Arial&#x22;'><i>A</i> F</span>
           </p>
         </div>
@@ -1024,7 +1025,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ suppressasciimathdup: "true" })
+      .new({ suppressasciimathdup: true })
       .convert("test", input, true)
       .gsub("<!--", "<comment>")
       .gsub("-->", "</comment>")))

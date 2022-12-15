@@ -17,12 +17,12 @@ module IsoDoc
       def location_parse(node, out); end
 
       def span_parse(node, out)
-        if node["style"]
-          out.span **{ style: node["style"] } do |s|
+        if node["style"] || node["class"]
+          out.span **attr_code(style: node["style"],
+                               class: node["class"]) do |s|
             node.children.each { |n| parse(n, s) }
           end
-        else
-          node.children.each { |n| parse(n, out) }
+        else node.children.each { |n| parse(n, out) }
         end
       end
 

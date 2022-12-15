@@ -31,6 +31,8 @@ module IsoDoc
         head = docxml.at("//*[local-name() = 'head']")
         head << htmlstylesheet(@htmlstylesheet)
         s = htmlstylesheet(@htmlstylesheet_override) and head << s
+        s = @meta.get[:code_css] and
+          head << s.gsub(/sourcecode/, "pre.sourcecode")
         @bare and
           head << "<style>body {margin-left: 2em; margin-right: 2em;}</style>"
         docxml
@@ -40,7 +42,6 @@ module IsoDoc
         html_cover(docxml) if @htmlcoverpage && !@bare
         html_intro(docxml) if @htmlintropage && !@bare
         docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
-        docxml.at("//body") << sourcecode_highlighter
         html_main(docxml)
         authority_cleanup(docxml)
         docxml
@@ -48,7 +49,7 @@ module IsoDoc
 
       def authority_cleanup1(docxml, klass)
         dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
-        auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or "\
+        auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or " \
                          "@class = 'boilerplate-#{klass}']")
         auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each(&:remove)
         auth&.xpath(".//h1 | .//h2")&.each { |h| h["class"] = "IntroTitle" }
@@ -92,7 +93,7 @@ module IsoDoc
       end
 
       def html_toc_entry(level, header)
-        content = header.at("./following-sibling::p"\
+        content = header.at("./following-sibling::p" \
                             "[@class = 'variant-title-toc']") || header
         %(<li class="#{level}"><a href="##{header['id']}">\
       #{header_strip(content)}</a></li>)
@@ -127,7 +128,7 @@ module IsoDoc
       end
 
       def toc_exclude_class
-        "[not(@class = 'TermNum')][not(@class = 'noTOC')]"\
+        "[not(@class = 'TermNum')][not(@class = 'noTOC')]" \
           "[string-length(normalize-space(.))>0]"
       end
 
@@ -140,11 +141,6 @@ module IsoDoc
           scripts_override = File.read(@scripts_override, encoding: "UTF-8")
         a = doc.split(%r{</body>})
         "#{a[0]}#{scripts}#{scripts_override}</body>#{a[1]}"
-      end
-
-      def sourcecode_highlighter
-        '<script src="https://cdn.rawgit.com/google/code-prettify/master/'\
-          'loader/run_prettify.js"></script>'
       end
 
       MATHJAX_ADDR =

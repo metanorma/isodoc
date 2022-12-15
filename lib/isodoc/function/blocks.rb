@@ -75,7 +75,7 @@ module IsoDoc
       def sourcecode_parse(node, out)
         name = node.at(ns("./name"))
         out.p **sourcecode_attrs(node) do |div|
-          @sourcecode = true
+          @sourcecode = true unless node.at(ns(".//sourcecode"))
           node.children.each { |n| parse(n, div) unless n.name == "name" }
           @sourcecode = false
         end

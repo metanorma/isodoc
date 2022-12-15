@@ -89,31 +89,10 @@ module IsoDoc
         d.children.empty? or d.children.first.previous = html_button
       end
 
-      def sourcecodelang(lang)
-        return unless lang
-
-        case lang.downcase
-        when "javascript" then "lang-js"
-        when "c" then "lang-c"
-        when "c+" then "lang-cpp"
-        when "console" then "lang-bsh"
-        when "ruby" then "lang-rb"
-        when "html" then "lang-html"
-        when "java" then "lang-java"
-        when "xml" then "lang-xml"
-        when "perl" then "lang-perl"
-        when "python" then "lang-py"
-        when "xsl" then "lang-xsl"
-        else
-          ""
-        end
-      end
-
       def sourcecode_parse(node, out)
         name = node.at(ns("./name"))
-        class1 = "prettyprint #{sourcecodelang(node&.at(ns('./@lang'))&.value)}"
-        out.pre **sourcecode_attrs(node).merge(class: class1) do |div|
-          @sourcecode = true
+        out.pre **sourcecode_attrs(node).merge(class: "sourcecode") do |div|
+          @sourcecode = true unless node.at(ns(".//sourcecode"))
           node.children.each { |n| parse(n, div) unless n.name == "name" }
           @sourcecode = false
         end

@@ -52,11 +52,17 @@ module IsoDoc
         @wordstylesheet.unlink if @wordstylesheet.is_a?(Tempfile)
       end
 
+      def sourcecode_style
+        "Sourcecode"
+      end
+
       def wordstylesheet_update
         return if @wordstylesheet.nil?
 
         f = File.open(@wordstylesheet.path, "a")
         @landscapestyle.empty? or f.write(@landscapestyle)
+        s = @meta.get[:code_css] and
+          f.write(s.gsub(/sourcecode/, "p.#{sourcecode_style}"))
         if @wordstylesheet_override && @wordstylesheet
           f.write(@wordstylesheet_override.read)
           @wordstylesheet_override.close
@@ -70,13 +76,15 @@ module IsoDoc
       def word_admonition_images(docxml)
         docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
           i["width"], i["height"] =
-            Html2Doc.new({}).image_resize(i, image_localfile(i), @maxheight, 300)
+            Html2Doc.new({}).image_resize(i, image_localfile(i), @maxheight,
+                                          300)
         end
       end
 
       def word_cleanup(docxml)
         word_annex_cleanup(docxml)
         word_preface(docxml)
+        word_sourcecode_table(docxml)
         word_nested_tables(docxml)
         word_colgroup(docxml)
         word_table_align(docxml)
@@ -91,6 +99,27 @@ module IsoDoc
         authority_cleanup(docxml)
         word_footnote_format(docxml)
         docxml
+      end
+
+      def word_sourcecode_table(docxml)
+        docxml.xpath("//p[@class='Sourcecode']/div[@class='table_container']")
+          .each do |d|
+            pre = d.at(".//p[@class='Sourcecode']")
+            to_sourcecode_para(pre)
+            d["id"] = d.parent["id"]
+            d.parent.replace(d)
+          end
+      end
+
+      def to_sourcecode_para(pre)
+        @sourcecode = true
+        pre.traverse do |x|
+          x.text? or next
+          ret = []
+          text_parse(x, ret)
+          x.replace(ret.join)
+        end
+        @sourcecode = false
       end
 
       def word_tab_clean(docxml)
@@ -155,7 +184,7 @@ module IsoDoc
           .each do |t|
           if t&.previous_element&.name == "img"
             img = t.previous_element
-            t.previous_element.swap("<p class=\'figure\'>#{img.to_xml}</p>")
+            t.previous_element.swap("<p class='figure'>#{img.to_xml}</p>")
           end
           style_update(t&.previous_element, "page-break-after:avoid;")
         end
@@ -231,7 +260,7 @@ module IsoDoc
         docxml.xpath("//a[@epub:type = 'footnote']").each do |x|
           footnote_reference_format(x)
         end
-        docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
+        docxml.xpath("//a[@class = 'TableFootnoteRef'] | " \
                      "//span[@class = 'TableFootnoteRef']").each do |x|
           table_footnote_reference_format(x)
         end

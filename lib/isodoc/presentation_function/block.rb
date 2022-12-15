@@ -1,4 +1,5 @@
 require_relative "./image"
+require "rouge"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -25,24 +26,106 @@ module IsoDoc
       end
     end
 
+    def sourcehighlighter_theme
+      "igorpro"
+    end
+
+    def sourcehighlighter_css(docxml)
+      @sourcehighlighter or return
+      ins = docxml.at(ns("//misc-container")) ||
+        docxml.at(ns("//bibdata")).after("<misc-container/>").next_element
+      x = Rouge::Theme.find(sourcehighlighter_theme)
+        .render(scope: "sourcecode")
+      ins << "<source-highlighter-css>#{x}</source-highlighter-css>"
+    end
+
+    def sourcehighlighter
+      @sourcehighlighter or return
+      f = Rouge::Formatters::HTML.new
+      { formatter: f,
+        formatter_line: Rouge::Formatters::HTMLTable.new(f, {}) }
+    end
+
     def sourcecode(docxml)
+      sourcehighlighter_css(docxml)
+      @highlighter = sourcehighlighter
       docxml.xpath(ns("//sourcecode")).each do |f|
         sourcecode1(f)
       end
     end
 
     def sourcecode1(elem)
-      return if labelled_ancestor(elem)
+      source_highlight(elem)
+      source_label(elem)
+    end
 
+    def source_highlight(elem)
+      @highlighter or return
+      markup = source_remove_markup(elem)
+      p = source_lex(elem)
+      wrapper, code =
+        if elem["linenums"] == "true" then sourcecode_table_to_elem(elem, p)
+        else
+          r = Nokogiri::XML.fragment(@highlighter[:formatter].format(p))
+          [r, r]
+        end
+      elem.children = source_restore_markup(wrapper, code, markup)
+    end
+
+    def source_remove_markup(elem)
+      ret = {}
+      name = elem.at(ns("./name")) and ret[:name] = name.remove.to_xml
+      ret[:ann] = elem.xpath(ns("./annotation")).each(&:remove)
+      ret[:call] = elem.xpath(ns("./callout")).each_with_object([]) do |c, m|
+        m << { xml: c.remove.to_xml, line: c.line - elem.line }
+      end
+      ret
+    end
+
+    def source_restore_markup(wrapper, code, markup)
+      text = source_restore_callouts(code, markup[:call])
+      ret = if code == wrapper
+              text
+            else
+              code.replace(text)
+              to_xml(wrapper)
+            end
+      "#{markup[:name]}#{ret}#{markup[:ann]}"
+    end
+
+    def source_restore_callouts(code, callouts)
+      text = to_xml(code)
+      text.split(/[\n\r]/).each_with_index do |c, i|
+        while !callouts.empty? && callouts[0][:line] == i
+          c.sub!(/\s+$/, " #{callouts[0][:xml]} ")
+          callouts.shift
+        end
+      end.join("\n")
+    end
+
+    def sourcecode_table_to_elem(elem, tokens)
+      r = Nokogiri::XML(@highlighter[:formatter_line].format(tokens)).root
+      pre = r.at(".//td[@class = 'rouge-code']/pre")
+      %w(style).each { |n| elem[n] and pre[n] = elem[n] }
+      pre.name = "sourcecode"
+      [r, pre]
+    end
+
+    def source_lex(elem)
+      l = (Rouge::Lexer.find(elem["lang"] || "plaintext") ||
+       Rouge::Lexer.find("plaintext"))
+      l.lex(@c.decode(elem.children.to_xml))
+    end
+
+    def source_label(elem)
+      labelled_ancestor(elem) and return
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
       prefix_name(elem, block_delim,
                   l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
     end
 
     def formula(docxml)
-      docxml.xpath(ns("//formula")).each do |f|
-        formula1(f)
-      end
+      docxml.xpath(ns("//formula")).each { |f| formula1(f) }
     end
 
     def formula1(elem)
@@ -51,48 +134,38 @@ module IsoDoc
     end
 
     def example(docxml)
-      docxml.xpath(ns("//example")).each do |f|
-        example1(f)
-      end
+      docxml.xpath(ns("//example")).each { |f| example1(f) }
     end
 
     def example1(elem)
       n = @xrefs.get[elem["id"]]
       lbl = if n.nil? || n[:label].nil? || n[:label].empty?
               @i18n.example
-            else
-              l10n("#{@i18n.example} #{n[:label]}")
+            else l10n("#{@i18n.example} #{n[:label]}")
             end
       prefix_name(elem, block_delim, lbl, "name")
     end
 
     def note(docxml)
-      docxml.xpath(ns("//note")).each do |f|
-        note1(f)
-      end
+      docxml.xpath(ns("//note")).each { |f| note1(f) }
     end
 
     def note1(elem)
-      return if elem.parent.name == "bibitem" || elem["notag"] == "true"
-
+      elem.parent.name == "bibitem" || elem["notag"] == "true" and return
       n = @xrefs.get[elem["id"]]
       lbl = if n.nil? || n[:label].nil? || n[:label].empty?
               @i18n.note
-            else
-              l10n("#{@i18n.note} #{n[:label]}")
+            else l10n("#{@i18n.note} #{n[:label]}")
             end
       prefix_name(elem, "", lbl, "name")
     end
 
     def admonition(docxml)
-      docxml.xpath(ns("//admonition")).each do |f|
-        admonition1(f)
-      end
+      docxml.xpath(ns("//admonition")).each { |f| admonition1(f) }
     end
 
     def admonition1(elem)
-      return if elem.at(ns("./name")) || elem["notag"] == "true"
-
+      elem.at(ns("./name")) || elem["notag"] == "true" and return
       prefix_name(elem, "", @i18n.admonition[elem["type"]]&.upcase, "name")
     end
 
@@ -121,15 +194,12 @@ module IsoDoc
     end
 
     def table(docxml)
-      docxml.xpath(ns("//table")).each do |f|
-        table1(f)
-      end
+      docxml.xpath(ns("//table")).each { |f| table1(f) }
     end
 
     def table1(elem)
-      return if labelled_ancestor(elem)
-      return if elem["unnumbered"] && !elem.at(ns("./name"))
-
+      labelled_ancestor(elem) and return
+      elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
       prefix_name(elem, block_delim, l10n("#{lower2cap @i18n.table} #{n}"),
                   "name")
@@ -137,9 +207,7 @@ module IsoDoc
 
     # we use this to eliminate the semantic amend blocks from rendering
     def amend(docxml)
-      docxml.xpath(ns("//amend")).each do |f|
-        amend1(f)
-      end
+      docxml.xpath(ns("//amend")).each { |f| amend1(f) }
     end
 
     def amend1(elem)
@@ -150,9 +218,7 @@ module IsoDoc
     end
 
     def ol(docxml)
-      docxml.xpath(ns("//ol")).each do |f|
-        ol1(f)
-      end
+      docxml.xpath(ns("//ol")).each { |f| ol1(f) }
       @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
     end
 
