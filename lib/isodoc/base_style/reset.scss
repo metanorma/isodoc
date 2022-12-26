@@ -152,3 +152,11 @@ a.FootnoteRef + a.FootnoteRef:before {
   color: red;
   text-decoration: line-through;
 }
+
+.rouge-gutter {
+  user-select: none;
+}
+
+.rouge-code {
+  user-select: all;
+}
