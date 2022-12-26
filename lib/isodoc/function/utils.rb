@@ -37,10 +37,14 @@ module IsoDoc
       DOCTYPE_HDR = "<!DOCTYPE html SYSTEM " \
                     '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.freeze
 
+      HUGESTRICT =
+        Nokogiri::XML::ParseOptions::HUGE |
+        Nokogiri::XML::ParseOptions::STRICT
+
       def to_xhtml(xml)
         xml = to_xhtml_prep(xml)
         begin
-          Nokogiri::XML.parse(xml, &:strict)
+          Nokogiri::XML.parse(xml, nil, nil, HUGESTRICT)
         rescue Nokogiri::XML::SyntaxError => e
           File.open("#{@filename}.#{@format}.err", "w:UTF-8") do |f|
             f.write xml
