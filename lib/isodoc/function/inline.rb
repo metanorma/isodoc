@@ -42,7 +42,7 @@ module IsoDoc
                  else
                    "##{node['target']}"
                  end
-        out.a(**{ href: target }) { |l| no_locality_parse(node, l) }
+        out.a(href: target) { |l| no_locality_parse(node, l) }
       end
 
       def suffix_url(url)
@@ -77,10 +77,10 @@ module IsoDoc
         if href = eref_target(node)
           if node["type"] == "footnote"
             out.sup do |s|
-              s.a(**{ href: href }) { |l| no_locality_parse(node, l) }
+              s.a(href: href) { |l| no_locality_parse(node, l) }
             end
           else
-            out.a(**{ href: href }) { |l| no_locality_parse(node, l) }
+            out.a(href: href) { |l| no_locality_parse(node, l) }
           end
         else no_locality_parse(node, out)
         end
@@ -109,7 +109,7 @@ module IsoDoc
                when "LaTeX" then latexmath_parse(node)
                else HTMLEntities.new.encode(node.text)
                end
-        out.span **{ class: "stem" } do |span|
+        out.span class: "stem" do |span|
           span.parent.add_child ooml
         end
       end
@@ -123,7 +123,7 @@ module IsoDoc
       def asciimath_parse(node)
         a = node.at(ns("./asciimath"))&.text || node.text
 
-        "#{@openmathdelim}#{HTMLEntities.new.encode(a)}"\
+        "#{@openmathdelim}#{HTMLEntities.new.encode(a)}" \
           "#{@closemathdelim}"
       end
 
@@ -134,7 +134,7 @@ module IsoDoc
 
       def image_title_parse(out, caption)
         unless caption.nil?
-          out.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
+          out.p class: "FigureTitle", style: "text-align:center;" do |p|
             p.b { |b| b << caption.to_s }
           end
         end
@@ -151,7 +151,7 @@ module IsoDoc
       end
 
       def smallcap_parse(node, xml)
-        xml.span **{ style: "font-variant:small-caps;" } do |s|
+        xml.span style: "font-variant:small-caps;" do |s|
           node.children.each { |n| parse(n, s) }
         end
       end
@@ -160,21 +160,21 @@ module IsoDoc
         return if node.nil? || node.text.nil?
 
         text = node.to_s
-        if in_sourcecode
+        @sourcecode == "pre" and
           text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&#xa0;")
-            .gsub(/ (?= )/, "&#xa0;")
-        end
+        @sourcecode and
+          text = text.gsub(/ (?= )/, "&#xa0;")
         out << text
       end
 
       def add_parse(node, out)
-        out.span **{ class: "addition" } do |e|
+        out.span class: "addition" do |e|
           node.children.each { |n| parse(n, e) }
         end
       end
 
       def del_parse(node, out)
-        out.span **{ class: "deletion" } do |e|
+        out.span class: "deletion" do |e|
           node.children.each { |n| parse(n, e) }
         end
       end
@@ -182,7 +182,7 @@ module IsoDoc
       def error_parse(node, out)
         text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
         out.para do |p|
-          p.b(**{ role: "strong" }) { |e| e << text }
+          p.b(role: "strong") { |e| e << text }
         end
       end
     end
