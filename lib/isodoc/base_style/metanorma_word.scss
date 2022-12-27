@@ -42,3 +42,14 @@ span.deletion {
         color: red;
         text-decoration: line-through;
 }
+
+table.rouge-line-table {
+  border:none;
+  mso-border-alt:none;
+  mso-border-insideh:none;
+  mso-border-insidev:none;
+}
+
+td.rouge-code p.Sourcecode {
+  margin: 0px;
+}

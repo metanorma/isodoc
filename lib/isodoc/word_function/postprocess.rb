@@ -1,32 +1,15 @@
 require "fileutils"
 require_relative "./postprocess_cover"
+require_relative "./postprocess_toc"
 
 module IsoDoc
   module WordFunction
     module Postprocess
-      # add namespaces for Word fragments
-      WORD_NOKOHEAD = <<~HERE.freeze
-        <!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-        <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
-        xmlns:w="urn:schemas-microsoft-com:office:word"
-        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
-        <head> <title></title> <meta charset="UTF-8" /> </head>
-        <body> </body> </html>
-      HERE
-
-      def to_word_xhtml_fragment(xml)
-        doc = ::Nokogiri::XML.parse(WORD_NOKOHEAD)
-        ::Nokogiri::XML::DocumentFragment.new(doc, xml, doc.root)
-      end
-
       def table_note_cleanup(docxml)
         super
         # preempt html2doc putting MsoNormal there
         docxml.xpath("//p[not(self::*[@class])][ancestor::*[@class = 'Note']]")
-          .each do |p|
-          p["class"] = "Note"
-        end
+          .each { |p| p["class"] = "Note" }
       end
 
       def postprocess(result, filename, dir)
@@ -56,23 +39,6 @@ module IsoDoc
         "Sourcecode"
       end
 
-      def wordstylesheet_update
-        return if @wordstylesheet.nil?
-
-        f = File.open(@wordstylesheet.path, "a")
-        @landscapestyle.empty? or f.write(@landscapestyle)
-        s = @meta.get[:code_css] and
-          f.write(s.gsub(/sourcecode/, "p.#{sourcecode_style}"))
-        if @wordstylesheet_override && @wordstylesheet
-          f.write(@wordstylesheet_override.read)
-          @wordstylesheet_override.close
-        elsif @wordstylesheet_override && !@wordstylesheet
-          @wordstylesheet = @wordstylesheet_override
-        end
-        f.close
-        @wordstylesheet
-      end
-
       def word_admonition_images(docxml)
         docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
           i["width"], i["height"] =
@@ -84,6 +50,7 @@ module IsoDoc
       def word_cleanup(docxml)
         word_annex_cleanup(docxml)
         word_preface(docxml)
+        word_sourcecode_annotations(docxml)
         word_sourcecode_table(docxml)
         word_nested_tables(docxml)
         word_colgroup(docxml)
@@ -101,18 +68,29 @@ module IsoDoc
         docxml
       end
 
-      def word_sourcecode_table(docxml)
-        docxml.xpath("//p[@class='Sourcecode']/div[@class='table_container']")
-          .each do |d|
-            pre = d.at(".//p[@class='Sourcecode']")
-            to_sourcecode_para(pre)
-            d["id"] = d.parent["id"]
-            d.parent.replace(d)
+      def word_sourcecode_annotations(html)
+        ann = ".//div[@class = 'annotation']"
+        html.xpath("//p[@class = '#{sourcecode_style}'][#{ann}]")
+          .each do |p|
+          ins = p.after("<p class='#{sourcecode_style}'/>").next_element
+          p.xpath(ann).each do |d|
+            ins << d.remove.children
           end
+        end
+      end
+
+      def word_sourcecode_table(docxml)
+        s = "p[@class='#{sourcecode_style}']"
+        docxml.xpath("//#{s}/div[@class='table_container']").each do |d|
+          pre = d.at(".//#{s}")
+          to_sourcecode_para(pre)
+          d["id"] = d.parent["id"]
+          d.parent.replace(d)
+        end
       end
 
       def to_sourcecode_para(pre)
-        @sourcecode = true
+        @sourcecode = "pre"
         pre.traverse do |x|
           x.text? or next
           ret = []
@@ -173,8 +151,7 @@ module IsoDoc
       end
 
       def style_update(node, css)
-        return unless node
-
+        node or return
         node["style"] =
           node["style"] ? node["style"].sub(/;?$/, ";#{css}") : css
       end
@@ -182,11 +159,11 @@ module IsoDoc
       def word_image_caption(docxml)
         docxml.xpath("//p[@class = 'FigureTitle' or @class = 'SourceTitle']")
           .each do |t|
-          if t&.previous_element&.name == "img"
+          if t.previous_element&.name == "img"
             img = t.previous_element
             t.previous_element.swap("<p class='figure'>#{img.to_xml}</p>")
           end
-          style_update(t&.previous_element, "page-break-after:avoid;")
+          style_update(t.previous_element, "page-break-after:avoid;")
         end
       end
 
@@ -213,16 +190,14 @@ module IsoDoc
 
       def word_table_align(docxml)
         docxml.xpath("//td[@align]/p | //th[@align]/p").each do |p|
-          next if p["align"]
-
+          p["align"] and next
           style_update(p, "text-align: #{p.parent['align']}")
         end
       end
 
       def word_table_separator(docxml)
         docxml.xpath("//p[@class = 'TableTitle']").each do |t|
-          next unless t.children.empty?
-
+          t.children.empty? or next
           t["style"] = t["style"].sub(/;?$/, ";font-size:0pt;")
           t.children = "&#xa0;"
         end

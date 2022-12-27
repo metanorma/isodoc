@@ -7,7 +7,7 @@ module IsoDoc
       def convert1(docxml, filename, dir)
         bibitem_lookup(docxml)
         noko do |xml|
-          xml.html **{ lang: @lang.to_s } do |html|
+          xml.html lang: @lang.to_s do |html|
             info docxml, nil
             populate_css
             html.head { |head| define_head head, filename, dir }
@@ -19,7 +19,7 @@ module IsoDoc
       def make_body1(body, _docxml)
         return if @bare
 
-        body.div **{ class: "title-section" } do |div1|
+        body.div class: "title-section" do |div1|
           div1.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
@@ -28,14 +28,14 @@ module IsoDoc
       def make_body2(body, _docxml)
         return if @bare
 
-        body.div **{ class: "prefatory-section" } do |div2|
+        body.div class: "prefatory-section" do |div2|
           div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
 
       def make_body3(body, docxml)
-        body.div **{ class: "main-section" } do |div3|
+        body.div class: "main-section" do |div3|
           boilerplate docxml, div3
           preface_block docxml, div3
           abstract docxml, div3
@@ -91,10 +91,10 @@ module IsoDoc
 
       def sourcecode_parse(node, out)
         name = node.at(ns("./name"))
-        out.pre **sourcecode_attrs(node).merge(class: "sourcecode") do |div|
-          @sourcecode = true unless node.at(ns(".//sourcecode"))
-          node.children.each { |n| parse(n, div) unless n.name == "name" }
-          @sourcecode = false
+        tag = node.at(ns(".//sourcecode | .//table")) ? "div" : "pre"
+        attr = sourcecode_attrs(node).merge(class: "sourcecode")
+        out.send tag, **attr do |div|
+          sourcecode_parse1(node, div)
         end
         sourcecode_name_parse(node, out, name)
       end

@@ -19,14 +19,14 @@ module IsoDoc
       end
 
       def make_body1(body, _docxml)
-        body.div **{ class: "WordSection1" } do |div1|
+        body.div class: "WordSection1" do |div1|
           div1.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
 
       def make_body2(body, docxml)
-        body.div **{ class: "WordSection2" } do |div2|
+        body.div class: "WordSection2" do |div2|
           boilerplate docxml, div2
           preface_block docxml, div2
           abstract docxml, div2
@@ -40,7 +40,7 @@ module IsoDoc
       end
 
       def make_body3(body, docxml)
-        body.div **{ class: "WordSection3" } do |div3|
+        body.div class: "WordSection3" do |div3|
           middle docxml, div3
           footnotes div3
           comments div3
@@ -93,7 +93,7 @@ module IsoDoc
 
       def dl_parse_table(node, out)
         list_title_parse(node, out)
-        out.table **{ class: "dl" } do |v|
+        out.table class: "dl" do |v|
           node.elements.select { |n| dt_dd?(n) }
             .each_slice(2) do |dt, dd|
             dl_parse_table1(v, dt, dd)
@@ -104,10 +104,10 @@ module IsoDoc
 
       def dl_parse_table1(table, dterm, ddefn)
         table.tr do |tr|
-          tr.td **{ valign: "top", align: "left" } do |term|
+          tr.td valign: "top", align: "left" do |term|
             dt_parse(dterm, term)
           end
-          tr.td **{ valign: "top" } do |listitem|
+          tr.td valign: "top" do |listitem|
             ddefn.children.each { |n| parse(n, listitem) }
           end
         end
@@ -118,7 +118,7 @@ module IsoDoc
         return if remainder.empty?
 
         out.tr do |tr|
-          tr.td **{ colspan: 2 } do |td|
+          tr.td colspan: 2 do |td|
             remainder.each { |n| parse(n, td) }
           end
         end
@@ -149,8 +149,8 @@ module IsoDoc
 
       def note_p_parse(node, div)
         name = node&.at(ns("./name"))&.remove
-        div.p **{ class: "Note" } do |p|
-          p.span **{ class: "note_label" } do |s|
+        div.p class: "Note" do |p|
+          p.span class: "note_label" do |s|
             name&.children&.each { |n| parse(n, s) }
           end
           insert_tab(p, 1)
@@ -161,8 +161,8 @@ module IsoDoc
 
       def note_parse1(node, div)
         name = node&.at(ns("./name"))&.remove
-        div.p **{ class: "Note" } do |p|
-          p.span **{ class: "note_label" } do |s|
+        div.p class: "Note" do |p|
+          p.span class: "note_label" do |s|
             name&.children&.each { |n| parse(n, s) }
           end
           insert_tab(p, 1)
@@ -173,7 +173,7 @@ module IsoDoc
       def termnote_parse(node, out)
         name = node&.at(ns("./name"))&.remove
         out.div **note_attrs(node) do |div|
-          div.p **{ class: "Note" } do |p|
+          div.p class: "Note" do |p|
             if name
               name.children.each { |n| parse(n, p) }
               p << termnote_delim
@@ -196,10 +196,10 @@ module IsoDoc
 
       def example_table_attr(node)
         super.merge(
-          style: "mso-table-lspace:15.0cm;margin-left:423.0pt;"\
-                 "mso-table-rspace:15.0cm;margin-right:423.0pt;"\
-                 "mso-table-anchor-horizontal:column;"\
-                 "mso-table-overlap:never;border-collapse:collapse;"\
+          style: "mso-table-lspace:15.0cm;margin-left:423.0pt;" \
+                 "mso-table-rspace:15.0cm;margin-right:423.0pt;" \
+                 "mso-table-anchor-horizontal:column;" \
+                 "mso-table-overlap:never;border-collapse:collapse;" \
                  "#{keep_style(node)}",
         )
       end

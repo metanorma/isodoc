@@ -27,7 +27,20 @@ module IsoDoc
       def html_cleanup(html)
         html = term_header(html_footnote_filter(html_preface(htmlstyle(html))))
         html = footnote_format(footnote_backlinks(html_toc(html)))
-        mathml(html_list_clean(remove_placeholder_paras(html)))
+        html = mathml(html_list_clean(remove_placeholder_paras(html)))
+        sourcecode_cleanup(html)
+      end
+
+      def sourcecode_cleanup(html)
+        ann = ".//div[@class = 'annotation']"
+        html.xpath("//pre[#{ann}] | //div[@class = 'sourcecode'][#{ann}]")
+          .each do |p|
+          ins = p.after("<pre class='sourcecode'/>").next_element
+          p.xpath(ann).each do |d|
+            ins << d.remove.children
+          end
+        end
+        html
       end
 
       def remove_placeholder_paras(html)

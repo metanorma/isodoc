@@ -8,10 +8,6 @@ module IsoDoc
         @termdomain = termdomain
       end
 
-      def in_sourcecode
-        @sourcecode
-      end
-
       def note?
         @note
       end

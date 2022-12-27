@@ -46,9 +46,8 @@ module IsoDoc
     end
 
     def concept1_linkmention(ref, renderterm, opts)
-      return unless opts[:linkmention] == "true" &&
-        !renderterm.nil? && !ref.nil?
-
+      (opts[:linkmention] == "true" &&
+        !renderterm.nil? && !ref.nil?) or return
       ref2 = ref.clone
       r2 = renderterm.clone
       renderterm.replace(ref2).children = r2
@@ -56,16 +55,14 @@ module IsoDoc
 
     def concept1_ref(_node, ref, opts)
       ref.nil? and return
-      return ref.remove if opts[:ref] == "false"
-
+      opts[:ref] == "false" and return ref.remove
       r = concept1_ref_content(ref)
       ref = r.at("./descendant-or-self::xmlns:xref | " \
                  "./descendant-or-self::xmlns:eref | " \
                  "./descendant-or-self::xmlns:termref")
       %w(xref eref).include? ref&.name and get_linkend(ref)
-      if opts[:linkref] == "false" && %w(xref eref).include?(ref&.name)
+      opts[:linkref] == "false" && %w(xref eref).include?(ref&.name) and
         ref.replace(ref.children)
-      end
     end
 
     def concept1_ref_content(ref)
@@ -97,9 +94,8 @@ module IsoDoc
 
     def designation(docxml)
       docxml.xpath(ns("//term")).each { |t| merge_second_preferred(t) }
-      docxml.xpath(ns("//preferred | //admitted | //deprecates")).each do |p|
-        designation1(p)
-      end
+      docxml.xpath(ns("//preferred | //admitted | //deprecates"))
+        .each { |p| designation1(p) }
     end
 
     def merge_second_preferred(term)
@@ -112,11 +108,10 @@ module IsoDoc
     end
 
     def merge_second_preferred1(pref, second)
-      if merge_preferred_eligible?(pref, second)
-        n1 = pref.at(ns("./expression/name"))
-        n2 = second.remove.at(ns("./expression/name"))
-        n1.children = l10n("#{to_xml(n1.children)}; #{Common::to_xml(n2.children)}")
-      end
+      merge_preferred_eligible?(pref, second) or return
+      n1 = pref.at(ns("./expression/name"))
+      n2 = second.remove.at(ns("./expression/name"))
+      n1.children = l10n("#{to_xml(n1.children)}; #{Common::to_xml(n2.children)}")
     end
 
     def merge_preferred_eligible?(first, second)
@@ -132,7 +127,6 @@ module IsoDoc
       s = desgn.at(ns("./termsource"))
       name = desgn.at(ns("./expression/name | ./letter-symbol/name | " \
                          "./graphical-symbol")) or return
-
       designation_annotate(desgn, name)
       s and desgn.next = s
     end
@@ -156,8 +150,7 @@ module IsoDoc
     def designation_field(desgn, name)
       f = desgn.xpath(ns("./field-of-application | ./usage-info"))
         &.map { |u| to_xml(u.children) }&.join(", ")
-      return nil if f&.empty?
-
+      f&.empty? and return nil
       name << ", &#x3c;#{f}&#x3e;"
     end
 
@@ -178,27 +171,21 @@ module IsoDoc
       loc = [desgn&.at(ns("./expression/@language"))&.text,
              desgn&.at(ns("./expression/@script"))&.text,
              desgn&.at(ns("./@geographic-area"))&.text].compact
-      return if loc.empty?
-
+      loc.empty? and return
       name << ", #{loc.join(' ')}"
     end
 
     def designation_pronunciation(desgn, name)
       f = desgn.at(ns("./expression/pronunciation")) or return
-
       name << ", /#{to_xml(f.children)}/"
     end
 
     def termexample(docxml)
-      docxml.xpath(ns("//termexample")).each do |f|
-        example1(f)
-      end
+      docxml.xpath(ns("//termexample")).each { |f| example1(f) }
     end
 
     def termnote(docxml)
-      docxml.xpath(ns("//termnote")).each do |f|
-        termnote1(f)
-      end
+      docxml.xpath(ns("//termnote")).each { |f| termnote1(f) }
     end
 
     def termnote1(elem)
