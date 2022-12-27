@@ -1,16 +1,16 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def sourcehighlighter_theme
-      "igorpro"
-    end
-
     def sourcehighlighter_css(docxml)
       @sourcehighlighter or return
       ins = docxml.at(ns("//misc-container")) ||
         docxml.at(ns("//bibdata")).after("<misc-container/>").next_element
-      x = Rouge::Theme.find(sourcehighlighter_theme)
-        .render(scope: "sourcecode")
-      ins << "<source-highlighter-css>#{x}</source-highlighter-css>"
+      ins << "<source-highlighter-css>#{sourcehighlighter_css_file}" \
+             "</source-highlighter-css>"
+    end
+
+    def sourcehighlighter_css_file
+      File.read(File.join(File.dirname(__FILE__), "..", "..", "base_style",
+                          "rouge.css"))
     end
 
     def sourcehighlighter
@@ -38,13 +38,13 @@ module IsoDoc
       @highlighter or return
       markup = source_remove_markup(elem)
       p = source_lex(elem)
-      wrapper, code =
-        if elem["linenums"] == "true" then sourcecode_table_to_elem(elem, p)
-        else
-          r = Nokogiri::XML.fragment(@highlighter[:formatter].format(p))
-          [r, r]
-        end
-      elem.children = source_restore_markup(wrapper, code, markup)
+      elem.children = if elem["linenums"] == "true"
+                        r = sourcecode_table_to_elem(elem, p)
+                        source_restore_markup_table(r, markup)
+                      else
+                        r = @highlighter[:formatter].format(p)
+                        source_restore_markup(Nokogiri::XML.fragment(r), markup)
+                      end
     end
 
     def source_remove_markup(elem)
@@ -57,14 +57,14 @@ module IsoDoc
       ret
     end
 
-    def source_restore_markup(wrapper, code, markup)
-      text = source_restore_callouts(code, markup[:call])
-      ret = if code == wrapper
-              text
-            else
-              code.replace(text)
-              to_xml(wrapper)
-            end
+    def source_restore_markup(wrapper, markup)
+      ret = source_restore_callouts(wrapper, markup[:call])
+      "#{markup[:name]}#{ret}#{markup[:ann]}"
+    end
+
+    def source_restore_markup_table(wrapper, markup)
+      source_restore_callouts_table(wrapper, markup[:call])
+      ret = to_xml(wrapper)
       "#{markup[:name]}#{ret}#{markup[:ann]}"
     end
 
@@ -72,18 +72,30 @@ module IsoDoc
       text = to_xml(code)
       text.split(/[\n\r]/).each_with_index do |c, i|
         while !callouts.empty? && callouts[0][:line] == i
-          c.sub!(/\s+$/, " #{callouts[0][:xml]} ")
+          c.sub!(/\s+$/, " <span class='c'>#{callouts[0][:xml]}</span> ")
           callouts.shift
         end
       end.join("\n")
     end
 
+    def source_restore_callouts_table(table, callouts)
+      table.xpath(".//td[@class = 'rouge-code']/sourcecode")
+        .each_with_index do |c, i|
+        while !callouts.empty? && callouts[0][:line] == i
+          c << " <span class='c'>#{callouts[0][:xml]}</span> "
+          callouts.shift
+        end
+      end
+    end
+
     def sourcecode_table_to_elem(elem, tokens)
       r = Nokogiri::XML(@highlighter[:formatter_line].format(tokens)).root
-      pre = r.at(".//td[@class = 'rouge-code']/pre")
-      %w(style).each { |n| elem[n] and pre[n] = elem[n] }
-      pre.name = "sourcecode"
-      [r, pre]
+      r.xpath(".//td[@class = 'rouge-code']/pre").each do |pre|
+        %w(style).each { |n| elem[n] and pre[n] = elem[n] }
+        pre.name = "sourcecode"
+        pre.children = to_xml(pre.children).sub(/\s+$/, "")
+      end
+      r
     end
 
     def source_lex(elem)

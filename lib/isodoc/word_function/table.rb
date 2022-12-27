@@ -26,7 +26,8 @@ module IsoDoc
         rowmax = cell["rowspan"] ? row + cell["rowspan"].to_i - 1 : row
         style += make_tr_attr_style(row, rowmax, totalrows, header, bordered)
         { rowspan: cell["rowspan"], colspan: cell["colspan"],
-          valign: cell["valign"], align: cell["align"], style: style }
+          valign: cell["valign"], align: cell["align"], style: style,
+          class: cell["class"] }
       end
 
       def make_tr_attr_style(row, rowmax, totalrows, header, bordered)

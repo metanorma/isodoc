@@ -6,19 +6,19 @@ module IsoDoc
       @annotation = false
 
       def middle_title(_isoxml, out)
-        out.p(**{ class: "zzSTDTitle1" }) { |p| p << @meta.get[:doctitle] }
+        out.p(class: "zzSTDTitle1") { |p| p << @meta.get[:doctitle] }
       end
 
       def figure_name_parse(_node, div, name)
         return if name.nil?
 
-        div.p **{ class: "FigureTitle", style: "text-align:center;" } do |p|
+        div.p class: "FigureTitle", style: "text-align:center;" do |p|
           name.children.each { |n| parse(n, p) }
         end
       end
 
       def figure_key(out)
-        out.p **{ style: "page-break-after:avoid;" } do |p|
+        out.p style: "page-break-after:avoid;" do |p|
           p.b { |b| b << @i18n.key }
         end
       end
@@ -63,7 +63,7 @@ module IsoDoc
       def sourcecode_name_parse(_node, div, name)
         return if name.nil?
 
-        div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
+        div.p class: "SourceTitle", style: "text-align:center;" do |p|
           name.children.each { |n| parse(n, p) }
         end
       end
@@ -75,11 +75,17 @@ module IsoDoc
       def sourcecode_parse(node, out)
         name = node.at(ns("./name"))
         out.p **sourcecode_attrs(node) do |div|
-          @sourcecode = true unless node.at(ns(".//sourcecode"))
-          node.children.each { |n| parse(n, div) unless n.name == "name" }
-          @sourcecode = false
+          sourcecode_parse1(node, div)
         end
         sourcecode_name_parse(node, out, name)
+      end
+
+      def sourcecode_parse1(node, div)
+        @sourcecode = "pre"
+        node.at(ns(".//table")) || !node.ancestors("table").empty? and
+          @sourcecode = "table"
+        node.children.each { |n| parse(n, div) unless n.name == "name" }
+        @sourcecode = false
       end
 
       def pre_parse(node, out)
@@ -89,18 +95,22 @@ module IsoDoc
       def annotation_parse(node, out)
         @sourcecode = false
         @annotation = true
-        node.at("./preceding-sibling::*[local-name() = 'annotation']") or
-          out << "<br/>"
-        callout = node.at(ns("//callout[@target='#{node['id']}']"))
-        out << "<br/>&lt;#{callout.text}&gt; "
-        out << node&.children&.text&.strip
-        @annotation = false
+        out.div class: "annotation" do |div|
+          #node.at("./preceding-sibling::*[local-name() = 'annotation']") or
+          #  div << "<br/>"
+          callout = node.at(ns("//callout[@target='#{node['id']}']"))
+          div << "<span class='c'>&lt;#{callout.text}&gt;</span> "
+          div << "<span class='c'>#{node.children&.text&.strip}</span>"
+          node.at("./following-sibling::*[local-name() = 'annotation']") and
+            div << "<br/>"
+          @annotation = false
+        end
       end
 
       def formula_where(dlist, out)
         return unless dlist
 
-        out.p **{ style: "page-break-after:avoid;" } do |p|
+        out.p style: "page-break-after:avoid;" do |p|
           p << @i18n.where
         end
         parse(dlist, out)
@@ -168,7 +178,7 @@ module IsoDoc
         source = node.at(ns("./source"))
         return if author.nil? && source.nil?
 
-        out.p **{ class: "QuoteAttribution" } do |p|
+        out.p class: "QuoteAttribution" do |p|
           p << "&#x2014; #{author.text}" if author
           p << ", " if author && source
           eref_parse(source, p) if source
@@ -198,7 +208,7 @@ module IsoDoc
       end
 
       def toc_parse(node, out)
-        out.div **{ class: "toc" } do |div|
+        out.div class: "toc" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
