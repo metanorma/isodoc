@@ -9,7 +9,7 @@ module IsoDoc
     end
 
     def sourcehighlighter_css_file
-      File.read(File.join(File.dirname(__FILE__), "..", "..", "base_style",
+      File.read(File.join(File.dirname(__FILE__), "..", "base_style",
                           "rouge.css"))
     end
 

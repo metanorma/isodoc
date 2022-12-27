@@ -24,12 +24,16 @@ sourcecode .kr {
 sourcecode .k, sourcecode .kn, sourcecode .kp, sourcecode .kt, sourcecode .kv {
   color: #0000FF;
 }
-sourcecode .s, sourcecode .sb, sourcecode .sc, sourcecode .dl, sourcecode .sd, sourcecode .s2, sourcecode .se, sourcecode .sh, sourcecode .si, sourcecode .sx, sourcecode .sr, sourcecode .s1, sourcecode .ss {
+sourcecode .s, sourcecode .sb, sourcecode .sc, sourcecode .ld, sourcecode .sd, sourcecode .s2, sourcecode .se, sourcecode .sh, sourcecode .si, sourcecode .sx, sourcecode .sr, sourcecode .s1, sourcecode .ss {
   color: #009C00;
 }
 sourcecode .sa {
   color: #0000FF;
 }
-sourcecode .nb, sourcecode .bp, sourcecode .nt {
+sourcecode .nb, sourcecode .bp {
   color: #C34E00;
 }
+sourcecode .nt {
+  color: #0000FF;
+}
+
