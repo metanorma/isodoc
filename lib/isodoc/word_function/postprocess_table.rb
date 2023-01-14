@@ -75,7 +75,7 @@ module IsoDoc
         docxml.xpath("//td[@style] | //th[@style]").each do |t|
           s = /(page-break-after:[^;]+)/.match(t["style"])
           (s && s[1]) or next
-          t.xpath(".//div | .//p").each do |p|
+          t.xpath(".//div | .//p | .//pre").each do |p|
             style_update(p, s[1])
           end
         end

@@ -258,49 +258,49 @@ RSpec.describe IsoDoc do
             <div align="center" class="table_container" style="page-break-after:avoid;">
               <a name="A" id="A"/>
               <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
-                <tbody>
-                  <tr>
-                    <td style="page-break-after:avoid;" class="rouge-gutter gl">
-                       <pre>1</pre>
-                     </td>
-                    <td style="page-break-after:avoid;" class="rouge-code">
-                       <p class="Sourcecode">Hey</p>
+                 <tbody>
+                   <tr>
+                     <td style="page-break-after:avoid;" class="rouge-gutter gl">
+                        <pre style="page-break-after:avoid">1</pre>
+                      </td>
+                     <td style="page-break-after:avoid;" class="rouge-code">
+                        <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
+                      </td>
+                   </tr>
+                   <tr>
+                     <td style="page-break-after:auto;" class="rouge-gutter gl">
+                       <pre style="page-break-after:auto">2</pre>
                      </td>
-                  </tr>
-                  <tr>
-                    <td style="page-break-after:auto;" class="rouge-gutter gl">
-                      <pre>2</pre>
-                    </td>
-                    <td style="page-break-after:auto;" class="rouge-code">
-                      <p class="Sourcecode">Que?</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                     <td style="page-break-after:auto;" class="rouge-code">
+                       <p class="Sourcecode" style="page-break-after:auto">Que?</p>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
             </div>
             <p class="SourceTitle" style="text-align:center;">More</p>
             <div align="center" class="table_container" style="page-break-after:avoid;">
               <a name="B" id="B"/>
-              <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
-                <tbody>
-                  <tr>
-                    <td style="page-break-after:avoid;" class="rouge-gutter gl">
-                       <pre>1</pre>
-                     </td>
-                    <td style="page-break-after:avoid;" class="rouge-code">
-                       <p class="Sourcecode">Hey</p>
+                 <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+                 <tbody>
+                   <tr>
+                     <td style="page-break-after:avoid;" class="rouge-gutter gl">
+                        <pre style="page-break-after:avoid">1</pre>
+                      </td>
+                     <td style="page-break-after:avoid;" class="rouge-code">
+                        <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
+                      </td>
+                   </tr>
+                   <tr>
+                     <td style="page-break-after:auto;" class="rouge-gutter gl">
+                       <pre style="page-break-after:auto">2</pre>
                      </td>
-                  </tr>
-                  <tr>
-                    <td style="page-break-after:auto;" class="rouge-gutter gl">
-                      <pre>2</pre>
-                    </td>
-                    <td style="page-break-after:auto;" class="rouge-code">
-                      <p class="Sourcecode">Que?</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                     <td style="page-break-after:auto;" class="rouge-code">
+                       <p class="Sourcecode" style="page-break-after:auto">Que?</p>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
             </div>
             <p class="SourceTitle" style="text-align:center;">More</p>
           </div>
