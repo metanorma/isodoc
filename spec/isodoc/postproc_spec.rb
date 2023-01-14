@@ -1573,7 +1573,7 @@ RSpec.describe IsoDoc do
                     <thead>
                       <tr>
                          <td rowspan="2" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                <p class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"></a>Output wavelength <span class="stem">
+                <p style="page-break-after:avoid" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"></a>Output wavelength <span class="stem">
                 <m:oMath>
                             <span style='font-style:normal;'>
                               <m:r>
@@ -1636,11 +1636,11 @@ RSpec.describe IsoDoc do
                                 <thead>
                  <tr>
                    <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                     <p style="text-align: left" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"/>Output wavelength</p>
-                     <p style="text-align: left" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb57" id="_c47d9b39-adb2-431d-9320-78cb148fdb57"/>Output wavelength</p>
+                     <p style="text-align: left;page-break-after:avoid" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"/>Output wavelength</p>
+                     <p style="text-align: left;page-break-after:avoid" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb57" id="_c47d9b39-adb2-431d-9320-78cb148fdb57"/>Output wavelength</p>
                    </td>
                    <th colspan="3" align="right" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                     <p style="text-align: right" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb58" id="_c47d9b39-adb2-431d-9320-78cb148fdb58"/>Predictive wavelengths</p>
+                     <p style="text-align: right;page-break-after:avoid" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb58" id="_c47d9b39-adb2-431d-9320-78cb148fdb58"/>Predictive wavelengths</p>
                    </th>
                  </tr>
                </thead>
