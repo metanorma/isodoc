@@ -61,7 +61,7 @@ module IsoDoc
         colgroup = node.at(ns("./colgroup")) or return
         table.colgroup do |cg|
           colgroup.xpath(ns("./col")).each do |c|
-            cg.col **{ width: c["width"] }
+            cg.col width: c["width"]
           end
         end
       end
@@ -69,7 +69,7 @@ module IsoDoc
       def table_parse(node, out)
         @in_table = true
         table_title_parse(node, out)
-        out.div **{ align: "center", class: "table_container" } do |div|
+        out.div align: "center", class: "table_container" do |div|
           div.table **table_attrs(node) do |t|
             colgroup(node, t)
             thead_parse(node, t)
