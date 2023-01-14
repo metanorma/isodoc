@@ -80,11 +80,11 @@ RSpec.describe IsoDoc do
       </bibitem>
       <bibitem id="ISSN" type="journal">
         <title format="text/plain">Instruments for analytical laboratory use</title>
-        <docidentifier type="ISSN">ISSN</docidentifier>
+        <docidentifier type="ISSN.electronic">ABC</docidentifier>
         <contributor>
           <role type="publisher"/>
           <organization>
-            <abbreviation>ISSN</abbreviation>
+            <abbreviation>Journal Publishers</abbreviation>
           </organization>
         </contributor>
       </bibitem>
@@ -212,9 +212,9 @@ RSpec.describe IsoDoc do
               <biblio-tag>[1]<tab/></biblio-tag>
             </bibitem>
             <bibitem id='ISSN' type='journal'>
-            <formattedref><em>Instruments for analytical laboratory use</em>. n.d. ISSN: ISSN.</formattedref>
+            <formattedref><em>Instruments for analytical laboratory use</em>. n.d. ISSN ABC.</formattedref>
               <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
-              <docidentifier type='ISSN'>ISSN</docidentifier>
+              <docidentifier type='ISSN.electronic'>ISSN ABC</docidentifier>
               <biblio-tag>[2]<tab/></biblio-tag>
             </bibitem>
             <note>
@@ -335,7 +335,7 @@ RSpec.describe IsoDoc do
                           <div>
                <h1 class="Section3">Bibliography</h1>
                <p id="ISBN" class="Biblio">[1]   <i>Chemicals for analytical laboratory use</i>. n.p.: n.d. ISBN: ISBN.</p>
-               <p id="ISSN" class="Biblio">[2]   <i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.</p>
+               <p id="ISSN" class="Biblio">[2]   <i>Instruments for analytical laboratory use</i>. n.d. ISSN ABC.</p>
                <div class="Note">
                  <p><span class="note_label">NOTE</span>  This is an annotation of document ISSN.</p>
                </div>
@@ -440,7 +440,7 @@ RSpec.describe IsoDoc do
                       <div>
              <h1 class="Section3">Bibliography</h1>
              <p class="Biblio"><a name="ISBN" id="ISBN"/>[1]<span style="mso-tab-count:1">  </span><i>Chemicals for analytical laboratory use</i>. n.p.: n.d. ISBN: ISBN.</p>
-             <p class="Biblio"><a name="ISSN" id="ISSN"/>[2]<span style="mso-tab-count:1">  </span><i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.</p>
+             <p class="Biblio"><a name="ISSN" id="ISSN"/>[2]<span style="mso-tab-count:1">  </span><i>Instruments for analytical laboratory use</i>. n.d. ISSN ABC.</p>
              <div class="Note">
                <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is an annotation of document ISSN.</p>
              </div>

@@ -10,49 +10,27 @@ module IsoDoc
         text
       end
 
-      def nonstd_bibitem(list, bib, _ordinal, biblio) # %%%
+      def nonstd_bibitem(list, bib, _ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
-          #           ids = bibitem_ref_code(bib)
-          #           idents = render_identifier(ids)
-          #           if biblio then ref_entry_code(ref, ordinal, idents, ids)
-          #           else
-          #             ref << (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
-          #             ref << ", #{idents[sdo]}" if idents[:ordinal] && idents[:sdo]
-          #           end
-          #           ref << "," if idents[:sdo]
           tag = bib.at(ns("./biblio-tag"))
           tag&.children&.each { |n| parse(n, ref) }
           reference_format(bib, ref)
         end
       end
 
-      def std_bibitem_entry(list, bib, _ordinal, biblio) # %%%
+      def std_bibitem_entry(list, bib, _ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
-          #           idents = render_identifier(bibitem_ref_code(bib))
-          #           if biblio then ref_entry_code(ref, ordinal, idents, nil)
-          #           else
-          #             ref << (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
-          #             ref << ", #{idents[:sdo]}" if (idents[:ordinal] ||
-          #                                           idents[:metanorma]) && idents[:sdo]
-          #           end
-          #           date_note_process(bib, ref)
-          #           ref << "," if idents[:sdo]
           tag = bib.at(ns("./biblio-tag"))
           tag&.children&.each { |n| parse(n, ref) }
           reference_format(bib, ref)
         end
       end
 
-      #       # if ids is just a number, only use that ([1] Non-Standard)
-      #       # else, use both ordinal, as prefix, and ids
-      #       def ref_entry_code(ref, ordinal, ids, _id) #%%%
-      #         prefix_bracketed_ref(ref, ids[:ordinal] || ids[:metanorma] ||
-      #                              "[#{ordinal}]")
-      #         ids[:sdo] and ref << (ids[:sdo]).to_s
-      #       end
-
-      SKIP_DOCID = "@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or " \
-                   "@type = 'metanorma-ordinal' or @type = 'ISBN'".freeze
+      SKIP_DOCID = "@type = 'DOI' or @type = 'metanorma' or " \
+                   "@type = 'ISSN' or @type = 'ISBN' or " \
+                   "starts-with(@type, 'ISSN.') or " \
+                   "starts-with(@type, 'ISBN.') or " \
+                   "@type = 'metanorma-ordinal'".freeze
 
       def pref_ref_code(bib)
         bib["suppress_identifier"] == "true" and return nil
@@ -71,7 +49,8 @@ module IsoDoc
         id = bib.at(ns("./docidentifier[@type = 'metanorma']"))
         id1 = pref_ref_code(bib)
         id2 = bib.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or " \
-                        "@type = 'ISBN']"))
+                        "@type = 'ISBN' or starts-with(@type, 'ISSN.') or " \
+                        "starts-with(@type, 'ISBN.')]"))
         id3 = bib.at(ns("./docidentifier[@type = 'metanorma-ordinal']"))
         return [id, id1, id2, id3] if id || id1 || id2 || id3
         return [nil, nil, nil, nil] if bib["suppress_identifier"] == "true"
@@ -110,6 +89,7 @@ module IsoDoc
       end
 
       def docid_prefix(prefix, docid)
+        prefix&.gsub!(/^(ISBN|ISSN)\..*$/, "\\1")
         docid = "#{prefix} #{docid}" if prefix && !omit_docid_prefix(prefix) &&
           !/^#{prefix}\b/.match(docid)
         docid_l10n(docid)
@@ -141,7 +121,7 @@ module IsoDoc
         ret = false
         drop = %w(metanorma DOI ISSN ISBN)
         bib.xpath(ns("./docidentifier")).each do |id|
-          next if id["type"].nil? || drop.include?(id["type"])
+          next if id["type"].nil? || drop.include?(id["type"].sub(/\..*$/, ""))
 
           ret = true
         end
@@ -194,7 +174,7 @@ module IsoDoc
           return
         page_break(out)
         out.div do |div|
-          div.h1 **{ class: "Section3" } do |h1|
+          div.h1 class: "Section3" do |h1|
             f.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
           end
           biblio_list(f, div, true)
