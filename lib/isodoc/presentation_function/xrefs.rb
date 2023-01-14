@@ -38,15 +38,23 @@ module IsoDoc
     def anchor_xref(node, target)
       x = @xrefs.anchor(target, :xref)
       t = @xrefs.anchor(target, :title)
-      if node["style"] == "basic" && t then t
-      elsif node["style"] == "full" && t
-        l10n("#{x}, #{t}")
-      else
-        x
-      end
+      ret = case node["style"]
+            when "basic" then t
+            when "full" then anchor_xref_full(x, t)
+            when "short", nil then x
+            else @xrefs.anchor(target, node[:style].to_sym)
+            end
+      ret || x
+    end
+
+    def anchor_xref_full(num, title)
+      (!title.nil? && !title.empty?) or return nil
+
+      l10n("#{num}, #{title}")
     end
 
     def prefix_container?(container, node)
+      node["style"] == "modspec" and return false # TODO: move to mn-requirements?
       type = @xrefs.anchor(node["target"], :type)
       container &&
         get_note_container_id(node, type) != container &&
@@ -58,15 +66,20 @@ module IsoDoc
       linkend = if can_conflate_xref_rendering?(locs)
                   combine_conflated_xref_locations(locs)
                 else
-                  out = locs.each { |l| l[:target] = anchor_linkend1(l[:node]) }
+                  out = locs.each { |l| l[:label] = anchor_linkend1(l[:node]) }
                   l10n(combine_conn(out))
                 end
       capitalise_xref(node, linkend, anchor_value(node["target"]))
     end
 
     def combine_conflated_xref_locations(locs)
-      out = locs.each { |l| l[:target] = anchor_value(l[:target]) }
-      ret = l10n("#{locs.first[:elem]} #{combine_conn(out)}")
+      out = locs.each { |l| l[:label] = anchor_value(l[:target]) }
+      label = @i18n.inflect(locs.first[:elem], number: "pl")
+      out[0][:label] = l10n("#{label} #{out[0][:label]}")
+      combine_conflated_xref_locations_container(locs, l10n(combine_conn(out)))
+    end
+
+    def combine_conflated_xref_locations_container(locs, ret)
       container = @xrefs.anchor(locs.first[:node]["target"], :container,
                                 false)
       prefix_container?(container, locs.first[:node]) and
@@ -85,15 +98,23 @@ module IsoDoc
       end
     end
 
+    def loc2xref(entry)
+      if entry[:target]
+        "<xref nested='true' target='#{entry[:target]}'>#{entry[:label]}</xref>"
+      else
+        entry[:label]
+      end
+    end
+
     def combine_conn(list)
-      return list.first[:target] if list.size == 1
+      return list.first[:label] if list.size == 1
 
       if list[1..-1].all? { |l| l[:conn] == "and" }
-        @i18n.boolean_conj(list.map { |l| l[:target] }, "and")
+        @i18n.boolean_conj(list.map { |l| loc2xref(l) }, "and")
       elsif list[1..-1].all? { |l| l[:conn] == "or" }
-        @i18n.boolean_conj(list.map { |l| l[:target] }, "or")
+        @i18n.boolean_conj(list.map { |l| loc2xref(l) }, "or")
       else
-        ret = list[0][:target]
+        ret = loc2xref(list[0])
         list[1..-1].each { |l| ret = i18n_chain_boolean(ret, l) }
         ret
       end
@@ -101,7 +122,7 @@ module IsoDoc
 
     def i18n_chain_boolean(value, entry)
       @i18n.send("chain_#{entry[:conn]}").sub(/%1/, value)
-        .sub(/%2/, entry[:target])
+        .sub(/%2/, loc2xref(entry))
     end
 
     def can_conflate_xref_rendering?(locs)

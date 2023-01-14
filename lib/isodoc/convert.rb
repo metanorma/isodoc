@@ -11,7 +11,8 @@ require "mn-requirements"
 
 module IsoDoc
   class Convert < ::IsoDoc::Common
-    attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models, :requirements_processor
+    attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models,
+                  :requirements_processor
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
@@ -38,7 +39,7 @@ module IsoDoc
     # scripts_override: Override scripts file for HTML
     # scripts_pdf: Scripts file for PDF (not used in XSLT PDF)
     # datauriimage: Encode images in HTML output as data URIs
-    # break_up_urls_in_tables: whether to insert spaces in URLs in tables
+    # breakupurlsintables: whether to insert spaces in URLs in tables
     #   every 40-odd chars
     # sectionsplit: split up HTML output on sections
     # bare: do not insert any prefatory material (coverpage, boilerplate)
@@ -48,6 +49,7 @@ module IsoDoc
     # fonts: fontist fonts to install
     # fontlicenseagreement: fontist font license agreement
     # modspecidentifierbase: base prefix for any Modspec identifiers
+    # sourcehighlighter: whether to apply sourcecode highlighting
     def initialize(options) # rubocop:disable Lint/MissingSuper
       @options = options_preprocess(options)
       init_stylesheets(@options)
@@ -74,12 +76,13 @@ module IsoDoc
       @olstyle = options[:olstyle]
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
-      @break_up_urls_in_tables = options[:break_up_urls_in_tables] == "true"
+      @break_up_urls_in_tables = options[:breakupurlsintables]
       @sectionsplit = options[:sectionsplit] == "true"
-      @suppressasciimathdup = options[:suppressasciimathdup] == "true"
+      @suppressasciimathdup = options[:suppressasciimathdup]
       @bare = options[:bare]
       @aligncrosselements = options[:aligncrosselements]
       @modspecidentifierbase = options[:modspecidentifierbase]
+      @sourcehighlighter = options[:sourcehighlighter]
     end
 
     def init_i18n(options)
@@ -207,7 +210,7 @@ module IsoDoc
       docxml.root.default_namespace = ""
       convert_i18n_init(docxml)
       metadata_init(@lang, @script, @locale, @i18n)
-      xref_init(@lang, @script, self, @i18n, {locale: @locale})
+      xref_init(@lang, @script, self, @i18n, { locale: @locale })
       [docxml, filename, dir]
     end
 
@@ -235,7 +238,7 @@ module IsoDoc
     end
 
     def middle_clause(_docxml = nil)
-      "//clause[parent::sections][not(@type = 'scope')]"\
+      "//clause[parent::sections][not(@type = 'scope')]" \
         "[not(descendant::terms)]"
     end
 

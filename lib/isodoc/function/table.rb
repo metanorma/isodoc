@@ -13,7 +13,7 @@ module IsoDoc
         if thead
           table.thead do |h|
             thead.element_children.each_with_index do |n, i|
-              tr_parse(n, h, i, thead.element_children.size, true)
+              tr_parse(n, h, i, thead.xpath(ns("./tr")).size, true)
             end
           end
         end
@@ -23,7 +23,7 @@ module IsoDoc
         tbody = node.at(ns("./tbody")) || return
         table.tbody do |h|
           tbody.element_children.each_with_index do |n, i|
-            tr_parse(n, h, i, tbody.element_children.size, false)
+            tr_parse(n, h, i, tbody.xpath(ns("./tr")).size, false)
           end
         end
       end
@@ -33,7 +33,7 @@ module IsoDoc
         if tfoot
           table.tfoot do |h|
             tfoot.element_children.each_with_index do |n, i|
-              tr_parse(n, h, i, tfoot.element_children.size, false)
+              tr_parse(n, h, i, tfoot.xpath(ns("./tr")).size, false)
             end
           end
         end
@@ -41,11 +41,13 @@ module IsoDoc
 
       def table_attrs(node)
         width = node["width"] ? "width:#{node['width']};" : nil
+        c = node["class"]
+        bordered = "border-width:1px;border-spacing:0;"
+        (%w(modspec).include?(c) || !c) or bordered = ""
         attr_code(
           id: node["id"],
-          class: node["class"] || "MsoISOTable",
-          style: "border-width:1px;border-spacing:0;"\
-                 "#{width}#{keep_style(node)}",
+          class: c || "MsoISOTable",
+          style: "#{bordered}#{width}#{keep_style(node)}",
           title: node["alt"],
         )
       end
@@ -91,26 +93,33 @@ module IsoDoc
       # border-left:#{col.zero? ? "#{SW} 1.5pt;" : "none;"}
       # border-right:#{SW} #{col == totalcols && !header ? "1.5" : "1.0"}pt;
 
-      def make_tr_attr(cell, row, totalrows, header)
+      def make_tr_attr(cell, row, totalrows, header, bordered)
         style = cell.name == "th" ? "font-weight:bold;" : ""
         cell["align"] and style += "text-align:#{cell['align']};"
         cell["valign"] and style += "vertical-align:#{cell['valign']};"
         rowmax = cell["rowspan"] ? row + cell["rowspan"].to_i - 1 : row
-        style += <<~STYLE
-          border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
-          border-bottom:#{SW} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-        STYLE
+        style += make_tr_attr_style(row, rowmax, totalrows, header, bordered)
         header and scope = (cell["colspan"] ? "colgroup" : "col")
         !header && cell.name == "th" and
           scope = (cell["rowspan"] ? "rowgroup" : "row")
         { rowspan: cell["rowspan"], colspan: cell["colspan"],
-          style: style.gsub(/\n/, ""), scope: scope }
+          style: style.gsub(/\n/, ""), scope: scope, class: cell["class"] }
+      end
+
+      def make_tr_attr_style(row, rowmax, totalrows, _header, bordered)
+        bordered or return ""
+        <<~STYLE.gsub(/\n/, "")
+          border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
+          border-bottom:#{SW} #{rowmax >= totalrows ? '1.5' : '1.0'}pt;
+        STYLE
       end
 
       def tr_parse(node, out, ord, totalrows, header)
+        c = node.parent.parent["class"]
+        bordered = %w(modspec).include?(c) || !c
         out.tr do |r|
           node.elements.each do |td|
-            attrs = make_tr_attr(td, ord, totalrows - 1, header)
+            attrs = make_tr_attr(td, ord, totalrows - 1, header, bordered)
             r.send td.name, **attr_code(attrs) do |entry|
               td.children.each { |n| parse(n, entry) }
             end

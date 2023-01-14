@@ -1,5 +1,7 @@
 require_relative "presentation_function/block"
 require_relative "presentation_function/terms"
+require_relative "presentation_function/xrefs"
+require_relative "presentation_function/erefs"
 require_relative "presentation_function/inline"
 require_relative "presentation_function/math"
 require_relative "presentation_function/section"
@@ -83,11 +85,11 @@ module IsoDoc
     end
 
     def postprocess(result, filename, _dir)
-      to_xml(result, filename)
+      to_xml_file(result, filename)
       @files_to_delete.each { |f| FileUtils.rm_rf f }
     end
 
-    def to_xml(result, filename)
+    def to_xml_file(result, filename)
       File.open(filename, "w:UTF-8") { |f| f.write(result) }
     end
   end

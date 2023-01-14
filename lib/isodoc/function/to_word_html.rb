@@ -8,10 +8,6 @@ module IsoDoc
         @termdomain = termdomain
       end
 
-      def in_sourcecode
-        @sourcecode
-      end
-
       def note?
         @note
       end
@@ -101,6 +97,7 @@ module IsoDoc
       end
 
       def info(isoxml, out)
+        @meta.code_css isoxml, out
         @meta.title isoxml, out
         @meta.subtitle isoxml, out
         @meta.docstatus isoxml, out

@@ -15,41 +15,53 @@ module IsoDoc
         table.at(".//tr").xpath("./td | ./th").each do |td|
           cols += (td["colspan"] ? td["colspan"].to_i : 1)
         end
-        style = "border-top:0pt;mso-border-top-alt:0pt;"\
+        style = "border-top:0pt;mso-border-top-alt:0pt;" \
                 "border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;"
         tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
         tfoot.xpath(".//td").last
       end
 
-      def make_tr_attr(td, row, totalrows, _header)
-        style = td.name == "th" ? "font-weight:bold;" : ""
-        rowmax = td["rowspan"] ? row + td["rowspan"].to_i - 1 : row
-        style += <<~STYLE
+      def make_tr_attr(cell, row, totalrows, header, bordered)
+        style = cell.name == "th" ? "font-weight:bold;" : ""
+        rowmax = cell["rowspan"] ? row + cell["rowspan"].to_i - 1 : row
+        style += make_tr_attr_style(row, rowmax, totalrows, header, bordered)
+        { rowspan: cell["rowspan"], colspan: cell["colspan"],
+          valign: cell["valign"], align: cell["align"], style: style,
+          class: cell["class"] }
+      end
+
+      def make_tr_attr_style(row, rowmax, totalrows, header, bordered)
+        ret = <<~STYLE.gsub(/\n/, "")
           border-top:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
           mso-border-top-alt:#{row.zero? ? "#{SW1} 1.5pt;" : 'none;'}
-          border-bottom:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
-          mso-border-bottom-alt:#{SW1} #{rowmax == totalrows ? '1.5' : '1.0'}pt;
+          border-bottom:#{SW1} #{rowmax >= totalrows ? '1.5' : '1.0'}pt;
+          mso-border-bottom-alt:#{SW1} #{rowmax >= totalrows ? '1.5' : '1.0'}pt;
         STYLE
-        { rowspan: td["rowspan"], colspan: td["colspan"], valign: td["valign"],
-          align: td["align"], style: style.gsub(/\n/, "") }
+        bordered or ret = ""
+        pb = header || (totalrows <= 10 && rowmax < totalrows) ? "avoid" : "auto"
+        "#{ret}page-break-after:#{pb};"
       end
 
       def table_attrs(node)
+        c = node["class"]
+        bordered = "border-spacing:0;border-width:1px;"
+        (%w(modspec).include?(c) || !c) or bordered = nil
         ret = {
           summary: node["summary"],
           width: node["width"],
-          style: "mso-table-anchor-horizontal:column;mso-table-overlap:never;"\
-                 "border-spacing:0;border-width:1px;#{keep_style(node)}",
+          style: "mso-table-anchor-horizontal:column;mso-table-overlap:never;" \
+                 "#{bordered}#{keep_style(node)}",
           class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable"),
         }
+        bordered or ret.delete(:class)
         super.merge(attr_code(ret))
       end
 
-      def colgroup(node, t)
+      def colgroup(node, table)
         colgroup = node.at(ns("./colgroup")) or return
-        t.colgroup do |cg|
+        table.colgroup do |cg|
           colgroup.xpath(ns("./col")).each do |c|
-            cg.col **{ width: c["width"] }
+            cg.col width: c["width"]
           end
         end
       end
@@ -57,7 +69,7 @@ module IsoDoc
       def table_parse(node, out)
         @in_table = true
         table_title_parse(node, out)
-        out.div **{ align: "center", class: "table_container" } do |div|
+        out.div align: "center", class: "table_container" do |div|
           div.table **table_attrs(node) do |t|
             colgroup(node, t)
             thead_parse(node, t)

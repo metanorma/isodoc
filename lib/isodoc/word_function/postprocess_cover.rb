@@ -23,144 +23,41 @@ module IsoDoc
           introxml.to_xml(encoding: "US-ASCII")
       end
 
-      def insert_toc(intro, docxml, level)
-        toc = ""
-        toc += make_WordToC(docxml, level)
-        toc += make_TableWordToC(docxml)
-        toc += make_FigureWordToC(docxml)
-        toc += make_RecommendationWordToC(docxml)
-        intro.sub(/WORDTOC/, toc)
+      # add namespaces for Word fragments
+      WORD_NOKOHEAD = <<~HERE.freeze
+        <!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:m="http://schemas.microsoft.com/office/2004/12/omml">
+        <head> <title></title> <meta charset="UTF-8" /> </head>
+        <body> </body> </html>
+      HERE
+
+      def to_word_xhtml_fragment(xml)
+        doc = ::Nokogiri::XML.parse(WORD_NOKOHEAD)
+        ::Nokogiri::XML::DocumentFragment.new(doc, xml, doc.root)
       end
 
-      def word_toc_entry(toclevel, heading)
-        bookmark = bookmarkid # Random.rand(1000000000)
-        <<~TOC
-          <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span
-          lang="EN-GB" style='mso-no-proof:yes'>
-          <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB"
-          class="MsoTocTextSpan">
-          <span style='mso-tab-count:1 dotted'>. </span>
-          </span><span lang="EN-GB" class="MsoTocTextSpan">
-          <span style='mso-element:field-begin'></span></span>
-          <span lang="EN-GB"
-          class="MsoTocTextSpan"> PAGEREF _Toc#{bookmark} \\h </span>
-            <span lang="EN-GB" class="MsoTocTextSpan"><span
-            style='mso-element:field-separator'></span></span><span
-            lang="EN-GB" class="MsoTocTextSpan">1</span>
-            <span lang="EN-GB"
-            class="MsoTocTextSpan"></span><span
-            lang="EN-GB" class="MsoTocTextSpan"><span
-            style='mso-element:field-end'></span></span></a></span></span></p>
-
-        TOC
-      end
-
-      def word_toc_preface(level)
-        <<~TOC.freeze
-          <span lang="EN-GB"><span
-            style='mso-element:field-begin'></span><span
-            style='mso-spacerun:yes'>&#xA0;</span>TOC
-            \\o "1-#{level}" \\h \\z \\u <span
-            style='mso-element:field-separator'></span></span>
-        TOC
-      end
-
-      WORD_TOC_SUFFIX1 = <<~TOC.freeze
-        <p class="MsoToc1"><span lang="EN-GB"><span
-          style='mso-element:field-end'></span></span><span
-          lang="EN-GB"><o:p>&#xA0;</o:p></span></p>
-      TOC
-
-      def make_WordToC(docxml, level)
-        toc = ""
-        # docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])]").
-        xpath = (1..level).each.map { |i| "//h#{i}" }.join (" | ")
-        docxml.xpath(xpath).each do |h|
-          toc += word_toc_entry(h.name[1].to_i, header_strip(h))
+      def wordstylesheet_update
+        @wordstylesheet.nil? and return
+        f = File.open(@wordstylesheet.path, "a")
+        @landscapestyle.empty? or f.write(@landscapestyle)
+        s = @meta.get[:code_css] and
+          f.write(s.gsub(/sourcecode/, "p.#{sourcecode_style}"))
+        if @wordstylesheet_override && @wordstylesheet
+          f.write(@wordstylesheet_override.read)
+          @wordstylesheet_override.close
+        elsif @wordstylesheet_override && !@wordstylesheet
+          @wordstylesheet = @wordstylesheet_override
         end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{word_toc_preface(level)}}) + WORD_TOC_SUFFIX1
-      end
-
-      WORD_TOC_RECOMMENDATION_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle"
-        <span style='mso-element:field-separator'></span></span>
-      TOC
-
-      WORD_TOC_TABLE_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "TableTitle,tabletitle" <span
-        style='mso-element:field-separator'></span></span>
-      TOC
-
-      WORD_TOC_FIGURE_PREFACE1 = <<~TOC.freeze
-        <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t "FigureTitle,figuretitle" <span
-        style='mso-element:field-separator'></span></span>
-      TOC
-
-      def make_TableWordToC(docxml)
-        (docxml.at("//p[@class = 'TableTitle']") && @toctablestitle) or
-          return ""
-        toc = %{<p class="TOCTitle">#{@toctablestitle}</p>}
-        docxml.xpath("//p[@class = 'TableTitle']").each do |h|
-          toc += word_toc_entry(1, header_strip(h))
-        end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_TABLE_PREFACE1}}) + WORD_TOC_SUFFIX1
-      end
-
-      def make_FigureWordToC(docxml)
-        (docxml.at("//p[@class = 'FigureTitle']") && @tocfigurestitle) or
-          return ""
-        toc = %{<p class="TOCTitle">#{@tocfigurestitle}</p>}
-        docxml.xpath("//p[@class = 'FigureTitle']").each do |h|
-          toc += word_toc_entry(1, header_strip(h))
-        end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_FIGURE_PREFACE1}}) + WORD_TOC_SUFFIX1
-      end
-
-      def make_RecommendationWordToC(docxml)
-        (docxml.at("//p[@class = 'RecommendationTitle']") &&
-          @tocrecommendationstitle) or return ""
-        toc = %{<p class="TOCTitle">#{@tocrecommendationstitle}</p>}
-        docxml.xpath("//p[@class = 'RecommendationTitle' or @class = 'RecommendationTestTitle']").sort_by do |h|
-          recommmendation_sort_key(h.text)
-        end.each do |h|
-          toc += word_toc_entry(1, header_strip(h))
-        end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) + WORD_TOC_SUFFIX1
-      end
-
-      def recommmendation_sort_key(header)
-        m = /^([^0-9]+) (\d+)/.match(header) || /^([^:]+)/.match(header)
-        m ||= [header, nil]
-        ret = "#{recommmendation_sort_key1(m[1])}::"
-        m[2] and ret += ("%04d" % m[2].to_i).to_s
-        ret
-      end
-
-      def recommmendation_sort_key1(type)
-        case type&.downcase
-        when "requirement" then "04"
-        when "recommendation" then "05"
-        when "permission" then "06"
-        else type
-        end
+        f.close
+        @wordstylesheet
       end
 
       def authority_cleanup1(docxml, klass)
         dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
-        auth = docxml.at("//div[@id = 'boilerplate-#{klass}' "\
+        auth = docxml.at("//div[@id = 'boilerplate-#{klass}' " \
                          "or @class = 'boilerplate-#{klass}']")
         auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each(&:remove)
         auth&.xpath(".//h1 | .//h2")&.each do |h|
@@ -218,7 +115,7 @@ module IsoDoc
         docxml.xpath("//div[@class = '#{sect}']//br[@orientation]").reverse
           .each_with_index do |br, i|
           @landscapestyle +=
-            "\ndiv.#{sect}_#{i} {page:#{sect}"\
+            "\ndiv.#{sect}_#{i} {page:#{sect}" \
             "#{br['orientation'] == 'landscape' ? 'L' : 'P'};}\n"
           split_at_section_break(docxml, sect, br, i)
         end

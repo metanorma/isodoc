@@ -1,4 +1,6 @@
 require_relative "./image"
+require_relative "./sourcecode"
+require "rouge"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -25,24 +27,8 @@ module IsoDoc
       end
     end
 
-    def sourcecode(docxml)
-      docxml.xpath(ns("//sourcecode")).each do |f|
-        sourcecode1(f)
-      end
-    end
-
-    def sourcecode1(elem)
-      return if labelled_ancestor(elem)
-
-      lbl = @xrefs.anchor(elem["id"], :label, false) or return
-      prefix_name(elem, block_delim,
-                  l10n("#{lower2cap @i18n.figure} #{lbl}"), "name")
-    end
-
     def formula(docxml)
-      docxml.xpath(ns("//formula")).each do |f|
-        formula1(f)
-      end
+      docxml.xpath(ns("//formula")).each { |f| formula1(f) }
     end
 
     def formula1(elem)
@@ -51,48 +37,38 @@ module IsoDoc
     end
 
     def example(docxml)
-      docxml.xpath(ns("//example")).each do |f|
-        example1(f)
-      end
+      docxml.xpath(ns("//example")).each { |f| example1(f) }
     end
 
     def example1(elem)
       n = @xrefs.get[elem["id"]]
       lbl = if n.nil? || n[:label].nil? || n[:label].empty?
               @i18n.example
-            else
-              l10n("#{@i18n.example} #{n[:label]}")
+            else l10n("#{@i18n.example} #{n[:label]}")
             end
       prefix_name(elem, block_delim, lbl, "name")
     end
 
     def note(docxml)
-      docxml.xpath(ns("//note")).each do |f|
-        note1(f)
-      end
+      docxml.xpath(ns("//note")).each { |f| note1(f) }
     end
 
     def note1(elem)
-      return if elem.parent.name == "bibitem" || elem["notag"] == "true"
-
+      elem.parent.name == "bibitem" || elem["notag"] == "true" and return
       n = @xrefs.get[elem["id"]]
       lbl = if n.nil? || n[:label].nil? || n[:label].empty?
               @i18n.note
-            else
-              l10n("#{@i18n.note} #{n[:label]}")
+            else l10n("#{@i18n.note} #{n[:label]}")
             end
       prefix_name(elem, "", lbl, "name")
     end
 
     def admonition(docxml)
-      docxml.xpath(ns("//admonition")).each do |f|
-        admonition1(f)
-      end
+      docxml.xpath(ns("//admonition")).each { |f| admonition1(f) }
     end
 
     def admonition1(elem)
-      return if elem.at(ns("./name")) || elem["notag"] == "true"
-
+      elem.at(ns("./name")) || elem["notag"] == "true" and return
       prefix_name(elem, "", @i18n.admonition[elem["type"]]&.upcase, "name")
     end
 
@@ -121,15 +97,12 @@ module IsoDoc
     end
 
     def table(docxml)
-      docxml.xpath(ns("//table")).each do |f|
-        table1(f)
-      end
+      docxml.xpath(ns("//table")).each { |f| table1(f) }
     end
 
     def table1(elem)
-      return if labelled_ancestor(elem)
-      return if elem["unnumbered"] && !elem.at(ns("./name"))
-
+      labelled_ancestor(elem) and return
+      elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
       prefix_name(elem, block_delim, l10n("#{lower2cap @i18n.table} #{n}"),
                   "name")
@@ -137,9 +110,7 @@ module IsoDoc
 
     # we use this to eliminate the semantic amend blocks from rendering
     def amend(docxml)
-      docxml.xpath(ns("//amend")).each do |f|
-        amend1(f)
-      end
+      docxml.xpath(ns("//amend")).each { |f| amend1(f) }
     end
 
     def amend1(elem)
@@ -150,9 +121,7 @@ module IsoDoc
     end
 
     def ol(docxml)
-      docxml.xpath(ns("//ol")).each do |f|
-        ol1(f)
-      end
+      docxml.xpath(ns("//ol")).each { |f| ol1(f) }
       @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
     end
 

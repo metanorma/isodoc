@@ -1267,7 +1267,7 @@ RSpec.describe IsoDoc do
                          <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
                          <p class="example-title">EXAMPLE&#160;&#8212; Title</p>
                  <p>Hello</p>
-                 <pre id='X' class='prettyprint '>
+                 <pre id='X' class='sourcecode'>
           <br/>
           &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
           <br/>
@@ -1368,150 +1368,6 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
-  end
-
-  it "processes sourcecode" do
-    input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <sourcecode lang="ruby" id="samplecode">
-          <name>Ruby <em>code</em></name>
-        puts x
-      </sourcecode>
-      <sourcecode unnumbered="true">
-      Que?
-      </sourcecode>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
-    presxml = <<~OUTPUT
-          <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
-          <foreword displayorder="1">
-            <sourcecode lang='ruby' id='samplecode'>
-              <name>
-                Figure 1&#xA0;&#x2014; Ruby
-                <em>code</em>
-              </name>
-               puts x
-            </sourcecode>
-            <sourcecode unnumbered='true'> Que? </sourcecode>
-          </foreword>
-        </preface>
-      </iso-standard>
-    OUTPUT
-
-    html = <<~OUTPUT
-      #{HTML_HDR}
-                         <br/>
-                         <div>
-                           <h1 class="ForewordTitle">Foreword</h1>
-                           <pre id="samplecode" class="prettyprint lang-rb"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; puts x<br/>&#160;&#160;&#160;&#160;&#160;</pre>
-                           <p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
-                           <pre class='prettyprint '> Que? </pre>
-                         </div>
-                         <p class="zzSTDTitle1"/>
-                       </div>
-                     </body>
-                 </html>
-    OUTPUT
-
-    doc = <<~OUTPUT
-         <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-              <head><style/></head>
-              <body lang="EN-US" link="blue" vlink="#954F72">
-                <div class="WordSection1">
-                  <p>&#160;</p>
-                </div>
-                <p>
-                  <br clear="all" class="section"/>
-                </p>
-                <div class="WordSection2">
-                  <p>
-                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                  </p>
-                    <div>
-                      <h1 class="ForewordTitle">Foreword</h1>
-                      <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; puts x<br/>&#160;&#160;&#160;&#160;&#160; </p><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
-                      <p class='Sourcecode'> Que? </p>
-                    </div>
-                       <p>&#160;</p>
-      </div>
-      <p>
-        <br clear="all" class="section"/>
-      </p>
-      <div class="WordSection3">
-                    <p class="zzSTDTitle1"/>
-                  </div>
-                </body>
-            </html>
-    OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(doc)
-  end
-
-  it "processes sourcecode with escapes preserved" do
-    input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <sourcecode id="samplecode">
-          <name>XML code</name>
-        &lt;xml&gt;
-      </sourcecode>
-          </foreword></preface>
-          </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-      #{HTML_HDR}
-                  <br/>
-                  <div>
-                    <h1 class="ForewordTitle">Foreword</h1>
-                    <pre id="samplecode" class="prettyprint "><br/>&#160;&#160;&#160; <br/>&#160; &lt;xml&gt;<br/></pre>
-                    <p class="SourceTitle" style="text-align:center;">XML code</p>
-                  </div>
-                  <p class="zzSTDTitle1"/>
-                </div>
-              </body>
-          </html>
-    OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
-  end
-
-  it "processes sourcecode with annotations" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
-      <sourcecode id="_">puts "Hello, world." <callout target="A">1</callout>
-         %w{a b c}.each do |x|
-           puts x <callout target="B">2</callout>
-         end<annotation id="A">
-           <p id="_">This is <em>one</em> callout</p>
-         </annotation><annotation id="B">
-           <p id="_">This is another callout</p>
-         </annotation></sourcecode>
-      </foreword></preface>
-      </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-      #{HTML_HDR}
-                  <br/>
-                  <div>
-                    <h1 class="ForewordTitle">Foreword</h1>
-                    <pre id="_" class="prettyprint ">puts "Hello, world."  &lt;1&gt;<br/>&#160;&#160; %w{a b c}.each do |x|<br/>&#160;&#160;&#160;&#160; puts x  &lt;2&gt;<br/>&#160;&#160; end<br/><br/>&lt;1&gt; This is one callout<br/>&lt;2&gt; This is another callout</pre>
-                  </div>
-                  <p class="zzSTDTitle1"/>
-                </div>
-              </body>
-          </html>
-    OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -1992,7 +1848,9 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
       <title depth="1">Bibliography</title>
-      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. June 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF RFC 2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier></bibitem>
+      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. June 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF RFC 2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
+      <biblio-tag>[1]<tab/>IETF RFC 2616, </biblio-tag>
+      </bibitem>
       </references></bibliography>
           </iso-standard>
     OUTPUT
@@ -2023,7 +1881,7 @@ RSpec.describe IsoDoc do
               </div>
               <div class="requirement-verification">
                 <p id="_">The following code will be run for verification:</p>
-                <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                <pre id="_" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
               </div>
               <div class='requirement-component1'> <p id='_'>Hello</p> </div>
             </div>
@@ -2032,12 +1890,7 @@ RSpec.describe IsoDoc do
                    <br/>
              <div>
                <h1 class='Section3'>Bibliography</h1>
-               <p id='rfc2616' class='Biblio'>
-                 [1]&#160; IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.#{' '}
-                 <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
-                 . In: RFC. June 1999. Fremont, CA.
-                <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>.
-               </p>
+               <p id="rfc2616" class="Biblio">[1]  IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. In: RFC. June 1999. Fremont, CA. <a href="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</a>.</p>
              </div>
                 </div>
               </body>
@@ -2149,7 +2002,7 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                    <pre id="_" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
                   </div>
               <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -2269,7 +2122,7 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                    <pre id="_" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
                   </div>
                           <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -2284,66 +2137,6 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
       .to be_equivalent_to xmlpp(output)
-  end
-
-  it "processes pseudocode" do
-    input = <<~INPUT
-      <itu-standard xmlns="http://riboseinc.com/isoxml">
-          <bibdata>
-          <language>en</language>
-          </bibdata>
-              <preface><foreword>
-        <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Label</name><p id="_">  <strong>A</strong><br/>
-              <smallcap>B</smallcap></p>
-      <p id="_">  <em>C</em></p></figure>
-      </preface></itu-standard>
-    INPUT
-
-    presxml = <<~OUTPUT
-      <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata>
-          <language current="true">en</language>
-          </bibdata>
-              <preface><foreword displayorder="1">
-        <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Figure 1&#xA0;&#x2014; Label</name><p id="_">&#xA0;&#xA0;<strong>A</strong><br/>
-      &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<smallcap>B</smallcap></p>
-      <p id="_">&#xA0;&#xA0;<em>C</em></p></figure>
-      </foreword></preface>
-      </itu-standard>
-
-    OUTPUT
-
-    html = <<~OUTPUT
-      #{HTML_HDR}
-                       <br/>
-                       <div>
-                         <h1 class="ForewordTitle">Foreword</h1>
-                         <div id="_" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'><p id="_">&#160;&#160;<b>A</b><br/>
-                 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-variant:small-caps;">B</span></p>
-                 <p id="_">&#160;&#160;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
-                       </div>
-                       <p class="zzSTDTitle1"/>
-                     </div>
-                   </body>
-          </html>
-    OUTPUT
-
-    FileUtils.rm_f "test.doc"
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    IsoDoc::WordConvert.new({}).convert("test", presxml, false)
-    expect(xmlpp(File.read("test.doc")
-      .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
-      .gsub(%r{</div>.*}m, "</div>")))
-      .to be_equivalent_to xmlpp(<<~"OUTPUT")
-             <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
-        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
-        <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
-      OUTPUT
   end
 
   it "does not label embedded figures, sourcecode" do
@@ -2367,7 +2160,7 @@ RSpec.describe IsoDoc do
             <div>
             <h1 class='ForewordTitle'>Foreword</h1>
                      <div class='example'>
-                       <pre id='B' class='prettyprint '>
+                       <pre id='B' class='sourcecode'>
                          A B C
                        </pre>
                          <p class='SourceTitle' style='text-align:center;'>Label</p>
@@ -2378,7 +2171,7 @@ RSpec.describe IsoDoc do
                          </p>
                          <p class='SourceTitle' style='text-align:center;'>Label</p>
                        </div>
-                       <pre id='B1' class='prettyprint '>A B C</pre>
+                       <pre id='B1' class='sourcecode'>A B C</pre>
                        <div id='A1' class='pseudocode'>
                          <p id='_'>
                            &#160;&#160;
@@ -2405,7 +2198,7 @@ RSpec.describe IsoDoc do
       </foreword></preface>
       </iso-standard>
     INPUT
-    expect((File.read("test.html")
+    expect(xmlpp(File.read("test.html")
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
       .gsub(%r{</div>.*}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <A><i>Hello</i></A>
@@ -2510,6 +2303,7 @@ RSpec.describe IsoDoc do
                  <references hidden='true' normative='false' displayorder="1">
                    <bibitem id='express_action_schema' type='internal'>
                      <docidentifier type='repository'>express/action_schema</docidentifier>
+                     <biblio-tag>[1]<tab/>express/action_schema,</biblio-tag>
                    </bibitem>
                  </references>
                </bibliography>

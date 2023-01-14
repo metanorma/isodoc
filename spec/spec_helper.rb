@@ -7,7 +7,6 @@ require "bundler/setup"
 require "isodoc"
 require "rspec/matchers"
 require "equivalent-xml"
-require "rexml/document"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -29,11 +28,17 @@ def xmlpp(xml)
     else n
     end
   end.join
-  s = ""
-  f = REXML::Formatters::Pretty.new(2)
-  f.compact = true
-  f.write(REXML::Document.new(xml), s)
-  s
+  xsl = <<~XSL
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+      <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+      <!--<xsl:strip-space elements="*"/>-->
+      <xsl:template match="/">
+        <xsl:copy-of select="."/>
+      </xsl:template>
+    </xsl:stylesheet>
+  XSL
+  Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml, &:noblanks))
+    .to_xml(indent: 2, encoding: "UTF-8")
 end
 
 def metadata(hash)

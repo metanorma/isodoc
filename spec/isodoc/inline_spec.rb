@@ -141,6 +141,7 @@ RSpec.describe IsoDoc do
       <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
       <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
       <bookmark id="H"/> <pagebreak/> <pagebreak orientation="landscape"/> <underline>J</underline>
+      <underline style="wavy">J1</underline>
       <span class="A"><em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt> F</span>
       <span style="font-family:&quot;Arial&quot;"><em>A</em> F</span>
       </p>
@@ -149,31 +150,16 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <div><h1 class='ForewordTitle'>Foreword</h1>
-          <p>
-            <i>A</i>
-            <b>B</b>
-            <sup>C</sup>
-            <sub>D</sub>
-            <tt>E</tt>
-            <s>F</s>
-            <span style='font-variant:small-caps;'>G</span>
-            <span class='keyword'>I</span>
-            <br/>
-            <hr/>
-            <a id='H'/>
-            <br/>
-            <br/>
-            <span style='text-decoration: underline;'>J</span>
-            <i>A</i>
-            <b>B</b>
-            <sup>C</sup>
-            <sub>D</sub>
-            <tt>E</tt>
-             F
-            <span style='font-family:&#x22;Arial&#x22;'><i>A</i> F</span>
-          </p>
-        </div>
+      <div><h1 class="ForewordTitle">Foreword</h1>
+               <p>
+       <i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt>
+       <s>F</s> <span style="font-variant:small-caps;">G</span> <span class="keyword">I</span> <br/> <hr/>
+       <a id="H"/> <br/> <br/> <span style="text-decoration: underline">J</span>
+       <span style="text-decoration: underline wavy">J1</span>
+       <span class="A"><i>A</i> <b>B</b> <sup>C</sup> <sub>D</sub> <tt>E</tt> F</span>
+       <span style="font-family:&quot;Arial&quot;"><i>A</i> F</span>
+       </p>
+             </div>
     OUTPUT
 
     doc = <<~OUTPUT
@@ -197,12 +183,14 @@ RSpec.describe IsoDoc do
               <br clear='all' class='section' orientation='landscape'/>
             </p>
             <u>J</u>
+            <u style="text-decoration: wavy">J1</u>
+            <span class="A">
             <i>A</i>
             <b>B</b>
             <sup>C</sup>
             <sub>D</sub>
             <tt>E</tt>
-             F
+             F</span>
             <span style='font-family:&#x22;Arial&#x22;'><i>A</i> F</span>
           </p>
         </div>
@@ -416,6 +404,7 @@ RSpec.describe IsoDoc do
       <bibitem id="ISO712" type="standard">
         <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
         <docidentifier type="ISO">ISO 712</docidentifier>
+        <biblio-tag>ISO 712, </biblio-tag>
       </bibitem>
       </references></bibliography>
           </iso-standard>
@@ -521,17 +510,21 @@ RSpec.describe IsoDoc do
              <p>
              <ul>
              <li><concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept bold="true" ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept bold="true" ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept ital="false" bold="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="false" ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept bold="true" ital="false" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
+             <li><concept bold="true" ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="true" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="false" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="false" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept ital="true" ref="true" linkmention="true" linkref="true"><strong>error!</strong></concept></li>
-             <li><concept ital="false" ref="false" linkmention="true">
+             <li><concept ital="false" bold="false" ref="false" linkmention="true">
       <refterm>CV_DiscreteCoverage</refterm>
       <renderterm>CV_DiscreteCoverage</renderterm>
       <xref target="term-cv_discretecoverage"/>
@@ -546,21 +539,30 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <preface><foreword displayorder="1">
-      <p>
-      <ul>
-      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li>term [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><em>term</em>,</li>
-      <li>term,</li>
-      <li><xref target="clause1"><em>term</em></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><xref target="clause1"><em>term</em></xref> [term defined in Clause 1],</li>
-      <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-      <li><em>term</em> [term defined in Clause 1],</li>
-      <li><strong>error!</strong></li>
-      <li><xref target='term-cv_discretecoverage'>CV_DiscreteCoverage</xref></li>
-      </ul></p>
+                   <p>
+               <ul>
+                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><strong>term</strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><strong><em>term</em></strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><strong>term</strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em>,</li>
+                 <li>term,</li>
+                 <li><xref target="clause1"><em>term</em></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><xref target="clause1"><strong>term</strong></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><xref target="clause1"><strong><em>term</em></strong></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><xref target="clause1"><em>term</em></xref> [term defined in Clause 1],</li>
+                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em> [term defined in Clause 1],</li>
+                 <li>
+                   <strong>error!</strong>
+                 </li>
+                 <li>
+                   <xref target="term-cv_discretecoverage">CV_DiscreteCoverage</xref>
+                 </li>
+               </ul>
+             </p>
       </foreword></preface>
       <sections>
       <clause id="clause1" displayorder="2"><title depth="1">1.<tab/>Clause 1</title></clause>
@@ -568,75 +570,42 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     output = <<~OUTPUT
-                     #{HTML_HDR}
-                 <br/>
-                 <div>
-                   <h1 class='ForewordTitle'>Foreword</h1>
-                                  <p>
-                      <ul>
-                        <li>
-                          <i>term</i>
-                           [term defined in
-                          <a href='#clause1'>Clause 1</a>
-                          ],
-                        </li>
-                        <li>
-                          <i>term</i>
-                           [term defined in
-                          <a href='#clause1'>Clause 1</a>
-                          ],
-                        </li>
-                        <li>
-                          <i>term</i>
-                           [term defined in
-                          <a href='#clause1'>Clause 1</a>
-                          ],
-                        </li>
-                        <li>
-                           term [term defined in
-                          <a href='#clause1'>Clause 1</a>
-                          ],
-                        </li>
-                        <li>
-                          <i>term</i>,
-                        </li>
-                        <li>term,</li>
-                        <li>
-        <a href='#clause1'>
-          <i>term</i>
-        </a>
-         [term defined in
-        <a href='#clause1'>Clause 1</a>
-        ],
-      </li>
-      <li>
-        <a href='#clause1'>
-          <i>term</i>
-        </a>
-         [term defined in Clause 1],
-      </li>
-      <li>
-        <i>term</i>
-         [term defined in
-        <a href='#clause1'>Clause 1</a>
-        ],
-      </li>
-      <li>
-        <i>term</i>
-         [term defined in Clause 1],
-      </li>
-      <li> <b>error!</b> </li>
-      <li> <a href='#term-cv_discretecoverage'>CV_DiscreteCoverage</a> </li>
-                      </ul>
-                    </p>
-                  </div>
-                  <p class='zzSTDTitle1'/>
-                  <div id='clause1'>
-                    <h1>1.&#160; Clause 1</h1>
-                  </div>
-                </div>
-              </body>
-            </html>
+      #{HTML_HDR}
+           <br/>
+           <div>
+             <h1 class='ForewordTitle'>Foreword</h1>
+                            <p>
+           <ul>
+             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><b>term</b> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><b><i>term</i></b> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><b>term</b> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><i>term</i>,</li>
+             <li>term,</li>
+             <li><a href="#clause1"><i>term</i></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><a href="#clause1"><b>term</b></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><a href="#clause1"><b><i>term</i></b></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><a href="#clause1"><i>term</i></a> [term defined in Clause 1],</li>
+             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
+             <li><i>term</i> [term defined in Clause 1],</li>
+             <li>
+               <b>error!</b>
+             </li>
+             <li>
+               <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
+             </li>
+           </ul>
+         </p>
+            </div>
+            <p class='zzSTDTitle1'/>
+            <div id='clause1'>
+              <h1>1.&#160; Clause 1</h1>
+            </div>
+          </div>
+        </body>
+      </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
@@ -1054,7 +1023,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ suppressasciimathdup: "true" })
+      .new({ suppressasciimathdup: true })
       .convert("test", input, true)
       .gsub("<!--", "<comment>")
       .gsub("-->", "</comment>")))
@@ -1080,6 +1049,7 @@ RSpec.describe IsoDoc do
             <abbreviation>ISO</abbreviation>
           </organization>
         </contributor>
+        <biblio-tag>ISO 712,</biblio-tag>
       </bibitem>
           </references>
           </bibliography>
@@ -1182,6 +1152,7 @@ RSpec.describe IsoDoc do
             <bibitem id="ISO712" type="standard">
               <formattedref><em>Cereals and cereal products</em>.</formattedref>
               <docidentifier>ISO 712</docidentifier>
+              <biblio-tag>ISO 712,</biblio-tag>
             </bibitem>
                 </references>
                 </bibliography>
@@ -1415,6 +1386,7 @@ RSpec.describe IsoDoc do
                <uri type='citation' language='en'>http://www.example.com/en</uri>
                <uri type='citation' language='fr'>http://www.example.com/fr</uri>
                <docidentifier>ISO 712</docidentifier>
+               <biblio-tag>ISO 712,</biblio-tag>
              </bibitem>
              <bibitem id='ISO713' type='standard'>
                <formattedref>
@@ -1426,6 +1398,7 @@ RSpec.describe IsoDoc do
                <uri type='citation'>spec/assets/iso713</uri>
                <uri type='citation'>spec/assets/iso714</uri>
                <docidentifier>ISO 713</docidentifier>
+               <biblio-tag>ISO 713,</biblio-tag>
              </bibitem>
              <bibitem id='ISO714' type='standard'>
                <formattedref>
@@ -1436,6 +1409,7 @@ RSpec.describe IsoDoc do
                </formattedref>
                <uri type='citation'>spec/assets/iso714.svg</uri>
                <docidentifier>ISO 714</docidentifier>
+               <biblio-tag>ISO 714,</biblio-tag>
              </bibitem>
            </references>
          </bibliography>
@@ -1877,6 +1851,7 @@ RSpec.describe IsoDoc do
                  <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
                  <uri type='citation'>http://www.example.com</uri>
                 <docidentifier>ISO 712</docidentifier>
+                <biblio-tag>ISO 712,</biblio-tag>
               </bibitem>
             </references>
           </bibliography>
@@ -2318,119 +2293,17 @@ RSpec.describe IsoDoc do
       </itu-standard>
     INPUT
     output = <<~OUTPUT
-      <itu-standard xmlns='https://www.calconnect.org/standards/itu' type='presentation'>
-         <p id='_'>
-           <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-             <localityStack connective='from'>
-               <locality type='clause'>
-                 <referenceFrom>3</referenceFrom>
-               </locality>
-             </localityStack>
-             <localityStack connective='to'>
-               <locality type='clause'>
-                 <referenceFrom>5</referenceFrom>
-               </locality>
-             </localityStack>
-             XYZ, Clause 3 to 5
-           </eref>
-           <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-             <localityStack connective='from'>
-               <locality type='clause'>
-                 <referenceFrom>3</referenceFrom>
-               </locality>
-             </localityStack>
-             <localityStack connective='to'>
-               <locality type='clause'>
-                 <referenceFrom>5</referenceFrom>
-               </locality>
-               <locality type='table'>
-                 <referenceFrom>2</referenceFrom>
-               </locality>
-             </localityStack>
-             XYZ, Clause 3 to Clause 5, Table 2
-           </eref>
-            text
-         </p>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-           XYZ, Clause 3 and 5
-         </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>7</referenceFrom>
-             </locality>
-           </localityStack>
-           XYZ, Clause 3, 5, and 7
-         </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='annex'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-           XYZ, Clause 3 and Annex 5
-         </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='or'>
-             <locality type='clause'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-            text
-         </eref>
-         <eref type='inline' bibitemid='ref1' citeas='XYZ'>
-           <localityStack connective='from'>
-             <locality type='clause'>
-               <referenceFrom>3</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='to'>
-             <locality type='clause'>
-               <referenceFrom>5</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='and'>
-             <locality type='clause'>
-               <referenceFrom>8</referenceFrom>
-             </locality>
-           </localityStack>
-           <localityStack connective='to'>
-             <locality type='clause'>
-               <referenceFrom>10</referenceFrom>
-             </locality>
-           </localityStack>
-           XYZ, Clause 3 to 5 and 8 to 10
-         </eref>
+      <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
+         <p id="_"><eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clauses  3 to  5</eref><eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality><locality type="table"><referenceFrom>2</referenceFrom></locality></localityStack>XYZ,  Clause 3 to  Clause 5,  Table 2</eref>
+                 text
+               </p>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clauses  3 and  5</eref>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>7</referenceFrom></locality></localityStack>XYZ,  Clauses  3,  5, and  7</eref>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="annex"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clause 3 and  Annex 5</eref>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="or"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>
+                 text
+               </eref>
+         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>8</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>10</referenceFrom></locality></localityStack>XYZ,  Clauses  3 to  5 and  8 to  10</eref>
        </itu-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
