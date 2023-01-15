@@ -218,7 +218,7 @@ RSpec.describe IsoDoc do
     expect(html).to match(/This is > a script/)
     expect(html).to match(/This is > also a script/)
     expect(html).not_to match(/CDATA/)
-    expect(html).to match(%r{Anta&#x16D;parolo</h1>})
+    expect(html).to match(%r{Antaŭparolo</h1>})
     expect(html).to match(%r{html-override})
   end
 
@@ -255,7 +255,7 @@ RSpec.describe IsoDoc do
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
     expect(html).not_to match(/CDATA/)
-    expect(html).to match(%r{Anta&#x16D;parolo</h1>})
+    expect(html).to match(%r{Antaŭparolo</h1>})
   end
 
   it "generates Word output docs with complete configuration" do
