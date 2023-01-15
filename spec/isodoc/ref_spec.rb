@@ -1242,7 +1242,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1>1.  Normative References</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-               <p id="ISO712" class="NormRef">ISO/IEC Guide 99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. 1st edition. December 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>.</p>
+               <p id="ISO712" class="NormRef">ISO/IEC Guide 99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. 1st edition. 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>.</p>
              </div>
              <aside id="fn:1" class="footnote">
                <p id="_">Also known as JCGM 200</p>
