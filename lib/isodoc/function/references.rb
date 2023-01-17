@@ -10,49 +10,29 @@ module IsoDoc
         text
       end
 
-      def nonstd_bibitem(list, bib, _ordinal, biblio) # %%%
+      def nonstd_bibitem(list, bib, _ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
-          #           ids = bibitem_ref_code(bib)
-          #           idents = render_identifier(ids)
-          #           if biblio then ref_entry_code(ref, ordinal, idents, ids)
-          #           else
-          #             ref << (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
-          #             ref << ", #{idents[sdo]}" if idents[:ordinal] && idents[:sdo]
-          #           end
-          #           ref << "," if idents[:sdo]
           tag = bib.at(ns("./biblio-tag"))
           tag&.children&.each { |n| parse(n, ref) }
           reference_format(bib, ref)
         end
       end
 
-      def std_bibitem_entry(list, bib, _ordinal, biblio) # %%%
+      def std_bibitem_entry(list, bib, _ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(bib, biblio)) do |ref|
-          #           idents = render_identifier(bibitem_ref_code(bib))
-          #           if biblio then ref_entry_code(ref, ordinal, idents, nil)
-          #           else
-          #             ref << (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
-          #             ref << ", #{idents[:sdo]}" if (idents[:ordinal] ||
-          #                                           idents[:metanorma]) && idents[:sdo]
-          #           end
-          #           date_note_process(bib, ref)
-          #           ref << "," if idents[:sdo]
           tag = bib.at(ns("./biblio-tag"))
           tag&.children&.each { |n| parse(n, ref) }
           reference_format(bib, ref)
         end
       end
 
-      #       # if ids is just a number, only use that ([1] Non-Standard)
-      #       # else, use both ordinal, as prefix, and ids
-      #       def ref_entry_code(ref, ordinal, ids, _id) #%%%
-      #         prefix_bracketed_ref(ref, ids[:ordinal] || ids[:metanorma] ||
-      #                              "[#{ordinal}]")
-      #         ids[:sdo] and ref << (ids[:sdo]).to_s
-      #       end
+      SKIP_DOCID = <<~XPATH.strip.freeze
+        @type = 'DOI' or @type = 'doi' or @type = 'ISSN' or @type = 'issn' or @type = 'ISBN' or @type = 'isbn' or starts-with(@type, 'ISSN.') or starts-with(@type, 'ISBN.') or starts-with(@type, 'issn.') or starts-with(@type, 'isbn.')
+      XPATH
 
-      SKIP_DOCID = "@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or " \
-                   "@type = 'metanorma-ordinal' or @type = 'ISBN'".freeze
+      SKIP_DOC1 = <<~XPATH.strip.freeze
+        #{SKIP_DOCID} or @type = 'metanorma-ordinal' or @type = 'metanorma'
+      XPATH
 
       def pref_ref_code(bib)
         bib["suppress_identifier"] == "true" and return nil
@@ -61,8 +41,8 @@ module IsoDoc
         ret.empty? and
           ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
         ret.empty? and
-          ret = bib.at(ns("./docidentifier[not(#{SKIP_DOCID})]#{lang}")) ||
-            bib.at(ns("./docidentifier[not(#{SKIP_DOCID})]"))
+          ret = bib.at(ns("./docidentifier[not(#{SKIP_DOC1})]#{lang}")) ||
+            bib.at(ns("./docidentifier[not(#{SKIP_DOC1})]"))
         ret
       end
 
@@ -70,8 +50,7 @@ module IsoDoc
       def bibitem_ref_code(bib)
         id = bib.at(ns("./docidentifier[@type = 'metanorma']"))
         id1 = pref_ref_code(bib)
-        id2 = bib.at(ns("./docidentifier[@type = 'DOI' or @type = 'ISSN' or " \
-                        "@type = 'ISBN']"))
+        id2 = bib.at(ns("./docidentifier[#{SKIP_DOCID}]"))
         id3 = bib.at(ns("./docidentifier[@type = 'metanorma-ordinal']"))
         return [id, id1, id2, id3] if id || id1 || id2 || id3
         return [nil, nil, nil, nil] if bib["suppress_identifier"] == "true"
@@ -139,9 +118,9 @@ module IsoDoc
 
       def standard?(bib)
         ret = false
-        drop = %w(metanorma DOI ISSN ISBN)
         bib.xpath(ns("./docidentifier")).each do |id|
-          next if id["type"].nil? || drop.include?(id["type"])
+          next if id["type"].nil? ||
+            id.at(".//self::*[#{SKIP_DOCID} or @type = 'metanorma']")
 
           ret = true
         end
@@ -194,7 +173,7 @@ module IsoDoc
           return
         page_break(out)
         out.div do |div|
-          div.h1 **{ class: "Section3" } do |h1|
+          div.h1 class: "Section3" do |h1|
             f.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
           end
           biblio_list(f, div, true)
