@@ -244,11 +244,11 @@ module IsoDoc
 
       def info(isoxml, out)
         @tocfigurestitle =
-          isoxml&.at(ns("//misc-container/toc[@type = 'figure']/title"))&.text
+          isoxml&.at(ns("//metanorma-extension/toc[@type = 'figure']/title"))&.text
         @toctablestitle =
-          isoxml&.at(ns("//misc-container/toc[@type = 'table']/title"))&.text
+          isoxml&.at(ns("//metanorma-extension/toc[@type = 'table']/title"))&.text
         @tocrecommendationstitle = isoxml
-          &.at(ns("//misc-container/toc[@type = 'recommendation']/title"))&.text
+          &.at(ns("//metanorma-extension/toc[@type = 'recommendation']/title"))&.text
         super
       end
     end

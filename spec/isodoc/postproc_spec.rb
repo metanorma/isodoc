@@ -729,11 +729,11 @@ RSpec.describe IsoDoc do
     toc_input = input.sub(%r{<iso-standard xmlns="http://riboseinc.com/isoxml">},
                           <<~MISC,
                             <iso-standard xmlns="http://riboseinc.com/isoxml">
-                            <misc-container>
+                            <metanorma-extension>
                             <toc type="table"><title>List of tables</title></toc>
                             <toc type="figure"><title>List of figures</title></toc>
                             <toc type="recommendation"><title>List of recommendations</title></toc>
-                            </misc-container>
+                            </metanorma-extension>
                           MISC
                          )
     IsoDoc::WordConvert.new(

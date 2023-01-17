@@ -1511,7 +1511,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <bibdata/>
-        <misc-container>
+        <metanorma-extension>
           <toc type='figure'>
             <title>List of figures</title>
           </toc>
@@ -1521,7 +1521,7 @@ RSpec.describe IsoDoc do
           <toc type='recommendation'>
             <title>List of recommendations</title>
           </toc>
-        </misc-container>
+        </metanorma-extension>
         <sections> </sections>
       </iso-standard>
     OUTPUT
