@@ -24,6 +24,7 @@ module IsoDoc
     end
 
     def conversions(docxml)
+      semantic_xml_insert(docxml)
       bibdata docxml
       @xrefs.parse docxml
       section docxml
@@ -82,6 +83,42 @@ module IsoDoc
       termsource docxml
       concept docxml
       related docxml
+    end
+
+    def semantic_xml_insert(xml)
+      @semantic_xml_insert or return
+      embed = to_xml(embedable_semantic_xml(xml))
+      ins = metanorma_extension_insert_pt(xml)
+      ins = ins.at(ns("./metanorma")) || ins.add_child("<metanorma/>").first
+      ins << "<source>#{embed}</source>"
+    end
+
+    def metanorma_extension_insert_pt(xml)
+      xml.at(ns("//metanorma-extension")) ||
+        xml.at(ns("//bibdata"))&.after("<metanorma-extension/>")
+        &.next_element ||
+        xml.root.elements.first.before("<metanorma-extension/>")
+          .previous_element
+    end
+
+    def embedable_semantic_xml(xml)
+      xml = embedable_semantic_xml_tags(xml)
+      embedable_semantic_xml_attributes(xml)
+    end
+
+    def embedable_semantic_xml_tags(xml)
+      Nokogiri::XML(to_xml(xml).gsub(%r{(</?)([[:alpha:]])},
+                                     "\\1semantic__\\2")).root
+    end
+
+    def embedable_semantic_xml_attributes(xml)
+      Metanorma::Utils::anchor_attributes.each do |(tag_name, attribute_name)|
+        xml.xpath(ns("//#{tag_name}[@#{attribute_name}]")).each do |elem|
+          elem.attributes[attribute_name].value =
+            "semantic__#{elem.attributes[attribute_name].value}"
+        end
+      end
+      xml
     end
 
     def postprocess(result, filename, _dir)

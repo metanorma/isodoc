@@ -59,7 +59,8 @@ RSpec.describe IsoDoc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -275,7 +276,8 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -358,7 +360,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-           <foreword id='fwd' displayorder='1'>
+      <foreword id='fwd' displayorder='1'>
          <note id='A' unnumbered='true'>
            <name>NOTE </name>
          </note>
@@ -370,7 +372,8 @@ RSpec.describe IsoDoc do
          </note>
        </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)

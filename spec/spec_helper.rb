@@ -20,6 +20,10 @@ RSpec.configure do |config|
   end
 end
 
+def presxml_options
+  { semanticxmlinsert: "false" }
+end
+
 def xmlpp(xml)
   c = HTMLEntities.new
   xml &&= xml.split(/(&\S+?;)/).map do |n|

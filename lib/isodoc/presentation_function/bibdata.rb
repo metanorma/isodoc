@@ -17,7 +17,7 @@ module IsoDoc
     def toc_metadata(docxml)
       return unless @tocfigures || @toctables || @tocrecommendations
 
-      ins = docxml.at(ns("//metanorma-extension")) ||
+      ins = docxml.at(ns("//metanorma-extension"))  ||
         docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
       @tocfigures and
         ins << "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"

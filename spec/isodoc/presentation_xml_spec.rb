@@ -3,7 +3,8 @@ require "spec_helper"
 RSpec.describe IsoDoc do
   it "generates file based on string input" do
     FileUtils.rm_f "test.presentation.xml"
-    IsoDoc::PresentationXMLConvert.new({ filename: "test" })
+    IsoDoc::PresentationXMLConvert.new({ filename: "test" }
+      .merge(presxml_options))
       .convert("test", <<~"INPUT", false)
                 <iso-standard xmlns="http://riboseinc.com/isoxml">
                 <bibdata>
@@ -17,6 +18,66 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     expect(File.exist?("test.presentation.xml")).to be true
+  end
+
+  it "inserts copy of Semantic XML by default" do
+    input = <<~INPUT
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
+        <foreword id="fwd">
+        <p>
+        <xref target="N1"/>
+        </p>
+        </foreword>
+            <introduction id="intro">
+            <figure id="N1"> <name>Split-it-right sample divider</name>
+               <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+            </figure>
+      </introduction>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <metanorma-extension>
+           <metanorma>
+             <source>
+               <semantic__iso-standard>
+                 <semantic__preface>
+                   <semantic__foreword id="semantic__fwd">
+                     <semantic__p>
+                       <semantic__xref target="N1"/>
+                     </semantic__p>
+                   </semantic__foreword>
+                   <semantic__introduction id="semantic__intro">
+                     <semantic__figure id="semantic__N1">
+                       <semantic__name>Split-it-right sample divider</semantic__name>
+                       <semantic__image src="rice_images/rice_image1.png" id="semantic___8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+                     </semantic__figure>
+                   </semantic__introduction>
+                 </semantic__preface>
+               </semantic__iso-standard>
+             </source>
+           </metanorma>
+         </metanorma-extension>
+         <preface>
+           <foreword id="fwd" displayorder="1">
+             <p>
+               <xref target="N1">Figure 1</xref>
+             </p>
+           </foreword>
+           <introduction id="intro" displayorder="2">
+             <figure id="N1">
+               <name>Figure 1 — Split-it-right sample divider</name>
+               <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+             </figure>
+           </introduction>
+         </preface>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+      .new({})
+      .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "calculates depth of clauses regardless of whether they have anchors" do
@@ -45,7 +106,7 @@ RSpec.describe IsoDoc do
          </sections>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(output)
@@ -163,7 +224,7 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(output)
@@ -412,7 +473,7 @@ RSpec.describe IsoDoc do
     end
 
     it "Supports twitter_cldr_localiser_symbols fraction options" do
-      expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true))
         .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
         .to(be_equivalent_to(xmlpp(output)))
@@ -527,7 +588,7 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(output)
@@ -643,7 +704,7 @@ RSpec.describe IsoDoc do
              </preface>
            </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(output)
@@ -680,7 +741,8 @@ RSpec.describe IsoDoc do
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
       expect(xmlpp(IsoDoc::PresentationXMLConvert
-        .new({ localizenumber: "##0;###" })
+        .new({ localizenumber: "##0;###" }
+        .merge(presxml_options))
           .convert("test", input, true))
           .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
         .to be_equivalent_to xmlpp(output2)
@@ -716,7 +778,8 @@ RSpec.describe IsoDoc do
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
       expect(xmlpp(IsoDoc::PresentationXMLConvert
-    .new({ localizenumber: "#=#0;##$#" })
+    .new({ localizenumber: "#=#0;##$#" }
+        .merge(presxml_options))
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
         .to be_equivalent_to xmlpp(output1)
@@ -780,7 +843,7 @@ RSpec.describe IsoDoc do
         </bibdata>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(output)
@@ -1031,7 +1094,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1093,7 +1156,7 @@ RSpec.describe IsoDoc do
          </sections>
       </iso-standard>
     OUTPUT
-    expect(IsoDoc::PresentationXMLConvert.new({})
+    expect(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"data:image/emf;base64,[^"]+"},
@@ -1329,7 +1392,7 @@ RSpec.describe IsoDoc do
                </sections>
             </iso-standard>
     OUTPUT
-    expect(IsoDoc::PresentationXMLConvert.new({})
+    expect(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true)
   .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{src="[^"]+?\.emf"}, 'src="_.emf"')
@@ -1440,7 +1503,7 @@ RSpec.describe IsoDoc do
         </sections>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1494,7 +1557,7 @@ RSpec.describe IsoDoc do
         </sections>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1528,7 +1591,8 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::PresentationXMLConvert
       .new({ tocfigures: true,
              toctables: true,
-             tocrecommendations: true })
+             tocrecommendations: true }
+      .merge(presxml_options))
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1617,7 +1681,7 @@ RSpec.describe IsoDoc do
          </sections>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1687,7 +1751,7 @@ RSpec.describe IsoDoc do
          </sections>
        </iso-standard>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true))
     xml.at("//xmlns:localized-strings")&.remove
     xml.at("//xmlns:bibliography")&.remove
@@ -1755,7 +1819,7 @@ RSpec.describe IsoDoc do
          </sections>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1805,7 +1869,8 @@ RSpec.describe IsoDoc do
       </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ fonts: "font1; font2", fontlicenseagreement: "no-install-fonts" })
+      .new({ fonts: "font1; font2", fontlicenseagreement: "no-install-fonts" }
+      .merge(presxml_options))
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1862,7 +1927,7 @@ RSpec.describe IsoDoc do
         </bibliography>
       </standard-document>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1896,7 +1961,7 @@ RSpec.describe IsoDoc do
          </sections>
        </standard-document>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)

@@ -478,7 +478,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     FileUtils.rm_rf("test.doc")
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
@@ -531,7 +531,7 @@ RSpec.describe IsoDoc do
         </bibliography>
       </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
@@ -877,7 +877,7 @@ RSpec.describe IsoDoc do
       </foreword>
     PRESXML
     expect(xmlpp(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new({})
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(presxml)
@@ -918,7 +918,7 @@ RSpec.describe IsoDoc do
       </foreword>
     PRESXML
     expect(xmlpp(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new({})
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(presxml)
@@ -970,7 +970,7 @@ RSpec.describe IsoDoc do
        </bibliography>
     PRESXML
     expect(xmlpp(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new({})
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:bibliography").to_xml))
       .to be_equivalent_to xmlpp(presxml)
@@ -1018,7 +1018,7 @@ RSpec.describe IsoDoc do
       </bibliography>
     PRESXML
     expect(xmlpp(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new({})
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:bibliography").to_xml))
       .to be_equivalent_to xmlpp(presxml)
@@ -1069,7 +1069,7 @@ RSpec.describe IsoDoc do
       </bibliography>
     PRESXML
     expect(xmlpp(Nokogiri::XML(
-      IsoDoc::PresentationXMLConvert.new({})
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:bibliography").to_xml))
       .to be_equivalent_to xmlpp(presxml)
@@ -1181,7 +1181,7 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    doc = IsoDoc::PresentationXMLConvert.new({})
+    doc = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(xmlpp(Nokogiri::XML(doc)
     .at("//xmlns:bibliography").to_xml))
@@ -1251,7 +1251,7 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    doc = IsoDoc::PresentationXMLConvert.new({})
+    doc = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     expect(strip_guid(xmlpp(Nokogiri::XML(doc)
     .at("//xmlns:bibliography").to_xml)))
