@@ -32,7 +32,7 @@ module IsoDoc
       return localized unless twitter_cldr_reader_symbols[:decimal]
 
       integer, fraction = localized.split(twitter_cldr_reader_symbols[:decimal])
-      return localized if fraction.nil? || fraction.length.zero?
+      return localized if fraction.nil? || fraction.empty?
 
       [integer, decorate_fraction_part(fraction, locale)]
         .join(twitter_cldr_reader_symbols[:decimal])
@@ -97,14 +97,25 @@ module IsoDoc
     end
 
     def mathml1(node, locale)
+      mathml_style_inherit(node)
       asciimath_dup(node)
       localize_maths(node, locale)
-      return unless node.elements.size == 1 && node.elements.first.name == "mn"
+      mathml_number_to_number(node)
+    end
 
+    def mathml_style_inherit(node)
+      node.at("./ancestor::xmlns:strong") or return
+      node.children =
+        "<mstyle fontweight='bold'>#{node.children.to_xml}</mstyle>"
+    end
+
+    def mathml_number_to_number(node)
+      (node.elements.size == 1 && node.elements.first.name == "mn") or return
+      repl = node.at("./m:mn", MATHML).children
       if node.parent.name == "stem"
-        node.parent.replace(node.at("./m:mn", MATHML).children)
+        node.parent.replace(repl)
       else
-        node.replace(node.at("./m:mn", MATHML).children)
+        node.replace(repl)
       end
     end
   end
