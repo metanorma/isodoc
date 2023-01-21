@@ -652,6 +652,119 @@ RSpec.describe IsoDoc do
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(doc)
   end
 
+  it "processes sourcecode with xml formatting" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
+      <preface><foreword id="X">
+      <sourcecode id="_" lang="ruby" linenums="true">puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
+         %w{a b c}.each do |x|
+           <strong>puts</strong> <xref target="X">x</xref> <callout target="C">3</callout>
+         end<annotation id="A">
+           <p id="_">This is <em>one</em> callout</p>
+         </annotation>
+         </sourcecode>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+
+
+         <preface>
+           <foreword id="X" displayorder="1">
+             <sourcecode id="_" lang="ruby" linenums="true">
+               <name>Figure 1</name>
+               <table class="rouge-line-table">
+                 <tbody>
+                   <tr id="line-1" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>1</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode>
+                         <span class="nb">puts</span>
+                         <span class="s2">"Hello, world."</span>
+                         <span class="c">
+                           <callout target="A">1</callout>
+                         </span>
+                         <span class="c">
+                           <callout target="B">2</callout>
+                         </span>
+                       </sourcecode>
+                     </td>
+                   </tr>
+                   <tr id="line-2" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>2</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode>
+                         <span class="sx">%w{a b c}</span>
+                         <span class="p">.</span>
+                         <span class="nf">each</span>
+                         <span class="k">do</span>
+                         <span class="o">|</span>
+                         <span class="n">x</span>
+                         <span class="o">|</span>
+                       </sourcecode>
+                     </td>
+                   </tr>
+                   <tr id="line-3" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>3</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode>
+                         <strong>
+                           <span class="nb">puts</span>
+                         </strong>
+                         <xref target="X">
+                           <span class="n">x</span>
+                         </xref>
+                         <span class="c">
+                           <callout target="C">3</callout>
+                         </span>
+                       </sourcecode>
+                     </td>
+                   </tr>
+                   <tr id="line-4" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>4</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode>
+                         <span class="k">end</span>
+                       </sourcecode>
+                     </td>
+                   </tr>
+                   <tr id="line-5" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>5</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode/>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+               <annotation id="A">
+                 <p id="_">This is <em>one</em> callout</p>
+               </annotation>
+             </sourcecode>
+           </foreword>
+         </preface>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+      .new({ sourcehighlighter: true })
+      .convert("test", input, true))
+      .sub(%r{<misc-container>.*</misc-container>}m, "")
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   it "processes pseudocode" do
     input = <<~INPUT
       <itu-standard xmlns="http://riboseinc.com/isoxml">
