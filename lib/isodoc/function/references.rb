@@ -4,9 +4,9 @@ module IsoDoc
       # This is highly specific to ISO, but it's not a bad precedent for
       # references anyway; keeping here instead of in IsoDoc::Iso for now
       def docid_l10n(text)
-        return text if text.nil?
-
-        text.gsub(/All Parts/i, @i18n.all_parts.downcase) if @i18n.all_parts
+        text.nil? and return text
+        @i18n.all_parts and text.gsub!(/All Parts/i, @i18n.all_parts.downcase)
+        text.size < 20 and text.gsub!(/ /, "&#xa0;")
         text
       end
 
