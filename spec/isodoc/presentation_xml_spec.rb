@@ -1843,7 +1843,7 @@ RSpec.describe IsoDoc do
             </title>
             <p id='_8d98c053-85d7-e8cc-75bb-183a14209d61'>A</p>
             <p id='_2141c040-93a4-785a-73f0-ffad4fa1779f'>
-              <eref type='inline' bibitemid='_607373b1-0cc4-fcdb-c482-fd86ae572bd1' citeas='ISO 639-2'>ISO 639-2</eref>
+              <eref type='inline' bibitemid='_607373b1-0cc4-fcdb-c482-fd86ae572bd1' citeas='ISO 639-2'>ISO&#xa0;639-2</eref>
             </p>
           </clause>
           <terms id='_terms_and_definitions' obligation='normative' displayorder='3'>

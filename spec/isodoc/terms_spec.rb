@@ -83,7 +83,7 @@ RSpec.describe IsoDoc do
            <p>For the purposes of this document, the following terms and definitions apply.</p>
        <term id="paddy1"><name>1.1.</name><preferred><strong>paddy</strong>, &#x3c;in agriculture, dated&#x3e;</preferred><termsource status="modified">[SOURCE: <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause">
            <referenceFrom>3.1</referenceFrom>
-         </locality>ISO 7301:2011, Clause 3.1</origin>, modified
+         </locality>ISO&#xa0;7301:2011, Clause 3.1</origin>, modified
             &#x2013;
            The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</termsource>
        <domain>rice</domain>
@@ -127,10 +127,10 @@ RSpec.describe IsoDoc do
        </termnote>
        <termsource status="identical">[SOURCE: <origin bibitemid="ISO7301" type="inline" droploc="true" citeas="ISO 7301:2011"><locality type="clause">
            <referenceFrom>3.1</referenceFrom>
-         </locality>ISO 7301:2011, 3.1</origin>
+         </locality>ISO&#xa0;7301:2011, 3.1</origin>
          <origin bibitemid="ISO7301" type="inline" case="lowercase" citeas="ISO 7301:2011"><locality type="clause">
            <referenceFrom>3.1</referenceFrom>
-         </locality>ISO 7301:2011, clause 3.1</origin>]</termsource></term>
+         </locality>ISO&#xa0;7301:2011, clause 3.1</origin>]</termsource></term>
        </terms>
        </sections>
        </iso-standard>
@@ -139,7 +139,7 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
       #{HTML_HDR}
                       <p class="zzSTDTitle1"/>
-             <div id="_terms_and_definitions"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO 7301:2011, Clause 3.1, modified
+             <div id="_terms_and_definitions"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
              &#8211;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
 
@@ -171,8 +171,8 @@ RSpec.describe IsoDoc do
         </div>
         <div id="_671a1994-4783-40d0-bc81-987d06ffb74e" class="Note" style="page-break-after: avoid;page-break-inside: avoid;"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
         <div id="_671a1994-4783-40d0-bc81-987d06ffb74f" class="Note"><p>Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
-        <p>[SOURCE: ISO 7301:2011, 3.1
-          ISO 7301:2011, clause 3.1]</p></div>
+        <p>[SOURCE: ISO&#xa0;7301:2011, 3.1
+          ISO&#xa0;7301:2011, clause 3.1]</p></div>
            </div>
          </body>
        </html>
@@ -181,7 +181,7 @@ RSpec.describe IsoDoc do
     word = <<~"WORD"
       #{WORD_HDR}
                        <p class="zzSTDTitle1"/>
-             <div id="_terms_and_definitions"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO 7301:2011, Clause 3.1, modified
+             <div id="_terms_and_definitions"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
              &#8211;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
 
@@ -213,8 +213,8 @@ RSpec.describe IsoDoc do
         </div>
         <div id="_671a1994-4783-40d0-bc81-987d06ffb74e" class="Note" style="page-break-after: avoid;page-break-inside: avoid;"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
         <div id="_671a1994-4783-40d0-bc81-987d06ffb74f" class="Note"><p class="Note">Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
-        <p>[SOURCE: ISO 7301:2011, 3.1
-          ISO 7301:2011, clause 3.1]</p></div>
+        <p>[SOURCE: ISO&#xa0;7301:2011, 3.1
+          ISO&#xa0;7301:2011, clause 3.1]</p></div>
            </div>
          </body>
        </html>
@@ -297,8 +297,8 @@ RSpec.describe IsoDoc do
                         <locality type='clause'>
                           <referenceFrom>3.1</referenceFrom>
                         </locality>
-                        ISO 7301:2011, Clause 3.1
-                      </origin>, modified &#x2013;#{' '}
+                        ISO&#xa0;7301:2011, Clause 3.1
+                      </origin>, modified &#x2013;
                           The term "cargo rice" is shown as deprecated, and Note 1 to
                           entry is not included here]
                     </termsource>

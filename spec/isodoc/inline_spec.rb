@@ -348,7 +348,7 @@ RSpec.describe IsoDoc do
               <em>w[o]rd</em> [<xref target="clause1">Clause #1</xref>]
             </li>
             <li>
-              <em>term</em> [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712">ISO 712</eref>]
+              <em>term</em> [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712">ISO&#xa0;712</eref>]
             </li>
             <li>
               <em>word</em> [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">The Aforementioned Citation</eref>]
@@ -358,7 +358,7 @@ RSpec.describe IsoDoc do
                   <referenceFrom>3.1</referenceFrom>
                 </locality><locality type="figure">
                   <referenceFrom>a</referenceFrom>
-                </locality>ISO 712, Clause 3.1, Figure a</eref>]
+                </locality>ISO&#xa0;712, Clause 3.1, Figure a</eref>]
             </li>
             <li>
               <em>word</em> [term defined in <eref bibitemid="ISO712" type="inline" citeas="ISO 712"><localityStack connective="and">
@@ -369,7 +369,7 @@ RSpec.describe IsoDoc do
                 <locality type="figure">
                   <referenceFrom>b</referenceFrom>
                 </locality>
-              </localityStack>ISO 712, Clause 3.1 and Figure b</eref>]
+              </localityStack>ISO&#xa0;712, Clause 3.1 and Figure b</eref>]
             </li>
             <li>
               <em>word</em> [<eref bibitemid="ISO712" type="inline" citeas="ISO 712">
@@ -403,8 +403,8 @@ RSpec.describe IsoDoc do
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
       <bibitem id="ISO712" type="standard">
         <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
-        <docidentifier type="ISO">ISO 712</docidentifier>
-        <biblio-tag>ISO 712, </biblio-tag>
+        <docidentifier type="ISO">ISO&#xa0;712</docidentifier>
+        <biblio-tag>ISO&#xa0;712, </biblio-tag>
       </bibitem>
       </references></bibliography>
           </iso-standard>
@@ -436,7 +436,7 @@ RSpec.describe IsoDoc do
                    <li>
                      <i>term</i>
                       [term defined in
-                     <a href='#ISO712'>ISO 712</a>
+                     <a href='#ISO712'>ISO&#xa0;712</a>
                      ]
                    </li>
                    <li>
@@ -448,13 +448,13 @@ RSpec.describe IsoDoc do
                    <li>
                      <i>word</i>
                       [term defined in
-                     <a href='#ISO712'>ISO 712, Clause 3.1, Figure a</a>
+                     <a href='#ISO712'>ISO&#xa0;712, Clause 3.1, Figure a</a>
                      ]
                    </li>
                    <li>
                      <i>word</i>
                       [term defined in
-                     <a href='#ISO712'>ISO 712, Clause 3.1 and Figure b</a>
+                     <a href='#ISO712'>ISO&#xa0;712, Clause 3.1 and Figure b</a>
                      ]
                    </li>
                    <li>
@@ -486,7 +486,7 @@ RSpec.describe IsoDoc do
                  (including any amendments) applies.
                </p>
                <p id='ISO712' class='NormRef'>
-                 ISO 712, International Organization for Standardization.
+                 ISO&#xa0;712, International Organization for Standardization.
                  <i>Cereals and cereal products</i>.
                </p>
              </div>
@@ -1129,32 +1129,32 @@ RSpec.describe IsoDoc do
             <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
                 <preface><foreword displayorder="1">
                 <p>
-                <eref type="inline" bibitemid="ISO712" citeas="ISO 712">ISO 712</eref>
-                <eref type="inline" bibitemid="ISO712">ISO 712</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality>ISO 712, Table 1</eref>
-                <eref type="inline" bibitemid="ISO712"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack>ISO 712, Table 1</eref>
-                <eref type="inline" bibitemid="ISO712"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack>ISO 712, Table 1 and Clause 1</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO 712, Table 1&#x2013;1</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality>ISO 712, Clause 1, Table 1</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, Clause 1</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1.5</referenceFrom></locality>ISO 712, Clause 1.5</eref>
+                <eref type="inline" bibitemid="ISO712" citeas="ISO 712">ISO&#xa0;712</eref>
+                <eref type="inline" bibitemid="ISO712">ISO&#xa0;712</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;712, Table 1</eref>
+                <eref type="inline" bibitemid="ISO712"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack>ISO&#xa0;712, Table 1</eref>
+                <eref type="inline" bibitemid="ISO712"><localityStack connective="and"><locality type="table"><referenceFrom>1</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>1</referenceFrom></locality></localityStack>ISO&#xa0;712, Table 1 and Clause 1</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO&#xa0;712, Table 1&#x2013;1</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality><locality type="table"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;712, Clause 1, Table 1</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;712, Clause 1</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="clause"><referenceFrom>1.5</referenceFrom></locality>ISO&#xa0;712, Clause 1.5</eref>
                 <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality>A</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="whole"/>ISO 712, Whole of text</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality>ISO 712, Prelude 7</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="locality:URI"><referenceFrom>7</referenceFrom></locality>ISO 712, URI 7</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="whole"/>ISO&#xa0;712, Whole of text</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality>ISO&#xa0;712, Prelude 7</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="locality:URI"><referenceFrom>7</referenceFrom></locality>ISO&#xa0;712, URI 7</eref>
                 <eref type="inline" bibitemid="ISO712" citeas="ISO 712">A</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality>ISO 712</eref>
-                <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, Clause 1</eref>
-                <eref type="inline" droploc="true" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, 1</eref>
-                <eref type="inline" case="lowercase" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 712, clause 1</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;712</eref>
+                <eref type="inline" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;712, Clause 1</eref>
+                <eref type="inline" droploc="true" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;712, 1</eref>
+                <eref type="inline" case="lowercase" bibitemid="ISO712"><locality type="anchor"><referenceFrom>1</referenceFrom></locality><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;712, clause 1</eref>
                 </p>
                 </foreword></preface>
                 <bibliography><references id="_normative_references" obligation="informative" normative="true" displayorder=
       "2"><title depth='1'>1.<tab/>Normative References</title>
             <bibitem id="ISO712" type="standard">
               <formattedref><em>Cereals and cereal products</em>.</formattedref>
-              <docidentifier>ISO 712</docidentifier>
-              <biblio-tag>ISO 712,</biblio-tag>
+              <docidentifier>ISO&#xa0;712</docidentifier>
+              <biblio-tag>ISO&#xa0;712,</biblio-tag>
             </bibitem>
                 </references>
                 </bibliography>
@@ -1167,30 +1167,30 @@ RSpec.describe IsoDoc do
                      <div>
                        <h1 class="ForewordTitle">Foreword</h1>
                        <p>
-                 <a href="#ISO712">ISO 712</a>
-                 <a href="#ISO712">ISO 712</a>
-                 <a href="#ISO712">ISO 712, Table 1</a>
-                 <a href='#ISO712'>ISO 712, Table 1</a>
-      <a href='#ISO712'>ISO 712, Table 1 and Clause 1</a>
-                 <a href="#ISO712">ISO 712, Table 1&#8211;1</a>
-                 <a href="#ISO712">ISO 712, Clause 1, Table 1</a>
-                 <a href="#ISO712">ISO 712, Clause 1</a>
-                 <a href="#ISO712">ISO 712, Clause 1.5</a>
+                 <a href="#ISO712">ISO&#xa0;712</a>
+                 <a href="#ISO712">ISO&#xa0;712</a>
+                 <a href="#ISO712">ISO&#xa0;712, Table 1</a>
+                 <a href='#ISO712'>ISO&#xa0;712, Table 1</a>
+      <a href='#ISO712'>ISO&#xa0;712, Table 1 and Clause 1</a>
+                 <a href="#ISO712">ISO&#xa0;712, Table 1&#8211;1</a>
+                 <a href="#ISO712">ISO&#xa0;712, Clause 1, Table 1</a>
+                 <a href="#ISO712">ISO&#xa0;712, Clause 1</a>
+                 <a href="#ISO712">ISO&#xa0;712, Clause 1.5</a>
                  <a href="#ISO712">A</a>
-                 <a href="#ISO712">ISO 712, Whole of text</a>
-                 <a href="#ISO712">ISO 712, Prelude 7</a>
-                 <a href="#ISO712">ISO 712, URI 7</a>
+                 <a href="#ISO712">ISO&#xa0;712, Whole of text</a>
+                 <a href="#ISO712">ISO&#xa0;712, Prelude 7</a>
+                 <a href="#ISO712">ISO&#xa0;712, URI 7</a>
                  <a href="#ISO712">A</a>
-                 <a href='#ISO712'>ISO 712</a>
-                 <a href='#ISO712'>ISO 712, Clause 1</a>
-                 <a href='#ISO712'>ISO 712, 1</a>
-                 <a href='#ISO712'>ISO 712, clause 1</a>
+                 <a href='#ISO712'>ISO&#xa0;712</a>
+                 <a href='#ISO712'>ISO&#xa0;712, Clause 1</a>
+                 <a href='#ISO712'>ISO&#xa0;712, 1</a>
+                 <a href='#ISO712'>ISO&#xa0;712, clause 1</a>
                  </p>
                      </div>
                      <p class="zzSTDTitle1"/>
                      <div>
                        <h1>1.&#160; Normative References</h1>
-                       <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i>.</p>
+                       <p id="ISO712" class="NormRef">ISO&#xa0;712, <i>Cereals and cereal products</i>.</p>
                      </div>
                    </div>
                  </body>
@@ -1277,13 +1277,13 @@ RSpec.describe IsoDoc do
          <preface>
            <foreword displayorder='1'>
              <p>
-               <eref type='inline' bibitemid='ISO712' citeas='ISO 712'>ISO 712</eref>
-               <eref type='inline' bibitemid='ISO712'>ISO 712</eref>
+               <eref type='inline' bibitemid='ISO712' citeas='ISO 712'>ISO&#xa0;712</eref>
+               <eref type='inline' bibitemid='ISO712'>ISO&#xa0;712</eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='table'>
                    <referenceFrom>1</referenceFrom>
                  </locality>
-                 ISO 713, Tableau 1
+                 ISO&#xa0;713, Tableau 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <localityStack connective='and'>
@@ -1291,7 +1291,7 @@ RSpec.describe IsoDoc do
                      <referenceFrom>1</referenceFrom>
                    </locality>
                  </localityStack>
-                 ISO 713, Tableau 1
+                 ISO&#xa0;713, Tableau 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <localityStack connective='and'>
@@ -1304,14 +1304,14 @@ RSpec.describe IsoDoc do
                      <referenceFrom>1</referenceFrom>
                    </locality>
                  </localityStack>
-                 ISO 713, Tableau 1 et Article 1
+                 ISO&#xa0;713, Tableau 1 et Article 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='table'>
                    <referenceFrom>1</referenceFrom>
                    <referenceTo>1</referenceTo>
                  </locality>
-                 ISO 713, Tableau 1&#x2013;1
+                 ISO&#xa0;713, Tableau 1&#x2013;1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='clause'>
@@ -1320,19 +1320,19 @@ RSpec.describe IsoDoc do
                  <locality type='table'>
                    <referenceFrom>1</referenceFrom>
                  </locality>
-                 ISO 713, Article 1, Tableau 1
+                 ISO&#xa0;713, Article 1, Tableau 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='clause'>
                    <referenceFrom>1</referenceFrom>
                  </locality>
-                 ISO 713, Article 1
+                 ISO&#xa0;713, Article 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='clause'>
                    <referenceFrom>1.5</referenceFrom>
                  </locality>
-                 ISO 713, Article 1.5
+                 ISO&#xa0;713, Article 1.5
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='table'>
@@ -1342,20 +1342,20 @@ RSpec.describe IsoDoc do
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='whole'/>
-                 ISO 713, Ensemble du texte
+                 ISO&#xa0;713, Ensemble du texte
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='locality:prelude'>
                    <referenceFrom>7</referenceFrom>
                  </locality>
-                 ISO 713, Prelude 7
+                 ISO&#xa0;713, Prelude 7
                </eref>
                <eref type='inline' bibitemid='ISO713' citeas='ISO 713'>A</eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='anchor'>
                    <referenceFrom>xyz</referenceFrom>
                  </locality>
-                 ISO 713
+                 ISO&#xa0;713
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='anchor'>
@@ -1364,9 +1364,9 @@ RSpec.describe IsoDoc do
                  <locality type='clause'>
                    <referenceFrom>1</referenceFrom>
                  </locality>
-                 ISO 713, Article 1
+                 ISO&#xa0;713, Article 1
                </eref>
-               <eref type='inline' bibitemid='ISO714'>ISO 714</eref>
+               <eref type='inline' bibitemid='ISO714'>ISO&#xa0;714</eref>
              </p>
            </foreword>
          </preface>
@@ -1387,8 +1387,8 @@ RSpec.describe IsoDoc do
                <uri type='citation'>http://www.example.com</uri>
                <uri type='citation' language='en'>http://www.example.com/en</uri>
                <uri type='citation' language='fr'>http://www.example.com/fr</uri>
-               <docidentifier>ISO 712</docidentifier>
-               <biblio-tag>ISO 712,</biblio-tag>
+               <docidentifier>ISO&#xa0;712</docidentifier>
+               <biblio-tag>ISO&#xa0;712,</biblio-tag>
              </bibitem>
              <bibitem id='ISO713' type='standard'>
                <formattedref>
@@ -1399,8 +1399,8 @@ RSpec.describe IsoDoc do
                </formattedref>
                <uri type='citation'>spec/assets/iso713</uri>
                <uri type='citation'>spec/assets/iso714</uri>
-               <docidentifier>ISO 713</docidentifier>
-               <biblio-tag>ISO 713,</biblio-tag>
+               <docidentifier>ISO&#xa0;713</docidentifier>
+               <biblio-tag>ISO&#xa0;713,</biblio-tag>
              </bibitem>
              <bibitem id='ISO714' type='standard'>
                <formattedref>
@@ -1410,8 +1410,8 @@ RSpec.describe IsoDoc do
                  .
                </formattedref>
                <uri type='citation'>spec/assets/iso714.svg</uri>
-               <docidentifier>ISO 714</docidentifier>
-               <biblio-tag>ISO 714,</biblio-tag>
+               <docidentifier>ISO&#xa0;714</docidentifier>
+               <biblio-tag>ISO&#xa0;714,</biblio-tag>
              </bibitem>
            </references>
          </bibliography>
@@ -1435,43 +1435,43 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class='ForewordTitle'>Avant-propos</h1>
                <p>
-                 <a href='http://www.example.com/fr'>ISO 712</a>
-                 <a href='http://www.example.com/fr'>ISO 712</a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Tableau 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Tableau 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Tableau 1 et Article 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Tableau 1&#x2013;1 </a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Article 1, Tableau 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Article 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Article 1.5 </a>
+                 <a href='http://www.example.com/fr'>ISO&#xa0;712</a>
+                 <a href='http://www.example.com/fr'>ISO&#xa0;712</a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 et Article 1 </a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1&#x2013;1 </a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1, Tableau 1 </a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1 </a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1.5 </a>
                  <a href='spec/assets/iso713.html'> A </a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Ensemble du texte </a>
-                 <a href='spec/assets/iso713.html'> ISO 713, Prelude 7 </a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Ensemble du texte </a>
+                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Prelude 7 </a>
                  <a href='spec/assets/iso713.html'>A</a>
-                 <a href='spec/assets/iso713.html#xyz'> ISO 713 </a>
-                 <a href='spec/assets/iso713.html#xyz'> ISO 713, Article 1 </a>
-                 <a href='spec/assets/iso714.svg'>ISO 714</a>
+                 <a href='spec/assets/iso713.html#xyz'> ISO&#xa0;713 </a>
+                 <a href='spec/assets/iso713.html#xyz'> ISO&#xa0;713, Article 1 </a>
+                 <a href='spec/assets/iso714.svg'>ISO&#xa0;714</a>
                </p>
              </div>
              <p class='zzSTDTitle1'/>
              <div>
                <h1> 1. &#xa0; Normative References </h1>
                <p id='ISO712' class='NormRef'>
-                 ISO 712,
+                 ISO&#xa0;712,
                  <i>Cereals and cereal products</i>
                   .
                  <a href='http://www.example.com/fr'>http://www.example.com/fr</a>
                   .
                </p>
                <p id='ISO713' class='NormRef'>
-                 ISO 713,
+                 ISO&#xa0;713,
                  <i>Cereals and cereal products</i>
                   .
                  <a href='spec/assets/iso713'>spec/assets/iso713</a>
                   .
                </p>
                <p id='ISO714' class='NormRef'>
-                 ISO 714,
+                 ISO&#xa0;714,
                  <i>Cereals and cereal products</i>
                   .
                  <a href='spec/assets/iso714.svg'>spec/assets/iso714.svg</a>
@@ -1498,22 +1498,22 @@ RSpec.describe IsoDoc do
            <div>
              <h1 class='ForewordTitle'>Avant-propos</h1>
              <p>
-               <a href='http://www.example.com/fr'>ISO 712</a>
-               <a href='http://www.example.com/fr'>ISO 712</a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 </a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 </a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1 et Article 1 </a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Tableau 1&#x2013;1 </a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Article 1, Tableau 1 </a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Article 1 </a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Article 1.5 </a>
+               <a href='http://www.example.com/fr'>ISO&#xa0;712</a>
+               <a href='http://www.example.com/fr'>ISO&#xa0;712</a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Tableau 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Tableau 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Tableau 1 et Article 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Tableau 1&#x2013;1 </a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Article 1, Tableau 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Article 1 </a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Article 1.5 </a>
                <a href='spec/assets/iso713.doc'> A </a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Ensemble du texte </a>
-               <a href='spec/assets/iso713.doc'> ISO 713, Prelude 7 </a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Ensemble du texte </a>
+               <a href='spec/assets/iso713.doc'> ISO&#xa0;713, Prelude 7 </a>
                <a href='spec/assets/iso713.doc'>A</a>
-               <a href='spec/assets/iso713.doc#xyz'> ISO 713 </a>
-               <a href='spec/assets/iso713.doc#xyz'> ISO 713, Article 1 </a>
-               <a href='spec/assets/iso714.svg'>ISO 714</a>
+               <a href='spec/assets/iso713.doc#xyz'> ISO&#xa0;713 </a>
+               <a href='spec/assets/iso713.doc#xyz'> ISO&#xa0;713, Article 1 </a>
+               <a href='spec/assets/iso714.svg'>ISO&#xa0;714</a>
              </p>
            </div>
            <p>&#xa0;</p>
@@ -1530,21 +1530,21 @@ RSpec.describe IsoDoc do
                 Normative References
              </h1>
              <p id='ISO712' class='NormRef'>
-               ISO 712,
+               ISO&#xa0;712,
                <i>Cereals and cereal products</i>
                 .
                <a href='http://www.example.com/fr'>http://www.example.com/fr</a>
                 .
              </p>
              <p id='ISO713' class='NormRef'>
-               ISO 713,
+               ISO&#xa0;713,
                <i>Cereals and cereal products</i>
                 .
                <a href='spec/assets/iso713'>spec/assets/iso713</a>
                 .
              </p>
              <p id='ISO714' class='NormRef'>
-               ISO 714,
+               ISO&#xa0;714,
                <i>Cereals and cereal products</i>
                 .
                <a href='spec/assets/iso714.svg'>spec/assets/iso714.svg</a>
@@ -1618,13 +1618,13 @@ RSpec.describe IsoDoc do
          <preface>
            <foreword displayorder='1'>
              <p>
-               <eref type='inline' bibitemid='ISO712' citeas='ISO 712'>ISO 712</eref>
-               <eref type='inline' bibitemid='ISO712'>ISO 712</eref>
+               <eref type='inline' bibitemid='ISO712' citeas='ISO 712'>ISO&#xa0;712</eref>
+               <eref type='inline' bibitemid='ISO712'>ISO&#xa0;712</eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='table'>
                    <referenceFrom>1</referenceFrom>
                  </locality>
-                 ISO 713, Table 1
+                 ISO&#xa0;713, Table 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <localityStack connective="and">
@@ -1632,7 +1632,7 @@ RSpec.describe IsoDoc do
                      <referenceFrom>1</referenceFrom>
                    </locality>
                  </localityStack>
-                 ISO 713, Table 1
+                 ISO&#xa0;713, Table 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <localityStack connective="and">
@@ -1645,14 +1645,14 @@ RSpec.describe IsoDoc do
                      <referenceFrom>1</referenceFrom>
                    </locality>
                  </localityStack>
-                 ISO 713, Table 1 and Clause 1
+                 ISO&#xa0;713, Table 1 and Clause 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='table'>
                    <referenceFrom>1</referenceFrom>
                    <referenceTo>1</referenceTo>
                  </locality>
-                 ISO 713, Table 1&#x2013;1
+                 ISO&#xa0;713, Table 1&#x2013;1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='clause'>
@@ -1661,19 +1661,19 @@ RSpec.describe IsoDoc do
                  <locality type='table'>
                    <referenceFrom>1</referenceFrom>
                  </locality>
-                 ISO 713, Clause 1, Table 1
+                 ISO&#xa0;713, Clause 1, Table 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='clause'>
                    <referenceFrom>1</referenceFrom>
                  </locality>
-                 ISO 713, Clause 1
+                 ISO&#xa0;713, Clause 1
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='clause'>
                    <referenceFrom>1.5</referenceFrom>
                  </locality>
-                 ISO 713, Clause 1.5
+                 ISO&#xa0;713, Clause 1.5
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='table'>
@@ -1683,20 +1683,20 @@ RSpec.describe IsoDoc do
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='whole'/>
-                 ISO 713, Whole of text
+                 ISO&#xa0;713, Whole of text
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='locality:prelude'>
                    <referenceFrom>7</referenceFrom>
                  </locality>
-                 ISO 713, Prelude 7
+                 ISO&#xa0;713, Prelude 7
                </eref>
                <eref type='inline' bibitemid='ISO713' citeas='ISO 713'>A</eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='anchor'>
                    <referenceFrom>xyz</referenceFrom>
                  </locality>
-                 ISO 713
+                 ISO&#xa0;713
                </eref>
                <eref type='inline' bibitemid='ISO713'>
                  <locality type='anchor'>
@@ -1705,7 +1705,7 @@ RSpec.describe IsoDoc do
                  <locality type='clause'>
                    <referenceFrom>1</referenceFrom>
                  </locality>
-                 ISO 713, Clause 1
+                 ISO&#xa0;713, Clause 1
                </eref>
              </p>
            </foreword>
@@ -1716,13 +1716,13 @@ RSpec.describe IsoDoc do
              <bibitem id='ISO712' type='standard' hidden="true">
                <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
                <uri type='citation'>http://www.example.com</uri>
-               <docidentifier>ISO 712</docidentifier>
+               <docidentifier>ISO&#xa0;712</docidentifier>
              </bibitem>
              <bibitem id='ISO713' type='standard' hidden="true">
                <formattedref><em>Cereals and cereal products</em>. <link target="https://www.iso.org/standard/3944.html">https://www.iso.org/standard/3944.html</link>.</formattedref>
              <uri type='src'>https://www.iso.org/standard/3944.html</uri>
               <uri type='rss'>https://www.iso.org/contents/data/standard/00/39/3944.detail.rss</uri>
-               <docidentifier>ISO 713</docidentifier>
+               <docidentifier>ISO&#xa0;713</docidentifier>
              </bibitem>
            </references>
          </bibliography>
@@ -1734,21 +1734,21 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class='ForewordTitle'>Foreword</h1>
                <p>
-                 <a href='http://www.example.com'>ISO 712</a>
-                 <a href='http://www.example.com'>ISO 712</a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 and Clause 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1&#8211;1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1, Table 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1.5 </a>
+                 <a href='http://www.example.com'>ISO&#xa0;712</a>
+                 <a href='http://www.example.com'>ISO&#xa0;712</a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 and Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1&#8211;1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1.5 </a>
                  <a href='https://www.iso.org/standard/3944.html'> A </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Whole of text </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Prelude 7 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Whole of text </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Prelude 7 </a>
                  <a href='https://www.iso.org/standard/3944.html'>A</a>
-                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO 713 </a>
-                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO 713, Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713 </a>
+                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713, Clause 1 </a>
                </p>
              </div>
              <p class='zzSTDTitle1'/>
@@ -1773,21 +1773,21 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class='ForewordTitle'>Foreword</h1>
                <p>
-                 <a href='http://www.example.com'>ISO 712</a>
-                 <a href='http://www.example.com'>ISO 712</a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1 and Clause 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Table 1&#8211;1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1, Table 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1 </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Clause 1.5 </a>
+                 <a href='http://www.example.com'>ISO&#xa0;712</a>
+                 <a href='http://www.example.com'>ISO&#xa0;712</a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 and Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1&#8211;1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1, Table 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1.5 </a>
                  <a href='https://www.iso.org/standard/3944.html'> A </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Whole of text </a>
-                 <a href='https://www.iso.org/standard/3944.html'> ISO 713, Prelude 7 </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Whole of text </a>
+                 <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Prelude 7 </a>
                  <a href='https://www.iso.org/standard/3944.html'>A</a>
-                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO 713 </a>
-                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO 713, Clause 1 </a>
+                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713 </a>
+                 <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713, Clause 1 </a>
                </p>
              </div>
              <p>&#160;</p>
@@ -1852,8 +1852,8 @@ RSpec.describe IsoDoc do
               <bibitem id='ISO712' type='standard'>
                  <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
                  <uri type='citation'>http://www.example.com</uri>
-                <docidentifier>ISO 712</docidentifier>
-                <biblio-tag>ISO 712,</biblio-tag>
+                <docidentifier>ISO&#xa0;712</docidentifier>
+                <biblio-tag>ISO&#xa0;712,</biblio-tag>
               </bibitem>
             </references>
           </bibliography>
