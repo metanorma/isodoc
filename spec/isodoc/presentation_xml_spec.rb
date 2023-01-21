@@ -45,7 +45,7 @@ RSpec.describe IsoDoc do
                  <semantic__preface>
                    <semantic__foreword id="semantic__fwd">
                      <semantic__p>
-                       <semantic__xref target="N1"/>
+                       <semantic__xref target="semantic__N1"/>
                      </semantic__p>
                    </semantic__foreword>
                    <semantic__introduction id="semantic__intro">

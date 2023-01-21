@@ -112,10 +112,11 @@ module IsoDoc
     end
 
     def embedable_semantic_xml_attributes(xml)
-      Metanorma::Utils::anchor_attributes.each do |(tag_name, attribute_name)|
-        xml.xpath(ns("//#{tag_name}[@#{attribute_name}]")).each do |elem|
-          elem.attributes[attribute_name].value =
-            "semantic__#{elem.attributes[attribute_name].value}"
+      Metanorma::Utils::anchor_attributes.each do |(tag_name, attr_name)|
+        tag_name == "*" or tag_name = "semantic__#{tag_name}"
+        xml.xpath(ns("//#{tag_name}[@#{attr_name}]")).each do |elem|
+          elem.attributes[attr_name].value =
+            "semantic__#{elem.attributes[attr_name].value}"
         end
       end
       xml
