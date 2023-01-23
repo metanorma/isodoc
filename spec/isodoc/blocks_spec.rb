@@ -234,7 +234,7 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -339,7 +339,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -401,7 +401,7 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
@@ -677,7 +677,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
@@ -724,7 +724,7 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -878,7 +878,7 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
@@ -962,7 +962,7 @@ RSpec.describe IsoDoc do
          </preface>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
       .to be_equivalent_to xmlpp(presxml)
   end
@@ -999,7 +999,7 @@ RSpec.describe IsoDoc do
          </preface>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true)
         .gsub(/&lt;/, "&#x3c;")
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
@@ -1093,7 +1093,7 @@ RSpec.describe IsoDoc do
       </html>
     DOC
 
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .gsub(/&lt;/, "&#x3c;")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
@@ -1185,7 +1185,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
      .convert("test", input, true)
      .gsub(/&lt;/, "&#x3c;"))
           .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
@@ -1221,7 +1221,7 @@ RSpec.describe IsoDoc do
         </iso-standard>
       INPUT
       expect do
-        IsoDoc::PresentationXMLConvert.new({})
+        IsoDoc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true)
       end.to raise_error("Inkscape missing in PATH, unable" \
                          "to convert image spec/assets/odf1.svg. Aborting.")
@@ -1321,7 +1321,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -1367,7 +1367,7 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -1414,7 +1414,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
@@ -1468,7 +1468,7 @@ RSpec.describe IsoDoc do
               </body>
           </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
@@ -1612,7 +1612,7 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -1721,7 +1721,7 @@ RSpec.describe IsoDoc do
           </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -1896,7 +1896,7 @@ RSpec.describe IsoDoc do
               </body>
             </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -2012,7 +2012,7 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
   .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
@@ -2132,7 +2132,7 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
@@ -2309,7 +2309,7 @@ RSpec.describe IsoDoc do
                </bibliography>
              </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"\.\\}, '"./')
@@ -2542,7 +2542,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
      .convert("test", input, true)
      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)

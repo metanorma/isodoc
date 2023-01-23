@@ -50,6 +50,8 @@ module IsoDoc
     # fontlicenseagreement: fontist font license agreement
     # modspecidentifierbase: base prefix for any Modspec identifiers
     # sourcehighlighter: whether to apply sourcecode highlighting
+    # semantic_xml_insert: whether to insert into presentation XML
+    #   a copy of semantic XML
     def initialize(options) # rubocop:disable Lint/MissingSuper
       @options = options_preprocess(options)
       init_stylesheets(@options)
@@ -60,6 +62,7 @@ module IsoDoc
       init_locations(@options)
       init_i18n(@options)
       init_rendering(@options)
+      init_arrangement(@options)
     end
 
     def options_preprocess(options)
@@ -77,12 +80,16 @@ module IsoDoc
       @datauriimage = options[:datauriimage]
       @suppressheadingnumbers = options[:suppressheadingnumbers]
       @break_up_urls_in_tables = options[:breakupurlsintables]
-      @sectionsplit = options[:sectionsplit] == "true"
       @suppressasciimathdup = options[:suppressasciimathdup]
-      @bare = options[:bare]
       @aligncrosselements = options[:aligncrosselements]
       @modspecidentifierbase = options[:modspecidentifierbase]
       @sourcehighlighter = options[:sourcehighlighter]
+    end
+
+    def init_arrangement(options)
+      @sectionsplit = options[:sectionsplit] == "true"
+      @bare = options[:bare]
+      @semantic_xml_insert = options[:semanticxmlinsert] != "false"
     end
 
     def init_i18n(options)
@@ -187,7 +194,7 @@ module IsoDoc
       @xrefs.parse docxml
       bibitem_lookup(docxml)
       noko do |xml|
-        xml.html **{ lang: @lang.to_s } do |html|
+        xml.html lang: @lang.to_s do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
           info docxml, nil
           populate_css

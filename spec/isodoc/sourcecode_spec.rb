@@ -79,7 +79,7 @@ RSpec.describe IsoDoc do
                 </body>
             </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -108,7 +108,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
-         <misc-container>
+         <metanorma-extension>
            <source-highlighter-css>sourcecode table td { padding: 5px; }
        sourcecode table pre { margin: 0; }
        sourcecode, sourcecode .w {
@@ -148,7 +148,7 @@ RSpec.describe IsoDoc do
          color: #0000FF;
        }
        </source-highlighter-css>
-         </misc-container>
+         </metanorma-extension>
          <preface>
            <foreword displayorder="1">
              <sourcecode lang="ruby" id="samplecode">
@@ -316,7 +316,8 @@ RSpec.describe IsoDoc do
       </body>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ sourcehighlighter: true })
+      .new({ sourcehighlighter: true }
+      .merge(presxml_options))
       .convert("test", input, true))
     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -409,9 +410,10 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: true })
+  .new({ sourcehighlighter: true }
+      .merge(presxml_options))
   .convert("test", input, true))
-  .sub(%r{<misc-container>.*</misc-container>}m, "")
+  .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
@@ -491,9 +493,10 @@ RSpec.describe IsoDoc do
          </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: true })
+  .new({ sourcehighlighter: true }
+      .merge(presxml_options))
   .convert("test", input, true))
-  .sub(%r{<misc-container>.*</misc-container>}m, "")
+  .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
@@ -641,9 +644,10 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: true })
+  .new({ sourcehighlighter: true }
+      .merge(presxml_options))
   .convert("test", input, true))
-  .sub(%r{<misc-container>.*</misc-container>}m, "")
+  .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
@@ -808,7 +812,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     FileUtils.rm_f "test.doc"
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)

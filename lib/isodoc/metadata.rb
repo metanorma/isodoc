@@ -170,7 +170,7 @@ module IsoDoc
     end
 
     def code_css(isoxml, _out)
-      c = isoxml.at(ns("//misc-container/source-highlighter-css")) or return
+      c = isoxml.at(ns("//metanorma-extension/source-highlighter-css")) or return
       set(:code_css, c.text)
     end
   end

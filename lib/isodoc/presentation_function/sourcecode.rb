@@ -2,8 +2,8 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def sourcehighlighter_css(docxml)
       @sourcehighlighter or return
-      ins = docxml.at(ns("//misc-container")) ||
-        docxml.at(ns("//bibdata")).after("<misc-container/>").next_element
+      ins = docxml.at(ns("//metanorma-extension")) ||
+        docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
       ins << "<source-highlighter-css>#{sourcehighlighter_css_file}" \
              "</source-highlighter-css>"
     end

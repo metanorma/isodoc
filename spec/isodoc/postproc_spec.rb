@@ -425,7 +425,7 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
-  it "reorders footnote numbers in HTML" do
+ it "reorders footnote numbers in HTML" do
     FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",

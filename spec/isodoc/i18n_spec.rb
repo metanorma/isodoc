@@ -220,7 +220,7 @@ RSpec.describe IsoDoc do
              </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({}).convert("test", input, true)
+      .new(presxml_options).convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
@@ -371,7 +371,7 @@ RSpec.describe IsoDoc do
           </bibliography>
           </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(output)
@@ -595,7 +595,7 @@ RSpec.describe IsoDoc do
                  </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
@@ -838,7 +838,7 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
@@ -1139,7 +1139,8 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ i18nyaml: "spec/assets/i18n.yaml" })
+      .new({ i18nyaml: "spec/assets/i18n.yaml" }
+      .merge(presxml_options))
       .convert("test", input, true)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert
@@ -1199,7 +1200,8 @@ RSpec.describe IsoDoc do
       </foreword>
     OUTPUT
     expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
-      .new({ i18nyaml: "spec/assets/i18n.yaml" })
+      .new({ i18nyaml: "spec/assets/i18n.yaml" }
+      .merge(presxml_options))
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(presxml)
