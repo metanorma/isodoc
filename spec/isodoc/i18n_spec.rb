@@ -711,7 +711,7 @@ RSpec.describe IsoDoc do
              </introduction></preface><sections>
              <clause id="D" obligation="normative" type="scope" displayorder="3">
                <title depth="1">1.<tab/>Scope</title>
-               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO 712，第1～1  表</eref></p>
+               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO&#xa0;712，第1～1  表</eref></p>
              </clause>
              <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
                <title depth="2">3.1.<tab/>Normal Terms</title>
@@ -749,8 +749,8 @@ RSpec.describe IsoDoc do
              </annex><bibliography><references id="R" obligation="informative" normative="true" displayorder="4">
                <title depth="1">2.<tab/>Normative References</title>
                <bibitem id="ISO712" type="standard">
-                  <formattedref><em>Cereals and cereal products</em>．</formattedref><docidentifier>ISO 712</docidentifier>
-                  <biblio-tag>ISO 712,</biblio-tag>
+                  <formattedref><em>Cereals and cereal products</em>．</formattedref><docidentifier>ISO&#xa0;712</docidentifier>
+                  <biblio-tag>ISO&#xa0;712,</biblio-tag>
                </bibitem>
              </references><clause id="S" obligation="informative" displayorder="9">
                <title depth="1">Bibliography</title>
@@ -780,12 +780,12 @@ RSpec.describe IsoDoc do
              <div id="D">
                <h1>1.　Scope</h1>
                <p id="E">
-                 <a href="#ISO712">ISO 712，第1～1  表</a>
+                 <a href="#ISO712">ISO&#xa0;712，第1～1  表</a>
                </p>
              </div>
              <div><h1>2.　Normative References</h1>
 
-                <p id="ISO712" class="NormRef">ISO 712, <i>Cereals and cereal products</i>．</p>
+                <p id="ISO712" class="NormRef">ISO&#xa0;712, <i>Cereals and cereal products</i>．</p>
               </div>
              <div id="H">
                <h1>3.　Terms, definitions, symbols and abbreviated terms</h1>
@@ -967,7 +967,7 @@ RSpec.describe IsoDoc do
              </introduction></preface><sections>
              <clause id="D" obligation="normative" type="scope" displayorder="3">
                <title depth="1">1.<tab/>Scope</title>
-               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO 712, Tabelo 1&#x2013;1</eref></p>
+               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO&#xa0;712, Tabelo 1&#x2013;1</eref></p>
              </clause>
              <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
                <title depth="2">3.1.<tab/>Normal Terms</title>
@@ -1007,8 +1007,8 @@ RSpec.describe IsoDoc do
                <title depth="1">2.<tab/>Normative References</title>
                <bibitem id="ISO712" type="standard">
                <formattedref><em>Cereals and cereal products</em>.</formattedref>
-        <docidentifier>ISO 712</docidentifier>
-         <biblio-tag>ISO 712,</biblio-tag>
+        <docidentifier>ISO&#xa0;712</docidentifier>
+         <biblio-tag>ISO&#xa0;712,</biblio-tag>
       </bibitem>
              </references><clause id="S" obligation="informative" displayorder="9">
                <title depth="1">Bibliography</title>
@@ -1058,13 +1058,13 @@ RSpec.describe IsoDoc do
                    <div id='D'>
                      <h1>1.&#160; Scope</h1>
                      <p id='E'>
-                       <a href='#ISO712'>ISO 712, Tabelo 1&#8211;1</a>
+                       <a href='#ISO712'>ISO&#xa0;712, Tabelo 1&#8211;1</a>
                      </p>
                    </div>
                    <div>
                      <h1>2.&#160; Normative References</h1>
                      <p id='ISO712' class='NormRef'>
-                       ISO 712,
+                       ISO&#xa0;712,
                        <i>Cereals and cereal products</i>.
                      </p>
                    </div>
@@ -1194,7 +1194,7 @@ RSpec.describe IsoDoc do
             <locality type='locality:prelude'>
               <referenceFrom>7</referenceFrom>
             </locality>
-            ISO 712, Preludo 7
+            ISO&#xa0;712, Preludo 7
           </eref>
         </p>
       </foreword>

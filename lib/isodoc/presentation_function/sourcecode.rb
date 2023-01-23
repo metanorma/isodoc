@@ -15,10 +15,11 @@ module IsoDoc
 
     def sourcehighlighter
       @sourcehighlighter or return
+      Rouge::Formatter.enable_escape!
       f = Rouge::Formatters::HTML.new
       opts = { gutter_class: "rouge-gutter", code_class: "rouge-code" }
-      { formatter: f,
-        formatter_line: Rouge::Formatters::HTMLLineTable.new(f, opts) }
+      f1 = Rouge::Formatters::HTMLLineTable.new(f, opts)
+      { formatter: f, formatter_line: f1 }
     end
 
     def sourcecode(docxml)
@@ -50,6 +51,11 @@ module IsoDoc
     def source_remove_markup(elem)
       ret = {}
       name = elem.at(ns("./name")) and ret[:name] = name.remove.to_xml
+      source_remove_annotations(ret, elem)
+      ret
+    end
+
+    def source_remove_annotations(ret, elem)
       ret[:ann] = elem.xpath(ns("./annotation")).each(&:remove)
       ret[:call] = elem.xpath(ns("./callout")).each_with_object([]) do |c, m|
         m << { xml: c.remove.to_xml, line: c.line - elem.line }
@@ -99,9 +105,11 @@ module IsoDoc
     end
 
     def source_lex(elem)
-      l = (Rouge::Lexer.find(elem["lang"] || "plaintext") ||
+      lexer = (Rouge::Lexer.find(elem["lang"] || "plaintext") ||
        Rouge::Lexer.find("plaintext"))
-      l.lex(@c.decode(elem.children.to_xml))
+      l = Rouge::Lexers::Escape.new(start: "{^^{", end: "}^^}", lang: lexer)
+      source = to_xml(elem.children).gsub(/</, "{^^{<").gsub(/>/, ">}^^}")
+      l.lex(@c.decode(source))
     end
 
     def source_label(elem)

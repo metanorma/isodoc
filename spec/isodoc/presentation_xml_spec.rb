@@ -1908,7 +1908,7 @@ RSpec.describe IsoDoc do
             </title>
             <p id='_8d98c053-85d7-e8cc-75bb-183a14209d61'>A</p>
             <p id='_2141c040-93a4-785a-73f0-ffad4fa1779f'>
-              <eref type='inline' bibitemid='_607373b1-0cc4-fcdb-c482-fd86ae572bd1' citeas='ISO 639-2'>ISO 639-2</eref>
+              <eref type='inline' bibitemid='_607373b1-0cc4-fcdb-c482-fd86ae572bd1' citeas='ISO 639-2'>ISO&#xa0;639-2</eref>
             </p>
           </clause>
           <terms id='_terms_and_definitions' obligation='normative' displayorder='3'>
@@ -1967,10 +1967,92 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "propagates boldface into MathML" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+                <preface><foreword>
+                <note>
+                <strong><stem type="MathML">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <mfenced open="[" close="]">
+            <mrow>
+              <mi>a</mi>
+              <mo>,</mo>
+              <mi>b</mi>
+            </mrow>
+          </mfenced>
+        </math>
+        <asciimath>[a,b]</asciimath>
+      </stem></strong>
+      <stem type="MathML">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <mfenced open="[" close="]">
+            <mrow>
+              <mi>a</mi>
+              <mo>,</mo>
+              <mi>b</mi>
+            </mrow>
+          </mfenced>
+        </math>
+        <asciimath>[a,b]</asciimath>
+      </stem>
+            </note>
+                </foreword></preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+          <foreword displayorder="1">
+            <note>
+              <name>NOTE</name>
+              <strong>
+                <stem type="MathML">
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mstyle fontweight="bold">
+                      <mfenced open="[" close="]">
+                        <mrow>
+                          <mi>a</mi>
+                          <mo>,</mo>
+                          <mi>b</mi>
+                        </mrow>
+                      </mfenced>
+                    </mstyle>
+                  </math>
+                  <!-- [a , b] -->
+                  <asciimath>[a,b]</asciimath>
+                </stem>
+              </strong>
+              <stem type="MathML">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <mfenced open="[" close="]">
+                    <mrow>
+                      <mi>a</mi>
+                      <mo>,</mo>
+                      <mi>b</mi>
+                    </mrow>
+                  </mfenced>
+                </math>
+                <!-- [a , b] -->
+                <asciimath>[a,b]</asciimath>
+              </stem>
+            </note>
+          </foreword>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   private
 
   def mock_symbols
-    allow_any_instance_of(::IsoDoc::PresentationXMLConvert)
+    allow_any_instance_of(IsoDoc::PresentationXMLConvert)
       .to receive(:twitter_cldr_localiser_symbols).and_return(group: "'")
   end
 end

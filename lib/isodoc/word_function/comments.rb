@@ -4,7 +4,7 @@ module IsoDoc
       def comments(div)
         return if @comments.empty?
 
-        div.div **{ style: "mso-element:comment-list" } do |div1|
+        div.div style: "mso-element:comment-list" do |div1|
           @comments.each { |fn| div1.parent << fn }
         end
       end
@@ -26,28 +26,27 @@ module IsoDoc
       # add in from and to links to move the comment into place
       def make_comment_link(out, fnote, node)
         out.span(**comment_link_attrs(fnote, node)) do |s1|
-          s1.span **{ lang: "EN-GB", style: "font-size:9.0pt" } do |s2|
-            s2.a **{ style: "mso-comment-reference:SMC_#{fnote};"\
+          s1.span lang: "EN-GB", style: "font-size:9.0pt" do |s2|
+            s2.a style: "mso-comment-reference:SMC_#{fnote};" \
                             "mso-comment-date:#{node['date'].gsub(/[:-]+/,
-                                                                  '')}" }
-            s2.span **{ style: "mso-special-character:comment",
-                        target: fnote } # do |s|
+                                                                  '')}"
+            s2.span style: "mso-special-character:comment", target: fnote # do |s|
           end
         end
       end
 
       def make_comment_target(out)
-        out.span **{ style: "MsoCommentReference" } do |s1|
-          s1.span **{ lang: "EN-GB", style: "font-size:9.0pt" } do |s2|
-            s2.span **{ style: "mso-special-character:comment" }
+        out.span style: "MsoCommentReference" do |s1|
+          s1.span lang: "EN-GB", style: "font-size:9.0pt" do |s2|
+            s2.span style: "mso-special-character:comment"
           end
         end
       end
 
       def make_comment_text(node, fnote)
         noko do |xml|
-          xml.div **{ style: "mso-element:comment", id: fnote } do |div|
-            div.span **{ style: %{mso-comment-author:"#{node['reviewer']}"} }
+          xml.div style: "mso-element:comment", id: fnote do |div|
+            div.span style: %{mso-comment-author:"#{node['reviewer']}"}
             make_comment_target(div)
             node.children.each { |n| parse(n, div) }
           end
@@ -61,7 +60,7 @@ module IsoDoc
       end
 
       COMMENT_IN_COMMENT_LIST1 =
-        '//div[@style="mso-element:comment-list"]//'\
+        '//div[@style="mso-element:comment-list"]//' \
         'span[@style="MsoCommentReference"]'.freeze
 
       def embed_comment_in_comment_list(docxml)
@@ -80,18 +79,24 @@ module IsoDoc
         link.children = fromlink
       end
 
-      def comment_attributes(docxml, x)
-        fromlink = docxml.at("//*[@id='#{x['from']}']")
+      def comment_attributes(docxml, span)
+        fromlink = docxml.at("//*[@id='#{span['from']}']")
         return(nil) if fromlink.nil?
 
-        tolink = docxml.at("//*[@id='#{x['to']}']") || fromlink
-        target = docxml.at("//*[@id='#{x['target']}']")
+        tolink = docxml.at("//*[@id='#{span['to']}']") || fromlink
+        target = docxml.at("//*[@id='#{span['target']}']")
         { from: fromlink, to: tolink, target: target }
       end
 
       def wrap_comment_cont(from, target)
-        s = from.replace("<span style='mso-comment-continuation:#{target}'>")
-        s.first.children = from
+        if %w(ol ul li div p).include?(from.name)
+          from.children.each do |c|
+            wrap_comment_cont(c, target)
+          end
+        else
+          s = from.replace("<span style='mso-comment-continuation:#{target}'>")
+          s.first.children = from
+        end
       end
 
       def skip_comment_wrap(from)
