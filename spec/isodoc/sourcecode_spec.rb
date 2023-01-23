@@ -672,10 +672,8 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
-
-
          <preface>
            <foreword id="X" displayorder="1">
              <sourcecode id="_" lang="ruby" linenums="true">
@@ -762,9 +760,10 @@ RSpec.describe IsoDoc do
        </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ sourcehighlighter: true })
+  .new({ sourcehighlighter: true }
+      .merge(presxml_options))
       .convert("test", input, true))
-      .sub(%r{<misc-container>.*</misc-container>}m, "")
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
   end
