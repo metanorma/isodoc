@@ -33,7 +33,7 @@ RSpec.describe IsoDoc do
             <figure id="N1"> <name>Split-it-right sample divider</name>
                <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
             </figure>
-      </introduction>
+      </introduction></preface>
       </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -77,6 +77,38 @@ RSpec.describe IsoDoc do
     expect(xmlpp(IsoDoc::PresentationXMLConvert
       .new({})
       .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes user-css" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata type="standard"/>
+          <metanorma-extension><clause id="_user_css" inline-header="false" obligation="normative">
+      <title>user-css</title>
+      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
+
+      </clause>
+      </metanorma-extension>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <bibdata type="standard"/>
+
+        <metanorma-extension>
+          <clause id="_user_css" inline-header="false" obligation="normative">
+            <title depth="1">user-css</title>
+            <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
+          </clause>
+          <source-highlighter-css>
+      .green { background-color: green }</source-highlighter-css>
+        </metanorma-extension>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+  .convert("test", input, true))
+  .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(output)
   end
 
