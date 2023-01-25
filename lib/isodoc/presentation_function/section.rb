@@ -17,7 +17,7 @@ module IsoDoc
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
       t = elem.at(ns("./title")) and t["depth"] = level
-      return if !elem.ancestors("boilerplate").empty? ||
+      return if !elem.ancestors("boilerplate, metanorma-extension").empty? ||
         @suppressheadingnumbers || elem["unnumbered"]
 
       lbl = @xrefs.anchor(elem["id"], :label,

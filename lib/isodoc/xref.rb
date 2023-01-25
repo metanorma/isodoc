@@ -49,7 +49,6 @@ module IsoDoc
       return nil if ident.nil? || ident.empty?
 
       if warning && !@anchors[ident]
-        @seen ||= SeenAnchor.instance
         @seen.seen(ident) or warn "No label has been processed for ID #{ident}"
         @seen.add(ident)
         return "[#{ident}]"
@@ -59,6 +58,7 @@ module IsoDoc
 
     # extract names for all anchors, xref and label
     def parse(docxml)
+      @seen = SeenAnchor.new(docxml)
       amend_preprocess(docxml) if @parse_settings.empty?
       initial_anchor_names(docxml)
       back_anchor_names(docxml)

@@ -1,16 +1,23 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def sourcehighlighter_css(docxml)
-      @sourcehighlighter or return
+      ret = custom_css(docxml)
+      ret.empty? and return
       ins = docxml.at(ns("//metanorma-extension")) ||
         docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
-      ins << "<source-highlighter-css>#{sourcehighlighter_css_file}" \
+      ins << "<source-highlighter-css>#{ret}" \
              "</source-highlighter-css>"
     end
 
-    def sourcehighlighter_css_file
-      File.read(File.join(File.dirname(__FILE__), "..", "base_style",
-                          "rouge.css"))
+    def custom_css(docxml)
+      ret = ""
+      @sourcehighlighter and
+        ret += File.read(File.join(File.dirname(__FILE__), "..", "base_style",
+                                   "rouge.css"))
+      a = docxml.at(ns("//metanorma-extension/" \
+                       "clause[title = 'user-css']/sourcecode")) and
+        ret += "\n#{to_xml(a.children)}"
+      ret
     end
 
     def sourcehighlighter
