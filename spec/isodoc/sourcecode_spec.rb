@@ -331,6 +331,80 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(doc)
   end
 
+  it "combines sourcecode highlighting stylesheet with user-css" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+      <metanorma-extension><clause id="_user_css" inline-header="false" obligation="normative">
+      <title>user-css</title>
+      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
+      </clause>
+      </metanorma-extension>
+      <preface><foreword>
+      <sourcecode lang="ruby" id="samplecode">
+          puts x
+      </sourcecode>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+         <metanorma-extension>
+           <clause id="_user_css" inline-header="false" obligation="normative">
+             <title depth="1">user-css</title>
+             <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
+           </clause>
+           <source-highlighter-css>sourcecode table td { padding: 5px; }
+       sourcecode table pre { margin: 0; }
+       sourcecode, sourcecode .w {
+         color: #444444;
+       }
+       sourcecode .cp {
+         color: #CC00A3;
+       }
+       sourcecode .cs {
+         color: #CC00A3;
+       }
+       sourcecode .c, sourcecode .ch, sourcecode .cd, sourcecode .cm, sourcecode .cpf, sourcecode .c1 {
+         color: #FF0000;
+       }
+       sourcecode .kc {
+         color: #C34E00;
+       }
+       sourcecode .kd {
+         color: #0000FF;
+       }
+       sourcecode .kr {
+         color: #007575;
+       }
+       sourcecode .k, sourcecode .kn, sourcecode .kp, sourcecode .kt, sourcecode .kv {
+         color: #0000FF;
+       }
+       sourcecode .s, sourcecode .sb, sourcecode .sc, sourcecode .ld, sourcecode .sd, sourcecode .s2, sourcecode .se, sourcecode .sh, sourcecode .si, sourcecode .sx, sourcecode .sr, sourcecode .s1, sourcecode .ss {
+         color: #009C00;
+       }
+       sourcecode .sa {
+         color: #0000FF;
+       }
+       sourcecode .nb, sourcecode .bp {
+         color: #C34E00;
+       }
+       sourcecode .nt {
+         color: #0000FF;
+       }
+
+
+       .green { background-color: green }</source-highlighter-css>
+         </metanorma-extension>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new({ sourcehighlighter: true }
+      .merge(presxml_options))
+      .convert("test", input, true))
+      .at("//xmlns:metanorma-extension")
+    expect(xmlpp(xml.to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   it "processes sourcecode with escapes preserved, and XML sourcecode highlighting" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">

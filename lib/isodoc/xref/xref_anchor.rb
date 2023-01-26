@@ -4,10 +4,12 @@ module IsoDoc
   module XrefGen
     module Anchor
       class SeenAnchor
-        include Singleton
-
-        def initialize
+        def initialize(xmldoc)
           @seen = {}
+          # ignore all metanorma-extension ids
+          xmldoc.xpath("//xmlns:metanorma-extension//*[@id]").each do |x|
+            add(x["id"])
+          end
         end
 
         def seen(elem)
