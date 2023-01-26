@@ -87,10 +87,11 @@ module IsoDoc
 
     def semantic_xml_insert(xml)
       @semantic_xml_insert or return
-      embed = to_xml(embedable_semantic_xml(xml))
+      embed = embedable_semantic_xml(xml)
       ins = metanorma_extension_insert_pt(xml)
       ins = ins.at(ns("./metanorma")) || ins.add_child("<metanorma/>").first
-      ins << "<source>#{embed}</source>"
+      ins = ins.add_child("<source/>").first
+      ins << embed
     end
 
     def metanorma_extension_insert_pt(xml)
@@ -107,14 +108,15 @@ module IsoDoc
     end
 
     def embedable_semantic_xml_tags(xml)
-      Nokogiri::XML(to_xml(xml).gsub(%r{(</?)([[:alpha:]])},
-                                     "\\1semantic__\\2")).root
+      Nokogiri::XML(to_xml(xml)
+        .sub(/ xmlns=['"][^"']+['"]/, "")
+        .gsub(%r{(</?)([[:alpha:]])}, "\\1semantic__\\2")).root
     end
 
     def embedable_semantic_xml_attributes(xml)
       Metanorma::Utils::anchor_attributes.each do |(tag_name, attr_name)|
         tag_name == "*" or tag_name = "semantic__#{tag_name}"
-        xml.xpath(ns("//#{tag_name}[@#{attr_name}]")).each do |elem|
+        xml.xpath("//#{tag_name}[@#{attr_name}]").each do |elem|
           elem.attributes[attr_name].value =
             "semantic__#{elem.attributes[attr_name].value}"
         end
