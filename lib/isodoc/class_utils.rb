@@ -76,8 +76,11 @@ module IsoDoc
 
     # node is at the start of sentence in a Metanorma XML context
     def start_of_sentence(node)
-      prec = nearest_block_parent(node).xpath("./descendant-or-self::text()") &
-        node.xpath("./preceding::text()")
+      prec = [] # all text nodes before node
+      nearest_block_parent(node).traverse do |x|
+        x == node and break
+        x.text? and prec << x
+      end
       prec.empty? || /(?!<[^.].)\.\s+$/.match(prec.map(&:text).join)
     end
   end
