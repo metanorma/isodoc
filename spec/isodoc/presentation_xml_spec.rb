@@ -2043,7 +2043,7 @@ RSpec.describe IsoDoc do
               <strong>
                 <stem type="MathML">
                   <math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <mstyle fontweight="bold">
+                    <mstyle mathvariant="bold">
                       <mfenced open="[" close="]">
                         <mrow>
                           <mi>a</mi>

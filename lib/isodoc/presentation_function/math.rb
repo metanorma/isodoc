@@ -106,7 +106,7 @@ module IsoDoc
     def mathml_style_inherit(node)
       node.at("./ancestor::xmlns:strong") or return
       node.children =
-        "<mstyle fontweight='bold'>#{node.children.to_xml}</mstyle>"
+        "<mstyle mathvariant='bold'>#{node.children.to_xml}</mstyle>"
     end
 
     def mathml_number_to_number(node)
