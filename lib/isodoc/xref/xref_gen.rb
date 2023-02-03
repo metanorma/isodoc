@@ -92,14 +92,15 @@ module IsoDoc
         SECTIONS_XPATH
       end
 
-      CHILD_NOTES_XPATH =
+      def child_asset_path(asset)
         "./*[not(self::xmlns:clause) and not(self::xmlns:appendix) and " \
-        "not(self::xmlns:terms) and not(self::xmlns:definitions)]//xmlns:note | " \
-        "./xmlns:note".freeze
+        "not(self::xmlns:terms) and not(self::xmlns:definitions)]//xmlns:X | " \
+        "./xmlns:X".gsub("X", asset)
+      end
 
       def note_anchor_names(sections)
         sections.each do |s|
-          notes = s.xpath(CHILD_NOTES_XPATH) -
+          notes = s.xpath(child_asset_path("note")) -
             s.xpath(ns(".//figure//note | .//table//note"))
           note_anchor_names1(notes, Counter.new)
           note_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
@@ -116,17 +117,28 @@ module IsoDoc
         end
       end
 
-      CHILD_EXAMPLES_XPATH =
-        "./*[not(self::xmlns:clause) and not(self::xmlns:appendix) and " \
-        "not(self::xmlns:terms) and not(self::xmlns:definitions)]//" \
-        "xmlns:example | ./xmlns:example".freeze
-
       CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | " \
                        "./references".freeze
 
+      def admonition_anchor_names(sections)
+        sections.each do |s|
+          notes = s.xpath(child_asset_path("admonition[@type = 'box']"))
+          admonition_anchor_names1(notes, Counter.new)
+          admonition_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+        end
+      end
+
+      def admonition_anchor_names1(notes, counter)
+        notes.noblank.each do |n|
+          @anchors[n["id"]] ||=
+            anchor_struct(increment_label(notes, n, counter), n,
+                          @labels["box"], "admonition", n["unnumbered"])
+        end
+      end
+
       def example_anchor_names(sections)
         sections.each do |s|
-          notes = s.xpath(CHILD_EXAMPLES_XPATH)
+          notes = s.xpath(child_asset_path("example"))
           example_anchor_names1(notes, Counter.new)
           example_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
         end
@@ -154,7 +166,8 @@ module IsoDoc
         end
       end
 
-      def list_item_anchor_names(list, list_anchor, depth, prev_label, refer_list)
+      def list_item_anchor_names(list, list_anchor, depth, prev_label,
+refer_list)
         c = Counter.new(list["start"] ? list["start"].to_i - 1 : 0)
         list.xpath(ns("./li")).each do |li|
           label = c.increment(li).listlabel(list, depth)

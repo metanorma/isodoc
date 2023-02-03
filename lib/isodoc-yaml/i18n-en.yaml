@@ -61,6 +61,7 @@ table: Table
 requirement: Requirement
 recommendation: Recommendation
 permission: Permission
+box: Box
 # Modspec
 recommendationtest: Recommendation test
 requirementtest: Requirement test
