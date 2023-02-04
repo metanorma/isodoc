@@ -58,6 +58,7 @@ table: Tableau
 requirement: Exigence
 recommendation: Recommandation
 permission: Autorisation
+box: Encadré
 key: Légende
 example: EXEMPLE
 example_xref: Exemple

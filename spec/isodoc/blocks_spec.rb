@@ -1474,6 +1474,61 @@ RSpec.describe IsoDoc do
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
+  it "processes box admonitions" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="box">
+          <name>Title</name>
+        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+      </admonition>
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" type="box" notag="true">
+        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+      </admonition>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <foreword displayorder="1">
+             <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="box">
+               <name>Box  1 — Title</name>
+               <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+             </admonition>
+             <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" type="box" notag="true">
+               <name>Box  2</name>
+               <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+             </admonition>
+           </foreword>
+         </preface>
+       </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition">
+                 <p class="AdmonitionTitle" style="text-align:center;">Box  1 — Title</p>
+                 <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+               </div>
+               <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" class="Admonition">
+                 <p class="AdmonitionTitle" style="text-align:center;">Box  2</p>
+                 <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+               </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
+  end
+
   it "processes formulae" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
