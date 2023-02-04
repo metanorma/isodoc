@@ -1,5 +1,3 @@
-require_relative "../../relaton/render/general"
-
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def references(docxml)

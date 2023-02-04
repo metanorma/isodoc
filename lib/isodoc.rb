@@ -7,10 +7,10 @@ require "base64"
 require "mime/types"
 require "image_size"
 require "set"
-require "pp"
 require "html2doc"
 require "liquid"
 require "htmlentities"
+require "relaton-render"
 
 require "isodoc/common"
 require "isodoc/convert"
@@ -24,6 +24,7 @@ require "isodoc/presentation_xml_convert"
 require "isodoc/xref"
 require "isodoc/i18n"
 require "metanorma/output"
+require "relaton/render-isodoc/general"
 
 module IsoDoc
 end
