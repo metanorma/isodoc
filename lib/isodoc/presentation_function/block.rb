@@ -53,12 +53,12 @@ module IsoDoc
     end
 
     def note1(elem)
-      elem.parent.name == "bibitem" || elem["notag"] == "true" and return
+      %w(bibdata bibitem).include?(elem.parent.name) ||
+        elem["notag"] == "true" and return
       n = @xrefs.get[elem["id"]]
-      lbl = if n.nil? || n[:label].nil? || n[:label].empty?
-              @i18n.note
-            else l10n("#{@i18n.note} #{n[:label]}")
-            end
+      lbl = @i18n.note
+      (n.nil? || n[:label].nil? || n[:label].empty?) or
+        lbl = l10n("#{lbl} #{n[:label]}")
       prefix_name(elem, "", lbl, "name")
     end
 

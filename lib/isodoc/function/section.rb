@@ -58,7 +58,7 @@ module IsoDoc
         num
       end
 
-      TERM_CLAUSE = "//sections/terms | "\
+      TERM_CLAUSE = "//sections/terms | " \
                     "//sections/clause[descendant::terms]".freeze
 
       def terms_defs(isoxml, out, num)
@@ -100,7 +100,7 @@ module IsoDoc
       def introduction(isoxml, out)
         f = isoxml.at(ns("//introduction")) || return
         page_break(out)
-        out.div **{ class: "Section3", id: f["id"] } do |div|
+        out.div class: "Section3", id: f["id"] do |div|
           clause_name(nil, f.at(ns("./title")), div, { class: "IntroTitle" })
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
@@ -122,7 +122,7 @@ module IsoDoc
         f = isoxml.at(ns("//acknowledgements")) || return
         title_attr = { class: "IntroTitle" }
         page_break(out)
-        out.div **{ class: "Section3", id: f["id"] } do |div|
+        out.div class: "Section3", id: f["id"] do |div|
           clause_name(nil, f&.at(ns("./title")), div, title_attr)
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
@@ -140,10 +140,10 @@ module IsoDoc
       end
 
       def preface(isoxml, out)
-        isoxml.xpath(ns("//preface/clause | //preface/references | "\
+        isoxml.xpath(ns("//preface/clause | //preface/references | " \
                         "//preface/definitions | //preface/terms")).each do |f|
           page_break(out)
-          out.div **{ class: "Section3", id: f["id"] } do |div|
+          out.div class: "Section3", id: f["id"] do |div|
             clause_name(nil, f&.at(ns("./title")), div, { class: "IntroTitle" })
             f.elements.each do |e|
               parse(e, div) unless e.name == "title"
@@ -174,7 +174,7 @@ module IsoDoc
       def copyright_parse(node, out)
         return if @bare
 
-        out.div **{ class: "boilerplate-copyright" } do |div|
+        out.div class: "boilerplate-copyright" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
@@ -182,7 +182,7 @@ module IsoDoc
       def license_parse(node, out)
         return if @bare
 
-        out.div **{ class: "boilerplate-license" } do |div|
+        out.div class: "boilerplate-license" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
@@ -190,7 +190,7 @@ module IsoDoc
       def legal_parse(node, out)
         return if @bare
 
-        out.div **{ class: "boilerplate-legal" } do |div|
+        out.div class: "boilerplate-legal" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
@@ -198,7 +198,7 @@ module IsoDoc
       def feedback_parse(node, out)
         return if @bare
 
-        out.div **{ class: "boilerplate-feedback" } do |div|
+        out.div class: "boilerplate-feedback" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
