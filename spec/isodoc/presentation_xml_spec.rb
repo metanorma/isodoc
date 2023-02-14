@@ -25,7 +25,7 @@ RSpec.describe IsoDoc do
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
         <foreword id="fwd">
-        <p>
+        <p><math id="b" xmlns:sodipodi='ABC'><sodipodi:b> xmlns:sodipodi</sodipodi:b></math> 
         <xref target="N1"/>
         </p>
         </foreword>
@@ -45,6 +45,9 @@ RSpec.describe IsoDoc do
                  <semantic__preface>
                    <semantic__foreword id="semantic__fwd">
                      <semantic__p>
+                       <semantic__math xmlns:semantic__sodipodi="ABC" id="semantic__b">
+                         <semantic__sodipodi:b> xmlns:sodipodi</semantic__sodipodi:b>
+                       </semantic__math>
                        <semantic__xref target="semantic__N1"/>
                      </semantic__p>
                    </semantic__foreword>
@@ -62,6 +65,9 @@ RSpec.describe IsoDoc do
          <preface>
            <foreword id="fwd" displayorder="1">
              <p>
+               <math xmlns:sodipodi="ABC" id="b">
+                 <sodipodi:b> xmlns:sodipodi</sodipodi:b>
+               </math>
                <xref target="N1">Figure 1</xref>
              </p>
            </foreword>

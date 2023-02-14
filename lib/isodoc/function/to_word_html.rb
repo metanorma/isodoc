@@ -69,21 +69,21 @@ module IsoDoc
       end
 
       def make_body1(body, _docxml)
-        body.div **{ class: "title-section" } do |div1|
+        body.div class: "title-section" do |div1|
           div1.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
 
       def make_body2(body, _docxml)
-        body.div **{ class: "prefatory-section" } do |div2|
+        body.div class: "prefatory-section" do |div2|
           div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
 
       def make_body3(body, docxml)
-        body.div **{ class: "main-section" } do |div3|
+        body.div class: "main-section" do |div3|
           boilerplate docxml, div3
           preface_block docxml, div3
           abstract docxml, div3
@@ -131,7 +131,7 @@ module IsoDoc
         return if @bare
 
         boilerplate = node.at(ns("//boilerplate")) or return
-        out.div **{ class: "authority" } do |s|
+        out.div class: "authority" do |s|
           boilerplate.children.each do |n|
             if n.name == "title"
               s.h1 do |h|

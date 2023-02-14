@@ -109,7 +109,8 @@ module IsoDoc
 
     def embedable_semantic_xml_tags(xml)
       Nokogiri::XML(to_xml(xml)
-        .sub(/ xmlns=['"][^"']+['"]/, "")
+        .sub(/ xmlns=['"][^"']+['"]/, "") # root XMLNS
+        .gsub(/(<[^>]+xmlns:)/, "\\1semantic__") # all others XMLNS
         .gsub(%r{(</?)([[:alpha:]])}, "\\1semantic__\\2")).root
     end
 
