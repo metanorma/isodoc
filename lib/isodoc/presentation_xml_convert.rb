@@ -108,10 +108,16 @@ module IsoDoc
     end
 
     def embedable_semantic_xml_tags(xml)
-      Nokogiri::XML(to_xml(xml)
+      ret = to_xml(xml)
         .sub(/ xmlns=['"][^"']+['"]/, "") # root XMLNS
-        .gsub(/(<[^>]+xmlns:)/, "\\1semantic__") # all others XMLNS
-        .gsub(%r{(</?)([[:alpha:]])}, "\\1semantic__\\2")).root
+        .split(/(?=[<> \t\r\n\f\v])/).map do |x|
+          case x
+          when /^<[^:]+:/ then x.sub(/:/, ":semantic__")
+          when /^<[^:]+$/ then x.sub(%r{(</?)([[:alpha:]])},
+                                     "\\1semantic__\\2")
+          else x end
+        end
+      Nokogiri::XML(ret.join).root
     end
 
     def embedable_semantic_xml_attributes(xml)

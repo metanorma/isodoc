@@ -45,8 +45,8 @@ RSpec.describe IsoDoc do
                  <semantic__preface>
                    <semantic__foreword id="semantic__fwd">
                      <semantic__p>
-                       <semantic__math xmlns:semantic__sodipodi="ABC" id="semantic__b">
-                         <semantic__sodipodi:b> xmlns:sodipodi</semantic__sodipodi:b>
+                        <semantic__math xmlns:sodipodi="ABC" id="semantic__b">
+                         <sodipodi:semantic__b> xmlns:sodipodi</sodipodi:semantic__b>
                        </semantic__math>
                        <semantic__xref target="semantic__N1"/>
                      </semantic__p>
