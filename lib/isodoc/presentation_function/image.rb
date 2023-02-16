@@ -16,8 +16,8 @@ module IsoDoc
     def svg_wrap(elem)
       return if elem.parent.name == "image"
 
-      elem.replace("<image src='' mimetype='image/svg+xml' height='auto' "\
-                   "width='auto'>#{elem.to_xml}</image>")
+      elem.wrap("<image src='' mimetype='image/svg+xml' height='auto' " \
+                "width='auto'></image>")
     end
 
     def svgmap_extract(elem)
