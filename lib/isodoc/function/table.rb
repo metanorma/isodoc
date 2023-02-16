@@ -75,14 +75,14 @@ module IsoDoc
         @in_table = true
         table_title_parse(node, out)
         out.table **table_attrs(node) do |t|
-          table_parse_code(node, t)
+          table_parse_core(node, t)
           (dl = node.at(ns("./dl"))) && parse(dl, out)
           node.xpath(ns("./note")).each { |n| parse(n, out) }
         end
         @in_table = false
       end
 
-      def table_parse_code(node, out)
+      def table_parse_core(node, out)
         tcaption(node, out)
         colgroup(node, out)
         thead_parse(node, out)
