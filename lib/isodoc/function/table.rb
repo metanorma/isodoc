@@ -3,7 +3,7 @@ module IsoDoc
     module Table
       def table_title_parse(node, out)
         name = node.at(ns("./name")) or return
-        out.p **{ class: "TableTitle", style: "text-align:center;" } do |p|
+        out.p class: "TableTitle", style: "text-align:center;" do |p|
           name&.children&.each { |n| parse(n, p) }
         end
       end
@@ -56,7 +56,7 @@ module IsoDoc
         return unless node["summary"]
 
         table.caption do |c|
-          c.span **{ style: "display:none" } do |s|
+          c.span style: "display:none" do |s|
             s << node["summary"]
           end
         end
@@ -66,7 +66,7 @@ module IsoDoc
         colgroup = node.at(ns("./colgroup")) or return
         table.colgroup do |cg|
           colgroup.xpath(ns("./col")).each do |c|
-            cg.col **{ style: "width: #{c['width']};" }
+            cg.col style: "width: #{c['width']};"
           end
         end
       end
@@ -75,16 +75,19 @@ module IsoDoc
         @in_table = true
         table_title_parse(node, out)
         out.table **table_attrs(node) do |t|
-          tcaption(node, t)
-          colgroup(node, t)
-          thead_parse(node, t)
-          tbody_parse(node, t)
-          tfoot_parse(node, t)
+          table_parse_code(node, t)
           (dl = node.at(ns("./dl"))) && parse(dl, out)
           node.xpath(ns("./note")).each { |n| parse(n, out) }
         end
         @in_table = false
-        # out.p { |p| p << "&#xa0;" }
+      end
+
+      def table_parse_code(node, out)
+        tcaption(node, out)
+        colgroup(node, out)
+        thead_parse(node, out)
+        tbody_parse(node, out)
+        tfoot_parse(node, out)
       end
 
       SW = "solid windowtext".freeze
