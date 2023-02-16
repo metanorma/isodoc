@@ -89,15 +89,19 @@ module IsoDoc
         table_title_parse(node, out)
         out.div align: "center", class: "table_container" do |div|
           div.table **table_attrs(node) do |t|
-            colgroup(node, t)
-            thead_parse(node, t)
-            tbody_parse(node, t)
-            tfoot_parse(node, t)
+            table_parse_core(node, out)
             (dl = node.at(ns("./dl"))) && parse(dl, out)
             node.xpath(ns("./note")).each { |n| parse(n, out) }
           end
         end
         @in_table = false
+      end
+
+      def table_parse_core(node, out)
+        colgroup(node, out)
+        thead_parse(node, out)
+        tbody_parse(node, out)
+        tfoot_parse(node, out)
       end
     end
   end
