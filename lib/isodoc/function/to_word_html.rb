@@ -125,6 +125,7 @@ module IsoDoc
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
+        colophon isoxml, out
       end
 
       def boilerplate(node, out)

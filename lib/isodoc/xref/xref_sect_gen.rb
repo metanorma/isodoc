@@ -1,17 +1,18 @@
 module IsoDoc
   module XrefGen
     module Sections
-      def back_anchor_names(docxml)
+      def back_anchor_names(xml)
         if @parse_settings.empty? || @parse_settings[:clauses]
           i = Counter.new("@")
-          docxml.xpath(ns("//annex")).each do |c|
+          xml.xpath(ns("//annex")).each do |c|
             annex_names(c, i.increment(c).print)
           end
-          docxml.xpath(ns(@klass.bibliography_xpath)).each do |b|
+          xml.xpath(ns(@klass.bibliography_xpath)).each do |b|
             preface_names(b)
           end
+          xml.xpath(ns("//colophon/clause")).each { |b| preface_names(b) }
         end
-        references(docxml) if @parse_settings.empty? || @parse_settings[:refs]
+        references(xml) if @parse_settings.empty? || @parse_settings[:refs]
       end
 
       def references(docxml)

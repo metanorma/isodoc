@@ -152,6 +152,19 @@ module IsoDoc
         end
       end
 
+      def colophon(isoxml, out)
+        isoxml.at(ns("//colophon")) or return
+        page_break(out)
+        isoxml.xpath(ns("//colophon/clause")).each do |f|
+          out.div class: "Section3", id: f["id"] do |div|
+            clause_name(nil, f&.at(ns("./title")), div, { class: "IntroTitle" })
+            f.elements.each do |e|
+              parse(e, div) unless e.name == "title"
+            end
+          end
+        end
+      end
+
       def is_clause?(name)
         %w(clause references definitions terms foreword introduction abstract
            acknowledgements).include? name
