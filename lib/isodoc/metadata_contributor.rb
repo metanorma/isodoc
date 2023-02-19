@@ -20,16 +20,14 @@ module IsoDoc
 
     def extract_person_affiliations(authors)
       authors.reduce([]) do |m, a|
+        pos = a.at(ns("./affiliation/name"))&.text
         name = a.at(ns("./affiliation/organization/name"))&.text
-        subdivs = a.xpath(ns("./affiliation/organization/subdivision"))&.map(&:text)&.join(", ")
-        name and subdivs and !subdivs.empty? and
-          name = l10n("#{name}, #{subdivs}")
-        location = a.at(ns("./affiliation/organization/address/formattedAddress"))&.text
-        m << (if !name.nil? && !location.nil?
-                l10n("#{name}, #{location}")
-              else
-                (name || location || "")
-              end)
+        subdivs = a.xpath(ns("./affiliation/organization/subdivision"))
+          &.map(&:text)&.join(", ")
+        location =
+          a.at(ns("./affiliation/organization/address/formattedAddress"))&.text
+        m << l10n([pos, name, subdivs, location].map { |x| x&.empty? ? nil : x }
+          .compact.join(", "))
         m
       end
     end
