@@ -28,12 +28,13 @@ module IsoDoc
     def floattitle(docxml)
       docxml.xpath(ns("//clause | //annex | //appendix | //introduction | " \
                       "//foreword | //preface/abstract | //acknowledgements | " \
-                      "//terms | //definitions | //references"))
+                      "//terms | //definitions | //references | //colophon"))
         .each do |f|
         floattitle1(f)
       end
       # top-level
-      docxml.xpath(ns("//sections | //preface")).each { |f| floattitle1(f) }
+      docxml.xpath(ns("//sections | //preface | //colophon"))
+        .each { |f| floattitle1(f) }
     end
 
     def floattitle1(elem)
@@ -119,7 +120,8 @@ module IsoDoc
       i = display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml), i)
       i = display_order_xpath(docxml, "//annex", i)
       i = display_order_xpath(docxml, @xrefs.klass.bibliography_xpath, i)
-      display_order_xpath(docxml, "//indexsect", i)
+      i = display_order_xpath(docxml, "//indexsect", i)
+      display_order_xpath(docxml, "//colophon/*", i)
     end
 
     def clausetitle(docxml); end

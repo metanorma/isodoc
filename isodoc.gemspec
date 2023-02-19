@@ -40,7 +40,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "metanorma-utils", "~> 1.4.5"
   spec.add_dependency "mn2pdf"
   spec.add_dependency "mn-requirements", "~> 0.3.1"
-  spec.add_dependency "relaton-cli"
   spec.add_dependency "relaton-render", "~> 0.5.2"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"

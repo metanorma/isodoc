@@ -259,6 +259,14 @@ RSpec.describe IsoDoc do
        </references>
        </clause>
        </bibliography>
+       <colophon>
+      <clause id="U1" obligation="informative">
+         <title>Postface 1</title>
+      </clause>
+      <clause id="U2" obligation="informative">
+         <title>Postface 2</title>
+      </clause>
+      </colophon>
        </iso-standard>
     INPUT
 
@@ -397,6 +405,14 @@ RSpec.describe IsoDoc do
             </references>
           </clause>
         </bibliography>
+        <colophon>
+          <clause id="U1" obligation="informative" displayorder="15">
+            <title depth="1">Postface 1</title>
+          </clause>
+          <clause id="U2" obligation="informative" displayorder="16">
+            <title depth="1">Postface 2</title>
+          </clause>
+        </colophon>
       </iso-standard>
     PRESXML
 
@@ -524,6 +540,14 @@ RSpec.describe IsoDoc do
                                          <div>
                                            <h2 class="Section3">Bibliography Subsection</h2>
                                          </div>
+                                      </div>
+                                                      <br/>
+             <div class="Section3" id="U1">
+               <h1 class="IntroTitle">Postface 1</h1>
+             </div>
+             <div class="Section3" id="U2">
+               <h1 class="IntroTitle">Postface 2</h1>
+             </div>
                                        </div>
                                      </div>
                                    </body>
@@ -691,6 +715,15 @@ RSpec.describe IsoDoc do
 
             </div>
           </div>
+                <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="Section3" id="U1">
+        <h1 class="IntroTitle">Postface 1</h1>
+      </div>
+      <div class="Section3" id="U2">
+        <h1 class="IntroTitle">Postface 2</h1>
+      </div>
           </div>
         </body>
       </html>
