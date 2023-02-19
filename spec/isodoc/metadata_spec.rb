@@ -59,6 +59,7 @@ RSpec.describe IsoDoc do
             <surname>Rubble</surname>
             </name>
             <affiliation>
+            <name>Chief Engineer</name>
             <organization><name>Slate Inc.</name>
             <subdivision>Hermeneutics Unit</subdivision>
             <subdivision>Exegesis Subunit</subdivision>
@@ -118,7 +119,7 @@ RSpec.describe IsoDoc do
       :activateddate=>"2013",
       :agency=>"ISO",
       :authors=>["Barney Rubble", "Fred Flintstone", "B. B. Rubble"],
-      :authors_affiliations=>{"Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone", "B. B. Rubble"]},
+      :authors_affiliations=>{"Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone", "B. B. Rubble"]},
       :circulateddate=>"2015",
       :confirmeddate=>"2017",
       :copieddate=>"2016",
