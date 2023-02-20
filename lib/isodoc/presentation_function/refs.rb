@@ -6,11 +6,16 @@ module IsoDoc
       docxml.xpath(ns("//references/bibitem")).each do |x|
         bibitem(x, renderings)
       end
+      hidden_items(docxml)
+      @xrefs.parse_inclusions(refs: true).parse(docxml)
+    end
+
+    def hidden_items(docxml)
       docxml.xpath(ns("//references[bibitem/@hidden = 'true']")).each do |x|
         x.at(ns("./bibitem[not(@hidden = 'true')]")) and next
+        x.elements.map(&:name).any? { |n| n != "bibitem" } and next
         x["hidden"] = "true"
       end
-      @xrefs.parse_inclusions(refs: true).parse(docxml)
     end
 
     def references_render(docxml)

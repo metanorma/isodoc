@@ -4,7 +4,7 @@ module IsoDoc
       def example_label(_node, div, name)
         return if name.nil?
 
-        div.p **{ class: "example-title" } do |_p|
+        div.p class: "example-title" do |_p|
           name.children.each { |n| parse(n, div) }
         end
       end
@@ -29,7 +29,7 @@ module IsoDoc
 
       def example_table_attr(node)
         attr_code(id: node["id"], class: "example",
-                  style: "border-collapse:collapse;border-spacing:0;"\
+                  style: "border-collapse:collapse;border-spacing:0;" \
                          "#{keep_style(node)}")
       end
 
@@ -60,7 +60,7 @@ module IsoDoc
       def note_p_parse(node, div)
         name = node&.at(ns("./name"))&.remove
         div.p do |p|
-          name and p.span **{ class: "note_label" } do |s|
+          name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
             s << note_delim
           end
@@ -73,7 +73,7 @@ module IsoDoc
       def note_parse1(node, div)
         name = node&.at(ns("./name"))&.remove
         name and div.p do |p|
-          p.span **{ class: "note_label" } do |s|
+          p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
             s << note_delim
           end
@@ -117,7 +117,7 @@ module IsoDoc
       end
 
       def admonition_name_parse(_node, div, name)
-        div.p **{ class: "AdmonitionTitle", style: "text-align:center;" } do |p|
+        div.p class: "AdmonitionTitle", style: "text-align:center;" do |p|
           name.children.each { |n| parse(n, p) }
         end
       end

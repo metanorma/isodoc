@@ -510,9 +510,14 @@ RSpec.describe IsoDoc do
       </references>
       <references>
       <bibitem hidden="true"/>
-      <bibitem>
-      <bibitem hidden="true"/>
+      <bibitem/>
       </references>
+      <references>
+            <p/>
+            <bibitem hidden='true'/>
+            <bibitem hidden='true'/>
+            <bibitem hidden='true'/>
+          </references>
       </bibliography>
       </iso-standard>
     INPUT
@@ -527,6 +532,12 @@ RSpec.describe IsoDoc do
           <references>
             <bibitem hidden='true'/>
             <bibitem/>
+          </references>
+          <references>
+            <p/>
+            <bibitem hidden='true'/>
+            <bibitem hidden='true'/>
+            <bibitem hidden='true'/>
           </references>
         </bibliography>
       </iso-standard>

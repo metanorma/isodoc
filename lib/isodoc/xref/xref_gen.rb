@@ -108,9 +108,7 @@ module IsoDoc
       end
 
       def note_anchor_names1(notes, counter)
-        notes.each do |n|
-          next if @anchors[n["id"]] || blank?(n["id"])
-
+        notes.noblank.each do |n|
           @anchors[n["id"]] =
             anchor_struct(increment_label(notes, n, counter), n,
                           @labels["note_xref"], "note", false)
