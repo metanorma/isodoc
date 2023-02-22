@@ -162,12 +162,16 @@ module IsoDoc
 
     def init_toc(options)
       @wordToClevels = (options[:doctoclevels] || options[:toclevels]).to_i
-      @wordToClevels = 2 if @wordToClevels.zero?
+      @wordToClevels = toc_default[:word_levels] if @wordToClevels.zero?
       @htmlToClevels = (options[:htmltoclevels] || options[:toclevels]).to_i
-      @htmlToClevels = 2 if @htmlToClevels.zero?
+      @htmlToClevels = toc_default[:html_levels] if @htmlToClevels.zero?
       @tocfigures = options[:tocfigures]
       @toctables = options[:toctables]
       @tocrecommendations = options[:tocrecommendations]
+    end
+
+    def toc_default
+      { word_levels: 2, html_levels: 2 }
     end
 
     def tmpimagedir_suffix
