@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "isodoc/common"
 require "fileutils"
 require "tempfile"
@@ -161,17 +159,11 @@ module IsoDoc
     end
 
     def init_toc(options)
-      @wordToClevels = (options[:doctoclevels] || options[:toclevels]).to_i
-      @wordToClevels = toc_default[:word_levels] if @wordToClevels.zero?
-      @htmlToClevels = (options[:htmltoclevels] || options[:toclevels]).to_i
-      @htmlToClevels = toc_default[:html_levels] if @htmlToClevels.zero?
+      @htmlToClevels = 2
+      @wordToClevels = 2
       @tocfigures = options[:tocfigures]
       @toctables = options[:toctables]
       @tocrecommendations = options[:tocrecommendations]
-    end
-
-    def toc_default
-      { word_levels: 2, html_levels: 2 }
     end
 
     def tmpimagedir_suffix
@@ -222,6 +214,7 @@ module IsoDoc
       convert_i18n_init(docxml)
       metadata_init(@lang, @script, @locale, @i18n)
       xref_init(@lang, @script, self, @i18n, { locale: @locale })
+      toc_init(docxml)
       [docxml, filename, dir]
     end
 
