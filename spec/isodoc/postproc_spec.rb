@@ -403,7 +403,7 @@ RSpec.describe IsoDoc do
   it "populates HTML ToC" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({ htmltoclevels: 3 })
+    IsoDoc::HtmlConvert.new({})
       .convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword><title>Foreword</title>

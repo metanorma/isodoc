@@ -17,5 +17,14 @@ module IsoDoc
     def l10n(expr, lang = @lang, script = @script, locale = @locale)
       @i18n.l10n(expr, lang, script, locale)
     end
+
+    def toc_init(docxml)
+      x = "//metanorma-extension/presentation-metadata" \
+          "[name[text() = 'TOC Heading Levels']]/value"
+      n = docxml.at(ns(x.sub(/TOC/, "DOC TOC"))) and
+        @wordToClevels = n.text.to_i
+      n = docxml.at(ns(x.sub(/TOC/, "HTML TOC"))) and
+        @htmlToClevels = n.text.to_i
+    end
   end
 end
