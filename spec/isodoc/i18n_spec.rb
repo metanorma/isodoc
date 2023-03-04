@@ -711,7 +711,7 @@ RSpec.describe IsoDoc do
              </introduction></preface><sections>
              <clause id="D" obligation="normative" type="scope" displayorder="3">
                <title depth="1">1.<tab/>Scope</title>
-               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO&#xa0;712，第1～1  表</eref></p>
+               <p id="E"><eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom><referenceTo>1</referenceTo></locality>ISO&#xa0;712，第1～1表</eref></p>
              </clause>
              <clause id="H" obligation="normative" displayorder="5"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
                <title depth="2">3.1.<tab/>Normal Terms</title>
@@ -780,7 +780,7 @@ RSpec.describe IsoDoc do
              <div id="D">
                <h1>1.　Scope</h1>
                <p id="E">
-                 <a href="#ISO712">ISO&#xa0;712，第1～1  表</a>
+                 <a href="#ISO712">ISO&#xa0;712，第1～1表</a>
                </p>
              </div>
              <div><h1>2.　Normative References</h1>

@@ -88,7 +88,7 @@ module IsoDoc
       end
 
       FIGURE_WITH_FOOTNOTES =
-        "//div[@class = 'figure'][descendant::aside]"\
+        "//div[@class = 'figure'][descendant::aside]" \
         "[not(descendant::div[@class = 'figure'])]".freeze
 
       def figure_aside_process(elem, aside, key)
@@ -159,7 +159,7 @@ module IsoDoc
       end
 
       def table_footnote_cleanup_propagate(docxml)
-        docxml.xpath("//p[not(self::*[@class])]"\
+        docxml.xpath("//p[not(self::*[@class])]" \
                      "[ancestor::*[@class = 'TableFootnote']]").each do |p|
           p["class"] = "TableFootnote"
         end
@@ -194,7 +194,7 @@ module IsoDoc
       end
 
       def table_note_cleanup(docxml)
-        docxml.xpath("//table[div[@class = 'Note' or "\
+        docxml.xpath("//table[div[@class = 'Note' or " \
                      "@class = 'TableFootnote']]").each do |t|
           tfoot = table_get_or_make_tfoot(t)
           insert_here = new_fullcolspan_row(t, tfoot)
