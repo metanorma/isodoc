@@ -153,7 +153,7 @@ module IsoDoc
           return num
         out.div do |div|
           num += 1
-          clause_name(num, f.at(ns("./title")), div, nil)
+          clause_name(f, f.at(ns("./title")), div, nil)
           if f.name == "clause"
             f.elements.each { |e| parse(e, div) unless e.name == "title" }
           else biblio_list(f, div, false)

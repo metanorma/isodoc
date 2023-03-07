@@ -10,8 +10,7 @@ module IsoDoc
       end
 
       def figure_name_parse(_node, div, name)
-        return if name.nil?
-
+        name.nil? and return
         div.p class: "FigureTitle", style: "text-align:center;" do |p|
           name.children.each { |n| parse(n, p) }
         end

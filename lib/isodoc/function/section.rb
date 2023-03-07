@@ -20,7 +20,7 @@ module IsoDoc
       def clause(isoxml, out)
         isoxml.xpath(ns(middle_clause(isoxml))).each do |c|
           out.div **attr_code(clause_attrs(c)) do |s|
-            clause_name(nil, c&.at(ns("./title")), s, nil)
+            clause_name(c, c&.at(ns("./title")), s, nil)
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
               parse(c1, s)
             end
@@ -50,7 +50,7 @@ module IsoDoc
         f = isoxml.at(ns("//clause[@type = 'scope']")) or return num
         out.div **attr_code(id: f["id"]) do |div|
           num = num + 1
-          clause_name(num, f&.at(ns("./title")), div, nil)
+          clause_name(f, f&.at(ns("./title")), div, nil)
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
@@ -65,7 +65,7 @@ module IsoDoc
         f = isoxml.at(ns(TERM_CLAUSE)) or return num
         out.div **attr_code(id: f["id"]) do |div|
           num = num + 1
-          clause_name(num, f&.at(ns("./title")), div, nil)
+          clause_name(f, f&.at(ns("./title")), div, nil)
           f.elements.each do |e|
             parse(e, div) unless %w{title source}.include? e.name
           end
@@ -82,7 +82,7 @@ module IsoDoc
         f = isoxml.at(ns("//sections/definitions")) or return num
         out.div **attr_code(id: f["id"], class: "Symbols") do |div|
           num = num + 1
-          clause_name(num, f.at(ns("./title")), div, nil)
+          clause_name(f, f.at(ns("./title")), div, nil)
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
@@ -101,7 +101,7 @@ module IsoDoc
         f = isoxml.at(ns("//introduction")) || return
         page_break(out)
         out.div class: "Section3", id: f["id"] do |div|
-          clause_name(nil, f.at(ns("./title")), div, { class: "IntroTitle" })
+          clause_name(f, f.at(ns("./title")), div, { class: "IntroTitle" })
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
@@ -112,7 +112,7 @@ module IsoDoc
         f = isoxml.at(ns("//foreword")) || return
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(nil, f.at(ns("./title")) || @i18n.foreword, s,
+          clause_name(f, f.at(ns("./title")) || @i18n.foreword, s,
                       { class: "ForewordTitle" })
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
@@ -123,7 +123,7 @@ module IsoDoc
         title_attr = { class: "IntroTitle" }
         page_break(out)
         out.div class: "Section3", id: f["id"] do |div|
-          clause_name(nil, f&.at(ns("./title")), div, title_attr)
+          clause_name(f, f&.at(ns("./title")), div, title_attr)
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
@@ -134,7 +134,7 @@ module IsoDoc
         f = isoxml.at(ns("//preface/abstract")) || return
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(nil, f.at(ns("./title")), s, { class: "AbstractTitle" })
+          clause_name(f, f.at(ns("./title")), s, { class: "AbstractTitle" })
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
@@ -144,7 +144,7 @@ module IsoDoc
                         "//preface/definitions | //preface/terms")).each do |f|
           page_break(out)
           out.div class: "Section3", id: f["id"] do |div|
-            clause_name(nil, f&.at(ns("./title")), div, { class: "IntroTitle" })
+            clause_name(f, f&.at(ns("./title")), div, { class: "IntroTitle" })
             f.elements.each do |e|
               parse(e, div) unless e.name == "title"
             end
@@ -157,7 +157,7 @@ module IsoDoc
         page_break(out)
         isoxml.xpath(ns("//colophon/clause")).each do |f|
           out.div class: "Section3", id: f["id"] do |div|
-            clause_name(nil, f&.at(ns("./title")), div, { class: "IntroTitle" })
+            clause_name(f, f&.at(ns("./title")), div, { class: "IntroTitle" })
             f.elements.each do |e|
               parse(e, div) unless e.name == "title"
             end
