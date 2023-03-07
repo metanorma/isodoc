@@ -118,10 +118,10 @@ module IsoDoc
       def middle(isoxml, out)
         middle_title(isoxml, out)
         middle_admonitions(isoxml, out)
-        i = scope isoxml, out, 0
-        i = norm_ref isoxml, out, i
-        i = terms_defs isoxml, out, i
-        symbols_abbrevs isoxml, out, i
+        scope isoxml, out, 0
+        norm_ref isoxml, out, 0
+        terms_defs isoxml, out, 0
+        symbols_abbrevs isoxml, out, 0
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
