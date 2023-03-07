@@ -100,12 +100,14 @@ module IsoDoc
       #{header_strip(content)}</a></li>)
       end
 
+      # array of arrays, one per level, containing XPath fragments for the elems
+      # matching that ToC level
       def toclevel_classes
-        (1..@htmlToClevels).reduce([]) { |m, i| m << "h#{i}" }
+        (1..@htmlToClevels).reduce([]) { |m, i| m << ["h#{i}"] }
       end
 
       def toclevel
-        ret = toclevel_classes.map do |l|
+        ret = toclevel_classes.flatten.map do |l|
           "#{l}:not(:empty):not(.TermNum):not(.noTOC)"
         end
         <<~HEAD.freeze
@@ -116,16 +118,23 @@ module IsoDoc
       # needs to be same output as toclevel
       def html_toc(docxml)
         idx = docxml.at("//div[@id = 'toc']") or return docxml
-        toc = "<ul>"
-        path = toclevel_classes.map do |l|
-          "//main//#{l}#{toc_exclude_class}"
+        path = toclevel_classes.map do |x|
+          x.map { |l| "//main//#{l}#{toc_exclude_class}" }
         end
-        docxml.xpath(path.join(" | ")).each_with_index do |h, tocidx|
-          h["id"] ||= "toc#{tocidx}"
-          toc += html_toc_entry(h.name, h)
-        end
-        idx.children = "#{toc}</ul>"
+        toc = html_toc_entries(docxml, path)
+          .map { |k| k[:entry] }.join("\n")
+        idx.children = "<ul>#{toc}</ul>"
         docxml
+      end
+
+      def html_toc_entries(docxml, path)
+        path.each_with_index.with_object([]) do |(p, i), m|
+          docxml.xpath(p.join(" | ")).each do |h|
+            h["id"] ||= "_#{UUIDTools::UUID.random_create}"
+            m << { entry: html_toc_entry("h#{i + 1}", h),
+                   line: h.line }
+          end
+        end.sort_by { |k| k[:line] }
       end
 
       def toc_exclude_class
