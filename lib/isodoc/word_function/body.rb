@@ -93,7 +93,7 @@ module IsoDoc
 
       def dl_parse_table(node, out)
         list_title_parse(node, out)
-        out.table class: "dl" do |v|
+        out.table class: (node["class"] || "dl") do |v|
           node.elements.select { |n| dt_dd?(n) }
             .each_slice(2) do |dt, dd|
             dl_parse_table1(v, dt, dd)
@@ -202,14 +202,6 @@ module IsoDoc
                  "mso-table-overlap:never;border-collapse:collapse;" \
                  "#{keep_style(node)}",
         )
-      end
-
-      def formula_where(deflist, out)
-        return unless deflist
-
-        out.p { |p| p << @i18n.where }
-        parse(deflist, out)
-        t = out.parent.at("./table") and t["class"] = "formula_dl"
       end
 
       def formula_parse1(node, out)

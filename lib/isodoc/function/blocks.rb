@@ -109,16 +109,6 @@ module IsoDoc
         end
       end
 
-      def formula_where(dlist, out)
-        return unless dlist
-
-        out.p style: "page-break-after:avoid;" do |p|
-          p << @i18n.where
-        end
-        parse(dlist, out)
-        out.parent.at("./dl")["class"] = "formula_dl"
-      end
-
       def formula_parse1(node, out)
         out.div **attr_code(class: "formula") do |div|
           div.p do |_p|
@@ -138,9 +128,8 @@ module IsoDoc
       def formula_parse(node, out)
         out.div **formula_attrs(node) do |div|
           formula_parse1(node, div)
-          formula_where(node.at(ns("./dl")), div)
           node.children.each do |n|
-            next if %w(stem dl name).include? n.name
+            next if %w(stem name).include? n.name
 
             parse(n, div)
           end
