@@ -31,8 +31,16 @@ module IsoDoc
     end
 
     def formula1(elem)
+      formula_where(elem.at(ns("./dl")))
       lbl = @xrefs.anchor(elem["id"], :label, false)
       prefix_name(elem, "", lbl, "name")
+    end
+
+    def formula_where(dlist)
+      dlist or return
+      dlist["class"] = "formula_dl"
+      where = dlist.xpath(ns("./dt")).size > 1 ? @i18n.where : @i18n.where_one
+      dlist.previous = "<p keep-with-next='true'>#{where}</p>"
     end
 
     def example(docxml)

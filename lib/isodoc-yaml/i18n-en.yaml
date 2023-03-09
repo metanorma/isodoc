@@ -75,6 +75,7 @@ key: Key
 example: EXAMPLE
 example_xref: Example
 where: where
+where_one: where
 wholeoftext: Whole of text
 draft_label: draft
 inform_annex: informative

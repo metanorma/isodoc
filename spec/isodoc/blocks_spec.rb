@@ -1672,7 +1672,8 @@ RSpec.describe IsoDoc do
           <preface><foreword displayorder="1">
           <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
         <stem type="AsciiMath">r = 1 %</stem>
-      <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
+        <p keep-with-next="true">where</p>
+      <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl">
         <dt>
           <stem type="AsciiMath">r</stem>
         </dt>
@@ -1696,7 +1697,7 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after:avoid;'>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
+                    <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
               <span class="stem">(#(r)#)</span>
             </dt><dd>
               <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
@@ -1738,7 +1739,7 @@ RSpec.describe IsoDoc do
                      <span style='mso-tab-count:1'>&#160; </span>
                    </p>
                  </div>
-                 <p>where</p>
+                 <p style="page-break-after: avoid;">where</p>
                  <table class='formula_dl'>
                    <tr>
                      <td valign='top' align='left'>
