@@ -112,6 +112,7 @@ module IsoDoc
         @meta.url isoxml, out
         @meta.keywords isoxml, out
         @meta.note isoxml, out
+        @meta.presentation isoxml, out
         @meta.get
       end
 
