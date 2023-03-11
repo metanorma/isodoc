@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative "./metadata_date"
 require_relative "./metadata_contributor"
 
@@ -39,7 +37,7 @@ module IsoDoc
       @metadata[key] = value
     end
 
-    NOLANG = "[not(@language) or @language = '']"
+    NOLANG = "[not(@language) or @language = '']".freeze
 
     def currlang
       "[@language = '#{@lang}']"
@@ -109,7 +107,8 @@ module IsoDoc
 
     def version(isoxml, _out)
       set(:edition, isoxml&.at(ns("//bibdata/edition#{NOLANG}"))&.text)
-      set(:edition_display, isoxml&.at(ns("//bibdata/edition#{currlang}"))&.text)
+      set(:edition_display,
+          isoxml&.at(ns("//bibdata/edition#{currlang}"))&.text)
       set(:docyear, isoxml&.at(ns("//bibdata/copyright/from"))&.text)
       set(:draft, isoxml&.at(ns("//bibdata/version/draft"))&.text)
       revdate = isoxml&.at(ns("//bibdata/version/revision-date"))&.text
@@ -172,6 +171,15 @@ module IsoDoc
     def code_css(isoxml, _out)
       c = isoxml.at(ns("//metanorma-extension/source-highlighter-css")) or return
       set(:code_css, c.text)
+    end
+
+    def presentation(xml, _out)
+      xml.xpath(ns("//metanorma-extension/presentation-metadata")).each do |p|
+        ((n = p.at(ns("./name"))) && (v = p.at(ns("./value")))) or next
+        lbl = "presentation_metadata_#{n.text}".to_sym
+        m = get[lbl] || []
+        set(lbl, m << v.text)
+      end
     end
   end
 end
