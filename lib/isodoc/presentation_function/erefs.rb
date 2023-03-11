@@ -69,7 +69,7 @@ module IsoDoc
     end
 
     def resolve_comma_connectives1(locs, locs1, add)
-      if [", ", " "].include?(locs[1])
+      if [", ", " ", ""].include?(locs[1])
         add += locs[0..2].join
         locs.shift(3)
       else
