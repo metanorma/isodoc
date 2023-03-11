@@ -112,6 +112,17 @@ RSpec.describe IsoDoc do
         <doctype>international-standard</doctype>
         </ext>
       </bibdata>
+      <metanorma-extension>
+        <presentation-metadata>
+        <name>A</name><value>B</value>
+        </presentation-metadata>
+        <presentation-metadata>
+        <name>C</name><value>D</value>
+        </presentation-metadata>
+        <presentation-metadata>
+        <name>A</name><value>F</value>
+        </presentation-metadata>
+      </metanorma-extension>
       </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -145,6 +156,8 @@ RSpec.describe IsoDoc do
       :lang=>"en",
       :obsoleteddate=>"2014",
       :pdf=>"URL D",
+      :presentation_metadata_A=>["B", "F"],
+      :presentation_metadata_C=>["D"],
       :publisheddate=>"2011",
       :receiveddate=>"XXX",
       :revdate=>"2016-05-01",
