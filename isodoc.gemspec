@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "metanorma", ">= 1.2.0"
   spec.add_dependency "emf2svg"
   spec.add_dependency "mathml2asciimath"
-  spec.add_dependency "metanorma-utils", "~> 1.4.5"
+  # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
   spec.add_dependency "mn2pdf"
   spec.add_dependency "mn-requirements", "~> 0.3.1"
   spec.add_dependency "relaton-render", "~> 0.5.2"
