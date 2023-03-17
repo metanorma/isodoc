@@ -30,7 +30,7 @@ module IsoDoc
       end
 
       def keyword_parse(node, out)
-        out.span **{ class: "keyword" } do |s|
+        out.span class: "keyword" do |s|
           node.children.each { |n| parse(n, s) }
         end
       end

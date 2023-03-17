@@ -10,8 +10,7 @@ module IsoDoc
       end
 
       def figure_name_parse(_node, div, name)
-        return if name.nil?
-
+        name.nil? and return
         div.p class: "FigureTitle", style: "text-align:center;" do |p|
           name.children.each { |n| parse(n, p) }
         end
@@ -82,8 +81,11 @@ module IsoDoc
 
       def sourcecode_parse1(node, div)
         @sourcecode = "pre"
-        node.at(ns(".//table")) || !node.ancestors("table").empty? and
+        node.at(ns(".//table[@class = 'rouge-line-table']")) ||
+          node.at("./ancestor::xmlns:table[@class = 'rouge-line-table']") and
           @sourcecode = "table"
+        # !node.ancestors("table").empty? and
+        # @sourcecode = "table"
         node.children.each { |n| parse(n, div) unless n.name == "name" }
         @sourcecode = false
       end
@@ -96,7 +98,7 @@ module IsoDoc
         @sourcecode = false
         @annotation = true
         out.div class: "annotation" do |div|
-          #node.at("./preceding-sibling::*[local-name() = 'annotation']") or
+          # node.at("./preceding-sibling::*[local-name() = 'annotation']") or
           #  div << "<br/>"
           callout = node.at(ns("//callout[@target='#{node['id']}']"))
           div << "<span class='c'>&lt;#{callout.text}&gt;</span> "
@@ -105,16 +107,6 @@ module IsoDoc
             div << "<br/>"
           @annotation = false
         end
-      end
-
-      def formula_where(dlist, out)
-        return unless dlist
-
-        out.p style: "page-break-after:avoid;" do |p|
-          p << @i18n.where
-        end
-        parse(dlist, out)
-        out.parent.at("./dl")["class"] = "formula_dl"
       end
 
       def formula_parse1(node, out)
@@ -136,9 +128,8 @@ module IsoDoc
       def formula_parse(node, out)
         out.div **formula_attrs(node) do |div|
           formula_parse1(node, div)
-          formula_where(node.at(ns("./dl")), div)
           node.children.each do |n|
-            next if %w(stem dl name).include? n.name
+            next if %w(stem name).include? n.name
 
             parse(n, div)
           end

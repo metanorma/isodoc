@@ -15,8 +15,7 @@ module IsoDoc
     end
 
     def prefix_name(node, delim, number, elem)
-      return if number.nil? || number.empty?
-
+      number.nil? || number.empty? and return
       unless name = node.at(ns("./#{elem}"))
         (node.children.empty? and node.add_child("<#{elem}></#{elem}>")) or
           node.children.first.previous = "<#{elem}></#{elem}>"
@@ -32,8 +31,16 @@ module IsoDoc
     end
 
     def formula1(elem)
+      formula_where(elem.at(ns("./dl")))
       lbl = @xrefs.anchor(elem["id"], :label, false)
       prefix_name(elem, "", lbl, "name")
+    end
+
+    def formula_where(dlist)
+      dlist or return
+      dlist["class"] = "formula_dl"
+      where = dlist.xpath(ns("./dt")).size > 1 ? @i18n.where : @i18n.where_one
+      dlist.previous = "<p keep-with-next='true'>#{where}</p>"
     end
 
     def example(docxml)
@@ -54,12 +61,12 @@ module IsoDoc
     end
 
     def note1(elem)
-      elem.parent.name == "bibitem" || elem["notag"] == "true" and return
+      %w(bibdata bibitem).include?(elem.parent.name) ||
+        elem["notag"] == "true" and return
       n = @xrefs.get[elem["id"]]
-      lbl = if n.nil? || n[:label].nil? || n[:label].empty?
-              @i18n.note
-            else l10n("#{@i18n.note} #{n[:label]}")
-            end
+      lbl = @i18n.note
+      (n.nil? || n[:label].nil? || n[:label].empty?) or
+        lbl = l10n("#{lbl} #{n[:label]}")
       prefix_name(elem, "", lbl, "name")
     end
 
@@ -68,8 +75,18 @@ module IsoDoc
     end
 
     def admonition1(elem)
-      elem.at(ns("./name")) || elem["notag"] == "true" and return
-      prefix_name(elem, "", @i18n.admonition[elem["type"]]&.upcase, "name")
+      if elem["type"] == "box"
+        admonition_numbered1(elem)
+      else
+        elem["notag"] == "true" || elem.at(ns("./name")) and return
+        prefix_name(elem, "", @i18n.admonition[elem["type"]]&.upcase, "name")
+      end
+    end
+
+    def admonition_numbered1(elem)
+      elem["unnumbered"] && !elem.at(ns("./name")) and return
+      n = @xrefs.anchor(elem["id"], :label, false)
+      prefix_name(elem, block_delim, l10n("#{@i18n.box} #{n}"), "name")
     end
 
     def recommendation(docxml)

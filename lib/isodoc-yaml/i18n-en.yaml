@@ -46,6 +46,7 @@ chain_and: "%1 and %2"
 chain_or: "%1 or %2"
 chain_from: "%1 from %2"
 chain_to: "%1 to %2"
+nested_xref: "%1, %2"
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
 note: NOTE
@@ -61,6 +62,7 @@ table: Table
 requirement: Requirement
 recommendation: Recommendation
 permission: Permission
+box: Box
 # Modspec
 recommendationtest: Recommendation test
 requirementtest: Requirement test
@@ -74,6 +76,7 @@ key: Key
 example: EXAMPLE
 example_xref: Example
 where: where
+where_one: where
 wholeoftext: Whole of text
 draft_label: draft
 inform_annex: informative

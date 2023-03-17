@@ -59,6 +59,7 @@ RSpec.describe IsoDoc do
             <surname>Rubble</surname>
             </name>
             <affiliation>
+            <name>Chief Engineer</name>
             <organization><name>Slate Inc.</name>
             <subdivision>Hermeneutics Unit</subdivision>
             <subdivision>Exegesis Subunit</subdivision>
@@ -111,6 +112,17 @@ RSpec.describe IsoDoc do
         <doctype>international-standard</doctype>
         </ext>
       </bibdata>
+      <metanorma-extension>
+        <presentation-metadata>
+        <name>A</name><value>B</value>
+        </presentation-metadata>
+        <presentation-metadata>
+        <name>C</name><value>D</value>
+        </presentation-metadata>
+        <presentation-metadata>
+        <name>A</name><value>F</value>
+        </presentation-metadata>
+      </metanorma-extension>
       </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -118,7 +130,7 @@ RSpec.describe IsoDoc do
       :activateddate=>"2013",
       :agency=>"ISO",
       :authors=>["Barney Rubble", "Fred Flintstone", "B. B. Rubble"],
-      :authors_affiliations=>{"Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone", "B. B. Rubble"]},
+      :authors_affiliations=>{"Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone", "B. B. Rubble"]},
       :circulateddate=>"2015",
       :confirmeddate=>"2017",
       :copieddate=>"2016",
@@ -144,6 +156,8 @@ RSpec.describe IsoDoc do
       :lang=>"en",
       :obsoleteddate=>"2014",
       :pdf=>"URL D",
+      :presentation_metadata_A=>["B", "F"],
+      :presentation_metadata_C=>["D"],
       :publisheddate=>"2011",
       :receiveddate=>"XXX",
       :revdate=>"2016-05-01",

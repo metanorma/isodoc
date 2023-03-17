@@ -234,7 +234,7 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -339,7 +339,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -401,7 +401,7 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
@@ -677,7 +677,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
@@ -724,7 +724,7 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -878,7 +878,121 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
+    FileUtils.rm_rf "spec/assets/odf1.emf"
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true)
+      .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
+      .to be_equivalent_to xmlpp(word)
+  end
+
+  it "processes subfigures" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+           <preface><foreword>
+           <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
+         <name>Overall title</name>
+         <figure id="note1">
+       <name>Subfigure 1</name>
+         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+         </figure>
+         <figure id="note2">
+       <name>Subfigure 2</name>
+         <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
+         </figure>
+       </figure>
+           </foreword></preface>
+           </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+          <foreword displayorder="1">
+            <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
+              <name>Figure 1 — Overall title</name>
+              <figure id="note1">
+                <name>Figure 1-1 — Subfigure 1</name>
+                <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+              </figure>
+              <figure id="note2">
+                <name>Figure 1-2 — Subfigure 2</name>
+                <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
+              </figure>
+            </figure>
+          </foreword>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                 <div id="note1" class="figure">
+                   <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+                   <p class="FigureTitle" style="text-align:center;">Figure 1-1 — Subfigure 1</p>
+                 </div>
+                 <div id="note2" class="figure">
+                   <img src="rice_images/rice_image1.png" height="20" width="auto"/>
+                   <p class="FigureTitle" style="text-align:center;">Figure 1-2 — Subfigure 2</p>
+                 </div>
+                 <p class="FigureTitle" style="text-align:center;">Figure 1 — Overall title</p>
+               </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    word = <<~OUTPUT
+          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+        <head>
+          <style>
+          </style>
+        </head>
+        <body lang="EN-US" link="blue" vlink="#954F72">
+          <div class="WordSection1">
+            <p> </p>
+          </div>
+          <p>
+            <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection2">
+            <p>
+              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div>
+              <h1 class="ForewordTitle">Foreword</h1>
+              <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                <div id="note1" class="figure">
+                  <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
+                  <p class="FigureTitle" style="text-align:center;">Figure 1-1 — Subfigure 1</p>
+                </div>
+                <div id="note2" class="figure">
+                  <img src="rice_images/rice_image1.png" height="20" width="auto"/>
+                  <p class="FigureTitle" style="text-align:center;">Figure 1-2 — Subfigure 2</p>
+                </div>
+                <p class="FigureTitle" style="text-align:center;">Figure 1 — Overall title</p>
+              </div>
+            </div>
+            <p> </p>
+          </div>
+          <p>
+            <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection3">
+            <p class="zzSTDTitle1"/>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
@@ -962,7 +1076,7 @@ RSpec.describe IsoDoc do
          </preface>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
       .to be_equivalent_to xmlpp(presxml)
   end
@@ -999,7 +1113,7 @@ RSpec.describe IsoDoc do
          </preface>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true)
         .gsub(/&lt;/, "&#x3c;")
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
@@ -1093,7 +1207,7 @@ RSpec.describe IsoDoc do
       </html>
     DOC
 
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .gsub(/&lt;/, "&#x3c;")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
@@ -1185,7 +1299,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
      .convert("test", input, true)
      .gsub(/&lt;/, "&#x3c;"))
           .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
@@ -1221,7 +1335,7 @@ RSpec.describe IsoDoc do
         </iso-standard>
       INPUT
       expect do
-        IsoDoc::PresentationXMLConvert.new({})
+        IsoDoc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true)
       end.to raise_error("Inkscape missing in PATH, unable" \
                          "to convert image spec/assets/odf1.svg. Aborting.")
@@ -1321,7 +1435,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -1367,7 +1481,7 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
@@ -1414,7 +1528,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
@@ -1468,7 +1582,62 @@ RSpec.describe IsoDoc do
               </body>
           </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes box admonitions" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="box">
+          <name>Title</name>
+        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+      </admonition>
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" type="box" notag="true">
+        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+      </admonition>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <foreword displayorder="1">
+             <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="box">
+               <name>Box  1 — Title</name>
+               <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+             </admonition>
+             <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" type="box" notag="true">
+               <name>Box  2</name>
+               <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+             </admonition>
+           </foreword>
+         </preface>
+       </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition">
+                 <p class="AdmonitionTitle" style="text-align:center;">Box  1 — Title</p>
+                 <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+               </div>
+               <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" class="Admonition">
+                 <p class="AdmonitionTitle" style="text-align:center;">Box  2</p>
+                 <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+               </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
@@ -1503,7 +1672,8 @@ RSpec.describe IsoDoc do
           <preface><foreword displayorder="1">
           <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
         <stem type="AsciiMath">r = 1 %</stem>
-      <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
+        <p keep-with-next="true">where</p>
+      <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl">
         <dt>
           <stem type="AsciiMath">r</stem>
         </dt>
@@ -1527,7 +1697,7 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after:avoid;'>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
+                    <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
               <span class="stem">(#(r)#)</span>
             </dt><dd>
               <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
@@ -1569,7 +1739,7 @@ RSpec.describe IsoDoc do
                      <span style='mso-tab-count:1'>&#160; </span>
                    </p>
                  </div>
-                 <p>where</p>
+                 <p style="page-break-after: avoid;">where</p>
                  <table class='formula_dl'>
                    <tr>
                      <td valign='top' align='left'>
@@ -1612,7 +1782,7 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -1698,7 +1868,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml"  type='presentation'>
           <preface><foreword displayorder="1">
           <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
-        <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO 7301:2011, Clause 1</source>
+        <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;7301:2011, Clause 1</source>
         <author>ISO</author>
         <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
       </quote>
@@ -1714,14 +1884,14 @@ RSpec.describe IsoDoc do
 
 
         <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<i>Oryza sativa</i> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
-      <p class="QuoteAttribution">&#8212; ISO, ISO 7301:2011, Clause 1</p></div>
+      <p class="QuoteAttribution">&#8212; ISO, ISO&#xa0;7301:2011, Clause 1</p></div>
               </div>
               <p class="zzSTDTitle1"/>
             </div>
           </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -1848,8 +2018,8 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
       <title depth="1">Bibliography</title>
-      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. June 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF RFC 2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
-      <biblio-tag>[1]<tab/>IETF RFC 2616, </biblio-tag>
+      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF&#xa0;RFC&#xa0;2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF&#xa0;RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
+      <biblio-tag>[1]<tab/>IETF&#xa0;RFC&#xa0;2616, </biblio-tag>
       </bibitem>
       </references></bibliography>
           </iso-standard>
@@ -1890,13 +2060,13 @@ RSpec.describe IsoDoc do
                    <br/>
              <div>
                <h1 class='Section3'>Bibliography</h1>
-               <p id="rfc2616" class="Biblio">[1]  IETF RFC 2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. In: RFC. June 1999. Fremont, CA. <a href="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</a>.</p>
+               <p id="rfc2616" class="Biblio">[1]  IETF&#xa0;RFC&#xa0;2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. In: RFC. 1999. Fremont, CA. <a href="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</a>.</p>
              </div>
                 </div>
               </body>
             </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -2012,7 +2182,7 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
   .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
@@ -2132,7 +2302,7 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
@@ -2309,7 +2479,7 @@ RSpec.describe IsoDoc do
                </bibliography>
              </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"\.\\}, '"./')
@@ -2542,7 +2712,7 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
      .convert("test", input, true)
      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)

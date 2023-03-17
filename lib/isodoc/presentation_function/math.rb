@@ -32,7 +32,7 @@ module IsoDoc
       return localized unless twitter_cldr_reader_symbols[:decimal]
 
       integer, fraction = localized.split(twitter_cldr_reader_symbols[:decimal])
-      return localized if fraction.nil? || fraction.length.zero?
+      return localized if fraction.nil? || fraction.empty?
 
       [integer, decorate_fraction_part(fraction, locale)]
         .join(twitter_cldr_reader_symbols[:decimal])
@@ -103,19 +103,36 @@ module IsoDoc
       warn e
     end
 
-    def mathml1(node, locale)
-      justnumeral = node.elements.size == 1 && node.elements.first.name == "mn"
-      justnumeral or asciimath_dup(node)
-      localize_maths(node, locale)
-      justnumeral and maths_just_numeral(node)
-    end
-
     def maths_just_numeral(node)
       mn = node.at("./m:mn", MATHML).children
       if node.parent.name == "stem"
         node.parent.replace(mn)
       else
         node.replace(mn)
+      end
+    end
+
+    def mathml1(node, locale)
+      mathml_style_inherit(node)
+      justnumeral = node.elements.size == 1 && node.elements.first.name == "mn"
+      justnumeral or asciimath_dup(node)
+      localize_maths(node, locale)
+      justnumeral and maths_just_numeral(node)
+    end
+
+    def mathml_style_inherit(node)
+      node.at("./ancestor::xmlns:strong") or return
+      node.children =
+        "<mstyle mathvariant='bold'>#{node.children.to_xml}</mstyle>"
+    end
+
+    def mathml_number_to_number(node)
+      (node.elements.size == 1 && node.elements.first.name == "mn") or return
+      repl = node.at("./m:mn", MATHML).children
+      if node.parent.name == "stem"
+        node.parent.replace(repl)
+      else
+        node.replace(repl)
       end
     end
   end

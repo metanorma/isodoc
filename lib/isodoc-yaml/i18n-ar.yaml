@@ -38,6 +38,7 @@ chain_and: "%1 و %2"
 chain_or: "%1 او %2"
 chain_from: "%1 %من 2"
 chain_to: "من %1 إلى %2"
+nested_xref: "%1, %2"
 ordinal_keys: [gender]
 SpelloutRules:
   f: spellout-ordinal-feminine
@@ -55,10 +56,12 @@ table: جدول
 requirement: مطلب
 recommendation: توصية
 permission: إذن
+box: الإطار
 key: مفتاح
 example: مثال
 example_xref: مثال
 where: حيث
+where_one: حيث
 wholeoftext: كامل النص
 draft_label: مسودة
 inform_annex: إخباري

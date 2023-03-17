@@ -10,7 +10,7 @@ module IsoDoc
       end
 
       def inline_header_title(out, node, title)
-        out.span **{ class: "zzMoveToFollowing" } do |s|
+        out.span class: "zzMoveToFollowing" do |s|
           s.b do |b|
             title&.children&.each { |c2| parse(c2, b) }
             clausedelimspace(node, out) if /\S/.match?(title&.text)
@@ -38,15 +38,15 @@ module IsoDoc
       end
 
       def clause_title_depth(node, title)
-        depth = node.ancestors("clause, annex, terms, references, "\
-                               "definitions, acknowledgements, introduction, "\
+        depth = node.ancestors("clause, annex, terms, references, " \
+                               "definitions, acknowledgements, introduction, " \
                                "foreword").size + 1
         depth = title["depth"] if title && title["depth"]
         depth
       end
 
       def clause_parse_subtitle(title, heading)
-        if var = title&.at("./following-sibling::xmlns:variant-title"\
+        if var = title&.at("./following-sibling::xmlns:variant-title" \
                            "[@type = 'sub']")&.remove
           heading.br nil
           heading.br nil
@@ -55,8 +55,8 @@ module IsoDoc
       end
 
       # top level clause names
-      def clause_name(_num, title, div, header_class)
-        preceding_floating_titles(title, div)
+      def clause_name(node, title, div, header_class)
+        preceding_floating_titles(node, div)
         header_class = {} if header_class.nil?
         div.h1 **attr_code(header_class) do |h1|
           if title.is_a?(String) then h1 << title
@@ -72,7 +72,7 @@ module IsoDoc
         preceding_floating_titles(name, div)
         return if name.nil?
 
-        div.h1 **{ class: "Annex" } do |t|
+        div.h1 class: "Annex" do |t|
           name.children.each { |c2| parse(c2, t) }
           clause_parse_subtitle(name, t)
         end
@@ -85,10 +85,10 @@ module IsoDoc
         end
       end
 
-      def preceding_floating_titles(name, div)
-        return if name.nil? || name.is_a?(String)
+      def preceding_floating_titles(node, div)
+        return if node.nil?
 
-        out = name.parent.xpath("./preceding-sibling::*")
+        out = node.xpath("./preceding-sibling::*")
           .reverse.each_with_object([]) do |p, m|
           break m unless p.name == "p"
 

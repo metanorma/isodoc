@@ -45,10 +45,14 @@ module IsoDoc
         end
       end
 
+      def subfigure_label(subfignum)
+        subfignum.zero? and return ""
+        "-#{subfignum}"
+      end
+
       def sequential_figure_body(subfignum, counter, block, klass)
         label = counter.print
-        label &&= label + (subfignum.zero? ? "" : "-#{subfignum}")
-
+        label &&= label + subfigure_label(subfignum)
         @anchors[block["id"]] = anchor_struct(
           label, nil, @labels[klass] || klass.capitalize, klass,
           block["unnumbered"]
@@ -58,8 +62,7 @@ module IsoDoc
       def sequential_table_names(clause)
         c = Counter.new
         clause.xpath(ns(".//table")).noblank.each do |t|
-          next if labelled_ancestor(t)
-
+          labelled_ancestor(t) and next
           @anchors[t["id"]] = anchor_struct(
             c.increment(t).print, nil,
             @labels["table"], "table", t["unnumbered"]
@@ -117,7 +120,6 @@ module IsoDoc
           block, anchor_struct(id, block,
                                label, klass, block["unnumbered"])
         )
-
         model.permission_parts(block, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
                                            n[:klass], false)
@@ -171,8 +173,7 @@ module IsoDoc
 
       def hierarchical_figure_body(num, subfignum, counter, block, klass)
         label = "#{num}#{hiersep}#{counter.print}" +
-          (subfignum.zero? ? "" : "#{hierfigsep}#{subfignum}")
-
+          subfigure_label(subfignum)
         @anchors[block["id"]] =
           anchor_struct(label, nil, @labels[klass] || klass.capitalize,
                         klass, block["unnumbered"])
@@ -181,8 +182,7 @@ module IsoDoc
       def hierarchical_table_names(clause, num)
         c = Counter.new
         clause.xpath(ns(".//table")).noblank.each do |t|
-          next if labelled_ancestor(t)
-
+          labelled_ancestor(t) and next
           @anchors[t["id"]] =
             anchor_struct("#{num}#{hiersep}#{c.increment(t).print}",
                           nil, @labels["table"], "table", t["unnumbered"])

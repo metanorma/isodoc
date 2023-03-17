@@ -1,24 +1,32 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def sourcehighlighter_css(docxml)
-      @sourcehighlighter or return
-      ins = docxml.at(ns("//misc-container")) ||
-        docxml.at(ns("//bibdata")).after("<misc-container/>").next_element
-      ins << "<source-highlighter-css>#{sourcehighlighter_css_file}" \
+      ret = custom_css(docxml)
+      ret.empty? and return
+      ins = docxml.at(ns("//metanorma-extension")) ||
+        docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
+      ins << "<source-highlighter-css>#{ret}" \
              "</source-highlighter-css>"
     end
 
-    def sourcehighlighter_css_file
-      File.read(File.join(File.dirname(__FILE__), "..", "base_style",
-                          "rouge.css"))
+    def custom_css(docxml)
+      ret = ""
+      @sourcehighlighter and
+        ret += File.read(File.join(File.dirname(__FILE__), "..", "base_style",
+                                   "rouge.css"))
+      a = docxml.at(ns("//metanorma-extension/" \
+                       "clause[title = 'user-css']/sourcecode")) and
+        ret += "\n#{to_xml(a.children)}"
+      ret
     end
 
     def sourcehighlighter
       @sourcehighlighter or return
+      Rouge::Formatter.enable_escape!
       f = Rouge::Formatters::HTML.new
       opts = { gutter_class: "rouge-gutter", code_class: "rouge-code" }
-      { formatter: f,
-        formatter_line: Rouge::Formatters::HTMLLineTable.new(f, opts) }
+      f1 = Rouge::Formatters::HTMLLineTable.new(f, opts)
+      { formatter: f, formatter_line: f1 }
     end
 
     def sourcecode(docxml)
@@ -50,6 +58,11 @@ module IsoDoc
     def source_remove_markup(elem)
       ret = {}
       name = elem.at(ns("./name")) and ret[:name] = name.remove.to_xml
+      source_remove_annotations(ret, elem)
+      ret
+    end
+
+    def source_remove_annotations(ret, elem)
       ret[:ann] = elem.xpath(ns("./annotation")).each(&:remove)
       ret[:call] = elem.xpath(ns("./callout")).each_with_object([]) do |c, m|
         m << { xml: c.remove.to_xml, line: c.line - elem.line }
@@ -99,9 +112,12 @@ module IsoDoc
     end
 
     def source_lex(elem)
-      l = (Rouge::Lexer.find(elem["lang"] || "plaintext") ||
+      lexer = (Rouge::Lexer.find(elem["lang"] || "plaintext") ||
        Rouge::Lexer.find("plaintext"))
-      l.lex(@c.decode(elem.children.to_xml))
+      l = Rouge::Lexers::Escape.new(start: "{^^{", end: "}^^}", lang: lexer)
+      source = to_xml(elem.children).gsub(/</, "{^^{<").gsub(/>/, ">}^^}")
+      l.lang.reset!
+      l.lex(@c.decode(source))
     end
 
     def source_label(elem)

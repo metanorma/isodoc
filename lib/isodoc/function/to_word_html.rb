@@ -69,21 +69,21 @@ module IsoDoc
       end
 
       def make_body1(body, _docxml)
-        body.div **{ class: "title-section" } do |div1|
+        body.div class: "title-section" do |div1|
           div1.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
 
       def make_body2(body, _docxml)
-        body.div **{ class: "prefatory-section" } do |div2|
+        body.div class: "prefatory-section" do |div2|
           div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
 
       def make_body3(body, docxml)
-        body.div **{ class: "main-section" } do |div3|
+        body.div class: "main-section" do |div3|
           boilerplate docxml, div3
           preface_block docxml, div3
           abstract docxml, div3
@@ -112,26 +112,28 @@ module IsoDoc
         @meta.url isoxml, out
         @meta.keywords isoxml, out
         @meta.note isoxml, out
+        @meta.presentation isoxml, out
         @meta.get
       end
 
       def middle(isoxml, out)
         middle_title(isoxml, out)
         middle_admonitions(isoxml, out)
-        i = scope isoxml, out, 0
-        i = norm_ref isoxml, out, i
-        i = terms_defs isoxml, out, i
-        symbols_abbrevs isoxml, out, i
+        scope isoxml, out, 0
+        norm_ref isoxml, out, 0
+        terms_defs isoxml, out, 0
+        symbols_abbrevs isoxml, out, 0
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
+        colophon isoxml, out
       end
 
       def boilerplate(node, out)
         return if @bare
 
         boilerplate = node.at(ns("//boilerplate")) or return
-        out.div **{ class: "authority" } do |s|
+        out.div class: "authority" do |s|
           boilerplate.children.each do |n|
             if n.name == "title"
               s.h1 do |h|

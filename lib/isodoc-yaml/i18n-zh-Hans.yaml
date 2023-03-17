@@ -41,6 +41,7 @@ chain_and: "%1和%2"
 chain_or: "%1或%2"
 chain_from: "%1从%2"
 chain_to: "%1到%2"
+nested_xref: "%1, %2"
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
 note: 注
@@ -56,10 +57,12 @@ table: 表
 requirement: 要求
 recommendation: 建议
 permission: 容許
+box: 专栏
 key: 说明
 example: 示例
 example_xref: 示例
 where: 式中
+where_one: 式中
 wholeoftext: 全部
 draft_label: 稿
 inform_annex: 资料性附录

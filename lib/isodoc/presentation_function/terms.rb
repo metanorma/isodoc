@@ -56,23 +56,22 @@ module IsoDoc
     def concept1_ref(_node, ref, opts)
       ref.nil? and return
       opts[:ref] == "false" and return ref.remove
-      r = concept1_ref_content(ref)
-      ref = r.at("./descendant-or-self::xmlns:xref | " \
-                 "./descendant-or-self::xmlns:eref | " \
-                 "./descendant-or-self::xmlns:termref")
-      %w(xref eref).include? ref&.name and get_linkend(ref)
-      opts[:linkref] == "false" && %w(xref eref).include?(ref&.name) and
+      concept1_ref_content(ref)
+      %w(xref eref).include? ref.name and get_linkend(ref)
+      opts[:linkref] == "false" && %w(xref eref).include?(ref.name) and
         ref.replace(ref.children)
     end
 
     def concept1_ref_content(ref)
+      prev = "["
+      foll = "]"
       if non_locality_elems(ref).select do |c|
            !c.text? || /\S/.match(c)
          end.empty?
-        ref.replace(@i18n.term_defined_in.sub(/%/,
-                                              to_xml(ref)))
-      else ref.replace("[#{to_xml(ref)}]")
+        prev, foll = @i18n.term_defined_in.split("%")
       end
+      ref.previous = prev
+      ref.next = foll
     end
 
     def related(docxml)

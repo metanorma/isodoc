@@ -79,7 +79,7 @@ RSpec.describe IsoDoc do
                 </body>
             </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -108,7 +108,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
-         <misc-container>
+         <metanorma-extension>
            <source-highlighter-css>sourcecode table td { padding: 5px; }
        sourcecode table pre { margin: 0; }
        sourcecode, sourcecode .w {
@@ -148,7 +148,7 @@ RSpec.describe IsoDoc do
          color: #0000FF;
        }
        </source-highlighter-css>
-         </misc-container>
+         </metanorma-extension>
          <preface>
            <foreword displayorder="1">
              <sourcecode lang="ruby" id="samplecode">
@@ -316,7 +316,8 @@ RSpec.describe IsoDoc do
       </body>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ sourcehighlighter: true })
+      .new({ sourcehighlighter: true }
+      .merge(presxml_options))
       .convert("test", input, true))
     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -328,6 +329,80 @@ RSpec.describe IsoDoc do
       .gsub(%r{^.*<body }m, "<body ")
       .gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to xmlpp(doc)
+  end
+
+  it "combines sourcecode highlighting stylesheet with user-css" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+      <metanorma-extension><clause id="_user_css" inline-header="false" obligation="normative">
+      <title>user-css</title>
+      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
+      </clause>
+      </metanorma-extension>
+      <preface><foreword>
+      <sourcecode lang="ruby" id="samplecode">
+          puts x
+      </sourcecode>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+         <metanorma-extension>
+           <clause id="_user_css" inline-header="false" obligation="normative">
+             <title depth="1">user-css</title>
+             <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
+           </clause>
+           <source-highlighter-css>sourcecode table td { padding: 5px; }
+       sourcecode table pre { margin: 0; }
+       sourcecode, sourcecode .w {
+         color: #444444;
+       }
+       sourcecode .cp {
+         color: #CC00A3;
+       }
+       sourcecode .cs {
+         color: #CC00A3;
+       }
+       sourcecode .c, sourcecode .ch, sourcecode .cd, sourcecode .cm, sourcecode .cpf, sourcecode .c1 {
+         color: #FF0000;
+       }
+       sourcecode .kc {
+         color: #C34E00;
+       }
+       sourcecode .kd {
+         color: #0000FF;
+       }
+       sourcecode .kr {
+         color: #007575;
+       }
+       sourcecode .k, sourcecode .kn, sourcecode .kp, sourcecode .kt, sourcecode .kv {
+         color: #0000FF;
+       }
+       sourcecode .s, sourcecode .sb, sourcecode .sc, sourcecode .ld, sourcecode .sd, sourcecode .s2, sourcecode .se, sourcecode .sh, sourcecode .si, sourcecode .sx, sourcecode .sr, sourcecode .s1, sourcecode .ss {
+         color: #009C00;
+       }
+       sourcecode .sa {
+         color: #0000FF;
+       }
+       sourcecode .nb, sourcecode .bp {
+         color: #C34E00;
+       }
+       sourcecode .nt {
+         color: #0000FF;
+       }
+
+
+       .green { background-color: green }</source-highlighter-css>
+         </metanorma-extension>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new({ sourcehighlighter: true }
+      .merge(presxml_options))
+      .convert("test", input, true))
+      .at("//xmlns:metanorma-extension")
+    expect(xmlpp(xml.to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes sourcecode with escapes preserved, and XML sourcecode highlighting" do
@@ -409,9 +484,10 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: true })
+  .new({ sourcehighlighter: true }
+      .merge(presxml_options))
   .convert("test", input, true))
-  .sub(%r{<misc-container>.*</misc-container>}m, "")
+  .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
@@ -491,9 +567,10 @@ RSpec.describe IsoDoc do
          </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: true })
+  .new({ sourcehighlighter: true }
+      .merge(presxml_options))
   .convert("test", input, true))
-  .sub(%r{<misc-container>.*</misc-container>}m, "")
+  .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
@@ -641,15 +718,128 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: true })
+  .new({ sourcehighlighter: true }
+      .merge(presxml_options))
   .convert("test", input, true))
-  .sub(%r{<misc-container>.*</misc-container>}m, "")
+  .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(doc)
+  end
+
+  it "processes sourcecode with xml formatting" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
+      <preface><foreword id="X">
+      <sourcecode id="_" lang="ruby" linenums="true">puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
+         %w{a b c}.each do |x|
+           <strong>puts</strong> <xref target="X">x</xref> <callout target="C">3</callout>
+         end<annotation id="A">
+           <p id="_">This is <em>one</em> callout</p>
+         </annotation>
+         </sourcecode>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+         <preface>
+           <foreword id="X" displayorder="1">
+             <sourcecode id="_" lang="ruby" linenums="true">
+               <name>Figure 1</name>
+               <table class="rouge-line-table">
+                 <tbody>
+                   <tr id="line-1" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>1</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode>
+                         <span class="nb">puts</span>
+                         <span class="s2">"Hello, world."</span>
+                         <span class="c">
+                           <callout target="A">1</callout>
+                         </span>
+                         <span class="c">
+                           <callout target="B">2</callout>
+                         </span>
+                       </sourcecode>
+                     </td>
+                   </tr>
+                   <tr id="line-2" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>2</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode>
+                         <span class="sx">%w{a b c}</span>
+                         <span class="p">.</span>
+                         <span class="nf">each</span>
+                         <span class="k">do</span>
+                         <span class="o">|</span>
+                         <span class="n">x</span>
+                         <span class="o">|</span>
+                       </sourcecode>
+                     </td>
+                   </tr>
+                   <tr id="line-3" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>3</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode>
+                         <strong>
+                           <span class="nb">puts</span>
+                         </strong>
+                         <xref target="X">
+                           <span class="n">x</span>
+                         </xref>
+                         <span class="c">
+                           <callout target="C">3</callout>
+                         </span>
+                       </sourcecode>
+                     </td>
+                   </tr>
+                   <tr id="line-4" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>4</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode>
+                         <span class="k">end</span>
+                       </sourcecode>
+                     </td>
+                   </tr>
+                   <tr id="line-5" class="lineno">
+                     <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
+                       <pre>5</pre>
+                     </td>
+                     <td class="rouge-code">
+                       <sourcecode/>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+               <annotation id="A">
+                 <p id="_">This is <em>one</em> callout</p>
+               </annotation>
+             </sourcecode>
+           </foreword>
+         </preface>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+  .new({ sourcehighlighter: true }
+      .merge(presxml_options))
+      .convert("test", input, true))
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes pseudocode" do
@@ -695,7 +885,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     FileUtils.rm_f "test.doc"
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)

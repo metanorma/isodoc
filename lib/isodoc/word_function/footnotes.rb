@@ -45,7 +45,7 @@ module IsoDoc
 
       def make_generic_footnote_text(node, fnid)
         noko do |xml|
-          xml.aside **{ id: "ftn#{fnid}" } do |div|
+          xml.aside id: "ftn#{fnid}" do |div|
             node.children.each { |n| parse(n, div) }
           end
         end.join("\n")
@@ -72,13 +72,13 @@ module IsoDoc
       end
 
       def seen_footnote_parse(_node, out, footnote)
-        out.span **{ style: "mso-element:field-begin" }
+        out.span style: "mso-element:field-begin"
         out << " NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h"
-        out.span **{ style: "mso-element:field-separator" }
-        out.span **{ class: "MsoFootnoteReference" } do |s|
+        out.span style: "mso-element:field-separator"
+        out.span class: "MsoFootnoteReference" do |s|
           s << footnote
         end
-        out.span **{ style: "mso-element:field-end" }
+        out.span style: "mso-element:field-end"
       end
 
       def footnote_parse(node, out)
@@ -89,9 +89,9 @@ module IsoDoc
         return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)
 
         @fn_bookmarks[fn] = bookmarkid
-        out.span **{ style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}" } do |s|
-          s.a **{ class: "FootnoteRef", "epub:type": "footnote",
-                  href: "#ftn#{fn}" } do |a|
+        out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}" do |s|
+          s.a class: "FootnoteRef", "epub:type": "footnote",
+              href: "#ftn#{fn}" do |a|
             a.sup { |sup| sup << fn }
           end
         end

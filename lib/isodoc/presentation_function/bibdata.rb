@@ -17,8 +17,8 @@ module IsoDoc
     def toc_metadata(docxml)
       return unless @tocfigures || @toctables || @tocrecommendations
 
-      ins = docxml.at(ns("//misc-container")) ||
-        docxml.at(ns("//bibdata")).after("<misc-container/>").next_element
+      ins = docxml.at(ns("//metanorma-extension"))  ||
+        docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
       @tocfigures and
         ins << "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"
       @toctables and
@@ -41,7 +41,7 @@ module IsoDoc
       return unless @fontist_fonts
 
       ins = xmldoc.at(ns("//presentation-metadata")) ||
-        xmldoc.at(ns("//misc-container")) || xmldoc.at(ns("//bibdata"))
+        xmldoc.at(ns("//metanorma-extension")) || xmldoc.at(ns("//bibdata"))
       CSV.parse_line(@fontist_fonts, col_sep: ";").map(&:strip).each do |f|
         ins.next = presmeta("fonts", f)
       end

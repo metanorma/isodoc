@@ -1,5 +1,3 @@
-require_relative "../../relaton/render/general"
-
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def references(docxml)
@@ -8,11 +6,16 @@ module IsoDoc
       docxml.xpath(ns("//references/bibitem")).each do |x|
         bibitem(x, renderings)
       end
+      hidden_items(docxml)
+      @xrefs.parse_inclusions(refs: true).parse(docxml)
+    end
+
+    def hidden_items(docxml)
       docxml.xpath(ns("//references[bibitem/@hidden = 'true']")).each do |x|
         x.at(ns("./bibitem[not(@hidden = 'true')]")) and next
+        x.elements.map(&:name).any? { |n| n != "bibitem" } and next
         x["hidden"] = "true"
       end
-      @xrefs.parse_inclusions(refs: true).parse(docxml)
     end
 
     def references_render(docxml)
@@ -127,13 +130,13 @@ module IsoDoc
       ids = @xrefs.klass.bibitem_ref_code(bib)
       idents = @xrefs.klass.render_identifier(ids)
       ret = if biblio then biblio_ref_entry_code(ordinal, idents, ids,
-                                                 standard, datefn)
-            else norm_ref_entry_code(ordinal, idents, ids, standard, datefn)
+                                                 standard, datefn, bib)
+            else norm_ref_entry_code(ordinal, idents, ids, standard, datefn, bib)
             end
       bib << "<biblio-tag>#{ret}</biblio-tag>"
     end
 
-    def norm_ref_entry_code(_ordinal, idents, _ids, _standard, datefn)
+    def norm_ref_entry_code(_ordinal, idents, _ids, _standard, datefn, _bib)
       ret = (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
       (idents[:ordinal] || idents[:metanorma]) && idents[:sdo] and
         ret += ", #{idents[:sdo]}"
@@ -145,8 +148,8 @@ module IsoDoc
 
     # if ids is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and ids
-    def biblio_ref_entry_code(ordinal, ids, _id, standard, datefn)
-      standard and id = nil
+    def biblio_ref_entry_code(ordinal, ids, _id, standard, datefn, _bib)
+      #standard and id = nil
       ret = (ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]")
       if ids[:sdo]
         ret = prefix_bracketed_ref(ret)

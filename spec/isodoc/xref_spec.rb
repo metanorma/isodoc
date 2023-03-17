@@ -49,7 +49,7 @@ RSpec.describe IsoDoc do
       </p>
             </div></div>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -69,7 +69,10 @@ RSpec.describe IsoDoc do
       </preface>
       </iso-standard>
     INPUT
-    expect { IsoDoc::PresentationXMLConvert.new({}).convert("test", i, true) }
+    expect do
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
+        .convert("test", i, true)
+    end
       .to output(/No label has been processed for ID N1/).to_stderr
   end
 
@@ -165,9 +168,98 @@ RSpec.describe IsoDoc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "cross-references box admonitions" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword>
+          <p>
+          <xref target="N1"/>
+          <xref target="N2"/>
+          <xref target="N3"/>
+          <xref target="N"/>
+          <xref target="note1"/>
+          <xref target="note2"/>
+          <xref target="AN"/>
+          <xref target="Anote1"/>
+          <xref target="Anote2"/>
+          </p>
+          </foreword>
+          <introduction id="intro">
+          <admonition type="box" id="N1">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+      <clause id="xyz"><title>Preparatory</title>
+          <admonition type="box" id="N2">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83d">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+      <admonition type="tip" id="N3">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83d">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+      </clause>
+          </introduction>
+          </preface>
+          <sections>
+          <clause id="scope" type="scope"><title>Scope</title>
+          <admonition type="box" id="N">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+      <p><xref target="N"/></p>
+          </clause>
+          <terms id="terms"/>
+          <clause id="widgets"><title>Widgets</title>
+          <clause id="widgets1">
+          <admonition type="box" id="note1">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+          <admonition type="box" id="note2">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+      <p>    <xref target="note1"/> <xref target="note2"/> </p>
+          </clause>
+          </clause>
+          </sections>
+          <annex id="annex1">
+          <clause id="annex1a">
+          <admonition type="box" id="AN">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+          </clause>
+          <clause id="annex1b">
+          <admonition type="box" id="Anote1">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+          <admonition type="box" id="Anote2">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+      </admonition>
+          </clause>
+          </annex>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <foreword displayorder="1">
+        <p>
+          <xref target="N1">Introduction, Box</xref>
+          <xref target="N2">Preparatory, Box</xref>
+          <xref target="N3">[N3]</xref>
+          <xref target="N">Clause 1, Box</xref>
+          <xref target="note1">Clause 3.1, Box  1</xref>
+          <xref target="note2">Clause 3.1, Box  2</xref>
+          <xref target="AN">Annex A.1, Box</xref>
+          <xref target="Anote1">Annex A.2, Box  1</xref>
+          <xref target="Anote2">Annex A.2, Box  2</xref>
+        </p>
+      </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
+       .convert("test", input, true))
+       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -279,7 +371,7 @@ RSpec.describe IsoDoc do
                   </p>
                 </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -393,7 +485,7 @@ RSpec.describe IsoDoc do
          </p>
        </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -464,7 +556,7 @@ RSpec.describe IsoDoc do
                    </p>
                  </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -549,7 +641,7 @@ RSpec.describe IsoDoc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -574,7 +666,7 @@ RSpec.describe IsoDoc do
          </p>
        </clause>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:clause[@id='widgets1']").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -658,7 +750,7 @@ RSpec.describe IsoDoc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -742,7 +834,7 @@ RSpec.describe IsoDoc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -826,7 +918,7 @@ RSpec.describe IsoDoc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -910,7 +1002,7 @@ RSpec.describe IsoDoc do
                    </p>
                  </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -979,7 +1071,7 @@ RSpec.describe IsoDoc do
                   </p>
                 </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1119,7 +1211,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1164,7 +1256,7 @@ RSpec.describe IsoDoc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1209,7 +1301,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1254,7 +1346,7 @@ RSpec.describe IsoDoc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1299,7 +1391,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1421,7 +1513,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1503,7 +1595,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1594,7 +1686,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1651,7 +1743,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1733,7 +1825,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1815,7 +1907,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1886,7 +1978,7 @@ RSpec.describe IsoDoc do
            </p>
          </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -1969,7 +2061,7 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new({})
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)

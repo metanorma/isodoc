@@ -69,7 +69,7 @@ module IsoDoc
       end
 
       def from_xhtml(xml)
-        numeric_escapes(xml.to_xml
+        numeric_escapes(to_xml(xml)
           .sub(%r{ xmlns="http://www.w3.org/1999/xhtml"}, ""))
       end
 

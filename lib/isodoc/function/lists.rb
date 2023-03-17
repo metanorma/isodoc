@@ -87,7 +87,7 @@ module IsoDoc
       end
 
       def dl_attrs(node)
-        attr_code(id: node["id"], style: keep_style(node))
+        attr_code(id: node["id"], style: keep_style(node), class: node["class"])
       end
 
       def dl_parse(node, out)

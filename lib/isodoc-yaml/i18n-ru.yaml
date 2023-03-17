@@ -45,6 +45,7 @@ chain_and: "%1 и %2"
 chain_or: "%1 или %2"
 chain_from: "%1 от %2"
 chain_to: "%1 до %2"
+nested_xref: "%1, %2"
 ordinal_keys: [gender,number]
 SpelloutRules:
   m.sg: spellout-ordinal-masculine
@@ -66,10 +67,12 @@ table: Таблица
 requirement: Требование
 recommendation: Рекомендация
 permission: Разрешение
+box: Вставка
 key: Условные обозначения
 example: ПРИМЕР
 example_xref: Пример
 where: где
+where_one: где
 wholeoftext: Текст полностью
 draft_label: проект
 inform_annex: информативное

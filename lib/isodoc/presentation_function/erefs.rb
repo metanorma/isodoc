@@ -17,10 +17,11 @@ module IsoDoc
 
     def eref_localities(refs, target, node)
       if can_conflate_eref_rendering?(refs)
-        l10n(", #{eref_localities_conflated(refs, target, node)}")
+        l10n(", #{eref_localities_conflated(refs, target, node)}"
+          .gsub(/\s+/, " "))
       else
         ret = resolve_eref_connectives(eref_locality_stacks(refs, target, node))
-        l10n(ret.join)
+        l10n(ret.join.gsub(/\s+/, " "))
       end
     end
 
@@ -68,7 +69,7 @@ module IsoDoc
     end
 
     def resolve_comma_connectives1(locs, locs1, add)
-      if [", ", " "].include?(locs[1])
+      if [", ", " ", ""].include?(locs[1])
         add += locs[0..2].join
         locs.shift(3)
       else
