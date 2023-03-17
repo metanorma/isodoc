@@ -1,7 +1,8 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_container(container, linkend, node, _target)
-      l10n("#{anchor_xref(node, container)}, #{linkend}")
+      l10n(@i18n.nested_xref.sub(/%1/, anchor_xref(node, container))
+        .sub(/%2/, linkend))
     end
 
     def anchor_value(id)

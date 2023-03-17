@@ -40,6 +40,7 @@ chain_and: "%1 und %2"
 chain_or: "%1 oder %2"
 chain_from: "%1 von %2"
 chain_to: "%1 bis %2"
+nested_xref: "%1, %2"
 ordinal_keys: [gender,number]
 SpelloutRules:
   m.sg: spellout-ordinal-r

@@ -39,6 +39,7 @@ chain_and: "%1 et %2"
 chain_or: "%1 ou %2"
 chain_from: "%1 de %2"
 chain_to: "%1 à %2"
+nested_xref: "%1, %2"
 ordinal_keys: [gender,number]
 SpelloutRules:
   m.sg: spellout-ordinal-masculine
