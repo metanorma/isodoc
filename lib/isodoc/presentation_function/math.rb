@@ -1,6 +1,6 @@
 require "twitter_cldr"
 require "bigdecimal"
-require "mathml2asciimath"
+require "plurimath"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -20,7 +20,7 @@ module IsoDoc
         num = BigDecimal(x.text)
         precision = /\./.match?(x.text) ? x.text.sub(/^.*\./, "").size : 0
         x.children = localized_number(num, locale, precision)
-      rescue ArgumentError => e
+      rescue ArgumentError
       end
     end
 
@@ -90,17 +90,34 @@ module IsoDoc
     end
 
     def asciimath_dup(node)
-      return if @suppressasciimathdup
+      return if @suppressasciimathdup || node.parent.at(ns("./asciimath"))
 
-      a = MathML2AsciiMath.m2a(node.to_xml)
-      node.next = "<!-- #{a} -->"
+      math = node.to_xml.gsub(/ xmlns=["'][^"']+["']/, "")
+        .gsub(%r{<[^:/>]+:}, "<").gsub(%r{</[^:/>]+:}, "</")
+      ret = Plurimath::Math.parse(math, "mathml").to_asciimath
+      ret = HTMLEntities.new.encode(ret, :basic)
+      node.next = "<asciimath>#{ret}</asciimath>"
+    rescue StandardError => e
+      warn "Failure to convert MathML to AsciiMath"
+      warn node.parent.to_xml
+      warn e
+    end
+
+    def maths_just_numeral(node)
+      mn = node.at("./m:mn", MATHML).children
+      if node.parent.name == "stem"
+        node.parent.replace(mn)
+      else
+        node.replace(mn)
+      end
     end
 
     def mathml1(node, locale)
       mathml_style_inherit(node)
-      asciimath_dup(node)
+      justnumeral = node.elements.size == 1 && node.elements.first.name == "mn"
+      justnumeral or asciimath_dup(node)
       localize_maths(node, locale)
-      mathml_number_to_number(node)
+      justnumeral and maths_just_numeral(node)
     end
 
     def mathml_style_inherit(node)

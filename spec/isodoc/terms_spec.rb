@@ -687,7 +687,7 @@ RSpec.describe IsoDoc do
                       <mo>=</mo>
                       <mi>y</mi>
                     </math>
-                    <!-- x = y -->
+                    <asciimath>x = y</asciimath>
                   </stem>
                 </formula>
                 <termsource status='identical' type='authoritative'>[SOURCE:

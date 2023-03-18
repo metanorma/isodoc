@@ -970,7 +970,7 @@ RSpec.describe IsoDoc do
                      <m:mn>2</m:mn>
                    </m:msup>
                  </m:math>
-                 <comment> ( x + y )^2 </comment>
+                 <asciimath>( x + y )^(2)</asciimath>
               </stem>
             </p>
           </foreword>
