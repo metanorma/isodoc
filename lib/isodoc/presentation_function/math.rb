@@ -90,7 +90,7 @@ module IsoDoc
     end
 
     def asciimath_dup(node)
-      return if @suppressasciimathdup
+      return if @suppressasciimathdup || node.parent.at(ns("./asciimath"))
 
       math = node.to_xml.gsub(/ xmlns=["'][^"']+["']/, "")
         .gsub(%r{<[^:/>]+:}, "<").gsub(%r{</[^:/>]+:}, "</")
