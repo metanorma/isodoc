@@ -9,7 +9,7 @@ module IsoDoc
 
     def load_yaml1(lang, script)
       case lang
-      when "en", "fr", "ru", "de", "es", "ar"
+      when "en", "fr", "ru", "de", "es", "ar", "ja"
         load_yaml2(lang)
       when "zh"
         if script == "Hans" then load_yaml2("zh-Hans")
