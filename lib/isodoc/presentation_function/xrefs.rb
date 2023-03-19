@@ -73,11 +73,22 @@ module IsoDoc
       capitalise_xref(node, linkend, anchor_value(node["target"]))
     end
 
+    # Note % to entry and Note % to entry: cannot conflate as Note % to entry 1 and 2
+    # So Notes 1 and 3, but Note 1 to entry and Note 3 to entry
     def combine_conflated_xref_locations(locs)
+      out = if locs.any? { |l| /%/.match?(l[:elem]) }
+              locs.each { |l| l[:label] = @xrefs.anchor(l[:target], :xref) }
+            else
+              conflate_xref_locations(locs)
+            end
+      combine_conflated_xref_locations_container(locs, l10n(combine_conn(out)))
+    end
+
+    def conflate_xref_locations(locs)
       out = locs.each { |l| l[:label] = anchor_value(l[:target]) }
       label = @i18n.inflect(locs.first[:elem], number: "pl")
       out[0][:label] = l10n("#{label} #{out[0][:label]}").strip
-      combine_conflated_xref_locations_container(locs, l10n(combine_conn(out)))
+      out
     end
 
     def combine_conflated_xref_locations_container(locs, ret)
@@ -94,7 +105,7 @@ module IsoDoc
         type = @xrefs.anchor(l["target"], :type)
         m << { conn: l["connective"], target: l["target"],
                type: type, node: l, elem: @xrefs.anchor(l["target"], :elem),
-               container: @xrefs.anchor(node["target"], :container, false) ||
+               container: @xrefs.anchor(l["target"], :container, false) ||
                  %w(termnote).include?(type) }
       end
     end

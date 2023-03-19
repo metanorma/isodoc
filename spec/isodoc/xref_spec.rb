@@ -1226,6 +1226,8 @@ RSpec.describe IsoDoc do
           <xref target="note1"/>
           <xref target="note2"/>
           <xref target="note3"/>
+          <xref target="note1"><location target="note1" connective="and"/><location target="note2" connective="and"/></xref>
+          <xref target="note2"><location target="note2" connective="and"/><location target="note3" connective="and"/></xref>
           </p>
           </foreword>
           </preface>
@@ -1253,6 +1255,8 @@ RSpec.describe IsoDoc do
               <xref target='note1'>Clause 2.1, Note 1</xref>
       <xref target='note2'>Clause 2.2, Note 1</xref>
       <xref target='note3'>Clause 2.2, Note 2</xref>
+      <xref target="note1">Clause 2.1, Note 1</xref> and <xref target="note2">Clause 2.2, Note 1</xref>
+      Clause 2.2, <xref target="note2">Note 1</xref> and <xref target="note3">Note 2</xref>
             </p>
           </foreword>
     OUTPUT

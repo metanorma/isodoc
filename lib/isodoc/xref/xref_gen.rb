@@ -62,8 +62,8 @@ module IsoDoc
             @anchors[n["id"]] =
               { label: termnote_label(c.print), type: "termnote",
                 value: c.print, elem: @labels["termnote"],
-                xref: l10n("#{anchor(t['id'], :xref)}, " \
-                           "#{@labels['note_xref']} #{c.print}") }
+                container: t["id"],
+                xref: l10n("#{@labels['note_xref']} #{c.print}") }
           end
         end
       end
@@ -75,8 +75,11 @@ module IsoDoc
           examples.noblank.each do |n|
             c.increment(n)
             idx = increment_label(examples, n, c, increment: false)
-            @anchors[n["id"]] = anchor_struct(idx, n, @labels["example_xref"],
-                                              "termexample", n["unnumbered"])
+            @anchors[n["id"]] =
+              { label: idx, type: "termexample",
+                value: idx, elem: @labels["example_xref"],
+                container: t["id"],
+                xref: l10n("#{@labels['example_xref']} #{idx}") }
           end
         end
       end
