@@ -231,7 +231,7 @@ module IsoDoc
       if script = docxml.at(ns("//bibdata/script"))
         @script = script.text
       elsif lang
-        @script = default_script(lang)
+        @script = ::Metanorma::Utils::default_script(lang)
       end
       locale = docxml.at(ns("//bibdata/locale")) and @locale = locale.text
     end
