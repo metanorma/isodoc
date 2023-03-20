@@ -219,13 +219,21 @@ module IsoDoc
     end
 
     def convert_i18n_init(docxml)
-      lang = docxml.at(ns("//bibdata/language")) and @lang = lang.text
-      script = docxml.at(ns("//bibdata/script")) and @script = script.text
-      locale = docxml.at(ns("//bibdata/locale")) and @locale = locale.text
+      convert_i18n_init1(docxml)
       i18n_init(@lang, @script, @locale)
       @reqt_models = requirements_processor
         .new({ default: "default", lang: @lang, script: @script, locale: @locale,
                labels: @i18n.get, modspecidentifierbase: @modspecidentifierbase })
+    end
+
+    def convert_i18n_init1(docxml)
+      lang = docxml.at(ns("//bibdata/language")) and @lang = lang.text
+      if script = docxml.at(ns("//bibdata/script"))
+        @script = script.text
+      elsif lang
+        @script = default_script(lang)
+      end
+      locale = docxml.at(ns("//bibdata/locale")) and @locale = locale.text
     end
 
     def convert(input_filename, file = nil, debug = false,
