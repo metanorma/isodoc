@@ -103,7 +103,7 @@ month_december: December
 obligation: Obligation
 admonition: {
   danger: Danger,
-  warning: Warning,
+  warning: 警告,
   caution: Caution,
   important: Important,
   safety precautions: Safety Precautions,
