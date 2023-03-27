@@ -3,7 +3,7 @@ module IsoDoc
     module Lists
       def list_title_parse(node, out)
         name = node.at(ns("./name")) or return
-        out.p **{ class: "ListTitle" } do |p|
+        out.p class: "ListTitle" do |p|
           name&.children&.each { |n| parse(n, p) }
         end
       end
@@ -61,10 +61,10 @@ module IsoDoc
       def li_parse(node, out)
         out.li **attr_code(id: node["id"]) do |li|
           if node["uncheckedcheckbox"] == "true"
-            li << '<span class="zzMoveToFollowing">'\
+            li << '<span class="zzMoveToFollowing">' \
                   '<input type="checkbox" checked="checked"/></span>'
           elsif node["checkedcheckbox"] == "true"
-            li << '<span class="zzMoveToFollowing">'\
+            li << '<span class="zzMoveToFollowing">' \
                   '<input type="checkbox"/></span>'
           end
           node.children.each { |n| parse(n, li) }

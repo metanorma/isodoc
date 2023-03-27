@@ -1,17 +1,17 @@
 term_def_boilerplate: 
 scope: 適用範囲
 symbolsabbrev: 記号及び略語
-abbrev: Abbreviated terms
-symbols: Symbols
+abbrev: 略語
+symbols: 記号
 table_of_contents: 目次
 introduction: 序文
 foreword: まえがき
 abstract: Abstract
 acknowledgements: Acknowledgements
 termsdef: 用語及び定義
-termsdefsymbolsabbrev: Terms, definitions, symbols and abbreviated terms
-termsdefsymbols: Terms, definitions and symbols
-termsdefabbrev: Terms, definitions and abbreviated terms
+termsdefsymbolsabbrev: 用語及び定義並びに記号及び略語
+termsdefsymbols: 用語及び定義並びに記号
+termsdefabbrev: 用語及び定義並びに略語
 normref: 引用規格
 bibliography: 参考文献
 preface: Preface

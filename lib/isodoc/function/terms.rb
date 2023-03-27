@@ -11,20 +11,20 @@ module IsoDoc
       end
 
       def deprecated_term_parse(node, out)
-        out.p **{ class: "DeprecatedTerms", style: "text-align:left;" } do |p|
+        out.p class: "DeprecatedTerms", style: "text-align:left;" do |p|
           p << l10n("#{@i18n.deprecated}: ")
           node.children.each { |c| parse(c, p) }
         end
       end
 
       def admitted_term_parse(node, out)
-        out.p **{ class: "AltTerms", style: "text-align:left;" } do |p|
+        out.p class: "AltTerms", style: "text-align:left;" do |p|
           node.children.each { |c| parse(c, p) }
         end
       end
 
       def term_parse(node, out)
-        out.p **{ class: "Terms", style: "text-align:left;" } do |p|
+        out.p class: "Terms", style: "text-align:left;" do |p|
           node.children.each { |c| parse(c, p) }
         end
       end
@@ -63,7 +63,7 @@ module IsoDoc
 
       def termdef_parse(node, out)
         name = node&.at(ns("./name"))&.remove
-        out.p **{ class: "TermNum", id: node["id"] } do |p|
+        out.p class: "TermNum", id: node["id"] do |p|
           name&.children&.each { |n| parse(n, p) }
         end
         set_termdomain("")
