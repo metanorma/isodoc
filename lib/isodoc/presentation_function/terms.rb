@@ -38,16 +38,13 @@ module IsoDoc
 
     def concept_render_init(node, defaults)
       opts = %i(bold ital ref linkref linkmention)
-        .each_with_object({}) do |x, m|
-        m[x] = node[x.to_s] || defaults[x]
-      end
+        .each_with_object({}) { |x, m| m[x] = node[x.to_s] || defaults[x] }
       [opts, node.at(ns("./renderterm")),
        node.at(ns("./xref | ./eref | ./termref"))]
     end
 
     def concept1_linkmention(ref, renderterm, opts)
-      (opts[:linkmention] == "true" &&
-        !renderterm.nil? && !ref.nil?) or return
+      (opts[:linkmention] == "true" && !renderterm.nil? && !ref.nil?) or return
       ref2 = ref.clone
       r2 = renderterm.clone
       renderterm.replace(ref2).children = r2
@@ -65,11 +62,10 @@ module IsoDoc
     def concept1_ref_content(ref)
       prev = "["
       foll = "]"
-      if non_locality_elems(ref).select do |c|
-           !c.text? || /\S/.match(c)
-         end.empty?
-        prev, foll = @i18n.term_defined_in.split("%")
-      end
+      non_locality_elems(ref).select do |c|
+        !c.text? || /\S/.match(c)
+      end.empty? and
+        (prev, foll = @i18n.term_defined_in.split("%"))
       ref.previous = prev
       ref.next = foll
     end
@@ -95,14 +91,20 @@ module IsoDoc
       docxml.xpath(ns("//term")).each { |t| merge_second_preferred(t) }
       docxml.xpath(ns("//preferred | //admitted | //deprecates"))
         .each { |p| designation1(p) }
+      docxml.xpath(ns("//deprecates")).each { |d| deprecates(d) }
+      docxml.xpath(ns("//admitted")).each { |d| admits(d) }
     end
+
+    def deprecates(elem)
+      elem.children.first.previous = @i18n.l10n("#{@i18n.deprecated}: ")
+    end
+
+    def admits(elem); end
 
     def merge_second_preferred(term)
       pref = nil
       term.xpath(ns("./preferred[expression/name]")).each_with_index do |p, i|
-        if i.zero? then pref = p
-        else merge_second_preferred1(pref, p)
-        end
+        (i.zero? and pref = p) or merge_second_preferred1(pref, p)
       end
     end
 
@@ -226,9 +228,7 @@ module IsoDoc
       docxml.xpath(ns("//termsource/modification")).each do |f|
         termsource_modification(f)
       end
-      docxml.xpath(ns("//termsource")).each do |f|
-        termsource1(f)
-      end
+      docxml.xpath(ns("//termsource")).each { |f| termsource1(f) }
     end
 
     def termsource1(elem)
