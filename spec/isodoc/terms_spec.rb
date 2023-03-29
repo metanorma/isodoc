@@ -111,7 +111,7 @@ RSpec.describe IsoDoc do
        <term id="paddy"><name>1.2.</name><preferred><strong>paddy</strong></preferred>
        <admitted>paddy rice, &#x3c;in agriculture&#x3e;</admitted>
        <admitted>rough rice</admitted>
-       <deprecates>cargo rice</deprecates>
+       <deprecates>DEPRECATED: cargo rice</deprecates>
        <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
        <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f893"><name>EXAMPLE</name>
          <ul>

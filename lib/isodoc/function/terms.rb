@@ -12,7 +12,6 @@ module IsoDoc
 
       def deprecated_term_parse(node, out)
         out.p class: "DeprecatedTerms", style: "text-align:left;" do |p|
-          p << l10n("#{@i18n.deprecated}: ")
           node.children.each { |c| parse(c, p) }
         end
       end
