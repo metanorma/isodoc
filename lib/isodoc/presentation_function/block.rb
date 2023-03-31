@@ -178,5 +178,32 @@ module IsoDoc
       node.replace(@reqt_models.model(node["model"])
         .requirement_render1(node))
     end
+
+    def source(docxml)
+      docxml.xpath(ns("//source/modification")).each do |f|
+        source_modification(f)
+      end
+      docxml.xpath(ns("//table/source")).each { |f| tablesource(f) }
+      docxml.xpath(ns("//figure/source")).each { |f| figuresource(f) }
+    end
+
+    def tablesource(elem)
+      source1(elem)
+    end
+
+    def figuresource(elem)
+      source1(elem)
+    end
+
+    def source1(elem)
+      while elem&.next_element&.name == "source"
+        elem << "; #{to_xml(elem.next_element.remove.children)}"
+      end
+      elem.children = l10n("[#{@i18n.source}: #{to_xml(elem.children).strip}]")
+    end
+
+    def source_modification(mod)
+      termsource_modification(mod)
+    end
   end
 end

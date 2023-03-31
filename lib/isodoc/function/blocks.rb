@@ -203,6 +203,14 @@ module IsoDoc
           node.children.each { |n| parse(n, div) }
         end
       end
+
+      def source_parse(node, out)
+        out.div class: "BlockSource" do |d|
+          d.p do |p|
+            node.children.each { |n| parse(n, p) }
+          end
+        end
+      end
     end
   end
 end

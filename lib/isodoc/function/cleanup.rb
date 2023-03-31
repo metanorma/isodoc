@@ -194,11 +194,12 @@ module IsoDoc
       end
 
       def table_note_cleanup(docxml)
-        docxml.xpath("//table[div[@class = 'Note' or " \
-                     "@class = 'TableFootnote']]").each do |t|
+        docxml.xpath("//table[dl or div[@class = 'Note' or @class = 'BlockSource' " \
+                     "or @class = 'TableFootnote']]").each do |t|
           tfoot = table_get_or_make_tfoot(t)
           insert_here = new_fullcolspan_row(t, tfoot)
-          t.xpath("div[@class = 'Note' or @class = 'TableFootnote']")
+          t.xpath("dl | div[@class = 'Note' or @class = 'BlockSource' or " \
+                  "@class = 'TableFootnote']")
             .each do |d|
             d.parent = insert_here
           end

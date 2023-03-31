@@ -60,6 +60,18 @@ RSpec.describe IsoDoc do
         <dt>Drago</dt>
       <dd>A type of rice</dd>
       </dl>
+            <source status="generalisation">
+        <origin bibitemid="ISO712" type="inline" citeas="">
+          <localityStack>
+            <locality type="section">
+              <referenceFrom>1</referenceFrom>
+            </locality>
+          </localityStack>
+        </origin>
+        <modification>
+          <p id="_">with adjustments</p>
+        </modification>
+      </source>
       <note><p>This is a table about rice</p></note>
       </table>
       <table id="tableD-2" unnumbered="true">
@@ -67,6 +79,19 @@ RSpec.describe IsoDoc do
       </table>
       </foreword>
       </preface>
+      <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+      <bibitem id="ISO712" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="ISO">ISO 712</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+    </bibliography>
       </iso-standard>
     INPUT
 
@@ -147,6 +172,8 @@ RSpec.describe IsoDoc do
                       <dt>Drago</dt>
                       <dd>A type of rice</dd>
                     </dl>
+                    <source status="generalisation">[SOURCE: <origin bibitemid="ISO712" type="inline" citeas=""><localityStack><locality type="section"><referenceFrom>1</referenceFrom></locality></localityStack>, Section 1</origin>, modified –
+           with adjustments]</source>
                     <note>
                       <name>NOTE</name>
                       <p>This is a table about rice</p>
@@ -161,6 +188,16 @@ RSpec.describe IsoDoc do
                   </table>
                 </foreword>
               </preface>
+                       <bibliography>
+           <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+             <title depth="1">1.<tab/>Normative References</title>
+             <bibitem id="ISO712" type="standard">
+               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
+               <docidentifier type="ISO">ISO 712</docidentifier>
+               <biblio-tag>ISO 712, </biblio-tag>
+             </bibitem>
+           </references>
+         </bibliography>
             </iso-standard>
     OUTPUT
 
@@ -224,16 +261,20 @@ RSpec.describe IsoDoc do
                            <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">6,06</td>
                          </tr>
                        </tfoot>
-                       <dl>
-                         <dt>
-                           <p>Drago</p>
-                         </dt>
-                         <dd>A type of rice</dd>
-                       </dl>
-                       <div class="Note">
-                         <p><span class="note_label">NOTE</span>&#160; This is a table about rice</p>
-                       </div>
-                     </table>
+                                <dl>
+           <dt>
+             <p>Drago</p>
+           </dt>
+           <dd>A type of rice</dd>
+         </dl>
+         <div class="BlockSource">
+           <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified –
+    with adjustments]</p>
+         </div>
+         <div class="Note">
+           <p><span class="note_label">NOTE</span>  This is a table about rice</p>
+         </div>
+                       </table>
                      <table id="tableD-2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                        <tbody>
                          <tr>
@@ -243,6 +284,10 @@ RSpec.describe IsoDoc do
                      </table>
                    </div>
                    <p class="zzSTDTitle1"/>
+                    <div>
+               <h1>1.  Normative References</h1>
+               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+             </div>
                     <aside id='fn:1' class='footnote'>
          <p>X</p>
        </aside>
@@ -331,15 +376,19 @@ RSpec.describe IsoDoc do
                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">6,06</td>
                     </tr>
                   </tfoot>
-                  <dl>
-                    <dt>
-                      <p align="left" style="margin-left:0pt;text-align:left;">Drago</p>
-                    </dt>
-                    <dd>A type of rice</dd>
-                  </dl>
-                  <div class="Note">
-                    <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is a table about rice</p>
-                  </div>
+                 <dl>
+              <dt>
+                <p align="left" style="margin-left:0pt;text-align:left;">Drago</p>
+              </dt>
+              <dd>A type of rice</dd>
+            </dl>
+            <div class="BlockSource">
+              <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified –
+     with adjustments]</p>
+            </div>
+            <div class="Note">
+              <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is a table about rice</p>
+            </div>
                 </table>
               </div>
               <div align="center" class="table_container">
@@ -359,6 +408,10 @@ RSpec.describe IsoDoc do
           </p>
           <div class="WordSection3">
             <p class="zzSTDTitle1"/>
+              <div>
+               <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
+               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+             </div>
             <aside id="ftn1">
               <p>X</p>
             </aside>
