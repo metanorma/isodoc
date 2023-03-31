@@ -19,7 +19,7 @@ RSpec.describe IsoDoc do
         <dd><p>B</p></dd>
         </dl>
               <source status="generalisation">
-        <origin bibitemid="ISO2191" type="inline" citeas="">
+        <origin bibitemid="ISO712" type="inline" citeas="">
           <localityStack>
             <locality type="section">
               <referenceFrom>1</referenceFrom>
@@ -40,6 +40,19 @@ RSpec.describe IsoDoc do
       B</pre>
       </figure>
           </foreword></preface>
+                <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+      <bibitem id="ISO712" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="ISO">ISO 712</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+    </bibliography>
           </iso-standard>
     INPUT
 
@@ -60,6 +73,7 @@ RSpec.describe IsoDoc do
         <dt>A</dt>
         <dd><p>B</p></dd>
         </dl>
+        <source status="generalisation">[SOURCE: <origin bibitemid="ISO712" type="inline" citeas=""><localityStack><locality type="section"><referenceFrom>1</referenceFrom></locality></localityStack>, Section 1</origin>, modified – with adjustments]</source>
       </figure>
       <figure id="figure-B">
       <name>Figure 2</name>
@@ -71,6 +85,16 @@ RSpec.describe IsoDoc do
       B</pre>
       </figure>
           </foreword></preface>
+                   <bibliography>
+           <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+             <title depth="1">1.<tab/>Normative References</title>
+             <bibitem id="ISO712" type="standard">
+               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
+               <docidentifier type="ISO">ISO 712</docidentifier>
+               <biblio-tag>ISO 712, </biblio-tag>
+             </bibitem>
+           </references>
+         </bibliography>
           </iso-standard>
     OUTPUT
 
@@ -88,6 +112,9 @@ RSpec.describe IsoDoc do
                          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
                        </div></aside>
                          <p  style='page-break-after:avoid;'><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
+                <div class="BlockSource">
+                  <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified – with adjustments]</p>
+                </div>
                        <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider
                        <a class='FootnoteRef' href='#fn:1'>
                   <sup>1</sup>
@@ -104,9 +131,14 @@ RSpec.describe IsoDoc do
                 </div>
                                </div>
                                <p class="zzSTDTitle1"/>
-                               <aside id='fn:1' class='footnote'>
-                  <p>X</p>
-                </aside>
+                                            <div>
+               <h1>1.  Normative References</h1>
+               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+             </div>
+             <aside id="fn:1" class="footnote">
+               <p>X</p>
+             </aside>
+           </div>
                              </div>
                            </body>
                        </html>
@@ -133,6 +165,9 @@ RSpec.describe IsoDoc do
                <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
              </div></aside>
                <p  style='page-break-after:avoid;'><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
+               <div class="BlockSource">
+               <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified – with adjustments]</p>
+               </div>
                 <p class='FigureTitle' style='text-align:center;'>
          Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider
          <span style='mso-bookmark:_Ref'>
@@ -156,6 +191,10 @@ RSpec.describe IsoDoc do
                  <p><br clear="all" class="section"/></p>
                  <div class="WordSection3">
                    <p class="zzSTDTitle1"/>
+                               <div>
+               <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
+               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+             </div>
                     <aside id='ftn1'>
          <p>X</p>
        </aside>

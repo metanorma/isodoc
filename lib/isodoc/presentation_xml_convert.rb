@@ -58,6 +58,7 @@ module IsoDoc
       example docxml
       note docxml
       admonition docxml
+      source docxml
       ol docxml
       permission docxml
       requirement docxml

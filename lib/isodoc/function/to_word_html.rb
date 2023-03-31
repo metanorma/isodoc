@@ -176,6 +176,7 @@ module IsoDoc
           when "fn" then footnote_parse(node, out)
           when "p" then para_parse(node, out)
           when "quote" then quote_parse(node, out)
+          when "source" then source_parse(node, out)
           when "tr" then tr_parse(node, out)
           when "note" then note_parse(node, out)
           when "review" then review_note_parse(node, out)
@@ -205,11 +206,6 @@ module IsoDoc
           when "recommendation" then recommendation_parse(node, out)
           when "permission" then permission_parse(node, out)
           when "div" then div_parse(node, out)
-          # when "subject", "classification"
-          #  requirement_skip_parse(node, out)
-          # when "inherit", "description", "specification", "measurement-target",
-          # "verification", "import", "component"
-          # requirement_component_parse(node, out)
           when "index" then index_parse(node, out)
           when "index-xref" then index_xref_parse(node, out)
           when "termref" then termrefelem_parse(node, out)

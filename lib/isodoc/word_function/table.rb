@@ -70,7 +70,8 @@ module IsoDoc
           summary: node["summary"], width: node["width"],
           style: "mso-table-anchor-horizontal:column;mso-table-overlap:never;" \
                  "#{bordered}#{keep_style(node)}",
-          class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable") }
+          class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable")
+        }
         bordered or ret.delete(:class)
         super.merge(attr_code(ret))
       end
@@ -89,9 +90,8 @@ module IsoDoc
         table_title_parse(node, out)
         out.div align: "center", class: "table_container" do |div|
           div.table **table_attrs(node) do |t|
-            table_parse_core(node, out)
-            (dl = node.at(ns("./dl"))) && parse(dl, out)
-            node.xpath(ns("./note")).each { |n| parse(n, out) }
+            table_parse_core(node, t)
+            table_parse_tail(node, t)
           end
         end
         @in_table = false
