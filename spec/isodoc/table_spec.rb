@@ -60,6 +60,18 @@ RSpec.describe IsoDoc do
         <dt>Drago</dt>
       <dd>A type of rice</dd>
       </dl>
+            <source status="generalisation">
+        <origin bibitemid="ISO2191" type="inline" citeas="">
+          <localityStack>
+            <locality type="section">
+              <referenceFrom>1</referenceFrom>
+            </locality>
+          </localityStack>
+        </origin>
+        <modification>
+          <p id="_">with adjustments</p>
+        </modification>
+      </source>
       <note><p>This is a table about rice</p></note>
       </table>
       <table id="tableD-2" unnumbered="true">
