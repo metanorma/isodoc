@@ -3,8 +3,7 @@ module IsoDoc
     def sourcehighlighter_css(docxml)
       ret = custom_css(docxml)
       ret.empty? and return
-      ins = docxml.at(ns("//metanorma-extension")) ||
-        docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
+      ins = extension_insert(docxml)
       ins << "<source-highlighter-css>#{ret}" \
              "</source-highlighter-css>"
     end
