@@ -5,6 +5,7 @@ module IsoDoc
     def bibdata(docxml)
       toc_metadata(docxml)
       fonts_metadata(docxml)
+      preprocess_xslt_insert(docxml)
       docid_prefixes(docxml)
       a = bibdata_current(docxml) or return
       address_precompose(a)
@@ -14,11 +15,30 @@ module IsoDoc
         "</localized-strings>"
     end
 
+    def extension_insert(docxml, path = [])
+      ins = docxml.at(ns("//metanorma-extension")) ||
+        docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
+      path.each do |n|
+        ins = ins.at(ns("./#{n}")) || ins.add_child("<#{n}/>").first
+      end
+      ins
+    end
+
+    def preprocess_xslt_insert(docxml)
+      content = preprocess_xslt_read or return
+      ins = extension_insert(docxml, %w(render))
+      ins << content
+    end
+
+    # read in from file, but with `<preprocess-xslt @format="">` wrapper
+    def preprocess_xslt_read
+      html_doc_path("preprocess.xslt")
+    end
+
     def toc_metadata(docxml)
       return unless @tocfigures || @toctables || @tocrecommendations
 
-      ins = docxml.at(ns("//metanorma-extension"))  ||
-        docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
+      ins = extension_insert(docxml)
       @tocfigures and
         ins << "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"
       @toctables and
