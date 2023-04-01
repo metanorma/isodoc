@@ -27,7 +27,7 @@ module IsoDoc
     def preprocess_xslt_insert(docxml)
       content = preprocess_xslt_read or return
       ins = extension_insert(docxml, %w(render))
-      ins << content
+      ins << File.read(content)
     end
 
     # read in from file, but with `<preprocess-xslt @format="">` wrapper
