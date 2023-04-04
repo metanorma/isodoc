@@ -65,17 +65,15 @@ module IsoDoc
     end
 
     def xref_parse(node, out)
-      out.a(**{ href: target_pdf(node) }) { |l| l << get_linkend(node) }
+      out.a(href: target_pdf(node)) { |l| l << get_linkend(node) }
     end
 
     def input_xml_path(input_filename, xml_file, debug)
       docxml, filename, dir = convert_init(xml_file, input_filename, debug)
-      unless /\.xml$/.match?(input_filename)
-        input_filename = Tempfile.open([filename, ".xml"],
-                                       encoding: "utf-8") do |f|
-          f.write xml_file
-          f.path
-        end
+      input_filename = Tempfile.open([filename, ".xml"],
+                                     encoding: "utf-8") do |f|
+        f.write xml_file
+        f.path
       end
       FileUtils.rm_rf dir
 
