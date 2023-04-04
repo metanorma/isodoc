@@ -1990,21 +1990,7 @@ RSpec.describe IsoDoc do
 
   def mock_preprocess_xslt_read
     allow_any_instance_of(IsoDoc::PresentationXMLConvert)
-      .to receive(:preprocess_xslt_read).and_return <<~OUTPUT
-           <preprocess-xslt format="pdf">
-           <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-        	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-        	<xsl:strip-space elements="*"/>
-        	<!-- note/name -->
-        	<xsl:template match="*[local-name() = 'note']/*[local-name() = 'name']">
-        		<xsl:copy>
-        			<xsl:apply-templates select="@*|node()"/>
-        			<xsl:if test="normalize-space() != ''">:<tab/>
-        			</xsl:if>
-        		</xsl:copy>
-        	</xsl:template>
-        </xsl:stylesheet>
-           </preprocess-xslt>
-      OUTPUT
+      .to receive(:preprocess_xslt_read)
+      .and_return "spec/assets/preprocess-xslt.xml"
   end
 end
