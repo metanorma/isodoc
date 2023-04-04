@@ -43,14 +43,21 @@ module IsoDoc
         "#{ret}page-break-after:#{pb};"
       end
 
-      def keep_rows_together(cell, rowmax, totalrows, opt)
+      def keep_rows_together(_cell, rowmax, totalrows, opt)
         opt[:header] and return true
-        table_line_count(cell.parent.parent) > 15 and return false
+        @table_line_count > 15 and return false
         (totalrows <= 10 && rowmax < totalrows)
+      end
+
+      def tbody_parse(node, table)
+        tbody = node.at(ns("./tbody")) or return
+        @table_line_count = table_line_count(tbody)
+        super
       end
 
       def table_line_count(tbody)
         sum = 0
+        tbody.xpath(ns(".//tr")).size > 15 and return 16 # short-circuit
         tbody.xpath(ns(".//tr")).each do |r|
           i = 1
           r.xpath(ns(".//td | .//th")).each do |c|

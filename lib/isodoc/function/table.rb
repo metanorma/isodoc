@@ -20,10 +20,11 @@ module IsoDoc
       end
 
       def tbody_parse(node, table)
-        tbody = node.at(ns("./tbody")) || return
+        tbody = node.at(ns("./tbody")) or return
+        rowcount = tbody.xpath(ns("./tr")).size
         table.tbody do |h|
           tbody.element_children.each_with_index do |n, i|
-            tr_parse(n, h, i, tbody.xpath(ns("./tr")).size, false)
+            tr_parse(n, h, i, rowcount, false)
           end
         end
       end
