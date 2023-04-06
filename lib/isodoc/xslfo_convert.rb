@@ -70,7 +70,7 @@ module IsoDoc
 
     def input_xml_path(input_filename, xml_file, debug)
       docxml, filename, dir = convert_init(xml_file, input_filename, debug)
-      input_filename = Tempfile.open([filename, ".xml"],
+      input_filename = Tempfile.open([File.basename(filename), ".xml"],
                                      encoding: "utf-8") do |f|
         f.write xml_file
         f.path
