@@ -54,10 +54,10 @@ module IsoDoc
     def convert(input_filename, file = nil, debug = false,
                 output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
-      input_filename, docxml, filename = input_xml_path(input_filename,
+      input_file, docxml, filename = input_xml_path(input_filename,
                                                         file, debug)
       ::Metanorma::Output::XslfoPdf.new.convert(
-        input_filename,
+        filename,
         output_filename || "#{filename}.#{@suffix}",
         File.join(@libdir, pdf_stylesheet(docxml)),
         pdf_options(docxml),
@@ -73,11 +73,11 @@ module IsoDoc
       input_filename = Tempfile.open([File.basename(filename), ".xml"],
                                      encoding: "utf-8") do |f|
         f.write xml_file
-        f.path
+        f
       end
       FileUtils.rm_rf dir
 
-      [input_filename, docxml, filename]
+      [input_filename, docxml, input_filename.path]
     end
   end
 end
