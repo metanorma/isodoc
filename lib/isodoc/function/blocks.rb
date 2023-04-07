@@ -76,6 +76,7 @@ module IsoDoc
         out.p **sourcecode_attrs(node) do |div|
           sourcecode_parse1(node, div)
         end
+        annotation_parse(node, out)
         sourcecode_name_parse(node, out, name)
       end
 
@@ -84,9 +85,10 @@ module IsoDoc
         node.at(ns(".//table[@class = 'rouge-line-table']")) ||
           node.at("./ancestor::xmlns:table[@class = 'rouge-line-table']") and
           @sourcecode = "table"
-        # !node.ancestors("table").empty? and
-        # @sourcecode = "table"
-        node.children.each { |n| parse(n, div) unless n.name == "name" }
+        node.children.each do |n|
+          %w(name dl).include?(n.name) and next
+          parse(n, div)
+        end
         @sourcecode = false
       end
 
@@ -95,17 +97,12 @@ module IsoDoc
       end
 
       def annotation_parse(node, out)
+        dl = node.at(ns("./dl")) or return
         @sourcecode = false
-        @annotation = true
+        # @annotation = true
         out.div class: "annotation" do |div|
-          # node.at("./preceding-sibling::*[local-name() = 'annotation']") or
-          #  div << "<br/>"
-          callout = node.at(ns("//callout[@target='#{node['id']}']"))
-          div << "<span class='c'>&lt;#{callout.text}&gt;</span> "
-          div << "<span class='c'>#{node.children&.text&.strip}</span>"
-          node.at("./following-sibling::*[local-name() = 'annotation']") and
-            div << "<br/>"
-          @annotation = false
+          parse(dl, div)
+          # @annotation = false
         end
       end
 

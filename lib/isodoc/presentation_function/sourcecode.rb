@@ -28,9 +28,16 @@ module IsoDoc
       { formatter: f, formatter_line: f1 }
     end
 
+    def callouts(elem)
+      elem.xpath(ns(".//callout")).each do |c|
+        @callouts[c["target"]] = c.children.to_xml
+      end
+    end
+
     def sourcecode(docxml)
       sourcehighlighter_css(docxml)
       @highlighter = sourcehighlighter
+      @callouts = {}
       docxml.xpath(ns("//sourcecode")).each do |f|
         sourcecode1(f)
       end
@@ -39,6 +46,21 @@ module IsoDoc
     def sourcecode1(elem)
       source_highlight(elem)
       source_label(elem)
+      callouts(elem)
+      annotations(elem)
+    end
+
+    def annotations(elem)
+      elem.at(ns("./annotation")) or return
+      ret = ""
+      elem.xpath(ns("./annotation")).each do |a|
+        a.remove
+        ret += <<~OUT
+          <dt id='#{a['id']}'><span class='c'>#{@callouts[a['id']]}</span></dt>
+          <dd>#{a.children.to_xml}</dd>
+        OUT
+      end
+      elem << "<dl><name>#{@i18n.key}</name>#{ret}</dl>"
     end
 
     def source_highlight(elem)
@@ -64,7 +86,7 @@ module IsoDoc
     def source_remove_annotations(ret, elem)
       ret[:ann] = elem.xpath(ns("./annotation")).each(&:remove)
       ret[:call] = elem.xpath(ns("./callout")).each_with_object([]) do |c, m|
-        m << { xml: c.remove.to_xml, line: c.line - elem.line }
+        m << { xml: c.remove, line: c.line - elem.line }
       end
       ret
     end
@@ -84,7 +106,7 @@ module IsoDoc
       text = to_xml(code)
       text.split(/[\n\r]/).each_with_index do |c, i|
         while !callouts.empty? && callouts[0][:line] == i
-          c.sub!(/\s+$/, " <span class='c'>#{callouts[0][:xml]}</span> ")
+          c.sub!(/\s+$/, " #{reinsert_callout(callouts[0][:xml])} ")
           callouts.shift
         end
       end.join("\n")
@@ -94,10 +116,14 @@ module IsoDoc
       table.xpath(".//td[@class = 'rouge-code']/sourcecode")
         .each_with_index do |c, i|
         while !callouts.empty? && callouts[0][:line] == i
-          c << " <span class='c'>#{callouts[0][:xml]}</span> "
+          c << " #{reinsert_callout(callouts[0][:xml])} "
           callouts.shift
         end
       end
+    end
+
+    def reinsert_callout(xml)
+      "<span class='c'>#{to_xml(xml)}</span>"
     end
 
     def sourcecode_table_to_elem(elem, tokens)

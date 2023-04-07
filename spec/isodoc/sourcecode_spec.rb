@@ -516,10 +516,10 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata/>
       <preface><foreword displayorder="1">
-      <sourcecode id="_"><name>Figure 1</name>puts "Hello, world." <span class="c"><callout target="A">1</callout></span><span class="c"><callout target="B">2</callout></span>
+      <sourcecode id="_"><name>Figure 1</name>puts "Hello, world." <span class="c"><callout target="A">1</callout></span><span class="c"><callout target="B">2</callout></span> 
          %w{a b c}.each do |x|
            puts x <span class="c"><callout target="C">3</callout></span>
-           end<annotation id="A"><p id="_">This is <em>one</em> callout</p></annotation><annotation id="B"><p id="_">This is another callout</p></annotation><annotation id="C"><p id="_">This is yet another callout</p></annotation></sourcecode>
+         end<dl><name>Key</name><dt id="A"><span class="c">1</span></dt><dd><p id="_">This is <em>one</em> callout</p></dd><dt id="B"><span class="c">2</span></dt><dd><p id="_">This is another callout</p></dd><dt id="C"><span class="c">3</span></dt><dd><p id="_">This is yet another callout</p></dd></dl></sourcecode>
       </foreword></preface>
       </iso-standard>
     INPUT
@@ -528,7 +528,30 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div>
                                  <h1 class="ForewordTitle">Foreword</h1>
-               <pre id="_" class="sourcecode">puts "Hello, world." <span class="c">&lt;1&gt;</span> <span class="c">&lt;2&gt;</span><br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c">&lt;3&gt;</span> <br/>     end<div class="annotation"><span class="c">&lt;1&gt;</span> <span class="c">This is one callout</span><br/></div><div class="annotation"><span class="c">&lt;2&gt;</span> <span class="c">This is another callout</span><br/></div><div class="annotation"><span class="c">&lt;3&gt;</span> <span class="c">This is yet another callout</span></div></pre>
+               <pre id="_" class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c"> &lt;3&gt;</span><br/>   end</pre>
+                       <div class="annotation">
+          <p class="ListTitle">Key</p>
+          <dl>
+            <dt id="A">
+              <span class="c">1</span>
+            </dt>
+            <dd>
+              <p id="_">This is <i>one</i> callout</p>
+            </dd>
+            <dt id="B">
+              <span class="c">2</span>
+            </dt>
+            <dd>
+              <p id="_">This is another callout</p>
+            </dd>
+            <dt id="C">
+              <span class="c">3</span>
+            </dt>
+            <dd>
+              <p id="_">This is yet another callout</p>
+            </dd>
+          </dl>
+        </div>
                <p class="SourceTitle" style="text-align:center;">Figure 1</p>
              </div>
              <p class="zzSTDTitle1"/>
@@ -552,7 +575,42 @@ RSpec.describe IsoDoc do
                </p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="_" class="Sourcecode">puts "Hello, world." <span class="c">&lt;1&gt;</span><span class="c">&lt;2&gt;</span><br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c">&lt;3&gt;</span> <br/>     end<div class="annotation"><span class="c">&lt;1&gt;</span><span class="c">This is one callout</span><br/></div><div class="annotation"><span class="c">&lt;2&gt;</span><span class="c">This is another callout</span><br/></div><div class="annotation"><span class="c">&lt;3&gt;</span><span class="c">This is yet another callout</span></div></p>
+                 <p id="_" class="Sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c"> &lt;3&gt;</span><br/>   end</p>
+                 <div class="annotation">
+          <p class="ListTitle">Key</p>
+          <table class="dl">
+            <tr>
+              <td valign="top" align="left">
+                <p align="left" style="margin-left:0pt;text-align:left;">
+                  <span class="c">1</span>
+                </p>
+              </td>
+              <td valign="top">
+                <p id="_">This is <i>one</i> callout</p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" align="left">
+                <p align="left" style="margin-left:0pt;text-align:left;">
+                  <span class="c">2</span>
+                </p>
+              </td>
+              <td valign="top">
+                <p id="_">This is another callout</p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" align="left">
+                <p align="left" style="margin-left:0pt;text-align:left;">
+                  <span class="c">3</span>
+                </p>
+              </td>
+              <td valign="top">
+                <p id="_">This is yet another callout</p>
+              </td>
+            </tr>
+          </table>
+        </div>
                  <p class="SourceTitle" style="text-align:center;">Figure 1</p>
                </div>
                <p> </p>
@@ -640,15 +698,21 @@ RSpec.describe IsoDoc do
                    </tr>
                  </tbody>
                </table>
-               <annotation id="A">
-                 <p id="_">This is <em>one</em> callout</p>
-               </annotation>
-               <annotation id="B">
-                 <p id="_">This is another callout</p>
-               </annotation>
-               <annotation id="C">
-                 <p id="_">This is yet another callout</p>
-               </annotation>
+               <dl>
+          <name>Key</name>
+          <dt id="A"><span class="c">1</span></dt>
+          <dd>
+            <p id="_">This is <em>one</em> callout</p>
+          </dd>
+          <dt id="B"><span class="c">2</span></dt>
+          <dd>
+            <p id="_">This is another callout</p>
+          </dd>
+          <dt id="C"><span class="c">3</span></dt>
+          <dd>
+            <p id="_">This is yet another callout</p>
+          </dd>
+        </dl>
              </sourcecode>
            </foreword>
          </preface>
@@ -665,11 +729,30 @@ RSpec.describe IsoDoc do
                         <pre>1</pre>
                       </td><td style="" class="rouge-code">
                         <pre class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
-                      </td></tr><tr><td style="" class="rouge-gutter gl"><pre>2</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   %w{a b c}.each do |x|</pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>3</pre></td><td style="" class="rouge-code"><pre class="sourcecode">     puts x <span class="c"> &lt;3&gt;</span> </pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>4</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   end</pre></td></tr></tbody></table>
-                <div class="annotation"><span class="c">&lt;1&gt;</span><span class="c">This is one callout</span><br/></div>
-                <div class="annotation"><span class="c">&lt;2&gt;</span><span class="c">This is another callout</span><br/></div>
-                <div class="annotation"><span class="c">&lt;3&gt;</span><span class="c">This is yet another callout</span></div>
-              </div>
+                      </td></tr><tr><td style="" class="rouge-gutter gl"><pre>2</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   %w{a b c}.each do |x|</pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>3</pre></td><td style="" class="rouge-code"><pre class="sourcecode">     puts x <span class="c"> &lt;3&gt;</span> </pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>4</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   end</pre></td></tr></tbody></table></div>
+                              <div class="annotation">
+          <p class="ListTitle">Key</p>
+          <dl>
+            <dt id="A">
+              <span class="c">1</span>
+            </dt>
+            <dd>
+              <p id="_">This is <i>one</i> callout</p>
+            </dd>
+            <dt id="B">
+              <span class="c">2</span>
+            </dt>
+            <dd>
+              <p id="_">This is another callout</p>
+            </dd>
+            <dt id="C">
+              <span class="c">3</span>
+            </dt>
+            <dd>
+              <p id="_">This is yet another callout</p>
+            </dd>
+          </dl>
+        </div>
                <p class="SourceTitle" style="text-align:center;">Figure 1</p>
              </div>
              <p class="zzSTDTitle1"/>
@@ -700,10 +783,42 @@ RSpec.describe IsoDoc do
                      </td><td style="page-break-after:avoid;" class="rouge-code">
                        <p class="Sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </p>
                      </td></tr><tr><td style="page-break-after:avoid;" class="rouge-gutter gl"><pre>2</pre></td><td style="page-break-after:avoid;" class="rouge-code"><p class="Sourcecode">   %w{a b c}.each do |x|</p></td></tr><tr><td style="page-break-after:avoid;" class="rouge-gutter gl"><pre>3</pre></td><td style="page-break-after:avoid;" class="rouge-code"><p class="Sourcecode">     puts x <span class="c"> &lt;3&gt;</span> </p></td></tr><tr><td style="page-break-after:auto;" class="rouge-gutter gl"><pre>4</pre></td><td style="page-break-after:auto;" class="rouge-code"><p class="Sourcecode">   end</p></td></tr></tbody></table></div>
-               <div class="annotation"><span class="c">&lt;1&gt;</span><span class="c">This is one callout</span><br/></div>
-               <div class="annotation"><span class="c">&lt;2&gt;</span><span class="c">This is another callout</span><br/></div>
-               <div class="annotation"><span class="c">&lt;3&gt;</span><span class="c">This is yet another callout</span></div>
              </p>
+                     <div class="annotation">
+          <p class="ListTitle">Key</p>
+          <table class="dl">
+            <tr>
+              <td valign="top" align="left">
+                <p align="left" style="margin-left:0pt;text-align:left;">
+                  <span class="c">1</span>
+                </p>
+              </td>
+              <td valign="top">
+                <p id="_">This is <i>one</i> callout</p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" align="left">
+                <p align="left" style="margin-left:0pt;text-align:left;">
+                  <span class="c">2</span>
+                </p>
+              </td>
+              <td valign="top">
+                <p id="_">This is another callout</p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" align="left">
+                <p align="left" style="margin-left:0pt;text-align:left;">
+                  <span class="c">3</span>
+                </p>
+              </td>
+              <td valign="top">
+                <p id="_">This is yet another callout</p>
+              </td>
+            </tr>
+          </table>
+        </div>
               <p class="SourceTitle" style="text-align:center;">Figure 1</p>
             </div>
             <p> </p>
@@ -762,12 +877,12 @@ RSpec.describe IsoDoc do
                        <sourcecode>
                          <span class="nb">puts</span>
                          <span class="s2">"Hello, world."</span>
-                         <span class="c">
-                           <callout target="A">1</callout>
-                         </span>
-                         <span class="c">
-                           <callout target="B">2</callout>
-                         </span>
+                                           <span class="c">
+                    <callout target="A">1</callout>
+                  </span>
+                  <span class="c">
+                    <callout target="B">2</callout>
+                  </span>
                        </sourcecode>
                      </td>
                    </tr>
@@ -799,9 +914,9 @@ RSpec.describe IsoDoc do
                          <xref target="X">
                            <span class="n">x</span>
                          </xref>
-                         <span class="c">
-                           <callout target="C">3</callout>
-                         </span>
+                                           <span class="c">
+                    <callout target="C">3</callout>
+                  </span>
                        </sourcecode>
                      </td>
                    </tr>
@@ -825,9 +940,13 @@ RSpec.describe IsoDoc do
                    </tr>
                  </tbody>
                </table>
-               <annotation id="A">
-                 <p id="_">This is <em>one</em> callout</p>
-               </annotation>
+                       <dl>
+          <name>Key</name>
+          <dt id="A"><span class="c">1</span></dt>
+          <dd>
+            <p id="_">This is <em>one</em> callout</p>
+          </dd>
+        </dl>
              </sourcecode>
            </foreword>
          </preface>
