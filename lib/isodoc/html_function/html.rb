@@ -96,6 +96,7 @@ module IsoDoc
         out.send tag, **attr do |div|
           sourcecode_parse1(node, div)
         end
+        annotation_parse(node, out)
         sourcecode_name_parse(node, out, name)
       end
 
