@@ -52,15 +52,15 @@ module IsoDoc
     end
 
     # input_file: keep-alive tempfile
-    def convert(input_filename, file = nil, debug = false,
-                output_filename = nil)
-      file = File.read(input_filename, encoding: "utf-8") if file.nil?
+    def convert(input_fname, file = nil, debug = false,
+                output_fname = nil)
+      file = File.read(input_fname, encoding: "utf-8") if file.nil?
       input_file, docxml, filename =
-        input_xml_path(input_filename, file, debug)
+        input_xml_path(input_fname, file, debug)
       ::Metanorma::Output::XslfoPdf.new.convert(
         filename,
-        output_filename || File.join(File.dirname(input_filename),
-                                     "#{File.basename(filename)}.#{@suffix}"),
+        output_fname || File.join(File.dirname(input_fname),
+                                  "#{File.basename(input_fname)}.#{@suffix}"),
         File.join(@libdir, pdf_stylesheet(docxml)),
         pdf_options(docxml),
       )
