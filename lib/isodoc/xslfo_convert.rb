@@ -51,14 +51,16 @@ module IsoDoc
       ret.merge(@pdf_cmd_options)
     end
 
+    # input_file: keep-alive tempfile
     def convert(input_filename, file = nil, debug = false,
                 output_filename = nil)
       file = File.read(input_filename, encoding: "utf-8") if file.nil?
-      input_file, docxml, filename = input_xml_path(input_filename,
-                                                        file, debug)
+      input_file, docxml, filename =
+        input_xml_path(input_filename, file, debug)
       ::Metanorma::Output::XslfoPdf.new.convert(
         filename,
-        output_filename || "#{filename}.#{@suffix}",
+        output_filename || File.join(File.dirname(input_filename),
+                                     "#{filename}.#{@suffix}"),
         File.join(@libdir, pdf_stylesheet(docxml)),
         pdf_options(docxml),
       )
