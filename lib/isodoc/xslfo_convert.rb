@@ -59,11 +59,15 @@ module IsoDoc
         input_xml_path(input_fname, file, debug)
       ::Metanorma::Output::XslfoPdf.new.convert(
         filename,
-        output_fname || File.join(File.dirname(input_fname),
-                                  "#{File.basename(input_fname)}.#{@suffix}"),
+        output_fname || output_filename(input_fname),
         File.join(@libdir, pdf_stylesheet(docxml)),
         pdf_options(docxml),
       )
+    end
+
+    def output_filename(input_fname)
+      File.join(File.dirname(input_fname),
+                "#{File.basename(input_fname, '.*')}.#{@suffix}")
     end
 
     def xref_parse(node, out)
