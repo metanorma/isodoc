@@ -60,7 +60,7 @@ module IsoDoc
       ::Metanorma::Output::XslfoPdf.new.convert(
         filename,
         output_filename || File.join(File.dirname(input_filename),
-                                     "#{filename}.#{@suffix}"),
+                                     "#{File.basename(filename)}.#{@suffix}"),
         File.join(@libdir, pdf_stylesheet(docxml)),
         pdf_options(docxml),
       )
