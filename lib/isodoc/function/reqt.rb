@@ -4,7 +4,7 @@ module IsoDoc
       def recommendation_name(name, out)
         return if name.nil?
 
-        out.p **{ class: "RecommendationTitle" } do |p|
+        out.p class: "RecommendationTitle" do |p|
           name.children.each { |n| parse(n, p) }
         end
       end

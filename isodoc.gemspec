@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "html2doc", "~> 1.5.0"
   spec.add_dependency "htmlentities", "~> 4.3.4"
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
-  spec.add_dependency "liquid", "~> 4"
+  spec.add_dependency "liquid", "~> 5"
   spec.add_dependency "emf2svg"
   spec.add_dependency "plurimath"
   spec.add_dependency "relaton-cli"
