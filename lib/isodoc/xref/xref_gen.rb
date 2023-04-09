@@ -172,8 +172,8 @@ refer_list)
         c = Counter.new(list["start"] ? list["start"].to_i - 1 : 0)
         list.xpath(ns("./li")).each do |li|
           label = c.increment(li).listlabel(list, depth)
-          label = "#{prev_label}) #{label}" unless prev_label.empty?
-          label = "#{list_anchor[:xref]} #{label}" if refer_list
+          label = list_item_anchor_label(label, list_anchor, prev_label,
+                                         refer_list)
           li["id"] and @anchors[li["id"]] =
                          { xref: "#{label})", type: "listitem", refer_list:
                            refer_list, container: list_anchor[:container] }
@@ -181,6 +181,16 @@ refer_list)
             list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
           end
         end
+      end
+
+      def list_item_anchor_label(label, list_anchor, prev_label, refer_list)
+        prev_label.empty? or
+          label = @i18n.list_nested_xref.sub(/%1/, "#{prev_label})")
+            .sub(/%2/, label)
+        refer_list and
+          label = @i18n.list_nested_xref.sub(/%1/, list_anchor[:xref])
+            .sub(/%2/, label)
+        label
       end
 
       def deflist_anchor_names(sections)

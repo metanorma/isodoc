@@ -42,6 +42,7 @@ chain_or: "%1或%2"
 chain_from: "%1从%2"
 chain_to: "%1到%2"
 nested_xref: "%1, %2"
+list_nested_xref: "%1 %2"
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
 note: 注

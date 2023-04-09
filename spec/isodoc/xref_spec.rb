@@ -174,9 +174,10 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(output)
   end
 
-  it "cross-references box admonitions" do
+  it "cross-references box admonitions in English and Japanese" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata><language>en</language></bibdata>
           <preface>
           <foreword>
           <p>
@@ -260,6 +261,28 @@ RSpec.describe IsoDoc do
     expect(xmlpp(Nokogiri.XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
        .convert("test", input, true))
        .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+    input1 = input.sub(%r{<language>en</language>},
+                       "<language>ja</language>")
+    output = <<~OUTPUT
+      <foreword displayorder="1">
+         <p>
+           <xref target="N1">IntroductionのBox</xref>
+           <xref target="N2">PreparatoryのBox</xref>
+           <xref target="N3">[N3]</xref>
+           <xref target="N">箇条 1のBox</xref>
+           <xref target="note1">箇条 3.1のBox  1</xref>
+           <xref target="note2">箇条 3.1のBox  2</xref>
+           <xref target="AN">附属書 A.1のBox</xref>
+           <xref target="Anote1">附属書 A.2のBox  1</xref>
+           <xref target="Anote2">附属書 A.2のBox  2</xref>
+         </p>
+       </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input1, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -1605,9 +1628,10 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(output)
   end
 
-  it "cross-references list items" do
+  it "cross-references list items in English and Japanese" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata><language>en</language></bibdata>
           <preface>
           <foreword>
           <p>
@@ -1690,15 +1714,39 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+    input1 = input.sub(%r{<language>en</language>}, "<language>ja</language>")
+    output = <<~OUTPUT
+      <foreword displayorder="1">
+         <p>
+           <xref target="N1">Introductionのa)</xref>
+           <xref target="N11">Introductionのa)の1)</xref>
+           <xref target="N12">Introductionのa)の1)のi)</xref>
+           <xref target="N2">Preparatoryの1)</xref>
+           <xref target="N">箇条 1のi)</xref>
+           <xref target="note1">箇条 3.1のリスト  1のa)</xref>
+           <xref target="note2">箇条 3.1のリスト  2のI)</xref>
+           <xref target="AN">附属書 A.1のA)</xref>
+           <xref target="Anote1">附属書 A.2のリスト  1のiv)</xref>
+           <xref target="Anote2">附属書 A.2のリスト  2のa)</xref>
+         </p>
+       </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input1, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
-  it "cross-references nested list items" do
+  it "cross-references nested list items in English and Japanese" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata><language>en</language></bibdata>
       <preface>
       <foreword>
       <p>
@@ -1749,6 +1797,24 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+    input1 = input.sub(%r{<language>en</language>}, "<language>ja</language>")
+    output = <<~OUTPUT
+      <foreword displayorder="1">
+         <p>
+           <xref target="N">箇条 1のa)</xref>
+           <xref target="note1">箇条 1のa)の1)</xref>
+           <xref target="note2">箇条 1のa)の1)のi)</xref>
+           <xref target="AN">箇条 1のa)の1)のi)のA)</xref>
+           <xref target="Anote1">箇条 1のa)の1)のi)のA)のI)</xref>
+           <xref target="Anote2">箇条 1のa)の1)のi)のA)のI)のa)</xref>
+         </p>
+       </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input1, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end

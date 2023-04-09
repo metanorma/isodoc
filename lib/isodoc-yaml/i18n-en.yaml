@@ -47,6 +47,7 @@ chain_or: "%1 or %2"
 chain_from: "%1 from %2"
 chain_to: "%1 to %2"
 nested_xref: "%1, %2"
+list_nested_xref: "%1 %2"
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
 note: NOTE

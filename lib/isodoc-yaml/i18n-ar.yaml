@@ -39,6 +39,7 @@ chain_or: "%1 او %2"
 chain_from: "%1 %من 2"
 chain_to: "من %1 إلى %2"
 nested_xref: "%1, %2"
+list_nested_xref: "%1 %2"
 ordinal_keys: [gender]
 SpelloutRules:
   f: spellout-ordinal-feminine

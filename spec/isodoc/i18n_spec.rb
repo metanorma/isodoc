@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes English" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
       <language>en</language>
@@ -75,7 +75,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
 
-    presxml = <<~"PRESXML"
+    presxml = <<~PRESXML
         <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <bibdata>
         <language current="true">en</language>
@@ -378,7 +378,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes French" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
       <language>fr</language>
@@ -451,7 +451,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
 
-    presxml = <<~"PRESXML"
+    presxml = <<~PRESXML
         <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <bibdata>
         <language current="true">fr</language>
@@ -604,7 +604,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes Simplified Chinese" do
-    input = <<~"INPUT"
+    input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <bibdata>
             <language>zh</language>
@@ -686,7 +686,7 @@ RSpec.describe IsoDoc do
              </iso-standard>
     INPUT
 
-    presxml = <<~"PRESXML"
+    presxml = <<~PRESXML
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
             <bibdata>
             <language current="true">zh</language>
@@ -848,7 +848,7 @@ RSpec.describe IsoDoc do
 
   it "processes i18n file" do
     mock_i18n
-    input = <<~"INPUT"
+    input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <bibdata>
             <language>eo</language>
@@ -1151,7 +1151,7 @@ RSpec.describe IsoDoc do
 
   it "internationalises locality" do
     mock_i18n
-    input = <<~"INPUT"
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata>
       <language>eo</language>
@@ -1209,7 +1209,7 @@ RSpec.describe IsoDoc do
 
   it "processes LTR within RTL" do
     c = IsoDoc::Convert.new({})
-    c.convert_init(<<~"INPUT", "test", false)
+    c.convert_init(<<~INPUT, "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata type="standard">
       <language>fa</language>
@@ -1222,7 +1222,7 @@ RSpec.describe IsoDoc do
 
   it "processes Hebrew RTL within LTR" do
     c = IsoDoc::Convert.new({})
-    c.convert_init(<<~"INPUT", "test", false)
+    c.convert_init(<<~INPUT, "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata type="standard">
       <language>en</language>
@@ -1234,7 +1234,7 @@ RSpec.describe IsoDoc do
 
   it "processes Arabic RTL within LTR" do
     c = IsoDoc::Convert.new({})
-    c.convert_init(<<~"INPUT", "test", false)
+    c.convert_init(<<~INPUT, "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata type="standard">
       <language>en</language>
@@ -1247,12 +1247,12 @@ RSpec.describe IsoDoc do
   private
 
   def mock_i18n
-    allow_any_instance_of(::IsoDoc::I18n)
+    allow_any_instance_of(IsoDoc::I18n)
       .to receive(:load_yaml)
       .with("eo", "Latn", nil, anything)
       .and_return(IsoDoc::I18n.new("eo", "Latn")
       .normalise_hash(YAML.load_file("spec/assets/i18n.yaml")))
-    allow_any_instance_of(::IsoDoc::I18n)
+    allow_any_instance_of(IsoDoc::I18n)
       .to receive(:load_yaml)
       .with("eo", "Latn", "spec/assets/i18n.yaml", anything)
       .and_return(IsoDoc::I18n.new("eo", "Latn")

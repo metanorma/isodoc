@@ -38,8 +38,7 @@ module IsoDoc
           out.div **attr_code(annex_attrs(c)) do |s|
             c.elements.each do |c1|
               if c1.name == "title" then annex_name(c, c1, s)
-              else
-                parse(c1, s)
+              else parse(c1, s)
               end
             end
           end
