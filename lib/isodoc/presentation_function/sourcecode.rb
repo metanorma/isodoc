@@ -10,13 +10,17 @@ module IsoDoc
 
     def custom_css(docxml)
       ret = ""
-      @sourcehighlighter and
-        ret += File.read(File.join(File.dirname(__FILE__), "..", "base_style",
-                                   "rouge.css"))
+      @sourcehighlighter and ret += rouge_css_location
       a = docxml.at(ns("//metanorma-extension/" \
                        "clause[title = 'user-css']/sourcecode")) and
         ret += "\n#{to_xml(a.children)}"
       ret
+    end
+
+    # replace in local gem rather than specify overrides of default
+    def rouge_css_location
+      File.read(File.join(File.dirname(__FILE__), "..", "base_style",
+                          "rouge.css"))
     end
 
     def sourcehighlighter
