@@ -79,7 +79,7 @@ module IsoDoc
       docxml, filename, dir = convert_init(xml_file, input_filename, debug)
       input_filename = Tempfile.open([File.basename(filename), ".xml"],
                                      encoding: "utf-8") do |f|
-        f.write xml_file
+        f.write docxml
         f
       end
       FileUtils.rm_rf dir
