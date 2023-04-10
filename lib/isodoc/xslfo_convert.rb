@@ -66,8 +66,9 @@ module IsoDoc
     end
 
     def output_filename(input_fname)
+      out = input_fname.sub(/\.presentation\.xml$/, ".xml")
       File.join(File.dirname(input_fname),
-                "#{File.basename(input_fname, '.*')}.#{@suffix}")
+                "#{File.basename(out, '.*')}.#{@suffix}")
     end
 
     def xref_parse(node, out)
