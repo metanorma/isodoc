@@ -117,7 +117,7 @@ locality: {
                       part: 部,
                       paragraph: 段落,
                       chapter: Chapter,
-                      page: Page,
+                      page: ページ,
                       table: 表,
                       annex: 附属書,
                       figure: 図,
