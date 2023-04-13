@@ -119,6 +119,7 @@ module IsoDoc
       def middle(isoxml, out)
         middle_title(isoxml, out)
         middle_admonitions(isoxml, out)
+        cross_align isoxml, out
         scope isoxml, out, 0
         norm_ref isoxml, out, 0
         terms_defs isoxml, out, 0
@@ -127,6 +128,12 @@ module IsoDoc
         annex isoxml, out
         bibliography isoxml, out
         colophon isoxml, out
+      end
+
+      def cross_align(isoxml, out)
+        isoxml.xpath(ns("//cross-align")).each do |c|
+          parse(c, out)
+        end
       end
 
       def boilerplate(node, out)
