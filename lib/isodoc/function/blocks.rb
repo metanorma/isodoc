@@ -208,6 +208,18 @@ module IsoDoc
           end
         end
       end
+
+      def cross_align_parse(node, out)
+        out.table do |t|
+          t.tbody do |b|
+            node.xpath(ns("./align-cell")).each do |c|
+              b.td do |td|
+                c.children.each { |n| parse(n, td) }
+              end
+            end
+          end
+        end
+      end
     end
   end
 end
