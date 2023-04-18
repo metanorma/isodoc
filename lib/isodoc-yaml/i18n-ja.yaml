@@ -38,9 +38,10 @@ multiple_or: "%1, or %2"
 chain_and: "%1 and %2"
 chain_or: "%1 or %2"
 chain_from: "%1 from %2"
-chain_to: "%1 to %2"
+chain_to: "%1～%2"
 nested_xref: "%1の%2"
 list_nested_xref: "%1の%2"
+no_conflate_xref_locations: true
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
 note: 注記
