@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.presentation.xml"
     IsoDoc::PresentationXMLConvert.new({ filename: "test" }
       .merge(presxml_options))
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
                 <iso-standard xmlns="http://riboseinc.com/isoxml">
                 <bibdata>
                 <title language="en">test</title>
@@ -25,7 +25,7 @@ RSpec.describe IsoDoc do
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
         <foreword id="fwd">
-        <p><math id="b" xmlns:sodipodi='ABC'><sodipodi:b> xmlns:sodipodi</sodipodi:b></math>#{' '}
+        <p><math id="b" xmlns:sodipodi='ABC'><sodipodi:b> xmlns:sodipodi</sodipodi:b></math>
         <xref target="N1"/>
         </p>
         </foreword>
@@ -1179,7 +1179,7 @@ RSpec.describe IsoDoc do
              </ol>
            </clause>
          </sections>
-       </iso-standard>#{'  '}
+       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
@@ -1338,12 +1338,12 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
-  it "processes multiple-target xrefs" do
+  it "processes multiple-target xrefs in English" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <bibdata/>
-        <sections>
-       <clause id="A" inline-header="false" obligation="normative">
+      <bibdata><language>en</language></bibdata>
+        <preface>
+        <foreword>
        <title>Section</title>
        <p id="A"><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/></xref>
        <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
@@ -1355,7 +1355,9 @@ RSpec.describe IsoDoc do
        <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref>
        <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/></xref>
         </p>
-       </clause>
+       </foreword>
+       </preface>
+        <sections>
        <clause id="ref1"/>
        <clause id="ref2"/>
        <clause id="ref3"/>
@@ -1377,53 +1379,88 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-         <bibdata/>
-         <sections>
-           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
-             <title depth='1'>1.<tab/>Section</title>
-             <p id="A"><xref target="ref1">Clauses 2</xref> to <xref target="ref2">3</xref><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref><xref target="ref1">Clauses 2</xref> and <xref target="ref2">3</xref><xref target="ref1">Clauses 2</xref>, <xref target="ref2">3</xref>, and <xref target="ref3">4</xref><xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref><xref target="ref1">Clauses 2</xref> or <xref target="ref2">3</xref><xref target="ref1">Clauses 2</xref>, <xref target="ref2">3</xref>, or <xref target="ref3">4</xref><xref target="ref1">Clauses 2</xref> to <xref target="ref2">3</xref> and <xref target="ref3">4</xref> to <xref target="ref4">5</xref>
-        Clause 6, <xref target="item_6-4-a"> a) 1)</xref> to <xref target="item_6-4-i">b) 1)</xref></p>
-           </clause>
-           <clause id="ref1" displayorder="2">
-             <title>2.</title>
-           </clause>
-           <clause id="ref2" displayorder="3">
-             <title>3.</title>
-           </clause>
-           <clause id="ref3" displayorder="4">
-             <title>4.</title>
-           </clause>
-           <clause id="ref4" displayorder="5">
-             <title>5.</title>
-           </clause>
-           <clause id="id1" displayorder="6">
-             <title>6.</title>
-             <ol id="_5eebf861-525f-0ece-7502-b1c94611db4e" type="alphabet">
-               <li>
-                 <p id="_01fc71c0-8f76-228a-5a0d-7b9d0003d219">The following CRScsd strings represent the CRS types supported by this document:</p>
-                 <ol id="_7450988f-2dc2-3937-1aa0-a73d21b28ecc" type="arabic">
-                   <li id="item_6-4-a">
-                     <p id="_9ff8eeb0-5384-41af-e0f6-7143331f59f2">CRS1d: one-dimensional spatial or temporal CRS.</p>
-                   </li>
-                 </ol>
-               </li>
-               <li>
-                 <p id="_2375be59-1c5e-d3ef-0882-fc5e2b852ea9">Additionally, in each component of a GPL representation string, the following characters shall also act as delimiters:</p>
-                 <ol id="_81d60fdc-e0ef-e94e-4f59-d41181945c98" type="arabic">
-                   <li id="item_6-4-i">
-                     <p id="_db51305f-60ad-1714-a497-bc9aa305e02b"><em>a solidus</em> [ / ] shall act as the terminator character and any GPL string shall always be terminated.</p>
-                   </li>
-                 </ol>
-               </li>
-             </ol>
-           </clause>
+      <foreword displayorder="1">
+         <title>Section</title>
+         <p id="A"><xref target="ref1">Clauses 1</xref> to <xref target="ref2">2</xref>
+        <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
+        <xref target="ref1">Clauses 1</xref> and <xref target="ref2">2</xref>
+        <xref target="ref1">Clauses 1</xref>, <xref target="ref2">2</xref>, and <xref target="ref3">3</xref>
+        <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+        <xref target="ref1">Clauses 1</xref> or <xref target="ref2">2</xref>
+        <xref target="ref1">Clauses 1</xref>, <xref target="ref2">2</xref>, or <xref target="ref3">3</xref>
+        <xref target="ref1">Clauses 1</xref> to <xref target="ref2">2</xref> and <xref target="ref3">3</xref> to <xref target="ref4">4</xref>
+        Clause 5, <xref target="item_6-4-a">a) 1)</xref> to <xref target="item_6-4-i">b) 1)</xref>
+         </p>
+       </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true),
+    )
+      .at("//xmlns:foreword")
+      .to_xml))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "processes multiple-target xrefs in Japanese" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata><language>ja</language></bibdata>
+       <preface>
+        <foreword>
+       <title>Section</title>
+       <p id="A"><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/></xref>
+       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/><location target="ref3" connective="and"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/><location target="ref3" connective="or"/></xref>
+       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref>
+       <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/></xref>
+        </p>
+       </foreword>
+       </preface>
+       <sections>
+       <clause id="ref1"/>
+       <clause id="ref2"/>
+       <clause id="ref3"/>
+       <clause id="ref4"/>
+       <clause id="id1">
+       <ol id="_5eebf861-525f-0ece-7502-b1c94611db4e"><li><p id="_01fc71c0-8f76-228a-5a0d-7b9d0003d219">The following CRScsd strings represent the CRS types supported by this document:</p>
+       <ol id="_7450988f-2dc2-3937-1aa0-a73d21b28ecc"><li id="item_6-4-a"><p id="_9ff8eeb0-5384-41af-e0f6-7143331f59f2">CRS1d: one-dimensional spatial or temporal CRS.</p>
+        </li>
+        </ol>
+        </li>
+        <li><p id="_2375be59-1c5e-d3ef-0882-fc5e2b852ea9">Additionally, in each component of a GPL representation string, the following characters shall also act as delimiters:</p>
+        <ol id="_81d60fdc-e0ef-e94e-4f59-d41181945c98"><li id="item_6-4-i"><p id="_db51305f-60ad-1714-a497-bc9aa305e02b"><em>a solidus</em> [ / ] shall act as the terminator character and any GPL string shall always be terminated.</p>
+        </li>
+        </ol>
+        </li>
+        </ol>
+       </clause>
          </sections>
        </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <foreword displayorder="1">
+         <title>Section</title>
+         <p id="A"><xref target="ref1">箇条 1</xref>～<xref target="ref2">箇条 2</xref><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref><xref target="ref1">箇条 1</xref> and <xref target="ref2">箇条 2</xref>
+        <xref target="ref1">箇条 1</xref>, <xref target="ref2">箇条 2</xref>, and <xref target="ref3">箇条 3</xref>
+        <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+        <xref target="ref1">箇条 1</xref> or <xref target="ref2">箇条 2</xref>
+        <xref target="ref1">箇条 1</xref>, <xref target="ref2">箇条 2</xref>, or <xref target="ref3">箇条 3</xref>
+        <xref target="ref1">箇条 1</xref>～<xref target="ref2">箇条 2</xref> and <xref target="ref3">箇条 3</xref>～<xref target="ref4">箇条 4</xref>
+        <xref target="item_6-4-a">箇条 5のa)の1)</xref>～<xref target="item_6-4-i">箇条 5のb)の1)</xref>
+         </p>
+       </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+    expect(xmlpp(Nokogiri::XML(
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true),
+    )
+      .at("//xmlns:foreword")
+      .to_xml))
       .to be_equivalent_to xmlpp(presxml)
   end
 

@@ -76,7 +76,7 @@ module IsoDoc
     # Note % to entry and Note % to entry: cannot conflate as Note % to entry 1 and 2
     # So Notes 1 and 3, but Note 1 to entry and Note 3 to entry
     def combine_conflated_xref_locations(locs)
-      out = if locs.any? { |l| /%/.match?(l[:elem]) }
+      out = if locs.any? { |l| l[:elem]&.include?("%") }
               locs.each { |l| l[:label] = @xrefs.anchor(l[:target], :xref) }
             else
               conflate_xref_locations(locs)
@@ -138,6 +138,7 @@ module IsoDoc
     end
 
     def can_conflate_xref_rendering?(locs)
+      @i18n.get["no_conflate_xref_locations"] == true and return false
       (locs.all? { |l| l[:container].nil? } ||
        locs.all? { |l| l[:container] == locs.first[:container] }) &&
         locs.all? { |l| l[:type] == locs[0][:type] }
