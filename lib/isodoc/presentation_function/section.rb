@@ -127,6 +127,14 @@ module IsoDoc
     def clausetitle(docxml); end
 
     def toc(docxml)
+      toc_title(docxml)
+      toc_refs(docxml)
+    end
+
+    def toc_title(docxml)
+    end
+
+    def toc_refs(docxml)
       docxml.xpath(ns("//toc//xref[text()]")).each do |x|
         lbl = @xrefs.anchor(x["target"], :label) or next
         x.children.first.previous = "#{lbl}<tab/>"
