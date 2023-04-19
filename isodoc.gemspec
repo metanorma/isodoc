@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ribose Inc."]
   spec.email         = ["open.source@ribose.com"]
 
-  spec.summary       = "Convert documents in IsoDoc into Word and HTML "\
+  spec.summary       = "Convert documents in IsoDoc into Word and HTML " \
                        "in AsciiDoc."
   spec.description   = <<~DESCRIPTION
     isodoc converts documents in the IsoDoc document model into
@@ -26,14 +26,13 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features|bin|.github)/}) \
     || f.match(%r{Rakefile|bin/rspec})
   end
-  spec.test_files    = `git ls-files -- {spec}/*`.split("\n")
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
   spec.add_dependency "html2doc", "~> 1.5.3"
   spec.add_dependency "htmlentities", "~> 4.3.4"
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
-  spec.add_dependency "liquid", "~> 5"
   spec.add_dependency "emf2svg"
+  spec.add_dependency "liquid", "~> 5"
   spec.add_dependency "plurimath"
   spec.add_dependency "relaton-cli"
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
@@ -58,4 +57,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
   # spec.metadata["rubygems_mfa_required"] = "true"
+  spec.metadata["rubygems_mfa_required"] = "true"
 end
