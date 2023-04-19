@@ -124,7 +124,26 @@ module IsoDoc
       display_order_xpath(docxml, "//colophon/*", i)
     end
 
-    def clausetitle(docxml); end
+    def clausetitle(docxml)
+      cjk_extended_title(docxml)
+    end
+
+    def cjk_search
+      lang = %w(zh ja ko).map { |x| "@language = '#{x}'" }.join(" or ")
+      %(Hans Hant Jpan Hang Kore).include?(@script) and
+        lang += " or not(@language)"
+      lang
+    end
+
+    def cjk_extended_title(docxml)
+      l = cjk_search
+      docxml.xpath(ns("//bibdata/title[#{l}] | //floating-title[#{l}] | " \
+                      "//title[@depth = '1' or not(@depth)][#{l}]")).each do |t|
+        t.text.size < 4 or next
+        t.elements.empty? or next # can't be bothered
+        t.children = @i18n.cjk_extend(t.text)
+      end
+    end
 
     def toc(docxml)
       toc_title(docxml)

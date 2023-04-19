@@ -1244,6 +1244,95 @@ RSpec.describe IsoDoc do
     expect(c.i18n.l10n("hello!", "fa", "Arab")).to eq "&#x61c;hello!&#x61c;"
   end
 
+  it "does extended titles in CJK" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata><language>zh</language><script>Hant</script></bibdata>
+        <boilerplate>
+          <copyright-statement>
+          <clause>
+            <title>版權</title>
+          </clause>
+          <clause>
+            <title>版權聲明</title>
+          </clause>
+          <clause language="en">
+            <title>版權</title>
+          </clause>
+          </copyright-statement>
+        </boilerplate>
+        <preface>
+        <floating-title>樣板</floating-title>
+        <abstract obligation="informative" language="jp">
+           <title>解題</title>
+        </abstract>
+        <foreword obligation="informative">
+           <title>文件序言</title>
+           <p id="A">This is a preamble</p>
+         </foreword>
+        <floating-title>介紹性陳述</floating-title>
+          <introduction id="B" obligation="informative">
+           <title>簡介</title>
+           <clause id="C" inline-header="false" obligation="informative">
+           <title>引言部分</title>
+           <clause id="C" inline-header="false" obligation="informative">
+           <title>附則</title>
+         </clause>
+         </introduction>
+         <clause id="D"><title language="en">Ad</title></clause>
+         </preface>
+        </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <bibdata>
+          <language current="true">zh</language>
+          <script current="true">Hant</script>
+        </bibdata>
+        <boilerplate>
+          <copyright-statement>
+            <clause>
+              <title depth="1">版　權</title>
+            </clause>
+            <clause>
+              <title depth="1">版權聲明</title>
+            </clause>
+            <clause language="en">
+              <title depth="1">版　權</title>
+            </clause>
+          </copyright-statement>
+        </boilerplate>
+        <preface>
+          <p type="floating-title" displayorder="1">樣　板</p>
+          <abstract obligation="informative" language="jp" displayorder="2">
+            <title>解　題</title>
+          </abstract>
+          <foreword obligation="informative" displayorder="3">
+            <title>文件序言</title>
+            <p id="A">This is a preamble</p>
+          </foreword>
+          <p type="floating-title" displayorder="4">介紹性陳述</p>
+          <introduction id="B" obligation="informative" displayorder="5">
+            <title>簡　介</title>
+            <clause id="C" inline-header="false" obligation="informative">
+              <title depth="3">引言部分</title>
+              <clause id="C" inline-header="false" obligation="informative">
+                <title depth="3">附則</title>
+              </clause>
+            </clause>
+            <clause id="D">
+              <title language="en" depth="2">Ad</title>
+            </clause>
+          </introduction>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::PresentationXMLConvert
+  .new(presxml_options).convert("test", input, true)
+  .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   private
 
   def mock_i18n
