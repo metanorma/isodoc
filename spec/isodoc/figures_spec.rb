@@ -59,7 +59,11 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <?xml version='1.0'?>
            <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface><foreword displayorder="1">
+          <preface>
+    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+          <foreword displayorder="2">
           <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
         <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
@@ -86,7 +90,7 @@ RSpec.describe IsoDoc do
       </figure>
           </foreword></preface>
                    <bibliography>
-           <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+           <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
              <title depth="1">1.<tab/>Normative References</title>
              <bibitem id="ISO712" type="standard">
                <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
@@ -154,6 +158,12 @@ RSpec.describe IsoDoc do
                  <p><br clear="all" class="section"/></p>
                  <div class="WordSection2">
                    <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+                         <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
                    <div>
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div id="figureA-1" class="figure"  style='page-break-after: avoid;page-break-inside: avoid;'>
@@ -236,7 +246,10 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
-          <foreword displayorder="1">
+    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+          <foreword displayorder="2">
             <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
               <name>Figure 1 — Overall title</name>
               <figure id="note1">
@@ -288,6 +301,12 @@ RSpec.describe IsoDoc do
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection2">
+          <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
             <p>
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
@@ -361,7 +380,10 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <preface>
-           <foreword displayorder='1'>
+    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+           <foreword displayorder='2'>
              <figure id='figureA-1' keep-with-next='true' keep-lines-together='true' class='diagram'>
                <name>
                  Diagram 1&#xa0;&#x2014; Split-it-right
@@ -422,7 +444,10 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <preface>
-           <foreword displayorder='1'>
+    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+           <foreword displayorder='2'>
              <figure id='figureA-1'>
                <name>Figure 1</name>
                <image src='' mimetype='image/svg+xml' height='' width=''>
@@ -460,7 +485,10 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <preface>
-           <foreword displayorder='1'>
+    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+           <foreword displayorder='2'>
              <figure id='figureA-1'>
                <name>Figure 1</name>
                <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='' width=''>
@@ -509,6 +537,12 @@ RSpec.describe IsoDoc do
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection2'>
+                <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
@@ -563,7 +597,10 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-          <foreword displayorder='1'>
+    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+          <foreword displayorder='2'>
             <figure id='figureA-1'>
               <name>Figure 1</name>
               <image src='spec/assets/odf.svg' mimetype='image/svg+xml'>
@@ -599,6 +636,12 @@ RSpec.describe IsoDoc do
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection2'>
+                <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
@@ -672,7 +715,11 @@ RSpec.describe IsoDoc do
           <bibdata>
           <language>en</language>
           </bibdata>
-              <preface><foreword>
+              <preface>
+    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+              <foreword>
               <example>
               <sourcecode id="B"><name>Label</name>A B C</sourcecode>
         <figure id="A" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong></p></figure>
@@ -755,6 +802,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
                <sections>
                  <figure id='_'>
                    <image src='action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'>
@@ -768,7 +816,7 @@ RSpec.describe IsoDoc do
                  </figure>
                </sections>
                <bibliography>
-                 <references hidden='true' normative='false' displayorder="1">
+                 <references hidden='true' normative='false' displayorder="2">
                    <bibitem id='express_action_schema' type='internal'>
                      <docidentifier type='repository'>express/action_schema</docidentifier>
                      <biblio-tag>[1]<tab/>express/action_schema,</biblio-tag>

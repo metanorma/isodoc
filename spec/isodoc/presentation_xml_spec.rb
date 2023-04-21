@@ -63,7 +63,8 @@ RSpec.describe IsoDoc do
            </metanorma>
          </metanorma-extension>
          <preface>
-           <foreword id="fwd" displayorder="1">
+             <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+           <foreword id="fwd" displayorder="2">
              <p>
                <math xmlns:sodipodi="ABC" id="b">
                  <sodipodi:b> xmlns:sodipodi</sodipodi:b>
@@ -71,7 +72,7 @@ RSpec.describe IsoDoc do
                <xref target="N1">Figure 1</xref>
              </p>
            </foreword>
-           <introduction id="intro" displayorder="2">
+           <introduction id="intro" displayorder="3">
              <figure id="N1">
                <name>Figure 1 — Split-it-right sample divider</name>
                <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
@@ -180,8 +181,9 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+          <preface><clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause></preface>
          <sections>
-           <clause displayorder='1'>
+           <clause displayorder='2'>
              <title depth='1'>A</title>
              <clause>
                <title depth='2'>B</title>
@@ -220,7 +222,8 @@ RSpec.describe IsoDoc do
           <title language='en'>test</title>
         </bibdata>
         <preface>
-          <p displayorder="1">
+          <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <p displayorder="2">
             64,212,149,677,264,515
             642,121,496,772,645.15 30,000
             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1,000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1,000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1.003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j)</asciimath></stem></p>
@@ -354,7 +357,8 @@ RSpec.describe IsoDoc do
           </bibdata>
 
           <preface>
-            <p displayorder="1">
+              <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+            <p displayorder="2">
               30,000
               <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1,000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1,000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1.00'3</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>459,384.12'34'56</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j) (1 - p)^(459384.123456789 - j)</asciimath></stem>
             </p>
@@ -404,7 +408,10 @@ RSpec.describe IsoDoc do
           <language current='true'>fr</language>
         </bibdata>
         <preface>
-          <p displayorder="1">
+            <clause type="toc" displayorder="1">
+          <title depth="1">Sommaire</title>
+          </clause>
+          <p displayorder="2">
             30&#x202F;000
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1 000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1 000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1,003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j)</asciimath></stem></p>
         </preface>
@@ -438,7 +445,8 @@ RSpec.describe IsoDoc do
              </bibdata>
 
              <preface>
-               <p displayorder="1">
+                 <clause type="toc" displayorder="1"> <title depth="1">Sommaire</title> </clause>
+               <p displayorder="2">
                  30'000
                  <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1'000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1'000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>0,0000032</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1,003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (0.0000032 - p)^(1.003 - j)</asciimath></stem></p>
              </preface>
@@ -475,7 +483,8 @@ RSpec.describe IsoDoc do
            </bibdata>
 
            <preface>
-             <p displayorder='1'> ... 64212149677264515 642121496772;64515 30000 </p>
+              <clause type="toc" displayorder="1"> <title depth="1">Inhaltsübersicht</title> </clause>
+             <p displayorder='2'> ... 64212149677264515 642121496772;64515 30000 </p>
            </preface>
          </iso-standard>
       OUTPUT
@@ -510,9 +519,9 @@ RSpec.describe IsoDoc do
            <bibdata>
              <title language='en'>test</title>
            </bibdata>
-
            <preface>
-             <p displayorder='1'> ... 64=212=149=677=264=515 642=121=496=772;64$51$5 30=000 </p>
+              <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+             <p displayorder='2'> ... 64=212=149=677=264=515 642=121=496=772;64$51$5 30=000 </p>
            </preface>
          </iso-standard>
       OUTPUT
@@ -631,8 +640,9 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
             <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
             <bibdata/>
+         <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
             <sections>
-              <clause id='_' inline-header='false' obligation='normative' displayorder='1'>
+              <clause id='_' inline-header='false' obligation='normative' displayorder='2'>
                 <title depth='1'>
                   <strong>Annex A</strong>
                   <br/>
@@ -664,7 +674,7 @@ RSpec.describe IsoDoc do
                 </clause>
               </clause>
             </sections>
-            <annex id='_' inline-header='false' obligation='normative' displayorder='2'>
+            <annex id='_' inline-header='false' obligation='normative' displayorder='3'>
               <title>
                 <strong>Annex A</strong>
                 <br/>
@@ -688,18 +698,7 @@ RSpec.describe IsoDoc do
             </iso-standard>
     OUTPUT
     html = <<~OUTPUT
-          <html lang='en'>
-        <head/>
-        <body lang='en'>
-          <div class='title-section'>
-            <p>&#160;</p>
-          </div>
-          <br/>
-          <div class='prefatory-section'>
-            <p>&#160;</p>
-          </div>
-          <br/>
-          <div class='main-section'>
+    #{HTML_HDR}
             <p class='zzSTDTitle1'/>
             <div id='_'>
               <h1>
@@ -755,25 +754,7 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     doc = <<~OUTPUT
-          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-        <head>
-          <style>
-          </style>
-        </head>
-        <body lang='EN-US' link='blue' vlink='#954F72'>
-          <div class='WordSection1'>
-            <p>&#160;</p>
-          </div>
-          <p>
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection2'>
-            <p>&#160;</p>
-          </div>
-          <p>
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection3'>
+    #{WORD_HDR}
             <p class='zzSTDTitle1'/>
             <div id='_'>
               <h1>
@@ -865,8 +846,9 @@ RSpec.describe IsoDoc do
       <?xml version="1.0"?>
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata/>
+         <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <sections>
-           <clause id="A" inline-header="false" obligation="normative" displayorder="1">
+           <clause id="A" inline-header="false" obligation="normative" displayorder="2">
              <title depth="1">1.<tab/>Clause</title>
              <figure id="B"><name>Figure 1</name>
                <image src="spec/assets/odf.svg" mimetype="image/svg+xml" alt="1"><emf src="spec/assets/odf.emf"/></image>
@@ -1122,8 +1104,9 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata/>
+         <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
       <sections>
-       <clause id="A" inline-header="false" obligation="normative" displayorder="1">
+       <clause id="A" inline-header="false" obligation="normative" displayorder="2">
        <title depth="1">1.<tab/>Clause</title>
        <figure id="B"><name>Figure 1</name>
        <image mimetype="image/svg+xml" alt="3" src="_.svg"><emf src="_.emf"/></image>
@@ -1184,8 +1167,9 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <bibdata/>
+         <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <sections>
-          <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+          <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -1273,8 +1257,9 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <bibdata/>
 
+         <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <sections>
-          <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+          <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -1325,6 +1310,7 @@ RSpec.describe IsoDoc do
             <title>List of recommendations</title>
           </toc>
         </metanorma-extension>
+         <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <sections> </sections>
       </iso-standard>
     OUTPUT
@@ -1379,7 +1365,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder="1">
+      <foreword displayorder="2">
          <title>Section</title>
          <p id="A"><xref target="ref1">Clauses 1</xref> to <xref target="ref2">2</xref>
         <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
@@ -1443,7 +1429,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder="1">
+      <foreword displayorder="2">
          <title>Section</title>
          <p id="A"><xref target="ref1">箇条 1</xref>～<xref target="ref2">箇条 2</xref><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref><xref target="ref1">箇条 1</xref> and <xref target="ref2">箇条 2</xref>
         <xref target="ref1">箇条 1</xref>, <xref target="ref2">箇条 2</xref>, and <xref target="ref3">箇条 3</xref>
@@ -1512,8 +1498,9 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <bibdata/>
+        <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
          <sections>
-           <clause id='A1' inline-header='false' obligation='normative' displayorder='2'>
+           <clause id='A1' inline-header='false' obligation='normative' displayorder='3'>
              <title depth='1'>
                2.
                <tab/>
@@ -1567,8 +1554,9 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <bibdata/>
 
+        <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
          <sections>
-           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+           <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
              <title depth='1'>
                1.
                <tab/>
@@ -1631,8 +1619,9 @@ RSpec.describe IsoDoc do
           <name>fonts</name>
           <value>font1</value>
         </presentation-metadata>
+        <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
                  <sections>
-           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+           <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
              <title depth='1'>
                1.
                <tab/>
@@ -1676,8 +1665,9 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
       <bibdata/>
+        <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
        <sections>
-          <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='1'>
+          <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -1688,7 +1678,7 @@ RSpec.describe IsoDoc do
               <eref type='inline' bibitemid='_607373b1-0cc4-fcdb-c482-fd86ae572bd1' citeas='ISO 639-2'>ISO&#xa0;639-2</eref>
             </p>
           </clause>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='3'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='4'>
             <title depth='1'>
               2.
               <tab/>
@@ -1698,7 +1688,7 @@ RSpec.describe IsoDoc do
           </terms>
         </sections>
         <bibliography>
-          <references hidden='true' normative='true' displayorder='2'>
+          <references hidden='true' normative='true' displayorder='3'>
             <title depth='1'>Normative references</title>
           </references>
         </bibliography>
@@ -1723,9 +1713,9 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <standard-document xmlns='https://www.metanorma.org/ns/standoc' type='presentation'>
          <bibdata/>
-
+           <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
          <sections>
-           <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='1'>
+           <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='2'>
              <title depth='1'>
                1.
                <tab/>
@@ -1782,7 +1772,8 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
-          <foreword displayorder="1">
+              <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <foreword displayorder="2">
             <note>
               <name>NOTE</name>
               <strong>
@@ -1798,7 +1789,6 @@ RSpec.describe IsoDoc do
                       </mfenced>
                     </mstyle>
                   </math>
-                  <!-- [a , b] -->
                   <asciimath>[a,b]</asciimath>
                 </stem>
               </strong>
@@ -1812,7 +1802,6 @@ RSpec.describe IsoDoc do
                     </mrow>
                   </mfenced>
                 </math>
-                <!-- [a , b] -->
                 <asciimath>[a,b]</asciimath>
               </stem>
             </note>

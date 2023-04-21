@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML terms" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -75,11 +75,16 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
 
-    presxml = <<~"PRESXML"
+    presxml = <<~PRESXML
       <?xml version='1.0'?>
              <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+               <preface>
+            <clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause>
+          </preface>
            <sections>
-           <terms id="_terms_and_definitions" obligation="normative" displayorder="1"><title depth="1">1.<tab/>Terms and Definitions</title>
+           <terms id="_terms_and_definitions" obligation="normative" displayorder="2"><title depth="1">1.<tab/>Terms and Definitions</title>
            <p>For the purposes of this document, the following terms and definitions apply.</p>
        <term id="paddy1"><name>1.1.</name><preferred><strong>paddy</strong>, &#x3c;in agriculture, dated&#x3e;</preferred><termsource status="modified">[SOURCE: <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause">
            <referenceFrom>3.1</referenceFrom>
@@ -228,7 +233,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes IsoXML term with multiple definitions" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -272,9 +277,7 @@ RSpec.describe IsoDoc do
       </term>
     INPUT
     presxml = <<~PRESXML
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -328,15 +331,16 @@ RSpec.describe IsoDoc do
               </termsource>
             </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes IsoXML term with multiple preferred terms" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -369,9 +373,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -422,15 +424,16 @@ RSpec.describe IsoDoc do
         </definition>
       </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes IsoXML term with grammatical information" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -461,9 +464,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -479,15 +480,16 @@ RSpec.describe IsoDoc do
               </definition>
             </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes IsoXML term with empty or graphical designations" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -504,10 +506,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
             <title depth='1'>1.<tab/>Terms and Definitions</title>
             <term id='paddy1'>
               <name>1.1.</name>
@@ -523,15 +522,16 @@ RSpec.describe IsoDoc do
               </definition>
             </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes IsoXML term with nonverbal definitions" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
                     <sections>
             <terms id='A' obligation='normative'>
@@ -620,9 +620,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='A' obligation='normative' displayorder='1'>
+          <terms id='A' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -703,11 +701,12 @@ RSpec.describe IsoDoc do
               </definition>
             </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes related terms" do
@@ -762,34 +761,32 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <?xml version='1.0'?>
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='A' obligation='normative' displayorder='1'>
-            <title depth='1'>1.<tab/>Terms and definitions</title>
-            <term id='second'>
-              <name>1.1.</name>
-              <preferred><strong>Second Term</strong>, &#x3c;Field, Usage Info 1&#x3e;</preferred>
-              <definition>Definition 1</definition>
-            </term>
-            <term id='C'>
-              <name>1.2.</name>
-              <preferred language='fr' script='Latn' type='prefix'><strong>First Designation</strong></preferred>
-              <p>
-                <strong>CONTRAST:</strong>
-                <em>
-                  <preferred><strong>Fifth Designation</strong>, n</preferred>
-                </em> (<xref target='second'>Clause 1.1</xref>)
-              </p>
-             <p><strong>SEE:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
-            <p> <strong>SEE ALSO:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
-              <definition>Definition 2</definition>
-            </term>
-          </terms>
-        </sections>
-      </iso-standard>
+      <terms id='A' obligation='normative' displayorder='2'>
+        <title depth='1'>1.<tab/>Terms and definitions</title>
+        <term id='second'>
+          <name>1.1.</name>
+          <preferred><strong>Second Term</strong>, &#x3c;Field, Usage Info 1&#x3e;</preferred>
+          <definition>Definition 1</definition>
+        </term>
+        <term id='C'>
+          <name>1.2.</name>
+          <preferred language='fr' script='Latn' type='prefix'><strong>First Designation</strong></preferred>
+          <p>
+            <strong>CONTRAST:</strong>
+            <em>
+              <preferred><strong>Fifth Designation</strong>, n</preferred>
+            </em> (<xref target='second'>Clause 1.1</xref>)
+          </p>
+         <p><strong>SEE:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
+        <p> <strong>SEE ALSO:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
+          <definition>Definition 2</definition>
+        </term>
+      </terms>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 end

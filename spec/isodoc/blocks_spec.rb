@@ -99,8 +99,13 @@ RSpec.describe IsoDoc do
                   <doctype>article</doctype>
                 </ext>
               </bibdata>
+              <preface>
+              <clause type="toc" displayorder="1">
+                <title depth="1">Table of contents</title>
+              </clause>
+              </preface>
               <sections>
-                <clause id="A" inline-header="false" obligation="normative" displayorder="1">
+                <clause id="A" inline-header="false" obligation="normative" displayorder="2">
                   <title depth="1">1.<tab/>Change Clause</title>
                       <p id="C">
                         <em>
@@ -171,6 +176,10 @@ RSpec.describe IsoDoc do
              </div>
              <br/>
              <div class='main-section'>
+                   <br/>
+      <div class="TOC">
+        <h1 class="IntroTitle">Table of contents</h1>
+      </div>
                <p class='zzSTDTitle1'>Document title</p>
                <div id='A'>
                  <h1>1.&#160; Change Clause</h1>
@@ -259,7 +268,10 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword displayorder="1">
+              <clause type="toc" displayorder="1">
+                <title depth="1">Table of contents</title>
+              </clause>
+          <foreword displayorder="2">
                        <note id='A' keep-with-next='true' keep-lines-together='true'>
                <name>NOTE 1</name>
                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e'>
@@ -286,13 +298,13 @@ RSpec.describe IsoDoc do
                  <p>
                    <span class='note_label'>NOTE 1</span>
                    &#160; These results are based on a study carried out on three
-                   different types of kernel.#{' '}
+                   different types of kernel.
                  </p>
                </div>
                <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p>
                    &#160; These results are based on a study carried out on three
-                   different types of kernel.#{' '}
+                   different types of kernel.
                  </p>
                </div>
              </div>
@@ -311,6 +323,12 @@ RSpec.describe IsoDoc do
           <p><br clear="all" class="section"/></p>
           <div class="WordSection2">
             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+                  <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
             <div>
               <h1 class="ForewordTitle">Foreword</h1>
                              <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
@@ -318,7 +336,7 @@ RSpec.describe IsoDoc do
                    <span class='note_label'>NOTE 1</span>
                    <span style='mso-tab-count:1'>&#160; </span>
                     These results are based on a study carried out on three different
-                   types of kernel.#{' '}
+                   types of kernel.
                  </p>
                </div>
                <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
@@ -364,7 +382,10 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword displayorder="1">
+              <clause type="toc" displayorder="1">
+                <title depth="1">Table of contents</title>
+              </clause>
+          <foreword displayorder="2">
             <note id='note1'>
               <name>NOTE 1</name>
               <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
@@ -410,7 +431,11 @@ RSpec.describe IsoDoc do
   it "processes multi-para notes" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface>
+          <clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+          </clause>
+        <foreword>
           <note>
           <name>NOTE</name>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
@@ -441,7 +466,9 @@ RSpec.describe IsoDoc do
   it "processes non-para notes" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause><foreword>
           <note id="A"><name>NOTE</name>
           <dl>
           <dt>A</dt>
@@ -479,6 +506,12 @@ RSpec.describe IsoDoc do
           </div>
           <p><br clear="all" class="section"/></p>
           <div class="WordSection2">
+                <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
             <div>
               <h1 class="ForewordTitle">Foreword</h1>
@@ -506,7 +539,10 @@ RSpec.describe IsoDoc do
   it "processes paragraphs containing notes" do
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface>    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+      <foreword>
           <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
       <note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
       </foreword></preface>
@@ -544,45 +580,44 @@ RSpec.describe IsoDoc do
       <head>
           <style/>
         </head>
-        <body lang='EN-US' link='blue' vlink='#954F72'>
-          <div class='WordSection1'>
-            <p>&#160;</p>
-          </div>
-          <p>
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection2'>
-            <p>
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div>
-              <h1 class='ForewordTitle'>Foreword</h1>
-              <p id='A'>ABC </p>
-              <div id='B' class='Note'>
-                <p class='Note'>
-                  <span class='note_label'>NOTE 1</span>
-                  <span style='mso-tab-count:1'>&#160; </span>
-                  XYZ
-                </p>
-              </div>
-              <div id='B1' class='Note'>
-                <p class='Note'>
-                  <span class='note_label'>NOTE 2</span>
-                  <span style='mso-tab-count:1'>&#160; </span>
-                  XYZ1
-                </p>
-              </div>
-            </div>
-            <p>&#160;</p>
-          </div>
-          <p>
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection3'>
-            <p class='zzSTDTitle1'/>
-          </div>
-        </body>
-      </html>
+                 <body lang="EN-US" link="blue" vlink="#954F72">
+           <div class="WordSection1">
+             <p> </p>
+           </div>
+           <p>
+             <br clear="all" class="section"/>
+           </p>
+           <div class="WordSection2">
+             <p>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div class="TOC">
+               <p class="zzContents">Table of contents</p>
+             </div>
+             <p>
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p id="A">ABC
+         </p>
+               <div id="B" class="Note">
+                 <p class="Note"><span class="note_label">NOTE 1</span><span style="mso-tab-count:1">  </span>XYZ</p>
+               </div>
+               <div id="B1" class="Note">
+                 <p class="Note"><span class="note_label">NOTE 2</span><span style="mso-tab-count:1">  </span>XYZ1</p>
+               </div>
+             </div>
+             <p> </p>
+           </div>
+           <p>
+             <br clear="all" class="section"/>
+           </p>
+           <div class="WordSection3">
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+       </html>
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))).to be_equivalent_to xmlpp(html)
@@ -602,7 +637,10 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-          <foreword displayorder='1'>
+            <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+          <foreword displayorder='2'>
             <note id='FB' coverpage='true' unnumbered='true'>
                <name>NOTE</name>
                <p>XYZ</p>
@@ -652,7 +690,13 @@ RSpec.describe IsoDoc do
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-            <div>
+            <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div>
               <h1 class='ForewordTitle'>Foreword</h1>
                 <div id='FB' class='Note' coverpage='true'>
                  <p class='Note'>
@@ -698,7 +742,10 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-          <foreword displayorder='1'>
+            <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+          <foreword displayorder='2'>
             <figure id='F'>
               <name>Figure 1</name>
               <note id='FB'>
@@ -746,7 +793,10 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword displayorder="1">
+             <clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause>
+          <foreword displayorder="2">
             <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
               <name>EXAMPLE&#xA0;&#x2014; Title</name>
               <p>Hello</p>
@@ -796,6 +846,12 @@ RSpec.describe IsoDoc do
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
+                  <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
             <div>
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='samplecode' class='example' style='page-break-after: avoid;page-break-inside: avoid;'>
@@ -850,7 +906,10 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword displayorder="1">
+             <clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause>
+          <foreword displayorder="2">
             <example id='samplecode'>
               <name>EXAMPLE 1</name>
               <p>Hello</p>
@@ -886,7 +945,11 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
-          <preface><foreword displayorder="1">
+          <preface>
+             <clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause>
+          <foreword displayorder="2">
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution" keep-with-next="true" keep-lines-together="true">
           <name>CAUTION</name>
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -937,7 +1000,11 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
-          <preface><foreword displayorder="1">
+          <preface>
+             <clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause>
+          <foreword displayorder="2">
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
           <name>Title</name>
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -991,7 +1058,10 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
-           <foreword displayorder="1">
+             <clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause>
+           <foreword displayorder="2">
              <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="box">
                <name>Box  1 — Title</name>
                <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -1055,7 +1125,11 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml"  type='presentation'>
-          <preface><foreword displayorder="1">
+          <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+          <foreword displayorder="2">
           <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
         <stem type="AsciiMath">r = 1 %</stem>
         <p keep-with-next="true">where</p>
@@ -1117,6 +1191,12 @@ RSpec.describe IsoDoc do
                <p>
                  <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                </p>
+                     <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
                <div>
                  <h1 class='ForewordTitle'>Foreword</h1>
                  <div id='_be9158af-7e93-4ee2-90c5-26d31c181934' style='page-break-after: avoid;page-break-inside: avoid;'><div class='formula'>
@@ -1179,7 +1259,11 @@ RSpec.describe IsoDoc do
   it "processes paragraph attributes" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+                  <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+          <foreword>
           <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
       Fictitious<br/>
       World</p>
@@ -1214,6 +1298,12 @@ RSpec.describe IsoDoc do
             <p><br clear="all" class="section"/></p>
             <div class="WordSection2">
               <p><br  clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+                    <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
               <div>
                 <h1 class="ForewordTitle">Foreword</h1>
                 <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left;">Vache Equipment<br/>
@@ -1252,7 +1342,11 @@ RSpec.describe IsoDoc do
 
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml"  type='presentation'>
-          <preface><foreword displayorder="1">
+          <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        <foreword displayorder="2">
           <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
         <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;7301:2011, Clause 1</source>
         <author>ISO</author>
@@ -1286,6 +1380,11 @@ RSpec.describe IsoDoc do
   it "processes term domains" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+                  <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        </preface>
           <sections>
           <terms>
           <term id="_extraneous_matter"><name>1.1.</name><preferred>extraneous matter</preferred><admitted>EM</admitted>
@@ -1366,7 +1465,7 @@ RSpec.describe IsoDoc do
                 </component>
       </permission>
           </foreword></preface>
-          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
+          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
       <title>Bibliography</title>
       <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="IETF" scope="anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
       </references></bibliography>
@@ -1374,7 +1473,11 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface><foreword displayorder="1">
+          <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        <foreword displayorder="2">
           <permission id="_" keep-with-next="true" keep-lines-together="true" model="default"><name>Permission 1:<br/>/ogc/recommendation/wfs/2</name><p><em>Subject: user</em><br/>
       <em>Subject: non-user</em><br/>
       <em>Inherits: /ss/584/2015/level/1</em><br/>
@@ -1402,7 +1505,7 @@ RSpec.describe IsoDoc do
                   <p id="_">Hello</p>
                 </div></permission>
           </foreword></preface>
-          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
+          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
       <title depth="1">Bibliography</title>
       <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF&#xa0;RFC&#xa0;2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF&#xa0;RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
       <biblio-tag>[1]<tab/>IETF&#xa0;RFC&#xa0;2616, </biblio-tag>
@@ -1514,7 +1617,11 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface><foreword displayorder="1">
+          <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+          <foreword displayorder="2">
           <requirement id="A" unnumbered="true" keep-with-next="true" keep-lines-together="true" model="default"><name>Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</name><p><em>Subject: user</em><br/>
       <em>Inherits: /ss/584/2015/level/1</em></p><div type="requirement-description">
           <p id="_">I recommend <em>this</em>.</p>
@@ -1631,7 +1738,11 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface><foreword displayorder="1">
+          <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        <foreword displayorder="2">
           <recommendation id="_" obligation="shall,could" keep-with-next="true" keep-lines-together="true" model="default"><name>Recommendation 1:<br/>/ogc/recommendation/wfs/2</name><p><em>Obligation: shall,could</em><br/>
       <em>Subject: user</em><br/>
       <em>Inherits: /ss/584/2015/level/1</em><br/>
@@ -1697,7 +1808,7 @@ RSpec.describe IsoDoc do
 
   it "processes passthrough with compatible format" do
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
+    IsoDoc::HtmlConvert.new({}).convert("test", <<~INPUT, false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
       <passthrough format="html,rfc">&lt;A&gt;</passthrough><em>Hello</em><passthrough format="html,rfc">&lt;/A&gt;</passthrough>
@@ -1706,7 +1817,7 @@ RSpec.describe IsoDoc do
     INPUT
     expect(xmlpp(File.read("test.html")
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
-      .gsub(%r{</div>.*}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .gsub(%r{</div>.*}m, ""))).to be_equivalent_to xmlpp(<<~OUTPUT)
         <A><i>Hello</i></A>
       OUTPUT
   end
@@ -1734,7 +1845,11 @@ RSpec.describe IsoDoc do
   it "ignores passthrough with incompatible format" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
+              <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        <foreword>
       <passthrough format="doc,rfc">&lt;A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
@@ -1850,8 +1965,13 @@ RSpec.describe IsoDoc do
             <doctype>article</doctype>
           </ext>
         </bibdata>
+        <preface>
+          <clause type="toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        </preface>
         <sections>
-          <clause id="clause1" inline-header="false" obligation="normative" displayorder="1">
+          <clause id="clause1" inline-header="false" obligation="normative" displayorder="2">
             <title depth="1">1.<tab/>Clause 1</title>
             <clause id="clause1A" inline-header="false" obligation="normative">
               <title depth="2">1.1.<tab/>Clause 1A</title>
@@ -1869,7 +1989,7 @@ RSpec.describe IsoDoc do
               </clause>
             </clause>
           </clause>
-          <clause id="clause2" inline-header="false" obligation="normative" displayorder="2">
+          <clause id="clause2" inline-header="false" obligation="normative" displayorder="3">
             <title depth="1">2.<tab/>Clause 2</title>
             <p id="A">And introducing: </p>
             <toc>

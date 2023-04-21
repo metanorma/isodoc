@@ -16,10 +16,12 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-          <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <foreword displayorder="1">
+            <clause type="toc" displayorder="1">
+       <title depth="1">Table of contents</title>
+      </clause>
+      <foreword displayorder="2">
             <sourcecode lang='ruby' id='samplecode'>
               <name>
                 Figure 1&#xA0;&#x2014; Ruby
@@ -63,6 +65,12 @@ RSpec.describe IsoDoc do
                   <p>
                     <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                   </p>
+                        <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
                     <div>
                       <h1 class="ForewordTitle">Foreword</h1>
                       <p id="samplecode" class="Sourcecode"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; puts x<br/>&#160;&#160;&#160;&#160;&#160; </p><p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
@@ -150,7 +158,10 @@ RSpec.describe IsoDoc do
        </source-highlighter-css>
          </metanorma-extension>
          <preface>
-           <foreword displayorder="1">
+             <clause type="toc" displayorder="1">
+          <title depth="1">Table of contents</title>
+        </clause>
+        <foreword displayorder="2">
              <sourcecode lang="ruby" id="samplecode">
                <name>Figure 1 — Ruby <em>code</em></name>
                <span class="nb">puts</span>
@@ -248,6 +259,12 @@ RSpec.describe IsoDoc do
           <br clear="all" class="section"/>
         </p>
         <div class="WordSection2">
+        <p class="MsoNormal">
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
           <p class="MsoNormal">
             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
           </p>
@@ -424,7 +441,10 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata/>
-      <preface><foreword displayorder="1">
+      <preface>    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+      </clause>
+      <foreword displayorder="2">
       <sourcecode id="samplecode" lang="xml"><name>Figure 1 — XML code</name><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></sourcecode>
                    <sourcecode id="samplecode1" lang="xml" linenums="true">
                <name>Figure 2 — XML code</name>
@@ -515,7 +535,10 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata/>
-      <preface><foreword displayorder="1">
+      <preface>    <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+        </clause>
+      <foreword displayorder="2">
       <sourcecode id="_"><name>Figure 1</name>puts "Hello, world." <span class="c"><callout target="A">1</callout></span><span class="c"><callout target="B">2</callout></span> 
          %w{a b c}.each do |x|
            puts x <span class="c"><callout target="C">3</callout></span>
@@ -570,6 +593,12 @@ RSpec.describe IsoDoc do
                <br clear="all" class="section"/>
              </p>
              <div class="WordSection2">
+             <p>
+         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
                <p>
                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
@@ -659,7 +688,10 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
          <preface>
-           <foreword displayorder="1">
+             <clause type="toc" displayorder="1">
+          <title depth="1">Table of contents</title>
+        </clause>
+        <foreword displayorder="2">
              <sourcecode id="_" linenums="true">
                <name>Figure 1</name>
                <table class="rouge-line-table">
@@ -774,6 +806,12 @@ RSpec.describe IsoDoc do
             <p>
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
+                  <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
             <div>
               <h1 class="ForewordTitle">Foreword</h1>
               <p id="_" class="Sourcecode">
@@ -863,8 +901,10 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
-         <preface>
-           <foreword id="X" displayorder="1">
+         <preface>    <clause type="toc" displayorder="1">
+            <title depth="1">Table of contents</title>
+          </clause>
+           <foreword id="X" displayorder="2">
              <sourcecode id="_" lang="ruby" linenums="true">
                <name>Figure 1</name>
                <table class="rouge-line-table">
@@ -979,7 +1019,10 @@ RSpec.describe IsoDoc do
           <bibdata>
           <language current="true">en</language>
           </bibdata>
-              <preface><foreword displayorder="1">
+              <preface>    <clause type="toc" displayorder="1">
+          <title depth="1">Table of contents</title>
+        </clause>
+        <foreword displayorder="2">
         <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Figure 1&#xA0;&#x2014; Label</name><p id="_">&#xA0;&#xA0;<strong>A</strong><br/>
       &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<smallcap>B</smallcap></p>
       <p id="_">&#xA0;&#xA0;<em>C</em></p></figure>

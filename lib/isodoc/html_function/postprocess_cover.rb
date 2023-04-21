@@ -117,14 +117,22 @@ module IsoDoc
 
       # needs to be same output as toclevel
       def html_toc(docxml)
-        idx = docxml.at("//div[@id = 'toc']") or return docxml
+        idx = html_toc_init(docxml) or return docxml
         path = toclevel_classes.map do |x|
           x.map { |l| "//main//#{l}#{toc_exclude_class}" }
         end
         toc = html_toc_entries(docxml, path)
           .map { |k| k[:entry] }.join("\n")
-        idx.children = "<ul>#{toc}</ul>"
+        idx << "<ul>#{toc}</ul>"
         docxml
+      end
+
+      def html_toc_init(docxml)
+        dest = docxml.at("//div[@id = 'toc']") or return
+        if source = docxml.at("//div[@class = 'TOC']")
+          dest << to_xml(source.remove.children)
+        end
+        dest
       end
 
       def html_toc_entries(docxml, path)

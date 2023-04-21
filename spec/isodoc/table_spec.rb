@@ -98,7 +98,10 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
               <preface>
-                <foreword displayorder="1">
+                <clause type="toc" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause>
+            <foreword displayorder="2">
                   <table id='tableD-1' alt='tool tip' summary='long desc' width='70%' keep-with-next='true' keep-lines-together='true'>
                     <name>
                       Table 1&#xA0;&#x2014; Repeatability and reproducibility of
@@ -189,7 +192,7 @@ RSpec.describe IsoDoc do
                 </foreword>
               </preface>
                        <bibliography>
-           <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+           <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
              <title depth="1">1.<tab/>Normative References</title>
              <bibitem id="ISO712" type="standard">
                <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
@@ -310,6 +313,12 @@ RSpec.describe IsoDoc do
             <p>
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
+            <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
             <div>
               <h1 class="ForewordTitle">Foreword</h1>
               <p class="TableTitle" style="text-align:center;">
@@ -433,7 +442,10 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <foreword>
+          <clause type="toc" displayorder="1">
+      <title depth="1">Table of contents</title>
+      </clause>
+      <foreword displayorder="2">
         <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" class="modspec">
           <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
         </table>
@@ -476,6 +488,12 @@ RSpec.describe IsoDoc do
              <p>
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
+             <div class="TOC">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
              <div>
                <h1 class='ForewordTitle'>Foreword</h1>
                <p class='TableTitle' style='text-align:center;'>

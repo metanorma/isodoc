@@ -137,7 +137,8 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-          <foreword displayorder="1">
+        <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
+          <foreword displayorder="2">
             <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
               <eref bibitemid='ISO712'>[110]</eref>
               <eref bibitemid='ISBN'>[1]</eref>
@@ -151,7 +152,7 @@ RSpec.describe IsoDoc do
           </foreword>
         </preface>
         <bibliography>
-          <references id='_normative_references' obligation='informative' normative='true' displayorder="2">
+          <references id='_normative_references' obligation='informative' normative='true' displayorder="3">
           <title depth='1'>1.<tab/>Normative References</title>
             <p>
               The following documents are referred to in the text in such a way that
@@ -203,7 +204,7 @@ RSpec.describe IsoDoc do
               <biblio-tag>[5] </biblio-tag>
             </bibitem>
           </references>
-          <references id='_bibliography' obligation='informative' normative='false' displayorder="3">
+          <references id='_bibliography' obligation='informative' normative='false' displayorder="4">
             <title depth="1">Bibliography</title>
             <bibitem id='ISBN' type='book'>
               <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: n.d. ISBN: ISBN.</formattedref>
@@ -384,6 +385,12 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
+               <div class="TOC">
+      <p class="zzContents">Table of contents</p>
+    </div>
+    <p class="MsoNormal">
+      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+    </p>
            <div>
              <h1 class="ForewordTitle">Foreword</h1>
              <p class="MsoNormal">
@@ -523,6 +530,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+          <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <bibliography>
           <references hidden='true'>
             <bibitem hidden='true'/>
@@ -555,6 +563,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
+        <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
           <foreword>
             <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
               <eref bibitemid='ISO712'>[110]</eref>
@@ -757,6 +766,7 @@ RSpec.describe IsoDoc do
                   <language current="true">en</language>
                 </bibdata>
                 <preface>
+                <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
                   <foreword>
                     <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
                       <eref bibitemid='ISO712'>[110]</eref>
@@ -881,7 +891,7 @@ RSpec.describe IsoDoc do
       </references></bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <foreword displayorder='1'>
+      <foreword displayorder='2'>
         <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
           <eref bibitemid='ISO712'>IEC&#xa0;217</eref>
         </p>
@@ -922,7 +932,7 @@ RSpec.describe IsoDoc do
       </references></bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <foreword displayorder='1'>
+      <foreword displayorder='2'>
         <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
           <eref bibitemid='ISO712'>ISO&#xa0;712&#xA0;/ IEC&#xa0;217</eref>
         </p>
@@ -958,7 +968,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
       <bibliography>
-         <references id='_normative_references' obligation='informative' normative='false' displayorder='1'>
+         <references id='_normative_references' obligation='informative' normative='false' displayorder='2'>
            <title depth='1'>Bibliography</title>
            <bibitem id='ref1' type='standard'>
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1010,7 +1020,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
       <bibliography>
-        <references id='_normative_references' obligation='informative' normative='false' displayorder='1'>
+        <references id='_normative_references' obligation='informative' normative='false' displayorder='2'>
           <title depth='1'>Bibliography</title>
           <bibitem id='ref1' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1058,7 +1068,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
       <bibliography>
-        <references id='_normative_references' obligation='informative' normative='false' displayorder='1'>
+        <references id='_normative_references' obligation='informative' normative='false' displayorder='2'>
           <title depth='1'>Bibliography</title>
           <bibitem id='ref1' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1116,7 +1126,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
           <bibliography>
-        <references id='_normative_references' obligation='informative' normative='true' displayorder='1'>
+        <references id='_normative_references' obligation='informative' normative='true' displayorder='2'>
           <title depth='1'>
             1.
             <tab/>
@@ -1230,7 +1240,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
       <bibliography>
-         <references id="_" obligation="informative" normative="true" displayorder="1">
+         <references id="_" obligation="informative" normative="true" displayorder="2">
            <title depth="1">1.<tab/>Normative References</title>
            <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
            <bibitem id="ISO712" type="standard" suppress_identifier="true">

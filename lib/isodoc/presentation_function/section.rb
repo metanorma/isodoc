@@ -145,12 +145,28 @@ module IsoDoc
       end
     end
 
-    def toc(docxml)
+    def rearrange_clauses(docxml)
       toc_title(docxml)
-      toc_refs(docxml)
     end
 
     def toc_title(docxml)
+      docxml.at(ns("//preface/clause[@type = 'toc']")) and return
+      ins = toc_title_insert_pt(docxml) or return
+      ins.previous = <<~CLAUSE
+        <clause type = 'toc'><title>#{@i18n.table_of_contents}</title></clause>
+      CLAUSE
+    end
+
+    def toc_title_insert_pt(docxml)
+      ins = docxml.at(ns("//preface")) ||
+        docxml.at(ns("//sections | //annex | //bibliography"))
+          &.before("<preface> </preface>")
+          &.previous_element or return nil
+      ins.children.first
+    end
+
+    def toc(docxml)
+      toc_refs(docxml)
     end
 
     def toc_refs(docxml)

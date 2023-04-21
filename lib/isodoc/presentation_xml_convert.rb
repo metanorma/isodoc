@@ -39,6 +39,7 @@ module IsoDoc
       references docxml
       # triggers xrefs reparse, so put references before all other sections,
       # which alter titles and thus can alter xrefs
+      rearrange_clauses docxml
       annex docxml
       clause docxml # feeds clausetitle
       term docxml
