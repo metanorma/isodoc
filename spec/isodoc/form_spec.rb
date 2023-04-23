@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-            <clause type="toc" displayorder="1">
+            <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
       </preface>

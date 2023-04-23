@@ -18,7 +18,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-            <clause type="toc" displayorder="1">
+            <clause type="toc" id="_" displayorder="1">
        <title depth="1">Table of contents</title>
       </clause>
       <foreword displayorder="2">
@@ -65,7 +65,7 @@ RSpec.describe IsoDoc do
                   <p>
                     <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                   </p>
-                        <div class="TOC">
+                        <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>
@@ -87,8 +87,8 @@ RSpec.describe IsoDoc do
                 </body>
             </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})
@@ -158,7 +158,7 @@ RSpec.describe IsoDoc do
        </source-highlighter-css>
          </metanorma-extension>
          <preface>
-             <clause type="toc" displayorder="1">
+             <clause type="toc" id="_" displayorder="1">
           <title depth="1">Table of contents</title>
         </clause>
         <foreword displayorder="2">
@@ -262,7 +262,7 @@ RSpec.describe IsoDoc do
         <p class="MsoNormal">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-      <div class="TOC">
+      <div class="TOC"><a name="_" id="_"/>
         <p class="zzContents">Table of contents</p>
       </div>
           <p class="MsoNormal">
@@ -332,10 +332,10 @@ RSpec.describe IsoDoc do
         <div style="mso-element:footnote-list"/>
       </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
       .merge(presxml_options))
-      .convert("test", input, true))
+      .convert("test", input, true)))
     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
@@ -441,7 +441,7 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata/>
-      <preface>    <clause type="toc" displayorder="1">
+      <preface>    <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
       </clause>
       <foreword displayorder="2">
@@ -503,10 +503,10 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
   .new({ sourcehighlighter: true }
       .merge(presxml_options))
-  .convert("test", input, true))
+  .convert("test", input, true)))
   .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -535,7 +535,7 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata/>
-      <preface>    <clause type="toc" displayorder="1">
+      <preface>    <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
         </clause>
       <foreword displayorder="2">
@@ -596,7 +596,7 @@ RSpec.describe IsoDoc do
              <p>
          <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-      <div class="TOC">
+      <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
                <p>
@@ -653,10 +653,10 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
   .new({ sourcehighlighter: true }
       .merge(presxml_options))
-  .convert("test", input, true))
+  .convert("test", input, true)))
   .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -688,7 +688,7 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
          <preface>
-             <clause type="toc" displayorder="1">
+             <clause type="toc" id="_" displayorder="1">
           <title depth="1">Table of contents</title>
         </clause>
         <foreword displayorder="2">
@@ -806,7 +806,7 @@ RSpec.describe IsoDoc do
             <p>
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-                  <div class="TOC">
+                  <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>
@@ -870,10 +870,10 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
   .new({ sourcehighlighter: true }
       .merge(presxml_options))
-  .convert("test", input, true))
+  .convert("test", input, true)))
   .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -901,7 +901,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
-         <preface>    <clause type="toc" displayorder="1">
+         <preface>    <clause type="toc" id="_" displayorder="1">
             <title depth="1">Table of contents</title>
           </clause>
            <foreword id="X" displayorder="2">
@@ -992,10 +992,10 @@ RSpec.describe IsoDoc do
          </preface>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert
-  .new({ sourcehighlighter: true }
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new({ sourcehighlighter: true }
       .merge(presxml_options))
-      .convert("test", input, true))
+      .convert("test", input, true)))
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
@@ -1019,7 +1019,7 @@ RSpec.describe IsoDoc do
           <bibdata>
           <language current="true">en</language>
           </bibdata>
-              <preface>    <clause type="toc" displayorder="1">
+              <preface>    <clause type="toc" id="_" displayorder="1">
           <title depth="1">Table of contents</title>
         </clause>
         <foreword displayorder="2">
@@ -1047,8 +1047,8 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     FileUtils.rm_f "test.doc"
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})

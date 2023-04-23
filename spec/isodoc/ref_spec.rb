@@ -137,9 +137,9 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-        <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
+        <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
           <foreword displayorder="2">
-            <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+            <p id='_'>
               <eref bibitemid='ISO712'>[110]</eref>
               <eref bibitemid='ISBN'>[1]</eref>
               <eref bibitemid='ISSN'>[2]</eref>
@@ -152,7 +152,7 @@ RSpec.describe IsoDoc do
           </foreword>
         </preface>
         <bibliography>
-          <references id='_normative_references' obligation='informative' normative='true' displayorder="3">
+          <references id='_' obligation='informative' normative='true' displayorder="3">
           <title depth='1'>1.<tab/>Normative References</title>
             <p>
               The following documents are referred to in the text in such a way that
@@ -204,7 +204,7 @@ RSpec.describe IsoDoc do
               <biblio-tag>[5] </biblio-tag>
             </bibitem>
           </references>
-          <references id='_bibliography' obligation='informative' normative='false' displayorder="4">
+          <references id='_' obligation='informative' normative='false' displayorder="4">
             <title depth="1">Bibliography</title>
             <bibitem id='ISBN' type='book'>
               <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: n.d. ISBN: ISBN.</formattedref>
@@ -291,7 +291,7 @@ RSpec.describe IsoDoc do
                       <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+               <p id="_">
                  <a href="#ISO712">[110]</a>
                  <a href="#ISBN">[1]</a>
                  <a href="#ISSN">[2]</a>
@@ -385,7 +385,7 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
-               <div class="TOC">
+               <div class="TOC"><a name="_" id="_"/>
       <p class="zzContents">Table of contents</p>
     </div>
     <p class="MsoNormal">
@@ -394,7 +394,7 @@ RSpec.describe IsoDoc do
            <div>
              <h1 class="ForewordTitle">Foreword</h1>
              <p class="MsoNormal">
-               <a name="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f"/>
+               <a name="_" id="_"/>
                <a href="#ISO712">[110]</a>
                <a href="#ISBN">[1]</a>
                <a href="#ISSN">[2]</a>
@@ -485,8 +485,8 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     FileUtils.rm_rf("test.doc")
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
       .to be_equivalent_to xmlpp(presxml)
@@ -530,7 +530,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-          <preface> <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
+          <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <bibliography>
           <references hidden='true'>
             <bibitem hidden='true'/>
@@ -550,9 +550,9 @@ RSpec.describe IsoDoc do
         </bibliography>
       </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -563,7 +563,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-        <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
+        <clause type="toc" id="_toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
           <foreword>
             <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
               <eref bibitemid='ISO712'>[110]</eref>
@@ -738,7 +738,7 @@ RSpec.describe IsoDoc do
       <br/>
                    <div>
                      <h1 class='ForewordTitle'>Foreword</h1>
-                     <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+                     <p id='_'>
                        <a href='#ISO712'>[110]</a>
                        <a href='#ISBN'>[1]</a>
                        <a href='#ISSN'>[2]</a>
@@ -754,8 +754,8 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))))
       .to be_equivalent_to xmlpp(html)
   end
 
@@ -766,7 +766,7 @@ RSpec.describe IsoDoc do
                   <language current="true">en</language>
                 </bibdata>
                 <preface>
-                <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
+                <clause type="toc" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
                   <foreword>
                     <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
                       <eref bibitemid='ISO712'>[110]</eref>
@@ -828,7 +828,7 @@ RSpec.describe IsoDoc do
       <br/>
                    <div>
                      <h1 class='ForewordTitle'>Foreword</h1>
-                     <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+                     <p id='_'>
                        [110]
                        [1]
                        [2]
@@ -858,8 +858,8 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))))
       .to be_equivalent_to xmlpp(html)
   end
 
@@ -1126,7 +1126,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
           <bibliography>
-        <references id='_normative_references' obligation='informative' normative='true' displayorder='2'>
+        <references id='_' obligation='informative' normative='true' displayorder='2'>
           <title depth='1'>
             1.
             <tab/>
@@ -1204,11 +1204,11 @@ RSpec.describe IsoDoc do
     OUTPUT
     doc = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(xmlpp(Nokogiri::XML(doc)
-    .at("//xmlns:bibliography").to_xml))
+    expect(xmlpp(strip_guid(Nokogiri::XML(doc)
+    .at("//xmlns:bibliography").to_xml)))
       .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-   .convert("test", doc, true)))
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+   .convert("test", doc, true))))
       .to be_equivalent_to xmlpp(html)
   end
 

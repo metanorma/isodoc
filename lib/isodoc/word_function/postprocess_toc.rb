@@ -3,7 +3,7 @@ module IsoDoc
     module Postprocess
       def insert_toc(intro, docxml, level)
         toc = assemble_toc(docxml, level)
-        if intro.include?("WORDTOC")
+        if intro&.include?("WORDTOC")
           if s = docxml.at("//div[@class = 'TOC']")
             s&.previous_element&.elements&.first&.name == "br" and
               s&.previous_element&.remove # page break
@@ -12,7 +12,7 @@ module IsoDoc
           intro.sub(/WORDTOC/, toc)
         else
           source = docxml.at("//div[@class = 'TOC']") and
-            source << toc
+            source.children = toc
           intro
         end
       end

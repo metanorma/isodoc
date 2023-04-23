@@ -145,15 +145,59 @@ module IsoDoc
       end
     end
 
+    def preface_rearrange(doc)
+      preface_move(doc.at(ns("//preface/abstract")),
+                   %w(foreword introduction clause acknowledgements), doc)
+      preface_move(doc.at(ns("//preface/foreword")),
+                   %w(introduction clause acknowledgements), doc)
+      preface_move(doc.at(ns("//preface/introduction")),
+                   %w(clause acknowledgements), doc)
+      preface_move(doc.at(ns("//preface/acknowledgements")),
+                   %w(), doc)
+    end
+
+    def preface_move(clause, after, _doc)
+      clause or return
+      preface = clause.parent
+      float = preceding_floats(clause)
+      prev = nil
+      preface.elements.each do |x|
+        (x.name == "floating-title" || after.include?(x.name)) or
+          prev = x
+        after.include?(x.name) or next
+        clause == prev and break
+
+        prev ||= preface.children.first
+        float << clause
+        float.each { |n| prev.next = n }
+        break
+      end
+    end
+
+    def preceding_floats(clause)
+      ret = []
+      p = clause
+      while prev = p.previous_element
+        if prev.name == "floating-title"
+          ret << prev
+          p = prev
+        else break
+        end
+      end
+      ret
+    end
+
     def rearrange_clauses(docxml)
+      preface_rearrange(docxml) #feeds toc_title
       toc_title(docxml)
     end
 
     def toc_title(docxml)
       docxml.at(ns("//preface/clause[@type = 'toc']")) and return
       ins = toc_title_insert_pt(docxml) or return
+      id = UUIDTools::UUID.random_create.to_s
       ins.previous = <<~CLAUSE
-        <clause type = 'toc'><title>#{@i18n.table_of_contents}</title></clause>
+        <clause type = 'toc' id='_#{id}'><title depth='1'>#{@i18n.table_of_contents}</title></clause>
       CLAUSE
     end
 
@@ -162,6 +206,7 @@ module IsoDoc
         docxml.at(ns("//sections | //annex | //bibliography"))
           &.before("<preface> </preface>")
           &.previous_element or return nil
+      ins.children.empty? and ins << " "
       ins.children.first
     end
 

@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
@@ -53,7 +53,7 @@ RSpec.describe IsoDoc do
                 <p>
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
      </p>
-     <div class="TOC">
+     <div class="TOC" id="_">
        <p class="zzContents">Table of contents</p>
      </div>
              <p>
@@ -93,7 +93,7 @@ RSpec.describe IsoDoc do
   it "processes unordered checklists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <preface><clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
         <li  checkedcheckbox="true" uncheckedcheckbox="false">
@@ -145,7 +145,7 @@ RSpec.describe IsoDoc do
                       <p>
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
      </p>
-     <div class="TOC">
+     <div class="TOC" id="_">
        <p class="zzContents">Table of contents</p>
      </div>
                    <p>
@@ -187,7 +187,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
@@ -249,7 +249,7 @@ RSpec.describe IsoDoc do
                 <p>
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
      </p>
-     <div class="TOC">
+     <div class="TOC" id="_">
        <p class="zzContents">Table of contents</p>
      </div>
              <p>
@@ -297,7 +297,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
 
         <foreword>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="roman_upper">
@@ -345,7 +345,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword>
           <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
@@ -405,7 +405,7 @@ RSpec.describe IsoDoc do
                  <p>
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
      </p>
-     <div class="TOC">
+     <div class="TOC" id="_">
        <p class="zzContents">Table of contents</p>
      </div>
               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>

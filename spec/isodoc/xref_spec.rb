@@ -17,7 +17,7 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
             <title depth="1">Table of contents</title>
           </clause>
           <foreword displayorder='2'>
@@ -45,7 +45,7 @@ RSpec.describe IsoDoc do
     doc = <<~OUTPUT
           <div class="WordSection2">
             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-           <div class="TOC">
+           <div class="TOC" id="_">
               <p class="zzContents">Table of contents</p>
             </div>
             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
@@ -56,8 +56,8 @@ RSpec.describe IsoDoc do
       </p>
             </div><p> </p></div>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(Nokogiri::XML(IsoDoc::WordConvert.new({})

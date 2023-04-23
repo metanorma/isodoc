@@ -100,7 +100,7 @@ RSpec.describe IsoDoc do
                 </ext>
               </bibdata>
               <preface>
-              <clause type="toc" displayorder="1">
+              <clause type="toc" id="_" displayorder="1">
                 <title depth="1">Table of contents</title>
               </clause>
               </preface>
@@ -177,7 +177,7 @@ RSpec.describe IsoDoc do
              <br/>
              <div class='main-section'>
                    <br/>
-      <div class="TOC">
+      <div class="TOC" id="_">
         <h1 class="IntroTitle">Table of contents</h1>
       </div>
                <p class='zzSTDTitle1'>Document title</p>
@@ -243,9 +243,9 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -268,19 +268,19 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-              <clause type="toc" displayorder="1">
+              <clause type="toc" id="_" displayorder="1">
                 <title depth="1">Table of contents</title>
               </clause>
           <foreword displayorder="2">
                        <note id='A' keep-with-next='true' keep-lines-together='true'>
                <name>NOTE 1</name>
-               <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e'>
+               <p id='_'>
                  These results are based on a study carried out on three different
                  types of kernel.
                </p>
              </note>
              <note id='B' keep-with-next='true' keep-lines-together='true' notag='true' unnumbered='true'>
-               <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+               <p id='_'>
                  These results are based on a study carried out on three different
                  types of kernel.
                </p>
@@ -323,12 +323,12 @@ RSpec.describe IsoDoc do
           <p><br clear="all" class="section"/></p>
           <div class="WordSection2">
             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+      <div class="TOC" id="_">
+        <p class="zzContents">Table of contents</p>
+      </div>
                   <p>
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-      <div class="TOC">
-        <p class="zzContents">Table of contents</p>
-      </div>
             <div>
               <h1 class="ForewordTitle">Foreword</h1>
                              <div id='A' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
@@ -344,7 +344,7 @@ RSpec.describe IsoDoc do
                    <span class='note_label'/>
                    <span style='mso-tab-count:1'>&#160; </span>
                     These results are based on a study carried out on three different
-                   types of kernel.#{' '}
+                   types of kernel.
                  </p>
                </div>
             </div>
@@ -357,8 +357,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})
@@ -382,20 +382,20 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-              <clause type="toc" displayorder="1">
+              <clause type="toc" id="_" displayorder="1">
                 <title depth="1">Table of contents</title>
               </clause>
           <foreword displayorder="2">
             <note id='note1'>
               <name>NOTE 1</name>
-              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+              <p id='_'>
                 These results are based on a study carried out on three different
                 types of kernel.
               </p>
             </note>
             <note id='note2'>
               <name>NOTE 2</name>
-              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a'>
+              <p id='_'>
                 These results are based on a study carried out on three different
                 types of kernel.
               </p>
@@ -422,8 +422,8 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
@@ -432,7 +432,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
           </clause>
         <foreword>
@@ -466,7 +466,7 @@ RSpec.describe IsoDoc do
   it "processes non-para notes" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><clause type="toc" displayorder="1">
+          <preface><clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause><foreword>
           <note id="A"><name>NOTE</name>
@@ -509,7 +509,7 @@ RSpec.describe IsoDoc do
                 <p>
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-      <div class="TOC">
+      <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
             <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
@@ -539,7 +539,7 @@ RSpec.describe IsoDoc do
   it "processes paragraphs containing notes" do
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface>    <clause type="toc" displayorder="1">
+          <preface>    <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
       <foreword>
@@ -591,7 +591,7 @@ RSpec.describe IsoDoc do
              <p>
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div class="TOC">
+             <div class="TOC" id="_">
                <p class="zzContents">Table of contents</p>
              </div>
              <p>
@@ -637,7 +637,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-            <clause type="toc" displayorder="1">
+            <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
           <foreword displayorder='2'>
@@ -690,7 +690,7 @@ RSpec.describe IsoDoc do
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-            <div class="TOC">
+            <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>
@@ -721,8 +721,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
@@ -742,7 +742,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-            <clause type="toc" displayorder="1">
+            <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
           <foreword displayorder='2'>
@@ -771,8 +771,8 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes examples" do
@@ -793,7 +793,7 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-             <clause type="toc" displayorder="1">
+             <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
           <foreword displayorder="2">
@@ -846,7 +846,7 @@ RSpec.describe IsoDoc do
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-                  <div class="TOC">
+                  <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>
@@ -877,8 +877,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})
@@ -906,7 +906,7 @@ RSpec.describe IsoDoc do
           <?xml version='1.0'?>
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <preface>
-             <clause type="toc" displayorder="1">
+             <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
           <foreword displayorder="2">
@@ -926,8 +926,8 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes admonitions" do
@@ -946,16 +946,16 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
           <preface>
-             <clause type="toc" displayorder="1">
+             <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
           <foreword displayorder="2">
-          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution" keep-with-next="true" keep-lines-together="true">
+          <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true">
           <name>CAUTION</name>
-        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </admonition>
-          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" type="caution" keep-with-next="true" keep-lines-together="true" notag="true">
-        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+          <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true" notag="true">
+        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </admonition>
           </foreword></preface>
           </iso-standard>
@@ -965,11 +965,11 @@ RSpec.describe IsoDoc do
       <br/>
         <div>
         <h1 class="ForewordTitle">Foreword</h1>
-        <div class="Admonition" id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' style='page-break-after: avoid;page-break-inside: avoid;'><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
-        <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+        <div class="Admonition" id='_' style='page-break-after: avoid;page-break-inside: avoid;'><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+        <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
         </div>
-        <div id='_70234f78-64e5-4dfc-8b6f-f3f037348b6b' class='Admonition' style='page-break-after: avoid;page-break-inside: avoid;'>
-        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+        <div id='_' class='Admonition' style='page-break-after: avoid;page-break-inside: avoid;'>
+        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
         </div>
         </div>
         <p class="zzSTDTitle1"/>
@@ -977,8 +977,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
@@ -1001,17 +1001,17 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
           <preface>
-             <clause type="toc" displayorder="1">
+             <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
           <foreword displayorder="2">
-          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
+          <admonition id="_" type="caution">
           <name>Title</name>
-        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </admonition>
-          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" type="caution" notag="true">
+          <admonition id="_" type="caution" notag="true">
           <name>Title</name>
-        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </admonition>
           </foreword></preface>
           </iso-standard>
@@ -1021,13 +1021,13 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <div class="Admonition" id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a">
+                    <div class="Admonition" id="_">
                              <p class='AdmonitionTitle' style='text-align:center;'>Title</p>
-         <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+         <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
-       <div id='_70234f78-64e5-4dfc-8b6f-f3f037348b6b' class='Admonition'>
+       <div id='_' class='Admonition'>
          <p class='AdmonitionTitle' style='text-align:center;'>Title</p>
-            <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+            <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
           </div>
                   </div>
                   <p class="zzSTDTitle1"/>
@@ -1035,8 +1035,8 @@ RSpec.describe IsoDoc do
               </body>
           </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
@@ -1058,17 +1058,17 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
-             <clause type="toc" displayorder="1">
+             <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
            <foreword displayorder="2">
-             <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="box">
+             <admonition id="_" type="box">
                <name>Box  1 — Title</name>
-               <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+               <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
              </admonition>
-             <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" type="box" notag="true">
+             <admonition id="_" type="box" notag="true">
                <name>Box  2</name>
-               <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+               <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
              </admonition>
            </foreword>
          </preface>
@@ -1079,13 +1079,13 @@ RSpec.describe IsoDoc do
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition">
+               <div id="_" class="Admonition">
                  <p class="AdmonitionTitle" style="text-align:center;">Box  1 — Title</p>
-                 <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                 <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </div>
-               <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6b" class="Admonition">
+               <div id="_" class="Admonition">
                  <p class="AdmonitionTitle" style="text-align:center;">Box  2</p>
-                 <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                 <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </div>
              </div>
              <p class="zzSTDTitle1"/>
@@ -1093,8 +1093,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
@@ -1126,27 +1126,27 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml"  type='presentation'>
           <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
           <foreword displayorder="2">
-          <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
+          <formula id="_" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
         <stem type="AsciiMath">r = 1 %</stem>
         <p keep-with-next="true">where</p>
-      <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl">
+      <dl id="_" class="formula_dl">
         <dt>
           <stem type="AsciiMath">r</stem>
         </dt>
         <dd>
-          <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
+          <p id="_">is the repeatability limit.</p>
         </dd>
       </dl>
-          <note id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0">
+          <note id="_">
           <name>NOTE</name>
-        <p id="_511aaa98-4116-42af-8e5b-c87cdf5bfdc8">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
+        <p id="_">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
       </note>
           </formula>
-          <formula id="_be9158af-7e93-4ee2-90c5-26d31c181935"><name>1</name>
+          <formula id="_"><name>1</name>
         <stem type="AsciiMath">r = 1 %</stem>
         </formula>
           </foreword></preface>
@@ -1157,16 +1157,16 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <div id="_be9158af-7e93-4ee2-90c5-26d31c181934" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p><dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d" class="formula_dl"><dt>
+                    <div id="_" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p><dl id="_" class="formula_dl"><dt>
               <span class="stem">(#(r)#)</span>
             </dt><dd>
-              <p id="_1b99995d-ff03-40f5-8f2e-ab9665a69b77">is the repeatability limit.</p>
+              <p id="_">is the repeatability limit.</p>
             </dd></dl>
 
 
-              <div id="_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0" class="Note"><p><span class="note_label">NOTE</span>&#160; [durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
+              <div id="_" class="Note"><p><span class="note_label">NOTE</span>&#160; [durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
 
-                    <div id="_be9158af-7e93-4ee2-90c5-26d31c181935"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div></div>
+                    <div id="_"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div></div>
                     </div>
                   <p class="zzSTDTitle1"/>
                 </div>
@@ -1191,7 +1191,7 @@ RSpec.describe IsoDoc do
                <p>
                  <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                </p>
-                     <div class="TOC">
+                     <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>
@@ -1199,7 +1199,7 @@ RSpec.describe IsoDoc do
       </p>
                <div>
                  <h1 class='ForewordTitle'>Foreword</h1>
-                 <div id='_be9158af-7e93-4ee2-90c5-26d31c181934' style='page-break-after: avoid;page-break-inside: avoid;'><div class='formula'>
+                 <div id='_' style='page-break-after: avoid;page-break-inside: avoid;'><div class='formula'>
                    <p>
                      <span class='stem'>(#(r = 1 %)#)</span>
                      <span style='mso-tab-count:1'>&#160; </span>
@@ -1214,11 +1214,11 @@ RSpec.describe IsoDoc do
                        </p>
                      </td>
                      <td valign='top'>
-                       <p id='_1b99995d-ff03-40f5-8f2e-ab9665a69b77'>is the repeatability limit.</p>
+                       <p id='_'>is the repeatability limit.</p>
                      </td>
                    </tr>
                  </table>
-                 <div id='_83083c7a-6c85-43db-a9fa-4d8edd0c9fc0' class='Note'>
+                 <div id='_' class='Note'>
                    <p class='Note'>
                      <span class='note_label'>NOTE</span>
                      <span style='mso-tab-count:1'>&#160; </span>
@@ -1228,7 +1228,7 @@ RSpec.describe IsoDoc do
                    </p>
                  </div>
                  </div>
-                 <div id='_be9158af-7e93-4ee2-90c5-26d31c181935'><div class='formula'>
+                 <div id='_'><div class='formula'>
                    <p>
                      <span class='stem'>(#(r = 1 %)#)</span>
                      <span style='mso-tab-count:1'>&#160; </span>
@@ -1248,8 +1248,8 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})
@@ -1260,7 +1260,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
                   <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_toc" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
           <foreword>
@@ -1276,7 +1276,7 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" style="text-align:left;">Vache Equipment<br/>
+                    <p id="_" style="text-align:left;">Vache Equipment<br/>
           Fictitious<br/>
           World
               </p>
@@ -1298,7 +1298,7 @@ RSpec.describe IsoDoc do
             <p><br clear="all" class="section"/></p>
             <div class="WordSection2">
               <p><br  clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-                    <div class="TOC">
+                    <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>
@@ -1306,7 +1306,7 @@ RSpec.describe IsoDoc do
       </p>
               <div>
                 <h1 class="ForewordTitle">Foreword</h1>
-                <p id="_08bfe952-d57f-4150-9c95-5d52098cc2a8" align="left" style="text-align:left;">Vache Equipment<br/>
+                <p id="_" align="left" style="text-align:left;">Vache Equipment<br/>
       Fictitious<br/>
       World
           </p>
@@ -1321,10 +1321,10 @@ RSpec.describe IsoDoc do
           </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(word)
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(word)
   end
 
   it "processes blockquotes" do
@@ -1343,14 +1343,14 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml"  type='presentation'>
           <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
         <foreword displayorder="2">
-          <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
+          <quote id="_">
         <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;7301:2011, Clause 1</source>
         <author>ISO</author>
-        <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
+        <p id="_">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
       </quote>
           </foreword></preface>
           </iso-standard>
@@ -1360,10 +1360,10 @@ RSpec.describe IsoDoc do
               <br/>
               <div>
                 <h1 class="ForewordTitle">Foreword</h1>
-                <div class="Quote" id="_044bd364-c832-4b78-8fea-92242402a1d1">
+                <div class="Quote" id="_">
 
 
-        <p id="_d4fd0a61-f300-4285-abe6-602707590e53">This International Standard gives the minimum specifications for rice (<i>Oryza sativa</i> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
+        <p id="_">This International Standard gives the minimum specifications for rice (<i>Oryza sativa</i> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
       <p class="QuoteAttribution">&#8212; ISO, ISO&#xa0;7301:2011, Clause 1</p></div>
               </div>
               <p class="zzSTDTitle1"/>
@@ -1371,8 +1371,8 @@ RSpec.describe IsoDoc do
           </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
@@ -1381,7 +1381,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
                   <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
         </preface>
@@ -1474,7 +1474,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
         <foreword displayorder="2">
@@ -1505,7 +1505,7 @@ RSpec.describe IsoDoc do
                   <p id="_">Hello</p>
                 </div></permission>
           </foreword></preface>
-          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
+          <bibliography><references id="_" obligation="informative" normative="false" displayorder="3">
       <title depth="1">Bibliography</title>
       <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF&#xa0;RFC&#xa0;2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF&#xa0;RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
       <biblio-tag>[1]<tab/>IETF&#xa0;RFC&#xa0;2616, </biblio-tag>
@@ -1555,8 +1555,8 @@ RSpec.describe IsoDoc do
               </body>
             </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
@@ -1618,7 +1618,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
           <foreword displayorder="2">
@@ -1675,8 +1675,8 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-  .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+  .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
   .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
@@ -1739,7 +1739,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
         <foreword displayorder="2">
@@ -1799,8 +1799,8 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
       .to be_equivalent_to xmlpp(output)
@@ -1846,7 +1846,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
               <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_toc" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
         <foreword>
@@ -1865,8 +1865,8 @@ RSpec.describe IsoDoc do
             </body>
           </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-     .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+     .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes toc" do
@@ -1966,7 +1966,7 @@ RSpec.describe IsoDoc do
           </ext>
         </bibdata>
         <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
         </preface>
@@ -2099,9 +2099,9 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
      .convert("test", input, true)
-     .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
   .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)

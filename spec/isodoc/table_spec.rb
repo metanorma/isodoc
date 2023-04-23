@@ -98,7 +98,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
               <preface>
-                <clause type="toc" displayorder="1">
+                <clause type="toc" displayorder="1" id="_">
               <title depth="1">Table of contents</title>
             </clause>
             <foreword displayorder="2">
@@ -128,13 +128,13 @@ RSpec.describe IsoDoc do
                         <td valign="middle" align='center'>
                           Drago
                           <fn reference='a'>
-                            <p id='_0fe65e9a-5531-408e-8295-eeff35f41a55'>Parboiled rice.</p>
+                            <p id='_'>Parboiled rice.</p>
                           </fn>
                         </td>
                         <td valign="bottom" align='center'>
                           Balilla
                           <fn reference='a'>
-                            <p id='_0fe65e9a-5531-408e-8295-eeff35f41a55'>Parboiled rice.</p>
+                            <p id='_'>Parboiled rice.</p>
                           </fn>
                         </td>
                         <td align='center'>Thaibonnet</td>
@@ -192,7 +192,7 @@ RSpec.describe IsoDoc do
                 </foreword>
               </preface>
                        <bibliography>
-           <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
+           <references id="_" obligation="informative" normative="true" displayorder="3">
              <title depth="1">1.<tab/>Normative References</title>
              <bibitem id="ISO712" type="standard">
                <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc do
                          <tr>
                            <td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
                            <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Drago<a href="#tableD-1a" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:tableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span>&#160; </span>
-               <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
+               <p id="_">Parboiled rice.</p>
              </div></aside></td>
                            <td style="text-align:center;vertical-align:bottom;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Balilla<a href="#tableD-1a" class="TableFootnoteRef">a</a></td>
                            <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Thaibonnet</td>
@@ -313,7 +313,7 @@ RSpec.describe IsoDoc do
             <p>
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div class="TOC">
+            <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>
@@ -345,7 +345,7 @@ RSpec.describe IsoDoc do
                       <td valign="top" align="left" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Arborio</td>
                       <td valign="middle" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
                           Drago
-                          <a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">  </span></span><p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p></div></aside>
+                          <a href="#tableD-1a" class="TableFootnoteRef">a</a><aside><div id="ftntableD-1a"><span><span id="tableD-1a" class="TableFootnoteRef">a</span><span style="mso-tab-count:1">  </span></span><p id="_">Parboiled rice.</p></div></aside>
                         </td>
                       <td valign="bottom" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
                           Balilla
@@ -428,8 +428,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})
@@ -442,7 +442,7 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-          <clause type="toc" displayorder="1">
+          <clause type="toc" displayorder="1" id="_">
       <title depth="1">Table of contents</title>
       </clause>
       <foreword displayorder="2">
@@ -488,7 +488,7 @@ RSpec.describe IsoDoc do
              <p>
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
-             <div class="TOC">
+             <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>

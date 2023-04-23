@@ -99,7 +99,8 @@ module IsoDoc
       def introduction(clause, out)
         page_break(out)
         out.div class: "Section3", id: clause["id"] do |div|
-          clause_name(clause, clause.at(ns("./title")), div, { class: "IntroTitle" })
+          clause_name(clause, clause.at(ns("./title")), div,
+                      { class: "IntroTitle" })
           clause.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
@@ -205,9 +206,14 @@ module IsoDoc
             when "acknowledgements" then acknowledgements e, out
             end
           else
-            parse(e, out) # block, e.g. note, admonition
+            preface_block(e, out)
           end
         end
+      end
+
+      # block, e.g. note, admonition
+      def preface_block(block, out)
+        parse(block, out)
       end
 
       def copyright_parse(node, out)

@@ -6,7 +6,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-            <clause type="toc" displayorder="1">
+            <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
           <foreword>
@@ -75,7 +75,7 @@ RSpec.describe IsoDoc do
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-                  <div class="TOC">
+                  <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
       <p>
