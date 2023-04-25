@@ -161,12 +161,18 @@ module IsoDoc
       preface = clause.parent
       float = preceding_floats(clause)
       prev = nil
-      preface.elements.each do |x|
-        (x.name == "floating-title" || after.include?(x.name)) or
-          prev = x
-        after.include?(x.name) or next
-        clause == prev and break
+      xpath = after.map { |n| "./self::xmlns:#{n}" }.join(" | ")
+      xpath.empty? and xpath = "./self::*[not(following-sibling::*)]"
+      preface_move1(clause, preface, float, prev, xpath)
+    end
 
+    def preface_move1(clause, preface, float, prev, xpath)
+      preface.elements.each do |x|
+        ((x.name == "floating-title" || x.at(xpath)) &&
+        xpath != "./self::*[not(following-sibling::*)]") or prev = x
+        # after.include?(x.name) or next
+        x.at(xpath) or next
+        clause == prev and break
         prev ||= preface.children.first
         float << clause
         float.each { |n| prev.next = n }
@@ -188,7 +194,7 @@ module IsoDoc
     end
 
     def rearrange_clauses(docxml)
-      preface_rearrange(docxml) #feeds toc_title
+      preface_rearrange(docxml) # feeds toc_title
       toc_title(docxml)
     end
 
