@@ -202,6 +202,7 @@ module IsoDoc
             when "abstract" then abstract e, out
             when "foreword" then foreword e, out
             when "introduction" then introduction e, out
+            when "executivesummary" then executivesummary e, out
             when "clause" then preface e, out
             when "acknowledgements" then acknowledgements e, out
             end
@@ -209,6 +210,10 @@ module IsoDoc
             preface_block(e, out)
           end
         end
+      end
+
+      def executivesummary(clause, out)
+        introduction clause, out
       end
 
       # block, e.g. note, admonition
