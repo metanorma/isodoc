@@ -28,12 +28,7 @@ module IsoDoc
       def make_body2(body, docxml)
         body.div class: "WordSection2" do |div2|
           boilerplate docxml, div2
-          preface_block docxml, div2
-          abstract docxml, div2
-          foreword docxml, div2
-          introduction docxml, div2
-          preface docxml, div2
-          acknowledgements docxml, div2
+          front docxml, div2
           div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
@@ -242,6 +237,18 @@ module IsoDoc
         @tocrecommendationstitle = isoxml
           .at(ns("//metanorma-extension/toc[@type = 'recommendation']/title"))&.text
         super
+      end
+
+      def table_of_contents(clause, out)
+        page_break(out)
+        out.div **attr_code(preface_attrs(clause)) do |div|
+          div.p class: "zzContents" do |p|
+            clause.at(ns("./title"))&.children&.each { |c| parse(c, p) }
+          end
+          clause.elements.each do |e|
+            parse(e, div) unless e.name == "title"
+          end
+        end
       end
     end
   end

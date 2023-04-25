@@ -74,6 +74,10 @@ HTML_HDR = <<~HEADER.freeze
       </div>
       <br/>
       <div class="main-section">
+         <br/>
+            <div class="TOC" id="_">
+        <h1 class="IntroTitle">Table of contents</h1>
+      </div>
 HEADER
 
 WORD_HDR = <<~HEADER.freeze
@@ -90,6 +94,12 @@ WORD_HDR = <<~HEADER.freeze
            </div>
            <p><br clear="all" class="section"/></p>
            <div class="WordSection2">
+            <p>
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
              <p>&#160;</p>
            </div>
            <p><br clear="all" class="section"/></p>

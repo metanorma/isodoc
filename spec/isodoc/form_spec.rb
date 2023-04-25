@@ -4,6 +4,11 @@ RSpec.describe IsoDoc do
   it "renders form" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+            <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+      </preface>
           <sections>
           <clause id="A">
           <form action="/action_page.php" id="F0" name="F1" class="C">

@@ -59,15 +59,19 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <?xml version='1.0'?>
            <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface><foreword displayorder="1">
+          <preface>
+    <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+          <foreword displayorder="2">
           <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
         <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
-        <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
-        <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
-        <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f2" mimetype="image/png"/>
-        <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f2' mimetype='application/xml'/>
+        <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+        <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
+        <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
+        <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_' mimetype='application/xml'/>
         <fn reference="a">
-        <p id="_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
+        <p id="_">The time <stem type="AsciiMath">t_90</stem> was estimated to be 18,2 min for this example.</p>
       </fn>
         <dl>
         <dt>A</dt>
@@ -86,7 +90,7 @@ RSpec.describe IsoDoc do
       </figure>
           </foreword></preface>
                    <bibliography>
-           <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+           <references id="_" obligation="informative" normative="true" displayorder="3">
              <title depth="1">1.<tab/>Normative References</title>
              <bibitem id="ISO712" type="standard">
                <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
@@ -154,6 +158,12 @@ RSpec.describe IsoDoc do
                  <p><br clear="all" class="section"/></p>
                  <div class="WordSection2">
                    <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+                         <div class="TOC" id="_">
+        <p class="zzContents">Table of contents</p>
+      </div>
+      <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
                    <div>
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div id="figureA-1" class="figure"  style='page-break-after: avoid;page-break-inside: avoid;'>
@@ -202,8 +212,8 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true).gsub(/&lt;/, "&#x3c;"))))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
@@ -236,16 +246,19 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
-          <foreword displayorder="1">
+    <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+          <foreword displayorder="2">
             <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
               <name>Figure 1 — Overall title</name>
               <figure id="note1">
                 <name>Figure 1-1 — Subfigure 1</name>
-                <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+                <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
               </figure>
               <figure id="note2">
                 <name>Figure 1-2 — Subfigure 2</name>
-                <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
+                <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
               </figure>
             </figure>
           </foreword>
@@ -288,6 +301,12 @@ RSpec.describe IsoDoc do
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection2">
+          <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC" id="_">
+        <p class="zzContents">Table of contents</p>
+      </div>
             <p>
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
@@ -316,8 +335,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true).gsub(/&lt;/, "&#x3c;"))))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
@@ -361,7 +380,10 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <preface>
-           <foreword displayorder='1'>
+    <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+           <foreword displayorder='2'>
              <figure id='figureA-1' keep-with-next='true' keep-lines-together='true' class='diagram'>
                <name>
                  Diagram 1&#xa0;&#x2014; Split-it-right
@@ -371,12 +393,12 @@ RSpec.describe IsoDoc do
                    <p>X</p>
                  </fn>
                </name>
-               <image src='rice_images/rice_image1.png' height='20' width='30' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f0' mimetype='image/png' alt='alttext' title='titletxt'/>
-               <image src='rice_images/rice_image1.png' height='20' width='auto' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f1' mimetype='image/png'/>
-               <image src='data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7' height='20' width='auto' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f2' mimetype='image/png'/>
-               <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f2' mimetype='application/xml'/>
+               <image src='rice_images/rice_image1.png' height='20' width='30' id='_' mimetype='image/png' alt='alttext' title='titletxt'/>
+               <image src='rice_images/rice_image1.png' height='20' width='auto' id='_' mimetype='image/png'/>
+               <image src='data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7' height='20' width='auto' id='_' mimetype='image/png'/>
+               <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_' mimetype='application/xml'/>
                <fn reference='a'>
-                 <p id='_ef2c85b8-5a5a-4ecd-a1e6-92acefaaa852'>
+                 <p id='_'>
                    The time
                    <stem type='AsciiMath'>t_90</stem>
                     was estimated to be 18,2 min for this example.
@@ -400,8 +422,8 @@ RSpec.describe IsoDoc do
          </preface>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-        .convert("test", input, true).gsub(/&lt;/, "&#x3c;")))
+    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+        .convert("test", input, true).gsub(/&lt;/, "&#x3c;"))))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -422,7 +444,10 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <preface>
-           <foreword displayorder='1'>
+    <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+           <foreword displayorder='2'>
              <figure id='figureA-1'>
                <name>Figure 1</name>
                <image src='' mimetype='image/svg+xml' height='' width=''>
@@ -437,10 +462,10 @@ RSpec.describe IsoDoc do
          </preface>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true)
         .gsub(/&lt;/, "&#x3c;")
-        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
+        .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
       .to be_equivalent_to xmlpp(presxml
            .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
   end
@@ -460,10 +485,13 @@ RSpec.describe IsoDoc do
       <?xml version='1.0'?>
            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <preface>
-           <foreword displayorder='1'>
+    <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+           <foreword displayorder='2'>
              <figure id='figureA-1'>
                <name>Figure 1</name>
-               <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='' width=''>
+               <image src='' id='_' mimetype='image/svg+xml' height='' width=''>
                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
                    <circle fill='#009' r='45' cx='50' cy='50'/>
                    <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
@@ -509,6 +537,12 @@ RSpec.describe IsoDoc do
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection2'>
+                <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC" id="_">
+        <p class="zzContents">Table of contents</p>
+      </div>
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
@@ -531,10 +565,10 @@ RSpec.describe IsoDoc do
       </html>
     DOC
 
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .gsub(/&lt;/, "&#x3c;")
-      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
       .to be_equivalent_to xmlpp(presxml
          .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
@@ -563,7 +597,10 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-          <foreword displayorder='1'>
+    <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+          <foreword displayorder='2'>
             <figure id='figureA-1'>
               <name>Figure 1</name>
               <image src='spec/assets/odf.svg' mimetype='image/svg+xml'>
@@ -572,14 +609,14 @@ RSpec.describe IsoDoc do
               <image src='spec/assets/odf1.svg' mimetype='image/svg+xml'>
                 <emf src='data:image/emf;base64,AQAAANAAAAAAAAAAAAAAAPsEAAD7BAAAAAAAAAAAAACLCgAAiwoAACBFTUYAAAEALAQAACgAAAACAAAAMQAAAGwAAAAAAAAA3ScAAH0zAADYAAAAFwEAAAAAAAAAAAAAAAAAAMBLAwDYQQQASQBuAGsAcwBjAGEAcABlACAAMQAuADIALgAxACAAKAA5AGMANgBkADQAMQBlACwAIAAyADAAMgAyAC0AMAA3AC0AMQA0ACkAIAAAAG8AZABmADEALgBlAG0AZgAAAAAAAAAAABEAAAAMAAAAAQAAACQAAAAkAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAgAAAEYAAAAsAAAAIAAAAFNjcmVlbj0xMDIwNXgxMzE4MXB4LCAyMTZ4Mjc5bW0ARgAAADAAAAAjAAAARHJhd2luZz0xMDAuMHgxMDAuMHB4LCAyNi41eDI2LjVtbQAAEgAAAAwAAAABAAAAEwAAAAwAAAACAAAAFgAAAAwAAAAYAAAAGAAAAAwAAAAAAAAAFAAAAAwAAAANAAAAJwAAABgAAAABAAAAAAAAAAAAmQAGAAAAJQAAAAwAAAABAAAAOwAAAAgAAAAbAAAAEAAAAKQEAABxAgAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAKQEAACoAwAAqAMAAKQEAABxAgAApAQAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAAA6AQAApAQAAD8AAACoAwAAPwAAAHECAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAPwAAADoBAAA6AQAAPwAAAHECAAA/AAAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAKgDAAA/AAAApAQAADoBAACkBAAAcQIAAD0AAAAIAAAAPAAAAAgAAAA+AAAAGAAAAAAAAAAAAAAA//////////8lAAAADAAAAAUAAIAoAAAADAAAAAEAAAAnAAAAGAAAAAEAAAAAAAAA////AAYAAAAlAAAADAAAAAEAAAA7AAAACAAAABsAAAAQAAAAnQEAAEUBAAA2AAAAEAAAAM8DAABFAQAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAF8EAADtAQAAZAQAAOMCAADbAwAAkQMAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAABSAwAAPgQAAGECAABzBAAAnQEAAA4EAAA2AAAAEAAAAJ0BAADJAgAANgAAABAAAADiAgAAyQIAADYAAAAQAAAA4gIAABoCAAA2AAAAEAAAAJ0BAAAaAgAAPQAAAAgAAAA8AAAACAAAAD4AAAAYAAAAAAAAAAAAAAD//////////yUAAAAMAAAABQAAgCgAAAAMAAAAAQAAAA4AAAAUAAAAAAAAAAAAAAAsBAAA'/>
               </image>
-              <image src='' id='_d3731866-1a07-435a-a6c2-1acd41023a4e' mimetype='image/svg+xml' height='' width=''>
+              <image src='' id='_' mimetype='image/svg+xml' height='' width=''>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
                   <circle fill='#009' r='45' cx='50' cy='50'/>
                   <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
                 </svg>
                 <emf src='data:image/emf;base64,AQAAAPwAAAAAAAAAAAAAAPsEAAD7BAAAAAAAAAAAAACLCgAAiwoAACBFTUYAAAEAWAQAACgAAAACAAAARwAAAGwAAAAAAAAA3ScAAH0zAADYAAAAFwEAAAAAAAAAAAAAAAAAAMBLAwDYQQQASQBuAGsAcwBjAGEAcABlACAAMQAuADIALgAxACAAKAA5AGMANgBkADQAMQBlACwAIAAyADAAMgAyAC0AMAA3AC0AMQA0ACkAIAAAAGkAbQBhAGcAZQAyADAAMgAyADAAOQAxADMALQA4ADMAMAAzADIALQBsADkAcQByAG8AZgAuAGUAbQBmAAAAAAAAAAAAEQAAAAwAAAABAAAAJAAAACQAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAACAAAARgAAACwAAAAgAAAAU2NyZWVuPTEwMjA1eDEzMTgxcHgsIDIxNngyNzltbQBGAAAAMAAAACMAAABEcmF3aW5nPTEwMC4weDEwMC4wcHgsIDI2LjV4MjYuNW1tAAASAAAADAAAAAEAAAATAAAADAAAAAIAAAAWAAAADAAAABgAAAAYAAAADAAAAAAAAAAUAAAADAAAAA0AAAAnAAAAGAAAAAEAAAAAAAAAAACZAAYAAAAlAAAADAAAAAEAAAA7AAAACAAAABsAAAAQAAAApAQAAHECAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAApAQAAKgDAACoAwAApAQAAHECAACkBAAABQAAADQAAAAAAAAAAAAAAP//////////AwAAADoBAACkBAAAPwAAAKgDAAA/AAAAcQIAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAAA/AAAAOgEAADoBAAA/AAAAcQIAAD8AAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAqAMAAD8AAACkBAAAOgEAAKQEAABxAgAAPQAAAAgAAAA8AAAACAAAAD4AAAAYAAAAAAAAAAAAAAD//////////yUAAAAMAAAABQAAgCgAAAAMAAAAAQAAACcAAAAYAAAAAQAAAAAAAAD///8ABgAAACUAAAAMAAAAAQAAADsAAAAIAAAAGwAAABAAAACdAQAARQEAADYAAAAQAAAAzwMAAEUBAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAXwQAAO0BAABkBAAA4wIAANsDAACRAwAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAFIDAAA+BAAAYQIAAHMEAACdAQAADgQAADYAAAAQAAAAnQEAAMkCAAA2AAAAEAAAAOICAADJAgAANgAAABAAAADiAgAAGgIAADYAAAAQAAAAnQEAABoCAAA9AAAACAAAADwAAAAIAAAAPgAAABgAAAAAAAAAAAAAAP//////////JQAAAAwAAAAFAACAKAAAAAwAAAABAAAADgAAABQAAAAAAAAAAAAAAFgEAAA='/>
               </image>
-              <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_8357ede4-6d44-4672-bac4-9a85e82ab7f2' mimetype='application/xml'/>
+              <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_' mimetype='application/xml'/>
             </figure>
           </foreword>
         </preface>
@@ -599,6 +636,12 @@ RSpec.describe IsoDoc do
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection2'>
+                <p>
+        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+      <div class="TOC" id="_">
+        <p class="zzContents">Table of contents</p>
+      </div>
             <p>
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
@@ -623,10 +666,10 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
      .convert("test", input, true)
      .gsub(/&lt;/, "&#x3c;"))
-          .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
+          .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
       .to be_equivalent_to xmlpp(presxml
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
@@ -672,7 +715,11 @@ RSpec.describe IsoDoc do
           <bibdata>
           <language>en</language>
           </bibdata>
-              <preface><foreword>
+              <preface>
+    <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+              <foreword>
               <example>
               <sourcecode id="B"><name>Label</name>A B C</sourcecode>
         <figure id="A" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong></p></figure>
@@ -755,6 +802,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
                <sections>
                  <figure id='_'>
                    <image src='action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'>
@@ -768,7 +816,7 @@ RSpec.describe IsoDoc do
                  </figure>
                </sections>
                <bibliography>
-                 <references hidden='true' normative='false' displayorder="1">
+                 <references hidden='true' normative='false' displayorder="2">
                    <bibitem id='express_action_schema' type='internal'>
                      <docidentifier type='repository'>express/action_schema</docidentifier>
                      <biblio-tag>[1]<tab/>express/action_schema,</biblio-tag>
@@ -777,11 +825,11 @@ RSpec.describe IsoDoc do
                </bibliography>
              </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"\.\\}, '"./')
-      .gsub(%r{'\.\\}, "'./"))
+      .gsub(%r{'\.\\}, "'./")))
       .to be_equivalent_to xmlpp(output)
   end
 end

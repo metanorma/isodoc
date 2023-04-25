@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML terms" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -75,11 +75,16 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
 
-    presxml = <<~"PRESXML"
+    presxml = <<~PRESXML
       <?xml version='1.0'?>
              <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+               <preface>
+            <clause type="toc" id="_" displayorder="1">
+              <title depth="1">Table of contents</title>
+            </clause>
+          </preface>
            <sections>
-           <terms id="_terms_and_definitions" obligation="normative" displayorder="1"><title depth="1">1.<tab/>Terms and Definitions</title>
+           <terms id="_" obligation="normative" displayorder="2"><title depth="1">1.<tab/>Terms and Definitions</title>
            <p>For the purposes of this document, the following terms and definitions apply.</p>
        <term id="paddy1"><name>1.1.</name><preferred><strong>paddy</strong>, &#x3c;in agriculture, dated&#x3e;</preferred><termsource status="modified">[SOURCE: <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause">
            <referenceFrom>3.1</referenceFrom>
@@ -87,14 +92,14 @@ RSpec.describe IsoDoc do
             &#x2013;
            The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</termsource>
        <domain>rice</domain>
-       <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-       <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" keep-with-next="true" keep-lines-together="true"><name>EXAMPLE  1</name>
-         <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
+       <definition><p id="_">rice retaining its husk after threshing</p></definition>
+       <termexample id="_" keep-with-next="true" keep-lines-together="true"><name>EXAMPLE  1</name>
+         <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
          <ul>
          <li>A</li>
          </ul>
        </termexample>
-       <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f894"><name>EXAMPLE  2</name>
+       <termexample id="_"><name>EXAMPLE  2</name>
          <ul>
          <li>A</li>
          </ul>
@@ -112,18 +117,18 @@ RSpec.describe IsoDoc do
        <admitted>paddy rice, &#x3c;in agriculture&#x3e;</admitted>
        <admitted>rough rice</admitted>
        <deprecates>DEPRECATED: cargo rice</deprecates>
-       <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
-       <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f893"><name>EXAMPLE</name>
+       <definition><p id="_">rice retaining its husk after threshing</p></definition>
+       <termexample id="_"><name>EXAMPLE</name>
          <ul>
          <li>A</li>
          </ul>
        </termexample>
-       <termnote id="_671a1994-4783-40d0-bc81-987d06ffb74e" keep-with-next="true" keep-lines-together="true"><name>Note 1 to entry</name>
-         <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+       <termnote id="_" keep-with-next="true" keep-lines-together="true"><name>Note 1 to entry</name>
+         <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
        </termnote>
-       <termnote id="_671a1994-4783-40d0-bc81-987d06ffb74f"><name>Note 2 to entry</name>
+       <termnote id="_"><name>Note 2 to entry</name>
        <ul><li>A</li></ul>
-         <p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+         <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
        </termnote>
        <termsource status="identical">[SOURCE: <origin bibitemid="ISO7301" type="inline" droploc="true" citeas="ISO 7301:2011"><locality type="clause">
            <referenceFrom>3.1</referenceFrom>
@@ -139,18 +144,18 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
       #{HTML_HDR}
                       <p class="zzSTDTitle1"/>
-             <div id="_terms_and_definitions"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
+             <div id="_"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
              &#8211;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
 
-        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">&lt;rice&gt; rice retaining its husk after threshing</p>
-        <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example" style="page-break-after: avoid;page-break-inside: avoid;"><p class="example-title">EXAMPLE  1</p>
-          <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
+        <p id="_">&lt;rice&gt; rice retaining its husk after threshing</p>
+        <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;"><p class="example-title">EXAMPLE  1</p>
+          <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
           <ul>
           <li>A</li>
           </ul>
         </div>
-        <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f894" class="example"><p class="example-title">EXAMPLE  2</p>
+        <div id="_" class="example"><p class="example-title">EXAMPLE  2</p>
           <ul>
           <li>A</li>
           </ul>
@@ -163,14 +168,14 @@ RSpec.describe IsoDoc do
         <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
         <p class="AltTerms" style="text-align:left;">rough rice</p>
         <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
-        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
-        <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><p class="example-title">EXAMPLE</p>
+        <p id="_">rice retaining its husk after threshing</p>
+        <div id="_" class="example"><p class="example-title">EXAMPLE</p>
           <ul>
           <li>A</li>
           </ul>
         </div>
-        <div id="_671a1994-4783-40d0-bc81-987d06ffb74e" class="Note" style="page-break-after: avoid;page-break-inside: avoid;"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-        <div id="_671a1994-4783-40d0-bc81-987d06ffb74f" class="Note"><p>Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
+        <div id="_" class="Note" style="page-break-after: avoid;page-break-inside: avoid;"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
+        <div id="_" class="Note"><p>Note 2 to entry: <ul><li>A</li></ul><p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
         <p>[SOURCE: ISO&#xa0;7301:2011, 3.1
           ISO&#xa0;7301:2011, clause 3.1]</p></div>
            </div>
@@ -181,18 +186,18 @@ RSpec.describe IsoDoc do
     word = <<~"WORD"
       #{WORD_HDR}
                        <p class="zzSTDTitle1"/>
-             <div id="_terms_and_definitions"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
+             <div id="_"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
              &#8211;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
 
-        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">&lt;rice&gt; rice retaining its husk after threshing</p>
-        <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f892" class="example" style="page-break-after: avoid;page-break-inside: avoid;"><p class="example-title">EXAMPLE  1</p>
-          <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
+        <p id="_">&lt;rice&gt; rice retaining its husk after threshing</p>
+        <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;"><p class="example-title">EXAMPLE  1</p>
+          <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
           <ul>
           <li>A</li>
           </ul>
         </div>
-        <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f894" class="example"><p class="example-title">EXAMPLE  2</p>
+        <div id="_" class="example"><p class="example-title">EXAMPLE  2</p>
           <ul>
           <li>A</li>
           </ul>
@@ -205,22 +210,22 @@ RSpec.describe IsoDoc do
         <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
         <p class="AltTerms" style="text-align:left;">rough rice</p>
         <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
-        <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
-        <div id="_bd57bbf1-f948-4bae-b0ce-73c00431f893" class="example"><p class="example-title">EXAMPLE</p>
+        <p id="_">rice retaining its husk after threshing</p>
+        <div id="_" class="example"><p class="example-title">EXAMPLE</p>
           <ul>
           <li>A</li>
           </ul>
         </div>
-        <div id="_671a1994-4783-40d0-bc81-987d06ffb74e" class="Note" style="page-break-after: avoid;page-break-inside: avoid;"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-        <div id="_671a1994-4783-40d0-bc81-987d06ffb74f" class="Note"><p class="Note">Note 2 to entry: <ul><li>A</li></ul><p id="_19830f33-e46c-42cc-94ca-a5ef101132d5">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
+        <div id="_" class="Note" style="page-break-after: avoid;page-break-inside: avoid;"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
+        <div id="_" class="Note"><p class="Note">Note 2 to entry: <ul><li>A</li></ul><p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
         <p>[SOURCE: ISO&#xa0;7301:2011, 3.1
           ISO&#xa0;7301:2011, clause 3.1]</p></div>
            </div>
          </body>
        </html>
     WORD
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
     expect(xmlpp(IsoDoc::WordConvert.new({})
@@ -228,7 +233,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes IsoXML term with multiple definitions" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -272,9 +277,7 @@ RSpec.describe IsoDoc do
       </term>
     INPUT
     presxml = <<~PRESXML
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -328,15 +331,16 @@ RSpec.describe IsoDoc do
               </termsource>
             </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes IsoXML term with multiple preferred terms" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -369,9 +373,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -422,15 +424,16 @@ RSpec.describe IsoDoc do
         </definition>
       </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes IsoXML term with grammatical information" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -461,9 +464,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -479,15 +480,16 @@ RSpec.describe IsoDoc do
               </definition>
             </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes IsoXML term with empty or graphical designations" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
           <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
@@ -504,10 +506,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='1'>
+          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
             <title depth='1'>1.<tab/>Terms and Definitions</title>
             <term id='paddy1'>
               <name>1.1.</name>
@@ -523,15 +522,16 @@ RSpec.describe IsoDoc do
               </definition>
             </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes IsoXML term with nonverbal definitions" do
-    input = <<~"INPUT"
+    input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
                     <sections>
             <terms id='A' obligation='normative'>
@@ -620,9 +620,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='A' obligation='normative' displayorder='1'>
+          <terms id='A' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
@@ -703,11 +701,12 @@ RSpec.describe IsoDoc do
               </definition>
             </term>
           </terms>
-        </sections>
-      </iso-standard>
     PRESXML
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes related terms" do
@@ -762,34 +761,32 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <?xml version='1.0'?>
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <sections>
-          <terms id='A' obligation='normative' displayorder='1'>
-            <title depth='1'>1.<tab/>Terms and definitions</title>
-            <term id='second'>
-              <name>1.1.</name>
-              <preferred><strong>Second Term</strong>, &#x3c;Field, Usage Info 1&#x3e;</preferred>
-              <definition>Definition 1</definition>
-            </term>
-            <term id='C'>
-              <name>1.2.</name>
-              <preferred language='fr' script='Latn' type='prefix'><strong>First Designation</strong></preferred>
-              <p>
-                <strong>CONTRAST:</strong>
-                <em>
-                  <preferred><strong>Fifth Designation</strong>, n</preferred>
-                </em> (<xref target='second'>Clause 1.1</xref>)
-              </p>
-             <p><strong>SEE:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
-            <p> <strong>SEE ALSO:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
-              <definition>Definition 2</definition>
-            </term>
-          </terms>
-        </sections>
-      </iso-standard>
+      <terms id='A' obligation='normative' displayorder='2'>
+        <title depth='1'>1.<tab/>Terms and definitions</title>
+        <term id='second'>
+          <name>1.1.</name>
+          <preferred><strong>Second Term</strong>, &#x3c;Field, Usage Info 1&#x3e;</preferred>
+          <definition>Definition 1</definition>
+        </term>
+        <term id='C'>
+          <name>1.2.</name>
+          <preferred language='fr' script='Latn' type='prefix'><strong>First Designation</strong></preferred>
+          <p>
+            <strong>CONTRAST:</strong>
+            <em>
+              <preferred><strong>Fifth Designation</strong>, n</preferred>
+            </em> (<xref target='second'>Clause 1.1</xref>)
+          </p>
+         <p><strong>SEE:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
+        <p> <strong>SEE ALSO:</strong> <strong>**RELATED TERM NOT FOUND**</strong> </p>
+          <definition>Definition 2</definition>
+        </term>
+      </terms>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(output)
   end
 end

@@ -4,7 +4,9 @@ RSpec.describe IsoDoc do
   it "processes unordered lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface>
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <foreword>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <li>
@@ -48,6 +50,12 @@ RSpec.describe IsoDoc do
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection2'>
+                <p>
+       <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+     </p>
+     <div class="TOC" id="_">
+       <p class="zzContents">Table of contents</p>
+     </div>
              <p>
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
@@ -85,7 +93,8 @@ RSpec.describe IsoDoc do
   it "processes unordered checklists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <foreword>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
         <li  checkedcheckbox="true" uncheckedcheckbox="false">
           <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
@@ -133,6 +142,12 @@ RSpec.describe IsoDoc do
                    <br clear='all' class='section'/>
                  </p>
                  <div class='WordSection2'>
+                      <p>
+       <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+     </p>
+     <div class="TOC" id="_">
+       <p class="zzContents">Table of contents</p>
+     </div>
                    <p>
                      <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                    </p>
@@ -160,18 +175,20 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(word)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
       .to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(word)
   end
 
   it "processes ordered lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface>
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <foreword>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <li>
@@ -229,6 +246,12 @@ RSpec.describe IsoDoc do
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection2'>
+                <p>
+       <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+     </p>
+     <div class="TOC" id="_">
+       <p class="zzContents">Table of contents</p>
+     </div>
              <p>
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
@@ -273,7 +296,10 @@ RSpec.describe IsoDoc do
   it "processes Roman Upper ordered lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface>
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+
+        <foreword>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="roman_upper">
         <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
           <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
@@ -318,7 +344,9 @@ RSpec.describe IsoDoc do
   it "processes definition lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface>
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <foreword>
           <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <dt>
@@ -374,6 +402,12 @@ RSpec.describe IsoDoc do
             </div>
             <p><br clear="all" class="section"/></p>
             <div class="WordSection2">
+                 <p>
+       <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+     </p>
+     <div class="TOC" id="_">
+       <p class="zzContents">Table of contents</p>
+     </div>
               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
               <div>
                 <h1 class="ForewordTitle">Foreword</h1>

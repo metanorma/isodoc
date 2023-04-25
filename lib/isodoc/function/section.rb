@@ -96,57 +96,77 @@ module IsoDoc
         clause_parse(isoxml, out)
       end
 
-      def introduction(isoxml, out)
-        f = isoxml.at(ns("//introduction")) || return
+      def introduction(clause, out)
         page_break(out)
-        out.div class: "Section3", id: f["id"] do |div|
-          clause_name(f, f.at(ns("./title")), div, { class: "IntroTitle" })
-          f.elements.each do |e|
+        out.div class: "Section3", id: clause["id"] do |div|
+          clause_name(clause, clause.at(ns("./title")), div,
+                      { class: "IntroTitle" })
+          clause.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
       end
 
-      def foreword(isoxml, out)
-        f = isoxml.at(ns("//foreword")) || return
+      def foreword(clause, out)
         page_break(out)
-        out.div **attr_code(id: f["id"]) do |s|
-          clause_name(f, f.at(ns("./title")) || @i18n.foreword, s,
+        out.div **attr_code(id: clause["id"]) do |s|
+          clause_name(clause, clause.at(ns("./title")) || @i18n.foreword, s,
                       { class: "ForewordTitle" })
-          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
 
-      def acknowledgements(isoxml, out)
-        f = isoxml.at(ns("//acknowledgements")) || return
+      def acknowledgements(clause, out)
         title_attr = { class: "IntroTitle" }
         page_break(out)
-        out.div class: "Section3", id: f["id"] do |div|
-          clause_name(f, f&.at(ns("./title")), div, title_attr)
-          f.elements.each do |e|
+        out.div class: "Section3", id: clause["id"] do |div|
+          clause_name(clause, clause.at(ns("./title")), div, title_attr)
+          clause.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
       end
 
-      def abstract(isoxml, out)
-        f = isoxml.at(ns("//preface/abstract")) || return
+      def abstract(clause, out)
         page_break(out)
-        out.div **attr_code(id: f["id"]) do |s|
-          clause_name(f, f.at(ns("./title")), s, { class: "AbstractTitle" })
-          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        out.div **attr_code(id: clause["id"]) do |s|
+          clause_name(clause, clause.at(ns("./title")), s,
+                      { class: "AbstractTitle" })
+          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
 
-      def preface(isoxml, out)
-        isoxml.xpath(ns("//preface/clause | //preface/references | " \
-                        "//preface/definitions | //preface/terms")).each do |f|
-          page_break(out)
-          out.div class: "Section3", id: f["id"] do |div|
-            clause_name(f, f&.at(ns("./title")), div, { class: "IntroTitle" })
-            f.elements.each do |e|
-              parse(e, div) unless e.name == "title"
-            end
+      def preface_attrs(node)
+        { id: node["id"],
+          class: node["type"] == "toc" ? "TOC" : "Section3" }
+      end
+
+      def preface(clause, out)
+        if clause["type"] == "toc"
+          table_of_contents(clause, out)
+        else
+          preface_normal(clause, out)
+        end
+      end
+
+      def preface_normal(clause, out)
+        page_break(out)
+        out.div **attr_code(preface_attrs(clause)) do |div|
+          clause_name(clause, clause.at(ns("./title")), div,
+                      { class: "IntroTitle" })
+          clause.elements.each do |e|
+            parse(e, div) unless e.name == "title"
+          end
+        end
+      end
+
+      def table_of_contents(clause, out)
+        page_break(out)
+        out.div **attr_code(preface_attrs(clause)) do |div|
+          clause_name(clause, clause.at(ns("./title")), div,
+                      { class: "IntroTitle" })
+          clause.elements.each do |e|
+            parse(e, div) unless e.name == "title"
           end
         end
       end
@@ -174,13 +194,31 @@ module IsoDoc
         t.size == 1 && %w(terms definitions references).include?(t[0].name)
       end
 
-      def preface_block(isoxml, out)
+      def front(isoxml, out)
         p = isoxml.at(ns("//preface")) or return
         p.elements.each do |e|
-          next if is_clause?(e.name)
-
-          parse(e, out)
+          if is_clause?(e.name)
+            case e.name
+            when "abstract" then abstract e, out
+            when "foreword" then foreword e, out
+            when "introduction" then introduction e, out
+            when "executivesummary" then executivesummary e, out
+            when "clause" then preface e, out
+            when "acknowledgements" then acknowledgements e, out
+            end
+          else
+            preface_block(e, out)
+          end
         end
+      end
+
+      def executivesummary(clause, out)
+        introduction clause, out
+      end
+
+      # block, e.g. note, admonition
+      def preface_block(block, out)
+        parse(block, out)
       end
 
       def copyright_parse(node, out)

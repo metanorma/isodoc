@@ -2,12 +2,28 @@ module IsoDoc
   module WordFunction
     module Postprocess
       def insert_toc(intro, docxml, level)
+        toc = assemble_toc(docxml, level)
+        if intro&.include?("WORDTOC")
+          if s = docxml.at("//div[@class = 'TOC']")
+            s&.previous_element&.elements&.first&.name == "br" and
+              s&.previous_element&.remove # page break
+            s.remove
+          end
+          intro.sub(/WORDTOC/, toc)
+        else
+          source = docxml.at("//div[@class = 'TOC']") and
+            source.children = toc
+          intro
+        end
+      end
+
+      def assemble_toc(docxml, level)
         toc = ""
         toc += make_WordToC(docxml, level)
         toc += make_table_word_toc(docxml)
         toc += make_figure_word_toc(docxml)
         toc += make_recommendation_word_toc(docxml)
-        intro.sub(/WORDTOC/, toc)
+        toc
       end
 
       def word_toc_entry(toclevel, heading)
@@ -43,6 +59,9 @@ module IsoDoc
 
       def make_WordToC(docxml, level)
         toc = ""
+        if source = docxml.at("//div[@class = 'TOC']")
+          toc = to_xml(source.children)
+        end
         # docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])]").
         xpath = (1..level).each.map { |i| "//h#{i}" }.join (" | ")
         docxml.xpath(xpath).each do |h|
