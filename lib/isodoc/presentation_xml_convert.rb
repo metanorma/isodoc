@@ -17,10 +17,18 @@ module IsoDoc
 
     def convert1(docxml, _filename, _dir)
       @xrefs.parse docxml
+      bibitem_lookup(docxml)
       info docxml, nil
       conversions(docxml)
       docxml.root["type"] = "presentation"
       docxml.to_xml.gsub(/&lt;/, "&#x3c;").gsub(/&gt;/, "&#x3e;")
+    end
+
+    def bibitem_lookup(docxml)
+      @bibitems = docxml.xpath(ns("//references/bibitem"))
+        .each_with_object({}) do |b, m|
+        m[b["id"]] = b
+      end
     end
 
     def conversions(docxml)
@@ -69,9 +77,10 @@ module IsoDoc
 
     def inline(docxml)
       xref docxml
-      eref docxml
-      origin docxml
-      quotesource docxml
+      eref docxml # feeds docxml
+      origin docxml # feeds docxml
+      quotesource docxml # feeds docxml
+      eref2link docxml
       mathml docxml
       variant docxml
       identifier docxml

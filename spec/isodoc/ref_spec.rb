@@ -140,14 +140,14 @@ RSpec.describe IsoDoc do
         <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> 
           <foreword displayorder="2">
             <p id='_'>
-              <eref bibitemid='ISO712'>[110]</eref>
-              <eref bibitemid='ISBN'>[1]</eref>
-              <eref bibitemid='ISSN'>[2]</eref>
-              <eref bibitemid='ISO16634'>ISO 16634:-- (all parts)</eref>
-              <eref bibitemid='ref1'>ICC/167</eref>
-              <eref bibitemid='ref10'>[4]</eref>
-              <eref bibitemid='ref12'>Citn</eref>
-              <eref bibitemid='zip_ffs'>[5]</eref>
+              <xref target='ISO712'>[110]</xref>
+              <xref target='ISBN'>[1]</xref>
+              <xref target='ISSN'>[2]</xref>
+              <xref target='ISO16634'>ISO 16634:-- (all parts)</xref>
+              <xref target='ref1'>ICC/167</xref>
+              <xref target='ref10'>[4]</xref>
+              <xref target='ref12'>Citn</xref>
+              <xref target='zip_ffs'>[5]</xref>
             </p>
           </foreword>
         </preface>
@@ -557,7 +557,7 @@ RSpec.describe IsoDoc do
   end
 
   it "processes hidden references sections in Relaton bibliographies" do
-    presxml = <<~PRESXML
+    input = <<~INPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
         <bibdata>
           <language current="true">en</language>
@@ -660,7 +660,7 @@ RSpec.describe IsoDoc do
           </references>
           <references id='_bibliography' obligation='informative' normative='false' hidden="true">
             <title depth="1">Bibliography</title>
-            <bibitem id='ISBN' type='ISBN'>
+            <bibitem id='ISBN' type='book'>
               <title format='text/plain'>Chemicals for analytical laboratory use</title>
               <docidentifier type='ISBN'>ISBN</docidentifier>
               <docidentifier type='metanorma'>[1]</docidentifier>
@@ -671,7 +671,7 @@ RSpec.describe IsoDoc do
                 </organization>
               </contributor>
             </bibitem>
-            <bibitem id='ISSN' type='ISSN'>
+            <bibitem id='ISSN' type='journal'>
               <title format='text/plain'>Instruments for analytical laboratory use</title>
               <docidentifier type='ISSN'>ISSN</docidentifier>
               <docidentifier type='metanorma'>[2]</docidentifier>
@@ -731,36 +731,148 @@ RSpec.describe IsoDoc do
           </references>
         </bibliography>
       </iso-standard>
-    PRESXML
+    INPUT
 
-    html = <<~OUTPUT
-          #{HTML_HDR}
-      <br/>
-                   <div>
-                     <h1 class='ForewordTitle'>Foreword</h1>
-                     <p id='_'>
-                       <a href='#ISO712'>[110]</a>
-                       <a href='#ISBN'>[1]</a>
-                       <a href='#ISSN'>[2]</a>
-                       <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
-                       <a href='#ref1'>ICC/167</a>
-                       <a href='#ref10'>[10]</a>
-                       <a href='#ref12'>Citn</a>
-                       <a href='#zip_ffs'>[5]</a>
-                     </p>
-                   </div>
-                   <p class='zzSTDTitle1'/>
-                 </div>
-               </body>
-             </html>
+    presxml = <<~OUTPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+           <language current="true">en</language>
+         </bibdata>
+         <preface>
+           <foreword displayorder="1">
+             <p id="_">
+               <xref target="ISO712">[110]</xref>
+               <xref target="ISBN">[1]</xref>
+               <xref target="ISSN">[2]</xref>
+               <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
+               <xref target="ref1">ICC/167</xref>
+               <xref target="ref10">[10]</xref>
+               <xref target="ref12">Citn</xref>
+               <xref target="zip_ffs">[5]</xref>
+             </p>
+           </foreword>
+           <clause type="toc" id="_" displayorder="2">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <bibliography>
+           <references id="_" obligation="informative" normative="true" hidden="true" displayorder="3">
+             <title depth="1">1.<tab/>Normative References</title>
+             <p>
+               The following documents are referred to in the text in such a way that
+               some or all of their content constitutes requirements of this document.
+               For dated references, only the edition cited applies. For undated
+               references, the latest edition of the referenced document (including any
+               amendments) applies.
+             </p>
+             <bibitem id="ISO712" type="standard">
+               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
+               <docidentifier type="ISO">ISO 712</docidentifier>
+               <docidentifier type="metanorma">[110]</docidentifier>
+               <biblio-tag>[110], ISO 712, </biblio-tag>
+             </bibitem>
+             <bibitem id="ISO16634" type="standard">
+               <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
+               <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+               <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
+               <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
+             </bibitem>
+             <bibitem id="ISO20483" type="standard">
+               <formattedref>International Organization for Standardization. <em>Cereals and pulses</em>. 2013–2014.</formattedref>
+               <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
+               <biblio-tag>ISO 20483:2013-2014, </biblio-tag>
+             </bibitem>
+             <bibitem id="ref1">
+               <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>
+                 .
+                 <em>
+                   Determination of the protein content in cereal and cereal products
+                   for food and animal feeding stuffs according to the Dumas combustion
+                   method
+                 </em>
+                  (see
+                 <link target="http://www.icc.or.at"/>
+                 )
+               </formattedref>
+               <docidentifier type="ICC">ICC/167</docidentifier>
+               <biblio-tag>ICC/167, </biblio-tag>
+             </bibitem>
+             <note>
+               <name>NOTENOTE</name>
+               <p>This is an annotation of ISO 20483:2013-2014</p>
+             </note>
+             <bibitem id="zip_ffs">
+               <formattedref format="application/x-isodoc+xml">Title 5</formattedref>
+               <docidentifier type="metanorma">[5]</docidentifier>
+               <biblio-tag>[5] </biblio-tag>
+             </bibitem>
+           </references>
+           <references id="_" obligation="informative" normative="false" hidden="true" displayorder="4">
+             <title depth="1">Bibliography</title>
+             <bibitem id="ISBN" type="book">
+               <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: n.d. ISBN: ISBN.</formattedref>
+               <docidentifier type="ISBN">ISBN</docidentifier>
+               <biblio-tag>[1]<tab/></biblio-tag>
+             </bibitem>
+             <bibitem id="ISSN" type="journal">
+               <formattedref><em>Instruments for analytical laboratory use</em>. n.d. ISSN: ISSN.</formattedref>
+               <docidentifier type="ISSN">ISSN</docidentifier>
+               <biblio-tag>[2]<tab/></biblio-tag>
+             </bibitem>
+             <note>
+               <name>NOTENOTE</name>
+               <p>This is an annotation of document ISSN.</p>
+             </note>
+             <note>
+               <name>NOTENOTE</name>
+               <p>This is another annotation of document ISSN.</p>
+             </note>
+             <bibitem id="ISO3696" type="standard">
+               <formattedref><em>Water for analytical laboratory use</em>.</formattedref>
+               <docidentifier type="ISO">ISO 3696</docidentifier>
+               <biblio-tag>[3]<tab/>ISO 3696, </biblio-tag>
+             </bibitem>
+             <bibitem id="ref10">
+               <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>
+                 .
+                 <em>
+                   Determination of the protein content in cereal and cereal products
+                   for food and animal feeding stuffs according to the Dumas combustion
+                   method
+                 </em>
+                  (see
+                 <link target="http://www.icc.or.at"/>
+                 )
+               </formattedref>
+               <biblio-tag>[4]<tab/>(NO ID), </biblio-tag>
+             </bibitem>
+             <bibitem id="ref11">
+               <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
+               <docidentifier type="IETF">IETF RFC 10</docidentifier>
+               <biblio-tag>[5]<tab/>IETF RFC 10, </biblio-tag>
+             </bibitem>
+             <bibitem id="ref12">
+               <formattedref format="application/x-isodoc+xml">
+                 CitationWorks. 2019.
+                 <em>How to cite a reference</em>
+                 .
+               </formattedref>
+               <docidentifier type="metanorma">[Citn]</docidentifier>
+               <docidentifier type="IETF">IETF RFC 20</docidentifier>
+               <biblio-tag>Citn<tab/>IETF RFC 20, </biblio-tag>
+             </bibitem>
+           </references>
+         </bibliography>
+       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))))
-      .to be_equivalent_to xmlpp(html)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes hidden references sections in Relaton bibliographies" do
-    presxml = <<~PRESXML
+    input = <<~INPUT
               <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
                 <bibdata>
                   <language current="true">en</language>
@@ -770,19 +882,13 @@ RSpec.describe IsoDoc do
                   <foreword>
                     <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
                       <eref bibitemid='ISO712'>[110]</eref>
-                      <eref bibitemid='ISBN'>[1]</eref>
-                      <eref bibitemid='ISSN'>[2]</eref>
                       <eref bibitemid='ISO16634'>ISO 16634:-- (all parts)</eref>
-                      <eref bibitemid='ref1'>ICC/167</eref>
-                      <eref bibitemid='ref10'>[10]</eref>
-                      <eref bibitemid='ref12'>Citn</eref>
-                      <eref bibitemid='zip_ffs'>[5]</eref>
                     </p>
                   </foreword>
                 </preface>
                 <bibliography>
                   <references id='_normative_references' obligation='informative' normative='true'>
-                  <title depth='1'>1.<tab/>Normative References</title>
+                  <title>Normative References</title>
                     <p>
                       The following documents are referred to in the text in such a way that
                       some or all of their content constitutes requirements of this document.
@@ -818,49 +924,69 @@ RSpec.describe IsoDoc do
                       <extent type='part'>
                         <referenceFrom>all</referenceFrom>
                       </extent>
-                      <biblio-tag>ISO 16634:-- (all parts), </biblio-tag>
                     </bibitem>
       </references></bibliography></iso-standard>
-    PRESXML
+    INPUT
 
-    html = <<~OUTPUT
-          #{HTML_HDR}
-      <br/>
-                   <div>
-                     <h1 class='ForewordTitle'>Foreword</h1>
-                     <p id='_'>
-                       [110]
-                       [1]
-                       [2]
-                       <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
-                       ICC/167
-                       [10]
-                       Citn
-                       [5]
+    presxml = <<~OUTPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+           <language current="true">en</language>
+         </bibdata>
+         <preface>
+           <foreword displayorder="1">
+             <p id="_">
+               <eref bibitemid="ISO712">[110]</eref>
+               <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
+             </p>
+           </foreword>
+           <clause type="toc" id="_" displayorder="2">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <bibliography>
+           <references id="_" obligation="informative" normative="true" displayorder="3">
+             <title depth="1">1.<tab/>Normative References</title>
+             <p>
+                       The following documents are referred to in the text in such a way that
+                       some or all of their content constitutes requirements of this document.
+                       For dated references, only the edition cited applies. For undated
+                       references, the latest edition of the referenced document (including any
+                       amendments) applies.
                      </p>
-                   </div>
-                   <p class='zzSTDTitle1'/>
-                   <div>
-        <h1>1.&#160; Normative References</h1>
-        <p>
-           The following documents are referred to in the text in such a way
-          that some or all of their content constitutes requirements of this
-          document. For dated references, only the edition cited applies. For
-          undated references, the latest edition of the referenced document
-          (including any amendments) applies.
-        </p>
-        <p id='ISO16634' class='NormRef'>
-          ISO 16634:-- (all parts),
-          <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>
-        </p>
-      </div>
-                 </div>
-               </body>
-             </html>
+             <bibitem id="ISO712" type="standard" hidden="true">
+               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
+               <docidentifier type="ISO">ISO 712</docidentifier>
+               <docidentifier type="metanorma">[110]</docidentifier>
+             </bibitem>
+             <bibitem id="ISO16634" type="standard">
+               <formattedref language="en" format="text/plain">
+                 <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
+               </formattedref>
+               <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+               <date type="published">
+                 <on>--</on>
+               </date>
+               <contributor>
+                 <role type="publisher"/>
+                 <organization>
+                   <abbreviation>ISO</abbreviation>
+                 </organization>
+               </contributor>
+               <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
+               <extent type="part">
+                 <referenceFrom>all</referenceFrom>
+               </extent>
+               <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
+             </bibitem>
+           </references>
+         </bibliography>
+       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))))
-      .to be_equivalent_to xmlpp(html)
+      expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "selects the primary identifier" do
@@ -893,7 +1019,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <foreword displayorder='2'>
         <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-          <eref bibitemid='ISO712'>IEC&#xa0;217</eref>
+          <xref target='ISO712'>IEC&#xa0;217</xref>
         </p>
       </foreword>
     PRESXML
@@ -934,7 +1060,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <foreword displayorder='2'>
         <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
-          <eref bibitemid='ISO712'>ISO&#xa0;712&#xA0;/ IEC&#xa0;217</eref>
+          <xref target='ISO712'>ISO&#xa0;712&#xA0;/ IEC&#xa0;217</xref>
         </p>
       </foreword>
     PRESXML

@@ -175,8 +175,8 @@ RSpec.describe IsoDoc do
                       <dt>Drago</dt>
                       <dd>A type of rice</dd>
                     </dl>
-                    <source status="generalisation">[SOURCE: <origin bibitemid="ISO712" type="inline" citeas=""><localityStack><locality type="section"><referenceFrom>1</referenceFrom></locality></localityStack>, Section 1</origin>, modified –
-           with adjustments]</source>
+                    <source status="generalisation">[SOURCE: <xref type="inline" target="ISO712">, Section 1</xref>, modified
+            – with adjustments]</source>
                     <note>
                       <name>NOTE</name>
                       <p>This is a table about rice</p>
