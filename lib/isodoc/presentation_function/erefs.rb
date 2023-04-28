@@ -179,5 +179,54 @@ module IsoDoc
             end
       " #{ret}"
     end
+
+    def eref2link(docxml)
+      docxml.xpath(ns("//eref | //origin[not(termref)] | //quote/source"))
+        .each do |e|
+        href = eref_target(e) or next
+        e.xpath(ns("./locality | ./localityStack")).each(&:remove)
+        if /^#/.match?(href) then eref2xref(e)
+        else eref2link1(e, href)
+        end
+      end
+    end
+
+    def eref2xref(node)
+      node.name = "xref"
+      node["target"] = node["bibitemid"]
+      node.delete("bibitemid")
+      node.delete("citeas")
+      node["type"] == "footnote" and node.wrap("<sup></sup>")
+    end
+
+    def eref2link1(node, href)
+      repl = "<link target='#{href}'>#{node.children}</link>"
+      node["type"] == "footnote" and repl = "<sup>#{repl}</sup>"
+      node.replace(repl)
+    end
+
+    def suffix_url(url)
+      return url if url.nil? || %r{^https?://|^#}.match?(url)
+      return url unless File.extname(url).empty?
+
+      url.sub(/#{File.extname(url)}$/, ".html")
+    end
+
+    def eref_target(node)
+      url = suffix_url(eref_url(node["bibitemid"]))
+      anchor = node.at(ns(".//locality[@type = 'anchor']"))
+      return url if url.nil? || /^#/.match?(url) || !anchor
+
+      "#{url}##{anchor.text.strip}"
+    end
+
+    def eref_url(id)
+      @bibitems.nil? and return nil
+      b = @bibitems[id] or return nil
+      url = (b.at(ns("./uri[@type = 'citation'][@language = '#{@lang}']")) ||
+      b.at(ns("./uri[@type = 'citation']"))) and return url.text
+      b["hidden"] == "true" and return b.at(ns("./uri"))&.text
+      "##{id}"
+    end
   end
 end
