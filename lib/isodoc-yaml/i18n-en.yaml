@@ -83,6 +83,7 @@ draft_label: draft
 inform_annex: informative
 norm_annex: normative
 modified: modified
+adapted: adapted
 deprecated: DEPRECATED
 source: SOURCE
 and: and
