@@ -35,7 +35,7 @@ RSpec.describe IsoDoc do
             <termref base='IEV' target='xyz'>t1</termref>
           </origin>
           <modification>
-            <p id='_'/>
+            <p id='_'>comment</p>
           </modification>
         </termsource>
         <termsource status='modified'>
@@ -76,68 +76,81 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~PRESXML
-      <?xml version='1.0'?>
-             <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-               <preface>
-            <clause type="toc" id="_" displayorder="1">
-              <title depth="1">Table of contents</title>
-            </clause>
-          </preface>
-           <sections>
-           <terms id="_" obligation="normative" displayorder="2"><title depth="1">1.<tab/>Terms and Definitions</title>
-           <p>For the purposes of this document, the following terms and definitions apply.</p>
-       <term id="paddy1"><name>1.1.</name><preferred><strong>paddy</strong>, &#x3c;in agriculture, dated&#x3e;</preferred><termsource status="modified">[SOURCE: <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause">
-           <referenceFrom>3.1</referenceFrom>
-         </locality>ISO&#xa0;7301:2011, Clause 3.1</origin>, modified
-            &#x2013;
+           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <terms id="_" obligation="normative" displayorder="2">
+             <title depth="1">1.<tab/>Terms and Definitions</title>
+             <p>For the purposes of this document, the following terms and definitions apply.</p>
+             <term id="paddy1">
+               <name>1.1.</name>
+               <preferred><strong>paddy</strong>, &lt;in agriculture, dated&gt;</preferred>
+               <termsource status="modified">[SOURCE: <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality>ISO 7301:2011, Clause 3.1</origin>, modified
+            –
            The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</termsource>
-       <domain>rice</domain>
-       <definition><p id="_">rice retaining its husk after threshing</p></definition>
-       <termexample id="_" keep-with-next="true" keep-lines-together="true"><name>EXAMPLE  1</name>
-         <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
-         <ul>
-         <li>A</li>
-         </ul>
-       </termexample>
-       <termexample id="_"><name>EXAMPLE  2</name>
-         <ul>
-         <li>A</li>
-         </ul>
-       </termexample>
-       <termsource status="identical">[SOURCE: <origin citeas="">
-             <termref base="IEV" target="xyz">t1</termref>
-           </origin>, modified ;
-         <origin citeas="">
-             <termref base="IEV" target="xyz"/>
-           </origin>, modified
-            &#x2013;
+               <domain>rice</domain>
+               <definition>
+                 <p id="_">rice retaining its husk after threshing</p>
+               </definition>
+               <termexample id="_" keep-with-next="true" keep-lines-together="true">
+                 <name>EXAMPLE  1</name>
+                 <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
+                 <ul>
+                   <li>A</li>
+                 </ul>
+               </termexample>
+               <termexample id="_">
+                 <name>EXAMPLE  2</name>
+                 <ul>
+                   <li>A</li>
+                 </ul>
+               </termexample>
+               <termsource status="identical">[SOURCE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
+            –
+             comment
+
+         ;
+           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, modified
+            –
              with adjustments]</termsource>
-       </term>
-       <term id="paddy"><name>1.2.</name><preferred><strong>paddy</strong></preferred>
-       <admitted>paddy rice, &#x3c;in agriculture&#x3e;</admitted>
-       <admitted>rough rice</admitted>
-       <deprecates>DEPRECATED: cargo rice</deprecates>
-       <definition><p id="_">rice retaining its husk after threshing</p></definition>
-       <termexample id="_"><name>EXAMPLE</name>
-         <ul>
-         <li>A</li>
-         </ul>
-       </termexample>
-       <termnote id="_" keep-with-next="true" keep-lines-together="true"><name>Note 1 to entry</name>
-         <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
-       </termnote>
-       <termnote id="_"><name>Note 2 to entry</name>
-       <ul><li>A</li></ul>
-         <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
-       </termnote>
-       <termsource status="identical">[SOURCE: <origin bibitemid="ISO7301" type="inline" droploc="true" citeas="ISO 7301:2011"><locality type="clause">
-           <referenceFrom>3.1</referenceFrom>
-         </locality>ISO&#xa0;7301:2011, 3.1</origin>
-         <origin bibitemid="ISO7301" type="inline" case="lowercase" citeas="ISO 7301:2011"><locality type="clause">
-           <referenceFrom>3.1</referenceFrom>
-         </locality>ISO&#xa0;7301:2011, clause 3.1</origin>]</termsource></term>
-       </terms>
-       </sections>
+             </term>
+             <term id="paddy">
+               <name>1.2.</name>
+               <preferred>
+                 <strong>paddy</strong>
+               </preferred>
+               <admitted>paddy rice, &lt;in agriculture&gt;</admitted>
+               <admitted>rough rice</admitted>
+               <deprecates>DEPRECATED: cargo rice</deprecates>
+               <definition>
+                 <p id="_">rice retaining its husk after threshing</p>
+               </definition>
+               <termexample id="_">
+                 <name>EXAMPLE</name>
+                 <ul>
+                   <li>A</li>
+                 </ul>
+               </termexample>
+               <termnote id="_" keep-with-next="true" keep-lines-together="true">
+                 <name>Note 1 to entry</name>
+                 <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+               </termnote>
+               <termnote id="_">
+                 <name>Note 2 to entry</name>
+                 <ul>
+                   <li>A</li>
+                 </ul>
+                 <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
+               </termnote>
+               <termsource status="identical">[SOURCE: <origin bibitemid="ISO7301" type="inline" droploc="true" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality>ISO 7301:2011, 3.1</origin>
+         <origin bibitemid="ISO7301" type="inline" case="lowercase" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality>ISO 7301:2011, clause 3.1</origin>]</termsource>
+             </term>
+           </terms>
+         </sections>
        </iso-standard>
     PRESXML
 
@@ -160,7 +173,11 @@ RSpec.describe IsoDoc do
           <li>A</li>
           </ul>
         </div>
-        <p>[SOURCE: t1, modified ;
+        <p>[SOURCE: t1
+            –
+             comment
+     
+         ;
           Termbase IEV, term ID xyz, modified
              &#8211;
               with adjustments]</p>
@@ -202,7 +219,11 @@ RSpec.describe IsoDoc do
           <li>A</li>
           </ul>
         </div>
-        <p>[SOURCE: t1, modified ;
+        <p>[SOURCE: t1
+            –
+             comment
+     
+         ;
           Termbase IEV, term ID xyz, modified
              &#8211;
               with adjustments]</p>
@@ -277,60 +298,60 @@ RSpec.describe IsoDoc do
       </term>
     INPUT
     presxml = <<~PRESXML
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
-            <title depth='1'>
-              1.
-              <tab/>
-              Terms and Definitions
-            </title>
-            <p>For the purposes of this document, the following terms and definitions apply.</p>
-            <term id='paddy1'>
-              <name>1.1.</name>
-              <preferred><strong>paddy</strong></preferred>
-              <domain>rice</domain>
-              <definition>
-                <ol>
-                  <li>
-                    <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
-                  </li>
-                  <li>
-                    <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747e'>rice retaining its husk after threshing, mark 2</p>
-                    <termsource status='modified'>[SOURCE:
-                      <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
-                        <locality type='clause'>
-                          <referenceFrom>3.1</referenceFrom>
-                        </locality>
-                        ISO&#xa0;7301:2011, Clause 3.1
-                      </origin>, modified &#x2013;
-                          The term "cargo rice" is shown as deprecated, and Note 1 to
-                          entry is not included here]
-                    </termsource>
-                  </li>
-                </ol>
-              </definition>
-              <termexample id='_bd57bbf1-f948-4bae-b0ce-73c00431f892' keep-with-next='true' keep-lines-together='true'>
-                <name>EXAMPLE 1</name>
-                <p id='_65c9a509-9a89-4b54-a890-274126aeb55c'>Foreign seeds, husks, bran, sand, dust.</p>
-                <ul>
-                  <li>A</li>
-                </ul>
-              </termexample>
-              <termexample id='_bd57bbf1-f948-4bae-b0ce-73c00431f894'>
-                <name>EXAMPLE 2</name>
-                <ul>
-                  <li>A</li>
-                </ul>
-              </termexample>
-              <termsource status='identical'>[SOURCE:
-                <origin citeas=''>
-                  <termref base='IEV' target='xyz'>t1</termref>
-                </origin>;
-                <origin citeas=''>
-                  <termref base='IEV' target='xyz'/>
-                </origin>, modified &#x2013; with adjustments]
-              </termsource>
-            </term>
-          </terms>
+      <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
+        <title depth='1'>
+          1.
+          <tab/>
+          Terms and Definitions
+        </title>
+        <p>For the purposes of this document, the following terms and definitions apply.</p>
+        <term id='paddy1'>
+          <name>1.1.</name>
+          <preferred><strong>paddy</strong></preferred>
+          <domain>rice</domain>
+          <definition>
+            <ol>
+              <li>
+                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+              </li>
+              <li>
+                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747e'>rice retaining its husk after threshing, mark 2</p>
+                <termsource status='modified'>[SOURCE:
+                  <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
+                    <locality type='clause'>
+                      <referenceFrom>3.1</referenceFrom>
+                    </locality>
+                    ISO&#xa0;7301:2011, Clause 3.1
+                  </origin>, modified &#x2013;
+                      The term "cargo rice" is shown as deprecated, and Note 1 to
+                      entry is not included here]
+                </termsource>
+              </li>
+            </ol>
+          </definition>
+          <termexample id='_bd57bbf1-f948-4bae-b0ce-73c00431f892' keep-with-next='true' keep-lines-together='true'>
+            <name>EXAMPLE 1</name>
+            <p id='_65c9a509-9a89-4b54-a890-274126aeb55c'>Foreign seeds, husks, bran, sand, dust.</p>
+            <ul>
+              <li>A</li>
+            </ul>
+          </termexample>
+          <termexample id='_bd57bbf1-f948-4bae-b0ce-73c00431f894'>
+            <name>EXAMPLE 2</name>
+            <ul>
+              <li>A</li>
+            </ul>
+          </termexample>
+          <termsource status='identical'>[SOURCE:
+            <origin citeas=''>
+              <termref base='IEV' target='xyz'>t1</termref>
+            </origin>;
+            <origin citeas=''>
+              <termref base='IEV' target='xyz'/>
+            </origin>, modified &#x2013; with adjustments]
+          </termsource>
+        </term>
+      </terms>
     PRESXML
     expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -464,22 +485,22 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
-            <title depth='1'>
-              1.
-              <tab/>
-              Terms and Definitions
-            </title>
-            <term id='paddy1'>
-              <name>1.1.</name>
-              <preferred geographic-area='US'><strong>paddy</strong>, m, f, sg, noun, en Latn US, /p&#xE6;di&#x2D0;/</preferred>
-              <preferred><strong>muddy rice</strong>, n, noun</preferred>
-              <domain>rice</domain>
-              <definition>
-                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
-              </definition>
-            </term>
-          </terms>
+      <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
+        <title depth='1'>
+          1.
+          <tab/>
+          Terms and Definitions
+        </title>
+        <term id='paddy1'>
+          <name>1.1.</name>
+          <preferred geographic-area='US'><strong>paddy</strong>, m, f, sg, noun, en Latn US, /p&#xE6;di&#x2D0;/</preferred>
+          <preferred><strong>muddy rice</strong>, n, noun</preferred>
+          <domain>rice</domain>
+          <definition>
+            <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+          </definition>
+        </term>
+      </terms>
     PRESXML
     expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -506,22 +527,22 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
-            <title depth='1'>1.<tab/>Terms and Definitions</title>
-            <term id='paddy1'>
-              <name>1.1.</name>
-              <preferred><strong/></preferred>
-              <preferred isInternational='true'><figure id='_'>
-                  <name>Figure 1</name>
-                  <pre id='_'>&#x3c;LITERAL&#x3e; FIGURATIVE</pre>
-                </figure>
-              </preferred>
-              <domain>rice</domain>
-              <definition>
-                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
-              </definition>
-            </term>
-          </terms>
+      <terms id='_terms_and_definitions' obligation='normative' displayorder='2'>
+        <title depth='1'>1.<tab/>Terms and Definitions</title>
+        <term id='paddy1'>
+          <name>1.1.</name>
+          <preferred><strong/></preferred>
+          <preferred isInternational='true'><figure id='_'>
+              <name>Figure 1</name>
+              <pre id='_'>&#x3c;LITERAL&#x3e; FIGURATIVE</pre>
+            </figure>
+          </preferred>
+          <domain>rice</domain>
+          <definition>
+            <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+          </definition>
+        </term>
+      </terms>
     PRESXML
     expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -620,87 +641,87 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-          <terms id='A' obligation='normative' displayorder='2'>
-            <title depth='1'>
-              1.
-              <tab/>
-              Terms and definitions
-            </title>
-            <p id='B'>For the purposes of this document, the following terms and definitions apply.</p>
-            <term id='term-term'>
-              <name>1.1.</name>
-              <preferred><strong>Term</strong></preferred>
-              <definition>
-                <p id='C'>Definition</p>
-                <termsource status='identical' type='authoritative'>[SOURCE:
-                  <origin bibitemid='ISO2191' type='inline' citeas=''>
-                    <localityStack>
-                      <locality type='section'>
-                        <referenceFrom>1</referenceFrom>
-                      </locality>
-                    </localityStack>
-                    , Section 1
-                  </origin>]
-                </termsource>
-                <table id='D'>
-                  <name>Table 1</name>
-                  <thead>
-                    <tr>
-                      <th valign='top' align='left'>A</th>
-                      <th valign='top' align='left'>B</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td valign='top' align='left'>C</td>
-                      <td valign='top' align='left'>D</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </definition>
-              <termsource status='identical' type='authoritative'>[SOURCE:
-                <origin bibitemid='ISO2191' type='inline' citeas=''>
-                  <localityStack>
-                    <locality type='section'>
-                      <referenceFrom>2</referenceFrom>
-                    </locality>
-                  </localityStack>
-                  , Section 2
-                </origin>]
-              </termsource>
-            </term>
-            <term id='term-term-2'>
-              <name>1.2.</name>
-              <preferred><strong>Term 2</strong></preferred>
-              <definition>
-                <figure id='E'>
-                  <name>Figure 1</name>
-                  <pre id='F'>Literal</pre>
-                </figure>
-                <formula id='G'>
-                  <name>1</name>
-                  <stem type='MathML'>
-                    <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                      <mi>x</mi>
-                      <mo>=</mo>
-                      <mi>y</mi>
-                    </math>
-                    <asciimath>x = y</asciimath>
-                  </stem>
-                </formula>
-                <termsource status='identical' type='authoritative'>[SOURCE:
-                  <origin bibitemid='ISO2191' type='inline' citeas=''>
-                    <localityStack>
-                      <locality type='section'>
-                        <referenceFrom>3</referenceFrom>
-                      </locality>
-                    </localityStack>
-                    , Section 3
-                  </origin>]
-                </termsource>
-              </definition>
-            </term>
-          </terms>
+      <terms id='A' obligation='normative' displayorder='2'>
+        <title depth='1'>
+          1.
+          <tab/>
+          Terms and definitions
+        </title>
+        <p id='B'>For the purposes of this document, the following terms and definitions apply.</p>
+        <term id='term-term'>
+          <name>1.1.</name>
+          <preferred><strong>Term</strong></preferred>
+          <definition>
+            <p id='C'>Definition</p>
+            <termsource status='identical' type='authoritative'>[SOURCE:
+              <origin bibitemid='ISO2191' type='inline' citeas=''>
+                <localityStack>
+                  <locality type='section'>
+                    <referenceFrom>1</referenceFrom>
+                  </locality>
+                </localityStack>
+                , Section 1
+              </origin>]
+            </termsource>
+            <table id='D'>
+              <name>Table 1</name>
+              <thead>
+                <tr>
+                  <th valign='top' align='left'>A</th>
+                  <th valign='top' align='left'>B</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign='top' align='left'>C</td>
+                  <td valign='top' align='left'>D</td>
+                </tr>
+              </tbody>
+            </table>
+          </definition>
+          <termsource status='identical' type='authoritative'>[SOURCE:
+            <origin bibitemid='ISO2191' type='inline' citeas=''>
+              <localityStack>
+                <locality type='section'>
+                  <referenceFrom>2</referenceFrom>
+                </locality>
+              </localityStack>
+              , Section 2
+            </origin>]
+          </termsource>
+        </term>
+        <term id='term-term-2'>
+          <name>1.2.</name>
+          <preferred><strong>Term 2</strong></preferred>
+          <definition>
+            <figure id='E'>
+              <name>Figure 1</name>
+              <pre id='F'>Literal</pre>
+            </figure>
+            <formula id='G'>
+              <name>1</name>
+              <stem type='MathML'>
+                <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                  <mi>x</mi>
+                  <mo>=</mo>
+                  <mi>y</mi>
+                </math>
+                <asciimath>x = y</asciimath>
+              </stem>
+            </formula>
+            <termsource status='identical' type='authoritative'>[SOURCE:
+              <origin bibitemid='ISO2191' type='inline' citeas=''>
+                <localityStack>
+                  <locality type='section'>
+                    <referenceFrom>3</referenceFrom>
+                  </locality>
+                </localityStack>
+                , Section 3
+              </origin>]
+            </termsource>
+          </definition>
+        </term>
+      </terms>
     PRESXML
     expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -787,6 +808,139 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes IsoXML term with different term source statuses" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata><language>en</language></bibdata>
+          <sections>
+          <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+          <p>For the purposes of this document, the following terms and definitions apply.</p>
+      <term id="paddy1"><preferred><expression><name>paddy</name></expression></preferred>
+      <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
+        <termsource status='identical'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'>t1</termref>
+          </origin>
+          <modification>
+            <p id='_'>with adjustments</p>
+          </modification>
+        </termsource>
+        <termsource status='adapted'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'/>
+          </origin>
+          <modification>
+            <p id='_'>with adjustments</p>
+          </modification>
+        </termsource>
+        <termsource status='modified'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'/>
+          </origin>
+          <modification>
+            <p id='_'>with adjustments</p>
+          </modification>
+        </termsource>
+        <termsource status='identical'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'>t1</termref>
+          </origin>
+        </termsource>
+        <termsource status='adapted'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'/>
+          </origin>
+        </termsource>
+        <termsource status='modified'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'/>
+          </origin>
+        </termsource>
+      </term>
+    INPUT
+    output = <<~OUTPUT
+      <terms id="_terms_and_definitions" obligation="normative" displayorder="2">
+        <title depth="1">1.<tab/>Terms and Definitions</title>
+        <p>For the purposes of this document, the following terms and definitions apply.</p>
+        <term id="paddy1">
+          <name>1.1.</name>
+          <preferred>
+            <strong>paddy</strong>
+          </preferred>
+          <definition>
+            <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
+          </definition>
+          <termsource status="identical">[SOURCE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
+           –
+            with adjustments
+
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz"/></origin>, adapted
+           –
+            with adjustments
+
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz"/></origin>, modified
+           –
+            with adjustments
+
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz"/></origin>, adapted
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz"/></origin>, modified]</termsource>
+        </term>
+      </terms>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+          .new(presxml_options)
+           .convert("test", input, true))
+          .at("//xmlns:terms").to_xml))
+      .to be_equivalent_to xmlpp(output)
+    output = <<~OUTPUT
+      <terms id="_terms_and_definitions" obligation="normative" displayorder="2">
+        <title depth="1">1.<tab/>Terms and Definitions</title>
+        <p>For the purposes of this document, the following terms and definitions apply.</p>
+        <term id="paddy1">
+          <name>1.1.</name>
+          <preferred>
+            <strong>paddy</strong>
+          </preferred>
+          <definition>
+            <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
+          </definition>
+          <termsource status="identical">[QUELLE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
+           –
+            with adjustments
+
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz"/></origin>, angepasst
+           –
+            with adjustments
+
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz"/></origin>, geändert
+           –
+            with adjustments
+
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz"/></origin>, angepasst
+        ;
+          <origin citeas=""><termref base="IEV" target="xyz"/></origin>, geändert]</termsource>
+        </term>
+      </terms>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+          .new(presxml_options)
+          .convert("test", input.sub(%r{<language>en</language>},
+                                     "<language>de</language>"), true))
+          .at("//xmlns:terms").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 end
