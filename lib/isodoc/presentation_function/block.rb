@@ -203,7 +203,7 @@ module IsoDoc
     end
 
     def source_modification(mod)
-      termsource_modification(mod)
+      termsource_modification(mod.parent)
     end
   end
 end

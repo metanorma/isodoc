@@ -175,7 +175,7 @@ RSpec.describe IsoDoc do
                       <dt>Drago</dt>
                       <dd>A type of rice</dd>
                     </dl>
-                    <source status="generalisation">[SOURCE: <xref type="inline" target="ISO712">, Section 1</xref>, modified
+                    <source status="generalisation">[SOURCE: <xref type="inline" target="ISO712">, Section 1</xref>
             – with adjustments]</source>
                     <note>
                       <name>NOTE</name>
@@ -271,7 +271,7 @@ RSpec.describe IsoDoc do
            <dd>A type of rice</dd>
          </dl>
          <div class="BlockSource">
-           <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified –
+           <p>[SOURCE: <a href="#ISO712">, Section 1</a> –
     with adjustments]</p>
          </div>
          <div class="Note">
@@ -392,7 +392,7 @@ RSpec.describe IsoDoc do
               <dd>A type of rice</dd>
             </dl>
             <div class="BlockSource">
-              <p>[SOURCE: <a href="#ISO712">, Section 1</a>, modified –
+              <p>[SOURCE: <a href="#ISO712">, Section 1</a> –
      with adjustments]</p>
             </div>
             <div class="Note">
