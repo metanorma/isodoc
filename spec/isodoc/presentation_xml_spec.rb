@@ -1176,34 +1176,34 @@ RSpec.describe IsoDoc do
               Clause
             </title>
             <ol id='B1' type='alphabet'>
-              <li>
+              <li id="_" label="a">
                 A1
                 <ol id='B2' type='arabic'>
-                  <li>
+                  <li id="_" label="1">
                     A2
                     <ol id='B3' type='roman'>
-                      <li>
+                      <li id="_" label="i">
                         A3
                         <ol id='B4' type='alphabet_upper'>
-                          <li>
+                          <li id="_" label="A">
                             A4
                             <ol id='B5' type='roman_upper'>
-                              <li>
+                              <li id="_" label="I">
                                 A5
                                 <ol id='B6' type='alphabet'>
-                                  <li>
+                                  <li id="_" label="a">
                                     A6
                                     <ol id='B7' type='arabic'>
-                                      <li>
+                                      <li id="_" label="1">
                                         A7
                                         <ol id='B8' type='roman'>
-                                          <li>
+                                          <li id="_" label="i">
                                             A8
                                             <ol id='B9' type='alphabet_upper'>
-                                              <li>
+                                              <li id="_" label="A">
                                                 A9
                                                 <ol id='B0' type='roman_upper'>
-                                                  <li>A0</li>
+                                                  <li id="_" label="I">A0</li>
                                                 </ol>
                                               </li>
                                             </ol>
@@ -1266,13 +1266,13 @@ RSpec.describe IsoDoc do
               Clause
             </title>
             <ol id='B1' type='alphabet'>
-              <li>
+              <li id="_" label="a">
                 A1
                 <ul id='B2'>
                   <li>
                     A2
                     <ol id='B3' type='roman'>
-                      <li>A3 </li>
+                      <li id="_" label="i">A3 </li>
                     </ol>
                   </li>
                 </ul>
@@ -1368,14 +1368,14 @@ RSpec.describe IsoDoc do
       <foreword displayorder="2">
          <title>Section</title>
          <p id="A"><xref target="ref1">Clauses 1</xref> to <xref target="ref2">2</xref>
-        <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
-        <xref target="ref1">Clauses 1</xref> and <xref target="ref2">2</xref>
-        <xref target="ref1">Clauses 1</xref>, <xref target="ref2">2</xref>, and <xref target="ref3">3</xref>
-        <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
-        <xref target="ref1">Clauses 1</xref> or <xref target="ref2">2</xref>
-        <xref target="ref1">Clauses 1</xref>, <xref target="ref2">2</xref>, or <xref target="ref3">3</xref>
-        <xref target="ref1">Clauses 1</xref> to <xref target="ref2">2</xref> and <xref target="ref3">3</xref> to <xref target="ref4">4</xref>
-        Clause 5, <xref target="item_6-4-a">a) 1)</xref> to <xref target="item_6-4-i">b) 1)</xref>
+         <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
+         <xref target="ref1">Clauses 1</xref> and <xref target="ref2">2</xref>
+         <xref target="ref1">Clauses 1</xref>, <xref target="ref2">2</xref>, and <xref target="ref3">3</xref>
+         <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+         <xref target="ref1">Clauses 1</xref> or <xref target="ref2">2</xref>
+         <xref target="ref1">Clauses 1</xref>, <xref target="ref2">2</xref>, or <xref target="ref3">3</xref>
+         <xref target="ref1">Clauses 1</xref> to <xref target="ref2">2</xref> and <xref target="ref3">3</xref> to <xref target="ref4">4</xref>
+         Clause 5, <xref target="item_6-4-a">a) 1)</xref> to <xref target="item_6-4-i">b) 1)</xref>
          </p>
        </foreword>
     OUTPUT

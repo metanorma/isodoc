@@ -538,15 +538,15 @@ RSpec.describe IsoDoc do
 
   it "processes paragraphs containing notes" do
     input = <<~INPUT
-              <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface>    <clause type="toc" id="_" displayorder="1">
-      <title depth="1">Table of contents</title>
-    </clause>
-      <foreword>
-          <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
-      <note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
-      </foreword></preface>
-          </iso-standard>
+                <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>    <clause type="toc" id="_" displayorder="1">
+        <title depth="1">Table of contents</title>
+      </clause>
+        <foreword>
+            <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
+        <note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
+        </foreword></preface>
+            </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -635,23 +635,23 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
-            <clause type="toc" id="_" displayorder="1">
-      <title depth="1">Table of contents</title>
-    </clause>
-          <foreword displayorder='2'>
-            <note id='FB' coverpage='true' unnumbered='true'>
-               <name>NOTE</name>
-               <p>XYZ</p>
-             </note>
-             <admonition id='FC' coverpage='true' unnumbered='true' type='warning'>
-               <name>WARNING</name>
-               <p>XYZ</p>
-             </admonition>
-          </foreword>
-        </preface>
-      </iso-standard>
+            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+          <preface>
+              <clause type="toc" id="_" displayorder="1">
+        <title depth="1">Table of contents</title>
+      </clause>
+            <foreword displayorder='2'>
+              <note id='FB' coverpage='true' unnumbered='true'>
+                 <name>NOTE</name>
+                 <p>XYZ</p>
+               </note>
+               <admonition id='FC' coverpage='true' unnumbered='true' type='warning'>
+                 <name>WARNING</name>
+                 <p>XYZ</p>
+               </admonition>
+            </foreword>
+          </preface>
+        </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -740,36 +740,36 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
-            <clause type="toc" id="_" displayorder="1">
-      <title depth="1">Table of contents</title>
-    </clause>
-          <foreword displayorder='2'>
-            <figure id='F'>
-              <name>Figure 1</name>
-              <note id='FB'>
-                <name>NOTE</name>
-                <p>XYZ</p>
-              </note>
-            </figure>
-            <table id='T'>
-              <name>Table 1</name>
-              <note id='TB'>
-                <name>NOTE</name>
-                <p>XYZ</p>
-              </note>
-            </table>
-            <p id='A'>
-              ABC
-              <note id='B'>
-                <name>NOTE</name>
-                <p id='C'>XYZ</p>
-              </note>
-            </p>
-          </foreword>
-        </preface>
-      </iso-standard>
+            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+          <preface>
+              <clause type="toc" id="_" displayorder="1">
+        <title depth="1">Table of contents</title>
+      </clause>
+            <foreword displayorder='2'>
+              <figure id='F'>
+                <name>Figure 1</name>
+                <note id='FB'>
+                  <name>NOTE</name>
+                  <p>XYZ</p>
+                </note>
+              </figure>
+              <table id='T'>
+                <name>Table 1</name>
+                <note id='TB'>
+                  <name>NOTE</name>
+                  <p>XYZ</p>
+                </note>
+              </table>
+              <p id='A'>
+                ABC
+                <note id='B'>
+                  <name>NOTE</name>
+                  <p id='C'>XYZ</p>
+                </note>
+              </p>
+            </foreword>
+          </preface>
+        </iso-standard>
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
@@ -981,6 +981,33 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes empty admonitions" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
+      </admonition>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+            <title depth="1">Table of contents</title>
+          </clause>
+          <foreword displayorder="2">
+            <admonition id="_" type="caution">
+              <name>CAUTION</name>
+            </admonition>
+          </foreword>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+        .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes admonitions with titles" do
