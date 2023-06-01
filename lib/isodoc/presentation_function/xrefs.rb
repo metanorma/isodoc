@@ -6,8 +6,8 @@ module IsoDoc
     end
 
     def anchor_value(id)
-      @xrefs.anchor(id, :value) || @xrefs.anchor(id, :label) ||
-        @xrefs.anchor(id, :xref)
+      @xrefs.anchor(id, :bare_xref) || @xrefs.anchor(id, :value) ||
+        @xrefs.anchor(id, :label) || @xrefs.anchor(id, :xref)
     end
 
     def anchor_linkend(node, linkend)

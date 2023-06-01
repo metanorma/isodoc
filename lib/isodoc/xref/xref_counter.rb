@@ -107,6 +107,13 @@ module IsoDoc
       end
 
       def increment_letter
+        clock_letter
+        @letter = (@letter.ord + 1).chr.to_s
+        @skip_i && %w(i I).include?(@letter) and
+          @letter = (@letter.ord + 1).chr.to_s
+      end
+
+      def clock_letter
         case @letter
         when "Z"
           @letter = "@"
@@ -115,9 +122,6 @@ module IsoDoc
           @letter = "`"
           @base = string_inc(@base, "a")
         end
-        @letter = (@letter.ord + 1).chr.to_s
-        @skip_i && %w(i I).include?(@letter) and
-          @letter = (@letter.ord + 1).chr.to_s
       end
 
       def blank?(str)

@@ -140,6 +140,7 @@ module IsoDoc
     def ol(docxml)
       docxml.xpath(ns("//ol")).each { |f| ol1(f) }
       @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
+      docxml.xpath(ns("//ol/li")).each { |f| ol_label(f) }
     end
 
     # We don't really want users to specify type of ordered list;
@@ -157,6 +158,13 @@ module IsoDoc
 
     def ol1(elem)
       elem["type"] ||= ol_depth(elem).to_s
+      elem.xpath(ns("./li")).each do |li|
+        li["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      end
+    end
+
+    def ol_label(elem)
+      elem["label"] = @xrefs.anchor(elem["id"], :label, false)
     end
 
     def requirement_render_preprocessing(docxml); end

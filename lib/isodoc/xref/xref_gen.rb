@@ -171,16 +171,25 @@ module IsoDoc
 refer_list)
         c = Counter.new(list["start"] ? list["start"].to_i - 1 : 0)
         list.xpath(ns("./li")).each do |li|
-          label = c.increment(li).listlabel(list, depth)
-          label = list_item_anchor_label(label, list_anchor, prev_label,
-                                         refer_list)
+          bare_label, label =
+            list_item_value(li, c, depth, { list_anchor: list_anchor, prev_label: prev_label,
+                                            refer_list: refer_list })
           li["id"] and @anchors[li["id"]] =
-                         { xref: "#{label})", type: "listitem", refer_list:
-                           refer_list, container: list_anchor[:container] }
+                         { label: bare_label, bare_xref: "#{label})",
+                           xref: "#{label})",
+                           type: "listitem", refer_list: refer_list,
+                           container: list_anchor[:container] }
           (li.xpath(ns(".//ol")) - li.xpath(ns(".//ol//ol"))).each do |ol|
             list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
           end
         end
+      end
+
+      def list_item_value(entry, counter, depth, opts)
+        label = counter.increment(entry).listlabel(entry.parent, depth)
+        [label,
+         list_item_anchor_label(label, opts[:list_anchor], opts[:prev_label],
+                                opts[:refer_list])]
       end
 
       def list_item_anchor_label(label, list_anchor, prev_label, refer_list)
