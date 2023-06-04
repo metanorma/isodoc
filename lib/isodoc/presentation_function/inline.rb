@@ -89,6 +89,17 @@ module IsoDoc
       end
     end
 
+    def date(docxml)
+      (docxml.xpath(ns("//date")) -
+       docxml.xpath(ns("//bibdata/date | //bibitem//date"))).each do |d|
+         date1(d)
+       end
+    end
+
+    def date1(elem)
+      elem.replace(@i18n.date(elem["value"], elem["format"]))
+    end
+
     private
 
     def found_matching_variant_sibling(node)

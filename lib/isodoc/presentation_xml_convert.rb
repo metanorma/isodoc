@@ -85,6 +85,7 @@ module IsoDoc
       mathml docxml
       variant docxml
       identifier docxml
+      date docxml
     end
 
     def terms(docxml)
