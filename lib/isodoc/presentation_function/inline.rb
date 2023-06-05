@@ -97,7 +97,7 @@ module IsoDoc
     end
 
     def date1(elem)
-      elem.replace(@i18n.date(elem["value"], elem["format"]))
+      elem.replace(@i18n.date(elem["value"], elem["format"].strip))
     end
 
     private
