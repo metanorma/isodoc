@@ -53,10 +53,10 @@ module IsoDoc
       end
 
       def break_up_long_strings1(text)
-        s = text.split(%r{(?<=[,.?+;/=])})
-        if s.size == 1 then "#{text} "
+        s = text.split(%r{(?<=[,.?+;/=(\[])})
+        if s.size == 1 then "#{text}\u200b"
         else
-          s[-1] = " #{s[-1]}"
+          s[-1] = "\u200b#{s[-1]}"
           s.join
         end
       end
