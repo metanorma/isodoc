@@ -30,33 +30,38 @@ module IsoDoc
 
         docxml.xpath("//td | //th").each do |d|
           d.traverse do |n|
-            next unless n.text?
-
-            n.replace(HTMLEntities.new.encode(
-                        break_up_long_strings(n.text),
-                      ))
+            n.text? or next
+            ret = break_up_long_str(n.text)
+            n.content = ret
           end
         end
       end
 
-      def break_up_long_strings(text)
-        return text if /^\s*$/.match?(text)
+      LONGSTR_THRESHOLD = 10
+      LONGSTR_NOPUNCT = 2
 
+      def break_up_long_str(text)
+        /^\s*$/.match?(text) and return text
         text.split(/(?=\s)/).map do |w|
-          if /^\s*$/.match(text) || (w.size < 30) then w
+          if /^\s*$/.match(text) || (w.size < LONGSTR_THRESHOLD) then w
           else
-            w.scan(/.{,30}/).map do |w1|
-              w1.size < 30 ? w1 : break_up_long_strings1(w1)
+            w.scan(/.{,#{LONGSTR_THRESHOLD}}/o).map.with_index do |w1, i|
+              w1.size < LONGSTR_THRESHOLD ? w1 : break_up_long_str1(w1, i + 1)
             end.join
           end
         end.join
       end
 
-      def break_up_long_strings1(text)
-        s = text.split(%r{(?<=[,.?+;/=])})
-        if s.size == 1 then "#{text} "
+      # break on punct every LONGSTRING_THRESHOLD chars
+      # break regardless every LONGSTRING_THRESHOLD * LONGSTR_NOPUNCT
+      def break_up_long_str1(text, iteration)
+        s = text.split(%r{(?<=[,.?+;/=(\[])})
+        if s.size == 1
+          (iteration % LONGSTR_NOPUNCT).zero? and
+            text += "\u200b"
+          text
         else
-          s[-1] = " #{s[-1]}"
+          s[-1] = "\u200b#{s[-1]}"
           s.join
         end
       end

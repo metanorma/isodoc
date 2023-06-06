@@ -102,8 +102,6 @@ module IsoDoc
         end
       end
 
-      def table_long_strings_cleanup(docxml); end
-
       def table_attrs(node)
         ret = super
         node.at(ns("./colgroup")) and ret[:style] += "table-layout:fixed;"
