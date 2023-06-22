@@ -73,9 +73,8 @@ module IsoDoc
 
       def dt_parse(dterm, term)
         if dterm.elements.empty?
-          # term.p **attr_code(class: note? ? "Note" : nil) do |p|
           term.p do |p|
-            p << dterm.text
+            dterm.children.each { |n| parse(n, p) }
           end
         else
           dterm.children.each { |n| parse(n, term) }
