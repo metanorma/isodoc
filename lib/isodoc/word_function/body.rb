@@ -1,5 +1,6 @@
 require_relative "./table"
 require_relative "./inline"
+require_relative "./lists"
 
 module IsoDoc
   module WordFunction
@@ -42,12 +43,6 @@ module IsoDoc
         end
       end
 
-      def insert_tab(out, count)
-        out.span **attr_code(style: "mso-tab-count:#{count}") do |span|
-          [1..count].each { span << "&#xA0; " }
-        end
-      end
-
       def para_class(_node)
         return "Sourcecode" if @annotation
         return "MsoCommentText" if @in_comment
@@ -67,58 +62,6 @@ module IsoDoc
         node.xpath(ns("./note")).each { |n| parse(n, out) }
       end
 
-      WORD_DT_ATTRS = { class: @note ? "Note" : nil, align: "left",
-                        style: "margin-left:0pt;text-align:left;" }.freeze
-
-      def dt_parse(dterm, term)
-        term.p **attr_code(WORD_DT_ATTRS) do |p|
-          if dterm.elements.empty?
-            p << dterm.text
-          else
-            dterm.children.each { |n| parse(n, p) }
-          end
-        end
-      end
-
-      def dl_parse(node, out)
-        return super unless node.ancestors("table, dl").empty?
-
-        dl_parse_table(node, out)
-      end
-
-      def dl_parse_table(node, out)
-        list_title_parse(node, out)
-        out.table class: (node["class"] || "dl") do |v|
-          node.elements.select { |n| dt_dd?(n) }
-            .each_slice(2) do |dt, dd|
-            dl_parse_table1(v, dt, dd)
-          end
-          dl_parse_notes(node, v)
-        end
-      end
-
-      def dl_parse_table1(table, dterm, ddefn)
-        table.tr do |tr|
-          tr.td valign: "top", align: "left" do |term|
-            dt_parse(dterm, term)
-          end
-          tr.td valign: "top" do |listitem|
-            ddefn.children.each { |n| parse(n, listitem) }
-          end
-        end
-      end
-
-      def dl_parse_notes(node, out)
-        remainder = node.elements.reject { |n| dt_dd?(n) || n.name == "name" }
-        return if remainder.empty?
-
-        out.tr do |tr|
-          tr.td colspan: 2 do |td|
-            remainder.each { |n| parse(n, td) }
-          end
-        end
-      end
-
       def figure_get_or_make_dl(node)
         dl = node.at(".//table[@class = 'dl']")
         if dl.nil?
@@ -130,7 +73,7 @@ module IsoDoc
 
       # get rid of footnote link, it is in diagram
       def figure_aside_process(fig, aside, key)
-        fig&.at("./a[@class='TableFootnoteRef']")&.remove
+        fig.at("./a[@class='TableFootnoteRef']")&.remove
         fnref = fig.at(".//span[@class='TableFootnoteRef']/..")
         tr = key.add_child("<tr></tr>").first
         dt = tr.add_child("<td valign='top' align='left'></td>").first
@@ -143,7 +86,7 @@ module IsoDoc
       end
 
       def note_p_parse(node, div)
-        name = node&.at(ns("./name"))&.remove
+        name = node.at(ns("./name"))&.remove
         div.p class: "Note" do |p|
           p.span class: "note_label" do |s|
             name&.children&.each { |n| parse(n, s) }
@@ -155,7 +98,7 @@ module IsoDoc
       end
 
       def note_parse1(node, div)
-        name = node&.at(ns("./name"))&.remove
+        name = node.at(ns("./name"))&.remove
         div.p class: "Note" do |p|
           p.span class: "note_label" do |s|
             name&.children&.each { |n| parse(n, s) }
@@ -211,30 +154,12 @@ module IsoDoc
         end
       end
 
-      def li_parse(node, out)
-        out.li **attr_code(id: node["id"]) do |li|
-          if node["uncheckedcheckbox"] == "true"
-            li << '<span class="zzMoveToFollowing">&#x2610; </span>'
-          elsif node["checkedcheckbox"] == "true"
-            li << '<span class="zzMoveToFollowing">&#x2611; </span>'
-          end
-          node.children.each { |n| parse(n, li) }
-        end
-      end
-
-      def suffix_url(url)
-        return url if url.nil? || %r{^https?://|^#}.match?(url)
-        return url unless File.extname(url).empty?
-
-        url.sub(/#{File.extname(url)}$/, ".doc")
-      end
-
-      def info(isoxml, out)
+      def info(xml, out)
         @tocfigurestitle =
-          isoxml.at(ns("//metanorma-extension/toc[@type = 'figure']/title"))&.text
+          xml.at(ns("//metanorma-extension/toc[@type = 'figure']/title"))&.text
         @toctablestitle =
-          isoxml.at(ns("//metanorma-extension/toc[@type = 'table']/title"))&.text
-        @tocrecommendationstitle = isoxml
+          xml.at(ns("//metanorma-extension/toc[@type = 'table']/title"))&.text
+        @tocrecommendationstitle = xml
           .at(ns("//metanorma-extension/toc[@type = 'recommendation']/title"))&.text
         super
       end
