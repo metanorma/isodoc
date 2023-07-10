@@ -96,6 +96,10 @@ module IsoDoc
             dl_parse1(v, dt, dd)
           end
         end
+        dl_parse_notes(node, out)
+      end
+
+      def dl_parse_notes(node, out)
         node.elements.reject { |n| dt_dd?(n) || n.name == "name" }
           .each { |n| parse(n, out) }
       end

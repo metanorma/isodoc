@@ -13,7 +13,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
        <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
       <dl>
@@ -28,7 +28,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
       <div class="WordSection2">
               <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
               <div>
@@ -59,7 +59,7 @@ RSpec.describe IsoDoc do
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
         header: "spec/assets/header.html" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
                      <bibdata type="article">
                               <docidentifier>
@@ -71,7 +71,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(%r{^.*Content-ID: <header.html>}m, "Content-ID: <header.html>")
       .sub(/------=_NextPart.*$/m, "")
-    expect(word).to be_equivalent_to <<~"OUTPUT"
+    expect(word).to be_equivalent_to <<~OUTPUT
       Content-ID: <header.html>
       Content-Disposition: inline; filename="header.html"
       Content-Transfer-Encoding: base64
@@ -87,7 +87,7 @@ RSpec.describe IsoDoc do
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
         wordintropage: "spec/assets/wordintro.html" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <sections>
                      <clause id="A" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
@@ -169,7 +169,7 @@ RSpec.describe IsoDoc do
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
         wordintropage: "spec/assets/wordintro.html" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
         <metanorma-extension>
           <presentation-metadata>
@@ -425,7 +425,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({})
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
           <metanorma-extension>
             <presentation-metadata>
@@ -449,7 +449,7 @@ RSpec.describe IsoDoc do
                     </iso-standard>
       INPUT
     html = File.read("test.html")
-    toclevel = <<~"TOCLEVEL"
+    toclevel = <<~TOCLEVEL
       function toclevel() { return "h1:not(:empty):not(.TermNum):not(.noTOC),h2:not(:empty):not(.TermNum):not(.noTOC),h3:not(:empty):not(.TermNum):not(.noTOC)";}
     TOCLEVEL
     expect(html).to include toclevel
@@ -459,7 +459,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(options)
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
             <ul>
@@ -493,7 +493,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
          <div class='WordSection2' xmlns:m='m'>
         <p class='MsoNormal'>
           <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
@@ -542,23 +542,7 @@ RSpec.describe IsoDoc do
                 </div>
               </div>
             </div>
-            <div class='ListContLevel2'>
-              <table class='dl'>
-                <tr>
-                  <td valign='top' align='left'>
-                    <p align='left' style='margin-left:0pt;text-align:left;' class='MsoNormal'>
-                      <i>n</i>
-                    </p>
-                  </td>
-                  <td valign='top'>
-                    <p class='MsoNormal'>
-                      <a name='_a27281a4-b20e-4d0b-a780-bab9e851b03e' id='_a27281a4-b20e-4d0b-a780-bab9e851b03e'/>
-                      is the number of coating layers
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </div>
+            <div class="ListContLevel2"><table class="dl"><a name="_f8fb7ed7-7874-44a8-933f-06e0e86fb264" id="_f8fb7ed7-7874-44a8-933f-06e0e86fb264"/><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal"><i>n</i></p></td><td valign="top"><p class="MsoNormal"><a name="_a27281a4-b20e-4d0b-a780-bab9e851b03e" id="_a27281a4-b20e-4d0b-a780-bab9e851b03e"/>is the number of coating layers</p></td></tr></table></div>
           </p>
         </div>
         <p class='MsoNormal'>&#xa0;</p>
@@ -569,7 +553,7 @@ RSpec.describe IsoDoc do
   it "propagates example style to paragraphs in postprocessing (Word)" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::WordConvert.new(options).convert("test", <<~"INPUT", false)
+    IsoDoc::WordConvert.new(options).convert("test", <<~INPUT, false)
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <example id="samplecode">
@@ -581,7 +565,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
       <div class="WordSection2">
                    <p class="MsoNormal">
                      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -601,7 +585,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(options)
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
         <figure id="fig1">
@@ -615,7 +599,7 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
       <div class="WordSection2">
                <p class="MsoNormal">
                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -635,7 +619,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(options)
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword>
         <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
@@ -653,7 +637,7 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
       <div class="WordSection2" xmlns:m="m">
               <p class="MsoNormal">
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -696,7 +680,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(options)
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
                   <preface><foreword>
               <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
@@ -715,7 +699,7 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
       <div class='WordSection2' xmlns:m='m'>
            <p class='MsoNormal'>
              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
@@ -749,7 +733,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss", filename: "test" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <standard-document xmlns="http://riboseinc.com/isoxml">
              <bibdata type="standard">
                <title language="en" format="text/plain">Document title</title>
@@ -820,7 +804,7 @@ RSpec.describe IsoDoc do
     expect(html).to include "div.WordSection3_2 {page:WordSection3L;}"
 
     expect(xmlpp(html.sub(/^.*<body /m, "<body ")
-      .sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(<<~OUTPUT)
                 <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
                   <div class='WordSection1'>
                     <p class='MsoNormal'>&#xA0;</p>
