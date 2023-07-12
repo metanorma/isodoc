@@ -60,7 +60,7 @@ module IsoDoc
 
       def to_xhtml_prep(xml)
         xml.gsub!(/<\?xml[^>]*>/, "")
-        /<!DOCTYPE /.match(xml) || (xml = DOCTYPE_HDR + xml)
+        xml.include?("<!DOCTYPE ") || (xml = DOCTYPE_HDR + xml)
         numeric_escapes(xml)
       end
 
@@ -130,7 +130,7 @@ module IsoDoc
           .gsub(%r{</?p(\s[^>]+)?>}, "")
           .gsub(/<\/?h[123456][^>]*>/, "").gsub(/<\/?b[^>]*>/, "").dup)
         h1.traverse do |x|
-          if x.name == "span" && /mso-tab-count/.match(x["style"])
+          if x.name == "span" && x["style"]&.include?("mso-tab-count")
             x.replace(" ")
           elsif header_strip_elem?(x) then x.remove
           elsif x.name == "a" then x.replace(x.children)
@@ -143,7 +143,7 @@ module IsoDoc
         elem.name == "img" ||
           (elem.name == "span" && elem["class"] == "MsoCommentReference") ||
           (elem.name == "a" && elem["class"] == "FootnoteRef") ||
-          (elem.name == "span" && /mso-bookmark/.match(elem["style"]))
+          (elem.name == "span" && elem["style"]&.include?("mso-bookmark"))
       end
 
       def liquid(doc)
@@ -202,9 +202,15 @@ module IsoDoc
         end
       end
 
-      def labelled_ancestor(node)
-        !node.ancestors("example, requirement, recommendation, permission, " \
-                        "note, table, figure, sourcecode").empty?
+      LABELLED_ANCESTOR_ELEMENTS =
+        %w(example requirement recommendation permission
+           note table figure sourcecode).freeze
+
+      def labelled_ancestor(elem)
+        #require  "debug"; binding.b
+        #!elem.path.gsub(/\[\d+\]/, "").split(%r{/})[1..-1]
+        !elem.ancestors.map(&:name)
+          .intersection(LABELLED_ANCESTOR_ELEMENTS).empty?
       end
 
       def emf?(type)
