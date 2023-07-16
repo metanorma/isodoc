@@ -149,6 +149,10 @@ a.TableFootnoteRef + a.TableFootnoteRef::before {
     vertical-align: super; 
   }
 
+a.TableFootnoteRef, span.TableFootnoteRef, 
+a.FootnoteRef, span.FootnoteRef {
+  vertical-align: super; 
+}
 
 .addition {
   color: blue;
