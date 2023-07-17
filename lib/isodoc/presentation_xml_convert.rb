@@ -1,4 +1,5 @@
 require_relative "presentation_function/block"
+require_relative "presentation_function/reqt"
 require_relative "presentation_function/concepts"
 require_relative "presentation_function/terms"
 require_relative "presentation_function/xrefs"
@@ -22,7 +23,7 @@ module IsoDoc
       info docxml, nil
       conversions(docxml)
       docxml.root["type"] = "presentation"
-      docxml.to_xml.gsub(/&lt;/, "&#x3c;").gsub(/&gt;/, "&#x3e;")
+      docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
     end
 
     def bibitem_lookup(docxml)
@@ -125,7 +126,7 @@ module IsoDoc
         .sub(/ xmlns=['"][^"']+['"]/, "") # root XMLNS
         .split(/(?=[<> \t\r\n\f\v])/).map do |x|
           case x
-          when /^<[^:]+:/ then x.sub(/:/, ":semantic__")
+          when /^<[^:]+:/ then x.sub(":", ":semantic__")
           when /^<[^:]+$/ then x.sub(%r{(</?)([[:alpha:]])},
                                      "\\1semantic__\\2")
           else x end
