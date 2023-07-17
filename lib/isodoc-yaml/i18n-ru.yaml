@@ -17,6 +17,7 @@ bibliography: Библиография
 clause: Пункт
 annex: Дополнение
 appendix: Приложение
+continued: продолжение
 no_terms_boilerplate: |
           <p>Термины и определения не перечислены в этом документе.</p>
 internal_terms_boilerplate: |

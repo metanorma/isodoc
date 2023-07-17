@@ -17,6 +17,7 @@ bibliography: Bibliografía
 clause: Cláusula
 annex: Anexo
 appendix: Apéndice
+continued: continuación
 no_terms_boilerplate: |
           <p>En este documento no se enumeran términos ni definiciones.</p>
 internal_terms_boilerplate: |

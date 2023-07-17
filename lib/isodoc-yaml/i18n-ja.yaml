@@ -18,6 +18,7 @@ preface: Preface
 clause: 箇条
 annex: 附属書
 appendix: Appendix
+continued: 続き
 no_terms_boilerplate: |
           <p>この規格には，定義する用語はない。</p>
 internal_terms_boilerplate: |

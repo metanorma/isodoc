@@ -18,6 +18,7 @@ preface: Preface
 clause: Clause
 annex: Annex
 appendix: Appendix
+continued: continued
 no_terms_boilerplate: |
           <p>No terms and definitions are listed in this document.</p>
 internal_terms_boilerplate: |

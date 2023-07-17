@@ -18,6 +18,7 @@ preface: 序言
 clause: 条
 annex: 附件
 appendix: 附录
+continued: 继续
 no_terms_boilerplate: |
           <p>本文件不提供术语和定义。</p>
 internal_terms_boilerplate: |

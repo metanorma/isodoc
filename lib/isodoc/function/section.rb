@@ -1,4 +1,4 @@
-require_relative "./section_titles"
+require_relative "section_titles"
 
 module IsoDoc
   module Function
@@ -20,7 +20,7 @@ module IsoDoc
       def clause(isoxml, out)
         isoxml.xpath(ns(middle_clause(isoxml))).each do |c|
           out.div **attr_code(clause_attrs(c)) do |s|
-            clause_name(c, c&.at(ns("./title")), s, nil)
+            clause_name(c, c.at(ns("./title")), s, nil)
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
               parse(c1, s)
             end
@@ -64,7 +64,7 @@ module IsoDoc
         f = isoxml.at(ns(TERM_CLAUSE)) or return num
         out.div **attr_code(id: f["id"]) do |div|
           num = num + 1
-          clause_name(f, f&.at(ns("./title")), div, nil)
+          clause_name(f, f.at(ns("./title")), div, nil)
           f.elements.each do |e|
             parse(e, div) unless %w{title source}.include? e.name
           end
