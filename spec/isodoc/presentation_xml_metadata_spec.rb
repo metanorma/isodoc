@@ -317,13 +317,13 @@ RSpec.describe IsoDoc do
          </render>
          </metanorma-extension>
                    <preface>
-                   <foreword>
+                   <foreword displayorder="1">
                    <note><name>HTML</name></note>
                    <example><name>WORD</name></example>
                    </foreword>
                    </preface>
                    <sections>
-                   <terms>
+                   <terms displayorder="2">
                    <term>
                    <termexample><name>HTML-AND-WORD</name> <p>note</p></termexample>
                    <termnote><name>NONE-SPECIFIED</name> <p>note</p></termnote>
@@ -355,9 +355,7 @@ RSpec.describe IsoDoc do
                 <p class="example-title">WORD</p>
               </div>
             </div>
-            <p class="zzSTDTitle1"/>
             <div>
-              <h1/>
               <p class="TermNum" id=""/>
               <div class="example">
                 <p class="example-title">HTML-AND-WORD:  </p>
@@ -381,11 +379,11 @@ RSpec.describe IsoDoc do
           <div class="WordSection1">
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection2">
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div>
@@ -402,13 +400,11 @@ RSpec.describe IsoDoc do
             </div>
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
-            <p class="zzSTDTitle1"/>
             <div>
-              <h1/>
               <p class="TermNum" id=""/>
               <div class="example">
                 <p class="example-title">HTML-AND-WORD:<span style="mso-tab-count:1">  </span></p>

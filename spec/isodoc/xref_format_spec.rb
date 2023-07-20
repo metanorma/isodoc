@@ -53,7 +53,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
-    it "renders xrefs with style" do
+  it "renders xrefs with style" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <sections>
@@ -144,7 +144,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
-      it "cases xrefs" do
+  it "cases xrefs" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
@@ -167,7 +167,7 @@ RSpec.describe IsoDoc do
           <xref target="A"/> is too.  </p>
           <p><xref target="A"/> is also.</p>
           <p>Annex has formatting, and crossreferences ignore it when determining casing. <xref target="AA"/>.</p>
-          <p>Labels are not subject to casing: <xref target="CC" case="lowercase"/>
+          <p>Labels are not subject to casing: <xref target="CC" case="lowercase"/></p>
       </clause>
       <annex id="AA">
       <clause id="AA1"/>
@@ -240,6 +240,7 @@ RSpec.describe IsoDoc do
                 Labels are not subject to casing:
                 <xref target='CC' case='lowercase'>Introduction</xref>
               </p>
+            </clause>
               <annex id='AA' displayorder='5'>
                 <title>
                   <strong>
@@ -253,7 +254,6 @@ RSpec.describe IsoDoc do
                   <title>A.1.</title>
                 </clause>
               </annex>
-            </clause>
           </sections>
       </iso-standard>
     OUTPUT
@@ -292,7 +292,7 @@ RSpec.describe IsoDoc do
             <table id='B'>
               <name>Tabelo 1</name>
             </table>
-          </clause> 
+          </clause>#{' '}
           <clause id='C' displayorder="3">
           <title>2.</title>
             <p>
@@ -308,7 +308,7 @@ RSpec.describe IsoDoc do
               <xref target='A' case='lowercase'>kla&#x16D;zo 1</xref>
                and
               <xref target='B' case='capital'>tabelo 1</xref>
-              . 
+              .#{' '}
               <xref target='A'>kla&#x16D;zo 1</xref>
                is clause
               <em>initial.</em>
@@ -333,7 +333,7 @@ RSpec.describe IsoDoc do
   it "ignores locations in xrefs" do
     input = <<~INPUT
       <itu-standard xmlns="https://www.calconnect.org/standards/itu">
-      <preface><foreword>
+      <preface><foreword displayorder="1">
                   <p id='_'>
               <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/>6.4 List 1.a) to 2.b)</xref>
               </p>

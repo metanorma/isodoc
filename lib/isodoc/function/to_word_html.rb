@@ -82,17 +82,52 @@ module IsoDoc
         section_break(body)
       end
 
+      TOP_ELEMENTS =
+        "//preface/*[@displayorder] | //sections/*[@displayorder] | " \
+        "//annex[@displayorder] | //bibliography/*[@displayorder] | " \
+        "//colophon/*[@displayorder]"
+          .freeze
+
       def make_body3(body, docxml)
         body.div class: "main-section" do |div3|
           boilerplate docxml, div3
-          preface_block docxml, div3
-          abstract docxml, div3
-          foreword docxml, div3
-          introduction docxml, div3
-          acknowledgements docxml, div3
-          middle docxml, div3
+          content(div3, docxml, ns(TOP_ELEMENTS))
           footnotes div3
           comments div3
+        end
+      end
+
+      # xpath presumed to list elements with displayorder attribute
+      def content(body, docxml, xpath)
+        docxml.xpath(xpath).sort_by { |c| c["displayorder"].to_i }
+          .each do |c|
+            top_element_render(c, body)
+          end
+      end
+
+      def top_element_render(e, out)
+        case e.name
+        when "abstract" then abstract e, out
+        when "foreword" then foreword e, out
+        when "introduction" then introduction e, out
+        when "executivesummary" then executivesummary e, out
+        when "acknowledgements" then acknowledgements e, out
+        when "annex" then annex e, out
+        when "definitions" then symbols_abbrevs e, out, 0
+        when "references"
+          if e["normative"] == "true" then norm_ref e, out, 0
+          else bibliography e, out
+          end
+        when "clause"
+          if e.parent.name == "preface" then preface e, out
+          elsif e.parent.name == "colophon" then colophon e, out
+          elsif e.at(ns(".//terms")) then terms_defs e, out, 0
+          elsif e.at(ns(".//references[@normative = 'true']"))
+            norm_ref e, out, 0
+          elsif e.at(ns(".//references")) then bibliography e, out
+          else clause e, out
+          end
+        else parse(e, out)
         end
       end
 
@@ -116,22 +151,8 @@ module IsoDoc
         @meta.get
       end
 
-      def middle(isoxml, out)
-        middle_title(isoxml, out)
-        middle_admonitions(isoxml, out)
-        scope isoxml, out, 0
-        norm_ref isoxml, out, 0
-        terms_defs isoxml, out, 0
-        symbols_abbrevs isoxml, out, 0
-        clause isoxml, out
-        annex isoxml, out
-        bibliography isoxml, out
-        colophon isoxml, out
-      end
-
       def boilerplate(node, out)
-        return if @bare
-
+        @bare and return
         boilerplate = node.at(ns("//boilerplate")) or return
         out.div class: "authority" do |s|
           boilerplate.children.each do |n|

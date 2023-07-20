@@ -14,12 +14,12 @@ RSpec.describe IsoDoc do
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
         filename: "test" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
               <bibdata>
               <title language="en">test</title>
               </bibdata>
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -41,12 +41,12 @@ RSpec.describe IsoDoc do
       { wordstylesheet: "word.css",
         htmlstylesheet: "html.scss",
         filename: "test" },
-    ).convert("spec/assets/test", <<~"INPUT", false)
+    ).convert("spec/assets/test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <bibdata>
               <title language="en">test</title>
               </bibdata>
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -67,7 +67,7 @@ RSpec.describe IsoDoc do
               <bibdata>
               <title language="en">test</title>
               </bibdata>
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">{% elif %}These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -91,9 +91,9 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css" })
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
                 <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
+            <preface><foreword displayorder="1">
             <note>
           <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
         </note>
@@ -115,9 +115,9 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -195,9 +195,9 @@ RSpec.describe IsoDoc do
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
         olstyle: "l2" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -233,9 +233,9 @@ RSpec.describe IsoDoc do
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
         olstyle: "l2" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -278,9 +278,9 @@ RSpec.describe IsoDoc do
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
         olstyle: "l2" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -317,9 +317,9 @@ RSpec.describe IsoDoc do
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
         olstyle: "l2" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -364,9 +364,9 @@ RSpec.describe IsoDoc do
         i18nyaml: "spec/assets/i18n.yaml",
         ulstyle: "l1",
         olstyle: "l2" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -394,7 +394,6 @@ RSpec.describe IsoDoc do
                 <p>&#xA0; These results are based on a study carried out on three different types of kernel.</p>
               </div>
             </div>
-            <p class="zzSTDTitle1"/>
           </main>
       </body>
     OUTPUT
@@ -404,13 +403,13 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new({})
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface><foreword><title>Foreword</title>
+        <preface><foreword displayorder="1"><title>Foreword</title>
         <variant-title type="toc">FORVORT</variant-title>
         </foreword></preface>
         <sections>
-        <clause><title>First Clause</title>
+        <clause displayorder="2"><title>First Clause</title>
         <clause><title>First Subclause</title>
         <variant-title type="toc">SUBCLOZ</variant-title>
         </clause>
@@ -425,16 +424,16 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
- it "reorders footnote numbers in HTML" do
+  it "reorders footnote numbers in HTML" do
     FileUtils.rm_f "test.html"
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss",
         wordintropage: "spec/assets/wordintro.html" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <sections>
-                     <clause id="A" inline-header="false" obligation="normative"><title>Clause 4</title><fn reference="3">
+                     <clause id="A" inline-header="false" obligation="normative" displayorder="1"><title>Clause 4</title><fn reference="3">
         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">This is a footnote.</p>
       </fn><clause id="N" inline-header="false" obligation="normative">
                <title>Introduction to this<fn reference="2">
@@ -454,9 +453,8 @@ RSpec.describe IsoDoc do
       .sub(/^.*<main class="main-section">/m,
            '<main xmlns:epub="epub" class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~OUTPUT)
           <main  xmlns:epub="epub" class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-            <p class="zzSTDTitle1"></p>
             <div id="A">
               <h1>Clause 4</h1>
               <a class='FootnoteRef' href='#fn:3' id='fnref:1'>
@@ -490,7 +488,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
+            <preface><foreword displayorder="1">
              <figure id="_">
              <name>Split-it-right sample divider</name>
                       <svg xmlns="http://www.w3.org/2000/svg" src="spec/assets/rice_image1.png" id="_" width="20000" height="300000"/>
@@ -518,7 +516,7 @@ RSpec.describe IsoDoc do
     expect(`ls test_*_htmlimages`).to match(/\.png$/)
     expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
     .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
-      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
                    <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
                      <br />
                      <div>
@@ -541,7 +539,6 @@ RSpec.describe IsoDoc do
         <img src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='' width=''/>
                <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
                      </div>
-                     <p class="zzSTDTitle1"></p>
                    </main>
       OUTPUT
   end
@@ -553,9 +550,9 @@ RSpec.describe IsoDoc do
       { baseassetpath: "spec/assets",
         wordstylesheet: "word.css",
         htmlstylesheet: "html.scss" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
+      <preface><foreword displayorder="1">
        <figure id="_">
        <name>Split-it-right sample divider</name>
        <image src="rice_image1.png" id="_" mimetype="image/png"/>
@@ -569,7 +566,7 @@ RSpec.describe IsoDoc do
     expect(`ls test_*_htmlimages`).to match(/\.png$/)
     expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
            .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
-      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
             <main class='main-section'>
           <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
           <br/>
@@ -580,7 +577,6 @@ RSpec.describe IsoDoc do
               <p class='FigureTitle' style='text-align:center;'>Split-it-right sample divider</p>
             </div>
           </div>
-          <p class='zzSTDTitle1'/>
         </main>
       OUTPUT
   end
@@ -593,7 +589,7 @@ RSpec.describe IsoDoc do
           <?xml version="1.0" encoding="UTF-8"?>
           <iso-standard xmlns="https://www.metanorma.org/ns/iso" type="semantic" version="1.5.14">
             <sections>
-              <clause id="_clause" inline-header="false" obligation="normative">
+              <clause id="_clause" inline-header="false" obligation="normative" displayorder="1">
                 <title>Clause</title>
                 <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
                   <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -612,7 +608,6 @@ RSpec.describe IsoDoc do
         INPUT
         output = <<~OUTPUT
           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-            <p class="zzSTDTitle1"></p>
             <div id="_clause">
               <h1>Clause</h1>
               <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
@@ -644,7 +639,7 @@ RSpec.describe IsoDoc do
           <?xml version="1.0" encoding="UTF-8"?>
           <iso-standard xmlns="https://www.metanorma.org/ns/iso" type="semantic" version="1.5.14">
             <sections>
-              <clause id="_clause" inline-header="false" obligation="normative">
+              <clause id="_clause" inline-header="false" obligation="normative" displayorder="1">
                 <title>Clause</title>
                 <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
                   <stem type="MathML">
@@ -693,7 +688,6 @@ RSpec.describe IsoDoc do
         INPUT
         output = <<~OUTPUT
           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-            <p class="zzSTDTitle1"></p>
             <div id="_clause">
               <h1>Clause</h1>
               <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
@@ -753,9 +747,9 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new(
       { wordstylesheet: "spec/assets/word.css",
         htmlstylesheet: "spec/assets/html.scss" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
+            <preface><foreword displayorder="1">
              <figure id="_">
              <name>Split-it-right sample divider</name>
                       <image src="spec/assets/rice_image1" id="_" mimetype="image/png"/>
@@ -771,7 +765,7 @@ RSpec.describe IsoDoc do
     expect(`ls test_*_htmlimages`).to match(/\.png$/)
     expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
     .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
-      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
         <main class='main-section'>
              <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
              <br/>
@@ -784,7 +778,6 @@ RSpec.describe IsoDoc do
                  <p class='FigureTitle' style='text-align:center;'>Split-it-right sample divider</p>
                </div>
              </div>
-             <p class='zzSTDTitle1'/>
            </main>
       OUTPUT
   end
@@ -797,7 +790,7 @@ RSpec.describe IsoDoc do
            htmlstylesheet: "assets/html.scss")
       .convert("spec/test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword>
+         <preface><foreword displayorder="1">
           <figure id="_">
           <name>Split-it-right sample divider</name>
                    <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -814,7 +807,7 @@ RSpec.describe IsoDoc do
     expect(`ls test_*_htmlimages`).to match(/\.png$/)
     expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
            .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
-      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
                    <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
                      <br />
                      <div>
@@ -826,7 +819,6 @@ RSpec.describe IsoDoc do
         <img src="test_htmlimages/_.png" height="83" width="99" />
                <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
                      </div>
-                     <p class="zzSTDTitle1"></p>
                    </main>
       OUTPUT
   end
@@ -838,7 +830,7 @@ RSpec.describe IsoDoc do
       .new(htmlstylesheet: "spec/assets/html.scss", datauriimage: true)
       .convert("test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword>
+         <preface><foreword displayorder="1">
           <figure id="_">
           <name>Split-it-right sample divider</name>
              <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -852,7 +844,7 @@ RSpec.describe IsoDoc do
       .sub(%r{</main>.*$}m, "</main>")
     expect(xmlpp(html
       .gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
-      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
             <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
               <br />
               <div>
@@ -862,7 +854,6 @@ RSpec.describe IsoDoc do
                 <img src="data:image/png;base64,_" height="776" width="922" />
         <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
               </div>
-              <p class="zzSTDTitle1"></p>
             </main>
       OUTPUT
   end
@@ -874,7 +865,7 @@ RSpec.describe IsoDoc do
       .new({ htmlstylesheet: "assets/html.scss", datauriimage: true })
       .convert("spec/test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword>
+         <preface><foreword displayorder="1">
           <figure id="_">
           <name>Split-it-right sample divider</name>
                    <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -888,7 +879,7 @@ RSpec.describe IsoDoc do
       .sub(%r{</main>.*$}m, "</main>")
     expect(xmlpp(html
       .gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
-      .to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
             <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
               <br />
               <div>
@@ -898,7 +889,6 @@ RSpec.describe IsoDoc do
                 <img src="data:image/png;base64,_" height="776" width="922" />
         <p class="FigureTitle" style="text-align:center;">Split-it-right sample divider</p></div>
               </div>
-              <p class="zzSTDTitle1"></p>
             </main>
       OUTPUT
   end
@@ -907,10 +897,10 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     FileUtils.rm_f "test.doc"
     IsoDoc::HtmlConvert.new(options)
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <sections>
-            <terms id="_terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+            <terms id="_terms_and_definitions" obligation="normative" displayorder="1"><title>Terms and Definitions</title>
         <term id="paddy1"><name>1.1.</name><preferred>paddy</preferred>
         <domain>rice</domain>
         <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
@@ -965,7 +955,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <sourcecode id="samplecode">
           <name>XML code</name>
         &lt;xml&gt; &amp;
@@ -977,7 +967,7 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~OUTPUT)
       <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <br />
         <div>
@@ -986,7 +976,6 @@ RSpec.describe IsoDoc do
           </pre>
           <p class="SourceTitle" style="text-align:center;">XML code</p>
         </div>
-        <p class="zzSTDTitle1"></p>
       </main>
     OUTPUT
 
@@ -996,7 +985,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
       <div class="WordSection2">
         <p class="MsoNormal">
           <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -1231,7 +1220,7 @@ RSpec.describe IsoDoc do
       { bare: true,
         htmlstylesheet: "spec/assets/html.scss",
         filename: "test" },
-    ).convert("test", <<~"INPUT", false)
+    ).convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
               <bibdata>
               <title language="en">test</title>
@@ -1241,7 +1230,7 @@ RSpec.describe IsoDoc do
               <clause><title>I am boilerplate</title></clause>
               </feedback-statement>
               </boilerplate>
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -1261,7 +1250,6 @@ RSpec.describe IsoDoc do
               </p>
             </div>
           </div>
-          <p class='zzSTDTitle1'>test</p>
         </main>
         <script/>
       </body>
@@ -1323,7 +1311,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword displayorder="1">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">&lt;X&gt;</p>
       </note>

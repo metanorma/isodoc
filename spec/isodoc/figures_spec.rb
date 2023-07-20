@@ -89,7 +89,7 @@ RSpec.describe IsoDoc do
       B</pre>
       </figure>
           </foreword></preface>
-                   <bibliography>
+                   <sections>
            <references id="_" obligation="informative" normative="true" displayorder="3">
              <title depth="1">1.<tab/>Normative References</title>
              <bibitem id="ISO712" type="standard">
@@ -98,6 +98,8 @@ RSpec.describe IsoDoc do
                <biblio-tag>ISO 712, </biblio-tag>
              </bibitem>
            </references>
+           </sections>
+         <bibliography>
          </bibliography>
           </iso-standard>
     OUTPUT
@@ -134,7 +136,6 @@ RSpec.describe IsoDoc do
                 B</pre>
                 </div>
                                </div>
-                               <p class="zzSTDTitle1"/>
                                             <div>
                <h1>1.  Normative References</h1>
                <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
@@ -155,13 +156,13 @@ RSpec.describe IsoDoc do
                  <div class="WordSection1">
                    <p>&#160;</p>
                  </div>
-                 <p><br clear="all" class="section"/></p>
+                 <p class="section-break"><br clear="all" class="section"/></p>
                  <div class="WordSection2">
-                   <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+                   <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                          <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-      <p>
+      <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
                    <div>
@@ -198,9 +199,8 @@ RSpec.describe IsoDoc do
                    </div>
                    <p>&#160;</p>
                  </div>
-                 <p><br clear="all" class="section"/></p>
+                 <p class="section-break"><br clear="all" class="section"/></p>
                  <div class="WordSection3">
-                   <p class="zzSTDTitle1"/>
                                <div>
                <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
                <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
@@ -282,7 +282,6 @@ RSpec.describe IsoDoc do
                  <p class="FigureTitle" style="text-align:center;">Figure 1 — Overall title</p>
                </div>
              </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
        </html>
@@ -297,17 +296,17 @@ RSpec.describe IsoDoc do
           <div class="WordSection1">
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection2">
-          <p>
+          <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div>
@@ -326,11 +325,10 @@ RSpec.describe IsoDoc do
             </div>
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
-            <p class="zzSTDTitle1"/>
           </div>
         </body>
       </html>
@@ -517,7 +515,6 @@ RSpec.describe IsoDoc do
                     <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
                   </div>
                 </div>
-                <p class='zzSTDTitle1'/>
               </div>
             </body>
           </html>
@@ -533,17 +530,17 @@ RSpec.describe IsoDoc do
           <div class='WordSection1'>
             <p>&#160;</p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection2'>
-                <p>
+                <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div>
@@ -555,11 +552,10 @@ RSpec.describe IsoDoc do
             </div>
             <p>&#160;</p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection3'>
-            <p class='zzSTDTitle1'/>
           </div>
         </body>
       </html>
@@ -632,17 +628,17 @@ RSpec.describe IsoDoc do
           <div class='WordSection1'>
             <p>&#160;</p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection2'>
-                <p>
+                <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div>
@@ -657,11 +653,10 @@ RSpec.describe IsoDoc do
             </div>
             <p>&#160;</p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection3'>
-            <p class='zzSTDTitle1'/>
           </div>
         </body>
       </html>
@@ -719,13 +714,13 @@ RSpec.describe IsoDoc do
     <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
-              <foreword>
+              <foreword displayorder="2">
               <example>
               <sourcecode id="B"><name>Label</name>A B C</sourcecode>
         <figure id="A" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong></p></figure>
               <sourcecode id="B1">A B C</sourcecode>
         <figure id="A1" class="pseudocode"><p id="_">  <strong>A</strong></p></figure>
-      </example>
+      </example></foreword>
       </preface></itu-standard>
     INPUT
     output = <<~OUTPUT
@@ -754,7 +749,6 @@ RSpec.describe IsoDoc do
                        </div>
                      </div>
                    </div>
-                   <p class='zzSTDTitle1'/>
                  </div>
                </body>
              </html>

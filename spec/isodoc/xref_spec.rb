@@ -37,18 +37,17 @@ RSpec.describe IsoDoc do
       <a href="a.html#b">a#b</a>
       </p>
             </div>
-            <p class="zzSTDTitle1"/>
           </div>
         </body>
       </html>
     OUTPUT
     doc = <<~OUTPUT
           <div class="WordSection2">
-            <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+            <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
            <div class="TOC" id="_">
               <p class="zzContents">Table of contents</p>
             </div>
-            <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+            <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
             <div>
               <h1 class="ForewordTitle">Foreword</h1>
               <p>

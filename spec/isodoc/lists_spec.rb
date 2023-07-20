@@ -6,7 +6,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword>
+          <foreword displayorder="2">
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <li>
@@ -34,7 +34,6 @@ RSpec.describe IsoDoc do
              </li>
            </ul>
                    </div>
-                   <p class="zzSTDTitle1"/>
                  </div>
                </body>
            </html>
@@ -46,17 +45,17 @@ RSpec.describe IsoDoc do
             <div class='WordSection1'>
               <p>&#xa0;</p>
             </div>
-            <p>
+            <p class="section-break">
               <br clear='all' class='section'/>
             </p>
             <div class='WordSection2'>
-                 <p>
+                 <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-              <p>
+              <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
               <div>
@@ -73,11 +72,10 @@ RSpec.describe IsoDoc do
               </div>
               <p>&#xa0;</p>
             </div>
-            <p>
+            <p class="section-break">
               <br clear='all' class='section'/>
             </p>
             <div class='WordSection3'>
-              <p class='zzSTDTitle1'/>
             </div>
           </body>
         </html>
@@ -94,7 +92,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword>
+          <foreword displayorder="2">
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
         <li  checkedcheckbox="true" uncheckedcheckbox="false">
           <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
@@ -126,7 +124,6 @@ RSpec.describe IsoDoc do
                      </li>
                    </ul>
                  </div>
-                 <p class='zzSTDTitle1'/>
                </div>
              </body>
            </html>
@@ -138,17 +135,17 @@ RSpec.describe IsoDoc do
                   <div class='WordSection1'>
                     <p>&#160;</p>
                   </div>
-                  <p>
+                  <p class="section-break">
                     <br clear='all' class='section'/>
                   </p>
                   <div class='WordSection2'>
-                       <p>
+                       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-                    <p>
+                    <p class="page-break">
                       <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                     </p>
                     <div>
@@ -166,11 +163,10 @@ RSpec.describe IsoDoc do
                     </div>
                     <p>&#160;</p>
                   </div>
-                  <p>
+                  <p class="section-break">
                     <br clear='all' class='section'/>
                   </p>
                   <div class='WordSection3'>
-                    <p class='zzSTDTitle1'/>
                   </div>
                 </body>
               </html>
@@ -188,7 +184,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword>
+          <foreword displayorder="2">
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <li>
@@ -230,7 +226,6 @@ RSpec.describe IsoDoc do
              </ol>
            </ol>
                    </div>
-                   <p class="zzSTDTitle1"/>
                  </div>
                </body>
            </html>
@@ -242,17 +237,17 @@ RSpec.describe IsoDoc do
             <div class='WordSection1'>
               <p>&#xa0;</p>
             </div>
-            <p>
+            <p class="section-break">
               <br clear='all' class='section'/>
             </p>
             <div class='WordSection2'>
-                 <p>
+                 <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-              <p>
+              <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
               <div>
@@ -276,11 +271,10 @@ RSpec.describe IsoDoc do
               </div>
               <p>&#xa0;</p>
             </div>
-            <p>
+            <p class="section-break">
               <br clear='all' class='section'/>
             </p>
             <div class='WordSection3'>
-              <p class='zzSTDTitle1'/>
             </div>
           </body>
         </html>
@@ -299,7 +293,7 @@ RSpec.describe IsoDoc do
           <preface>
           <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
 
-        <foreword>
+        <foreword displayorder="2">
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="roman_upper">
         <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
           <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
@@ -331,7 +325,6 @@ RSpec.describe IsoDoc do
              </li>
            </ol>
                    </div>
-                   <p class="zzSTDTitle1"/>
                  </div>
                </body>
            </html>
@@ -346,7 +339,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword>
+          <foreword displayorder="2">
           <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <dt>
@@ -388,7 +381,6 @@ RSpec.describe IsoDoc do
            <p>&#160; This is a note</p>
          </div>
               </div>
-              <p class="zzSTDTitle1"/>
             </div>
           </body>
       </html>
@@ -400,15 +392,15 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p>&#160;</p>
              </div>
-             <p><br clear="all" class="section"/></p>
+             <p class="section-break"><br clear="all" class="section"/></p>
              <div class="WordSection2">
-                  <p>
+                  <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-               <p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+               <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p class='ListTitle'>Caption</p>
@@ -444,9 +436,8 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <p><br clear="all" class="section"/></p>
+             <p class="section-break"><br clear="all" class="section"/></p>
              <div class="WordSection3">
-               <p class="zzSTDTitle1"/>
              </div>
            </body>
        </html>
@@ -462,7 +453,7 @@ RSpec.describe IsoDoc do
   it "processes nested definition lists (Word)" do
     input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
-           <preface><foreword>
+           <preface><foreword displayorder="1">
        <dl id="_732d3f57-4f88-40bf-9ae9-633891edc394">
        <dt>A Deflist</dt>
        <dd>
@@ -497,11 +488,11 @@ RSpec.describe IsoDoc do
            <div class="WordSection1">
              <p> </p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection2">
-             <p>
+             <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
              <div>
@@ -532,11 +523,10 @@ RSpec.describe IsoDoc do
              </div>
              <p> </p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection3">
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
        </html>

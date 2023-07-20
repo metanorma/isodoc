@@ -156,11 +156,11 @@ module IsoDoc
 
     def middle_clause(_docxml = nil)
       "//clause[parent::sections][not(@type = 'scope')]" \
-        "[not(descendant::terms)]"
+        "[not(descendant::terms)][not(descendant::references)]"
     end
 
     def target_pdf(node)
-      if /#/.match?(node["target"]) then node["target"].sub(/#/, ".pdf#")
+      if node["target"].include?("#") then node["target"].sub("#", ".pdf#")
       else "##{node['target']}"
       end
     end

@@ -2,6 +2,14 @@ require_relative "refs"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
+    def middle_title(docxml)
+      s = docxml.at(ns("//sections")) or return
+      t = @meta.get[:doctitle]
+      t.nil? || t.empty? and return
+      s.children.first.previous =
+        "<p class='zzSTDTitle1'>#{t}</p>"
+    end
+
     def clause(docxml)
       docxml.xpath(ns("//clause | " \
                       "//terms | //definitions | //references"))
@@ -94,9 +102,9 @@ module IsoDoc
     end
 
     def display_order_at(docxml, xpath, idx)
-      return idx unless c = docxml.at(ns(xpath))
-
+      c = docxml.at(ns(xpath)) or return idx
       idx += 1
+      idx = preceding_floating_titles(c, idx)
       c["displayorder"] = idx
       idx
     end
@@ -104,7 +112,21 @@ module IsoDoc
     def display_order_xpath(docxml, xpath, idx)
       docxml.xpath(ns(xpath)).each do |c|
         idx += 1
+        idx = preceding_floating_titles(c, idx)
         c["displayorder"] = idx
+      end
+      idx
+    end
+
+    def preceding_floating_titles(node, idx)
+      out = node.xpath("./preceding-sibling::*")
+        .reverse.each_with_object([]) do |p, m|
+        %w(note admonition p).include?(p.name) or break m
+        m << p
+      end
+      out.reject { |c| c["displayorder"] }.reverse.each do |c|
+        c["displayorder"] = idx
+        idx += 1
       end
       idx
     end

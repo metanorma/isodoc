@@ -8,7 +8,7 @@ module IsoDoc
       end
 
       def section_break(body, continuous: false)
-        body.p do |p|
+        body.p class: "section-break" do |p|
           if continuous
             p.br clear: "all", style: "page-break-before:auto;" \
                                       "mso-break-type:section-break"
@@ -19,7 +19,7 @@ module IsoDoc
       end
 
       def page_break(out)
-        out.p do |p|
+        out.p class: "page-break" do |p|
           p.br clear: "all",
                style: "mso-special-character:line-break;" \
                       "page-break-before:always"
@@ -58,7 +58,7 @@ module IsoDoc
 
       def xref_parse(node, out)
         target = if /#/.match?(node["target"])
-                   node["target"].sub(/#/, ".doc#")
+                   node["target"].sub("#", ".doc#")
                  else
                    "##{node['target']}"
                  end

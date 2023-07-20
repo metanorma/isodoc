@@ -4,7 +4,7 @@ RSpec.describe IsoDoc do
   it "processes inline formatting" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
+      <preface><foreword displayorder="1">
       <p>
       <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
       <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
@@ -31,37 +31,31 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-      <div><h1 class='ForewordTitle'>Foreword</h1>
-          <p>
-            <i>A</i>
-            <b>B</b>
-            <sup>C</sup>
-            <sub>D</sub>
-            <tt>E</tt>
-            <s>F</s>
-            <span style='font-variant:small-caps;'>G</span>
-            <span class='keyword'>I</span>
-            <br/>
-            <hr/>
-            <a id='H'/>
-            <p>
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <p>
-              <br clear='all' class='section' orientation='landscape'/>
-            </p>
-            <u>J</u>
-            <u style="text-decoration: wavy">J1</u>
-            <span class="A">
-            <i>A</i>
-            <b>B</b>
-            <sup>C</sup>
-            <sub>D</sub>
-            <tt>E</tt>
-             F</span>
-            <span style='font-family:&#x22;Arial&#x22;'><i>A</i> F</span>
-          </p>
-        </div>
+           <div><h1 class="ForewordTitle">Foreword</h1>
+                <p>
+                  <i>A</i>
+                  <b>B</b>
+                  <sup>C</sup>
+                  <sub>D</sub>
+                  <tt>E</tt>
+                  <s>F</s>
+                  <span style="font-variant:small-caps;">G</span>
+                  <span class="keyword">I</span>
+                  <br/>
+                  <hr/>
+                  <a id="H"/>
+                  <p class="page-break">
+                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                  </p>
+                  <p>
+                    <br clear="all" class="section" orientation="landscape"/>
+                  </p>
+                  <u>J</u>
+                  <u style="text-decoration: wavy">J1</u>
+                  <span class="A"><i>A</i><b>B</b><sup>C</sup><sub>D</sub><tt>E</tt> F</span>
+                  <span style="font-family:&quot;Arial&quot;"><i>A</i> F</span>
+                </p>
+              </div>
     OUTPUT
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
@@ -281,15 +275,15 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           <sections>
           <clause id="clause1" displayorder="4"><title depth="1">2.<tab/>Clause 1</title></clause>
-          </sections>
-          <bibliography><references id="_" obligation="informative" normative="true" displayorder="3"><title depth="1">1.<tab/>Normative References</title>
+          <references id="_" obligation="informative" normative="true" displayorder="3"><title depth="1">1.<tab/>Normative References</title>
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
       <bibitem id="ISO712" type="standard">
         <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
         <docidentifier type="ISO">ISO&#xa0;712</docidentifier>
         <biblio-tag>ISO&#xa0;712, </biblio-tag>
       </bibitem>
-      </references></bibliography>
+      </references></sections>
+      <bibliography/>
           </iso-standard>
     OUTPUT
     output = <<~OUTPUT
@@ -358,7 +352,6 @@ RSpec.describe IsoDoc do
                  </ul>
                </p>
              </div>
-             <p class='zzSTDTitle1'/>
              <div>
                <h1>1.&#160; Normative References</h1>
                <p>
@@ -484,7 +477,6 @@ RSpec.describe IsoDoc do
            </ul>
          </p>
             </div>
-            <p class='zzSTDTitle1'/>
             <div id='clause1'>
               <h1>1.&#160; Clause 1</h1>
             </div>
@@ -561,7 +553,6 @@ RSpec.describe IsoDoc do
                 </ul>
               </p>
             </div>
-            <p class='zzSTDTitle1'/>
             <div id='d' class='Symbols'>
               <h1>1.</h1>
               <dl>
@@ -588,10 +579,10 @@ RSpec.describe IsoDoc do
   it "processes embedded inline formatting" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface> <clause type="toc" id="_">
+      <preface> <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
-      <foreword>
+      <foreword displayorder="2">
       <p>
       <em><strong>&lt;</strong></em> <tt><link target="B"/></tt> <xref target="_http_1_1">Requirement <tt>/req/core/http</tt></xref> <eref type="inline" bibitemid="ISO712" citeas="ISO 712">Requirement <tt>/req/core/http</tt></eref>
       </p>
@@ -608,7 +599,6 @@ RSpec.describe IsoDoc do
          <i><b>&lt;</b></i> <tt><a href="B">B</a></tt> <a href="#_http_1_1">Requirement <tt>/req/core/http</tt></a>  Requirement <tt>/req/core/http</tt>
          </p>
                  </div>
-                 <p class="zzSTDTitle1"/>
                </div>
              </body>
          </html>
@@ -620,10 +610,10 @@ RSpec.describe IsoDoc do
   it "processes inline images" do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface> <clause type="toc" id="_">
+        <preface> <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
-    <foreword>
+    <foreword displayorder="2">
         <p>
       <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
       </p>
@@ -639,7 +629,6 @@ RSpec.describe IsoDoc do
                 <img src='rice_images/rice_image1.png' height='20' width='30' title='titletxt' alt='alttext'/>
               </p>
             </div>
-            <p class='zzSTDTitle1'/>
           </div>
         </body>
       </html>
@@ -651,10 +640,10 @@ RSpec.describe IsoDoc do
   it "processes links" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface> <clause type="toc" id="_">
+      <preface> <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
-    <foreword>
+    <foreword displayorder="2">
       <p>
       <link target="http://example.com"/>
       <link target="http://example.com">example</link>
@@ -679,7 +668,6 @@ RSpec.describe IsoDoc do
          <a href="mailto:fred@example.com">mailto:fred@example.com</a>
          </p>
                  </div>
-                 <p class="zzSTDTitle1"/>
                </div>
              </body>
          </html>
@@ -691,7 +679,7 @@ RSpec.describe IsoDoc do
   it "processes updatetype links" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
+      <preface><foreword displayorder="2">
       <p>
       <link update-type="true" target="http://example.com"/>
       <link update-type="true" target="list.adoc">example</link>
@@ -734,10 +722,10 @@ RSpec.describe IsoDoc do
   it "processes unrecognised markup" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface> <clause type="toc" id="_">
+      <preface> <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
-    <foreword>
+    <foreword displayorder="2">
       <p>
       <barry fred="http://example.com">example</barry>
       </p>
@@ -754,7 +742,6 @@ RSpec.describe IsoDoc do
          <para><b role="strong">&lt;barry fred="http://example.com"&gt;example&lt;/barry&gt;</b></para>
          </p>
                  </div>
-                 <p class="zzSTDTitle1"/>
                </div>
              </body>
          </html>
@@ -766,10 +753,10 @@ RSpec.describe IsoDoc do
   it "processes AsciiMath and MathML" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
-      <preface>    <clause type="toc" id="_">
+      <preface>    <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
-     <foreword>
+     <foreword displayorder="2">
       <p>
       <stem type="AsciiMath">&lt;A&gt;</stem>
       <stem type="AsciiMath"><m:math><m:row>X</m:row></m:math><asciimath>&lt;A&gt;</asciimath></stem>
@@ -798,7 +785,6 @@ RSpec.describe IsoDoc do
          <span class="stem">Latex?</span>
          </p>
                  </div>
-                 <p class="zzSTDTitle1"/>
                </div>
              </body>
          </html>
@@ -812,10 +798,10 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-          <clause type="toc" id="_">
+          <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
-      <foreword>
+      <foreword displayorder="2">
       <p>
       <stem type="AsciiMath">A</stem>
       (#((Hello))#)
@@ -834,7 +820,6 @@ RSpec.describe IsoDoc do
          (#((Hello))#)
          </p>
                  </div>
-                 <p class="zzSTDTitle1"/>
                </div>
              </body>
          </html>
@@ -1003,7 +988,7 @@ RSpec.describe IsoDoc do
              </p>
            </foreword>
          </preface>
-         <bibliography>
+         <sections>
            <references id="_" obligation="informative" normative="true" displayorder="3">
              <title depth="1">1.<tab/>Normative References</title>
              <bibitem id="ISO712" type="standard">
@@ -1034,6 +1019,8 @@ RSpec.describe IsoDoc do
                <biblio-tag>ISO 713, </biblio-tag>
              </bibitem>
            </references>
+           </sections>
+         <bibliography>
          </bibliography>
        </iso-standard>
     OUTPUT
@@ -1053,7 +1040,6 @@ RSpec.describe IsoDoc do
                  <a href="http://wwww.example.com">A</a>
                </p>
              </div>
-             <p class="zzSTDTitle1"/>
              <div>
                <h1>1.  Normative References</h1>
                <p id="ISO712" class="NormRef">ISO 712,
@@ -1139,7 +1125,7 @@ RSpec.describe IsoDoc do
                <xref type="inline" case="lowercase" target="ISO712">ISO 712, clause 1</xref>
                 </p>
                 </foreword></preface>
-                <bibliography><references id="_" obligation="informative" normative="true" displayorder=
+                <sections><references id="_" obligation="informative" normative="true" displayorder=
       "3"><title depth='1'>1.<tab/>Normative References</title>
             <bibitem id="ISO712" type="standard">
               <formattedref><em>Cereals and cereal products</em>.</formattedref>
@@ -1147,6 +1133,8 @@ RSpec.describe IsoDoc do
               <biblio-tag>ISO&#xa0;712,</biblio-tag>
             </bibitem>
                 </references>
+                </sections>
+                <bibliography>
                 </bibliography>
                 </iso-standard>
     OUTPUT
@@ -1177,7 +1165,6 @@ RSpec.describe IsoDoc do
                  <a href='#ISO712'>ISO&#xa0;712, clause 1</a>
                  </p>
                      </div>
-                     <p class="zzSTDTitle1"/>
                      <div>
                        <h1>1.&#160; Normative References</h1>
                        <p id="ISO712" class="NormRef">ISO&#xa0;712, <i>Cereals and cereal products</i>.</p>
@@ -1287,7 +1274,7 @@ RSpec.describe IsoDoc do
              </p>
            </foreword>
          </preface>
-         <bibliography>
+         <sections>
            <references id='_' obligation='informative' normative='true' displayorder='3'>
              <title depth='1'>
                1.
@@ -1331,6 +1318,8 @@ RSpec.describe IsoDoc do
                <biblio-tag>ISO&#xa0;714,</biblio-tag>
              </bibitem>
            </references>
+           </sections>
+         <bibliography>
          </bibliography>
        </iso-standard>
     OUTPUT
@@ -1374,7 +1363,6 @@ RSpec.describe IsoDoc do
                  <a href='spec/assets/iso714.svg'>ISO&#xa0;714</a>
                </p>
              </div>
-             <p class='zzSTDTitle1'/>
              <div>
                <h1> 1. &#xa0; Normative References </h1>
                <p id='ISO712' class='NormRef'>
@@ -1409,17 +1397,17 @@ RSpec.describe IsoDoc do
          <div class='WordSection1'>
            <p>&#xa0;</p>
          </div>
-         <p>
+         <p class="section-break">
            <br clear='all' class='section'/>
          </p>
          <div class='WordSection2'>
-           <p>
+           <p class="page-break">
              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
            </p>
                <div class="TOC" id="_">
       <p class="zzContents">Sommaire</p>
     </div>
-    <p>
+    <p class="page-break">
       <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
     </p>
                <div>
@@ -1445,11 +1433,10 @@ RSpec.describe IsoDoc do
            </div>
            <p> </p>
          </div>
-         <p>
+         <p class="section-break">
            <br clear="all" class="section"/>
          </p>
          <div class="WordSection3">
-           <p class="zzSTDTitle1"/>
            <div>
              <h1>
                 1.
@@ -1561,7 +1548,7 @@ RSpec.describe IsoDoc do
              </p>
            </foreword>
          </preface>
-         <bibliography>
+         <sections>
            <references id='_' obligation='informative' normative='true' displayorder='3' hidden="true">
              <title depth='1'>Normative References</title>
              <bibitem id='ISO712' type='standard' hidden="true">
@@ -1576,6 +1563,8 @@ RSpec.describe IsoDoc do
                <docidentifier>ISO&#xa0;713</docidentifier>
              </bibitem>
            </references>
+           </sections>
+         <bibliography>
          </bibliography>
        </iso-standard>
     PRESXML
@@ -1602,7 +1591,6 @@ RSpec.describe IsoDoc do
                  <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713, Clause 1 </a>
                </p>
              </div>
-             <p class='zzSTDTitle1'/>
            </div>
          </body>
        </html>
@@ -1614,17 +1602,17 @@ RSpec.describe IsoDoc do
            <div class='WordSection1'>
              <p>&#160;</p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection2'>
-             <p>
+             <p class="page-break">
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
                    <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-      <p>
+      <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
              <div>
@@ -1649,11 +1637,10 @@ RSpec.describe IsoDoc do
              </div>
              <p>&#160;</p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection3'>
-             <p class='zzSTDTitle1'/>
            </div>
          </body>
        </html>
@@ -1672,10 +1659,10 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
       <p>
-      <eref type="inline" bibitemid="ISO712" citeas="BSI BS EN ISO 19011:2018&#8201;&#8212;&#8201;TC"/>
+      <eref type="inline" bibitemid="ISO712" citeas="BSI BS EN ISO 19011:2018&#8201;&#8212;&#8201;TC"/></p>
       </foreword></preface>
               <bibliography>
-          <references id='_normative_references' obligation='informative' normative='true' displayorder="2">
+          <references id='_normative_references' obligation='informative' normative='true'>
           <title>Normative References</title>
             <bibitem id='ISO712' type='standard'>
               <title format='text/plain'>Cereals and cereal products</title>
@@ -1700,8 +1687,9 @@ RSpec.describe IsoDoc do
               <link target='http://www.example.com'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</link>
             </p>
           </foreword>
-          <bibliography displayorder='3'>
-            <references id='_' obligation='informative' normative='true' displayorder='4'>
+          </preface>
+          <sections>
+            <references id='_' obligation='informative' normative='true' displayorder='3'>
               <title depth='1'>
                 1.
                 <tab/>
@@ -1714,8 +1702,9 @@ RSpec.describe IsoDoc do
                 <biblio-tag>ISO&#xa0;712,</biblio-tag>
               </bibitem>
             </references>
+          </sections>
+          <bibliography>
           </bibliography>
-        </preface>
       </iso-standard>
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
@@ -1786,7 +1775,7 @@ RSpec.describe IsoDoc do
       <itu-standard xmlns="https://www.calconnect.org/standards/itu">
       <preface>
              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-       <foreword id="A">
+       <foreword id="A" displayorder="2">
       <add>ABC <xref target="A"></add> <del><strong>B</strong></del>
       </foreword></preface>
       </itu-standard>
@@ -1804,7 +1793,6 @@ RSpec.describe IsoDoc do
                  </span>
                </span>
              </div>
-             <p class='zzSTDTitle1'/>
            </div>
          </body>
        </html>

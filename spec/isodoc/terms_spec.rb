@@ -156,7 +156,6 @@ RSpec.describe IsoDoc do
 
     html = <<~"OUTPUT"
       #{HTML_HDR}
-                      <p class="zzSTDTitle1"/>
              <div id="_"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
              &#8211;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
@@ -202,7 +201,6 @@ RSpec.describe IsoDoc do
 
     word = <<~"WORD"
       #{WORD_HDR}
-                       <p class="zzSTDTitle1"/>
              <div id="_"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
              &#8211;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>

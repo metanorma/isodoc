@@ -551,7 +551,6 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
-              <p class='zzSTDTitle1'/>
               <div id='_'>
                 <h1>
                   <b>Annex A</b>
@@ -607,7 +606,6 @@ RSpec.describe IsoDoc do
     OUTPUT
     doc = <<~OUTPUT
       #{WORD_HDR}
-              <p class='zzSTDTitle1'/>
               <div id='_'>
                 <h1>
                   <b>Annex A</b>
@@ -640,7 +638,7 @@ RSpec.describe IsoDoc do
                   <p id='_'>Text</p>
                 </div>
               </div>
-              <p>
+              <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
               <div id='_' class='Section3'>
@@ -1335,6 +1333,7 @@ RSpec.describe IsoDoc do
         .convert("test", input, true))
     xml.at("//xmlns:localized-strings")&.remove
     xml.at("//xmlns:bibliography")&.remove
+    xml.at("//xmlns:references")&.remove
     expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
   end
@@ -1450,11 +1449,11 @@ RSpec.describe IsoDoc do
             </title>
             <p id='_'>No terms and definitions are listed in this document.</p>
           </terms>
-        </sections>
-        <bibliography>
           <references hidden='true' normative='true' displayorder='3'>
             <title depth='1'>Normative references</title>
           </references>
+        </sections>
+        <bibliography>
         </bibliography>
       </standard-document>
     OUTPUT

@@ -5,10 +5,6 @@ module IsoDoc
     module Blocks
       @annotation = false
 
-      def middle_title(_isoxml, out)
-        out.p(class: "zzSTDTitle1") { |p| p << @meta.get[:doctitle] }
-      end
-
       def figure_name_parse(_node, div, name)
         name.nil? and return
         div.p class: "FigureTitle", style: "text-align:center;" do |p|
@@ -140,6 +136,7 @@ module IsoDoc
         if node["type"] == "floating-title"
           classtype = "h#{node['depth']}"
         end
+        classtype ||= node["class"]
         classtype
       end
 
