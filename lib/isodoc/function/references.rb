@@ -150,17 +150,15 @@ module IsoDoc
           "//sections/clause[.//references[@normative = 'true']]"
       end
 
-      def norm_ref(node, out, num)
-        node["hidden"] != "true" or return num
+      def norm_ref(node, out)
+        node["hidden"] != "true" or return
         out.div do |div|
-          num += 1
           clause_name(node, node.at(ns("./title")), div, nil)
           if node.name == "clause"
             node.elements.each { |e| parse(e, div) unless e.name == "title" }
           else biblio_list(node, div, false)
           end
         end
-        num
       end
 
       def bibliography_xpath

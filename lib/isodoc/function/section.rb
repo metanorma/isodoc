@@ -45,29 +45,25 @@ module IsoDoc
         clause_parse(node, out)
       end
 
-      def scope(node, out, num)
+      def scope(node, out)
         out.div **attr_code(id: node["id"]) do |div|
-          num = num + 1
-          clause_name(node, node&.at(ns("./title")), div, nil)
+          clause_name(node, node.at(ns("./title")), div, nil)
           node.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
-        num
       end
 
       TERM_CLAUSE = "//sections/terms | " \
                     "//sections/clause[descendant::terms]".freeze
 
-      def terms_defs(node, out, num)
+      def terms_defs(node, out)
         out.div **attr_code(id: node["id"]) do |div|
-          num = num + 1
           clause_name(node, node.at(ns("./title")), div, nil)
           node.elements.each do |e|
             parse(e, div) unless %w{title source}.include? e.name
           end
         end
-        num
       end
 
       # subclause
@@ -75,15 +71,13 @@ module IsoDoc
         clause_parse(isoxml, out)
       end
 
-      def symbols_abbrevs(node, out, num)
+      def symbols_abbrevs(node, out)
         out.div **attr_code(id: node["id"], class: "Symbols") do |div|
-          num = num + 1
           clause_name(node, node.at(ns("./title")), div, nil)
           node.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
-        num
       end
 
       # subclause

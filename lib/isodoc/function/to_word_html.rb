@@ -91,7 +91,7 @@ module IsoDoc
       def make_body3(body, docxml)
         body.div class: "main-section" do |div3|
           boilerplate docxml, div3
-          content(div3, docxml, ns(self::TOP_ELEMENTS))
+          content(div3, docxml, ns(self.class::TOP_ELEMENTS))
           footnotes div3
           comments div3
         end
@@ -113,19 +113,19 @@ module IsoDoc
         when "executivesummary" then executivesummary e, out
         when "acknowledgements" then acknowledgements e, out
         when "annex" then annex e, out
-        when "definitions" then symbols_abbrevs e, out, 0
+        when "definitions" then symbols_abbrevs e, out
         when "indexsect" then indexsect e, out
         when "references"
-          if e["normative"] == "true" then norm_ref e, out, 0
+          if e["normative"] == "true" then norm_ref e, out
           else bibliography e, out
           end
         when "clause"
           if e.parent.name == "preface" then preface e, out
           elsif e.parent.name == "colophon" then colophon e, out
-          elsif e["type"] == "scope" then scope e, out, 0
-          elsif e.at(ns(".//terms")) then terms_defs e, out, 0
+          elsif e["type"] == "scope" then scope e, out
+          elsif e.at(ns(".//terms")) then terms_defs e, out
           elsif e.at(ns(".//references[@normative = 'true']"))
-            norm_ref e, out, 0
+            norm_ref e, out
           elsif e.at(ns(".//references")) then bibliography e, out
           else clause e, out
           end

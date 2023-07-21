@@ -21,9 +21,9 @@ module IsoDoc
     def toc_init(docxml)
       x = "//metanorma-extension/presentation-metadata" \
           "[name[text() = 'TOC Heading Levels']]/value"
-      n = docxml.at(ns(x.sub(/TOC/, "DOC TOC"))) and
+      n = docxml.at(ns(x.sub("TOC", "DOC TOC"))) and
         @wordToClevels = n.text.to_i
-      n = docxml.at(ns(x.sub(/TOC/, "HTML TOC"))) and
+      n = docxml.at(ns(x.sub("TOC", "HTML TOC"))) and
         @htmlToClevels = n.text.to_i
     end
 
@@ -93,7 +93,7 @@ module IsoDoc
       @fn_bookmarks = {}
     end
 
-        def init_fonts(options)
+    def init_fonts(options)
       @normalfontsize = options[:normalfontsize]
       @smallerfontsize = options[:smallerfontsize]
       @monospacefontsize = options[:monospacefontsize]

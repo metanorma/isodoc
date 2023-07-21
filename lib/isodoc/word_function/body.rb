@@ -42,7 +42,7 @@ module IsoDoc
 
       def make_body3(body, docxml)
         body.div class: "WordSection3" do |div3|
-          content(div3, docxml, ns(self::MAIN_ELEMENTS))
+          content(div3, docxml, ns(self.class::MAIN_ELEMENTS))
           footnotes div3
           comments div3
         end
