@@ -41,6 +41,10 @@ module IsoDoc
         end
       end
 
+      def indexsect(node, out)
+        clause_parse(node, out)
+      end
+
       def scope(node, out, num)
         out.div **attr_code(id: node["id"]) do |div|
           num = num + 1

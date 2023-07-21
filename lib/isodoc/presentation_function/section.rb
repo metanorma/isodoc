@@ -34,10 +34,10 @@ module IsoDoc
     end
 
     def floattitle(docxml)
-      docxml.xpath(ns("//clause | //annex | //appendix | //introduction | " \
-                      "//foreword | //preface/abstract | //acknowledgements | " \
-                      "//terms | //definitions | //references | //colophon"))
-        .each do |f|
+      p = "//clause | //annex | //appendix | //introduction | //foreword | " \
+          "//preface/abstract | //acknowledgements | //terms | " \
+          "//definitions | //references | //colophon | //indexsect"
+      docxml.xpath(ns(p)).each do |f|
         floattitle1(f)
       end
       # top-level

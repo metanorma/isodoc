@@ -38,7 +38,7 @@ module IsoDoc
 
       def xref_parse(node, out)
         target = if /#/.match?(node["target"])
-                   node["target"].sub(/#/, ".html#")
+                   node["target"].sub("#", ".html#")
                  else
                    "##{node['target']}"
                  end
@@ -150,7 +150,7 @@ module IsoDoc
       end
 
       def error_parse(node, out)
-        text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
+        text = node.to_xml.gsub("<", "&lt;").gsub(">", "&gt;")
         out.para do |p|
           p.b(role: "strong") { |e| e << text }
         end
