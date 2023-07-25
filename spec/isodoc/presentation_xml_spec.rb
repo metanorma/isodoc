@@ -1674,7 +1674,7 @@ RSpec.describe IsoDoc do
 
   it "does not break up very long strings in tables by default" do
     input = <<~INPUT
-      <standard-document>
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
         <preface>
           <foreword id="A">
               <table id="tableD-1">
@@ -1689,10 +1689,10 @@ RSpec.describe IsoDoc do
        </foreword></preface></standard-document>
     INPUT
     presxml = <<~OUTPUT
-      <standard-document xmlns="" type="presentation">
-         <preface>
-           <foreword id="A">
-             <table id="tableD-1">
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <foreword id="A" displayorder="2">
+          <table id="tableD-1"><name>Table 1</name>
                <tbody>
                  <tr>
                    <td align="left">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/BBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
@@ -1713,7 +1713,7 @@ RSpec.describe IsoDoc do
 
   it "breaks up very long strings in tables on request" do
     input = <<~INPUT
-      <standard-document>
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
         <preface>
           <foreword id="A">
               <table id="tableD-1">
@@ -1744,10 +1744,10 @@ RSpec.describe IsoDoc do
        </foreword></preface></standard-document>
     INPUT
     presxml = <<~OUTPUT
-      <standard-document xmlns="" type="presentation">
-        <preface>
-          <foreword id="A">
-              <table id="tableD-1">
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <foreword id="A" displayorder="2">
+               <table id="tableD-1"><name>Table 1</name>
                   <tbody>
                   <tr>
                     <td align="left">http://&#x200B;www.example.&#x200B;com/&#x200B;AAAAAAAAAAAAAAAAA&#xAD;AAAAAAAAAAAAAAAAAAAA&#xAD;AAAAAAAA/&#x200B;BBBBBBBBBBB&#xAD;BBBBBBBBBBBBBBBBB</td>

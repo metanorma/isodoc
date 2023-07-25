@@ -103,7 +103,7 @@ module IsoDoc
 
     def table_long_strings_cleanup(docxml)
       @break_up_urls_in_tables or return
-      docxml.xpath("//td | //th").each do |d|
+      docxml.xpath(ns("//td | //th")).each do |d|
         d.traverse do |n|
           n.text? or next
           ret = break_up_long_str(n.text)
