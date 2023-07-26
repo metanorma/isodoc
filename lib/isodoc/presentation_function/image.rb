@@ -114,7 +114,7 @@ module IsoDoc
         node["width"] = node.elements.first["width"]
       end
       ret = imgfile_suffix(uri, "emf")
-      File.exist?(ret) && File.exist?(uri) and return ret
+      File.exist?(ret) && File.exist?(node["src"]) and return ret
       inkscape_convert(uri, ret, '--export-type="emf"')
     end
 
