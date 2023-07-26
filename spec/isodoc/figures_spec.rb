@@ -1,4 +1,5 @@
 require "spec_helper"
+require "fileutils"
 
 RSpec.describe IsoDoc do
   it "processes figures" do
@@ -800,12 +801,12 @@ RSpec.describe IsoDoc do
                <sections>
                  <figure id='_'>
                    <image src='spec/assets/action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'>
-                      <emf src='spec/assets/action_schemaexpg1.emf'/>
+                      <emf src="data:image/emf;base64"/>
                     </image>
                  </figure>
                  <figure id='_'>
                    <image src='spec/assets/action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'>
-                      <emf src='spec/assets/action_schemaexpg2.emf'/>
+                      <emf src="data:image/emf;base64"/>
                     </image>
                  </figure>
                </sections>
@@ -819,6 +820,8 @@ RSpec.describe IsoDoc do
                </bibliography>
              </iso-standard>
     OUTPUT
+    FileUtils.rm_rf("spec/assets/action_schemaexpg1.emf")
+    FileUtils.rm_rf("spec/assets/action_schemaexpg2.emf")
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
