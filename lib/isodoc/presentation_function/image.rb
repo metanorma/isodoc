@@ -132,7 +132,7 @@ module IsoDoc
       uri = Metanorma::Utils::external_path uri
       exe = Metanorma::Utils::external_path exe
       warn %(#{exe} #{option} #{uri})
-      system(%(#{exe} #{option} #{uri})) and
+      system(%(#{exe} #{option} #{uri})) && File.exist?(file) and
         return Metanorma::Utils::datauri(file)
 
       raise %(Fail on #{exe} #{option} #{uri})

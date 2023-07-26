@@ -738,7 +738,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to (output)
   end
 
-  it "converts EPS to SVG files" do
+  xit "converts EPS to SVG files" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>

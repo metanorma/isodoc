@@ -767,11 +767,11 @@ RSpec.describe IsoDoc do
           </target>
         </svgmap>
         <figure id='_'>
-        <image src='action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'/>
+        <image src='spec/assets/action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'/>
       </figure>
       <svgmap id='_'>
         <figure id='_'>
-          <image src='action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'/>
+          <image src='spec/assets/action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'/>
         </figure>
           <target href='mn://support_resource_schema'>
             <eref bibitemid='express_action_schema' citeas=''>
@@ -799,13 +799,13 @@ RSpec.describe IsoDoc do
         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
                <sections>
                  <figure id='_'>
-                   <image src='action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'>
-                      <emf src='./action_schemaexpg1.emf'/>
+                   <image src='spec/assets/action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'>
+                      <emf src='spec/assets/action_schemaexpg1.emf'/>
                     </image>
                  </figure>
                  <figure id='_'>
-                   <image src='action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'>
-                      <emf src='./action_schemaexpg2.emf'/>
+                   <image src='spec/assets/action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'>
+                      <emf src='spec/assets/action_schemaexpg2.emf'/>
                     </image>
                  </figure>
                </sections>
@@ -823,7 +823,8 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"\.\\}, '"./')
-      .gsub(%r{'\.\\}, "'./")))
+      .gsub(%r{'\.\\}, "'./")
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
       .to be_equivalent_to xmlpp(output)
   end
 end
