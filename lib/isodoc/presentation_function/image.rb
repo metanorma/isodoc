@@ -134,7 +134,8 @@ module IsoDoc
       warn %(#{exe} #{option} #{uri})
       err = system %(#{exe} #{option} #{uri})
       File.exist?(file) and return Metanorma::Utils::datauri(file)
-      raise %(Fail on #{exe} #{option} #{uri}: status #{err})
+      warn `ls #{File.dirname(file)}`
+      raise %(Fail on #{exe} #{option} #{uri} outputting #{file}: status #{err})
     end
 
     def svg_to_emf_uri(node)
