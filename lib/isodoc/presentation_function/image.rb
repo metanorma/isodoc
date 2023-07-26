@@ -131,6 +131,7 @@ module IsoDoc
                                          "to convert image #{uri}. Aborting."
       uri = Metanorma::Utils::external_path uri
       exe = Metanorma::Utils::external_path exe
+      warn %(#{exe} #{option} #{uri})
       system(%(#{exe} #{option} #{uri})) and
         return Metanorma::Utils::datauri(file)
 
