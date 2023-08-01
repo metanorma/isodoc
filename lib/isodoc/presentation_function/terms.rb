@@ -52,6 +52,7 @@ module IsoDoc
         name << ", #{designation_grammar(g).join(', ')}"
       designation_localization(desgn, name)
       designation_pronunciation(desgn, name)
+      designation_bookmarks(desgn, name)
       desgn.children = name.children
     end
 
@@ -92,6 +93,12 @@ module IsoDoc
     def designation_pronunciation(desgn, name)
       f = desgn.at(ns("./expression/pronunciation")) or return
       name << ", /#{to_xml(f.children)}/"
+    end
+
+    def designation_bookmarks(desgn, name)
+      desgn.xpath(ns(".//bookmark")).each do |b|
+        name << b.remove
+      end
     end
 
     def termexample(docxml)
