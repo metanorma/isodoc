@@ -1,8 +1,8 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_container(container, linkend, node, _target)
-      l10n(@i18n.nested_xref.sub(/%1/, anchor_xref(node, container))
-        .sub(/%2/, linkend))
+      l10n(@i18n.nested_xref.sub("%1", anchor_xref(node, container))
+        .sub("%2", linkend))
     end
 
     def anchor_value(id)
@@ -133,8 +133,8 @@ module IsoDoc
     end
 
     def i18n_chain_boolean(value, entry)
-      @i18n.send("chain_#{entry[:conn]}").sub(/%1/, value)
-        .sub(/%2/, loc2xref(entry))
+      @i18n.send("chain_#{entry[:conn]}").sub("%1", value)
+        .sub("%2", loc2xref(entry))
     end
 
     def can_conflate_xref_rendering?(locs)

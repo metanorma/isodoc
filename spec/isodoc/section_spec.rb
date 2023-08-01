@@ -256,6 +256,9 @@ RSpec.describe IsoDoc do
        </references>
        </clause>
        </bibliography>
+       <indexsect id="INDX">
+       <title>Index</title>
+       </indexsect>
        <colophon>
       <clause id="U1" obligation="informative">
          <title>Postface 1</title>
@@ -2019,6 +2022,44 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+  end
+
+  it "processes annexes containing one, or more than one special sections" do
+    input = <<~INPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml">
+                    <indexsect id='PP' obligation='normative' displayorder="1">
+        <title>Glossary</title>
+        <ul>
+        <li>A</li>
+        </ul>
+      </indexsect>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <html lang="en">
+         <head/>
+         <body lang="en">
+           <div class="title-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="prefatory-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="main-section">
+             <div id="PP">
+               <h1>Glossary</h1>
+               <ul>
+                 <li>A</li>
+               </ul>
+             </div>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+         .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes annexes containing one, or more than one special sections" do
