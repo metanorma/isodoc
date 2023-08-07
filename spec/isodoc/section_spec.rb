@@ -5,18 +5,18 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <abstract id="A"><title>abstract</title></abstract>
-      <introduction id="B"><title>introduction</title></introduction>
-      <note id="C">note</note>
+      <abstract id="A" displayorder="1"><title>abstract</title></abstract>
+      <introduction id="B" displayorder="2"><title>introduction</title></introduction>
+      <note id="C" displayorder="3">note</note>
       </preface>
       <sections>
-       <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+       <clause id="M" inline-header="false" obligation="normative" displayorder="4"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
        </clause>
-       <clause id="O" inline-header="true" obligation="normative">
+       <clause id="O" inline-header="true" obligation="normative" displayorder="5">
          <title>Clause 4.2</title>
        </clause></clause>
-       <admonition id="L" type="caution"><p>admonition</p></admonition>
+       <admonition id="L" type="caution" displayorder="6"><p>admonition</p></admonition>
        </sections>
       </iso-standard>
     INPUT
@@ -34,7 +34,6 @@ RSpec.describe IsoDoc do
             </div>
             <br/>
             <div class='main-section'>
-              <div id='C' class='Note'>note</div>
               <br/>
               <div id='A'>
                 <h1 class='AbstractTitle'>abstract</h1>
@@ -43,10 +42,7 @@ RSpec.describe IsoDoc do
               <div class='Section3' id='B'>
                 <h1 class='IntroTitle'>introduction</h1>
               </div>
-              <p class='zzSTDTitle1'/>
-              <div id='L' class='Admonition'>
-                <p>admonition</p>
-              </div>
+              <div id='C' class='Note'>note</div>
               <div id='M'>
                 <h1>Clause 4</h1>
                 <div id='N'>
@@ -57,6 +53,9 @@ RSpec.describe IsoDoc do
                     <b>Clause 4.2&#160; </b>
                   </span>
                 </div>
+              </div>
+              <div id='L' class='Admonition'>
+                <p>admonition</p>
               </div>
             </div>
           </body>
@@ -73,7 +72,7 @@ RSpec.describe IsoDoc do
             <div class='WordSection1'>
               <p>&#160;</p>
             </div>
-            <p>
+            <p class="section-break">
               <br clear='all' class='section'/>
             </p>
             <div class='WordSection2'>
@@ -84,13 +83,13 @@ RSpec.describe IsoDoc do
                 </p>
                 note
               </div>
-              <p>
+              <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
               <div id='A'>
                 <h1 class='AbstractTitle'>abstract</h1>
               </div>
-              <p>
+              <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
               <div class='Section3' id='B'>
@@ -98,11 +97,10 @@ RSpec.describe IsoDoc do
               </div>
               <p>&#160;</p>
             </div>
-            <p>
+            <p class="section-break">
               <br clear='all' class='section'/>
             </p>
             <div class='WordSection3'>
-              <p class='zzSTDTitle1'/>
               <div id='L' class='Admonition'>
                 <p>admonition</p>
               </div>
@@ -146,7 +144,6 @@ RSpec.describe IsoDoc do
           </div>
           <br/>
           <div class="main-section">
-            <p class="zzSTDTitle1"/>
           </div>
         </body>
       </html>
@@ -259,6 +256,9 @@ RSpec.describe IsoDoc do
        </references>
        </clause>
        </bibliography>
+       <indexsect id="INDX">
+       <title>Index</title>
+       </indexsect>
        <colophon>
       <clause id="U1" obligation="informative">
          <title>Postface 1</title>
@@ -322,19 +322,19 @@ RSpec.describe IsoDoc do
           </acknowledgements>
         </preface>
         <sections>
-          <note id='NN1'>
+          <note id='NN1' displayorder="8">
             <name>NOTE</name>
             <p>Initial note</p>
           </note>
-          <admonition id='NN2' type='warning'>
+          <admonition id='NN2' type='warning' displayorder="9">
             <name>WARNING</name>
             <p>Initial admonition</p>
           </admonition>
-          <clause id='D' obligation='normative' type='scope' displayorder='8'>
+          <clause id='D' obligation='normative' type='scope' displayorder='10'>
             <title depth='1'>1.<tab/>Scope</title>
             <p id='E'>Text</p>
           </clause>
-          <clause id='H' obligation='normative' displayorder='10'>
+          <clause id='H' obligation='normative' displayorder='12'>
             <title depth='1'>3.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
             <terms id='I' obligation='normative'>
               <title depth='2'>3.1.<tab/>Normal Terms</title>
@@ -351,14 +351,14 @@ RSpec.describe IsoDoc do
               </dl>
             </definitions>
           </clause>
-          <definitions id='L' displayorder='11'>
+          <definitions id='L' displayorder='13'>
             <title depth='1'>4.<tab/>Symbols and abbreviated terms</title>
             <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
             </dl>
           </definitions>
-          <clause id='M' inline-header='false' obligation='normative' displayorder='12'>
+          <clause id='M' inline-header='false' obligation='normative' displayorder='14'>
             <title depth='1'>5.<tab/>Clause 4</title>
             <clause id='N' inline-header='false' obligation='normative'>
               <title depth='2'>5.1.<tab/>Introduction</title>
@@ -370,8 +370,11 @@ RSpec.describe IsoDoc do
               <title>5.3.</title>
             </clause>
           </clause>
+          <references id="R" obligation="informative" normative="true" displayorder="11">
+            <title depth="1">2.<tab/>Normative References</title>
+          </references>
         </sections>
-        <annex id='P' inline-header='false' obligation='normative' displayorder='13'>
+        <annex id='P' inline-header='false' obligation='normative' displayorder='15'>
           <title>
             <strong>Annex A</strong>
             <br/>
@@ -390,7 +393,7 @@ RSpec.describe IsoDoc do
             </references>
           </clause>
         </annex>
-        <annex id='P1' inline-header='false' obligation='normative' displayorder='14'>
+        <annex id='P1' inline-header='false' obligation='normative' displayorder='16'>
           <title>
             <strong>Annex B</strong>
             <br/>
@@ -398,10 +401,7 @@ RSpec.describe IsoDoc do
           </title>
         </annex>
         <bibliography>
-          <references id='R' obligation='informative' normative='true' displayorder='9'>
-            <title depth='1'>2.<tab/>Normative References</title>
-          </references>
-          <clause id='S' obligation='informative' displayorder='15'>
+          <clause id='S' obligation='informative' displayorder='17'>
             <title depth='1'>Bibliography</title>
             <references id='T' obligation='informative' normative='false'>
               <title depth='2'>Bibliography Subsection</title>
@@ -409,10 +409,10 @@ RSpec.describe IsoDoc do
           </clause>
         </bibliography>
         <colophon>
-          <clause id="U1" obligation="informative" displayorder="16">
+          <clause id="U1" obligation="informative" displayorder="18">
             <title depth="1">Postface 1</title>
           </clause>
-          <clause id="U2" obligation="informative" displayorder="17">
+          <clause id="U2" obligation="informative" displayorder="19">
             <title depth="1">Postface 2</title>
           </clause>
         </colophon>
@@ -471,7 +471,6 @@ RSpec.describe IsoDoc do
                        <div class='Section3' id=''>
                          <h1 class='IntroTitle'>Acknowledgements</h1>
                        </div>
-                                       <p class="zzSTDTitle1"/>
                                         <div id='NN1' class='Note'>
                           <p>
                           <span class='note_label'>NOTE</span>
@@ -564,7 +563,7 @@ RSpec.describe IsoDoc do
           <div class="WordSection1">
             <p>&#160;</p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection2">
@@ -590,26 +589,26 @@ RSpec.describe IsoDoc do
             </div>
           </div>
         </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
                   <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-      <p>
+      <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
             <div>
               <h1 class="AbstractTitle">Abstract</h1>
             </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div>
               <h1 class="ForewordTitle">Foreword</h1>
               <p id="A">This is a preamble</p>
             </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div class="Section3" id="B">
@@ -618,19 +617,19 @@ RSpec.describe IsoDoc do
 
             </div>
             </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div class="Section3" id="B1">
               <h1 class="IntroTitle">Dedication</h1>
             </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div class="Section3" id="B2">
               <h1 class="IntroTitle">Note to reader</h1>
             </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div class="Section3" id="">
@@ -638,11 +637,10 @@ RSpec.describe IsoDoc do
             </div>
             <p>&#160;</p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
-            <p class="zzSTDTitle1"/>
             <div id="NN1" class="Note">
               <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>Initial note</p>
             </div>
@@ -693,7 +691,7 @@ RSpec.describe IsoDoc do
 
             </div>
             </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div id="P" class="Section3">
@@ -709,13 +707,13 @@ RSpec.describe IsoDoc do
             </div>
           </div>
             </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div id="P1" class="Section3">
               <h1 class="Annex"><b>Annex B</b><br/>(normative)</h1>
             </div>
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div><h1 class="Section3">Bibliography</h1>
@@ -724,7 +722,7 @@ RSpec.describe IsoDoc do
 
             </div>
           </div>
-                <p>
+                <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="Section3" id="U1">
@@ -929,7 +927,6 @@ RSpec.describe IsoDoc do
                 Variant 1
               </h1>
             </div>
-            <p class='zzSTDTitle1'/>
             <div id='NN1' class='Note'>
               <p>
                 <span class='note_label'>NOTE</span>
@@ -1104,17 +1101,17 @@ RSpec.describe IsoDoc do
           <div class='WordSection1'>
             <p>&#160;</p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection2'>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
                   <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-      <p>
+      <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div>
@@ -1125,7 +1122,7 @@ RSpec.describe IsoDoc do
                 Variant 1
               </h1>
             </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div>
@@ -1137,7 +1134,7 @@ RSpec.describe IsoDoc do
               </h1>
               <p id='A'>This is a preamble</p>
             </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div class='Section3' id='B'>
@@ -1151,7 +1148,7 @@ RSpec.describe IsoDoc do
                 </h2>
               </div>
             </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div class='Section3' id='B1'>
@@ -1162,7 +1159,7 @@ RSpec.describe IsoDoc do
                 Variant 1
               </h1>
             </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div class='Section3' id='B2'>
@@ -1173,7 +1170,7 @@ RSpec.describe IsoDoc do
                 Variant 1
               </h1>
             </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div class='Section3' id=''>
@@ -1186,11 +1183,10 @@ RSpec.describe IsoDoc do
             </div>
             <p>&#160;</p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear='all' class='section'/>
           </p>
           <div class='WordSection3'>
-            <p class='zzSTDTitle1'/>
             <div id='NN1' class='Note'>
               <p class='Note'>
                 <span class='note_label'>NOTE</span>
@@ -1314,7 +1310,7 @@ RSpec.describe IsoDoc do
                 <h2>5.3.</h2>
               </div>
             </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div id='P' class='Section3'>
@@ -1361,7 +1357,7 @@ RSpec.describe IsoDoc do
                 </div>
               </div>
             </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div id='P1' class='Section3'>
@@ -1371,7 +1367,7 @@ RSpec.describe IsoDoc do
                 (normative)
               </h1>
             </div>
-            <p>
+            <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
             <div>
@@ -1517,6 +1513,9 @@ RSpec.describe IsoDoc do
             </clause>
             <clause id='O1' inline-header='false' obligation='normative'> </clause>
           </clause>
+          <references id='R' obligation='informative' normative='true' displayorder='5'>
+            <title depth='1'>Normative References</title>
+          </references>
         </sections>
         <annex id='P' inline-header='false' obligation='normative' displayorder='9'>
           <title>
@@ -1535,9 +1534,6 @@ RSpec.describe IsoDoc do
           </clause>
         </annex>
         <bibliography>
-          <references id='R' obligation='informative' normative='true' displayorder='5'>
-            <title depth='1'>Normative References</title>
-          </references>
           <clause id='S' obligation='informative' displayorder='10'>
             <title depth='1'>Bibliography</title>
             <references id='T' obligation='informative' normative='false'>
@@ -1635,8 +1631,8 @@ RSpec.describe IsoDoc do
               </clause>
             </clause>
           </clause>
-          <p depth='1' type='floating-title'>D</p>
-          <clause id='C4' displayorder='5'>
+          <p depth='1' type='floating-title' displayorder="5">D</p>
+          <clause id='C4' displayorder='6'>
             <title depth='1'>
               2.
               <tab/>
@@ -1652,7 +1648,6 @@ RSpec.describe IsoDoc do
              <p class='h1'>A0</p>
              <br/>
              <div class='Section3' id='B'>
-              <p class='h1'>A0</p>
                <h1 class='IntroTitle'>Introduction</h1>
                <p class='h1'>A</p>
                <div id='B1'>
@@ -1664,7 +1659,6 @@ RSpec.describe IsoDoc do
                  </div>
                </div>
              </div>
-             <p class='zzSTDTitle1'/>
                    <div id='C'>
         <h1> 1. &#160; Introduction </h1>
         <p class='h1'>A</p>
@@ -1677,8 +1671,8 @@ RSpec.describe IsoDoc do
           </div>
         </div>
       </div>
-      <div id='C4'>
       <p class='h1'>D</p>
+      <div id='C4'>
         <h1> 2. &#160; Clause 2 </h1>
       </div>
            </div>
@@ -1687,90 +1681,34 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-         <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-       <head>
-         <style></style>
-       </head>
-                <body lang='EN-US' link='blue' vlink='#954F72'>
-            <div class='WordSection1'>
-              <p>&#160;</p>
-            </div>
-            <p>
-              <br clear='all' class='section'/>
-            </p>
-            <div class='WordSection2'>
-               <p>
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
-             <p>A0</p>
-              <p>
-                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-              </p>
-              <div class='Section3' id='B'>
-              <p>A0</p>
-                <h1 class='IntroTitle'>Introduction</h1>
-                <p>A</p>
-                <div id='B1'>
-                  <h2>Introduction Subsection</h2>
-                  <p>B</p>
-                  <div id='B2'>
-                    <h3>Introduction Sub-subsection</h3>
-                    <p>C</p>
-                  </div>
-                </div>
-              </div>
-              <p>&#160;</p>
-            </div>
-            <p>
-              <br clear='all' class='section'/>
-            </p>
-            <div class='WordSection3'>
-              <p class='zzSTDTitle1'/>
-                   <div id='C'>
-        <h1>
-           1.
-          <span style='mso-tab-count:1'>&#160; </span>
-           Introduction
-        </h1>
-        <p>A</p>
-        <div id='C1'>
-          <h2>
-             1.1.
-            <span style='mso-tab-count:1'>&#160; </span>
-             Introduction Subsection
-          </h2>
-          <p>B</p>
-          <div id='C2'>
-            <h3>
-               1.1.1.
-              <span style='mso-tab-count:1'>&#160; </span>
-               Introduction Sub-subsection
-            </h3>
-            <p>C</p>
-          </div>
-        </div>
-      </div>
-      <div id='C4'>
-        <p>D</p>
-        <h1>
-           2.
-          <span style='mso-tab-count:1'>&#160; </span>
-           Clause 2
-        </h1>
-      </div>
-            </div>
-          </body>
-        </html>
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US"><div class="WordSection1"><p class="MsoNormal"> </p></div><p class="MsoNormal"><br clear="all" class="section"/></p><div class="WordSection2"><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="TOC"><a name="_" id="_"/><p class="zzContents">Table of contents</p></div><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><p class="h1">A0</p><div class="Section3"><a name="B" id="B"/><h1 class="IntroTitle">Introduction</h1><p class="h1">A</p><div><a name="B1" id="B1"/><h2>Introduction Subsection</h2><p class="h2">B</p><div><a name="B2" id="B2"/><h3>Introduction Sub-subsection</h3><p class="h1">C</p></div></div></div><p class="MsoNormal"> </p></div><p class="MsoNormal"><br clear="all" class="section"/></p><div class="WordSection3"><div><a name="C" id="C"/><h1>
+               1.
+               <span style="mso-tab-count:1">  </span>
+               Introduction
+             </h1><p class="h1">A</p><div><a name="C1" id="C1"/><h2>
+                 1.1.
+                 <span style="mso-tab-count:1">  </span>
+                 Introduction Subsection
+               </h2><p class="h2">B</p><div><a name="C2" id="C2"/><h3>
+                   1.1.1.
+                   <span style="mso-tab-count:1">  </span>
+                   Introduction Sub-subsection
+                 </h3><p class="h1">C</p></div></div></div><p class="h1">D</p><div><a name="C4" id="C4"/><h1>
+               2.
+               <span style="mso-tab-count:1">  </span>
+               Clause 2
+             </h1></div></div><div style="mso-element:footnote-list"/>
+         </body>
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(word)
+    IsoDoc::WordConvert.new({}).convert("test", presxml, false)
+    expect(xmlpp(File.read("test.doc")
+    .sub(/^.*<body/m, "<body")
+    .sub(%r{</body>.*$}m, "")))
+      .to be_equivalent_to xmlpp(word)
   end
 
   it "processes section titles without ID" do
@@ -1840,7 +1778,6 @@ RSpec.describe IsoDoc do
 
     html = <<~"OUTPUT"
       #{HTML_HDR}
-                   <p class="zzSTDTitle1"/>
                    <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
            <p class="TermNum" id="J">1.1.</p>
              <p class="Terms" style="text-align:left;"><b>Term2</b></p>
@@ -1895,7 +1832,6 @@ RSpec.describe IsoDoc do
 
     output = <<~"OUTPUT"
       #{HTML_HDR}
-                   <p class="zzSTDTitle1"/>
                    <div id="M">
                      <h1>1.&#160; Clause 4</h1>
                      <div id="N">
@@ -2027,32 +1963,38 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
-                  <bibliography>
-              <clause id="D" obligation="informative" displayorder="3">
-               <title depth="1">Bibliography</title>
-               <references id="E" obligation="informative" normative="false">
-               <title depth="2">Bibliography Subsection 1</title>
-             </references>
-               <references id="F" obligation="informative" normative="false">
-               <title depth="2">Bibliography Subsection 2</title>
-             </references>
-             </clause>
-             <clause id="A" obligation="informative" displayorder="2"><title depth="1">1.<tab/>First References</title>
-              <references id="B" obligation="informative" normative="true">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <clause id="A" obligation="informative" displayorder="2">
+             <title depth="1">1.<tab/>First References</title>
+             <references id="B" obligation="informative" normative="true">
                <title depth="2">1.1.<tab/>Normative References 1</title>
              </references>
-              <references id="C" obligation="informative" normative="false">
+             <references id="C" obligation="informative" normative="false">
                <title depth="2">1.2.<tab/>Normative References 2</title>
              </references>
-              </clause>
-             </bibliography>
-             </iso-standard>
+           </clause>
+         </sections>
+         <bibliography>
+           <clause id="D" obligation="informative" displayorder="3">
+             <title depth="1">Bibliography</title>
+             <references id="E" obligation="informative" normative="false">
+               <title depth="2">Bibliography Subsection 1</title>
+             </references>
+             <references id="F" obligation="informative" normative="false">
+               <title depth="2">Bibliography Subsection 2</title>
+             </references>
+           </clause>
+         </bibliography>
+       </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                 <p class='zzSTDTitle1'/>
                  <div>
                    <h1>1.&#160; First References</h1>
                    <div>
@@ -2080,6 +2022,44 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+  end
+
+  it "processes annexes containing one, or more than one special sections" do
+    input = <<~INPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml">
+                    <indexsect id='PP' obligation='normative' displayorder="1">
+        <title>Glossary</title>
+        <ul>
+        <li>A</li>
+        </ul>
+      </indexsect>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <html lang="en">
+         <head/>
+         <body lang="en">
+           <div class="title-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="prefatory-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="main-section">
+             <div id="PP">
+               <h1>Glossary</h1>
+               <ul>
+                 <li>A</li>
+               </ul>
+             </div>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+         .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes annexes containing one, or more than one special sections" do

@@ -4,7 +4,7 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def expand_citeas(text)
       text.nil? and return text
-      HTMLEntities.new.decode(text.gsub(/&amp;#x/, "&#"))
+      HTMLEntities.new.decode(text.gsub("&amp;#x", "&#"))
     end
 
     def erefstack1(elem)
@@ -84,7 +84,7 @@ module IsoDoc
       locs1 = []
       until locs.empty?
         if locs[1] == "to"
-          locs1 << @i18n.chain_to.sub(/%1/, locs[0]).sub(/%2/, locs[2])
+          locs1 << @i18n.chain_to.sub("%1", locs[0]).sub("%2", locs[2])
           locs.shift(3)
         else locs1 << locs.shift
         end

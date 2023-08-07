@@ -47,9 +47,11 @@ module IsoDoc
     # to deal with single-term and single-ref annexes
     def section(docxml)
       references docxml
+      # feeds middle_title
       # triggers xrefs reparse, so put references before all other sections,
       # which alter titles and thus can alter xrefs
-      rearrange_clauses docxml # feeds toc, display_order, clausetitle, clause
+      rearrange_clauses docxml # feeds toc, display_order, clausetitle, clause, middle_title
+      middle_title docxml
       annex docxml
       clause docxml # feeds clausetitle
       term docxml

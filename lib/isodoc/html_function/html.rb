@@ -33,16 +33,6 @@ module IsoDoc
         section_break(body)
       end
 
-      def make_body3(body, docxml)
-        body.div class: "main-section" do |div3|
-          boilerplate docxml, div3
-          front docxml, div3
-          middle docxml, div3
-          footnotes div3
-          comments div3
-        end
-      end
-
       def googlefonts
         <<~HEAD.freeze
           <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet"/>

@@ -1,6 +1,6 @@
-require_relative "./table"
-require_relative "./inline"
-require_relative "./lists"
+require_relative "table"
+require_relative "inline"
+require_relative "lists"
 
 module IsoDoc
   module WordFunction
@@ -29,25 +29,34 @@ module IsoDoc
       def make_body2(body, docxml)
         body.div class: "WordSection2" do |div2|
           boilerplate docxml, div2
-          front docxml, div2
+          content(div2, docxml, ns("//preface/*[@displayorder]"))
           div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
       end
 
+      MAIN_ELEMENTS =
+        "//sections/*[@displayorder] | //annex[@displayorder] | " \
+        "//bibliography/*[@displayorder] | //colophon/*[@displayorder] | " \
+        "//indexsect[@displayorder]".freeze
+
       def make_body3(body, docxml)
         body.div class: "WordSection3" do |div3|
-          middle docxml, div3
+          content(div3, docxml, ns(self.class::MAIN_ELEMENTS))
           footnotes div3
           comments div3
         end
       end
 
-      def para_class(_node)
+      def para_class(node)
         return "Sourcecode" if @annotation
         return "MsoCommentText" if @in_comment
         return "Note" if @note
+        if node["type"] == "floating-title"
+          return "h#{node['depth']}"
+        end
 
+        n = node["class"] and return n
         nil
       end
 

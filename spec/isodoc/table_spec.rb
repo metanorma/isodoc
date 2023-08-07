@@ -191,7 +191,7 @@ RSpec.describe IsoDoc do
                   </table>
                 </foreword>
               </preface>
-                       <bibliography>
+                       <sections>
            <references id="_" obligation="informative" normative="true" displayorder="3">
              <title depth="1">1.<tab/>Normative References</title>
              <bibitem id="ISO712" type="standard">
@@ -200,7 +200,8 @@ RSpec.describe IsoDoc do
                <biblio-tag>ISO 712, </biblio-tag>
              </bibitem>
            </references>
-         </bibliography>
+         </sections>
+         <bibliography></bibliography>
             </iso-standard>
     OUTPUT
 
@@ -286,7 +287,6 @@ RSpec.describe IsoDoc do
                          </tbody>
                        </table>
                      </div>
-                     <p class="zzSTDTitle1"/>
                       <div>
                  <h1>1.  Normative References</h1>
                  <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
@@ -306,17 +306,17 @@ RSpec.describe IsoDoc do
            <div class="WordSection1">
              <p> </p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection2">
-             <p>
+             <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
              <div class="TOC" id="_">
          <p class="zzContents">Table of contents</p>
        </div>
-       <p>
+       <p class="page-break">
          <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
        </p>
              <div>
@@ -407,11 +407,10 @@ RSpec.describe IsoDoc do
              </div>
              <p> </p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection3">
-             <p class="zzSTDTitle1"/>
                <div>
                 <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
                 <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
@@ -464,7 +463,6 @@ RSpec.describe IsoDoc do
                  </caption>
                </table>
              </div>
-             <p class='zzSTDTitle1'/>
            </div>
          </body>
        </html>
@@ -476,17 +474,17 @@ RSpec.describe IsoDoc do
            <div class='WordSection1'>
              <p>&#xa0;</p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection2'>
-             <p>
+             <p class="page-break">
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
              <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-      <p>
+      <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
              <div>
@@ -502,11 +500,10 @@ RSpec.describe IsoDoc do
              </div>
              <p>&#xa0;</p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection3'>
-             <p class='zzSTDTitle1'/>
            </div>
          </body>
        </html>
@@ -523,7 +520,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <foreword>
+          <foreword displayorder="1">
             <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
         <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
         <thead>
@@ -589,11 +586,11 @@ RSpec.describe IsoDoc do
              <div class='WordSection1'>
                <p>&#160;</p>
              </div>
-             <p>
+             <p class="section-break">
                <br clear='all' class='section'/>
              </p>
              <div class='WordSection2'>
-               <p>
+               <p class="page-break">
                  <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                </p>
                <div>
@@ -694,11 +691,10 @@ RSpec.describe IsoDoc do
                </div>
                <p>&#160;</p>
              </div>
-             <p>
+             <p class="section-break">
                <br clear='all' class='section'/>
              </p>
              <div class='WordSection3'>
-               <p class='zzSTDTitle1'/>
                <aside id='ftn1'>
                  <p>X</p>
                </aside>
@@ -716,7 +712,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword>
+        <foreword displayorder="1">
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
       <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
       <thead>
@@ -751,11 +747,11 @@ RSpec.describe IsoDoc do
           <div class="WordSection1">
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection2">
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div>
@@ -805,11 +801,10 @@ RSpec.describe IsoDoc do
             </div>
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
-            <p class="zzSTDTitle1"/>
             <aside id="ftn1">
               <p>X</p>
             </aside>
@@ -825,7 +820,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword>
+        <foreword displayorder="1">
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
       <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
       <thead>
@@ -862,11 +857,11 @@ RSpec.describe IsoDoc do
           <div class="WordSection1">
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection2">
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div>
@@ -923,11 +918,10 @@ RSpec.describe IsoDoc do
             </div>
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
-            <p class="zzSTDTitle1"/>
             <aside id="ftn1">
               <p>X</p>
             </aside>
@@ -946,7 +940,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword>
+        <foreword displayorder="1">
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
       <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
       <thead>
@@ -974,11 +968,11 @@ RSpec.describe IsoDoc do
            <div class="WordSection1">
              <p> </p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection2">
-             <p>
+             <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
              <div>
@@ -1034,11 +1028,10 @@ RSpec.describe IsoDoc do
              </div>
              <p> </p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection3">
-             <p class="zzSTDTitle1"/>
              <aside id="ftn1">
                <p>X</p>
              </aside>
@@ -1054,7 +1047,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword>
+        <foreword displayorder="1">
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
       <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
       <thead>
@@ -1082,11 +1075,11 @@ RSpec.describe IsoDoc do
            <div class="WordSection1">
              <p> </p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection2">
-             <p>
+             <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
              <div>
@@ -1149,11 +1142,10 @@ RSpec.describe IsoDoc do
              </div>
              <p> </p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection3">
-             <p class="zzSTDTitle1"/>
              <aside id="ftn1">
                <p>X</p>
              </aside>

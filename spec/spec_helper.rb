@@ -93,9 +93,9 @@ WORD_HDR = <<~HEADER.freeze
            <div class="WordSection1">
              <p>&#160;</p>
            </div>
-           <p><br clear="all" class="section"/></p>
+           <p class="section-break"><br clear="all" class="section"/></p>
            <div class="WordSection2">
-            <p>
+            <p class="page-break">
             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
           </p>
           <div class="TOC" id="_">
@@ -103,6 +103,6 @@ WORD_HDR = <<~HEADER.freeze
           </div>
              <p>&#160;</p>
            </div>
-           <p><br clear="all" class="section"/></p>
+           <p class="section-break"><br clear="all" class="section"/></p>
            <div class="WordSection3">
 HEADER

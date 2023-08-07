@@ -71,7 +71,7 @@ module IsoDoc
       end
 
       def note_parse1(node, div)
-        name = node&.at(ns("./name"))&.remove
+        name = node.at(ns("./name"))&.remove
         name and div.p do |p|
           p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
@@ -108,12 +108,6 @@ module IsoDoc
           end
         end
         @note = false
-      end
-
-      def middle_admonitions(isoxml, out)
-        isoxml.xpath(ns("//sections/note | //sections/admonition")).each do |x|
-          parse(x, out)
-        end
       end
 
       def admonition_name_parse(_node, div, name)

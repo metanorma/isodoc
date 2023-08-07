@@ -45,7 +45,6 @@ RSpec.describe IsoDoc do
                            <p class="SourceTitle" style="text-align:center;">Figure 1&#160;&#8212; Ruby <i>code</i></p>
                            <pre class="sourcecode">Hey<br/>       Que? </pre>
                          </div>
-                         <p class="zzSTDTitle1"/>
                        </div>
                      </body>
                  </html>
@@ -58,17 +57,17 @@ RSpec.describe IsoDoc do
                 <div class="WordSection1">
                   <p>&#160;</p>
                 </div>
-                <p>
+                <p class="section-break">
                   <br clear="all" class="section"/>
                 </p>
                 <div class="WordSection2">
-                  <p>
+                  <p class="page-break">
                     <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                   </p>
                         <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-      <p>
+      <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
                     <div>
@@ -78,11 +77,10 @@ RSpec.describe IsoDoc do
                     </div>
                        <p>&#160;</p>
       </div>
-      <p>
+      <p class="section-break">
         <br clear="all" class="section"/>
       </p>
       <div class="WordSection3">
-                    <p class="zzSTDTitle1"/>
                   </div>
                 </body>
             </html>
@@ -244,7 +242,6 @@ RSpec.describe IsoDoc do
               </div>
                <p class="SourceTitle" style="text-align:center;">More</p>
              </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
        </html>
@@ -327,7 +324,6 @@ RSpec.describe IsoDoc do
           <br clear="all" class="section"/>
         </p>
         <div class="WordSection3">
-          <p class="zzSTDTitle1"/>
         </div>
         <div style="mso-element:footnote-list"/>
       </body>
@@ -498,7 +494,6 @@ RSpec.describe IsoDoc do
               </div>
                <p class="SourceTitle" style="text-align:center;">Figure 2 — XML code</p>
              </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
        </html>
@@ -577,7 +572,6 @@ RSpec.describe IsoDoc do
         </div>
                <p class="SourceTitle" style="text-align:center;">Figure 1</p>
              </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
        </html>
@@ -589,17 +583,17 @@ RSpec.describe IsoDoc do
              <div class="WordSection1">
                <p> </p>
              </div>
-             <p>
+             <p class="section-break">
                <br clear="all" class="section"/>
              </p>
              <div class="WordSection2">
-             <p>
+             <p class="page-break">
          <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
       <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-               <p>
+               <p class="page-break">
                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
                <div>
@@ -644,11 +638,10 @@ RSpec.describe IsoDoc do
                </div>
                <p> </p>
              </div>
-             <p>
+             <p class="section-break">
                <br clear="all" class="section"/>
              </p>
              <div class="WordSection3">
-               <p class="zzSTDTitle1"/>
              </div>
            </body>
          </html>
@@ -787,7 +780,6 @@ RSpec.describe IsoDoc do
         </div>
                <p class="SourceTitle" style="text-align:center;">Figure 1</p>
              </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
        </html>
@@ -799,17 +791,17 @@ RSpec.describe IsoDoc do
           <div class="WordSection1">
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection2">
-            <p>
+            <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
                   <div class="TOC" id="_">
         <p class="zzContents">Table of contents</p>
       </div>
-      <p>
+      <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
             <div>
@@ -861,11 +853,10 @@ RSpec.describe IsoDoc do
             </div>
             <p> </p>
           </div>
-          <p>
+          <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
-            <p class="zzSTDTitle1"/>
           </div>
         </body>
       </html>
@@ -1040,7 +1031,6 @@ RSpec.describe IsoDoc do
                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-variant:small-caps;">B</span></p>
                  <p id="_">&#160;&#160;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
                        </div>
-                       <p class="zzSTDTitle1"/>
                      </div>
                    </body>
           </html>

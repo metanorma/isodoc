@@ -7,7 +7,19 @@ module IsoDoc
         bibitem(x, renderings)
       end
       hidden_items(docxml)
+      move_norm_ref_to_sections(docxml)
       @xrefs.parse_inclusions(refs: true).parse(docxml)
+    end
+
+    def move_norm_ref_to_sections(docxml)
+      docxml.at(ns(@xrefs.klass.norm_ref_xpath)) or return
+      s = docxml.at(ns("//sections")) ||
+        docxml.at(ns("//preface"))&.after("<sections/>")&.next_element ||
+        docxml.at(ns("//annex | //bibliography"))&.before("<sections/>")
+        &.previous_element or return
+      docxml.xpath(ns(@xrefs.klass.norm_ref_xpath)).each do |r|
+        s << r.remove
+      end
     end
 
     def hidden_items(docxml)
@@ -131,7 +143,8 @@ module IsoDoc
       idents = @xrefs.klass.render_identifier(ids)
       ret = if biblio then biblio_ref_entry_code(ordinal, idents, ids,
                                                  standard, datefn, bib)
-            else norm_ref_entry_code(ordinal, idents, ids, standard, datefn, bib)
+            else norm_ref_entry_code(ordinal, idents, ids, standard, datefn,
+                                     bib)
             end
       bib << "<biblio-tag>#{ret}</biblio-tag>"
     end
@@ -148,8 +161,8 @@ module IsoDoc
 
     # if ids is just a number, only use that ([1] Non-Standard)
     # else, use both ordinal, as prefix, and ids
-    def biblio_ref_entry_code(ordinal, ids, _id, standard, datefn, _bib)
-      #standard and id = nil
+    def biblio_ref_entry_code(ordinal, ids, _id, _standard, datefn, _bib)
+      # standard and id = nil
       ret = (ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]")
       if ids[:sdo]
         ret = prefix_bracketed_ref(ret)

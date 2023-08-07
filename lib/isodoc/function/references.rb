@@ -145,21 +145,20 @@ module IsoDoc
 
       def norm_ref_xpath
         "//bibliography/references[@normative = 'true'] | " \
-          "//bibliography/clause[.//references[@normative = 'true']]"
+          "//bibliography/clause[.//references[@normative = 'true']] | " \
+          "//sections/references[@normative = 'true'] | " \
+          "//sections/clause[.//references[@normative = 'true']]"
       end
 
-      def norm_ref(isoxml, out, num)
-        (f = isoxml.at(ns(norm_ref_xpath)) and f["hidden"] != "true") or
-          return num
+      def norm_ref(node, out)
+        node["hidden"] != "true" or return
         out.div do |div|
-          num += 1
-          clause_name(f, f.at(ns("./title")), div, nil)
-          if f.name == "clause"
-            f.elements.each { |e| parse(e, div) unless e.name == "title" }
-          else biblio_list(f, div, false)
+          clause_name(node, node.at(ns("./title")), div, nil)
+          if node.name == "clause"
+            node.elements.each { |e| parse(e, div) unless e.name == "title" }
+          else biblio_list(node, div, false)
           end
         end
-        num
       end
 
       def bibliography_xpath
@@ -168,15 +167,14 @@ module IsoDoc
           "//bibliography/references[@normative = 'false']"
       end
 
-      def bibliography(isoxml, out)
-        (f = isoxml.at(ns(bibliography_xpath)) and f["hidden"] != "true") or
-          return
+      def bibliography(node, out)
+        node["hidden"] != "true" or return
         page_break(out)
         out.div do |div|
           div.h1 class: "Section3" do |h1|
-            f.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
+            node.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
           end
-          biblio_list(f, div, true)
+          biblio_list(node, div, true)
         end
       end
 

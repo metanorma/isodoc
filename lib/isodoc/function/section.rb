@@ -17,13 +17,11 @@ module IsoDoc
         end
       end
 
-      def clause(isoxml, out)
-        isoxml.xpath(ns(middle_clause(isoxml))).each do |c|
-          out.div **attr_code(clause_attrs(c)) do |s|
-            clause_name(c, c.at(ns("./title")), s, nil)
-            c.elements.reject { |c1| c1.name == "title" }.each do |c1|
-              parse(c1, s)
-            end
+      def clause(node, out)
+        out.div **attr_code(clause_attrs(node)) do |s|
+          clause_name(node, node.at(ns("./title")), s, nil)
+          node.elements.reject { |c1| c1.name == "title" }.each do |c1|
+            parse(c1, s)
           end
         end
       end
@@ -32,44 +30,40 @@ module IsoDoc
         { id: node["id"], class: "Section3" }
       end
 
-      def annex(isoxml, out)
-        isoxml.xpath(ns("//annex")).each do |c|
-          page_break(out)
-          out.div **attr_code(annex_attrs(c)) do |s|
-            c.elements.each do |c1|
-              if c1.name == "title" then annex_name(c, c1, s)
-              else parse(c1, s)
-              end
+      def annex(node, out)
+        page_break(out)
+        out.div **attr_code(annex_attrs(node)) do |s|
+          node.elements.each do |c1|
+            if c1.name == "title" then annex_name(node, c1, s)
+            else parse(c1, s)
             end
           end
         end
       end
 
-      def scope(isoxml, out, num)
-        f = isoxml.at(ns("//clause[@type = 'scope']")) or return num
-        out.div **attr_code(id: f["id"]) do |div|
-          num = num + 1
-          clause_name(f, f&.at(ns("./title")), div, nil)
-          f.elements.each do |e|
+      def indexsect(node, out)
+        clause_parse(node, out)
+      end
+
+      def scope(node, out)
+        out.div **attr_code(id: node["id"]) do |div|
+          clause_name(node, node.at(ns("./title")), div, nil)
+          node.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
-        num
       end
 
       TERM_CLAUSE = "//sections/terms | " \
                     "//sections/clause[descendant::terms]".freeze
 
-      def terms_defs(isoxml, out, num)
-        f = isoxml.at(ns(TERM_CLAUSE)) or return num
-        out.div **attr_code(id: f["id"]) do |div|
-          num = num + 1
-          clause_name(f, f.at(ns("./title")), div, nil)
-          f.elements.each do |e|
+      def terms_defs(node, out)
+        out.div **attr_code(id: node["id"]) do |div|
+          clause_name(node, node.at(ns("./title")), div, nil)
+          node.elements.each do |e|
             parse(e, div) unless %w{title source}.include? e.name
           end
         end
-        num
       end
 
       # subclause
@@ -77,16 +71,13 @@ module IsoDoc
         clause_parse(isoxml, out)
       end
 
-      def symbols_abbrevs(isoxml, out, num)
-        f = isoxml.at(ns("//sections/definitions")) or return num
-        out.div **attr_code(id: f["id"], class: "Symbols") do |div|
-          num = num + 1
-          clause_name(f, f.at(ns("./title")), div, nil)
-          f.elements.each do |e|
+      def symbols_abbrevs(node, out)
+        out.div **attr_code(id: node["id"], class: "Symbols") do |div|
+          clause_name(node, node.at(ns("./title")), div, nil)
+          node.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
-        num
       end
 
       # subclause
@@ -171,15 +162,14 @@ module IsoDoc
         end
       end
 
-      def colophon(isoxml, out)
-        isoxml.at(ns("//colophon")) or return
-        page_break(out)
-        isoxml.xpath(ns("//colophon/clause")).each do |f|
-          out.div class: "Section3", id: f["id"] do |div|
-            clause_name(f, f&.at(ns("./title")), div, { class: "IntroTitle" })
-            f.elements.each do |e|
-              parse(e, div) unless e.name == "title"
-            end
+      def colophon(node, out)
+        @seen_colophon or page_break(out)
+        @seen_colophon = true
+        out.div class: "Section3", id: node["id"] do |div|
+          clause_name(node, node.at(ns("./title")), div,
+                      { class: "IntroTitle" })
+          node.elements.each do |e|
+            parse(e, div) unless e.name == "title"
           end
         end
       end
@@ -192,24 +182,6 @@ module IsoDoc
       def single_term_clause?(elem)
         t = elem.xpath(ns("./clause | ./terms | ./definitions | ./references"))
         t.size == 1 && %w(terms definitions references).include?(t[0].name)
-      end
-
-      def front(isoxml, out)
-        p = isoxml.at(ns("//preface")) or return
-        p.elements.each do |e|
-          if is_clause?(e.name)
-            case e.name
-            when "abstract" then abstract e, out
-            when "foreword" then foreword e, out
-            when "introduction" then introduction e, out
-            when "executivesummary" then executivesummary e, out
-            when "clause" then preface e, out
-            when "acknowledgements" then acknowledgements e, out
-            end
-          else
-            preface_block(e, out)
-          end
-        end
       end
 
       def executivesummary(clause, out)
