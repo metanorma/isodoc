@@ -113,6 +113,8 @@ module IsoDoc
         docxml = Nokogiri::XSLT(x).transform(docxml)
       end
       docxml
+    rescue
+      require "debug"; binding.b
     end
 
     def extract_preprocess_xslt(docxml)

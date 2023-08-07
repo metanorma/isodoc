@@ -530,13 +530,7 @@ RSpec.describe IsoDoc do
                 <a name='_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62' id='_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62'/>
                 <div class='formula'>
                   <p class='MsoNormal'>
-                    <span class='stem'>
-                      <m:oMath>
-                        <m:r>
-                          <m:t>D1</m:t>
-                        </m:r>
-                      </m:oMath>
-                    </span>
+                    <span class="stem">(#(D1)#)</span>
                     <span style='mso-tab-count:1'>&#xa0; </span>
                   </p>
                 </div>
