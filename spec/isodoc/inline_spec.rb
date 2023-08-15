@@ -1717,6 +1717,12 @@ RSpec.describe IsoDoc do
       <bibdata>
       <language>en</language>
       <script>Latn</script>
+      <contributor>
+      <role type="author"/>
+      <organization>
+      <name><variant language="en">A</variant><variant language="fr">B</variant></name>
+      </organization>
+      </contributor>
       </bibdata>
       <preface>
           <clause id="A"><title><variant lang="en" script="Latn">ABC</variant><variant lang="fr" script="Latn">DEF</variant></title></clause>
@@ -1735,6 +1741,12 @@ RSpec.describe IsoDoc do
         <bibdata>
           <language current='true'>en</language>
           <script current='true'>Latn</script>
+                <contributor>
+      <role type="author"/>
+      <organization>
+      <name><variant language="en">A</variant><variant language="fr">B</variant></name>
+      </organization>
+      </contributor>
         </bibdata>
         <preface>
           <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
