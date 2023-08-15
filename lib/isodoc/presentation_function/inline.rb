@@ -64,15 +64,16 @@ module IsoDoc
       get_linkend(node)
     end
 
-    def variant(docxml)
-      docxml.xpath(ns("//variant")).each { |f| variant1(f) }
-      docxml.xpath(ns("//variant[@remove = 'true']")).each(&:remove)
-      docxml.xpath(ns("//variant")).each do |v|
-        next unless v&.next&.name == "variant"
+    def variant(xml)
+      b = xml.xpath(ns("//bibdata//variant"))
+      (xml.xpath(ns("//variant")) - b).each { |f| variant1(f) }
+      (xml.xpath(ns("//variant[@remove = 'true']")) - b).each(&:remove)
+      (xml.xpath(ns("//variant")) - b).each do |v|
+        next unless v.next&.name == "variant"
 
         v.next = "/"
       end
-      docxml.xpath(ns("//variant")).each { |f| f.replace(f.children) }
+      (xml.xpath(ns("//variant")) - b).each { |f| f.replace(f.children) }
     end
 
     def variant1(node)
