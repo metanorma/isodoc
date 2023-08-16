@@ -225,46 +225,47 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-         <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>    <clause type="toc" id="_" displayorder="1">
-      <title depth="1">Table of contents</title>
-    </clause>
-      <foreword displayorder="2">
-                   <p>
-                                  <ul>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+           <foreword displayorder="2">
+             <p>
+               <ul>
                  <li>
-
-               [term defined in <xref target="clause1">Clause 2</xref>]
+           
+               (<xref target="clause1">Clause 2</xref>)
              </li>
-                 <li><em>term</em>
-               [term defined in <xref target="clause1">Clause 2</xref>]
+                 <li><em>term</em> 
+               (<xref target="clause1">Clause 2</xref>)
              </li>
-                 <li><em>w[o]rd</em>
+                 <li><em>w[o]rd</em> 
                [<xref target="clause1">Clause #1</xref>]
              </li>
-                 <li><em>term</em>
-               [term defined in <xref type="inline" target="ISO712">ISO 712</xref>]
+                 <li><em>term</em> 
+               (<xref type="inline" target="ISO712">ISO 712</xref>)
              </li>
-                 <li><em>word</em>
+                 <li><em>word</em> 
                [<xref type="inline" target="ISO712">The Aforementioned Citation</xref>]
              </li>
-                 <li><em>word</em>
-               [term defined in <xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>]
+                 <li><em>word</em> 
+               (<xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>)
              </li>
-                 <li><em>word</em>
-               [term defined in <xref type="inline" target="ISO712">ISO 712, Clause 3.1 and Figure b</xref>]
+                 <li><em>word</em> 
+               (<xref type="inline" target="ISO712">ISO 712, Clause 3.1 and Figure b</xref>)
              </li>
-                 <li><em>word</em>
+                 <li><em>word</em> 
                [<xref type="inline" target="ISO712">
-
-
+               
+               
                The Aforementioned Citation
                </xref>]
              </li>
-                 <li><em>word</em>
-               [term defined in <termref base="IEV" target="135-13-13"/>]
+                 <li><em>word</em> 
+               (<termref base="IEV" target="135-13-13"/>)
              </li>
-                 <li><em>word</em>
+                 <li><em>word</em> 
                [<termref base="IEV" target="135-13-13">The IEV database</termref>]
              </li>
                  <li>
@@ -272,102 +273,80 @@ RSpec.describe IsoDoc do
                  </li>
                </ul>
              </p>
-          </foreword></preface>
-          <sections>
-          <clause id="clause1" displayorder="4"><title depth="1">2.<tab/>Clause 1</title></clause>
-          <references id="_" obligation="informative" normative="true" displayorder="3"><title depth="1">1.<tab/>Normative References</title>
-          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-      <bibitem id="ISO712" type="standard">
-        <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
-        <docidentifier type="ISO">ISO&#xa0;712</docidentifier>
-        <biblio-tag>ISO&#xa0;712, </biblio-tag>
-      </bibitem>
-      </references></sections>
-      <bibliography/>
-          </iso-standard>
+           </foreword>
+         </preface>
+         <sections>
+           <clause id="clause1" displayorder="4">
+             <title depth="1">2.<tab/>Clause 1</title>
+           </clause>
+           <references id="_" obligation="informative" normative="true" displayorder="3">
+             <title depth="1">1.<tab/>Normative References</title>
+             <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+             <bibitem id="ISO712" type="standard">
+               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
+               <docidentifier type="ISO">ISO 712</docidentifier>
+               <biblio-tag>ISO 712, </biblio-tag>
+             </bibitem>
+           </references>
+         </sections>
+         <bibliography/>
+       </iso-standard>
     OUTPUT
     output = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
-             <div>
-               <h1 class='ForewordTitle'>Foreword</h1>
+                              <div>
+               <h1 class="ForewordTitle">Foreword</h1>
                <p>
                  <ul>
                    <li>
-                      [term defined in
-                     <a href='#clause1'>Clause 2</a>
-                     ]
-                   </li>
+
+               (<a href="#clause1">Clause 2</a>)
+             </li>
+                   <li><i>term</i>
+               (<a href="#clause1">Clause 2</a>)
+             </li>
+                   <li><i>w[o]rd</i>
+               [<a href="#clause1">Clause #1</a>]
+             </li>
+                   <li><i>term</i>
+               (<a href="#ISO712">ISO 712</a>)
+             </li>
+                   <li><i>word</i>
+               [<a href="#ISO712">The Aforementioned Citation</a>]
+             </li>
+                   <li><i>word</i>
+               (<a href="#ISO712">ISO 712, Clause 3.1, Figure a</a>)
+             </li>
+                   <li><i>word</i>
+               (<a href="#ISO712">ISO 712, Clause 3.1 and Figure b</a>)
+             </li>
+                   <li><i>word</i>
+               [<a href="#ISO712">
+
+
+               The Aforementioned Citation
+               </a>]
+             </li>
+                   <li><i>word</i>
+               (Termbase IEV, term ID 135-13-13)
+             </li>
+                   <li><i>word</i>
+               [The IEV database]
+             </li>
                    <li>
-                     <i>term</i>
-                      [term defined in
-                     <a href='#clause1'>Clause 2</a>
-                     ]
+                     <b>error!</b>
                    </li>
-                   <li>
-                     <i>w[o]rd</i>
-                      [
-                     <a href='#clause1'>Clause #1</a>
-                     ]
-                   </li>
-                   <li>
-                     <i>term</i>
-                      [term defined in
-                     <a href='#ISO712'>ISO&#xa0;712</a>
-                     ]
-                   </li>
-                   <li>
-                     <i>word</i>
-                      [
-                     <a href='#ISO712'>The Aforementioned Citation</a>
-                     ]
-                   </li>
-                   <li>
-                     <i>word</i>
-                      [term defined in
-                     <a href='#ISO712'>ISO&#xa0;712, Clause 3.1, Figure a</a>
-                     ]
-                   </li>
-                   <li>
-                     <i>word</i>
-                      [term defined in
-                     <a href='#ISO712'>ISO&#xa0;712, Clause 3.1 and Figure b</a>
-                     ]
-                   </li>
-                   <li>
-                     <i>word</i>
-                      [
-                     <a href='#ISO712'> The Aforementioned Citation </a>
-                     ]
-                   </li>
-                   <li>
-                     <i>word</i>
-                      [term defined in Termbase IEV, term ID 135-13-13]
-                   </li>
-                   <li>
-                     <i>word</i>
-                      [The IEV database]
-                   </li>
-                   <li> <b>error!</b> </li>
                  </ul>
                </p>
              </div>
              <div>
-               <h1>1.&#160; Normative References</h1>
-               <p>
-                 The following documents are referred to in the text in such a way that
-                 some or all of their content constitutes requirements of this
-                 document. For dated references, only the edition cited applies. For
-                 undated references, the latest edition of the referenced document
-                 (including any amendments) applies.
-               </p>
-               <p id='ISO712' class='NormRef'>
-                 ISO&#xa0;712, International Organization for Standardization.
-                 <i>Cereals and cereal products</i>.
-               </p>
+               <h1>1.  Normative References</h1>
+               <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
              </div>
-             <div id='clause1'>
-               <h1>2.&#160; Clause 1</h1>
+             <div id="clause1">
+               <h1>2.  Clause 1</h1>
              </div>
            </div>
          </body>
@@ -413,26 +392,28 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-      <preface>
-          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-        <foreword displayorder="2">
-                   <p>
+           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+           <foreword displayorder="2">
+             <p>
                <ul>
-                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><strong>term</strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><strong><em>term</em></strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><strong>term</strong> [term defined in <xref target="clause1">Clause 1</xref>],</li>
+                 <li><em>term</em> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><strong>term</strong> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><em>term</em> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><em>term</em> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><strong><em>term</em></strong> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><strong>term</strong> (<xref target="clause1">Clause 1</xref>),</li>
                  <li><em>term</em>,</li>
                  <li>term,</li>
-                 <li><xref target="clause1"><em>term</em></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><xref target="clause1"><strong>term</strong></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><xref target="clause1"><strong><em>term</em></strong></xref> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><xref target="clause1"><em>term</em></xref> [term defined in Clause 1],</li>
-                 <li><em>term</em> [term defined in <xref target="clause1">Clause 1</xref>],</li>
-                 <li><em>term</em> [term defined in Clause 1],</li>
+                 <li><xref target="clause1"><em>term</em></xref> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><xref target="clause1"><strong>term</strong></xref> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><xref target="clause1"><strong><em>term</em></strong></xref> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><xref target="clause1"><em>term</em></xref> (Clause 1),</li>
+                 <li><em>term</em> (<xref target="clause1">Clause 1</xref>),</li>
+                 <li><em>term</em> (Clause 1),</li>
                  <li>
                    <strong>error!</strong>
                  </li>
@@ -441,48 +422,51 @@ RSpec.describe IsoDoc do
                  </li>
                </ul>
              </p>
-      </foreword></preface>
-      <sections>
-      <clause id="clause1" displayorder="3"><title depth="1">1.<tab/>Clause 1</title></clause>
-      </sections>
-      </iso-standard>
+           </foreword>
+         </preface>
+         <sections>
+           <clause id="clause1" displayorder="3">
+             <title depth="1">1.<tab/>Clause 1</title>
+           </clause>
+         </sections>
+       </iso-standard>
     OUTPUT
     output = <<~OUTPUT
       #{HTML_HDR}
            <br/>
-           <div>
-             <h1 class='ForewordTitle'>Foreword</h1>
-                            <p>
-           <ul>
-             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><b>term</b> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><b><i>term</i></b> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><b>term</b> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><i>term</i>,</li>
-             <li>term,</li>
-             <li><a href="#clause1"><i>term</i></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><a href="#clause1"><b>term</b></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><a href="#clause1"><b><i>term</i></b></a> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><a href="#clause1"><i>term</i></a> [term defined in Clause 1],</li>
-             <li><i>term</i> [term defined in <a href="#clause1">Clause 1</a>],</li>
-             <li><i>term</i> [term defined in Clause 1],</li>
-             <li>
-               <b>error!</b>
-             </li>
-             <li>
-               <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
-             </li>
-           </ul>
-         </p>
-            </div>
-            <div id='clause1'>
-              <h1>1.&#160; Clause 1</h1>
-            </div>
-          </div>
-        </body>
-      </html>
+                        <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p>
+                 <ul>
+                   <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><b><i>term</i></b> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><i>term</i>,</li>
+                   <li>term,</li>
+                   <li><a href="#clause1"><i>term</i></a> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><a href="#clause1"><b>term</b></a> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><a href="#clause1"><b><i>term</i></b></a> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><a href="#clause1"><i>term</i></a> (Clause 1),</li>
+                   <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
+                   <li><i>term</i> (Clause 1),</li>
+                   <li>
+                     <b>error!</b>
+                   </li>
+                   <li>
+                     <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
+                   </li>
+                 </ul>
+               </p>
+             </div>
+             <div id="clause1">
+               <h1>1.  Clause 1</h1>
+             </div>
+           </div>
+         </body>
+       </html>
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
