@@ -34,7 +34,7 @@ external_terms_boilerplate: |
           <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en %.</p>
 internal_external_terms_boilerplate: |
           <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en % y los siguientes.</p>
-term_defined_in: "[término definido en %]"
+term_defined_in: "(%)"
 binary_and: "%1 y %2"
 multiple_and: "%1, y %2"
 binary_or: "%1 o %2"

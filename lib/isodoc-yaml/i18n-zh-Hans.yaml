@@ -33,7 +33,7 @@ external_terms_boilerplate: |
           <p>% 界定的术语和定义适用于本文件。</p>
 internal_external_terms_boilerplate: |
           <p>% 界定的以及下列术语和定义适用于本文件。</p>
-term_defined_in: "〖术语于%中定义〗"
+term_defined_in: "（%）"
 binary_and: "%1和%2"
 multiple_and: "%1、和%2"
 binary_or: "%1或%2"
