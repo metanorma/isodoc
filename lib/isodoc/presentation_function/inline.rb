@@ -10,10 +10,10 @@ module IsoDoc
 
     def get_linkend(node)
       node["style"] == "id" and anchor_id_postprocess(node)
-      return unless xref_empty?(node)
-
-      link = anchor_linkend(node, docid_l10n(node["target"] ||
-                                             expand_citeas(node["citeas"])))
+      xref_empty?(node) or return
+      target = docid_l10n(node["target"]) ||
+        expand_citeas(docid_l10n(node["citeas"]))
+      link = anchor_linkend(node, target)
       link += eref_localities(node.xpath(ns("./locality | ./localityStack")),
                               link, node)
       non_locality_elems(node).each(&:remove)
@@ -24,8 +24,7 @@ module IsoDoc
     # <locality type="section"><reference>3.1</reference></locality></origin>
 
     def unnest_linkend(node)
-      return unless node.at(ns("./xref[@nested]"))
-
+      node.at(ns("./xref[@nested]")) or return
       node.xpath(ns("./xref[@nested]")).each { |x| x.delete("nested") }
       node.xpath(ns("./location | ./locationStack")).each(&:remove)
       node.replace(node.children)
@@ -69,8 +68,7 @@ module IsoDoc
       (xml.xpath(ns("//variant")) - b).each { |f| variant1(f) }
       (xml.xpath(ns("//variant[@remove = 'true']")) - b).each(&:remove)
       (xml.xpath(ns("//variant")) - b).each do |v|
-        next unless v.next&.name == "variant"
-
+        v.next&.name == "variant" or next
         v.next = "/"
       end
       (xml.xpath(ns("//variant")) - b).each { |f| f.replace(f.children) }
