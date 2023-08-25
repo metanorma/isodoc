@@ -129,5 +129,9 @@ module IsoDoc
       @toctables = options[:toctables]
       @tocrecommendations = options[:tocrecommendations]
     end
+
+    AGENCIES = %w(ISO IEC ITU IETF NIST OGC IEEE BIPM BSI BS JIS IANA UN W3C
+                  IHO CSA IEV)
+      .freeze
   end
 end
