@@ -133,5 +133,9 @@ module IsoDoc
     AGENCIES = %w(ISO IEC ITU IETF NIST OGC IEEE BIPM BSI BS JIS IANA UN W3C
                   IHO CSA IEV)
       .freeze
+
+    def agency?(text)
+      self.class::AGENCIES.include?(text)
+    end
   end
 end
