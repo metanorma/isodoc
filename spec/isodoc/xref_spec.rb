@@ -2029,7 +2029,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
          <foreword displayorder='2'>
-           <p><xref target="N1">Introduction, Definition List: <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mover accent="true"><mrow><mi>e</mi></mrow><mo>^</mo></mover></mrow><mrow><mi>r</mi></mrow></msub></math><asciimath>overset(^)(e)_(r)</asciimath></stem>
+           <p><xref target="N1">Introduction, Definition List: <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mover accent="true"><mrow><mi>e</mi></mrow><mo>^</mo></mover></mrow><mrow><mi>r</mi></mrow></msub></math><asciimath>hat(e)_(r)</asciimath></stem>
       </xref>
            </p>
          </foreword>
