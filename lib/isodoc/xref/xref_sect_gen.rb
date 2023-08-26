@@ -18,7 +18,8 @@ module IsoDoc
           { path: @klass.norm_ref_xpath },
           { path: "//sections/terms | " \
                   "//sections/clause[descendant::terms]" },
-          { path: "//sections/definitions" },
+          { path: "//sections/definitions | " \
+                  "//sections/clause[descendant::definitions][not(descendant::terms)]" },
           { path: @klass.middle_clause(docxml), multi: true },
         ]
       end
@@ -56,7 +57,7 @@ module IsoDoc
       def back_clauses_anchor_names(xml)
         clause_order_back(xml).each do |a|
           xml.xpath(ns(a[:path])).each do |c|
-            preface_names(c)
+            back_names(c)
             a[:multi] or break
           end
         end
@@ -122,6 +123,14 @@ module IsoDoc
 
       # in StanDoc, prefaces have no numbering; they are referenced only by title
       def preface_names(clause)
+        unnumbered_names(clause)
+      end
+
+      def back_names(clause)
+        unnumbered_names(clause)
+      end
+
+      def unnumbered_names(clause)
         clause.nil? and return
         preface_name_anchors(clause, 1,
                              clause_title(clause, use_elem_name: true))
