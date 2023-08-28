@@ -25,9 +25,8 @@ module IsoDoc
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
       t = elem.at(ns("./title")) and t["depth"] = level
-      return if !elem.ancestors("boilerplate, metanorma-extension").empty? ||
-        @suppressheadingnumbers || elem["unnumbered"]
-
+      !elem.ancestors("boilerplate, metanorma-extension").empty? ||
+        @suppressheadingnumbers || elem["unnumbered"] and return
       lbl = @xrefs.anchor(elem["id"], :label,
                           elem.parent.name != "sections") or return
       prefix_name(elem, "<tab/>", "#{lbl}#{clausedelim}", "title")
@@ -133,17 +132,15 @@ module IsoDoc
 
     def display_order(docxml)
       i = 0
-      i = display_order_xpath(docxml, "//preface/*", i)
-      i = display_order_at(docxml, "//clause[@type = 'scope']", i)
-      i = display_order_at(docxml, @xrefs.klass.norm_ref_xpath, i)
-      i = display_order_at(docxml, "//sections/terms | " \
-                                   "//sections/clause[descendant::terms]", i)
-      i = display_order_at(docxml, "//sections/definitions", i)
-      i = display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml), i)
-      i = display_order_xpath(docxml, "//annex", i)
-      i = display_order_xpath(docxml, @xrefs.klass.bibliography_xpath, i)
-      i = display_order_xpath(docxml, "//indexsect", i)
-      display_order_xpath(docxml, "//colophon/*", i)
+      d = @xrefs.clause_order(docxml)
+      %i(preface main annex back).each do |s|
+        d[s].each do |a|
+          i = if a[:multi]
+                display_order_xpath(docxml, a[:path], i)
+              else display_order_at(docxml, a[:path], i)
+              end
+        end
+      end
     end
 
     def clausetitle(docxml)
