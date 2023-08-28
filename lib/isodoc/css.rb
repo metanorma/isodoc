@@ -101,6 +101,7 @@ module IsoDoc
         stylesheet = convert_scss(filename, stylesheet, stripwordcss)
       end
       Tempfile.open([File.basename(filename, ".*"), "css"],
+                    mode: File::BINARY | File::SHARE_DELETE,
                     encoding: "utf-8") do |f|
         f.write(stylesheet)
         f

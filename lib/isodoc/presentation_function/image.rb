@@ -154,7 +154,6 @@ module IsoDoc
     def cache_dataimage(uri)
       if %r{^data:}.match?(uri)
         uri = save_dataimage(uri)
-        @tempfile_cache << uri
       end
       uri
     end
