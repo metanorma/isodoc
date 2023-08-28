@@ -95,7 +95,8 @@ module IsoDoc
           .merge(@meta.labels ? { labels: @meta.labels } : {})
         meta[:filename] = filename
         params = meta.transform_keys(&:to_s)
-        Tempfile.open(%w(header html), encoding: "utf-8") do |f|
+        Tempfile.open(%w(header html),
+                      encoding: "utf-8") do |f|
           f.write(template.render(params))
           f
         end

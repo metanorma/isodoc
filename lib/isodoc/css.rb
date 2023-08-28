@@ -25,10 +25,9 @@ module IsoDoc
 
     # run this after @meta is populated
     def populate_css
-      @htmlstylesheet = generate_css(localpath(@htmlstylesheet_name), true)
-      @wordstylesheet = generate_css(localpath(@wordstylesheet_name), false)
-      @standardstylesheet =
-        generate_css(localpath(@standardstylesheet_name), false)
+      generate_css(localpath(@htmlstylesheet_name), true)
+      generate_css(localpath(@wordstylesheet_name), false)
+      generate_css(localpath(@standardstylesheet_name), false)
       @htmlstylesheet_override_name and
         @htmlstylesheet_override = File.open(localpath(@htmlstylesheet_override_name))
       @wordstylesheet_override_name and
@@ -102,8 +101,8 @@ module IsoDoc
       end
       Tempfile.open([File.basename(filename, ".*"), "css"],
                     encoding: "utf-8") do |f|
+        @tempfile_cache << f # Pesist to the end
         f.write(stylesheet)
-        f
       end
     end
   end

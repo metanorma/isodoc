@@ -177,8 +177,7 @@ module IsoDoc
         imgtype = imgtype.sub(/\+[a-z0-9]+$/, "") # svg+xml
         imgtype = "png" unless /^[a-z0-9]+$/.match? imgtype
         imgtype == "postscript" and imgtype = "eps"
-        Tempfile.open(["image", ".#{imgtype}"]) do |f|
-          f.binmode
+        Tempfile.open(["image", ".#{imgtype}"], mode: File::BINARY) do |f|
           f.write(Base64.strict_decode64(imgdata))
           @tempfile_cache << f # persist to the end
           f.path
