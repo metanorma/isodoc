@@ -78,6 +78,7 @@ module IsoDoc
     def input_xml_path(input_filename, xml_file, debug)
       docxml, filename, dir = convert_init(xml_file, input_filename, debug)
       input_filename = Tempfile.open([File.basename(filename), ".xml"],
+                                     mode: File::BINARY | File::SHARE_DELETE,
                                      encoding: "utf-8") do |f|
         f.write docxml
         f
