@@ -19,6 +19,7 @@ module IsoDoc
     end
 
     def toc_init(docxml)
+      @doctype = docxml.at(ns("//bibdata/ext/doctype"))&.text
       x = "//metanorma-extension/presentation-metadata" \
           "[name[text() = 'TOC Heading Levels']]/value"
       n = docxml.at(ns(x.sub("TOC", "DOC TOC"))) and

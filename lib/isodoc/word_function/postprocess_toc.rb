@@ -9,7 +9,7 @@ module IsoDoc
               s&.previous_element&.remove # page break
             s.remove
           end
-          intro.sub(/WORDTOC/, toc)
+          intro.sub("WORDTOC", toc)
         else
           source = docxml.at("//div[@class = 'TOC']") and
             source.children = toc
