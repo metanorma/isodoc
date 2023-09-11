@@ -28,12 +28,11 @@ Gem::Specification.new do |spec|
   end
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
-  spec.add_dependency "html2doc", "~> 1.6.0"
+  spec.add_dependency "html2doc", "~> 1.7.0"
   spec.add_dependency "htmlentities", "~> 4.3.4"
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
   spec.add_dependency "emf2svg"
   spec.add_dependency "liquid", "~> 5"
-  spec.add_dependency "plurimath"
   spec.add_dependency "relaton-cli"
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
   spec.add_dependency "mn2pdf"
