@@ -77,7 +77,9 @@ module IsoDoc
         img = emf_encode(img)
         img.children.first.previous = emf_to_svg(img)
       elsif img["mimetype"] == "image/svg+xml"
-        src = svg_to_emf(img) and img << "<emf src='#{src}'/>"
+        src = svg_to_emf(img) or return
+        img.add_child("<emf/>")
+        img.elements.last["src"] = src
       end
     end
 
