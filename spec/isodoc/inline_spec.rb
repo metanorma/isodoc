@@ -630,6 +630,7 @@ RSpec.describe IsoDoc do
       <foreword displayorder="2">
         <p>
         <link target="http://example.com"/>
+        <link target="http://example.com"><br/></link>
         <link target="http://example.com">example</link>
         <link target="http://example.com" alt="tip">example</link>
         <link target="mailto:fred@example.com"/>
@@ -646,6 +647,7 @@ RSpec.describe IsoDoc do
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
          <a href="http://example.com">http://example.com</a>
+         <a href="http://example.com"><br/></a>
          <a href="http://example.com">example</a>
          <a href="http://example.com" title="tip">example</a>
          <a href="mailto:fred@example.com">fred@example.com</a>

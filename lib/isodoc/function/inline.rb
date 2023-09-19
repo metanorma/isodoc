@@ -7,7 +7,7 @@ module IsoDoc
         url = node["target"]
         node["update-type"] == "true" and url = suffix_url(url)
         out.a **attr_code(href: url, title: node["alt"]) do |l|
-          if node.text.empty?
+          if node.elements.empty? && node.text.strip.empty?
             l << node["target"].sub(/^mailto:/, "")
           else node.children.each { |n| parse(n, l) }
           end
@@ -37,7 +37,7 @@ module IsoDoc
       end
 
       def xref_parse(node, out)
-        target = if /#/.match?(node["target"])
+        target = if node["target"].include?("#")
                    node["target"].sub("#", ".html#")
                  else
                    "##{node['target']}"
