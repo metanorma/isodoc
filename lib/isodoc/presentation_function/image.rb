@@ -136,7 +136,6 @@ module IsoDoc
       File.exist?(file) and return Metanorma::Utils::datauri(file)
       file2 = uri + File.extname(file)
       warn "Checking #{file2}"
-      warn `ls #{File.dirname(file2)}`
       File.exist?(file2) and return Metanorma::Utils::datauri(file2)
       raise %(Fail on #{exe} #{option} #{uri} outputting #{file}: status #{err})
     end
