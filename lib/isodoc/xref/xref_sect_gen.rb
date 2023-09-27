@@ -231,12 +231,6 @@ module IsoDoc
         end
       end
 
-      ISO_PUBLISHER_XPATH =
-        "./contributor[xmlns:role/@type = 'publisher']/" \
-        "organization[abbreviation = 'ISO' or xmlns:abbreviation = 'IEC' or " \
-        "xmlns:name = 'International Organization for Standardization' or " \
-        "xmlns:name = 'International Electrotechnical Commission']".freeze
-
       def reference_names(ref)
         ids = @klass.bibitem_ref_code(ref)
         identifiers = @klass.render_identifier(ids)
