@@ -226,11 +226,11 @@ refer_list)
 
       def bookmark_anchor_names(xml)
         xml.xpath(ns(".//bookmark")).noblank.each do |n|
-          parent, id = id_ancestor(n)
-          container = bookmark_container(parent)
+          _parent, id = id_ancestor(n)
+          #container = bookmark_container(parent)
           @anchors[n["id"]] = { type: "bookmark", label: nil, value: nil,
                                 xref: @anchors.dig(id, :xref) || "???",
-                                container: container }
+                                container: @anchors.dig(id, :container) }
         end
       end
     end

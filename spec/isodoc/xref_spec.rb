@@ -2110,7 +2110,7 @@ RSpec.describe IsoDoc do
           <xref target='N1'>Introduction</xref>
           <xref target='N2'>Preparatory</xref>
           <xref target='N'>Clause 1</xref>
-          <xref target='note1'>Note 2</xref>
+          <xref target='note1'>Clause 3.1, Note 2</xref>
           <xref target='note2'>Clause 3.1</xref>
           <xref target='AN'>Annex A.1</xref>
           <xref target='Anote1'>Figure A.1</xref>
