@@ -84,11 +84,9 @@ module IsoDoc
       FIRST_LVL_REQ_RULE = <<~XPATH.freeze
         [not(ancestor::permission or ancestor::requirement or ancestor::recommendation)]
       XPATH
-
       FIRST_LVL_REQ = <<~XPATH.freeze
         .//permission#{FIRST_LVL_REQ_RULE} | .//requirement#{FIRST_LVL_REQ_RULE} | .//recommendation#{FIRST_LVL_REQ_RULE}
       XPATH
-
       REQ_CHILDREN = <<~XPATH.freeze
         ./permission | ./requirement | ./recommendation
       XPATH
@@ -234,7 +232,6 @@ module IsoDoc
           block, anchor_struct(id, nil,
                                label, klass, block["unnumbered"])
         )
-
         model.permission_parts(block, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], nil, n[:label],
                                            n[:klass], false)
