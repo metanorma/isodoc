@@ -34,12 +34,14 @@ module IsoDoc
         #{SKIP_DOCID} or @type = 'metanorma-ordinal' or @type = 'metanorma'
       XPATH
 
+      PRIMARY_ID = "docidentifier[@primary = 'true']".freeze
+
       def pref_ref_code(bib)
         bib["suppress_identifier"] == "true" and return nil
         lang = "[@language = '#{@lang}']"
-        ret = bib.xpath(ns("./docidentifier[@primary = 'true']#{lang}"))
+        ret = bib.xpath(ns("./#{PRIMARY_ID}[not(#{SKIP_DOCID})]#{lang}"))
         ret.empty? and
-          ret = bib.xpath(ns("./docidentifier[@primary = 'true']"))
+          ret = bib.xpath(ns("./#{PRIMARY_ID}[not(#{SKIP_DOCID})]"))
         ret.empty? and
           ret = bib.at(ns("./docidentifier[not(#{SKIP_DOC1})]#{lang}")) ||
             bib.at(ns("./docidentifier[not(#{SKIP_DOC1})]"))
