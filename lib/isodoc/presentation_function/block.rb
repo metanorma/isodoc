@@ -106,67 +106,10 @@ module IsoDoc
       docxml.xpath(ns("//td | //th")).each do |d|
         d.traverse do |n|
           n.text? or next
-          ret = break_up_long_str(n.text)
+          ret = Metanorma::Utils::break_up_long_str(n.text)
           n.content = ret
         end
       end
-    end
-
-    LONGSTR_THRESHOLD = 10
-    LONGSTR_NOPUNCT = 2
-
-    def break_up_long_str(text)
-      /^\s*$/.match?(text) and return text
-      text.split(/(?=\s)/).map do |w|
-        if /^\s*$/.match(text) || (w.size < LONGSTR_THRESHOLD) then w
-        else
-          w.scan(/.{,#{LONGSTR_THRESHOLD}}/o).map.with_index do |w1, i|
-            w1.size < LONGSTR_THRESHOLD ? w1 : break_up_long_str1(w1, i + 1)
-          end.join
-        end
-      end.join
-    end
-
-    STR_BREAKUP_RE = %r{
-     (?<=[=_—–\u2009→?+;]) | # break after any of these
-     (?<=[,.:])(?!\d) | # break on punct only if not preceding digit
-     (?<=[>])(?![>]) | # > not >->
-     (?<=[\]])(?![\]]) | # ] not ]-]
-     (?<=//) | # //
-     (?<=[/])(?![/]) | # / not /-/
-     (?<![<])(?=[<]) | # < not <-<
-     (?<=\p{L})(?=[(\{\[]\p{L}) # letter and bracket, followed by letter
-    }x.freeze
-
-
-    CAMEL_CASE_RE = %r{
-      (?<=\p{Ll}\p{Ll})(?=\p{Lu}\p{Ll}\p{Ll}) # 2 lowerc / upperc, 2 lowerc
-    }x.freeze
-
-    # break on punct every LONGSTRING_THRESHOLD chars, with zero width space
-    # if punct fails, try break on camel case, with soft hyphen
-    # break regardless every LONGSTRING_THRESHOLD * LONGSTR_NOPUNCT,
-    # with soft hyphen
-    def break_up_long_str1(text, iteration)
-      s, separator = break_up_long_str2(text)
-      if s.size == 1 # could not break up
-        (iteration % LONGSTR_NOPUNCT).zero? and
-          text += "\u00ad" # force soft hyphen
-        text
-      else
-        s[-1] = "#{separator}#{s[-1]}"
-        s.join
-      end
-    end
-
-    def break_up_long_str2(text)
-      s = text.split(STR_BREAKUP_RE, -1)
-      separator = "\u200b"
-      if s.size == 1
-        s = text.split(CAMEL_CASE_RE)
-        separator = "\u00ad"
-      end
-      [s, separator]
     end
 
     # we use this to eliminate the semantic amend blocks from rendering
