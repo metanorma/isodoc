@@ -31,8 +31,7 @@ module IsoDoc
         <<~TOC
           <p class="MsoToc#{toclevel}"><span class="MsoHyperlink"><span lang="EN-GB" style='mso-no-proof:yes'>
           <a href="#_Toc#{bookmark}">#{heading}<span lang="EN-GB" class="MsoTocTextSpan">
-          <span style='mso-tab-count:1 dotted'>. </span>
-          </span><span lang="EN-GB" class="MsoTocTextSpan">
+          <span style='mso-tab-count:1 dotted'>. </span></span><span lang="EN-GB" class="MsoTocTextSpan">
           <span style='mso-element:field-begin'></span></span>
           <span lang="EN-GB" class="MsoTocTextSpan"> PAGEREF _Toc#{bookmark} \\h </span>
             <span lang="EN-GB" class="MsoTocTextSpan"><span style='mso-element:field-separator'></span></span><span
