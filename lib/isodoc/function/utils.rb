@@ -3,6 +3,9 @@ require "metanorma-utils"
 module IsoDoc
   module Function
     module Utils
+      Hash.include Metanorma::Utils::Hash
+      Array.include Metanorma::Utils::Array
+
       def to_xml(node)
         self.class.to_xml(node)
       end
@@ -166,8 +169,8 @@ module IsoDoc
           .merge(@labels ? { labels: @labels } : {})
           .merge(@meta.labels ? { labels: @meta.labels } : {})
           .merge(fonts_options || {})
-        template = liquid(docxml)
-        template.render(meta.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
+        liquid(docxml).render(meta.stringify_all_keys
+          .transform_values { |v| empty2nil(v) })
           .gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;").gsub("&amp;", "&#x26;")
       end
 
