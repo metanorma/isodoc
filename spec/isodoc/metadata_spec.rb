@@ -473,4 +473,27 @@ RSpec.describe IsoDoc do
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
       .to be_equivalent_to output
   end
+
+  it "processes metadata with embedded objects" do
+    c = IsoDoc::Convert.new({})
+    c.convert_init(<<~INPUT, "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+    INPUT
+    c.meta.labels = { hash: { key: [{ key1: 1 }, { key2: 2 }] } }
+    template = <<~OUTPUT
+      <xml> {{ labels["hash"] }} </xml>
+    OUTPUT
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata type="standard">
+      </bibdata>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <xml> {"key"=>[{"key1"=>1}, {"key2"=>2}]} </xml>
+    OUTPUT
+    c.info(Nokogiri::XML(input), nil)
+    expect(c.populate_template(template))
+      .to be_equivalent_to output
+  end
 end
