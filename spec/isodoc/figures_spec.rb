@@ -449,12 +449,11 @@ RSpec.describe IsoDoc do
            <foreword displayorder='2'>
              <figure id='figureA-1'>
                <name>Figure 1</name>
-               <image src='' mimetype='image/svg+xml' height='' width=''>
+               <image src='' mimetype='image/svg+xml' height='auto' width='auto'>
                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
                    <circle fill='#009' r='45' cx='50' cy='50'/>
                    <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
                  </svg>
-                 <emf src='data:image/emf;base64,AQAAAPwAAAAAAAAAAAAAAPsEAAD7BAAAAAAAAAAAAACLCgAAiwoAACBFTUYAAAEAWAQAACgAAAACAAAARwAAAGwAAAAAAAAA3ScAAH0zAADYAAAAFwEAAAAAAAAAAAAAAAAAAMBLAwDYQQQASQBuAGsAcwBjAGEAcABlACAAMQAuADIALgAxACAAKAA5AGMANgBkADQAMQBlACwAIAAyADAAMgAyAC0AMAA3AC0AMQA0ACkAIAAAAGkAbQBhAGcAZQAyADAAMgAyADAAOQAxADMALQA4ADMAMQA3ADYALQA2AHcAYwB1AGMAdgAuAGUAbQBmAAAAAAAAAAAAEQAAAAwAAAABAAAAJAAAACQAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAACAAAARgAAACwAAAAgAAAAU2NyZWVuPTEwMjA1eDEzMTgxcHgsIDIxNngyNzltbQBGAAAAMAAAACMAAABEcmF3aW5nPTEwMC4weDEwMC4wcHgsIDI2LjV4MjYuNW1tAAASAAAADAAAAAEAAAATAAAADAAAAAIAAAAWAAAADAAAABgAAAAYAAAADAAAAAAAAAAUAAAADAAAAA0AAAAnAAAAGAAAAAEAAAAAAAAAAACZAAYAAAAlAAAADAAAAAEAAAA7AAAACAAAABsAAAAQAAAApAQAAHECAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAApAQAAKgDAACoAwAApAQAAHECAACkBAAABQAAADQAAAAAAAAAAAAAAP//////////AwAAADoBAACkBAAAPwAAAKgDAAA/AAAAcQIAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAAA/AAAAOgEAADoBAAA/AAAAcQIAAD8AAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAqAMAAD8AAACkBAAAOgEAAKQEAABxAgAAPQAAAAgAAAA8AAAACAAAAD4AAAAYAAAAAAAAAAAAAAD//////////yUAAAAMAAAABQAAgCgAAAAMAAAAAQAAACcAAAAYAAAAAQAAAAAAAAD///8ABgAAACUAAAAMAAAAAQAAADsAAAAIAAAAGwAAABAAAACdAQAARQEAADYAAAAQAAAAzwMAAEUBAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAXwQAAO0BAABkBAAA4wIAANsDAACRAwAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAFIDAAA+BAAAYQIAAHMEAACdAQAADgQAADYAAAAQAAAAnQEAAMkCAAA2AAAAEAAAAOICAADJAgAANgAAABAAAADiAgAAGgIAADYAAAAQAAAAnQEAABoCAAA9AAAACAAAADwAAAAIAAAAPgAAABgAAAAAAAAAAAAAAP//////////JQAAAAwAAAAFAACAKAAAAAwAAAABAAAADgAAABQAAAAAAAAAAAAAAFgEAAA='/>
                </image>
              </figure>
            </foreword>
@@ -562,7 +561,8 @@ RSpec.describe IsoDoc do
       </html>
     DOC
 
-    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
       .gsub(/&lt;/, "&#x3c;")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
@@ -662,7 +662,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
      .convert("test", input, true)
      .gsub(/&lt;/, "&#x3c;"))
           .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
@@ -698,7 +699,8 @@ RSpec.describe IsoDoc do
         </iso-standard>
       INPUT
       expect do
-        IsoDoc::PresentationXMLConvert.new(presxml_options)
+        IsoDoc::PresentationXMLConvert
+          .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
           .convert("test", input, true)
       end.to raise_error("Inkscape missing in PATH, unable" \
                          "to convert image spec/assets/odf1.svg. Aborting.")
@@ -801,12 +803,10 @@ RSpec.describe IsoDoc do
                <sections>
                  <figure id='_'>
                    <image src='spec/assets/action_schemaexpg1.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto'>
-                      <emf src="data:image/emf;base64"/>
                     </image>
                  </figure>
                  <figure id='_'>
                    <image src='spec/assets/action_schemaexpg2.svg' id='_' mimetype='image/svg+xml' height='auto' width='auto' alt='Workmap'>
-                      <emf src="data:image/emf;base64"/>
                     </image>
                  </figure>
                </sections>

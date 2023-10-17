@@ -48,6 +48,7 @@ module IsoDoc
       @aligncrosselements = options[:aligncrosselements]
       @modspecidentifierbase = options[:modspecidentifierbase]
       @sourcehighlighter = options[:sourcehighlighter]
+      @output_formats = options[:output_formats] || {}
     end
 
     def init_arrangement(options)

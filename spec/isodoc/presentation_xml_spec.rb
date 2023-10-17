@@ -728,7 +728,65 @@ RSpec.describe IsoDoc do
          </sections>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .gsub(%r{"data:image/emf;base64,[^"]+"},
+            '"data:image/emf;base64"')
+      .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
+            '"data:application/x-msmetafile;base64"'))))
+      .to be_equivalent_to (output)
+
+    output = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <clause id="A" inline-header="false" obligation="normative" displayorder="2">
+             <title depth="1">1.<tab/>Clause</title>
+             <figure id="B">
+               <name>Figure 1</name>
+               <image src="spec/assets/odf.svg" mimetype="image/svg+xml" alt="1"/>
+               <image src="" mimetype="image/svg+xml" alt="2">
+                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
+                   <g transform="translate(-0.0000, -0.0000)">
+                     <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
+                       <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
+                       <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
+                     </g>
+                   </g>
+                 </svg>
+                 <emf src="data:image/emf;base64"/>
+               </image>
+               <image src="" mimetype="image/svg+xml" alt="3">
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                   <circle fill="#009" r="45" cx="50" cy="50"/>
+                   <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                 </svg>
+               </image>
+               <image src="" mimetype="image/svg+xml" alt="4">
+                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
+                   <g transform="translate(-0.0000, -0.0000)">
+                     <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
+                       <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
+                       <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
+                     </g>
+                   </g>
+                 </svg>
+                 <emf src="data:application/x-msmetafile;base64"/>
+               </image>
+             </figure>
+           </clause>
+         </sections>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html" }))
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"data:image/emf;base64,[^"]+"},
@@ -1598,26 +1656,26 @@ RSpec.describe IsoDoc do
       </standard-document>
     INPUT
     presxml = <<~OUTPUT
-           <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
-         <bibdata/>
+          <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+        <bibdata/>
 
-         <preface>
-           <clause type="toc" id="_" displayorder="1">
-             <title depth="1">Table of contents</title>
-           </clause>
-           <abstract displayorder="2"/>
-           <foreword displayorder="3"/>
-           <introduction displayorder="4"/>
-           <p type="floating-title" displayorder="5">FL 1</p>
-           <p type="floating-title" displayorder="6">FL 2</p>
-           <p type="floating-title" displayorder="7">FL 3</p>
-           <p type="floating-title" displayorder="8">FL 4</p>
-           <p type="floating-title" displayorder="9">FL 5</p>
-           <p type="floating-title" displayorder="10">FL 6</p>
-           <p type="floating-title" displayorder="11">FL 0</p>
-           <acknowledgements displayorder="12"/>
-         </preface>
-       </standard-document>
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+            <title depth="1">Table of contents</title>
+          </clause>
+          <abstract displayorder="2"/>
+          <foreword displayorder="3"/>
+          <introduction displayorder="4"/>
+          <p type="floating-title" displayorder="5">FL 1</p>
+          <p type="floating-title" displayorder="6">FL 2</p>
+          <p type="floating-title" displayorder="7">FL 3</p>
+          <p type="floating-title" displayorder="8">FL 4</p>
+          <p type="floating-title" displayorder="9">FL 5</p>
+          <p type="floating-title" displayorder="10">FL 6</p>
+          <p type="floating-title" displayorder="11">FL 0</p>
+          <acknowledgements displayorder="12"/>
+        </preface>
+      </standard-document>
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
@@ -1774,10 +1832,10 @@ RSpec.describe IsoDoc do
                   </table>
        </foreword></preface></standard-document>
     OUTPUT
-    expect((strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(breakupurlsintables: "true"))
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to (presxml)
   end
 
