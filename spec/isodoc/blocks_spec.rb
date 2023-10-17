@@ -1872,6 +1872,33 @@ RSpec.describe IsoDoc do
      .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
+  it "ignores columnbreak" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+              <preface>
+          <clause type="toc" id="_toc" displayorder="1">
+           <title depth="1">Table of contents</title>
+           <columnbreak/>
+          </clause>
+        <foreword displayorder="2">
+      <passthrough format="doc,rfc">&lt;A&gt;</passthrough>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      #{HTML_HDR}
+                <br/>
+                <div>
+                  <h1 class='ForewordTitle'>Foreword</h1>
+                </div>
+              </div>
+            </body>
+          </html>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+     .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
+  end
+
   it "processes toc" do
     input = <<~INPUT
           <standard-document xmlns='https://www.metanorma.org/ns/standoc' type='semantic' version='1.10.2'>
