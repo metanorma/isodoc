@@ -205,6 +205,8 @@ module IsoDoc
           end
         end
       end
+
+      def columnbreak_parse(node, out); end
     end
   end
 end
