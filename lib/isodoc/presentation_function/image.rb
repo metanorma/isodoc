@@ -109,6 +109,7 @@ module IsoDoc
     end
 
     def svg_to_emf(node)
+      @output_formats[:doc] or return
       uri = svg_to_emf_uri(node)
       svg_impose_height_attr(node)
       ret = imgfile_suffix(uri, "emf")

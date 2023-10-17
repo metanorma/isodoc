@@ -50,6 +50,7 @@ module IsoDoc
     # sourcehighlighter: whether to apply sourcecode highlighting
     # semantic_xml_insert: whether to insert into presentation XML
     #   a copy of semantic XML
+    # output_formats: hash of supported output formats and suffixes
     def initialize(options) # rubocop:disable Lint/MissingSuper
       @options = options_preprocess(options)
       init_stylesheets(@options)
@@ -97,7 +98,7 @@ module IsoDoc
     end
 
     def convert_init(file, input_filename, debug)
-      docxml = Nokogiri::XML(file) { |config| config.huge }
+      docxml = Nokogiri::XML(file, &:huge)
       filename, dir = init_file(input_filename, debug)
       docxml.root.default_namespace = ""
       convert_i18n_init(docxml)
