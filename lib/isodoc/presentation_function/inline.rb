@@ -99,7 +99,27 @@ module IsoDoc
       elem.replace(@i18n.date(elem["value"], elem["format"].strip))
     end
 
+    def inline_format(docxml)
+      custom_charset(docxml)
+    end
+
+    def custom_charset(docxml)
+      charsets = extract_custom_charsets(docxml)
+      docxml.xpath(ns("//span[@custom-charset]")).each do |s|
+        s["style"] ||= ""
+        s["style"] += ";font-family:#{charsets[s['custom-charset']]}"
+      end
+    end
+
     private
+
+    def extract_custom_charsets(docxml)
+      docxml.xpath(ns("//presentation-metadata/custom-charset-font")).
+        each_with_object({}) do |x, m|
+        kv = x.text.split(":", 2)
+        m[kv[0]] = kv[1]
+      end
+    end
 
     def found_matching_variant_sibling(node)
       prev = node.xpath("./preceding-sibling::xmlns:variant")
