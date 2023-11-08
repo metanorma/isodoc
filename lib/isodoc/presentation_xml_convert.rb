@@ -89,6 +89,7 @@ module IsoDoc
       variant docxml
       identifier docxml
       date docxml
+      inline_format docxml
     end
 
     def terms(docxml)

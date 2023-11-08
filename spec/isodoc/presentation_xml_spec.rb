@@ -1839,6 +1839,34 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to (presxml)
   end
 
+  it "realises custom charsets" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols"</custom-charset-font></presentation-metadata>
+      <presentation-metadata><custom-charset-font>conscript:"Code 2000"</custom-charset-font></presentation-metadata>
+        <preface>
+          <foreword id="A">
+            <p id="_214f7090-c6d4-8fdc-5e6a-837ebb515871"><span custom-charset="weather">ﶀ</span></p>
+       </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+           <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+       <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols"</custom-charset-font></presentation-metadata>
+       <presentation-metadata><custom-charset-font>conscript:"Code 2000"</custom-charset-font></presentation-metadata>
+         <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+
+           <foreword id="A" displayorder="2">
+             <p id="_"><span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">&#xFD80;</span></p>
+        </foreword></preface></standard-document>
+    OUTPUT
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to (presxml)
+  end
+
+
   private
 
   def mock_symbols
