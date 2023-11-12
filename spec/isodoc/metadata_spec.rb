@@ -34,6 +34,7 @@ RSpec.describe IsoDoc do
         <date type="transmitted"><on>2020</on></date>
         <date type="vote-started"><on>2021</on></date>
         <date type="vote-ended"><on>2022</on></date>
+        <date type="corrected"><on>2023</on></date>
         <edition>2</edition><edition language="en">second edition</edition>
       <version>
         <revision-date>2016-05-01</revision-date>
@@ -134,6 +135,7 @@ RSpec.describe IsoDoc do
       :circulateddate=>"2015",
       :confirmeddate=>"2017",
       :copieddate=>"2016",
+      :correcteddate=>"2023",
       :createddate=>"2010&#x2013;2011",
       :doc=>"URL E",
       :docnumber=>"17301-1",
@@ -264,6 +266,7 @@ RSpec.describe IsoDoc do
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
+      :correcteddate=>"XXX",
       :createddate=>"XXX",
       :docnumber=>"17301-1-3",
       :docnumeric=>"17301",
@@ -337,6 +340,7 @@ RSpec.describe IsoDoc do
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
+      :correcteddate=>"XXX",
       :createddate=>"XXX",
       :implementeddate=>"XXX",
       :issueddate=>"XXX",
@@ -440,6 +444,7 @@ RSpec.describe IsoDoc do
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
+      :correcteddate=>"XXX",
       :createddate=>"XXX",
       :docnumber=>"17301-1-3",
       :docnumeric=>"17301",
