@@ -140,9 +140,9 @@ module IsoDoc
           docxml.xpath(p.join(" | ")).each do |h|
             h["id"] ||= "_#{UUIDTools::UUID.random_create}"
             m << { entry: html_toc_entry("h#{i + 1}", h),
-                   line: h.line }
+                   line: h.line, level: i + 1 }
           end
-        end.sort_by { |k| k[:line] }
+        end.sort_by { |k| [k[:line], k[:level]] }
       end
 
       def toc_exclude_class

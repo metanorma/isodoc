@@ -366,7 +366,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1" id="fwd">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -375,7 +375,8 @@ RSpec.describe IsoDoc do
     INPUT
     html = Nokogiri::XML(File.read("test.html")).at("//body")
     html.xpath("//script").each(&:remove)
-    expect(html.to_xml).to be_equivalent_to <<~OUTPUT
+    expect(strip_guid(xmlpp(html.to_xml)))
+      .to be_equivalent_to <<~OUTPUT
       <body lang="en" xml:lang="en">
           <div class="title-section">
       /* an empty html cover page */
@@ -384,25 +385,27 @@ RSpec.describe IsoDoc do
           <div class="prefatory-section">
       /* an empty html intro page */
       <ul id="toc-list"/>
-          </div>
-          <br/>
-          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-            <br/>
-            <div>
-              <h1 class="ForewordTitle">Anta&#x16D;parolo</h1>
-              <div class="Note">
-                <p>&#xA0; These results are based on a study carried out on three different types of kernel.</p>
-              </div>
-            </div>
-          </main>
-      </body>
+             <div id="toc"><ul><li class="h1"><a href="#_">      Antaŭparolo</a></li></ul></div>
+       </div>
+         <br/>
+         <main class="main-section">
+           <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+           <br/>
+           <div id="fwd">
+             <h1 class="ForewordTitle" id="_">Antaŭparolo</h1>
+             <div class="Note">
+               <p>  These results are based on a study carried out on three different types of kernel.</p>
+             </div>
+           </div>
+         </main>
+       </body>
     OUTPUT
   end
 
   it "populates HTML ToC" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({})
+    IsoDoc::HtmlConvert.new({htmlintropage: "spec/assets/htmlintro.html"})
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword displayorder="1"><title>Foreword</title>
@@ -414,13 +417,33 @@ RSpec.describe IsoDoc do
         <variant-title type="toc">SUBCLOZ</variant-title>
         </clause>
         </clause>
+        <clause displayorder="3"><title>Second Clause</title><clause><title>Subclause</title></clause></clause>
         </sections>
         </iso-standard>
       INPUT
     html = Nokogiri::XML(File.read("test.html"))
       .at("//div[@id = 'toc']")
-    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~OUTPUT)
-      HAJSHJAS
+    expect(strip_guid(xmlpp(html.to_xml)))
+      .to be_equivalent_to xmlpp(<<~OUTPUT)
+       <div id="toc">
+         <ul>
+           <li class="h1">
+             <a href="#_">      FORVORT</a>
+           </li>
+           <li class="h1">
+             <a href="#_">      First Clause</a>
+           </li>
+           <li class="h2">
+             <a href="#_">      SUBCLOZ</a>
+           </li>
+           <li class="h1">
+             <a href="#_">      Second Clause</a>
+           </li>
+           <li class="h2">
+             <a href="#_">      Subclause</a>
+           </li>
+         </ul>
+       </div>
     OUTPUT
   end
 
