@@ -111,14 +111,29 @@ module IsoDoc
       end
     end
 
+    def passthrough(docxml)
+      formats = @output_formats.keys
+      docxml.xpath(ns("//passthrough")).each do |p|
+        passthrough1(p, formats)
+      end
+    end
+
+    def passthrough1(elem, formats)
+      (elem["formats"] && !elem["formats"].empty?) or elem["formats"] = "all"
+      f = elem["formats"].split(",")
+      (f - formats).size == f.size or elem["formats"] = "all"
+      elem["formats"] == "all" and elem["formats"] = formats.join(",")
+      elem["formats"] = ",#{elem['formats']},"
+    end
+
     private
 
     def extract_custom_charsets(docxml)
       docxml.xpath(ns("//presentation-metadata/custom-charset-font")).
         each_with_object({}) do |x, m|
-        kv = x.text.split(":", 2)
-        m[kv[0]] = kv[1]
-      end
+          kv = x.text.split(":", 2)
+          m[kv[0]] = kv[1]
+        end
     end
 
     def found_matching_variant_sibling(node)

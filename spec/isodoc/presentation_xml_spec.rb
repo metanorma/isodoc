@@ -732,6 +732,7 @@ RSpec.describe IsoDoc do
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .gsub(%r{"data:image/emf;base64,[^"]+"},
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
@@ -789,6 +790,7 @@ RSpec.describe IsoDoc do
       .new(presxml_options.merge(output_formats: { html: "html" }))
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .gsub(%r{"data:image/emf;base64,[^"]+"},
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
@@ -1866,6 +1868,83 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to (presxml)
   end
 
+  it "supplies formats in passthrough" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+        <preface>
+          <foreword id="A">
+            <p>
+            <passthrough formats="html">A</passthrough>
+            <passthrough formats="word,html">A</passthrough>
+            <passthrough formats="word,html,pdf">A</passthrough>
+            <passthrough>A</passthrough>
+            <passthrough formats="all">A</passthrough>
+            </p>
+       </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+        <metanorma-extension>
+           <render>
+             <preprocess-xslt format="html">
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:strip-space elements="*"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="*[local-name() = 'passthrough']">
+                   <xsl:if test="contains(@formats,',html,')">
+                     <!-- delimited -->
+                     <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                     </xsl:copy>
+                   </xsl:if>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
+             <preprocess-xslt format="doc">
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:strip-space elements="*"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="*[local-name() = 'passthrough']">
+                   <xsl:if test="contains(@formats,',doc,')">
+                     <!-- delimited -->
+                     <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                     </xsl:copy>
+                   </xsl:if>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
+           </render>
+         </metanorma-extension>
+       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <foreword id="A" displayorder="2">
+             <p>
+               <passthrough formats=",html,">A</passthrough>
+               <passthrough formats=",word,html,">A</passthrough>
+               <passthrough formats=",word,html,pdf,">A</passthrough>
+               <passthrough formats=",html,doc,">A</passthrough>
+               <passthrough formats=",html,doc,">A</passthrough>
+             </p>
+           </foreword>
+         </preface>
+       </standard-document>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
+      .convert("test", input, true))
+       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+  end
 
   private
 

@@ -1812,13 +1812,17 @@ RSpec.describe IsoDoc do
 
   it "processes passthrough with compatible format" do
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({}).convert("test", <<~INPUT, false)
+    input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="1">
+      <preface><foreword>
       <passthrough format="html,rfc">&lt;A&gt;</passthrough><em>Hello</em><passthrough format="html,rfc">&lt;/A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
     INPUT
+    presxml = IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
+      .convert("test", input, true)
+    IsoDoc::HtmlConvert.new({}).convert("test", presxml, false)
     expect(xmlpp(File.read("test.html")
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
       .gsub(%r{</div>.*}m, ""))).to be_equivalent_to xmlpp(<<~OUTPUT)
@@ -1832,14 +1836,17 @@ RSpec.describe IsoDoc do
     begin
       input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface><foreword displayorder="1">
+        <preface><foreword>
         <passthrough format="html,rfc">&lt;A&gt;</passthrough><em>Hello</em>
         </foreword></preface>
         </iso-standard>
       INPUT
+      presxml = IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
+      .convert("test", input, true)
       expect do
         IsoDoc::HtmlConvert.new({})
-          .convert("test", input, false)
+          .convert("test", presxml, false)
       end.to raise_error(SystemExit)
     rescue SystemExit
     end
@@ -1868,8 +1875,11 @@ RSpec.describe IsoDoc do
             </body>
           </html>
     OUTPUT
+    presxml = IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
+      .convert("test", input, true)
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
-     .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
+     .convert("test", presxml, true)))).to be_equivalent_to xmlpp(output)
   end
 
   it "ignores columnbreak" do
@@ -1881,7 +1891,6 @@ RSpec.describe IsoDoc do
            <columnbreak/>
           </clause>
         <foreword displayorder="2">
-      <passthrough format="doc,rfc">&lt;A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
     INPUT

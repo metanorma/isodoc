@@ -89,6 +89,7 @@ module IsoDoc
       variant docxml
       identifier docxml
       date docxml
+      passthrough docxml
       inline_format docxml
     end
 
