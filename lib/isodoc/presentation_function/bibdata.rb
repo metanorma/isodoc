@@ -17,7 +17,8 @@ module IsoDoc
 
     def extension_insert(docxml, path = [])
       ins = docxml.at(ns("//metanorma-extension")) ||
-        docxml.at(ns("//bibdata")).after("<metanorma-extension/>").next_element
+        docxml.at(ns("//bibdata"))&.after("<metanorma-extension/>")&.next_element ||
+        docxml.root.elements.first.before("<metanorma-extension/>").previous_element
       path.each do |n|
         ins = ins.at(ns("./#{n}")) || ins.add_child("<#{n}/>").first
       end
@@ -25,9 +26,39 @@ module IsoDoc
     end
 
     def preprocess_xslt_insert(docxml)
-      content = preprocess_xslt_read or return
+      content = ""
+      p = passthrough_xslt and content += p
+      p = preprocess_xslt_read and content += File.read(p)
+      content.empty? and return
       ins = extension_insert(docxml, %w(render))
-      ins << File.read(content)
+      ins << content
+    end
+
+    def passthrough_xslt
+      @output_formats.nil? and return nil
+      @output_formats.empty? and return nil
+      @output_formats.each_key.with_object([]) do |k, m|
+        m << <<~XSLT
+<preprocess-xslt format="#{k}">
+  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+    <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+    <xsl:strip-space elements="*"/>
+    <xsl:template match="@* | node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()"/>
+    </xsl:copy>
+  </xsl:template>
+    <xsl:template match="*[local-name() = 'passthrough']">
+      <xsl:if test="contains(@formats,',#{k},')"> <!-- delimited -->
+    <xsl:copy>
+        <xsl:apply-templates select="@* | node()"/>
+    </xsl:copy>
+      </xsl:if>
+    </xsl:template>
+  </xsl:stylesheet>
+</preprocess-xslt>
+        XSLT
+      end.join("\n")
     end
 
     # read in from file, but with `<preprocess-xslt @format="">` wrapper
@@ -45,7 +76,7 @@ module IsoDoc
         ins << "<toc type='table'><title>#{@i18n.toc_tables}</title></toc>"
       @tocfigures and
         ins << "<toc type='recommendation'><title>#{@i18n.toc_recommendations}" \
-               "</title></toc>"
+        "</title></toc>"
     end
 
     def address_precompose(bib)
@@ -152,8 +183,8 @@ module IsoDoc
       when Array
         hash.reject { |a| blank?(a) }.each_with_object([])
           .with_index do |(v1, g), i|
-          i8n_name(v1, "#{i18n_safe(k)}.#{i}").each { |x| g << x }
-        end
+            i8n_name(v1, "#{i18n_safe(k)}.#{i}").each { |x| g << x }
+          end
       else [i18n_tag(pref, hash)]
       end
     end

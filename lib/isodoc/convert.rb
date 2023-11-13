@@ -114,7 +114,7 @@ module IsoDoc
         docxml = Nokogiri::XSLT(x).transform(docxml)
       end
       docxml
-    rescue
+    rescue ::Error => e
       require "debug"; binding.b
     end
 

@@ -561,20 +561,22 @@ RSpec.describe IsoDoc do
       </html>
     DOC
 
-    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert
+    output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
+    expect(strip_guid(xmlpp(output
       .gsub(/&lt;/, "&#x3c;")
+      .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
       .to be_equivalent_to xmlpp(presxml
          .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
     expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
+      .convert("test", output, true)))).to be_equivalent_to strip_guid(xmlpp(html))
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", output, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'"))))
-      .to be_equivalent_to xmlpp(doc)
+      .to be_equivalent_to strip_guid(xmlpp(doc))
   end
 
   it "converts SVG (Word)" do
@@ -619,7 +621,7 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    output = <<~OUTPUT
+    word = <<~OUTPUT
           <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
       <head>
       <style>
@@ -662,19 +664,21 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert
+    output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
      .convert("test", input, true)
+    expect(strip_guid(xmlpp(output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
      .gsub(/&lt;/, "&#x3c;"))
           .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
       .to be_equivalent_to xmlpp(presxml
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
     expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", output, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to strip_guid(xmlpp(word))
   end
 
   context "disable inkscape" do
