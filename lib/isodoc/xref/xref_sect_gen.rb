@@ -169,17 +169,18 @@ module IsoDoc
         clause.nil? and return num
         num.increment(clause)
         section_name_anchors(clause, num.print, lvl)
-        clause.xpath(ns(SUBCLAUSES)).each_with_object(Counter.new) do |c, i|
-          section_names1(c, "#{num.print}.#{i.increment(c).print}", lvl + 1)
+        clause.xpath(ns(SUBCLAUSES))
+          .each_with_object(Counter.new(0, prefix: "#{num.print}.")) do |c, i|
+          section_names1(c, i.increment(c).print, lvl + 1)
         end
         num
       end
 
       def section_names1(clause, num, level)
         section_name_anchors(clause, num, level)
-        i = Counter.new
+        i = Counter.new(0, prefix: "#{num}.")
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          section_names1(c, "#{num}.#{i.increment(c).print}", level + 1)
+          section_names1(c, i.increment(c).print, level + 1)
         end
       end
 
@@ -217,8 +218,9 @@ module IsoDoc
           annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
                        num.to_s, 1)
         else
-          clause.xpath(ns(SUBCLAUSES)).each_with_object(Counter.new) do |c, i|
-            annex_names1(c, "#{num}.#{i.increment(c).print}", 2)
+          clause.xpath(ns(SUBCLAUSES))
+            .each_with_object(Counter.new(0, prefix: "#{num}.")) do |c, i|
+            annex_names1(c, i.increment(c).print, 2)
           end
         end
         hierarchical_asset_names(clause, num)
@@ -226,9 +228,9 @@ module IsoDoc
 
       def annex_names1(clause, num, level)
         annex_name_anchors(clause, num, level)
-        i = Counter.new
+        i = Counter.new(0, prefix: "#{num}.")
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          annex_names1(c, "#{num}.#{i.increment(c).print}", level + 1)
+          annex_names1(c, i.increment(c).print, level + 1)
         end
       end
 
