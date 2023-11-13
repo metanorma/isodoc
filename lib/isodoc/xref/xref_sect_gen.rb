@@ -14,12 +14,13 @@ module IsoDoc
 
       def clause_order_main(docxml)
         [
-          { path: "//clause[@type = 'scope']" },
+          { path: "//sections/clause[@type = 'scope']" },
           { path: @klass.norm_ref_xpath },
           { path: "//sections/terms | " \
-                  "//sections/clause[descendant::terms]" },
+            "//sections/clause[descendant::terms]" },
           { path: "//sections/definitions | " \
-                  "//sections/clause[descendant::definitions][not(descendant::terms)]" },
+            "//sections/clause[descendant::definitions]" \
+            "[not(descendant::terms)]" },
           { path: @klass.middle_clause(docxml), multi: true },
         ]
       end
@@ -234,9 +235,9 @@ module IsoDoc
       def reference_names(ref)
         ids = @klass.bibitem_ref_code(ref)
         identifiers = @klass.render_identifier(ids)
-        reference = @klass
-          .docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
-                                     identifiers[:ordinal] || identifiers[:doi])
+        reference = @klass.
+          docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
+                      identifiers[:ordinal] || identifiers[:doi])
         @anchors[ref["id"]] = { xref: reference }
       end
     end
