@@ -110,7 +110,8 @@ module IsoDoc
     end
 
     def preprocess_xslt(docxml)
-      extract_preprocess_xslt(docxml).each do |x|
+      sheets = extract_preprocess_xslt(docxml)
+      sheets.each do |x|
         docxml = Nokogiri::XSLT(x).transform(docxml)
       end
       docxml
@@ -131,8 +132,9 @@ module IsoDoc
       convert_i18n_init1(docxml)
       i18n_init(@lang, @script, @locale)
       @reqt_models = requirements_processor
-        .new({ default: "default", lang: @lang, script: @script, locale: @locale,
-               labels: @i18n.get, modspecidentifierbase: @modspecidentifierbase })
+        .new({ default: "default", lang: @lang, script: @script,
+               locale: @locale, labels: @i18n.get,
+               modspecidentifierbase: @modspecidentifierbase })
     end
 
     def convert_i18n_init1(docxml)
