@@ -151,7 +151,8 @@ module IsoDoc
             h["id"] ||= "_#{UUIDTools::UUID.random_create}"
           end
         end
-        xml = Nokogiri::XML(docxml.to_xml, &:noblanks)
+        #xml = Nokogiri::XML(docxml.to_xml, &:noblanks)
+        xml = Nokogiri::XML(Nokogiri::XML(docxml.to_xml, &:noblanks).to_xml(indent: 2), &:noblanks)
         xml.remove_namespaces!
         xml
       end
