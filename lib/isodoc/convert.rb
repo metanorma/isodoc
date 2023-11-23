@@ -111,6 +111,7 @@ module IsoDoc
 
     def preprocess_xslt(docxml)
       sheets = extract_preprocess_xslt(docxml)
+      warn "Preprocessing XSLT: #{@format}..."
       sheets.each do |x|
         docxml = Nokogiri::XSLT(x).transform(docxml)
       end
