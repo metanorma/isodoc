@@ -24,24 +24,25 @@ module IsoDoc
         .//figure[not(@class)] | .//figure[@class = 'pseudocode'] | .//sourcecode[not(ancestor::example)]
       XPATH
 
-      def sequential_figure_names(clause)
+      def sequential_figure_names(clause, container: false)
         c = Counter.new
         j = 0
         clause.xpath(ns(FIGURE_NO_CLASS)).noblank.each do |t|
           j = subfigure_increment(j, c, t)
-          sequential_figure_body(j, c, t, "figure")
+          sequential_figure_body(j, c, t, "figure", container: container)
         end
-        sequential_figure_class_names(clause)
+        sequential_figure_class_names(clause, container: container)
       end
 
-      def sequential_figure_class_names(clause)
+      def sequential_figure_class_names(clause, container: false)
         c = {}
         j = 0
         clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
           .each do |t|
           c[t["class"]] ||= Counter.new
           j = subfigure_increment(j, c[t["class"]], t)
-          sequential_figure_body(j, c[t["class"]], t, t["class"])
+          sequential_figure_body(j, c[t["class"]], t, t["class"],
+                                 container: container)
         end
       end
 
@@ -50,27 +51,28 @@ module IsoDoc
         "-#{subfignum}"
       end
 
-      def sequential_figure_body(subfignum, counter, block, klass)
+      def sequential_figure_body(subfig, counter, elem, klass, container: false)
         label = counter.print
-        label &&= label + subfigure_label(subfignum)
-        @anchors[block["id"]] = anchor_struct(
-          label, nil, @labels[klass] || klass.capitalize, klass,
-          block["unnumbered"]
+        label &&= label + subfigure_label(subfig)
+        @anchors[elem["id"]] = anchor_struct(
+          label, container ? elem : nil,
+          @labels[klass] || klass.capitalize, klass,
+          elem["unnumbered"]
         )
       end
 
-      def sequential_table_names(clause)
+      def sequential_table_names(clause, container: false)
         c = Counter.new
         clause.xpath(ns(".//table")).noblank.each do |t|
           labelled_ancestor(t) and next
           @anchors[t["id"]] = anchor_struct(
-            c.increment(t).print, nil,
+            c.increment(t).print, container ? t : nil,
             @labels["table"], "table", t["unnumbered"]
           )
         end
       end
 
-      def sequential_formula_names(clause)
+      def sequential_formula_names(clause, container: false)
         c = Counter.new
         clause.xpath(ns(".//formula")).noblank.each do |t|
           @anchors[t["id"]] = anchor_struct(
@@ -91,60 +93,63 @@ module IsoDoc
         ./permission | ./requirement | ./recommendation
       XPATH
 
-      def sequential_permission_names(clause)
+      def sequential_permission_names(clause, container: false)
         c = ReqCounter.new
         clause.xpath(ns(FIRST_LVL_REQ)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_label(t, m)
           id = c.increment(label, t).print
-          sequential_permission_body(id, t, label, klass, m)
-          sequential_permission_children(t, id)
+          sequential_permission_body(id, t, label, klass, m,
+                                     container: container)
+          sequential_permission_children(t, id, container: container)
         end
       end
 
-      def sequential_permission_children(block, lbl)
+      def sequential_permission_children(elem, lbl, container: false)
         c = ReqCounter.new
-        block.xpath(ns(REQ_CHILDREN)).noblank.each do |t|
+        elem.xpath(ns(REQ_CHILDREN)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
           id = "#{lbl}#{hierfigsep}#{c.increment(label, t).print}"
-          sequential_permission_body(id, t, label, klass, m)
-          sequential_permission_children(t, id)
+          sequential_permission_body(id, t, label, klass, m,
+                                     container: container)
+          sequential_permission_children(t, id, container: container)
         end
       end
 
-      def sequential_permission_body(id, block, label, klass, model)
-        @anchors[block["id"]] = model.postprocess_anchor_struct(
-          block, anchor_struct(id, block,
-                               label, klass, block["unnumbered"])
+      def sequential_permission_body(id, elem, label, klass, model, container: false)
+        @anchors[elem["id"]] = model.postprocess_anchor_struct(
+          elem, anchor_struct(id, elem,
+                              label, klass, elem["unnumbered"])
         )
-        model.permission_parts(block, id, label, klass).each do |n|
+        model.permission_parts(elem, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
                                            n[:klass], false)
         end
       end
 
-      def reqt2class_label(block, model)
+      def reqt2class_label(elem, model)
         model.req_class_paths.each do |n|
           v1 = ns("/#{n[:xpath]}").sub(%r{^/}, "")
-          block.at("./self::#{v1}") and return [n[:klass], n[:label]]
+          elem.at("./self::#{v1}") and return [n[:klass], n[:label]]
         end
         [nil, nil]
       end
 
-      def reqt2class_nested_label(block, model)
+      def reqt2class_nested_label(elem, model)
         model.req_nested_class_paths.each do |n|
           v1 = ns("/#{n[:xpath]}").sub(%r{^/}, "")
-          block.at("./self::#{v1}") and return [n[:klass], n[:label]]
+          elem.at("./self::#{v1}") and return [n[:klass], n[:label]]
         end
         [nil, nil]
       end
 
-      def sequential_asset_names(clause)
-        sequential_table_names(clause)
-        sequential_figure_names(clause)
-        sequential_formula_names(clause)
-        sequential_permission_names(clause)
+      # container makes numbering be prefixed with the parent clause reference
+      def sequential_asset_names(clause, container: false)
+        sequential_table_names(clause, container: container)
+        sequential_figure_names(clause, container: container)
+        sequential_formula_names(clause, container: container)
+        sequential_permission_names(clause, container: container)
       end
 
       def hierarchical_figure_names(clause, num)
