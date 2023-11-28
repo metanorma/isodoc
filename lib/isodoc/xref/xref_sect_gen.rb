@@ -129,7 +129,10 @@ module IsoDoc
 
       def back_names(clause)
         unnumbered_names(clause)
-        sequential_asset_names(clause, container: true)
+        sequential_asset_names(
+          Nokogiri::XML::NodeSet.new(clause.document, [clause]),
+          container: true,
+        )
       end
 
       def unnumbered_names(clause)
