@@ -136,7 +136,7 @@ module IsoDoc
       end
 
       def html_toc_entries(docxml, path)
-        headers = html_toc_entries_prep(docxml)
+        headers = html_toc_entries_prep(docxml, path)
         path.each_with_index.with_object([]) do |(p, i), m|
           docxml.xpath(p.join(" | ")).each do |h|
             m << { entry: html_toc_entry("h#{i + 1}", h),
@@ -145,8 +145,8 @@ module IsoDoc
         end.sort_by { |k| k[:line] }
       end
 
-      def html_toc_entries_prep(docxml)
-        docxml.xpath("//h1 | //h2 | //h3 | //h4 | //h5 | //h6")
+      def html_toc_entries_prep(docxml, path)
+        docxml.xpath(path.join(" | "))
           .each_with_index.with_object({}) do |(h, i), m|
             h["id"] ||= "_#{UUIDTools::UUID.random_create}"
             m[h["id"]] = i
