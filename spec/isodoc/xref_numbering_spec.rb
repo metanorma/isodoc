@@ -1,7 +1,6 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-=begin
   it "realises subsequences" do
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -283,7 +282,7 @@ RSpec.describe IsoDoc do
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
-=end
+
   it "realises branch-numbering overrides" do
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">

@@ -129,6 +129,10 @@ module IsoDoc
 
       def back_names(clause)
         unnumbered_names(clause)
+        sequential_asset_names(
+          Nokogiri::XML::NodeSet.new(clause.document, [clause]),
+          container: true,
+        )
       end
 
       def unnumbered_names(clause)
@@ -237,8 +241,8 @@ module IsoDoc
       def reference_names(ref)
         ids = @klass.bibitem_ref_code(ref)
         identifiers = @klass.render_identifier(ids)
-        reference = @klass.
-          docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
+        reference = @klass
+          .docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
                       identifiers[:ordinal] || identifiers[:doi])
         @anchors[ref["id"]] = { xref: reference }
       end

@@ -110,6 +110,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -158,6 +159,11 @@ RSpec.describe IsoDoc do
       </note>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <note id="Anote3">
+            <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+          </note>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -171,6 +177,7 @@ RSpec.describe IsoDoc do
       <xref target='AN'>Annex A.1, Note</xref>
       <xref target='Anote1'>Annex A.2, Note 1</xref>
       <xref target='Anote2'>Annex A.2, Note 2</xref>
+      <xref target="Anote3">Bibliographical Section, Note</xref>
             </p>
           </foreword>
     OUTPUT
@@ -196,6 +203,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -247,6 +255,11 @@ RSpec.describe IsoDoc do
       </admonition>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <admonition type="box" id="Anote3">
+            <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+          </admonition>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -261,6 +274,7 @@ RSpec.describe IsoDoc do
           <xref target="AN">Annex A.1, Box</xref>
           <xref target="Anote1">Annex A.2, Box  1</xref>
           <xref target="Anote2">Annex A.2, Box  2</xref>
+          <xref target="Anote3">Bibliographical Section, Box</xref>
         </p>
       </foreword>
     OUTPUT
@@ -282,6 +296,7 @@ RSpec.describe IsoDoc do
            <xref target="AN">附属書 A.1のBox</xref>
            <xref target="Anote1">附属書 A.2のBox  1</xref>
            <xref target="Anote2">附属書 A.2のBox  2</xref>
+           <xref target="Anote3">Bibliographical SectionのBox</xref>
          </p>
        </foreword>
     OUTPUT
@@ -310,6 +325,7 @@ RSpec.describe IsoDoc do
           <xref target="Anote1"/>
           <xref target="Anote2"/>
           <xref target="Anote3"/>
+          <xref target="Anote4"/>
           </p>
           </foreword>
               <introduction id="intro">
@@ -380,6 +396,12 @@ RSpec.describe IsoDoc do
         </sourcecode>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <figure id="Anote4">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -397,6 +419,7 @@ RSpec.describe IsoDoc do
       <xref target='Anote1'>Figure (??)</xref>
       <xref target='Anote2'>Figure A.2</xref>
       <xref target='Anote3'>Figure A.3</xref>
+      <xref target="Anote4">Bibliographical Section, Figure 1</xref>
                   </p>
                 </foreword>
     OUTPUT
@@ -424,6 +447,7 @@ RSpec.describe IsoDoc do
           <xref target="Anote1"/>
           <xref target="Anote2"/>
           <xref target="Anote3"/>
+          <xref target="Anote4"/>
           </p>
           </foreword>
               <introduction id="intro">
@@ -494,6 +518,12 @@ RSpec.describe IsoDoc do
         </sourcecode>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <figure id="Anote4">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -511,6 +541,7 @@ RSpec.describe IsoDoc do
            <xref target='Anote1'>Plate (??)</xref>
            <xref target='Anote2'>Figure A.1</xref>
            <xref target='Anote3'>Figure A.2</xref>
+           <xref target="Anote4">Bibliographical Section, Figure 1</xref>
          </p>
        </foreword>
     OUTPUT
@@ -532,6 +563,9 @@ RSpec.describe IsoDoc do
         <xref target="AN"/>
         <xref target="Anote1"/>
         <xref target="Anote2"/>
+        <xref target="AN1"/>
+        <xref target="Anote11"/>
+        <xref target="Anote21"/>
         </p>
         </foreword>
         </preface>
@@ -571,6 +605,18 @@ RSpec.describe IsoDoc do
       </figure>
         </clause>
         </annex>
+                  <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+                  <figure id="AN1">
+            <figure id="Anote11">
+      <name>Split-it-right sample divider</name>
+      <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+      </figure>
+        <figure id="Anote21">
+      <name>Split-it-right sample divider</name>
+      <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+      </figure>
+      </figure>
+          </references></bibliography>
         </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -582,6 +628,9 @@ RSpec.describe IsoDoc do
       <xref target='AN'>Figure A.1</xref>
       <xref target='Anote1'>Figure A.1-1</xref>
       <xref target='Anote2'>Figure A.1-2</xref>
+      <xref target="AN1">Bibliographical Section, Figure 1</xref>
+      <xref target="Anote11">Bibliographical Section, Figure 1-1</xref>
+      <xref target="Anote21">Bibliographical Section, Figure 1-2</xref>
                    </p>
                  </foreword>
     OUTPUT
@@ -605,6 +654,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
               <introduction id="intro">
@@ -653,6 +703,11 @@ RSpec.describe IsoDoc do
       </example>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <example id="Anote3">
+        <p>Hello</p>
+      </example>
+          </references></bibliography>
           </iso-standard>
     INPUT
 
@@ -667,6 +722,7 @@ RSpec.describe IsoDoc do
       <xref target='AN'>Annex A.1, Example</xref>
       <xref target='Anote1'>Annex A.2, Example (??)</xref>
       <xref target='Anote2'>Annex A.2, Example 1</xref>
+      <xref target="Anote3">Bibliographical Section, Example</xref>
             </p>
           </foreword>
     OUTPUT
@@ -715,6 +771,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -763,6 +820,11 @@ RSpec.describe IsoDoc do
         </formula>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <formula id="Anote3">
+        <stem type="AsciiMath">r = 1 %</stem>
+        </formula>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -776,6 +838,7 @@ RSpec.describe IsoDoc do
       <xref target='AN'>Formula (A.1)</xref>
       <xref target='Anote1'>Formula ((??))</xref>
       <xref target='Anote2'>Formula (A.2)</xref>
+      <xref target="Anote3">Bibliographical Section, Formula (1)</xref>
             </p>
           </foreword>
     OUTPUT
@@ -799,6 +862,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -847,6 +911,11 @@ RSpec.describe IsoDoc do
         </requirement>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <requirement id="Anote3" model="default">
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -860,6 +929,7 @@ RSpec.describe IsoDoc do
       <xref target='AN'>Requirement A.1</xref>
       <xref target='Anote1'>Requirement (??)</xref>
       <xref target='Anote2'>Requirement A.2</xref>
+      <xref target="Anote3">Bibliographical Section, Requirement 1</xref>
             </p>
           </foreword>
     OUTPUT
@@ -883,6 +953,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -931,6 +1002,11 @@ RSpec.describe IsoDoc do
         </recommendation>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <recommendation id="Anote3" model="default">
+        <stem type="AsciiMath">r = 1 %</stem>
+        </recommendation>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -944,6 +1020,7 @@ RSpec.describe IsoDoc do
       <xref target='AN'>Recommendation A.1</xref>
       <xref target='Anote1'>Recommendation (??)</xref>
       <xref target='Anote2'>Recommendation A.2</xref>
+       <xref target="Anote3">Bibliographical Section, Recommendation 1</xref>
             </p>
           </foreword>
     OUTPUT
@@ -967,6 +1044,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -1015,6 +1093,11 @@ RSpec.describe IsoDoc do
         </permission>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <permission id="Anote3" model="default">
+        <stem type="AsciiMath">r = 1 %</stem>
+        </permission>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -1028,6 +1111,7 @@ RSpec.describe IsoDoc do
       <xref target='AN'>Permission A.1</xref>
       <xref target='Anote1'>Permission (??)</xref>
       <xref target='Anote2'>Permission A.2</xref>
+      <xref target="Anote3">Bibliographical Section, Permission 1</xref>
                    </p>
                  </foreword>
     OUTPUT
@@ -1053,6 +1137,11 @@ RSpec.describe IsoDoc do
       <xref target="AN"/>
       <xref target="AQ1"/>
       <xref target="AR1"/>
+      <xref target="BN1"/>
+      <xref target="BN2"/>
+      <xref target="BN"/>
+      <xref target="BQ1"/>
+      <xref target="BR1"/>
       </p>
       </foreword>
       </preface>
@@ -1082,6 +1171,18 @@ RSpec.describe IsoDoc do
       </recommendation>
       </permission>
       </annex>
+                <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+                <permission id="BN1" model="default">
+      <permission id="BN2" model="default">
+      <permission id="BN" model="default">
+      </permission>
+      </permission>
+      <requirement id="BQ1" model="default">
+      </requirement>
+      <recommendation id="BR1" model="default">
+      </recommendation>
+      </permission>
+          </references></bibliography>
       </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -1097,6 +1198,11 @@ RSpec.describe IsoDoc do
       <xref target='AN'>Permission A.1-1-1</xref>
       <xref target='AQ1'>Requirement A.1-1</xref>
       <xref target='AR1'>Recommendation A.1-1</xref>
+      <xref target="BN1">Bibliographical Section, Permission 1</xref>
+      <xref target="BN2">Bibliographical Section, Permission 1-1</xref>
+      <xref target="BN">Bibliographical Section, Permission 1-1-1</xref>
+      <xref target="BQ1">Bibliographical Section, Requirement 1-1</xref>
+      <xref target="BR1">Bibliographical Section, Recommendation 1-1</xref>
                   </p>
                 </foreword>
     OUTPUT
@@ -1120,6 +1226,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -1224,6 +1331,18 @@ RSpec.describe IsoDoc do
           </table>
           </clause>
           </annex>
+                    <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <table id="Anote3">
+          <name>Repeatability and reproducibility of husked rice yield</name>
+          <tbody>
+          <tr>
+            <td align="left">Number of laboratories retained after eliminating outliers</td>
+            <td align="center">13</td>
+            <td align="center">11</td>
+          </tr>
+          </tbody>
+          </table>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -1237,6 +1356,7 @@ RSpec.describe IsoDoc do
           <xref target='AN'>Table A.1</xref>
           <xref target='Anote1'>Table (??)</xref>
           <xref target='Anote2'>Table A.2</xref>
+          <xref target="Anote3">Bibliographical Section, Table 1</xref>
         </p>
       </foreword>
     OUTPUT
@@ -1508,11 +1628,11 @@ RSpec.describe IsoDoc do
        <term id="QQ2"/>
        </terms>
        </annex>
-        <bibliography><references id="R" obligation="informative" normative="true">
+        <bibliography><references normative="false" id="R" obligation="informative" normative="true">
          <title>Normative References</title>
        </references><clause id="S" obligation="informative">
          <title>Bibliography</title>
-         <references id="T" obligation="informative" normative="false">
+         <references normative="false" id="T" obligation="informative" normative="false">
          <title>Bibliography Subsection</title>
        </references>
        </clause>
@@ -1566,6 +1686,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -1612,6 +1733,11 @@ RSpec.describe IsoDoc do
       </ol>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <ol id="Anote3">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+      </ol>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -1625,6 +1751,7 @@ RSpec.describe IsoDoc do
           <xref target='AN'>Annex A.1, List</xref>
           <xref target='Anote1'>Annex A.2, List 1</xref>
           <xref target='Anote2'>Annex A.2, List 2</xref>
+          <xref target="Anote3">Bibliographical Section, List</xref>
         </p>
       </foreword>
     OUTPUT
@@ -1651,6 +1778,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -1702,6 +1830,11 @@ RSpec.describe IsoDoc do
       </ol>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <ol id="Anote31">
+        <li id="Anote3"><p>A</p></li>
+      </ol>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -1717,6 +1850,7 @@ RSpec.describe IsoDoc do
           <xref target='AN'>Annex A.1, A)</xref>
           <xref target='Anote1'>Annex A.2, List 1 iv)</xref>
           <xref target='Anote2'>Annex A.2, List 2 a)</xref>
+          <xref target="Anote3">Bibliographical Section, a)</xref>
         </p>
       </foreword>
     OUTPUT
@@ -1739,6 +1873,7 @@ RSpec.describe IsoDoc do
            <xref target="AN">附属書 A.1のA)</xref>
            <xref target="Anote1">附属書 A.2のリスト  1のiv)</xref>
            <xref target="Anote2">附属書 A.2のリスト  2のa)</xref>
+           <xref target="Anote3">Bibliographical Sectionのa)</xref>
          </p>
        </foreword>
     OUTPUT
@@ -1839,6 +1974,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -1885,6 +2021,11 @@ RSpec.describe IsoDoc do
       </dl>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+      <dl id="Anote3">
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
+      </dl>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -1898,6 +2039,7 @@ RSpec.describe IsoDoc do
           <xref target='AN'>Annex A.1, Definition List</xref>
           <xref target='Anote1'>Annex A.2, Definition List 1</xref>
           <xref target='Anote2'>Annex A.2, Definition List 2</xref>
+          <xref target="Anote3">Bibliographical Section, Definition List</xref>
         </p>
       </foreword>
     OUTPUT
@@ -1921,6 +2063,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -1967,6 +2110,11 @@ RSpec.describe IsoDoc do
       </dl>
           </clause>
           </annex>
+                    <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <dl id="Anote3l">
+        <dt id="Anote3"><p>A</p></dt>
+      </dl>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -1980,6 +2128,7 @@ RSpec.describe IsoDoc do
         <xref target='AN'>Annex A.1, Definition List: A</xref>
         <xref target='Anote1'>Annex A.2, Definition List 1: A</xref>
         <xref target='Anote2'>Annex A.2, Definition List 2: A</xref>
+        <xref target="Anote3">Bibliographical Section, Definition List: A</xref>
         </p>
       </foreword>
     OUTPUT
@@ -2055,6 +2204,7 @@ RSpec.describe IsoDoc do
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
+          <xref target="Anote3"/>
           </p>
           </foreword>
           <introduction id="intro">
@@ -2102,6 +2252,11 @@ RSpec.describe IsoDoc do
       </p>
           </clause>
           </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <p id="Anote3l">
+        <bookmark id="Anote3"/>
+      </p>
+          </references></bibliography>
           </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -2115,6 +2270,7 @@ RSpec.describe IsoDoc do
           <xref target='AN'>Annex A.1</xref>
           <xref target='Anote1'>Figure A.1</xref>
           <xref target='Anote2'>Annex A.2</xref>
+          <xref target="Anote3">Bibliographical Section</xref>
         </p>
       </foreword>
     OUTPUT

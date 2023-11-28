@@ -136,24 +136,21 @@ module IsoDoc
       end
 
       def html_toc_entries(docxml, path)
-        xml = html_toc_entries_prep(docxml, path)
+        headers = html_toc_entries_prep(docxml, path)
         path.each_with_index.with_object([]) do |(p, i), m|
-          xml.xpath(p.join(" | ")).each do |h|
+          docxml.xpath(p.join(" | ")).each do |h|
             m << { entry: html_toc_entry("h#{i + 1}", h),
-                   line: h.line }
+                   line: headers[h["id"]] }
           end
         end.sort_by { |k| k[:line] }
       end
 
       def html_toc_entries_prep(docxml, path)
-        path.each do |p|
-          docxml.xpath(p.join(" | ")).each do |h|
+        docxml.xpath(path.join(" | "))
+          .each_with_index.with_object({}) do |(h, i), m|
             h["id"] ||= "_#{UUIDTools::UUID.random_create}"
+            m[h["id"]] = i
           end
-        end
-        xml = Nokogiri::XML(docxml.to_xml, &:noblanks)
-        xml.remove_namespaces!
-        xml
       end
 
       def toc_exclude_class
