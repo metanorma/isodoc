@@ -1,7 +1,12 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def prefix_container(container, linkend, node, _target)
-      l10n(@i18n.nested_xref.sub("%1", anchor_xref(node, container))
+    def prefix_container(container, linkend, node, target)
+      prefix_container?(container, node) or return linkend
+      container_container = @xrefs.anchor(container, :container, false)
+      container_label =
+        prefix_container(container_container, anchor_xref(node, container),
+                         node, target)
+      l10n(@i18n.nested_xref.sub("%1", container_label)
         .sub("%2", linkend))
     end
 
@@ -31,8 +36,7 @@ module IsoDoc
     def anchor_linkend1(node)
       linkend = anchor_xref(node, node["target"])
       container = @xrefs.anchor(node["target"], :container, false)
-      prefix_container?(container, node) and
-        linkend = prefix_container(container, linkend, node, node["target"])
+      linkend = prefix_container(container, linkend, node, node["target"])
       capitalise_xref(node, linkend, anchor_value(node["target"]))
     end
 
