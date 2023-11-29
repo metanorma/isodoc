@@ -130,10 +130,12 @@ module IsoDoc
 
     def extract_custom_charsets(docxml)
       docxml.xpath(ns("//presentation-metadata/custom-charset-font"))
-        .each_with_object({}) do |x, m|
+        .each_with_object({}) do |line, m|
+        CSV.parse_line(line, col_sep: ",").map(&:strip).each do |x|
           kv = x.text.split(":", 2)
           m[kv[0]] = kv[1]
         end
+      end
     end
 
     def found_matching_variant_sibling(node)
