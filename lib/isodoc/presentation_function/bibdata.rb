@@ -15,10 +15,10 @@ module IsoDoc
         "</localized-strings>"
     end
 
-    def extension_insert(docxml, path = [])
-      ins = docxml.at(ns("//metanorma-extension")) ||
-        docxml.at(ns("//bibdata"))&.after("<metanorma-extension/>")&.next_element ||
-        docxml.root.elements.first.before("<metanorma-extension/>").previous_element
+    def extension_insert(xml, path = [])
+      ins = xml.at(ns("//metanorma-extension")) ||
+        xml.at(ns("//bibdata"))&.after("<metanorma-extension/>")&.next_element ||
+        xml.root.elements.first.before("<metanorma-extension/>").previous_element
       path.each do |n|
         ins = ins.at(ns("./#{n}")) || ins.add_child("<#{n}/>").first
       end
@@ -39,24 +39,24 @@ module IsoDoc
       @output_formats.empty? and return nil
       @output_formats.each_key.with_object([]) do |k, m|
         m << <<~XSLT
-<preprocess-xslt format="#{k}">
-  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-    <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-    <xsl:strip-space elements="*"/>
-    <xsl:template match="@* | node()">
-    <xsl:copy>
-      <xsl:apply-templates select="@* | node()"/>
-    </xsl:copy>
-  </xsl:template>
-    <xsl:template match="*[local-name() = 'passthrough']">
-      <xsl:if test="contains(@formats,',#{k},')"> <!-- delimited -->
-    <xsl:copy>
-        <xsl:apply-templates select="@* | node()"/>
-    </xsl:copy>
-      </xsl:if>
-    </xsl:template>
-  </xsl:stylesheet>
-</preprocess-xslt>
+          <preprocess-xslt format="#{k}">
+            <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+              <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+              <xsl:strip-space elements="*"/>
+              <xsl:template match="@* | node()">
+              <xsl:copy>
+                <xsl:apply-templates select="@* | node()"/>
+              </xsl:copy>
+            </xsl:template>
+              <xsl:template match="*[local-name() = 'passthrough']">
+                <xsl:if test="contains(@formats,',#{k},')"> <!-- delimited -->
+              <xsl:copy>
+                  <xsl:apply-templates select="@* | node()"/>
+              </xsl:copy>
+                </xsl:if>
+              </xsl:template>
+            </xsl:stylesheet>
+          </preprocess-xslt>
         XSLT
       end.join("\n")
     end
@@ -67,8 +67,7 @@ module IsoDoc
     end
 
     def toc_metadata(docxml)
-      return unless @tocfigures || @toctables || @tocrecommendations
-
+      @tocfigures || @toctables || @tocrecommendations or return
       ins = extension_insert(docxml)
       @tocfigures and
         ins << "<toc type='figure'><title>#{@i18n.toc_figures}</title></toc>"
@@ -89,8 +88,7 @@ module IsoDoc
     end
 
     def fonts_metadata(xmldoc)
-      return unless @fontist_fonts
-
+      @fontist_fonts or return
       ins = xmldoc.at(ns("//presentation-metadata")) ||
         xmldoc.at(ns("//metanorma-extension")) || xmldoc.at(ns("//bibdata"))
       CSV.parse_line(@fontist_fonts, col_sep: ";").map(&:strip).each do |f|
@@ -144,9 +142,10 @@ module IsoDoc
     def edition_translate(bibdata)
       x = bibdata.at(ns("./edition")) or return
       /^\d+$/.match?(x.text) or return
+      @i18n.edition_ordinal or return
+      edn = edition_translate1(x.text.to_i) or return
       tag_translate(x, @lang,
-                    @i18n.edition_ordinal.sub(/%(Spellout|Ordinal)?/,
-                                              edition_translate1(x.text.to_i)))
+                    @i18n.edition_ordinal.sub(/%(Spellout|Ordinal)?/, edn))
     end
 
     def edition_translate1(num)

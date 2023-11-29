@@ -1,4 +1,5 @@
 require "metanorma-utils"
+require "csv"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -126,15 +127,17 @@ module IsoDoc
       elem["formats"] = ",#{elem['formats']},"
     end
 
-    private
-
     def extract_custom_charsets(docxml)
-      docxml.xpath(ns("//presentation-metadata/custom-charset-font")).
-        each_with_object({}) do |x, m|
-          kv = x.text.split(":", 2)
+      docxml.xpath(ns("//presentation-metadata/custom-charset-font"))
+        .each_with_object({}) do |line, m|
+        line.text.split(",").map(&:strip).each do |x|
+          kv = x.split(":", 2)
           m[kv[0]] = kv[1]
         end
+      end
     end
+
+    private
 
     def found_matching_variant_sibling(node)
       prev = node.xpath("./preceding-sibling::xmlns:variant")
