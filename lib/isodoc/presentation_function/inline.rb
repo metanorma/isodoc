@@ -129,8 +129,8 @@ module IsoDoc
     private
 
     def extract_custom_charsets(docxml)
-      docxml.xpath(ns("//presentation-metadata/custom-charset-font")).
-        each_with_object({}) do |x, m|
+      docxml.xpath(ns("//presentation-metadata/custom-charset-font"))
+        .each_with_object({}) do |x, m|
           kv = x.text.split(":", 2)
           m[kv[0]] = kv[1]
         end
