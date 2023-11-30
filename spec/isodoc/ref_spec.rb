@@ -137,7 +137,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-        <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>#{' '}
+        <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword displayorder="2">
             <p id='_'>
               <xref target='ISO712'>[110]</xref>
@@ -563,7 +563,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-        <clause type="toc" id="_toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>#{' '}
+        <clause type="toc" id="_toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword>
             <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
               <eref bibitemid='ISO712'>[110]</eref>
@@ -880,7 +880,7 @@ RSpec.describe IsoDoc do
                   <language current="true">en</language>
                 </bibdata>
                 <preface>
-                <clause type="toc" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f" displayorder="1"> <title depth="1">Table of contents</title> </clause>#{' '}
+                <clause type="toc" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f" displayorder="1"> <title depth="1">Table of contents</title> </clause>
                   <foreword>
                     <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
                       <eref bibitemid='ISO712'>[110]</eref>
@@ -1351,10 +1351,10 @@ RSpec.describe IsoDoc do
               <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
               <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
               <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
-              <uri type="src">https://www.iso.org/standard/45324.html</uri>  <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>  <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>  <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>#{'  '}
+              <uri type="src">https://www.iso.org/standard/45324.html</uri>  <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>  <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>  <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
                     <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
-                    <docidentifier type="metanorma">[ISO/IEC Guide 99:2007<fn reference="1"><p id="_f6ba916e-f2ee-05fe-7ee3-b5d891a37db3">Also known as JCGM 200</p></fn>]</docidentifier>#{'  '}
-                    <docidentifier type="URN">urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>#{'  '}
+                    <docidentifier type="metanorma">[ISO/IEC Guide 99:2007<fn reference="1"><p id="_f6ba916e-f2ee-05fe-7ee3-b5d891a37db3">Also known as JCGM 200</p></fn>]</docidentifier>
+                    <docidentifier type="URN">urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
                   <docnumber>99</docnumber>  <date type="published">    <on>2007-12</on>  </date>  <contributor>    <role type="publisher"/>    <organization>
                 <name>International Organization for Standardization</name>
                   <abbreviation>ISO</abbreviation>      <uri>www.iso.org</uri>    </organization>  </contributor>  <contributor>    <role type="publisher"/>    <organization>
@@ -1403,6 +1403,200 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
     expect(strip_guid(xmlpp(IsoDoc::HtmlConvert.new({})
    .convert("test", doc, true))))
+      .to be_equivalent_to xmlpp(html)
+  end
+
+  it "renders mixed bibitems and bibliographic subclauses" do
+    input = <<~INPUT
+         <iso-standard xmlns="http://riboseinc.com/isoxml">
+             <bibdata>
+             <language>en</language>
+             </bibdata>
+                      <bibliography>
+        <clause id="A" obligation="informative">
+          <title>Normative References</title>
+          <p id="_">Text</p>
+          <references id="B" unnumbered="true" normative="true">
+            <bibitem id="iso122">
+              <formattedref format="application/x-isodoc+xml">
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier type="metanorma">[<strong>A</strong>.<fn reference="1"><p id="_">hello</p></fn>]</docidentifier>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+            <p id="_">More text</p>
+          </references>
+          <references id="C" normative="true" obligation="informative">
+            <title>Normative 1</title>
+            <bibitem id="iso123">
+              <formattedref format="application/x-isodoc+xml">
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier type="metanorma">[<strong>A</strong>.<fn reference="1"><p id="_">hello</p></fn>]</docidentifier>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+          </references>
+        </clause>
+        <clause id="D" obligation="informative">
+          <title>Bibliography</title>
+          <p id="_">Text</p>
+          <references id="E" unnumbered="true" normative="false">
+            <bibitem id="iso124">
+              <formattedref format="application/x-isodoc+xml">
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier type="metanorma">[<strong>A</strong>.<fn reference="1"><p id="_">hello</p></fn>]</docidentifier>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+            <p id="_">More text</p>
+          </references>
+          <references id="F" normative="false" obligation="informative">
+            <title>Bibliography 1</title>
+            <bibitem id="iso125">
+              <formattedref format="application/x-isodoc+xml">
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier type="metanorma">[<strong>A</strong>.<fn reference="1"><p id="_">hello</p></fn>]</docidentifier>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+          </references>
+        </clause>
+      </bibliography>
+         </iso-standard>
+    INPUT
+    presxml = <<~PRESXML
+           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+           <language current="true">en</language>
+         </bibdata>
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <clause id="A" obligation="informative" displayorder="2">
+             <title depth="1">1.<tab/>Normative References</title>
+             <p id="_">Text</p>
+             <references id="B" unnumbered="true" normative="true">
+               <bibitem id="iso122">
+                 <formattedref format="application/x-isodoc+xml">
+                   <em>Standard</em>
+                 </formattedref>
+                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
+                 <docidentifier>XYZ</docidentifier>
+                 <biblio-tag>A., XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+               </bibitem>
+               <p id="_">More text</p>
+             </references>
+             <references id="C" normative="true" obligation="informative">
+               <title depth="2">1.1.<tab/>Normative 1</title>
+               <bibitem id="iso123">
+                 <formattedref format="application/x-isodoc+xml">
+                   <em>Standard</em>
+                 </formattedref>
+                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
+                 <docidentifier>XYZ</docidentifier>
+                 <biblio-tag>A., XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+               </bibitem>
+             </references>
+           </clause>
+         </sections>
+         <bibliography>
+           <clause id="D" obligation="informative" displayorder="3">
+             <title depth="1">Bibliography</title>
+             <p id="_">Text</p>
+             <references id="E" unnumbered="true" normative="false">
+               <bibitem id="iso124">
+                 <formattedref format="application/x-isodoc+xml">
+                   <em>Standard</em>
+                 </formattedref>
+                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
+                 <docidentifier>XYZ</docidentifier>
+                 <biblio-tag>A.<tab/>XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+               </bibitem>
+               <p id="_">More text</p>
+             </references>
+             <references id="F" normative="false" obligation="informative">
+               <title depth="2">Bibliography 1</title>
+               <bibitem id="iso125">
+                 <formattedref format="application/x-isodoc+xml">
+                   <em>Standard</em>
+                 </formattedref>
+                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
+                 <docidentifier>XYZ</docidentifier>
+                 <biblio-tag>A.<tab/>XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+               </bibitem>
+             </references>
+           </clause>
+         </bibliography>
+       </iso-standard>
+    PRESXML
+    html = <<~OUTPUT
+      <html lang="en">
+         <head/>
+         <body lang="en">
+           <div class="title-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="prefatory-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="main-section">
+             <br/>
+             <div id="_" class="TOC">
+               <h1 class="IntroTitle">Table of contents</h1>
+             </div>
+             <div>
+               <h1>1.  Normative References</h1>
+               <p id="_">Text</p>
+               <div>
+                 <p id="iso122" class="Biblio">A., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <i>Standard</i>
+               </p>
+                 <p id="_">More text</p>
+               </div>
+               <div>
+                 <h2 class="Section3">1.1.  Normative 1</h2>
+                 <p id="iso123" class="Biblio">A., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <i>Standard</i>
+               </p>
+               </div>
+             </div>
+             <br/>
+             <div>
+               <h1 class="Section3">Bibliography</h1>
+               <p id="_">Text</p>
+               <div>
+                 <p id="iso124" class="Biblio">A.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <i>Standard</i>
+               </p>
+                 <p id="_">More text</p>
+               </div>
+               <div>
+                 <h2 class="Section3">Bibliography 1</h2>
+                 <p id="iso125" class="Biblio">A.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <i>Standard</i>
+               </p>
+               </div>
+             </div>
+             <aside id="fn:1" class="footnote">
+               <p id="_">hello</p>
+             </aside>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    doc = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    xml = Nokogiri::XML(doc)
+    xml.at("//xmlns:localized-strings").remove
+    expect(strip_guid(xmlpp(xml.to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(strip_guid(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", doc, true))))
       .to be_equivalent_to xmlpp(html)
   end
 end
