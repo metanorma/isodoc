@@ -4,8 +4,13 @@ RSpec.describe IsoDoc do
   it "renders form" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+            <clause type="toc" id="_" displayorder="1">
+      <title depth="1">Table of contents</title>
+    </clause>
+      </preface>
           <sections>
-          <clause id="A">
+          <clause id="A" displayorder="2">
           <form action="/action_page.php" id="F0" name="F1" class="C">
         <label for="fname">First name:</label><br/>
         <input type="text" id="fname" name="fname"/><br/>
@@ -47,7 +52,6 @@ RSpec.describe IsoDoc do
 
     html = <<~HTML
       #{HTML_HDR}
-                  <p class='zzSTDTitle1'/>
                <div id='A'>
                  <h1/>
                <form id='F0' name='F1' action='/action_page.php' class="C">
@@ -106,7 +110,6 @@ RSpec.describe IsoDoc do
 
     doc = <<~DOC
       #{WORD_HDR}
-                  <p class='zzSTDTitle1'/>
                <div id='A'>
                  <h1/>
                  <div class="C" id="F0">

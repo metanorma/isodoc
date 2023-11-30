@@ -1,7 +1,7 @@
 require "fileutils"
-require_relative "./postprocess_cover"
-require_relative "./postprocess_toc"
-require_relative "./postprocess_table"
+require_relative "postprocess_cover"
+require_relative "postprocess_toc"
+require_relative "postprocess_table"
 
 module IsoDoc
   module WordFunction
@@ -16,7 +16,7 @@ module IsoDoc
 
       def toWord(result, filename, dir, header)
         result = from_xhtml(word_cleanup(to_xhtml(result)))
-          .gsub(/-DOUBLE_HYPHEN_ESCAPE-/, "--")
+          .gsub("-DOUBLE_HYPHEN_ESCAPE-", "--")
         @wordstylesheet = wordstylesheet_update
         Html2Doc.new(
           filename: filename, imagedir: @localdir,
@@ -56,6 +56,7 @@ module IsoDoc
         word_example_cleanup(docxml)
         word_pseudocode_cleanup(docxml)
         word_image_caption(docxml)
+        word_floating_titles(docxml)
         word_section_breaks(docxml)
         word_tab_clean(docxml)
         authority_cleanup(docxml)
@@ -172,6 +173,21 @@ module IsoDoc
           table_footnote_reference_format(x)
         end
         docxml
+      end
+
+      # move p.h1 (floating title) after any page, section breaks
+      def word_floating_titles(docxml)
+        docxml.xpath("//p[@class = 'section-break' or @class = 'page-break']")
+          .each do |b|
+          out = b.xpath("./preceding-sibling::*").reverse
+            .each_with_object([]) do |p, m|
+            (p.name == "p" && p["class"] == "h1") or break m
+            m << p
+          end
+          b.delete("class")
+          out.empty? and next
+          out[-1].previous = b.remove
+        end
       end
     end
   end

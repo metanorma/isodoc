@@ -1,9 +1,9 @@
-require_relative "./metadata_date"
-require_relative "./metadata_contributor"
+require_relative "metadata_date"
+require_relative "metadata_contributor"
 
 module IsoDoc
   class Metadata
-    attr_accessor :fonts_options
+    attr_accessor :fonts_options, :labels
 
     def ns(xpath)
       Common::ns(xpath)
@@ -15,7 +15,7 @@ module IsoDoc
 
     def initialize(lang, script, locale, i18n, fonts_options = {})
       @metadata = { lang: lang, script: script }
-      DATETYPES.each { |w| @metadata["#{w.gsub(/-/, '_')}date".to_sym] = "XXX" }
+      DATETYPES.each { |w| @metadata["#{w.gsub('-', '_')}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
       @locale = locale

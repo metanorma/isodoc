@@ -17,6 +17,7 @@ bibliography: Библиография
 clause: Пункт
 annex: Дополнение
 appendix: Приложение
+continued: продолжение
 no_terms_boilerplate: |
           <p>Термины и определения не перечислены в этом документе.</p>
 internal_terms_boilerplate: |
@@ -36,7 +37,7 @@ external_terms_boilerplate: |
 internal_external_terms_boilerplate: |
           <p>Для целей этого документа применяются 
             термины и определения, данные в % и следующие.</p>
-term_defined_in: "[термин, определенный в %]"
+term_defined_in: "(%)"
 binary_and: "%1 и %2"
 multiple_and: "%1, и %2"
 binary_or: "%1 или %2"
@@ -79,6 +80,7 @@ draft_label: проект
 inform_annex: информативное
 norm_annex: нормативное
 modified: изменен
+adapted: адаптированный
 deprecated: НЕ РЕКОМЕНДУЕТСЯ
 source: ИСТОЧНИК
 and: и

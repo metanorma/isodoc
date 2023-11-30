@@ -17,6 +17,7 @@ bibliography: Bibliografía
 clause: Cláusula
 annex: Anexo
 appendix: Apéndice
+continued: continuación
 no_terms_boilerplate: |
           <p>En este documento no se enumeran términos ni definiciones.</p>
 internal_terms_boilerplate: |
@@ -33,7 +34,7 @@ external_terms_boilerplate: |
           <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en %.</p>
 internal_external_terms_boilerplate: |
           <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en % y los siguientes.</p>
-term_defined_in: "[término definido en %]"
+term_defined_in: "(%)"
 binary_and: "%1 y %2"
 multiple_and: "%1, y %2"
 binary_or: "%1 o %2"
@@ -74,6 +75,7 @@ draft_label: borrador
 inform_annex: informativo
 norm_annex: normativo
 modified: modificado
+adapted: adaptado
 deprecated: OBSOLETO
 source: FUENTE
 and: y

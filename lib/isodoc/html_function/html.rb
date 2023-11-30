@@ -5,7 +5,6 @@ module IsoDoc
   module HtmlFunction
     module Html
       def convert1(docxml, filename, dir)
-        bibitem_lookup(docxml)
         noko do |xml|
           xml.html lang: @lang.to_s do |html|
             info docxml, nil
@@ -32,21 +31,6 @@ module IsoDoc
           div2.p { |p| p << "&#xa0;" } # placeholder
         end
         section_break(body)
-      end
-
-      def make_body3(body, docxml)
-        body.div class: "main-section" do |div3|
-          boilerplate docxml, div3
-          preface_block docxml, div3
-          abstract docxml, div3
-          foreword docxml, div3
-          introduction docxml, div3
-          preface docxml, div3
-          acknowledgements docxml, div3
-          middle docxml, div3
-          footnotes div3
-          comments div3
-        end
       end
 
       def googlefonts
@@ -107,8 +91,6 @@ module IsoDoc
           node.children.each { |n| parse(n, e) }
         end
       end
-
-      def table_long_strings_cleanup(docxml); end
 
       def table_attrs(node)
         ret = super

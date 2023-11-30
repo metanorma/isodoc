@@ -25,42 +25,6 @@ module IsoDoc
         admonition_cleanup(docxml)
       end
 
-      def table_long_strings_cleanup(docxml)
-        return unless @break_up_urls_in_tables
-
-        docxml.xpath("//td | //th").each do |d|
-          d.traverse do |n|
-            next unless n.text?
-
-            n.replace(HTMLEntities.new.encode(
-                        break_up_long_strings(n.text),
-                      ))
-          end
-        end
-      end
-
-      def break_up_long_strings(text)
-        return text if /^\s*$/.match?(text)
-
-        text.split(/(?=\s)/).map do |w|
-          if /^\s*$/.match(text) || (w.size < 30) then w
-          else
-            w.scan(/.{,30}/).map do |w1|
-              w1.size < 30 ? w1 : break_up_long_strings1(w1)
-            end.join
-          end
-        end.join
-      end
-
-      def break_up_long_strings1(text)
-        s = text.split(%r{(?<=[,.?+;/=])})
-        if s.size == 1 then "#{text} "
-        else
-          s[-1] = " #{s[-1]}"
-          s.join
-        end
-      end
-
       def admonition_cleanup(docxml)
         docxml.xpath("//div[@class = 'Admonition'][title]").each do |d|
           title = d.at("./title")
@@ -209,7 +173,6 @@ module IsoDoc
       def table_cleanup(docxml)
         table_footnote_cleanup(docxml)
         table_note_cleanup(docxml)
-        table_long_strings_cleanup(docxml)
         docxml
       end
 

@@ -117,24 +117,40 @@ module IsoDoc
 
       # needs to be same output as toclevel
       def html_toc(docxml)
-        idx = docxml.at("//div[@id = 'toc']") or return docxml
+        idx = html_toc_init(docxml) or return docxml
         path = toclevel_classes.map do |x|
           x.map { |l| "//main//#{l}#{toc_exclude_class}" }
         end
         toc = html_toc_entries(docxml, path)
           .map { |k| k[:entry] }.join("\n")
-        idx.children = "<ul>#{toc}</ul>"
+        idx << "<ul>#{toc}</ul>"
         docxml
       end
 
+      def html_toc_init(docxml)
+        dest = docxml.at("//div[@id = 'toc']") or return
+        if source = docxml.at("//div[@class = 'TOC']")
+          dest << to_xml(source.remove.children)
+        end
+        dest
+      end
+
       def html_toc_entries(docxml, path)
+        headers = html_toc_entries_prep(docxml, path)
         path.each_with_index.with_object([]) do |(p, i), m|
           docxml.xpath(p.join(" | ")).each do |h|
-            h["id"] ||= "_#{UUIDTools::UUID.random_create}"
             m << { entry: html_toc_entry("h#{i + 1}", h),
-                   line: h.line }
+                   line: headers[h["id"]] }
           end
         end.sort_by { |k| k[:line] }
+      end
+
+      def html_toc_entries_prep(docxml, path)
+        docxml.xpath(path.join(" | "))
+          .each_with_index.with_object({}) do |(h, i), m|
+            h["id"] ||= "_#{UUIDTools::UUID.random_create}"
+            m[h["id"]] = i
+          end
       end
 
       def toc_exclude_class

@@ -18,6 +18,7 @@ preface: 序言
 clause: 条
 annex: 附件
 appendix: 附录
+continued: 继续
 no_terms_boilerplate: |
           <p>本文件不提供术语和定义。</p>
 internal_terms_boilerplate: |
@@ -32,7 +33,7 @@ external_terms_boilerplate: |
           <p>% 界定的术语和定义适用于本文件。</p>
 internal_external_terms_boilerplate: |
           <p>% 界定的以及下列术语和定义适用于本文件。</p>
-term_defined_in: "〖术语于%中定义〗"
+term_defined_in: "（%）"
 binary_and: "%1和%2"
 multiple_and: "%1、和%2"
 binary_or: "%1或%2"
@@ -69,6 +70,7 @@ draft_label: 稿
 inform_annex: 资料性附录
 norm_annex: 规范性附录
 modified: 改写
+adapted: 改编
 deprecated: 被取代
 source: 定义
 and: 和

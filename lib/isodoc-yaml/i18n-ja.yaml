@@ -18,6 +18,7 @@ preface: Preface
 clause: 箇条
 annex: 附属書
 appendix: Appendix
+continued: 続き
 no_terms_boilerplate: |
           <p>この規格には，定義する用語はない。</p>
 internal_terms_boilerplate: |
@@ -30,7 +31,7 @@ external_terms_boilerplate: |
           <p>この規格で用いる主な用語及び定義は，% による。</p>
 internal_external_terms_boilerplate: |
           <p>この規格で用いる主な用語及び定義は，次によるほか，% による。</p>
-term_defined_in: "[term defined in %]"
+term_defined_in: "(%)"
 binary_and: "%1 and %2"
 multiple_and: "%1, and %2"
 binary_or: "%1 or %2"
@@ -38,9 +39,10 @@ multiple_or: "%1, or %2"
 chain_and: "%1 and %2"
 chain_or: "%1 or %2"
 chain_from: "%1 from %2"
-chain_to: "%1 to %2"
+chain_to: "%1～%2"
 nested_xref: "%1の%2"
 list_nested_xref: "%1の%2"
+no_conflate_xref_locations: true
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
 note: 注記
@@ -78,7 +80,8 @@ wholeoftext: Whole of text
 draft_label: draft
 inform_annex: 参考
 norm_annex: 規定
-modified: modified
+modified: 修正された
+adapted: 適合しました
 deprecated: 推奨しない用語
 source: 出典
 and: and

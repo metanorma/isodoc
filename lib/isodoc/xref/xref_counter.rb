@@ -15,15 +15,17 @@ module IsoDoc
     end
 
     class Counter
+      attr_accessor :prefix_override
+
       def initialize(num = 0, opts = { numerals: :arabic })
         @unnumbered = false
         @num = num
         @letter = ""
         @subseq = ""
-        @letter_override = nil
-        @number_override = nil
+        reset_overrides
         @style = opts[:numerals]
         @skip_i = opts[:skip_i]
+        @prefix = opts[:prefix]
         @base = ""
         if num.is_a? String
           if /^\d+$/.match?(num)
@@ -34,6 +36,12 @@ module IsoDoc
             @letter = num[-1]
           end
         end
+      end
+
+      def reset_overrides
+        @letter_override = nil
+        @number_override = nil
+        @prefix_override = nil
       end
 
       def new_subseq_increment(node)
@@ -57,7 +65,9 @@ module IsoDoc
       end
 
       def sequence_increment(node)
-        if node["number"]
+        if node["branch-number"]
+          @prefix_override = node["branch-number"]
+        elsif node["number"]
           @base = @letter_override = @number_override = ""
           /^(?<b>.*?)(?<n>\d+)$/ =~ node["number"]
           if blank?(n)
@@ -107,6 +117,13 @@ module IsoDoc
       end
 
       def increment_letter
+        clock_letter
+        @letter = (@letter.ord + 1).chr.to_s
+        @skip_i && %w(i I).include?(@letter) and
+          @letter = (@letter.ord + 1).chr.to_s
+      end
+
+      def clock_letter
         case @letter
         when "Z"
           @letter = "@"
@@ -115,9 +132,6 @@ module IsoDoc
           @letter = "`"
           @base = string_inc(@base, "a")
         end
-        @letter = (@letter.ord + 1).chr.to_s
-        @skip_i && %w(i I).include?(@letter) and
-          @letter = (@letter.ord + 1).chr.to_s
       end
 
       def blank?(str)
@@ -126,9 +140,7 @@ module IsoDoc
 
       def increment(node)
         @unnumbered = (node["unnumbered"] || node["hidden"]) and return self
-
-        @letter_override = nil
-        @number_override = nil
+        reset_overrides
         if node["subsequence"] != @subseq &&
             !(blank?(node["subsequence"]) && blank?(@subseq))
           new_subseq_increment(node)
@@ -139,11 +151,11 @@ module IsoDoc
       end
 
       def print
-        return nil if @unnumbered
-
+        @unnumbered and return nil
+        @prefix_override and return @prefix_override
         num = @number_override || @num
         out = @style == :roman && !num.nil? ? RomanNumerals.to_roman(num) : num
-        "#{@base}#{out}#{@letter_override || @letter}"
+        "#{@prefix}#{@base}#{out}#{@letter_override || @letter}"
       end
 
       def ol_type(list, depth)

@@ -7,7 +7,7 @@ module IsoDoc
         url = node["target"]
         node["update-type"] == "true" and url = suffix_url(url)
         out.a **attr_code(href: url, title: node["alt"]) do |l|
-          if node.text.empty?
+          if node.elements.empty? && node.text.strip.empty?
             l << node["target"].sub(/^mailto:/, "")
           else node.children.each { |n| parse(n, l) }
           end
@@ -37,8 +37,8 @@ module IsoDoc
       end
 
       def xref_parse(node, out)
-        target = if /#/.match?(node["target"])
-                   node["target"].sub(/#/, ".html#")
+        target = if node["target"].include?("#")
+                   node["target"].sub("#", ".html#")
                  else
                    "##{node['target']}"
                  end
@@ -52,45 +52,15 @@ module IsoDoc
         url.sub(/#{File.extname(url)}$/, ".html")
       end
 
-      def eref_target(node)
-        url = suffix_url(eref_url(node["bibitemid"]))
-        anchor = node&.at(ns(".//locality[@type = 'anchor']"))
-        return url if url.nil? || /^#/.match?(url) || !anchor
-
-        "#{url}##{anchor.text.strip}"
-      end
-
-      def eref_url(id)
-        @bibitems.nil? and return nil
-
-        b = @bibitems[id]
-        b.nil? and return nil
-
-        url = b.at(ns("./uri[@type = 'citation'][@language = '#{@lang}']")) and
-          return url.text
-        url = b.at(ns("./uri[@type = 'citation']")) and return url.text
-        b["hidden"] == "true" and return b.at(ns("./uri"))&.text
-        "##{id}"
-      end
-
       def eref_parse(node, out)
-        if href = eref_target(node)
-          if node["type"] == "footnote"
-            out.sup do |s|
-              s.a(href: href) { |l| no_locality_parse(node, l) }
-            end
-          else
-            out.a(href: href) { |l| no_locality_parse(node, l) }
-          end
-        else no_locality_parse(node, out)
-        end
+        no_locality_parse(node, out)
       end
 
       def origin_parse(node, out)
         if t = node.at(ns("./termref"))
           termrefelem_parse(t, out)
         else
-          eref_parse(node, out)
+          no_locality_parse(node, out)
         end
       end
 
@@ -180,7 +150,7 @@ module IsoDoc
       end
 
       def error_parse(node, out)
-        text = node.to_xml.gsub(/</, "&lt;").gsub(/>/, "&gt;")
+        text = node.to_xml.gsub("<", "&lt;").gsub(">", "&gt;")
         out.para do |p|
           p.b(role: "strong") { |e| e << text }
         end

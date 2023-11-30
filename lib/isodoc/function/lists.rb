@@ -73,9 +73,8 @@ module IsoDoc
 
       def dt_parse(dterm, term)
         if dterm.elements.empty?
-          # term.p **attr_code(class: note? ? "Note" : nil) do |p|
           term.p do |p|
-            p << dterm.text
+            dterm.children.each { |n| parse(n, p) }
           end
         else
           dterm.children.each { |n| parse(n, term) }
@@ -97,6 +96,10 @@ module IsoDoc
             dl_parse1(v, dt, dd)
           end
         end
+        dl_parse_notes(node, out)
+      end
+
+      def dl_parse_notes(node, out)
         node.elements.reject { |n| dt_dd?(n) || n.name == "name" }
           .each { |n| parse(n, out) }
       end

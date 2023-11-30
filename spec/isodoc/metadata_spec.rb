@@ -4,7 +4,7 @@ require "nokogiri"
 RSpec.describe IsoDoc do
   it "processes IsoXML metadata #1" do
     c = IsoDoc::Convert.new({})
-    c.convert_init(<<~"INPUT", "test", false)
+    c.convert_init(<<~INPUT, "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
     INPUT
     input = <<~INPUT
@@ -34,6 +34,7 @@ RSpec.describe IsoDoc do
         <date type="transmitted"><on>2020</on></date>
         <date type="vote-started"><on>2021</on></date>
         <date type="vote-ended"><on>2022</on></date>
+        <date type="corrected"><on>2023</on></date>
         <edition>2</edition><edition language="en">second edition</edition>
       <version>
         <revision-date>2016-05-01</revision-date>
@@ -134,6 +135,7 @@ RSpec.describe IsoDoc do
       :circulateddate=>"2015",
       :confirmeddate=>"2017",
       :copieddate=>"2016",
+      :correcteddate=>"2023",
       :createddate=>"2010&#x2013;2011",
       :doc=>"URL E",
       :docnumber=>"17301-1",
@@ -184,7 +186,7 @@ RSpec.describe IsoDoc do
 
   it "processes IsoXML metadata #2" do
     c = IsoDoc::Convert.new({})
-    c.convert_init(<<~"INPUT", "test", false)
+    c.convert_init(<<~INPUT, "test", false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
     INPUT
     input = <<~INPUT
@@ -264,6 +266,7 @@ RSpec.describe IsoDoc do
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
+      :correcteddate=>"XXX",
       :createddate=>"XXX",
       :docnumber=>"17301-1-3",
       :docnumeric=>"17301",
@@ -305,9 +308,62 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to output
   end
 
+  it "processes IsoXML metadata language variants" do
+    c = IsoDoc::Convert.new({})
+    c.convert_init(<<~INPUT, "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+    INPUT
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata type="standard">
+          <language>fr</language>
+        <title>The Incredible Mr Ripley</title>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>NAME1</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name language="en">NAME</name>
+            <name language="fr">NOM</name>
+          </organization>
+        </contributor>
+       </bibdata>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      {:accesseddate=>"XXX",
+      :agency=>"NAME1/NAME",
+      :circulateddate=>"XXX",
+      :confirmeddate=>"XXX",
+      :copieddate=>"XXX",
+      :correcteddate=>"XXX",
+      :createddate=>"XXX",
+      :implementeddate=>"XXX",
+      :issueddate=>"XXX",
+      :lang=>"en",
+      :obsoleteddate=>"XXX",
+      :publisheddate=>"XXX",
+      :publisher=>"NAME1 and NAME",
+      :receiveddate=>"XXX",
+      :script=>"Latn",
+      :transmitteddate=>"XXX",
+      :unchangeddate=>"XXX",
+      :unpublished=>true,
+      :updateddate=>"XXX",
+      :vote_endeddate=>"XXX",
+      :vote_starteddate=>"XXX"}
+    OUTPUT
+    expect(metadata(c.info(Nokogiri::XML(input), nil)))
+      .to be_equivalent_to output
+  end
+
   it "processes IsoXML metadata in French" do
     c = IsoDoc::Convert.new({})
-    c.convert_init(<<~"INPUT", "test", false)
+    c.convert_init(<<~INPUT, "test", false)
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata type="standard">
         <language>fr</language>
@@ -388,6 +444,7 @@ RSpec.describe IsoDoc do
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
+      :correcteddate=>"XXX",
       :createddate=>"XXX",
       :docnumber=>"17301-1-3",
       :docnumeric=>"17301",
@@ -419,6 +476,29 @@ RSpec.describe IsoDoc do
       :vote_starteddate=>"XXX"}
     OUTPUT
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
+      .to be_equivalent_to output
+  end
+
+  it "processes metadata with embedded objects" do
+    c = IsoDoc::Convert.new({})
+    c.convert_init(<<~INPUT, "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+    INPUT
+    c.meta.labels = { hash: { key: [{ key1: 1 }, { key2: 2 }] } }
+    template = <<~OUTPUT
+      <xml> {{ labels["hash"] }} </xml>
+    OUTPUT
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata type="standard">
+      </bibdata>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <xml> {"key"=>[{"key1"=>1}, {"key2"=>2}]} </xml>
+    OUTPUT
+    c.info(Nokogiri::XML(input), nil)
+    expect(c.populate_template(template))
       .to be_equivalent_to output
   end
 end

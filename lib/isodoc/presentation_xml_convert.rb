@@ -1,4 +1,6 @@
 require_relative "presentation_function/block"
+require_relative "presentation_function/reqt"
+require_relative "presentation_function/concepts"
 require_relative "presentation_function/terms"
 require_relative "presentation_function/xrefs"
 require_relative "presentation_function/erefs"
@@ -17,10 +19,18 @@ module IsoDoc
 
     def convert1(docxml, _filename, _dir)
       @xrefs.parse docxml
+      bibitem_lookup(docxml)
       info docxml, nil
       conversions(docxml)
       docxml.root["type"] = "presentation"
-      docxml.to_xml.gsub(/&lt;/, "&#x3c;").gsub(/&gt;/, "&#x3e;")
+      docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
+    end
+
+    def bibitem_lookup(docxml)
+      @bibitems = docxml.xpath(ns("//references/bibitem"))
+        .each_with_object({}) do |b, m|
+        m[b["id"]] = b
+      end
     end
 
     def conversions(docxml)
@@ -37,14 +47,17 @@ module IsoDoc
     # to deal with single-term and single-ref annexes
     def section(docxml)
       references docxml
+      # feeds middle_title
       # triggers xrefs reparse, so put references before all other sections,
       # which alter titles and thus can alter xrefs
+      rearrange_clauses docxml # feeds toc, display_order, clausetitle, clause, middle_title
+      middle_title docxml
       annex docxml
-      clause docxml
+      clause docxml # feeds clausetitle
       term docxml
       index docxml
-      clausetitle docxml
-      floattitle docxml
+      clausetitle docxml # feeds floattitle
+      floattitle docxml # feeds rearrange_clauses
       toc docxml
       display_order docxml
     end
@@ -68,12 +81,16 @@ module IsoDoc
 
     def inline(docxml)
       xref docxml
-      eref docxml
-      origin docxml
-      quotesource docxml
+      eref docxml # feeds docxml
+      origin docxml # feeds docxml
+      quotesource docxml # feeds docxml
+      eref2link docxml
       mathml docxml
       variant docxml
       identifier docxml
+      date docxml
+      passthrough docxml
+      inline_format docxml
     end
 
     def terms(docxml)
@@ -113,7 +130,7 @@ module IsoDoc
         .sub(/ xmlns=['"][^"']+['"]/, "") # root XMLNS
         .split(/(?=[<> \t\r\n\f\v])/).map do |x|
           case x
-          when /^<[^:]+:/ then x.sub(/:/, ":semantic__")
+          when /^<[^:]+:/ then x.sub(":", ":semantic__")
           when /^<[^:]+$/ then x.sub(%r{(</?)([[:alpha:]])},
                                      "\\1semantic__\\2")
           else x end

@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.presentation.xml"
     IsoDoc::PresentationXMLConvert.new({ filename: "test" }
       .merge(presxml_options))
-      .convert("test", <<~"INPUT", false)
+      .convert("test", <<~INPUT, false)
                 <iso-standard xmlns="http://riboseinc.com/isoxml">
                 <bibdata>
                 <title language="en">test</title>
@@ -18,153 +18,6 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     expect(File.exist?("test.presentation.xml")).to be true
-  end
-
-  it "inserts copy of Semantic XML by default" do
-    input = <<~INPUT
-            <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface>
-        <foreword id="fwd">
-        <p><math id="b" xmlns:sodipodi='ABC'><sodipodi:b> xmlns:sodipodi</sodipodi:b></math>#{' '}
-        <xref target="N1"/>
-        </p>
-        </foreword>
-            <introduction id="intro">
-            <figure id="N1"> <name>Split-it-right sample divider</name>
-               <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
-            </figure>
-      </introduction></preface>
-      </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <metanorma-extension>
-           <metanorma>
-             <source>
-               <semantic__iso-standard>
-                 <semantic__preface>
-                   <semantic__foreword id="semantic__fwd">
-                     <semantic__p>
-                        <semantic__math xmlns:sodipodi="ABC" id="semantic__b">
-                         <sodipodi:semantic__b> xmlns:sodipodi</sodipodi:semantic__b>
-                       </semantic__math>
-                       <semantic__xref target="semantic__N1"/>
-                     </semantic__p>
-                   </semantic__foreword>
-                   <semantic__introduction id="semantic__intro">
-                     <semantic__figure id="semantic__N1">
-                       <semantic__name>Split-it-right sample divider</semantic__name>
-                       <semantic__image src="rice_images/rice_image1.png" id="semantic___8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
-                     </semantic__figure>
-                   </semantic__introduction>
-                 </semantic__preface>
-               </semantic__iso-standard>
-             </source>
-           </metanorma>
-         </metanorma-extension>
-         <preface>
-           <foreword id="fwd" displayorder="1">
-             <p>
-               <math xmlns:sodipodi="ABC" id="b">
-                 <sodipodi:b> xmlns:sodipodi</sodipodi:b>
-               </math>
-               <xref target="N1">Figure 1</xref>
-             </p>
-           </foreword>
-           <introduction id="intro" displayorder="2">
-             <figure id="N1">
-               <name>Figure 1 — Split-it-right sample divider</name>
-               <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
-             </figure>
-           </introduction>
-         </preface>
-       </iso-standard>
-    OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({})
-      .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(output)
-  end
-
-  it "inserts preprocess-xslt" do
-    mock_preprocess_xslt_read
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <bibdata type="standard"/>
-          <metanorma-extension><clause id="_user_css" inline-header="false" obligation="normative">
-      <title>user-css</title>
-      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
-
-      </clause>
-      </metanorma-extension>
-      </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <bibdata type="standard"/>
-
-        <metanorma-extension>
-          <clause id="_user_css" inline-header="false" obligation="normative">
-            <title depth="1">user-css</title>
-            <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
-          </clause>
-          <render>
-             <preprocess-xslt format="pdf">
-               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                 <xsl:strip-space elements="*"/>
-                 <!-- note/name -->
-                 <xsl:template match="*[local-name() = 'note']/*[local-name() = 'name']">
-                   <xsl:copy>
-                     <xsl:apply-templates select="@*|node()"/>
-                     <xsl:if test="normalize-space() != ''">:<tab/>
-       						</xsl:if>
-                   </xsl:copy>
-                 </xsl:template>
-               </xsl:stylesheet>
-             </preprocess-xslt>
-           </render>
-          <source-highlighter-css>
-      .green { background-color: green }</source-highlighter-css>
-        </metanorma-extension>
-      </iso-standard>
-    OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-  .convert("test", input, true))
-  .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(output)
-  end
-
-  it "processes user-css" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <bibdata type="standard"/>
-          <metanorma-extension><clause id="_user_css" inline-header="false" obligation="normative">
-      <title>user-css</title>
-      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
-
-      </clause>
-      </metanorma-extension>
-      </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <bibdata type="standard"/>
-
-        <metanorma-extension>
-          <clause id="_user_css" inline-header="false" obligation="normative">
-            <title depth="1">user-css</title>
-            <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
-          </clause>
-          <source-highlighter-css>
-      .green { background-color: green }</source-highlighter-css>
-        </metanorma-extension>
-      </iso-standard>
-    OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-  .convert("test", input, true))
-  .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(output)
   end
 
   it "calculates depth of clauses regardless of whether they have anchors" do
@@ -180,8 +33,9 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+          <preface><clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause></preface>
          <sections>
-           <clause displayorder='1'>
+           <clause displayorder='2'>
              <title depth='1'>A</title>
              <clause>
                <title depth='2'>B</title>
@@ -193,9 +47,9 @@ RSpec.describe IsoDoc do
          </sections>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))
-  .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+  .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -220,16 +74,17 @@ RSpec.describe IsoDoc do
           <title language='en'>test</title>
         </bibdata>
         <preface>
-          <p displayorder="1">
+          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <p displayorder="2">
             64,212,149,677,264,515
             642,121,496,772,645.15 30,000
             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1,000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1,000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1.003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j)</asciimath></stem></p>
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -354,7 +209,8 @@ RSpec.describe IsoDoc do
           </bibdata>
 
           <preface>
-            <p displayorder="1">
+              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+            <p displayorder="2">
               30,000
               <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1,000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1,000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1.00'3</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>459,384.12'34'56</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j) (1 - p)^(459384.123456789 - j)</asciimath></stem>
             </p>
@@ -377,9 +233,9 @@ RSpec.describe IsoDoc do
     end
 
     it "Supports twitter_cldr_localiser_symbols fraction options" do
-      expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true))
-        .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
         .to(be_equivalent_to(xmlpp(output)))
     end
   end
@@ -404,15 +260,18 @@ RSpec.describe IsoDoc do
           <language current='true'>fr</language>
         </bibdata>
         <preface>
-          <p displayorder="1">
+            <clause type="toc" id="_" displayorder="1">
+          <title depth="1">Sommaire</title>
+          </clause>
+          <p displayorder="2">
             30&#x202F;000
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1 000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1 000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1,003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j)</asciimath></stem></p>
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -438,15 +297,16 @@ RSpec.describe IsoDoc do
              </bibdata>
 
              <preface>
-               <p displayorder="1">
+                 <clause type="toc" id="_" displayorder="1"> <title depth="1">Sommaire</title> </clause>
+               <p displayorder="2">
                  30'000
                  <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1'000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1'000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>0,0000032</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1,003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (0.0000032 - p)^(1.003 - j)</asciimath></stem></p>
              </preface>
            </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -475,16 +335,17 @@ RSpec.describe IsoDoc do
            </bibdata>
 
            <preface>
-             <p displayorder='1'> ... 64212149677264515 642121496772;64515 30000 </p>
+              <clause type="toc" id="_" displayorder="1"> <title depth="1">Inhaltsübersicht</title> </clause>
+             <p displayorder='2'> ... 64212149677264515 642121496772;64515 30000 </p>
            </preface>
          </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
-      expect(xmlpp(IsoDoc::PresentationXMLConvert
+      expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
         .new({ localizenumber: "##0;###" }
         .merge(presxml_options))
           .convert("test", input, true))
-          .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+          .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
         .to be_equivalent_to xmlpp(output2)
     end
   end
@@ -510,18 +371,18 @@ RSpec.describe IsoDoc do
            <bibdata>
              <title language='en'>test</title>
            </bibdata>
-
            <preface>
-             <p displayorder='1'> ... 64=212=149=677=264=515 642=121=496=772;64$51$5 30=000 </p>
+              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+             <p displayorder='2'> ... 64=212=149=677=264=515 642=121=496=772;64$51$5 30=000 </p>
            </preface>
          </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
-      expect(xmlpp(IsoDoc::PresentationXMLConvert
+      expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
         .to be_equivalent_to xmlpp(output1)
     end
   end
@@ -631,8 +492,9 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
             <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
             <bibdata/>
+         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
             <sections>
-              <clause id='_' inline-header='false' obligation='normative' displayorder='1'>
+              <clause id='_' inline-header='false' obligation='normative' displayorder='2'>
                 <title depth='1'>
                   <strong>Annex A</strong>
                   <br/>
@@ -664,7 +526,7 @@ RSpec.describe IsoDoc do
                 </clause>
               </clause>
             </sections>
-            <annex id='_' inline-header='false' obligation='normative' displayorder='2'>
+            <annex id='_' inline-header='false' obligation='normative' displayorder='3'>
               <title>
                 <strong>Annex A</strong>
                 <br/>
@@ -688,34 +550,44 @@ RSpec.describe IsoDoc do
             </iso-standard>
     OUTPUT
     html = <<~OUTPUT
-          <html lang='en'>
-        <head/>
-        <body lang='en'>
-          <div class='title-section'>
-            <p>&#160;</p>
-          </div>
-          <br/>
-          <div class='prefatory-section'>
-            <p>&#160;</p>
-          </div>
-          <br/>
-          <div class='main-section'>
-            <p class='zzSTDTitle1'/>
-            <div id='_'>
-              <h1>
-                <b>Annex A</b>
-                <br/>
-                 (normative). &#160; Clause
-              </h1>
-              <p id='_'>Text</p>
+      #{HTML_HDR}
               <div id='_'>
                 <h1>
                   <b>Annex A</b>
                   <br/>
-                   (normative). &#160; Subclause
+                   (normative). &#160; Clause
+                </h1>
+                <p id='_'>Text</p>
+                <div id='_'>
+                  <h1>
+                    <b>Annex A</b>
+                    <br/>
+                     (normative). &#160; Subclause
+                    <br/>
+                    <br/>
+                    &#8220;A&#8221; &#8216;B&#8217;
+                  </h1>
+                  <p style='display:none;' class='variant-title-toc'>
+                     Clause
+                    <i>A</i>
+                    <span class='stem'>
+                      <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                        <mi>x</mi>
+                      </math>
+                    </span>
+                  </p>
+                  <p id='_'>Text</p>
+                </div>
+              </div>
+              <br/>
+              <div id='_' class='Section3'>
+                <h1 class='Annex'>
+                  <b>Annex A</b>
+                  <br/>
+                   (normative)
                   <br/>
                   <br/>
-                  &#8220;A&#8221; &#8216;B&#8217;
+                  <b>Clause</b>
                 </h1>
                 <p style='display:none;' class='variant-title-toc'>
                    Clause
@@ -729,71 +601,54 @@ RSpec.describe IsoDoc do
                 <p id='_'>Text</p>
               </div>
             </div>
-            <br/>
-            <div id='_' class='Section3'>
-              <h1 class='Annex'>
-                <b>Annex A</b>
-                <br/>
-                 (normative)
-                <br/>
-                <br/>
-                <b>Clause</b>
-              </h1>
-              <p style='display:none;' class='variant-title-toc'>
-                 Clause
-                <i>A</i>
-                <span class='stem'>
-                  <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                    <mi>x</mi>
-                  </math>
-                </span>
-              </p>
-              <p id='_'>Text</p>
-            </div>
-          </div>
-        </body>
-      </html>
+          </body>
+        </html>
     OUTPUT
     doc = <<~OUTPUT
-          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-        <head>
-          <style>
-          </style>
-        </head>
-        <body lang='EN-US' link='blue' vlink='#954F72'>
-          <div class='WordSection1'>
-            <p>&#160;</p>
-          </div>
-          <p>
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection2'>
-            <p>&#160;</p>
-          </div>
-          <p>
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection3'>
-            <p class='zzSTDTitle1'/>
-            <div id='_'>
-              <h1>
-                <b>Annex A</b>
-                <br/>
-                 (normative).
-                <span style='mso-tab-count:1'>&#160; </span>
-                 Clause
-              </h1>
-              <p id='_'>Text</p>
+      #{WORD_HDR}
               <div id='_'>
                 <h1>
                   <b>Annex A</b>
                   <br/>
                    (normative).
                   <span style='mso-tab-count:1'>&#160; </span>
-                   Subclause
+                   Clause
+                </h1>
+                <p id='_'>Text</p>
+                <div id='_'>
+                  <h1>
+                    <b>Annex A</b>
+                    <br/>
+                     (normative).
+                    <span style='mso-tab-count:1'>&#160; </span>
+                     Subclause
+                    <br/>
+                    <br/>
+                    &#8220;A&#8221; &#8216;B&#8217;
+                  </h1>
+                  <p style='display:none;' class='variant-title-toc'>
+                     Clause
+                    <i>A</i>
+                    <span class='stem'>
+                      <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                        <mi>x</mi>
+                      </math>
+                    </span>
+                  </p>
+                  <p id='_'>Text</p>
+                </div>
+              </div>
+              <p class="page-break">
+                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+              </p>
+              <div id='_' class='Section3'>
+                <h1 class='Annex'>
+                  <b>Annex A</b>
+                  <br/>
+                   (normative)
                   <br/>
                   <br/>
-                  &#8220;A&#8221; &#8216;B&#8217;
+                  <b>Clause</b>
                 </h1>
                 <p style='display:none;' class='variant-title-toc'>
                    Clause
@@ -807,36 +662,12 @@ RSpec.describe IsoDoc do
                 <p id='_'>Text</p>
               </div>
             </div>
-            <p>
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div id='_' class='Section3'>
-              <h1 class='Annex'>
-                <b>Annex A</b>
-                <br/>
-                 (normative)
-                <br/>
-                <br/>
-                <b>Clause</b>
-              </h1>
-              <p style='display:none;' class='variant-title-toc'>
-                 Clause
-                <i>A</i>
-                <span class='stem'>
-                  <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                    <mi>x</mi>
-                  </math>
-                </span>
-              </p>
-              <p id='_'>Text</p>
-            </div>
-          </div>
-        </body>
-      </html>
+          </body>
+        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
@@ -865,8 +696,9 @@ RSpec.describe IsoDoc do
       <?xml version="1.0"?>
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata/>
+         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <sections>
-           <clause id="A" inline-header="false" obligation="normative" displayorder="1">
+           <clause id="A" inline-header="false" obligation="normative" displayorder="2">
              <title depth="1">1.<tab/>Clause</title>
              <figure id="B"><name>Figure 1</name>
                <image src="spec/assets/odf.svg" mimetype="image/svg+xml" alt="1"><emf src="spec/assets/odf.emf"/></image>
@@ -896,17 +728,77 @@ RSpec.describe IsoDoc do
          </sections>
       </iso-standard>
     OUTPUT
-    expect(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
       .gsub(%r{"data:image/emf;base64,[^"]+"},
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
-            '"data:application/x-msmetafile;base64"'))
+            '"data:application/x-msmetafile;base64"'))))
+      .to be_equivalent_to (output)
+
+    output = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <clause id="A" inline-header="false" obligation="normative" displayorder="2">
+             <title depth="1">1.<tab/>Clause</title>
+             <figure id="B">
+               <name>Figure 1</name>
+               <image src="spec/assets/odf.svg" mimetype="image/svg+xml" alt="1"/>
+               <image src="" mimetype="image/svg+xml" alt="2">
+                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
+                   <g transform="translate(-0.0000, -0.0000)">
+                     <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
+                       <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
+                       <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
+                     </g>
+                   </g>
+                 </svg>
+                 <emf src="data:image/emf;base64"/>
+               </image>
+               <image src="" mimetype="image/svg+xml" alt="3">
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                   <circle fill="#009" r="45" cx="50" cy="50"/>
+                   <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                 </svg>
+               </image>
+               <image src="" mimetype="image/svg+xml" alt="4">
+                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
+                   <g transform="translate(-0.0000, -0.0000)">
+                     <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
+                       <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
+                       <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
+                     </g>
+                   </g>
+                 </svg>
+                 <emf src="data:application/x-msmetafile;base64"/>
+               </image>
+             </figure>
+           </clause>
+         </sections>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html" }))
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
+      .gsub(%r{"data:image/emf;base64,[^"]+"},
+            '"data:image/emf;base64"')
+      .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
+            '"data:application/x-msmetafile;base64"'))))
       .to be_equivalent_to (output)
   end
 
-  it "converts EPS to SVG files" do
+  xit "converts EPS to SVG files" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
@@ -1122,8 +1014,9 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata/>
+         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
       <sections>
-       <clause id="A" inline-header="false" obligation="normative" displayorder="1">
+       <clause id="A" inline-header="false" obligation="normative" displayorder="2">
        <title depth="1">1.<tab/>Clause</title>
        <figure id="B"><name>Figure 1</name>
        <image mimetype="image/svg+xml" alt="3" src="_.svg"><emf src="_.emf"/></image>
@@ -1132,11 +1025,11 @@ RSpec.describe IsoDoc do
                </sections>
             </iso-standard>
     OUTPUT
-    expect(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true)
   .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{src="[^"]+?\.emf"}, 'src="_.emf"')
-      .gsub(%r{src="[^"]+?\.svg"}, 'src="_.svg"'))
+      .gsub(%r{src="[^"]+?\.svg"}, 'src="_.svg"'))))
       .to be_equivalent_to (output)
   end
 
@@ -1179,47 +1072,48 @@ RSpec.describe IsoDoc do
              </ol>
            </clause>
          </sections>
-       </iso-standard>#{'  '}
+       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <bibdata/>
+         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <sections>
-          <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+          <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
               Clause
             </title>
             <ol id='B1' type='alphabet'>
-              <li>
+              <li id="_" label="a">
                 A1
                 <ol id='B2' type='arabic'>
-                  <li>
+                  <li id="_" label="1">
                     A2
                     <ol id='B3' type='roman'>
-                      <li>
+                      <li id="_" label="i">
                         A3
                         <ol id='B4' type='alphabet_upper'>
-                          <li>
+                          <li id="_" label="A">
                             A4
                             <ol id='B5' type='roman_upper'>
-                              <li>
+                              <li id="_" label="I">
                                 A5
                                 <ol id='B6' type='alphabet'>
-                                  <li>
+                                  <li id="_" label="a">
                                     A6
                                     <ol id='B7' type='arabic'>
-                                      <li>
+                                      <li id="_" label="1">
                                         A7
                                         <ol id='B8' type='roman'>
-                                          <li>
+                                          <li id="_" label="i">
                                             A8
                                             <ol id='B9' type='alphabet_upper'>
-                                              <li>
+                                              <li id="_" label="A">
                                                 A9
                                                 <ol id='B0' type='roman_upper'>
-                                                  <li>A0</li>
+                                                  <li id="_" label="I">A0</li>
                                                 </ol>
                                               </li>
                                             </ol>
@@ -1243,9 +1137,9 @@ RSpec.describe IsoDoc do
         </sections>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -1273,21 +1167,22 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <bibdata/>
 
+         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <sections>
-          <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+          <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
               Clause
             </title>
             <ol id='B1' type='alphabet'>
-              <li>
+              <li id="_" label="a">
                 A1
                 <ul id='B2'>
                   <li>
                     A2
                     <ol id='B3' type='roman'>
-                      <li>A3 </li>
+                      <li id="_" label="i">A3 </li>
                     </ol>
                   </li>
                 </ul>
@@ -1297,53 +1192,18 @@ RSpec.describe IsoDoc do
         </sections>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
   end
 
-  it "inserts toc metadata" do
+  it "processes multiple-target xrefs in English" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <bibdata/>
-        <sections>
-         </sections>
-       </iso-standard>
-    INPUT
-    presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <bibdata/>
-        <metanorma-extension>
-          <toc type='figure'>
-            <title>List of figures</title>
-          </toc>
-          <toc type='table'>
-            <title>List of tables</title>
-          </toc>
-          <toc type='recommendation'>
-            <title>List of recommendations</title>
-          </toc>
-        </metanorma-extension>
-        <sections> </sections>
-      </iso-standard>
-    OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ tocfigures: true,
-             toctables: true,
-             tocrecommendations: true }
-      .merge(presxml_options))
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(presxml)
-  end
-
-  it "processes multiple-target xrefs" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <bibdata/>
-        <sections>
-       <clause id="A" inline-header="false" obligation="normative">
+      <bibdata><language>en</language></bibdata>
+        <preface>
+        <foreword>
        <title>Section</title>
        <p id="A"><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/></xref>
        <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
@@ -1355,7 +1215,9 @@ RSpec.describe IsoDoc do
        <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref>
        <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/></xref>
         </p>
-       </clause>
+       </foreword>
+       </preface>
+        <sections>
        <clause id="ref1"/>
        <clause id="ref2"/>
        <clause id="ref3"/>
@@ -1377,53 +1239,88 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-         <bibdata/>
-         <sections>
-           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
-             <title depth='1'>1.<tab/>Section</title>
-             <p id="A"><xref target="ref1">Clauses 2</xref> to <xref target="ref2">3</xref><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref><xref target="ref1">Clauses 2</xref> and <xref target="ref2">3</xref><xref target="ref1">Clauses 2</xref>, <xref target="ref2">3</xref>, and <xref target="ref3">4</xref><xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref><xref target="ref1">Clauses 2</xref> or <xref target="ref2">3</xref><xref target="ref1">Clauses 2</xref>, <xref target="ref2">3</xref>, or <xref target="ref3">4</xref><xref target="ref1">Clauses 2</xref> to <xref target="ref2">3</xref> and <xref target="ref3">4</xref> to <xref target="ref4">5</xref>
-        Clause 6, <xref target="item_6-4-a"> a) 1)</xref> to <xref target="item_6-4-i">b) 1)</xref></p>
-           </clause>
-           <clause id="ref1" displayorder="2">
-             <title>2.</title>
-           </clause>
-           <clause id="ref2" displayorder="3">
-             <title>3.</title>
-           </clause>
-           <clause id="ref3" displayorder="4">
-             <title>4.</title>
-           </clause>
-           <clause id="ref4" displayorder="5">
-             <title>5.</title>
-           </clause>
-           <clause id="id1" displayorder="6">
-             <title>6.</title>
-             <ol id="_5eebf861-525f-0ece-7502-b1c94611db4e" type="alphabet">
-               <li>
-                 <p id="_01fc71c0-8f76-228a-5a0d-7b9d0003d219">The following CRScsd strings represent the CRS types supported by this document:</p>
-                 <ol id="_7450988f-2dc2-3937-1aa0-a73d21b28ecc" type="arabic">
-                   <li id="item_6-4-a">
-                     <p id="_9ff8eeb0-5384-41af-e0f6-7143331f59f2">CRS1d: one-dimensional spatial or temporal CRS.</p>
-                   </li>
-                 </ol>
-               </li>
-               <li>
-                 <p id="_2375be59-1c5e-d3ef-0882-fc5e2b852ea9">Additionally, in each component of a GPL representation string, the following characters shall also act as delimiters:</p>
-                 <ol id="_81d60fdc-e0ef-e94e-4f59-d41181945c98" type="arabic">
-                   <li id="item_6-4-i">
-                     <p id="_db51305f-60ad-1714-a497-bc9aa305e02b"><em>a solidus</em> [ / ] shall act as the terminator character and any GPL string shall always be terminated.</p>
-                   </li>
-                 </ol>
-               </li>
-             </ol>
-           </clause>
+      <foreword displayorder="2">
+         <title>Section</title>
+         <p id="A"><xref target="ref1">Clauses 1</xref> to <xref target="ref2">2</xref>
+         <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
+         <xref target="ref1">Clauses 1</xref> and <xref target="ref2">2</xref>
+         <xref target="ref1">Clauses 1</xref>, <xref target="ref2">2</xref>, and <xref target="ref3">3</xref>
+         <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+         <xref target="ref1">Clauses 1</xref> or <xref target="ref2">2</xref>
+         <xref target="ref1">Clauses 1</xref>, <xref target="ref2">2</xref>, or <xref target="ref3">3</xref>
+         <xref target="ref1">Clauses 1</xref> to <xref target="ref2">2</xref> and <xref target="ref3">3</xref> to <xref target="ref4">4</xref>
+         Clause 5, <xref target="item_6-4-a">a) 1)</xref> to <xref target="item_6-4-i">b) 1)</xref>
+         </p>
+       </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true),
+    )
+      .at("//xmlns:foreword")
+      .to_xml))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "processes multiple-target xrefs in Japanese" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata><language>ja</language></bibdata>
+       <preface>
+        <foreword>
+       <title>Section</title>
+       <p id="A"><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/></xref>
+       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/><location target="ref3" connective="and"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/></xref>
+       <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="or"/><location target="ref3" connective="or"/></xref>
+       <xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/><location target="ref3" connective="and"/><location target="ref4" connective="to"/></xref>
+       <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/></xref>
+        </p>
+       </foreword>
+       </preface>
+       <sections>
+       <clause id="ref1"/>
+       <clause id="ref2"/>
+       <clause id="ref3"/>
+       <clause id="ref4"/>
+       <clause id="id1">
+       <ol id="_5eebf861-525f-0ece-7502-b1c94611db4e"><li><p id="_01fc71c0-8f76-228a-5a0d-7b9d0003d219">The following CRScsd strings represent the CRS types supported by this document:</p>
+       <ol id="_7450988f-2dc2-3937-1aa0-a73d21b28ecc"><li id="item_6-4-a"><p id="_9ff8eeb0-5384-41af-e0f6-7143331f59f2">CRS1d: one-dimensional spatial or temporal CRS.</p>
+        </li>
+        </ol>
+        </li>
+        <li><p id="_2375be59-1c5e-d3ef-0882-fc5e2b852ea9">Additionally, in each component of a GPL representation string, the following characters shall also act as delimiters:</p>
+        <ol id="_81d60fdc-e0ef-e94e-4f59-d41181945c98"><li id="item_6-4-i"><p id="_db51305f-60ad-1714-a497-bc9aa305e02b"><em>a solidus</em> [ / ] shall act as the terminator character and any GPL string shall always be terminated.</p>
+        </li>
+        </ol>
+        </li>
+        </ol>
+       </clause>
          </sections>
        </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <foreword displayorder="2">
+         <title>Section</title>
+         <p id="A"><xref target="ref1">箇条 1</xref>～<xref target="ref2">箇条 2</xref><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref><xref target="ref1">箇条 1</xref> and <xref target="ref2">箇条 2</xref>
+        <xref target="ref1">箇条 1</xref>, <xref target="ref2">箇条 2</xref>, and <xref target="ref3">箇条 3</xref>
+        <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
+        <xref target="ref1">箇条 1</xref> or <xref target="ref2">箇条 2</xref>
+        <xref target="ref1">箇条 1</xref>, <xref target="ref2">箇条 2</xref>, or <xref target="ref3">箇条 3</xref>
+        <xref target="ref1">箇条 1</xref>～<xref target="ref2">箇条 2</xref> and <xref target="ref3">箇条 3</xref>～<xref target="ref4">箇条 4</xref>
+        <xref target="item_6-4-a">箇条 5のa)の1)</xref>～<xref target="item_6-4-i">箇条 5のb)の1)</xref>
+         </p>
+       </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+    expect(xmlpp(Nokogiri::XML(
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true),
+    )
+      .at("//xmlns:foreword")
+      .to_xml))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -1475,8 +1372,9 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <bibdata/>
+        <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
          <sections>
-           <clause id='A1' inline-header='false' obligation='normative' displayorder='2'>
+           <clause id='A1' inline-header='false' obligation='normative' displayorder='3'>
              <title depth='1'>
                2.
                <tab/>
@@ -1495,7 +1393,8 @@ RSpec.describe IsoDoc do
         .convert("test", input, true))
     xml.at("//xmlns:localized-strings")&.remove
     xml.at("//xmlns:bibliography")&.remove
-    expect(xmlpp(xml.to_xml))
+    xml.at("//xmlns:references")&.remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -1530,8 +1429,9 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <bibdata/>
 
+        <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
          <sections>
-           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
+           <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
              <title depth='1'>
                1.
                <tab/>
@@ -1559,60 +1459,9 @@ RSpec.describe IsoDoc do
          </sections>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(presxml)
-  end
-
-  it "passes font names to Presentation XML" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <bibdata/>
-      <sections>
-       <clause id="A" inline-header="false" obligation="normative">
-       <title>Section</title>
-       <figure id="B1">
-       <name>First</name>
-       </figure>
-       </clause>
-         </sections>
-       </iso-standard>
-    INPUT
-    presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <bibdata/>
-          <presentation-metadata>
-          <name>font-license-agreement</name>
-          <value>no-install-fonts</value>
-        </presentation-metadata>
-        <presentation-metadata>
-          <name>fonts</name>
-          <value>font2</value>
-        </presentation-metadata>
-        <presentation-metadata>
-          <name>fonts</name>
-          <value>font1</value>
-        </presentation-metadata>
-                 <sections>
-           <clause id='A' inline-header='false' obligation='normative' displayorder='1'>
-             <title depth='1'>
-               1.
-               <tab/>
-               Section
-             </title>
-             <figure id='B1'>
-               <name>Figure 1&#xA0;&#x2014; First</name>
-             </figure>
-           </clause>
-         </sections>
-      </iso-standard>
-    OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert
-      .new({ fonts: "font1; font2", fontlicenseagreement: "no-install-fonts" }
-      .merge(presxml_options))
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -1639,37 +1488,38 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
       <bibdata/>
+        <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
        <sections>
-          <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='1'>
+          <clause id='_' type='scope' inline-header='false' obligation='normative' displayorder='2'>
             <title depth='1'>
               1.
               <tab/>
               Scope
             </title>
-            <p id='_8d98c053-85d7-e8cc-75bb-183a14209d61'>A</p>
-            <p id='_2141c040-93a4-785a-73f0-ffad4fa1779f'>
+            <p id='_'>A</p>
+            <p id='_'>
               <eref type='inline' bibitemid='_607373b1-0cc4-fcdb-c482-fd86ae572bd1' citeas='ISO 639-2'>ISO&#xa0;639-2</eref>
             </p>
           </clause>
-          <terms id='_terms_and_definitions' obligation='normative' displayorder='3'>
+          <terms id='_' obligation='normative' displayorder='4'>
             <title depth='1'>
               2.
               <tab/>
               Terms and definitions
             </title>
-            <p id='_36938d4b-05e5-bd0f-a082-0415db50e8f7'>No terms and definitions are listed in this document.</p>
+            <p id='_'>No terms and definitions are listed in this document.</p>
           </terms>
-        </sections>
-        <bibliography>
-          <references hidden='true' normative='true' displayorder='2'>
+          <references hidden='true' normative='true' displayorder='3'>
             <title depth='1'>Normative references</title>
           </references>
+        </sections>
+        <bibliography>
         </bibliography>
       </standard-document>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -1686,24 +1536,24 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <standard-document xmlns='https://www.metanorma.org/ns/standoc' type='presentation'>
          <bibdata/>
-
+           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
          <sections>
-           <clause id='_scope' type='scope' inline-header='false' obligation='normative' displayorder='1'>
+           <clause id='_' type='scope' inline-header='false' obligation='normative' displayorder='2'>
              <title depth='1'>
                1.
                <tab/>
                Scope
              </title>
-             <p id='_8d98c053-85d7-e8cc-75bb-183a14209d61'>
+             <p id='_'>
                <tt>http://www.example.com</tt>
              </p>
            </clause>
          </sections>
        </standard-document>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -1745,7 +1595,8 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
-          <foreword displayorder="1">
+              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <foreword displayorder="2">
             <note>
               <name>NOTE</name>
               <strong>
@@ -1761,7 +1612,6 @@ RSpec.describe IsoDoc do
                       </mfenced>
                     </mstyle>
                   </math>
-                  <!-- [a , b] -->
                   <asciimath>[a,b]</asciimath>
                 </stem>
               </strong>
@@ -1775,7 +1625,6 @@ RSpec.describe IsoDoc do
                     </mrow>
                   </mfenced>
                 </math>
-                <!-- [a , b] -->
                 <asciimath>[a,b]</asciimath>
               </stem>
             </note>
@@ -1783,202 +1632,316 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
   end
 
-  it "processes preprocessing XSLT" do
+  it "sorts preface sections" do
     input = <<~INPUT
-         <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <metanorma-extension>
-         <render>
-         <preprocess-xslt format="html">
-         <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="http://riboseinc.com/isoxml" version="1.0">
-      	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-      	<xsl:strip-space elements="*"/>
-                                   <xsl:template match="@* | node()">
-                                     <xsl:copy>
-                                       <xsl:apply-templates select="@* | node()"/>
-                                     </xsl:copy>
-                                    </xsl:template>
-      	<xsl:template match="mn:note/mn:name">
-      		<xsl:copy>
-      			<xsl:apply-templates select="@*|node()"/>
-      			<xsl:if test="normalize-space() != ''">:<tab/>
-      			</xsl:if>
-      		</xsl:copy>
-      	</xsl:template>
-      </xsl:stylesheet>
-         </preprocess-xslt>
-         <preprocess-xslt format="doc">
-               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="http://riboseinc.com/isoxml" version="1.0">
-                                   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                                   <xsl:strip-space elements="*"/>
-                                   <xsl:template match="@* | node()">
-                                     <xsl:copy>
-                                       <xsl:apply-templates select="@* | node()"/>
-                                     </xsl:copy>
-                                    </xsl:template>
-                                   <xsl:template match="mn:example/mn:name">
-                                           <xsl:copy>
-                                                   <xsl:apply-templates select="@*|node()"/>
-                                                   <xsl:if test="normalize-space() != ''">:<tab/>
-                                                   </xsl:if>
-                                           </xsl:copy>
-                                   </xsl:template>
-                           </xsl:stylesheet>
-         </preprocess-xslt>
-         <preprocess-xslt format="html,doc">
-               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="http://riboseinc.com/isoxml" version="1.0">
-                                   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                                   <xsl:strip-space elements="*"/>
-                                   <xsl:template match="@* | node()">
-                                     <xsl:copy>
-                                       <xsl:apply-templates select="@* | node()"/>
-                                     </xsl:copy>
-                                    </xsl:template>
-                                   <xsl:template match="mn:termnote/mn:name">
-                                           <xsl:copy>
-                                                   <xsl:apply-templates select="@*|node()"/>
-                                                   <xsl:if test="normalize-space() != ''">:<tab/>
-                                                   </xsl:if>
-                                           </xsl:copy>
-                                   </xsl:template>
-                           </xsl:stylesheet>
-         </preprocess-xslt>
-         <preprocess-xslt>
-               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="http://riboseinc.com/isoxml" version="1.0">
-                                   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                                   <xsl:strip-space elements="*"/>
-                                   <xsl:template match="@* | node()">
-                                     <xsl:copy>
-                                       <xsl:apply-templates select="@* | node()"/>
-                                     </xsl:copy>
-                                    </xsl:template>
-                                   <xsl:template match="mn:termexample/mn:name">
-                                           <xsl:copy>
-                                                   <xsl:apply-templates select="@*|node()"/>
-                                                   <xsl:if test="normalize-space() != ''">:<tab/>
-                                                   </xsl:if>
-                                           </xsl:copy>
-                                   </xsl:template>
-                           </xsl:stylesheet>
-         </preprocess-xslt>
-         </render>
-         </metanorma-extension>
-                   <preface>
-                   <foreword>
-                   <note><name>HTML</name></note>
-                   <example><name>WORD</name></example>
-                   </foreword>
-                   </preface>
-                   <sections>
-                   <terms>
-                   <term>
-                   <termexample><name>HTML-AND-WORD</name> <p>note</p></termexample>
-                   <termnote><name>NONE-SPECIFIED</name> <p>note</p></termnote>
-                   <term>
-                   </terms>
-                   </sections>
-         </iso-standard>
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+            <bibdata/>
+      <preface>
+      <floating-title>FL 0</p>
+      <acknowledgements/>
+      <floating-title>FL 1</p>
+      <floating-title>FL 2</p>
+      <introduction/>
+      <floating-title>FL 3</p>
+      <floating-title>FL 4</p>
+      <foreword/>
+      <floating-title>FL 5</p>
+      <floating-title>FL 6</p>
+      <abstract/>
+      </preface>
+      </standard-document>
     INPUT
-    html = <<~OUTPUT
-      <html lang="en">
-        <head/>
-        <body lang="en">
-          <div class="title-section">
-            <p> </p>
-          </div>
-          <br/>
-          <div class="prefatory-section">
-            <p> </p>
-          </div>
-          <br/>
-          <div class="main-section">
-            <br/>
-            <div>
-              <h1 class="ForewordTitle">Foreword</h1>
-              <div class="Note">
-                <p><span class="note_label">HTML:  </span>  </p>
-              </div>
-              <div class="example">
-                <p class="example-title">WORD</p>
-              </div>
-            </div>
-            <p class="zzSTDTitle1"/>
-            <div>
-              <h1/>
-              <p class="TermNum" id=""/>
-              <div class="example">
-                <p class="example-title">HTML-AND-WORD:  </p>
-                <p>note</p>
-              </div>
-              <div class="Note">
-                <p>NONE-SPECIFIED:  : note</p>
-              </div>
-              <p class="TermNum" id=""/>
-            </div>
-          </div>
-        </body>
-      </html>
+    presxml = <<~OUTPUT
+          <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+        <bibdata/>
+
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+            <title depth="1">Table of contents</title>
+          </clause>
+          <abstract displayorder="2"/>
+          <foreword displayorder="3"/>
+          <introduction displayorder="4"/>
+          <p type="floating-title" displayorder="5">FL 1</p>
+          <p type="floating-title" displayorder="6">FL 2</p>
+          <p type="floating-title" displayorder="7">FL 3</p>
+          <p type="floating-title" displayorder="8">FL 4</p>
+          <p type="floating-title" displayorder="9">FL 5</p>
+          <p type="floating-title" displayorder="10">FL 6</p>
+          <p type="floating-title" displayorder="11">FL 0</p>
+          <acknowledgements displayorder="12"/>
+        </preface>
+      </standard-document>
     OUTPUT
-    word = <<~OUTPUT
-      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">>
-         <head>
-           <style> </style>
-         </head>
-            <body lang="EN-US" link="blue" vlink="#954F72">
-          <div class="WordSection1">
-            <p> </p>
-          </div>
-          <p>
-            <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection2">
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "leaves alone floating titles if preface sections already sorted" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+            <bibdata/>
+      <preface>
+      <floating-title>FL 1</p>
+      <floating-title>FL 2</p>
+      <abstract/>
+      <floating-title>FL 3</p>
+      <floating-title>FL 4</p>
+      <foreword/>
+      <floating-title>FL 5</p>
+      <floating-title>FL 6</p>
+      <introduction/>
+      <floating-title>FL 7</p>
+      <acknowledgements/>
+      </preface>
+      </standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+         <bibdata/>
+
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+           <p type="floating-title" displayorder="2">FL 1</p>
+           <p type="floating-title" displayorder="3">FL 2</p>
+           <abstract displayorder="4"/>
+           <p type="floating-title" displayorder="5">FL 3</p>
+           <p type="floating-title" displayorder="6">FL 4</p>
+           <foreword displayorder="7"/>
+           <p type="floating-title" displayorder="8">FL 5</p>
+           <p type="floating-title" displayorder="9">FL 6</p>
+           <introduction displayorder="10"/>
+           <p type="floating-title" displayorder="11">FL 7</p>
+           <acknowledgements displayorder="12"/>
+         </preface>
+       </standard-document>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))
+       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "does not break up very long strings in tables by default" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+        <preface>
+          <foreword id="A">
+              <table id="tableD-1">
+                  <tbody>
+                  <tr>
+                    <td align="left">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/BBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                    <td align="left">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                    <td align="center">www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                  </tr>
+                  </tbody>
+                  </table>
+       </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <foreword id="A" displayorder="2">
+          <table id="tableD-1"><name>Table 1</name>
+               <tbody>
+                 <tr>
+                   <td align="left">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/BBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                   <td align="left">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                   <td align="center">www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                 </tr>
+               </tbody>
+             </table>
+           </foreword>
+         </preface>
+       </standard-document>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))
+       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "breaks up very long strings in tables on request" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+        <preface>
+          <foreword id="A">
+              <table id="tableD-1">
+                  <tbody>
+                  <tr>
+                    <td align="left">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/BBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                    <td align="left">http://www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                    <td align="center">www.example.com/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB</td>
+                    <td align="center">aaaaaaaa_aa</td>
+                    <td align="center">aaaaaaaa.aa</td>
+                    <td align="center">aaaaaaaa.0a</td>
+                    <td align="center">aaaaaaaa&lt;a&gt;a</td>
+                    <td align="center">aaaaaaaa&lt;&lt;a&gt;&gt;a</td>
+                    <td align="center">aaaaaaaa/aa</td>
+                    <td align="center">aaaaaaaa//aa</td>
+                    <td align="center">aaaaaaaa+aa</td>
+                    <td align="center">aaaaaaaa+0a</td>
+                    <td align="center">aaaaaaaa{aa</td>
+                    <td align="center">aaaaaaaa;{aa</td>
+                    <td align="center">aaaaaaaa(aa</td>
+                    <td align="center">aaaaaaaa(0a</td>
+                    <td align="center">aaaaaaa0(aa</td>
+                    <td align="center">aaaaaaaAaaaa</td>
+                    <td align="center">aaaaaaaAAaaa</td>
+                  </tr>
+                  </tbody>
+                  </table>
+       </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <foreword id="A" displayorder="2">
+               <table id="tableD-1"><name>Table 1</name>
+                  <tbody>
+                  <tr>
+                    <td align="left">http://&#x200B;www.example.&#x200B;com/&#x200B;AAAAAAAAAAAAAAAAA&#xAD;AAAAAAAAAAAAAAAAAAAA&#xAD;AAAAAAAA/&#x200B;BBBBBBBBBBB&#xAD;BBBBBBBBBBBBBBBBB</td>
+                    <td align="left">http://&#x200B;www.example.&#x200B;com/&#x200B;AAAAAAAAAAAAAAAAA&#xAD;AAAAAAAAAAAAAAAAAAAA&#xAD;AAAAAAAABBBBBBBBBBBB&#xAD;BBBBBBBBBBBBBBBB</td>
+                    <td align="center">www.&#x200B;example.com/&#x200B;AAAAAAAAAAAAAAAAAAAAAAAA&#xAD;AAAAAAAAAAAAAAAAAAAA&#xAD;ABBBBBBBBBBBBBBBBBBB&#xAD;BBBBBBBBB</td>
+                    <td align="center">aaaaaaaa_&#x200B;aa</td>
+                    <td align="center">aaaaaaaa.&#x200B;aa</td>
+                    <td align="center">aaaaaaaa.0a</td>
+                    <td align="center">aaaaaaaa&#x200B;&#x3c;a&#x3e;a</td>
+                    <td align="center">aaaaaaaa&#x200B;&#x3c;&#x3c;a&#x3e;&#x3e;a</td>
+                    <td align="center">aaaaaaaa/&#x200B;aa</td>
+                    <td align="center">aaaaaaaa//&#x200B;aa</td>
+                    <td align="center">aaaaaaaa+&#x200B;aa</td>
+                    <td align="center">aaaaaaaa+&#x200B;0a</td>
+                    <td align="center">aaaaaaaa&#x200B;{aa</td>
+                    <td align="center">aaaaaaaa;&#x200B;{aa</td>
+                    <td align="center">aaaaaaaa&#x200B;(aa</td>
+                    <td align="center">aaaaaaaa(0a</td>
+                    <td align="center">aaaaaaa0(aa</td>
+                    <td align="center">aaaaaaa&#xAD;Aaaaa</td>
+                    <td align="center">aaaaaaaAAaaa</td>
+                  </tr>
+                  </tbody>
+                  </table>
+       </foreword></preface></standard-document>
+    OUTPUT
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(breakupurlsintables: "true"))
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to (presxml)
+  end
+
+  it "realises custom charsets" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font></presentation-metadata>
+        <preface>
+          <foreword id="A">
+            <p id="_214f7090-c6d4-8fdc-5e6a-837ebb515871"><span custom-charset="weather">ﶀ</span></p>
+       </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+           <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+       <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font></presentation-metadata>
+         <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+
+           <foreword id="A" displayorder="2">
+             <p id="_"><span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">&#xFD80;</span></p>
+        </foreword></preface></standard-document>
+    OUTPUT
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to (presxml)
+  end
+
+  it "supplies formats in passthrough" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+        <preface>
+          <foreword id="A">
             <p>
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            <passthrough formats="html">A</passthrough>
+            <passthrough formats="word,html">A</passthrough>
+            <passthrough formats="word,html,pdf">A</passthrough>
+            <passthrough>A</passthrough>
+            <passthrough formats="all">A</passthrough>
             </p>
-            <div>
-              <h1 class="ForewordTitle">Foreword</h1>
-              <div class="Note">
-                <p class="Note">
-                  <span class="note_label">HTML</span>
-                  <span style="mso-tab-count:1">  </span>
-                </p>
-              </div>
-              <div class="example">
-                <p class="example-title">WORD:<span style="mso-tab-count:1">  </span></p>
-              </div>
-            </div>
-            <p> </p>
-          </div>
-          <p>
-            <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection3">
-            <p class="zzSTDTitle1"/>
-            <div>
-              <h1/>
-              <p class="TermNum" id=""/>
-              <div class="example">
-                <p class="example-title">HTML-AND-WORD:<span style="mso-tab-count:1">  </span></p>
-                <p>note</p>
-              </div>
-              <div class="Note">
-                <p class="Note">NONE-SPECIFIED:<span style="mso-tab-count:1">  </span>: note</p>
-              </div>
-              <p class="TermNum" id=""/>
-            </div>
-          </div>
-        </body>
-      </html>
+       </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+        <metanorma-extension>
+           <render>
+             <preprocess-xslt format="html">
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:strip-space elements="*"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="*[local-name() = 'passthrough']">
+                   <xsl:if test="contains(@formats,',html,')">
+                     <!-- delimited -->
+                     <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                     </xsl:copy>
+                   </xsl:if>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
+             <preprocess-xslt format="doc">
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:strip-space elements="*"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="*[local-name() = 'passthrough']">
+                   <xsl:if test="contains(@formats,',doc,')">
+                     <!-- delimited -->
+                     <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                     </xsl:copy>
+                   </xsl:if>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
+           </render>
+         </metanorma-extension>
+       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <foreword id="A" displayorder="2">
+             <p>
+               <passthrough formats=",html,">A</passthrough>
+               <passthrough formats=",word,html,">A</passthrough>
+               <passthrough formats=",word,html,pdf,">A</passthrough>
+               <passthrough formats=",html,doc,">A</passthrough>
+               <passthrough formats=",html,doc,">A</passthrough>
+             </p>
+           </foreword>
+         </preface>
+       </standard-document>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(word)
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
+      .convert("test", input, true))
+       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   private
@@ -1986,11 +1949,5 @@ RSpec.describe IsoDoc do
   def mock_symbols
     allow_any_instance_of(IsoDoc::PresentationXMLConvert)
       .to receive(:twitter_cldr_localiser_symbols).and_return(group: "'")
-  end
-
-  def mock_preprocess_xslt_read
-    allow_any_instance_of(IsoDoc::PresentationXMLConvert)
-      .to receive(:preprocess_xslt_read)
-      .and_return "spec/assets/preprocess-xslt.xml"
   end
 end

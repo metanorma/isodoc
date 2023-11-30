@@ -18,6 +18,7 @@ preface: Préface
 clause: Article
 annex: Annexe
 appendix: Appendice
+continued: continué
 no_terms_boilerplate: |
           <p>Aucun terme n’est défini dans le présent document.</p>
 internal_terms_boilerplate: |
@@ -30,7 +31,7 @@ external_terms_boilerplate: |
           <p>Pour les besoins du présent document, les termes et définitions de % s’appliquent.</p>
 internal_external_terms_boilerplate: |
           <p>Pour les besoins du présent document, les termes et définitions de % ainsi que les suivants, s’appliquent.</p>
-term_defined_in: "[terme défini dans %]"
+term_defined_in: "(%)"
 binary_and: "%1 et %2"
 multiple_and: "%1, et %2"
 binary_or: "%1 ou %2"
@@ -71,6 +72,7 @@ draft_label: brouillon
 inform_annex: informative
 norm_annex: normative
 modified: modifié
+adapted: adapté
 deprecated: DÉCONSEILLÉ
 source: SOURCE
 edition: édition

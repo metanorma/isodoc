@@ -1,4 +1,5 @@
 require "metanorma-utils"
+require "csv"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -10,10 +11,10 @@ module IsoDoc
 
     def get_linkend(node)
       node["style"] == "id" and anchor_id_postprocess(node)
-      return unless xref_empty?(node)
-
-      link = anchor_linkend(node, docid_l10n(node["target"] ||
-                                             expand_citeas(node["citeas"])))
+      xref_empty?(node) or return
+      target = docid_l10n(node["target"]) ||
+        expand_citeas(docid_l10n(node["citeas"]))
+      link = anchor_linkend(node, target)
       link += eref_localities(node.xpath(ns("./locality | ./localityStack")),
                               link, node)
       non_locality_elems(node).each(&:remove)
@@ -24,8 +25,7 @@ module IsoDoc
     # <locality type="section"><reference>3.1</reference></locality></origin>
 
     def unnest_linkend(node)
-      return unless node.at(ns("./xref[@nested]"))
-
+      node.at(ns("./xref[@nested]")) or return
       node.xpath(ns("./xref[@nested]")).each { |x| x.delete("nested") }
       node.xpath(ns("./location | ./locationStack")).each(&:remove)
       node.replace(node.children)
@@ -64,15 +64,15 @@ module IsoDoc
       get_linkend(node)
     end
 
-    def variant(docxml)
-      docxml.xpath(ns("//variant")).each { |f| variant1(f) }
-      docxml.xpath(ns("//variant[@remove = 'true']")).each(&:remove)
-      docxml.xpath(ns("//variant")).each do |v|
-        next unless v&.next&.name == "variant"
-
+    def variant(xml)
+      b = xml.xpath(ns("//bibdata//variant"))
+      (xml.xpath(ns("//variant")) - b).each { |f| variant1(f) }
+      (xml.xpath(ns("//variant[@remove = 'true']")) - b).each(&:remove)
+      (xml.xpath(ns("//variant")) - b).each do |v|
+        v.next&.name == "variant" or next
         v.next = "/"
       end
-      docxml.xpath(ns("//variant")).each { |f| f.replace(f.children) }
+      (xml.xpath(ns("//variant")) - b).each { |f| f.replace(f.children) }
     end
 
     def variant1(node)
@@ -86,6 +86,54 @@ module IsoDoc
     def identifier(docxml)
       docxml.xpath(ns("//identifier")).each do |n|
         n.name = "tt"
+      end
+    end
+
+    def date(docxml)
+      (docxml.xpath(ns("//date")) -
+       docxml.xpath(ns("//bibdata/date | //bibitem//date"))).each do |d|
+         date1(d)
+       end
+    end
+
+    def date1(elem)
+      elem.replace(@i18n.date(elem["value"], elem["format"].strip))
+    end
+
+    def inline_format(docxml)
+      custom_charset(docxml)
+    end
+
+    def custom_charset(docxml)
+      charsets = extract_custom_charsets(docxml)
+      docxml.xpath(ns("//span[@custom-charset]")).each do |s|
+        s["style"] ||= ""
+        s["style"] += ";font-family:#{charsets[s['custom-charset']]}"
+      end
+    end
+
+    def passthrough(docxml)
+      formats = @output_formats.keys
+      docxml.xpath(ns("//passthrough")).each do |p|
+        passthrough1(p, formats)
+      end
+    end
+
+    def passthrough1(elem, formats)
+      (elem["formats"] && !elem["formats"].empty?) or elem["formats"] = "all"
+      f = elem["formats"].split(",")
+      (f - formats).size == f.size or elem["formats"] = "all"
+      elem["formats"] == "all" and elem["formats"] = formats.join(",")
+      elem["formats"] = ",#{elem['formats']},"
+    end
+
+    def extract_custom_charsets(docxml)
+      docxml.xpath(ns("//presentation-metadata/custom-charset-font"))
+        .each_with_object({}) do |line, m|
+        line.text.split(",").map(&:strip).each do |x|
+          kv = x.split(":", 2)
+          m[kv[0]] = kv[1]
+        end
       end
     end
 

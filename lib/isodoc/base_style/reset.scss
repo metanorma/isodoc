@@ -102,7 +102,7 @@ h1, h2, h3, h4, h5, h6 {
 blockquote, q {
   quotes: none;
 
-  &:before, &:after {
+  &::before, &::after {
     content: '';
     content: none;
   }
@@ -139,16 +139,20 @@ div.document-stage-band, div.document-type-band {
   background-color: #333333;
 }
 
-a.FootnoteRef + a.FootnoteRef:before {
+a.FootnoteRef + a.FootnoteRef::before {
     content: ", ";
     vertical-align: super;
   }
 
-a.TableFootnoteRef + a.TableFootnoteRef:before { 
+a.TableFootnoteRef + a.TableFootnoteRef::before { 
     content: ", ";
     vertical-align: super; 
   }
 
+a.TableFootnoteRef, span.TableFootnoteRef, 
+a.FootnoteRef, span.FootnoteRef {
+  vertical-align: super; 
+}
 
 .addition {
   color: blue;

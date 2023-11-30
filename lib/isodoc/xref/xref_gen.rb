@@ -1,12 +1,5 @@
 require_relative "xref_gen_seq"
-
-module Enumerable
-  def noblank
-    reject do |n|
-      n["id"].nil? || n["id"].empty?
-    end
-  end
-end
+require_relative "xref_util"
 
 module IsoDoc
   module XrefGen
@@ -14,14 +7,6 @@ module IsoDoc
       NUMBERED_BLOCKS = %w(termnote termexample note example requirement
                            recommendation permission figure table formula
                            admonition sourcecode).freeze
-
-      def blank?(text)
-        text.nil? || text.empty?
-      end
-
-      def noblank(xpath)
-        xpath.reject { |n| blank?(n["id"]) }
-      end
 
       def amend_preprocess(xmldoc)
         xmldoc.xpath(ns("//amend[newcontent]")).each do |a|
@@ -44,7 +29,7 @@ module IsoDoc
       end
 
       def termnote_label(note)
-        @labels["termnote"].gsub(/%/, note.to_s)
+        @labels["termnote"].gsub("%", note.to_s)
       end
 
       def increment_label(elems, node, counter, increment: true)
@@ -84,23 +69,6 @@ module IsoDoc
         end
       end
 
-      SECTIONS_XPATH =
-        "//foreword | //introduction | //acknowledgements | " \
-        "//preface/terms | preface/definitions | preface/references | " \
-        "//preface/clause | //sections/terms | //annex | " \
-        "//sections/clause | //sections/definitions | " \
-        "//bibliography/references | //bibliography/clause".freeze
-
-      def sections_xpath
-        SECTIONS_XPATH
-      end
-
-      def child_asset_path(asset)
-        "./*[not(self::xmlns:clause) and not(self::xmlns:appendix) and " \
-        "not(self::xmlns:terms) and not(self::xmlns:definitions)]//xmlns:X | " \
-        "./xmlns:X".gsub("X", asset)
-      end
-
       def note_anchor_names(sections)
         sections.each do |s|
           notes = s.xpath(child_asset_path("note")) -
@@ -117,9 +85,6 @@ module IsoDoc
                           @labels["note_xref"], "note", false)
         end
       end
-
-      CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | " \
-                       "./references".freeze
 
       def admonition_anchor_names(sections)
         sections.each do |s|
@@ -171,25 +136,34 @@ module IsoDoc
 refer_list)
         c = Counter.new(list["start"] ? list["start"].to_i - 1 : 0)
         list.xpath(ns("./li")).each do |li|
-          label = c.increment(li).listlabel(list, depth)
-          label = list_item_anchor_label(label, list_anchor, prev_label,
-                                         refer_list)
+          bare_label, label =
+            list_item_value(li, c, depth, { list_anchor: list_anchor, prev_label: prev_label,
+                                            refer_list: refer_list })
           li["id"] and @anchors[li["id"]] =
-                         { xref: "#{label})", type: "listitem", refer_list:
-                           refer_list, container: list_anchor[:container] }
+                         { label: bare_label, bare_xref: "#{label})",
+                           xref: "#{label})",
+                           type: "listitem", refer_list: refer_list,
+                           container: list_anchor[:container] }
           (li.xpath(ns(".//ol")) - li.xpath(ns(".//ol//ol"))).each do |ol|
             list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
           end
         end
       end
 
+      def list_item_value(entry, counter, depth, opts)
+        label = counter.increment(entry).listlabel(entry.parent, depth)
+        [label,
+         list_item_anchor_label(label, opts[:list_anchor], opts[:prev_label],
+                                opts[:refer_list])]
+      end
+
       def list_item_anchor_label(label, list_anchor, prev_label, refer_list)
         prev_label.empty? or
-          label = @i18n.list_nested_xref.sub(/%1/, "#{prev_label})")
-            .sub(/%2/, label)
+          label = @i18n.list_nested_xref.sub("%1", "#{prev_label})")
+            .sub("%2", label)
         refer_list and
-          label = @i18n.list_nested_xref.sub(/%1/, list_anchor[:xref])
-            .sub(/%2/, label)
+          label = @i18n.list_nested_xref.sub("%1", list_anchor[:xref])
+            .sub("%2", label)
         label
       end
 
@@ -230,16 +204,33 @@ refer_list)
         Common::to_xml(label.children)
       end
 
+      def id_ancestor(node)
+        parent = nil
+        node.ancestors.each do |a|
+          (a["id"] && (parent = a) && @anchors.dig(a["id"], :xref)) or next
+          break
+        end
+        parent ? [parent, parent["id"]] : [nil, nil]
+      end
+
+      def bookmark_container(parent)
+        if parent
+          clause = parent.xpath(CLAUSE_ANCESTOR)&.last
+          if clause["id"] == id
+            nil
+          else
+            @anchors.dig(clause["id"], :xref)
+          end
+        end
+      end
+
       def bookmark_anchor_names(xml)
         xml.xpath(ns(".//bookmark")).noblank.each do |n|
-          parent = nil
-          n.ancestors.each do |a|
-            next unless a["id"] && parent = @anchors.dig(a["id"], :xref)
-
-            break
-          end
+          _parent, id = id_ancestor(n)
+          #container = bookmark_container(parent)
           @anchors[n["id"]] = { type: "bookmark", label: nil, value: nil,
-                                xref: parent || "???" }
+                                xref: @anchors.dig(id, :xref) || "???",
+                                container: @anchors.dig(id, :container) }
         end
       end
     end

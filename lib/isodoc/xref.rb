@@ -58,6 +58,7 @@ module IsoDoc
 
     # extract names for all anchors, xref and label
     def parse(docxml)
+      @doctype = docxml.at(ns("//bibdata/ext/doctype"))&.text
       @seen = SeenAnchor.new(docxml)
       amend_preprocess(docxml) if @parse_settings.empty?
       initial_anchor_names(docxml)

@@ -1,13 +1,18 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def prefix_container(container, linkend, node, _target)
-      l10n(@i18n.nested_xref.sub(/%1/, anchor_xref(node, container))
-        .sub(/%2/, linkend))
+    def prefix_container(container, linkend, node, target)
+      prefix_container?(container, node) or return linkend
+      container_container = @xrefs.anchor(container, :container, false)
+      container_label =
+        prefix_container(container_container, anchor_xref(node, container),
+                         node, target)
+      l10n(@i18n.nested_xref.sub("%1", container_label)
+        .sub("%2", linkend))
     end
 
     def anchor_value(id)
-      @xrefs.anchor(id, :value) || @xrefs.anchor(id, :label) ||
-        @xrefs.anchor(id, :xref)
+      @xrefs.anchor(id, :bare_xref) || @xrefs.anchor(id, :value) ||
+        @xrefs.anchor(id, :label) || @xrefs.anchor(id, :xref)
     end
 
     def anchor_linkend(node, linkend)
@@ -31,8 +36,7 @@ module IsoDoc
     def anchor_linkend1(node)
       linkend = anchor_xref(node, node["target"])
       container = @xrefs.anchor(node["target"], :container, false)
-      prefix_container?(container, node) and
-        linkend = prefix_container(container, linkend, node, node["target"])
+      linkend = prefix_container(container, linkend, node, node["target"])
       capitalise_xref(node, linkend, anchor_value(node["target"]))
     end
 
@@ -76,7 +80,7 @@ module IsoDoc
     # Note % to entry and Note % to entry: cannot conflate as Note % to entry 1 and 2
     # So Notes 1 and 3, but Note 1 to entry and Note 3 to entry
     def combine_conflated_xref_locations(locs)
-      out = if locs.any? { |l| /%/.match?(l[:elem]) }
+      out = if locs.any? { |l| l[:elem]&.include?("%") }
               locs.each { |l| l[:label] = @xrefs.anchor(l[:target], :xref) }
             else
               conflate_xref_locations(locs)
@@ -133,11 +137,12 @@ module IsoDoc
     end
 
     def i18n_chain_boolean(value, entry)
-      @i18n.send("chain_#{entry[:conn]}").sub(/%1/, value)
-        .sub(/%2/, loc2xref(entry))
+      @i18n.send("chain_#{entry[:conn]}").sub("%1", value)
+        .sub("%2", loc2xref(entry))
     end
 
     def can_conflate_xref_rendering?(locs)
+      @i18n.get["no_conflate_xref_locations"] == true and return false
       (locs.all? { |l| l[:container].nil? } ||
        locs.all? { |l| l[:container] == locs.first[:container] }) &&
         locs.all? { |l| l[:type] == locs[0][:type] }

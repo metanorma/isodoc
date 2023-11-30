@@ -1,7 +1,7 @@
 module IsoDoc
   class Metadata
     DATETYPES = %w{published accessed created implemented obsoleted confirmed
-                   updated issued received transmitted copied unchanged
+                   updated corrected issued received transmitted copied unchanged
                    circulated vote-started
                    vote-ended}.freeze
 

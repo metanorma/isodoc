@@ -17,6 +17,7 @@ bibliography: بيبليوغرافيا
 clause: فقرة
 annex: ملحق
 appendix: تذييل
+continued: واصلت
 no_terms_boilerplate: |
   <p>لم يتم سرد أي مصطلحات وتعريفات في هذا المستند.</p>
 internal_terms_boilerplate: |
@@ -29,7 +30,7 @@ external_terms_boilerplate: |
   <p> لأغراض هذا المستند ، تنطبق المصطلحات والتعريفات الواردة في%. </ p>
 internal_external_terms_boilerplate: |
   <p>لأغراض هذه الوثيقة ،تنطبق المصطلحات والتعاريف الواردة في % وما يلي.</p>
-term_defined_in: "[المصطلح المحدد في %]"
+term_defined_in: "(%)"
 binary_and: "%1 و %2"
 multiple_and: "%1, و %2"
 binary_or: "%1 او %2"
@@ -68,6 +69,7 @@ draft_label: مسودة
 inform_annex: إخباري
 norm_annex: مقياسي
 modified: معدلة
+adapted: تكيف
 deprecated: مهمل
 source: مصدر
 and: و

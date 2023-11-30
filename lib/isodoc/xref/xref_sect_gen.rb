@@ -1,18 +1,67 @@
 module IsoDoc
   module XrefGen
     module Sections
+      def clause_order(docxml)
+        { preface: clause_order_preface(docxml),
+          main: clause_order_main(docxml),
+          annex: clause_order_annex(docxml),
+          back: clause_order_back(docxml) }
+      end
+
+      def clause_order_preface(_docxml)
+        [{ path: "//preface/*", multi: true }]
+      end
+
+      def clause_order_main(docxml)
+        [
+          { path: "//sections/clause[@type = 'scope']" },
+          { path: @klass.norm_ref_xpath },
+          { path: "//sections/terms | " \
+            "//sections/clause[descendant::terms]" },
+          { path: "//sections/definitions | " \
+            "//sections/clause[descendant::definitions]" \
+            "[not(descendant::terms)]" },
+          { path: @klass.middle_clause(docxml), multi: true },
+        ]
+      end
+
+      def clause_order_annex(_docxml)
+        [{ path: "//annex", multi: true }]
+      end
+
+      def clause_order_back(_docxml)
+        [
+          { path: @klass.bibliography_xpath },
+          { path: "//indexsect", multi: true },
+          { path: "//colophon/*", multi: true },
+        ]
+      end
+
       def back_anchor_names(xml)
         if @parse_settings.empty? || @parse_settings[:clauses]
-          i = Counter.new("@")
-          xml.xpath(ns("//annex")).each do |c|
-            annex_names(c, i.increment(c).print)
-          end
-          xml.xpath(ns(@klass.bibliography_xpath)).each do |b|
-            preface_names(b)
-          end
-          xml.xpath(ns("//colophon/clause")).each { |b| preface_names(b) }
+          annex_anchor_names(xml)
+          back_clauses_anchor_names(xml)
         end
         references(xml) if @parse_settings.empty? || @parse_settings[:refs]
+      end
+
+      def annex_anchor_names(xml)
+        i = Counter.new("@")
+        clause_order_annex(xml).each do |a|
+          xml.xpath(ns(a[:path])).each do |c|
+            annex_names(c, i.increment(c).print)
+            a[:multi] or break
+          end
+        end
+      end
+
+      def back_clauses_anchor_names(xml)
+        clause_order_back(xml).each do |a|
+          xml.xpath(ns(a[:path])).each do |c|
+            back_names(c)
+            a[:multi] or break
+          end
+        end
       end
 
       def references(docxml)
@@ -21,20 +70,29 @@ module IsoDoc
         end
       end
 
-      def initial_anchor_names(doc)
+      def initial_anchor_names(xml)
         if @parse_settings.empty? || @parse_settings[:clauses]
-          doc.xpath(ns("//preface/*")).each do |c|
-            c.element? and preface_names(c)
+          preface_anchor_names(xml)
+          main_anchor_names(xml)
+        end
+      end
+
+      def preface_anchor_names(xml)
+        clause_order_preface(xml).each do |a|
+          xml.xpath(ns(a[:path])).each do |c|
+            preface_names(c)
+            a[:multi] or break
           end
-          # potentially overridden in middle_section_asset_names()
-          sequential_asset_names(doc.xpath(ns("//preface/*")))
-          n = Counter.new
-          n = section_names(doc.at(ns("//clause[@type = 'scope']")), n, 1)
-          n = section_names(doc.at(ns(@klass.norm_ref_xpath)), n, 1)
-          n = section_names(doc.at(ns("//sections/terms | " \
-                                      "//sections/clause[descendant::terms]")), n, 1)
-          n = section_names(doc.at(ns("//sections/definitions")), n, 1)
-          clause_names(doc, n)
+        end
+      end
+
+      def main_anchor_names(xml)
+        n = Counter.new
+        clause_order_main(xml).each do |a|
+          xml.xpath(ns(a[:path])).each do |c|
+            section_names(c, n, 1)
+            a[:multi] or break
+          end
         end
       end
 
@@ -57,8 +115,7 @@ module IsoDoc
         ret = clause.at(ns("./title"))&.text
         if use_elem_name && !ret
           clause.name.capitalize
-        else
-          ret
+        else ret
         end
       end
 
@@ -67,8 +124,19 @@ module IsoDoc
 
       # in StanDoc, prefaces have no numbering; they are referenced only by title
       def preface_names(clause)
-        return if clause.nil?
+        unnumbered_names(clause)
+      end
 
+      def back_names(clause)
+        unnumbered_names(clause)
+        sequential_asset_names(
+          Nokogiri::XML::NodeSet.new(clause.document, [clause]),
+          container: true,
+        )
+      end
+
+      def unnumbered_names(clause)
+        clause.nil? and return
         preface_name_anchors(clause, 1,
                              clause_title(clause, use_elem_name: true))
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
@@ -94,36 +162,29 @@ module IsoDoc
       end
 
       def middle_section_asset_names(doc)
-        middle_sections = "//clause[@type = 'scope'] | " \
-                          "#{@klass.norm_ref_xpath} | " \
-                          "//sections/terms | //preface/* | " \
-                          "//sections/definitions | //clause[parent::sections]"
+        middle_sections =
+          "//clause[@type = 'scope'] | #{@klass.norm_ref_xpath} | " \
+          "//sections/terms | //preface/* | " \
+          "//sections/definitions | //clause[parent::sections]"
         sequential_asset_names(doc.xpath(ns(middle_sections)))
-      end
-
-      def clause_names(docxml, num)
-        docxml.xpath(ns(@klass.middle_clause(docxml)))
-          .each_with_index do |c, _i|
-          section_names(c, num, 1)
-        end
       end
 
       def section_names(clause, num, lvl)
         clause.nil? and return num
-
         num.increment(clause)
         section_name_anchors(clause, num.print, lvl)
-        clause.xpath(ns(SUBCLAUSES)).each_with_object(Counter.new) do |c, i|
-          section_names1(c, "#{num.print}.#{i.increment(c).print}", lvl + 1)
+        clause.xpath(ns(SUBCLAUSES))
+          .each_with_object(Counter.new(0, prefix: "#{num.print}.")) do |c, i|
+          section_names1(c, i.increment(c).print, lvl + 1)
         end
         num
       end
 
       def section_names1(clause, num, level)
         section_name_anchors(clause, num, level)
-        i = Counter.new
+        i = Counter.new(0, prefix: "#{num}.")
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          section_names1(c, "#{num}.#{i.increment(c).print}", level + 1)
+          section_names1(c, i.increment(c).print, level + 1)
         end
       end
 
@@ -138,7 +199,8 @@ module IsoDoc
         obl = l10n("(#{@labels['inform_annex']})")
         clause["obligation"] == "normative" and
           obl = l10n("(#{@labels['norm_annex']})")
-        title = Common::case_with_markup(@labels["annex"], "capital", @script)
+        title = Common::case_with_markup(@labels["annex"], "capital",
+                                         @script)
         l10n("<strong>#{title} #{num}</strong><br/>#{obl}")
       end
 
@@ -160,8 +222,9 @@ module IsoDoc
           annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
                        num.to_s, 1)
         else
-          clause.xpath(ns(SUBCLAUSES)).each_with_object(Counter.new) do |c, i|
-            annex_names1(c, "#{num}.#{i.increment(c).print}", 2)
+          clause.xpath(ns(SUBCLAUSES))
+            .each_with_object(Counter.new(0, prefix: "#{num}.")) do |c, i|
+            annex_names1(c, i.increment(c).print, 2)
           end
         end
         hierarchical_asset_names(clause, num)
@@ -169,24 +232,18 @@ module IsoDoc
 
       def annex_names1(clause, num, level)
         annex_name_anchors(clause, num, level)
-        i = Counter.new
+        i = Counter.new(0, prefix: "#{num}.")
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          annex_names1(c, "#{num}.#{i.increment(c).print}", level + 1)
+          annex_names1(c, i.increment(c).print, level + 1)
         end
       end
-
-      ISO_PUBLISHER_XPATH =
-        "./contributor[xmlns:role/@type = 'publisher']/" \
-        "organization[abbreviation = 'ISO' or xmlns:abbreviation = 'IEC' or " \
-        "xmlns:name = 'International Organization for Standardization' or " \
-        "xmlns:name = 'International Electrotechnical Commission']".freeze
 
       def reference_names(ref)
         ids = @klass.bibitem_ref_code(ref)
         identifiers = @klass.render_identifier(ids)
         reference = @klass
           .docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
-                                     identifiers[:ordinal] || identifiers[:doi])
+                      identifiers[:ordinal] || identifiers[:doi])
         @anchors[ref["id"]] = { xref: reference }
       end
     end

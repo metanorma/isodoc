@@ -19,11 +19,13 @@ module IsoDoc
     end
 
     def toc_init(docxml)
+      @doctype = docxml.at(ns("//bibdata/ext/doctype"))&.text
+      @xrefs.klass.doctype = @doctype
       x = "//metanorma-extension/presentation-metadata" \
           "[name[text() = 'TOC Heading Levels']]/value"
-      n = docxml.at(ns(x.sub(/TOC/, "DOC TOC"))) and
+      n = docxml.at(ns(x.sub("TOC", "DOC TOC"))) and
         @wordToClevels = n.text.to_i
-      n = docxml.at(ns(x.sub(/TOC/, "HTML TOC"))) and
+      n = docxml.at(ns(x.sub("TOC", "HTML TOC"))) and
         @htmlToClevels = n.text.to_i
     end
 
@@ -46,6 +48,7 @@ module IsoDoc
       @aligncrosselements = options[:aligncrosselements]
       @modspecidentifierbase = options[:modspecidentifierbase]
       @sourcehighlighter = options[:sourcehighlighter]
+      @output_formats = options[:output_formats] || {}
     end
 
     def init_arrangement(options)
@@ -93,7 +96,7 @@ module IsoDoc
       @fn_bookmarks = {}
     end
 
-        def init_fonts(options)
+    def init_fonts(options)
       @normalfontsize = options[:normalfontsize]
       @smallerfontsize = options[:smallerfontsize]
       @monospacefontsize = options[:monospacefontsize]
@@ -128,6 +131,14 @@ module IsoDoc
       @tocfigures = options[:tocfigures]
       @toctables = options[:toctables]
       @tocrecommendations = options[:tocrecommendations]
+    end
+
+    AGENCIES = %w(ISO IEC ITU IETF NIST OGC IEEE BIPM BSI BS JIS IANA UN W3C
+                  IHO CSA IEV)
+      .freeze
+
+    def agency?(text)
+      self.class::AGENCIES.include?(text)
     end
   end
 end

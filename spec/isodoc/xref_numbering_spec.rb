@@ -46,7 +46,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword id='fwd' displayorder="1">
+          <foreword id='fwd' displayorder="2">
             <p>
               <xref target='N1'>Figure 1</xref>
       <xref target='N2'>Figure 2a</xref>
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id='fwd' displayorder='1'>
+      <foreword id='fwd' displayorder='2'>
         <p>
           <xref target='N1'>Figure 1</xref>
           <xref target='N2'>Figure A</xref>
@@ -282,6 +282,138 @@ RSpec.describe IsoDoc do
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
+
+  it "realises branch-numbering overrides" do
+    input = <<~INPUT
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
+        <foreword id="fwd">
+        <p>
+        <xref target="S1"/>
+        <xref target="S2"/>
+        <xref target="S3"/>
+        <xref target="S4"/>
+        <xref target="S5"/>
+        <xref target="S6"/>
+        <xref target="S7"/>
+        <xref target="S7a"/>
+        <xref target="S8"/>
+        <xref target="S9"/>
+        <xref target="S10"/>
+        <xref target="S10a"/>
+        <xref target="S11"/>
+        <xref target="S12"/>
+        <xref target="S13"/>
+        <xref target="S14"/>
+        <xref target="S15"/>
+        <xref target="S16"/>
+        <xref target="S17"/>
+        <xref target="S18"/>
+        <xref target="S19"/>
+        <xref target="S20"/>
+        <xref target="S21"/>
+        <xref target="S22"/>
+        <xref target="S23"/>
+        <xref target="S24"/>
+        </p>
+        </foreword>
+      </preface>
+      <sections>
+      <clause id='S1' type='scope' inline-header='false' obligation='normative'>
+                 <title>Scope</title>
+                 <p id='_'>Text</p>
+            <clause id="S2"><title>Subclause 1</title></clause>
+            <clause branch-number="123" id="S3"><title>Subclause 2</title></clause>
+            <clause id="S4"><title>Subsubclause 1</title></clause>
+      </clause>
+      <clause id="S5"><title>Subclause 3</title>
+               <clause id="S6" branch-number="124"><title>Subclause 2</title>
+                  <clause id="S7"><title>Subclause 2</title></clause>
+               </clause>
+               <clause id="S7a"><title>Subclause 2</title></clause>
+      </clause>
+      <clause id="S8" branch-number="125"><title>Clause 3</title>
+          <clause id="S9" branch-number="126"><title>Subclause 2</title></clause>
+          <clause id="S10"><title>Subclause 2</title></clause>
+      </clause>
+      <clause id="S10a">
+               <terms id='S11' branch-number='3bis' obligation='normative'>
+                 <title>Terms and definitions</title>
+                 <p id='_'>For the purposes of this document, the following terms and definitions apply.</p>
+                 <term id='S12' branch-number='4bis'>
+                   <preferred><expression><name>Term1</name></expression></preferred>
+                 </term>
+                 <term id='S13' number='4bis'>
+                   <preferred><expression><name>Term1</name></expression></preferred>
+                 </term>
+                 <term id='S14'>
+                   <preferred><expression><name>Term1</name></expression></preferred>
+                 </term>
+               </terms>
+               <definitions id='S15' branch-number='12bis' type='abbreviated_terms' obligation='normative'>
+                 <title>Abbreviated terms</title>
+               </definitions>
+               </clause>
+             </sections>
+             <annex id='S16' obligation='normative'>
+             <title>First Annex</title>
+            <clause id="S17"><title>Subclause 1</title></clause>
+            <clause branch-number="123" id="S18"><title>Subclause 2</title></clause>
+            <clause id="S19"><title>Subsubclause 1</title></clause>
+             </annex>
+             <annex id='S20' branch-number='17bis' inline-header='false' obligation='normative'>
+               <title>Annex</title>
+            <clause id="S21"><title>Subclause 1</title></clause>
+            <clause branch-number="123" id="S22"><title>Subclause 2</title></clause>
+            <clause id="S23"><title>Subsubclause 1</title></clause>
+             </annex>
+             <bibliography>
+               <references id='S24' branch-number='2bis' normative='true' obligation='informative'>
+                 <title>Normative references</title>
+                 <p id='_'>There are no normative references in this document.</p>
+               </references>
+             </bibliography>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <foreword id="fwd" displayorder="2">
+         <p>
+           <xref target="S1">Clause 1</xref>
+           <xref target="S2">Clause 1.1</xref>
+           <xref target="S3">Clause 123</xref>
+           <xref target="S4">Clause 1.2</xref>
+           <xref target="S5">Clause 3</xref>
+           <xref target="S6">Clause 124</xref>
+           <xref target="S7">Clause 124.1</xref>
+           <xref target="S7a">Clause 3.1</xref>
+           <xref target="S8">Clause 125</xref>
+           <xref target="S9">Clause 126</xref>
+           <xref target="S10a">Clause 2</xref>
+           <xref target="S10">Clause 125.1</xref>
+           <xref target="S11">Clause 3bis</xref>
+           <xref target="S12">Clause 4bis</xref>
+           <xref target="S13">Clause 3bis.4bis</xref>
+           <xref target="S14">Clause 3bis.4bit</xref>
+           <xref target="S15">Clause 12bis</xref>
+           <xref target="S16">Annex A</xref>
+           <xref target="S17">Annex A.1</xref>
+           <xref target="S18">Annex 123</xref>
+           <xref target="S19">Annex A.2</xref>
+           <xref target="S20">Annex B</xref>
+           <xref target="S21">Annex B.1</xref>
+           <xref target="S22">Annex 123</xref>
+           <xref target="S23">Annex B.2</xref>
+           <xref target="S24">Clause 2bis</xref>
+         </p>
+       </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
 
   it "realises roman counter for xrefs" do
     a = IsoDoc::XrefGen::Counter.new(0, numerals: :roman)
@@ -360,7 +492,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id='fwd' displayorder='1'>
+      <foreword id='fwd' displayorder='2'>
          <note id='A' unnumbered='true'>
            <name>NOTE </name>
          </note>

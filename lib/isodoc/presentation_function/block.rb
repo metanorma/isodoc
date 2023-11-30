@@ -1,12 +1,11 @@
-require_relative "./image"
-require_relative "./sourcecode"
+require_relative "image"
+require_relative "sourcecode"
 require "rouge"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def lower2cap(text)
-      return text if /^[[:upper:]][[:upper:]]/.match?(text)
-
+      /^[[:upper:]][[:upper:]]/.match?(text) and return text
       text.capitalize
     end
 
@@ -89,31 +88,8 @@ module IsoDoc
       prefix_name(elem, block_delim, l10n("#{@i18n.box} #{n}"), "name")
     end
 
-    def recommendation(docxml)
-      docxml.xpath(ns("//recommendation")).each do |f|
-        recommendation1(f, lower2cap(@i18n.recommendation))
-      end
-    end
-
-    def requirement(docxml)
-      docxml.xpath(ns("//requirement")).each do |f|
-        recommendation1(f, lower2cap(@i18n.requirement))
-      end
-    end
-
-    def permission(docxml)
-      docxml.xpath(ns("//permission")).each do |f|
-        recommendation1(f, lower2cap(@i18n.permission))
-      end
-    end
-
-    def recommendation1(elem, type)
-      lbl = @reqt_models.model(elem["model"])
-        .recommendation_label(elem, type, xrefs)
-      prefix_name(elem, "", l10n(lbl), "name")
-    end
-
     def table(docxml)
+      table_long_strings_cleanup(docxml)
       docxml.xpath(ns("//table")).each { |f| table1(f) }
     end
 
@@ -123,6 +99,17 @@ module IsoDoc
       n = @xrefs.anchor(elem["id"], :label, false)
       prefix_name(elem, block_delim, l10n("#{lower2cap @i18n.table} #{n}"),
                   "name")
+    end
+
+    def table_long_strings_cleanup(docxml)
+      @break_up_urls_in_tables or return
+      docxml.xpath(ns("//td | //th")).each do |d|
+        d.traverse do |n|
+          n.text? or next
+          ret = Metanorma::Utils::break_up_long_str(n.text)
+          n.content = ret
+        end
+      end
     end
 
     # we use this to eliminate the semantic amend blocks from rendering
@@ -140,6 +127,7 @@ module IsoDoc
     def ol(docxml)
       docxml.xpath(ns("//ol")).each { |f| ol1(f) }
       @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
+      docxml.xpath(ns("//ol/li")).each { |f| ol_label(f) }
     end
 
     # We don't really want users to specify type of ordered list;
@@ -157,26 +145,13 @@ module IsoDoc
 
     def ol1(elem)
       elem["type"] ||= ol_depth(elem).to_s
-    end
-
-    def requirement_render_preprocessing(docxml); end
-
-    REQS = %w(requirement recommendation permission).freeze
-
-    def requirement_render(docxml)
-      requirement_render_preprocessing(docxml)
-      REQS.each do |x|
-        REQS.each do |y|
-          docxml.xpath(ns("//#{x}//#{y}")).each { |r| requirement_render1(r) }
-        end
+      elem.xpath(ns("./li")).each do |li|
+        li["id"] ||= "_#{UUIDTools::UUID.random_create}"
       end
-      docxml.xpath(ns("//requirement | //recommendation | //permission"))
-        .each { |r| requirement_render1(r) }
     end
 
-    def requirement_render1(node)
-      node.replace(@reqt_models.model(node["model"])
-        .requirement_render1(node))
+    def ol_label(elem)
+      elem["label"] = @xrefs.anchor(elem["id"], :label, false)
     end
 
     def source(docxml)
@@ -203,7 +178,7 @@ module IsoDoc
     end
 
     def source_modification(mod)
-      termsource_modification(mod)
+      termsource_modification(mod.parent)
     end
   end
 end

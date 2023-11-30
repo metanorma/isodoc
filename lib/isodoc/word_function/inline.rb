@@ -1,22 +1,28 @@
 module IsoDoc
   module WordFunction
     module Body
+      def insert_tab(out, count)
+        out.span **attr_code(style: "mso-tab-count:#{count}") do |span|
+          [1..count].each { span << "&#xA0; " }
+        end
+      end
+
       def section_break(body, continuous: false)
-        body.p do |p|
+        body.p class: "section-break" do |p|
           if continuous
-            p.br **{ clear: "all", style: "page-break-before:auto;"\
-                                          "mso-break-type:section-break" }
+            p.br clear: "all", style: "page-break-before:auto;" \
+                                      "mso-break-type:section-break"
           else
-            p.br **{ clear: "all", class: "section" }
+            p.br clear: "all", class: "section"
           end
         end
       end
 
       def page_break(out)
-        out.p do |p|
-          p.br **{ clear: "all",
-                   style: "mso-special-character:line-break;"\
-                          "page-break-before:always" }
+        out.p class: "page-break" do |p|
+          p.br clear: "all",
+               style: "mso-special-character:line-break;" \
+                      "page-break-before:always"
         end
       end
 
@@ -24,8 +30,8 @@ module IsoDoc
         return page_break(out) if node["orientation"].nil?
 
         out.p do |p|
-          p.br **{ clear: "all", class: "section",
-                   orientation: node["orientation"] }
+          p.br clear: "all", class: "section",
+               orientation: node["orientation"]
         end
       end
 
@@ -52,13 +58,20 @@ module IsoDoc
 
       def xref_parse(node, out)
         target = if /#/.match?(node["target"])
-                   node["target"].sub(/#/, ".doc#")
+                   node["target"].sub("#", ".doc#")
                  else
                    "##{node['target']}"
                  end
-        out.a(**{ href: target }) do |l|
+        out.a(href: target) do |l|
           node.children.each { |n| parse(n, l) }
         end
+      end
+
+      def suffix_url(url)
+        return url if url.nil? || %r{^https?://|^#}.match?(url)
+        return url unless File.extname(url).empty?
+
+        url.sub(/#{File.extname(url)}$/, ".doc")
       end
     end
   end

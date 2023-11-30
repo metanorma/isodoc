@@ -77,7 +77,9 @@ module IsoDoc
         img = emf_encode(img)
         img.children.first.previous = emf_to_svg(img)
       elsif img["mimetype"] == "image/svg+xml"
-        src = svg_to_emf(img) and img << "<emf src='#{src}'/>"
+        src = svg_to_emf(img) or return
+        img.add_child("<emf/>")
+        img.elements.last["src"] = src
       end
     end
 
@@ -107,15 +109,24 @@ module IsoDoc
     end
 
     def svg_to_emf(node)
+      @output_formats[:doc] or return
       uri = svg_to_emf_uri(node)
-      if node.elements&.first&.name == "svg" &&
-          (!node["height"] || node["height"] == "auto")
-        node["height"] = node.elements.first["height"]
-        node["width"] = node.elements.first["width"]
-      end
+      svg_impose_height_attr(node)
       ret = imgfile_suffix(uri, "emf")
-      File.exist?(ret) and return ret
+      if File.exist?(ret) && File.exist?(node["src"])
+        warn "Exists: #{ret}, Exists: #{node['src']}"
+        return ret
+      end
+      warn "Converting..."
       inkscape_convert(uri, ret, '--export-type="emf"')
+    end
+
+    def svg_impose_height_attr(node)
+      e = node.elements&.first or return
+      (e.name == "svg" &&
+        (!node["height"] || node["height"] == "auto")) or return
+      node["height"] = e["height"]
+      node["width"] = e["width"]
     end
 
     def inkscape_convert(uri, file, option)
@@ -123,10 +134,13 @@ module IsoDoc
                                          "to convert image #{uri}. Aborting."
       uri = Metanorma::Utils::external_path uri
       exe = Metanorma::Utils::external_path exe
-      system(%(#{exe} #{option} #{uri})) and
-        return Metanorma::Utils::datauri(file)
-
-      raise %(Fail on #{exe} #{option} #{uri})
+      warn %(#{exe} #{option} #{uri})
+      err = system %(#{exe} #{option} #{uri})
+      File.exist?(file) and return Metanorma::Utils::datauri(file)
+      file2 = uri + File.extname(file)
+      warn "Checking #{file2}"
+      File.exist?(file2) and return Metanorma::Utils::datauri(file2)
+      raise %(Fail on #{exe} #{option} #{uri} outputting #{file}: status #{err})
     end
 
     def svg_to_emf_uri(node)
@@ -142,7 +156,6 @@ module IsoDoc
     def cache_dataimage(uri)
       if %r{^data:}.match?(uri)
         uri = save_dataimage(uri)
-        @tempfile_cache << uri
       end
       uri
     end

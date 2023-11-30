@@ -10,7 +10,7 @@ require "mn-requirements"
 module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models,
-                  :requirements_processor
+                  :requirements_processor, :doctype
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
@@ -50,6 +50,7 @@ module IsoDoc
     # sourcehighlighter: whether to apply sourcecode highlighting
     # semantic_xml_insert: whether to insert into presentation XML
     #   a copy of semantic XML
+    # output_formats: hash of supported output formats and suffixes
     def initialize(options) # rubocop:disable Lint/MissingSuper
       @options = options_preprocess(options)
       init_stylesheets(@options)
@@ -85,7 +86,6 @@ module IsoDoc
 
     def convert1(docxml, filename, dir)
       @xrefs.parse docxml
-      bibitem_lookup(docxml)
       noko do |xml|
         xml.html lang: @lang.to_s do |html|
           html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
@@ -97,15 +97,8 @@ module IsoDoc
       end.join("\n")
     end
 
-    def bibitem_lookup(docxml)
-      @bibitems = docxml.xpath(ns("//references/bibitem"))
-        .each_with_object({}) do |b, m|
-        m[b["id"]] = b
-      end
-    end
-
     def convert_init(file, input_filename, debug)
-      docxml = Nokogiri::XML(file) { |config| config.huge }
+      docxml = Nokogiri::XML(file, &:huge)
       filename, dir = init_file(input_filename, debug)
       docxml.root.default_namespace = ""
       convert_i18n_init(docxml)
@@ -117,10 +110,13 @@ module IsoDoc
     end
 
     def preprocess_xslt(docxml)
-      extract_preprocess_xslt(docxml).each do |x|
+      sheets = extract_preprocess_xslt(docxml)
+      sheets.each do |x|
         docxml = Nokogiri::XSLT(x).transform(docxml)
       end
       docxml
+    rescue ::Error => e
+      require "debug"; binding.b
     end
 
     def extract_preprocess_xslt(docxml)
@@ -136,8 +132,9 @@ module IsoDoc
       convert_i18n_init1(docxml)
       i18n_init(@lang, @script, @locale)
       @reqt_models = requirements_processor
-        .new({ default: "default", lang: @lang, script: @script, locale: @locale,
-               labels: @i18n.get, modspecidentifierbase: @modspecidentifierbase })
+        .new({ default: "default", lang: @lang, script: @script,
+               locale: @locale, labels: @i18n.get,
+               modspecidentifierbase: @modspecidentifierbase })
     end
 
     def convert_i18n_init1(docxml)
@@ -164,11 +161,11 @@ module IsoDoc
 
     def middle_clause(_docxml = nil)
       "//clause[parent::sections][not(@type = 'scope')]" \
-        "[not(descendant::terms)]"
+        "[not(descendant::terms)][not(descendant::references)]"
     end
 
     def target_pdf(node)
-      if /#/.match?(node["target"]) then node["target"].sub(/#/, ".pdf#")
+      if node["target"].include?("#") then node["target"].sub("#", ".pdf#")
       else "##{node['target']}"
       end
     end

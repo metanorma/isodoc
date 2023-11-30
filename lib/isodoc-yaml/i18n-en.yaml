@@ -18,6 +18,7 @@ preface: Preface
 clause: Clause
 annex: Annex
 appendix: Appendix
+continued: continued
 no_terms_boilerplate: |
           <p>No terms and definitions are listed in this document.</p>
 internal_terms_boilerplate: |
@@ -37,7 +38,7 @@ external_terms_boilerplate: |
 internal_external_terms_boilerplate: |
           <p>For the purposes of this document, the terms and definitions 
             given in % and the following apply.</p>
-term_defined_in: "[term defined in %]"
+term_defined_in: "(%)"
 binary_and: "%1 and %2"
 multiple_and: "%1, and %2"
 binary_or: "%1 or %2"
@@ -83,6 +84,7 @@ draft_label: draft
 inform_annex: informative
 norm_annex: normative
 modified: modified
+adapted: adapted
 deprecated: DEPRECATED
 source: SOURCE
 and: and

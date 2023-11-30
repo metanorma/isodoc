@@ -54,10 +54,11 @@ end
 def strip_guid(xml)
   xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
     .gsub(%r{ target="_[^"]+"}, ' target="_"')
-    .gsub(%r( href="#[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' href="#_"')
-    .gsub(%r( id="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="_"')
+    .gsub(%r( href="#_?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' href="#_"')
+    .gsub(%r( id="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' id="_"')
     .gsub(%r( id="ftn[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="ftn_"')
     .gsub(%r( id="fn:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="fn:_"')
+    .gsub(%r( reference="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"), ' reference="_"')
     .gsub(%r[ src="([^/]+)/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.], ' src="\\1/_.')
 end
 
@@ -74,6 +75,10 @@ HTML_HDR = <<~HEADER.freeze
       </div>
       <br/>
       <div class="main-section">
+         <br/>
+            <div class="TOC" id="_">
+        <h1 class="IntroTitle">Table of contents</h1>
+      </div>
 HEADER
 
 WORD_HDR = <<~HEADER.freeze
@@ -88,10 +93,16 @@ WORD_HDR = <<~HEADER.freeze
            <div class="WordSection1">
              <p>&#160;</p>
            </div>
-           <p><br clear="all" class="section"/></p>
+           <p class="section-break"><br clear="all" class="section"/></p>
            <div class="WordSection2">
+            <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div class="TOC" id="_">
+            <p class="zzContents">Table of contents</p>
+          </div>
              <p>&#160;</p>
            </div>
-           <p><br clear="all" class="section"/></p>
+           <p class="section-break"><br clear="all" class="section"/></p>
            <div class="WordSection3">
 HEADER
