@@ -88,14 +88,18 @@ module IsoDoc
     end
 
     def fonts_metadata(xmldoc)
-      @fontist_fonts or return
-      ins = xmldoc.at(ns("//presentation-metadata")) ||
-        xmldoc.at(ns("//metanorma-extension")) || xmldoc.at(ns("//bibdata"))
-      CSV.parse_line(@fontist_fonts, col_sep: ";").map(&:strip).each do |f|
+      ins = presmeta_insert_pt(xmldoc)
+      @fontist_fonts and CSV.parse_line(@fontist_fonts, col_sep: ";")
+        .map(&:strip).reverse.each do |f|
         ins.next = presmeta("fonts", f)
       end
       @fontlicenseagreement and
         ins.next = presmeta("font-license-agreement", @fontlicenseagreement)
+    end
+
+    def presmeta_insert_pt(xmldoc)
+      xmldoc.at(ns("//presentation-metadata")) ||
+        xmldoc.at(ns("//metanorma-extension")) || xmldoc.at(ns("//bibdata"))
     end
 
     def presmeta(name, value)
