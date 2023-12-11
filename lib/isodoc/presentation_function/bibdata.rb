@@ -16,13 +16,19 @@ module IsoDoc
     end
 
     def extension_insert(xml, path = [])
-      ins = xml.at(ns("//metanorma-extension")) ||
-        xml.at(ns("//bibdata"))&.after("<metanorma-extension/>")&.next_element ||
-        xml.root.elements.first.before("<metanorma-extension/>").previous_element
+      ins = extension_insert_pt(xml)
       path.each do |n|
         ins = ins.at(ns("./#{n}")) || ins.add_child("<#{n}/>").first
       end
       ins
+    end
+
+    def extension_insert_pt(xml)
+      xml.at(ns("//metanorma-extension")) ||
+        xml.at(ns("//bibdata"))&.after("<metanorma-extension/>")
+          &.next_element ||
+        xml.root.elements.first.before("<metanorma-extension/>")
+          .previous_element
     end
 
     def preprocess_xslt_insert(docxml)
@@ -42,7 +48,6 @@ module IsoDoc
           <preprocess-xslt format="#{k}">
             <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
               <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-              <xsl:strip-space elements="*"/>
               <xsl:template match="@* | node()">
               <xsl:copy>
                 <xsl:apply-templates select="@* | node()"/>
@@ -142,7 +147,8 @@ module IsoDoc
       tag_translate(x, lang, hash[x.text])
     end
 
-    # does not allow %Spellout and %Ordinal in the ordinal expression to be mixed
+    # does not allow %Spellout and %Ordinal in the ordinal expression
+    # to be mixed
     def edition_translate(bibdata)
       x = bibdata.at(ns("./edition")) or return
       /^\d+$/.match?(x.text) or return
@@ -221,11 +227,9 @@ module IsoDoc
     end
 
     def trim_hash1(hash)
-      return hash unless hash.is_a? Hash
-
+      hash.is_a?(Hash) or return hash
       hash.each_with_object({}) do |(k, v), g|
-        next if blank?(v)
-
+        blank?(v) and next
         g[k] = case v
                when Hash then trim_hash1(hash[k])
                when Array
