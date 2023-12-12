@@ -10,6 +10,7 @@ require "html2doc"
 require "liquid"
 require "htmlentities"
 require "relaton-render"
+require "vectory"
 
 require "isodoc/common"
 require "isodoc/convert"

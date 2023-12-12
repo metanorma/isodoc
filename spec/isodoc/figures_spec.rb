@@ -681,36 +681,6 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to strip_guid(xmlpp(word))
   end
 
-  context "disable inkscape" do
-    it "converts SVG (Word) with inkscape disabled" do
-      FileUtils.rm_rf "spec/assets/odf1.emf"
-      allow(IsoDoc::PresentationXMLConvert)
-        .to receive(:inkscape_installed?).and_return(nil)
-      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
-        .to receive(:inkscape_installed?)
-
-      input = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface>
-            <foreword>
-              <figure id="figureA-1">
-                <image src="spec/assets/odf.svg" mimetype="image/svg+xml"/>
-                <image src="spec/assets/odf1.svg" mimetype="image/svg+xml"/>
-                <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
-              </figure>
-            </foreword>
-          </preface>
-        </iso-standard>
-      INPUT
-      expect do
-        IsoDoc::PresentationXMLConvert
-          .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
-          .convert("test", input, true)
-      end.to raise_error("Inkscape missing in PATH, unable" \
-                         "to convert image spec/assets/odf1.svg. Aborting.")
-    end
-  end
-
   it "does not label embedded figures, sourcecode" do
     input = <<~INPUT
       <itu-standard xmlns="http://riboseinc.com/isoxml">

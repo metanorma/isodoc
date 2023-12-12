@@ -1,5 +1,4 @@
 require "base64"
-require "emf2svg"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -92,33 +91,56 @@ module IsoDoc
 
     def svg_prep(img)
       img["mimetype"] = "image/svg+xml"
-      %r{^data:image}.match?(img["src"]) or
-        img["src"] = Metanorma::Utils::datauri(img["src"])
+      %r{^data:}.match?(img["src"]) or
+        img["src"] = Vectory::Emf.from_path(img["src"]).to_uri.content
     end
 
     def emf_to_svg(img)
-      emf = Metanorma::Utils::save_dataimage(img.at(ns("./emf/@src")).text)
-      Emf2svg.from_file(emf).sub(/<\?[^>]+>/, "")
+      datauri_src = img.at(ns("./emf/@src")).text
+      Vectory::Emf.from_datauri(datauri_src)
+        .to_svg
+        .content
+        .sub(/<\?[^>]+>/, "")
     end
 
     def eps_to_svg(node)
-      uri = eps_to_svg_uri(node)
-      ret = imgfile_suffix(uri, "svg")
-      File.exist?(ret) and return ret
-      inkscape_convert(uri, ret, "--export-plain-svg")
+      if !node.text.strip.empty? || %r{^data:}.match?(node["src"])
+        return eps_to_svg_from_node(node)
+      end
+
+      target_path = imgfile_suffix(node["src"], "svg")
+      return target_path if File.exist?(target_path)
+
+      eps_to_svg_from_node(node, target_path)
+    end
+
+    def eps_to_svg_from_node(node, target_path = nil)
+      svg = Vectory::Eps.from_node(node).to_svg
+      return svg.write(target_path).path if target_path
+
+      svg.write.path
     end
 
     def svg_to_emf(node)
       @output_formats[:doc] or return
-      uri = svg_to_emf_uri(node)
+
       svg_impose_height_attr(node)
-      ret = imgfile_suffix(uri, "emf")
-      if File.exist?(ret) && File.exist?(node["src"])
-        warn "Exists: #{ret}, Exists: #{node['src']}"
-        return ret
+
+      if node.elements&.first&.name == "svg" || %r{^data:}.match?(node["src"])
+        return svg_to_emf_from_node(node)
       end
-      warn "Converting..."
-      inkscape_convert(uri, ret, '--export-type="emf"')
+
+      target_path = imgfile_suffix(node["src"], "emf")
+      return target_path if File.exist?(target_path)
+
+      svg_to_emf_from_node(node, target_path)
+    end
+
+    def svg_to_emf_from_node(node, target_path = nil)
+      emf = Vectory::Svg.from_node(node).to_emf
+      return emf.write(target_path).to_uri.content if target_path
+
+      emf.to_uri.content
     end
 
     def svg_impose_height_attr(node)
@@ -129,68 +151,8 @@ module IsoDoc
       node["width"] = e["width"]
     end
 
-    def inkscape_convert(uri, file, option)
-      exe = inkscape_installed? or raise "Inkscape missing in PATH, unable" \
-                                         "to convert image #{uri}. Aborting."
-      uri = Metanorma::Utils::external_path uri
-      exe = Metanorma::Utils::external_path exe
-      warn %(#{exe} #{option} #{uri})
-      err = system %(#{exe} #{option} #{uri})
-      File.exist?(file) and return Metanorma::Utils::datauri(file)
-      file2 = uri + File.extname(file)
-      warn "Checking #{file2}"
-      File.exist?(file2) and return Metanorma::Utils::datauri(file2)
-      raise %(Fail on #{exe} #{option} #{uri} outputting #{file}: status #{err})
-    end
-
-    def svg_to_emf_uri(node)
-      uri = svg_to_emf_uri_convert(node)
-      cache_dataimage(uri)
-    end
-
-    def eps_to_svg_uri(node)
-      uri = eps_to_svg_uri_convert(node)
-      cache_dataimage(uri)
-    end
-
-    def cache_dataimage(uri)
-      if %r{^data:}.match?(uri)
-        uri = save_dataimage(uri)
-      end
-      uri
-    end
-
-    def svg_to_emf_uri_convert(node)
-      if node.elements&.first&.name == "svg"
-        a = Base64.strict_encode64(node.children.to_xml)
-        "data:image/svg+xml;base64,#{a}"
-      else node["src"]
-      end
-    end
-
-    def eps_to_svg_uri_convert(node)
-      if node.text.strip.empty?
-        node["src"]
-      else
-        a = Base64.strict_encode64(node.children.to_xml)
-        "data:application/postscript;base64,#{a}"
-      end
-    end
-
     def imgfile_suffix(uri, suffix)
       "#{File.join(File.dirname(uri), File.basename(uri, '.*'))}.#{suffix}"
-    end
-
-    def inkscape_installed?
-      cmd = "inkscape"
-      exts = ENV["PATHEXT"] ? ENV["PATHEXT"].split(";") : [""]
-      ENV["PATH"].split(File::PATH_SEPARATOR).each do |path|
-        exts.each do |ext|
-          exe = File.join(path, "#{cmd}#{ext}")
-          return exe if File.executable?(exe) && !File.directory?(exe)
-        end
-      end
-      nil
     end
   end
 end
