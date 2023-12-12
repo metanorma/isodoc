@@ -403,7 +403,7 @@ RSpec.describe IsoDoc do
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
             '"data:application/x-msmetafile;base64"'))))
-      .to be_equivalent_to (output)
+      .to be_equivalent_to (xmlpp(output))
 
     output = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
@@ -464,7 +464,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to (output)
   end
 
-  xit "converts EPS to SVG files" do
+  it "converts EPS to SVG files" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
@@ -678,14 +678,15 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <?xml version="1.0" encoding="UTF-8"?>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata/>
          <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
       <sections>
        <clause id="A" inline-header="false" obligation="normative" displayorder="2">
        <title depth="1">1.<tab/>Clause</title>
        <figure id="B"><name>Figure 1</name>
-       <image mimetype="image/svg+xml" alt="3" src="_.svg"><emf src="_.emf"/></image>
+       <image mimetype="image/svg+xml" alt="3" src="_.svg"></image>
                    </figure>
                  </clause>
                </sections>
@@ -697,6 +698,42 @@ RSpec.describe IsoDoc do
       .gsub(%r{src="[^"]+?\.emf"}, 'src="_.emf"')
       .gsub(%r{src="[^"]+?\.svg"}, 'src="_.svg"'))))
       .to be_equivalent_to (output)
+  end
+
+  it "converts file EPS to SVG" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata/>
+        <sections>
+          <clause id='A' inline-header='false' obligation='normative'>
+            <title>Clause</title>
+            <figure id="B">
+              <image mimetype="application/postscript" alt="3" src="spec/assets/img.eps"/>
+            </figure>
+          </clause>
+        </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <?xml version="1.0" encoding="UTF-8"?>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <bibdata/>
+        <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
+        <sections>
+          <clause id="A" inline-header="false" obligation="normative" displayorder="2">
+            <title depth="1">1.<tab/>Clause</title>
+            <figure id="B"><name>Figure 1</name>
+              <image mimetype="image/svg+xml" alt="3" src="_.svg"></image>
+            </figure>
+          </clause>
+        </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .gsub(%r{src="[^"]+?\.svg"}, 'src="_.svg"'))))
+      .to be_equivalent_to(output)
   end
 
   it "adds types to ordered lists" do
