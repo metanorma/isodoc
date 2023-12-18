@@ -1851,13 +1851,13 @@ RSpec.describe IsoDoc do
        </foreword></preface></standard-document>
     INPUT
     presxml = <<~OUTPUT
-           <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
-       <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font></presentation-metadata>
-         <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+      <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font></presentation-metadata>
+        <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
 
-           <foreword id="A" displayorder="2">
-             <p id="_"><span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">&#xFD80;</span></p>
-        </foreword></preface></standard-document>
+          <foreword id="A" displayorder="2">
+            <p id="_"><span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">&#xFD80;</span></p>
+       </foreword></preface></standard-document>
     OUTPUT
     expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1887,7 +1887,6 @@ RSpec.describe IsoDoc do
              <preprocess-xslt format="html">
                <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
                  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                 <xsl:strip-space elements="*"/>
                  <xsl:template match="@* | node()">
                    <xsl:copy>
                      <xsl:apply-templates select="@* | node()"/>
@@ -1906,7 +1905,6 @@ RSpec.describe IsoDoc do
              <preprocess-xslt format="doc">
                <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
                  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                 <xsl:strip-space elements="*"/>
                  <xsl:template match="@* | node()">
                    <xsl:copy>
                      <xsl:apply-templates select="@* | node()"/>
@@ -1940,6 +1938,49 @@ RSpec.describe IsoDoc do
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true))
+       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "processes ruby markup" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <preface>
+      <foreword id="A">
+      <p>
+      <ruby><pronunciation value="とうきょう"/>東京</ruby>
+      <ruby><pronunciation value="とうきょう" lang="ja" script="Hira"/>東京</ruby>
+      <ruby><pronunciation value="Tōkyō" script="Latn"/>東京</ruby>
+      <ruby><annotation value="ライバル"/>親友</ruby>
+      <ruby><pronunciation value="とう"/>東</ruby> <ruby><pronunciation value="きょう"/>京</ruby>
+      <ruby><pronunciation value="Tō" script="Latn"/>東</ruby><ruby><pronunciation value="kyō" script="Latn"/>京</ruby>
+
+
+      <ruby><pronunciation value="とう"/><ruby><pronunciation value="tou"/>東</ruby></ruby> <ruby><pronunciation value="なん"/><ruby><pronunciation value="nan"/>南</ruby></ruby> の方角
+      <ruby><pronunciation value="たつみ"/><ruby><pronunciation value="とう"/>東</ruby><ruby><pronunciation value="なん"/>南</ruby></ruby>
+      <ruby><pronunciation value="プロテゴ"/><ruby><pronunciation value="まも"/>護</ruby>れ</ruby>!
+      <ruby><pronunciation value="プロテゴ"/>れ<ruby><pronunciation value="まも"/>護</ruby></ruby>!</p>
+      </p>
+      </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <foreword id="A" displayorder="2">
+            <p>
+            <ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>Tōkyō</rt></ruby><ruby><rb>親友</rb><rt>ライバル</rt></ruby><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>京</rb><rt>きょう</rt></ruby><ruby><rb>東</rb><rt>Tō</rt></ruby><ruby><rb>京</rb><rt>kyō</rt></ruby><ruby><rb><ruby><rb>東</rb><rt>tou</rt></ruby></rb><rt>とう</rt></ruby><ruby><rb><ruby><rb>南</rb><rt>nan</rt></ruby></rb><rt>なん</rt></ruby> の方角
+       <ruby><rb><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>南</rb><rt>なん</rt></ruby></rb><rt>たつみ</rt></ruby>
+       <ruby><rb><ruby><rb>護</rb><rt>まも</rt></ruby>れ</rb><rt>プロテゴ</rt></ruby>!
+       <ruby><rb>れ<ruby><rb>護</rb><rt>まも</rt></ruby></rb><rt>プロテゴ</rt></ruby>!</p>
+             </p>
+           </foreword>
+         </preface>
+       </standard-document>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
+      .convert("test", input, true))
+       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
   end

@@ -86,6 +86,7 @@ module IsoDoc
       quotesource docxml # feeds docxml
       eref2link docxml
       mathml docxml
+      ruby docxml
       variant docxml
       identifier docxml
       date docxml
