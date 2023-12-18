@@ -90,13 +90,7 @@ module IsoDoc
       end
 
       def rt_parse(node, out)
-        out.rt do |e|
-          node.children.each { |n| parse(n, e) }
-        end
-      end
-
-      def rb_parse(node, out)
-        out.rb do |e|
+        out.rt **{ style: "font-size: 6pt;" } do |e|
           node.children.each { |n| parse(n, e) }
         end
       end
