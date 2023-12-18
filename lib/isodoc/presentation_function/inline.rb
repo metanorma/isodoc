@@ -137,6 +137,22 @@ module IsoDoc
       end
     end
 
+    def ruby(docxml)
+      (docxml.xpath(ns("//ruby")) - docxml.xpath(ns("//ruby//ruby")))
+        .each do |r|
+        ruby1(r)
+      end
+    end
+
+    def ruby1(elem)
+      v = elem.at(ns("./pronunciation | ./annotation")).remove
+      elem.xpath(ns("./ruby")).each do |r|
+        ruby1(r)
+      end
+      t = elem.children.to_xml
+      elem.replace("<ruby><rb>#{t}</rb><rt>#{v['value']}</rt></ruby>")
+    end
+
     private
 
     def found_matching_variant_sibling(node)

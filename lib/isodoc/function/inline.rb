@@ -155,6 +155,24 @@ module IsoDoc
           p.b(role: "strong") { |e| e << text }
         end
       end
+
+      def ruby_parse(node, out)
+        out.ruby do |e|
+          node.children.each { |n| parse(n, e) }
+        end
+      end
+
+      def rt_parse(node, out)
+        out.rt do |e|
+          node.children.each { |n| parse(n, e) }
+        end
+      end
+
+      def rb_parse(node, out)
+        out.rb do |e|
+          node.children.each { |n| parse(n, e) }
+        end
+      end
     end
   end
 end

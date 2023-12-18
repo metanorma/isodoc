@@ -1851,13 +1851,13 @@ RSpec.describe IsoDoc do
        </foreword></preface></standard-document>
     INPUT
     presxml = <<~OUTPUT
-           <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
-       <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font></presentation-metadata>
-         <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+      <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font></presentation-metadata>
+        <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
 
-           <foreword id="A" displayorder="2">
-             <p id="_"><span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">&#xFD80;</span></p>
-        </foreword></preface></standard-document>
+          <foreword id="A" displayorder="2">
+            <p id="_"><span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">&#xFD80;</span></p>
+       </foreword></preface></standard-document>
     OUTPUT
     expect(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1887,7 +1887,6 @@ RSpec.describe IsoDoc do
              <preprocess-xslt format="html">
                <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
                  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                 <xsl:strip-space elements="*"/>
                  <xsl:template match="@* | node()">
                    <xsl:copy>
                      <xsl:apply-templates select="@* | node()"/>
@@ -1906,7 +1905,6 @@ RSpec.describe IsoDoc do
              <preprocess-xslt format="doc">
                <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
                  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                 <xsl:strip-space elements="*"/>
                  <xsl:template match="@* | node()">
                    <xsl:copy>
                      <xsl:apply-templates select="@* | node()"/>

@@ -42,6 +42,15 @@ module IsoDoc
       end
 
       def image_parse(node, out, caption)
+        emf_attributes(node)
+        attrs = { src: imgsrc(node),
+                  height: node["height"], alt: node["alt"],
+                  title: node["title"], width: node["width"] }
+        out.img **attr_code(attrs)
+        image_title_parse(out, caption)
+      end
+
+      def emf_attributes(node)
         if emf = node.at(ns("./emf"))
           node["src"] = emf["src"]
           node["height"] ||= emf["height"]
@@ -49,11 +58,6 @@ module IsoDoc
           node["mimetype"] = "image/x-emf"
           node.children.remove
         end
-        attrs = { src: imgsrc(node),
-                  height: node["height"], alt: node["alt"],
-                  title: node["title"], width: node["width"] }
-        out.img **attr_code(attrs)
-        image_title_parse(out, caption)
       end
 
       def xref_parse(node, out)
@@ -72,6 +76,23 @@ module IsoDoc
         return url unless File.extname(url).empty?
 
         url.sub(/#{File.extname(url)}$/, ".doc")
+      end
+
+      def ruby_parse(node, out)
+        if r = node.at(ns("./rb[ruby]"))
+          double_ruby = r.at(ns("./ruby/rt")).remove
+          r.replace(r.at(ns("./ruby/rb")))
+        end
+        out.ruby do |e|
+          node.children.each { |n| parse(n, e) }
+        end
+        double_ruby and out << "(#{double_ruby.text})"
+      end
+
+      def rt_parse(node, out)
+        out.rt **{ style: "font-size: 6pt;" } do |e|
+          node.children.each { |n| parse(n, e) }
+        end
       end
     end
   end

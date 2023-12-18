@@ -35,6 +35,9 @@ RSpec.describe IsoDoc do
         <date type="vote-started"><on>2021</on></date>
         <date type="vote-ended"><on>2022</on></date>
         <date type="corrected"><on>2023</on></date>
+        <date type="adapted"><on>2024</on></date>
+        <date type="announced"><on>2025</on></date>
+        <date type="stable_until"><on>2026</on></date>
         <edition>2</edition><edition language="en">second edition</edition>
       <version>
         <revision-date>2016-05-01</revision-date>
@@ -129,7 +132,9 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       {:accesseddate=>"2012",
       :activateddate=>"2013",
+      :adapteddate=>"2024",
       :agency=>"ISO",
+      :announceddate=>"2025",
       :authors=>["Barney Rubble", "Fred Flintstone", "B. B. Rubble"],
       :authors_affiliations=>{"Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone", "B. B. Rubble"]},
       :circulateddate=>"2015",
@@ -165,6 +170,7 @@ RSpec.describe IsoDoc do
       :revdate=>"2016-05-01",
       :revdate_monthyear=>"May 2016",
       :script=>"Latn",
+      :stable_untildate=>"2026",
       :stage=>"Committee Draft",
       :stage_display=>"Committee Draft",
       :stageabbr=>"CD",
@@ -262,7 +268,9 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"ISO/IEC/IEEE",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -294,6 +302,7 @@ RSpec.describe IsoDoc do
       :revdate=>"2016-05",
       :revdate_monthyear=>"May 2016",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :stage=>"Published",
       :stage_display=>"Published",
       :subdivision=>"Subdivision",
@@ -336,7 +345,9 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"NAME1/NAME",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -350,6 +361,7 @@ RSpec.describe IsoDoc do
       :publisher=>"NAME1 and NAME",
       :receiveddate=>"XXX",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :transmitteddate=>"XXX",
       :unchangeddate=>"XXX",
       :unpublished=>true,
@@ -440,7 +452,9 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"ISO/IEC",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -463,6 +477,7 @@ RSpec.describe IsoDoc do
       :revdate=>"2016-05",
       :revdate_monthyear=>"Mai 2016",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :stage=>"Committee Draft",
       :stage_display=>"Projet De Comité",
       :stageabbr=>"CD",

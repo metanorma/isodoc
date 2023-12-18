@@ -106,12 +106,12 @@ module IsoDoc
     end
 
     def version(isoxml, _out)
-      set(:edition, isoxml&.at(ns("//bibdata/edition#{NOLANG}"))&.text)
+      set(:edition, isoxml.at(ns("//bibdata/edition#{NOLANG}"))&.text)
       set(:edition_display,
-          isoxml&.at(ns("//bibdata/edition#{currlang}"))&.text)
-      set(:docyear, isoxml&.at(ns("//bibdata/copyright/from"))&.text)
-      set(:draft, isoxml&.at(ns("//bibdata/version/draft"))&.text)
-      revdate = isoxml&.at(ns("//bibdata/version/revision-date"))&.text
+          isoxml.at(ns("//bibdata/edition#{currlang}"))&.text)
+      set(:docyear, isoxml.at(ns("//bibdata/copyright/from"))&.text)
+      set(:draft, isoxml.at(ns("//bibdata/version/draft"))&.text)
+      revdate = isoxml.at(ns("//bibdata/version/revision-date"))&.text
       set(:revdate, revdate)
       set(:revdate_monthyear, monthyr(revdate))
       set(:draftinfo,
@@ -119,7 +119,7 @@ module IsoDoc
     end
 
     def title(isoxml, _out)
-      main = isoxml&.at(ns("//bibdata/title[@language='#{@lang}']"))&.text
+      main = isoxml.at(ns("//bibdata/title[@language='#{@lang}']"))&.text
       set(:doctitle, main)
     end
 
