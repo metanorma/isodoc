@@ -253,6 +253,9 @@ module IsoDoc
           when "span" then span_parse(node, out)
           when "location" then location_parse(node, out)
           when "columnbreak" then columnbreak_parse(node, out)
+          when "ruby" then ruby_parse(node, out)
+          when "rt" then rt_parse(node, out)
+          when "rb" then rb_parse(node, out)
           else error_parse(node, out)
           end
         end
