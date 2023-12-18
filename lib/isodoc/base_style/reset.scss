@@ -163,6 +163,9 @@ a.FootnoteRef, span.FootnoteRef {
   text-decoration: line-through;
 }
 
+ruby { ruby-position: over; }
+ruby  ruby { ruby-position: under; }
+
 /* code highlighting with line numbers */
 
 table.rouge-line-table td.rouge-gutter {
