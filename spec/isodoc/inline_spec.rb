@@ -1979,7 +1979,6 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
-
   it "processes ruby markup" do
     input = <<~INPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
@@ -2029,6 +2028,15 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
+    doc = <<~OUTPUT
+      <div>
+         <h1 class="ForewordTitle">Foreword</h1>
+         <p><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>Tōkyō</rt></ruby><ruby><rb>親友</rb><rt>ライバル</rt></ruby><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>京</rb><rt>きょう</rt></ruby><ruby><rb>東</rb><rt>Tō</rt></ruby><ruby><rb>京</rb><rt>kyō</rt></ruby><ruby><rb>東</rb><rt>とう</rt></ruby>(tou)<ruby><rb>南</rb><rt>なん</rt></ruby>(nan) の方角
+        <ruby><rb>東</rb><rt>たつみ</rt></ruby>(とう)
+        <ruby><rb>護</rb><rt>プロテゴ</rt></ruby>(まも)!
+        <ruby><rb>護</rb><rt>プロテゴ</rt></ruby>(まも)!</p>
+       </div>
+    OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true))
@@ -2037,6 +2045,9 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true)
+      .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>")))
+      .to be_equivalent_to xmlpp(doc)
   end
-
 end
