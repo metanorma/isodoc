@@ -163,8 +163,8 @@ a.FootnoteRef, span.FootnoteRef {
   text-decoration: line-through;
 }
 
-ruby { ruby-position: over; }
-ruby  ruby { ruby-position: under; }
+ruby { ruby-position: over; -webkit-ruby-position: over;}
+ruby  ruby { ruby-position: under; -webkit-ruby-position: under; }
 
 /* code highlighting with line numbers */
 
