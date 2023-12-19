@@ -763,7 +763,7 @@ RSpec.describe IsoDoc do
                    <p>
          <span class="stem">(#(&lt;A&gt;)#)</span>
          <span class="stem">(#(&lt;A&gt;)#)</span>
-         <span class="stem"><m:math>
+         <span class="stem"><m:math xmlns:m="http://www.w3.org/1998/Math/MathML">
            <m:row>X</m:row>
          </m:math></span>
          <span class="stem">Latex?</span>
