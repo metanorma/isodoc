@@ -87,12 +87,11 @@ module IsoDoc
       MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
 
       def mathml_parse(node)
-        node.at("./m:math", MATHML)&.to_xml
+        node.xpath("./m:math", MATHML).map(&:to_xml).join
       end
 
       def asciimath_parse(node)
         a = node.at(ns("./asciimath"))&.text || node.text
-
         "#{@openmathdelim}#{HTMLEntities.new.encode(a)}" \
           "#{@closemathdelim}"
       end
