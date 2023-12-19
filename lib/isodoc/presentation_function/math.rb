@@ -115,9 +115,13 @@ module IsoDoc
 
     def mathml_linebreak(node)
       node.at(".//*/@linebreak") or return
-      node.replace(Plurimath::Math
-        .parse(node.to_xml, :mathml)
-        .to_mathml(split_on_linebreak: true))
+      m = Plurimath::Math.parse(node.to_xml, :mathml)
+        .to_mathml(split_on_linebreak: true)
+      ret = Nokogiri::XML("<m>#{m}</m>").root
+      ret.elements.each_with_index do |e, i|
+        i.zero? or e.previous = "<br/>"
+      end
+      node.replace(ret.children)
     end
 
     def mathml_number(node, locale)

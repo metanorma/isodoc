@@ -452,6 +452,7 @@ RSpec.describe IsoDoc do
                      </mrow>
                    </mstyle>
                  </math>
+                 <br/>
                  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
                    <mstyle displaystyle="true">
                      <mi>y</mi>
@@ -470,7 +471,9 @@ RSpec.describe IsoDoc do
                <h1/>
                <div id="_">
                  <div class="formula">
-                   <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mrow><mi>x</mi><mo>=</mo></mrow></mstyle></math><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mi>y</mi></mstyle></math></span>  (1)</p>
+                   <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mrow><mi>x</mi><mo>=</mo></mrow></mstyle></math>
+                   <br/>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mi>y</mi></mstyle></math></span>  (1)</p>
                  </div>
                </div>
              </div>
@@ -484,7 +487,10 @@ RSpec.describe IsoDoc do
                <h1/>
                <div id="_">
                  <div class="formula">
-                   <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mrow><mi>x</mi><mo>=</mo></mrow></mstyle></math><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">  </span>(1)</p>
+                   <p><span class="stem">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mrow><mi>x</mi><mo>=</mo></mrow></mstyle></math>
+                    <br/>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">  </span>(1)</p>
                  </div>
                </div>
              </div>
