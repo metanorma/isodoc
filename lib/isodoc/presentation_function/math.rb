@@ -121,7 +121,9 @@ module IsoDoc
       ret.elements.each_with_index do |e, i|
         i.zero? or e.previous = "<br/>"
       end
-      node.replace(ret.children)
+      node.replace(<<~OUTPUT)
+        <math-with-linebreak>#{ret.children}</math-with-linebreak><math-no-linebreak>#{node.to_xml}</math-no-linebreak>
+      OUTPUT
     end
 
     def mathml_number(node, locale)

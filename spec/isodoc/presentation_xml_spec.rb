@@ -1459,7 +1459,7 @@ RSpec.describe IsoDoc do
             <p>
             <passthrough formats="html">A</passthrough>
             <passthrough formats="word,html">A</passthrough>
-            <passthrough formats="word,html,pdf">A</passthrough>
+            <passthrough formats="word,html,other">A</passthrough>
             <passthrough>A</passthrough>
             <passthrough formats="all">A</passthrough>
             </p>
@@ -1467,8 +1467,8 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~OUTPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
-        <metanorma-extension>
-           <render>
+         <metanorma-extension>
+                    <render>
              <preprocess-xslt format="html">
                <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
                  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
@@ -1481,9 +1481,25 @@ RSpec.describe IsoDoc do
                    <xsl:if test="contains(@formats,',html,')">
                      <!-- delimited -->
                      <xsl:copy>
-                     <xsl:apply-templates select="@* | node()"/>
+                       <xsl:apply-templates select="@* | node()"/>
                      </xsl:copy>
                    </xsl:if>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
+             <preprocess-xslt format="html">
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="*[local-name() = 'math-with-linebreak']">
+
+       </xsl:template>
+                 <xsl:template match="*[local-name() = 'math-no-linebreak']">
+                     <xsl:apply-templates select="node()"/>
                  </xsl:template>
                </xsl:stylesheet>
              </preprocess-xslt>
@@ -1499,29 +1515,83 @@ RSpec.describe IsoDoc do
                    <xsl:if test="contains(@formats,',doc,')">
                      <!-- delimited -->
                      <xsl:copy>
-                     <xsl:apply-templates select="@* | node()"/>
+                       <xsl:apply-templates select="@* | node()"/>
                      </xsl:copy>
                    </xsl:if>
                  </xsl:template>
                </xsl:stylesheet>
              </preprocess-xslt>
+             <preprocess-xslt format="doc">
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="*[local-name() = 'math-with-linebreak']">
+
+       </xsl:template>
+                 <xsl:template match="*[local-name() = 'math-no-linebreak']">
+                     <xsl:apply-templates select="node()"/>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
+             <preprocess-xslt format="pdf">
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="*[local-name() = 'passthrough']">
+                   <xsl:if test="contains(@formats,',pdf,')">
+                     <!-- delimited -->
+                     <xsl:copy>
+                       <xsl:apply-templates select="@* | node()"/>
+                     </xsl:copy>
+                   </xsl:if>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
+             <preprocess-xslt format="pdf">
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="*[local-name() = 'math-with-linebreak']">
+
+       </xsl:template>
+                 <xsl:template match="*[local-name() = 'math-no-linebreak']">
+                     <xsl:apply-templates select="node()"/>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
            </render>
          </metanorma-extension>
-       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
-          <foreword id="A" displayorder="2">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+           <foreword id="A" displayorder="2">
              <p>
                <passthrough formats=",html,">A</passthrough>
                <passthrough formats=",word,html,">A</passthrough>
-               <passthrough formats=",word,html,pdf,">A</passthrough>
-               <passthrough formats=",html,doc,">A</passthrough>
-               <passthrough formats=",html,doc,">A</passthrough>
+               <passthrough formats=",word,html,other,">A</passthrough>
+               <passthrough formats=",html,doc,pdf,">A</passthrough>
+               <passthrough formats=",html,doc,pdf,">A</passthrough>
              </p>
            </foreword>
          </preface>
        </standard-document>
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
-      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
+      .new(presxml_options
+      .merge(output_formats: { html: "html", doc: "doc", pdf: "pdf" }))
       .convert("test", input, true))
        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)

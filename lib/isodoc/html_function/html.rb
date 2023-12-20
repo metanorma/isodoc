@@ -15,6 +15,11 @@ module IsoDoc
         end.join("\n")
       end
 
+      def preprocess_xslt(docxml)
+
+        super
+      end
+
       def make_body1(body, _docxml)
         return if @bare
 

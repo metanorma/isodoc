@@ -439,25 +439,40 @@ RSpec.describe IsoDoc do
              <title depth="1">Table of contents</title>
            </clause>
            </preface>
-           <sections>
+                    <sections>
            <clause displayorder="2">
              <formula id="_">
                <name>1</name>
                <stem type="MathML" block="true">
-                 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-                   <mstyle displaystyle="true">
-                     <mrow>
+                 <math-with-linebreak>
+                   <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                     <mstyle displaystyle="true">
+                       <mrow>
+                         <mi>x</mi>
+                         <mo>=</mo>
+                       </mrow>
+                     </mstyle>
+                   </math>
+                   <asciimath>x =</asciimath>
+                   <br/>
+                   <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                     <mstyle displaystyle="true">
+                       <mi>y</mi>
+                     </mstyle>
+                   </math>
+                 </math-with-linebreak>
+                 <math-no-linebreak>
+                   <math xmlns="http://www.w3.org/1998/Math/MathML">
+                     <mstyle displaystyle="true">
                        <mi>x</mi>
                        <mo>=</mo>
-                     </mrow>
-                   </mstyle>
-                 </math>
-                 <br/>
-                 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-                   <mstyle displaystyle="true">
-                     <mi>y</mi>
-                   </mstyle>
-                 </math>
+                       <mo linebreak="newline"/>
+                       <mi>y</mi>
+                     </mstyle>
+                   </math>
+                   <asciimath>x = \\
+         y</asciimath>
+                 </math-no-linebreak>
                  <asciimath>x = y</asciimath>
                </stem>
              </formula>
@@ -471,9 +486,7 @@ RSpec.describe IsoDoc do
                <h1/>
                <div id="_">
                  <div class="formula">
-                   <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mrow><mi>x</mi><mo>=</mo></mrow></mstyle></math>
-                   <br/>
-                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mi>y</mi></mstyle></math></span>  (1)</p>
+                    <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>  (1)</p>
                  </div>
                </div>
              </div>
@@ -487,10 +500,7 @@ RSpec.describe IsoDoc do
                <h1/>
                <div id="_">
                  <div class="formula">
-                   <p><span class="stem">
-                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mrow><mi>x</mi><mo>=</mo></mrow></mstyle></math>
-                    <br/>
-                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mstyle displaystyle="true"><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">  </span>(1)</p>
+                 <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">  </span>(1)</p>
                  </div>
                </div>
              </div>
@@ -498,15 +508,18 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+    output = IsoDoc::PresentationXMLConvert.new(presxml_options
+      .merge(output_formats: { html: "html", doc: "doc" }))
+      .convert("test", input, true)
+    expect(xmlpp(strip_guid(output)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .gsub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true))))
       .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true)))
+    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", output, true))))
       .to be_equivalent_to xmlpp(word)
   end
 
