@@ -7,8 +7,9 @@ module IsoDoc
     MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
 
     def mathml(docxml)
+      docxml.xpath("//m:math", MATHML).each { |f| mathml_linebreak(f) }
       locale = twitter_cldr_localiser
-      docxml.xpath("//m:math", MATHML).each do |f|
+      docxml.xpath("//m:math", MATHML).each do |f| # rubocop:disable Style/CombinableLoops
         mathml1(f, locale)
       end
     end
@@ -77,8 +78,7 @@ module IsoDoc
     end
 
     def parse_localize_number
-      return {} unless @localizenumber
-
+      @localizenumber or return {}
       m = %r{(?<group>[^#])?(?<groupdigits>#+0)(?<decimal>.)(?<fractdigits>#+)(?<fractgroup>[^#])?}
         .match(@localizenumber) or return {}
       ret = { decimal: m[:decimal], group_digits: m[:groupdigits].size,
@@ -90,17 +90,13 @@ module IsoDoc
     end
 
     def asciimath_dup(node)
-      return if @suppressasciimathdup || node.parent.at(ns("./asciimath"))
-
+      @suppressasciimathdup || node.parent.at(ns("./asciimath")) and return
       math = node.to_xml.gsub(/ xmlns=["'][^"']+["']/, "")
         .gsub(%r{<[^:/>]+:}, "<").gsub(%r{</[^:/>]+:}, "</")
       ret = Plurimath::Math.parse(math, "mathml").to_asciimath
-      ret = HTMLEntities.new.encode(ret, :basic)
-      node.next = "<asciimath>#{ret}</asciimath>"
+      node.next = "<asciimath>#{@c.encode(ret, :basic)}</asciimath>"
     rescue StandardError => e
-      warn "Failure to convert MathML to AsciiMath"
-      warn node.parent.to_xml
-      warn e
+      warn "Failure to convert MathML to AsciiMath\n#{node.parent.to_xml}\n#{e}"
     end
 
     def maths_just_numeral(node)
@@ -114,6 +110,23 @@ module IsoDoc
 
     def mathml1(node, locale)
       mathml_style_inherit(node)
+      mathml_number(node, locale)
+    end
+
+    def mathml_linebreak(node)
+      node.at(".//*/@linebreak") or return
+      m = Plurimath::Math.parse(node.to_xml, :mathml)
+        .to_mathml(split_on_linebreak: true)
+      ret = Nokogiri::XML("<m>#{m}</m>").root
+      ret.elements.each_with_index do |e, i|
+        i.zero? or e.previous = "<br/>"
+      end
+      node.replace(<<~OUTPUT)
+        <math-with-linebreak>#{ret.children}</math-with-linebreak><math-no-linebreak>#{node.to_xml}</math-no-linebreak>
+      OUTPUT
+    end
+
+    def mathml_number(node, locale)
       justnumeral = node.elements.size == 1 && node.elements.first.name == "mn"
       justnumeral or asciimath_dup(node)
       localize_maths(node, locale)

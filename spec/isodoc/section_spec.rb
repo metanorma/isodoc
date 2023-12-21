@@ -420,140 +420,140 @@ RSpec.describe IsoDoc do
     PRESXML
 
     html = <<~"OUTPUT"
-      #{HTML_HDR}
-                           <div class='authority'>
-                         <div class='boilerplate-copyright'>
-                           <div>
-                             <h1>Copyright</h1>
-                           </div>
-                         </div>
-                         <div class='boilerplate-license'>
-                           <div>
-                             <h1>License</h1>
-                           </div>
-                         </div>
-                         <div class='boilerplate-legal'>
-                           <div>
-                             <h1>Legal</h1>
-                           </div>
-                         </div>
-                         <div class='boilerplate-feedback'>
-                           <div>
-                             <h1>Feedback</h1>
-                           </div>
-                         </div>
-                       </div>
-                           <br/>
-                               <div>
-                               <h1 class="AbstractTitle">Abstract</h1>
-                               </div>
-                                       <br/>
-                                       <div>
-                                         <h1 class="ForewordTitle">Foreword</h1>
-                                         <p id="A">This is a preamble</p>
-                                       </div>
-                                       <br/>
-                                       <div class="Section3" id="B">
-                                         <h1 class="IntroTitle">Introduction</h1>
-                                         <div id="C">
-                                  <h2>Introduction Subsection</h2>
-                                </div>
-                                       </div>
-                                       <br/>
-                       <div class='Section3' id='B1'>
-                         <h1 class='IntroTitle'>Dedication</h1>
-                       </div>
-                       <br/>
-                       <div class='Section3' id='B2'>
-                         <h1 class='IntroTitle'>Note to reader</h1>
-                       </div>
-                                       <br/>
-                       <div class='Section3' id=''>
-                         <h1 class='IntroTitle'>Acknowledgements</h1>
-                       </div>
-                                        <div id='NN1' class='Note'>
-                          <p>
-                          <span class='note_label'>NOTE</span>
-                            &#160; Initial note
-                          </p>
+       #{HTML_HDR}
+                    <div class='authority'>
+                  <div class='boilerplate-copyright'>
+                    <div>
+                      <h1>Copyright</h1>
+                    </div>
+                  </div>
+                  <div class='boilerplate-license'>
+                    <div>
+                      <h1>License</h1>
+                    </div>
+                  </div>
+                  <div class='boilerplate-legal'>
+                    <div>
+                      <h1>Legal</h1>
+                    </div>
+                  </div>
+                  <div class='boilerplate-feedback'>
+                    <div>
+                      <h1>Feedback</h1>
+                    </div>
+                  </div>
+                </div>
+                    <br/>
+                        <div>
+                        <h1 class="AbstractTitle">Abstract</h1>
                         </div>
-                        <div id='NN2' class='Admonition'>
-                          <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
-                          <p>Initial admonition</p>
-                        </div>
-                                       <div id="D">
-                                         <h1>1.&#160; Scope</h1>
-                                         <p id="E">Text</p>
-                                       </div>
-                                       <div>
-                                         <h1>2.&#160; Normative References</h1>
-                                       </div>
-                                       <div id="H"><h1>3.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-                               <div id="I">
-                                  <h2>3.1.&#160; Normal Terms</h2>
-                                  <p class="TermNum" id="J">3.1.1.</p>
-                                  <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-                                </div><div id="K"><h2>3.2.&#160; Definitions</h2>
-                                  <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
-                                </div></div>
-                                       <div id="L" class="Symbols">
-                                         <h1>4.&#160; Symbols and abbreviated terms</h1>
-                                         <dl>
-                                           <dt>
-                                             <p>Symbol</p>
-                                           </dt>
-                                           <dd>Definition</dd>
-                                         </dl>
-                                       </div>
-                                       <div id="M">
-                                         <h1>5.&#160; Clause 4</h1>
-                                         <div id="N">
-                                  <h2>5.1.&#160; Introduction</h2>
+                                <br/>
+                                <div>
+                                  <h1 class="ForewordTitle">Foreword</h1>
+                                  <p id="A">This is a preamble</p>
                                 </div>
-                                         <div id="O">
-                                  <h2>5.2.&#160; Clause 4.2</h2>
+                                <br/>
+                                <div class="Section3" id="B">
+                                  <h1 class="IntroTitle">Introduction</h1>
+                                  <div id="C">
+                           <h2>Introduction Subsection</h2>
+                         </div>
                                 </div>
-                                         <div id="O1">
-                                  <h2>5.3.</h2>
+                                <br/>
+                <div class='Section3' id='B1'>
+                  <h1 class='IntroTitle'>Dedication</h1>
+                </div>
+                <br/>
+                <div class='Section3' id='B2'>
+                  <h1 class='IntroTitle'>Note to reader</h1>
+                </div>
+                                <br/>
+                <div class='Section3' id=''>
+                  <h1 class='IntroTitle'>Acknowledgements</h1>
+                </div>
+                                 <div id='NN1' class='Note'>
+                   <p>
+                   <span class='note_label'>NOTE</span>
+                     &#160; Initial note
+                   </p>
+                 </div>
+                 <div id='NN2' class='Admonition'>
+                   <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+                   <p>Initial admonition</p>
+                 </div>
+                                <div id="D">
+                                  <h1>1.&#160; Scope</h1>
+                                  <p id="E">Text</p>
                                 </div>
-                                       </div>
-                                       <br/>
-                                       <div id="P" class="Section3">
-                                         <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
-                                         <div id="Q">
-                                  <h2>A.1.&#160; Annex A.1</h2>
-                                  <div id="Q1">
-                                  <h3>A.1.1.&#160; Annex A.1a</h3>
+                                <div>
+                                  <h1>2.&#160; Normative References</h1>
+                                </div>
+                                <div id="H"><h1>3.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                        <div id="I">
+                           <h2>3.1.&#160; Normal Terms</h2>
+                           <p class="TermNum" id="J">3.1.1.</p>
+                           <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+                         </div><div id="K"><h2>3.2.&#160; Definitions</h2>
+                           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+                         </div></div>
+                                <div id="L" class="Symbols">
+                                  <h1>4.&#160; Symbols and abbreviated terms</h1>
+                                  <dl>
+                                    <dt>
+                                      <p>Symbol</p>
+                                    </dt>
+                                    <dd>Definition</dd>
+                                  </dl>
+                                </div>
+                                <div id="M">
+                                  <h1>5.&#160; Clause 4</h1>
+                                  <div id="N">
+                           <h2>5.1.&#160; Introduction</h2>
+                         </div>
+                                  <div id="O">
+                           <h2>5.2.&#160; Clause 4.2</h2>
+                         </div>
+                                  <div id="O1">
+                           <h2>5.3.</h2>
+                         </div>
+                                </div>
+                                <br/>
+                                <div id="P" class="Section3">
+                                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
+                                  <div id="Q">
+                           <h2>A.1.&#160; Annex A.1</h2>
+                           <div id="Q1">
+                           <h3>A.1.1.&#160; Annex A.1a</h3>
+                           </div>
+                           <div><h3 class="Section3">A.1.2.&#160; Annex Bibliography</h3></div>
+                         </div>
+                                </div>
+                                 <br/>
+                 <div id='P1' class='Section3'>
+                   <h1 class='Annex'>
+                     <b>Annex B</b>
+                     <br/>
+                     (normative)
+                   </h1>
+                 </div>
+                                <br/>
+                                <div>
+                                  <h1 class="Section3">Bibliography</h1>
+                                  <div>
+                                    <h2 class="Section3">Bibliography Subsection</h2>
                                   </div>
-                                  <div><h3 class="Section3">A.1.2.&#160; Annex Bibliography</h3></div>
+                               </div>
+                                               <br/>
+      <div class="Section3" id="U1">
+        <h1 class="IntroTitle">Postface 1</h1>
+      </div>
+      <div class="Section3" id="U2">
+        <h1 class="IntroTitle">Postface 2</h1>
+      </div>
                                 </div>
-                                       </div>
-                                        <br/>
-                        <div id='P1' class='Section3'>
-                          <h1 class='Annex'>
-                            <b>Annex B</b>
-                            <br/>
-                            (normative)
-                          </h1>
-                        </div>
-                                       <br/>
-                                       <div>
-                                         <h1 class="Section3">Bibliography</h1>
-                                         <div>
-                                           <h2 class="Section3">Bibliography Subsection</h2>
-                                         </div>
-                                      </div>
-                                                      <br/>
-             <div class="Section3" id="U1">
-               <h1 class="IntroTitle">Postface 1</h1>
-             </div>
-             <div class="Section3" id="U2">
-               <h1 class="IntroTitle">Postface 2</h1>
-             </div>
-                                       </div>
-                                     </div>
-                                   </body>
-                               </html>
+                              </div>
+                            </body>
+                        </html>
     OUTPUT
 
     word = <<~OUTPUT

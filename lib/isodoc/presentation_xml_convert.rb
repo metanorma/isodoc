@@ -8,6 +8,7 @@ require_relative "presentation_function/inline"
 require_relative "presentation_function/math"
 require_relative "presentation_function/section"
 require_relative "presentation_function/bibdata"
+require_relative "presentation_function/metadata"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -35,6 +36,7 @@ module IsoDoc
 
     def conversions(docxml)
       semantic_xml_insert(docxml)
+      metadata docxml
       bibdata docxml
       @xrefs.parse docxml
       section docxml
