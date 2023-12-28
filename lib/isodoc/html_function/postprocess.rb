@@ -85,7 +85,7 @@ module IsoDoc
       end
 
       def datauri(img)
-        img["src"] = Metanorma::Utils::datauri(img["src"], @localdir)
+        img["src"] = Vectory::Utils::datauri(img["src"], @localdir)
       end
 
       def image_suffix(img)
