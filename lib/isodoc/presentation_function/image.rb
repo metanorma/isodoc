@@ -5,11 +5,16 @@ module IsoDoc
     SVG = { "m" => "http://www.w3.org/2000/svg" }.freeze
 
     def figure(docxml)
-      docxml.xpath("//m:svg", SVG).each { |f| svg_wrap(f) }
-      docxml.xpath(ns("//image")).each { |f| svg_extract(f) }
+      svg_process(docxml)
       docxml.xpath(ns("//figure")).each { |f| figure1(f) }
       docxml.xpath(ns("//svgmap")).each { |s| svgmap_extract(s) }
       imageconvert(docxml)
+      image_size(docxml)
+    end
+
+    def svg_process(docxml)
+      docxml.xpath("//m:svg", SVG).each { |f| svg_wrap(f) }
+      docxml.xpath(ns("//image")).each { |f| svg_extract(f) }
     end
 
     def svg_wrap(elem)
@@ -32,24 +37,30 @@ module IsoDoc
       end
     end
 
-    def svg_extract(elem)
-      return unless %r{^data:image/svg\+xml;}.match?(elem["src"])
-      return if elem.at("./m:svg", SVG)
+    def image_size(docxml)
+      docxml.xpath(ns("//image[@width or @height]")).each do |i|
+        i.at("./m:svg", SVG) and next
+        ret = Metanorma::Utils.get_image_size(i, image_localfile(i)) or next
+        ret[0].map! { |x| x.nil? || x.zero? ? "auto" : x }
+        i["width"] = ret[0][0]
+        i["height"] = ret[0][1]
+      end
+    end
 
+    def svg_extract(elem)
+      %r{^data:image/svg\+xml;}.match?(elem["src"]) or return
+      elem.at("./m:svg", SVG) and return
       svg = Base64.strict_decode64(elem["src"]
         .sub(%r{^data:image/svg\+xml;(charset=[^;]+;)?base64,}, ""))
-      x = Nokogiri::XML.fragment(svg.sub(/<\?xml[^>]*>/, "")) do |config|
-        config.huge
-      end
       elem["src"] = ""
-      elem.children = x
+      elem.children = Nokogiri::XML.fragment(svg.sub(/<\?xml[^>]*>/, ""),
+                                             &:huge)
     end
 
     def figure1(elem)
-      return sourcecode1(elem) if elem["class"] == "pseudocode" ||
-        elem["type"] == "pseudocode"
-      return if elem.at(ns("./figure")) && !elem.at(ns("./name"))
-
+      elem["class"] == "pseudocode" ||
+        elem["type"] == "pseudocode" and return sourcecode1(elem)
+      elem.at(ns("./figure")) && !elem.at(ns("./name")) and return
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
       prefix_name(elem, block_delim,
                   l10n("#{figure_label(elem)} #{lbl}"), "name")
@@ -123,9 +134,7 @@ module IsoDoc
 
     def svg_to_emf(node)
       @output_formats[:doc] or return
-
       svg_impose_height_attr(node)
-
       if node.elements&.first&.name == "svg" || %r{^data:}.match?(node["src"])
         return svg_to_emf_from_node(node)
       end

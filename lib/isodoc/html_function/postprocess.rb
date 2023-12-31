@@ -66,7 +66,7 @@ module IsoDoc
       def resize_images(docxml)
         docxml.xpath("//*[local-name() = 'img' or local-name() = 'svg']")
           .each do |i|
-          i["width"], i["height"] = Html2Doc.new({})
+          i["width"], i["height"] = Metanorma::Utils
             .image_resize(i, image_localfile(i), @maxheight, @maxwidth)
         end
         docxml
