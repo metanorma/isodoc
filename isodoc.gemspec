@@ -43,7 +43,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
   spec.add_dependency "uuidtools"
-  spec.add_dependency "vectory", "~> 0.5"
+  spec.add_dependency "vectory", "~> 0.6"
 
   spec.add_development_dependency "debug"
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
