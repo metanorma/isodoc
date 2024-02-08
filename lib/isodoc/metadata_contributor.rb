@@ -58,8 +58,8 @@ module IsoDoc
     def iso?(org)
       name = org&.at(ns("./name"))&.text
       abbrev = org&.at(ns("./abbreviation"))&.text
-      (abbrev == "ISO" ||
-       name == "International Organization for Standardization")
+      abbrev == "ISO" ||
+        name == "International Organization for Standardization"
     end
 
     def agency1(xml)

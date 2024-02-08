@@ -16,7 +16,7 @@ module IsoDoc
       s = docxml.at(ns("//sections")) ||
         docxml.at(ns("//preface"))&.after("<sections/>")&.next_element ||
         docxml.at(ns("//annex | //bibliography"))&.before("<sections/>")
-        &.previous_element or return
+          &.previous_element or return
       docxml.xpath(ns(@xrefs.klass.norm_ref_xpath)).each do |r|
         s << r.remove
       end
@@ -163,7 +163,7 @@ module IsoDoc
     # else, use both ordinal, as prefix, and ids
     def biblio_ref_entry_code(ordinal, ids, _id, _standard, datefn, _bib)
       # standard and id = nil
-      ret = (ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]")
+      ret = ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]"
       if ids[:sdo]
         ret = prefix_bracketed_ref(ret)
         ret += "#{ids[:sdo]}#{datefn}, "

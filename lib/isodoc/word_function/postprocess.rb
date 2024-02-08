@@ -99,7 +99,7 @@ module IsoDoc
       def word_tab_clean(docxml)
         docxml.xpath("//p[@class='Biblio']//span[@style='mso-tab-count:1']")
           .each do |s|
-          s.next.text? or next
+          s.next&.text? or next
           s.next.replace(@c.encode(s.next.text.sub(/^\s+/, ""), :hexadecimal))
         end
       end
