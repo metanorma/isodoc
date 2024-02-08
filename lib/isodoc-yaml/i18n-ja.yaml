@@ -31,6 +31,7 @@ external_terms_boilerplate: |
           <p>この規格で用いる主な用語及び定義は，% による。</p>
 internal_external_terms_boilerplate: |
           <p>この規格で用いる主な用語及び定義は，次によるほか，% による。</p>
+no_information_available: "[情報はありません]"
 term_defined_in: "(%)"
 binary_and: "%1 and %2"
 multiple_and: "%1, and %2"

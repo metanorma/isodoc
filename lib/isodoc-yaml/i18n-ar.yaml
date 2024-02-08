@@ -30,6 +30,7 @@ external_terms_boilerplate: |
   <p> لأغراض هذا المستند ، تنطبق المصطلحات والتعريفات الواردة في%. </ p>
 internal_external_terms_boilerplate: |
   <p>لأغراض هذه الوثيقة ،تنطبق المصطلحات والتعاريف الواردة في % وما يلي.</p>
+no_information_available: "[لا توجد معلومات متاحة]"
 term_defined_in: "(%)"
 binary_and: "%1 و %2"
 multiple_and: "%1, و %2"

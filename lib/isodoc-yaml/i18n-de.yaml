@@ -32,6 +32,7 @@ external_terms_boilerplate: |
           <p>Für die Zwecke dieses Dokuments gelten die in % angegebenen Begriffe und Definitionen.</p>
 internal_external_terms_boilerplate: |
           <p>Für die Zwecke dieses Dokuments gelten die in % und im Folgenden aufgeführten Begriffe und Definitionen.</p>
+no_information_available: "[KEINE INFORMATION VERFÜGBAR]"
 term_defined_in: "(%)"
 binary_and: "%1 und %2"
 multiple_and: "%1, und %2"

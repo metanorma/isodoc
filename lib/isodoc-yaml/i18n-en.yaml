@@ -38,6 +38,7 @@ external_terms_boilerplate: |
 internal_external_terms_boilerplate: |
           <p>For the purposes of this document, the terms and definitions 
             given in % and the following apply.</p>
+no_information_available: "[NO INFORMATION AVAILABLE]"
 term_defined_in: "(%)"
 binary_and: "%1 and %2"
 multiple_and: "%1, and %2"

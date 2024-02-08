@@ -34,6 +34,7 @@ external_terms_boilerplate: |
           <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en %.</p>
 internal_external_terms_boilerplate: |
           <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en % y los siguientes.</p>
+no_information_available: "[NO HAY INFORMACIÓN DISPONIBLE]"
 term_defined_in: "(%)"
 binary_and: "%1 y %2"
 multiple_and: "%1, y %2"

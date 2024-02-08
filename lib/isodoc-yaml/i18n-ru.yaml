@@ -37,6 +37,7 @@ external_terms_boilerplate: |
 internal_external_terms_boilerplate: |
           <p>Для целей этого документа применяются 
             термины и определения, данные в % и следующие.</p>
+no_information_available: "[ИНФОРМАЦИЯ ОТСУТСТВУЕТ]"
 term_defined_in: "(%)"
 binary_and: "%1 и %2"
 multiple_and: "%1, и %2"
