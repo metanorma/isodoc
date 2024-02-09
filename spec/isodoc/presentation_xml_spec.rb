@@ -1488,6 +1488,41 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to (presxml)
   end
 
+  it "realises text-transform" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+        <preface>
+          <foreword id="A">
+            <p id="_214f7090-c6d4-8fdc-5e6a-837ebb515871">
+            AB<span style="x:y">C</span>D<span style="x:y; text-transform:uppercase">aBc</span>
+            <span style="text-transform:uppercase">a<em>b</em>c</span>
+            <span style="text-transform:lowercase">A<em>B</em>C</span>
+            <span style="text-transform:capitalize">a<em>b</em>c abc</span>
+            <span style="text-transform:capitalize">a<em>b</em>c   abc</span>
+            </p>
+       </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+         <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+
+           <foreword id="A" displayorder="2">
+             <p id="_">
+             AB<span style="x:y">C</span>D<span style="x:y;text-transform:none">ABC</span>
+             <span style="text-transform:none">A<em>B</em>C</span>
+             <span style="text-transform:none">a<em>b</em>c</span>
+             <span style="text-transform:none">A<em>b</em>c Abc</span>
+             <span style="text-transform:none">A<em>b</em>c   Abc</span>
+             </p>
+        </foreword></preface></standard-document>
+    OUTPUT
+    expect(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .to be_equivalent_to (presxml)
+  end
+
   it "supplies formats in passthrough" do
     input = <<~INPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
