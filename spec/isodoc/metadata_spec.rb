@@ -11,7 +11,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata type="standard">
         <title>The Incredible Mr Ripley</title>
-        <title language="en">Cereals and pulses</title>
+        <title language="en">Cereals and pulses H<sup>2</sup>O</title>
         <uri>URL A</uri>
         <uri type="html">URL B</uri>
         <uri type="xml">URL C</uri>
@@ -145,7 +145,7 @@ RSpec.describe IsoDoc do
       :doc=>"URL E",
       :docnumber=>"17301-1",
       :docnumeric=>"17301",
-      :doctitle=>"Cereals and pulses",
+      :doctitle=>"Cereals and pulses H<sup>2</sup>O",
       :doctype=>"International Standard",
       :doctype_display=>"International Standard",
       :docyear=>"2016",
