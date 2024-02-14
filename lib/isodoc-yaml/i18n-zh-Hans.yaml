@@ -47,6 +47,7 @@ nested_xref: "%1, %2"
 list_nested_xref: "%1 %2"
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
+SpelloutRules: digits-ordinal
 note: 注
 note_xref: 注
 termnote: 注%

@@ -52,6 +52,13 @@ SpelloutRules:
   m.pl: spellout-ordinal
   f.pl: spellout-ordinal
   n.pl: spellout-ordinal
+OrdinalRules:
+  m.sg: spellout-ordinal-r
+  f.sg: spellout-ordinal
+  n.sg: spellout-ordinal-s
+  m.pl: spellout-ordinal
+  f.pl: spellout-ordinal
+  n.pl: spellout-ordinal
 note: HINWEIS
 note_xref: Hinweis
 termnote: Hinweis % zum Eintrag

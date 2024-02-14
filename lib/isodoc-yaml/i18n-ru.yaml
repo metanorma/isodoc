@@ -57,6 +57,13 @@ SpelloutRules:
   m.pl: spellout-ordinal-plural
   f.pl: spellout-ordinal-plural
   n.pl: spellout-ordinal-plural
+OrdinalRules:
+  m.sg: digits-ordinal-masculine
+  f.sg: digits-ordinal-feminine
+  n.sg: digits-ordinal-neuter
+  m.pl: digits-ordinal-plural
+  f.pl: digits-ordinal-plural
+  n.pl: digits-ordinal-plural
 note: ПРИМЕЧАНИЕ
 note_xref: Примечание
 termnote: Примечание % к определению

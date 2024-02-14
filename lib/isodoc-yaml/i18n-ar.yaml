@@ -46,6 +46,7 @@ ordinal_keys: [gender]
 SpelloutRules:
   f: spellout-ordinal-feminine
   m: spellout-ordinal-masculine
+OrdinalRules: digits-ordinal
 note: ملاحظة
 note_xref: ملاحظة
 termnote: ملاحظة % للقيد

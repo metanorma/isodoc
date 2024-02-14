@@ -46,6 +46,7 @@ list_nested_xref: "%1の%2"
 no_conflate_xref_locations: true
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
+OrdinalRules: digits-ordinal
 note: 注記
 note_xref: 注記
 termnote: 注釈%

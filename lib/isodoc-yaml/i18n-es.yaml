@@ -52,6 +52,11 @@ SpelloutRules:
   f.sg: spellout-ordinal-feminine
   m.pl: spellout-ordinal-masculine-plural
   f.pl: spellout-ordinal-feminine-plural
+OrdinalRules:
+  m.sg: digits-ordinal-masculine
+  f.sg: digits-ordinal-feminine
+  m.pl: digits-ordinal-masculine-plural
+  f.pl: digits-ordinal-feminine-plural
 note: NOTA
 note_xref: Nota
 termnote: Nota % a la entrada
