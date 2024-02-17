@@ -88,7 +88,7 @@ deprecated: VERALTET
 source: QUELLE
 and: und
 all_parts: Alle Teile
-edition_ordinal: "%Spellout Auflage"
+edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} Auflage"
 edition: Auflage
 version: Version
 toc_figures: Abbildungsverzeichnis
@@ -209,4 +209,5 @@ inflection:
     sg: Seite
     pl: Seiten
   Auflage:
-    gender: f
+    grammar:
+      gender: f

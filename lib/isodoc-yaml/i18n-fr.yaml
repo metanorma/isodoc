@@ -85,7 +85,7 @@ edition: édition
 version: version
 and: et
 all_parts: toutes les parties
-edition_ordinal: "%Spellout édition"
+edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} édition"
 edition: édition
 toc_figures: Table des figures
 toc_tables: Table des tableaux
@@ -205,4 +205,5 @@ inflection:
     sg: Page
     pl: Pages
   édition:
-    gender: f
+    grammar:
+      gender: f

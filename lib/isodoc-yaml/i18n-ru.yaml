@@ -93,7 +93,7 @@ deprecated: НЕ РЕКОМЕНДУЕТСЯ
 source: ИСТОЧНИК
 and: и
 all_parts: Все части
-edition_ordinal: "%Spellout издание"
+edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} издание"
 edition: издание
 version: версия
 toc_figures: Таблица фигур

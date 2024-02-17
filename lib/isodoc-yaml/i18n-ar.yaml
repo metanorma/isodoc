@@ -76,7 +76,7 @@ deprecated: مهمل
 source: مصدر
 and: و
 all_parts: كل الأجزاء
-edition_ordinal: "الطبعة؜ %Spellout؜"
+edition_ordinal: "ﺎﻠﻄﺒﻋﺓ؜ {{ var1 | ordinal_word: 'edition', '' }}
 edition: الطبعة؜ ؜
 version: الإصدار
 toc_figures: جدول الأرقام
@@ -197,4 +197,5 @@ inflection:
     sg: صفحة
     pl: صفحات
   الطبعة؜:
-    gender: f
+    grammar:
+      gender: f
