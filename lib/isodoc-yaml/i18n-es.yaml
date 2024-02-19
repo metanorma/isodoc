@@ -86,7 +86,7 @@ deprecated: OBSOLETO
 source: FUENTE
 and: y
 all_parts: Todas las partes
-edition_ordinal: "%Spellout edición"
+edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} edición"
 edition: edición
 version: versión
 toc_figures: Table de figuras
@@ -207,4 +207,5 @@ inflection:
     sg: Página
     pl: Páginas
   edición:
-    gender: f
+    grammar:
+      gender: f

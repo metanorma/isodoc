@@ -59,21 +59,8 @@ module IsoDoc
       x = bibdata.at(ns("./edition")) or return
       /^\d+$/.match?(x.text) or return
       @i18n.edition_ordinal or return
-      edn = edition_translate1(x.text.to_i) or return
-      tag_translate(x, @lang,
-                    @i18n.edition_ordinal.sub(/%(Spellout|Ordinal)?/, edn))
-    end
-
-    def edition_translate1(num)
-      ruleset = case @i18n.edition_ordinal
-                when /%Spellout/ then "SpelloutRules"
-                when /%Ordinal/ then "OrdinalRules"
-                else "Digit"
-                end
-      ruleset == "Digit" and return num.to_s
-      ed = @c.decode(@i18n.edition)
-      @i18n.inflect_ordinal(num, @i18n.inflection&.dig(ed) || {},
-                            ruleset)
+      tag_translate(x, @lang, @i18n
+        .populate("edition_ordinal", { "var1" => x.text.to_i }))
     end
 
     def tag_translate(tag, lang, value)

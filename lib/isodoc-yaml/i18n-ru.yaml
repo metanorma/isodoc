@@ -49,21 +49,81 @@ chain_from: "%1 от %2"
 chain_to: "%1 до %2"
 nested_xref: "%1, %2"
 list_nested_xref: "%1 %2"
-ordinal_keys: [gender,number]
+ordinal_keys: [gender,number,case]
 SpelloutRules:
-  m.sg: spellout-ordinal-masculine
-  f.sg: spellout-ordinal-feminine
-  n.sg: spellout-ordinal-neuter
-  m.pl: spellout-ordinal-plural
-  f.pl: spellout-ordinal-plural
-  n.pl: spellout-ordinal-plural
+  m.sg.nom: spellout-ordinal-masculine
+  m.sg.gen: spellout-ordinal-masculine-genitive
+  m.sg.dat: spellout-ordinal-masculine-dative
+  m.sg.acc: spellout-ordinal-masculine-accusative
+  m.sg.loc: spellout-ordinal-masculine-locative
+  m.sg.ins: spellout-ordinal-masculine-ablative
+  f.sg.nom: spellout-ordinal-feminine
+  f.sg.gen: spellout-ordinal-feminine-genitive
+  f.sg.dat: spellout-ordinal-feminine-dative
+  f.sg.acc: spellout-ordinal-feminine-accusative
+  f.sg.loc: spellout-ordinal-feminine-locative
+  f.sg.ins: spellout-ordinal-feminine-ablative
+  n.sg.nom: spellout-ordinal-neuter
+  n.sg.gen: spellout-ordinal-neuter-genitive
+  n.sg.dat: spellout-ordinal-neuter-dative
+  n.sg.acc: spellout-ordinal-neuter-accusative
+  n.sg.loc: spellout-ordinal-neuter-locative
+  n.sg.ins: spellout-ordinal-neuter-ablative
+  m.pl.nom: spellout-ordinal-plural
+  m.pl.gen: spellout-ordinal-plural-genitive
+  m.pl.dat: spellout-ordinal-plural-dative
+  m.pl.acc: spellout-ordinal-plural-accusative
+  m.pl.loc: spellout-ordinal-plural-locative
+  m.pl.ins: spellout-ordinal-plural-ablative
+  f.pl.nom: spellout-ordinal-plural
+  f.pl.gen: spellout-ordinal-plural-genitive
+  f.pl.dat: spellout-ordinal-plural-dative
+  f.pl.acc: spellout-ordinal-plural-accusative
+  f.pl.loc: spellout-ordinal-plural-locative
+  f.pl.ins: spellout-ordinal-plural-ablative
+  n.pl.nom: spellout-ordinal-plural
+  n.pl.gen: spellout-ordinal-plural-genitive
+  n.pl.dat: spellout-ordinal-plural-dative
+  n.pl.acc: spellout-ordinal-plural-accusative
+  n.pl.loc: spellout-ordinal-plural-locative
+  n.pl.ins: spellout-ordinal-plural-ablative
 OrdinalRules:
-  m.sg: digits-ordinal-masculine
-  f.sg: digits-ordinal-feminine
-  n.sg: digits-ordinal-neuter
-  m.pl: digits-ordinal-plural
-  f.pl: digits-ordinal-plural
-  n.pl: digits-ordinal-plural
+  m.sg.nom: digits-ordinal-masculine
+  m.sg.gen: digits-ordinal-masculine-genitive
+  m.sg.dat: digits-ordinal-masculine-dative
+  m.sg.acc: digits-ordinal-masculine-accusative
+  m.sg.loc: digits-ordinal-masculine-locative
+  m.sg.ins: digits-ordinal-masculine-ablative
+  f.sg.nom: digits-ordinal-feminine
+  f.sg.gen: digits-ordinal-feminine-genitive
+  f.sg.dat: digits-ordinal-feminine-dative
+  f.sg.acc: digits-ordinal-feminine-accusative
+  f.sg.loc: digits-ordinal-feminine-locative
+  f.sg.ins: digits-ordinal-feminine-ablative
+  n.sg.nom: digits-ordinal-neuter
+  n.sg.gen: digits-ordinal-neuter-genitive
+  n.sg.dat: digits-ordinal-neuter-dative
+  n.sg.acc: digits-ordinal-neuter-accusative
+  n.sg.loc: digits-ordinal-neuter-locative
+  n.sg.ins: digits-ordinal-neuter-ablative
+  m.pl.nom: digits-ordinal-plural
+  m.pl.gen: digits-ordinal-plural-genitive
+  m.pl.dat: digits-ordinal-plural-dative
+  m.pl.acc: digits-ordinal-plural-accusative
+  m.pl.loc: digits-ordinal-plural-locative
+  m.pl.ins: digits-ordinal-plural-ablative
+  f.pl.nom: digits-ordinal-plural
+  f.pl.gen: digits-ordinal-plural-genitive
+  f.pl.dat: digits-ordinal-plural-dative
+  f.pl.acc: digits-ordinal-plural-accusative
+  f.pl.loc: digits-ordinal-plural-locative
+  f.pl.ins: digits-ordinal-plural-ablative
+  n.pl.nom: digits-ordinal-plural
+  n.pl.gen: digits-ordinal-plural-genitive
+  n.pl.dat: digits-ordinal-plural-dative
+  n.pl.acc: digits-ordinal-plural-accusative
+  n.pl.loc: digits-ordinal-plural-locative
+  n.pl.ins: digits-ordinal-plural-ablative
 note: ПРИМЕЧАНИЕ
 note_xref: Примечание
 termnote: Примечание % к определению
@@ -93,7 +153,7 @@ deprecated: НЕ РЕКОМЕНДУЕТСЯ
 source: ИСТОЧНИК
 and: и
 all_parts: Все части
-edition_ordinal: "%Spellout издание"
+edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} издание"
 edition: издание
 version: версия
 toc_figures: Таблица фигур
@@ -214,4 +274,5 @@ inflection:
     sg: Стр.
     pl: Стр.
   издание:
-    gender: n
+    grammar:
+      gender: n

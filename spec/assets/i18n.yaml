@@ -38,5 +38,5 @@ ordinal_keys: [number]
 SpelloutRules: 
   sg: spellout-ordinal
   pl: spellout-ordinal
-edition_ordinal: "eldono %Spellout"
+edition_ordinal: "eldono {{ var1 | ordinal_word: edition, '' }}"
 edition: eldono
