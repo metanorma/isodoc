@@ -66,8 +66,8 @@ module IsoDoc
       def resize_images(docxml)
         docxml.xpath("//*[local-name() = 'img' or local-name() = 'svg']")
           .each do |i|
-          i["width"], i["height"] = Html2Doc.new({})
-            .image_resize(i, image_localfile(i), @maxheight, @maxwidth)
+          i["width"], i["height"] = Vectory::ImageResize.new
+            .call(i, image_localfile(i), @maxheight, @maxwidth)
         end
         docxml
       end
@@ -77,8 +77,7 @@ module IsoDoc
         FileUtils.rm_rf tmpimagedir
         FileUtils.mkdir tmpimagedir
         docxml.xpath("//*[local-name() = 'img']").each do |i|
-          next if /^data:/.match? i["src"]
-
+          /^data:/.match? i["src"] and next
           @datauriimage ? datauri(i) : move_image1(i)
         end
         docxml

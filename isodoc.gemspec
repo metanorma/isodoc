@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   end
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
-  spec.add_dependency "html2doc", "~> 1.7.1"
+  spec.add_dependency "html2doc", "~> 1.8.1"
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
   # spec.add_dependency "relaton-cli"
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
@@ -41,7 +41,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
   spec.add_dependency "uuidtools"
-  spec.add_dependency "vectory", "~> 0.6"
 
   spec.add_development_dependency "debug"
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
