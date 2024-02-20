@@ -36,8 +36,7 @@ module IsoDoc
       def word_admonition_images(docxml)
         docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
           i["width"], i["height"] =
-            Html2Doc.new({}).image_resize(i, image_localfile(i), @maxheight,
-                                          300)
+            Vectory.image_resize(i, image_localfile(i), @maxheight, 300)
         end
       end
 
