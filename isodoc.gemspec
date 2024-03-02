@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mn2pdf"
   spec.add_dependency "mn-requirements", "~> 0.3.4"
 
-  spec.add_dependency "relaton-render", "~> 0.7.0"
+  spec.add_dependency "relaton-render", "~> 0.7.1"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
   spec.add_dependency "thread_safe"
