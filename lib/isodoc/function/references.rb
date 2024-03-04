@@ -29,33 +29,16 @@ module IsoDoc
       SKIP_DOCID = <<~XPATH.strip.freeze
         @type = 'DOI' or @type = 'doi' or @type = 'ISSN' or @type = 'issn' or @type = 'ISBN' or @type = 'isbn' or starts-with(@type, 'ISSN.') or starts-with(@type, 'ISBN.') or starts-with(@type, 'issn.') or starts-with(@type, 'isbn.')
       XPATH
-=begin
-      SKIP_DOC1 = <<~XPATH.strip.freeze
-        #{SKIP_DOCID} or @type = 'metanorma-ordinal' or @type = 'metanorma'
-      XPATH
 
-      PRIMARY_ID = "docidentifier[@primary = 'true']".freeze
-=end
       def pref_ref_code(bib)
         bib["suppress_identifier"] == "true" and return nil
         @bibrenderer ||= bibrenderer
         data, = @bibrenderer.parse(bib)
-        ret = data[:authoritative_identifier]
+        ret = data[:authoritative_identifier] or return nil
         ret.empty? and return nil
         ret
       end
-=begin
-      def pref_ref_code1(bib)
-        lang = "[@language = '#{@lang}']"
-        ret = bib.xpath(ns("./#{PRIMARY_ID}[not(#{SKIP_DOCID})]#{lang}"))
-        ret.empty? and
-          ret = bib.xpath(ns("./#{PRIMARY_ID}[not(#{SKIP_DOCID})]"))
-        ret.empty? and
-          ret = bib.at(ns("./docidentifier[not(#{SKIP_DOC1})]#{lang}")) ||
-            bib.at(ns("./docidentifier[not(#{SKIP_DOC1})]"))
-        ret
-      end
-=end
+
       # returns [metanorma, non-metanorma, DOI/ISSN/ISBN] identifiers
       def bibitem_ref_code(bib)
         id = bib.at(ns("./docidentifier[@type = 'metanorma']"))
