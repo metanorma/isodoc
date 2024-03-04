@@ -37,7 +37,7 @@ module IsoDoc
         prep_for_rendering(b)
         m << to_xml(b)
       end.join
-      bibrenderer.render_all("<references>#{refs}</references>",
+      @xrefs.klass.bibrenderer.render_all("<references>#{refs}</references>",
                              type: citestyle)
     end
 
