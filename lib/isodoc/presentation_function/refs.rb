@@ -68,10 +68,6 @@ module IsoDoc
       xml.children = "#{f}#{x.to_xml}"
     end
 
-    def bibrenderer
-      ::Relaton::Render::IsoDoc::General.new(language: @lang)
-    end
-
     def citestyle
       nil
     end

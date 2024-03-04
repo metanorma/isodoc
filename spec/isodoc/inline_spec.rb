@@ -1194,9 +1194,9 @@ RSpec.describe IsoDoc do
           <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
       <bibitem id="ISO712" type="standard">
         <title format="text/plain">Cereals and cereal products</title>
-        <uri type="citation">http://www.example.com</uri>
-        <uri type="citation" language="en">http://www.example.com/en</uri>
-        <uri type="citation" language="fr">http://www.example.com/fr</uri>
+        <uri type="citation">https://www.google.com</uri>
+        <uri type="citation" language="en">https://www.google.com/en</uri>
+        <uri type="citation" language="fr">https://www.google.com/fr</uri>
         <docidentifier>ISO 712</docidentifier>
         <contributor>
           <role type="publisher"/>
@@ -1241,8 +1241,8 @@ RSpec.describe IsoDoc do
          <clause type="toc" id="_" displayorder="1"> <title depth="1">Sommaire</title> </clause>
            <foreword displayorder='2'>
              <p>
-               <link target="http://www.example.com/fr">ISO 712</link>
-               <link target="http://www.example.com/fr">ISO 712</link>
+               <link target="https://www.google.com/fr">ISO 712</link>
+               <link target="https://www.google.com/fr">ISO 712</link>
                <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
                <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
                <link target="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</link>
@@ -1271,12 +1271,12 @@ RSpec.describe IsoDoc do
                <formattedref>
                  <em>Cereals and cereal products</em>
                  .
-                 <link target='http://www.example.com/fr'>http://www.example.com/fr</link>
+                 <link target='https://www.google.com/fr'>https://www.google.com/fr</link>
                  .
                </formattedref>
-               <uri type='citation'>http://www.example.com</uri>
-               <uri type='citation' language='en'>http://www.example.com/en</uri>
-               <uri type='citation' language='fr'>http://www.example.com/fr</uri>
+               <uri type='citation'>https://www.google.com</uri>
+               <uri type='citation' language='en'>https://www.google.com/en</uri>
+               <uri type='citation' language='fr'>https://www.google.com/fr</uri>
                <docidentifier>ISO&#xa0;712</docidentifier>
                <biblio-tag>ISO&#xa0;712,</biblio-tag>
              </bibitem>
@@ -1331,8 +1331,8 @@ RSpec.describe IsoDoc do
              <div>
                <h1 class='ForewordTitle'>Avant-propos</h1>
                <p>
-                 <a href='http://www.example.com/fr'>ISO&#xa0;712</a>
-                 <a href='http://www.example.com/fr'>ISO&#xa0;712</a>
+                 <a href='https://www.google.com/fr'>ISO&#xa0;712</a>
+                 <a href='https://www.google.com/fr'>ISO&#xa0;712</a>
                  <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
                  <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
                  <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 et Article 1 </a>
@@ -1355,7 +1355,7 @@ RSpec.describe IsoDoc do
                  ISO&#xa0;712,
                  <i>Cereals and cereal products</i>
                   .
-                 <a href='http://www.example.com/fr'>http://www.example.com/fr</a>
+                 <a href='https://www.google.com/fr'>https://www.google.com/fr</a>
                   .
                </p>
                <p id='ISO713' class='NormRef'>
@@ -1399,8 +1399,8 @@ RSpec.describe IsoDoc do
                  <div>
                <h1 class="ForewordTitle">Avant-propos</h1>
                <p>
-                 <a href="http://www.example.com/fr">ISO 712</a>
-                 <a href="http://www.example.com/fr">ISO 712</a>
+                 <a href="https://www.google.com/fr">ISO 712</a>
+                 <a href="https://www.google.com/fr">ISO 712</a>
                  <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
                  <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
                  <a href="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</a>
@@ -1432,7 +1432,7 @@ RSpec.describe IsoDoc do
                <p id="ISO712" class="NormRef">ISO 712,
                     <i>Cereals and cereal products</i>
                     .
-                    <a href="http://www.example.com/fr">http://www.example.com/fr</a>
+                    <a href="https://www.google.com/fr">https://www.google.com/fr</a>
                     .
                   </p>
                <p id="ISO713" class="NormRef">ISO 713,

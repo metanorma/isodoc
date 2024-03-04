@@ -84,6 +84,11 @@ module IsoDoc
       Metanorma::Requirements
     end
 
+    def bibrenderer(options = {})
+      ::Relaton::Render::IsoDoc::General.new(options.merge(language: @lang,
+                                                          i18nhash: @i18n.get))
+    end
+
     def convert1(docxml, filename, dir)
       @xrefs.parse docxml
       noko do |xml|
