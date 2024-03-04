@@ -25,7 +25,9 @@ module IsoDoc
     def hidden_items(docxml)
       docxml.xpath(ns("//references[bibitem/@hidden = 'true']")).each do |x|
         x.at(ns("./bibitem[not(@hidden = 'true')]")) and next
-        x.elements.map(&:name).any? { |n| n != "bibitem" } and next
+        x.elements.map(&:name).any? do |n|
+          !%w(title bibitem).include?(n)
+        end and next
         x["hidden"] = "true"
       end
     end
