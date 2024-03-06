@@ -16,7 +16,6 @@ module IsoDoc
       end
 
       def preprocess_xslt(docxml)
-
         super
       end
 
@@ -103,12 +102,14 @@ module IsoDoc
         ret
       end
 
-      def image_parse(node, out, caption)
+      def image_body_parse(node, attrs, out)
         if svg = node.at("./m:svg", "m" => "http://www.w3.org/2000/svg")
-          svg_parse(svg, out)
-          return
+          attrs.delete("src")
+          out.img **attr_code(attrs) do |i|
+            i << svg
+          end
+        else super
         end
-        super
       end
     end
   end
