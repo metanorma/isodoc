@@ -19,6 +19,7 @@ module IsoDoc
     end
 
     def convert1(docxml, _filename, _dir)
+      docid_prefixes(docxml) # feeds @xrefs.parse citation processing
       @xrefs.parse docxml
       bibitem_lookup(docxml)
       info docxml, nil

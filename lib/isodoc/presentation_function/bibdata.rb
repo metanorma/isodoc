@@ -3,7 +3,6 @@ require "csv"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def bibdata(docxml)
-      docid_prefixes(docxml)
       a = bibdata_current(docxml) or return
       address_precompose(a)
       bibdata_i18n(a)

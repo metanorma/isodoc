@@ -234,38 +234,35 @@ RSpec.describe IsoDoc do
             <p>
               <ul>
                 <li>
-      #{'    '}
               (<xref target="clause1">Clause 2</xref>)
             </li>
-                <li><em>term</em>#{' '}
+                <li><em>term</em>
               (<xref target="clause1">Clause 2</xref>)
             </li>
-                <li><em>w[o]rd</em>#{' '}
+                <li><em>w[o]rd</em>
               [<xref target="clause1">Clause #1</xref>]
             </li>
-                <li><em>term</em>#{' '}
+                <li><em>term</em>
               (<xref type="inline" target="ISO712">ISO 712</xref>)
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               [<xref type="inline" target="ISO712">The Aforementioned Citation</xref>]
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               (<xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>)
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               (<xref type="inline" target="ISO712">ISO 712, Clause 3.1 and Figure b</xref>)
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               [<xref type="inline" target="ISO712">
-      #{'        '}
-      #{'        '}
               The Aforementioned Citation
               </xref>]
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               (<termref base="IEV" target="135-13-13"/>)
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               [<termref base="IEV" target="135-13-13">The IEV database</termref>]
             </li>
                 <li>
@@ -285,6 +282,7 @@ RSpec.describe IsoDoc do
             <bibitem id="ISO712" type="standard">
               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type="ISO">ISO 712</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
               <biblio-tag>ISO 712, </biblio-tag>
             </bibitem>
           </references>
@@ -982,6 +980,7 @@ RSpec.describe IsoDoc do
                 <em>Cereals and cereal products</em>
               </formattedref>
               <docidentifier>ISO 712</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
               <contributor>
                 <role type="publisher"/>
                 <organization>
@@ -995,6 +994,7 @@ RSpec.describe IsoDoc do
                 <em>Cereals and cereal products</em>
               </formattedref>
               <docidentifier>ISO 713</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 713</docidentifier>
               <contributor>
                 <role type="publisher"/>
                 <organization>
@@ -1116,6 +1116,7 @@ RSpec.describe IsoDoc do
             <bibitem id="ISO712" type="standard">
               <formattedref><em>Cereals and cereal products</em>.</formattedref>
               <docidentifier>ISO&#xa0;712</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
               <biblio-tag>ISO&#xa0;712,</biblio-tag>
             </bibitem>
                 </references>
@@ -1232,6 +1233,8 @@ RSpec.describe IsoDoc do
           </bibliography>
           </iso-standard>
     INPUT
+    date = Date.today.localize(:fr).with_timezone(timezone_identifier_local)
+      .to_date.to_long_s
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
          <bibdata>
@@ -1268,39 +1271,27 @@ RSpec.describe IsoDoc do
                Normative References
              </title>
              <bibitem id='ISO712' type='standard'>
-               <formattedref>
-                 <em>Cereals and cereal products</em>
-                 .
-                 <link target='https://www.google.com/fr'>https://www.google.com/fr</link>
-                 .
-               </formattedref>
+                 <formattedref><em>Cereals and cereal products</em>. <link target="https://www.google.com/fr">https://www.google.com/fr</link>. [vu : #{date}].</formattedref>
                <uri type='citation'>https://www.google.com</uri>
                <uri type='citation' language='en'>https://www.google.com/en</uri>
                <uri type='citation' language='fr'>https://www.google.com/fr</uri>
                <docidentifier>ISO&#xa0;712</docidentifier>
+               <docidentifier scope="biblio-tag">ISO 712</docidentifier>
                <biblio-tag>ISO&#xa0;712,</biblio-tag>
              </bibitem>
              <bibitem id='ISO713' type='standard'>
-               <formattedref>
-                 <em>Cereals and cereal products</em>
-                 .
-                 <link target='spec/assets/iso713'>spec/assets/iso713</link>
-                 .
-               </formattedref>
+                <formattedref><em>Cereals and cereal products</em>. <link target="spec/assets/iso713">spec/assets/iso713</link>. [vu : #{date}].</formattedref>
                <uri type='citation'>spec/assets/iso713</uri>
                <uri type='citation'>spec/assets/iso714</uri>
                <docidentifier>ISO&#xa0;713</docidentifier>
+               <docidentifier scope="biblio-tag">ISO 713</docidentifier>
                <biblio-tag>ISO&#xa0;713,</biblio-tag>
              </bibitem>
              <bibitem id='ISO714' type='standard'>
-               <formattedref>
-                 <em>Cereals and cereal products</em>
-                 .
-                 <link target='spec/assets/iso714.svg'>spec/assets/iso714.svg</link>
-                 .
-               </formattedref>
+                <formattedref><em>Cereals and cereal products</em>. <link target="spec/assets/iso714.svg">spec/assets/iso714.svg</link>. [vu : #{date}].</formattedref>
                <uri type='citation'>spec/assets/iso714.svg</uri>
                <docidentifier>ISO&#xa0;714</docidentifier>
+               <docidentifier scope="biblio-tag">ISO 714</docidentifier>
                <biblio-tag>ISO&#xa0;714,</biblio-tag>
              </bibitem>
            </references>
@@ -1356,21 +1347,21 @@ RSpec.describe IsoDoc do
                  <i>Cereals and cereal products</i>
                   .
                  <a href='https://www.google.com/fr'>https://www.google.com/fr</a>
-                  .
+                  . [vu : #{date}].
                </p>
                <p id='ISO713' class='NormRef'>
                  ISO&#xa0;713,
                  <i>Cereals and cereal products</i>
                   .
                  <a href='spec/assets/iso713'>spec/assets/iso713</a>
-                  .
+                  . [vu : #{date}].
                </p>
                <p id='ISO714' class='NormRef'>
                  ISO&#xa0;714,
                  <i>Cereals and cereal products</i>
                   .
                  <a href='spec/assets/iso714.svg'>spec/assets/iso714.svg</a>
-                  .
+                  . [vu : #{date}].
                </p>
              </div>
            </div>
@@ -1433,19 +1424,19 @@ RSpec.describe IsoDoc do
                     <i>Cereals and cereal products</i>
                     .
                     <a href="https://www.google.com/fr">https://www.google.com/fr</a>
-                    .
+                    . [vu : #{date}].
                   </p>
                <p id="ISO713" class="NormRef">ISO 713,
                     <i>Cereals and cereal products</i>
                     .
                     <a href="spec/assets/iso713">spec/assets/iso713</a>
-                    .
+                    . [vu : #{date}].
                   </p>
                <p id="ISO714" class="NormRef">ISO 714,
                     <i>Cereals and cereal products</i>
                     .
                     <a href="spec/assets/iso714.svg">spec/assets/iso714.svg</a>
-                    .
+                    . [vu : #{date}].
                   </p>
              </div>
            </div>
@@ -1538,15 +1529,17 @@ RSpec.describe IsoDoc do
            <references id='_' obligation='informative' normative='true' displayorder='3' hidden="true">
              <title depth='1'>Normative References</title>
              <bibitem id='ISO712' type='standard' hidden="true">
-               <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
+               <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</formattedref>
                <uri type='citation'>http://www.example.com</uri>
                <docidentifier>ISO&#xa0;712</docidentifier>
+               <docidentifier scope="biblio-tag">ISO 712</docidentifier>
              </bibitem>
              <bibitem id='ISO713' type='standard' hidden="true">
-               <formattedref><em>Cereals and cereal products</em>. <link target="https://www.iso.org/standard/3944.html">https://www.iso.org/standard/3944.html</link>.</formattedref>
+               <formattedref><em>Cereals and cereal products</em>. <link target="https://www.iso.org/standard/3944.html">https://www.iso.org/standard/3944.html</link>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</formattedref>
              <uri type='src'>https://www.iso.org/standard/3944.html</uri>
               <uri type='rss'>https://www.iso.org/contents/data/standard/00/39/3944.detail.rss</uri>
                <docidentifier>ISO&#xa0;713</docidentifier>
+               <docidentifier scope="biblio-tag">ISO 713</docidentifier>
              </bibitem>
            </references>
            </sections>
@@ -1652,7 +1645,6 @@ RSpec.describe IsoDoc do
           <title>Normative References</title>
             <bibitem id='ISO712' type='standard'>
               <title format='text/plain'>Cereals and cereal products</title>
-              <uri type='citation'>http://www.example.com</uri>
               <docidentifier>ISO 712</docidentifier>
               <contributor>
                 <role type='publisher'/>
@@ -1670,7 +1662,7 @@ RSpec.describe IsoDoc do
         <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword displayorder='2'>
             <p>
-              <link target='http://www.example.com'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</link>
+              <xref type="inline" target='ISO712'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</link>
             </p>
           </foreword>
           </preface>
@@ -1682,9 +1674,9 @@ RSpec.describe IsoDoc do
                 Normative References
               </title>
               <bibitem id='ISO712' type='standard'>
-                 <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
-                 <uri type='citation'>http://www.example.com</uri>
+                 <formattedref><em>Cereals and cereal products</em>.</formattedref>
                 <docidentifier>ISO&#xa0;712</docidentifier>
+                <docidentifier scope="biblio-tag">ISO 712</docidentifier>
                 <biblio-tag>ISO&#xa0;712,</biblio-tag>
               </bibitem>
             </references>

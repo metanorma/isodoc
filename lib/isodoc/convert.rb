@@ -10,7 +10,7 @@ require "mn-requirements"
 module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models,
-                  :requirements_processor, :doctype
+                  :requirements_processor, :doctype, :bibrender
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
@@ -86,7 +86,7 @@ module IsoDoc
 
     def bibrenderer(options = {})
       ::Relaton::Render::IsoDoc::General.new(options.merge(language: @lang,
-                                                          i18nhash: @i18n.get))
+                                                           i18nhash: @i18n.get))
     end
 
     def convert1(docxml, filename, dir)
@@ -108,7 +108,8 @@ module IsoDoc
       docxml.root.default_namespace = ""
       convert_i18n_init(docxml)
       metadata_init(@lang, @script, @locale, @i18n)
-      xref_init(@lang, @script, self, @i18n, { locale: @locale })
+      xref_init(@lang, @script, self, @i18n,
+                { locale: @locale, bibrender: @bibrender })
       docxml = preprocess_xslt(docxml)
       toc_init(docxml)
       [docxml, filename, dir]
@@ -121,7 +122,8 @@ module IsoDoc
       end
       docxml
     rescue ::Error => e
-      require "debug"; binding.b
+      require "debug"
+      binding.b
     end
 
     def extract_preprocess_xslt(docxml)
@@ -136,6 +138,7 @@ module IsoDoc
     def convert_i18n_init(docxml)
       convert_i18n_init1(docxml)
       i18n_init(@lang, @script, @locale)
+      @bibrender ||= bibrenderer
       @reqt_models = requirements_processor
         .new({ default: "default", lang: @lang, script: @script,
                locale: @locale, labels: @i18n.get,
