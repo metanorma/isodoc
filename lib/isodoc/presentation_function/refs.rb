@@ -38,7 +38,7 @@ module IsoDoc
         m << to_xml(b)
       end.join
       @bibrender.render_all("<references>#{refs}</references>",
-                                        type: citestyle)
+                            type: citestyle)
     end
 
     def prep_for_rendering(bib)
@@ -49,10 +49,10 @@ module IsoDoc
 
     def bibitem(xml, renderings)
       @xrefs.klass.implicit_reference(xml) and xml["hidden"] = "true"
-      bibrender(xml, renderings)
+      bibrender_item(xml, renderings)
     end
 
-    def bibrender(xml, renderings)
+    def bibrender_item(xml, renderings)
       if (f = xml.at(ns("./formattedref"))) && xml.at(ns("./title")).nil?
         bibrender_formattedref(f, xml)
       else bibrender_relaton(xml, renderings)
