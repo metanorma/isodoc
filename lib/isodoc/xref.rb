@@ -24,6 +24,7 @@ module IsoDoc
       @i18n = i18n
       @labels = @i18n.get
       @klass.i18n = @i18n
+      @klass.bibrender ||= options[:bibrender]
       @locale = options[:locale]
       @reqt_models = @klass.requirements_processor
         .new({

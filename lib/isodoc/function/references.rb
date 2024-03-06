@@ -32,8 +32,18 @@ module IsoDoc
 
       def pref_ref_code(bib)
         bib["suppress_identifier"] == "true" and return nil
-        @bibrenderer ||= bibrenderer
-        data, = @bibrenderer.parse(bib)
+        ret = bib.xpath(ns("./docidentifier[@scope = 'biblio-tag']"))
+        ret.empty? or return ret.map(&:text)
+        ret = pref_ref_code_parse(bib) or return nil
+        ins = bib.at(ns("./docidentifier[last()]"))
+        ret.reverse.each do |r|
+          ins.next = "<docidentifier scope='biblio-tag'>#{docid_l10n(r)}</docidentifier>"
+        end
+        ret
+      end
+
+      def pref_ref_code_parse(bib)
+        data, = @bibrender.parse(bib)
         ret = data[:authoritative_identifier] or return nil
         ret.empty? and return nil
         ret
