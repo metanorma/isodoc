@@ -473,7 +473,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
           <figure id="figureA-1">
-          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="auto" width="auto"/>
+          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="200" width="200"/>
       </figure>
           </foreword></preface>
           </iso-standard>
@@ -489,7 +489,7 @@ RSpec.describe IsoDoc do
              <foreword displayorder='2'>
                <figure id='figureA-1'>
                  <name>Figure 1</name>
-                 <image src='' id='_' mimetype='image/svg+xml' height='' width=''>
+                 <image src='' id='_' mimetype='image/svg+xml' height='200' width='200'>
                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
                      <circle fill='#009' r='45' cx='50' cy='50'/>
                      <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
@@ -508,7 +508,7 @@ RSpec.describe IsoDoc do
                 <div>
                   <h1 class='ForewordTitle'>Foreword</h1>
                   <div id='figureA-1' class='figure'>
-                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' height="200" width="200">
                       <circle fill='#009' r='45' cx='50' cy='50'/>
                       <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
                     </svg>
@@ -546,7 +546,7 @@ RSpec.describe IsoDoc do
             <div>
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='figureA-1' class='figure'>
-              <img src='_.emf' height='' width=''/>
+              <img src='_.emf' height='200' width='200'/>
                 <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
               </div>
             </div>
