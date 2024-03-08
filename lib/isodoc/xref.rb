@@ -41,7 +41,7 @@ module IsoDoc
     end
 
     # parse only the elements set, if any are set
-    # defined are: clause: true, refs: true
+    # defined are: clause: true, refs: true, assets: true
     def parse_inclusions(options)
       @parse_settings.merge!(options)
       self

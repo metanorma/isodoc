@@ -100,7 +100,7 @@ module IsoDoc
 
       # preempt clause notes with all other types of note (ISO default)
       def asset_anchor_names(doc)
-        @parse_settings.empty? or return
+        (@parse_settings.empty? || @parse_setttings[:assets]) or return
         middle_section_asset_names(doc)
         termnote_anchor_names(doc)
         termexample_anchor_names(doc)
