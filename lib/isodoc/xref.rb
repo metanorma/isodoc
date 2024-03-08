@@ -15,6 +15,7 @@ module IsoDoc
 
     attr_reader :klass
 
+    # Note: if bibrender is no passed in, do not parse references
     def initialize(lang, script, klass, i18n, options = {})
       @anchors = {}
       @lang = lang

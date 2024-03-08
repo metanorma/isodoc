@@ -42,7 +42,9 @@ module IsoDoc
           annex_anchor_names(xml)
           back_clauses_anchor_names(xml)
         end
-        references(xml) if @parse_settings.empty? || @parse_settings[:refs]
+        if @klass.bibrender && (@parse_settings.empty? || @parse_settings[:refs])
+          references(xml)
+        end
       end
 
       def annex_anchor_names(xml)
