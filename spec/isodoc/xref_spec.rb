@@ -1,69 +1,53 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
-  it "cross-references external documents" do
-    input = <<~INPUT
+  it "selects seets to crossreference" do
+    input = Nokogiri::XML(<<~INPUT)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface>
-      <foreword>
-      <p>
-      <xref target="a#b"/>
-      </p>
-      </foreword>
-      </preface>
-      </iso-standard
-    INPUT
-    presxml = <<~OUTPUT
-      <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
-          <clause type="toc" id="_" displayorder="1">
-            <title depth="1">Table of contents</title>
-          </clause>
-          <foreword displayorder='2'>
-            <p>
-              <xref target='a#b'>a#b</xref>
-            </p>
-          </foreword>
-        </preface>
+      <sections>
+      <clause id="A"><title>Clause</title>
+      <note id="B"><p>Note</p></note>
+      </clause>
+      </sections>
+      <bibliography>
+      <references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+      <bibitem id="ISO712" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="ISO">ISO 712</docidentifier>
+        <docidentifier type="metanorma">[110]</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+      </references>
+      </bibliography>
       </iso-standard>
-    OUTPUT
-    html = <<~OUTPUT
-              #{HTML_HDR}
-            <br/>
-            <div>
-              <h1 class="ForewordTitle">Foreword</h1>
-              <p>
-      <a href="a.html#b">a#b</a>
-      </p>
-            </div>
-          </div>
-        </body>
-      </html>
-    OUTPUT
-    doc = <<~OUTPUT
-          <div class="WordSection2">
-            <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-           <div class="TOC" id="_">
-              <p class="zzContents">Table of contents</p>
-            </div>
-            <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-            <div>
-              <h1 class="ForewordTitle">Foreword</h1>
-              <p>
-      <a href="a.doc#b">a#b</a>
-      </p>
-            </div><p> </p></div>
-    OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(Nokogiri::XML(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))
-      .at("//div[@class = 'WordSection2']").to_xml))
-      .to be_equivalent_to xmlpp(doc)
+    INPUT
+    xrefs = new_xrefs
+    xrefs.parse(input)
+    expect(xrefs.anchor("A", :xref)).to eq "Clause 2"
+    expect(xrefs.anchor("B", :xref)).to eq "Note"
+    expect(xrefs.anchor("ISO712", :xref)).to eq "[110]"
+    expect(xrefs.anchor("C", :xref)).to eq "[C]"
+    xrefs = new_xrefs.parse_inclusions(clauses: true)
+    xrefs.parse(input)
+    expect(xrefs.anchor("A", :xref)).to eq "Clause 2"
+    expect(xrefs.anchor("B", :xref)).to eq "[B]"
+    expect(xrefs.anchor("ISO712", :xref)).to eq "[ISO712]"
+    xrefs = new_xrefs.parse_inclusions(assets: true)
+    xrefs.parse(input)
+    expect(xrefs.anchor("A", :xref)).to eq "[A]"
+    expect(xrefs.anchor("B", :xref)).to eq "Note"
+    expect(xrefs.anchor("ISO712", :xref)).to eq "[ISO712]"
+    xrefs = new_xrefs.parse_inclusions(refs: true)
+    xrefs.parse(input)
+    expect(xrefs.anchor("A", :xref)).to eq "[A]"
+    expect(xrefs.anchor("B", :xref)).to eq "[B]"
+    expect(xrefs.anchor("ISO712", :xref)).to eq "[110]"
   end
 
   it "warns of missing crossreference" do

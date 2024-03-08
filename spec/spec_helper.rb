@@ -25,6 +25,14 @@ def presxml_options
   { semanticxmlinsert: "false" }
 end
 
+def new_xrefs
+  klass = IsoDoc::HtmlConvert.new(language: "en", script: "Latn")
+  klass.i18n_init("en", "Latn", nil)
+  IsoDoc::Xref
+    .new("en", "Latn", klass, klass.i18n,
+         { bibrender: klass.bibrenderer })
+end
+
 def xmlpp(xml)
   c = HTMLEntities.new
   xml &&= xml.split(/(&\S+?;)/).map do |n|
