@@ -118,8 +118,12 @@ module IsoDoc
                   width: node["width"] || "auto",
                   title: node["title"],
                   alt: node["alt"] }
-        out.img **attr_code(attrs)
+        image_body_parse(node, attrs, out)
         image_title_parse(out, caption)
+      end
+
+      def image_body_parse(_node, attrs, out)
+        out.img **attr_code(attrs)
       end
 
       def smallcap_parse(node, xml)
