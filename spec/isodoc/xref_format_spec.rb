@@ -357,7 +357,7 @@ RSpec.describe IsoDoc do
             <table id='B'>
               <name>Tabelo 1</name>
             </table>
-          </clause>#{' '}
+          </clause>
           <clause id='C' displayorder="3">
           <title>2.</title>
             <p>
@@ -373,7 +373,7 @@ RSpec.describe IsoDoc do
               <xref target='A' case='lowercase'>kla&#x16D;zo 1</xref>
                and
               <xref target='B' case='capital'>tabelo 1</xref>
-              .#{' '}
+              .
               <xref target='A'>kla&#x16D;zo 1</xref>
                is clause
               <em>initial.</em>

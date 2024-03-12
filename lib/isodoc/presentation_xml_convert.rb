@@ -21,7 +21,6 @@ module IsoDoc
     def convert1(docxml, _filename, _dir)
       docid_prefixes(docxml) # feeds @xrefs.parse citation processing
       @xrefs.parse docxml
-      bibitem_lookup(docxml)
       info docxml, nil
       conversions(docxml)
       docxml.root["type"] = "presentation"
@@ -29,7 +28,7 @@ module IsoDoc
     end
 
     def bibitem_lookup(docxml)
-      @bibitems = docxml.xpath(ns("//references/bibitem"))
+      @bibitem_lookup ||= docxml.xpath(ns("//references/bibitem"))
         .each_with_object({}) do |b, m|
         m[b["id"]] = b
       end
@@ -83,10 +82,12 @@ module IsoDoc
     end
 
     def inline(docxml)
+      bibitem_lookup(docxml) # feeds citeas
+      citeas docxml # feeds xref, eref, origin, quotesource
       xref docxml
-      eref docxml # feeds docxml
-      origin docxml # feeds docxml
-      quotesource docxml # feeds docxml
+      eref docxml # feeds eref2link
+      origin docxml # feeds eref2link
+      quotesource docxml # feeds eref2link
       eref2link docxml
       mathml docxml
       ruby docxml
