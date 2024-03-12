@@ -1626,4 +1626,29 @@ RSpec.describe IsoDoc do
       .convert("test", doc, true))))
       .to be_equivalent_to xmlpp(html)
   end
+
+  it "emend citeas" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+        <preface>
+          <foreword id="A">
+            <p id="_214f7090-c6d4-8fdc-5e6a-837ebb515871">
+            <eref bibitemid="B" citeas="what"/>
+            </p>
+       </foreword></preface>
+      </standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+       <foreword id="A" displayorder="2">
+         <p id="_">
+           <eref bibitemid="B" citeas="what">what</eref>
+         </p>
+       </foreword>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+    expect(strip_guid(xmlpp(xml.at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+  end
 end
