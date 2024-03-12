@@ -152,7 +152,7 @@ module IsoDoc
         "//bibliography/references[@normative = 'true'] | " \
           "//bibliography/clause[.//references[@normative = 'true']] | " \
           "//sections/references[@normative = 'true'] | " \
-          "//sections/clause[.//references[@normative = 'true']]"
+          "//sections/clause[not(@type)][.//references[@normative = 'true']]"
       end
 
       def norm_ref(node, out)
