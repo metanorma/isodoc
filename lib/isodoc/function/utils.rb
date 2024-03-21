@@ -214,7 +214,6 @@ module IsoDoc
            note table figure sourcecode).freeze
 
       def labelled_ancestor(elem)
-        #require  "debug"; binding.b
         #!elem.path.gsub(/\[\d+\]/, "").split(%r{/})[1..-1]
         !elem.ancestors.map(&:name)
           .intersection(LABELLED_ANCESTOR_ELEMENTS).empty?
