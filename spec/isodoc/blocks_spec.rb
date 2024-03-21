@@ -571,7 +571,7 @@ RSpec.describe IsoDoc do
           <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
       Fictitious<br/>
       World</p>
-          <p align="justify" keep-with-next="true" keep-lines-together="true">Justify</p>
+          <p align="justify" keep-with-next="true" keep-lines-together="true" style="font-size:9pt">Justify</p>
           </foreword></preface>
           </iso-standard>
     INPUT
@@ -584,7 +584,7 @@ RSpec.describe IsoDoc do
           Fictitious<br/>
           World
               </p>
-              <p style="text-align:justify;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
+              <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
                   </div>
                 </div>
               </body>
@@ -613,7 +613,7 @@ RSpec.describe IsoDoc do
       Fictitious<br/>
       World
           </p>
-          <p style="text-align:justify;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
+          <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
               </div>
               <p>&#160;</p>
             </div>

@@ -58,7 +58,7 @@ module IsoDoc
       end
 
       def note_p_parse(node, div)
-        name = node&.at(ns("./name"))&.remove
+        name = node.at(ns("./name"))&.remove
         div.p do |p|
           name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
@@ -71,10 +71,9 @@ module IsoDoc
       end
 
       def note_parse1(node, div)
-        name = node.at(ns("./name"))&.remove
-        name and div.p do |p|
+        name = node.at(ns("./name")) and div.p do |p|
           p.span class: "note_label" do |s|
-            name.children.each { |n| parse(n, s) }
+            name.remove.children.each { |n| parse(n, s) }
             s << note_delim
           end
           insert_tab(p, 1)
@@ -84,6 +83,7 @@ module IsoDoc
 
       def keep_style(node)
         ret = ""
+        node["style"] and ret += "#{node['style']};"
         node["keep-with-next"] == "true" and
           ret += "page-break-after: avoid;"
         node["keep-lines-together"] == "true" and
