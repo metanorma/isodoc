@@ -88,8 +88,7 @@ module IsoDoc
       end
 
       def generate_header(filename, _dir)
-        return nil unless @header
-
+        @header or return nil
         template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
         meta = @meta.get.merge(@labels ? { labels: @labels } : {})
           .merge(@meta.labels ? { labels: @meta.labels } : {})

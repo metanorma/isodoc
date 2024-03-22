@@ -90,7 +90,7 @@ RSpec.describe IsoDoc do
               <name>1.1.</name>
               <preferred><strong>paddy</strong>, &lt;in agriculture, dated&gt;</preferred>
               <termsource status="modified">[SOURCE: <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality>ISO 7301:2011, Clause 3.1</origin>, modified
-           –
+           &#x2014;
           The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</termsource>
               <domain>rice</domain>
               <definition>
@@ -110,12 +110,12 @@ RSpec.describe IsoDoc do
                 </ul>
               </termexample>
               <termsource status="identical">[SOURCE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
-           –
+           &#x2014;
             comment
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, modified
-           –
+           &#x2014;
             with adjustments]</termsource>
             </term>
             <term id="paddy">
@@ -157,7 +157,7 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
       #{HTML_HDR}
              <div id="_"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
-             &#8211;
+             &#x2014;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
 
         <p id="_">&lt;rice&gt; rice retaining its husk after threshing</p>
@@ -173,12 +173,12 @@ RSpec.describe IsoDoc do
           </ul>
         </div>
         <p>[SOURCE: t1
-            –
+            &#x2014;
              comment
 
          ;
           Termbase IEV, term ID xyz, modified
-             &#8211;
+             &#x2014;
               with adjustments]</p>
         <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;"><b>paddy</b></p>
         <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
@@ -202,7 +202,7 @@ RSpec.describe IsoDoc do
     word = <<~"WORD"
       #{WORD_HDR}
              <div id="_"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
-             &#8211;
+             &#x2014;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
 
         <p id="_">&lt;rice&gt; rice retaining its husk after threshing</p>
@@ -218,12 +218,12 @@ RSpec.describe IsoDoc do
           </ul>
         </div>
         <p>[SOURCE: t1
-            –
+            &#x2014;
              comment
 
          ;
           Termbase IEV, term ID xyz, modified
-             &#8211;
+             &#x2014;
               with adjustments]</p>
         <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;"><b>paddy</b></p>
         <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
@@ -320,7 +320,7 @@ RSpec.describe IsoDoc do
                       <referenceFrom>3.1</referenceFrom>
                     </locality>
                     ISO&#xa0;7301:2011, Clause 3.1
-                  </origin>, modified &#x2013;
+                  </origin>, modified &#x2014;
                       The term "cargo rice" is shown as deprecated, and Note 1 to
                       entry is not included here]
                 </termsource>
@@ -346,7 +346,7 @@ RSpec.describe IsoDoc do
             </origin>;
             <origin citeas=''>
               <termref base='IEV' target='xyz'/>
-            </origin>, modified &#x2013; with adjustments]
+            </origin>, modified &#x2014; with adjustments]
           </termsource>
         </term>
       </terms>
@@ -873,17 +873,17 @@ RSpec.describe IsoDoc do
             <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
           </definition>
           <termsource status="identical">[SOURCE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
-           –
+           &#x2014;
             with adjustments
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, adapted
-           –
+           &#x2014;
             with adjustments
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, modified
-           –
+           &#x2014;
             with adjustments
 
         ;
@@ -913,17 +913,17 @@ RSpec.describe IsoDoc do
             <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
           </definition>
           <termsource status="identical">[QUELLE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
-           –
+           &#x2014;
             with adjustments
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, angepasst
-           –
+           &#x2014;
             with adjustments
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, geändert
-           –
+           &#x2014;
             with adjustments
 
         ;
