@@ -118,6 +118,53 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
+  it "puts custom labels on xrefs" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <sections>
+          <clause id="A">
+          <formula id="B">
+          </formula>
+          </clause>
+          <clause id="C">
+          <p>This is <xref target="A" label="Klauze"/> and <xref target="B" label="Formulen"/>.</p>
+      </clause>
+      </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+          <title depth="1">Table of contents</title>
+        </clause>
+        </preface>
+        <sections>
+          <clause id='A' displayorder="2">
+            <title>1.</title>
+            <formula id='B'>
+              <name>1</name>
+            </formula>
+          </clause>
+          <clause id='C' displayorder="3">
+            <title>2.</title>
+            <p>
+              This is
+              <xref target='A' label='Klauze'>Klauze 1</xref>
+               and
+              <xref target='B' label='Formulen'>kla&#x16D;zo 1, Formulen (1)</xref>
+              .
+            </p>
+          </clause>
+        </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new({ i18nyaml: "spec/assets/i18n.yaml" }
+      .merge(presxml_options))
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
+  end
+
   it "renders xrefs with style" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">

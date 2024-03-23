@@ -4,7 +4,8 @@ module IsoDoc
       prefix_container?(container, node) or return linkend
       container_container = @xrefs.anchor(container, :container, false)
       container_label =
-        prefix_container(container_container, anchor_xref(node, container),
+        prefix_container(container_container,
+                         anchor_xref(node, container, container: true),
                          node, target)
       l10n(@i18n.nested_xref.sub("%1", container_label)
         .sub("%2", linkend))
@@ -40,8 +41,8 @@ module IsoDoc
       capitalise_xref(node, linkend, anchor_value(node["target"]))
     end
 
-    def anchor_xref(node, target)
-      x = @xrefs.anchor(target, :xref)
+    def anchor_xref(node, target, container: false)
+      x = anchor_xref_short(node, target, container)
       t = @xrefs.anchor(target, :title)
       ret = case node["style"]
             when "basic" then t
@@ -52,9 +53,15 @@ module IsoDoc
       ret || x
     end
 
+    def anchor_xref_short(node, target, container)
+      if (l = node["label"]) && !container
+        @i18n.l10n("#{l} #{anchor_value(target)}")
+      else @xrefs.anchor(target, :xref)
+      end
+    end
+
     def anchor_xref_full(num, title)
       (!title.nil? && !title.empty?) or return nil
-
       l10n("#{num}, #{title}")
     end
 
@@ -77,7 +84,8 @@ module IsoDoc
       capitalise_xref(node, linkend, anchor_value(node["target"]))
     end
 
-    # Note % to entry and Note % to entry: cannot conflate as Note % to entry 1 and 2
+    # Note % to entry and Note % to entry:
+    # cannot conflate as Note % to entry 1 and 2
     # So Notes 1 and 3, but Note 1 to entry and Note 3 to entry
     def combine_conflated_xref_locations(locs)
       out = if locs.any? { |l| l[:elem]&.include?("%") }
@@ -123,8 +131,7 @@ module IsoDoc
     end
 
     def combine_conn(list)
-      return list.first[:label] if list.size == 1
-
+      list.size == 1 and list.first[:label]
       if list[1..-1].all? { |l| l[:conn] == "and" }
         @i18n.boolean_conj(list.map { |l| loc2xref(l) }, "and")
       elsif list[1..-1].all? { |l| l[:conn] == "or" }
@@ -154,7 +161,6 @@ module IsoDoc
         linktext[0, 1].match?(/\p{Upper}/) and return linkend
       node["case"] and
         return Common::case_with_markup(linkend, node["case"], @script)
-
       capitalise_xref1(node, linkend)
     end
 
