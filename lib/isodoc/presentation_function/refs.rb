@@ -142,7 +142,7 @@ module IsoDoc
             else norm_ref_entry_code(ordinal, idents, ids, standard, datefn,
                                      bib)
             end
-      bib << "<biblio-tag>#{ret}</biblio-tag>"
+      bib << "<biblio-tag>#{@c.encode(ret, :hexadecimal)}</biblio-tag>"
     end
 
     def norm_ref_entry_code(_ordinal, idents, _ids, _standard, datefn, _bib)
