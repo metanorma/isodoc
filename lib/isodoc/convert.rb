@@ -177,5 +177,19 @@ module IsoDoc
       else "##{node['target']}"
       end
     end
+
+    # use a different class than self for rendering, as a result
+    # of document-specific criteria
+    # but pass on any singleton methods defined on top of the self instance
+    def swap_renderer(oldklass, newklass, file, input_filename, debug)
+      ref = oldklass # avoid oldklass == self for indirection of methods
+      oldklass.singleton_methods.each do |x|
+        newklass.define_singleton_method(x) do |*args|
+          ref.public_send(x, *args)
+        end
+      end
+      oldklass.singleton_methods.empty? or
+        newklass.convert_init(file, input_filename, debug)
+    end
   end
 end
