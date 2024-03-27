@@ -5,9 +5,9 @@ module IsoDoc
       fonts_metadata(docxml)
       preprocess_xslt_insert(docxml)
       a = docxml.at(ns("//bibdata")) or return
+      i = @c.encode(i8n_name(trim_hash(@i18n.get), "").join, :hexadecimal)
       a.next =
-        "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join}" \
-        "</localized-strings>"
+        "<localized-strings>#{i}</localized-strings>"
     end
 
     def extension_insert(xml, path = [])

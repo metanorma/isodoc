@@ -35,9 +35,14 @@ module IsoDoc
         ret = bib.xpath(ns("./docidentifier[@scope = 'biblio-tag']"))
         ret.empty? or return ret.map(&:text)
         ret = pref_ref_code_parse(bib) or return nil
+        add_biblio_tags(ret, bib)
+      end
+
+      def add_biblio_tags(ret, bib)
         ins = bib.at(ns("./docidentifier[last()]"))
         ret.reverse.each do |r|
-          ins.next = "<docidentifier scope='biblio-tag'>#{docid_l10n(r)}</docidentifier>"
+          i = @c.encode(docid_l10n(r), :hexadecimal)
+          ins.next = "<docidentifier scope='biblio-tag'>#{i}</docidentifier>"
         end
         ret
       end
