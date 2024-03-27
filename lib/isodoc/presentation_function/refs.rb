@@ -45,6 +45,10 @@ module IsoDoc
       bib["suppress_identifier"] == true and
         bib.xpath(ns("./docidentifier")).each(&:remove)
       bib["type"] ||= "standard"
+      bib.traverse do |n|
+        n.text? or next
+        n.replace(@c.encode(n.text, :hexadecimal))
+      end
     end
 
     def bibitem(xml, renderings)
