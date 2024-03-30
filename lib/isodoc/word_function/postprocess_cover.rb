@@ -15,7 +15,7 @@ module IsoDoc
       end
 
       def word_intro(docxml, level)
-        ins = docxml.at('//div[@class="WordSection1"]') or return
+        ins = docxml.at('//div[@class="WordSection2"]') or return
         intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"),
                            docxml, level)
         intro = populate_template(intro, :word)
