@@ -7,20 +7,20 @@ module IsoDoc
       end
 
       def word_cover(docxml)
+        ins = docxml.at('//div[@class="WordSection1"]') or return
         cover = File.read(@wordcoverpage, encoding: "UTF-8")
         cover = populate_template(cover, :word)
         coverxml = to_word_xhtml_fragment(cover)
-        docxml.at('//div[@class="WordSection1"]').children.first.previous =
-          coverxml.to_xml(encoding: "US-ASCII")
+        ins.children.first.previous = coverxml.to_xml(encoding: "US-ASCII")
       end
 
       def word_intro(docxml, level)
+        ins = docxml.at('//div[@class="WordSection1"]') or return
         intro = insert_toc(File.read(@wordintropage, encoding: "UTF-8"),
                            docxml, level)
         intro = populate_template(intro, :word)
         introxml = to_word_xhtml_fragment(intro)
-        docxml.at('//div[@class="WordSection2"]').children.first.previous =
-          introxml.to_xml(encoding: "US-ASCII")
+        ins.children.first.previous = introxml.to_xml(encoding: "US-ASCII")
       end
 
       # add namespaces for Word fragments
