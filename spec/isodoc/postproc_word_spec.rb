@@ -53,6 +53,46 @@ RSpec.describe IsoDoc do
     OUTPUT
   end
 
+  it "removes cover page and pagebreak if no cover page template supplied" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    input = <<~INPUT
+       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword displayorder="1">
+      <dl>
+      <dt>Term</dt>
+      <dd>Definition</dd>
+      <dt>Term 2</dt>
+      <dd>Definition 2</dd>
+      </dl>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    IsoDoc::WordConvert.new(
+      { wordstylesheet: "spec/assets/word.css",
+        wordcoverpage: "spec/assets/wordcover.html",
+        htmlstylesheet: "spec/assets/html.scss" },
+    ).convert("test", input, false)
+    word = File.read("test.doc")
+      .sub(/^.*<div class="WordSection1">/m, '<div class="WordSection1">')
+      .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection2">.*$}m, "")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
+      <div class="WordSection1">
+      /* an empty word cover page */
+
+      <p class="MsoNormal"> </p></div>
+    OUTPUT
+    IsoDoc::WordConvert.new(
+      { wordstylesheet: "spec/assets/word.css",
+        htmlstylesheet: "spec/assets/html.scss" },
+    ).convert("test", input, false)
+    word = File.read("test.doc")
+      .sub(/^.*<div class="WordSection1">/m, '<div class="WordSection1">')
+      .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection2">.*$}m, "")
+    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
+    OUTPUT
+  end
+
   it "populates Word header" do
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new(
@@ -787,12 +827,6 @@ RSpec.describe IsoDoc do
     expect(xmlpp(html.sub(/^.*<body /m, "<body ")
       .sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(<<~OUTPUT)
                 <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
-                  <div class='WordSection1'>
-                    <p class='MsoNormal'>&#xA0;</p>
-                  </div>
-                  <p class='MsoNormal'>
-                    <br clear='all' class='section'/>
-                  </p>
                   <div class='WordSection2'>
                   <p class='MsoNormal'>
            <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
@@ -1030,12 +1064,6 @@ RSpec.describe IsoDoc do
              <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
                <head><style/></head>
                <body lang='EN-US' link='blue' vlink='#954F72'>
-                 <div class='WordSection1'>
-                   <p>&#160;</p>
-                 </div>
-                 <p>
-                   <br clear='all' class='section'/>
-                 </p>
                  <div class='WordSection2'>
                    <p>
                      <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
@@ -1165,12 +1193,6 @@ RSpec.describe IsoDoc do
                  <style/>
                </head>
                <body lang='EN-US' link='blue' vlink='#954F72'>
-                 <div class='WordSection1'>
-                   <p>&#xA0;</p>
-                 </div>
-                 <p>
-                   <br clear='all' class='section'/>
-                 </p>
                  <div class='WordSection2'>
                    <p>
                      <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>

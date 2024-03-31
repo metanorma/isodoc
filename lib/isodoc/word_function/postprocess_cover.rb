@@ -2,12 +2,17 @@ module IsoDoc
   module WordFunction
     module Postprocess
       def word_preface(docxml)
-        word_cover(docxml) if @wordcoverpage
+        word_cover(docxml)
         word_intro(docxml, @wordToClevels) if @wordintropage
       end
 
       def word_cover(docxml)
         ins = docxml.at('//div[@class="WordSection1"]') or return
+        unless @wordcoverpage
+          ins.next_element.remove
+          ins.remove
+          return
+        end
         cover = File.read(@wordcoverpage, encoding: "UTF-8")
         cover = populate_template(cover, :word)
         coverxml = to_word_xhtml_fragment(cover)
@@ -90,16 +95,20 @@ module IsoDoc
       def generate_header(filename, _dir)
         @header or return nil
         template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
-        meta = @meta.get.merge(@labels ? { labels: @labels } : {})
-          .merge(@meta.labels ? { labels: @meta.labels } : {})
-        meta[:filename] = filename
-        params = meta.transform_keys(&:to_s)
+        params = header_params(filename)
         Tempfile.open(%w(header html),
                       mode: File::BINARY | File::SHARE_DELETE,
                       encoding: "utf-8") do |f|
           f.write(template.render(params))
           f
         end
+      end
+
+      def header_params(filename)
+        meta = @meta.get.merge(@labels ? { labels: @labels } : {})
+          .merge(@meta.labels ? { labels: @meta.labels } : {})
+        meta[:filename] = filename
+        meta.transform_keys(&:to_s)
       end
 
       def word_section_breaks(docxml)
