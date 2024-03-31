@@ -10,7 +10,8 @@ require "mn-requirements"
 module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models,
-                  :requirements_processor, :doctype, :bibrender
+                  :requirements_processor, :doctype, :bibrender,
+                  :tempfile_cache
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML

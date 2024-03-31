@@ -16,8 +16,8 @@ module IsoDoc
       end
 
       def postprocess_cleanup(result)
-        result = (cleanup(to_xhtml(textcleanup(result))))
-        from_xhtml(word_cleanup((result)))
+        result = cleanup(to_xhtml(textcleanup(result)))
+        from_xhtml(word_cleanup(result))
           .gsub("-DOUBLE_HYPHEN_ESCAPE-", "--")
       end
 
