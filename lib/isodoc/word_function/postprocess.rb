@@ -64,6 +64,7 @@ module IsoDoc
         word_tab_clean(docxml)
         authority_cleanup(docxml)
         word_footnote_format(docxml)
+        word_remove_empty_sections(docxml)
         docxml
       end
 

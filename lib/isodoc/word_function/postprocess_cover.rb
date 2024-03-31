@@ -2,17 +2,21 @@ module IsoDoc
   module WordFunction
     module Postprocess
       def word_preface(docxml)
-        word_cover(docxml)
+        word_cover(docxml) if @wordcoverpage
         word_intro(docxml, @wordToClevels) if @wordintropage
+      end
+
+      def word_remove_empty_sections(docxml)
+        %w(WordSection1 WordSection2).each do |x|
+          ins = docxml.at("//div[@class='#{x}']") or next
+          @c.decode(ins.text).gsub(/\p{Z}|\p{C}/, "").strip.empty? or next
+          ins.next_element.remove
+          ins.remove
+        end
       end
 
       def word_cover(docxml)
         ins = docxml.at('//div[@class="WordSection1"]') or return
-        unless @wordcoverpage
-          ins.next_element.remove
-          ins.remove
-          return
-        end
         cover = File.read(@wordcoverpage, encoding: "UTF-8")
         cover = populate_template(cover, :word)
         coverxml = to_word_xhtml_fragment(cover)
