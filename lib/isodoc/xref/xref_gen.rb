@@ -88,6 +88,7 @@ module IsoDoc
 
       def admonition_anchor_names(sections)
         sections.each do |s|
+          s.at(ns(".//admonition[@type = 'box']")) or next
           notes = s.xpath(child_asset_path("admonition[@type = 'box']"))
           admonition_anchor_names1(notes, Counter.new)
           admonition_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
