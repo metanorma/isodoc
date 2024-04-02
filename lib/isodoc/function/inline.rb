@@ -8,7 +8,7 @@ module IsoDoc
         node["update-type"] == "true" and url = suffix_url(url)
         out.a **attr_code(href: url, title: node["alt"]) do |l|
           if node.elements.empty? && node.text.strip.empty?
-            l << node["target"].sub(/^mailto:/, "")
+            l << @c.encode(node["target"].sub(/^mailto:/, ""), :basic, :hexadecimal)
           else node.children.each { |n| parse(n, l) }
           end
         end
