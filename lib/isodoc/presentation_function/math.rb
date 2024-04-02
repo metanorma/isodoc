@@ -100,7 +100,7 @@ module IsoDoc
     end
 
     def maths_just_numeral(node)
-      mn = node.at("./m:mn", MATHML).children
+      mn = node.at(".//m:mn", MATHML).children
       if node.parent.name == "stem"
         node.parent.replace(mn)
       else
@@ -127,10 +127,20 @@ module IsoDoc
     end
 
     def mathml_number(node, locale)
-      justnumeral = node.elements.size == 1 && node.elements.first.name == "mn"
+      justnumeral = numeric_mathml?(node)
       justnumeral or asciimath_dup(node)
       localize_maths(node, locale)
       justnumeral and maths_just_numeral(node)
+    end
+
+    def numeric_mathml?(node)
+      m = {}
+      node.traverse do |x|
+        %w(mstyle mrow math text).include?(x.name) and next
+        m[x.name] ||= 0
+        m[x.name] += 1
+      end
+      m.keys.size == 1 && m["mn"] == 1
     end
 
     def mathml_style_inherit(node)

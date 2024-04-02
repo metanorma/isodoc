@@ -105,11 +105,12 @@ module IsoDoc
         termnote_anchor_names(doc)
         termexample_anchor_names(doc)
         note_anchor_names(doc.xpath(ns("//table | //figure")))
-        note_anchor_names(doc.xpath(ns(sections_xpath)))
-        admonition_anchor_names(doc.xpath(ns(sections_xpath)))
-        example_anchor_names(doc.xpath(ns(sections_xpath)))
-        list_anchor_names(doc.xpath(ns(sections_xpath)))
-        deflist_anchor_names(doc.xpath(ns(sections_xpath)))
+        sections = doc.xpath(ns(sections_xpath))
+        note_anchor_names(sections)
+        admonition_anchor_names(sections)
+        example_anchor_names(sections)
+        list_anchor_names(sections)
+        deflist_anchor_names(sections)
         bookmark_anchor_names(doc)
       end
 

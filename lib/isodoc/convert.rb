@@ -10,7 +10,8 @@ require "mn-requirements"
 module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models,
-                  :requirements_processor, :doctype, :bibrender
+                  :requirements_processor, :doctype, :bibrender,
+                  :tempfile_cache, :wordcoverpage, :wordintropage
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
@@ -89,11 +90,15 @@ module IsoDoc
                                                            i18nhash: @i18n.get))
     end
 
+    def convert1_namespaces(html)
+      html.add_namespace("epub", "http://www.idpf.org/2007/ops")
+    end
+
     def convert1(docxml, filename, dir)
       @xrefs.parse docxml
       noko do |xml|
         xml.html lang: @lang.to_s do |html|
-          html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
+          convert1_namespaces(html.parent)
           info docxml, nil
           populate_css
           html.head { |head| define_head head, filename, dir }

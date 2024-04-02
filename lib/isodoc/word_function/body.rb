@@ -5,6 +5,14 @@ require_relative "lists"
 module IsoDoc
   module WordFunction
     module Body
+      def convert1_namespaces(html)
+        super
+        html.add_namespace("v", "urn:schemas-microsoft-com:vml")
+        html.add_namespace("o", "urn:schemas-microsoft-com:office:office")
+        html.add_namespace("w", "urn:schemas-microsoft-com:office:word")
+        html.add_namespace("m", "http://schemas.microsoft.com/office/2004/12/omml")
+      end
+
       def define_head(head, filename, _dir)
         head.style do |style|
           loc = File.join(File.dirname(__FILE__), "..", "base_style",

@@ -385,12 +385,6 @@ RSpec.describe IsoDoc do
 
     doc = <<~OUTPUT
         <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-           <div class="WordSection1">
-             <p class="MsoNormal"> </p>
-           </div>
-           <p class="MsoNormal">
-             <br clear="all" class="section"/>
-           </p>
            <div class="WordSection2">
              <p class="MsoNormal">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>

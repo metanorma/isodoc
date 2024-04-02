@@ -6,6 +6,15 @@ module IsoDoc
         word_intro(docxml, @wordToClevels) if @wordintropage
       end
 
+      def word_remove_empty_sections(docxml)
+        %w(WordSection1 WordSection2).each do |x|
+          ins = docxml.at("//div[@class='#{x}']") or next
+          @c.decode(ins.text).gsub(/\p{Z}|\p{C}/, "").strip.empty? or next
+          ins.next_element.remove
+          ins.remove
+        end
+      end
+
       def word_cover(docxml)
         ins = docxml.at('//div[@class="WordSection1"]') or return
         cover = File.read(@wordcoverpage, encoding: "UTF-8")
@@ -90,16 +99,20 @@ module IsoDoc
       def generate_header(filename, _dir)
         @header or return nil
         template = IsoDoc::Common.liquid(File.read(@header, encoding: "UTF-8"))
-        meta = @meta.get.merge(@labels ? { labels: @labels } : {})
-          .merge(@meta.labels ? { labels: @meta.labels } : {})
-        meta[:filename] = filename
-        params = meta.transform_keys(&:to_s)
+        params = header_params(filename)
         Tempfile.open(%w(header html),
                       mode: File::BINARY | File::SHARE_DELETE,
                       encoding: "utf-8") do |f|
           f.write(template.render(params))
           f
         end
+      end
+
+      def header_params(filename)
+        meta = @meta.get.merge(@labels ? { labels: @labels } : {})
+          .merge(@meta.labels ? { labels: @meta.labels } : {})
+        meta[:filename] = filename
+        meta.transform_keys(&:to_s)
       end
 
       def word_section_breaks(docxml)
