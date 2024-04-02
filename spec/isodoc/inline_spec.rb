@@ -633,6 +633,7 @@ RSpec.describe IsoDoc do
         <link target="http://example.com" alt="tip">example</link>
         <link target="mailto:fred@example.com"/>
         <link target="mailto:fred@example.com">mailto:fred@example.com</link>
+        <link target="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512"/>
         </p>
         </foreword></preface>
         <sections>
@@ -650,6 +651,7 @@ RSpec.describe IsoDoc do
          <a href="http://example.com" title="tip">example</a>
          <a href="mailto:fred@example.com">fred@example.com</a>
          <a href="mailto:fred@example.com">mailto:fred@example.com</a>
+         <a href="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512">https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512</a>
          </p>
                  </div>
                </div>
