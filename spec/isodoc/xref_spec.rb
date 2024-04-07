@@ -1902,6 +1902,11 @@ RSpec.describe IsoDoc do
       <xref target="AN"/>
       <xref target="Anote1"/>
       <xref target="Anote2"/>
+                    <xref target="P"/>
+         <xref target="Q"/>
+         <xref target="R"/>
+         <xref target="S"/>
+         <xref target="P1"/>
       </p>
       </foreword>
       </preface>
@@ -1926,6 +1931,27 @@ RSpec.describe IsoDoc do
         </ol></li>
       </ol>
       </clause>
+      <clause id="A"><title>Clause</title>
+       <ol id="L">
+       <li id="P">
+       <ol id="L11">
+       <li id="Q">
+       <ol id="L12">
+       <li id="R">
+       <ol id="L13">
+       <li id="S">
+       </li>
+       </ol>
+       </li>
+       </ol>
+       </li>
+       </ol>
+       </li>
+       </ol>
+       <ol id="L1">
+       <li id="P1">A</li>
+       </ol>
+       </clause>
       </sections>
       </iso-standard>
     INPUT
@@ -1938,6 +1964,11 @@ RSpec.describe IsoDoc do
           <xref target='AN'>Clause 1, a) 1) i) A)</xref>
           <xref target='Anote1'>Clause 1, a) 1) i) A) I)</xref>
           <xref target='Anote2'>Clause 1, a) 1) i) A) I) a)</xref>
+          <xref target="P">Clause 2, List  1 a)</xref>
+          <xref target="Q">Clause 2, List  1 a) 1)</xref>
+          <xref target="R">Clause 2, List  1 a) 1) i)</xref>
+          <xref target="S">Clause 2, List  1 a) 1) i) A)</xref>
+          <xref target="P1">Clause 2, List  2 a)</xref>
         </p>
       </foreword>
     OUTPUT
@@ -1956,6 +1987,11 @@ RSpec.describe IsoDoc do
            <xref target="AN">箇条 1のa)の1)のi)のA)</xref>
            <xref target="Anote1">箇条 1のa)の1)のi)のA)のI)</xref>
            <xref target="Anote2">箇条 1のa)の1)のi)のA)のI)のa)</xref>
+           <xref target="P">箇条 2のリスト  1のa)</xref>
+            <xref target="Q">箇条 2のリスト  1のa)の1)</xref>
+            <xref target="R">箇条 2のリスト  1のa)の1)のi)</xref>
+            <xref target="S">箇条 2のリスト  1のa)の1)のi)のA)</xref>
+            <xref target="P1">箇条 2のリスト  2のa)</xref>
          </p>
        </foreword>
     OUTPUT
