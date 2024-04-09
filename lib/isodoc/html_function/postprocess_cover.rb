@@ -40,8 +40,10 @@ module IsoDoc
       end
 
       def html_preface(docxml)
-        html_cover(docxml) if @htmlcoverpage && !@bare
-        html_intro(docxml) if @htmlintropage && !@bare
+        @htmlcoverpage && !@htmlcoverpage.empty? && !@bare and
+          html_cover(docxml)
+        @htmlintropage && !@htmlintropage.empty? && !@bare and
+          html_intro(docxml)
         docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
         html_main(docxml)
         authority_cleanup(docxml)

@@ -2,8 +2,10 @@ module IsoDoc
   module WordFunction
     module Postprocess
       def word_preface(docxml)
-        word_cover(docxml) if @wordcoverpage
-        word_intro(docxml, @wordToClevels) if @wordintropage
+        @wordcoverpage && !@wordcoverpage.empty? and
+          word_cover(docxml)
+        @wordintropage && !@wordintropage.empty? and
+          word_intro(docxml, @wordToClevels)
       end
 
       def word_remove_empty_sections(docxml)
