@@ -1682,7 +1682,9 @@ RSpec.describe IsoDoc do
 
     word = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-              <div class="WordSection2"><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="TOC"><a name="_" id="_"/><p class="zzContents">Table of contents</p></div><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><p class="h1">A0</p><div class="Section3"><a name="B" id="B"/><h1 class="IntroTitle">Introduction</h1><p class="h1">A</p><div><a name="B1" id="B1"/><h2>Introduction Subsection</h2><p class="h2">B</p><div><a name="B2" id="B2"/><h3>Introduction Sub-subsection</h3><p class="h1">C</p></div></div></div><p class="MsoNormal"> </p></div><p class="MsoNormal"><br clear="all" class="section"/></p><div class="WordSection3"><div><a name="C" id="C"/><h1>
+              <div class="WordSection2"><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+             <p class="h1">A0</p>
+              <div class="Section3"><a name="B" id="B"/><h1 class="IntroTitle">Introduction</h1><p class="h1">A</p><div><a name="B1" id="B1"/><h2>Introduction Subsection</h2><p class="h2">B</p><div><a name="B2" id="B2"/><h3>Introduction Sub-subsection</h3><p class="h1">C</p></div></div></div><p class="MsoNormal"> </p></div><p class="MsoNormal"><br clear="all" class="section"/></p><div class="WordSection3"><div><a name="C" id="C"/><h1>
                1.
                <span style="mso-tab-count:1">  </span>
                Introduction

@@ -253,13 +253,6 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
-           <div class="TOC">
-             <a name="_" id="_"/>
-             <p class="zzContents">Table of contents</p>
-           </div>
-           <p class="MsoNormal">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
            <div>
              <h1 class="ForewordTitle">Foreword</h1>
              <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"/><br/>         <br/>         <span class="nb">puts</span><br/>         <span class="n">x</span><br/>       </p>
