@@ -64,8 +64,14 @@ module IsoDoc
         word_tab_clean(docxml)
         authority_cleanup(docxml)
         word_footnote_format(docxml)
+        word_remove_empty_toc(docxml)
         word_remove_empty_sections(docxml)
         docxml
+      end
+
+      def word_remove_empty_toc(docxml)
+        docxml.at("//div[@class = 'TOC']//p[@class = 'MsoToc1']") and return
+        remove_toc_div(docxml)
       end
 
       def word_sourcecode_annotations(html)
