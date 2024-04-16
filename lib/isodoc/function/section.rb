@@ -152,6 +152,7 @@ module IsoDoc
       end
 
       def table_of_contents(clause, out)
+        @bare and return
         page_break(out)
         out.div **attr_code(preface_attrs(clause)) do |div|
           clause_name(clause, clause.at(ns("./title")), div,
@@ -194,32 +195,28 @@ module IsoDoc
       end
 
       def copyright_parse(node, out)
-        return if @bare
-
+        @bare and return
         out.div class: "boilerplate-copyright" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
 
       def license_parse(node, out)
-        return if @bare
-
+        @bare and return
         out.div class: "boilerplate-license" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
 
       def legal_parse(node, out)
-        return if @bare
-
+        @bare and return
         out.div class: "boilerplate-legal" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
 
       def feedback_parse(node, out)
-        return if @bare
-
+        @bare and return
         out.div class: "boilerplate-feedback" do |div|
           node.children.each { |n| parse(n, div) }
         end
