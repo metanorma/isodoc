@@ -366,7 +366,9 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1" id="fwd">
+          <preface>
+          <clause type="toc"><title>TOC</title></clause>
+            <foreword displayorder="2" id="fwd">
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -377,35 +379,35 @@ RSpec.describe IsoDoc do
     html.xpath("//script").each(&:remove)
     expect(strip_guid(xmlpp(html.to_xml)))
       .to be_equivalent_to <<~OUTPUT
-      <body lang="en" xml:lang="en">
-          <div class="title-section">
-      /* an empty html cover page */
-          </div>
-          <br/>
-          <div class="prefatory-section">
-      /* an empty html intro page */
-      <ul id="toc-list"/>
-             <div id="toc"><ul><li class="h1"><a href="#_">      Antaŭparolo</a></li></ul></div>
-       </div>
-         <br/>
-         <main class="main-section">
-           <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+        <body lang="en" xml:lang="en">
+            <div class="title-section">
+        /* an empty html cover page */
+            </div>
+            <br/>
+            <div class="prefatory-section">
+        /* an empty html intro page */
+        <ul id="toc-list"/>
+               <div id="toc"><ul><li class="h1"><a href="#_">      Antaŭparolo</a></li></ul></div>
+         </div>
            <br/>
-           <div id="fwd">
-             <h1 class="ForewordTitle" id="_">Antaŭparolo</h1>
-             <div class="Note">
-               <p>  These results are based on a study carried out on three different types of kernel.</p>
+           <main class="main-section">
+             <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+             <br/>
+             <div id="fwd">
+               <h1 class="ForewordTitle" id="_">Antaŭparolo</h1>
+               <div class="Note">
+                 <p>  These results are based on a study carried out on three different types of kernel.</p>
+               </div>
              </div>
-           </div>
-         </main>
-       </body>
-    OUTPUT
+           </main>
+         </body>
+      OUTPUT
   end
 
   it "populates HTML ToC" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new({htmlintropage: "spec/assets/htmlintro.html"})
+    IsoDoc::HtmlConvert.new({ htmlintropage: "spec/assets/htmlintro.html" })
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword displayorder="1"><title>Foreword</title>
@@ -425,26 +427,26 @@ RSpec.describe IsoDoc do
       .at("//div[@id = 'toc']")
     expect(strip_guid(xmlpp(html.to_xml)))
       .to be_equivalent_to xmlpp(<<~OUTPUT)
-       <div id="toc">
-         <ul>
-           <li class="h1">
-             <a href="#_">      FORVORT</a>
-           </li>
-           <li class="h1">
-             <a href="#_">      First Clause</a>
-           </li>
-           <li class="h2">
-             <a href="#_">      SUBCLOZ</a>
-           </li>
-           <li class="h1">
-             <a href="#_">      Second Clause</a>
-           </li>
-           <li class="h2">
-             <a href="#_">      Subclause</a>
-           </li>
-         </ul>
-       </div>
-    OUTPUT
+        <div id="toc">
+          <ul>
+            <li class="h1">
+              <a href="#_">      FORVORT</a>
+            </li>
+            <li class="h1">
+              <a href="#_">      First Clause</a>
+            </li>
+            <li class="h2">
+              <a href="#_">      SUBCLOZ</a>
+            </li>
+            <li class="h1">
+              <a href="#_">      Second Clause</a>
+            </li>
+            <li class="h2">
+              <a href="#_">      Subclause</a>
+            </li>
+          </ul>
+        </div>
+      OUTPUT
   end
 
   it "reorders footnote numbers in HTML" do
