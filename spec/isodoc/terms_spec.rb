@@ -1,6 +1,54 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "processes simple terms & definitions" do
+    input = <<~INPUT
+              <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <sections>
+      <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
+        <term id="J">
+        <preferred><expression><name>Term2</name></expression></preferred>
+      </term>
+       </terms>
+       </sections>
+       </iso-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        </preface>
+        <sections>
+          <terms id='H' obligation='normative' displayorder="2">
+          <title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
+            <term id='J'>
+            <name>1.1.</name>
+              <preferred><strong>Term2</strong></preferred>
+            </term>
+          </terms>
+        </sections>
+      </iso-standard>
+    OUTPUT
+
+    html = <<~"OUTPUT"
+      #{HTML_HDR}
+                   <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+           <p class="TermNum" id="J">1.1.</p>
+             <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+           </div>
+                 </div>
+               </body>
+           </html>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+  end
+
   it "processes IsoXML terms" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">

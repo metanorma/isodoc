@@ -497,7 +497,7 @@ RSpec.describe IsoDoc do
            <name>NOTE </name>
          </note>
          <note id='B' unnumbered='false'>
-           <name>NOTE </name>
+           <name>NOTE 1</name>
          </note>
          <note id='C' unnumbered='true'>
            <name>NOTE </name>

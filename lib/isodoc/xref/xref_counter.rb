@@ -139,7 +139,7 @@ module IsoDoc
       end
 
       def increment(node)
-        @unnumbered = (node["unnumbered"] || node["hidden"]) and return self
+        @unnumbered = node["unnumbered"] == "true" || node["hidden"] == "true" and return self
         reset_overrides
         if node["subsequence"] != @subseq &&
             !(blank?(node["subsequence"]) && blank?(@subseq))
