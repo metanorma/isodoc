@@ -1,42 +1,8 @@
+require_relative "clause_order"
+
 module IsoDoc
   module XrefGen
     module Sections
-      def clause_order(docxml)
-        { preface: clause_order_preface(docxml),
-          main: clause_order_main(docxml),
-          annex: clause_order_annex(docxml),
-          back: clause_order_back(docxml) }
-      end
-
-      def clause_order_preface(_docxml)
-        [{ path: "//preface/*", multi: true }]
-      end
-
-      def clause_order_main(docxml)
-        [
-          { path: "//sections/clause[@type = 'scope']" },
-          { path: @klass.norm_ref_xpath },
-          { path: "//sections/terms | " \
-            "//sections/clause[descendant::terms]" },
-          { path: "//sections/definitions | " \
-            "//sections/clause[descendant::definitions]" \
-            "[not(descendant::terms)]" },
-          { path: @klass.middle_clause(docxml), multi: true },
-        ]
-      end
-
-      def clause_order_annex(_docxml)
-        [{ path: "//annex", multi: true }]
-      end
-
-      def clause_order_back(_docxml)
-        [
-          { path: @klass.bibliography_xpath },
-          { path: "//indexsect", multi: true },
-          { path: "//colophon/*", multi: true },
-        ]
-      end
-
       def back_anchor_names(xml)
         if @parse_settings.empty? || @parse_settings[:clauses]
           annex_anchor_names(xml)
@@ -173,7 +139,7 @@ module IsoDoc
       end
 
       def section_names(clause, num, lvl)
-        clause.nil? and return num
+        unnumbered_section_name?(clause) and return num
         num.increment(clause)
         section_name_anchors(clause, num.print, lvl)
         clause.xpath(ns(SUBCLAUSES))
@@ -184,11 +150,21 @@ module IsoDoc
       end
 
       def section_names1(clause, num, level)
+        unnumbered_section_name?(clause) and return num
         section_name_anchors(clause, num, level)
         i = Counter.new(0, prefix: "#{num}.")
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           section_names1(c, i.increment(c).print, level + 1)
         end
+      end
+
+      def unnumbered_section_name?(clause)
+        clause.nil? and return true
+        if clause["unnumbered"] == "true"
+          unnumbered_names(clause)
+          return true
+        end
+        false
       end
 
       def section_name_anchors(clause, num, level)

@@ -344,6 +344,34 @@ RSpec.describe IsoDoc do
     expect(word).to match(%r{Anta&#x16D;parolo</h1>})
   end
 
+  it "processes document with no content" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface/>
+            <sections/>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+        <head/>
+        <body lang="en">
+          <div class="title-section">
+            <p>&#160;</p>
+          </div>
+          <br/>
+          <div class="prefatory-section">
+            <p>&#160;</p>
+          </div>
+          <br/>
+          <div class="main-section">
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
+
   it "cleans up HTML output preface placeholder paragraphs" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"

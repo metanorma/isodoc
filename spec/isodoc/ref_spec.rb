@@ -1639,4 +1639,92 @@ RSpec.describe IsoDoc do
     expect(strip_guid(xmlpp(xml.at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to xmlpp(presxml)
   end
+
+    it "processes clauses containing normative references" do
+    input = <<~INPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml">
+           <bibliography>
+       <clause id="D" obligation="informative">
+        <title>Bibliography</title>
+        <references id="E" obligation="informative" normative="false">
+        <title>Bibliography Subsection 1</title>
+      </references>
+        <references id="F" obligation="informative" normative="false">
+        <title>Bibliography Subsection 2</title>
+      </references>
+      </clause>
+      <clause id="A" obligation="informative"><title>First References</title>
+       <references id="B" obligation="informative" normative="true">
+        <title>Normative References 1</title>
+      </references>
+       <references id="C" obligation="informative" normative="false">
+        <title>Normative References 2</title>
+      </references>
+       </clause>
+
+      </bibliography>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <clause id="A" obligation="informative" displayorder="2">
+             <title depth="1">1.<tab/>First References</title>
+             <references id="B" obligation="informative" normative="true">
+               <title depth="2">1.1.<tab/>Normative References 1</title>
+             </references>
+             <references id="C" obligation="informative" normative="false">
+               <title depth="2">1.2.<tab/>Normative References 2</title>
+             </references>
+           </clause>
+         </sections>
+         <bibliography>
+           <clause id="D" obligation="informative" displayorder="3">
+             <title depth="1">Bibliography</title>
+             <references id="E" obligation="informative" normative="false">
+               <title depth="2">Bibliography Subsection 1</title>
+             </references>
+             <references id="F" obligation="informative" normative="false">
+               <title depth="2">Bibliography Subsection 2</title>
+             </references>
+           </clause>
+         </bibliography>
+       </iso-standard>
+    OUTPUT
+
+    html = <<~OUTPUT
+      #{HTML_HDR}
+                 <div>
+                   <h1>1.&#160; First References</h1>
+                   <div>
+                     <h2 class='Section3'>1.1.&#160; Normative References 1</h2>
+                   </div>
+                   <div>
+                     <h2 class='Section3'>1.2.&#160; Normative References 2</h2>
+                   </div>
+                 </div>
+                 <br/>
+                 <div>
+                   <h1 class='Section3'>Bibliography</h1>
+                   <div>
+                     <h2 class='Section3'>Bibliography Subsection 1</h2>
+                   </div>
+                   <div>
+                     <h2 class='Section3'>Bibliography Subsection 2</h2>
+                   </div>
+                 </div>
+               </div>
+             </body>
+           </html>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+  end
 end

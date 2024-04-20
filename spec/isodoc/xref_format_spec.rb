@@ -1,6 +1,38 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "warns of missing crossreference" do
+    i = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword>
+      <p>
+      <xref target="N1"/>
+      </preface>
+      </iso-standard>
+    INPUT
+    expect do
+      IsoDoc::PresentationXMLConvert
+        .new(presxml_options)
+        .convert("test", i, true)
+    end
+      .to output(/No label has been processed for ID N1/).to_stderr
+  end
+
+  it "does not warn of missing crossreference if text is supplied" do
+    i = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword>
+      <p>
+      <xref target="N1">abc</xref>
+      </preface>
+      </iso-standard>
+    INPUT
+    expect { IsoDoc::HtmlConvert.new({}).convert("test", i, true) }
+      .not_to output(/No label has been processed for ID N1/).to_stderr
+  end
+
   it "cross-references external documents" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
