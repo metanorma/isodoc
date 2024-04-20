@@ -102,9 +102,14 @@ module IsoDoc
     end
 
     def bibliography_bibitem_number_insert_pt(bibitem)
-      unless ins = bibitem.at(ns(".//docidentifier")).previous_element
-        bibitem.at(ns(".//docidentifier")).previous = " "
-        ins = bibitem.at(ns(".//docidentifier")).previous
+      unless d = bibitem.at(ns(".//docidentifier"))
+        d = bibitem.children.first
+        d.previous = " "
+        return d.previous
+      end
+      unless ins = d.previous_element
+        d.previous = " "
+        ins = d.previous
       end
       ins
     end
