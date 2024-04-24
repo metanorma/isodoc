@@ -157,13 +157,14 @@ module IsoDoc
         tfoot.xpath(".//td").last
       end
 
+      TABLENOTE_CSS = "div[@class = 'Note' or @class = 'BlockSource' " \
+        "or @class = 'TableFootnote']".freeze
+
       def table_note_cleanup(docxml)
-        docxml.xpath("//table[dl or div[@class = 'Note' or @class = 'BlockSource' " \
-                     "or @class = 'TableFootnote']]").each do |t|
+        docxml.xpath("//table[dl or #{TABLENOTE_CSS}]").each do |t|
           tfoot = table_get_or_make_tfoot(t)
           insert_here = new_fullcolspan_row(t, tfoot)
-          t.xpath("dl | div[@class = 'Note' or @class = 'BlockSource' or " \
-                  "@class = 'TableFootnote']")
+          t.xpath("dl | p[@class = 'ListTitle'] | #{TABLENOTE_CSS}")
             .each do |d|
             d.parent = insert_here
           end
