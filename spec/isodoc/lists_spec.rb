@@ -503,8 +503,10 @@ RSpec.describe IsoDoc do
                      <p align="left" style="margin-left:0pt;text-align:left;">A Deflist</p>
                    </td>
                    <td valign="top">
+                   <div class="figdl">
                      <a id="_732d3f57-4f88-40bf-9ae9-633891edc395"/>
                      <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">W<span style="mso-tab-count:1">  </span>mass fraction of gelatinized kernels</p>
+                     </div>
                    </td>
                  </tr>
                </table>
@@ -513,8 +515,10 @@ RSpec.describe IsoDoc do
                    <tbody>
                      <tr>
                        <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                       <div class="figdl">
                          <a id="_732d3f57-4f88-40bf-9ae9-633891edc397"/>
                          <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">X<span style="mso-tab-count:1">  </span>expressed in per cent</p>
+                         </div>
                        </td>
                      </tr>
                    </tbody>
