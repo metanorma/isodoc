@@ -537,6 +537,7 @@ RSpec.describe IsoDoc do
             </div>
             <div id='d' class='Symbols'>
               <h1>1.</h1>
+              <div class="figdl">
               <dl>
                 <dt id='d1'>
                   <p>ISO</p>
@@ -547,6 +548,7 @@ RSpec.describe IsoDoc do
                 </dt>
                 <dd>abc</dd>
               </dl>
+              </div>
             </div>
           </div>
         </body>

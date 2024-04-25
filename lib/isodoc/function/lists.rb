@@ -90,13 +90,15 @@ module IsoDoc
       end
 
       def dl_parse(node, out)
-        list_title_parse(node, out)
-        out.dl **dl_attrs(node) do |v|
+        out.div **attr_code(class: "figdl") do |div|
+        list_title_parse(node, div)
+        div.dl **dl_attrs(node) do |v|
           node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
             dl_parse1(v, dt, dd)
           end
         end
-        dl_parse_notes(node, out)
+        dl_parse_notes(node, div)
+        end
       end
 
       def dl_parse_notes(node, out)

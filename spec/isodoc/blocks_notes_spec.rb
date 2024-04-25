@@ -232,7 +232,9 @@ RSpec.describe IsoDoc do
                 <div>
                   <h1 class="ForewordTitle">Foreword</h1>
                   <div id="A" class="Note"><p><span class="note_label">NOTE</span>&#160; </p>
+                   <div class="figdl">
             <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
+            </div>
             <ul>
             <li>C</li></ul>
         </div>

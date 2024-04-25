@@ -535,6 +535,7 @@ RSpec.describe IsoDoc do
                                  <h1 class="ForewordTitle">Foreword</h1>
                <pre id="_" class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c"> &lt;3&gt;</span><br/>   end</pre>
                        <div class="annotation">
+                       <div class="figdl">
           <p class="ListTitle">Key</p>
           <dl>
             <dt id="A">
@@ -556,6 +557,7 @@ RSpec.describe IsoDoc do
               <p id="_">This is yet another callout</p>
             </dd>
           </dl>
+          </div>
         </div>
                <p class="SourceTitle" style="text-align:center;">Figure 1</p>
              </div>
@@ -743,6 +745,7 @@ RSpec.describe IsoDoc do
                         <pre class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
                       </td></tr><tr><td style="" class="rouge-gutter gl"><pre>2</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   %w{a b c}.each do |x|</pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>3</pre></td><td style="" class="rouge-code"><pre class="sourcecode">     puts x <span class="c"> &lt;3&gt;</span> </pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>4</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   end</pre></td></tr></tbody></table></div>
                               <div class="annotation">
+                              <div class="figdl">
           <p class="ListTitle">Key</p>
           <dl>
             <dt id="A">
@@ -764,6 +767,7 @@ RSpec.describe IsoDoc do
               <p id="_">This is yet another callout</p>
             </dd>
           </dl>
+          </div>
         </div>
                <p class="SourceTitle" style="text-align:center;">Figure 1</p>
              </div>

@@ -360,6 +360,7 @@ RSpec.describe IsoDoc do
               <br/>
               <div>
                 <h1 class="ForewordTitle">Foreword</h1>
+                <div class="figdl">
                 <p class='ListTitle'>Caption</p>
                 <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395" style="page-break-after: avoid;page-break-inside: avoid;">
                   <dt>
@@ -379,6 +380,7 @@ RSpec.describe IsoDoc do
                 </dl>
                 <div class="Note">
            <p>&#160; This is a note</p>
+         </div>
          </div>
               </div>
             </div>

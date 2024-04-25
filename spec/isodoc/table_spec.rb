@@ -268,6 +268,7 @@ RSpec.describe IsoDoc do
                              <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">6,06</td>
                            </tr>
                          </tfoot>
+                         <div class="figdl">
                          <p class="ListTitle">Key</p>
                                   <dl>
              <dt>
@@ -275,6 +276,7 @@ RSpec.describe IsoDoc do
              </dt>
              <dd>A type of rice</dd>
            </dl>
+           </div>
            <div class="BlockSource">
              <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a> —
       with adjustments]</p>
