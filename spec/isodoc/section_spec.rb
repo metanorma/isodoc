@@ -466,16 +466,20 @@ RSpec.describe IsoDoc do
                            <p class="TermNum" id="J">3.1.1.</p>
                            <p class="Terms" style="text-align:left;"><b>Term2</b></p>
                          </div><div id="K"><h2>3.2.&#160; Definitions</h2>
+                         <div class="figdl">
                            <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+                           </div>
                          </div></div>
                                 <div id="L" class="Symbols">
                                   <h1>4.&#160; Symbols and abbreviated terms</h1>
+                                  <div class="figdl">
                                   <dl>
                                     <dt>
                                       <p>Symbol</p>
                                     </dt>
                                     <dd>Definition</dd>
                                   </dl>
+                                  </div>
                                 </div>
                                 <div id="M">
                                   <h1>5.&#160; Clause 4</h1>
@@ -932,12 +936,14 @@ RSpec.describe IsoDoc do
                   <br/>
                   Variant 1
                 </h2>
+                <div class="figdl">
                 <dl>
                   <dt>
                     <p>Symbol</p>
                   </dt>
                   <dd>Definition</dd>
                 </dl>
+                </div>
               </div>
             </div>
             <div id='L' class='Symbols'>
@@ -947,12 +953,14 @@ RSpec.describe IsoDoc do
                 <br/>
                 Variant 1
               </h1>
+              <div class="figdl">
               <dl>
                 <dt>
                   <p>Symbol</p>
                 </dt>
                 <dd>Definition</dd>
               </dl>
+              </div>
             </div>
             <div id='M'>
               <h1>

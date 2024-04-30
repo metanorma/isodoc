@@ -118,7 +118,10 @@ RSpec.describe IsoDoc do
                          <a href="#_" class="TableFootnoteRef">a</a><aside class="footnote"><div id="fn:_"><span><span id="_" class="TableFootnoteRef">a</span>&#160; </span>
                          <p id="_">The time <span class="stem">(#(t_90)#)</span> was estimated to be 18,2 min for this example.</p>
                        </div></aside>
-                         <p  style='page-break-after:avoid;'><b>Key</b></p><dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
+                         <p  style='page-break-after:avoid;'><b>Key</b></p>
+                         <div class="figdl">
+                    <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
+                    </div>
                 <div class="BlockSource">
                   <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments]</p>
                 </div>

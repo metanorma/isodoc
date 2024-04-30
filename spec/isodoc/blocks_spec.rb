@@ -463,11 +463,14 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <div id="_" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p><dl id="_" class="formula_dl"><dt>
+                    <div id="_" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p>
+                    <div class="figdl">
+                    <dl id="_" class="formula_dl"><dt>
               <span class="stem">(#(r)#)</span>
             </dt><dd>
               <p id="_">is the repeatability limit.</p>
             </dd></dl>
+            </div>
 
 
               <div id="_" class="Note"><p><span class="note_label">NOTE</span>&#160; [durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
