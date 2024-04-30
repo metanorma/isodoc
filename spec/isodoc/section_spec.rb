@@ -49,7 +49,7 @@ RSpec.describe IsoDoc do
                   <h2>Introduction</h2>
                 </div>
                 <div id='O'>
-                  <span class='zzMoveToFollowing'>
+                  <span class='zzMoveToFollowing inline-header'>
                     <b>Clause 4.2&#160; </b>
                   </span>
                 </div>
@@ -110,7 +110,7 @@ RSpec.describe IsoDoc do
                   <h2>Introduction</h2>
                 </div>
                 <div id='O'>
-                  <span class='zzMoveToFollowing'>
+                  <span class='zzMoveToFollowing inline-header'>
                     <b>
                       Clause 4.2
                       <span style='mso-tab-count:1'>&#160; </span>
@@ -1896,7 +1896,7 @@ RSpec.describe IsoDoc do
               <h2>1.1.&#160; Introduction</h2>
             </div>
                      <div id="O">
-              <span class="zzMoveToFollowing"><b>1.2.&#160; Clause 4.2&#160; </b></span>
+              <span class="zzMoveToFollowing inline-header"><b>1.2.&#160; Clause 4.2&#160; </b></span>
               <p>ABC</p>
             </div>
                    </div>

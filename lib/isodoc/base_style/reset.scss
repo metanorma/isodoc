@@ -199,3 +199,24 @@ table.rouge-line-table pre {
   overflow-x: visible;
   font-size: 100%;
 }
+
+a.header{color:inherit;text-decoration:none}
+a.header:hover{color:#a53221}
+a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+h1>a.anchor:hover,
+h2>a.anchor:hover,
+h3>a.anchor:hover,
+h4>a.anchor:hover,
+h5>a.anchor:hover,
+h6>a.anchor:hover,
+.inline-header>a.anchor:hover,
+h1:hover>a.anchor,
+h2:hover>a.anchor,
+h3:hover>a.anchor,
+h4:hover>a.anchor,
+h5:hover>a.anchor,
+h6:hover>a.anchor,
+.inline-header:hover>a.anchor{
+visibility:visible;
+}
