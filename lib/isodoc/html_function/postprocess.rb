@@ -128,7 +128,7 @@ module IsoDoc
           docxml.xpath("//p[@class = 'TermNum'][../#{h}]").each do |p|
             p.name = "h#{h[1].to_i + 1}"
             id = p["id"]
-            p["id"] = UUIDTools::UUID.random_create.to_s
+            p["id"] = "_#{UUIDTools::UUID.random_create}"
             p.wrap("<div id='#{id}'></div>")
           end
         end
