@@ -37,12 +37,15 @@ module IsoDoc
           h.at("./ancestor::div[@id='toc']") and next
           div = h.xpath("./ancestor::div[@id]")
           div.empty? and next
-          id = div[-1]["id"]
-          h.children = <<~HTML.strip
-            <a class='anchor' href='##{id}'/><a class='header' href='##{id}'>#{h.children.to_xml}</a>
-          HTML
+          heading_anchor(h, div[-1]["id"])
         end
         html
+      end
+
+      def heading_anchor(hdr, id)
+        hdr.children = <<~HTML.strip
+          <a class='anchor' href='##{id}'/><a class='header' href='##{id}'>#{hdr.children.to_xml}</a>
+        HTML
       end
 
       def sourcecode_cleanup(html)
