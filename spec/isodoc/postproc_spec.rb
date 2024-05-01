@@ -415,7 +415,7 @@ RSpec.describe IsoDoc do
             <div class="prefatory-section">
         /* an empty html intro page */
         <ul id="toc-list"/>
-               <div id="toc"><ul><li class="h1"><a href="#_">      Antaŭparolo</a></li></ul></div>
+               <div id="toc"><ul><li class="h1"><a href="#fwd">      Antaŭparolo</a></li></ul></div>
          </div>
            <br/>
            <main class="main-section">
@@ -438,16 +438,16 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new({ htmlintropage: "spec/assets/htmlintro.html" })
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface><foreword displayorder="1"><title>Foreword</title>
+        <preface><foreword displayorder="1" id="fwd"><title>Foreword</title>
         <variant-title type="toc">FORVORT</variant-title>
         </foreword></preface>
         <sections>
-        <clause displayorder="2"><title>First Clause</title>
-        <clause><title>First Subclause</title>
+        <clause displayorder="2" id="clA"><title>First Clause</title>
+        <clause id="clB"><title>First Subclause</title>
         <variant-title type="toc">SUBCLOZ</variant-title>
         </clause>
         </clause>
-        <clause displayorder="3"><title>Second Clause</title><clause><title>Subclause</title></clause></clause>
+        <clause displayorder="3" id="clC"><title>Second Clause</title><clause id="clD"><title>Subclause</title></clause></clause>
         </sections>
         </iso-standard>
       INPUT
@@ -458,19 +458,19 @@ RSpec.describe IsoDoc do
         <div id="toc">
           <ul>
             <li class="h1">
-              <a href="#_">      FORVORT</a>
+              <a href="#fwd">      FORVORT</a>
             </li>
             <li class="h1">
-              <a href="#_">      First Clause</a>
+              <a href="#clA">      First Clause</a>
             </li>
             <li class="h2">
-              <a href="#_">      SUBCLOZ</a>
+              <a href="#clB">      SUBCLOZ</a>
             </li>
             <li class="h1">
-              <a href="#_">      Second Clause</a>
+              <a href="#clC">      Second Clause</a>
             </li>
             <li class="h2">
-              <a href="#_">      Subclause</a>
+              <a href="#clD">      Subclause</a>
             </li>
           </ul>
         </div>

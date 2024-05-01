@@ -98,7 +98,7 @@ module IsoDoc
       def html_toc_entry(level, header)
         content = header.at("./following-sibling::p" \
                             "[@class = 'variant-title-toc']") || header
-        id = header.at(".//a[@class = 'anchor']/@href")&.text&.sub(/^#/, "") |
+        id = header.at(".//a[@class = 'anchor']/@href")&.text&.sub(/^#/, "") ||
           header["id"]
         %(<li class="#{level}"><a href="##{id}">\
       #{header_strip(content)}</a></li>)
