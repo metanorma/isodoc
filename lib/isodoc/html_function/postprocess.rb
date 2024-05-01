@@ -26,9 +26,9 @@ module IsoDoc
 
       def html_cleanup(html)
         html = term_header(html_footnote_filter(html_preface(htmlstyle(html))))
-        html = footnote_format(footnote_backlinks(html_toc(html)))
+        html = footnote_format(footnote_backlinks(html))
         html = mathml(html_list_clean(remove_placeholder_paras(html)))
-        heading_anchors(sourcecode_cleanup(html))
+        html_toc(heading_anchors(sourcecode_cleanup(html)))
       end
 
       def heading_anchors(html)
