@@ -1007,11 +1007,13 @@ RSpec.describe IsoDoc do
                      </tr>
                      <tr>
                        <td style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:auto;">
+                       <div class="ol_wrap">
                          <ol type="a">
                            <li>3</li>
                            <li>3</li>
                            <li>3</li>
                          </ol>
+                         </div>
                        </td>
                      </tr>
                      <tr>
@@ -1116,11 +1118,13 @@ RSpec.describe IsoDoc do
                      </tr>
                      <tr>
                        <td style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">
+                       <div class="ol_wrap">
                          <ol type="a">
                            <li>3</li>
                            <li>3</li>
                            <li>3</li>
                          </ol>
+                         </div>
                        </td>
                      </tr>
                      <tr>

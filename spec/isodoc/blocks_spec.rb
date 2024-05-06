@@ -1399,11 +1399,13 @@ RSpec.describe IsoDoc do
               <h1>2.&#160; Clause 2</h1>
               <p id='A'>And introducing: </p>
               <div class='toc'>
+              <div class="ul_wrap">
                 <ul id='B'>
                   <li>
                     <a href='#clause1A'>1.1&#160; Clause 1A</a>
                   </li>
                   <li>
+                  <div class="ul_wrap">
                     <ul id='C'>
                       <li>
                         <a href='#clause1Aa'>1.1.1&#160; Clause 1Aa</a>
@@ -1412,20 +1414,25 @@ RSpec.describe IsoDoc do
                         <a href='#clause1Ab'>1.1.2&#160; Clause 1Ab</a>
                       </li>
                     </ul>
+                    </div>
                   </li>
                   <li>
                     <a href='#clause1B'>1.2&#160; Clause 1B</a>
                   </li>
                   <li>
+                  <div class="ul_wrap">
                     <ul id='D'>
                       <li>
                         <a href='#clause1Ba'>1.2.1&#160; Clause 1Ba</a>
                       </li>
                     </ul>
+                    </div>
                   </li>
                 </ul>
+                </div>
               </div>
               <div class='toc'>
+                  <div class="ul_wrap">
                 <ul id='E'>
                   <li>
                     <a href='#clause1A'>1.1&#160; Clause 1A</a>
@@ -1434,6 +1441,7 @@ RSpec.describe IsoDoc do
                     <a href='#clause1B'>1.2&#160; Clause 1B</a>
                   </li>
                 </ul>
+                </div>
               </div>
             </div>
           </div>

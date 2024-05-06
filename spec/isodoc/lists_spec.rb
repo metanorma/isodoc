@@ -24,6 +24,7 @@ RSpec.describe IsoDoc do
                    <br/>
                    <div>
                      <h1 class="ForewordTitle">Foreword</h1>
+                     <div class="ul_wrap">
                      <p class='ListTitle'>Caption</p>
                      <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
              <li>
@@ -33,6 +34,7 @@ RSpec.describe IsoDoc do
                <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
              </li>
            </ul>
+           </div>
                    </div>
                  </div>
                </body>
@@ -60,6 +62,7 @@ RSpec.describe IsoDoc do
               </p>
               <div>
                 <h1 class='ForewordTitle'>Foreword</h1>
+                <div class="ul_wrap">
                 <p class='ListTitle'>Caption</p>
                 <ul id='_61961034-0fb1-436b-b281-828857a59ddb' style='page-break-after: avoid;page-break-inside: avoid;'>
                   <li>
@@ -69,6 +72,7 @@ RSpec.describe IsoDoc do
                     <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
                   </li>
                 </ul>
+                </div>
               </div>
               <p>&#xa0;</p>
             </div>
@@ -109,6 +113,7 @@ RSpec.describe IsoDoc do
                    <br/>
          <div>
                    <h1 class='ForewordTitle'>Foreword</h1>
+                   <div class="ul_wrap">
                    <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
                      <li>
                      <span class='zzMoveToFollowing'>
@@ -123,6 +128,7 @@ RSpec.describe IsoDoc do
                        <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
                      </li>
                    </ul>
+                   </div>
                  </div>
                </div>
              </body>
@@ -150,6 +156,7 @@ RSpec.describe IsoDoc do
                     </p>
                     <div>
                       <h1 class='ForewordTitle'>Foreword</h1>
+                      <div class="ul_wrap">
                       <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
                         <li>
                           <span class='zzMoveToFollowing'>&#9745; </span>
@@ -160,6 +167,7 @@ RSpec.describe IsoDoc do
                           <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
                         </li>
                       </ul>
+                    </div>
                     </div>
                     <p>&#160;</p>
                   </div>
@@ -209,22 +217,28 @@ RSpec.describe IsoDoc do
                    <br/>
                    <div>
                      <h1 class="ForewordTitle">Foreword</h1>
+                     <div class="ol_wrap">
                  <p class='ListTitle'>Caption</p>
                      <ol type="a" id="_ae34a226-aab4-496d-987b-1aa7b6314026" style="page-break-after: avoid;page-break-inside: avoid;">
              <li>
                <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
              </li>
+             <div class="ol_wrap">
              <ol type="1">
              <li>
                <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
              </li>
+             <div class="ol_wrap">
              <ol type="i">
              <li>
                <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
              </li>
              </ol>
+             </div>
              </ol>
+             </div>
            </ol>
+           </div>
                    </div>
                  </div>
                </body>
@@ -252,23 +266,29 @@ RSpec.describe IsoDoc do
               </p>
               <div>
                 <h1 class='ForewordTitle'>Foreword</h1>
+                <div class="ol_wrap">
                 <p class='ListTitle'>Caption</p>
                 <ol type='a' id='_ae34a226-aab4-496d-987b-1aa7b6314026' style='page-break-after: avoid;page-break-inside: avoid;'>
                   <li>
                     <p id='_0091a277-fb0e-424a-aea8-f0001303fe78'>all information necessary for the complete identification of the sample;</p>
                   </li>
+                  <div class="ol_wrap">
                   <ol type='1'>
                     <li>
                       <p id='_8a7b6299-db05-4ff8-9de7-ff019b9017b2'>a reference to this document (i.e. ISO 17301-1);</p>
                     </li>
-                    <ol type='i'>
-                      <li>
-                        <p id='_ea248b7f-839f-460f-a173-a58a830b2abe'>the sampling method used;</p>
-                      </li>
-                    </ol>
-                  </ol>
-                </ol>
-              </div>
+                                           <div class="ol_wrap">
+                         <ol type="i">
+                           <li>
+                             <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
+                           </li>
+                         </ol>
+                       </div>
+                     </ol>
+                   </div>
+                 </ol>
+               </div>
+             </div>
               <p>&#xa0;</p>
             </div>
             <p class="section-break">
@@ -313,6 +333,7 @@ RSpec.describe IsoDoc do
                    <br/>
                    <div>
                      <h1 class="ForewordTitle">Foreword</h1>
+                     <div class="ol_wrap">
                      <ol type="I" id="_ae34a226-aab4-496d-987b-1aa7b6314026">
              <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
                <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
@@ -324,6 +345,7 @@ RSpec.describe IsoDoc do
                <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
              </li>
            </ol>
+           </div>
                    </div>
                  </div>
                </body>

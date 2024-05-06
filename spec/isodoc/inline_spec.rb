@@ -296,6 +296,7 @@ RSpec.describe IsoDoc do
                               <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p>
+               <div class="ul_wrap">
                  <ul>
                    <li>
 
@@ -336,6 +337,7 @@ RSpec.describe IsoDoc do
                      <b>error!</b>
                    </li>
                  </ul>
+                 </div>
                </p>
              </div>
              <div>
@@ -435,6 +437,7 @@ RSpec.describe IsoDoc do
                         <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p>
+               <div class="ul_wrap">
                  <ul>
                    <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
                    <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
@@ -457,6 +460,7 @@ RSpec.describe IsoDoc do
                      <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
                    </li>
                  </ul>
+                 </div>
                </p>
              </div>
              <div id="clause1">
@@ -530,9 +534,11 @@ RSpec.describe IsoDoc do
             <div>
               <h1 class='ForewordTitle'>Foreword</h1>
               <p>
+              <div class="ul_wrap">
                 <ul>
                   <li>ISO</li>
                 </ul>
+                </div>
               </p>
             </div>
             <div id='d' class='Symbols'>

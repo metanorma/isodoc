@@ -2020,9 +2020,11 @@ RSpec.describe IsoDoc do
            <div class="main-section">
              <div id="PP">
                <h1>Glossary</h1>
+               <div class="ul_wrap">
                <ul>
                  <li>A</li>
                </ul>
+               </div>
              </div>
            </div>
          </body>
