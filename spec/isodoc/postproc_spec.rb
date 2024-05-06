@@ -415,14 +415,14 @@ RSpec.describe IsoDoc do
             <div class="prefatory-section">
         /* an empty html intro page */
         <ul id="toc-list"/>
-               <div id="toc"><ul><li class="h1"><a href="#_">      Antaŭparolo</a></li></ul></div>
+               <div id="toc"><ul><li class="h1"><a href="#fwd">      Antaŭparolo</a></li></ul></div>
          </div>
            <br/>
            <main class="main-section">
              <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br/>
              <div id="fwd">
-               <h1 class="ForewordTitle" id="_">Antaŭparolo</h1>
+               <h1 class="ForewordTitle" id="_"><a class="anchor" href="#fwd"/><a class="header" href="#fwd">Antaŭparolo</a></h1>
                <div class="Note">
                  <p>  These results are based on a study carried out on three different types of kernel.</p>
                </div>
@@ -438,16 +438,16 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new({ htmlintropage: "spec/assets/htmlintro.html" })
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface><foreword displayorder="1"><title>Foreword</title>
+        <preface><foreword displayorder="1" id="fwd"><title>Foreword</title>
         <variant-title type="toc">FORVORT</variant-title>
         </foreword></preface>
         <sections>
-        <clause displayorder="2"><title>First Clause</title>
-        <clause><title>First Subclause</title>
+        <clause displayorder="2" id="clA"><title>First Clause</title>
+        <clause id="clB"><title>First Subclause</title>
         <variant-title type="toc">SUBCLOZ</variant-title>
         </clause>
         </clause>
-        <clause displayorder="3"><title>Second Clause</title><clause><title>Subclause</title></clause></clause>
+        <clause displayorder="3" id="clC"><title>Second Clause</title><clause id="clD"><title>Subclause</title></clause></clause>
         </sections>
         </iso-standard>
       INPUT
@@ -458,19 +458,19 @@ RSpec.describe IsoDoc do
         <div id="toc">
           <ul>
             <li class="h1">
-              <a href="#_">      FORVORT</a>
+              <a href="#fwd">      FORVORT</a>
             </li>
             <li class="h1">
-              <a href="#_">      First Clause</a>
+              <a href="#clA">      First Clause</a>
             </li>
             <li class="h2">
-              <a href="#_">      SUBCLOZ</a>
+              <a href="#clB">      SUBCLOZ</a>
             </li>
             <li class="h1">
-              <a href="#_">      Second Clause</a>
+              <a href="#clC">      Second Clause</a>
             </li>
             <li class="h2">
-              <a href="#_">      Subclause</a>
+              <a href="#clD">      Subclause</a>
             </li>
           </ul>
         </div>
@@ -509,15 +509,15 @@ RSpec.describe IsoDoc do
     expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~OUTPUT)
           <main  xmlns:epub="epub" class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
             <div id="A">
-              <h1>Clause 4</h1>
+              <h1><a class="anchor" href="#A"/><a class="header" href="#A">Clause 4</a></h1>
               <a class='FootnoteRef' href='#fn:3' id='fnref:1'>
                 <sup>1</sup>
               </a>
               <div id="N">
-               <h2>Introduction to this<a class='FootnoteRef' href='#fn:2' id='fnref:2'><sup>2</sup></a></h2>
+               <h2><a class="anchor" href="#N"/><a class="header" href="#N">Introduction to this<a class='FootnoteRef' href='#fn:2' id='fnref:2'><sup>2</sup></a></a></h2>
              </div>
               <div id="O">
-               <h2>Clause 4.2</h2>
+               <h2><a class="anchor" href="#O"/><a class="header" href="#O">Clause 4.2</a></h2>
                <p>A<a class='FootnoteRef' href='#fn:2'><sup>2</sup></a></p>
              </div>
             </div>
@@ -662,7 +662,7 @@ RSpec.describe IsoDoc do
         output = <<~OUTPUT
           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
             <div id="_clause">
-              <h1>Clause</h1>
+              <h1><a class="anchor" href="#_clause"></a><a class="header" href="#_clause">Clause</a></h1>
               <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
               <span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML">
                   <mi>x</mi>
@@ -742,7 +742,7 @@ RSpec.describe IsoDoc do
         output = <<~OUTPUT
           <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
             <div id="_clause">
-              <h1>Clause</h1>
+              <h1><a class="anchor" href="#_clause"></a><a class="header" href="#_clause">Clause</a></h1>
               <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
               <span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML">
                   <mstyle mathvariant="sans-serif">
@@ -998,9 +998,9 @@ RSpec.describe IsoDoc do
         </iso-standard>
       INPUT
     expect(File.exist?("test.html")).to be true
-    html = File.read("test.html")
-    expect(html).to match(%r{<h2 class="TermNum" id="paddy1">1\.1\.</h2>})
-    expect(html).to match(%r{<h2 class="TermNum" id="paddy">1\.2\.</h2>})
+    html = strip_guid(File.read("test.html"))
+    expect(html).to include(%{<div id="paddy1"><h2 class="TermNum" id="_"><a class="anchor" href="#paddy1"></a><a class="header" href="#paddy1">1\.1\.</a></h2>})
+    expect(html).to include(%{<div id="paddy"><h2 class="TermNum" id="_"><a class="anchor" href="#paddy"></a><a class="header" href="#paddy">1\.2\.</a></h2>})
   end
 
   it "does not lose HTML escapes in postprocessing" do

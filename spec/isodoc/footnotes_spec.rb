@@ -160,7 +160,7 @@ RSpec.describe IsoDoc do
         </div>
         <br />
         <div class="Section3" id="">
-          <h1 class="IntroTitle">Introduction</h1>
+          <h1 class="IntroTitle"><a class="anchor" href="#"/> <a class="header" href="#">Introduction</a></h1>
         </div>
       </main>
     OUTPUT
@@ -305,7 +305,7 @@ RSpec.describe IsoDoc do
         </div>
         <br />
         <div class="Section3" id="">
-          <h1 class="IntroTitle">Introduction</h1>
+          <h1 class="IntroTitle"><a class="anchor" href="#"/><a class="header" href="#">Introduction</a></h1>
         </div>
       </main>
     OUTPUT
