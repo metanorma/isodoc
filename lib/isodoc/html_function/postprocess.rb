@@ -84,7 +84,6 @@ module IsoDoc
         docxml.xpath("//*[local-name() = 'img' or local-name() = 'svg']")
           .each do |i|
           loc = image_localfile(i) or next
-          require "debug"; binding.b
           i["width"], i["height"] = Vectory::ImageResize.new
             .call(i, loc, @maxheight, @maxwidth)
         end

@@ -21,7 +21,8 @@ module IsoDoc
     def convert1(docxml, _filename, _dir)
       docid_prefixes(docxml) # feeds @xrefs.parse citation processing
       @xrefs.parse docxml
-      info docxml, nil
+      @xrefs.klass.meta = @meta
+      @xrefs.klass.info docxml, nil
       conversions(docxml)
       docxml.root["type"] = "presentation"
       docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
