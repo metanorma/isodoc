@@ -89,7 +89,7 @@ deprecated: 推奨しない用語
 source: 出典
 and: and
 all_parts: 規格群
-edition_ordinal: "第3版{{ var1 }}版"
+edition_ordinal: "第{{ var1 }}版"
 edition: 版
 version: version
 toc_figures: List of figures
