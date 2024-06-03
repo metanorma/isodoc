@@ -18,7 +18,9 @@ module IsoDoc
       super
     end
 
-    def convert1(docxml, _filename, _dir)
+    def convert1(docxml, filename, dir)
+      @outputdir = dir
+      @outputfile = filename
       docid_prefixes(docxml) # feeds @xrefs.parse citation processing
       @xrefs.parse docxml
       @xrefs.klass.meta = @meta
@@ -121,7 +123,7 @@ module IsoDoc
     def metanorma_extension_insert_pt(xml)
       xml.at(ns("//metanorma-extension")) ||
         xml.at(ns("//bibdata"))&.after("<metanorma-extension/>")
-        &.next_element ||
+          &.next_element ||
         xml.root.elements.first.before("<metanorma-extension/>")
           .previous_element
     end

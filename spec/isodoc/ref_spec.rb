@@ -508,6 +508,7 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns='http://riboseinc.com/isoxml'>
       <bibliography>
       <references>
+      <title>Title</title>
       <bibitem hidden="true"/>
       <bibitem hidden="true"/>
       <bibitem hidden="true"/>
@@ -530,6 +531,7 @@ RSpec.describe IsoDoc do
           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <bibliography>
           <references hidden='true'>
+            <title depth="1">Title</title>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>

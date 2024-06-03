@@ -3,11 +3,28 @@ module IsoDoc
     def metadata(docxml)
       toc_metadata(docxml)
       fonts_metadata(docxml)
+      attachments_extract(docxml)
       preprocess_xslt_insert(docxml)
       a = docxml.at(ns("//bibdata")) or return
       a.next =
         "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join}" \
         "</localized-strings>"
+    end
+
+    def attachments_extract(docxml)
+      docxml.at(ns("//metanorma-extension/attachment")) or return
+      dir = File.join(@localdir, "_#{@outputfile}_attachments")
+      FileUtils.rm_rf(dir)
+      FileUtils.mkdir_p(dir)
+      docxml.xpath(ns("//metanorma-extension/attachment")).each do |a|
+        save_attachment(a, dir)
+      end
+    end
+
+    def save_attachment(attachment, dir)
+      n = File.join(dir, attachment["name"])
+      c = attachment.text.sub(%r{^data:[^;]+;(?:charset=[^;]+;)?base64,}, "")
+      File.open(n, "wb") { |f| f.write(Base64.strict_decode64(c)) }
     end
 
     def extension_insert(xml, path = [])

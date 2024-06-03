@@ -79,12 +79,12 @@ module IsoDoc
 
     def parse_localize_number
       @localizenumber or return {}
-      m = %r{(?<group>[^#])?(?<groupdigits>#+0)(?<decimal>.)(?<fractdigits>#+)(?<fractgroup>[^#])?}
+      m = %r{(?<grp>[^#])?(?<grpdig>#+0)(?<decpt>.)(?<frdig>#+)(?<frgrp>[^#])?}
         .match(@localizenumber) or return {}
-      ret = { decimal: m[:decimal], group_digits: m[:groupdigits].size,
-              fraction_group_digits: m[:fractdigits].size,
-              group: m[:group] || "",
-              fraction_group: m[:fractgroup] || "" }.compact
+      ret = { decimal: m[:decpt], group_digits: m[:grpdig].size,
+              fraction_group_digits: m[:frdig].size,
+              group: m[:grp] || "",
+              fraction_group: m[:frgrp] || "" }.compact
       %i(group fraction_group).each { |x| ret[x] == " " and ret[x] = "\u00A0" }
       ret
     end
