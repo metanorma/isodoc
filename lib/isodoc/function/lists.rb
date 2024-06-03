@@ -13,9 +13,11 @@ module IsoDoc
       end
 
       def ul_parse(node, out)
-        list_title_parse(node, out)
-        out.ul **attr_code(ul_attrs(node)) do |ul|
-          node.children.each { |n| n.name == "name" or parse(n, ul) }
+        out.div **attr_code(class: "ul_wrap") do |div|
+          list_title_parse(node, div)
+          div.ul **attr_code(ul_attrs(node)) do |ul|
+            node.children.each { |n| n.name == "name" or parse(n, ul) }
+          end
         end
       end
 
@@ -52,9 +54,11 @@ module IsoDoc
       end
 
       def ol_parse(node, out)
-        list_title_parse(node, out)
-        out.ol **attr_code(ol_attrs(node)) do |ol|
-          node.children.each { |n| n.name == "name" or parse(n, ol) }
+        out.div **attr_code(class: "ol_wrap") do |div|
+          list_title_parse(node, div)
+          div.ol **attr_code(ol_attrs(node)) do |ol|
+            node.children.each { |n| n.name == "name" or parse(n, ol) }
+          end
         end
       end
 
@@ -90,13 +94,15 @@ module IsoDoc
       end
 
       def dl_parse(node, out)
-        list_title_parse(node, out)
-        out.dl **dl_attrs(node) do |v|
-          node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
-            dl_parse1(v, dt, dd)
+        out.div **attr_code(class: "figdl") do |div|
+          list_title_parse(node, div)
+          div.dl **dl_attrs(node) do |v|
+            node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
+              dl_parse1(v, dt, dd)
+            end
           end
+          dl_parse_notes(node, div)
         end
-        dl_parse_notes(node, out)
       end
 
       def dl_parse_notes(node, out)

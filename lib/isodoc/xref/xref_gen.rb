@@ -88,6 +88,7 @@ module IsoDoc
 
       def admonition_anchor_names(sections)
         sections.each do |s|
+          s.at(ns(".//admonition[@type = 'box']")) or next
           notes = s.xpath(child_asset_path("admonition[@type = 'box']"))
           admonition_anchor_names1(notes, Counter.new)
           admonition_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
@@ -132,20 +133,19 @@ module IsoDoc
         end
       end
 
-      def list_item_anchor_names(list, list_anchor, depth, prev_label,
-refer_list)
+      def list_item_anchor_names(list, list_anchor, depth, prev_label, refer_list)
         c = Counter.new(list["start"] ? list["start"].to_i - 1 : 0)
         list.xpath(ns("./li")).each do |li|
           bare_label, label =
             list_item_value(li, c, depth, { list_anchor: list_anchor, prev_label: prev_label,
-                                            refer_list: refer_list })
+                                            refer_list: depth == 1 ? refer_list : nil })
           li["id"] and @anchors[li["id"]] =
                          { label: bare_label, bare_xref: "#{label})",
                            xref: "#{label})",
                            type: "listitem", refer_list: refer_list,
                            container: list_anchor[:container] }
           (li.xpath(ns(".//ol")) - li.xpath(ns(".//ol//ol"))).each do |ol|
-            list_item_anchor_names(ol, list_anchor, depth + 1, label, false)
+            list_item_anchor_names(ol, list_anchor, depth + 1, label, refer_list)
           end
         end
       end

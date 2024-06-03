@@ -1,6 +1,54 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "processes simple terms & definitions" do
+    input = <<~INPUT
+              <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <sections>
+      <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
+        <term id="J">
+        <preferred><expression><name>Term2</name></expression></preferred>
+      </term>
+       </terms>
+       </sections>
+       </iso-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        </preface>
+        <sections>
+          <terms id='H' obligation='normative' displayorder="2">
+          <title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
+            <term id='J'>
+            <name>1.1.</name>
+              <preferred><strong>Term2</strong></preferred>
+            </term>
+          </terms>
+        </sections>
+      </iso-standard>
+    OUTPUT
+
+    html = <<~"OUTPUT"
+      #{HTML_HDR}
+                   <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+           <p class="TermNum" id="J">1.1.</p>
+             <p class="Terms" style="text-align:left;"><b>Term2</b></p>
+           </div>
+                 </div>
+               </body>
+           </html>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+  end
+
   it "processes IsoXML terms" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -90,7 +138,7 @@ RSpec.describe IsoDoc do
               <name>1.1.</name>
               <preferred><strong>paddy</strong>, &lt;in agriculture, dated&gt;</preferred>
               <termsource status="modified">[SOURCE: <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality>ISO 7301:2011, Clause 3.1</origin>, modified
-           –
+           &#x2014;
           The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</termsource>
               <domain>rice</domain>
               <definition>
@@ -110,12 +158,12 @@ RSpec.describe IsoDoc do
                 </ul>
               </termexample>
               <termsource status="identical">[SOURCE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
-           –
+           &#x2014;
             comment
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, modified
-           –
+           &#x2014;
             with adjustments]</termsource>
             </term>
             <term id="paddy">
@@ -157,28 +205,32 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
       #{HTML_HDR}
              <div id="_"><h1>1.&#160; Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
-             &#8211;
+             &#x2014;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
 
         <p id="_">&lt;rice&gt; rice retaining its husk after threshing</p>
         <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;"><p class="example-title">EXAMPLE  1</p>
           <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
+          <div class="ul_wrap">
           <ul>
           <li>A</li>
           </ul>
+          </div>
         </div>
         <div id="_" class="example"><p class="example-title">EXAMPLE  2</p>
+        <div class="ul_wrap">
           <ul>
           <li>A</li>
           </ul>
+          </div>
         </div>
         <p>[SOURCE: t1
-            –
+            &#x2014;
              comment
 
          ;
           Termbase IEV, term ID xyz, modified
-             &#8211;
+             &#x2014;
               with adjustments]</p>
         <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;"><b>paddy</b></p>
         <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
@@ -186,12 +238,16 @@ RSpec.describe IsoDoc do
         <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
         <p id="_">rice retaining its husk after threshing</p>
         <div id="_" class="example"><p class="example-title">EXAMPLE</p>
+        <div class="ul_wrap">
           <ul>
           <li>A</li>
           </ul>
         </div>
+        </div>
         <div id="_" class="Note" style="page-break-after: avoid;page-break-inside: avoid;"><p>Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-        <div id="_" class="Note"><p>Note 2 to entry: <ul><li>A</li></ul><p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
+        <div id="_" class="Note"><p>Note 2 to entry: 
+        <div class="ul_wrap"><ul><li>A</li></ul></div>
+        <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
         <p>[SOURCE: ISO&#xa0;7301:2011, 3.1
           ISO&#xa0;7301:2011, clause 3.1]</p></div>
            </div>
@@ -202,28 +258,32 @@ RSpec.describe IsoDoc do
     word = <<~"WORD"
       #{WORD_HDR}
              <div id="_"><h1>1.<span style="mso-tab-count:1">&#160; </span>Terms and Definitions</h1><p>For the purposes of this document, the following terms and definitions apply.</p><p class="TermNum" id="paddy1">1.1.</p><p class="Terms" style="text-align:left;"><b>paddy</b>, &lt;in agriculture, dated&gt;</p><p>[SOURCE: ISO&#xa0;7301:2011, Clause 3.1, modified
-             &#8211;
+             &#x2014;
             The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
 
         <p id="_">&lt;rice&gt; rice retaining its husk after threshing</p>
         <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;"><p class="example-title">EXAMPLE  1</p>
           <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
+          <div class="ul_wrap">
           <ul>
           <li>A</li>
           </ul>
+          </div>
         </div>
         <div id="_" class="example"><p class="example-title">EXAMPLE  2</p>
+        <div class="ul_wrap">
           <ul>
           <li>A</li>
           </ul>
+          </div>
         </div>
         <p>[SOURCE: t1
-            –
+            &#x2014;
              comment
 
          ;
           Termbase IEV, term ID xyz, modified
-             &#8211;
+             &#x2014;
               with adjustments]</p>
         <p class="TermNum" id="paddy">1.2.</p><p class="Terms" style="text-align:left;"><b>paddy</b></p>
         <p class="AltTerms" style="text-align:left;">paddy rice, &lt;in agriculture&gt;</p>
@@ -231,12 +291,16 @@ RSpec.describe IsoDoc do
         <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: cargo rice</p>
         <p id="_">rice retaining its husk after threshing</p>
         <div id="_" class="example"><p class="example-title">EXAMPLE</p>
+        <div class="ul_wrap">
           <ul>
           <li>A</li>
           </ul>
         </div>
+        </div>
         <div id="_" class="Note" style="page-break-after: avoid;page-break-inside: avoid;"><p class="Note">Note 1 to entry: The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></div>
-        <div id="_" class="Note"><p class="Note">Note 2 to entry: <ul><li>A</li></ul><p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
+        <div id="_" class="Note"><p class="Note">Note 2 to entry: 
+        <div class="ul_wrap"><ul><li>A</li></ul></div>
+        <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p></p></div>
         <p>[SOURCE: ISO&#xa0;7301:2011, 3.1
           ISO&#xa0;7301:2011, clause 3.1]</p></div>
            </div>
@@ -320,7 +384,7 @@ RSpec.describe IsoDoc do
                       <referenceFrom>3.1</referenceFrom>
                     </locality>
                     ISO&#xa0;7301:2011, Clause 3.1
-                  </origin>, modified &#x2013;
+                  </origin>, modified &#x2014;
                       The term "cargo rice" is shown as deprecated, and Note 1 to
                       entry is not included here]
                 </termsource>
@@ -346,7 +410,7 @@ RSpec.describe IsoDoc do
             </origin>;
             <origin citeas=''>
               <termref base='IEV' target='xyz'/>
-            </origin>, modified &#x2013; with adjustments]
+            </origin>, modified &#x2014; with adjustments]
           </termsource>
         </term>
       </terms>
@@ -873,17 +937,17 @@ RSpec.describe IsoDoc do
             <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
           </definition>
           <termsource status="identical">[SOURCE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
-           –
+           &#x2014;
             with adjustments
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, adapted
-           –
+           &#x2014;
             with adjustments
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, modified
-           –
+           &#x2014;
             with adjustments
 
         ;
@@ -913,17 +977,17 @@ RSpec.describe IsoDoc do
             <p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p>
           </definition>
           <termsource status="identical">[QUELLE: <origin citeas=""><termref base="IEV" target="xyz">t1</termref></origin>
-           –
+           &#x2014;
             with adjustments
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, angepasst
-           –
+           &#x2014;
             with adjustments
 
         ;
           <origin citeas=""><termref base="IEV" target="xyz"/></origin>, geändert
-           –
+           &#x2014;
             with adjustments
 
         ;

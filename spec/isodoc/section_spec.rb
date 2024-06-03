@@ -49,7 +49,7 @@ RSpec.describe IsoDoc do
                   <h2>Introduction</h2>
                 </div>
                 <div id='O'>
-                  <span class='zzMoveToFollowing'>
+                  <span class='zzMoveToFollowing inline-header'>
                     <b>Clause 4.2&#160; </b>
                   </span>
                 </div>
@@ -110,7 +110,7 @@ RSpec.describe IsoDoc do
                   <h2>Introduction</h2>
                 </div>
                 <div id='O'>
-                  <span class='zzMoveToFollowing'>
+                  <span class='zzMoveToFollowing inline-header'>
                     <b>
                       Clause 4.2
                       <span style='mso-tab-count:1'>&#160; </span>
@@ -122,34 +122,6 @@ RSpec.describe IsoDoc do
           </body>
         </html>
       OUTPUT
-  end
-
-  it "processes document with no content" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface/>
-            <sections/>
-          </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-        <head/>
-        <body lang="en">
-          <div class="title-section">
-            <p>&#160;</p>
-          </div>
-          <br/>
-          <div class="prefatory-section">
-            <p>&#160;</p>
-          </div>
-          <br/>
-          <div class="main-section">
-          </div>
-        </body>
-      </html>
-    OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-.convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes section names" do
@@ -494,16 +466,20 @@ RSpec.describe IsoDoc do
                            <p class="TermNum" id="J">3.1.1.</p>
                            <p class="Terms" style="text-align:left;"><b>Term2</b></p>
                          </div><div id="K"><h2>3.2.&#160; Definitions</h2>
+                         <div class="figdl">
                            <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+                           </div>
                          </div></div>
                                 <div id="L" class="Symbols">
                                   <h1>4.&#160; Symbols and abbreviated terms</h1>
+                                  <div class="figdl">
                                   <dl>
                                     <dt>
                                       <p>Symbol</p>
                                     </dt>
                                     <dd>Definition</dd>
                                   </dl>
+                                  </div>
                                 </div>
                                 <div id="M">
                                   <h1>5.&#160; Clause 4</h1>
@@ -570,22 +546,18 @@ RSpec.describe IsoDoc do
             <div class="authority">
           <div class="boilerplate-copyright">
             <div><h1>Copyright</h1>
-
             </div>
           </div>
           <div class="boilerplate-license">
             <div><h1>License</h1>
-
             </div>
           </div>
           <div class="boilerplate-legal">
             <div><h1>Legal</h1>
-
             </div>
           </div>
           <div class="boilerplate-feedback">
             <div><h1>Feedback</h1>
-
             </div>
           </div>
         </div>
@@ -614,7 +586,6 @@ RSpec.describe IsoDoc do
             <div class="Section3" id="B">
               <h1 class="IntroTitle">Introduction</h1>
               <div id="C"><h2>Introduction Subsection</h2>
-
             </div>
             </div>
             <p class="page-break">
@@ -652,19 +623,14 @@ RSpec.describe IsoDoc do
               <p id="E">Text</p>
             </div>
             <div><h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
-
           </div>
             <div id="H">
               <h1>3.<span style="mso-tab-count:1">&#160; </span>Terms, Definitions, Symbols and Abbreviated Terms</h1>
               <div id="I"><h2>3.1.<span style="mso-tab-count:1">&#160; </span>Normal Terms</h2>
-
               <p class="TermNum" id="J">3.1.1.</p>
-
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-
             </div>
               <div id="K"><h2>3.2.<span style="mso-tab-count:1">&#160; </span>Definitions</h2>
-
               <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
             </div>
             </div>
@@ -682,13 +648,10 @@ RSpec.describe IsoDoc do
             <div id="M">
               <h1>5.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1>
               <div id="N"><h2>5.1.<span style="mso-tab-count:1">&#160; </span>Introduction</h2>
-
             </div>
               <div id="O"><h2>5.2.<span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
-
             </div>
               <div id="O1"><h2>5.3.</h2>
-
             </div>
             </div>
             <p class="page-break">
@@ -698,12 +661,9 @@ RSpec.describe IsoDoc do
               <h1 class="Annex"> <b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b>
           </h1>
               <div id="Q"><h2>A.1.<span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
-
             <div id="Q1"><h3>A.1.1.<span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
-
             </div>
             <div><h3 class="Section3">A.1.2.<span style="mso-tab-count:1">&#160; </span>Annex Bibliography</h3>
-
             </div>
           </div>
             </div>
@@ -717,9 +677,7 @@ RSpec.describe IsoDoc do
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
             <div><h1 class="Section3">Bibliography</h1>
-
             <div><h2 class="Section3">Bibliography Subsection</h2>
-
             </div>
           </div>
                 <p class="page-break">
@@ -978,12 +936,14 @@ RSpec.describe IsoDoc do
                   <br/>
                   Variant 1
                 </h2>
+                <div class="figdl">
                 <dl>
                   <dt>
                     <p>Symbol</p>
                   </dt>
                   <dd>Definition</dd>
                 </dl>
+                </div>
               </div>
             </div>
             <div id='L' class='Symbols'>
@@ -993,12 +953,14 @@ RSpec.describe IsoDoc do
                 <br/>
                 Variant 1
               </h1>
+              <div class="figdl">
               <dl>
                 <dt>
                   <p>Symbol</p>
                 </dt>
                 <dd>Definition</dd>
               </dl>
+              </div>
             </div>
             <div id='M'>
               <h1>
@@ -1549,6 +1511,147 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
+  it "processes unnumbered section names" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+       <sections>
+       <clause id="D" obligation="normative" type="scope" unnumbered="true">
+         <title>Scope</title>
+         <p id="E">Text</p>
+       </clause>
+       <clause id="H" obligation="normative" unnumbered="true"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+         <title>Normal Terms</title>
+         <term id="J">
+         <preferred><expression><name>Term2</name></expression></preferred>
+       </term>
+       </terms>
+       <definitions id="K" unnumbered="true">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       </clause>
+       <definitions id="L" unnumbered="true">
+         <dl>
+         <dt>Symbol</dt>
+         <dd>Definition</dd>
+         </dl>
+       </definitions>
+       <clause id="M" inline-header="false" obligation="normative" unnumbered="true"><title>Clause 4</title>
+        <clause id="N" inline-header="false" obligation="normative">
+         <title>Introduction</title>
+        </clause>
+       <clause id="O" inline-header="false" obligation="normative">
+         <title>Clause 4.2</title>
+       </clause>
+        </clause>
+       <clause id="O1" inline-header="false" obligation="normative">
+       </clause>
+       <clause id="O2" inline-header="false" obligation="normative" unnumbered="true">
+       </clause>
+       <clause id="O3" inline-header="false" obligation="normative">
+       </clause>
+
+       </sections><annex id="P" inline-header="false" obligation="normative" unnumbered="true">
+         <title>Annex</title>
+         <clause id="Q" inline-header="false" obligation="normative">
+         <title>Annex A.1</title>
+         <clause id="Q1" inline-header="false" obligation="normative">
+         <title>Annex A.1a</title>
+         </clause>
+       </clause>
+       </annex><bibliography><references id="R" obligation="informative" normative="true" unnumbered="true">
+         <title>Normative References</title>
+       </references><clause id="S" obligation="informative" unnumbered="true">
+         <title>Bibliography</title>
+         <references id="T" obligation="informative" normative="false">
+         <title>Bibliography Subsection</title>
+       </references>
+       </clause>
+       </bibliography>
+       </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <clause id="D" obligation="normative" type="scope" unnumbered="true" displayorder="2">
+             <title depth="1">Scope</title>
+             <p id="E">Text</p>
+           </clause>
+           <clause id="H" obligation="normative" unnumbered="true" displayorder="4">
+             <title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title>
+             <terms id="I" obligation="normative">
+               <title depth="2">Normal Terms</title>
+               <term id="J">
+                 <preferred>
+                   <strong>Term2</strong>
+                 </preferred>
+               </term>
+             </terms>
+             <definitions id="K" unnumbered="true">
+               <dl>
+                 <dt>Symbol</dt>
+                 <dd>Definition</dd>
+               </dl>
+             </definitions>
+           </clause>
+           <definitions id="L" unnumbered="true" displayorder="5">
+             <dl>
+               <dt>Symbol</dt>
+               <dd>Definition</dd>
+             </dl>
+           </definitions>
+           <clause id="M" inline-header="false" obligation="normative" unnumbered="true" displayorder="6">
+             <title depth="1">Clause 4</title>
+             <clause id="N" inline-header="false" obligation="normative">
+               <title depth="2">Introduction</title>
+             </clause>
+             <clause id="O" inline-header="false" obligation="normative">
+               <title depth="2">Clause 4.2</title>
+             </clause>
+           </clause>
+           <clause id="O1" inline-header="false" obligation="normative" displayorder="7">
+             <title>1.</title>
+           </clause>
+           <clause id="O2" inline-header="false" obligation="normative" unnumbered="true" displayorder="8">
+        </clause>
+           <clause id="O3" inline-header="false" obligation="normative" displayorder="9">
+             <title>2.</title>
+           </clause>
+           <references id="R" obligation="informative" normative="true" unnumbered="true" displayorder="3">
+             <title depth="1">Normative References</title>
+           </references>
+         </sections>
+         <annex id="P" inline-header="false" obligation="normative" unnumbered="true" displayorder="10">
+           <title><strong>Annex </strong><br/>(normative)<br/><br/><strong>Annex</strong></title>
+           <clause id="Q" inline-header="false" obligation="normative">
+             <title depth="2">.1.<tab/>Annex A.1</title>
+             <clause id="Q1" inline-header="false" obligation="normative">
+               <title depth="3">.1.1.<tab/>Annex A.1a</title>
+             </clause>
+           </clause>
+         </annex>
+         <bibliography>
+           <clause id="S" obligation="informative" unnumbered="true" displayorder="11">
+             <title depth="1">Bibliography</title>
+             <references id="T" obligation="informative" normative="false">
+               <title depth="2">Bibliography Subsection</title>
+             </references>
+           </clause>
+         </bibliography>
+       </iso-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
+  end
+
   it "processes floating titles" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1681,7 +1784,10 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US"><div class="WordSection1"><p class="MsoNormal"> </p></div><p class="MsoNormal"><br clear="all" class="section"/></p><div class="WordSection2"><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="TOC"><a name="_" id="_"/><p class="zzContents">Table of contents</p></div><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><p class="h1">A0</p><div class="Section3"><a name="B" id="B"/><h1 class="IntroTitle">Introduction</h1><p class="h1">A</p><div><a name="B1" id="B1"/><h2>Introduction Subsection</h2><p class="h2">B</p><div><a name="B2" id="B2"/><h3>Introduction Sub-subsection</h3><p class="h1">C</p></div></div></div><p class="MsoNormal"> </p></div><p class="MsoNormal"><br clear="all" class="section"/></p><div class="WordSection3"><div><a name="C" id="C"/><h1>
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+              <div class="WordSection2"><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+             <p class="h1">A0</p>
+              <div class="Section3"><a name="B" id="B"/><h1 class="IntroTitle">Introduction</h1><p class="h1">A</p><div><a name="B1" id="B1"/><h2>Introduction Subsection</h2><p class="h2">B</p><div><a name="B2" id="B2"/><h3>Introduction Sub-subsection</h3><p class="h1">C</p></div></div></div><p class="MsoNormal"> </p></div><p class="MsoNormal"><br clear="all" class="section"/></p><div class="WordSection3"><div><a name="C" id="C"/><h1>
                1.
                <span style="mso-tab-count:1">  </span>
                Introduction
@@ -1744,54 +1850,6 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
-  it "processes simple terms & definitions" do
-    input = <<~INPUT
-              <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <sections>
-      <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
-        <term id="J">
-        <preferred><expression><name>Term2</name></expression></preferred>
-      </term>
-       </terms>
-       </sections>
-       </iso-standard>
-    INPUT
-
-    presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
-          <clause type="toc" id="_" displayorder="1">
-           <title depth="1">Table of contents</title>
-          </clause>
-        </preface>
-        <sections>
-          <terms id='H' obligation='normative' displayorder="2">
-          <title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
-            <term id='J'>
-            <name>1.1.</name>
-              <preferred><strong>Term2</strong></preferred>
-            </term>
-          </terms>
-        </sections>
-      </iso-standard>
-    OUTPUT
-
-    html = <<~"OUTPUT"
-      #{HTML_HDR}
-                   <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-           <p class="TermNum" id="J">1.1.</p>
-             <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-           </div>
-                 </div>
-               </body>
-           </html>
-    OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-  end
-
   it "processes inline section headers" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1838,7 +1896,7 @@ RSpec.describe IsoDoc do
               <h2>1.1.&#160; Introduction</h2>
             </div>
                      <div id="O">
-              <span class="zzMoveToFollowing"><b>1.2.&#160; Clause 4.2&#160; </b></span>
+              <span class="zzMoveToFollowing inline-header"><b>1.2.&#160; Clause 4.2&#160; </b></span>
               <p>ABC</p>
             </div>
                    </div>
@@ -1936,94 +1994,6 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
-  it "processes clauses containing normative references" do
-    input = <<~INPUT
-           <iso-standard xmlns="http://riboseinc.com/isoxml">
-           <bibliography>
-       <clause id="D" obligation="informative">
-        <title>Bibliography</title>
-        <references id="E" obligation="informative" normative="false">
-        <title>Bibliography Subsection 1</title>
-      </references>
-        <references id="F" obligation="informative" normative="false">
-        <title>Bibliography Subsection 2</title>
-      </references>
-      </clause>
-      <clause id="A" obligation="informative"><title>First References</title>
-       <references id="B" obligation="informative" normative="true">
-        <title>Normative References 1</title>
-      </references>
-       <references id="C" obligation="informative" normative="false">
-        <title>Normative References 2</title>
-      </references>
-       </clause>
-
-      </bibliography>
-      </iso-standard>
-    INPUT
-    presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-           <clause type="toc" id="_" displayorder="1">
-             <title depth="1">Table of contents</title>
-           </clause>
-         </preface>
-         <sections>
-           <clause id="A" obligation="informative" displayorder="2">
-             <title depth="1">1.<tab/>First References</title>
-             <references id="B" obligation="informative" normative="true">
-               <title depth="2">1.1.<tab/>Normative References 1</title>
-             </references>
-             <references id="C" obligation="informative" normative="false">
-               <title depth="2">1.2.<tab/>Normative References 2</title>
-             </references>
-           </clause>
-         </sections>
-         <bibliography>
-           <clause id="D" obligation="informative" displayorder="3">
-             <title depth="1">Bibliography</title>
-             <references id="E" obligation="informative" normative="false">
-               <title depth="2">Bibliography Subsection 1</title>
-             </references>
-             <references id="F" obligation="informative" normative="false">
-               <title depth="2">Bibliography Subsection 2</title>
-             </references>
-           </clause>
-         </bibliography>
-       </iso-standard>
-    OUTPUT
-
-    html = <<~OUTPUT
-      #{HTML_HDR}
-                 <div>
-                   <h1>1.&#160; First References</h1>
-                   <div>
-                     <h2 class='Section3'>1.1.&#160; Normative References 1</h2>
-                   </div>
-                   <div>
-                     <h2 class='Section3'>1.2.&#160; Normative References 2</h2>
-                   </div>
-                 </div>
-                 <br/>
-                 <div>
-                   <h1 class='Section3'>Bibliography</h1>
-                   <div>
-                     <h2 class='Section3'>Bibliography Subsection 1</h2>
-                   </div>
-                   <div>
-                     <h2 class='Section3'>Bibliography Subsection 2</h2>
-                   </div>
-                 </div>
-               </div>
-             </body>
-           </html>
-    OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-  end
-
   it "processes annexes containing one, or more than one special sections" do
     input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -2050,9 +2020,11 @@ RSpec.describe IsoDoc do
            <div class="main-section">
              <div id="PP">
                <h1>Glossary</h1>
+               <div class="ul_wrap">
                <ul>
                  <li>A</li>
                </ul>
+               </div>
              </div>
            </div>
          </body>

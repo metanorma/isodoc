@@ -182,16 +182,20 @@ RSpec.describe IsoDoc do
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
               </div><div id="K"><h2>3.2.</h2>
+               <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+                </div>
               </div></div>
                      <div id="L" class="Symbols">
                        <h1>4.</h1>
+                        <div class="figdl">
                        <dl>
                          <dt>
                            <p>Symbol</p>
                          </dt>
                          <dd>Definition</dd>
                        </dl>
+                       </div>
                      </div>
                      <div id="M">
                        <h1>5.&#160; Clause 4</h1>
@@ -565,16 +569,20 @@ RSpec.describe IsoDoc do
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
               </div><div id="K"><h2>3.2.</h2>
+               <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+                </div>
               </div></div>
                      <div id="L" class="Symbols">
                        <h1>4.</h1>
+                        <div class="figdl">
                        <dl>
                          <dt>
                            <p>Symbol</p>
                          </dt>
                          <dd>Definition</dd>
                        </dl>
+                       </div>
                      </div>
                      <div id="M">
                        <h1>5.&#160; Clause 4</h1>
@@ -755,7 +763,9 @@ RSpec.describe IsoDoc do
               <references id="R" obligation="informative" normative="true" displayorder="5">
                <title depth="1">2.<tab/>Normative References</title>
                <bibitem id="ISO712" type="standard">
-                  <formattedref><em>Cereals and cereal products</em>．</formattedref><docidentifier>ISO&#xa0;712</docidentifier>
+                  <formattedref><em>Cereals and cereal products</em>．</formattedref>
+                  <docidentifier>ISO&#xa0;712</docidentifier>
+                  <docidentifier scope="biblio-tag">ISO 712</docidentifier>
                   <biblio-tag>ISO&#xa0;712,</biblio-tag>
                </bibitem>
              </references>
@@ -811,17 +821,21 @@ RSpec.describe IsoDoc do
 
               </div>
                <div id="K"><h2>3.2.</h2>
+                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
+                </div>
               </div>
              </div>
              <div id="L" class="Symbols">
                <h1>4.</h1>
+                <div class="figdl">
                <dl>
                  <dt>
                    <p>Symbol</p>
                  </dt>
                  <dd>Definition</dd>
                </dl>
+               </div>
              </div>
              <div id="M">
                <h1>5.　Clause 4</h1>
@@ -1010,6 +1024,7 @@ RSpec.describe IsoDoc do
                <bibitem id="ISO712" type="standard">
                <formattedref><em>Cereals and cereal products</em>.</formattedref>
         <docidentifier>ISO&#xa0;712</docidentifier>
+        <docidentifier scope="biblio-tag">ISO 712</docidentifier>
          <biblio-tag>ISO&#xa0;712,</biblio-tag>
       </bibitem>
              </references>
@@ -1092,22 +1107,26 @@ RSpec.describe IsoDoc do
                      </div>
                      <div id='K'>
                        <h2>3.2.</h2>
+                        <div class="figdl">
                        <dl>
                          <dt>
                            <p>Symbol</p>
                          </dt>
                          <dd>Definition</dd>
                        </dl>
+                       </div>
                      </div>
                    </div>
                    <div id='L' class='Symbols'>
                      <h1>4.</h1>
+                      <div class="figdl">
                      <dl>
                        <dt>
                          <p>Symbol</p>
                        </dt>
                        <dd>Definition</dd>
                      </dl>
+                     </div>
                    </div>
                    <div id='M'>
                      <h1>5.&#160; Clause 4</h1>

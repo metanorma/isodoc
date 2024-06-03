@@ -114,6 +114,7 @@ RSpec.describe IsoDoc do
         <keyword>KW3</keyword>
         <ext>
         <doctype>international-standard</doctype>
+        <subdoctype>vocabulary</subdoctype>
         </ext>
       </bibdata>
       <metanorma-extension>
@@ -174,6 +175,7 @@ RSpec.describe IsoDoc do
       :stage=>"Committee Draft",
       :stage_display=>"Committee Draft",
       :stageabbr=>"CD",
+      :subdoctype=>"Vocabulary",
       :substage=>"Withdrawn",
       :substage_display=>"Withdrawn",
       :title_footnote=>["A footnote", "Another footnote"],

@@ -58,18 +58,18 @@ RSpec.describe IsoDoc do
          </html>
     OUTPUT
     word = <<~OUTPUT
-          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
+      <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
         <head>
           <style>
           </style>
         </head>
         <body lang='EN-US' link='blue' vlink='#954F72'>
-          <div class='WordSection1'>
-            <p>&#160;</p>
-          </div>
-          <p class="section-break">
-            <br clear='all' class='section'/>
-          </p>
+           <div class="WordSection1">
+              <p> </p>
+            </div>
+            <p class="section-break">
+              <br clear="all" class="section"/>
+            </p>
           <div class='WordSection2'>
             <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
@@ -160,19 +160,13 @@ RSpec.describe IsoDoc do
         </div>
         <br />
         <div class="Section3" id="">
-          <h1 class="IntroTitle">Introduction</h1>
+          <h1 class="IntroTitle"><a class="anchor" href="#"/> <a class="header" href="#">Introduction</a></h1>
         </div>
       </main>
     OUTPUT
 
     word = <<~OUTPUT
-                  <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-         <div class="WordSection1">
-           <p class="MsoNormal"> </p>
-         </div>
-         <p class="MsoNormal">
-           <br clear="all" class="section"/>
-         </p>
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
          <div class="WordSection2">
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -294,12 +288,14 @@ RSpec.describe IsoDoc do
         <br />
         <div>
           <h1 class="ForewordTitle">Foreword</h1>
+          <div class="ol_wrap">
           <ol type="a">
              <li id="A">
                <p>A.</p>
                <p>A1</p>
              </li>
-             <li id="B">B.</li>
+             <li id="B">B.
+             <div class="ul_wrap">
              <ul>
                <li>
                  <p>C.</p>
@@ -307,56 +303,56 @@ RSpec.describe IsoDoc do
                </li>
                <li id="D">D.</li>
              </ul>
+             </div></li>
            </ol>
+           </div>
         </div>
         <br />
         <div class="Section3" id="">
-          <h1 class="IntroTitle">Introduction</h1>
+          <h1 class="IntroTitle"><a class="anchor" href="#"/><a class="header" href="#">Introduction</a></h1>
         </div>
       </main>
     OUTPUT
     word = <<~OUTPUT
            <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-         <div class="WordSection1">
-           <p class="MsoNormal"> </p>
-         </div>
-         <p class="MsoNormal">
-           <br clear="all" class="section"/>
-         </p>
          <div class="WordSection2">
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
            <div>
              <h1 class="ForewordTitle">Foreword</h1>
-             <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="C">
-               <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                 <a style="mso-comment-reference:SMC_1;mso-comment-date:20170108T0000">
-                   <li class="MsoNormal">
-                     <a name="A" id="A"/>
-                     <p class="MsoNormal">A.</p>
-                     <div class="ListContLevel1">
-                       <p class="MsoNormal">A1</p>
-                     </div>
-                   </li>
-                 </a>
-                 <span style="mso-comment-continuation:1">
-                   <span style="mso-special-character:comment" target="1"/>
+             <div class="ol_wrap">
+               <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="C">
+                 <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                   <a style="mso-comment-reference:SMC_1;mso-comment-date:20170108T0000">
+                     <li class="MsoNormal">
+                       <a name="A" id="A"/>
+                       <p class="MsoNormal">A.</p>
+                       <div class="ListContLevel1">
+                         <p class="MsoNormal">A1</p>
+                       </div>
+                     </li>
+                   </a>
+                   <span style="mso-comment-continuation:1">
+                     <span style="mso-special-character:comment" target="1"/>
+                   </span>
                  </span>
                </span>
-             </span>
-             <p class="MsoListParagraphCxSpFirst">
-               <a name="B" id="B"/>
-               <span style="mso-comment-continuation:1">B.</span>
-             </p>
-             <p class="MsoListParagraphCxSpFirst" style="">
-               <span style="mso-comment-continuation:1">C.</span>
-               <p class="MsoListParagraphCxSpMiddle">
-                 <a name="C" id="C"/>
-                 <span style="mso-comment-continuation:1">C1</span>
+               <p class="MsoListParagraphCxSpFirst">
+                 <a name="B" id="B"/>
+                 <span style="mso-comment-continuation:1">B.</span>
                </p>
-             </p>
-             <p class="MsoListParagraphCxSpLast"><a name="D" id="D"/>D.</p>
+               <div class="ul_wrap">
+                 <p class="MsoListParagraphCxSpFirst" style="">
+                   <span style="mso-comment-continuation:1">C.</span>
+                   <p class="MsoListParagraphCxSpMiddle">
+                     <a name="C" id="C"/>
+                     <span style="mso-comment-continuation:1">C1</span>
+                   </p>
+                 </p>
+                 <p class="MsoListParagraphCxSpLast"><a name="D" id="D"/>D.</p>
+               </div>
+             </div>
            </div>
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>

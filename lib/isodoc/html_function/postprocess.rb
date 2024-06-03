@@ -26,9 +26,26 @@ module IsoDoc
 
       def html_cleanup(html)
         html = term_header(html_footnote_filter(html_preface(htmlstyle(html))))
-        html = footnote_format(footnote_backlinks(html_toc(html)))
+        html = footnote_format(footnote_backlinks(html))
         html = mathml(html_list_clean(remove_placeholder_paras(html)))
-        sourcecode_cleanup(html)
+        html_toc(heading_anchors(sourcecode_cleanup(html)))
+      end
+
+      def heading_anchors(html)
+        html.xpath("//h1 | //h2 | //h3 | //h4 | //h5 | //h6 | //h7 | //h8 "\
+                   "//span[@class = 'inline-header']").each do |h|
+          h.at("./ancestor::div[@id='toc']") and next
+          div = h.xpath("./ancestor::div[@id]")
+          div.empty? and next
+          heading_anchor(h, div[-1]["id"])
+        end
+        html
+      end
+
+      def heading_anchor(hdr, id)
+        hdr.children = <<~HTML.strip
+          <a class='anchor' href='##{id}'/><a class='header' href='##{id}'>#{hdr.children.to_xml}</a>
+        HTML
       end
 
       def sourcecode_cleanup(html)
@@ -52,7 +69,7 @@ module IsoDoc
 
       def html_list_clean(html)
         html.xpath("//ol/div | //ul/div").each do |div|
-          li = div&.xpath("./preceding-sibling::li")&.last ||
+          li = div.xpath("./preceding-sibling::li")&.last ||
             div.at("./following-sibling::li")
           div.parent = li
         end
@@ -66,8 +83,9 @@ module IsoDoc
       def resize_images(docxml)
         docxml.xpath("//*[local-name() = 'img' or local-name() = 'svg']")
           .each do |i|
+          loc = image_localfile(i) or next
           i["width"], i["height"] = Vectory::ImageResize.new
-            .call(i, image_localfile(i), @maxheight, @maxwidth)
+            .call(i, loc, @maxheight, @maxwidth)
         end
         docxml
       end
@@ -76,7 +94,7 @@ module IsoDoc
       def move_images(docxml)
         FileUtils.rm_rf tmpimagedir
         FileUtils.mkdir tmpimagedir
-        docxml.xpath("//*[local-name() = 'img']").each do |i|
+        docxml.xpath("//*[local-name() = 'img'][@src]").each do |i|
           /^data:/.match? i["src"] and next
           @datauriimage ? datauri(i) : move_image1(i)
         end
@@ -91,7 +109,6 @@ module IsoDoc
         type = img["mimetype"]&.sub(%r{^[^/*]+/}, "")
         matched = /\.(?<suffix>[^. \r\n\t]+)$/.match img["src"]
         type and !type.empty? and return type
-
         !matched.nil? and matched[:suffix] and return matched[:suffix]
         "png"
       end
@@ -110,6 +127,9 @@ module IsoDoc
         %w(h1 h2 h3 h4 h5 h6 h7 h8).each do |h|
           docxml.xpath("//p[@class = 'TermNum'][../#{h}]").each do |p|
             p.name = "h#{h[1].to_i + 1}"
+            id = p["id"]
+            p["id"] = "_#{UUIDTools::UUID.random_create}"
+            p.wrap("<div id='#{id}'></div>")
           end
         end
         docxml

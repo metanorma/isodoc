@@ -48,6 +48,8 @@ module IsoDoc
       set(:doctype, status_print(b))
       b1 = isoxml&.at(ns("//bibdata/ext/doctype#{currlang}"))&.text || b
       set(:doctype_display, status_print(b1))
+      b = isoxml&.at(ns("//bibdata/ext/subdoctype#{NOLANG}"))&.text || return
+      set(:subdoctype, status_print(b))
     end
 
     def docstatus(xml, _out)

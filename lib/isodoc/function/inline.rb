@@ -8,7 +8,7 @@ module IsoDoc
         node["update-type"] == "true" and url = suffix_url(url)
         out.a **attr_code(href: url, title: node["alt"]) do |l|
           if node.elements.empty? && node.text.strip.empty?
-            l << node["target"].sub(/^mailto:/, "")
+            l << @c.encode(node["target"].sub(/^mailto:/, ""), :basic, :hexadecimal)
           else node.children.each { |n| parse(n, l) }
           end
         end
@@ -118,8 +118,12 @@ module IsoDoc
                   width: node["width"] || "auto",
                   title: node["title"],
                   alt: node["alt"] }
-        out.img **attr_code(attrs)
+        image_body_parse(node, attrs, out)
         image_title_parse(out, caption)
+      end
+
+      def image_body_parse(_node, attrs, out)
+        out.img **attr_code(attrs)
       end
 
       def smallcap_parse(node, xml)

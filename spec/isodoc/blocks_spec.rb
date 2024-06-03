@@ -463,11 +463,14 @@ RSpec.describe IsoDoc do
                   <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <div id="_" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p><dl id="_" class="formula_dl"><dt>
+                    <div id="_" style='page-break-after: avoid;page-break-inside: avoid;'><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span></p></div><p style='page-break-after: avoid;'>where</p>
+                    <div class="figdl">
+                    <dl id="_" class="formula_dl"><dt>
               <span class="stem">(#(r)#)</span>
             </dt><dd>
               <p id="_">is the repeatability limit.</p>
             </dd></dl>
+            </div>
 
 
               <div id="_" class="Note"><p><span class="note_label">NOTE</span>&#160; [durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
@@ -571,7 +574,7 @@ RSpec.describe IsoDoc do
           <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
       Fictitious<br/>
       World</p>
-          <p align="justify" keep-with-next="true" keep-lines-together="true">Justify</p>
+          <p align="justify" keep-with-next="true" keep-lines-together="true" style="font-size:9pt">Justify</p>
           </foreword></preface>
           </iso-standard>
     INPUT
@@ -584,7 +587,7 @@ RSpec.describe IsoDoc do
           Fictitious<br/>
           World
               </p>
-              <p style="text-align:justify;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
+              <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
                   </div>
                 </div>
               </body>
@@ -613,7 +616,7 @@ RSpec.describe IsoDoc do
       Fictitious<br/>
       World
           </p>
-          <p style="text-align:justify;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
+          <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
               </div>
               <p>&#160;</p>
             </div>
@@ -767,7 +770,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
       <title>Bibliography</title>
-      <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="IETF" scope="anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
+      <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="IETF" scope="anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
       </references></bibliography>
           </iso-standard>
     INPUT
@@ -807,7 +810,12 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           <bibliography><references id="_" obligation="informative" normative="false" displayorder="3">
       <title depth="1">Bibliography</title>
-      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. 1999. Fremont, CA. <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>.</formattedref><uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri><uri type="src">https://www.rfc-editor.org/info/rfc2616</uri><docidentifier type="metanorma-ordinal">[1]</docidentifier><docidentifier type="IETF">IETF&#xa0;RFC&#xa0;2616</docidentifier><docidentifier type="IETF" scope="anchor">IETF&#xa0;RFC2616</docidentifier><docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
+      <bibitem id="rfc2616" type="standard"><formattedref>R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. In: RFC. 1999. Fremont, CA.</formattedref>
+      <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+      <docidentifier type="IETF">IETF&#xa0;RFC&#xa0;2616</docidentifier>
+      <docidentifier type="IETF" scope="anchor">IETF&#xa0;RFC2616</docidentifier>
+      <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
+      <docidentifier scope="biblio-tag">IETF RFC 2616</docidentifier>
       <biblio-tag>[1]<tab/>IETF&#xa0;RFC&#xa0;2616, </biblio-tag>
       </bibitem>
       </references></bibliography>
@@ -848,7 +856,7 @@ RSpec.describe IsoDoc do
                    <br/>
              <div>
                <h1 class='Section3'>Bibliography</h1>
-               <p id="rfc2616" class="Biblio">[1]  IETF&#xa0;RFC&#xa0;2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. In: RFC. 1999. Fremont, CA. <a href="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</a>.</p>
+               <p id="rfc2616" class="Biblio">[1]  IETF&#xa0;RFC&#xa0;2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. In: RFC. 1999. Fremont, CA.</p>
              </div>
                 </div>
               </body>
@@ -1391,11 +1399,13 @@ RSpec.describe IsoDoc do
               <h1>2.&#160; Clause 2</h1>
               <p id='A'>And introducing: </p>
               <div class='toc'>
+              <div class="ul_wrap">
                 <ul id='B'>
                   <li>
                     <a href='#clause1A'>1.1&#160; Clause 1A</a>
                   </li>
                   <li>
+                  <div class="ul_wrap">
                     <ul id='C'>
                       <li>
                         <a href='#clause1Aa'>1.1.1&#160; Clause 1Aa</a>
@@ -1404,20 +1414,25 @@ RSpec.describe IsoDoc do
                         <a href='#clause1Ab'>1.1.2&#160; Clause 1Ab</a>
                       </li>
                     </ul>
+                    </div>
                   </li>
                   <li>
                     <a href='#clause1B'>1.2&#160; Clause 1B</a>
                   </li>
                   <li>
+                  <div class="ul_wrap">
                     <ul id='D'>
                       <li>
                         <a href='#clause1Ba'>1.2.1&#160; Clause 1Ba</a>
                       </li>
                     </ul>
+                    </div>
                   </li>
                 </ul>
+                </div>
               </div>
               <div class='toc'>
+                  <div class="ul_wrap">
                 <ul id='E'>
                   <li>
                     <a href='#clause1A'>1.1&#160; Clause 1A</a>
@@ -1426,6 +1441,7 @@ RSpec.describe IsoDoc do
                     <a href='#clause1B'>1.2&#160; Clause 1B</a>
                   </li>
                 </ul>
+                </div>
               </div>
             </div>
           </div>

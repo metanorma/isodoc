@@ -232,9 +232,13 @@ RSpec.describe IsoDoc do
                 <div>
                   <h1 class="ForewordTitle">Foreword</h1>
                   <div id="A" class="Note"><p><span class="note_label">NOTE</span>&#160; </p>
+                   <div class="figdl">
             <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
+            </div>
+            <div class="ul_wrap">
             <ul>
             <li>C</li></ul>
+            </div>
         </div>
                 </div>
               </div>
@@ -262,8 +266,10 @@ RSpec.describe IsoDoc do
               <h1 class="ForewordTitle">Foreword</h1>
               <div id="A" class="Note"><p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span></p>
           <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p class="Note">B</p></td></tr></table>
+          <div class="ul_wrap">
           <ul>
           <li>C</li></ul>
+          </div>
       </div>
             </div>
             <p>&#160;</p>

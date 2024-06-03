@@ -39,8 +39,8 @@ module IsoDoc
         prep_for_rendering(b)
         m << to_xml(b)
       end.join
-      bibrenderer.render_all("<references>#{refs}</references>",
-                             type: citestyle)
+      @bibrender.render_all("<references>#{refs}</references>",
+                            type: citestyle)
     end
 
     def prep_for_rendering(bib)
@@ -51,10 +51,10 @@ module IsoDoc
 
     def bibitem(xml, renderings)
       @xrefs.klass.implicit_reference(xml) and xml["hidden"] = "true"
-      bibrender(xml, renderings)
+      bibrender_item(xml, renderings)
     end
 
-    def bibrender(xml, renderings)
+    def bibrender_item(xml, renderings)
       if (f = xml.at(ns("./formattedref"))) && xml.at(ns("./title")).nil?
         bibrender_formattedref(f, xml)
       else bibrender_relaton(xml, renderings)
@@ -68,10 +68,6 @@ module IsoDoc
       f &&= "<formattedref>#{f}</formattedref>"
       x = xml.xpath(ns("./docidentifier | ./uri | ./note | ./biblio-tag"))
       xml.children = "#{f}#{x.to_xml}"
-    end
-
-    def bibrenderer
-      ::Relaton::Render::IsoDoc::General.new(language: @lang)
     end
 
     def citestyle
@@ -108,9 +104,14 @@ module IsoDoc
     end
 
     def bibliography_bibitem_number_insert_pt(bibitem)
-      unless ins = bibitem.at(ns(".//docidentifier")).previous_element
-        bibitem.at(ns(".//docidentifier")).previous = " "
-        ins = bibitem.at(ns(".//docidentifier")).previous
+      unless d = bibitem.at(ns(".//docidentifier"))
+        d = bibitem.children.first
+        d.previous = " "
+        return d.previous
+      end
+      unless ins = d.previous_element
+        d.previous = " "
+        ins = d.previous
       end
       ins
     end

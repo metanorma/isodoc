@@ -56,7 +56,8 @@ RSpec.describe IsoDoc do
               <td align="center">6,06</td>
             </tr>
           </tfoot>
-          <dl>
+          <dl key="true">
+          <name>Key</name>
           <dt>Drago</dt>
         <dd>A type of rice</dd>
         </dl>
@@ -171,12 +172,13 @@ RSpec.describe IsoDoc do
                         <td align='center'>6,06</td>
                       </tr>
                     </tfoot>
-                    <dl>
+                    <dl key="true">
+                    <name>Key</name>
                       <dt>Drago</dt>
                       <dd>A type of rice</dd>
                     </dl>
-                    <source status="generalisation">[SOURCE: <xref type="inline" target="ISO712">, Section 1</xref>
-            – with adjustments]</source>
+                    <source status="generalisation">[SOURCE: <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
+            — with adjustments]</source>
                     <note>
                       <name>NOTE</name>
                       <p>This is a table about rice</p>
@@ -197,6 +199,7 @@ RSpec.describe IsoDoc do
              <bibitem id="ISO712" type="standard">
                <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
                <docidentifier type="ISO">ISO 712</docidentifier>
+               <docidentifier scope="biblio-tag">ISO 712</docidentifier>
                <biblio-tag>ISO 712, </biblio-tag>
              </bibitem>
            </references>
@@ -265,14 +268,17 @@ RSpec.describe IsoDoc do
                              <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">6,06</td>
                            </tr>
                          </tfoot>
+                         <div class="figdl">
+                         <p class="ListTitle">Key</p>
                                   <dl>
              <dt>
                <p>Drago</p>
              </dt>
              <dd>A type of rice</dd>
            </dl>
+           </div>
            <div class="BlockSource">
-             <p>[SOURCE: <a href="#ISO712">, Section 1</a> –
+             <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a> —
       with adjustments]</p>
            </div>
            <div class="Note">
@@ -385,9 +391,12 @@ RSpec.describe IsoDoc do
                        <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">6,06</td>
                      </tr>
                    </tfoot>
+                    <div class="figdl">
+                   <p class="ListTitle">Key</p>
                    <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">  </span>A type of rice</p>
+                   </div>
              <div class="BlockSource">
-               <p>[SOURCE: <a href="#ISO712">, Section 1</a> –
+               <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a> —
       with adjustments]</p>
              </div>
              <div class="Note">
@@ -998,11 +1007,13 @@ RSpec.describe IsoDoc do
                      </tr>
                      <tr>
                        <td style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:auto;">
+                       <div class="ol_wrap">
                          <ol type="a">
                            <li>3</li>
                            <li>3</li>
                            <li>3</li>
                          </ol>
+                         </div>
                        </td>
                      </tr>
                      <tr>
@@ -1107,11 +1118,13 @@ RSpec.describe IsoDoc do
                      </tr>
                      <tr>
                        <td style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">
+                       <div class="ol_wrap">
                          <ol type="a">
                            <li>3</li>
                            <li>3</li>
                            <li>3</li>
                          </ol>
+                         </div>
                        </td>
                      </tr>
                      <tr>

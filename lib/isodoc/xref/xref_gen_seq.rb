@@ -27,7 +27,7 @@ module IsoDoc
       def sequential_figure_names(clause, container: false)
         c = Counter.new
         j = 0
-        clause.xpath(ns(FIGURE_NO_CLASS)).noblank.each do |t|
+        clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank.each do |t|
           j = subfigure_increment(j, c, t)
           sequential_figure_body(j, c, t, "figure", container: container)
         end
@@ -155,7 +155,7 @@ module IsoDoc
       def hierarchical_figure_names(clause, num)
         c = Counter.new
         j = 0
-        clause.xpath(ns(FIGURE_NO_CLASS)).noblank.each do |t|
+        clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank.each do |t|
           # next if labelled_ancestor(t) && t.ancestors("figure").empty?
           j = subfigure_increment(j, c, t)
           hierarchical_figure_body(num, j, c, t, "figure")

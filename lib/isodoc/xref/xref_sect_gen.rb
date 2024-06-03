@@ -1,48 +1,16 @@
+require_relative "clause_order"
+
 module IsoDoc
   module XrefGen
     module Sections
-      def clause_order(docxml)
-        { preface: clause_order_preface(docxml),
-          main: clause_order_main(docxml),
-          annex: clause_order_annex(docxml),
-          back: clause_order_back(docxml) }
-      end
-
-      def clause_order_preface(_docxml)
-        [{ path: "//preface/*", multi: true }]
-      end
-
-      def clause_order_main(docxml)
-        [
-          { path: "//sections/clause[@type = 'scope']" },
-          { path: @klass.norm_ref_xpath },
-          { path: "//sections/terms | " \
-            "//sections/clause[descendant::terms]" },
-          { path: "//sections/definitions | " \
-            "//sections/clause[descendant::definitions]" \
-            "[not(descendant::terms)]" },
-          { path: @klass.middle_clause(docxml), multi: true },
-        ]
-      end
-
-      def clause_order_annex(_docxml)
-        [{ path: "//annex", multi: true }]
-      end
-
-      def clause_order_back(_docxml)
-        [
-          { path: @klass.bibliography_xpath },
-          { path: "//indexsect", multi: true },
-          { path: "//colophon/*", multi: true },
-        ]
-      end
-
       def back_anchor_names(xml)
         if @parse_settings.empty? || @parse_settings[:clauses]
           annex_anchor_names(xml)
           back_clauses_anchor_names(xml)
         end
-        references(xml) if @parse_settings.empty? || @parse_settings[:refs]
+        if @klass.bibrender && (@parse_settings.empty? || @parse_settings[:refs])
+          references(xml)
+        end
       end
 
       def annex_anchor_names(xml)
@@ -98,16 +66,17 @@ module IsoDoc
 
       # preempt clause notes with all other types of note (ISO default)
       def asset_anchor_names(doc)
-        @parse_settings.empty? or return
+        (@parse_settings.empty? || @parse_settings[:assets]) or return
         middle_section_asset_names(doc)
         termnote_anchor_names(doc)
         termexample_anchor_names(doc)
         note_anchor_names(doc.xpath(ns("//table | //figure")))
-        note_anchor_names(doc.xpath(ns(sections_xpath)))
-        admonition_anchor_names(doc.xpath(ns(sections_xpath)))
-        example_anchor_names(doc.xpath(ns(sections_xpath)))
-        list_anchor_names(doc.xpath(ns(sections_xpath)))
-        deflist_anchor_names(doc.xpath(ns(sections_xpath)))
+        sections = doc.xpath(ns(sections_xpath))
+        note_anchor_names(sections)
+        admonition_anchor_names(sections)
+        example_anchor_names(sections)
+        list_anchor_names(sections)
+        deflist_anchor_names(sections)
         bookmark_anchor_names(doc)
       end
 
@@ -170,7 +139,7 @@ module IsoDoc
       end
 
       def section_names(clause, num, lvl)
-        clause.nil? and return num
+        unnumbered_section_name?(clause) and return num
         num.increment(clause)
         section_name_anchors(clause, num.print, lvl)
         clause.xpath(ns(SUBCLAUSES))
@@ -181,11 +150,21 @@ module IsoDoc
       end
 
       def section_names1(clause, num, level)
+        unnumbered_section_name?(clause) and return num
         section_name_anchors(clause, num, level)
         i = Counter.new(0, prefix: "#{num}.")
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           section_names1(c, i.increment(c).print, level + 1)
         end
+      end
+
+      def unnumbered_section_name?(clause)
+        clause.nil? and return true
+        if clause["unnumbered"] == "true"
+          unnumbered_names(clause)
+          return true
+        end
+        false
       end
 
       def section_name_anchors(clause, num, level)

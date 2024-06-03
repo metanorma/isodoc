@@ -40,8 +40,10 @@ module IsoDoc
       end
 
       def html_preface(docxml)
-        html_cover(docxml) if @htmlcoverpage && !@bare
-        html_intro(docxml) if @htmlintropage && !@bare
+        @htmlcoverpage && !@htmlcoverpage.empty? && !@bare and
+          html_cover(docxml)
+        @htmlintropage && !@htmlintropage.empty? && !@bare and
+          html_intro(docxml)
         docxml.at("//body") << mathjax(@openmathdelim, @closemathdelim)
         html_main(docxml)
         authority_cleanup(docxml)
@@ -96,7 +98,9 @@ module IsoDoc
       def html_toc_entry(level, header)
         content = header.at("./following-sibling::p" \
                             "[@class = 'variant-title-toc']") || header
-        %(<li class="#{level}"><a href="##{header['id']}">\
+        id = header.at(".//a[@class = 'anchor']/@href")&.text&.sub(/^#/, "") ||
+          header["id"]
+        %(<li class="#{level}"><a href="##{id}">\
       #{header_strip(content)}</a></li>)
       end
 

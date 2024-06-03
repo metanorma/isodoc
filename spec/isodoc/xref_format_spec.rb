@@ -1,6 +1,103 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc do
+  it "warns of missing crossreference" do
+    i = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword>
+      <p>
+      <xref target="N1"/>
+      </preface>
+      </iso-standard>
+    INPUT
+    expect do
+      IsoDoc::PresentationXMLConvert
+        .new(presxml_options)
+        .convert("test", i, true)
+    end
+      .to output(/No label has been processed for ID N1/).to_stderr
+  end
+
+  it "does not warn of missing crossreference if text is supplied" do
+    i = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword>
+      <p>
+      <xref target="N1">abc</xref>
+      </preface>
+      </iso-standard>
+    INPUT
+    expect { IsoDoc::HtmlConvert.new({}).convert("test", i, true) }
+      .not_to output(/No label has been processed for ID N1/).to_stderr
+  end
+
+  it "cross-references external documents" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword>
+      <p>
+      <xref target="a#b"/>
+      </p>
+      </foreword>
+      </preface>
+      </iso-standard
+    INPUT
+    presxml = <<~OUTPUT
+      <?xml version='1.0'?>
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+            <title depth="1">Table of contents</title>
+          </clause>
+          <foreword displayorder='2'>
+            <p>
+              <xref target='a#b'>a#b</xref>
+            </p>
+          </foreword>
+        </preface>
+      </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+              #{HTML_HDR}
+            <br/>
+            <div>
+              <h1 class="ForewordTitle">Foreword</h1>
+              <p>
+      <a href="a.html#b">a#b</a>
+      </p>
+            </div>
+          </div>
+        </body>
+      </html>
+    OUTPUT
+    doc = <<~OUTPUT
+          <div class="WordSection2">
+            <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+           <div class="TOC" id="_">
+              <p class="zzContents">Table of contents</p>
+            </div>
+            <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+            <div>
+              <h1 class="ForewordTitle">Foreword</h1>
+              <p>
+      <a href="a.doc#b">a#b</a>
+      </p>
+            </div><p> </p></div>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true))
+      .at("//div[@class = 'WordSection2']").to_xml))
+      .to be_equivalent_to xmlpp(doc)
+  end
+
   it "droplocs xrefs" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -41,6 +138,53 @@ RSpec.describe IsoDoc do
               <xref target='A' droploc='true'>1</xref>
                and
               <xref target='B' droploc='true'>(1)</xref>
+              .
+            </p>
+          </clause>
+        </sections>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new({ i18nyaml: "spec/assets/i18n.yaml" }
+      .merge(presxml_options))
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
+  end
+
+  it "puts custom labels on xrefs" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <sections>
+          <clause id="A">
+          <formula id="B">
+          </formula>
+          </clause>
+          <clause id="C">
+          <p>This is <xref target="A" label="Klauze"/> and <xref target="B" label="Formulen"/>.</p>
+      </clause>
+      </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+          <title depth="1">Table of contents</title>
+        </clause>
+        </preface>
+        <sections>
+          <clause id='A' displayorder="2">
+            <title>1.</title>
+            <formula id='B'>
+              <name>1</name>
+            </formula>
+          </clause>
+          <clause id='C' displayorder="3">
+            <title>2.</title>
+            <p>
+              This is
+              <xref target='A' label='Klauze'>Klauze 1</xref>
+               and
+              <xref target='B' label='Formulen'>kla&#x16D;zo 1, Formulen (1)</xref>
               .
             </p>
           </clause>
@@ -292,7 +436,7 @@ RSpec.describe IsoDoc do
             <table id='B'>
               <name>Tabelo 1</name>
             </table>
-          </clause>#{' '}
+          </clause>
           <clause id='C' displayorder="3">
           <title>2.</title>
             <p>
@@ -308,7 +452,7 @@ RSpec.describe IsoDoc do
               <xref target='A' case='lowercase'>kla&#x16D;zo 1</xref>
                and
               <xref target='B' case='capital'>tabelo 1</xref>
-              .#{' '}
+              .
               <xref target='A'>kla&#x16D;zo 1</xref>
                is clause
               <em>initial.</em>

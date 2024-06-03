@@ -248,30 +248,18 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-          <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-        <div class="WordSection1">
-          <p class="MsoNormal"> </p>
-        </div>
-        <p class="MsoNormal">
-          <br clear="all" class="section"/>
-        </p>
-        <div class="WordSection2">
-        <p class="MsoNormal">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC"><a name="_" id="_"/>
-        <p class="zzContents">Table of contents</p>
-      </div>
-          <p class="MsoNormal">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div>
-            <h1 class="ForewordTitle">Foreword</h1>
-            <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"/><br/>         <br/>         <span class="nb">puts</span><br/>         <span class="n">x</span><br/>       </p>
-            <p class="SourceTitle" style="text-align:center;">Figure 1 — Ruby <i>code</i></p>
-            <div align="center" class="table_container" style="page-break-after:avoid;">
-              <a name="A" id="A"/>
-              <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+         <div class="WordSection2">
+           <p class="MsoNormal">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+           </p>
+           <div>
+             <h1 class="ForewordTitle">Foreword</h1>
+             <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"/><br/>         <br/>         <span class="nb">puts</span><br/>         <span class="n">x</span><br/>       </p>
+             <p class="SourceTitle" style="text-align:center;">Figure 1 — Ruby <i>code</i></p>
+             <div align="center" class="table_container" style="page-break-after:avoid;">
+               <a name="A" id="A"/>
+               <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
                  <tbody>
                    <tr>
                      <td style="page-break-after:avoid;" class="rouge-gutter gl">
@@ -291,11 +279,11 @@ RSpec.describe IsoDoc do
                    </tr>
                  </tbody>
                </table>
-            </div>
-            <p class="SourceTitle" style="text-align:center;">More</p>
-            <div align="center" class="table_container" style="page-break-after:avoid;">
-              <a name="B" id="B"/>
-                 <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+             </div>
+             <p class="SourceTitle" style="text-align:center;">More</p>
+             <div align="center" class="table_container" style="page-break-after:avoid;">
+               <a name="B" id="B"/>
+               <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
                  <tbody>
                    <tr>
                      <td style="page-break-after:avoid;" class="rouge-gutter gl">
@@ -315,18 +303,17 @@ RSpec.describe IsoDoc do
                    </tr>
                  </tbody>
                </table>
-            </div>
-            <p class="SourceTitle" style="text-align:center;">More</p>
-          </div>
-          <p class="MsoNormal"> </p>
-        </div>
-        <p class="MsoNormal">
-          <br clear="all" class="section"/>
-        </p>
-        <div class="WordSection3">
-        </div>
-        <div style="mso-element:footnote-list"/>
-      </body>
+             </div>
+             <p class="SourceTitle" style="text-align:center;">More</p>
+           </div>
+           <p class="MsoNormal"> </p>
+         </div>
+         <p class="MsoNormal">
+           <br clear="all" class="section"/>
+         </p>
+         <div class="WordSection3"/>
+         <div style="mso-element:footnote-list"/>
+       </body>
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
@@ -361,7 +348,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-         <metanorma-extension>
+      <metanorma-extension>
            <clause id="_user_css" inline-header="false" obligation="normative">
              <title depth="1">user-css</title>
              <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
@@ -548,6 +535,7 @@ RSpec.describe IsoDoc do
                                  <h1 class="ForewordTitle">Foreword</h1>
                <pre id="_" class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c"> &lt;3&gt;</span><br/>   end</pre>
                        <div class="annotation">
+                       <div class="figdl">
           <p class="ListTitle">Key</p>
           <dl>
             <dt id="A">
@@ -569,6 +557,7 @@ RSpec.describe IsoDoc do
               <p id="_">This is yet another callout</p>
             </dd>
           </dl>
+          </div>
         </div>
                <p class="SourceTitle" style="text-align:center;">Figure 1</p>
              </div>
@@ -756,6 +745,7 @@ RSpec.describe IsoDoc do
                         <pre class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
                       </td></tr><tr><td style="" class="rouge-gutter gl"><pre>2</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   %w{a b c}.each do |x|</pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>3</pre></td><td style="" class="rouge-code"><pre class="sourcecode">     puts x <span class="c"> &lt;3&gt;</span> </pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>4</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   end</pre></td></tr></tbody></table></div>
                               <div class="annotation">
+                              <div class="figdl">
           <p class="ListTitle">Key</p>
           <dl>
             <dt id="A">
@@ -777,6 +767,7 @@ RSpec.describe IsoDoc do
               <p id="_">This is yet another callout</p>
             </dd>
           </dl>
+          </div>
         </div>
                <p class="SourceTitle" style="text-align:center;">Figure 1</p>
              </div>

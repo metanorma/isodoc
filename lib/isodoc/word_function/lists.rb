@@ -24,13 +24,15 @@ module IsoDoc
       end
 
       def dl_parse_nontable(node, out)
-        node["id"] and bookmark_parse(node, out)
-        list_title_parse(node, out)
+        out.div **attr_code(class: "figdl") do |div|
+        node["id"] and bookmark_parse(node, div)
+        list_title_parse(node, div)
         node.elements.select { |n| dt_dd?(n) }
           .each_slice(2) do |dt, dd|
-          dl_parse_nontable1(out, dt, dd)
+          dl_parse_nontable1(div, dt, dd)
         end
-        dl_parse_notes(node, out)
+        dl_parse_notes(node, div)
+        end
       end
 
       WORD_EMBED_DL_ATTRS =

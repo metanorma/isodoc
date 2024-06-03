@@ -30,21 +30,22 @@ module IsoDoc
         @type = 'DOI' or @type = 'doi' or @type = 'ISSN' or @type = 'issn' or @type = 'ISBN' or @type = 'isbn' or starts-with(@type, 'ISSN.') or starts-with(@type, 'ISBN.') or starts-with(@type, 'issn.') or starts-with(@type, 'isbn.')
       XPATH
 
-      SKIP_DOC1 = <<~XPATH.strip.freeze
-        #{SKIP_DOCID} or @type = 'metanorma-ordinal' or @type = 'metanorma'
-      XPATH
-
-      PRIMARY_ID = "docidentifier[@primary = 'true']".freeze
-
       def pref_ref_code(bib)
         bib["suppress_identifier"] == "true" and return nil
-        lang = "[@language = '#{@lang}']"
-        ret = bib.xpath(ns("./#{PRIMARY_ID}[not(#{SKIP_DOCID})]#{lang}"))
-        ret.empty? and
-          ret = bib.xpath(ns("./#{PRIMARY_ID}[not(#{SKIP_DOCID})]"))
-        ret.empty? and
-          ret = bib.at(ns("./docidentifier[not(#{SKIP_DOC1})]#{lang}")) ||
-            bib.at(ns("./docidentifier[not(#{SKIP_DOC1})]"))
+        ret = bib.xpath(ns("./docidentifier[@scope = 'biblio-tag']"))
+        ret.empty? or return ret.map(&:text)
+        ret = pref_ref_code_parse(bib) or return nil
+        ins = bib.at(ns("./docidentifier[last()]"))
+        ret.reverse.each do |r|
+          ins.next = "<docidentifier scope='biblio-tag'>#{docid_l10n(r)}</docidentifier>"
+        end
+        ret
+      end
+
+      def pref_ref_code_parse(bib)
+        data, = @bibrender.parse(bib)
+        ret = data[:authoritative_identifier] or return nil
+        ret.empty? and return nil
         ret
       end
 
@@ -72,7 +73,9 @@ module IsoDoc
       end
 
       def unbracket1(ident)
-        ident&.text&.sub(/^\[/, "")&.sub(/\]$/, "")
+        ident.nil? and return nil
+        ident.is_a?(String) or ident = ident.text
+        ident.sub(/^\[/, "").sub(/\]$/, "")
       end
 
       def unbracket(ident)
@@ -149,7 +152,7 @@ module IsoDoc
         "//bibliography/references[@normative = 'true'] | " \
           "//bibliography/clause[.//references[@normative = 'true']] | " \
           "//sections/references[@normative = 'true'] | " \
-          "//sections/clause[.//references[@normative = 'true']]"
+          "//sections/clause[not(@type)][.//references[@normative = 'true']]"
       end
 
       def norm_ref(node, out)
