@@ -159,7 +159,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
             <p displayorder="2">
               30,000
-              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1,000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1,000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1.00'3</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>459,384.12'34'56</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j) (1 - p)^(459384.123456789 - j)</asciimath></stem>
+              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1,000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1,000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1.00'30'0</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>459,384.12'34'5</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j) (1 - p)^(459384.123456789 - j)</asciimath></stem>
             </p>
           </preface>
         </iso-standard>
@@ -320,7 +320,11 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-             <p displayorder='2'> ... 64=212=149=677=264=515 642=121=496=772;64$51$5 30=000 </p>
+             <p displayorder='2'> ... 
+            6=42=12=14=96=77=26=45=15
+            64=21=21=49=67=72;64$51$5
+            3=00=00
+             </p>
            </preface>
          </iso-standard>
       OUTPUT

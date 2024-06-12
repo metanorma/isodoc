@@ -8,7 +8,10 @@ module IsoDoc
 
     def mathml(docxml)
       docxml.xpath("//m:math", MATHML).each { |f| mathml_linebreak(f) }
-      locale = twitter_cldr_localiser
+      locale = @lang.to_sym
+      @numfmt = Plurimath::NumberFormatter
+        .new(locale, localize_number: @localizenumber,
+                     localizer_symbols: twitter_cldr_localiser_symbols)
       docxml.xpath("//m:math", MATHML).each do |f| # rubocop:disable Style/CombinableLoops
         mathml1(f, locale)
       end
@@ -18,75 +21,23 @@ module IsoDoc
     # TwitterCldr::DataReaders::NumberDataReader.new(locale).symbols
     def localize_maths(node, locale)
       node.xpath(".//m:mn", MATHML).each do |x|
-        num = BigDecimal(x.text)
-        precision = /\./.match?(x.text) ? x.text.sub(/^.*\./, "").size : 0
-        x.children = localized_number(num, locale, precision)
+        x.children = @numfmt
+          .localized_number(x.text, locale: locale,
+                                    precision: num_precision(x.text))
       rescue ArgumentError
       end
     end
 
-    # By itself twitter-cldr does not support fraction part digits grouping
-    # and custom delimeter, will decorate fraction part manually
-    def localized_number(num, locale, precision)
-      localized = localized_number1(num, locale, precision)
-      twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
-      return localized unless twitter_cldr_reader_symbols[:decimal]
-
-      integer, fraction = localized.split(twitter_cldr_reader_symbols[:decimal])
-      return localized if fraction.nil? || fraction.empty?
-
-      [integer, decorate_fraction_part(fraction, locale)]
-        .join(twitter_cldr_reader_symbols[:decimal])
-    end
-
-    def localized_number1(num, locale, precision)
-      if precision.zero?
-        num.localize(locale).to_s
-      else
-        num.localize(locale).to_decimal.to_s(precision: precision)
-      end
-    end
-
-    def decorate_fraction_part(fract, locale)
-      result = []
-      twitter_cldr_reader_symbols = twitter_cldr_reader(locale)
-      fract = fract.slice(0..(twitter_cldr_reader_symbols[:precision] || -1))
-      fr_group_digits = twitter_cldr_reader_symbols[:fraction_group_digits] || 1
-      until fract.empty?
-        result.push(fract.slice!(0, fr_group_digits))
-      end
-      result.join(twitter_cldr_reader_symbols[:fraction_group].to_s)
+    def num_precision(num)
+      precision = 0
+      /\./.match?(num) and precision =
+                             twitter_cldr_localiser_symbols[:precision] ||
+                             num.sub(/^.*\./, "").size
+      precision
     end
 
     def twitter_cldr_localiser_symbols
       {}
-    end
-
-    def twitter_cldr_reader(locale)
-      return @twitter_cldr_reader if @twitter_cldr_reader
-
-      num = TwitterCldr::DataReaders::NumberDataReader.new(locale)
-      @twitter_cldr_reader = num.symbols.merge!(twitter_cldr_localiser_symbols)
-        .merge!(parse_localize_number)
-      @twitter_cldr_reader
-    end
-
-    def twitter_cldr_localiser
-      locale = TwitterCldr.supported_locale?(@lang.to_sym) ? @lang.to_sym : :en
-      twitter_cldr_reader(locale)
-      locale
-    end
-
-    def parse_localize_number
-      @localizenumber or return {}
-      m = %r{(?<grp>[^#])?(?<grpdig>#+0)(?<decpt>.)(?<frdig>#+)(?<frgrp>[^#])?}
-        .match(@localizenumber) or return {}
-      ret = { decimal: m[:decpt], group_digits: m[:grpdig].size,
-              fraction_group_digits: m[:frdig].size,
-              group: m[:grp] || "",
-              fraction_group: m[:frgrp] || "" }.compact
-      %i(group fraction_group).each { |x| ret[x] == " " and ret[x] = "\u00A0" }
-      ret
     end
 
     def asciimath_dup(node)
