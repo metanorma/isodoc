@@ -20,7 +20,7 @@ module IsoDoc
 
     def convert1(docxml, filename, dir)
       @outputdir = dir
-      @outputfile = filename
+      @outputfile = Pathname.new(filename).basename.to_s
       docid_prefixes(docxml) # feeds @xrefs.parse citation processing
       @xrefs.parse docxml
       @xrefs.klass.meta = @meta
