@@ -258,7 +258,7 @@ RSpec.describe IsoDoc do
   end
 
   context "overrides localisation of numbers in MathML" do
-    it "overrides localisation of numbers in MathML, with no grouping of digits" do
+    it "with no grouping of digits" do
       input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata>
@@ -295,10 +295,8 @@ RSpec.describe IsoDoc do
           .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
         .to be_equivalent_to xmlpp(output2)
     end
-  end
 
-  context "overrides localisation of numbers in MathML" do
-    it "overrides localisation of numbers in MathML with grouping of digits" do
+    it "with grouping of digits" do
       input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata>
@@ -320,7 +318,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-             <p displayorder='2'> ... 
+             <p displayorder='2'> ...
             6=42=12=14=96=77=26=45=15
             64=21=21=49=67=72;64$51$5
             3=00=00
@@ -329,6 +327,71 @@ RSpec.describe IsoDoc do
          </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
+      expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+    .new({ localizenumber: "#=#0;##$#" }
+        .merge(presxml_options))
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .to be_equivalent_to xmlpp(output1)
+    end
+  end
+
+  context "overrides localisation of numbers in MathML" do
+    let(:additional_symbols) do
+      {
+        fraction_group_digits: 2,
+        fraction_group: "'",
+        precision: 2,
+      }
+    end
+
+    before do
+      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+        .to(receive(:twitter_cldr_localiser_symbols)
+        .and_return(additional_symbols))
+    end
+
+    it "with data-metanorma-numberformat attributes" do
+      input = <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+             <title language="en">test</title>
+             </bibdata>
+             <preface>
+             <p>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>...</mn></math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">642121496772.6451564515</mn>
+              </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">642121496772.6451564515</mn>
+              </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mn data-metanorma-numberformat="locale='de',digitcount='10',group='x',group_digits='3',decimal=','">642121496772.6451564515</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn data-metanorma-numberformat="locale='fr'">30000</mn></math></stem>
+             </preface>
+        </iso-standard>
+      INPUT
+      output1 = <<~OUTPUT
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+           <bibdata>
+             <title language='en'>test</title>
+           </bibdata>
+           <preface>
+              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+            <p displayorder="2">
+            ...
+            642x121x496x772'6451y564
+            6'4212y150 × 10^+11
+            642x121x496x772'64
+            30'000
+            </p>
+           </preface>
+         </iso-standard>
+      OUTPUT
+      TwitterCldr.reset_locale_fallbacks
+
       expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))

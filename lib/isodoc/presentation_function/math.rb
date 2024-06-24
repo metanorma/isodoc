@@ -21,11 +21,42 @@ module IsoDoc
     # TwitterCldr::DataReaders::NumberDataReader.new(locale).symbols
     def localize_maths(node, locale)
       node.xpath(".//m:mn", MATHML).each do |x|
-        x.children = @numfmt
-          .localized_number(x.text, locale: locale,
-                                    precision: num_precision(x.text))
+        x.children =
+          if fmt = x["data-metanorma-numberformat"]
+            explicit_number_formatter(x, locale, fmt)
+          else
+            @numfmt.localized_number(x.text, locale:,
+                                             precision: num_precision(x.text))
+          end
       rescue ArgumentError
       end
+    end
+
+    def numberformat_extract(options)
+      CSV.parse_line(options).each_with_object({}) do |x, acc|
+        m = /^(.+?)=(.+)?$/.match(x) or next
+        acc[m[1].to_sym] = m[2].sub(/^(["'])(.+)\1$/, "\\2")
+      end
+    end
+
+    def numberformat_type(ret)
+      %i(precision digitcount group_digits fraction_group_digits).each do |i|
+        ret[i] &&= ret[i].to_i
+      end
+      %i(notation exponent_sign locale).each do |i|
+        ret[i] &&= ret[i].to_sym
+      end
+      ret
+    end
+
+    def explicit_number_formatter(num, locale, options)
+      num.delete("data-metanorma-numberformat")
+      ret = numberformat_type(numberformat_extract(options))
+      l = ret[:locale] || locale
+      precision = ret[:precision]&.to_i || num_precision(num.text)
+      symbols = twitter_cldr_localiser_symbols.merge(ret)
+      Plurimath::NumberFormatter.new(l, localizer_symbols: symbols)
+        .localized_number(num.text, precision:, format: symbols)
     end
 
     def num_precision(num)
