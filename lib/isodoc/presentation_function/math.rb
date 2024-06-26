@@ -23,24 +23,41 @@ module IsoDoc
       node.xpath(".//m:mn", MATHML).each do |x|
         x.children =
           if fmt = x["data-metanorma-numberformat"]
+            x.delete("data-metanorma-numberformat")
             explicit_number_formatter(x, locale, fmt)
-          else
-            @numfmt.localized_number(x.text, locale:,
-                                             precision: num_precision(x.text))
+          else implicit_number_formatter(x, locale)
           end
       rescue ArgumentError
+      rescue Error => e
+        warn "Failure to localised MathML/mn\n#{node.parent.to_xml}\n#{e}"
       end
     end
 
+    def normalise_number(num)
+      n = BigDecimal(num).to_s("F")
+      /\.\d/.match?(num) or n.sub!(/\.\d+$/, "")
+      n
+    end
+
+    def implicit_number_formatter(num, locale)
+      fmt = { digit_count: num_totaldigits(num.text) }.compact
+      n = normalise_number(num.text)
+      # Plurimath confused by exponent notation
+      #warn "IMPLICIT: precision: #{num_precision(num.text)} ; symbols: #{fmt}, n: #{n}; output: #{@numfmt.localized_number(n, locale:, format: fmt, precision: num_precision(num.text))}"
+      @numfmt.localized_number(n, locale:, format: fmt,
+                                  precision: num_precision(num.text))
+    end
+
     def numberformat_extract(options)
-      CSV.parse_line(options).each_with_object({}) do |x, acc|
+      options.gsub!(/([a-z_]+)='/, %('\\1=))
+      CSV.parse_line(options, quote_char: "'").each_with_object({}) do |x, acc|
         m = /^(.+?)=(.+)?$/.match(x) or next
         acc[m[1].to_sym] = m[2].sub(/^(["'])(.+)\1$/, "\\2")
       end
     end
 
     def numberformat_type(ret)
-      %i(precision digitcount group_digits fraction_group_digits).each do |i|
+      %i(precision digit_count group_digits fraction_group_digits).each do |i|
         ret[i] &&= ret[i].to_i
       end
       %i(notation exponent_sign locale).each do |i|
@@ -50,21 +67,38 @@ module IsoDoc
     end
 
     def explicit_number_formatter(num, locale, options)
-      num.delete("data-metanorma-numberformat")
       ret = numberformat_type(numberformat_extract(options))
       l = ret[:locale] || locale
-      precision = ret[:precision]&.to_i || num_precision(num.text)
-      symbols = twitter_cldr_localiser_symbols.merge(ret)
+      precision, symbols, digit_count = explicit_number_formatter_cfg(num, ret)
+      n = normalise_number(num.text)
+      # Plurimath confused by exponent notation
+      #warn "EXPLICIT: precision: #{precision} ; symbols: #{symbols}, n: #{n}; output: #{Plurimath::NumberFormatter.new(l, localizer_symbols: symbols).localized_number(n, precision:, format: symbols.merge(digit_count:))}"
       Plurimath::NumberFormatter.new(l, localizer_symbols: symbols)
-        .localized_number(num.text, precision:, format: symbols)
+        .localized_number(n, precision:,
+                             format: symbols.merge(digit_count:))
+    end
+
+    def explicit_number_formatter_cfg(num, fmt)
+      symbols = twitter_cldr_localiser_symbols.dup.merge(fmt)
+      precision = symbols[:precision]&.to_i || num_precision(num.text)
+      symbols[:precision] or digit_count = num_totaldigits(num.text)
+      [precision, symbols, digit_count]
     end
 
     def num_precision(num)
-      precision = 0
-      /\./.match?(num) and precision =
-                             twitter_cldr_localiser_symbols[:precision] ||
-                             num.sub(/^.*\./, "").size
+      precision = nil
+      /\.(?!\d+e)/.match?(num) and
+        precision = twitter_cldr_localiser_symbols[:precision] ||
+          num.sub(/^.*\./, "").size
       precision
+    end
+
+    def num_totaldigits(num)
+      totaldigits = nil
+      /\.(?=\d+e)/.match?(num) and
+        totaldigits = twitter_cldr_localiser_symbols[:digit_count] ||
+          num.sub(/^.*\./, "").sub(/e.*$/, "").size
+      totaldigits
     end
 
     def twitter_cldr_localiser_symbols
