@@ -258,7 +258,7 @@ RSpec.describe IsoDoc do
   end
 
   context "overrides localisation of numbers in MathML" do
-    it "overrides localisation of numbers in MathML, with no grouping of digits" do
+    it "with no grouping of digits" do
       input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata>
@@ -295,10 +295,8 @@ RSpec.describe IsoDoc do
           .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
         .to be_equivalent_to xmlpp(output2)
     end
-  end
 
-  context "overrides localisation of numbers in MathML" do
-    it "overrides localisation of numbers in MathML with grouping of digits" do
+    it "with grouping of digits" do
       input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata>
@@ -320,7 +318,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-             <p displayorder='2'> ... 
+             <p displayorder='2'> ...
             6=42=12=14=96=77=26=45=15
             64=21=21=49=67=72;64$51$5
             3=00=00
@@ -329,6 +327,231 @@ RSpec.describe IsoDoc do
          </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
+      expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+    .new({ localizenumber: "#=#0;##$#" }
+        .merge(presxml_options))
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .to be_equivalent_to xmlpp(output1)
+    end
+  end
+  context "overrides localisation of numbers in MathML" do
+    #     before do
+    #       allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+    #         .to(receive(:twitter_cldr_localiser_symbols)
+    #         .and_return({
+    #                       fraction_group_digits: 2,
+    #                       fraction_group: "'",
+    #                       precision: 2,
+    #                     }))
+    #     end
+    let(:input) do
+      <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+             <title language="en">test</title>
+             </bibdata>
+             <preface>
+             <p>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='basic',precision='3'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='basic'">0.1e1</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='basic'">0.11e1</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='basic'">0.1100e1</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='basic'">0.1e22</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='basic'">0.10e20</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='basic'">0.10e-18</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='e',precision='3'">0.3274287432878432992e6</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='e'">0.1e1</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='e'">0.11e1</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='e'">0.1100e1</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='e'">0.1e22</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='e'">0.10e20</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="decimal=',',notation='e'">0.10e-18</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>...</mn></math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">642121496772.6451564515</mn>
+              </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">642121496772.6451564515</mn>
+              </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mn data-metanorma-numberformat="locale='de',digitcount='10',group='x',group_digits='3',decimal=','">642121496772.6451564515</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn data-metanorma-numberformat="locale='fr'">30000</mn></math></stem>
+             </preface>
+        </iso-standard>
+      INPUT
+    end
+
+    it "with data-metanorma-numberformat attributes and default precision" do
+      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+        .to(receive(:twitter_cldr_localiser_symbols)
+        .and_return({
+                      fraction_group_digits: 2,
+                      fraction_group: "'",
+                      precision: 2,
+                    }))
+
+      output1 = <<~OUTPUT
+         <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+            <bibdata>
+              <title language='en'>test</title>
+            </bibdata>
+            <preface>
+               <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                          <p displayorder="2">
+             31;00
+             32=74=28;74
+             32=74=28.74
+             32=74=28.74
+             32=74=28.74
+             32=74=28.74'3
+             32=74=28.74
+             32=74=28,74
+             32=74=28,74'3
+             1,00
+             1,10
+             1,10
+             10=00=00=00=00=00=00=00=00=00=00,00
+             10=00=00=00=00=00=00=00=00=00,00
+             0,00
+             3.27e5
+             3,27e5
+             3,27'4e5
+             1,00e0
+             1,10e0
+             1,10e0
+             1,00e+21
+             1,00e+19
+             1,00e-19
+             ...
+             642x121x496x772,6451y564
+             6,4212y150 × 10^+11
+             642x121x496x772,64
+             30'000,00
+             </p>
+          </preface>
+        </iso-standard>
+      OUTPUT
+      TwitterCldr.reset_locale_fallbacks
+
+      expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+    .new({ localizenumber: "#=#0;##$#" }
+        .merge(presxml_options))
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .to be_equivalent_to xmlpp(output1)
+    end
+
+    it "with data-metanorma-numberformat attributes and no default precision" do
+      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+        .to(receive(:twitter_cldr_localiser_symbols)
+        .and_return({
+                      fraction_group_digits: 2,
+                      fraction_group: "'",
+                    }))
+
+      output1 = <<~OUTPUT
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+              <bibdata>
+                <title language='en'>test</title>
+              </bibdata>
+              <preface>
+                 <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                            <p displayorder="2">
+            31
+            327x428,74'32'87'84'32'99'2
+            327x428.74'32'87'84'32'99'2
+            327x428.74'32'87'84'32'99'2
+            327x428.74'32'87'84'32'99'2
+            327x428.74'3
+            327x428.74'32'87'84'32'99'2
+            327x428,74'32'87'84'32'99'2
+            327x428,74'3
+            1
+            1,1
+            1,10'0
+            1x000x000x000x000x000x000x000
+            10x000x000x000x000x000x000
+            0,0
+            3.27'42'87'43'28'78'43'30'28e5
+            3,27'42'87'43'28'78'43'30'28e5
+            3,27'4e5
+            1e0
+            1,1e0
+            1,10'0e0
+            1e+21
+            1,00'00'00'00'00'00'00'00'00'00e+19
+            9,0e-20
+            ...
+            642x121x496x772,6451y564
+            6,4212y150 × 10^+11
+            642x121x496x772,64'51'56'45'15
+            30'000
+            </p>
+         </preface>
+       </iso-standard>
+      OUTPUT
+      TwitterCldr.reset_locale_fallbacks
+
       expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
