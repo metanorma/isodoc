@@ -31,6 +31,15 @@ RSpec.describe IsoDoc do
             <p id="_">with adjustments</p>
           </modification>
         </source>
+                <source status="specialisation">
+          <origin bibitemid="ISO712" type="inline" citeas="ISO 712">
+            <localityStack>
+              <locality type="section">
+                <referenceFrom>2</referenceFrom>
+              </locality>
+            </localityStack>
+          </origin>
+        </source>
         </figure>
         <figure id="figure-B">
         <pre alt="A B">A &#x3c;
@@ -77,7 +86,7 @@ RSpec.describe IsoDoc do
           <dt>A</dt>
           <dd><p>B</p></dd>
           </dl>
-          <source status="generalisation">[SOURCE: <xref target="ISO712" type="inline">ISO&#xa0;712, Section 1</xref> &#x2014; with adjustments]</source>
+          <source status="generalisation">[SOURCE: <xref target="ISO712" type="inline">ISO&#xa0;712, Section 1</xref> &#x2014; with adjustments ; <xref type="inline" target="ISO712">ISO 712, Section 2</xref>]</source>
         </figure>
         <figure id="figure-B">
         <name>Figure 2</name>
@@ -123,7 +132,7 @@ RSpec.describe IsoDoc do
                     <dl><dt><p>A</p></dt><dd><p>B</p></dd></dl>
                     </div>
                 <div class="BlockSource">
-                  <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments]</p>
+                  <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
                 </div>
                        <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider
                        <a class='FootnoteRef' href='#fn:1'>
@@ -181,7 +190,7 @@ RSpec.describe IsoDoc do
              </div></aside>
                <p  style='page-break-after:avoid;'><b>Key</b></p><table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
                <div class="BlockSource">
-               <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments]</p>
+               <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
                </div>
                 <p class='FigureTitle' style='text-align:center;'>
          Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider

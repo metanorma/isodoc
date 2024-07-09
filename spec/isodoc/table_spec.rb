@@ -73,6 +73,15 @@ RSpec.describe IsoDoc do
             <p id="_">with adjustments</p>
           </modification>
         </source>
+              <source status="specialisation">
+          <origin bibitemid="ISO712" type="inline" citeas="">
+            <localityStack>
+              <locality type="section">
+                <referenceFrom>2</referenceFrom>
+              </locality>
+            </localityStack>
+          </origin>
+        </source>
         <note><p>This is a table about rice</p></note>
         </table>
         <table id="tableD-2" unnumbered="true">
@@ -178,7 +187,7 @@ RSpec.describe IsoDoc do
                       <dd>A type of rice</dd>
                     </dl>
                     <source status="generalisation">[SOURCE: <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
-            — with adjustments]</source>
+            — with adjustments ; <xref type="inline" target="ISO712">ISO 712, Section 2</xref>]</source>
                     <note>
                       <name>NOTE</name>
                       <p>This is a table about rice</p>
@@ -279,7 +288,7 @@ RSpec.describe IsoDoc do
            </div>
            <div class="BlockSource">
              <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a> —
-      with adjustments]</p>
+      with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
            </div>
            <div class="Note">
              <p><span class="note_label">NOTE</span>  This is a table about rice</p>
@@ -397,7 +406,7 @@ RSpec.describe IsoDoc do
                    </div>
              <div class="BlockSource">
                <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a> —
-      with adjustments]</p>
+      with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
              </div>
              <div class="Note">
                <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is a table about rice</p>
