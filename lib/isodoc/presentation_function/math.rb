@@ -28,8 +28,8 @@ module IsoDoc
           else implicit_number_formatter(x, locale)
           end
       rescue ArgumentError
-      rescue Error => e
-        warn "Failure to localised MathML/mn\n#{node.parent.to_xml}\n#{e}"
+      rescue StandardError, RuntimeError => e
+        warn "Failure to localise MathML/mn\n#{node.parent.to_xml}\n#{e}"
       end
     end
 
@@ -43,7 +43,7 @@ module IsoDoc
       fmt = { significant: num_totaldigits(num.text) }.compact
       n = normalise_number(num.text)
       # Plurimath confused by exponent notation
-      warn "IMPLICIT: precision: #{num_precision(num.text)} ; symbols: #{fmt}, n: #{n}; output: #{@numfmt.localized_number(n, locale:, format: fmt, precision: num_precision(num.text))}"
+      # warn "IMPLICIT: precision: #{num_precision(num.text)} ; symbols: #{fmt}, n: #{n}; output: #{@numfmt.localized_number(n, locale:, format: fmt, precision: num_precision(num.text))}"
       @numfmt.localized_number(n, locale:, format: fmt,
                                   precision: num_precision(num.text))
     end
@@ -73,7 +73,7 @@ module IsoDoc
       precision, symbols, significant = explicit_number_formatter_cfg(num, ret)
       n = normalise_number(num.text)
       # Plurimath confused by exponent notation
-      warn "EXPLICIT: precision: #{precision} ; symbols: #{symbols}, significant: #{significant}, n: #{n}; Plurimath::NumberFormatter.new(:#{l}).localized_number(#{n}, precision: #{precision}, format: #{symbols.merge(significant:)}) output: #{Plurimath::NumberFormatter.new(l).localized_number(n, precision:, format: symbols.merge(significant:))}"
+      warn "EXPLICIT: Plurimath::NumberFormatter.new(:#{l}).localized_number('#{n}', precision: #{precision || 'nil'}, format: #{symbols.merge(significant:)}) output: #{Plurimath::NumberFormatter.new(l).localized_number(n, precision:, format: symbols.merge(significant:))}"
       #require 'debug'; binding.b if significant == 9
       Plurimath::NumberFormatter.new(l)#, localizer_symbols: symbols)
         .localized_number(n, precision:,
@@ -113,6 +113,7 @@ module IsoDoc
       @suppressasciimathdup || node.parent.at(ns("./asciimath")) and return
       math = node.to_xml.gsub(/ xmlns=["'][^"']+["']/, "")
         .gsub(%r{<[^:/>]+:}, "<").gsub(%r{</[^:/>]+:}, "</")
+        .gsub(%r{ data-metanorma-numberformat="[^"]+"}, "")
       ret = Plurimath::Math.parse(math, "mathml").to_asciimath
       node.next = "<asciimath>#{@c.encode(ret, :basic)}</asciimath>"
     rescue StandardError => e
@@ -120,7 +121,8 @@ module IsoDoc
     end
 
     def maths_just_numeral(node)
-      mn = node.at(".//m:mn", MATHML).children
+      mn = node.at(".//m:mn", MATHML).children.text
+        .sub(/\^([0-9+-]+)$/, "<sup>\\1</sup>")
       if node.parent.name == "stem"
         node.parent.replace(mn)
       else
@@ -146,11 +148,24 @@ module IsoDoc
       OUTPUT
     end
 
+    # convert any Ascii superscripts to correct(ish) MathML
+    # Not bothering to match times, base of 1.0 x 10^-20, just ^-20
+    def mn_to_msup(node)
+      node.xpath(".//m:mn", MATHML).each do |n|
+        m = %r{^(.+)\^([0-9+-]+)$}.match(n.text) or next
+        n.replace("<msup><mn>#{m[1]}</mn><mn>#{m[2]}</mn></msup>")
+      end
+    end
+
     def mathml_number(node, locale)
       justnumeral = numeric_mathml?(node)
       justnumeral or asciimath_dup(node)
       localize_maths(node, locale)
-      justnumeral and maths_just_numeral(node)
+      if justnumeral
+        maths_just_numeral(node)
+      else
+        mn_to_msup(node)
+      end
     end
 
     def numeric_mathml?(node)
