@@ -10,7 +10,7 @@ module IsoDoc
       end
 
       def inline_header_title(out, node, title)
-        out.span class: "zzMoveToFollowing" do |s|
+        out.span class: "zzMoveToFollowing inline-header" do |s|
           s.b do |b|
             title&.children&.each { |c2| parse(c2, b) }
             clausedelimspace(node, out) if /\S/.match?(title&.text)

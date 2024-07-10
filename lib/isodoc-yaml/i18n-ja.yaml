@@ -15,6 +15,7 @@ termsdefabbrev: 用語及び定義並びに略語
 normref: 引用規格
 bibliography: 参考文献
 preface: Preface
+section: Section
 clause: 箇条
 annex: 附属書
 appendix: Appendix
@@ -31,6 +32,7 @@ external_terms_boilerplate: |
           <p>この規格で用いる主な用語及び定義は，% による。</p>
 internal_external_terms_boilerplate: |
           <p>この規格で用いる主な用語及び定義は，次によるほか，% による。</p>
+no_information_available: "[情報はありません]"
 term_defined_in: "(%)"
 binary_and: "%1 and %2"
 multiple_and: "%1, and %2"
@@ -45,6 +47,7 @@ list_nested_xref: "%1の%2"
 no_conflate_xref_locations: true
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
+OrdinalRules: digits-ordinal
 note: 注記
 note_xref: 注記
 termnote: 注釈%
@@ -86,8 +89,8 @@ deprecated: 推奨しない用語
 source: 出典
 and: and
 all_parts: 規格群
-edition_ordinal: "%Spellout edition"
-edition: edition
+edition_ordinal: "第{{ var1 }}版"
+edition: 版
 version: version
 toc_figures: List of figures
 toc_tables: List of tables

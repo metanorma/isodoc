@@ -15,6 +15,7 @@ termsdefabbrev: Termes, définitions et termes abrégés
 normref: Références normatives
 bibliography: Bibliographie
 preface: Préface
+section: Section
 clause: Article
 annex: Annexe
 appendix: Appendice
@@ -31,6 +32,7 @@ external_terms_boilerplate: |
           <p>Pour les besoins du présent document, les termes et définitions de % s’appliquent.</p>
 internal_external_terms_boilerplate: |
           <p>Pour les besoins du présent document, les termes et définitions de % ainsi que les suivants, s’appliquent.</p>
+no_information_available: "[PAS D’INFORMATION DISPONIBLE]"
 term_defined_in: "(%)"
 binary_and: "%1 et %2"
 multiple_and: "%1, et %2"
@@ -48,6 +50,11 @@ SpelloutRules:
   f.sg: spellout-ordinal-feminine
   m.pl: spellout-ordinal-masculine-plural
   f.pl: spellout-ordinal-feminine-plural
+OrdinalRules:
+  m.sg: digits-ordinal-masculine
+  f.sg: digits-ordinal-feminine
+  m.pl: digits-ordinal-masculine-plural
+  f.pl: digits-ordinal-feminine-plural
 note: NOTE
 note_xref: Note
 termnote: Note % à l’article
@@ -79,7 +86,7 @@ edition: édition
 version: version
 and: et
 all_parts: toutes les parties
-edition_ordinal: "%Spellout édition"
+edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} édition"
 edition: édition
 toc_figures: Table des figures
 toc_tables: Table des tableaux
@@ -199,4 +206,5 @@ inflection:
     sg: Page
     pl: Pages
   édition:
-    gender: f
+    grammar:
+      gender: f

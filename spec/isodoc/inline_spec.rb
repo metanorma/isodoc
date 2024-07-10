@@ -234,38 +234,35 @@ RSpec.describe IsoDoc do
             <p>
               <ul>
                 <li>
-      #{'    '}
               (<xref target="clause1">Clause 2</xref>)
             </li>
-                <li><em>term</em>#{' '}
+                <li><em>term</em>
               (<xref target="clause1">Clause 2</xref>)
             </li>
-                <li><em>w[o]rd</em>#{' '}
+                <li><em>w[o]rd</em>
               [<xref target="clause1">Clause #1</xref>]
             </li>
-                <li><em>term</em>#{' '}
+                <li><em>term</em>
               (<xref type="inline" target="ISO712">ISO 712</xref>)
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               [<xref type="inline" target="ISO712">The Aforementioned Citation</xref>]
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               (<xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>)
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               (<xref type="inline" target="ISO712">ISO 712, Clause 3.1 and Figure b</xref>)
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               [<xref type="inline" target="ISO712">
-      #{'        '}
-      #{'        '}
               The Aforementioned Citation
               </xref>]
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               (<termref base="IEV" target="135-13-13"/>)
             </li>
-                <li><em>word</em>#{' '}
+                <li><em>word</em>
               [<termref base="IEV" target="135-13-13">The IEV database</termref>]
             </li>
                 <li>
@@ -285,6 +282,7 @@ RSpec.describe IsoDoc do
             <bibitem id="ISO712" type="standard">
               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type="ISO">ISO 712</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
               <biblio-tag>ISO 712, </biblio-tag>
             </bibitem>
           </references>
@@ -298,6 +296,7 @@ RSpec.describe IsoDoc do
                               <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p>
+               <div class="ul_wrap">
                  <ul>
                    <li>
 
@@ -338,6 +337,7 @@ RSpec.describe IsoDoc do
                      <b>error!</b>
                    </li>
                  </ul>
+                 </div>
                </p>
              </div>
              <div>
@@ -437,6 +437,7 @@ RSpec.describe IsoDoc do
                         <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p>
+               <div class="ul_wrap">
                  <ul>
                    <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
                    <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
@@ -459,6 +460,7 @@ RSpec.describe IsoDoc do
                      <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
                    </li>
                  </ul>
+                 </div>
                </p>
              </div>
              <div id="clause1">
@@ -532,13 +534,16 @@ RSpec.describe IsoDoc do
             <div>
               <h1 class='ForewordTitle'>Foreword</h1>
               <p>
+              <div class="ul_wrap">
                 <ul>
                   <li>ISO</li>
                 </ul>
+                </div>
               </p>
             </div>
             <div id='d' class='Symbols'>
               <h1>1.</h1>
+              <div class="figdl">
               <dl>
                 <dt id='d1'>
                   <p>ISO</p>
@@ -549,6 +554,7 @@ RSpec.describe IsoDoc do
                 </dt>
                 <dd>abc</dd>
               </dl>
+              </div>
             </div>
           </div>
         </body>
@@ -635,6 +641,7 @@ RSpec.describe IsoDoc do
         <link target="http://example.com" alt="tip">example</link>
         <link target="mailto:fred@example.com"/>
         <link target="mailto:fred@example.com">mailto:fred@example.com</link>
+        <link target="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512"/>
         </p>
         </foreword></preface>
         <sections>
@@ -652,6 +659,7 @@ RSpec.describe IsoDoc do
          <a href="http://example.com" title="tip">example</a>
          <a href="mailto:fred@example.com">fred@example.com</a>
          <a href="mailto:fred@example.com">mailto:fred@example.com</a>
+         <a href="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512">https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512</a>
          </p>
                  </div>
                </div>
@@ -763,7 +771,7 @@ RSpec.describe IsoDoc do
                    <p>
          <span class="stem">(#(&lt;A&gt;)#)</span>
          <span class="stem">(#(&lt;A&gt;)#)</span>
-         <span class="stem"><m:math>
+         <span class="stem"><m:math xmlns:m="http://www.w3.org/1998/Math/MathML">
            <m:row>X</m:row>
          </m:math></span>
          <span class="stem">Latex?</span>
@@ -956,61 +964,20 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface>
-          <clause type="toc" id="_" displayorder="1">
-            <title depth="1">Table of contents</title>
-          </clause>
-          <foreword displayorder="2">
-            <p>
-              <sup>
-                <xref type="footnote" target="ISO712">A</xref>
-              </sup>
-              <xref type="inline" target="ISO712">A</xref>
-              <sup>
-                <link target="http://wwww.example.com">A</link>
-              </sup>
-              <link target="http://wwww.example.com">A</link>
-            </p>
-          </foreword>
-        </preface>
-        <sections>
-          <references id="_" obligation="informative" normative="true" displayorder="3">
-            <title depth="1">1.<tab/>Normative References</title>
-            <bibitem id="ISO712" type="standard">
-              <formattedref format="text/plain">
-                <em>Cereals and cereal products</em>
-              </formattedref>
-              <docidentifier>ISO 712</docidentifier>
-              <contributor>
-                <role type="publisher"/>
-                <organization>
-                  <abbreviation>ISO</abbreviation>
-                </organization>
-              </contributor>
-              <biblio-tag>ISO 712, </biblio-tag>
-            </bibitem>
-            <bibitem id="ISO713" type="standard">
-              <formattedref format="text/plain">
-                <em>Cereals and cereal products</em>
-              </formattedref>
-              <docidentifier>ISO 713</docidentifier>
-              <contributor>
-                <role type="publisher"/>
-                <organization>
-                  <abbreviation>ISO</abbreviation>
-                </organization>
-              </contributor>
-              <uri type="citation">http://wwww.example.com</uri>
-              <biblio-tag>ISO 713, </biblio-tag>
-            </bibitem>
-          </references>
-          </sections>
-        <bibliography>
-        </bibliography>
-      </iso-standard>
+      <foreword displayorder="2">
+        <p>
+          <sup>
+            <xref type="footnote" target="ISO712">A</xref>
+          </sup>
+          <xref type="inline" target="ISO712">A</xref>
+          <sup>
+            <link target="http://wwww.example.com">A</link>
+          </sup>
+          <link target="http://wwww.example.com">A</link>
+        </p>
+      </foreword>
     OUTPUT
-    output = <<~OUTPUT
+    html = <<~OUTPUT
       #{HTML_HDR}
              <br/>
              <div>
@@ -1039,10 +1006,13 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
+    output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    expect(xmlpp(strip_guid(Nokogiri::XML(output)
+      .at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true)))).to be_equivalent_to xmlpp(html)
   end
 
   it "processes eref content" do
@@ -1116,6 +1086,7 @@ RSpec.describe IsoDoc do
             <bibitem id="ISO712" type="standard">
               <formattedref><em>Cereals and cereal products</em>.</formattedref>
               <docidentifier>ISO&#xa0;712</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
               <biblio-tag>ISO&#xa0;712,</biblio-tag>
             </bibitem>
                 </references>
@@ -1194,9 +1165,9 @@ RSpec.describe IsoDoc do
           <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
       <bibitem id="ISO712" type="standard">
         <title format="text/plain">Cereals and cereal products</title>
-        <uri type="citation">http://www.example.com</uri>
-        <uri type="citation" language="en">http://www.example.com/en</uri>
-        <uri type="citation" language="fr">http://www.example.com/fr</uri>
+        <uri type="citation">https://www.google.com</uri>
+        <uri type="citation" language="en">https://www.google.com/en</uri>
+        <uri type="citation" language="fr">https://www.google.com/fr</uri>
         <docidentifier>ISO 712</docidentifier>
         <contributor>
           <role type="publisher"/>
@@ -1232,234 +1203,92 @@ RSpec.describe IsoDoc do
           </bibliography>
           </iso-standard>
     INPUT
+    date = Date.today.localize(:fr).with_timezone(timezone_identifier_local)
+      .to_date.to_long_s
     presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-         <bibdata>
-           <language current='true'>fr</language>
-         </bibdata>
-         <preface>
-         <clause type="toc" id="_" displayorder="1"> <title depth="1">Sommaire</title> </clause>
-           <foreword displayorder='2'>
-             <p>
-               <link target="http://www.example.com/fr">ISO 712</link>
-               <link target="http://www.example.com/fr">ISO 712</link>
-               <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
-               <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
-               <link target="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</link>
-               <link target="spec/assets/iso713.html">ISO 713, Tableau 1–1</link>
-               <link target="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</link>
-               <link target="spec/assets/iso713.html">ISO 713, Article 1</link>
-               <link target="spec/assets/iso713.html">ISO 713, Article 1.5</link>
-               <link target="spec/assets/iso713.html">A</link>
-               <link target="spec/assets/iso713.html">ISO 713, Ensemble du texte</link>
-               <link target="spec/assets/iso713.html">ISO 713, Prelude 7</link>
-               <link target="spec/assets/iso713.html">A</link>
-               <link target="spec/assets/iso713.html#xyz">ISO 713</link>
-               <link target="spec/assets/iso713.html#xyz">ISO 713, Article 1</link>
-               <link target="spec/assets/iso714.svg">ISO 714</link>
-             </p>
-           </foreword>
-         </preface>
-         <sections>
-           <references id='_' obligation='informative' normative='true' displayorder='3'>
-             <title depth='1'>
-               1.
-               <tab/>
-               Normative References
-             </title>
-             <bibitem id='ISO712' type='standard'>
-               <formattedref>
-                 <em>Cereals and cereal products</em>
-                 .
-                 <link target='http://www.example.com/fr'>http://www.example.com/fr</link>
-                 .
-               </formattedref>
-               <uri type='citation'>http://www.example.com</uri>
-               <uri type='citation' language='en'>http://www.example.com/en</uri>
-               <uri type='citation' language='fr'>http://www.example.com/fr</uri>
-               <docidentifier>ISO&#xa0;712</docidentifier>
-               <biblio-tag>ISO&#xa0;712,</biblio-tag>
-             </bibitem>
-             <bibitem id='ISO713' type='standard'>
-               <formattedref>
-                 <em>Cereals and cereal products</em>
-                 .
-                 <link target='spec/assets/iso713'>spec/assets/iso713</link>
-                 .
-               </formattedref>
-               <uri type='citation'>spec/assets/iso713</uri>
-               <uri type='citation'>spec/assets/iso714</uri>
-               <docidentifier>ISO&#xa0;713</docidentifier>
-               <biblio-tag>ISO&#xa0;713,</biblio-tag>
-             </bibitem>
-             <bibitem id='ISO714' type='standard'>
-               <formattedref>
-                 <em>Cereals and cereal products</em>
-                 .
-                 <link target='spec/assets/iso714.svg'>spec/assets/iso714.svg</link>
-                 .
-               </formattedref>
-               <uri type='citation'>spec/assets/iso714.svg</uri>
-               <docidentifier>ISO&#xa0;714</docidentifier>
-               <biblio-tag>ISO&#xa0;714,</biblio-tag>
-             </bibitem>
-           </references>
-           </sections>
-         <bibliography>
-         </bibliography>
-       </iso-standard>
+      <foreword displayorder='2'>
+        <p>
+          <link target="https://www.google.com/fr">ISO 712</link>
+          <link target="https://www.google.com/fr">ISO 712</link>
+          <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
+          <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
+          <link target="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</link>
+          <link target="spec/assets/iso713.html">ISO 713, Tableau 1–1</link>
+          <link target="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</link>
+          <link target="spec/assets/iso713.html">ISO 713, Article 1</link>
+          <link target="spec/assets/iso713.html">ISO 713, Article 1.5</link>
+          <link target="spec/assets/iso713.html">A</link>
+          <link target="spec/assets/iso713.html">ISO 713, Ensemble du texte</link>
+          <link target="spec/assets/iso713.html">ISO 713, Prelude 7</link>
+          <link target="spec/assets/iso713.html">A</link>
+          <link target="spec/assets/iso713.html#xyz">ISO 713</link>
+          <link target="spec/assets/iso713.html#xyz">ISO 713, Article 1</link>
+          <link target="spec/assets/iso714.svg">ISO 714</link>
+        </p>
+      </foreword>
     OUTPUT
 
     html = <<~OUTPUT
-      <html lang='fr'>
-         <head/>
-         <body lang='fr'>
-           <div class='title-section'>
-             <p>&#xa0;</p>
-           </div>
-           <br/>
-           <div class='prefatory-section'>
-             <p>&#xa0;</p>
-           </div>
-           <br/>
-           <div class='main-section'>
-             <br/>
-                   <div class="TOC" id="_">
-        <h1 class="IntroTitle">Sommaire</h1>
+      <div>
+        <h1 class='ForewordTitle'>Avant-propos</h1>
+        <p>
+          <a href='https://www.google.com/fr'>ISO&#xa0;712</a>
+          <a href='https://www.google.com/fr'>ISO&#xa0;712</a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 et Article 1 </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1&#x2013;1 </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1, Tableau 1 </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1 </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1.5 </a>
+          <a href='spec/assets/iso713.html'> A </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Ensemble du texte </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Prelude 7 </a>
+          <a href='spec/assets/iso713.html'>A</a>
+          <a href='spec/assets/iso713.html#xyz'> ISO&#xa0;713 </a>
+          <a href='spec/assets/iso713.html#xyz'> ISO&#xa0;713, Article 1 </a>
+          <a href='spec/assets/iso714.svg'>ISO&#xa0;714</a>
+        </p>
       </div>
-      <br/>
-             <div>
-               <h1 class='ForewordTitle'>Avant-propos</h1>
-               <p>
-                 <a href='http://www.example.com/fr'>ISO&#xa0;712</a>
-                 <a href='http://www.example.com/fr'>ISO&#xa0;712</a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 et Article 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1&#x2013;1 </a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1, Tableau 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1 </a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1.5 </a>
-                 <a href='spec/assets/iso713.html'> A </a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Ensemble du texte </a>
-                 <a href='spec/assets/iso713.html'> ISO&#xa0;713, Prelude 7 </a>
-                 <a href='spec/assets/iso713.html'>A</a>
-                 <a href='spec/assets/iso713.html#xyz'> ISO&#xa0;713 </a>
-                 <a href='spec/assets/iso713.html#xyz'> ISO&#xa0;713, Article 1 </a>
-                 <a href='spec/assets/iso714.svg'>ISO&#xa0;714</a>
-               </p>
-             </div>
-             <div>
-               <h1> 1. &#xa0; Normative References </h1>
-               <p id='ISO712' class='NormRef'>
-                 ISO&#xa0;712,
-                 <i>Cereals and cereal products</i>
-                  .
-                 <a href='http://www.example.com/fr'>http://www.example.com/fr</a>
-                  .
-               </p>
-               <p id='ISO713' class='NormRef'>
-                 ISO&#xa0;713,
-                 <i>Cereals and cereal products</i>
-                  .
-                 <a href='spec/assets/iso713'>spec/assets/iso713</a>
-                  .
-               </p>
-               <p id='ISO714' class='NormRef'>
-                 ISO&#xa0;714,
-                 <i>Cereals and cereal products</i>
-                  .
-                 <a href='spec/assets/iso714.svg'>spec/assets/iso714.svg</a>
-                  .
-               </p>
-             </div>
-           </div>
-         </body>
-       </html>
     OUTPUT
 
     word = <<~OUTPUT
-        <body lang='EN-US' link='blue' vlink='#954F72'>
-           <div class='WordSection1'>
-             <p>&#xa0;</p>
-           </div>
-           <p class="section-break">
-             <br clear='all' class='section'/>
-           </p>
-           <div class='WordSection2'>
-             <p class="page-break">
-               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-             </p>
-                 <div class="TOC" id="_">
-        <p class="zzContents">Sommaire</p>
-      </div>
-      <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-                 <div>
-               <h1 class="ForewordTitle">Avant-propos</h1>
-               <p>
-                 <a href="http://www.example.com/fr">ISO 712</a>
-                 <a href="http://www.example.com/fr">ISO 712</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Tableau 1–1</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Article 1</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Article 1.5</a>
-                 <a href="spec/assets/iso713.html">A</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Ensemble du texte</a>
-                 <a href="spec/assets/iso713.html">ISO 713, Prelude 7</a>
-                 <a href="spec/assets/iso713.html">A</a>
-                 <a href="spec/assets/iso713.html#xyz">ISO 713</a>
-                 <a href="spec/assets/iso713.html#xyz">ISO 713, Article 1</a>
-                 <a href="spec/assets/iso714.svg">ISO 714</a>
-               </p>
-             </div>
-             <p> </p>
-           </div>
-           <p class="section-break">
-             <br clear="all" class="section"/>
-           </p>
-           <div class="WordSection3">
-             <div>
-               <h1>
-                  1.
-                  <span style="mso-tab-count:1">  </span>
-                  Normative References
-                </h1>
-               <p id="ISO712" class="NormRef">ISO 712,
-                    <i>Cereals and cereal products</i>
-                    .
-                    <a href="http://www.example.com/fr">http://www.example.com/fr</a>
-                    .
-                  </p>
-               <p id="ISO713" class="NormRef">ISO 713,
-                    <i>Cereals and cereal products</i>
-                    .
-                    <a href="spec/assets/iso713">spec/assets/iso713</a>
-                    .
-                  </p>
-               <p id="ISO714" class="NormRef">ISO 714,
-                    <i>Cereals and cereal products</i>
-                    .
-                    <a href="spec/assets/iso714.svg">spec/assets/iso714.svg</a>
-                    .
-                  </p>
-             </div>
-           </div>
-         </body>
+      <div>
+         <h1 class="ForewordTitle">Avant-propos</h1>
+         <p>
+           <a href="https://www.google.com/fr">ISO 712</a>
+           <a href="https://www.google.com/fr">ISO 712</a>
+           <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
+           <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
+           <a href="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</a>
+           <a href="spec/assets/iso713.html">ISO 713, Tableau 1–1</a>
+           <a href="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</a>
+           <a href="spec/assets/iso713.html">ISO 713, Article 1</a>
+           <a href="spec/assets/iso713.html">ISO 713, Article 1.5</a>
+           <a href="spec/assets/iso713.html">A</a>
+           <a href="spec/assets/iso713.html">ISO 713, Ensemble du texte</a>
+           <a href="spec/assets/iso713.html">ISO 713, Prelude 7</a>
+           <a href="spec/assets/iso713.html">A</a>
+           <a href="spec/assets/iso713.html#xyz">ISO 713</a>
+           <a href="spec/assets/iso713.html#xyz">ISO 713, Article 1</a>
+           <a href="spec/assets/iso714.svg">ISO 714</a>
+         </p>
+       </div>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    expect(xmlpp(strip_guid(Nokogiri::XML(output)
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(Nokogiri::XML(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))
-      .at("//body").to_xml))
+    xml = IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true)
+    expect(xmlpp(Nokogiri::XML(xml)
+      .at("//div[h1/@class='ForewordTitle']").to_xml))
+      .to be_equivalent_to xmlpp(html)
+    xml = IsoDoc::WordConvert.new({})
+      .convert("test", output, true)
+    expect(xmlpp(Nokogiri::XML(xml)
+      .at("//div[h1/@class='ForewordTitle']").to_xml))
       .to be_equivalent_to xmlpp(word)
   end
 
@@ -1538,15 +1367,17 @@ RSpec.describe IsoDoc do
            <references id='_' obligation='informative' normative='true' displayorder='3' hidden="true">
              <title depth='1'>Normative References</title>
              <bibitem id='ISO712' type='standard' hidden="true">
-               <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
+               <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</formattedref>
                <uri type='citation'>http://www.example.com</uri>
                <docidentifier>ISO&#xa0;712</docidentifier>
+               <docidentifier scope="biblio-tag">ISO 712</docidentifier>
              </bibitem>
              <bibitem id='ISO713' type='standard' hidden="true">
-               <formattedref><em>Cereals and cereal products</em>. <link target="https://www.iso.org/standard/3944.html">https://www.iso.org/standard/3944.html</link>.</formattedref>
+               <formattedref><em>Cereals and cereal products</em>. <link target="https://www.iso.org/standard/3944.html">https://www.iso.org/standard/3944.html</link>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</formattedref>
              <uri type='src'>https://www.iso.org/standard/3944.html</uri>
               <uri type='rss'>https://www.iso.org/contents/data/standard/00/39/3944.detail.rss</uri>
                <docidentifier>ISO&#xa0;713</docidentifier>
+               <docidentifier scope="biblio-tag">ISO 713</docidentifier>
              </bibitem>
            </references>
            </sections>
@@ -1652,8 +1483,7 @@ RSpec.describe IsoDoc do
           <title>Normative References</title>
             <bibitem id='ISO712' type='standard'>
               <title format='text/plain'>Cereals and cereal products</title>
-              <uri type='citation'>http://www.example.com</uri>
-              <docidentifier>ISO 712</docidentifier>
+              <docidentifier>BSI BS EN ISO 19011:2018&#8201;&#8212;&#8201;TC</docidentifier>
               <contributor>
                 <role type='publisher'/>
                 <organization>
@@ -1665,36 +1495,16 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
-        <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder='2'>
-            <p>
-              <link target='http://www.example.com'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</link>
-            </p>
-          </foreword>
-          </preface>
-          <sections>
-            <references id='_' obligation='informative' normative='true' displayorder='3'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Normative References
-              </title>
-              <bibitem id='ISO712' type='standard'>
-                 <formattedref><em>Cereals and cereal products</em>. <link target="http://www.example.com">http://www.example.com</link>.</formattedref>
-                 <uri type='citation'>http://www.example.com</uri>
-                <docidentifier>ISO&#xa0;712</docidentifier>
-                <biblio-tag>ISO&#xa0;712,</biblio-tag>
-              </bibitem>
-            </references>
-          </sections>
-          <bibliography>
-          </bibliography>
-      </iso-standard>
+      <foreword displayorder='2'>
+        <p>
+          <xref type="inline" target='ISO712'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</link>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))
+    expect(xmlpp(strip_guid(xml.at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
   end
 
   it "processes variant" do
@@ -1977,5 +1787,77 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes ruby markup" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <preface>
+      <foreword id="A">
+      <p>
+      <ruby><pronunciation value="とうきょう"/>東京</ruby>
+      <ruby><pronunciation value="とうきょう" lang="ja" script="Hira"/>東京</ruby>
+      <ruby><pronunciation value="Tōkyō" script="Latn"/>東京</ruby>
+      <ruby><annotation value="ライバル"/>親友</ruby>
+      <ruby><pronunciation value="とう"/>東</ruby> <ruby><pronunciation value="きょう"/>京</ruby>
+      <ruby><pronunciation value="Tō" script="Latn"/>東</ruby><ruby><pronunciation value="kyō" script="Latn"/>京</ruby>
+
+
+      <ruby><pronunciation value="とう"/><ruby><pronunciation value="tou"/>東</ruby></ruby> <ruby><pronunciation value="なん"/><ruby><pronunciation value="nan"/>南</ruby></ruby> の方角
+      <ruby><pronunciation value="たつみ"/><ruby><pronunciation value="とう"/>東</ruby><ruby><pronunciation value="なん"/>南</ruby></ruby>
+      <ruby><pronunciation value="プロテゴ"/><ruby><pronunciation value="まも"/>護</ruby>れ</ruby>!
+      <ruby><pronunciation value="プロテゴ"/>れ<ruby><pronunciation value="まも"/>護</ruby></ruby>!</p>
+      </p>
+      </foreword></preface></standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+       <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
+          <foreword id="A" displayorder="2">
+            <p>
+            <ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>Tōkyō</rt></ruby><ruby><rb>親友</rb><rt>ライバル</rt></ruby><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>京</rb><rt>きょう</rt></ruby><ruby><rb>東</rb><rt>Tō</rt></ruby><ruby><rb>京</rb><rt>kyō</rt></ruby><ruby><rb><ruby><rb>東</rb><rt>tou</rt></ruby></rb><rt>とう</rt></ruby><ruby><rb><ruby><rb>南</rb><rt>nan</rt></ruby></rb><rt>なん</rt></ruby> の方角
+       <ruby><rb><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>南</rb><rt>なん</rt></ruby></rb><rt>たつみ</rt></ruby>
+       <ruby><rb><ruby><rb>護</rb><rt>まも</rt></ruby>れ</rb><rt>プロテゴ</rt></ruby>!
+       <ruby><rb>れ<ruby><rb>護</rb><rt>まも</rt></ruby></rb><rt>プロテゴ</rt></ruby>!</p>
+             </p>
+           </foreword>
+         </preface>
+       </standard-document>
+    OUTPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+             <br/>
+             <div id="A">
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>とうきょう</rt></ruby><ruby><rb>東京</rb><rt>Tōkyō</rt></ruby><ruby><rb>親友</rb><rt>ライバル</rt></ruby><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>京</rb><rt>きょう</rt></ruby><ruby><rb>東</rb><rt>Tō</rt></ruby><ruby><rb>京</rb><rt>kyō</rt></ruby><ruby><rb><ruby><rb>東</rb><rt>tou</rt></ruby></rb><rt>とう</rt></ruby><ruby><rb><ruby><rb>南</rb><rt>nan</rt></ruby></rb><rt>なん</rt></ruby> の方角
+        <ruby><rb><ruby><rb>東</rb><rt>とう</rt></ruby><ruby><rb>南</rb><rt>なん</rt></ruby></rb><rt>たつみ</rt></ruby>
+        <ruby><rb><ruby><rb>護</rb><rt>まも</rt></ruby>れ</rb><rt>プロテゴ</rt></ruby>!
+        <ruby><rb>れ<ruby><rb>護</rb><rt>まも</rt></ruby></rb><rt>プロテゴ</rt></ruby>!</p>
+             </div>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    doc = <<~OUTPUT
+      <div>
+           <h1 class="ForewordTitle">Foreword</h1>
+         <p><ruby><rb>東京</rb><rt style="font-size: 6pt;">とうきょう</rt></ruby><ruby><rb>東京</rb><rt style="font-size: 6pt;">とうきょう</rt></ruby><ruby><rb>東京</rb><rt style="font-size: 6pt;">Tōkyō</rt></ruby><ruby><rb>親友</rb><rt style="font-size: 6pt;">ライバル</rt></ruby><ruby><rb>東</rb><rt style="font-size: 6pt;">とう</rt></ruby><ruby><rb>京</rb><rt style="font-size: 6pt;">きょう</rt></ruby><ruby><rb>東</rb><rt style="font-size: 6pt;">Tō</rt></ruby><ruby><rb>京</rb><rt style="font-size: 6pt;">kyō</rt></ruby><ruby><rb>東</rb><rt style="font-size: 6pt;">とう</rt></ruby>(tou)<ruby><rb>南</rb><rt style="font-size: 6pt;">なん</rt></ruby>(nan) の方角
+         <ruby><rb>東</rb><rt style="font-size: 6pt;">たつみ</rt></ruby>(とう)
+         <ruby><rb>護</rb><rt style="font-size: 6pt;">プロテゴ</rt></ruby>(まも)!
+         <ruby><rb>護</rb><rt style="font-size: 6pt;">プロテゴ</rt></ruby>(まも)!</p>
+       </div>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
+      .convert("test", input, true))
+       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")
+       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true)
+      .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>")))
+      .to be_equivalent_to xmlpp(doc)
   end
 end

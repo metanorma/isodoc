@@ -11,7 +11,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata type="standard">
         <title>The Incredible Mr Ripley</title>
-        <title language="en">Cereals and pulses</title>
+        <title language="en">Cereals and pulses H<sup>2</sup>O</title>
         <uri>URL A</uri>
         <uri type="html">URL B</uri>
         <uri type="xml">URL C</uri>
@@ -35,6 +35,9 @@ RSpec.describe IsoDoc do
         <date type="vote-started"><on>2021</on></date>
         <date type="vote-ended"><on>2022</on></date>
         <date type="corrected"><on>2023</on></date>
+        <date type="adapted"><on>2024</on></date>
+        <date type="announced"><on>2025</on></date>
+        <date type="stable_until"><on>2026</on></date>
         <edition>2</edition><edition language="en">second edition</edition>
       <version>
         <revision-date>2016-05-01</revision-date>
@@ -111,6 +114,7 @@ RSpec.describe IsoDoc do
         <keyword>KW3</keyword>
         <ext>
         <doctype>international-standard</doctype>
+        <subdoctype>vocabulary</subdoctype>
         </ext>
       </bibdata>
       <metanorma-extension>
@@ -129,7 +133,9 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       {:accesseddate=>"2012",
       :activateddate=>"2013",
+      :adapteddate=>"2024",
       :agency=>"ISO",
+      :announceddate=>"2025",
       :authors=>["Barney Rubble", "Fred Flintstone", "B. B. Rubble"],
       :authors_affiliations=>{"Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone", "B. B. Rubble"]},
       :circulateddate=>"2015",
@@ -140,7 +146,7 @@ RSpec.describe IsoDoc do
       :doc=>"URL E",
       :docnumber=>"17301-1",
       :docnumeric=>"17301",
-      :doctitle=>"Cereals and pulses",
+      :doctitle=>"Cereals and pulses H<sup>2</sup>O",
       :doctype=>"International Standard",
       :doctype_display=>"International Standard",
       :docyear=>"2016",
@@ -165,9 +171,11 @@ RSpec.describe IsoDoc do
       :revdate=>"2016-05-01",
       :revdate_monthyear=>"May 2016",
       :script=>"Latn",
+      :stable_untildate=>"2026",
       :stage=>"Committee Draft",
       :stage_display=>"Committee Draft",
       :stageabbr=>"CD",
+      :subdoctype=>"Vocabulary",
       :substage=>"Withdrawn",
       :substage_display=>"Withdrawn",
       :title_footnote=>["A footnote", "Another footnote"],
@@ -262,7 +270,9 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"ISO/IEC/IEEE",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -294,6 +304,7 @@ RSpec.describe IsoDoc do
       :revdate=>"2016-05",
       :revdate_monthyear=>"May 2016",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :stage=>"Published",
       :stage_display=>"Published",
       :subdivision=>"Subdivision",
@@ -336,7 +347,9 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"NAME1/NAME",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -350,6 +363,7 @@ RSpec.describe IsoDoc do
       :publisher=>"NAME1 and NAME",
       :receiveddate=>"XXX",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :transmitteddate=>"XXX",
       :unchangeddate=>"XXX",
       :unpublished=>true,
@@ -440,7 +454,9 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"ISO/IEC",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -463,6 +479,7 @@ RSpec.describe IsoDoc do
       :revdate=>"2016-05",
       :revdate_monthyear=>"Mai 2016",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :stage=>"Committee Draft",
       :stage_display=>"Projet De Comité",
       :stageabbr=>"CD",

@@ -15,6 +15,7 @@ termsdefabbrev: 术语、定义、符号和缩略语
 normref: 规范性引用文件
 bibliography: 参考文献
 preface: 序言
+section: 条
 clause: 条
 annex: 附件
 appendix: 附录
@@ -33,6 +34,7 @@ external_terms_boilerplate: |
           <p>% 界定的术语和定义适用于本文件。</p>
 internal_external_terms_boilerplate: |
           <p>% 界定的以及下列术语和定义适用于本文件。</p>
+no_information_available: "[无资料]"
 term_defined_in: "（%）"
 binary_and: "%1和%2"
 multiple_and: "%1、和%2"
@@ -46,6 +48,7 @@ nested_xref: "%1, %2"
 list_nested_xref: "%1 %2"
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
+OrdinalRules: digits-ordinal
 note: 注
 note_xref: 注
 termnote: 注%
@@ -75,7 +78,7 @@ deprecated: 被取代
 source: 定义
 and: 和
 all_parts: 所有部分
-edition_ordinal: "第%Spellout版"
+edition_ordinal: "第{{ var1 | ordinal_word: '', '' }}版"
 edition: 版
 version: 版本
 toc_figures: 数字列表

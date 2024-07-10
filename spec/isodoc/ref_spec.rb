@@ -137,7 +137,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-        <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>#{' '}
+        <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword displayorder="2">
             <p id='_'>
               <xref target='ISO712'>[110]</xref>
@@ -165,17 +165,20 @@ RSpec.describe IsoDoc do
                <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type='ISO'>ISO&#xa0;712</docidentifier>
               <docidentifier type='metanorma'>[110]</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
               <biblio-tag>[110], ISO&#xa0;712, </biblio-tag>
             </bibitem>
             <bibitem id='ISO16634' type='standard'>
                <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
               <docidentifier type='ISO'>ISO 16634:-- (all parts)</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
               <note format='text/plain' type='Unpublished-Status' reference='1'>Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
               <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
             </bibitem>
             <bibitem id='ISO20483' type='standard'>
               <formattedref>International Organization for Standardization. <em>Cereals and pulses</em>. 2013&#x2013;2014.</formattedref>
               <docidentifier type='ISO'>ISO&#xa0;20483:2013-2014</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
               <biblio-tag>ISO&#xa0;20483:2013-2014, </biblio-tag>
             </bibitem>
             <bibitem id='ref1'>
@@ -192,6 +195,7 @@ RSpec.describe IsoDoc do
                 )
               </formattedref>
               <docidentifier type='ICC'>ICC/167</docidentifier>
+              <docidentifier scope="biblio-tag">ICC/167</docidentifier>
               <biblio-tag>ICC/167, </biblio-tag>
             </bibitem>
             <note>
@@ -232,6 +236,7 @@ RSpec.describe IsoDoc do
               <formattedref><em>Water for analytical laboratory use</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
               <docidentifier type='ISO'>ISO&#xa0;3696</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
               <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 3696)</note>
               <biblio-tag>[3]<tab/>ISO&#xa0;3696<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p></fn>, </biblio-tag>
             </bibitem>
@@ -254,11 +259,13 @@ RSpec.describe IsoDoc do
             <bibitem id="ref10a" hidden="true">
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
               <docidentifier type="IETF">IETF&#xa0;RFC&#xa0;20</docidentifier>
+              <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
             </bibitem>
             <bibitem id='ref11'>
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
               <docidentifier type='IETF'>IETF&#xa0;RFC&#xa0;10</docidentifier>
+              <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
               <biblio-tag>[5]<tab/>IETF&#xa0;RFC&#xa0;10, </biblio-tag>
             </bibitem>
             <bibitem id='ref12'>
@@ -269,12 +276,14 @@ RSpec.describe IsoDoc do
               </formattedref>
               <docidentifier type='metanorma'>[Citn]</docidentifier>
               <docidentifier type='IETF'>IETF&#xa0;RFC&#xa0;20</docidentifier>
+              <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
               <biblio-tag>Citn<tab/>IETF&#xa0;RFC&#xa0;20, </biblio-tag>
             </bibitem>
             <bibitem id="ref10b">
             <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
               <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
               <docidentifier type="IETF">IETF&#xa0;RFC&#xa0;20</docidentifier>
+              <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
               <biblio-tag>[6]<tab/>IETF&#xa0;RFC&#xa0;20, </biblio-tag>
             </bibitem>
             <bibitem id='ref10c'>
@@ -376,22 +385,10 @@ RSpec.describe IsoDoc do
 
     doc = <<~OUTPUT
         <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-           <div class="WordSection1">
-             <p class="MsoNormal"> </p>
-           </div>
-           <p class="MsoNormal">
-             <br clear="all" class="section"/>
-           </p>
            <div class="WordSection2">
              <p class="MsoNormal">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-                 <div class="TOC"><a name="_" id="_"/>
-        <p class="zzContents">Table of contents</p>
-      </div>
-      <p class="MsoNormal">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="MsoNormal">
@@ -511,6 +508,7 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns='http://riboseinc.com/isoxml'>
       <bibliography>
       <references>
+      <title>Title</title>
       <bibitem hidden="true"/>
       <bibitem hidden="true"/>
       <bibitem hidden="true"/>
@@ -533,6 +531,7 @@ RSpec.describe IsoDoc do
           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
         <bibliography>
           <references hidden='true'>
+            <title depth="1">Title</title>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
@@ -563,7 +562,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-        <clause type="toc" id="_toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>#{' '}
+        <clause type="toc" id="_toc" displayorder="1"> <title depth="1">Table of contents</title> </clause>
           <foreword>
             <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
               <eref bibitemid='ISO712'>[110]</eref>
@@ -769,17 +768,20 @@ RSpec.describe IsoDoc do
               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type="ISO">ISO 712</docidentifier>
               <docidentifier type="metanorma">[110]</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
               <biblio-tag>[110], ISO 712, </biblio-tag>
             </bibitem>
             <bibitem id="ISO16634" type="standard">
               <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
               <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
               <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
               <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
             </bibitem>
             <bibitem id="ISO20483" type="standard">
               <formattedref>International Organization for Standardization. <em>Cereals and pulses</em>. 2013–2014.</formattedref>
               <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
               <biblio-tag>ISO 20483:2013-2014, </biblio-tag>
             </bibitem>
             <bibitem id="ref1">
@@ -795,6 +797,7 @@ RSpec.describe IsoDoc do
                 )
               </formattedref>
               <docidentifier type="ICC">ICC/167</docidentifier>
+              <docidentifier scope="biblio-tag">ICC/167</docidentifier>
               <biblio-tag>ICC/167, </biblio-tag>
             </bibitem>
             <note>
@@ -832,6 +835,7 @@ RSpec.describe IsoDoc do
             <bibitem id="ISO3696" type="standard">
               <formattedref><em>Water for analytical laboratory use</em>.</formattedref>
               <docidentifier type="ISO">ISO 3696</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
               <biblio-tag>[3]<tab/>ISO 3696, </biblio-tag>
             </bibitem>
             <bibitem id="ref10">
@@ -851,6 +855,7 @@ RSpec.describe IsoDoc do
             <bibitem id="ref11">
               <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
               <docidentifier type="IETF">IETF RFC 10</docidentifier>
+              <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
               <biblio-tag>[5]<tab/>IETF RFC 10, </biblio-tag>
             </bibitem>
             <bibitem id="ref12">
@@ -861,6 +866,7 @@ RSpec.describe IsoDoc do
               </formattedref>
               <docidentifier type="metanorma">[Citn]</docidentifier>
               <docidentifier type="IETF">IETF RFC 20</docidentifier>
+              <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
               <biblio-tag>Citn<tab/>IETF RFC 20, </biblio-tag>
             </bibitem>
           </references>
@@ -880,7 +886,7 @@ RSpec.describe IsoDoc do
                   <language current="true">en</language>
                 </bibdata>
                 <preface>
-                <clause type="toc" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f" displayorder="1"> <title depth="1">Table of contents</title> </clause>#{' '}
+                <clause type="toc" id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f" displayorder="1"> <title depth="1">Table of contents</title> </clause>
                   <foreword>
                     <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
                       <eref bibitemid='ISO712'>[110]</eref>
@@ -960,12 +966,14 @@ RSpec.describe IsoDoc do
               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
               <docidentifier type="ISO">ISO 712</docidentifier>
               <docidentifier type="metanorma">[110]</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
             </bibitem>
             <bibitem id="ISO16634" type="standard">
               <formattedref language="en" format="text/plain">
                 <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
               </formattedref>
               <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+              <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
               <date type="published">
                 <on>--</on>
               </date>
@@ -1104,6 +1112,7 @@ RSpec.describe IsoDoc do
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
              <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
              <docidentifier type='IEC'>IEC&#xa0;217</docidentifier>
+             <docidentifier scope="biblio-tag">IEC 217</docidentifier>
              <biblio-tag>[1]<tab/>IEC&#xa0;217, </biblio-tag>
            </bibitem>
            <bibitem id='ref2' type='standard'>
@@ -1115,6 +1124,7 @@ RSpec.describe IsoDoc do
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
              <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
              <docidentifier>ABC</docidentifier>
+             <docidentifier scope="biblio-tag">ABC</docidentifier>
              <biblio-tag>[3]<tab/>ABC, </biblio-tag>
            </bibitem>
          </references>
@@ -1204,16 +1214,19 @@ RSpec.describe IsoDoc do
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
             <docidentifier>ABC</docidentifier>
+            <docidentifier scope="biblio-tag">ABC</docidentifier>
             <biblio-tag>[1]<tab/>ABC, </biblio-tag>
           </bibitem>
           <bibitem id='ref2' type='standard' hidden='true'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier>ABD</docidentifier>
+            <docidentifier scope="biblio-tag">ABD</docidentifier>
           </bibitem>
           <bibitem id='ref3' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
             <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
             <docidentifier>ABE</docidentifier>
+            <docidentifier scope="biblio-tag">ABE</docidentifier>
             <biblio-tag>[2]<tab/>ABE, </biblio-tag>
           </bibitem>
         </references>
@@ -1351,10 +1364,10 @@ RSpec.describe IsoDoc do
               <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
               <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
               <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
-              <uri type="src">https://www.iso.org/standard/45324.html</uri>  <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>  <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>  <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>#{'  '}
+              <uri type="src">https://www.iso.org/standard/45324.html</uri>  <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>  <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>  <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
                     <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
-                    <docidentifier type="metanorma">[ISO/IEC Guide 99:2007<fn reference="1"><p id="_f6ba916e-f2ee-05fe-7ee3-b5d891a37db3">Also known as JCGM 200</p></fn>]</docidentifier>#{'  '}
-                    <docidentifier type="URN">urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>#{'  '}
+                    <docidentifier type="metanorma">[ISO/IEC Guide 99:2007<fn reference="1"><p id="_f6ba916e-f2ee-05fe-7ee3-b5d891a37db3">Also known as JCGM 200</p></fn>]</docidentifier>
+                    <docidentifier type="URN">urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
                   <docnumber>99</docnumber>  <date type="published">    <on>2007-12</on>  </date>  <contributor>    <role type="publisher"/>    <organization>
                 <name>International Organization for Standardization</name>
                   <abbreviation>ISO</abbreviation>      <uri>www.iso.org</uri>    </organization>  </contributor>  <contributor>    <role type="publisher"/>    <organization>
@@ -1370,7 +1383,7 @@ RSpec.describe IsoDoc do
         <title depth="1">1.<tab/>Normative References</title>
         <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
         <bibitem id="ISO712" type="standard" suppress_identifier="true">
-          <formattedref>International Organization for Standardization and International Electrotechnical Commission. <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. 1st edition. 2007. <link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</link>.</formattedref>
+          <formattedref>International Organization for Standardization and International Electrotechnical Commission. <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. First edition. 2007. <link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</link>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</formattedref>
           <uri type="src">https://www.iso.org/standard/45324.html</uri>
           <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
           <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
@@ -1387,7 +1400,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1>1.  Normative References</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-               <p id="ISO712" class="NormRef">ISO/IEC Guide 99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. 1st edition. 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>.</p>
+               <p id="ISO712" class="NormRef">ISO/IEC Guide 99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. First edition. 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</p>
              </div>
              <aside id="fn:1" class="footnote">
                <p id="_">Also known as JCGM 200</p>
@@ -1404,5 +1417,316 @@ RSpec.describe IsoDoc do
     expect(strip_guid(xmlpp(IsoDoc::HtmlConvert.new({})
    .convert("test", doc, true))))
       .to be_equivalent_to xmlpp(html)
+  end
+
+  it "renders mixed bibitems and bibliographic subclauses" do
+    input = <<~INPUT
+         <iso-standard xmlns="http://riboseinc.com/isoxml">
+             <bibdata>
+             <language>en</language>
+             </bibdata>
+                      <bibliography>
+        <clause id="A" obligation="informative">
+          <title>Normative References</title>
+          <p id="_">Text</p>
+          <references id="B" unnumbered="true" normative="true">
+            <bibitem id="iso122">
+              <formattedref format="application/x-isodoc+xml">
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier type="metanorma">[<strong>A</strong>.<fn reference="1"><p id="_">hello</p></fn>]</docidentifier>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+            <p id="_">More text</p>
+          </references>
+          <references id="C" normative="true" obligation="informative">
+            <title>Normative 1</title>
+            <bibitem id="iso123">
+              <formattedref format="application/x-isodoc+xml">
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier type="metanorma">[<strong>A</strong>.<fn reference="1"><p id="_">hello</p></fn>]</docidentifier>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+          </references>
+        </clause>
+        <clause id="D" obligation="informative">
+          <title>Bibliography</title>
+          <p id="_">Text</p>
+          <references id="E" unnumbered="true" normative="false">
+            <bibitem id="iso124">
+              <formattedref format="application/x-isodoc+xml">
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier type="metanorma">[<strong>A</strong>.<fn reference="1"><p id="_">hello</p></fn>]</docidentifier>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+            <p id="_">More text</p>
+          </references>
+          <references id="F" normative="false" obligation="informative">
+            <title>Bibliography 1</title>
+            <bibitem id="iso125">
+              <formattedref format="application/x-isodoc+xml">
+                <em>Standard</em>
+              </formattedref>
+              <docidentifier type="metanorma">[<strong>A</strong>.<fn reference="1"><p id="_">hello</p></fn>]</docidentifier>
+              <docidentifier>XYZ</docidentifier>
+            </bibitem>
+          </references>
+        </clause>
+      </bibliography>
+         </iso-standard>
+    INPUT
+    presxml = <<~PRESXML
+           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+           <language current="true">en</language>
+         </bibdata>
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <clause id="A" obligation="informative" displayorder="2">
+             <title depth="1">1.<tab/>Normative References</title>
+             <p id="_">Text</p>
+             <references id="B" unnumbered="true" normative="true">
+               <bibitem id="iso122">
+                 <formattedref format="application/x-isodoc+xml">
+                   <em>Standard</em>
+                 </formattedref>
+                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
+                 <docidentifier>XYZ</docidentifier>
+                 <docidentifier scope="biblio-tag">XYZ</docidentifier>
+                 <biblio-tag>A., XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+               </bibitem>
+               <p id="_">More text</p>
+             </references>
+             <references id="C" normative="true" obligation="informative">
+               <title depth="2">1.1.<tab/>Normative 1</title>
+               <bibitem id="iso123">
+                 <formattedref format="application/x-isodoc+xml">
+                   <em>Standard</em>
+                 </formattedref>
+                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
+                 <docidentifier>XYZ</docidentifier>
+                 <docidentifier scope="biblio-tag">XYZ</docidentifier>
+                 <biblio-tag>A., XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+               </bibitem>
+             </references>
+           </clause>
+         </sections>
+         <bibliography>
+           <clause id="D" obligation="informative" displayorder="3">
+             <title depth="1">Bibliography</title>
+             <p id="_">Text</p>
+             <references id="E" unnumbered="true" normative="false">
+               <bibitem id="iso124">
+                 <formattedref format="application/x-isodoc+xml">
+                   <em>Standard</em>
+                 </formattedref>
+                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
+                 <docidentifier>XYZ</docidentifier>
+                 <docidentifier scope="biblio-tag">XYZ</docidentifier>
+                 <biblio-tag>A.<tab/>XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+               </bibitem>
+               <p id="_">More text</p>
+             </references>
+             <references id="F" normative="false" obligation="informative">
+               <title depth="2">Bibliography 1</title>
+               <bibitem id="iso125">
+                 <formattedref format="application/x-isodoc+xml">
+                   <em>Standard</em>
+                 </formattedref>
+                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
+                 <docidentifier>XYZ</docidentifier>
+                 <docidentifier scope="biblio-tag">XYZ</docidentifier>
+                 <biblio-tag>A.<tab/>XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+               </bibitem>
+             </references>
+           </clause>
+         </bibliography>
+       </iso-standard>
+    PRESXML
+    html = <<~OUTPUT
+      <html lang="en">
+         <head/>
+         <body lang="en">
+           <div class="title-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="prefatory-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="main-section">
+             <br/>
+             <div id="_" class="TOC">
+               <h1 class="IntroTitle">Table of contents</h1>
+             </div>
+             <div>
+               <h1>1.  Normative References</h1>
+               <p id="_">Text</p>
+               <div>
+                 <p id="iso122" class="Biblio">A., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <i>Standard</i>
+               </p>
+                 <p id="_">More text</p>
+               </div>
+               <div>
+                 <h2 class="Section3">1.1.  Normative 1</h2>
+                 <p id="iso123" class="Biblio">A., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <i>Standard</i>
+               </p>
+               </div>
+             </div>
+             <br/>
+             <div>
+               <h1 class="Section3">Bibliography</h1>
+               <p id="_">Text</p>
+               <div>
+                 <p id="iso124" class="Biblio">A.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <i>Standard</i>
+               </p>
+                 <p id="_">More text</p>
+               </div>
+               <div>
+                 <h2 class="Section3">Bibliography 1</h2>
+                 <p id="iso125" class="Biblio">A.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <i>Standard</i>
+               </p>
+               </div>
+             </div>
+             <aside id="fn:1" class="footnote">
+               <p id="_">hello</p>
+             </aside>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    doc = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    xml = Nokogiri::XML(doc)
+    xml.at("//xmlns:localized-strings").remove
+    expect(strip_guid(xmlpp(xml.to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(strip_guid(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", doc, true))))
+      .to be_equivalent_to xmlpp(html)
+  end
+
+  it "emend citeas" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+        <preface>
+          <foreword id="A">
+            <p id="_214f7090-c6d4-8fdc-5e6a-837ebb515871">
+            <eref bibitemid="B" citeas="what"/>
+            </p>
+       </foreword></preface>
+      </standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+       <foreword id="A" displayorder="2">
+         <p id="_">
+           <eref bibitemid="B" citeas="what">what</eref>
+         </p>
+       </foreword>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+    expect(strip_guid(xmlpp(xml.at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+    it "processes clauses containing normative references" do
+    input = <<~INPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml">
+           <bibliography>
+       <clause id="D" obligation="informative">
+        <title>Bibliography</title>
+        <references id="E" obligation="informative" normative="false">
+        <title>Bibliography Subsection 1</title>
+      </references>
+        <references id="F" obligation="informative" normative="false">
+        <title>Bibliography Subsection 2</title>
+      </references>
+      </clause>
+      <clause id="A" obligation="informative"><title>First References</title>
+       <references id="B" obligation="informative" normative="true">
+        <title>Normative References 1</title>
+      </references>
+       <references id="C" obligation="informative" normative="false">
+        <title>Normative References 2</title>
+      </references>
+       </clause>
+
+      </bibliography>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Table of contents</title>
+           </clause>
+         </preface>
+         <sections>
+           <clause id="A" obligation="informative" displayorder="2">
+             <title depth="1">1.<tab/>First References</title>
+             <references id="B" obligation="informative" normative="true">
+               <title depth="2">1.1.<tab/>Normative References 1</title>
+             </references>
+             <references id="C" obligation="informative" normative="false">
+               <title depth="2">1.2.<tab/>Normative References 2</title>
+             </references>
+           </clause>
+         </sections>
+         <bibliography>
+           <clause id="D" obligation="informative" displayorder="3">
+             <title depth="1">Bibliography</title>
+             <references id="E" obligation="informative" normative="false">
+               <title depth="2">Bibliography Subsection 1</title>
+             </references>
+             <references id="F" obligation="informative" normative="false">
+               <title depth="2">Bibliography Subsection 2</title>
+             </references>
+           </clause>
+         </bibliography>
+       </iso-standard>
+    OUTPUT
+
+    html = <<~OUTPUT
+      #{HTML_HDR}
+                 <div>
+                   <h1>1.&#160; First References</h1>
+                   <div>
+                     <h2 class='Section3'>1.1.&#160; Normative References 1</h2>
+                   </div>
+                   <div>
+                     <h2 class='Section3'>1.2.&#160; Normative References 2</h2>
+                   </div>
+                 </div>
+                 <br/>
+                 <div>
+                   <h1 class='Section3'>Bibliography</h1>
+                   <div>
+                     <h2 class='Section3'>Bibliography Subsection 1</h2>
+                   </div>
+                   <div>
+                     <h2 class='Section3'>Bibliography Subsection 2</h2>
+                   </div>
+                 </div>
+               </div>
+             </body>
+           </html>
+    OUTPUT
+    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
   end
 end

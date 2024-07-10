@@ -10,7 +10,8 @@ require "mn-requirements"
 module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models,
-                  :requirements_processor, :doctype
+                  :requirements_processor, :doctype, :bibrender,
+                  :tempfile_cache, :wordcoverpage, :wordintropage
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
@@ -84,11 +85,20 @@ module IsoDoc
       Metanorma::Requirements
     end
 
+    def bibrenderer(options = {})
+      ::Relaton::Render::IsoDoc::General.new(options.merge(language: @lang,
+                                                           i18nhash: @i18n.get))
+    end
+
+    def convert1_namespaces(html)
+      html.add_namespace("epub", "http://www.idpf.org/2007/ops")
+    end
+
     def convert1(docxml, filename, dir)
       @xrefs.parse docxml
       noko do |xml|
         xml.html lang: @lang.to_s do |html|
-          html.parent.add_namespace("epub", "http://www.idpf.org/2007/ops")
+          convert1_namespaces(html.parent)
           info docxml, nil
           populate_css
           html.head { |head| define_head head, filename, dir }
@@ -103,7 +113,8 @@ module IsoDoc
       docxml.root.default_namespace = ""
       convert_i18n_init(docxml)
       metadata_init(@lang, @script, @locale, @i18n)
-      xref_init(@lang, @script, self, @i18n, { locale: @locale })
+      xref_init(@lang, @script, self, @i18n,
+                { locale: @locale, bibrender: @bibrender })
       docxml = preprocess_xslt(docxml)
       toc_init(docxml)
       [docxml, filename, dir]
@@ -116,7 +127,8 @@ module IsoDoc
       end
       docxml
     rescue ::Error => e
-      require "debug"; binding.b
+      require "debug"
+      binding.b
     end
 
     def extract_preprocess_xslt(docxml)
@@ -131,6 +143,7 @@ module IsoDoc
     def convert_i18n_init(docxml)
       convert_i18n_init1(docxml)
       i18n_init(@lang, @script, @locale)
+      @bibrender ||= bibrenderer
       @reqt_models = requirements_processor
         .new({ default: "default", lang: @lang, script: @script,
                locale: @locale, labels: @i18n.get,
@@ -168,6 +181,20 @@ module IsoDoc
       if node["target"].include?("#") then node["target"].sub("#", ".pdf#")
       else "##{node['target']}"
       end
+    end
+
+    # use a different class than self for rendering, as a result
+    # of document-specific criteria
+    # but pass on any singleton methods defined on top of the self instance
+    def swap_renderer(oldklass, newklass, file, input_filename, debug)
+      ref = oldklass # avoid oldklass == self for indirection of methods
+      oldklass.singleton_methods.each do |x|
+        newklass.define_singleton_method(x) do |*args|
+          ref.public_send(x, *args)
+        end
+      end
+      oldklass.singleton_methods.empty? or
+        newklass.convert_init(file, input_filename, debug)
     end
   end
 end

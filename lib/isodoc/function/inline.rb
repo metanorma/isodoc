@@ -8,7 +8,7 @@ module IsoDoc
         node["update-type"] == "true" and url = suffix_url(url)
         out.a **attr_code(href: url, title: node["alt"]) do |l|
           if node.elements.empty? && node.text.strip.empty?
-            l << node["target"].sub(/^mailto:/, "")
+            l << @c.encode(node["target"].sub(/^mailto:/, ""), :basic, :hexadecimal)
           else node.children.each { |n| parse(n, l) }
           end
         end
@@ -87,12 +87,14 @@ module IsoDoc
       MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
 
       def mathml_parse(node)
-        node.at("./m:math", MATHML)&.to_xml
+        # node.xpath("./m:math", MATHML).map(&:to_xml).join
+        node.xpath(ns("./asciimath | ./latexmath")).each(&:remove)
+        node.xpath(ns("./br")).each { |e| e.namespace = nil }
+        node.elements
       end
 
       def asciimath_parse(node)
         a = node.at(ns("./asciimath"))&.text || node.text
-
         "#{@openmathdelim}#{HTMLEntities.new.encode(a)}" \
           "#{@closemathdelim}"
       end
@@ -116,8 +118,12 @@ module IsoDoc
                   width: node["width"] || "auto",
                   title: node["title"],
                   alt: node["alt"] }
-        out.img **attr_code(attrs)
+        image_body_parse(node, attrs, out)
         image_title_parse(out, caption)
+      end
+
+      def image_body_parse(_node, attrs, out)
+        out.img **attr_code(attrs)
       end
 
       def smallcap_parse(node, xml)
@@ -153,6 +159,24 @@ module IsoDoc
         text = node.to_xml.gsub("<", "&lt;").gsub(">", "&gt;")
         out.para do |p|
           p.b(role: "strong") { |e| e << text }
+        end
+      end
+
+      def ruby_parse(node, out)
+        out.ruby do |e|
+          node.children.each { |n| parse(n, e) }
+        end
+      end
+
+      def rt_parse(node, out)
+        out.rt do |e|
+          node.children.each { |n| parse(n, e) }
+        end
+      end
+
+      def rb_parse(node, out)
+        out.rb do |e|
+          node.children.each { |n| parse(n, e) }
         end
       end
     end

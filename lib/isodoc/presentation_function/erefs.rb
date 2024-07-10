@@ -2,6 +2,13 @@ require "metanorma-utils"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
+    def citeas(xmldoc)
+      xmldoc.xpath(ns("//eref | //origin | //quote/source")).each do |e|
+        e["bibitemid"] && e["citeas"] or next
+        a = @xrefs.anchor(e["bibitemid"], :xref, false) and e["citeas"] = a
+      end
+    end
+
     def expand_citeas(text)
       text.nil? and return text
       HTMLEntities.new.decode(text.gsub("&amp;#x", "&#"))
@@ -40,7 +47,6 @@ module IsoDoc
       (refs.size > 1 &&
         refs.all? { |r| r.name == "localityStack" } &&
         refs.all? { |r| r.xpath(ns("./locality")).size == 1 }) or return false
-
       first = refs.first.at(ns("./locality/@type")).text
       refs.all? do |r|
         r.at(ns("./locality/@type")).text == first
@@ -97,8 +103,7 @@ module IsoDoc
         added = eref_locality_stack(r, i, target, node)
         added.empty? and next
         added.each { |a| m << a }
-        next if i == refs.size - 1
-
+        i == refs.size - 1 and next
         m << eref_locality_delimiter(r)
       end
       ret.empty? ? ret : [", "] + ret
@@ -156,8 +161,7 @@ module IsoDoc
 
     # def eref_localities1(target, type, from, upto, node, lang = "en")
     def eref_localities1(opt)
-      return nil if opt[:type] == "anchor"
-
+      opt[:type] == "anchor" and return nil
       opt[:lang] == "zh" and
         # return l10n(eref_localities1_zh(target, type, from, upto, node))
         return l10n(eref_localities1_zh(opt))
@@ -168,8 +172,7 @@ module IsoDoc
     end
 
     def eref_locality_populate(type, node, number)
-      return "" if node["droploc"] == "true"
-
+      node["droploc"] == "true" and return ""
       loc = type.sub(/^locality:/, "")
       ret = @i18n.locality[loc] || loc
       number == "pl" and ret = @i18n.inflect(ret, number: "pl")
@@ -206,9 +209,8 @@ module IsoDoc
     end
 
     def suffix_url(url)
-      return url if url.nil? || %r{^https?://|^#}.match?(url)
-      return url unless File.extname(url).empty?
-
+      url.nil? || %r{^https?://|^#}.match?(url) and return url
+      File.extname(url).empty? or return url
       url.sub(/#{File.extname(url)}$/, ".html")
     end
 
@@ -221,10 +223,10 @@ module IsoDoc
     end
 
     def eref_url(id)
-      @bibitems.nil? and return nil
-      b = @bibitems[id] or return nil
-      url = (b.at(ns("./uri[@type = 'citation'][@language = '#{@lang}']")) ||
-      b.at(ns("./uri[@type = 'citation']"))) and return url.text
+      @bibitem_lookup.nil? and return nil
+      b = @bibitem_lookup[id] or return nil
+      url = b.at(ns("./uri[@type = 'citation'][@language = '#{@lang}']")) ||
+        b.at(ns("./uri[@type = 'citation']")) and return url.text
       b["hidden"] == "true" and return b.at(ns("./uri"))&.text
       "##{id}"
     end

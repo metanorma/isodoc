@@ -15,6 +15,7 @@ module IsoDoc
 
     attr_reader :klass
 
+    # Note: if bibrender is no passed in, do not parse references
     def initialize(lang, script, klass, i18n, options = {})
       @anchors = {}
       @lang = lang
@@ -24,6 +25,7 @@ module IsoDoc
       @i18n = i18n
       @labels = @i18n.get
       @klass.i18n = @i18n
+      @klass.bibrender ||= options[:bibrender]
       @locale = options[:locale]
       @reqt_models = @klass.requirements_processor
         .new({
@@ -39,7 +41,7 @@ module IsoDoc
     end
 
     # parse only the elements set, if any are set
-    # defined are: clause: true, refs: true
+    # defined are: clause: true, refs: true, assets: true
     def parse_inclusions(options)
       @parse_settings.merge!(options)
       self

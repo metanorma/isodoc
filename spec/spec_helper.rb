@@ -7,6 +7,7 @@ require "bundler/setup"
 require "isodoc"
 require "rspec/matchers"
 require "equivalent-xml"
+require "tzinfo"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -22,6 +23,14 @@ end
 
 def presxml_options
   { semanticxmlinsert: "false" }
+end
+
+def new_xrefs
+  klass = IsoDoc::HtmlConvert.new(language: "en", script: "Latn")
+  klass.i18n_init("en", "Latn", nil)
+  IsoDoc::Xref
+    .new("en", "Latn", klass, klass.i18n,
+         { bibrender: klass.bibrenderer })
 end
 
 def xmlpp(xml)
@@ -106,3 +115,15 @@ WORD_HDR = <<~HEADER.freeze
            <p class="section-break"><br clear="all" class="section"/></p>
            <div class="WordSection3">
 HEADER
+
+# It is profoundly embarrassing that this is necessary...
+def timezone_identifier_local
+  offset = Time.now.utc_offset
+  timezones = TZInfo::Timezone.all
+  timezones.each do |timezone|
+    if timezone.utc_offset == offset
+      return timezone.identifier
+    end
+  end
+  nil # Return nil if no timezone found with the given offset
+end

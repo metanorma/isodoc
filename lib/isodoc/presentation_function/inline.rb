@@ -97,11 +97,49 @@ module IsoDoc
     end
 
     def date1(elem)
+      elem["value"] && elem["format"] or return
       elem.replace(@i18n.date(elem["value"], elem["format"].strip))
     end
 
     def inline_format(docxml)
       custom_charset(docxml)
+      text_transform(docxml)
+    end
+
+    def text_transform(docxml)
+      docxml.xpath(ns("//span[contains(@style, 'text-transform')]")).each do |s|
+        text_transform1(s)
+      end
+    end
+
+    def text_transform1(span)
+      m = span["style"].split(/;\s*/)
+      i = m.index { |x| /^text-transform/.match?(x) }
+      value = m[i].sub(/^text-transform:/, "")
+      change_case(span, value, true)
+      m[i] = "text-transform:none"
+      span["style"] = m.join(";")
+    end
+
+    def change_case(span, value, seen_space)
+      span.traverse do |s|
+        s.text? or next
+        case value
+        when "uppercase" then s.replace s.text.upcase
+        when "lowercase" then s.replace s.text.downcase
+        when "capitalize"
+          s.replace conditional_capitalize(s.text, seen_space)
+        end
+        seen_space = /\s$/.match?(s.text)
+      end
+    end
+
+    def conditional_capitalize(text, seen_space)
+      m = text.split(/(?<=\s)/)
+      ((seen_space ? 0 : 1)...m.size).each do |i|
+        m[i] = m[i].capitalize
+      end
+      m.join
     end
 
     def custom_charset(docxml)
@@ -135,6 +173,22 @@ module IsoDoc
           m[kv[0]] = kv[1]
         end
       end
+    end
+
+    def ruby(docxml)
+      (docxml.xpath(ns("//ruby")) - docxml.xpath(ns("//ruby//ruby")))
+        .each do |r|
+        ruby1(r)
+      end
+    end
+
+    def ruby1(elem)
+      v = elem.at(ns("./pronunciation | ./annotation")).remove
+      elem.xpath(ns("./ruby")).each do |r|
+        ruby1(r)
+      end
+      t = elem.children.to_xml
+      elem.replace("<ruby><rb>#{t}</rb><rt>#{v['value']}</rt></ruby>")
     end
 
     private

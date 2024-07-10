@@ -16,7 +16,7 @@ module IsoDoc
       s = docxml.at(ns("//sections")) ||
         docxml.at(ns("//preface"))&.after("<sections/>")&.next_element ||
         docxml.at(ns("//annex | //bibliography"))&.before("<sections/>")
-        &.previous_element or return
+          &.previous_element or return
       docxml.xpath(ns(@xrefs.klass.norm_ref_xpath)).each do |r|
         s << r.remove
       end
@@ -25,7 +25,9 @@ module IsoDoc
     def hidden_items(docxml)
       docxml.xpath(ns("//references[bibitem/@hidden = 'true']")).each do |x|
         x.at(ns("./bibitem[not(@hidden = 'true')]")) and next
-        x.elements.map(&:name).any? { |n| n != "bibitem" } and next
+        x.elements.map(&:name).any? do |n|
+          !%w(title bibitem).include?(n)
+        end and next
         x["hidden"] = "true"
       end
     end
@@ -37,8 +39,8 @@ module IsoDoc
         prep_for_rendering(b)
         m << to_xml(b)
       end.join
-      bibrenderer.render_all("<references>#{refs}</references>",
-                             type: citestyle)
+      @bibrender.render_all("<references>#{refs}</references>",
+                            type: citestyle)
     end
 
     def prep_for_rendering(bib)
@@ -49,10 +51,10 @@ module IsoDoc
 
     def bibitem(xml, renderings)
       @xrefs.klass.implicit_reference(xml) and xml["hidden"] = "true"
-      bibrender(xml, renderings)
+      bibrender_item(xml, renderings)
     end
 
-    def bibrender(xml, renderings)
+    def bibrender_item(xml, renderings)
       if (f = xml.at(ns("./formattedref"))) && xml.at(ns("./title")).nil?
         bibrender_formattedref(f, xml)
       else bibrender_relaton(xml, renderings)
@@ -66,10 +68,6 @@ module IsoDoc
       f &&= "<formattedref>#{f}</formattedref>"
       x = xml.xpath(ns("./docidentifier | ./uri | ./note | ./biblio-tag"))
       xml.children = "#{f}#{x.to_xml}"
-    end
-
-    def bibrenderer
-      ::Relaton::Render::IsoDoc::General.new(language: @lang)
     end
 
     def citestyle
@@ -106,9 +104,14 @@ module IsoDoc
     end
 
     def bibliography_bibitem_number_insert_pt(bibitem)
-      unless ins = bibitem.at(ns(".//docidentifier")).previous_element
-        bibitem.at(ns(".//docidentifier")).previous = " "
-        ins = bibitem.at(ns(".//docidentifier")).previous
+      unless d = bibitem.at(ns(".//docidentifier"))
+        d = bibitem.children.first
+        d.previous = " "
+        return d.previous
+      end
+      unless ins = d.previous_element
+        d.previous = " "
+        ins = d.previous
       end
       ins
     end
@@ -163,7 +166,7 @@ module IsoDoc
     # else, use both ordinal, as prefix, and ids
     def biblio_ref_entry_code(ordinal, ids, _id, _standard, datefn, _bib)
       # standard and id = nil
-      ret = (ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]")
+      ret = ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]"
       if ids[:sdo]
         ret = prefix_bracketed_ref(ret)
         ret += "#{ids[:sdo]}#{datefn}, "

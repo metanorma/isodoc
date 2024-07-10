@@ -5,6 +5,7 @@ abbrev: الاختصارات
 symbols: الرموز
 table_of_contents: جدول المحتويات
 introduction: مقدمة
+section: قسم
 foreword: تمهيد
 abstract: ملخص
 acknowledgements: شكر
@@ -30,6 +31,7 @@ external_terms_boilerplate: |
   <p> لأغراض هذا المستند ، تنطبق المصطلحات والتعريفات الواردة في%. </ p>
 internal_external_terms_boilerplate: |
   <p>لأغراض هذه الوثيقة ،تنطبق المصطلحات والتعاريف الواردة في % وما يلي.</p>
+no_information_available: "[لا توجد معلومات متاحة]"
 term_defined_in: "(%)"
 binary_and: "%1 و %2"
 multiple_and: "%1, و %2"
@@ -45,6 +47,7 @@ ordinal_keys: [gender]
 SpelloutRules:
   f: spellout-ordinal-feminine
   m: spellout-ordinal-masculine
+OrdinalRules: digits-ordinal
 note: ملاحظة
 note_xref: ملاحظة
 termnote: ملاحظة % للقيد
@@ -74,7 +77,7 @@ deprecated: مهمل
 source: مصدر
 and: و
 all_parts: كل الأجزاء
-edition_ordinal: "الطبعة؜ %Spellout؜"
+edition_ordinal: "ﺎﻠﻄﺒﻋﺓ؜ {{ var1 | ordinal_word: 'edition', '' }}"
 edition: الطبعة؜ ؜
 version: الإصدار
 toc_figures: جدول الأرقام
@@ -195,4 +198,5 @@ inflection:
     sg: صفحة
     pl: صفحات
   الطبعة؜:
-    gender: f
+    grammar:
+      gender: f

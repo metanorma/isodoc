@@ -15,6 +15,7 @@ termsdefabbrev: Terms, definitions and abbreviated terms
 normref: Normative references
 bibliography: Bibliography
 preface: Preface
+section: Section
 clause: Clause
 annex: Annex
 appendix: Appendix
@@ -38,6 +39,7 @@ external_terms_boilerplate: |
 internal_external_terms_boilerplate: |
           <p>For the purposes of this document, the terms and definitions 
             given in % and the following apply.</p>
+no_information_available: "[NO INFORMATION AVAILABLE]"
 term_defined_in: "(%)"
 binary_and: "%1 and %2"
 multiple_and: "%1, and %2"
@@ -51,6 +53,7 @@ nested_xref: "%1, %2"
 list_nested_xref: "%1 %2"
 ordinal_keys: []
 SpelloutRules: spellout-ordinal
+OrdinalRules: digits-ordinal
 note: NOTE
 note_xref: Note
 termnote: Note % to entry
@@ -89,7 +92,7 @@ deprecated: DEPRECATED
 source: SOURCE
 and: and
 all_parts: All Parts
-edition_ordinal: "%Spellout edition"
+edition_ordinal: "{{ var1 | ordinal_word: '', '' }} edition"
 edition: edition
 version: version
 toc_figures: List of figures

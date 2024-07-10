@@ -1,9 +1,9 @@
 module IsoDoc
   class Metadata
-    DATETYPES = %w{published accessed created implemented obsoleted confirmed
-                   updated corrected issued received transmitted copied unchanged
-                   circulated vote-started
-                   vote-ended}.freeze
+    DATETYPES =
+      %w{published accessed created implemented obsoleted confirmed updated
+         corrected issued received transmitted copied unchanged circulated
+         adapted announced vote-started vote-ended stable-until}.freeze
 
     def months
       {

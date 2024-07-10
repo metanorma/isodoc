@@ -26,19 +26,18 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features|bin|.github)/}) \
     || f.match(%r{Rakefile|bin/rspec})
   end
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.1.0")
 
-  spec.add_dependency "html2doc", "~> 1.7.1"
-  spec.add_dependency "htmlentities", "~> 4.3.4"
+  spec.add_dependency "base64"
+  spec.add_dependency "bigdecimal"
+  spec.add_dependency "html2doc", "~> 1.8.1"
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
-  spec.add_dependency "emf2svg"
-  spec.add_dependency "liquid", "~> 5"
-  #spec.add_dependency "relaton-cli"
+  # spec.add_dependency "relaton-cli"
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
   spec.add_dependency "mn2pdf"
   spec.add_dependency "mn-requirements", "~> 0.3.4"
 
-  spec.add_dependency "relaton-render", "~> 0.6.0"
+  spec.add_dependency "relaton-render", "~> 0.7.1"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
   spec.add_dependency "thread_safe"

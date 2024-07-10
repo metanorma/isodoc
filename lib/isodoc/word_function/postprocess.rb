@@ -7,17 +7,21 @@ module IsoDoc
   module WordFunction
     module Postprocess
       def postprocess(result, filename, dir)
+        result = postprocess_cleanup(result)
         filename = filename.sub(/\.doc$/, "")
         header = generate_header(filename, dir)
-        result = from_xhtml(cleanup(to_xhtml(textcleanup(result))))
+        @wordstylesheet = wordstylesheet_update
         toWord(result, filename, dir, header)
         @files_to_delete.each { |f| FileUtils.rm_f f }
       end
 
-      def toWord(result, filename, dir, header)
-        result = from_xhtml(word_cleanup(to_xhtml(result)))
+      def postprocess_cleanup(result)
+        result = cleanup(to_xhtml(textcleanup(result)))
+        from_xhtml(word_cleanup(result))
           .gsub("-DOUBLE_HYPHEN_ESCAPE-", "--")
-        @wordstylesheet = wordstylesheet_update
+      end
+
+      def toWord(result, filename, dir, header)
         Html2Doc.new(
           filename: filename, imagedir: @localdir,
           stylesheet: @wordstylesheet&.path,
@@ -36,8 +40,7 @@ module IsoDoc
       def word_admonition_images(docxml)
         docxml.xpath("//div[@class = 'Admonition']//img").each do |i|
           i["width"], i["height"] =
-            Html2Doc.new({}).image_resize(i, image_localfile(i), @maxheight,
-                                          300)
+            Vectory.image_resize(i, image_localfile(i), @maxheight, 300)
         end
       end
 
@@ -61,7 +64,14 @@ module IsoDoc
         word_tab_clean(docxml)
         authority_cleanup(docxml)
         word_footnote_format(docxml)
+        word_remove_empty_toc(docxml)
+        word_remove_empty_sections(docxml)
         docxml
+      end
+
+      def word_remove_empty_toc(docxml)
+        docxml.at("//div[@class = 'TOC']//p[@class = 'MsoToc1']") and return
+        remove_toc_div(docxml)
       end
 
       def word_sourcecode_annotations(html)
@@ -99,7 +109,7 @@ module IsoDoc
       def word_tab_clean(docxml)
         docxml.xpath("//p[@class='Biblio']//span[@style='mso-tab-count:1']")
           .each do |s|
-          s.next.text? or next
+          s.next&.text? or next
           s.next.replace(@c.encode(s.next.text.sub(/^\s+/, ""), :hexadecimal))
         end
       end

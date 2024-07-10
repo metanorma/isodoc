@@ -4,17 +4,21 @@ module IsoDoc
       def insert_toc(intro, docxml, level)
         toc = assemble_toc(docxml, level)
         if intro&.include?("WORDTOC")
-          if s = docxml.at("//div[@class = 'TOC']")
-            s&.previous_element&.elements&.first&.name == "br" and
-              s&.previous_element&.remove # page break
-            s.remove
-          end
+          remove_toc_div(docxml)
           intro.sub("WORDTOC", toc)
         else
           source = docxml.at("//div[@class = 'TOC']") and
             source.children = toc
           intro
         end
+      end
+
+      def remove_toc_div(docxml)
+        s = docxml.at("//div[@class = 'TOC']") or return
+        prev = s.previous_element
+        prev&.elements&.first&.name == "br" and
+          prev&.remove # page break
+        s.remove
       end
 
       def assemble_toc(docxml, level)

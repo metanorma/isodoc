@@ -6,7 +6,4 @@ git_source(:github) { |repo| "https://github.com/#{repo}" }
 
 gemspec
 
-if File.exist? "Gemfile.devel"
-  eval File.read("Gemfile.devel"), nil, "Gemfile.devel" # rubocop:disable Security/Eval
-end
-
+eval_gemfile("Gemfile.devel") rescue nil

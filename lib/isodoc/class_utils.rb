@@ -67,7 +67,7 @@ module IsoDoc
 
     def nearest_block_parent(node)
       until %w(p title td th name formula li dt dd sourcecode pre quote
-               note example)
+               note example target clause annex term appendix bibdata)
           .include?(node.name)
         node = node.parent
       end

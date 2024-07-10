@@ -204,6 +204,7 @@ module IsoDoc
         case img["src"]
         when /^data:/ then save_dataimage(img["src"], false)
         when %r{^([A-Z]:)?/} then img["src"]
+        when nil then nil
         else File.join(@localdir, img["src"])
         end
       end
@@ -213,7 +214,6 @@ module IsoDoc
            note table figure sourcecode).freeze
 
       def labelled_ancestor(elem)
-        #require  "debug"; binding.b
         #!elem.path.gsub(/\[\d+\]/, "").split(%r{/})[1..-1]
         !elem.ancestors.map(&:name)
           .intersection(LABELLED_ANCESTOR_ELEMENTS).empty?
