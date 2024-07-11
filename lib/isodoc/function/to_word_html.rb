@@ -255,6 +255,7 @@ module IsoDoc
           when "option" then option_parse(node, out)
           when "textarea" then textarea_parse(node, out)
           when "toc" then toc_parse(node, out)
+          when "title" then freestanding_title(node, out) # not inside clause
           when "variant-title" then variant_title(node, out)
           when "span" then span_parse(node, out)
           when "location" then location_parse(node, out)
