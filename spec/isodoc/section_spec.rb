@@ -1994,7 +1994,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)))).to be_equivalent_to xmlpp(output)
   end
 
-  it "processes annexes containing one, or more than one special sections" do
+  it "processes indexsect" do
     input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
                     <indexsect id='PP' obligation='normative' displayorder="1">
@@ -2183,5 +2183,63 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "processes cross-align" do
+    input = <<~INPUT
+           <iso-standard xmlns="http://riboseinc.com/isoxml">
+           <sections>
+           <cross-align displayorder="1">
+           <align-cell>
+           <clause id="A1">
+           <title>Title</title>
+           <p>Para</p>
+           </clause>
+           </align-cell>
+           <align-cell>
+           <clause id="A2">
+           <title>Iitre</title>
+           <p>Alinée</p>
+           </clause>
+           </align-cell>
+           </cross-align>
+           </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <html lang="en">
+         <head/>
+         <body lang="en">
+           <div class="title-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="prefatory-section">
+             <p> </p>
+           </div>
+           <br/>
+           <div class="main-section">
+                        <table>
+               <tbody>
+                 <td>
+                   <div id="A1">
+                     <h1>Title</h1>
+                     <p>Para</p>
+                   </div>
+                 </td>
+                 <td>
+                   <div id="A2">
+                     <h1>Iitre</h1>
+                     <p>Alinée</p>
+                   </div>
+                 </td>
+               </tbody>
+             </table>
+           </div>
+         </body>
+       </html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+         .convert("test", input, true))).to be_equivalent_to xmlpp(output)
   end
 end
