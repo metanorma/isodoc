@@ -13,13 +13,19 @@ module IsoDoc
 
     def move_norm_ref_to_sections(docxml)
       docxml.at(ns(@xrefs.klass.norm_ref_xpath)) or return
-      s = docxml.at(ns("//sections")) ||
-        docxml.at(ns("//preface"))&.after("<sections/>")&.next_element ||
-        docxml.at(ns("//annex | //bibliography"))&.before("<sections/>")
-          &.previous_element or return
+      s = move_norm_ref_to_sections_insert_pt(docxml) or return
       docxml.xpath(ns(@xrefs.klass.norm_ref_xpath)).each do |r|
+        r.at("./ancestor::xmlns:references") and next
         s << r.remove
       end
+    end
+
+    def move_norm_ref_to_sections_insert_pt(docxml)
+      s = docxml.at(ns("//sections")) and return s
+      s = docxml.at(ns("//preface")) and
+        return s.after("<sections/>").next_element
+      docxml.at(ns("//annex | //bibliography"))&.before("<sections/>")
+        &.previous_element
     end
 
     def hidden_items(docxml)
