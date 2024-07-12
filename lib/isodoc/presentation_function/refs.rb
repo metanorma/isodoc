@@ -15,7 +15,7 @@ module IsoDoc
       docxml.at(ns(@xrefs.klass.norm_ref_xpath)) or return
       s = move_norm_ref_to_sections_insert_pt(docxml) or return
       docxml.xpath(ns(@xrefs.klass.norm_ref_xpath)).each do |r|
-        r.at("./ancestor::xmlns:references") or next
+        r.at("./ancestor::xmlns:bibliography") or next
         s << r.remove
       end
     end
