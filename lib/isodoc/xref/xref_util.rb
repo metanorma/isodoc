@@ -19,7 +19,8 @@ module IsoDoc
 
       SECTIONS_XPATH =
         "//foreword | //introduction | //acknowledgements | " \
-        "//preface/terms | preface/definitions | preface/references | " \
+        "//preface/abstract | " \
+        "//preface/terms | //preface/definitions | //preface/references | " \
         "//preface/clause | //sections/terms | //annex | " \
         "//sections/clause | //sections/definitions | " \
         "//bibliography/references | //bibliography/clause".freeze
@@ -34,8 +35,8 @@ module IsoDoc
         "./xmlns:X".gsub("X", asset)
       end
 
-            CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | " \
-                       "./references".freeze
+      CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | " \
+                 "./references".freeze
     end
   end
 end
