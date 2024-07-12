@@ -440,7 +440,10 @@ RSpec.describe IsoDoc do
               <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
+              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
+              </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
               <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
@@ -488,7 +491,7 @@ RSpec.describe IsoDoc do
             <preface>
                <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
                           <p displayorder="2">
-                                      31.00
+            31.00
             327,428.74
             327,428.74
             327,428
@@ -515,11 +518,12 @@ RSpec.describe IsoDoc do
             1,00e0
             1,10e0
             1,10e0
-            1,00e+21
-            1,00e+19
+            1,00e21
+            1,00e19
             1,00e-19
             ...
             642x121x496x772x645x156,4515y000
+            6,4212y150 × 10<sup>17</sup>
             6,4212y150 × 10<sup>+17</sup>
             642,1215y000 × 10<sup>15</sup>
             642x121x496x800x000x000
@@ -529,7 +533,7 @@ RSpec.describe IsoDoc do
             0,00
             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>64,20'00'00'00 × 10</mn><mn>-21</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
             30 000,00
-             </p>
+            </p>
           </preface>
         </iso-standard>
       OUTPUT
@@ -565,12 +569,12 @@ RSpec.describe IsoDoc do
             327,428
             327,428.74'3
             327,000
-            327,428.74'30'00'00'00'00'0
+            327,428.74'3
             327,428.74'3
             327,428
             327 428,74'3
             327,000
-            327 428,74'30'00'00'00'00'0
+            327 428,74'3
             327 428,74'3
             1
             1,1
@@ -580,25 +584,26 @@ RSpec.describe IsoDoc do
             0,00'00'00'00'00'00'00'00'00'10
             3.27e5
             3,27'42'87'43e5
-            3.27'00'00'00'00'00'00'00'00e5
-            3,27'42'87'43'00'00'00'00'00e5
+            3.27e5
+            3,27'42'87'43e5
             3,27'4e5
             1e0
             1,1e0
             1,10'0e0
-            10 000 000 000 000 000 000 000e+21
-            1,00'00'00'00'00'00'00'00'00'00e+19
-            10 000 000 000 000 000 000e-20
+            1e21
+            1,0e19
+            1,0e-19
             ...
             642x121x496x772x645x156,4515y000
+            6,4212y150 × 10<sup>17</sup>
             6,4212y150 × 10<sup>+17</sup>
             642,1215y000 × 10<sup>15</sup>
             642x121x496x800x000x000
             0,0000y000
             6,4212y150 × 10<sup>-20</sup>
             64,2121y500 × 10<sup>-21</sup>
-            0,00'00'00'00'00'00'00'00'00'06'42'12'14'96'80'00'00'00'00'00'00'00'00'00'00'00'00'00'00'00'0
-            <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>64,21'21'49'68'00'00'00'00'00'00'00'00'00'00'00'00'00'00'00'00'0 × 10</mn><mn>-21</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
+            0,00'00'00'00'00'00'00'00'00'06'42'12'14'96'8
+            <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>64,21'21'49'68 × 10</mn><mn>-21</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
             30 000
           </preface>
         </iso-standard>
