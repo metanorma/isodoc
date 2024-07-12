@@ -18,6 +18,14 @@ module IsoDoc
         end
       end
 
+      def freestanding_title(node, out)
+        parents = node.ancestors("clause, annex, terms, references, " \
+                               "definitions, acknowledgements, introduction, " \
+                               "foreword")
+        clause_parse_title(parents.empty? ? node : parents.first,
+                           out, node, out)
+      end
+
       # used for subclauses
       def clause_parse_title(node, div, title, out, header_class = {})
         return if title.nil?

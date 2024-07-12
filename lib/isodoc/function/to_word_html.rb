@@ -153,6 +153,12 @@ module IsoDoc
         @meta.get
       end
 
+      def cross_align(isoxml, out)
+        isoxml.xpath(ns("//cross-align")).each do |c|
+          parse(c, out)
+        end
+      end
+
       def boilerplate(node, out)
         @bare and return
         boilerplate = node.at(ns("//boilerplate")) or return
@@ -249,9 +255,11 @@ module IsoDoc
           when "option" then option_parse(node, out)
           when "textarea" then textarea_parse(node, out)
           when "toc" then toc_parse(node, out)
+          when "title" then freestanding_title(node, out) # not inside clause
           when "variant-title" then variant_title(node, out)
           when "span" then span_parse(node, out)
           when "location" then location_parse(node, out)
+          when "cross-align" then cross_align_parse(node, out)
           when "columnbreak" then columnbreak_parse(node, out)
           when "ruby" then ruby_parse(node, out)
           when "rt" then rt_parse(node, out)
