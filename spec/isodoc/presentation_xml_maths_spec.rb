@@ -437,28 +437,28 @@ RSpec.describe IsoDoc do
              </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>...</mn></math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
+              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
+              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
+              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
+              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
               <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
              </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
+              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digitcount='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
               <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
@@ -522,16 +522,16 @@ RSpec.describe IsoDoc do
             1,00e19
             1,00e-19
             ...
-            642x121x496x772x645x156,4515y000
-            6,4212y150 × 10<sup>17</sup>
-            6,4212y150 × 10<sup>+17</sup>
-            642,1215y000 × 10<sup>15</sup>
+            642x121x496x772x645x156
+            6,4212y1490y0 × 10<sup>17</sup>
+            6,4212y1490y0 × 10<sup>+17</sup>
+            642,1214y967 × 10<sup>15</sup>
             642x121x496x800x000x000
-            0,0000y000
-            6,4212y150 × 10<sup>-20</sup>
-            64,2121y500 × 10<sup>-21</sup>
+            0,0000y0000y0000y000
+            6,4212y1490y0 × 10<sup>-20</sup>
+            64,2121y4960 × 10<sup>-21</sup>
             0,00
-            <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>64,20'00'00'00 × 10</mn><mn>-21</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
+            <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>64,21'00'00'00 × 10</mn><mn>-21</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
             30 000,00
             </p>
           </preface>
@@ -563,7 +563,7 @@ RSpec.describe IsoDoc do
                <preface>
                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
                              <p displayorder="2">
-                                         31
+            31
             327,428.74'32'87'84'32'99'2
             327,428.74'32'87'84'32'99'2
             327,428
@@ -594,14 +594,14 @@ RSpec.describe IsoDoc do
             1,0e19
             1,0e-19
             ...
-            642x121x496x772x645x156,4515y000
-            6,4212y150 × 10<sup>17</sup>
-            6,4212y150 × 10<sup>+17</sup>
-            642,1215y000 × 10<sup>15</sup>
+            642x121x496x772x645x156
+            6,4212y1490y0 × 10<sup>17</sup>
+            6,4212y1490y0 × 10<sup>+17</sup>
+            642,1214y967 × 10<sup>15</sup>
             642x121x496x800x000x000
-            0,0000y000
-            6,4212y150 × 10<sup>-20</sup>
-            64,2121y500 × 10<sup>-21</sup>
+            0,0000y0000y0000y000
+            6,4212y1490y0 × 10<sup>-20</sup>
+            64,2121y4960 × 10<sup>-21</sup>
             0,00'00'00'00'00'00'00'00'00'06'42'12'14'96'8
             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>64,21'21'49'68 × 10</mn><mn>-21</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
             30 000

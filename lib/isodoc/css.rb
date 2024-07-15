@@ -90,16 +90,14 @@ module IsoDoc
 
     # stripwordcss if HTML stylesheet, !stripwordcss if DOC stylesheet
     def generate_css(filename, stripwordcss)
-      return nil if filename.nil?
-
+      filename.nil? and return nil
       filename = precompiled_style_or_original(filename)
       stylesheet = File.read(filename, encoding: "UTF-8")
       stylesheet = populate_template(stylesheet, :word)
       stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
       stylesheet.gsub!(/--/, "-DOUBLE_HYPHEN_ESCAPE-") unless stripwordcss
-      if File.extname(filename) == ".scss"
+      File.extname(filename) == ".scss" and
         stylesheet = convert_scss(filename, stylesheet, stripwordcss)
-      end
       Tempfile.open([File.basename(filename, ".*"), "css"],
                     mode: File::BINARY | File::SHARE_DELETE,
                     encoding: "utf-8") do |f|

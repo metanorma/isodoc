@@ -42,8 +42,6 @@ module IsoDoc
     def implicit_number_formatter(num, locale)
       fmt = { significant: num_totaldigits(num.text) }.compact
       n = normalise_number(num.text)
-      # Plurimath confused by exponent notation
-      # warn "IMPLICIT: precision: #{num_precision(num.text)} ; symbols: #{fmt}, n: #{n}; output: #{@numfmt.localized_number(n, locale:, format: fmt, precision: num_precision(num.text))}"
       @numfmt.localized_number(n, locale:, format: fmt,
                                   precision: num_precision(num.text))
     end
@@ -72,10 +70,7 @@ module IsoDoc
       l = ret[:locale] || locale
       precision, symbols, significant = explicit_number_formatter_cfg(num, ret)
       n = normalise_number(num.text)
-      # Plurimath confused by exponent notation
-      warn "EXPLICIT: Plurimath::NumberFormatter.new(:#{l}).localized_number('#{n}', precision: #{precision || 'nil'}, format: #{symbols.merge(significant:)}) output: #{Plurimath::NumberFormatter.new(l).localized_number(n, precision:, format: symbols.merge(significant:))}"
-      #require 'debug'; binding.b if significant == 9
-      Plurimath::NumberFormatter.new(l)#, localizer_symbols: symbols)
+      Plurimath::NumberFormatter.new(l)
         .localized_number(n, precision:,
                              format: symbols.merge(significant:))
     end
