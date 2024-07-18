@@ -88,6 +88,7 @@ adapted: angepasst
 deprecated: VERALTET
 source: QUELLE
 and: und
+no_identifier: (KEIN KENNUNG)
 all_parts: Alle Teile
 edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} Auflage"
 edition: Auflage

@@ -68,6 +68,7 @@ requirement: Requirement
 recommendation: Recommendation
 permission: Permission
 box: Box
+no_identifier: (NO ID)
 # Modspec
 recommendationtest: Recommendation test
 requirementtest: Requirement test

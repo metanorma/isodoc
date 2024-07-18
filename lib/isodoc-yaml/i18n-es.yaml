@@ -86,6 +86,7 @@ adapted: adaptado
 deprecated: OBSOLETO
 source: FUENTE
 and: y
+no_identifier: (SIN IDENTIFICADOR)
 all_parts: Todas las partes
 edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} edición"
 edition: edición

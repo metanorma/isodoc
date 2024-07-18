@@ -51,24 +51,31 @@ module IsoDoc
 
       # returns [metanorma, non-metanorma, DOI/ISSN/ISBN] identifiers
       def bibitem_ref_code(bib)
+        id, id1, id2, id3 = bibitem_ref_code_prep(bib)
+        id || id1 || id2 || id3 and return [id, id1, id2, id3]
+        bib["suppress_identifier"] == "true" and return [nil, nil, nil, nil]
+        [nil, no_identifier(bib), nil, nil]
+      end
+
+      def bibitem_ref_code_prep(bib)
         id = bib.at(ns("./docidentifier[@type = 'metanorma']"))
         id1 = pref_ref_code(bib)
         id2 = bib.at(ns("./docidentifier[#{SKIP_DOCID}]"))
         id3 = bib.at(ns("./docidentifier[@type = 'metanorma-ordinal']"))
-        return [id, id1, id2, id3] if id || id1 || id2 || id3
-        return [nil, nil, nil, nil] if bib["suppress_identifier"] == "true"
+        [id, id1, id2, id3]
+      end
 
+      def no_identifier(bib)
+        @i18n.no_identifier or return nil
         id = Nokogiri::XML::Node.new("docidentifier", bib.document)
-        id << "(NO ID)"
-        [nil, id, nil, nil]
+        id << @i18n.no_identifier
+        id
       end
 
       def bracket_if_num(num)
-        return nil if num.nil?
-
+        num.nil? and return nil
         num = num.text.sub(/^\[/, "").sub(/\]$/, "")
-        return "[#{num}]" if /^\d+$/.match?(num)
-
+        /^\d+$/.match?(num) and return "[#{num}]"
         num
       end
 
