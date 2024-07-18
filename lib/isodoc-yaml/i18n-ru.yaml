@@ -153,6 +153,7 @@ adapted: адаптированный
 deprecated: НЕ РЕКОМЕНДУЕТСЯ
 source: ИСТОЧНИК
 and: и
+no_identifier: (БЕЗ ИДЕНТИФИКАТОРА)
 all_parts: Все части
 edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} издание"
 edition: издание

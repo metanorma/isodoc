@@ -85,6 +85,7 @@ source: SOURCE
 edition: édition
 version: version
 and: et
+no_identifier: (PAS D'IDENTIFIANT)
 all_parts: toutes les parties
 edition_ordinal: "{{ var1 | ordinal_word: 'edition', '' }} édition"
 edition: édition

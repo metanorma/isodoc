@@ -40,3 +40,4 @@ SpelloutRules:
   pl: spellout-ordinal
 edition_ordinal: "eldono {{ var1 | ordinal_word: edition, '' }}"
 edition: eldono
+no_identifier: null
