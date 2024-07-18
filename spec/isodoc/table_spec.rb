@@ -53,7 +53,7 @@ RSpec.describe IsoDoc do
               <td align="center">2,89</td>
               <td align="center">0,57</td>
               <td align="center">2,26</td>
-              <td align="center">6,06</td>
+              <td align="center"><dl><dt>6,06</dt><dd>Definition</dd></dl></td>
             </tr>
           </tfoot>
           <dl key="true">
@@ -178,7 +178,12 @@ RSpec.describe IsoDoc do
                         <td align='center'>2,89</td>
                         <td align='center'>0,57</td>
                         <td align='center'>2,26</td>
-                        <td align='center'>6,06</td>
+                                    <td align="center">
+              <dl>
+                <dt>6,06</dt>
+                <dd>Definition</dd>
+              </dl>
+            </td>
                       </tr>
                     </tfoot>
                     <dl key="true">
@@ -274,7 +279,16 @@ RSpec.describe IsoDoc do
                              <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">2,89</td>
                              <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">0,57</td>
                              <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">2,26</td>
-                             <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">6,06</td>
+                             <td style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                             <div class="figdl">
+                              <dl>
+                                <dt>
+                                  <p>6,06</p>
+                                </dt>
+                                <dd>Definition</dd>
+                              </dl>
+                            </div>
+                            </td>
                            </tr>
                          </tfoot>
                          <div class="figdl">
@@ -328,12 +342,12 @@ RSpec.describe IsoDoc do
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div class="TOC" id="_">
-         <p class="zzContents">Table of contents</p>
-       </div>
-       <p class="page-break">
-         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-       </p>
+             <div id="_" class="TOC">
+               <p class="zzContents">Table of contents</p>
+             </div>
+             <p class="page-break">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">
@@ -397,20 +411,24 @@ RSpec.describe IsoDoc do
                        <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">2,89</td>
                        <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">0,57</td>
                        <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">2,26</td>
-                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">6,06</td>
+                       <td align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                         <div class="figdl">
+                           <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">6,06<span style="mso-tab-count:1">  </span>Definition</p>
+                         </div>
+                       </td>
                      </tr>
                    </tfoot>
-                    <div class="figdl">
-                   <p class="ListTitle">Key</p>
-                   <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">  </span>A type of rice</p>
+                   <div class="figdl">
+                     <p class="ListTitle">Key</p>
+                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">Drago<span style="mso-tab-count:1">  </span>A type of rice</p>
                    </div>
-             <div class="BlockSource">
-               <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a> —
-      with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
-             </div>
-             <div class="Note">
-               <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is a table about rice</p>
-             </div>
+                   <div class="BlockSource">
+                     <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a>
+             — with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
+                   </div>
+                   <div class="Note">
+                     <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is a table about rice</p>
+                   </div>
                  </table>
                </div>
                <div align="center" class="table_container">
@@ -429,10 +447,10 @@ RSpec.describe IsoDoc do
              <br clear="all" class="section"/>
            </p>
            <div class="WordSection3">
-               <div>
-                <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
-                <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
-              </div>
+             <div>
+               <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
+               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+             </div>
              <aside id="ftn1">
                <p>X</p>
              </aside>
