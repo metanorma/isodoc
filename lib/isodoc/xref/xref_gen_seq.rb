@@ -29,9 +29,9 @@ module IsoDoc
         j = 0
         clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank.each do |t|
           j = subfigure_increment(j, c, t)
-          sequential_figure_body(j, c, t, "figure", container: container)
+          sequential_figure_body(j, c, t, "figure", container:)
         end
-        sequential_figure_class_names(clause, container: container)
+        sequential_figure_class_names(clause, container:)
       end
 
       def sequential_figure_class_names(clause, container: false)
@@ -42,13 +42,13 @@ module IsoDoc
           c[t["class"]] ||= Counter.new
           j = subfigure_increment(j, c[t["class"]], t)
           sequential_figure_body(j, c[t["class"]], t, t["class"],
-                                 container: container)
+                                 container:)
         end
       end
 
       def subfigure_label(subfignum)
         subfignum.zero? and return ""
-        "-#{subfignum}"
+        "#{hierfigsep}#{subfignum}"
       end
 
       def sequential_figure_body(subfig, counter, elem, klass, container: false)
@@ -100,8 +100,8 @@ module IsoDoc
           klass, label = reqt2class_label(t, m)
           id = c.increment(label, t).print
           sequential_permission_body(id, t, label, klass, m,
-                                     container: container)
-          sequential_permission_children(t, id, container: container)
+                                     container:)
+          sequential_permission_children(t, id, container:)
         end
       end
 
@@ -112,12 +112,13 @@ module IsoDoc
           klass, label = reqt2class_nested_label(t, m)
           id = "#{lbl}#{hierfigsep}#{c.increment(label, t).print}"
           sequential_permission_body(id, t, label, klass, m,
-                                     container: container)
-          sequential_permission_children(t, id, container: container)
+                                     container:)
+          sequential_permission_children(t, id, container:)
         end
       end
 
-      def sequential_permission_body(id, elem, label, klass, model, container: false)
+      def sequential_permission_body(id, elem, label, klass, model,
+container: false)
         @anchors[elem["id"]] = model.postprocess_anchor_struct(
           elem, anchor_struct(id, elem,
                               label, klass, elem["unnumbered"])
@@ -146,10 +147,10 @@ module IsoDoc
 
       # container makes numbering be prefixed with the parent clause reference
       def sequential_asset_names(clause, container: false)
-        sequential_table_names(clause, container: container)
-        sequential_figure_names(clause, container: container)
-        sequential_formula_names(clause, container: container)
-        sequential_permission_names(clause, container: container)
+        sequential_table_names(clause, container:)
+        sequential_figure_names(clause, container:)
+        sequential_formula_names(clause, container:)
+        sequential_permission_names(clause, container:)
       end
 
       def hierarchical_figure_names(clause, num)
