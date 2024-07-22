@@ -14,7 +14,7 @@ module IsoDoc
     end
 
     def initialize(lang, script, locale, i18n, fonts_options = {})
-      @metadata = { lang: lang, script: script }
+      @metadata = { lang:, script: }
       DATETYPES.each { |w| @metadata["#{w.gsub('-', '_')}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
@@ -29,10 +29,6 @@ module IsoDoc
       @metadata
     end
 
-    def labels
-      @labels
-    end
-
     def set(key, value)
       @metadata[key] = value
     end
@@ -44,12 +40,12 @@ module IsoDoc
     end
 
     def doctype(isoxml, _out)
-      b = isoxml&.at(ns("//bibdata/ext/doctype#{NOLANG}"))&.text || return
-      set(:doctype, status_print(b))
-      b1 = isoxml&.at(ns("//bibdata/ext/doctype#{currlang}"))&.text || b
-      set(:doctype_display, status_print(b1))
-      b = isoxml&.at(ns("//bibdata/ext/subdoctype#{NOLANG}"))&.text || return
-      set(:subdoctype, status_print(b))
+      b = isoxml.at(ns("//bibdata/ext/doctype#{NOLANG}")) || return
+      set(:doctype, status_print(b.text))
+      b1 = isoxml.at(ns("//bibdata/ext/doctype#{currlang}")) || b
+      set(:doctype_display, status_print(b1.text))
+      b = isoxml.at(ns("//bibdata/ext/subdoctype#{NOLANG}")) || return
+      set(:subdoctype, status_print(b.text))
     end
 
     def docstatus(xml, _out)
@@ -59,11 +55,11 @@ module IsoDoc
       s1 = xml.at(ns("//bibdata/status/stage#{currlang}")) || s
       set(:stage, status_print(s.text))
       s1 and set(:stage_display, status_print(s1.text))
-      (i = xml&.at(ns("//bibdata/status/substage#{NOLANG}"))&.text) and
+      (i = xml.at(ns("//bibdata/status/substage#{NOLANG}"))&.text) and
         set(:substage, i)
-      (i1 = xml&.at(ns("//bibdata/status/substage#{currlang}"))&.text || i) and
+      (i1 = xml.at(ns("//bibdata/status/substage#{currlang}"))&.text || i) and
         set(:substage_display, i1)
-      (i2 = xml&.at(ns("//bibdata/status/iteration"))&.text) and
+      (i2 = xml.at(ns("//bibdata/status/iteration"))&.text) and
         set(:iteration, i2)
       set(:unpublished, unpublished(s.text))
       unpublished(s.text) && set(:stageabbr, stage_abbr(s.text))

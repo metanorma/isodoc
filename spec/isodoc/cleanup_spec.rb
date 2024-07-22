@@ -24,8 +24,8 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((output))
   end
 
   it "cleans up figures" do
@@ -54,8 +54,8 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((output))
   end
 
   it "cleans up figures (Word)" do
@@ -84,8 +84,8 @@ RSpec.describe IsoDoc do
       </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((output))
   end
 
   it "cleans up inline headers" do
@@ -156,8 +156,8 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((output))
   end
 
   it "cleans up footnotes" do
@@ -201,8 +201,8 @@ RSpec.describe IsoDoc do
              </body>
          </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((output))
   end
 
   it "cleans up footnotes (Word)" do
@@ -275,8 +275,8 @@ RSpec.describe IsoDoc do
                 </body>
             </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((output))
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((output))
   end
 
   it "cleans up tables with tfoot" do
@@ -441,8 +441,8 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((html))
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((html))
   end
 
   it "cleans up tables without tfoot" do
@@ -589,7 +589,7 @@ RSpec.describe IsoDoc do
         </head>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to xmlpp((html))
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((html))
   end
 end

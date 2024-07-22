@@ -20,8 +20,8 @@ RSpec.describe IsoDoc do
        </sections>
       </iso-standard>
     INPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(<<~OUTPUT)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
             <html lang='en'>
           <head/>
           <body lang='en'>
@@ -61,8 +61,8 @@ RSpec.describe IsoDoc do
           </body>
         </html>
       OUTPUT
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(<<~OUTPUT)
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
             <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
           <head>
             <style>
@@ -160,8 +160,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-         .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+         .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes annexes containing one, or more than one special sections" do
@@ -311,8 +311,8 @@ RSpec.describe IsoDoc do
         </annex>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes cross-align" do
@@ -369,7 +369,7 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-         .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+         .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
   end
 end

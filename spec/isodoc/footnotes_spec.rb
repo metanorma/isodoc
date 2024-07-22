@@ -123,11 +123,11 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({}).convert("test", input, true)))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({}).convert("test", input, true)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({}).convert("test", input, true)))
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({}).convert("test", input, true)
       .gsub(/_Ref\d+/, "_Ref")))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes IsoXML reviewer notes" do
@@ -252,14 +252,14 @@ RSpec.describe IsoDoc do
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(xmlpp(out)).to be_equivalent_to xmlpp(html)
+    expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(html)
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", input, false)
     out = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m,
                                                               "</body>")
-    expect(xmlpp(out)).to be_equivalent_to xmlpp(word)
+    expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes IsoXML reviewer notes spanning list" do
@@ -383,13 +383,13 @@ RSpec.describe IsoDoc do
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(xmlpp(out)).to be_equivalent_to xmlpp(html)
+    expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(html)
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", input, false)
     out = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m,
                                                               "</body>")
-    expect(xmlpp(out)).to be_equivalent_to xmlpp(word)
+    expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(word)
   end
 end

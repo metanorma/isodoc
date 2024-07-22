@@ -482,14 +482,14 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     FileUtils.rm_rf("test.doc")
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
     IsoDoc::WordConvert.new({})
       .convert("test", presxml, false)
     expect(File.exist?("test.doc")).to be true
@@ -499,8 +499,8 @@ RSpec.describe IsoDoc do
       .gsub("epub:", "")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
       .gsub(/NOTEREF _Ref\d+/, "NOTEREF _Ref")
-    expect(xmlpp(html))
-      .to be_equivalent_to xmlpp(doc)
+    expect(Xml::C14n.format(html))
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "marks references sections as hidden" do
@@ -549,10 +549,10 @@ RSpec.describe IsoDoc do
         </bibliography>
       </iso-standard>
     PRESXML
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes hidden references sections in Relaton bibliographies #1" do
@@ -873,10 +873,10 @@ RSpec.describe IsoDoc do
         </bibliography>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes hidden references sections in Relaton bibliographies #2" do
@@ -995,10 +995,10 @@ RSpec.describe IsoDoc do
         </bibliography>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
     .convert("test", input, true)
     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "selects the primary identifier" do
@@ -1035,11 +1035,11 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(
+    expect(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:foreword").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "selects multiple primary identifiers" do
@@ -1076,11 +1076,11 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(
+    expect(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:foreword").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "enforces consistent metanorma-ordinal numbering" do
@@ -1130,11 +1130,11 @@ RSpec.describe IsoDoc do
          </references>
        </bibliography>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(
+    expect(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:bibliography").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "enforces consistent references numbering with hidden items: metanorma identifiers" do
@@ -1178,11 +1178,11 @@ RSpec.describe IsoDoc do
         </references>
       </bibliography>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(
+    expect(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:bibliography").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "enforces consistent references numbering with hidden items: metanorma-ordinal identifiers" do
@@ -1232,11 +1232,11 @@ RSpec.describe IsoDoc do
         </references>
       </bibliography>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(
+    expect(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:bibliography").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "suppresses document identifier if requested to" do
@@ -1344,12 +1344,12 @@ RSpec.describe IsoDoc do
     OUTPUT
     doc = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(xmlpp(strip_guid(Nokogiri::XML(doc)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(doc)
     .at("//xmlns:references").to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
    .convert("test", doc, true))))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "renders footnote in metanorma docidentifier" do
@@ -1411,12 +1411,12 @@ RSpec.describe IsoDoc do
     OUTPUT
     doc = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(xmlpp(Nokogiri::XML(doc)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(doc)
     .at("//xmlns:references").to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(strip_guid(xmlpp(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
    .convert("test", doc, true))))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "renders mixed bibitems and bibliographic subclauses" do
@@ -1610,11 +1610,11 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     xml = Nokogiri::XML(doc)
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(xmlpp(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(strip_guid(xmlpp(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", doc, true))))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "emend citeas" do
@@ -1638,8 +1638,8 @@ RSpec.describe IsoDoc do
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-    expect(strip_guid(xmlpp(xml.at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(strip_guid(Xml::C14n.format(xml.at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes clauses containing normative references" do
@@ -1724,10 +1724,10 @@ RSpec.describe IsoDoc do
              </body>
            </html>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "sets NO ID to nil" do
@@ -1768,10 +1768,10 @@ RSpec.describe IsoDoc do
        </bibliography>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
                       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
 
     mock_i18n
     presxml = <<~OUTPUT
@@ -1797,10 +1797,10 @@ RSpec.describe IsoDoc do
        </bibliography>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input.sub(">en<", ">eo<"), true))
                       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   private

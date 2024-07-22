@@ -62,10 +62,10 @@ RSpec.describe IsoDoc do
          </preface>
        </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({})
       .convert("test", input, true))))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "inserts preprocess-xslt" do
@@ -111,10 +111,10 @@ RSpec.describe IsoDoc do
         </metanorma-extension>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes user-css" do
@@ -143,10 +143,10 @@ RSpec.describe IsoDoc do
         </metanorma-extension>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))
   .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "inserts toc metadata" do
@@ -175,14 +175,14 @@ RSpec.describe IsoDoc do
         <sections> </sections>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ tocfigures: true,
              toctables: true,
              tocrecommendations: true }
       .merge(presxml_options))
       .convert("test", input, true)))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "passes font names to Presentation XML" do
@@ -229,12 +229,12 @@ RSpec.describe IsoDoc do
          </sections>
       </iso-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ fonts: "font1; font2", fontlicenseagreement: "no-install-fonts" }
       .merge(presxml_options))
       .convert("test", input, true)))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes preprocessing XSLT" do
@@ -419,10 +419,10 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(word)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "extracts attachments" do

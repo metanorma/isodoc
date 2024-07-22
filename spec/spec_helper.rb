@@ -8,6 +8,7 @@ require "isodoc"
 require "rspec/matchers"
 require "equivalent-xml"
 require "tzinfo"
+require "xml-c14n"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

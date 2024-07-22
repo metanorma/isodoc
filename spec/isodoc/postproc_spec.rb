@@ -368,8 +368,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "cleans up HTML output preface placeholder paragraphs" do
@@ -405,7 +405,7 @@ RSpec.describe IsoDoc do
     INPUT
     html = Nokogiri::XML(File.read("test.html")).at("//body")
     html.xpath("//script").each(&:remove)
-    expect(strip_guid(xmlpp(html.to_xml)))
+    expect(strip_guid(Xml::C14n.format(html.to_xml)))
       .to be_equivalent_to <<~OUTPUT
         <body lang="en" xml:lang="en">
             <div class="title-section">
@@ -453,8 +453,8 @@ RSpec.describe IsoDoc do
       INPUT
     html = Nokogiri::XML(File.read("test.html"))
       .at("//div[@id = 'toc']")
-    expect(strip_guid(xmlpp(html.to_xml)))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+    expect(strip_guid(Xml::C14n.format(html.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
         <div id="toc">
           <ul>
             <li class="h1">
@@ -506,7 +506,7 @@ RSpec.describe IsoDoc do
       .sub(/^.*<main class="main-section">/m,
            '<main xmlns:epub="epub" class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~OUTPUT)
+    expect(Xml::C14n.format(html)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
           <main  xmlns:epub="epub" class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
             <div id="A">
               <h1><a class="anchor" href="#A"/><a class="header" href="#A">Clause 4</a></h1>
@@ -567,9 +567,9 @@ RSpec.describe IsoDoc do
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
     expect(`ls test_*_htmlimages`).to match(/\.png$/)
-    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
+    expect(Xml::C14n.format(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
     .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
                    <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
                      <br />
                      <div>
@@ -617,9 +617,9 @@ RSpec.describe IsoDoc do
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
     expect(`ls test_*_htmlimages`).to match(/\.png$/)
-    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
+    expect(Xml::C14n.format(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
            .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
             <main class='main-section'>
           <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
           <br/>
@@ -816,9 +816,9 @@ RSpec.describe IsoDoc do
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
     expect(`ls test_*_htmlimages`).to match(/\.png$/)
-    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
+    expect(Xml::C14n.format(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
     .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
         <main class='main-section'>
              <button onclick='topFunction()' id='myBtn' title='Go to top'>Top</button>
              <br/>
@@ -858,9 +858,9 @@ RSpec.describe IsoDoc do
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
     expect(`ls test_*_htmlimages`).to match(/\.png$/)
-    expect(xmlpp(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
+    expect(Xml::C14n.format(html.gsub(/\/[0-9a-f-]+\.png/, "/_.png"))
            .gsub(/test_[^_]+_htmlimages/, "test_htmlimages"))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
                    <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
                      <br />
                      <div>
@@ -895,9 +895,9 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html
+    expect(Xml::C14n.format(html
       .gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
             <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
               <br />
               <div>
@@ -930,9 +930,9 @@ RSpec.describe IsoDoc do
     html = File.read("spec/test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html
+    expect(Xml::C14n.format(html
       .gsub(%r{src="data:image/png;base64,[^"]+"}, %{src="data:image/png;base64,_"})))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
             <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
               <br />
               <div>
@@ -1020,7 +1020,7 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(xmlpp(html)).to be_equivalent_to xmlpp(<<~OUTPUT)
+    expect(Xml::C14n.format(html)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
       <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <br />
         <div>
@@ -1038,7 +1038,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(xmlpp(word)).to be_equivalent_to xmlpp(<<~OUTPUT)
+    expect(Xml::C14n.format(word)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
       <div class="WordSection2">
         <p class="MsoNormal">
           <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -1111,18 +1111,18 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
       .html_preface(Nokogiri::XML(input)).to_xml)
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
        .word_cleanup(Nokogiri::XML(input)).to_xml)
        .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to xmlpp(doc)
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "cleans up coverpage note" do
@@ -1184,18 +1184,18 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert
   .new(wordstylesheet: "spec/assets/word.css",
        htmlstylesheet: "spec/assets/html.scss", filename: "test")
   .html_preface(Nokogiri::XML(input)).to_xml)
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
        .word_cleanup(Nokogiri::XML(input)).to_xml)
        .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to xmlpp(doc)
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "removes coverpage note destination if unused" do
@@ -1253,18 +1253,18 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert
   .new(wordstylesheet: "spec/assets/word.css",
        htmlstylesheet: "spec/assets/html.scss", filename: "test")
   .html_preface(Nokogiri::XML(input)).to_xml)
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert
       .new(wordstylesheet: "spec/assets/word.css",
            htmlstylesheet: "spec/assets/html.scss", filename: "test")
        .word_cleanup(Nokogiri::XML(input)).to_xml)
        .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to xmlpp(doc)
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "generates bare HTML file" do
@@ -1313,7 +1313,7 @@ RSpec.describe IsoDoc do
       .sub(%r{</body>.*$}m, "</body>")
       .gsub(%r{<script.+?</script>}m, "<script/>")
       .sub(%r{(<script/>\s+)+}m, "<script/>")
-    expect(xmlpp(html)).to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format(html)).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "cleans up lists (HTML)" do
@@ -1352,11 +1352,11 @@ RSpec.describe IsoDoc do
         </ul>
       </main>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert
   .new(htmlstylesheet: "spec/assets/html.scss", filename: "test")
   .html_cleanup(Nokogiri::XML(input)).to_xml)
   .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "has hex-only XML escapes" do

@@ -225,17 +225,17 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true).gsub(/&lt;/, "&#x3c;"))))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))).to be_equivalent_to Xml::C14n.format(html)
     FileUtils.rm_rf "spec/assets/odf1.emf"
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true)
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes subfigures" do
@@ -346,17 +346,17 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true).gsub(/&lt;/, "&#x3c;"))))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))).to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))).to be_equivalent_to Xml::C14n.format(html)
     FileUtils.rm_rf "spec/assets/odf1.emf"
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true)
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes figure classes" do
@@ -433,9 +433,9 @@ RSpec.describe IsoDoc do
            </preface>
          </iso-standard>
     OUTPUT
-    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true).gsub(/&lt;/, "&#x3c;"))))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes raw SVG" do
@@ -472,11 +472,11 @@ RSpec.describe IsoDoc do
            </preface>
          </iso-standard>
     OUTPUT
-    expect(strip_guid(xmlpp(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true)
         .gsub(/&lt;/, "&#x3c;")
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
-      .to be_equivalent_to xmlpp(presxml
+      .to be_equivalent_to Xml::C14n.format(presxml
            .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
   end
 
@@ -576,19 +576,19 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(xmlpp(output
+    expect(strip_guid(Xml::C14n.format(output
       .gsub(/&lt;/, "&#x3c;")
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
-      .to be_equivalent_to xmlpp(presxml
+      .to be_equivalent_to Xml::C14n.format(presxml
          .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
-    expect(xmlpp(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", output, true)))).to be_equivalent_to strip_guid(xmlpp(html))
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true)))).to be_equivalent_to strip_guid(Xml::C14n.format(html))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", output, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'"))))
-      .to be_equivalent_to strip_guid(xmlpp(doc))
+      .to be_equivalent_to strip_guid(Xml::C14n.format(doc))
   end
 
   it "converts SVG (Word)" do
@@ -679,18 +679,18 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(xmlpp(output
+    expect(strip_guid(Xml::C14n.format(output
       .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
      .gsub(/&lt;/, "&#x3c;"))
           .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
-      .to be_equivalent_to xmlpp(presxml
+      .to be_equivalent_to Xml::C14n.format(presxml
         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
-    expect(xmlpp(strip_guid(IsoDoc::WordConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", output, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to strip_guid(xmlpp(word))
+      .to be_equivalent_to strip_guid(Xml::C14n.format(word))
   end
 
   it "does not label embedded figures, sourcecode" do
@@ -742,8 +742,8 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes svgmap" do
@@ -809,12 +809,12 @@ RSpec.describe IsoDoc do
     OUTPUT
     FileUtils.rm_rf("spec/assets/action_schemaexpg1.emf")
     FileUtils.rm_rf("spec/assets/action_schemaexpg2.emf")
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{"\.\\}, '"./')
       .gsub(%r{'\.\\}, "'./")
       .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64")))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 end

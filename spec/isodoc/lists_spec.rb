@@ -84,12 +84,12 @@ RSpec.describe IsoDoc do
           </body>
         </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes unordered checklists" do
@@ -179,12 +179,12 @@ RSpec.describe IsoDoc do
                 </body>
               </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes ordered lists" do
@@ -299,12 +299,12 @@ RSpec.describe IsoDoc do
           </body>
         </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes Roman Upper ordered lists" do
@@ -351,9 +351,9 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes definition lists" do
@@ -466,12 +466,12 @@ RSpec.describe IsoDoc do
            </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(word)
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes nested definition lists (Word)" do
@@ -559,8 +559,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(xmlpp(IsoDoc::WordConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 end

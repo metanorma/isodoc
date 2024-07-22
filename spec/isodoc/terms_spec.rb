@@ -43,10 +43,10 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes IsoXML terms" do
@@ -307,12 +307,12 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     WORD
-    expect(xmlpp(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to xmlpp(word)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes IsoXML term with multiple definitions" do
@@ -415,11 +415,11 @@ RSpec.describe IsoDoc do
         </term>
       </terms>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes IsoXML term with multiple preferred terms" do
@@ -508,11 +508,11 @@ RSpec.describe IsoDoc do
       </term>
           </terms>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes IsoXML term with grammatical information" do
@@ -564,11 +564,11 @@ RSpec.describe IsoDoc do
         </term>
       </terms>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes IsoXML term with empty or graphical designations" do
@@ -606,11 +606,11 @@ RSpec.describe IsoDoc do
         </term>
       </terms>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes IsoXML term with nonverbal definitions" do
@@ -785,11 +785,11 @@ RSpec.describe IsoDoc do
         </term>
       </terms>
     PRESXML
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes related terms" do
@@ -866,11 +866,11 @@ RSpec.describe IsoDoc do
         </term>
       </terms>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes IsoXML term with different term source statuses" do
@@ -959,11 +959,11 @@ RSpec.describe IsoDoc do
         </term>
       </terms>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
           .new(presxml_options)
            .convert("test", input, true))
           .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
     output = <<~OUTPUT
       <terms id="_terms_and_definitions" obligation="normative" displayorder="2">
         <title depth="1">1.<tab/>Terms and Definitions</title>
@@ -999,12 +999,12 @@ RSpec.describe IsoDoc do
         </term>
       </terms>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
           .new(presxml_options)
           .convert("test", input.sub(%r{<language>en</language>},
                                      "<language>de</language>"), true))
           .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   # also applies to postprocessing of indexes
@@ -1050,10 +1050,10 @@ RSpec.describe IsoDoc do
         </term>
       </terms>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 end
