@@ -67,18 +67,13 @@ module IsoDoc
       publisher = []
       xml.xpath(ns("//bibdata/contributor[xmlns:role/@type = 'publisher']/" \
                    "organization")).each do |org|
-        name = extract_variant(org.at(ns("./name")))
-        agency1 = org.at(ns("./abbreviation"))&.text || name
-        publisher << name if name
+        name = org.at(ns("./name[@language = '#{@lang}']")) ||
+          org.at(ns("./name"))
+        agency1 = org.at(ns("./abbreviation"))&.text || name&.text
+        publisher << name.text if name
         agency = iso?(org) ? "ISO/#{agency}" : "#{agency}#{agency1}/"
       end
       [agency, publisher]
-    end
-
-    def extract_variant(node)
-      node.nil? and return node
-      x = node.at(ns("./variant[@language = '#{@lang}']")) and node = x
-      node.text
     end
 
     def agency(xml)

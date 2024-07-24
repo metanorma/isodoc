@@ -64,6 +64,7 @@ module IsoDoc
       get_linkend(node)
     end
 
+    # there should be no //variant in bibdata now
     def variant(xml)
       b = xml.xpath(ns("//bibdata//variant"))
       (xml.xpath(ns("//variant")) - b).each { |f| variant1(f) }
