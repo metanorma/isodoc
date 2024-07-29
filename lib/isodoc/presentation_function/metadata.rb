@@ -22,7 +22,7 @@ module IsoDoc
     end
 
     def save_attachment(attachment, dir)
-      n = File.join(dir, attachment["name"])
+      n = File.join(dir, File.basename(attachment["name"]))
       c = attachment.text.sub(%r{^data:[^;]+;(?:charset=[^;]+;)?base64,}, "")
       File.open(n, "wb") { |f| f.write(Base64.strict_decode64(c)) }
     end
