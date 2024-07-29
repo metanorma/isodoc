@@ -24,7 +24,7 @@ module IsoDoc
     def save_attachment(attachment, dir)
       n = File.join(dir, File.basename(attachment["name"]))
       c = attachment.text.sub(%r{^data:[^;]+;(?:charset=[^;]+;)?base64,}, "")
-      File.open(n, "wb") { |f| f.write(Base64.strict_decode64(c)) }
+      File.open(n, "wb") { |f| f.write(Base64.decode64(c)) }
     end
 
     def extension_insert(xml, path = [])
