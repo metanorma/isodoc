@@ -100,4 +100,32 @@ RSpec.describe IsoDoc do
                "--user-password" => "c",
              })
   end
+
+  it "passes on XSLT stylesheet" do
+    stylesheet_mock("spec/assets/xsl.pdf")
+    convert_mock(Pathname.new(File.join(File.dirname(__FILE__), "..", "..",
+                                        "lib", "isodoc", "spec", "assets",
+                                        "xsl.pdf")).cleanpath.to_s)
+    IsoDoc::XslfoPdfConvert.new({})
+      .convert("spec/assets/iso.xml", nil, nil, nil)
+
+    stylesheet_mock("/spec/assets/xsl.pdf")
+    convert_mock("/spec/assets/xsl.pdf")
+    IsoDoc::XslfoPdfConvert.new({})
+      .convert("spec/assets/iso.xml", nil, nil, nil)
+  end
+end
+
+private
+
+def stylesheet_mock(dir)
+  allow_any_instance_of(::IsoDoc::XslfoPdfConvert)
+    .to receive(:pdf_stylesheet)
+    .and_return(dir)
+end
+
+def convert_mock(dir)
+  allow_any_instance_of(::Metanorma::Output::XslfoPdf)
+    .to receive(:convert)
+    .with(anything, anything, dir, anything)
 end

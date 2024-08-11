@@ -45,7 +45,7 @@ module IsoDoc
         ret[MN2PDF_FONT_MANIFEST] = font_manifest
       @aligncrosselements && !@aligncrosselements.empty? and
         ret["--param align-cross-elements="] =
-          @aligncrosselements.gsub(/,/, " ")
+          @aligncrosselements.tr(",", " ")
       @baseassetpath and
         ret["--param baseassetpath="] = @baseassetpath
       ret.merge(@pdf_cmd_options)
@@ -54,15 +54,14 @@ module IsoDoc
     # input_file: keep-alive tempfile
     def convert(input_fname, file = nil, debug = false,
                 output_fname = nil)
-      file = File.read(input_fname, encoding: "utf-8") if file.nil?
-      input_file, docxml, filename =
-        input_xml_path(input_fname, file, debug)
+      file ||= File.read(input_fname, encoding: "utf-8")
+      _, docxml, filename = input_xml_path(input_fname, file, debug)
+      xsl = pdf_stylesheet(docxml)
+      Pathname.new(xsl).absolute? or xsl = File.join(@libdir, xsl)
       @doctype = Nokogiri::XML(file).at(ns("//bibdata/ext/doctype"))&.text
       ::Metanorma::Output::XslfoPdf.new.convert(
-        filename,
-        output_fname || output_filename(input_fname),
-        File.join(@libdir, pdf_stylesheet(docxml)),
-        pdf_options(docxml),
+        filename, output_fname || output_filename(input_fname),
+        xsl, pdf_options(docxml)
       )
     end
 
