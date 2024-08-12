@@ -17,6 +17,7 @@ module IsoDoc
         i = Counter.new("@")
         clause_order_annex(xml).each do |a|
           xml.xpath(ns(a[:path])).each do |c|
+            unnumbered_section_name?(c) and next
             annex_names(c, i.increment(c).print)
             a[:multi] or break
           end
@@ -125,7 +126,7 @@ module IsoDoc
 
       def preface_name_anchors(clause, level, title)
         @anchors[clause["id"]] =
-          { label: nil, level: level,
+          { label: nil, level:,
             xref: title, title: nil,
             type: "clause", elem: @labels["clause"] }
       end
@@ -170,7 +171,7 @@ module IsoDoc
       def section_name_anchors(clause, num, level)
         @anchors[clause["id"]] =
           { label: num, xref: l10n("#{@labels['clause']} #{num}"),
-            title: clause_title(clause), level: level, type: "clause",
+            title: clause_title(clause), level:, type: "clause",
             elem: @labels["clause"] }
       end
 
@@ -188,9 +189,9 @@ module IsoDoc
         level == 1 && clause.name == "annex" and
           label = annex_name_lbl(clause, num)
         @anchors[clause["id"]] =
-          { label: label,
+          { label:,
             elem: @labels["annex"], type: "clause",
-            subtype: "annex", value: num.to_s, level: level,
+            subtype: "annex", value: num.to_s, level:,
             title: clause_title(clause),
             xref: "#{@labels['annex']} #{num}" }
       end

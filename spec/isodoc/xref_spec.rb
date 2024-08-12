@@ -1714,9 +1714,9 @@ RSpec.describe IsoDoc do
        </sections><annex id="P" inline-header="false" obligation="normative" unnumbered="true">
          <title>Annex</title>
          <clause id="Q" inline-header="false" obligation="normative">
-         <title>Annex A.1</title>
+         <title>Annex1</title>
          <clause id="Q1" inline-header="false" obligation="normative">
-         <title>Annex A.1a</title>
+         <title>Annex1a</title>
          </clause>
        </clause>
        </annex>
@@ -1751,12 +1751,12 @@ RSpec.describe IsoDoc do
           <xref target="O">Clause 1</xref>
           <xref target="O1">Clause B</xref>
           <xref target="O2">Clause 2</xref>
-          <xref target="P">Annex </xref>
-          <xref target="Q">Annex .1</xref>
-          <xref target="Q1">Annex .1.1</xref>
+          <xref target="P">Annex</xref>
+          <xref target="Q">Annex1</xref>
+          <xref target="Q1">Annex1a</xref>
           <xref target="QQ">Annex </xref>
-          <xref target="QQ1">Annex </xref>
-          <xref target="QQ2">Annex .1</xref>
+          <xref target="QQ1">, 1</xref>
+          <xref target="QQ2">, 1 1</xref>
           <xref target="R">Normative References</xref>
           <xref target="S">Bibliography</xref>
           </p>

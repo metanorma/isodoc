@@ -21,12 +21,17 @@ module IsoDoc
       end
     end
 
+    def unnumbered_clause?(elem)
+      !elem.ancestors("boilerplate, metanorma-extension").empty? ||
+        @suppressheadingnumbers || elem["unnumbered"] ||
+        elem.at("./ancestor::*[@unnumbered = 'true']")
+    end
+
     def clause1(elem)
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
       t = elem.at(ns("./title")) and t["depth"] = level
-      !elem.ancestors("boilerplate, metanorma-extension").empty? ||
-        @suppressheadingnumbers || elem["unnumbered"] and return
+      unnumbered_clause?(elem) and return
       lbl = @xrefs.anchor(elem["id"], :label,
                           elem.parent.name != "sections") or return
       prefix_name(elem, "<tab/>", "#{lbl}#{clausedelim}", "title")
@@ -65,6 +70,7 @@ module IsoDoc
       if t = elem.at(ns("./title"))
         t.children = "<strong>#{to_xml(t.children)}</strong>"
       end
+      unnumbered_clause?(elem) and return
       prefix_name(elem, "<br/><br/>", lbl, "title")
     end
 
