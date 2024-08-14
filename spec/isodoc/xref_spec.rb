@@ -819,8 +819,10 @@ RSpec.describe IsoDoc do
           <xref target="N1"/>
           <xref target="N2"/>
           <xref target="N"/>
+          <xref target="N3"/>
           <xref target="note1"/>
           <xref target="note2"/>
+          <xref target="note3"/>
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
@@ -843,6 +845,9 @@ RSpec.describe IsoDoc do
           <requirement id="N" model="default">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
+          <requirement id="N3" model="default" class="provision">
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
         <p><xref target="N"/></p>
           </clause>
           <terms id="terms"/>
@@ -852,6 +857,9 @@ RSpec.describe IsoDoc do
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
           <requirement id="note2" model="default">
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+          <requirement id="note3" model="default" class="provision">
         <stem type="AsciiMath">r = 1 %</stem>
         </requirement>
         <p>    <xref target="note1"/> <xref target="note2"/> </p>
@@ -881,19 +889,21 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='2'>
-            <p>
-              <xref target='N1'>Introduction, Requirement 1</xref>
-      <xref target='N2'>Preparatory, Requirement (??)</xref>
-      <xref target='N'>Clause 1, Requirement 2</xref>
-      <xref target='note1'>Clause 3.1, Requirement 3</xref>
-      <xref target='note2'>Clause 3.1, Requirement 4</xref>
-      <xref target='AN'>Requirement A.1</xref>
-      <xref target='Anote1'>Requirement (??)</xref>
-      <xref target='Anote2'>Requirement A.2</xref>
-      <xref target="Anote3">Bibliographical Section, Requirement 1</xref>
-            </p>
-          </foreword>
+      <foreword displayorder="2">
+          <p>
+             <xref target="N1">Introduction, Requirement 1</xref>
+             <xref target="N2">Preparatory, Requirement (??)</xref>
+             <xref target="N">Clause 1, Requirement 2</xref>
+             <xref target="N3">Clause 1, provision 1</xref>
+             <xref target="note1">Clause 3.1, Requirement 3</xref>
+             <xref target="note2">Clause 3.1, Requirement 4</xref>
+             <xref target="note3">Clause 3.1, provision 2</xref>
+             <xref target="AN">Requirement A.1</xref>
+             <xref target="Anote1">Requirement (??)</xref>
+             <xref target="Anote2">Requirement A.2</xref>
+             <xref target="Anote3">Bibliographical Section, Requirement 1</xref>
+          </p>
+       </foreword>
     OUTPUT
     expect(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)

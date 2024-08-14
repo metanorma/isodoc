@@ -29,7 +29,7 @@ module IsoDoc
       @locale = options[:locale]
       @reqt_models = @klass.requirements_processor
         .new({
-               default: "default", lang: lang, script: script,
+               default: "default", lang:, script:,
                labels: @i18n.get
              })
       @i18n
