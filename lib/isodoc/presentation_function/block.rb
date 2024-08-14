@@ -6,7 +6,7 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def lower2cap(text)
       /^[[:upper:]][[:upper:]]/.match?(text) and return text
-      text.capitalize
+      text&.capitalize
     end
 
     def block_delim

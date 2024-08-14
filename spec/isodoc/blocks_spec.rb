@@ -710,7 +710,8 @@ RSpec.describe IsoDoc do
                  </body>
              </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({}).convert("test", input, true)))
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({}).convert("test", input,
+                                                                true)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -862,10 +863,26 @@ RSpec.describe IsoDoc do
               </body>
             </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(html)
+
+    presxml = presxml.sub("<permission ",
+                          "<permission class='provision' ")
+      .sub("Permission 1:", "Provision 1:")
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input.sub("<permission ",
+                                 "<permission class='provision' "), true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n
+        .format(html.sub("Permission 1:", "Provision 1:"))
   end
 
   it "processes requirements" do
@@ -981,10 +998,27 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-  .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-  .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
+
+    presxml = presxml
+      .sub("<requirement ",
+           "<requirement class='provision' ")
+      .sub("Requirement:", "Provision:")
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input.sub("<requirement ",
+                                 "<requirement class='provision' "), true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n
+        .format(output.sub("Requirement:", "Provision:"))
   end
 
   it "processes recommendation" do
@@ -1104,11 +1138,27 @@ RSpec.describe IsoDoc do
                   </body>
                 </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true)))
       .to be_equivalent_to Xml::C14n.format(output)
+
+    presxml = presxml
+      .sub("<recommendation ",
+           "<recommendation class='provision' ")
+      .sub("Recommendation 1:", "Provision 1:")
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input.sub("<recommendation ",
+                                 "<recommendation class='provision' "), true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n
+        .format(output.sub("Recommendation 1:", "Provision 1:"))
   end
 
   it "processes passthrough with compatible format" do
@@ -1143,8 +1193,9 @@ RSpec.describe IsoDoc do
         </iso-standard>
       INPUT
       presxml = IsoDoc::PresentationXMLConvert
-      .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
-      .convert("test", input, true)
+        .new(presxml_options.merge(output_formats: { html: "html",
+                                                     rfc: "rfc" }))
+        .convert("test", input, true)
       expect do
         IsoDoc::HtmlConvert.new({})
           .convert("test", presxml, false)
