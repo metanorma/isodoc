@@ -213,10 +213,9 @@ module IsoDoc
         %w(example requirement recommendation permission
            note table figure sourcecode).freeze
 
-      def labelled_ancestor(elem)
-        #!elem.path.gsub(/\[\d+\]/, "").split(%r{/})[1..-1]
+      def labelled_ancestor(elem, exceptions = [])
         !elem.ancestors.map(&:name)
-          .intersection(LABELLED_ANCESTOR_ELEMENTS).empty?
+          .intersection(LABELLED_ANCESTOR_ELEMENTS - exceptions).empty?
       end
 
       def emf?(type)

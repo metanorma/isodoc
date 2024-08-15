@@ -38,21 +38,24 @@ module IsoDoc
 
       svg = Base64.strict_decode64(elem["src"]
         .sub(%r{^data:image/svg\+xml;(charset=[^;]+;)?base64,}, ""))
-      x = Nokogiri::XML.fragment(svg.sub(/<\?xml[^>]*>/, "")) do |config|
-        config.huge
-      end
+      x = Nokogiri::XML.fragment(svg.sub(/<\?xml[^>]*>/, ""), &:huge)
       elem["src"] = ""
       elem.children = x
     end
 
     def figure1(elem)
-      return sourcecode1(elem) if elem["class"] == "pseudocode" ||
-        elem["type"] == "pseudocode"
-      return if elem.at(ns("./figure")) && !elem.at(ns("./name"))
-
+      elem["class"] == "pseudocode" || elem["type"] == "pseudocode" and
+        return sourcecode1(elem)
+      figure_label?(elem) or return nil
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
+      # no xref, no label: this can be set in xref
       prefix_name(elem, block_delim,
                   l10n("#{figure_label(elem)} #{lbl}"), "name")
+    end
+
+    def figure_label?(elem)
+      elem.at(ns("./figure")) && !elem.at(ns("./name")) and return false
+      true
     end
 
     def figure_label(elem)

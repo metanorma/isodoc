@@ -52,28 +52,28 @@ note: 注記
 note_xref: 注記
 termnote: 注釈%
 list: リスト
-deflist: Definition List
+deflist: 定義リスト
 figure: 図
 diagram: Diagram
 formula: 式
-inequality: Formula
+inequality: 式
 table: 表
-requirement: 要求事項
-recommendation: 推奨事項
-permission: 許容事項
+requirement: 要求
+recommendation: 推奨
+permission: 許可
 box: Box
 index: 索引
 standard_no: 規格番号
 number: 番号
 # Modspec
-recommendationtest: Recommendation test
-requirementtest: Requirement test
-permissiontest: Permission test
-recommendationclass: Recommendations class
-requirementclass: Requirements class
-permissionclass: Permissions class
-abstracttest: Abstract test
-conformanceclass: Conformance class
+recommendationtest: 推奨テスト
+requirementtest: 要件テスト
+permissiontest: 許可テスト
+recommendationclass: 推奨群
+requirementclass: 要件群
+permissionclass: 許可群
+abstracttest: 抽象テスト
+conformanceclass: 適合性テスト群
 key: 記号説明
 example: 例
 example_xref: 例
@@ -110,12 +110,12 @@ month_november: November
 month_december: December
 obligation: Obligation
 admonition: {
-  danger: Danger,
+  danger: 危険です,
   warning: 警告,
-  caution: Caution,
-  important: Important,
-  safety precautions: Safety Precautions,
-  editorial: Editorial Note
+  caution: 注意,
+  important: 重要,
+  safety precautions: 安全上の注意,
+  editorial: 編集者注
 }
 locality: {
                       section: Section,

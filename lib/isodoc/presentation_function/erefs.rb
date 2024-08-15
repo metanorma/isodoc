@@ -38,9 +38,9 @@ module IsoDoc
       ret = resolve_eref_connectives(eref_locality_stacks(refs, target,
                                                           node))
       node.delete("droploc") unless droploc
-      eref_localities1({ target: target, number: "pl",
+      eref_localities1({ target:, number: "pl",
                          type: refs.first.at(ns("./locality/@type")).text,
-                         from: l10n(ret[1..-1].join), node: node, lang: @lang })
+                         from: l10n(ret[1..-1].join), node:, lang: @lang })
     end
 
     def can_conflate_eref_rendering?(refs)
@@ -143,9 +143,9 @@ module IsoDoc
     def eref_localities0(ref, _idx, target, node)
       if ref["type"] == "whole" then @i18n.wholeoftext
       else
-        eref_localities1({ target: target, type: ref["type"], number: "sg",
+        eref_localities1({ target:, type: ref["type"], number: "sg",
                            from: ref.at(ns("./referenceFrom"))&.text,
-                           upto: ref.at(ns("./referenceTo"))&.text, node: node,
+                           upto: ref.at(ns("./referenceTo"))&.text, node:,
                            lang: @lang })
       end
     end
