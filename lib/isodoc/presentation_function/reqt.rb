@@ -2,19 +2,22 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def recommendation(docxml)
       docxml.xpath(ns("//recommendation")).each do |f|
-        recommendation1(f, lower2cap(@i18n.recommendation))
+        recommendation1(f, lower2cap(f["class"]) ||
+                        lower2cap(@i18n.recommendation))
       end
     end
 
     def requirement(docxml)
       docxml.xpath(ns("//requirement")).each do |f|
-        recommendation1(f, lower2cap(@i18n.requirement))
+        recommendation1(f, lower2cap(f["class"]) ||
+                        lower2cap(@i18n.requirement))
       end
     end
 
     def permission(docxml)
       docxml.xpath(ns("//permission")).each do |f|
-        recommendation1(f, lower2cap(@i18n.permission))
+        recommendation1(f, lower2cap(f["class"]) ||
+                        lower2cap(@i18n.permission))
       end
     end
 

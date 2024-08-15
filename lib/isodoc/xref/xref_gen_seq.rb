@@ -132,6 +132,7 @@ container: false)
       end
 
       def reqt2class_label(elem, model)
+        elem["class"] and return [elem["class"], elem["class"]]
         model.req_class_paths.each do |n|
           v1 = ns("/#{n[:xpath]}").sub(%r{^/}, "")
           elem.at("./self::#{v1}") and return [n[:klass], n[:label]]

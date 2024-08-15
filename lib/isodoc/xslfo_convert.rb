@@ -56,7 +56,7 @@ module IsoDoc
                 output_fname = nil)
       file ||= File.read(input_fname, encoding: "utf-8")
       _, docxml, filename = input_xml_path(input_fname, file, debug)
-      xsl = pdf_stylesheet(docxml)
+      xsl = pdf_stylesheet(docxml) or return
       Pathname.new(xsl).absolute? or xsl = File.join(@libdir, xsl)
       @doctype = Nokogiri::XML(file).at(ns("//bibdata/ext/doctype"))&.text
       ::Metanorma::Output::XslfoPdf.new.convert(
