@@ -1358,11 +1358,6 @@ RSpec.describe IsoDoc do
         </sections>
         <annex id='P' inline-header='false' obligation='normative' displayorder='9'>
           <title>
-            <strong>Annex A</strong>
-            <br/>
-            (normative)
-            <br/>
-            <br/>
             <strong>Annex</strong>
           </title>
           <clause id='Q' inline-header='false' obligation='normative'>
@@ -1385,7 +1380,8 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ suppressheadingnumbers: true }
       .merge(presxml_options))
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes unnumbered section names" do
@@ -1450,83 +1446,84 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-           <clause type="toc" id="_" displayorder="1">
-             <title depth="1">Table of contents</title>
-           </clause>
-         </preface>
-         <sections>
-           <clause id="D" obligation="normative" type="scope" unnumbered="true" displayorder="2">
-             <title depth="1">Scope</title>
-             <p id="E">Text</p>
-           </clause>
-           <clause id="H" obligation="normative" unnumbered="true" displayorder="4">
-             <title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title>
-             <terms id="I" obligation="normative">
-               <title depth="2">Normal Terms</title>
-               <term id="J">
-                 <preferred>
-                   <strong>Term2</strong>
-                 </preferred>
-               </term>
-             </terms>
-             <definitions id="K" unnumbered="true">
-               <dl>
-                 <dt>Symbol</dt>
-                 <dd>Definition</dd>
-               </dl>
-             </definitions>
-           </clause>
-           <definitions id="L" unnumbered="true" displayorder="5">
-             <dl>
-               <dt>Symbol</dt>
-               <dd>Definition</dd>
-             </dl>
-           </definitions>
-           <clause id="M" inline-header="false" obligation="normative" unnumbered="true" displayorder="6">
-             <title depth="1">Clause 4</title>
-             <clause id="N" inline-header="false" obligation="normative">
-               <title depth="2">Introduction</title>
-             </clause>
-             <clause id="O" inline-header="false" obligation="normative">
-               <title depth="2">Clause 4.2</title>
-             </clause>
-           </clause>
-           <clause id="O1" inline-header="false" obligation="normative" displayorder="7">
-             <title>1.</title>
-           </clause>
-           <clause id="O2" inline-header="false" obligation="normative" unnumbered="true" displayorder="8">
-        </clause>
-           <clause id="O3" inline-header="false" obligation="normative" displayorder="9">
-             <title>2.</title>
-           </clause>
-           <references id="R" obligation="informative" normative="true" unnumbered="true" displayorder="3">
-             <title depth="1">Normative References</title>
-           </references>
-         </sections>
-         <annex id="P" inline-header="false" obligation="normative" unnumbered="true" displayorder="10">
-           <title><strong>Annex </strong><br/>(normative)<br/><br/><strong>Annex</strong></title>
-           <clause id="Q" inline-header="false" obligation="normative">
-             <title depth="2">.1.<tab/>Annex A.1</title>
-             <clause id="Q1" inline-header="false" obligation="normative">
-               <title depth="3">.1.1.<tab/>Annex A.1a</title>
-             </clause>
-           </clause>
-         </annex>
-         <bibliography>
-           <clause id="S" obligation="informative" unnumbered="true" displayorder="11">
-             <title depth="1">Bibliography</title>
-             <references id="T" obligation="informative" normative="false">
-               <title depth="2">Bibliography Subsection</title>
-             </references>
-           </clause>
-         </bibliography>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+            <title depth="1">Table of contents</title>
+          </clause>
+        </preface>
+        <sections>
+          <clause id="D" obligation="normative" type="scope" unnumbered="true" displayorder="2">
+            <title depth="1">Scope</title>
+            <p id="E">Text</p>
+          </clause>
+          <clause id="H" obligation="normative" unnumbered="true" displayorder="4">
+            <title depth="1">Terms, Definitions, Symbols and Abbreviated Terms</title>
+            <terms id="I" obligation="normative">
+              <title depth="2">Normal Terms</title>
+              <term id="J">
+                <preferred>
+                  <strong>Term2</strong>
+                </preferred>
+              </term>
+            </terms>
+            <definitions id="K" unnumbered="true">
+              <dl>
+                <dt>Symbol</dt>
+                <dd>Definition</dd>
+              </dl>
+            </definitions>
+          </clause>
+          <definitions id="L" unnumbered="true" displayorder="5">
+            <dl>
+              <dt>Symbol</dt>
+              <dd>Definition</dd>
+            </dl>
+          </definitions>
+          <clause id="M" inline-header="false" obligation="normative" unnumbered="true" displayorder="6">
+            <title depth="1">Clause 4</title>
+            <clause id="N" inline-header="false" obligation="normative">
+              <title depth="2">Introduction</title>
+            </clause>
+            <clause id="O" inline-header="false" obligation="normative">
+              <title depth="2">Clause 4.2</title>
+            </clause>
+          </clause>
+          <clause id="O1" inline-header="false" obligation="normative" displayorder="7">
+            <title>1.</title>
+          </clause>
+          <clause id="O2" inline-header="false" obligation="normative" unnumbered="true" displayorder="8">
+       </clause>
+          <clause id="O3" inline-header="false" obligation="normative" displayorder="9">
+            <title>2.</title>
+          </clause>
+          <references id="R" obligation="informative" normative="true" unnumbered="true" displayorder="3">
+            <title depth="1">Normative References</title>
+          </references>
+        </sections>
+        <annex id="P" inline-header="false" obligation="normative" unnumbered="true" displayorder="10">
+          <title><strong>Annex</strong></title>
+          <clause id="Q" inline-header="false" obligation="normative">
+            <title depth="2">Annex A.1</title>
+            <clause id="Q1" inline-header="false" obligation="normative">
+              <title depth="3">Annex A.1a</title>
+            </clause>
+          </clause>
+        </annex>
+        <bibliography>
+          <clause id="S" obligation="informative" unnumbered="true" displayorder="11">
+            <title depth="1">Bibliography</title>
+            <references id="T" obligation="informative" normative="false">
+              <title depth="2">Bibliography Subsection</title>
+            </references>
+          </clause>
+        </bibliography>
+      </iso-standard>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes floating titles" do
@@ -1683,8 +1680,10 @@ RSpec.describe IsoDoc do
              </h1></div></div><div style="mso-element:footnote-list"/>
          </body>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
     IsoDoc::WordConvert.new({}).convert("test", presxml, false)
@@ -1724,7 +1723,8 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ suppressheadingnumbers: true }
       .merge(presxml_options))
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes inline section headers" do
@@ -1781,10 +1781,13 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes inline section headers with suppressed heading numbering" do
