@@ -248,7 +248,7 @@ visibility:visible;
 }
 
 .collapsible:after {
-  content: '\002B';
+  content: '\25bc';
   color: white;
   font-weight: bold;
   float: right;
@@ -256,5 +256,5 @@ visibility:visible;
 }
 
 .active:after {
-  content: "\2212";
+  content: "\25b2";
 }
