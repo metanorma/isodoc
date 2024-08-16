@@ -231,11 +231,12 @@ visibility:visible;
   transition: max-height 0.2s ease-out;
 }
 
-  .collapsible {
+.collapsible {
   background-color: #777;
   color: white;
   cursor: pointer;
-  padding: 18px;
+  padding: 12px 0;
+  margin: 0;
   width: 100%;
   border: none;
   text-align: left;
@@ -252,9 +253,20 @@ visibility:visible;
   color: white;
   font-weight: bold;
   float: right;
-  margin-left: 5px;
+  margin-left: 12px;
+  margin-right: 12px;
 }
 
 .active:after {
   content: "\25b2";
+}
+
+/* collapsible: */
+.collapsible + .hidable {
+  margin-top: 0;
+}
+
+.collapsible:not(.active) + .hidable {
+  overflow: hidden;
+  padding: 0;
 }
