@@ -225,11 +225,13 @@ RSpec.describe IsoDoc do
                </body>
              </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true).gsub(/&lt;/, "&#x3c;"))))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", presxml, true))))
+      .to be_equivalent_to Xml::C14n.format(html)
     FileUtils.rm_rf "spec/assets/odf1.emf"
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true)
