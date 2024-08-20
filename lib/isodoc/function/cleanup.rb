@@ -89,7 +89,8 @@ module IsoDoc
           if n.nil?
             x.name = "p"
           else
-            n.children.first.previous = x.remove
+            #n.children.first.previous = x.remove
+            n.add_first_child(x.remove)
           end
         end
         docxml

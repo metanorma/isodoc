@@ -6,8 +6,8 @@ module IsoDoc
       s = docxml.at(ns("//sections")) or return
       t = @meta.get[:doctitle]
       t.nil? || t.empty? and return
-      s.children.first.previous =
-        "<p class='zzSTDTitle1'>#{t}</p>"
+      #s.children.first.previous =
+      s.add_first_child "<p class='zzSTDTitle1'>#{t}</p>"
     end
 
     def clause(docxml)
@@ -248,7 +248,8 @@ module IsoDoc
     def toc_refs(docxml)
       docxml.xpath(ns("//toc//xref[text()]")).each do |x|
         lbl = @xrefs.anchor(x["target"], :label) or next
-        x.children.first.previous = "#{lbl}<tab/>"
+        #x.children.first.previous = "#{lbl}<tab/>"
+        x.add_first_child "#{lbl}<tab/>"
       end
     end
   end

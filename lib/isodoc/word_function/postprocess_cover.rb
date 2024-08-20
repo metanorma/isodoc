@@ -22,7 +22,8 @@ module IsoDoc
         cover = File.read(@wordcoverpage, encoding: "UTF-8")
         cover = populate_template(cover, :word)
         coverxml = to_word_xhtml_fragment(cover)
-        ins.children.first.previous = coverxml.to_xml(encoding: "US-ASCII")
+        #ins.children.first.previous = coverxml.to_xml(encoding: "US-ASCII")
+        ins.add_first_child coverxml.to_xml(encoding: "US-ASCII")
       end
 
       def word_intro(docxml, level)
@@ -31,7 +32,8 @@ module IsoDoc
                            docxml, level)
         intro = populate_template(intro, :word)
         introxml = to_word_xhtml_fragment(intro)
-        ins.children.first.previous = introxml.to_xml(encoding: "US-ASCII")
+        #ins.children.first.previous = introxml.to_xml(encoding: "US-ASCII")
+        ins.add_first_child introxml.to_xml(encoding: "US-ASCII")
       end
 
       # add namespaces for Word fragments
