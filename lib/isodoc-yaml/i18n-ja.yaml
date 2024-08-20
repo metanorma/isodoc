@@ -6,16 +6,16 @@ symbols: 記号
 table_of_contents: 目次
 introduction: 序文
 foreword: まえがき
-abstract: Abstract
-acknowledgements: Acknowledgements
+abstract: はじめに
+acknowledgements: 謝辞
 termsdef: 用語及び定義
 termsdefsymbolsabbrev: 用語及び定義並びに記号及び略語
 termsdefsymbols: 用語及び定義並びに記号
 termsdefabbrev: 用語及び定義並びに略語
 normref: 引用規格
 bibliography: 参考文献
-preface: Preface
-section: Section
+preface: 序文
+section: セクション
 clause: 箇条
 annex: 附属書
 appendix: Appendix
@@ -123,7 +123,7 @@ locality: {
                       subclause: 細分箇条,
                       part: 部,
                       paragraph: 段落,
-                      chapter: Chapter,
+                      chapter: 第章,
                       page: ページ,
                       table: 表,
                       annex: 附属書,
@@ -154,7 +154,7 @@ relatedterms:
   equivalent: equivalent
   compare: compare
   contrast: contrast
-  see: see
+  see: 参照
   seealso: see also
 inflection:
   Clause:

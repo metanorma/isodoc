@@ -82,7 +82,8 @@ module IsoDoc
       def html_cover(docxml)
         doc = to_xhtml_fragment(File.read(@htmlcoverpage, encoding: "UTF-8"))
         d = docxml.at('//div[@class="title-section"]')
-        d.children.first.add_previous_sibling(
+        #d.children.first.add_previous_sibling(
+        d.add_first_child(
           populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
         )
       end
@@ -90,7 +91,8 @@ module IsoDoc
       def html_intro(docxml)
         doc = to_xhtml_fragment(File.read(@htmlintropage, encoding: "UTF-8"))
         d = docxml.at('//div[@class="prefatory-section"]')
-        d.children.first.add_previous_sibling(
+        #d.children.first.add_previous_sibling(
+        d.add_first_child(
           populate_template(doc.to_xml(encoding: "US-ASCII"), :html),
         )
       end

@@ -83,7 +83,8 @@ module IsoDoc
       # subclause
       def symbols_parse(isoxml, out)
         isoxml.at(ns("./title")) or
-          isoxml.children.first.previous = "<title>#{@i18n.symbols}</title>"
+          #isoxml.children.first.previous = "<title>#{@i18n.symbols}</title>"
+          isoxml.add_first_child "<title>#{@i18n.symbols}</title>"
         clause_parse(isoxml, out)
       end
 

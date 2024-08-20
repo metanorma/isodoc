@@ -77,7 +77,8 @@ module IsoDoc
     def svg_emf_double(img)
       if emf?(img["mimetype"])
         img = emf_encode(img)
-        img.children.first.previous = emf_to_svg(img)
+        #img.children.first.previous = emf_to_svg(img)
+        img.add_first_child emf_to_svg(img)
       elsif img["mimetype"] == "image/svg+xml"
         src = svg_to_emf(img) or return
         img.add_child("<emf/>")

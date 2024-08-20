@@ -1,4 +1,5 @@
 require "metanorma-utils"
+require_relative "../../nokogiri/xml/node"
 
 module IsoDoc
   module Function
@@ -27,8 +28,8 @@ module IsoDoc
         [1..count].each { out << tab }
       end
 
-      def noko(&block)
-        Metanorma::Utils::noko_html(&block)
+      def noko(&)
+        Metanorma::Utils::noko_html(&)
       end
 
       def attr_code(attributes)
@@ -40,8 +41,7 @@ module IsoDoc
       DOCTYPE_HDR = "<!DOCTYPE html SYSTEM " \
                     '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.freeze
 
-      HUGESTRICT =
-        Nokogiri::XML::ParseOptions::HUGE |
+      HUGESTRICT = Nokogiri::XML::ParseOptions::HUGE |
         Nokogiri::XML::ParseOptions::STRICT
 
       def to_xhtml(xml)
@@ -243,7 +243,7 @@ module IsoDoc
         win = !!((RUBY_PLATFORM =~ /(win|w)(32|64)$/) ||
                  (RUBY_PLATFORM =~ /mswin|mingw/))
         if win
-          path.gsub!(%{/}, "\\")
+          path.tr!(%{/}, "\\")
           path[/\s/] ? "\"#{path}\"" : path
         else path
         end
