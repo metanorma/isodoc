@@ -19,10 +19,6 @@ RSpec.describe "IsoDoc::GemTasks" do
     ENV["CI"] = ci_env_orig
   end
 
-  it "test CLEAN contains CSS" do
-    expect(CLEAN).to include *IsoDoc::GemTasks.css_list
-  end
-
   it "test build deps has build_scss" do
     build_deps = Rake::Task["build"].all_prerequisite_tasks.map(&:name)
     expect(build_deps).to include "build_scss"
@@ -32,5 +28,6 @@ RSpec.describe "IsoDoc::GemTasks" do
     Rake.application.invoke_task "build"
 
     expect(IsoDoc::GemTasks.css_list).not_to be_empty
+    expect(CLEAN).to include(*IsoDoc::GemTasks.css_list)
   end
 end
