@@ -20,8 +20,8 @@ module IsoDoc
       end
 
       def html5(doc)
-        doc.sub(%r{<!DOCTYPE html [^>]+>}, "<!DOCTYPE html>")
-          .sub(%r{<\?xml[^>]+>}, "")
+        doc.sub(%r{<!DOCTYPE html [^<>]+>}, "<!DOCTYPE html>")
+          .sub(%r{<\?xml[^<>]+>}, "")
       end
 
       def html_cleanup(html)

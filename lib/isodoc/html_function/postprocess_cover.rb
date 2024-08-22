@@ -6,9 +6,9 @@ module IsoDoc
   module HtmlFunction
     module Html
       def script_cdata(result)
-        result.gsub(%r{<script([^>]*)>\s*<!\[CDATA\[}m, "<script\\1>")
+        result.gsub(%r{<script([^<>]*)>\s*<!\[CDATA\[}m, "<script\\1>")
           .gsub(%r{\]\]>\s*</script>}, "</script>")
-          .gsub(%r{<!\[CDATA\[\s*<script([^>]*)>}m, "<script\\1>")
+          .gsub(%r{<!\[CDATA\[\s*<script([^<>]*)>}m, "<script\\1>")
           .gsub(%r{</script>\s*\]\]>}, "</script>")
       end
 

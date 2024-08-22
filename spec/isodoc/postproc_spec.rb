@@ -141,7 +141,7 @@ RSpec.describe IsoDoc do
     expect(File.exist?("spec/assets/iso.html")).to be true
     html = File.read("spec/assets/iso.html")
     expect(html).to match(/another empty stylesheet/)
-    expect(html).to match(%r{https://use.fontawesome.com})
+    expect(html).to match(%r{https://use\.fontawesome\.com})
     expect(html).to match(%r{libs/jquery})
     expect(html).to include "$('#toggle')"
     expect(html).not_to match(/CDATA/)
@@ -156,7 +156,7 @@ RSpec.describe IsoDoc do
     expect(File.exist?("spec/assets/iso.headless.html")).to be true
     html = File.read("spec/assets/iso.headless.html")
     expect(html).not_to match(/another empty stylesheet/)
-    expect(html).not_to match(%r{https://use.fontawesome.com})
+    expect(html).not_to match(%r{https://use\.fontawesome\.com})
     expect(html).not_to match(%r{libs/jquery})
     expect(html).not_to match(%r{<html})
     expect(html).not_to match(%r{<head})
@@ -1311,8 +1311,8 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(%r{^.*<body}m, "<body")
       .sub(%r{</body>.*$}m, "</body>")
-      .gsub(%r{<script.+?</script>}m, "<script/>")
-      .sub(%r{(<script/>\s+)+}m, "<script/>")
+      .gsub(%r{<script.+?</script>}mi, "<script/>")
+      .sub(%r{(<script/>\s+)+}mi, "<script/>")
     expect(Xml::C14n.format(html)).to be_equivalent_to Xml::C14n.format(output)
   end
 
