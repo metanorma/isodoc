@@ -116,7 +116,7 @@ module IsoDoc
       node.xpath(ns("./location")).each_with_object([]) do |l, m|
         type = @xrefs.anchor(l["target"], :type)
         m << { conn: l["connective"], target: l["target"],
-               type: type, node: l, elem: @xrefs.anchor(l["target"], :elem),
+               type:, node: l, elem: @xrefs.anchor(l["target"], :elem),
                container: @xrefs.anchor(l["target"], :container, false) ||
                  %w(termnote).include?(type) }
       end
@@ -132,13 +132,13 @@ module IsoDoc
 
     def combine_conn(list)
       list.size == 1 and list.first[:label]
-      if list[1..-1].all? { |l| l[:conn] == "and" }
+      if list[1..].all? { |l| l[:conn] == "and" }
         @i18n.boolean_conj(list.map { |l| loc2xref(l) }, "and")
-      elsif list[1..-1].all? { |l| l[:conn] == "or" }
+      elsif list[1..].all? { |l| l[:conn] == "or" }
         @i18n.boolean_conj(list.map { |l| loc2xref(l) }, "or")
       else
         ret = loc2xref(list[0])
-        list[1..-1].each { |l| ret = i18n_chain_boolean(ret, l) }
+        list[1..].each { |l| ret = i18n_chain_boolean(ret, l) }
         ret
       end
     end
@@ -156,7 +156,7 @@ module IsoDoc
     end
 
     def capitalise_xref(node, linkend, label)
-      linktext = linkend.gsub(/<[^>]+>/, "")
+      linktext = linkend.gsub(/<[^<>]+>/, "")
       (label && !label.empty? && /^#{Regexp.escape(label)}/.match?(linktext)) ||
         linktext[0, 1].match?(/\p{Upper}/) and return linkend
       node["case"] and
