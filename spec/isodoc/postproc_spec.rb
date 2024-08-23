@@ -143,7 +143,7 @@ RSpec.describe IsoDoc do
     expect(html).to match(/another empty stylesheet/)
     expect(html).to match(%r{https://use\.fontawesome\.com})
     expect(html).to match(%r{libs/jquery})
-    expect(html).to include "$('#toggle')"
+    expect(html).to include("$('#toggle')")
     expect(html).not_to match(/CDATA/)
   end
 
@@ -1375,13 +1375,13 @@ RSpec.describe IsoDoc do
       .convert("test", input, false)
     expect(File.exist?("test.html")).to be true
     html = File.read("test.html")
-    expect(html).to include "&#x3c;X&#x3e;"
-    expect(html).not_to include "&lt;X&gt;"
+    expect(html).to include("&#x3c;X&#x3e;")
+    expect(html).not_to include("&lt;X&gt;")
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css" })
       .convert("test", input, false)
     expect(File.exist?("test.doc")).to be true
     html = File.read("test.doc")
-    expect(html).not_to include "&#x3c;X&#x3e;"
-    expect(html).to include "&lt;X&gt;"
+    expect(html).not_to include("&#x3c;X&#x3e;")
+    expect(html).to include("&lt;X&gt;")
   end
 end

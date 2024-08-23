@@ -566,7 +566,7 @@ RSpec.describe IsoDoc do
     toclevel = <<~TOCLEVEL
       function toclevel() { return "h1:not(:empty):not(.TermNum):not(.noTOC),h2:not(:empty):not(.TermNum):not(.noTOC),h3:not(:empty):not(.TermNum):not(.noTOC)";}
     TOCLEVEL
-    expect(html).to include toclevel
+    expect(html).to include(toclevel)
   end
 
   it "creates continuation styles for multiparagraph list items in Word" do
@@ -877,11 +877,11 @@ RSpec.describe IsoDoc do
     INPUT
     expect(File.exist?("test.doc")).to be true
     html = File.read("test.doc", encoding: "UTF-8")
-    expect(html).to include "div.WordSection2_0 {page:WordSection2P;}"
-    expect(html).to include "div.WordSection2_1 {page:WordSection2L;}"
-    expect(html).to include "div.WordSection3_0 {page:WordSection3P;}"
-    expect(html).to include "div.WordSection3_1 {page:WordSection3P;}"
-    expect(html).to include "div.WordSection3_2 {page:WordSection3L;}"
+    expect(html).to include("div.WordSection2_0 {page:WordSection2P;}")
+    expect(html).to include("div.WordSection2_1 {page:WordSection2L;}")
+    expect(html).to include("div.WordSection3_0 {page:WordSection3P;}")
+    expect(html).to include("div.WordSection3_1 {page:WordSection3P;}")
+    expect(html).to include("div.WordSection3_2 {page:WordSection3L;}")
 
     expect(Xml::C14n.format(html.sub(/^.*<body /m, "<body ")
       .sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)

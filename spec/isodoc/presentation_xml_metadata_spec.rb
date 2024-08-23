@@ -614,7 +614,7 @@ wpLnRvX3MpCmVuZAo=</attachment>
       .convert("test", input, false)
     expect(File.exist?("_test_attachments/spec_helper.rb")).to be true
     expect(File.read("_test_attachments/spec_helper.rb"))
-      .to include "VCR.configure"
+      .to include("VCR.configure")
   end
 
   private
