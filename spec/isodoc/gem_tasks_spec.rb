@@ -21,7 +21,7 @@ RSpec.describe "IsoDoc::GemTasks" do
 
   it "test build deps has build_scss" do
     build_deps = Rake::Task["build"].all_prerequisite_tasks.map(&:name)
-    expect(build_deps).to include "build_scss"
+    expect(build_deps).to include("build_scss")
   end
 
   it "test generate/clean CSS" do

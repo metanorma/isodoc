@@ -82,7 +82,7 @@ module IsoDoc
 
     def comment_out_liquid(text)
       text.split("\n").map do |line|
-        if line.match?(/(?<!{){({|%)(?!{).+(}|%)}/)
+        if line.match?(/(?<!{){({|%)(?![{%]).+(}|%)}/)
           "/* LIQUID_COMMENT#{line}LIQUID_COMMENT */"
         else
           line
