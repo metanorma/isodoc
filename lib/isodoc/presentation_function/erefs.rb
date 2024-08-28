@@ -40,7 +40,7 @@ module IsoDoc
       node.delete("droploc") unless droploc
       eref_localities1({ target:, number: "pl",
                          type: refs.first.at(ns("./locality/@type")).text,
-                         from: l10n(ret[1..-1].join), node:, lang: @lang })
+                         from: l10n(ret[1..].join), node:, lang: @lang })
     end
 
     def can_conflate_eref_rendering?(refs)
@@ -48,16 +48,13 @@ module IsoDoc
         refs.all? { |r| r.name == "localityStack" } &&
         refs.all? { |r| r.xpath(ns("./locality")).size == 1 }) or return false
       first = refs.first.at(ns("./locality/@type")).text
-      refs.all? do |r|
-        r.at(ns("./locality/@type")).text == first
-      end
+      refs.all? { |r| r.at(ns("./locality/@type")).text == first }
     end
 
     def resolve_eref_connectives(locs)
       locs = resolve_comma_connectives(locs)
       locs = resolve_to_connectives(locs)
-      return locs if locs.size < 3
-
+      locs.size < 3 and return locs
       locs = locs.each_slice(2).with_object([]) do |a, m|
         m << { conn: a[0], label: a[1] }
       end
@@ -217,14 +214,19 @@ module IsoDoc
     def eref_target(node)
       url = suffix_url(eref_url(node["bibitemid"]))
       anchor = node.at(ns(".//locality[@type = 'anchor']"))
-      return url if url.nil? || /^#/.match?(url) || !anchor
-
+      url.nil? || /^#/.match?(url) || !anchor and return url
       "#{url}##{anchor.text.strip}"
     end
 
-    def eref_url(id)
+    def eref_url_prep(id)
       @bibitem_lookup.nil? and return nil
-      b = @bibitem_lookup[id] or return nil
+      @bibitem_lookup[id]
+    end
+
+    def eref_url(id)
+      b = eref_url_prep(id) or return nil
+      url = b.at(ns("./uri[@type = 'attachment'][@language = '#{@lang}']")) ||
+        b.at(ns("./uri[@type = 'attachment']")) and return url.text
       url = b.at(ns("./uri[@type = 'citation'][@language = '#{@lang}']")) ||
         b.at(ns("./uri[@type = 'citation']")) and return url.text
       b["hidden"] == "true" and return b.at(ns("./uri"))&.text
