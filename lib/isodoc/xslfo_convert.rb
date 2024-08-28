@@ -39,7 +39,13 @@ module IsoDoc
       nil
     end
 
-    def pdf_options(_docxml)
+    def baseassetpath(filename)
+      !@baseassetpath && filename and
+        @baseassetpath = File.expand_path(Pathname.new(filename).parent.to_s)
+    end
+
+    def pdf_options(_docxml, filename)
+      baseassetpath(filename)
       ret = {}
       font_manifest = @options.dig(MN_OPTIONS_KEY, MN2PDF_FONT_MANIFEST) and
         ret[MN2PDF_FONT_MANIFEST] = font_manifest
@@ -61,7 +67,7 @@ module IsoDoc
       @doctype = Nokogiri::XML(file).at(ns("//bibdata/ext/doctype"))&.text
       ::Metanorma::Output::XslfoPdf.new.convert(
         filename, output_fname || output_filename(input_fname),
-        xsl, pdf_options(docxml)
+        xsl, pdf_options(docxml, input_fname)
       )
     end
 
