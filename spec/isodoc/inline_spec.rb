@@ -1323,7 +1323,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <foreword displayorder='2'>
         <p>
-          <link target="https://example.google.com">ISO 712</link>
+          <link attachment="true" target="https://example.google.com">ISO 712</link>
         </p>
       </foreword>
     OUTPUT

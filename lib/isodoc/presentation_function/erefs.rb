@@ -147,7 +147,6 @@ module IsoDoc
       end
     end
 
-    # def eref_localities1_zh(_target, type, from, upto, node)
     def eref_localities1_zh(opt)
       ret = "第#{opt[:from]}" if opt[:from]
       ret += "&#x2013;#{opt[:upto]}" if opt[:upto]
@@ -156,11 +155,9 @@ module IsoDoc
       ret
     end
 
-    # def eref_localities1(target, type, from, upto, node, lang = "en")
     def eref_localities1(opt)
       opt[:type] == "anchor" and return nil
       opt[:lang] == "zh" and
-        # return l10n(eref_localities1_zh(target, type, from, upto, node))
         return l10n(eref_localities1_zh(opt))
       ret = eref_locality_populate(opt[:type], opt[:node], opt[:number])
       ret += " #{opt[:from]}" if opt[:from]
@@ -185,7 +182,7 @@ module IsoDoc
         .each do |e|
         href = eref_target(e) or next
         e.xpath(ns("./locality | ./localityStack")).each(&:remove)
-        if /^#/.match?(href) then eref2xref(e)
+        if href[:type] == :anchor then eref2xref(e)
         else eref2link1(e, href)
         end
       end
@@ -200,7 +197,9 @@ module IsoDoc
     end
 
     def eref2link1(node, href)
-      repl = "<link target='#{href}'>#{node.children}</link>"
+      url = href[:link]
+      att = href[:type] == :attachment ? "attachment='true'" : ""
+      repl = "<link #{att} target='#{url}'>#{node.children}</link>"
       node["type"] == "footnote" and repl = "<sup>#{repl}</sup>"
       node.replace(repl)
     end
@@ -212,10 +211,11 @@ module IsoDoc
     end
 
     def eref_target(node)
-      url = suffix_url(eref_url(node["bibitemid"]))
+      u = eref_url(node["bibitemid"]) or return nil
+      url = suffix_url(u[:link])
       anchor = node.at(ns(".//locality[@type = 'anchor']"))
-      url.nil? || /^#/.match?(url) || !anchor and return url
-      "#{url}##{anchor.text.strip}"
+      /^#/.match?(url) || !anchor and return { link: url, type: u[:type] }
+      { link: "#{url}##{anchor.text.strip}", type: u[:type] }
     end
 
     def eref_url_prep(id)
@@ -225,12 +225,15 @@ module IsoDoc
 
     def eref_url(id)
       b = eref_url_prep(id) or return nil
-      url = b.at(ns("./uri[@type = 'attachment'][@language = '#{@lang}']")) ||
-        b.at(ns("./uri[@type = 'attachment']")) and return url.text
-      url = b.at(ns("./uri[@type = 'citation'][@language = '#{@lang}']")) ||
-        b.at(ns("./uri[@type = 'citation']")) and return url.text
-      b["hidden"] == "true" and return b.at(ns("./uri"))&.text
-      "##{id}"
+      %i(attachment citation).each do |x|
+        u = b.at(ns("./uri[@type = '#{x}'][@language = '#{@lang}']")) ||
+          b.at(ns("./uri[@type = '#{x}']")) and return { link: u.text, type: x }
+      end
+      if b["hidden"] == "true"
+        u = b.at(ns("./uri")) or return nil
+        { link: u.text, type: :citation }
+      else { link: "##{id}", type: :anchor }
+      end
     end
   end
 end
