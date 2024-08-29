@@ -21,17 +21,17 @@ annex: 附属書
 appendix: Appendix
 continued: 続き
 no_terms_boilerplate: |
-          <p>この規格には，定義する用語はない。</p>
+          この規格には，定義する用語はない。
 internal_terms_boilerplate: |
-        <p>この規格で用いる主な用語及び定義は，次による。</p>
+        この規格で用いる主な用語及び定義は，次による。
 norm_with_refs_pref: 
       次に掲げる引用規格は，この規格に引用されることによって，その一部又は全部がこの規格の要 求事項を構成している。これらの引用規格のうち，西暦年を付記してあるものは，記載の年の版を適 用し，その後の改正版(追補を含む。)は適用しない。西暦年の付記がない引用規格は，その最新版(追 補を含む。)を適用する。
 norm_empty_pref: 
           この規格には，引用規格はない。
 external_terms_boilerplate: |
-          <p>この規格で用いる主な用語及び定義は，% による。</p>
+          この規格で用いる主な用語及び定義は，% による。
 internal_external_terms_boilerplate: |
-          <p>この規格で用いる主な用語及び定義は，次によるほか，% による。</p>
+          この規格で用いる主な用語及び定義は，次によるほか，% による。
 no_information_available: "[情報はありません]"
 term_defined_in: "(%)"
 binary_and: "%1 and %2"

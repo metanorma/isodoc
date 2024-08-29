@@ -20,9 +20,9 @@ annex: Anexo
 appendix: Apéndice
 continued: continuación
 no_terms_boilerplate: |
-          <p>En este documento no se enumeran términos ni definiciones.</p>
+      En este documento no se enumeran términos ni definiciones.
 internal_terms_boilerplate: |
-        <p>Para los propósitos de este documento, se aplican los siguientes términos y definiciones.</p>
+      Para los propósitos de este documento, se aplican los siguientes términos y definiciones.
 norm_with_refs_pref: 
       Los siguientes documentos se mencionan en el texto de tal manera que 
       parte o todo su contenido constituye requisitos de este documento.
@@ -32,9 +32,9 @@ norm_with_refs_pref:
 norm_empty_pref: 
           No hay referencias normativas en este documento.
 external_terms_boilerplate: |
-          <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en %.</p>
+          Para los propósitos de este documento, se aplican los términos y definiciones dados en %.
 internal_external_terms_boilerplate: |
-          <p>Para los propósitos de este documento, se aplican los términos y definiciones dados en % y los siguientes.</p>
+          Para los propósitos de este documento, se aplican los términos y definiciones dados en % y los siguientes.
 no_information_available: "[NO HAY INFORMACIÓN DISPONIBLE]"
 term_defined_in: "(%)"
 binary_and: "%1 y %2"

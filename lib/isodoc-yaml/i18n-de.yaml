@@ -20,9 +20,9 @@ annex: Anhang
 appendix: Appendix
 continued: Fortsetzung
 no_terms_boilerplate: |
-          <p>In diesem Dokument sind keine Begriffe und Definitionen aufgeführt.</p>
+        In diesem Dokument sind keine Begriffe und Definitionen aufgeführt.
 internal_terms_boilerplate: |
-        <p>Für die Zwecke dieses Dokuments gelten die folgenden Begriffe und Definitionen</p>
+        Für die Zwecke dieses Dokuments gelten die folgenden Begriffe und Definitionen.
 norm_with_refs_pref:
   Auf die folgenden Dokumente wird im Text so verwiesen, dass ihr Inhalt ganz oder
   teilweise Anforderungen dieses Dokuments darstellt. Bei datierten Verweisen gilt
@@ -30,9 +30,9 @@ norm_with_refs_pref:
   referenzierten Dokuments (einschließlich eventueller Änderungen).
 norm_empty_pref: In diesem Dokument sind keine normativen Verweise enthalten.
 external_terms_boilerplate: |
-          <p>Für die Zwecke dieses Dokuments gelten die in % angegebenen Begriffe und Definitionen.</p>
+          Für die Zwecke dieses Dokuments gelten die in % angegebenen Begriffe und Definitionen.
 internal_external_terms_boilerplate: |
-          <p>Für die Zwecke dieses Dokuments gelten die in % und im Folgenden aufgeführten Begriffe und Definitionen.</p>
+          Für die Zwecke dieses Dokuments gelten die in % und im Folgenden aufgeführten Begriffe und Definitionen.
 no_information_available: "[KEINE INFORMATION VERFÜGBAR]"
 term_defined_in: "(%)"
 binary_and: "%1 und %2"

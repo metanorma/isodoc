@@ -21,17 +21,17 @@ annex: Annexe
 appendix: Appendice
 continued: continué
 no_terms_boilerplate: |
-          <p>Aucun terme n’est défini dans le présent document.</p>
+         Aucun terme n’est défini dans le présent document.
 internal_terms_boilerplate: |
-         <p>Pour les besoins du présent document, les termes et définitions suivants s’appliquent.</p>
+         Pour les besoins du présent document, les termes et définitions suivants s’appliquent.
 norm_with_refs_pref: 
      Les documents suivants cités dans le texte constituent, pour tout ou partie de leur contenu, des exigences du présent document. Pour les références datées, seule l’édition citée s’applique. Pour les références non datées, la dernière édition du document de référence s’applique (y compris les éventuels amendements).
 norm_empty_pref: 
           Le présent document ne contient aucune référence normative.
 external_terms_boilerplate: |
-          <p>Pour les besoins du présent document, les termes et définitions de % s’appliquent.</p>
+          Pour les besoins du présent document, les termes et définitions de % s’appliquent.
 internal_external_terms_boilerplate: |
-          <p>Pour les besoins du présent document, les termes et définitions de % ainsi que les suivants, s’appliquent.</p>
+          Pour les besoins du présent document, les termes et définitions de % ainsi que les suivants, s’appliquent.
 no_information_available: "[PAS D’INFORMATION DISPONIBLE]"
 term_defined_in: "(%)"
 binary_and: "%1 et %2"

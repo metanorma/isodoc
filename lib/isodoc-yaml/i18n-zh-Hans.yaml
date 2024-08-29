@@ -21,9 +21,9 @@ annex: 附件
 appendix: 附录
 continued: 继续
 no_terms_boilerplate: |
-          <p>本文件不提供术语和定义。</p>
+          本文件不提供术语和定义。
 internal_terms_boilerplate: |
-          <p>下列术语和定义适用于本文件。</p>
+          下列术语和定义适用于本文件。
 norm_with_refs_pref: 
           下列文件对于本文件的应用是必不可少的。
           凡是注日期的引用文件，仅注日期的版本适用于本文件。
@@ -31,9 +31,9 @@ norm_with_refs_pref:
 norm_empty_pref: 
           本文件并没有规范性引用文件。
 external_terms_boilerplate: |
-          <p>% 界定的术语和定义适用于本文件。</p>
+          % 界定的术语和定义适用于本文件。
 internal_external_terms_boilerplate: |
-          <p>% 界定的以及下列术语和定义适用于本文件。</p>
+          % 界定的以及下列术语和定义适用于本文件。
 no_information_available: "[无资料]"
 term_defined_in: "（%）"
 binary_and: "%1和%2"
