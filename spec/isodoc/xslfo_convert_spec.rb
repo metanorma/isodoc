@@ -8,7 +8,7 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil)).to eq({ "--syntax-highlight": nil })
+    expect(convert.pdf_options(nil, nil)).to eq({ "--syntax-highlight": nil })
   end
 
   it "test default pdf_options for nil font_manifest_file" do
@@ -21,7 +21,7 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil)).to eq({ "--syntax-highlight": nil })
+    expect(convert.pdf_options(nil, nil)).to eq({ "--syntax-highlight": nil })
   end
 
   it "test --font-manifest pdf_options" do
@@ -36,7 +36,7 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil)).to eq(mn2pdf_opts)
+    expect(convert.pdf_options(nil, nil)).to eq(mn2pdf_opts)
   end
 
   it "test --param align-cross-elements pdf_options" do
@@ -47,7 +47,7 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil))
+    expect(convert.pdf_options(nil, nil))
       .to eq({ "--param align-cross-elements=" => "clause table note",
                "--syntax-highlight": nil })
   end
@@ -60,8 +60,21 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil))
+    expect(convert.pdf_options(nil, nil))
       .to eq({ "--param baseassetpath=" => "ABC",
+               "--syntax-highlight": nil })
+
+    convert = IsoDoc::XslfoPdfConvert.new(
+      {
+        datauriimage: false,
+      },
+    )
+
+    expect(convert.pdf_options(nil, nil))
+      .to eq({ "--syntax-highlight": nil })
+
+    expect(convert.pdf_options(nil, "test.xml"))
+      .to eq({ "--param baseassetpath=" => File.expand_path("."),
                "--syntax-highlight": nil })
   end
 
@@ -83,7 +96,7 @@ RSpec.describe IsoDoc do
       },
     )
 
-    expect(convert.pdf_options(nil))
+    expect(convert.pdf_options(nil, nil))
       .to eq({
                "--allow-access-content" => "i",
                "--allow-assemble-document" => "j",

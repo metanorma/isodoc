@@ -1203,8 +1203,6 @@ RSpec.describe IsoDoc do
           </bibliography>
           </iso-standard>
     INPUT
-    date = Date.today.localize(:fr).with_timezone(timezone_identifier_local)
-      .to_date.to_long_s
     presxml = <<~OUTPUT
       <foreword displayorder='2'>
         <p>
@@ -1290,6 +1288,50 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(Nokogiri::XML(xml)
       .at("//div[h1/@class='ForewordTitle']").to_xml))
       .to be_equivalent_to Xml::C14n.format(word)
+  end
+
+  it "processes eref content pointing to reference with attachment URL" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata>
+          <language>fr</language>
+          </bibdata>
+          <preface><foreword>
+          <p>
+          <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
+        </p>
+          </foreword></preface>
+          <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+      <bibitem id="ISO712" type="standard">
+        <title format="text/plain">Cereals and cereal products</title>
+        <uri type="attachment">https://example.google.com</uri>
+        <uri type="citation">https://www.google.com</uri>
+        <uri type="citation" language="en">https://www.google.com/en</uri>
+        <uri type="citation" language="fr">https://www.google.com/fr</uri>
+        <docidentifier>ISO 712</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <abbreviation>ISO</abbreviation>
+          </organization>
+        </contributor>
+      </bibitem>
+          </references>
+          </bibliography>
+          </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <foreword displayorder='2'>
+        <p>
+          <link attachment="true" target="https://example.google.com">ISO 712</link>
+        </p>
+      </foreword>
+    OUTPUT
+    output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(output)
+      .at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes eref content pointing to hidden bibliographic entries" do
