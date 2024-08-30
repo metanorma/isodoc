@@ -21,10 +21,9 @@ annex: Annex
 appendix: Appendix
 continued: continued
 no_terms_boilerplate: |
-          <p>No terms and definitions are listed in this document.</p>
+      No terms and definitions are listed in this document.
 internal_terms_boilerplate: |
-        <p>For the purposes of this document, 
-            the following terms and definitions apply.</p>
+      For the purposes of this document, the following terms and definitions apply.
 norm_with_refs_pref: 
       The following documents are referred to in the text in such a way
       that some or all of their content constitutes requirements of this
@@ -32,13 +31,11 @@ norm_with_refs_pref:
       For undated references, the latest edition of the referenced
       document (including any amendments) applies.
 norm_empty_pref: 
-          There are no normative references in this document.
+      There are no normative references in this document.
 external_terms_boilerplate: |
-          <p>For the purposes of this document, 
-            the terms and definitions given in % apply.</p>
+      For the purposes of this document, the terms and definitions given in % apply.
 internal_external_terms_boilerplate: |
-          <p>For the purposes of this document, the terms and definitions 
-            given in % and the following apply.</p>
+      For the purposes of this document, the terms and definitions given in % and the following apply.
 no_information_available: "[NO INFORMATION AVAILABLE]"
 term_defined_in: "(%)"
 binary_and: "%1 and %2"
