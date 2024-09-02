@@ -55,7 +55,8 @@ module IsoDoc
       # feeds middle_title
       # triggers xrefs reparse, so put references before all other sections,
       # which alter titles and thus can alter xrefs
-      rearrange_clauses docxml # feeds toc, display_order, clausetitle, clause, middle_title
+      rearrange_clauses docxml # feeds toc, display_order, clausetitle, 
+      # clause, middle_title
       middle_title docxml
       annex docxml
       clause docxml # feeds clausetitle
