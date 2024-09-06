@@ -40,6 +40,8 @@ module IsoDoc
     end
 
     def implicit_number_formatter(num, locale)
+      num.ancestors("formula").empty? or return
+      ## by default, no formatting in formulas
       fmt = { significant: num_totaldigits(num.text) }.compact
       n = normalise_number(num.text)
       @numfmt.localized_number(n, locale:, format: fmt,
