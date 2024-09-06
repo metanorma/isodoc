@@ -29,11 +29,10 @@ module IsoDoc
 
     def bibdata_current(docxml)
       a = docxml.at(ns("//bibdata")) or return
-      a.xpath(ns("./language")).each do |l|
-        l.text == @lang and l["current"] = "true"
-      end
-      a.xpath(ns("./script")).each do |l|
-        l.text == @script and l["current"] = "true"
+      { language: @lang, script: @script, locale: @locale }.each do |k, v|
+        a.xpath(ns("./#{k}")).each do |l|
+          l.text == v and l["current"] = "true"
+        end
       end
       a
     end
