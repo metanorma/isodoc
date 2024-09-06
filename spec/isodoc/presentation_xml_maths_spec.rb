@@ -618,6 +618,119 @@ RSpec.describe IsoDoc do
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
         .to be_equivalent_to Xml::C14n.format(output1)
     end
+
+    it "with numbers within formulas" do
+      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+        .to(receive(:twitter_cldr_localiser_symbols)
+        .and_return({
+                      fraction_group_digits: 2,
+                      fraction_group: "'",
+                      precision: 2,
+                    }))
+
+      input = <<~INPUT
+         <standard-document xmlns="http://riboseinc.com/isoxml">
+         <bibdata>
+              <title language="en">test</title>
+              </bibdata>
+             <sections>
+              <formula id="_">
+                 <stem block="true" type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mstyle displaystyle="true">
+                          <mn>1</mn>
+                          <mo>+</mo>
+                          <mi>x</mi>
+                       </mstyle>
+                    </math>
+                    <asciimath>1 + x</asciimath>
+                 </stem>
+              </formula>
+              <formula id="_">
+                 <stem block="true" type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mstyle displaystyle="true">
+                          <mn data-metanorma-numberformat="notation='basic',exponent_sign='plus',precision='4'">2</mn>
+                          <mo>+</mo>
+                          <mi>x</mi>
+                       </mstyle>
+                    </math>
+                    <asciimath>2 + x</asciimath>
+                 </stem>
+              </formula>
+              <formula id="_">
+                 <stem block="true" type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mstyle displaystyle="true">
+                          <mn data-metanorma-numberformat="notation='basic'">3</mn>
+                          <mo>+</mo>
+                          <mi>x</mi>
+                       </mstyle>
+                    </math>
+                    <asciimath>3 + x</asciimath>
+                 </stem>
+              </formula>
+           </sections>
+        </standard-document>
+      INPUT
+      output = <<~OUTPUT
+         <standard-document xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
+              <title language="en">test</title>
+           </bibdata>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <title depth="1">Table of contents</title>
+              </clause>
+           </preface>
+           <sections>
+              <p class="zzSTDTitle1">test</p>
+              <formula id="_">
+                 <stem block="true" type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mstyle displaystyle="true">
+                          <mn>1</mn>
+                          <mo>+</mo>
+                          <mi>x</mi>
+                       </mstyle>
+                    </math>
+                    <asciimath>1 + x</asciimath>
+                 </stem>
+              </formula>
+              <formula id="_">
+                 <stem block="true" type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mstyle displaystyle="true">
+                          <mn>2.00'00</mn>
+                          <mo>+</mo>
+                          <mi>x</mi>
+                       </mstyle>
+                    </math>
+                    <asciimath>2 + x</asciimath>
+                 </stem>
+              </formula>
+              <formula id="_">
+                 <stem block="true" type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mstyle displaystyle="true">
+                          <mn>3.00</mn>
+                          <mo>+</mo>
+                          <mi>x</mi>
+                       </mstyle>
+                    </math>
+                    <asciimath>3 + x</asciimath>
+                 </stem>
+              </formula>
+           </sections>
+        </standard-document>
+      OUTPUT
+      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+        .new({ localizenumber: "#=#0;##$#" }
+        .merge(presxml_options))
+        .convert("test", input, true))
+        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .to be_equivalent_to Xml::C14n.format(output)
+    end
   end
 
   it "propagates boldface into MathML" do
