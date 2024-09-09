@@ -119,7 +119,8 @@ module IsoDoc
     end
 
     def amend1(elem)
-      elem.xpath(ns("./autonumber")).each(&:remove)
+      elem.xpath(ns("./locality | localityStack | autonumber | " \
+                    "classification | contributor")).each(&:remove)
       elem.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       elem.xpath(ns("./description")).each { |a| a.replace(a.children) }
       elem.replace(elem.children)

@@ -6,7 +6,6 @@ module IsoDoc
       s = docxml.at(ns("//sections")) or return
       t = @meta.get[:doctitle]
       t.nil? || t.empty? and return
-      #s.children.first.previous =
       s.add_first_child "<p class='zzSTDTitle1'>#{t}</p>"
     end
 
@@ -16,7 +15,6 @@ module IsoDoc
         .each do |f|
         f.parent.name == "annex" &&
           @xrefs.klass.single_term_clause?(f.parent) and next
-
         clause1(f)
       end
     end
@@ -67,9 +65,8 @@ module IsoDoc
 
     def annex1(elem)
       lbl = @xrefs.anchor(elem["id"], :label)
-      if t = elem.at(ns("./title"))
+      t = elem.at(ns("./title")) and
         t.children = "<strong>#{to_xml(t.children)}</strong>"
-      end
       unnumbered_clause?(elem) and return
       prefix_name(elem, "<br/><br/>", lbl, "title")
     end
@@ -129,7 +126,7 @@ module IsoDoc
         %w(note admonition p).include?(p.name) or break m
         m << p
       end
-      out.reject { |c| c["displayorder"] }.reverse.each do |c|
+      out.reject { |c| c["displayorder"] }.reverse_each do |c|
         c["displayorder"] = idx
         idx += 1
       end

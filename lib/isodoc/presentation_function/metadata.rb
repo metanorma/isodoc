@@ -37,9 +37,11 @@ module IsoDoc
 
     def extension_insert_pt(xml)
       xml.at(ns("//metanorma-extension")) ||
-        xml.at(ns("//bibdata"))&.after("<metanorma-extension/>")
+        xml.at(ns("//bibdata"))
+          &.after("<metanorma-extension> </metanorma-extension>")
           &.next_element ||
-        xml.root.elements.first.before("<metanorma-extension/>")
+        xml.root.elements.first
+          .before("<metanorma-extension> </metanorma-extension>")
           .previous_element
     end
 
@@ -58,7 +60,7 @@ module IsoDoc
     def fonts_metadata(xmldoc)
       ins = presmeta_insert_pt(xmldoc)
       @fontist_fonts and CSV.parse_line(@fontist_fonts, col_sep: ";")
-        .map(&:strip).reverse.each do |f|
+        .map(&:strip).reverse_each do |f|
         ins.next = presmeta("fonts", f)
       end
       @fontlicenseagreement and
@@ -67,7 +69,7 @@ module IsoDoc
 
     def presmeta_insert_pt(xmldoc)
       xmldoc.at(ns("//presentation-metadata")) ||
-        xmldoc.at(ns("//metanorma-extension")) || xmldoc.at(ns("//bibdata"))
+        extension_insert_pt(xml).children.last
     end
 
     def presmeta(name, value)

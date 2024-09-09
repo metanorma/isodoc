@@ -85,7 +85,10 @@ module IsoDoc
     end
 
     def identifier(docxml)
-      docxml.xpath(ns("//identifier")).each do |n|
+      (docxml.xpath(ns("//identifier")) -
+        docxml.xpath(ns("//bibdata/identifier")) -
+        docxml.xpath(ns("//bibitema/identifier")))
+        .each do |n|
         n.name = "tt"
       end
     end
