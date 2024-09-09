@@ -5,6 +5,12 @@ module IsoDoc
       fonts_metadata(docxml)
       attachments_extract(docxml)
       preprocess_xslt_insert(docxml)
+      localized_strings(docxml)
+      a = docxml.at(ns("//metanorma-extension")) or return
+      a.elements.empty? and a.remove
+    end
+
+    def localized_strings(docxml)
       a = docxml.at(ns("//bibdata")) or return
       a.next =
         "<localized-strings>#{i8n_name(trim_hash(@i18n.get), '').join}" \
@@ -69,7 +75,7 @@ module IsoDoc
 
     def presmeta_insert_pt(xmldoc)
       xmldoc.at(ns("//presentation-metadata")) ||
-        extension_insert_pt(xml).children.last
+        extension_insert_pt(xmldoc).children.last
     end
 
     def presmeta(name, value)

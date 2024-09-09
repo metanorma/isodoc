@@ -202,6 +202,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <bibdata/>
+        <metanorma-extension>
           <presentation-metadata>
           <name>font-license-agreement</name>
           <value>no-install-fonts</value>
@@ -214,6 +215,7 @@ RSpec.describe IsoDoc do
           <name>fonts</name>
           <value>font1</value>
         </presentation-metadata>
+        </metanorma-extension>
         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
                  <sections>
            <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
