@@ -39,14 +39,13 @@ module IsoDoc
       p = "//clause | //annex | //appendix | //introduction | //foreword | " \
           "//preface/abstract | //acknowledgements | //terms | " \
           "//definitions | //references | //colophon | //indexsect"
-      docxml.xpath(ns(p)).each do |f|
-        floattitle1(f)
-      end
+      docxml.xpath(ns(p)).each { |f| floattitle1(f) }
       # top-level
       docxml.xpath(ns("//sections | //preface | //colophon"))
         .each { |f| floattitle1(f) }
     end
 
+    # TODO not currently doing anything with the @depth attribute of floating-title
     def floattitle1(elem)
       elem.xpath(ns(".//floating-title")).each do |p|
         p.name = "p"
@@ -192,7 +191,6 @@ module IsoDoc
       preface.elements.each do |x|
         ((x.name == "floating-title" || x.at(xpath)) &&
         xpath != "./self::*[not(following-sibling::*)]") or prev = x
-        # after.include?(x.name) or next
         x.at(xpath) or next
         clause == prev and break
         prev ||= preface.children.first
@@ -245,7 +243,6 @@ module IsoDoc
     def toc_refs(docxml)
       docxml.xpath(ns("//toc//xref[text()]")).each do |x|
         lbl = @xrefs.anchor(x["target"], :label) or next
-        #x.children.first.previous = "#{lbl}<tab/>"
         x.add_first_child "#{lbl}<tab/>"
       end
     end

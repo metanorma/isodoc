@@ -9,7 +9,6 @@ module IsoDoc
     end
 
     def deprecates(elem)
-      #elem.children.first.previous = @i18n.l10n("#{@i18n.deprecated}: ")
       elem.add_first_child @i18n.l10n("#{@i18n.deprecated}: ")
     end
 
