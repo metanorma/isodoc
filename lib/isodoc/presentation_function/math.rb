@@ -21,9 +21,10 @@ module IsoDoc
     # TwitterCldr::DataReaders::NumberDataReader.new(locale).symbols
     def localize_maths(node, locale)
       node.xpath(".//m:mn", MATHML).each do |x|
+        fmt = x["data-metanorma-numberformat"]
+        x.delete("data-metanorma-numberformat")
         x.children =
-          if fmt = x["data-metanorma-numberformat"]
-            x.delete("data-metanorma-numberformat")
+          if fmt.nil? && !fmt.empty?
             explicit_number_formatter(x, locale, fmt)
           else implicit_number_formatter(x, locale)
           end
