@@ -21,9 +21,10 @@ module IsoDoc
     # TwitterCldr::DataReaders::NumberDataReader.new(locale).symbols
     def localize_maths(node, locale)
       node.xpath(".//m:mn", MATHML).each do |x|
+        fmt = x["data-metanorma-numberformat"]
+        x.delete("data-metanorma-numberformat")
         x.children =
-          if fmt = x["data-metanorma-numberformat"]
-            x.delete("data-metanorma-numberformat")
+          if !fmt.nil? && !fmt.empty?
             explicit_number_formatter(x, locale, fmt)
           else implicit_number_formatter(x, locale)
           end
@@ -78,12 +79,38 @@ module IsoDoc
     end
 
     def explicit_number_formatter_cfg(num, fmt)
-      symbols = twitter_cldr_localiser_symbols.dup.merge(fmt)
-      precision = symbols[:precision] || num_precision(num.text)
+      symbols = twitter_cldr_localiser_symbols.dup.transform_values do |v|
+        v.is_a?(String) ? HTMLEntities.new.decode(v) : v
+      end.merge(fmt)
+      symbols = large_notation_fmt(symbols, num.text)
+      [symbols[:precision] || num_precision(num.text), symbols,
+       explicit_number_formatter_signif(num, symbols)]
+    end
+
+    def explicit_number_formatter_signif(num, symbols)
       signif = symbols[:significant]
       (symbols.keys & %i(precision digit_count)).empty? and
         signif ||= num_totaldigits(num.text)
-      [precision, symbols, signif]
+      signif
+    end
+
+    def large_notation_fmt(symbols, num)
+      n = symbols[:large_notation]
+      min = BigDecimal(symbols[:large_notation_min] || "1e-6")
+      max = BigDecimal(symbols[:large_notation_max] || "1e6")
+      n1 = large_notation_fmt1(num, n, min, max) and symbols[:notation] = n1
+      symbols.delete(:large_notation)
+      symbols.delete(:large_notation_min)
+      symbols.delete(:large_notation_max)
+      symbols
+    end
+
+    def large_notation_fmt1(num, notation, min, max)
+      notation.nil? || notation == "nil" and return
+      val = BigDecimal(num).abs
+      val < min and return notation
+      val > max and return notation
+      nil
     end
 
     def num_precision(num)
