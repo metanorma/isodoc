@@ -181,7 +181,8 @@ RSpec.describe IsoDoc do
     end
 
     it "Supports twitter_cldr_localiser_symbols fraction options" do
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+        .new(presxml_options)
         .convert("test", input, true))
         .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
         .to(be_equivalent_to(Xml::C14n.format(output)))
@@ -217,7 +218,8 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -252,7 +254,8 @@ RSpec.describe IsoDoc do
              </preface>
            </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -447,7 +450,7 @@ RSpec.describe IsoDoc do
               <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
-              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
+              <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
               </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
               <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
@@ -608,6 +611,159 @@ RSpec.describe IsoDoc do
             30 000
           </preface>
         </iso-standard>
+      OUTPUT
+      TwitterCldr.reset_locale_fallbacks
+
+      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    .new({ localizenumber: "#=#0;##$#" }
+        .merge(presxml_options))
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .to be_equivalent_to Xml::C14n.format(output1)
+    end
+
+    it "with large-notation attribute and implicit minimum and maximum" do
+      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+        .to(receive(:twitter_cldr_localiser_symbols)
+        .and_return({
+                      fraction_group_digits: 2,
+                      fraction_group: "'",
+                      large_notation: "scientific",
+                    }))
+
+      output1 = <<~OUTPUT
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+               <bibdata>
+                 <title language='en'>test</title>
+               </bibdata>
+               <preface>
+                  <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                             <p displayorder="2">
+            31
+            327,428.74'32'87'84'32'99'2
+            327,428.74'32'87'84'32'99'2
+            327,428
+            327,428.74'3
+            327,000
+            327,428.74'3
+            327,428.74'3
+            327,428
+            327 428,74'3
+            327,000
+            327 428,74'3
+            327 428,74'3
+            1
+            1,1
+            1,10'0
+            1 × 10<sup>21</sup>
+            1,0 × 10<sup>19</sup>
+            1,0 × 10<sup>-19</sup>
+            3.27e5
+            3,27'42'87'43e5
+            3.27e5
+            3,27'42'87'43e5
+            3,27'4e5
+            1e0
+            1,1e0
+            1,10'0e0
+            1 × 10<sup>21</sup>
+            1,0 × 10<sup>19</sup>
+            1,0 × 10<sup>-19</sup>
+            ...
+            6,4212y1490y0 × 10<sup>17</sup>
+            6,4212y1490y0 × 10<sup>17</sup>
+            6,4212y1490y0 × 10<sup>+17</sup>
+            642,1214y967 × 10<sup>15</sup>
+            6,42'12'14'96'8 × 10<sup>17</sup>
+            6,4212y1490y0 × 10<sup>-20</sup>
+            6,4212y1490y0 × 10<sup>-20</sup>
+            6,4212y1490y0 × 10<sup>-20</sup>
+            6,42'12'14'96'8 × 10<sup>-20</sup>
+            <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>6,42'12'14'96'8 × 10</mn><mn>-20</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
+            30 000
+          </preface>
+        </iso-standard>
+      OUTPUT
+      TwitterCldr.reset_locale_fallbacks
+
+      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    .new({ localizenumber: "#=#0;##$#" }
+        .merge(presxml_options))
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .to be_equivalent_to Xml::C14n.format(output1)
+    end
+
+    it "with large-notation attribute and explicit minimum and maximum" do
+      allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+        .to(receive(:twitter_cldr_localiser_symbols)
+        .and_return({
+                      fraction_group_digits: 2,
+                      fraction_group: "'",
+                      large_notation: "scientific",
+                      large_notation_min: "1e-3",
+                      large_notation_max: "1e3",
+                    }))
+
+      output1 = <<~OUTPUT
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+               <bibdata>
+                 <title language='en'>test</title>
+               </bibdata>
+               <preface>
+                  <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                  <p displayorder="2">
+                31 3.27'42'87'43'28'78'43'29'92 × 10<sup>5</sup>
+                3.27'42'87'43'28'78'43'29'92 × 10<sup>5</sup>
+                3.27 × 10<sup>5</sup>
+                3.27'42'87'43 × 10<sup>5</sup>
+                3.27 × 10<sup>5</sup>
+                3.27'42'87'43 × 10<sup>5</sup>
+                3.27'4 × 10<sup>5</sup>
+                3.27 × 10<sup>5</sup>
+                3,27'42'87'43 × 10<sup>5</sup>
+                3.27 × 10<sup>5</sup>
+                3,27'42'87'43 × 10<sup>5</sup>
+                3,27'4 × 10<sup>5</sup>
+                1 1,1 1,10'0 1 × 10<sup>21</sup>
+                1,0 × 10<sup>19</sup>
+                1,0 × 10<sup>-19</sup>
+                3.27 × 10<sup>5</sup>
+                3,27'42'87'43 × 10<sup>5</sup>
+                3.27 × 10<sup>5</sup>
+                3,27'42'87'43 × 10<sup>5</sup>
+                3,27'4 × 10<sup>5</sup>
+                1e0
+                1,1e0
+                1,10'0e0
+                1 × 10<sup>21</sup>
+                1,0 × 10<sup>19</sup>
+                1,0 × 10<sup>-19</sup>
+                ... 6,4212y1490y0 × 10<sup>17</sup>
+                6,4212y1490y0 × 10<sup>17</sup>
+                6,4212y1490y0 × 10<sup>+17</sup>
+                642,1214y967 × 10<sup>15</sup>
+                6,42'12'14'96'8 × 10<sup>17</sup>
+                6,4212y1490y0 × 10<sup>-20</sup>
+                6,4212y1490y0 × 10<sup>-20</sup>
+                6,4212y1490y0 × 10<sup>-20</sup>
+                6,42'12'14'96'8 × 10<sup>-20</sup>
+                <stem type="MathML">
+                   <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <msqrt>
+                         <msup>
+                            <mn>6,42'12'14'96'8 × 10</mn>
+                            <mn>-20</mn>
+                         </msup>
+                      </msqrt>
+                   </math>
+                   <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
+                </stem>
+                3,00'00 × 10
+                <sup>4</sup>
+             </p>
+          </preface>
+       </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
