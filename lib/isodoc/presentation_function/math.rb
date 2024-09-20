@@ -80,7 +80,7 @@ module IsoDoc
 
     def explicit_number_formatter_cfg(num, fmt)
       symbols = twitter_cldr_localiser_symbols.dup.transform_values do |v|
-        HTMLEntities.new.decode(v)
+        v.is_a?(String) ? HTMLEntities.new.decode(v) : v
       end.merge(fmt)
       symbols = large_notation_fmt(symbols, num.text)
       [symbols[:precision] || num_precision(num.text), symbols,
