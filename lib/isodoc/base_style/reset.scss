@@ -81,6 +81,10 @@ p samp, dt samp, li samp, label samp, legend samp, caption samp, th samp, td sam
   font-size: $monospacefontsize;
 }
 
+sub, sup {
+  font-size: 0.75em;
+}
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
