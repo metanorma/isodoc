@@ -106,8 +106,9 @@ module IsoDoc
     end
 
     def large_notation_fmt1(num, notation, min, max)
-      notation.nil? || notation == "nil" and return
+      notation.nil? || notation == "nil" and return nil
       val = BigDecimal(num).abs
+      val.zero? and return nil
       val < min and return notation
       val > max and return notation
       nil

@@ -350,6 +350,9 @@ RSpec.describe IsoDoc do
              <preface>
              <p>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
+             </math></stem>
+             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
                <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
              </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -495,6 +498,7 @@ RSpec.describe IsoDoc do
             <preface>
                <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
                           <p displayorder="2">
+            0.00
             31.00
             327,428.74
             327,428.74
@@ -567,6 +571,7 @@ RSpec.describe IsoDoc do
                <preface>
                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
                              <p displayorder="2">
+            0.0
             31
             327,428.74'32'87'84'32'99'2
             327,428.74'32'87'84'32'99'2
@@ -639,6 +644,7 @@ RSpec.describe IsoDoc do
                <preface>
                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
                              <p displayorder="2">
+            0.0
             31
             327,428.74'32'87'84'32'99'2
             327,428.74'32'87'84'32'99'2
@@ -706,64 +712,66 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-               <bibdata>
-                 <title language='en'>test</title>
-               </bibdata>
-               <preface>
-                  <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-                  <p displayorder="2">
-                31 3.27'42'87'43'28'78'43'29'92 × 10<sup>5</sup>
-                3.27'42'87'43'28'78'43'29'92 × 10<sup>5</sup>
-                3.27 × 10<sup>5</sup>
-                3.27'42'87'43 × 10<sup>5</sup>
-                3.27 × 10<sup>5</sup>
-                3.27'42'87'43 × 10<sup>5</sup>
-                3.27'4 × 10<sup>5</sup>
-                3.27 × 10<sup>5</sup>
-                3,27'42'87'43 × 10<sup>5</sup>
-                3.27 × 10<sup>5</sup>
-                3,27'42'87'43 × 10<sup>5</sup>
-                3,27'4 × 10<sup>5</sup>
-                1 1,1 1,10'0 1 × 10<sup>21</sup>
-                1,0 × 10<sup>19</sup>
-                1,0 × 10<sup>-19</sup>
-                3.27 × 10<sup>5</sup>
-                3,27'42'87'43 × 10<sup>5</sup>
-                3.27 × 10<sup>5</sup>
-                3,27'42'87'43 × 10<sup>5</sup>
-                3,27'4 × 10<sup>5</sup>
-                1e0
-                1,1e0
-                1,10'0e0
-                1 × 10<sup>21</sup>
-                1,0 × 10<sup>19</sup>
-                1,0 × 10<sup>-19</sup>
-                ... 6,4212y1490y0 × 10<sup>17</sup>
-                6,4212y1490y0 × 10<sup>17</sup>
-                6,4212y1490y0 × 10<sup>+17</sup>
-                642,1214y967 × 10<sup>15</sup>
-                6,42'12'14'96'8 × 10<sup>17</sup>
-                6,4212y1490y0 × 10<sup>-20</sup>
-                6,4212y1490y0 × 10<sup>-20</sup>
-                6,4212y1490y0 × 10<sup>-20</sup>
-                6,42'12'14'96'8 × 10<sup>-20</sup>
-                <stem type="MathML">
-                   <math xmlns="http://www.w3.org/1998/Math/MathML">
-                      <msqrt>
-                         <msup>
-                            <mn>6,42'12'14'96'8 × 10</mn>
-                            <mn>-20</mn>
-                         </msup>
-                      </msqrt>
-                   </math>
-                   <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
-                </stem>
-                3,00'00 × 10
-                <sup>4</sup>
-             </p>
-          </preface>
-       </iso-standard>
+         <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+                <bibdata>
+                  <title language='en'>test</title>
+                </bibdata>
+                <preface>
+                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                   <p displayorder="2">
+                 0.0
+                 31
+                 3.27'42'87'43'28'78'43'29'92 × 10<sup>5</sup>
+                 3.27'42'87'43'28'78'43'29'92 × 10<sup>5</sup>
+                 3.27 × 10<sup>5</sup>
+                 3.27'42'87'43 × 10<sup>5</sup>
+                 3.27 × 10<sup>5</sup>
+                 3.27'42'87'43 × 10<sup>5</sup>
+                 3.27'4 × 10<sup>5</sup>
+                 3.27 × 10<sup>5</sup>
+                 3,27'42'87'43 × 10<sup>5</sup>
+                 3.27 × 10<sup>5</sup>
+                 3,27'42'87'43 × 10<sup>5</sup>
+                 3,27'4 × 10<sup>5</sup>
+                 1 1,1 1,10'0 1 × 10<sup>21</sup>
+                 1,0 × 10<sup>19</sup>
+                 1,0 × 10<sup>-19</sup>
+                 3.27 × 10<sup>5</sup>
+                 3,27'42'87'43 × 10<sup>5</sup>
+                 3.27 × 10<sup>5</sup>
+                 3,27'42'87'43 × 10<sup>5</sup>
+                 3,27'4 × 10<sup>5</sup>
+                 1e0
+                 1,1e0
+                 1,10'0e0
+                 1 × 10<sup>21</sup>
+                 1,0 × 10<sup>19</sup>
+                 1,0 × 10<sup>-19</sup>
+                 ... 6,4212y1490y0 × 10<sup>17</sup>
+                 6,4212y1490y0 × 10<sup>17</sup>
+                 6,4212y1490y0 × 10<sup>+17</sup>
+                 642,1214y967 × 10<sup>15</sup>
+                 6,42'12'14'96'8 × 10<sup>17</sup>
+                 6,4212y1490y0 × 10<sup>-20</sup>
+                 6,4212y1490y0 × 10<sup>-20</sup>
+                 6,4212y1490y0 × 10<sup>-20</sup>
+                 6,42'12'14'96'8 × 10<sup>-20</sup>
+                 <stem type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <msqrt>
+                          <msup>
+                             <mn>6,42'12'14'96'8 × 10</mn>
+                             <mn>-20</mn>
+                          </msup>
+                       </msqrt>
+                    </math>
+                    <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
+                 </stem>
+                 3,00'00 × 10
+                 <sup>4</sup>
+              </p>
+           </preface>
+        </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
