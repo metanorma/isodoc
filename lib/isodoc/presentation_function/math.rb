@@ -62,7 +62,7 @@ module IsoDoc
         .each do |i|
         ret[i] &&= ret[i].to_i
       end
-      %i(notation exponent_sign locale).each do |i|
+      %i(notation exponent_sign number_sign locale).each do |i|
         ret[i] &&= ret[i].to_sym
       end
       ret
