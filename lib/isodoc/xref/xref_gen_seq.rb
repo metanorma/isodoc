@@ -66,7 +66,7 @@ module IsoDoc
       def sequential_table_names(clause, container: false)
         c = Counter.new
         clause.xpath(ns(".//table")).noblank.each do |t|
-          labelled_ancestor(t) and next
+          # labelled_ancestor(t) and next
           @anchors[t["id"]] = anchor_struct(
             c.increment(t).print, container ? t : nil,
             @labels["table"], "table", t["unnumbered"]
@@ -190,7 +190,7 @@ container: false)
       def hierarchical_table_names(clause, num)
         c = Counter.new
         clause.xpath(ns(".//table")).noblank.each do |t|
-          labelled_ancestor(t) and next
+          # labelled_ancestor(t) and next
           @anchors[t["id"]] =
             anchor_struct("#{num}#{hiersep}#{c.increment(t).print}",
                           nil, @labels["table"], "table", t["unnumbered"])
