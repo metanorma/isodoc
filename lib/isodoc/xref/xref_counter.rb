@@ -150,11 +150,15 @@ module IsoDoc
         self
       end
 
+      def style_number(num)
+        @style == :roman && !num.nil? ? RomanNumerals.to_roman(num) : num
+      end
+
       def print
         @unnumbered and return nil
         @prefix_override and return @prefix_override
         num = @number_override || @num
-        out = @style == :roman && !num.nil? ? RomanNumerals.to_roman(num) : num
+        out = style_number(num)
         "#{@prefix}#{@base}#{out}#{@letter_override || @letter}"
       end
 
