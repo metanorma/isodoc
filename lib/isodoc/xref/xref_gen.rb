@@ -33,8 +33,7 @@ module IsoDoc
       end
 
       def increment_label(elems, node, counter, increment: true)
-        return "" if elems.size == 1 && !node["number"]
-
+        elems.size == 1 && !node["number"] and return ""
         counter.increment(node) if increment
         " #{counter.print}"
       end

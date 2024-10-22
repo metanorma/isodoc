@@ -56,7 +56,7 @@ module IsoDoc
       end
 
       def main_anchor_names(xml)
-        n = Counter.new
+        n = ClauseCounter.new
         clause_order_main(xml).each do |a|
           xml.xpath(ns(a[:path])).each do |c|
             section_names(c, n, 1)

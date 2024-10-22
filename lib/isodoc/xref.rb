@@ -1,5 +1,6 @@
 require_relative "xref/xref_anchor"
 require_relative "xref/xref_counter"
+require_relative "xref/xref_counter_types"
 require_relative "xref/xref_gen_seq"
 require_relative "xref/xref_gen"
 require_relative "xref/xref_sect_gen"
