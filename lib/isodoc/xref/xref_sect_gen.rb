@@ -56,7 +56,7 @@ module IsoDoc
       end
 
       def main_anchor_names(xml)
-        n = self.ClauseCounter.new
+        n = class_counter
         clause_order_main(xml).each do |a|
           xml.xpath(ns(a[:path])).each do |c|
             section_names(c, n, 1)
@@ -144,7 +144,7 @@ module IsoDoc
         num.increment(clause)
         section_name_anchors(clause, num.print, lvl)
         clause.xpath(ns(SUBCLAUSES))
-          .each_with_object(self.ClauseCounter.new(0, prefix: "#{num.print}.")) do |c, i|
+          .each_with_object(class_counter(0, prefix: "#{num.print}.")) do |c, i|
           section_names1(c, i.increment(c).print, lvl + 1)
         end
         num
@@ -153,7 +153,7 @@ module IsoDoc
       def section_names1(clause, num, level)
         unnumbered_section_name?(clause) and return num
         section_name_anchors(clause, num, level)
-        i = self.ClauseCounter.new(0, prefix: "#{num}.")
+        i = clause_counter(0, prefix: "#{num}.")
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           section_names1(c, i.increment(c).print, level + 1)
         end

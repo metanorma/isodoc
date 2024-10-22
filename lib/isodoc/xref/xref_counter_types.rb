@@ -1,8 +1,9 @@
 require_relative "xref_counter"
 
 module IsoDoc
-  module XrefGen
-    class ClauseCounter < Counter
+  class Xref
+    def class_counter(num = 0, opts = { numerals: :arabic })
+      ::IsoDoc::XrefGen::Counter.new(num, opts)
     end
   end
 end
