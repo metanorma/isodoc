@@ -47,7 +47,7 @@ module IsoDoc
               { label: termnote_label(c.print), type: "termnote",
                 value: c.print, elem: @labels["termnote"],
                 container: t["id"],
-                xref: l10n("#{@labels['note_xref']} #{c.print}") }
+                xref: "#{@labels['note_xref']} #{c.print}" }
           end
         end
       end
@@ -63,7 +63,7 @@ module IsoDoc
               { label: idx, type: "termexample",
                 value: idx, elem: @labels["example_xref"],
                 container: t["id"],
-                xref: l10n("#{@labels['example_xref']} #{idx}") }
+                xref: "#{@labels['example_xref']} #{idx}" }
           end
         end
       end
@@ -187,7 +187,7 @@ module IsoDoc
 
       def deflist_term_anchor_names(list, list_anchor)
         list.xpath(ns("./dt")).each do |li|
-          label = l10n("#{list_anchor[:xref]}: #{dt2xreflabel(li)}")
+          label = "#{list_anchor[:xref]}: #{dt2xreflabel(li)}"
           li["id"] and @anchors[li["id"]] =
                          { xref: label, type: "deflistitem",
                            container: list_anchor[:container] }

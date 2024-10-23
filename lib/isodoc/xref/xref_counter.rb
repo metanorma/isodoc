@@ -1,4 +1,5 @@
 require "roman-numerals"
+require "twitter-cldr"
 
 module IsoDoc
   module XrefGen
@@ -139,7 +140,8 @@ module IsoDoc
       end
 
       def increment(node)
-        @unnumbered = node["unnumbered"] == "true" || node["hidden"] == "true" and return self
+        @unnumbered = node["unnumbered"] == "true" ||
+          node["hidden"] == "true" and return self
         reset_overrides
         if node["subsequence"] != @subseq &&
             !(blank?(node["subsequence"]) && blank?(@subseq))
@@ -151,7 +153,12 @@ module IsoDoc
       end
 
       def style_number(num)
-        @style == :roman && !num.nil? ? RomanNumerals.to_roman(num) : num
+        num.nil? and return num
+        case @style
+        when :roman then RomanNumerals.to_roman(num)
+        when :japanese then num.localize(:ja).spellout
+        else num
+        end
       end
 
       def print

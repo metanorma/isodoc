@@ -170,18 +170,18 @@ module IsoDoc
 
       def section_name_anchors(clause, num, level)
         @anchors[clause["id"]] =
-          { label: num, xref: l10n("#{@labels['clause']} #{num}"),
+          { label: num, xref: "#{@labels['clause']} #{num}",
             title: clause_title(clause), level:, type: "clause",
             elem: @labels["clause"] }
       end
 
       def annex_name_lbl(clause, num)
-        obl = l10n("(#{@labels['inform_annex']})")
+        obl = "(#{@labels['inform_annex']})"
         clause["obligation"] == "normative" and
-          obl = l10n("(#{@labels['norm_annex']})")
+          obl = "(#{@labels['norm_annex']})"
         title = Common::case_with_markup(@labels["annex"], "capital",
                                          @script)
-        l10n("<strong>#{title} #{num}</strong><br/>#{obl}")
+        "<strong>#{title} #{num}</strong><br/>#{obl}"
       end
 
       def annex_name_anchors(clause, num, level)

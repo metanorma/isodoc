@@ -67,7 +67,16 @@ module IsoDoc
       initial_anchor_names(docxml)
       back_anchor_names(docxml)
       asset_anchor_names(docxml)
+      localise_anchors
       @parse_settings = {}
+    end
+
+    def localise_anchors
+      @anchors.each_value do |v|
+        v[:label] = l10n(v[:label])
+        v[:value] = l10n(v[:value])
+        v[:xref] = l10n(v[:value])
+      end
     end
 
     def ns(xpath)

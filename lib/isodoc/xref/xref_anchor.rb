@@ -31,7 +31,7 @@ module IsoDoc
 
       def anchor_struct_label(lbl, elem)
         case elem
-        when @labels["appendix"] then l10n("#{elem} #{lbl}")
+        when @labels["appendix"] then "#{elem} #{lbl}"
         else
           lbl.to_s
         end
