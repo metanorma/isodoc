@@ -1,5 +1,5 @@
 require "roman-numerals"
-require "twitter-cldr"
+require "twitter_cldr"
 
 module IsoDoc
   module XrefGen
