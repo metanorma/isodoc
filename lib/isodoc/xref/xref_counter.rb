@@ -190,6 +190,7 @@ module IsoDoc
         when :alphabet_upper then (64 + @num).chr.to_s
         when :roman then RomanNumerals.to_roman(@num).downcase
         when :roman_upper then RomanNumerals.to_roman(@num).upcase
+        when :japanese then num.localize(:ja).spellout
         end
       end
     end
