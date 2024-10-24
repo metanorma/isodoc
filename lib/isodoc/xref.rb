@@ -1,5 +1,6 @@
 require_relative "xref/xref_anchor"
 require_relative "xref/xref_counter"
+require_relative "xref/xref_counter_types"
 require_relative "xref/xref_gen_seq"
 require_relative "xref/xref_gen"
 require_relative "xref/xref_sect_gen"
@@ -17,23 +18,29 @@ module IsoDoc
 
     # Note: if bibrender is no passed in, do not parse references
     def initialize(lang, script, klass, i18n, options = {})
-      @anchors = {}
+      initialize_empty
       @lang = lang
       @script = script
       @klass = klass
       @options = options
+      initialize_i18n(i18n)
+      @klass.bibrender ||= options[:bibrender]
+      @reqt_models = @klass.requirements_processor
+        .new({ default: "default", lang:, script:,
+               labels: @i18n.get })
+    end
+
+    def initialize_empty
+      @c = HTMLEntities.new
+      @anchors = {}
+      @parse_settings = {}
+    end
+
+    def initialize_i18n(i18n)
       @i18n = i18n
       @labels = @i18n.get
       @klass.i18n = @i18n
-      @klass.bibrender ||= options[:bibrender]
-      @locale = options[:locale]
-      @reqt_models = @klass.requirements_processor
-        .new({
-               default: "default", lang:, script:,
-               labels: @i18n.get
-             })
-      @i18n
-      @parse_settings = {}
+      @locale = @options[:locale]
     end
 
     def get
@@ -66,7 +73,16 @@ module IsoDoc
       initial_anchor_names(docxml)
       back_anchor_names(docxml)
       asset_anchor_names(docxml)
+      localise_anchors
       @parse_settings = {}
+    end
+
+    def localise_anchors
+      @anchors.each_value do |v|
+        v[:label] &&= l10n(v[:label])
+        v[:value] &&= l10n(v[:value])
+        v[:xref] &&= l10n(v[:xref])
+      end
     end
 
     def ns(xpath)

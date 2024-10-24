@@ -246,9 +246,9 @@ RSpec.describe IsoDoc do
            <xref target="N1">IntroductionのBox</xref>
            <xref target="N2">PreparatoryのBox</xref>
            <xref target="N3">[N3]</xref>
-           <xref target="N">箇条 1のBox</xref>
-           <xref target="note1">箇条 3.1のBox  1</xref>
-           <xref target="note2">箇条 3.1のBox  2</xref>
+           <xref target="N">箇条1のBox</xref>
+           <xref target="note1">箇条3.1のBox  1</xref>
+           <xref target="note2">箇条3.1のBox  2</xref>
            <xref target="AN">附属書 A.1のBox</xref>
            <xref target="Anote1">附属書 A.2のBox  1</xref>
            <xref target="Anote2">附属書 A.2のBox  2</xref>

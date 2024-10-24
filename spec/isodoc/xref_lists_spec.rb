@@ -197,9 +197,9 @@ RSpec.describe IsoDoc do
            <xref target="N11">Introductionのa)の1)</xref>
            <xref target="N12">Introductionのa)の1)のi)</xref>
            <xref target="N2">Preparatoryの1)</xref>
-           <xref target="N">箇条 1のi)</xref>
-           <xref target="note1">箇条 3.1のリスト  1のa)</xref>
-           <xref target="note2">箇条 3.1のリスト  2のI)</xref>
+           <xref target="N">箇条1のi)</xref>
+           <xref target="note1">箇条3.1のリスト  1のa)</xref>
+           <xref target="note2">箇条3.1のリスト  2のI)</xref>
            <xref target="AN">附属書 A.1のA)</xref>
            <xref target="Anote1">附属書 A.2のリスト  1のiv)</xref>
            <xref target="Anote2">附属書 A.2のリスト  2のa)</xref>
@@ -306,17 +306,17 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <foreword displayorder="2">
          <p>
-           <xref target="N">箇条 1のa)</xref>
-           <xref target="note1">箇条 1のa)の1)</xref>
-           <xref target="note2">箇条 1のa)の1)のi)</xref>
-           <xref target="AN">箇条 1のa)の1)のi)のA)</xref>
-           <xref target="Anote1">箇条 1のa)の1)のi)のA)のI)</xref>
-           <xref target="Anote2">箇条 1のa)の1)のi)のA)のI)のa)</xref>
-           <xref target="P">箇条 2のリスト  1のa)</xref>
-            <xref target="Q">箇条 2のリスト  1のa)の1)</xref>
-            <xref target="R">箇条 2のリスト  1のa)の1)のi)</xref>
-            <xref target="S">箇条 2のリスト  1のa)の1)のi)のA)</xref>
-            <xref target="P1">箇条 2のリスト  2のa)</xref>
+           <xref target="N">箇条1のa)</xref>
+           <xref target="note1">箇条1のa)の1)</xref>
+           <xref target="note2">箇条1のa)の1)のi)</xref>
+           <xref target="AN">箇条1のa)の1)のi)のA)</xref>
+           <xref target="Anote1">箇条1のa)の1)のi)のA)のI)</xref>
+           <xref target="Anote2">箇条1のa)の1)のi)のA)のI)のa)</xref>
+           <xref target="P">箇条2のリスト  1のa)</xref>
+            <xref target="Q">箇条2のリスト  1のa)の1)</xref>
+            <xref target="R">箇条2のリスト  1のa)の1)のi)</xref>
+            <xref target="S">箇条2のリスト  1のa)の1)のi)のA)</xref>
+            <xref target="P1">箇条2のリスト  2のa)</xref>
          </p>
        </foreword>
     OUTPUT
