@@ -18,23 +18,29 @@ module IsoDoc
 
     # Note: if bibrender is no passed in, do not parse references
     def initialize(lang, script, klass, i18n, options = {})
-      @anchors = {}
+      initialize_empty
       @lang = lang
       @script = script
       @klass = klass
       @options = options
+      initialize_i18n(i18n)
+      @klass.bibrender ||= options[:bibrender]
+      @reqt_models = @klass.requirements_processor
+        .new({ default: "default", lang:, script:,
+               labels: @i18n.get })
+    end
+
+    def initialize_empty
+      @c = HTMLEntities.new
+      @anchors = {}
+      @parse_settings = {}
+    end
+
+    def initialize_i18n(i18n)
       @i18n = i18n
       @labels = @i18n.get
       @klass.i18n = @i18n
-      @klass.bibrender ||= options[:bibrender]
-      @locale = options[:locale]
-      @reqt_models = @klass.requirements_processor
-        .new({
-               default: "default", lang:, script:,
-               labels: @i18n.get
-             })
-      @i18n
-      @parse_settings = {}
+      @locale = @options[:locale]
     end
 
     def get
