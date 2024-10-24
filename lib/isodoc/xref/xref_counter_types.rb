@@ -5,5 +5,9 @@ module IsoDoc
     def clause_counter(num = 0, opts = { numerals: :arabic })
       ::IsoDoc::XrefGen::Counter.new(num, opts)
     end
+
+    def list_counter(num = 0, opts = { numerals: :arabic })
+      ::IsoDoc::XrefGen::Counter.new(num, opts)
+    end
   end
 end
