@@ -27,6 +27,7 @@ module IsoDoc
         @style = opts[:numerals]
         @skip_i = opts[:skip_i]
         @prefix = opts[:prefix]
+        @separator = opts[:separator] || "."
         @base = ""
         if num.is_a? String
           if /^\d+$/.match?(num)
@@ -166,7 +167,9 @@ module IsoDoc
         @prefix_override and return @prefix_override
         num = @number_override || @num
         out = style_number(num)
-        "#{@prefix}#{@base}#{out}#{@letter_override || @letter}"
+        prefix = @prefix
+        prefix &&= "#{prefix}#{@separator}"
+        "#{prefix}#{@base}#{out}#{@letter_override || @letter}"
       end
 
       def ol_type(list, depth)

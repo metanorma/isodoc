@@ -144,7 +144,7 @@ module IsoDoc
         num.increment(clause)
         section_name_anchors(clause, num.print, lvl)
         clause.xpath(ns(SUBCLAUSES))
-          .each_with_object(clause_counter(0, prefix: "#{num.print}.")) do |c, i|
+          .each_with_object(clause_counter(0, prefix: num.print)) do |c, i|
           section_names1(c, i.increment(c).print, lvl + 1)
         end
         num
@@ -153,7 +153,7 @@ module IsoDoc
       def section_names1(clause, num, level)
         unnumbered_section_name?(clause) and return num
         section_name_anchors(clause, num, level)
-        i = clause_counter(0, prefix: "#{num}.")
+        i = clause_counter(0, prefix: num)
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           section_names1(c, i.increment(c).print, level + 1)
         end
@@ -203,7 +203,7 @@ module IsoDoc
                        num.to_s, 1)
         else
           clause.xpath(ns(SUBCLAUSES))
-            .each_with_object(clause_counter(0, prefix: "#{num}.")) do |c, i|
+            .each_with_object(clause_counter(0, prefix: num)) do |c, i|
             annex_names1(c, i.increment(c).print, 2)
           end
         end
@@ -212,7 +212,7 @@ module IsoDoc
 
       def annex_names1(clause, num, level)
         annex_name_anchors(clause, num, level)
-        i = clause_counter(0, prefix: "#{num}.")
+        i = clause_counter(0, prefix: num)
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           annex_names1(c, i.increment(c).print, level + 1)
         end
