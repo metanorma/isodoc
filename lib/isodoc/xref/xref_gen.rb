@@ -33,8 +33,7 @@ module IsoDoc
       end
 
       def increment_label(elems, node, counter, increment: true)
-        return "" if elems.size == 1 && !node["number"]
-
+        elems.size == 1 && !node["number"] and return ""
         counter.increment(node) if increment
         " #{counter.print}"
       end
@@ -48,7 +47,7 @@ module IsoDoc
               { label: termnote_label(c.print), type: "termnote",
                 value: c.print, elem: @labels["termnote"],
                 container: t["id"],
-                xref: l10n("#{@labels['note_xref']} #{c.print}") }
+                xref: "#{@labels['note_xref']} #{c.print}" }
           end
         end
       end
@@ -64,7 +63,7 @@ module IsoDoc
               { label: idx, type: "termexample",
                 value: idx, elem: @labels["example_xref"],
                 container: t["id"],
-                xref: l10n("#{@labels['example_xref']} #{idx}") }
+                xref: "#{@labels['example_xref']} #{idx}" }
           end
         end
       end
@@ -123,7 +122,7 @@ module IsoDoc
         sections.each do |s|
           notes = s.xpath(ns(".//ol")) - s.xpath(ns(".//clause//ol")) -
             s.xpath(ns(".//appendix//ol")) - s.xpath(ns(".//ol//ol"))
-          c = Counter.new
+          c = list_counter
           notes.noblank.each do |n|
             @anchors[n["id"]] = anchor_struct(increment_label(notes, n, c), n,
                                               @labels["list"], "list", false)
@@ -134,7 +133,7 @@ module IsoDoc
       end
 
       def list_item_anchor_names(list, list_anchor, depth, prev_label, refer_list)
-        c = Counter.new(list["start"] ? list["start"].to_i - 1 : 0)
+        c = list_counter(list["start"] ? list["start"].to_i - 1 : 0)
         list.xpath(ns("./li")).each do |li|
           bare_label, label =
             list_item_value(li, c, depth, { list_anchor:, prev_label:,
@@ -188,7 +187,7 @@ module IsoDoc
 
       def deflist_term_anchor_names(list, list_anchor)
         list.xpath(ns("./dt")).each do |li|
-          label = l10n("#{list_anchor[:xref]}: #{dt2xreflabel(li)}")
+          label = "#{list_anchor[:xref]}: #{dt2xreflabel(li)}"
           li["id"] and @anchors[li["id"]] =
                          { xref: label, type: "deflistitem",
                            container: list_anchor[:container] }

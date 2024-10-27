@@ -15,7 +15,7 @@ module IsoDoc
 
     def initialize(lang, script, locale, i18n, fonts_options = {})
       @metadata = { lang:, script: }
-      DATETYPES.each { |w| @metadata["#{w.gsub('-', '_')}date".to_sym] = "XXX" }
+      DATETYPES.each { |w| @metadata["#{w.tr('-', '_')}date".to_sym] = "XXX" }
       @lang = lang
       @script = script
       @locale = locale

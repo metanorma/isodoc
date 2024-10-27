@@ -1,4 +1,5 @@
 require "roman-numerals"
+require "twitter_cldr"
 
 module IsoDoc
   module XrefGen
@@ -26,6 +27,7 @@ module IsoDoc
         @style = opts[:numerals]
         @skip_i = opts[:skip_i]
         @prefix = opts[:prefix]
+        @separator = opts[:separator] || "."
         @base = ""
         if num.is_a? String
           if /^\d+$/.match?(num)
@@ -139,7 +141,8 @@ module IsoDoc
       end
 
       def increment(node)
-        @unnumbered = node["unnumbered"] == "true" || node["hidden"] == "true" and return self
+        @unnumbered = node["unnumbered"] == "true" ||
+          node["hidden"] == "true" and return self
         reset_overrides
         if node["subsequence"] != @subseq &&
             !(blank?(node["subsequence"]) && blank?(@subseq))
@@ -150,12 +153,23 @@ module IsoDoc
         self
       end
 
+      def style_number(num)
+        num.nil? and return num
+        case @style
+        when :roman then RomanNumerals.to_roman(num)
+        when :japanese then num.localize(:ja).spellout
+        else num
+        end
+      end
+
       def print
         @unnumbered and return nil
         @prefix_override and return @prefix_override
         num = @number_override || @num
-        out = @style == :roman && !num.nil? ? RomanNumerals.to_roman(num) : num
-        "#{@prefix}#{@base}#{out}#{@letter_override || @letter}"
+        out = style_number(num)
+        prefix = @prefix
+        prefix &&= "#{prefix}#{@separator}"
+        "#{prefix}#{@base}#{out}#{@letter_override || @letter}"
       end
 
       def ol_type(list, depth)
@@ -176,6 +190,7 @@ module IsoDoc
         when :alphabet_upper then (64 + @num).chr.to_s
         when :roman then RomanNumerals.to_roman(@num).downcase
         when :roman_upper then RomanNumerals.to_roman(@num).upcase
+        when :japanese then num.localize(:ja).spellout
         end
       end
     end
