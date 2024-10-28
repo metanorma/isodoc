@@ -96,18 +96,18 @@ version: version
 toc_figures: List of figures
 toc_tables: List of tables
 toc_recommendations: List of recommendations
-month_january: January
-month_february: February
-month_march: March
-month_april: April
-month_may: May
-month_june: June
-month_july: July
-month_august: August
-month_september: September
-month_october: October
-month_november: November
-month_december: December
+month_january: 1月
+month_february: 2月
+month_march: 3月
+month_april: 4月
+month_may: 5月
+month_june: 6月
+month_july: 7月
+month_august: 8月
+month_september: 9月
+month_october: 10月
+month_november: 11月
+month_december: 12月
 obligation: Obligation
 admonition: {
   danger: 危険です,
@@ -118,7 +118,7 @@ admonition: {
   editorial: 編集者注
 }
 locality: {
-                      section: Section,
+                      section: セクション,
                       clause: 箇条,
                       subclause: 細分箇条,
                       part: 部,
