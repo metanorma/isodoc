@@ -12,12 +12,6 @@ module IsoDoc
         end
       end
 
-      def figure_key(out)
-        out.p style: "page-break-after:avoid;" do |p|
-          p.b { |b| b << @i18n.key }
-        end
-      end
-
       def figure_attrs(node)
         attr_code(id: node["id"], class: "figure", style: keep_style(node))
       end
@@ -34,7 +28,6 @@ module IsoDoc
       def figure_parse1(node, out)
         out.div **figure_attrs(node) do |div|
           node.children.each do |n|
-            figure_key(out) if n.name == "dl"
             parse(n, div) unless n.name == "name"
           end
           figure_name_parse(node, div, node.at(ns("./name")))

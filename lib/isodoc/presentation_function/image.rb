@@ -46,6 +46,7 @@ module IsoDoc
     def figure1(elem)
       elem["class"] == "pseudocode" || elem["type"] == "pseudocode" and
         return sourcecode1(elem)
+      figure_key(elem.at(ns("./dl")))
       figure_label?(elem) or return nil
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
       # no xref, no label: this can be set in xref
@@ -62,6 +63,13 @@ module IsoDoc
       klass = elem["class"] || "figure"
       klasslbl = @i18n.get[klass] || klass
       lower2cap klasslbl
+    end
+
+    def figure_key(dlist)
+      dlist or return
+      dlist["class"] = "formula_dl"
+      dlist.previous =
+        "<p keep-with-next='true'><strong>#{@i18n.key}<strong></p>"
     end
 
     def eps2svg(img)
