@@ -41,7 +41,7 @@ module IsoDoc
         end
         docxml
       end
-
+=begin
       def figure_get_or_make_dl(elem)
         dl = elem.at(".//dl")
         if dl.nil?
@@ -81,6 +81,10 @@ module IsoDoc
         end
         docxml
       end
+=end
+
+def figure_cleanup(docxml)
+    end
 
       def inline_header_cleanup(docxml)
         docxml.xpath('//span[@class="zzMoveToFollowing"]').each do |x|
@@ -89,7 +93,6 @@ module IsoDoc
           if n.nil?
             x.name = "p"
           else
-            #n.children.first.previous = x.remove
             n.add_first_child(x.remove)
           end
         end

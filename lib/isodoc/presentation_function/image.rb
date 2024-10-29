@@ -46,12 +46,25 @@ module IsoDoc
     def figure1(elem)
       elem["class"] == "pseudocode" || elem["type"] == "pseudocode" and
         return sourcecode1(elem)
+      figure_fn(elem)
       figure_key(elem.at(ns("./dl")))
       figure_label?(elem) or return nil
       lbl = @xrefs.anchor(elem["id"], :label, false) or return
       # no xref, no label: this can be set in xref
       prefix_name(elem, block_delim,
                   l10n("#{figure_label(elem)} #{lbl}"), "name")
+    end
+
+    # move footnotes into key, and get rid of footnote reference
+      # since it is in diagram
+    def figure_fn(elem)
+      fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
+      fn.empty? and return
+      dl = elem.at(ns("//dl")) || elem.add_child("<dl> </dl>").last_element_child
+      fn.reverse_each do |f|
+        dl.children.first.previous =
+          "<dt>#{f['reference']}</dt><dd>#{f.remove.children.to_xml}</dd>"
+      end
     end
 
     def figure_label?(elem)
@@ -85,7 +98,7 @@ module IsoDoc
     def svg_emf_double(img)
       if emf?(img["mimetype"])
         img = emf_encode(img)
-        #img.children.first.previous = emf_to_svg(img)
+        # img.children.first.previous = emf_to_svg(img)
         img.add_first_child emf_to_svg(img)
       elsif img["mimetype"] == "image/svg+xml"
         src = svg_to_emf(img) or return
@@ -135,16 +148,11 @@ module IsoDoc
 
     def svg_to_emf(node)
       @output_formats[:doc] or return
-
       svg_impose_height_attr(node)
-
-      if node.elements&.first&.name == "svg" || %r{^data:}.match?(node["src"])
+      node.elements&.first&.name == "svg" || %r{^data:}.match?(node["src"]) and
         return svg_to_emf_from_node(node)
-      end
-
       target_path = imgfile_suffix(node["src"], "emf")
-      return target_path if File.exist?(target_path)
-
+      File.exist?(target_path) and return target_path
       svg_to_emf_from_node(node, target_path)
     end
 
