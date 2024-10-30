@@ -165,7 +165,7 @@ module IsoDoc
             parse(node.at(ns("./stem")), div)
             insert_tab(div, 1)
             if lbl = node&.at(ns("./name"))&.text
-              div << "(#{lbl})"
+              div << lbl
             end
           end
         end

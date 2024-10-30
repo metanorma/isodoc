@@ -452,7 +452,7 @@ RSpec.describe IsoDoc do
         <p id="_">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
       </note>
           </formula>
-          <formula id="_"><name>1</name>
+          <formula id="_"><name>(1)</name>
         <stem type="AsciiMath">r = 1 %</stem>
         </formula>
           </foreword></preface>
@@ -795,7 +795,7 @@ RSpec.describe IsoDoc do
           <p id="_">As for the measurement targets,</p>
         </div><div exclude="false" type="requirement-measurement-target">
           <p id="_">The measurement target shall be measured as:</p>
-          <formula id="_"><name>1</name>
+          <formula id="_"><name>(1)</name>
             <stem type="AsciiMath">r/1 = 0</stem>
           </formula>
         </div><div exclude="false" type="requirement-verification">
@@ -953,7 +953,7 @@ RSpec.describe IsoDoc do
           <p id="_">As for the measurement targets,</p>
         </div><div exclude="false" keep-with-next="true" keep-lines-together="true" type="requirement-measurement-target">
           <p id="_">The measurement target shall be measured as:</p>
-          <formula id="B"><name>1</name>
+          <formula id="B"><name>(1)</name>
             <stem type="AsciiMath">r/1 = 0</stem>
           </formula>
         </div><div exclude="false" type="requirement-verification">
@@ -1093,7 +1093,7 @@ RSpec.describe IsoDoc do
           <p id="_">As for the measurement targets,</p>
         </div><div exclude="false" type="requirement-measurement-target">
           <p id="_">The measurement target shall be measured as:</p>
-          <formula id="_"><name>1</name>
+          <formula id="_"><name>(1)</name>
             <stem type="AsciiMath">r/1 = 0</stem>
           </formula>
         </div><div exclude="false" type="requirement-verification">

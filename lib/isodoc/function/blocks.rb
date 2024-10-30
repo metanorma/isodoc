@@ -49,8 +49,7 @@ module IsoDoc
       end
 
       def sourcecode_name_parse(_node, div, name)
-        return if name.nil?
-
+        name.nil? and return
         div.p class: "SourceTitle", style: "text-align:center;" do |p|
           name.children.each { |n| parse(n, p) }
         end
@@ -101,7 +100,7 @@ module IsoDoc
             parse(node.at(ns("./stem")), div)
             if lbl = node&.at(ns("./name"))&.text
               insert_tab(div, 1)
-              div << "(#{lbl})"
+              div << lbl
             end
           end
         end

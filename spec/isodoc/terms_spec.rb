@@ -761,7 +761,7 @@ RSpec.describe IsoDoc do
               <pre id='F'>Literal</pre>
             </figure>
             <formula id='G'>
-              <name>1</name>
+              <name>(1)</name>
               <stem type='MathML'>
                 <math xmlns='http://www.w3.org/1998/Math/MathML'>
                   <mi>x</mi>

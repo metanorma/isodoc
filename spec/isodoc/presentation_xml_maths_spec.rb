@@ -1005,7 +1005,7 @@ RSpec.describe IsoDoc do
                     <sections>
            <clause displayorder="2">
              <formula id="_">
-               <name>1</name>
+               <name>(1)</name>
                <stem type="MathML" block="true">
                  <math-with-linebreak>
                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">

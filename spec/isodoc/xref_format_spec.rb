@@ -89,9 +89,11 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true))
       .at("//div[@class = 'WordSection2']").to_xml))
@@ -124,7 +126,7 @@ RSpec.describe IsoDoc do
           <clause id='A' displayorder="2">
             <title>1.</title>
             <formula id='B'>
-              <name>1</name>
+              <name>(1)</name>
             </formula>
           </clause>
           <clause id='C' displayorder="3">
@@ -147,7 +149,8 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "puts custom labels on xrefs" do
@@ -175,7 +178,7 @@ RSpec.describe IsoDoc do
           <clause id='A' displayorder="2">
             <title>1.</title>
             <formula id='B'>
-              <name>1</name>
+              <name>(1)</name>
             </formula>
           </clause>
           <clause id='C' displayorder="3">
@@ -194,7 +197,8 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "renders xrefs with style" do
@@ -231,7 +235,7 @@ RSpec.describe IsoDoc do
               My section
             </title>
             <formula id='B'>
-              <name>1</name>
+              <name>(1)</name>
             </formula>
           </clause>
           <clause id='C' displayorder='3'>
@@ -284,8 +288,10 @@ RSpec.describe IsoDoc do
         </sections>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "cases xrefs" do
@@ -404,7 +410,8 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "ignores casing of xrefs in unicameral scripts" do
@@ -471,7 +478,8 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml", script: "Hans" }
       .merge(presxml_options))
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "ignores locations in xrefs" do

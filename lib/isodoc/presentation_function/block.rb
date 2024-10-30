@@ -31,7 +31,7 @@ module IsoDoc
     def formula1(elem)
       formula_where(elem.at(ns("./dl")))
       lbl = @xrefs.anchor(elem["id"], :label, false)
-      prefix_name(elem, "", lbl, "name")
+      lbl.nil? || lbl.empty? or prefix_name(elem, "", "(#{lbl})", "name")
     end
 
     def formula_where(dlist)
