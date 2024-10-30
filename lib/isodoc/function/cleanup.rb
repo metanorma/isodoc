@@ -41,50 +41,8 @@ module IsoDoc
         end
         docxml
       end
-=begin
-      def figure_get_or_make_dl(elem)
-        dl = elem.at(".//dl")
-        if dl.nil?
-          elem.add_child("<p><b>#{@i18n.key}</b></p><dl></dl>")
-          dl = elem.at(".//dl")
-        end
-        dl
-      end
 
-      FIGURE_WITH_FOOTNOTES =
-        "//div[@class = 'figure'][descendant::aside]" \
-        "[not(descendant::div[@class = 'figure'])]".freeze
-
-      def figure_aside_process(elem, aside, key)
-        # get rid of footnote link, it is in diagram
-        elem&.at("./a[@class='TableFootnoteRef']")&.remove
-        fnref = elem.at(".//span[@class='TableFootnoteRef']/..")
-        dt = key.add_child("<dt></dt>").first
-        dd = key.add_child("<dd></dd>").first
-        fnref.parent = dt
-        aside.xpath(".//p").each do |a|
-          a.delete("class")
-          a.parent = dd
-        end
-      end
-
-      # move footnotes into key, and get rid of footnote reference
-      # since it is in diagram
-      def figure_cleanup(docxml)
-        docxml.xpath(FIGURE_WITH_FOOTNOTES).each do |f|
-          next unless f.at(".//aside[not(ancestor::p[@class = 'FigureTitle'])]")
-
-          key = figure_get_or_make_dl(f)
-          f.xpath(".//aside").each do |aside|
-            figure_aside_process(f, aside, key)
-          end
-        end
-        docxml
-      end
-=end
-
-def figure_cleanup(docxml)
-    end
+      def figure_cleanup(docxml); end
 
       def inline_header_cleanup(docxml)
         docxml.xpath('//span[@class="zzMoveToFollowing"]').each do |x|

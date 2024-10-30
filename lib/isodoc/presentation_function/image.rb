@@ -60,7 +60,8 @@ module IsoDoc
     def figure_fn(elem)
       fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
       fn.empty? and return
-      dl = elem.at(ns("//dl")) || elem.add_child("<dl> </dl>").last_element_child
+      dl = elem.at(ns("//dl")) ||
+        elem.add_child("<dl> </dl>").first
       fn.reverse_each do |f|
         dl.children.first.previous =
           "<dt>#{f['reference']}</dt><dd>#{f.remove.children.to_xml}</dd>"
