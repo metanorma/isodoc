@@ -675,10 +675,13 @@ RSpec.describe IsoDoc do
           </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes term domains" do
@@ -690,8 +693,8 @@ RSpec.describe IsoDoc do
           </clause>
         </preface>
           <sections>
-          <terms displayorder="2">
-          <term id="_extraneous_matter"><name>1.1.</name><preferred>extraneous matter</preferred><admitted>EM</admitted>
+          <terms>
+          <term id="_extraneous_matter"><preferred>extraneous matter</preferred><admitted>EM</admitted>
       <domain>rice</domain>
       <definition><p id="_318b3939-be09-46c4-a284-93f9826b981e">organic and inorganic components other than whole or broken kernels</p></definition>
       </term>
@@ -699,20 +702,41 @@ RSpec.describe IsoDoc do
           </sections>
           </iso-standard>
     INPUT
-    output = <<~OUTPUT
+    presxml = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+                  <preface>
+          <clause type="toc" id="_" displayorder="1">
+           <title depth="1">Table of contents</title>
+          </clause>
+        </preface>
+          <sections>
+          <terms displayorder="2">
+          <term id="_"><name>1.1.</name><preferred>extraneous matter</preferred><admitted>EM</admitted>
+      <definition><p id="_">&lt;<domain>rice</domain>&gt; organic and inorganic components other than whole or broken kernels</p></definition>
+      </term>
+          </terms>
+          </sections>
+          </iso-standard>
+    INPUT
+
+    html = <<~OUTPUT
       #{HTML_HDR}
                      <div>
-             <p class="TermNum" id="_extraneous_matter">1.1.</p><p class="Terms" style="text-align:left;">extraneous matter</p><p class="AltTerms" style="text-align:left;">EM</p>
+             <p class="TermNum" id="_">1.1.</p><p class="Terms" style="text-align:left;">extraneous matter</p><p class="AltTerms" style="text-align:left;">EM</p>
 
-             <p id="_318b3939-be09-46c4-a284-93f9826b981e">&lt;rice&gt; organic and inorganic components other than whole or broken kernels</p>
+             <p id="_">&lt;rice&gt; organic and inorganic components other than whole or broken kernels</p>
              </div>
                    </div>
                  </body>
              </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({}).convert("test", input,
-                                                                true)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes permissions" do

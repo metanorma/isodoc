@@ -123,6 +123,7 @@ module IsoDoc
     def termdefinition1(elem)
       unwrap_definition(elem)
       multidef(elem) if elem.xpath(ns("./definition")).size > 1
+      termdomain(elem)
     end
 
     def multidef(elem)
@@ -142,6 +143,12 @@ module IsoDoc
           v&.replace(v.children)
         end
       end
+    end
+
+    def termdomain(elem)
+      d = elem.at(ns(".//domain")) or return
+      p = elem.at(ns(".//definition//p")) or return
+      p.children.first.previous = "&lt;#{d.remove.to_xml}&gt;  "
     end
 
     def termsource(docxml)

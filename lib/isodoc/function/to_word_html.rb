@@ -4,10 +4,6 @@ require "pathname"
 module IsoDoc
   module Function
     module ToWordHtml
-      def set_termdomain(termdomain)
-        @termdomain = termdomain
-      end
-
       def note?
         @note
       end
@@ -222,7 +218,7 @@ module IsoDoc
           when "preferred" then term_parse(node, out)
           when "admitted" then admitted_term_parse(node, out)
           when "deprecates" then deprecated_term_parse(node, out)
-          when "domain" then set_termdomain(node.text)
+          when "domain" then termdomain_parse(node, out)
           when "definition" then definition_parse(node, out)
           when "termsource" then termref_parse(node, out)
           when "modification" then modification_parse(node, out)

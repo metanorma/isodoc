@@ -955,8 +955,7 @@ RSpec.describe IsoDoc do
             <sections>
             <terms id="_terms_and_definitions" obligation="normative" displayorder="1"><title>Terms and Definitions</title>
         <term id="paddy1"><name>1.1.</name><preferred>paddy</preferred>
-        <domain>rice</domain>
-        <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></definition>
+        <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f"><domain>rice</domain>rice retaining its husk after threshing</p></definition>
         <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
           <p id="_65c9a509-9a89-4b54-a890-274126aeb55c">Foreign seeds, husks, bran, sand, dust.</p>
           <ul>

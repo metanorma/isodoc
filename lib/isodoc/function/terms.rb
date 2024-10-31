@@ -60,12 +60,15 @@ module IsoDoc
         end
       end
 
+      def termdomain_parse(node, out)
+        node.children.each { |n| parse(n, out) }
+      end
+
       def termdef_parse(node, out)
-        name = node&.at(ns("./name"))&.remove
+        name = node.at(ns("./name"))&.remove
         out.p class: "TermNum", id: node["id"] do |p|
           name&.children&.each { |n| parse(n, p) }
         end
-        set_termdomain("")
         node.children.each { |n| parse(n, out) }
       end
 

@@ -140,9 +140,8 @@ RSpec.describe IsoDoc do
               <termsource status="modified">[SOURCE: <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality>ISO 7301:2011, Clause 3.1</origin>, modified
            &#x2014;
           The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</termsource>
-              <domain>rice</domain>
               <definition>
-                <p id="_">rice retaining its husk after threshing</p>
+                <p id="_">&lt;<domain>rice</domain>&gt; rice retaining its husk after threshing</p>
               </definition>
               <termexample id="_" keep-with-next="true" keep-lines-together="true">
                 <name>EXAMPLE  1</name>
@@ -370,11 +369,10 @@ RSpec.describe IsoDoc do
         <term id='paddy1'>
           <name>1.1.</name>
           <preferred><strong>paddy</strong></preferred>
-          <domain>rice</domain>
           <definition>
             <ol>
               <li>
-                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>&lt;<domain>rice</domain>&gt; rice retaining its husk after threshing</p>
               </li>
               <li>
                 <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747e'>rice retaining its husk after threshing, mark 2</p>
@@ -465,9 +463,8 @@ RSpec.describe IsoDoc do
             <term id='paddy1'>
               <name>1.1.</name>
               <preferred><strong>paddy; muddy rice</strong></preferred>
-              <domain>rice</domain>
               <definition>
-                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+                <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>&lt;<domain>rice</domain>&gt; rice retaining its husk after threshing</p>
               </definition>
             </term>
                   <term id='paddy2'>
@@ -475,9 +472,8 @@ RSpec.describe IsoDoc do
         <preferred>
           <strong>paddy; muddy rice</strong>
         </preferred>
-        <domain>rice</domain>
         <definition>
-          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747a'>rice retaining its husk after threshing</p>
+          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747a'>&lt;<domain>rice</domain>&gt; rice retaining its husk after threshing</p>
         </definition>
       </term>
       <term id='paddy3'>
@@ -488,9 +484,8 @@ RSpec.describe IsoDoc do
         <preferred>
           <strong>muddy rice</strong>
         </preferred>
-        <domain>rice</domain>
         <definition>
-          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747b'>rice retaining its husk after threshing</p>
+          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747b'>&lt;<domain>rice</domain>&gt; rice retaining its husk after threshing</p>
         </definition>
       </term>
       <term id='paddy4'>
@@ -501,9 +496,8 @@ RSpec.describe IsoDoc do
         <preferred>
           <strong>muddy rice</strong>, fra
         </preferred>
-        <domain>rice</domain>
         <definition>
-          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747c'>rice retaining its husk after threshing</p>
+          <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747c'>&lt;<domain>rice</domain>&gt; rice retaining its husk after threshing</p>
         </definition>
       </term>
           </terms>
@@ -557,9 +551,8 @@ RSpec.describe IsoDoc do
           <name>1.1.</name>
           <preferred geographic-area='US'><strong>paddy</strong>, m, f, sg, noun, en Latn US, /p&#xE6;di&#x2D0;/</preferred>
           <preferred><strong>muddy rice</strong>, n, noun</preferred>
-          <domain>rice</domain>
           <definition>
-            <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+            <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>&lt;<domain>rice</domain>&gt; rice retaining its husk after threshing</p>
           </definition>
         </term>
       </terms>
@@ -599,9 +592,8 @@ RSpec.describe IsoDoc do
               <pre id='_'>&#x3c;LITERAL&#x3e; FIGURATIVE</pre>
             </figure>
           </preferred>
-          <domain>rice</domain>
           <definition>
-            <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>rice retaining its husk after threshing</p>
+            <p id='_eb29b35e-123e-4d1c-b50b-2714d41e747f'>&lt;<domain>rice</domain>&gt; rice retaining its husk after threshing</p>
           </definition>
         </term>
       </terms>
