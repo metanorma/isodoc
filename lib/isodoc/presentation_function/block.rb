@@ -124,6 +124,8 @@ module IsoDoc
       elem.replace(elem.children)
     end
 
+    def dl(docxml); end
+
     def ol(docxml)
       docxml.xpath(ns("//ol")).each { |f| ol1(f) }
       @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
