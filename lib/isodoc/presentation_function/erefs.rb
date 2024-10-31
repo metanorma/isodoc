@@ -3,7 +3,7 @@ require "metanorma-utils"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def citeas(xmldoc)
-      xmldoc.xpath(ns("//eref | //origin | //quote/source")).each do |e|
+      xmldoc.xpath(ns("//eref | //origin | //quote//source")).each do |e|
         e["bibitemid"] && e["citeas"] or next
         a = @xrefs.anchor(e["bibitemid"], :xref, false) and e["citeas"] = a
       end
@@ -178,7 +178,7 @@ module IsoDoc
     end
 
     def eref2link(docxml)
-      docxml.xpath(ns("//eref | //origin[not(termref)] | //quote/source"))
+      docxml.xpath(ns("//eref | //origin[not(termref)] | //quote//source"))
         .each do |e|
         href = eref_target(e) or next
         e.xpath(ns("./locality | ./localityStack")).each(&:remove)

@@ -653,9 +653,14 @@ RSpec.describe IsoDoc do
           </clause>
         <foreword displayorder="2">
           <quote id="_">
-        <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality>ISO&#xa0;7301:2011, Clause 1</source>
-        <author>ISO</author>
         <p id="_">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
+      <attribution><p>— <author>ISO</author>, <eref type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011">
+                            <locality type="clause">
+                               <referenceFrom>1</referenceFrom>
+                            </locality>
+                            ISO 7301:2011, Clause 1
+                         </eref></p>
+                   </attribution>
       </quote>
           </foreword></preface>
           </iso-standard>
@@ -669,7 +674,7 @@ RSpec.describe IsoDoc do
 
 
         <p id="_">This International Standard gives the minimum specifications for rice (<i>Oryza sativa</i> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
-      <p class="QuoteAttribution">&#8212; ISO, ISO&#xa0;7301:2011, Clause 1</p></div>
+      <div class="QuoteAttribution"><p>&#8212; ISO, ISO&#xa0;7301:2011, Clause 1</p></div></div>
               </div>
             </div>
           </body>

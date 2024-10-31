@@ -180,5 +180,23 @@ module IsoDoc
     def source_modification(mod)
       termsource_modification(mod.parent)
     end
+
+    def quote(docxml)
+      docxml.xpath(ns("//quote")).each { |f| quote1(f) }
+    end
+
+    def quote1(elem)
+      author = elem.at(ns("./author"))
+      source = elem.at(ns("./source"))
+      author.nil? && source.nil? and return
+      p = "&#x2014; "
+      p += author.remove.to_xml if author
+      p += ", " if author && source
+      if source
+        source.name = "eref"
+        p += source.remove.to_xml
+      end
+      elem << "<attribution><p>#{l10n p}</p></attribution>"
+    end
   end
 end

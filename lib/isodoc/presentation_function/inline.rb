@@ -54,8 +54,8 @@ module IsoDoc
     end
 
     def quotesource(docxml)
-      docxml.xpath(ns("//quote/source")).each { |f| xref1(f) }
-      docxml.xpath(ns("//quote/source//xref")).each do |f|
+      docxml.xpath(ns("//quote//source")).each { |f| xref1(f) }
+      docxml.xpath(ns("//quote//source//xref")).each do |f|
         f.replace(f.children)
       end
     end

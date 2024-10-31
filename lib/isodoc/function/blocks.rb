@@ -3,8 +3,6 @@ require_relative "blocks_example_note"
 module IsoDoc
   module Function
     module Blocks
-      @annotation = false
-
       def figure_name_parse(_node, div, name)
         name.nil? and return
         div.p class: "FigureTitle", style: "text-align:center;" do |p|
@@ -86,10 +84,8 @@ module IsoDoc
       def annotation_parse(node, out)
         dl = node.at(ns("./dl")) or return
         @sourcecode = false
-        # @annotation = true
         out.div class: "annotation" do |div|
           parse(dl, div)
-          # @annotation = false
         end
       end
 
@@ -122,7 +118,6 @@ module IsoDoc
       def para_class(node)
         classtype = nil
         classtype = "MsoCommentText" if in_comment
-        classtype = "Sourcecode" if @annotation
         node["type"] == "floating-title" and
           classtype = "h#{node['depth']}"
         classtype ||= node["class"]
@@ -143,14 +138,9 @@ module IsoDoc
         end
       end
 
-      def quote_attribution(node, out)
-        author = node.at(ns("./author"))
-        source = node.at(ns("./source"))
-        author.nil? && source.nil? and return
-        out.p class: "QuoteAttribution" do |p|
-          p << "&#x2014; #{author.text}" if author
-          p << ", " if author && source
-          eref_parse(source, p) if source
+      def attribution_parse(node, out)
+        out.div class: "QuoteAttribution" do |d|
+          node.children.each { |n| parse(n, d) }
         end
       end
 
@@ -158,17 +148,13 @@ module IsoDoc
         attrs = para_attrs(node)
         attrs[:class] = "Quote"
         out.div **attr_code(attrs) do |p|
-          node.children.each do |n|
-            parse(n, p) unless %w(author source).include? n.name
-          end
-          quote_attribution(node, out)
+          node.children.each { |n| parse(n, p) }
         end
       end
 
       def passthrough_parse(node, out)
-        return if node["format"] &&
-          !(node["format"].split(",").include? @format.to_s)
-
+        node["format"] &&
+          !(node["format"].split(",").include? @format.to_s) and return
         out.passthrough node.text
       end
 
