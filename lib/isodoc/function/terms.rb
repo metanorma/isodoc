@@ -61,6 +61,7 @@ module IsoDoc
       end
 
       def termdomain_parse(node, out)
+        node["hidden"] == "true" and return
         node.children.each { |n| parse(n, out) }
       end
 
