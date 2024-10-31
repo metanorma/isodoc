@@ -58,18 +58,23 @@ module IsoDoc
       docxml.xpath(ns("//note")).each { |f| note1(f) }
     end
 
-    def note_delim
+    def note_delim(_elem)
       ""
     end
 
     def note1(elem)
       %w(bibdata bibitem).include?(elem.parent.name) ||
         elem["notag"] == "true" and return
+      lbl = note_label(elem)
+      prefix_name(elem, "", lbl, "name")
+    end
+
+    def note_label(elem)
       n = @xrefs.get[elem["id"]]
       lbl = @i18n.note
       (n.nil? || n[:label].nil? || n[:label].empty?) or
         lbl = l10n("#{lbl} #{n[:label]}")
-      prefix_name(elem, note_delim, lbl, "name")
+      "#{lbl}#{note_delim(elem)}"
     end
 
     def admonition(docxml)
