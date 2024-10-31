@@ -58,6 +58,10 @@ module IsoDoc
       docxml.xpath(ns("//note")).each { |f| note1(f) }
     end
 
+    def note_delim
+      ""
+    end
+
     def note1(elem)
       %w(bibdata bibitem).include?(elem.parent.name) ||
         elem["notag"] == "true" and return
@@ -65,7 +69,7 @@ module IsoDoc
       lbl = @i18n.note
       (n.nil? || n[:label].nil? || n[:label].empty?) or
         lbl = l10n("#{lbl} #{n[:label]}")
-      prefix_name(elem, "", lbl, "name")
+      prefix_name(elem, note_delim, lbl, "name")
     end
 
     def admonition(docxml)
