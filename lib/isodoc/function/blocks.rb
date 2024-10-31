@@ -17,9 +17,8 @@ module IsoDoc
       end
 
       def figure_parse(node, out)
-        return pseudocode_parse(node, out) if node["class"] == "pseudocode" ||
-          node["type"] == "pseudocode"
-
+        node["class"] == "pseudocode" || node["type"] == "pseudocode" and
+          return pseudocode_parse(node, out)
         @in_figure = true
         figure_parse1(node, out)
         @in_figure = false
@@ -114,8 +113,7 @@ module IsoDoc
         out.div **formula_attrs(node) do |div|
           formula_parse1(node, div)
           node.children.each do |n|
-            next if %w(stem name).include? n.name
-
+            %w(stem name).include? n.name and next
             parse(n, div)
           end
         end
@@ -125,9 +123,8 @@ module IsoDoc
         classtype = nil
         classtype = "MsoCommentText" if in_comment
         classtype = "Sourcecode" if @annotation
-        if node["type"] == "floating-title"
+        node["type"] == "floating-title" and
           classtype = "h#{node['depth']}"
-        end
         classtype ||= node["class"]
         classtype
       end
