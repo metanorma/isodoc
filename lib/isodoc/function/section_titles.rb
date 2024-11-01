@@ -63,7 +63,7 @@ module IsoDoc
       end
 
       # top level clause names
-      def clause_name(node, title, div, header_class)
+      def clause_name(_node, title, div, header_class)
         header_class = {} if header_class.nil?
         div.h1 **attr_code(header_class) do |h1|
           if title.is_a?(String) then h1 << title

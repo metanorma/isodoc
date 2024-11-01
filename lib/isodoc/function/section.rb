@@ -82,9 +82,6 @@ module IsoDoc
 
       # subclause
       def symbols_parse(isoxml, out)
-        isoxml.at(ns("./title")) or
-          #isoxml.children.first.previous = "<title>#{@i18n.symbols}</title>"
-          isoxml.add_first_child "<title>#{@i18n.symbols}</title>"
         clause_parse(isoxml, out)
       end
 
@@ -99,10 +96,11 @@ module IsoDoc
         end
       end
 
+      # TODO PRESENTATION XML
       def foreword(clause, out)
         page_break(out)
         out.div **attr_code(id: clause["id"]) do |s|
-          clause_name(clause, clause.at(ns("./title")) || @i18n.foreword, s,
+          clause_name(clause, clause.at(ns("./title")), s,
                       { class: "ForewordTitle" })
           clause.elements.each { |e| parse(e, s) unless e.name == "title" }
         end

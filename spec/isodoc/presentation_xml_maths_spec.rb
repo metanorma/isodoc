@@ -934,7 +934,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
               <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <note>
               <name>NOTE</name>
               <strong>

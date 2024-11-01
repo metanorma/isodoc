@@ -4,7 +4,7 @@ module IsoDoc
       def list_title_parse(node, out)
         name = node.at(ns("./name")) or return
         out.p class: "ListTitle" do |p|
-          name&.children&.each { |n| parse(n, p) }
+          name.children&.each { |n| parse(n, p) }
         end
       end
 

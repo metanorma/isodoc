@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     i = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <foreword>
+      <foreword><title>Foreword</title>
       <p>
       <xref target="N1"/>
       </preface>
@@ -23,7 +23,7 @@ RSpec.describe IsoDoc do
     i = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <foreword>
+      <foreword><title>Foreword</title>
       <p>
       <xref target="N1">abc</xref>
       </preface>
@@ -38,6 +38,7 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword>
+      <title>Foreword</title>
       <p>
       <xref target="a#b"/>
       </p>
@@ -52,7 +53,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
             <title depth="1">Table of contents</title>
           </clause>
-          <foreword displayorder='2'>
+          <foreword displayorder='2'><title>Foreword</title>
             <p>
               <xref target='a#b'>a#b</xref>
             </p>
@@ -485,7 +486,7 @@ RSpec.describe IsoDoc do
   it "ignores locations in xrefs" do
     input = <<~INPUT
       <itu-standard xmlns="https://www.calconnect.org/standards/itu">
-      <preface><foreword displayorder="1">
+      <preface><foreword displayorder="1"><title>Foreword</title>
                   <p id='_'>
               <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/>6.4 List 1.a) to 2.b)</xref>
               </p>

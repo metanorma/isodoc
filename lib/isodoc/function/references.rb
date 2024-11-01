@@ -3,6 +3,7 @@ module IsoDoc
     module References
       # This is highly specific to ISO, but it's not a bad precedent for
       # references anyway; keeping here instead of in IsoDoc::Iso for now
+      # TODO PRESENTATION XML
       def docid_l10n(text)
         text.nil? and return text
         @i18n.all_parts and text.gsub!(/All Parts/i, @i18n.all_parts.downcase)
@@ -36,7 +37,7 @@ module IsoDoc
         ret.empty? or return ret.map(&:text)
         ret = pref_ref_code_parse(bib) or return nil
         ins = bib.at(ns("./docidentifier[last()]"))
-        ret.reverse.each do |r|
+        ret.reverse_each do |r|
           ins.next = "<docidentifier scope='biblio-tag'>#{docid_l10n(r)}</docidentifier>"
         end
         ret

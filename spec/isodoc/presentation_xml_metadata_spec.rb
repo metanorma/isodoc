@@ -45,7 +45,7 @@ RSpec.describe IsoDoc do
          </metanorma-extension>
          <preface>
              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-           <foreword id="fwd" displayorder="2">
+           <foreword id="fwd" displayorder="2"><title>Foreword</title>
              <p>
                <math xmlns:sodipodi="ABC" id="b">
                  <sodipodi:b> xmlns:sodipodi</sodipodi:b>
@@ -319,7 +319,7 @@ RSpec.describe IsoDoc do
          </render>
          </metanorma-extension>
                    <preface>
-                   <foreword displayorder="1">
+                   <foreword displayorder="1"><title>Foreword</title>
                    <note><name>HTML</name></note>
                    <example><name>WORD</name></example>
                    </foreword>

@@ -138,7 +138,7 @@ RSpec.describe IsoDoc do
         </bibdata>
         <preface>
         <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <p id='_'>
               <xref target='ISO712'>[110]</xref>
               <xref target='ISBN'>[1]</xref>
@@ -738,7 +738,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-          <foreword displayorder="1">
+          <foreword displayorder="1"><title>Foreword</title>
             <p id="_">
               <xref target="ISO712">[110]</xref>
               <xref target="ISBN">[1]</xref>
@@ -942,7 +942,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-          <foreword displayorder="1">
+          <foreword displayorder="1"><title>Foreword</title>
             <p id="_">
               <eref bibitemid="ISO712">[110]</eref>
               <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
@@ -1029,7 +1029,7 @@ RSpec.describe IsoDoc do
       </references></bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
           <xref target='ISO712'>IEC&#xa0;217</xref>
         </p>
@@ -1070,7 +1070,7 @@ RSpec.describe IsoDoc do
       </references></bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
           <xref target='ISO712'>ISO&#xa0;712&#xA0;/ IEC&#xa0;217</xref>
         </p>
@@ -1629,7 +1629,7 @@ RSpec.describe IsoDoc do
       </standard-document>
     INPUT
     presxml = <<~OUTPUT
-      <foreword id="A" displayorder="2">
+      <foreword id="A" displayorder="2"><title>Foreword</title>
         <p id="_">
           <eref bibitemid="B" citeas="what">what</eref>
         </p>

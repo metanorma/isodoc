@@ -46,7 +46,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword id='fwd' displayorder="2">
+          <foreword id='fwd' displayorder="2"><title>Foreword</title>
             <p>
               <xref target='N1'>Figure 1</xref>
       <xref target='N2'>Figure 2a</xref>
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id='fwd' displayorder='2'>
+      <foreword id='fwd' displayorder='2'><title>Foreword</title>
         <p>
           <xref target='N1'>Figure 1</xref>
           <xref target='N2'>Figure A</xref>
@@ -376,7 +376,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id="fwd" displayorder="2">
+      <foreword id="fwd" displayorder="2"><title>Foreword</title>
          <p>
            <xref target="S1">Clause 1</xref>
            <xref target="S2">Clause 1.1</xref>
@@ -388,8 +388,8 @@ RSpec.describe IsoDoc do
            <xref target="S7a">Clause 3.1</xref>
            <xref target="S8">Clause 125</xref>
            <xref target="S9">Clause 126</xref>
-           <xref target="S10a">Clause 2</xref>
            <xref target="S10">Clause 125.1</xref>
+           <xref target="S10a">Clause 2</xref>
            <xref target="S11">Clause 3bis</xref>
            <xref target="S12">Clause 4bis</xref>
            <xref target="S13">Clause 3bis.4bis</xref>
@@ -492,7 +492,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id='fwd' displayorder='2'>
+      <foreword id='fwd' displayorder='2'><title>Foreword</title>
          <note id='A' unnumbered='true'>
            <name>NOTE </name>
          </note>

@@ -21,7 +21,7 @@ RSpec.describe IsoDoc do
             <clause type="toc" id="_" displayorder="1">
        <title depth="1">Table of contents</title>
       </clause>
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>Foreword</title>
             <sourcecode lang='ruby' id='samplecode'>
               <name>
                 Figure 1&#xA0;&#x2014; Ruby
@@ -163,7 +163,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
           <title depth="1">Table of contents</title>
         </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
              <sourcecode lang="ruby" id="samplecode">
                <name>Figure 1 — Ruby <em>code</em></name>
                <span class="nb">puts</span>
@@ -431,7 +431,7 @@ RSpec.describe IsoDoc do
       <preface>    <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
       </clause>
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>Foreword</title>
       <sourcecode id="samplecode" lang="xml"><name>Figure 1 — XML code</name><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></sourcecode>
                    <sourcecode id="samplecode1" lang="xml" linenums="true">
                <name>Figure 2 — XML code</name>
@@ -524,7 +524,7 @@ RSpec.describe IsoDoc do
       <preface>    <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
         </clause>
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>Foreword</title>
       <sourcecode id="_"><name>Figure 1</name>puts "Hello, world." <span class="c"><callout target="A">1</callout></span><span class="c"><callout target="B">2</callout></span> 
          %w{a b c}.each do |x|
            puts x <span class="c"><callout target="C">3</callout></span>
@@ -677,7 +677,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
           <title depth="1">Table of contents</title>
         </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
              <sourcecode id="_" linenums="true">
                <name>Figure 1</name>
                <table class="rouge-line-table">
@@ -890,7 +890,7 @@ RSpec.describe IsoDoc do
          <preface>    <clause type="toc" id="_" displayorder="1">
             <title depth="1">Table of contents</title>
           </clause>
-           <foreword id="X" displayorder="2">
+           <foreword id="X" displayorder="2"><title>Foreword</title>
              <sourcecode id="_" lang="ruby" linenums="true">
                <name>Figure 1</name>
                <table class="rouge-line-table">
@@ -1008,7 +1008,7 @@ RSpec.describe IsoDoc do
               <preface>    <clause type="toc" id="_" displayorder="1">
           <title depth="1">Table of contents</title>
         </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
         <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Figure 1&#xA0;&#x2014; Label</name><p id="_">&#xA0;&#xA0;<strong>A</strong><br/>
       &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<smallcap>B</smallcap></p>
       <p id="_">&#xA0;&#xA0;<em>C</em></p></figure>

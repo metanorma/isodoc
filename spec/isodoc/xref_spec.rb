@@ -121,7 +121,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='2'>
+          <foreword displayorder='2'><title>Foreword</title>
             <p>
               <xref target='N1'>Introduction, Note</xref>
       <xref target='N2'>Preparatory, Note</xref>
@@ -218,7 +218,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>Foreword</title>
         <p>
           <xref target="N1">Introduction, Box</xref>
           <xref target="N2">Preparatory, Box</xref>
@@ -241,7 +241,7 @@ RSpec.describe IsoDoc do
     input1 = input.sub(%r{<language>en</language>},
                        "<language>ja</language>")
     output = <<~OUTPUT
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>まえがき</title>
          <p>
            <xref target="N1">IntroductionのBox</xref>
            <xref target="N2">PreparatoryのBox</xref>
@@ -361,7 +361,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                <foreword id='fwd' displayorder="2">
+                <foreword id='fwd' displayorder="2"><title>Foreword</title>
                   <p>
                      <xref target='N1'>Figure 1</xref>
       <xref target='N2'>Figure (??)</xref>
@@ -484,7 +484,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id='fwd' displayorder='2'>
+      <foreword id='fwd' displayorder='2'><title>Foreword</title>
          <p>
            <xref target='N1'>Figure 1</xref>
            <xref target='N2'>Figure (??)</xref>
@@ -578,7 +578,7 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <foreword id='fwd' displayorder="2">
+                 <foreword id='fwd' displayorder="2"><title>Foreword</title>
                    <p>
                      <xref target='N'>Figure 1</xref>
       <xref target='note1'>Figure 1-1</xref>
@@ -671,7 +671,7 @@ RSpec.describe IsoDoc do
     INPUT
 
     output = <<~OUTPUT
-          <foreword displayorder='2'>
+          <foreword displayorder='2'><title>Foreword</title>
             <p>
               <xref target='N1'>Introduction, Example</xref>
       <xref target='N2'>Preparatory, Example (??)</xref>
@@ -789,7 +789,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='2'>
+          <foreword displayorder='2'><title>Foreword</title>
             <p>
               <xref target='N1'>Introduction, Formula (1)</xref>
       <xref target='N2'>Preparatory, Formula ((??))</xref>
@@ -889,7 +889,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>Foreword</title>
           <p>
              <xref target="N1">Introduction, Requirement 1</xref>
              <xref target="N2">Preparatory, Requirement (??)</xref>
@@ -983,7 +983,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='2'>
+          <foreword displayorder='2'><title>Foreword</title>
             <p>
               <xref target='N1'>Introduction, Recommendation 1</xref>
       <xref target='N2'>Preparatory, Recommendation (??)</xref>
@@ -1075,7 +1075,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <foreword displayorder='2'>
+                 <foreword displayorder='2'><title>Foreword</title>
                    <p>
                      <xref target='N1'>Introduction, Permission 1</xref>
       <xref target='N2'>Preparatory, Permission (??)</xref>
@@ -1161,7 +1161,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-                <foreword displayorder='2'>
+                <foreword displayorder='2'><title>Foreword</title>
                   <p>
                      <xref target='N1'>Clause 1, Permission 1</xref>
       <xref target='N2'>Clause 1, Permission 1-1</xref>
@@ -1322,7 +1322,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
           <xref target='N1'>Table 1</xref>
           <xref target='N2'>Table (??)</xref>
@@ -1376,7 +1376,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <p>
               <xref target='note1'>Clause 2.1, Note 1</xref>
       <xref target='note2'>Clause 2.2, Note 1</xref>
@@ -1424,7 +1424,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
           <xref target='note1'>Clause 2.1, Note 1</xref>
           <xref target='note2'>Clause 2.1.1, Note 1</xref>
@@ -1470,7 +1470,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <p>
               <xref target='note1'>Clause 2.1, Example</xref>
       <xref target='note2'>Clause 2.2, Example 1</xref>
@@ -1516,7 +1516,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
           <xref target='note1'>Clause 2.1, Example</xref>
           <xref target='note2'>Clause 2.1.1, Example 1</xref>
@@ -1754,8 +1754,8 @@ RSpec.describe IsoDoc do
           <xref target="H">Terms, definitions, symbols and abbreviated terms</xref>
           <xref target="I">Normal Terms</xref>
           <xref target="J">Normal Terms 1</xref>
-          <xref target="K">Terms, definitions, symbols and abbreviated terms, 2</xref>
-          <xref target="L">Definitions</xref>
+          <xref target="K">Symbols</xref>
+          <xref target="L">Symbols</xref>
           <xref target="M">Clause A</xref>
           <xref target="N">Introduction</xref>
           <xref target="O">Clause 1</xref>
@@ -1849,7 +1849,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
           <xref target='N1'>Introduction</xref>
           <xref target='N2'>Preparatory</xref>

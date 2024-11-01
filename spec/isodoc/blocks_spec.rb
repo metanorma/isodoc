@@ -273,7 +273,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <example id='samplecode' keep-with-next='true' keep-lines-together='true'>
               <name>EXAMPLE&#xA0;&#x2014; Title</name>
               <p>Hello</p>
@@ -384,7 +384,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <example id='samplecode'>
               <name>EXAMPLE 1</name>
               <p>Hello</p>
@@ -435,7 +435,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
           <formula id="_" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
         <stem type="AsciiMath">r = 1 %</stem>
         <p keep-with-next="true">where</p>
@@ -570,7 +570,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_toc" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
           <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
       Fictitious<br/>
       World</p>
@@ -651,7 +651,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
           <quote id="_">
         <p id="_">This International Standard gives the minimum specifications for rice (<em>Oryza sativa</em> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
       <attribution><p>— <author>ISO</author>, <eref type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011">
@@ -810,7 +810,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
           <permission id="_" keep-with-next="true" keep-lines-together="true" model="default"><name>Permission 1:<br/>/ogc/recommendation/wfs/2</name><p><em>Subject: user</em><br/>
       <em>Subject: non-user</em><br/>
       <em>Inherits: /ss/584/2015/level/1</em><br/>
@@ -974,7 +974,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
           <requirement id="A" unnumbered="true" keep-with-next="true" keep-lines-together="true" model="default"><name>Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</name><p><em>Subject: user</em><br/>
       <em>Inherits: /ss/584/2015/level/1</em></p><div type="requirement-description">
           <p id="_">I recommend <em>this</em>.</p>
@@ -1111,7 +1111,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
           <recommendation id="_" obligation="shall,could" keep-with-next="true" keep-lines-together="true" model="default"><name>Recommendation 1:<br/>/ogc/recommendation/wfs/2</name><p><em>Obligation: shall,could</em><br/>
       <em>Subject: user</em><br/>
       <em>Inherits: /ss/584/2015/level/1</em><br/>
@@ -1241,7 +1241,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_toc" displayorder="1">
            <title depth="1">Table of contents</title>
           </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
       <passthrough format="doc,rfc">&lt;A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
@@ -1271,7 +1271,7 @@ RSpec.describe IsoDoc do
            <title depth="1">Table of contents</title>
            <columnbreak/>
           </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
       </foreword></preface>
       </iso-standard>
     INPUT

@@ -37,6 +37,7 @@ module IsoDoc
         end
       end
 
+      # TODO PRESENTATION XML
       def termnote_delim
         l10n(": ")
       end

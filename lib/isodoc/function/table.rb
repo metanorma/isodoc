@@ -112,12 +112,12 @@ module IsoDoc
         !header && cell.name == "th" and
           scope = (cell["rowspan"] ? "rowgroup" : "row")
         { rowspan: cell["rowspan"], colspan: cell["colspan"],
-          style: style.gsub(/\n/, ""), scope: scope, class: cell["class"] }
+          style: style.delete("\n"), scope: scope, class: cell["class"] }
       end
 
       def make_tr_attr_style(row, rowmax, totalrows, _header, bordered)
         bordered or return ""
-        <<~STYLE.gsub(/\n/, "")
+        <<~STYLE.delete("\n")
           border-top:#{row.zero? ? "#{SW} 1.5pt;" : 'none;'}
           border-bottom:#{SW} #{rowmax >= totalrows ? '1.5' : '1.0'}pt;
         STYLE

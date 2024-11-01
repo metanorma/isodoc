@@ -72,7 +72,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-            <foreword displayorder="2">
+            <foreword displayorder="2"><title>Foreword</title>
             <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
           <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
           <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
@@ -293,7 +293,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-            <foreword displayorder="2">
+            <foreword displayorder="2"><title>Foreword</title>
               <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
                 <name>Figure 1 — Overall title</name>
                 <figure id="note1">
@@ -425,7 +425,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-             <foreword displayorder='2'>
+             <foreword displayorder='2'><title>Foreword</title>
                <figure id='figureA-1' keep-with-next='true' keep-lines-together='true' class='diagram'>
                  <name>
                    Diagram 1&#xa0;&#x2014; Split-it-right
@@ -496,7 +496,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-             <foreword displayorder='2'>
+             <foreword displayorder='2'><title>Foreword</title>
                <figure id='figureA-1'>
                  <name>Figure 1</name>
                  <image src='' mimetype='image/svg+xml' height='auto' width='auto'>
@@ -536,7 +536,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-             <foreword displayorder='2'>
+             <foreword displayorder='2'><title>Foreword</title>
                <figure id='figureA-1'>
                  <name>Figure 1</name>
                  <image src='' id='_' mimetype='image/svg+xml' height='200' width='200'>
@@ -649,7 +649,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-            <foreword displayorder='2'>
+            <foreword displayorder='2'><title>Foreword</title>
               <figure id='figureA-1'>
                 <name>Figure 1</name>
                 <image src='spec/assets/odf.svg' mimetype='image/svg+xml'>
@@ -741,7 +741,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-                <foreword displayorder="2">
+                <foreword displayorder="2"><title>Foreword</title>
                 <example>
                 <sourcecode id="B"><name>Label</name>A B C</sourcecode>
           <figure id="A" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong></p></figure>

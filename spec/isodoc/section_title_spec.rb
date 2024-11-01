@@ -31,7 +31,6 @@ RSpec.describe IsoDoc do
          <title>Abstract</title>
       </abstract>
       <foreword obligation="informative">
-         <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
@@ -59,7 +58,6 @@ RSpec.describe IsoDoc do
        </term>
        </terms>
        <definitions id="K">
-         <title>Definitions</title>
          <dl>
          <dt>Symbol</dt>
          <dd>Definition</dd>
@@ -193,7 +191,7 @@ RSpec.describe IsoDoc do
               </term>
             </terms>
             <definitions id='K'>
-              <title depth='2'>3.2.<tab/>Definitions</title>
+              <title depth='2'>3.2.<tab/>Symbols</title>
               <dl>
                 <dt>Symbol</dt>
                 <dd>Definition</dd>
@@ -342,7 +340,7 @@ RSpec.describe IsoDoc do
                            <h2>3.1.&#160; Normal Terms</h2>
                            <p class="TermNum" id="J">3.1.1.</p>
                            <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-                         </div><div id="K"><h2>3.2.&#160; Definitions</h2>
+                         </div><div id="K"><h2>3.2.&#160; Symbols</h2>
                          <div class="figdl">
                            <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                            </div>
@@ -507,7 +505,7 @@ RSpec.describe IsoDoc do
               <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
             </div>
-              <div id="K"><h2>3.2.<span style="mso-tab-count:1">&#160; </span>Definitions</h2>
+              <div id="K"><h2>3.2.<span style="mso-tab-count:1">&#160; </span>Symbols</h2>
               <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
             </div>
             </div>
@@ -570,12 +568,16 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(word)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes section subtitles" do
@@ -1329,14 +1331,14 @@ RSpec.describe IsoDoc do
                 <preferred><strong>Term2</strong></preferred>
               </term>
             </terms>
-            <definitions id='K'>
+            <definitions id='K'><title depth="2">Symbols</title>
               <dl>
                 <dt>Symbol</dt>
                 <dd>Definition</dd>
               </dl>
             </definitions>
           </clause>
-          <definitions id='L' displayorder='7'>
+          <definitions id='L' displayorder='7'><title depth="1">Symbols</title>
             <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
@@ -1467,14 +1469,14 @@ RSpec.describe IsoDoc do
                 </preferred>
               </term>
             </terms>
-            <definitions id="K" unnumbered="true">
+            <definitions id="K" unnumbered="true"><title depth="2">Symbols</title>
               <dl>
                 <dt>Symbol</dt>
                 <dd>Definition</dd>
               </dl>
             </definitions>
           </clause>
-          <definitions id="L" unnumbered="true" displayorder="5">
+          <definitions id="L" unnumbered="true" displayorder="5"><title depth="1">Symbols</title>
             <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>

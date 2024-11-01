@@ -13,7 +13,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~INPUT, false)
        <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="1">
+      <preface><foreword displayorder="1"><title>Foreword</title>
       <dl>
       <dt>Term</dt>
       <dd>Definition</dd>
@@ -56,7 +56,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="1">
+      <preface><foreword displayorder="1"><title>Foreword</title>
       <dl>
       <dt>Term</dt>
       <dd>Definition</dd>
@@ -575,7 +575,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(options)
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1">
+            <preface><foreword displayorder="1"><title>Foreword</title>
             <ul>
             <li><p>A</p>
             <p>B</p></li>
@@ -648,7 +648,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(options).convert("test", <<~INPUT, false)
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <example id="samplecode">
         <p>ABC</p>
       </example>
@@ -680,7 +680,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(options)
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1">
+            <preface><foreword displayorder="1"><title>Foreword</title>
         <figure id="fig1">
           <name>Typical arrangement of the far-field scan set-up</name>
           <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
@@ -714,7 +714,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(options)
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1">
+            <preface><foreword displayorder="1"><title>Foreword</title>
         <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
               <td rowspan="2">
                 <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>(</mo><mi>μ</mi><mi>m</mi><mo>)</mo></mrow></math></stem></p>
@@ -762,7 +762,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(options)
       .convert("test", <<~INPUT, false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-                  <preface><foreword displayorder="1">
+                  <preface><foreword displayorder="1"><title>Foreword</title>
               <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
                     <td rowspan="2" align="left">
                       <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength</p>

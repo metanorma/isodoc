@@ -19,7 +19,7 @@ RSpec.describe IsoDoc do
               <bibdata>
               <title language="en">test</title>
               </bibdata>
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -46,7 +46,7 @@ RSpec.describe IsoDoc do
               <bibdata>
               <title language="en">test</title>
               </bibdata>
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -67,7 +67,7 @@ RSpec.describe IsoDoc do
               <bibdata>
               <title language="en">test</title>
               </bibdata>
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">{% elif %}These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -93,7 +93,7 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css" })
       .convert("test", <<~INPUT, false)
                 <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1">
+            <preface><foreword displayorder="1"><title>Foreword</title>
             <note>
           <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
         </note>
@@ -117,7 +117,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -197,7 +197,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -218,7 +218,6 @@ RSpec.describe IsoDoc do
     expect(html).to match(/This is > a script/)
     expect(html).to match(/This is > also a script/)
     expect(html).not_to match(/CDATA/)
-    expect(html).to match(%r{Antaŭparolo</h1>})
     expect(html).to match(%r{html-override})
   end
 
@@ -235,7 +234,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -255,7 +254,6 @@ RSpec.describe IsoDoc do
     expect(html).to match(/an empty html intro page/)
     expect(html).to match(/This is > a script/)
     expect(html).not_to match(/CDATA/)
-    expect(html).to match(%r{Antaŭparolo</h1>})
   end
 
   it "generates Word output docs with complete configuration" do
@@ -280,7 +278,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -301,7 +299,6 @@ RSpec.describe IsoDoc do
       .to match(/Content-Disposition: inline; filename="filelist.xml"/)
     expect(word).to match(/an empty word cover page/)
     expect(word).to match(/an empty word intro page/)
-    expect(word).to match(%r{Anta&#x16D;parolo</h1>})
     expect(word).to match(%r{word-override})
   end
 
@@ -319,7 +316,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -341,7 +338,6 @@ RSpec.describe IsoDoc do
       .to match(/Content-Disposition: inline; filename="filelist.xml"/)
     expect(word).to match(/an empty word cover page/)
     expect(word).to match(/an empty word intro page/)
-    expect(word).to match(%r{Anta&#x16D;parolo</h1>})
   end
 
   it "processes document with no content" do
@@ -396,7 +392,7 @@ RSpec.describe IsoDoc do
               <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <clause type="toc"><title>TOC</title></clause>
-            <foreword displayorder="2" id="fwd">
+            <foreword displayorder="2" id="fwd"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -415,14 +411,14 @@ RSpec.describe IsoDoc do
             <div class="prefatory-section">
         /* an empty html intro page */
         <ul id="toc-list"/>
-               <div id="toc"><ul><li class="h1"><a href="#fwd">      Antaŭparolo</a></li></ul></div>
+               <div id="toc"><ul><li class="h1"><a href="#fwd">      Foreword</a></li></ul></div>
          </div>
            <br/>
            <main class="main-section">
              <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br/>
              <div id="fwd">
-               <h1 class="ForewordTitle" id="_"><a class="anchor" href="#fwd"/><a class="header" href="#fwd">Antaŭparolo</a></h1>
+               <h1 class="ForewordTitle" id="_"><a class="anchor" href="#fwd"/><a class="header" href="#fwd">Foreword</a></h1>
                <div class="Note">
                  <p>  These results are based on a study carried out on three different types of kernel.</p>
                </div>
@@ -438,7 +434,7 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new({ htmlintropage: "spec/assets/htmlintro.html" })
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface><foreword displayorder="1" id="fwd"><title>Foreword</title>
+        <preface><foreword displayorder="1" id="fwd"><title>Foreword</title><title>Foreword</title>
         <variant-title type="toc">FORVORT</variant-title>
         </foreword></preface>
         <sections>
@@ -541,7 +537,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1">
+            <preface><foreword displayorder="1"><title>Foreword</title>
              <figure id="_">
              <name>Split-it-right sample divider</name>
                       <svg xmlns="http://www.w3.org/2000/svg" src="spec/assets/rice_image1.png" id="_" width="20000" height="300000"/>
@@ -605,7 +601,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "html.scss" },
     ).convert("test", <<~INPUT, false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="1">
+      <preface><foreword displayorder="1"><title>Foreword</title>
        <figure id="_">
        <name>Split-it-right sample divider</name>
        <image src="rice_image1.png" id="_" mimetype="image/png"/>
@@ -802,7 +798,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1">
+            <preface><foreword displayorder="1"><title>Foreword</title>
              <figure id="_">
              <name>Split-it-right sample divider</name>
                       <image src="spec/assets/rice_image1" id="_" mimetype="image/png"/>
@@ -843,7 +839,7 @@ RSpec.describe IsoDoc do
            htmlstylesheet: "assets/html.scss")
       .convert("spec/test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword displayorder="1">
+         <preface><foreword displayorder="1"><title>Foreword</title>
           <figure id="_">
           <name>Split-it-right sample divider</name>
                    <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -883,7 +879,7 @@ RSpec.describe IsoDoc do
       .new(htmlstylesheet: "spec/assets/html.scss", datauriimage: true)
       .convert("test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword displayorder="1">
+         <preface><foreword displayorder="1"><title>Foreword</title>
           <figure id="_">
           <name>Split-it-right sample divider</name>
              <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -918,7 +914,7 @@ RSpec.describe IsoDoc do
       .new({ htmlstylesheet: "assets/html.scss", datauriimage: true })
       .convert("spec/test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword displayorder="1">
+         <preface><foreword displayorder="1"><title>Foreword</title>
           <figure id="_">
           <name>Split-it-right sample divider</name>
                    <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -1007,7 +1003,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <sourcecode id="samplecode">
           <name>XML code</name>
         &lt;xml&gt; &amp;
@@ -1282,7 +1278,7 @@ RSpec.describe IsoDoc do
               <clause><title>I am boilerplate</title></clause>
               </feedback-statement>
               </boilerplate>
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -1363,7 +1359,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1">
+          <preface><foreword displayorder="1"><title>Foreword</title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">&lt;X&gt;</p>
       </note>

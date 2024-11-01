@@ -1299,7 +1299,7 @@ RSpec.describe IsoDoc do
             <title depth="1">Table of contents</title>
           </clause>
           <abstract displayorder="2"/>
-          <foreword displayorder="3"/>
+          <foreword displayorder="3"><title>Foreword</title></foreword>
           <introduction displayorder="4"/>
           <p type="floating-title" displayorder="5">FL 1</p>
           <p type="floating-title" displayorder="6">FL 2</p>
@@ -1351,7 +1351,7 @@ RSpec.describe IsoDoc do
            <abstract displayorder="4"/>
            <p type="floating-title" displayorder="5">FL 3</p>
            <p type="floating-title" displayorder="6">FL 4</p>
-           <foreword displayorder="7"/>
+           <foreword displayorder="7"><title>Foreword</title></foreword>
            <p type="floating-title" displayorder="8">FL 5</p>
            <p type="floating-title" displayorder="9">FL 6</p>
            <introduction displayorder="10"/>
@@ -1386,7 +1386,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
        <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
-          <foreword id="A" displayorder="2">
+          <foreword id="A" displayorder="2"><title>Foreword</title>
           <table id="tableD-1"><name>Table 1</name>
                <tbody>
                  <tr>
@@ -1442,7 +1442,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
        <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
-          <foreword id="A" displayorder="2">
+          <foreword id="A" displayorder="2"><title>Foreword</title>
                <table id="tableD-1"><name>Table 1</name>
                   <tbody>
                   <tr>
@@ -1491,7 +1491,7 @@ RSpec.describe IsoDoc do
       <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font></presentation-metadata>
         <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
 
-          <foreword id="A" displayorder="2">
+          <foreword id="A" displayorder="2"><title>Foreword</title>
             <p id="_"><span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">&#xFD80;</span></p>
        </foreword></preface></standard-document>
     OUTPUT
@@ -1520,7 +1520,7 @@ RSpec.describe IsoDoc do
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
          <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
 
-           <foreword id="A" displayorder="2">
+           <foreword id="A" displayorder="2"><title>Foreword</title>
              <p id="_">
              AB<span style="x:y">C</span>D<span style="x:y;text-transform:none">ABC</span>
              <span style="text-transform:none">A<em>B</em>C</span>
@@ -1663,7 +1663,7 @@ RSpec.describe IsoDoc do
            <clause type="toc" id="_" displayorder="1">
              <title depth="1">Table of contents</title>
            </clause>
-           <foreword id="A" displayorder="2">
+           <foreword id="A" displayorder="2"><title>Foreword</title>
              <p>
                <passthrough formats=",html,">A</passthrough>
                <passthrough formats=",word,html,">A</passthrough>
@@ -1702,7 +1702,7 @@ RSpec.describe IsoDoc do
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
          <preface><clause type="toc" id="_" displayorder="1"><title depth="1">Table of contents</title></clause>
 
-           <foreword id="A" displayorder="2">
+           <foreword id="A" displayorder="2"><title>Foreword</title>
              <p id="B">
              <table id="C"><name>Table 1</name>
              <tbody><td>

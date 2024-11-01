@@ -25,6 +25,7 @@ module IsoDoc
         admonition_cleanup(docxml)
       end
 
+      # todo PRESENTATION XML
       def admonition_cleanup(docxml)
         docxml.xpath("//div[@class = 'Admonition'][title]").each do |d|
           title = d.at("./title")
@@ -57,6 +58,7 @@ module IsoDoc
         docxml
       end
 
+      # todo PRESENTATION XML
       def footnote_cleanup(docxml)
         docxml.xpath('//a[@class = "FootnoteRef"]/sup')
           .each_with_index do |x, i|

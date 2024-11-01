@@ -27,6 +27,7 @@ module IsoDoc
         end
       end
 
+      # todo PRESENTATION XML
       def callout_parse(node, out)
         out << " &lt;#{node.text}&gt;"
       end
@@ -65,6 +66,7 @@ module IsoDoc
         end
       end
 
+      # todo PRESENTATION XML
       def termrefelem_parse(node, out)
         if node.text.strip.empty?
           out << "Termbase #{node['base']}, term ID #{node['target']}"
