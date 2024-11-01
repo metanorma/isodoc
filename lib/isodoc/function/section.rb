@@ -96,7 +96,6 @@ module IsoDoc
         end
       end
 
-      # TODO PRESENTATION XML
       def foreword(clause, out)
         page_break(out)
         out.div **attr_code(id: clause["id"]) do |s|

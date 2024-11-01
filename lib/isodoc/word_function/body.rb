@@ -111,7 +111,7 @@ module IsoDoc
           insert_tab(p, 1)
           node.first_element_child.children.each { |n| parse(n, p) }
         end
-        node.element_children[1..-1].each { |n| parse(n, div) }
+        node.element_children[1..].each { |n| parse(n, div) }
       end
 
       def note_parse1(node, div)
@@ -131,7 +131,7 @@ module IsoDoc
           div.p class: "Note" do |p|
             if name
               name.children.each { |n| parse(n, p) }
-              p << termnote_delim
+              p << " "
             end
             para_then_remainder(node.first_element_child, node, p, div)
           end

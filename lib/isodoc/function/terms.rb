@@ -37,19 +37,12 @@ module IsoDoc
         end
       end
 
-      # TODO PRESENTATION XML
-      def termnote_delim
-        l10n(": ")
-      end
-
       def termnote_parse(node, out)
         name = node&.at(ns("./name"))&.remove
         out.div **note_attrs(node) do |div|
           div.p do |p|
-            if name
-              name.children.each { |n| parse(n, p) }
-              p << termnote_delim
-            end
+            name&.children&.each { |n| parse(n, p) }
+            p << " "
             para_then_remainder(node.first_element_child, node, p, div)
           end
         end

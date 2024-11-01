@@ -109,9 +109,18 @@ module IsoDoc
       docxml.xpath(ns("//termnote")).each { |f| termnote1(f) }
     end
 
+    def termnote_delim(_elem)
+      l10n(": ")
+    end
+
     def termnote1(elem)
-      lbl = l10n(@xrefs.anchor(elem["id"], :label) || "???")
+      lbl = termnote_label(elem)
       prefix_name(elem, "", lower2cap(lbl), "name")
+    end
+
+    def termnote_label(elem)
+      lbl = @xrefs.anchor(elem["id"], :label) || "???"
+      l10n "#{lbl}#{termnote_delim(elem)}"
     end
 
     def termdefinition(docxml)

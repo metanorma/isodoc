@@ -364,7 +364,7 @@ RSpec.describe IsoDoc do
                 <p>note</p>
               </div>
               <div class="Note">
-                <p>NONE-SPECIFIED:  : note</p>
+                <p>NONE-SPECIFIED:  note</p>
               </div>
               <p class="TermNum" id=""/>
             </div>
@@ -413,7 +413,7 @@ RSpec.describe IsoDoc do
                 <p>note</p>
               </div>
               <div class="Note">
-                <p class="Note">NONE-SPECIFIED:<span style="mso-tab-count:1">  </span>: note</p>
+                <p class="Note">NONE-SPECIFIED:<span style="mso-tab-count:1">  </span> note</p>
               </div>
               <p class="TermNum" id=""/>
             </div>
