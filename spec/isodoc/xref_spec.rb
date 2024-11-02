@@ -243,7 +243,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <foreword displayorder="2"><title>まえがき</title>
          <p>
-           <xref target="N1">IntroductionのBox</xref>
+           <xref target="N1">序文のBox</xref>
            <xref target="N2">PreparatoryのBox</xref>
            <xref target="N3">[N3]</xref>
            <xref target="N">箇条1のBox</xref>
@@ -1535,11 +1535,15 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <foreword obligation="informative">
+      <foreword obligation="informative" id="C0">
          <title>Foreword</title>
          <p id="A">This is a preamble
+         <xref target="C0"/>
+         <xref target="B"/>
          <xref target="C"/>
          <xref target="C1"/>
+         <xref target="C2"/>
+         <xref target="C3"/>
          <xref target="D"/>
          <xref target="H"/>
          <xref target="I"/>
@@ -1559,11 +1563,15 @@ RSpec.describe IsoDoc do
          <xref target="S"/>
          </p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+        <introduction id="B" obligation="informative"><title></title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </clause>
        <clause id="C1" inline-header="false" obligation="informative">Text</clause>
-       </introduction></preface><sections>
+       </introduction>
+       <acknowledgements id="C2"><p>Ack</p>
+       <clause id="C3" inline-header="false" obligation="informative">Text</clause>
+        </acknowledgements>
+        </preface><sections>
        <clause id="D" obligation="normative" type="scope">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -1621,12 +1629,16 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword obligation='informative' displayorder='2'>
+      <foreword obligation='informative' displayorder='2' id="C0">
         <title>Foreword</title>
         <p id='A'>
           This is a preamble
+          <xref target="C0">Foreword</xref>
+          <xref target="B">Introduction</xref>
           <xref target='C'>Introduction Subsection</xref>
           <xref target='C1'>Introduction, 2</xref>
+          <xref target="C2">Acknowledgements</xref>
+          <xref target="C3">Acknowledgements, 1</xref>
           <xref target='D'>Clause 1</xref>
           <xref target='H'>Clause 3</xref>
           <xref target='I'>Clause 3.1</xref>
@@ -1650,6 +1662,45 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to Xml::C14n.format(output)
+    output = <<~OUTPUT
+      <foreword obligation='informative' displayorder='2' id="C0">
+        <title>Foreword</title>
+        <p id='A'>
+          This is a preamble
+             <xref target="C0">Foreword</xref>
+             <xref target="B">Введение</xref>
+             <xref target="C">Introduction Subsection</xref>
+             <xref target="C1">Введение, 2</xref>
+             <xref target="C2">Подтверждения</xref>
+             <xref target="C3">Подтверждения, 1</xref>
+             <xref target="D">Пункт 1</xref>
+             <xref target="H">Пункт 3</xref>
+             <xref target="I">Пункт 3.1</xref>
+             <xref target="J">Пункт 3.1.1</xref>
+             <xref target="K">Пункт 3.2</xref>
+             <xref target="L">Пункт 4</xref>
+             <xref target="M">Пункт 5</xref>
+             <xref target="N">Пункт 5.1</xref>
+             <xref target="O">Пункт 5.2</xref>
+             <xref target="P">Дополнение A</xref>
+             <xref target="Q">Дополнение A.1</xref>
+             <xref target="Q1">Дополнение A.1.1</xref>
+             <xref target="QQ">Дополнение B</xref>
+             <xref target="QQ1">Дополнение B</xref>
+             <xref target="QQ2">Дополнение B.1</xref>
+             <xref target="R">Пункт 2</xref>
+             <xref target="S">Bibliography</xref>
+        </p>
+      </foreword>
+    OUTPUT
+    expect(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test",
+               input.sub("<preface>",
+                         "<bibdata><language>ru</language></bibdata><preface>"),
+               true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -1765,8 +1816,8 @@ RSpec.describe IsoDoc do
           <xref target="Q">Annex1</xref>
           <xref target="Q1">Annex1a</xref>
           <xref target="QQ">Annex </xref>
-          <xref target="QQ1">, 1</xref>
-          <xref target="QQ2">, 1 1</xref>
+          <xref target="QQ1">Annex, 1</xref>
+          <xref target="QQ2">Annex, 1 1</xref>
           <xref target="R">Normative References</xref>
           <xref target="S">Bibliography</xref>
           </p>

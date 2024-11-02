@@ -83,8 +83,9 @@ module IsoDoc
 
       def clause_title(clause, use_elem_name: false)
         ret = clause.at(ns("./title"))&.text
-        if use_elem_name && !ret
-          clause.name.capitalize
+        if use_elem_name && ret.blank?
+          @i18n.labels[clause.name]&.capitalize ||
+            clause.name.capitalize
         else ret
         end
       end
@@ -107,11 +108,11 @@ module IsoDoc
 
       def unnumbered_names(clause)
         clause.nil? and return
-        preface_name_anchors(clause, 1,
-                             clause_title(clause, use_elem_name: true))
+        title = clause_title(clause, use_elem_name: true)
+        preface_name_anchors(clause, 1, title)
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
           preface_names1(c, c.at(ns("./title"))&.text,
-                         "#{clause_title(clause)}, #{i + 1}", 2)
+                         "#{title}, #{i + 1}", 2)
         end
       end
 
