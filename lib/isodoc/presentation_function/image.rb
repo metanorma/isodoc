@@ -80,6 +80,7 @@ module IsoDoc
 
     def figure_key(dlist)
       dlist or return
+      dlist.at(ns("./name")) and return
       dlist["class"] = "formula_dl"
       dlist.previous =
         "<p keep-with-next='true'><strong>#{@i18n.key}<strong></p>"
