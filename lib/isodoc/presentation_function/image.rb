@@ -60,9 +60,10 @@ module IsoDoc
     def figure_fn(elem)
       fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
       fn.empty? and return
-      dl = elem.at(ns("//dl")) || elem.add_child("<dl> </dl>").first
+      dl = elem.at(ns("//dl/name")) || elem.at(ns("//dl"))&.children&.first ||
+        elem.add_child("<dl> </dl>").first.children.first
       fn.reverse_each do |f|
-        dl.add_first_child "<dt>#{f['reference']}</dt>" \
+        dl.next = "<dt>#{f['reference']}</dt>" \
           "<dd>#{f.remove.children.to_xml}</dd>"
       end
     end
@@ -80,8 +81,8 @@ module IsoDoc
 
     def figure_key(dlist)
       dlist or return
-      dlist.at(ns("./name")) and return
       dlist["class"] = "formula_dl"
+      dlist.at(ns("./name")) and return
       dlist.previous =
         "<p keep-with-next='true'><strong>#{@i18n.key}<strong></p>"
     end
