@@ -157,7 +157,7 @@ module IsoDoc
     def termdomain(elem)
       d = elem.at(ns(".//domain")) or return
       p = elem.at(ns(".//definition//p")) or return
-      p.children.first.previous = "&lt;#{d.remove.to_xml}&gt;  "
+      p.add_first_child "&lt;#{d.remove.to_xml}&gt;  "
     end
 
     def termsource(docxml)

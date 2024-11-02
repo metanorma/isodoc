@@ -56,15 +56,14 @@ module IsoDoc
     end
 
     # move footnotes into key, and get rid of footnote reference
-      # since it is in diagram
+    # since it is in diagram
     def figure_fn(elem)
       fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
       fn.empty? and return
-      dl = elem.at(ns("//dl")) ||
-        elem.add_child("<dl> </dl>").first
+      dl = elem.at(ns("//dl")) || elem.add_child("<dl> </dl>").first
       fn.reverse_each do |f|
-        dl.children.first.previous =
-          "<dt>#{f['reference']}</dt><dd>#{f.remove.children.to_xml}</dd>"
+        dl.add_first_child "<dt>#{f['reference']}</dt>" \
+          "<dd>#{f.remove.children.to_xml}</dd>"
       end
     end
 
