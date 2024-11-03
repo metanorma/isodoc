@@ -1,3 +1,5 @@
+require_relative "docid"
+
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def references(docxml)
@@ -56,7 +58,7 @@ module IsoDoc
     end
 
     def bibitem(xml, renderings)
-      @xrefs.klass.implicit_reference(xml) and xml["hidden"] = "true"
+      implicit_reference(xml) and xml["hidden"] = "true"
       bibrender_item(xml, renderings)
     end
 
@@ -81,7 +83,7 @@ module IsoDoc
     end
 
     def bibliography_bibitem_number_skip(bibitem)
-      @xrefs.klass.implicit_reference(bibitem) ||
+      implicit_reference(bibitem) ||
         bibitem.at(ns(".//docidentifier[@type = 'metanorma']")) ||
         bibitem.at(ns(".//docidentifier[@type = 'metanorma-ordinal']")) ||
         bibitem["hidden"] == "true" || bibitem.parent["hidden"] == "true"
@@ -122,12 +124,6 @@ module IsoDoc
       ins
     end
 
-    def docid_prefixes(docxml)
-      docxml.xpath(ns("//references/bibitem/docidentifier")).each do |i|
-        i.children = @xrefs.klass.docid_prefix(i["type"], to_xml(i.children))
-      end
-    end
-
     def bibliography_bibitem_tag(docxml)
       [true, false].each do |norm|
         i = 0
@@ -139,17 +135,17 @@ module IsoDoc
 
     def bibliography_bibitem_tag1(ref, idx, norm)
       ref.xpath(ns("./bibitem")).each do |b|
-        @xrefs.klass.implicit_reference(b) and next
+        implicit_reference(b) and next
         idx += 1 unless b["hidden"]
-        insert_biblio_tag(b, idx, !norm, @xrefs.klass.standard?(b))
+        insert_biblio_tag(b, idx, !norm, standard?(b))
       end
       idx
     end
 
     def insert_biblio_tag(bib, ordinal, biblio, standard)
       datefn = date_note_process(bib)
-      ids = @xrefs.klass.bibitem_ref_code(bib)
-      idents = @xrefs.klass.render_identifier(ids)
+      ids = bibitem_ref_code(bib)
+      idents = render_identifier(ids)
       ret = if biblio then biblio_ref_entry_code(ordinal, idents, ids,
                                                  standard, datefn, bib)
             else norm_ref_entry_code(ordinal, idents, ids, standard, datefn,
@@ -198,6 +194,26 @@ module IsoDoc
     def ident_fn(bib)
       ret = bib.at(ns("./docidentifier//fn")) or return ""
       to_xml(ret.remove)
+    end
+
+    # reference not to be rendered because it is deemed implicit
+    # in the standards environment
+    def implicit_reference(bib)
+      bib["hidden"] == "true"
+    end
+
+    SKIP_DOCID = <<~XPATH.strip.freeze
+      @type = 'DOI' or @type = 'doi' or @type = 'ISSN' or @type = 'issn' or @type = 'ISBN' or @type = 'isbn' or starts-with(@type, 'ISSN.') or starts-with(@type, 'ISBN.') or starts-with(@type, 'issn.') or starts-with(@type, 'isbn.')
+    XPATH
+
+    def standard?(bib)
+      ret = false
+      bib.xpath(ns("./docidentifier")).each do |id|
+        id["type"].nil? ||
+          id.at(".//self::*[#{SKIP_DOCID} or @type = 'metanorma']") and next
+        ret = true
+      end
+      ret
     end
   end
 end

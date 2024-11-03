@@ -27,7 +27,7 @@ def presxml_options
 end
 
 def new_xrefs
-  klass = IsoDoc::HtmlConvert.new(language: "en", script: "Latn")
+  klass = IsoDoc::PresentationXMLConvert.new(language: "en", script: "Latn")
   klass.i18n_init("en", "Latn", nil)
   IsoDoc::Xref
     .new("en", "Latn", klass, klass.i18n,
