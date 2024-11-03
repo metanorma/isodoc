@@ -193,9 +193,9 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <foreword displayorder="2"><title>まえがき</title>
          <p>
-           <xref target="N1">Introductionのa)</xref>
-           <xref target="N11">Introductionのa)の1)</xref>
-           <xref target="N12">Introductionのa)の1)のi)</xref>
+           <xref target="N1">序文のa)</xref>
+           <xref target="N11">序文のa)の1)</xref>
+           <xref target="N12">序文のa)の1)のi)</xref>
            <xref target="N2">Preparatoryの1)</xref>
            <xref target="N">箇条1のi)</xref>
            <xref target="note1">箇条3.1のリスト  1のa)</xref>

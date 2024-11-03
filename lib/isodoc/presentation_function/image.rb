@@ -60,13 +60,17 @@ module IsoDoc
     def figure_fn(elem)
       fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
       fn.empty? and return
-      dl = elem.at(ns("//dl/name"))&.next ||
-        elem.at(ns("//dl"))&.children&.first ||
-        elem.add_child("<dl> </dl>").first.children.first
+      dl = figure_key_insert_pt(elem)
       fn.each do |f|
-        dl.previous = "<dt><sup>#{f['reference']}</sup></dt>" \
+        dl.previous = "<dt><p><sup>#{f['reference']}</sup></p></dt>" \
           "<dd>#{f.remove.children.to_xml}</dd>"
       end
+    end
+
+    def figure_key_insert_pt(elem)
+      elem.at(ns("//dl/name"))&.next ||
+        elem.at(ns("//dl"))&.children&.first ||
+        elem.add_child("<dl> </dl>").first.children.first
     end
 
     def figure_label?(elem)
