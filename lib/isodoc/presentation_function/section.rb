@@ -9,9 +9,18 @@ module IsoDoc
       s.add_first_child "<p class='zzSTDTitle1'>#{t}</p>"
     end
 
+    def missing_title(docxml)
+      docxml.xpath(ns("//definitions[not(./title)]")).each do |d|
+        # should only be happening for subclauses
+        d.add_first_child "<title>#{@i18n.symbols}</title>"
+      end
+      docxml.xpath(ns("//foreword[not(./title)]")).each do |d|
+        d.add_first_child "<title>#{@i18n.foreword}</title>"
+      end
+    end
+
     def clause(docxml)
-      docxml.xpath(ns("//clause | " \
-                      "//terms | //definitions | //references"))
+      docxml.xpath(ns("//clause | //terms | //definitions | //references"))
         .each do |f|
         f.parent.name == "annex" &&
           @xrefs.klass.single_term_clause?(f.parent) and next
@@ -88,9 +97,7 @@ module IsoDoc
     end
 
     def term(docxml)
-      docxml.xpath(ns("//term")).each do |f|
-        term1(f)
-      end
+      docxml.xpath(ns("//term")).each { |f| term1(f) }
     end
 
     def term1(elem)
@@ -207,8 +214,7 @@ module IsoDoc
         if prev.name == "floating-title"
           ret << prev
           p = prev
-        else break
-        end
+        else break end
       end
       ret
     end

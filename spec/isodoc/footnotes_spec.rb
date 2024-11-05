@@ -9,7 +9,7 @@ RSpec.describe IsoDoc do
             <clause type="toc" id="_" displayorder="1">
       <title depth="1">Table of contents</title>
     </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
           <p>A.<fn reference="2">
         <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
       </fn></p>
@@ -135,7 +135,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <foreword displayorder="1">
+          <foreword displayorder="1"><title>Foreword</title>
           <p id="A">A.</p>
           <p id="B">B.</p>
           <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c711" date="20170101T0000" from="A" to="B"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
@@ -267,7 +267,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <foreword displayorder="1">
+      <foreword displayorder="1"><title>Foreword</title>
       <ol>
       <li id="A"><p>A.</p><p>A1</p></li>
       <li id="B">B.</li>

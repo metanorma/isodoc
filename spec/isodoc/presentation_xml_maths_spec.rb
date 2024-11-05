@@ -934,7 +934,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
               <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <note>
               <name>NOTE</name>
               <strong>
@@ -1005,7 +1005,7 @@ RSpec.describe IsoDoc do
                     <sections>
            <clause displayorder="2">
              <formula id="_">
-               <name>1</name>
+               <name>(1)</name>
                <stem type="MathML" block="true">
                  <math-with-linebreak>
                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">

@@ -16,8 +16,6 @@ module IsoDoc
     def prefix_name(node, delim, number, elem)
       number.nil? || number.empty? and return
       unless name = node.at(ns("./#{elem}"))
-        #(node.children.empty? and node.add_child("<#{elem}></#{elem}>")) or
-        #  node.children.first.previous = "<#{elem}></#{elem}>"
         node.add_first_child "<#{elem}></#{elem}>"
         name = node.children.first
       end
@@ -33,7 +31,7 @@ module IsoDoc
     def formula1(elem)
       formula_where(elem.at(ns("./dl")))
       lbl = @xrefs.anchor(elem["id"], :label, false)
-      prefix_name(elem, "", lbl, "name")
+      lbl.nil? || lbl.empty? or prefix_name(elem, "", "(#{lbl})", "name")
     end
 
     def formula_where(dlist)
@@ -60,14 +58,23 @@ module IsoDoc
       docxml.xpath(ns("//note")).each { |f| note1(f) }
     end
 
+    def note_delim(_elem)
+      ""
+    end
+
     def note1(elem)
       %w(bibdata bibitem).include?(elem.parent.name) ||
         elem["notag"] == "true" and return
+      lbl = note_label(elem)
+      prefix_name(elem, "", lbl, "name")
+    end
+
+    def note_label(elem)
       n = @xrefs.get[elem["id"]]
       lbl = @i18n.note
       (n.nil? || n[:label].nil? || n[:label].empty?) or
         lbl = l10n("#{lbl} #{n[:label]}")
-      prefix_name(elem, "", lbl, "name")
+      "#{lbl}#{note_delim(elem)}"
     end
 
     def admonition(docxml)
@@ -126,6 +133,8 @@ module IsoDoc
       elem.replace(elem.children)
     end
 
+    def dl(docxml); end
+
     def ol(docxml)
       docxml.xpath(ns("//ol")).each { |f| ol1(f) }
       @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
@@ -181,6 +190,24 @@ module IsoDoc
 
     def source_modification(mod)
       termsource_modification(mod.parent)
+    end
+
+    def quote(docxml)
+      docxml.xpath(ns("//quote")).each { |f| quote1(f) }
+    end
+
+    def quote1(elem)
+      author = elem.at(ns("./author"))
+      source = elem.at(ns("./source"))
+      author.nil? && source.nil? and return
+      p = "&#x2014; "
+      p += author.remove.to_xml if author
+      p += ", " if author && source
+      if source
+        source.name = "eref"
+        p += source.remove.to_xml
+      end
+      elem << "<attribution><p>#{l10n p}</p></attribution>"
     end
   end
 end

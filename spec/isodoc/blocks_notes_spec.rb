@@ -21,7 +21,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                 <title depth="1">Table of contents</title>
               </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
                        <note id='A' keep-with-next='true' keep-lines-together='true'>
                <name>NOTE 1</name>
                <p id='_'>
@@ -137,7 +137,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                 <title depth="1">Table of contents</title>
               </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <note id='note1'>
               <name>NOTE 1</name>
               <p id='_'>
@@ -186,7 +186,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
           </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
           <note>
           <name>NOTE</name>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
@@ -218,7 +218,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
-            </clause><foreword displayorder="2">
+            </clause><foreword displayorder="2"><title>Foreword</title>
           <note id="A"><name>NOTE</name>
           <dl>
           <dt>A</dt>
@@ -296,7 +296,7 @@ RSpec.describe IsoDoc do
             <preface>    <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-        <foreword displayorder="2">
+        <foreword displayorder="2"><title>Foreword</title>
             <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
         <note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
         </foreword></preface>
@@ -392,7 +392,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-            <foreword displayorder='2'>
+            <foreword displayorder='2'><title>Foreword</title>
               <note id='FB' coverpage='true' unnumbered='true'>
                  <name>NOTE</name>
                  <p>XYZ</p>
@@ -495,7 +495,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
         <title depth="1">Table of contents</title>
       </clause>
-            <foreword displayorder='2'>
+            <foreword displayorder='2'><title>Foreword</title>
               <figure id='F'>
                 <name>Figure 1</name>
                 <note id='FB'>
@@ -544,7 +544,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
           <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true">
           <name>CAUTION</name>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -592,7 +592,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
             <title depth="1">Table of contents</title>
           </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
             <admonition id="_" type="caution">
               <name>CAUTION</name>
             </admonition>
@@ -625,7 +625,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2"><title>Foreword</title>
           <admonition id="_" type="caution">
           <name>Title</name>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -681,7 +681,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
               <title depth="1">Table of contents</title>
             </clause>
-           <foreword displayorder="2">
+           <foreword displayorder="2"><title>Foreword</title>
              <admonition id="_" type="box">
                <name>Box  1 — Title</name>
                <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>

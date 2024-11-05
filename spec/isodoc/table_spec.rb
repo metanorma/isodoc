@@ -111,7 +111,7 @@ RSpec.describe IsoDoc do
                 <clause type="toc" displayorder="1" id="_">
               <title depth="1">Table of contents</title>
             </clause>
-            <foreword displayorder="2">
+            <foreword displayorder="2"><title>Foreword</title>
                   <table id='tableD-1' alt='tool tip' summary='long desc' width='70%' keep-with-next='true' keep-lines-together='true'>
                     <name>
                       Table 1&#xA0;&#x2014; Repeatability and reproducibility of
@@ -475,7 +475,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" displayorder="1" id="_">
       <title depth="1">Table of contents</title>
       </clause>
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>Foreword</title>
         <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" class="modspec">
           <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
         </table>
@@ -556,7 +556,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <foreword displayorder="1">
+          <foreword displayorder="1"><title>Foreword</title>
             <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
         <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
         <thead>
@@ -748,7 +748,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1">
+        <foreword displayorder="1"><title>Foreword</title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
       <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
       <thead>
@@ -856,7 +856,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1">
+        <foreword displayorder="1"><title>Foreword</title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
       <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
       <thead>
@@ -976,7 +976,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1">
+        <foreword displayorder="1"><title>Foreword</title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
       <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
       <thead>
@@ -1085,7 +1085,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1">
+        <foreword displayorder="1"><title>Foreword</title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
       <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
       <thead>

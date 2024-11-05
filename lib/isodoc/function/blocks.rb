@@ -3,18 +3,10 @@ require_relative "blocks_example_note"
 module IsoDoc
   module Function
     module Blocks
-      @annotation = false
-
       def figure_name_parse(_node, div, name)
         name.nil? and return
         div.p class: "FigureTitle", style: "text-align:center;" do |p|
           name.children.each { |n| parse(n, p) }
-        end
-      end
-
-      def figure_key(out)
-        out.p style: "page-break-after:avoid;" do |p|
-          p.b { |b| b << @i18n.key }
         end
       end
 
@@ -23,9 +15,8 @@ module IsoDoc
       end
 
       def figure_parse(node, out)
-        return pseudocode_parse(node, out) if node["class"] == "pseudocode" ||
-          node["type"] == "pseudocode"
-
+        node["class"] == "pseudocode" || node["type"] == "pseudocode" and
+          return pseudocode_parse(node, out)
         @in_figure = true
         figure_parse1(node, out)
         @in_figure = false
@@ -34,7 +25,6 @@ module IsoDoc
       def figure_parse1(node, out)
         out.div **figure_attrs(node) do |div|
           node.children.each do |n|
-            figure_key(out) if n.name == "dl"
             parse(n, div) unless n.name == "name"
           end
           figure_name_parse(node, div, node.at(ns("./name")))
@@ -56,8 +46,7 @@ module IsoDoc
       end
 
       def sourcecode_name_parse(_node, div, name)
-        return if name.nil?
-
+        name.nil? and return
         div.p class: "SourceTitle", style: "text-align:center;" do |p|
           name.children.each { |n| parse(n, p) }
         end
@@ -95,10 +84,8 @@ module IsoDoc
       def annotation_parse(node, out)
         dl = node.at(ns("./dl")) or return
         @sourcecode = false
-        # @annotation = true
         out.div class: "annotation" do |div|
           parse(dl, div)
-          # @annotation = false
         end
       end
 
@@ -108,7 +95,7 @@ module IsoDoc
             parse(node.at(ns("./stem")), div)
             if lbl = node&.at(ns("./name"))&.text
               insert_tab(div, 1)
-              div << "(#{lbl})"
+              div << lbl
             end
           end
         end
@@ -122,8 +109,7 @@ module IsoDoc
         out.div **formula_attrs(node) do |div|
           formula_parse1(node, div)
           node.children.each do |n|
-            next if %w(stem name).include? n.name
-
+            %w(stem name).include? n.name and next
             parse(n, div)
           end
         end
@@ -132,10 +118,8 @@ module IsoDoc
       def para_class(node)
         classtype = nil
         classtype = "MsoCommentText" if in_comment
-        classtype = "Sourcecode" if @annotation
-        if node["type"] == "floating-title"
+        node["type"] == "floating-title" and
           classtype = "h#{node['depth']}"
-        end
         classtype ||= node["class"]
         classtype
       end
@@ -150,22 +134,13 @@ module IsoDoc
 
       def para_parse(node, out)
         out.p **attr_code(para_attrs(node)) do |p|
-          unless @termdomain.empty?
-            p << "&lt;#{@termdomain}&gt; "
-            @termdomain = ""
-          end
           node.children.each { |n| parse(n, p) }
         end
       end
 
-      def quote_attribution(node, out)
-        author = node.at(ns("./author"))
-        source = node.at(ns("./source"))
-        author.nil? && source.nil? and return
-        out.p class: "QuoteAttribution" do |p|
-          p << "&#x2014; #{author.text}" if author
-          p << ", " if author && source
-          eref_parse(source, p) if source
+      def attribution_parse(node, out)
+        out.div class: "QuoteAttribution" do |d|
+          node.children.each { |n| parse(n, d) }
         end
       end
 
@@ -173,17 +148,13 @@ module IsoDoc
         attrs = para_attrs(node)
         attrs[:class] = "Quote"
         out.div **attr_code(attrs) do |p|
-          node.children.each do |n|
-            parse(n, p) unless %w(author source).include? n.name
-          end
-          quote_attribution(node, out)
+          node.children.each { |n| parse(n, p) }
         end
       end
 
       def passthrough_parse(node, out)
-        return if node["format"] &&
-          !(node["format"].split(",").include? @format.to_s)
-
+        node["format"] &&
+          !(node["format"].split(",").include? @format.to_s) and return
         out.passthrough node.text
       end
 

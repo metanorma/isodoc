@@ -24,7 +24,7 @@ module IsoDoc
       end
 
       def insert_tab(out, count)
-        tab = %w(Hans Hant).include?(@script) ? "&#x3000;" : "&#xa0; "
+        tab = %w(Hans Hant Jpan Kore).include?(@script) ? "&#x3000;" : "&#xa0; "
         [1..count].each { out << tab }
       end
 

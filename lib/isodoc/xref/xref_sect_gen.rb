@@ -8,9 +8,11 @@ module IsoDoc
           annex_anchor_names(xml)
           back_clauses_anchor_names(xml)
         end
+=begin
         if @klass.bibrender && (@parse_settings.empty? || @parse_settings[:refs])
           references(xml)
         end
+=end
       end
 
       def annex_anchor_names(xml)
@@ -33,11 +35,13 @@ module IsoDoc
         end
       end
 
+=begin
       def references(docxml)
         docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
           reference_names(ref)
         end
       end
+=end
 
       def initial_anchor_names(xml)
         if @parse_settings.empty? || @parse_settings[:clauses]
@@ -83,8 +87,9 @@ module IsoDoc
 
       def clause_title(clause, use_elem_name: false)
         ret = clause.at(ns("./title"))&.text
-        if use_elem_name && !ret
-          clause.name.capitalize
+        if use_elem_name && ret.blank?
+          @i18n.labels[clause.name]&.capitalize ||
+            clause.name.capitalize
         else ret
         end
       end
@@ -107,11 +112,11 @@ module IsoDoc
 
       def unnumbered_names(clause)
         clause.nil? and return
-        preface_name_anchors(clause, 1,
-                             clause_title(clause, use_elem_name: true))
+        title = clause_title(clause, use_elem_name: true)
+        preface_name_anchors(clause, 1, title)
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
           preface_names1(c, c.at(ns("./title"))&.text,
-                         "#{clause_title(clause)}, #{i + 1}", 2)
+                         "#{title}, #{i + 1}", 2)
         end
       end
 
@@ -218,6 +223,7 @@ module IsoDoc
         end
       end
 
+=begin
       def reference_names(ref)
         ids = @klass.bibitem_ref_code(ref)
         identifiers = @klass.render_identifier(ids)
@@ -226,6 +232,7 @@ module IsoDoc
                       identifiers[:ordinal] || identifiers[:doi])
         @anchors[ref["id"]] = { xref: reference }
       end
+=end
     end
   end
 end

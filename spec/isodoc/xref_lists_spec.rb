@@ -70,7 +70,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
           <xref target='N1'>Introduction, List</xref>
           <xref target='N2'>Preparatory, List</xref>
@@ -168,7 +168,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
           <xref target='N1'>Introduction, a)</xref>
           <xref target='N11'>Introduction, a) 1)</xref>
@@ -191,11 +191,11 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(output)
     input1 = input.sub(%r{<language>en</language>}, "<language>ja</language>")
     output = <<~OUTPUT
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>まえがき</title>
          <p>
-           <xref target="N1">Introductionのa)</xref>
-           <xref target="N11">Introductionのa)の1)</xref>
-           <xref target="N12">Introductionのa)の1)のi)</xref>
+           <xref target="N1">序文のa)</xref>
+           <xref target="N11">序文のa)の1)</xref>
+           <xref target="N12">序文のa)の1)のi)</xref>
            <xref target="N2">Preparatoryの1)</xref>
            <xref target="N">箇条1のi)</xref>
            <xref target="note1">箇条3.1のリスト  1のa)</xref>
@@ -281,7 +281,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
           <xref target='N'>Clause 1, a)</xref>
           <xref target='note1'>Clause 1, a) 1)</xref>
@@ -304,7 +304,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(output)
     input1 = input.sub(%r{<language>en</language>}, "<language>ja</language>")
     output = <<~OUTPUT
-      <foreword displayorder="2">
+      <foreword displayorder="2"><title>まえがき</title>
          <p>
            <xref target="N">箇条1のa)</xref>
            <xref target="note1">箇条1のa)の1)</xref>
@@ -396,7 +396,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
           <xref target='N1'>Introduction, Definition List</xref>
           <xref target='N2'>Preparatory, Definition List</xref>
@@ -486,7 +486,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
+      <foreword displayorder='2'><title>Foreword</title>
         <p>
         <xref target='N1'>Introduction, Definition List: A</xref>
         <xref target='N2'>Preparatory, Definition List: A</xref>
@@ -546,7 +546,7 @@ RSpec.describe IsoDoc do
                 </iso-standard>
     INPUT
     output = <<~OUTPUT
-         <foreword displayorder='2'>
+         <foreword displayorder='2'><title>Foreword</title>
            <p><xref target="N1">Introduction, Definition List: <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mover accent="true"><mrow><mi>e</mi></mrow><mo>^</mo></mover></mrow><mrow><mi>r</mi></mrow></msub></math><asciimath>hat(e)_(r)</asciimath></stem>
       </xref>
            </p>

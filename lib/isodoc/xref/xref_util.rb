@@ -6,6 +6,12 @@ module Enumerable
   end
 end
 
+class Object
+  def blank?
+    nil? || empty?
+  end
+end
+
 module IsoDoc
   module XrefGen
     module Blocks

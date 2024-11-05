@@ -2,8 +2,7 @@ module IsoDoc
   module Function
     module Blocks
       def example_label(_node, div, name)
-        return if name.nil?
-
+        name.nil? and return
         div.p class: "example-title" do |_p|
           name.children.each { |n| parse(n, div) }
         end
@@ -53,28 +52,22 @@ module IsoDoc
         example_div_parse(node, out)
       end
 
-      def note_delim
-        ""
-      end
-
       def note_p_parse(node, div)
         name = node.at(ns("./name"))&.remove
         div.p do |p|
           name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
-            s << note_delim
           end
           insert_tab(p, 1)
           node.first_element_child.children.each { |n| parse(n, p) }
         end
-        node.element_children[1..-1].each { |n| parse(n, div) }
+        node.element_children[1..].each { |n| parse(n, div) }
       end
 
       def note_parse1(node, div)
         name = node.at(ns("./name")) and div.p do |p|
           p.span class: "note_label" do |s|
             name.remove.children.each { |n| parse(n, s) }
-            s << note_delim
           end
           insert_tab(p, 1)
         end

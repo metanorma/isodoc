@@ -111,14 +111,14 @@ RSpec.describe IsoDoc do
              <preferred><strong>Term2</strong></preferred>
            </term>
            </terms>
-           <definitions id="K"><title>3.2.</title>
+           <definitions id="K"><title depth="2">3.2.<tab/>Symbols</title>
              <dl>
              <dt>Symbol</dt>
              <dd>Definition</dd>
              </dl>
            </definitions>
            </clause>
-           <definitions id="L" displayorder="7"><title>4.</title>
+           <definitions id="L" displayorder="7"><title depth="1">4.<tab/>Symbols</title>
              <dl>
              <dt>Symbol</dt>
              <dd>Definition</dd>
@@ -181,13 +181,13 @@ RSpec.describe IsoDoc do
                 <h2>3.1.&#160; Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-              </div><div id="K"><h2>3.2.</h2>
+              </div><div id="K"><h2>3.2.  Symbols</h2>
                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                 </div>
               </div></div>
                      <div id="L" class="Symbols">
-                       <h1>4.</h1>
+                       <h1>4.  Symbols</h1>
                         <div class="figdl">
                        <dl>
                          <dt>
@@ -342,14 +342,14 @@ RSpec.describe IsoDoc do
             <preferred><strong>Term2</strong></preferred>
           </term>
           </terms>
-          <definitions id="K"><title>3.2.</title>
+          <definitions id="K"><title depth="2">3.2.<tab/>Symbols</title>
             <dl>
             <dt>Symbol</dt>
             <dd>Definition</dd>
             </dl>
           </definitions>
           </clause>
-          <definitions id="L" displayorder="7"><title>4.</title>
+          <definitions id="L" displayorder="7"><title depth="1">4.<tab/>Symbols</title>
             <dl>
             <dt>Symbol</dt>
             <dd>Definition</dd>
@@ -499,14 +499,14 @@ RSpec.describe IsoDoc do
               <preferred><strong>Term2</strong></preferred>
             </term>
             </terms>
-            <definitions id="K"><title>3.2.</title>
+            <definitions id="K"><title depth="2">3.2.<tab/>Symboles</title>
               <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
               </dl>
             </definitions>
             </clause>
-            <definitions id="L" displayorder="7"><title>4.</title>
+            <definitions id="L" displayorder="7"><title depth="1">4.<tab/>Symboles</title>
               <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
@@ -569,13 +569,13 @@ RSpec.describe IsoDoc do
                 <h2>3.1.&#160; Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-              </div><div id="K"><h2>3.2.</h2>
+              </div><div id="K"><h2>3.2.  Symboles</h2>
                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                 </div>
               </div></div>
                      <div id="L" class="Symbols">
-                       <h1>4.</h1>
+                       <h1>4.  Symboles</h1>
                         <div class="figdl">
                        <dl>
                          <dt>
@@ -742,14 +742,14 @@ RSpec.describe IsoDoc do
                <preferred><strong>Term2</strong></preferred>
              </term>
              </terms>
-             <definitions id="K"><title>3.2.</title>
+             <definitions id="K"><title depth="2">3.2.<tab/>符号</title>
                <dl>
                <dt>Symbol</dt>
                <dd>Definition</dd>
                </dl>
              </definitions>
              </clause>
-             <definitions id="L" displayorder="7"><title>4.</title>
+             <definitions id="L" displayorder="7"><title depth="1">4.<tab/>符号</title>
                <dl>
                <dt>Symbol</dt>
                <dd>Definition</dd>
@@ -821,14 +821,14 @@ RSpec.describe IsoDoc do
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
 
               </div>
-               <div id="K"><h2>3.2.</h2>
+               <div id="K"><h2>3.2.　符号</h2>
                 <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                 </div>
               </div>
              </div>
              <div id="L" class="Symbols">
-               <h1>4.</h1>
+               <h1>4.　符号</h1>
                 <div class="figdl">
                <dl>
                  <dt>
@@ -1000,14 +1000,14 @@ RSpec.describe IsoDoc do
                <preferred><strong>Term2</strong></preferred>
              </term>
              </terms>
-             <definitions id="K"><title>3.2.</title>
+             <definitions id="K"><title depth="2">3.2.<tab/>Simboloj kai mallongigitaj terminoj</title>
                <dl>
                <dt>Symbol</dt>
                <dd>Definition</dd>
                </dl>
              </definitions>
              </clause>
-             <definitions id="L" displayorder="7"><title>4.</title>
+             <definitions id="L" displayorder="7"><title depth="1">4.<tab/>Simboloj kai mallongigitaj terminoj</title>
                <dl>
                <dt>Symbol</dt>
                <dd>Definition</dd>
@@ -1107,7 +1107,7 @@ RSpec.describe IsoDoc do
                        <p class='Terms' style='text-align:left;'><b>Term2</b></p>
                      </div>
                      <div id='K'>
-                       <h2>3.2.</h2>
+                       <h2>3.2.  Simboloj kai mallongigitaj terminoj</h2>
                         <div class="figdl">
                        <dl>
                          <dt>
@@ -1119,7 +1119,7 @@ RSpec.describe IsoDoc do
                      </div>
                    </div>
                    <div id='L' class='Symbols'>
-                     <h1>4.</h1>
+                     <h1>4.  Simboloj kai mallongigitaj terminoj</h1>
                       <div class="figdl">
                      <dl>
                        <dt>
