@@ -9,45 +9,21 @@ RSpec.describe IsoDoc do
       <note id="B"><p>Note</p></note>
       </clause>
       </sections>
-      <bibliography>
-      <references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
-      <bibitem id="ISO712" type="standard">
-        <title format="text/plain">Cereals or cereal products</title>
-        <title type="main" format="text/plain">Cereals and cereal products</title>
-        <docidentifier type="ISO">ISO 712</docidentifier>
-        <docidentifier type="metanorma">[110]</docidentifier>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-            <name>International Organization for Standardization</name>
-          </organization>
-        </contributor>
-      </bibitem>
-      </references>
-      </bibliography>
       </iso-standard>
     INPUT
     xrefs = new_xrefs
     xrefs.parse(input)
-    expect(xrefs.anchor("A", :xref)).to eq "Clause 2"
+    expect(xrefs.anchor("A", :xref)).to eq "Clause 1"
     expect(xrefs.anchor("B", :xref)).to eq "Note"
-    expect(xrefs.anchor("ISO712", :xref)).to eq "[110]"
     expect(xrefs.anchor("C", :xref)).to eq "[C]"
     xrefs = new_xrefs.parse_inclusions(clauses: true)
     xrefs.parse(input)
-    expect(xrefs.anchor("A", :xref)).to eq "Clause 2"
+    expect(xrefs.anchor("A", :xref)).to eq "Clause 1"
     expect(xrefs.anchor("B", :xref)).to eq "[B]"
-    expect(xrefs.anchor("ISO712", :xref)).to eq "[ISO712]"
     xrefs = new_xrefs.parse_inclusions(assets: true)
     xrefs.parse(input)
     expect(xrefs.anchor("A", :xref)).to eq "[A]"
     expect(xrefs.anchor("B", :xref)).to eq "Note"
-    expect(xrefs.anchor("ISO712", :xref)).to eq "[ISO712]"
-    xrefs = new_xrefs.parse_inclusions(refs: true)
-    xrefs.parse(input)
-    expect(xrefs.anchor("A", :xref)).to eq "[A]"
-    expect(xrefs.anchor("B", :xref)).to eq "[B]"
-    expect(xrefs.anchor("ISO712", :xref)).to eq "[110]"
   end
 
   it "cross-references notes" do

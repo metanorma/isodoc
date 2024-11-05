@@ -7,11 +7,26 @@ module IsoDoc
       renderings = references_render(docxml)
       docxml.xpath(ns("//references/bibitem")).each do |x|
         bibitem(x, renderings)
+reference_name(x)
       end
       hidden_items(docxml)
       move_norm_ref_to_sections(docxml)
-      @xrefs.parse_inclusions(refs: true).parse(docxml)
+      #@xrefs.parse_inclusions(refs: true).parse(docxml)
     end
+
+    def reference_names(docxml)
+        docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
+          reference_name(ref)
+        end
+      end
+
+    def reference_name(ref)
+        ids = bibitem_ref_code(ref)
+        identifiers = render_identifier(ids)
+        reference = docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
+                      identifiers[:ordinal] || identifiers[:doi])
+        @xrefs.get[ref["id"]] = { xref: reference }
+      end
 
     def move_norm_ref_to_sections(docxml)
       docxml.at(ns(@xrefs.klass.norm_ref_xpath)) or return
@@ -94,7 +109,7 @@ module IsoDoc
       docxml.xpath(ns("//references[@normative = 'false']/bibitem")).each do |b|
         i = bibliography_bibitem_number1(b, i)
       end
-      @xrefs.references docxml
+      reference_names docxml
       bibliography_bibitem_tag(docxml)
     end
 
