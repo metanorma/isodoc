@@ -89,6 +89,7 @@ module IsoDoc
         label = admonition_label(elem, nil)
         prefix_name(elem, "", label, "name")
       end
+      n = elem.at(ns("./name")) and n << admonition_delim(elem)
     end
 
     def admonition_numbered1(elem)
@@ -99,9 +100,8 @@ module IsoDoc
 
     def admonition_label(elem, num)
       lbl = if elem["type"] == "box" then @i18n.box
-            else  @i18n.admonition[elem["type"]]&.upcase end
+            else @i18n.admonition[elem["type"]]&.upcase end
       num and lbl = l10n("#{lbl} #{num}")
-      lbl &&= "#{lbl}#{admonition_delim(elem)}"
       lbl
     end
 
