@@ -142,7 +142,7 @@ module IsoDoc
         div.p do |p|
           if name = admonition_name(node, node["type"])&.remove
             name.children.each { |n| parse(n, p) }
-            admonition_name_para_delim(para)
+            admonition_name_para_delim(p)
           end
           node.first_element_child.children.each { |n| parse(n, p) }
         end
