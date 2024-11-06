@@ -115,6 +115,7 @@ module IsoDoc
     end
 
     def table1(elem)
+      table_fn(elem)
       labelled_ancestor(elem) and return
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
@@ -132,6 +133,15 @@ module IsoDoc
         end
       end
     end
+
+    def table_fn(elem)
+      (elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn")))
+        .each_with_index do |f, i|
+          table_fn1(elem, f, i)
+        end
+    end
+
+    def table_fn1(table, fnote, idx); end
 
     # we use this to eliminate the semantic amend blocks from rendering
     def amend(docxml)
