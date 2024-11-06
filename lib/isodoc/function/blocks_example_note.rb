@@ -142,7 +142,7 @@ module IsoDoc
         div.p do |p|
           if name = admonition_name(node, node["type"])&.remove
             name.children.each { |n| parse(n, p) }
-            insert_tab(p, 1)
+            admonition_name_para_delim(para)
           end
           node.first_element_child.children.each { |n| parse(n, p) }
         end
