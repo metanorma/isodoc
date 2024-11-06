@@ -84,8 +84,8 @@ module IsoDoc
     def admonition1(elem)
       if elem["type"] == "box"
         admonition_numbered1(elem)
+      elsif elem["notag"] == "true" || elem.at(ns("./name"))
       else
-        elem["notag"] == "true" || elem.at(ns("./name")) and return
         label = admonition_label(elem, nil)
         prefix_name(elem, "", label, "name")
       end
