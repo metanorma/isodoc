@@ -86,14 +86,22 @@ module IsoDoc
         admonition_numbered1(elem)
       else
         elem["notag"] == "true" || elem.at(ns("./name")) and return
-        prefix_name(elem, "", @i18n.admonition[elem["type"]]&.upcase, "name")
+        label = @i18n.admonition[elem["type"]]&.upcase
+        label &&= "#{label}#{admonition_delim(elem)}"
+        prefix_name(elem, "", label, "name")
       end
     end
 
     def admonition_numbered1(elem)
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
-      prefix_name(elem, block_delim, l10n("#{@i18n.box} #{n}"), "name")
+      label = l10n("#{@i18n.box} #{n}")
+      label &&= "#{label}#{admonition_delim(elem)}"
+      prefix_name(elem, block_delim, label, "name")
+    end
+
+    def admonition_delim(_elem)
+      ""
     end
 
     def table(docxml)
