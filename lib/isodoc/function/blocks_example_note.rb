@@ -149,11 +149,14 @@ module IsoDoc
         node.element_children[1..].each { |n| parse(n, div) }
       end
 
+      def admonition_name_para_delim(para)
+        insert_tab(para, 1)
+      end
+
       def admonition_parse1(node, div)
         name = admonition_name(node, node["type"])
         if name
           admonition_name_parse(node, div, name)
-          # insert_tab(p, 1)
         end
         node.children.each { |n| parse(n, div) unless n.name == "name" }
       end
