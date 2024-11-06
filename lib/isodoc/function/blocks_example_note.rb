@@ -130,6 +130,38 @@ module IsoDoc
           node.children.each { |n| parse(n, t) unless n.name == "name" }
         end
       end
+
+      def admonition_parse(node, out)
+        out.div **admonition_attrs(node) do |div|
+          if node&.at(ns("./*[local-name() != 'name'][1]"))&.name == "p"
+            # admonition_p_parse(node, div, name)
+            # if will prefix name to first para
+            admonition_parse1(node, div)
+          else
+            admonition_parse1(node, div)
+          end
+        end
+      end
+
+      def admonition_p_parse(node, div)
+        div.p do |p|
+          if name = admonition_name(node, node["type"])&.remove
+            name.children.each { |n| parse(n, p) }
+            insert_tab(p, 1)
+          end
+          node.first_element_child.children.each { |n| parse(n, p) }
+        end
+        node.element_children[1..].each { |n| parse(n, div) }
+      end
+
+      def admonition_parse1(node, div)
+        name = admonition_name(node, node["type"])
+        if name
+          admonition_name_parse(node, div, name)
+          # insert_tab(p, 1)
+        end
+        node.children.each { |n| parse(n, div) unless n.name == "name" }
+      end
     end
   end
 end

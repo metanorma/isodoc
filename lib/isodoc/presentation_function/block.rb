@@ -86,18 +86,23 @@ module IsoDoc
         admonition_numbered1(elem)
       else
         elem["notag"] == "true" || elem.at(ns("./name")) and return
-        label = @i18n.admonition[elem["type"]]&.upcase
-        label &&= "#{label}#{admonition_delim(elem)}"
+        label = admonition_label(elem, nil)
         prefix_name(elem, "", label, "name")
       end
     end
 
     def admonition_numbered1(elem)
       elem["unnumbered"] && !elem.at(ns("./name")) and return
-      n = @xrefs.anchor(elem["id"], :label, false)
-      label = l10n("#{@i18n.box} #{n}")
-      label &&= "#{label}#{admonition_delim(elem)}"
+      label = admonition_label(elem, @xrefs.anchor(elem["id"], :label, false))
       prefix_name(elem, block_delim, label, "name")
+    end
+
+    def admonition_label(elem, num)
+      lbl = if elem["type"] == "box" then @i18n.box
+            else  @i18n.admonition[elem["type"]]&.upcase end
+      num and lbl = l10n("#{lbl} #{num}")
+      lbl &&= "#{lbl}#{admonition_delim(elem)}"
+      lbl
     end
 
     def admonition_delim(_elem)
