@@ -123,27 +123,22 @@ module IsoDoc
       end
 
       def admonition_parse(node, out)
-        type = node["type"]
-        name = admonition_name(node, type)
-        out.div **admonition_attrs(node) do |t|
-          admonition_name_parse(node, t, name) if name
-          node.children.each { |n| parse(n, t) unless n.name == "name" }
-        end
-      end
-
-      def admonition_parse(node, out)
         out.div **admonition_attrs(node) do |div|
           if node&.at(ns("./*[local-name() != 'name'][1]"))&.name == "p"
-            # admonition_p_parse(node, div, name)
-            # if will prefix name to first para
-            admonition_parse1(node, div)
+            admonition_p_parse(node, div)
           else
             admonition_parse1(node, div)
           end
         end
       end
 
+      # code to allow name and first paragraph to be rendered in same block
       def admonition_p_parse(node, div)
+        admonition_parse1(node, div)
+      end
+
+      # code to allow name and first paragraph to be rendered in same block
+      def admonition_name_in_first_para(node, div)
         div.p do |p|
           if name = admonition_name(node, node["type"])&.remove
             name.children.each { |n| parse(n, p) }
