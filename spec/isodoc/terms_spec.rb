@@ -310,12 +310,16 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     WORD
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(word)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes IsoXML term with multiple definitions" do
