@@ -1140,19 +1140,46 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
-      <passthrough format="html,rfc">&lt;A&gt;</passthrough><em>Hello</em><passthrough format="html,rfc">&lt;/A&gt;</passthrough>
+      <passthrough formats="html,rfc">&lt;A&gt;</passthrough><em>Hello</em><passthrough formats="html,rfc">&lt;/A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
     INPUT
-    presxml = IsoDoc::PresentationXMLConvert
+    presxml = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+           <clause type="toc" id="_" displayorder="1">
+              <title depth="1">Table of contents</title>
+           </clause>
+           <foreword displayorder="2">
+              <title>Foreword</title>
+              <passthrough formats=" html rfc ">&lt;A&gt;</passthrough>
+              <em>Hello</em>
+              <passthrough formats=" html rfc ">&lt;/A&gt;</passthrough>
+           </foreword>
+        </preface>
+      </iso-standard>
+    INPUT
+    output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
       .convert("test", input, true)
-    IsoDoc::HtmlConvert.new({}).convert("test", presxml, false)
+    xml = Nokogiri::XML(output)
+    xml.at("//xmlns:metanorma-extension")&.remove
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    IsoDoc::HtmlConvert.new({}).convert("test", output, false)
     expect(Xml::C14n.format(File.read("test.html")
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
       .gsub(%r{</div>.*}m, ""))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
         <A><i>Hello</i></A>
       OUTPUT
+
+    output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
+      .convert("test", input.sub("html,rfc", "all"), true)
+    xml = Nokogiri::XML(output)
+    xml.at("//xmlns:metanorma-extension")&.remove
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "aborts if passthrough results in malformed XML" do
@@ -1162,13 +1189,13 @@ RSpec.describe IsoDoc do
       input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface><foreword>
-        <passthrough format="html,rfc">&lt;A&gt;</passthrough><em>Hello</em>
+        <passthrough formats="html,rfc">&lt;A&gt;</passthrough><em>Hello</em>
         </foreword></preface>
         </iso-standard>
       INPUT
       presxml = IsoDoc::PresentationXMLConvert
-        .new(presxml_options.merge(output_formats: { html: "html",
-                                                     rfc: "rfc" }))
+        .new(presxml_options
+        .merge(output_formats: { html: "html", rfc: "rfc" }))
         .convert("test", input, true)
       expect do
         IsoDoc::HtmlConvert.new({})
@@ -1187,7 +1214,7 @@ RSpec.describe IsoDoc do
            <title depth="1">Table of contents</title>
           </clause>
         <foreword displayorder="2"><title>Foreword</title>
-      <passthrough format="doc,rfc">&lt;A&gt;</passthrough>
+      <passthrough formats="doc,rfc">&lt;A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
     INPUT
@@ -1205,7 +1232,8 @@ RSpec.describe IsoDoc do
       .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
       .convert("test", input, true)
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-     .convert("test", presxml, true)))).to be_equivalent_to Xml::C14n.format(output)
+     .convert("test", presxml, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "ignores columnbreak" do

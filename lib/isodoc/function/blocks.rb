@@ -153,8 +153,8 @@ module IsoDoc
       end
 
       def passthrough_parse(node, out)
-        node["format"] &&
-          !(node["format"].split(",").include? @format.to_s) and return
+        node["formats"] &&
+          !(node["formats"].split(" ").include? @format.to_s) and return
         out.passthrough node.text
       end
 

@@ -114,18 +114,6 @@ module IsoDoc
         m << <<~XSLT
           <preprocess-xslt format="#{k}">
             #{xslt_template(<<~XSLT1)
-              <xsl:template match="*[local-name() = 'passthrough']">
-                <xsl:if test="contains(@formats,',#{k},')"> <!-- delimited -->
-                #{COPY_XSLT}
-                </xsl:if>
-              </xsl:template>
-            XSLT1
-            }
-          </preprocess-xslt>
-        XSLT
-        m << <<~XSLT
-          <preprocess-xslt format="#{k}">
-            #{xslt_template(<<~XSLT1)
               <xsl:template match="*[local-name() = 'math-with-linebreak']">
               #{k == 'pdf' ? COPY_CHILDREN_XSLT : ''}
               </xsl:template>

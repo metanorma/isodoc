@@ -164,9 +164,9 @@ module IsoDoc
     def passthrough1(elem, formats)
       (elem["formats"] && !elem["formats"].empty?) or elem["formats"] = "all"
       f = elem["formats"].split(",")
-      (f - formats).size == f.size or elem["formats"] = "all"
-      elem["formats"] == "all" and elem["formats"] = formats.join(",")
-      elem["formats"] = ",#{elem['formats']},"
+      (f - formats).size == f.size or f = "all"
+      f == ["all"] and f = formats.dup
+      elem["formats"] = " #{f.join(' ')} "
     end
 
     def extract_custom_charsets(docxml)
