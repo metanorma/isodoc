@@ -8,11 +8,6 @@ module IsoDoc
           annex_anchor_names(xml)
           back_clauses_anchor_names(xml)
         end
-=begin
-        if @klass.bibrender && (@parse_settings.empty? || @parse_settings[:refs])
-          references(xml)
-        end
-=end
       end
 
       def annex_anchor_names(xml)
@@ -35,13 +30,7 @@ module IsoDoc
         end
       end
 
-=begin
-      def references(docxml)
-        docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
-          reference_names(ref)
-        end
-      end
-=end
+      # NOTE: references processing has moved to Presentation XML
 
       def initial_anchor_names(xml)
         if @parse_settings.empty? || @parse_settings[:clauses]
@@ -222,17 +211,6 @@ module IsoDoc
           annex_names1(c, i.increment(c).print, level + 1)
         end
       end
-
-=begin
-      def reference_names(ref)
-        ids = @klass.bibitem_ref_code(ref)
-        identifiers = @klass.render_identifier(ids)
-        reference = @klass
-          .docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
-                      identifiers[:ordinal] || identifiers[:doi])
-        @anchors[ref["id"]] = { xref: reference }
-      end
-=end
     end
   end
 end

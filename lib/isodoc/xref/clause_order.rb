@@ -17,10 +17,10 @@ module IsoDoc
           { path: "//sections/clause[@type = 'scope']" },
           { path: @klass.norm_ref_xpath },
           { path: "//sections/terms | " \
-            "//sections/clause[descendant::terms]" },
+            "//sections/clause[descendant::terms]", multi: true },
           { path: "//sections/definitions | " \
             "//sections/clause[descendant::definitions]" \
-            "[not(descendant::terms)]" },
+            "[not(descendant::terms)]", multi: true },
           { path: @klass.middle_clause(docxml), multi: true },
         ]
       end
