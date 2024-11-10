@@ -123,12 +123,42 @@ module IsoDoc
       end
 
       def admonition_parse(node, out)
-        type = node["type"]
-        name = admonition_name(node, type)
-        out.div **admonition_attrs(node) do |t|
-          admonition_name_parse(node, t, name) if name
-          node.children.each { |n| parse(n, t) unless n.name == "name" }
+        out.div **admonition_attrs(node) do |div|
+          if node&.at(ns("./*[local-name() != 'name'][1]"))&.name == "p"
+            admonition_p_parse(node, div)
+          else
+            admonition_parse1(node, div)
+          end
         end
+      end
+
+      # code to allow name and first paragraph to be rendered in same block
+      def admonition_p_parse(node, div)
+        admonition_parse1(node, div)
+      end
+
+      # code to allow name and first paragraph to be rendered in same block
+      def admonition_name_in_first_para(node, div)
+        div.p do |p|
+          if name = admonition_name(node, node["type"])&.remove
+            name.children.each { |n| parse(n, p) }
+            admonition_name_para_delim(p)
+          end
+          node.first_element_child.children.each { |n| parse(n, p) }
+        end
+        node.element_children[1..].each { |n| parse(n, div) }
+      end
+
+      def admonition_name_para_delim(para)
+        insert_tab(para, 1)
+      end
+
+      def admonition_parse1(node, div)
+        name = admonition_name(node, node["type"])
+        if name
+          admonition_name_parse(node, div, name)
+        end
+        node.children.each { |n| parse(n, div) unless n.name == "name" }
       end
     end
   end

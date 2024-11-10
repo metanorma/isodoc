@@ -84,16 +84,29 @@ module IsoDoc
     def admonition1(elem)
       if elem["type"] == "box"
         admonition_numbered1(elem)
+      elsif elem["notag"] == "true" || elem.at(ns("./name"))
       else
-        elem["notag"] == "true" || elem.at(ns("./name")) and return
-        prefix_name(elem, "", @i18n.admonition[elem["type"]]&.upcase, "name")
+        label = admonition_label(elem, nil)
+        prefix_name(elem, "", label, "name")
       end
+      n = elem.at(ns("./name")) and n << admonition_delim(elem)
     end
 
     def admonition_numbered1(elem)
       elem["unnumbered"] && !elem.at(ns("./name")) and return
-      n = @xrefs.anchor(elem["id"], :label, false)
-      prefix_name(elem, block_delim, l10n("#{@i18n.box} #{n}"), "name")
+      label = admonition_label(elem, @xrefs.anchor(elem["id"], :label, false))
+      prefix_name(elem, block_delim, label, "name")
+    end
+
+    def admonition_label(elem, num)
+      lbl = if elem["type"] == "box" then @i18n.box
+            else @i18n.admonition[elem["type"]]&.upcase end
+      num and lbl = l10n("#{lbl} #{num}")
+      lbl
+    end
+
+    def admonition_delim(_elem)
+      ""
     end
 
     def table(docxml)
@@ -102,6 +115,7 @@ module IsoDoc
     end
 
     def table1(elem)
+      table_fn(elem)
       labelled_ancestor(elem) and return
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
@@ -119,6 +133,15 @@ module IsoDoc
         end
       end
     end
+
+    def table_fn(elem)
+      (elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn")))
+        .each_with_index do |f, i|
+          table_fn1(elem, f, i)
+        end
+    end
+
+    def table_fn1(table, fnote, idx); end
 
     # we use this to eliminate the semantic amend blocks from rendering
     def amend(docxml)

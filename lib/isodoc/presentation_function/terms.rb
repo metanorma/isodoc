@@ -193,5 +193,14 @@ module IsoDoc
       when "adapted" then @i18n.adapted
       end
     end
+
+    def term(docxml)
+      docxml.xpath(ns("//term")).each { |f| term1(f) }
+    end
+
+    def term1(elem)
+      lbl = @xrefs.anchor(elem["id"], :label) or return
+      prefix_name(elem, "", "#{lbl}#{clausedelim}", "name")
+    end
   end
 end
