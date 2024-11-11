@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
   # spec.add_dependency "relaton-cli"
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
-  spec.add_dependency "mn2pdf"
+  spec.add_dependency "mn2pdf", ">= 2.08"
   spec.add_dependency "mn-requirements", "~> 0.4.0"
 
   spec.add_dependency "relaton-render", "~> 0.7.1"
