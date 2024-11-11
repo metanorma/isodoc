@@ -130,7 +130,7 @@ RSpec.describe IsoDoc do
       </metanorma-extension>
       </iso-standard>
     INPUT
-    output = <<~OUTPUT
+    output = 
       {:accesseddate=>"2012",
       :activateddate=>"2013",
       :adapteddate=>"2024",
@@ -187,7 +187,6 @@ RSpec.describe IsoDoc do
       :vote_endeddate=>"2022",
       :vote_starteddate=>"2021",
       :xml=>"URL C"}
-    OUTPUT
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
       .to be_equivalent_to output
   end
@@ -268,7 +267,7 @@ RSpec.describe IsoDoc do
       </bibdata>
       </iso-standard>
     INPUT
-    output = <<~OUTPUT
+    output = 
       {:accesseddate=>"XXX",
       :adapteddate=>"XXX",
       :agency=>"ISO/IEC/IEEE",
@@ -314,7 +313,6 @@ RSpec.describe IsoDoc do
       :updateddate=>"XXX",
       :vote_endeddate=>"XXX",
       :vote_starteddate=>"XXX"}
-    OUTPUT
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
       .to be_equivalent_to output
   end
@@ -345,7 +343,7 @@ RSpec.describe IsoDoc do
        </bibdata>
       </iso-standard>
     INPUT
-    output = <<~OUTPUT
+    output = 
       {:accesseddate=>"XXX",
       :adapteddate=>"XXX",
       :agency=>"NAME1/NAME",
@@ -370,7 +368,6 @@ RSpec.describe IsoDoc do
       :updateddate=>"XXX",
       :vote_endeddate=>"XXX",
       :vote_starteddate=>"XXX"}
-    OUTPUT
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
       .to be_equivalent_to output
   end
@@ -452,7 +449,7 @@ RSpec.describe IsoDoc do
       </bibdata>
       </iso-standard>
     INPUT
-    output = <<~OUTPUT
+    output = 
       {:accesseddate=>"XXX",
       :adapteddate=>"XXX",
       :agency=>"ISO/IEC",
@@ -491,7 +488,6 @@ RSpec.describe IsoDoc do
       :updateddate=>"XXX",
       :vote_endeddate=>"XXX",
       :vote_starteddate=>"XXX"}
-    OUTPUT
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
       .to be_equivalent_to output
   end
@@ -515,7 +511,7 @@ RSpec.describe IsoDoc do
       <xml> {"key"=>[{"key1"=>1}, {"key2"=>2}]} </xml>
     OUTPUT
     c.info(Nokogiri::XML(input), nil)
-    expect(c.populate_template(template))
+    expect(c.populate_template(template).gsub(" => ", "=>"))
       .to be_equivalent_to output
   end
 end
