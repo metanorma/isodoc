@@ -7,7 +7,6 @@ module IsoDoc
     MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
 
     def mathml(docxml)
-      docxml.xpath("//m:math", MATHML).each { |f| mathml_linebreak(f) }
       locale = @lang.to_sym
       @numfmt = Plurimath::NumberFormatter
         .new(locale, localize_number: @localizenumber,
@@ -158,19 +157,6 @@ module IsoDoc
     def mathml1(node, locale)
       mathml_style_inherit(node)
       mathml_number(node, locale)
-    end
-
-    def mathml_linebreak(node)
-      node.at(".//*/@linebreak") or return
-      m = Plurimath::Math.parse(node.to_xml, :mathml)
-        .to_mathml(split_on_linebreak: true)
-      ret = Nokogiri::XML("<m>#{m}</m>").root
-      ret.elements.each_with_index do |e, i|
-        i.zero? or e.previous = "<br/>"
-      end
-      node.replace(<<~OUTPUT)
-        <math-with-linebreak>#{ret.children}</math-with-linebreak><math-no-linebreak>#{node.to_xml}</math-no-linebreak>
-      OUTPUT
     end
 
     # convert any Ascii superscripts to correct(ish) MathML

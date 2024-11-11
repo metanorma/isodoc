@@ -4,7 +4,6 @@ module IsoDoc
       toc_metadata(docxml)
       fonts_metadata(docxml)
       attachments_extract(docxml)
-      preprocess_xslt_insert(docxml)
       localized_strings(docxml)
       a = docxml.at(ns("//metanorma-extension")) or return
       a.elements.empty? and a.remove
@@ -81,55 +80,6 @@ module IsoDoc
     def presmeta(name, value)
       "<presentation-metadata><name>#{name}</name><value>#{value}</value>" \
         "</presentation-metadata>"
-    end
-
-    def preprocess_xslt_insert(docxml)
-      content = ""
-      p = passthrough_xslt and content += p
-      p = preprocess_xslt_read and content += File.read(p)
-      content.empty? and return
-      ins = extension_insert(docxml, %w(render))
-      ins << content
-    end
-
-    COPY_XSLT =
-      '<xsl:copy><xsl:apply-templates select="@* | node()"/></xsl:copy>'.freeze
-    COPY_CHILDREN_XSLT =
-      '<xsl:apply-templates select="node()"/>'.freeze
-
-    def xslt_template(content)
-      <<~XSLT
-        <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-          <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-          <xsl:template match="@* | node()">#{COPY_XSLT}</xsl:template>
-        #{content}
-        </xsl:stylesheet>
-      XSLT
-    end
-
-    def passthrough_xslt
-      @output_formats.nil? and return nil
-      @output_formats.empty? and return nil
-      @output_formats.each_key.with_object([]) do |k, m|
-        m << <<~XSLT
-          <preprocess-xslt format="#{k}">
-            #{xslt_template(<<~XSLT1)
-              <xsl:template match="*[local-name() = 'math-with-linebreak']">
-              #{k == 'pdf' ? COPY_CHILDREN_XSLT : ''}
-              </xsl:template>
-              <xsl:template match="*[local-name() = 'math-no-linebreak']">
-              #{k == 'pdf' ? '' : COPY_CHILDREN_XSLT}
-              </xsl:template>
-            XSLT1
-            }
-          </preprocess-xslt>
-        XSLT
-      end.join("\n")
-    end
-
-    # read in from file, but with `<preprocess-xslt @format="">` wrapper
-    def preprocess_xslt_read
-      html_doc_path("preprocess.xslt")
     end
 
     def i18n_tag(key, value)

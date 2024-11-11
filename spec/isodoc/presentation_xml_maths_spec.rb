@@ -1007,36 +1007,15 @@ RSpec.describe IsoDoc do
              <formula id="_">
                <name>(1)</name>
                <stem type="MathML" block="true">
-                 <math-with-linebreak>
-                   <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-                     <mstyle displaystyle="true">
-                       <mrow>
-                         <mi>x</mi>
-                         <mo>=</mo>
-                       </mrow>
-                     </mstyle>
-                   </math>
-                   <asciimath>x =</asciimath>
-                   <br/>
-                   <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-                     <mstyle displaystyle="true">
-                       <mi>y</mi>
-                     </mstyle>
-                   </math>
-                 </math-with-linebreak>
-                 <math-no-linebreak>
-                   <math xmlns="http://www.w3.org/1998/Math/MathML">
-                     <mstyle displaystyle="true">
-                       <mi>x</mi>
-                       <mo>=</mo>
-                       <mo linebreak="newline"/>
-                       <mi>y</mi>
-                     </mstyle>
-                   </math>
-                   <asciimath>x = \\
-         y</asciimath>
-                 </math-no-linebreak>
-                 <asciimath>x = y</asciimath>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <mstyle displaystyle="true">
+                     <mi>x</mi>
+                     <mo>=</mo>
+                     <mo linebreak="newline"/>
+                     <mi>y</mi>
+                  </mstyle>
+               </math>
+                <asciimath>x = y</asciimath>
                </stem>
              </formula>
            </clause>

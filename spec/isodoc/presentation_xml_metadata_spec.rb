@@ -68,55 +68,6 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
-  it "inserts preprocess-xslt" do
-    mock_preprocess_xslt_read
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <bibdata type="standard"/>
-          <metanorma-extension><clause id="_user_css" inline-header="false" obligation="normative">
-      <title>user-css</title>
-      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
-
-      </clause>
-      </metanorma-extension>
-      </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <bibdata type="standard"/>
-
-        <metanorma-extension>
-          <clause id="_user_css" inline-header="false" obligation="normative">
-            <title depth="1">user-css</title>
-            <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
-          </clause>
-          <render>
-             <preprocess-xslt format="pdf">
-               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                 <xsl:strip-space elements="*"/>
-                 <!-- note/name -->
-                 <xsl:template match="*[local-name() = 'note']/*[local-name() = 'name']">
-                   <xsl:copy>
-                     <xsl:apply-templates select="@*|node()"/>
-                     <xsl:if test="normalize-space() != ''">:<tab/>
-       						</xsl:if>
-                   </xsl:copy>
-                 </xsl:template>
-               </xsl:stylesheet>
-             </preprocess-xslt>
-           </render>
-          <source-highlighter-css>
-      .green { background-color: green }</source-highlighter-css>
-        </metanorma-extension>
-      </iso-standard>
-    OUTPUT
-    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
-  .convert("test", input, true))
-  .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Xml::C14n.format(output)
-  end
-
   it "processes user-css" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
