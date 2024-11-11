@@ -115,29 +115,8 @@ module IsoDoc
       metadata_init(@lang, @script, @locale, @i18n)
       xref_init(@lang, @script, self, @i18n,
                 { locale: @locale, bibrender: @bibrender })
-      docxml = preprocess_xslt(docxml)
       toc_init(docxml)
       [docxml, filename, dir]
-    end
-
-    def preprocess_xslt(docxml)
-      sheets = extract_preprocess_xslt(docxml)
-      sheets.each do |x|
-        docxml = Nokogiri::XSLT(x).transform(docxml)
-      end
-      docxml
-    rescue ::Error => e
-      require "debug"
-      binding.b
-    end
-
-    def extract_preprocess_xslt(docxml)
-      docxml.xpath(ns("//metanorma-extension/render/preprocess-xslt"))
-        .each_with_object([]) do |x, m|
-          formats = x["format"]&.split(",") || []
-          !formats.empty? && !formats.include?(@format.to_s) and next
-          m << x.children.to_xml
-        end
     end
 
     def convert_i18n_init(docxml)
