@@ -83,7 +83,7 @@ module IsoDoc
 
       def footnote_parse(node, out)
         return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
-          !node.ancestors.map(&:name).include?("name")
+          !node.ancestors.map(&:name).include?("fmt-name")
 
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
         return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)

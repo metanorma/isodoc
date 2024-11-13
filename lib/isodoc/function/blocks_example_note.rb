@@ -19,9 +19,9 @@ module IsoDoc
       # used if we are boxing examples
       def example_div_parse(node, out)
         out.div **example_div_attr(node) do |div|
-          example_label(node, div, node.at(ns("./name")))
+          example_label(node, div, node.at(ns("./fmt-name")))
           node.children.each do |n|
-            parse(n, div) unless n.name == "name"
+            parse(n, div) unless n.name == "fmt-name"
           end
         end
       end
@@ -39,10 +39,10 @@ module IsoDoc
         out.table **example_table_attr(node) do |t|
           t.tr do |tr|
             tr.td **EXAMPLE_TBL_ATTR do |td|
-              example_label(node, td, node.at(ns("./name")))
+              example_label(node, td, node.at(ns("./fmt-name")))
             end
             tr.td **EXAMPLE_TD_ATTR do |td|
-              node.children.each { |n| parse(n, td) unless n.name == "name" }
+              node.children.each { |n| parse(n, td) unless n.name == "fmt-name" }
             end
           end
         end
@@ -53,7 +53,7 @@ module IsoDoc
       end
 
       def note_p_parse(node, div)
-        name = node.at(ns("./name"))&.remove
+        name = node.at(ns("./fmt-name"))&.remove
         div.p do |p|
           name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
@@ -65,7 +65,7 @@ module IsoDoc
       end
 
       def note_parse1(node, div)
-        name = node.at(ns("./name")) and div.p do |p|
+        name = node.at(ns("./fmt-name")) and div.p do |p|
           p.span class: "note_label" do |s|
             name.remove.children.each { |n| parse(n, s) }
           end
@@ -94,7 +94,7 @@ module IsoDoc
       def note_parse(node, out)
         @note = true
         out.div **note_attrs(node) do |div|
-          if node&.at(ns("./*[local-name() != 'name'][1]"))&.name == "p"
+          if node&.at(ns("./*[local-name() != 'fmt-name'][1]"))&.name == "p"
             note_p_parse(node, div)
           else
             note_parse1(node, div)
@@ -114,7 +114,7 @@ module IsoDoc
       end
 
       def admonition_name(node, _type)
-        node&.at(ns("./name"))
+        node&.at(ns("./fmt-name"))
       end
 
       def admonition_attrs(node)
@@ -124,7 +124,7 @@ module IsoDoc
 
       def admonition_parse(node, out)
         out.div **admonition_attrs(node) do |div|
-          if node&.at(ns("./*[local-name() != 'name'][1]"))&.name == "p"
+          if node&.at(ns("./*[local-name() != 'fmt-name'][1]"))&.name == "p"
             admonition_p_parse(node, div)
           else
             admonition_parse1(node, div)
@@ -158,7 +158,7 @@ module IsoDoc
         if name
           admonition_name_parse(node, div, name)
         end
-        node.children.each { |n| parse(n, div) unless n.name == "name" }
+        node.children.each { |n| parse(n, div) unless n.name == "fmt-name" }
       end
     end
   end

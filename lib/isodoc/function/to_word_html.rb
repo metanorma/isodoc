@@ -262,6 +262,9 @@ module IsoDoc
           when "ruby" then ruby_parse(node, out)
           when "rt" then rt_parse(node, out)
           when "rb" then rb_parse(node, out)
+          when "semx" then semx_parse(node, out)
+          when "name" then name_parse(node, out)
+          when "fmt-xref-label" then xref_label_parse(node, out)
           else error_parse(node, out)
           end
         end

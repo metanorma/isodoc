@@ -18,18 +18,23 @@ module IsoDoc
         end
       end
 
+      SECTIONS_NAMES =
+        %w[clause annex terms references definitions
+           acknowledgements introduction abstract foreword appendix].freeze
+
       def freestanding_title(node, out)
-        parents = node.ancestors("clause, annex, terms, references, " \
-                               "definitions, acknowledgements, introduction, " \
-                               "foreword")
+        # node.parent.at(ns("./fmt-title[@source = '#{node['id']}']")) and
+        # return # this title is already being rendered as fmt-title
+        # For testing convenience, let's just go by parent
+        SECTIONS_NAMES.include?(node.parent.name) and return
+        parents = node.ancestors(SECTIONS_NAMES.join(", "))
         clause_parse_title(parents.empty? ? node : parents.first,
                            out, node, out)
       end
 
       # used for subclauses
       def clause_parse_title(node, div, title, out, header_class = {})
-        return if title.nil?
-
+        title.nil? and return
         if node["inline-header"] == "true"
           inline_header_title(out, node, title)
         else
@@ -46,9 +51,7 @@ module IsoDoc
       end
 
       def clause_title_depth(node, title)
-        depth = node.ancestors("clause, annex, terms, references, " \
-                               "definitions, acknowledgements, introduction, " \
-                               "foreword").size + 1
+        depth = node.ancestors(SECTIONS_NAMES.join(", ")).size + 1
         depth = title["depth"] if title && title["depth"]
         depth
       end
@@ -76,8 +79,7 @@ module IsoDoc
       end
 
       def annex_name(_annex, name, div)
-        return if name.nil?
-
+        name.nil? and return
         div.h1 class: "Annex" do |t|
           name.children.each { |c2| parse(c2, t) }
           clause_parse_subtitle(name, t)

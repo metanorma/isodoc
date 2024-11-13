@@ -15,29 +15,39 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-          <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
-              <clause type="toc" id="_" displayorder="1">
-                <title depth="1">Table of contents</title>
-              </clause>
-          <foreword displayorder="2"><title>Foreword</title>
-                       <note id='A' keep-with-next='true' keep-lines-together='true'>
-               <name>NOTE 1</name>
-               <p id='_'>
-                 These results are based on a study carried out on three different
-                 types of kernel.
-               </p>
-             </note>
-             <note id='B' keep-with-next='true' keep-lines-together='true' notag='true' unnumbered='true'>
-               <p id='_'>
-                 These results are based on a study carried out on three different
-                 types of kernel.
-               </p>
-             </note>
-          </foreword>
-        </preface>
-      </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2">
+               <title id="_">Foreword</title>
+         <fmt-title depth="1">
+            <span class="fmt-caption-label">
+               <semx element="title" source="_">Foreword</semx>
+            </span>
+            <span class="fmt-label-delim"/>
+         </fmt-title>
+                <note id="A" keep-with-next="true" keep-lines-together="true" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">NOTE</span>
+                         <semx element="autonum" source="A">1</semx>
+                      </span>
+                      <span class="fmt-label-delim"/>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Note</span>
+                      <semx element="autonum" source="A">1</semx>
+                   </fmt-xref-label>
+                   <p id="_">These results are based on a study carried out on three different types of kernel.</p>
+                </note>
+                <note id="B" keep-with-next="true" keep-lines-together="true" notag="true" unnumbered="true">
+                   <p id="_">These results are based on a study carried out on three different types of kernel.</p>
+                </note>
+             </foreword>
+          </preface>
+       </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -173,10 +183,13 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes multi-para notes" do
@@ -184,11 +197,11 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <clause type="toc" id="_" displayorder="1">
-              <title depth="1">Table of contents</title>
+              <fmt-title depth="1">Table of contents</fmt-title>
           </clause>
-        <foreword displayorder="2"><title>Foreword</title>
+        <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <note>
-          <name>NOTE</name>
+          <fmt-name>NOTE</fmt-name>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -210,16 +223,17 @@ RSpec.describe IsoDoc do
         </html>
     OUTPUT
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes non-para notes" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><clause type="toc" id="_" displayorder="1">
-              <title depth="1">Table of contents</title>
-            </clause><foreword displayorder="2"><title>Foreword</title>
-          <note id="A"><name>NOTE</name>
+              <fmt-title depth="1">Table of contents</fmt-title>
+            </clause><foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+          <note id="A"><fmt-name>NOTE</fmt-name>
           <dl>
           <dt>A</dt>
           <dd><p>B</p></dd>
@@ -294,11 +308,11 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
                 <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>    <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-        <foreword displayorder="2"><title>Foreword</title>
-            <p id="A">ABC <note id="B"><name>NOTE 1</name><p id="C">XYZ</p></note>
-        <note id="B1"><name>NOTE 2</name><p id="C1">XYZ1</p></note></p>
+        <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+            <p id="A">ABC <note id="B"><fmt-name>NOTE 1</fmt-name><p id="C">XYZ</p></note>
+        <note id="B1"><fmt-name>NOTE 2</fmt-name><p id="C1">XYZ1</p></note></p>
         </foreword></preface>
             </iso-standard>
     INPUT
@@ -372,9 +386,11 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(doc)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "converts notes and admonitions intended for coverpage" do
@@ -471,12 +487,16 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", presxml, true))))
+      .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true)))).to be_equivalent_to Xml::C14n.format(doc)
+      .convert("test", presxml, true))))
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "numbers notes in tables and figures separately from notes outside them" do
@@ -521,8 +541,10 @@ RSpec.describe IsoDoc do
           </preface>
         </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes admonitions" do
@@ -571,10 +593,13 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes empty admonitions" do
@@ -600,8 +625,10 @@ RSpec.describe IsoDoc do
         </preface>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-        .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes admonitions with titles" do
@@ -655,10 +682,13 @@ RSpec.describe IsoDoc do
               </body>
           </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", presxml, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes box admonitions" do

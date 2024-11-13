@@ -103,7 +103,7 @@ module IsoDoc
       end
 
       def note_p_parse(node, div)
-        name = node.at(ns("./name"))&.remove
+        name = node.at(ns("./fmt-name"))&.remove
         div.p class: "Note" do |p|
           p.span class: "note_label" do |s|
             name&.children&.each { |n| parse(n, s) }
@@ -115,7 +115,7 @@ module IsoDoc
       end
 
       def note_parse1(node, div)
-        name = node.at(ns("./name"))&.remove
+        name = node.at(ns("./fmt-name"))&.remove
         div.p class: "Note" do |p|
           p.span class: "note_label" do |s|
             name&.children&.each { |n| parse(n, s) }
@@ -126,7 +126,7 @@ module IsoDoc
       end
 
       def termnote_parse(node, out)
-        name = node&.at(ns("./name"))&.remove
+        name = node&.at(ns("./fmt-name"))&.remove
         out.div **note_attrs(node) do |div|
           div.p class: "Note" do |p|
             if name
@@ -164,7 +164,7 @@ module IsoDoc
           div.p do |_p|
             parse(node.at(ns("./stem")), div)
             insert_tab(div, 1)
-            if lbl = node&.at(ns("./name"))&.text
+            if lbl = node&.at(ns("./fmt-name"))&.text
               div << lbl
             end
           end
@@ -185,10 +185,10 @@ module IsoDoc
         page_break(out)
         out.div **attr_code(preface_attrs(clause)) do |div|
           div.p class: "zzContents" do |p|
-            clause.at(ns("./title"))&.children&.each { |c| parse(c, p) }
+            clause.at(ns("./fmt-title"))&.children&.each { |c| parse(c, p) }
           end
           clause.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end

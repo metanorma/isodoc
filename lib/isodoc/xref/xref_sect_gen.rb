@@ -121,7 +121,7 @@ module IsoDoc
       def preface_name_anchors(clause, level, title)
         @anchors[clause["id"]] =
           { label: nil, level:,
-            xref: title, title: nil,
+            xref: "<semx source='title'>#{title}</semx>", title: nil,
             type: "clause", elem: @labels["clause"] }
       end
 
@@ -162,9 +162,16 @@ module IsoDoc
         false
       end
 
+      def labelled_autonum(label, elem, autonum)
+        l10n(<<~SEMX)
+          <span class='fmt-element-name'>#{label}</span> <semx element='autonum' source='#{elem['id']}'>#{autonum}</semx>
+        SEMX
+      end
+
       def section_name_anchors(clause, num, level)
+        s = labelled_autonum(@labels["clause"], clause, num)
         @anchors[clause["id"]] =
-          { label: num, xref: "#{@labels['clause']} #{num}",
+          { label: num, xref: s,
             title: clause_title(clause), level:, type: "clause",
             elem: @labels["clause"] }
       end
@@ -175,19 +182,21 @@ module IsoDoc
           obl = "(#{@labels['norm_annex']})"
         title = Common::case_with_markup(@labels["annex"], "capital",
                                          @script)
-        "<strong>#{title} #{num}</strong><br/>#{obl}"
+        s = labelled_autonum(title, clause, num)
+        "<strong>#{s}</strong><br/>#{obl}"
       end
 
       def annex_name_anchors(clause, num, level)
         label = num
         level == 1 && clause.name == "annex" and
           label = annex_name_lbl(clause, num)
+        s = labelled_autonum(@labels["annex"], clause, num)
         @anchors[clause["id"]] =
           { label:,
             elem: @labels["annex"], type: "clause",
             subtype: "annex", value: num.to_s, level:,
             title: clause_title(clause),
-            xref: "#{@labels['annex']} #{num}" }
+            xref: s }
       end
 
       def annex_names(clause, num)

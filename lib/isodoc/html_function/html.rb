@@ -15,10 +15,6 @@ module IsoDoc
         end.join("\n")
       end
 
-      def preprocess_xslt(docxml)
-        super
-      end
-
       def make_body1(body, _docxml)
         return if @bare
 
@@ -78,7 +74,7 @@ module IsoDoc
       end
 
       def sourcecode_parse(node, out)
-        name = node.at(ns("./name"))
+        name = node.at(ns("./fmt-name"))
         tag = node.at(ns(".//sourcecode | .//table")) ? "div" : "pre"
         attr = sourcecode_attrs(node).merge(class: "sourcecode")
         out.send tag, **attr do |div|

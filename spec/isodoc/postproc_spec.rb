@@ -17,9 +17,9 @@ RSpec.describe IsoDoc do
     ).convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
               <bibdata>
-              <title language="en">test</title>
+              <fmt-title language="en">test</fmt-title>
               </bibdata>
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -44,9 +44,9 @@ RSpec.describe IsoDoc do
     ).convert("spec/assets/test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <bibdata>
-              <title language="en">test</title>
+              <fmt-title language="en">test</fmt-title>
               </bibdata>
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -65,9 +65,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
               <bibdata>
-              <title language="en">test</title>
+              <fmt-title language="en">test</fmt-title>
               </bibdata>
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">{% elif %}These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -93,7 +93,7 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css" })
       .convert("test", <<~INPUT, false)
                 <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1"><title>Foreword</title>
+            <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
             <note>
           <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
         </note>
@@ -117,7 +117,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -197,7 +197,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -234,7 +234,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -278,7 +278,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -316,7 +316,7 @@ RSpec.describe IsoDoc do
         olstyle: "l2" },
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -391,8 +391,8 @@ RSpec.describe IsoDoc do
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc"><title>TOC</title></clause>
-            <foreword displayorder="2" id="fwd"><title>Foreword</title>
+          <clause type="toc"><fmt-title>TOC</fmt-title></clause>
+            <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -434,16 +434,16 @@ RSpec.describe IsoDoc do
     IsoDoc::HtmlConvert.new({ htmlintropage: "spec/assets/htmlintro.html" })
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface><foreword displayorder="1" id="fwd"><title>Foreword</title><title>Foreword</title>
+        <preface><foreword displayorder="1" id="fwd"><fmt-title>Foreword</fmt-title>
         <variant-title type="toc">FORVORT</variant-title>
         </foreword></preface>
         <sections>
-        <clause displayorder="2" id="clA"><title>First Clause</title>
-        <clause id="clB"><title>First Subclause</title>
+        <clause displayorder="2" id="clA"><fmt-title>First Clause</fmt-title>
+        <clause id="clB"><fmt-title>First Subclause</fmt-title>
         <variant-title type="toc">SUBCLOZ</variant-title>
         </clause>
         </clause>
-        <clause displayorder="3" id="clC"><title>Second Clause</title><clause id="clD"><title>Subclause</title></clause></clause>
+        <clause displayorder="3" id="clC"><fmt-title>Second Clause</fmt-title><clause id="clD"><fmt-title>Subclause</fmt-title></clause></clause>
         </sections>
         </iso-standard>
       INPUT
@@ -482,15 +482,15 @@ RSpec.describe IsoDoc do
     ).convert("test", <<~INPUT, false)
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <sections>
-                     <clause id="A" inline-header="false" obligation="normative" displayorder="1"><title>Clause 4</title><fn reference="3">
+                     <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><fn reference="3">
         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">This is a footnote.</p>
       </fn><clause id="N" inline-header="false" obligation="normative">
-               <title>Introduction to this<fn reference="2">
+               <fmt-title>Introduction to this<fn reference="2">
         Formerly denoted as 15 % (m/m).
-      </fn></title>
+      </fn></fmt-title>
              </clause>
              <clause id="O" inline-header="false" obligation="normative">
-               <title>Clause 4.2</title>
+               <fmt-title>Clause 4.2</fmt-title>
                <p>A<fn reference="1">
         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
       </fn></p>
@@ -537,7 +537,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~"INPUT", false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1"><title>Foreword</title>
+            <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
              <figure id="_">
              <name>Split-it-right sample divider</name>
                       <svg xmlns="http://www.w3.org/2000/svg" src="spec/assets/rice_image1.png" id="_" width="20000" height="300000"/>
@@ -601,7 +601,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "html.scss" },
     ).convert("test", <<~INPUT, false)
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="1"><title>Foreword</title>
+      <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
        <figure id="_">
        <name>Split-it-right sample divider</name>
        <image src="rice_image1.png" id="_" mimetype="image/png"/>
@@ -639,7 +639,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="https://www.metanorma.org/ns/iso" type="semantic" version="1.5.14">
             <sections>
               <clause id="_clause" inline-header="false" obligation="normative" displayorder="1">
-                <title>Clause</title>
+                <fmt-title>Clause</fmt-title>
                 <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
                   <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
                       <mi>x</mi>
@@ -689,7 +689,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="https://www.metanorma.org/ns/iso" type="semantic" version="1.5.14">
             <sections>
               <clause id="_clause" inline-header="false" obligation="normative" displayorder="1">
-                <title>Clause</title>
+                <fmt-title>Clause</fmt-title>
                 <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
                   <stem type="MathML">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -798,7 +798,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1"><title>Foreword</title>
+            <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
              <figure id="_">
              <name>Split-it-right sample divider</name>
                       <image src="spec/assets/rice_image1" id="_" mimetype="image/png"/>
@@ -839,7 +839,7 @@ RSpec.describe IsoDoc do
            htmlstylesheet: "assets/html.scss")
       .convert("spec/test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword displayorder="1"><title>Foreword</title>
+         <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <figure id="_">
           <name>Split-it-right sample divider</name>
                    <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -879,7 +879,7 @@ RSpec.describe IsoDoc do
       .new(htmlstylesheet: "spec/assets/html.scss", datauriimage: true)
       .convert("test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword displayorder="1"><title>Foreword</title>
+         <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <figure id="_">
           <name>Split-it-right sample divider</name>
              <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -914,7 +914,7 @@ RSpec.describe IsoDoc do
       .new({ htmlstylesheet: "assets/html.scss", datauriimage: true })
       .convert("spec/test", <<~"INPUT", false)
          <iso-standard xmlns="http://riboseinc.com/isoxml">
-         <preface><foreword displayorder="1"><title>Foreword</title>
+         <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <figure id="_">
           <name>Split-it-right sample divider</name>
                    <image src="#{File.expand_path(File.join(File.dirname(__FILE__), '..', 'assets/rice_image1.png'))}" id="_" mimetype="image/png"/>
@@ -949,7 +949,7 @@ RSpec.describe IsoDoc do
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <sections>
-            <terms id="_terms_and_definitions" obligation="normative" displayorder="1"><title>Terms and Definitions</title>
+            <terms id="_terms_and_definitions" obligation="normative" displayorder="1"><fmt-title>Terms and Definitions</fmt-title>
         <term id="paddy1"><name>1.1.</name><preferred>paddy</preferred>
         <definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f"><domain>rice</domain>rice retaining its husk after threshing</p></definition>
         <termexample id="_bd57bbf1-f948-4bae-b0ce-73c00431f892">
@@ -1003,7 +1003,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <sourcecode id="samplecode">
           <name>XML code</name>
         &lt;xml&gt; &amp;
@@ -1275,10 +1275,10 @@ RSpec.describe IsoDoc do
               </bibdata>
               <boilerplate>
               <feedback-statement>
-              <clause><title>I am boilerplate</title></clause>
+              <clause><fmt-title>I am boilerplate</fmt-title></clause>
               </feedback-statement>
               </boilerplate>
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -1359,7 +1359,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <note>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">&lt;X&gt;</p>
       </note>

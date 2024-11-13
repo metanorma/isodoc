@@ -57,9 +57,9 @@ module IsoDoc
         label = counter.print
         label &&= label + subfigure_label(subfig)
         @anchors[elem["id"]] = anchor_struct(
-          label, container ? elem : nil,
+          label, elem,
           @labels[klass] || klass.capitalize, klass,
-          elem["unnumbered"]
+          { unnumb: elem["unnumbered"], container: container }
         )
       end
 
@@ -68,8 +68,8 @@ module IsoDoc
         clause.xpath(ns(".//table")).noblank.each do |t|
           # labelled_ancestor(t) and next
           @anchors[t["id"]] = anchor_struct(
-            c.increment(t).print, container ? t : nil,
-            @labels["table"], "table", t["unnumbered"]
+            c.increment(t).print, t,
+            @labels["table"], "table", { unnumb: t["unnumbered"], container: container }
           )
         end
       end
@@ -80,7 +80,7 @@ module IsoDoc
           @anchors[t["id"]] = anchor_struct(
             c.increment(t).print, t,
             t["inequality"] ? @labels["inequality"] : @labels["formula"],
-            "formula", t["unnumbered"]
+            "formula", { unnumb: t["unnumbered"], container: true }
           )
         end
       end
@@ -123,11 +123,11 @@ module IsoDoc
 container: false)
         @anchors[elem["id"]] = model.postprocess_anchor_struct(
           elem, anchor_struct(id, elem,
-                              label, klass, elem["unnumbered"])
+                              label, klass, { unnumb: elem["unnumbered"], container: true })
         )
         model.permission_parts(elem, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
-                                           n[:klass], false)
+                                           n[:klass], { unnumb: false, container: true })
         end
       end
 
@@ -183,8 +183,8 @@ container: false)
         label = "#{num}#{hiersep}#{counter.print}" +
           subfigure_label(subfignum)
         @anchors[block["id"]] =
-          anchor_struct(label, nil, @labels[klass] || klass.capitalize,
-                        klass, block["unnumbered"])
+          anchor_struct(label, block, @labels[klass] || klass.capitalize,
+                        klass, { unnumb: block["unnumbered"], container: false })
       end
 
       def hierarchical_table_names(clause, num)
@@ -193,7 +193,7 @@ container: false)
           # labelled_ancestor(t) and next
           @anchors[t["id"]] =
             anchor_struct("#{num}#{hiersep}#{c.increment(t).print}",
-                          nil, @labels["table"], "table", t["unnumbered"])
+                          t, @labels["table"], "table", { unnumb: t["unnumbered"], container: false })
         end
       end
 
@@ -208,9 +208,9 @@ container: false)
         c = Counter.new
         clause.xpath(ns(".//formula")).noblank.each do |t|
           @anchors[t["id"]] = anchor_struct(
-            "#{num}#{hiersep}#{c.increment(t).print}", nil,
+            "#{num}#{hiersep}#{c.increment(t).print}", t,
             t["inequality"] ? @labels["inequality"] : @labels["formula"],
-            "formula", t["unnumbered"]
+            "formula", { unnumb: t["unnumbered"], container: false }
           )
         end
       end
@@ -239,12 +239,13 @@ container: false)
 
       def hierarchical_permission_body(id, block, label, klass, model)
         @anchors[block["id"]] = model.postprocess_anchor_struct(
-          block, anchor_struct(id, nil,
-                               label, klass, block["unnumbered"])
+          block, anchor_struct(id, block,
+                               label, klass, { unnumb: block["unnumbered"], container: false })
         )
         model.permission_parts(block, id, label, klass).each do |n|
-          @anchors[n[:id]] = anchor_struct(n[:number], nil, n[:label],
-                                           n[:klass], false)
+          # we don't have an n["id"], so we allow n[:id] in anchor_struct
+          @anchors[n[:id]] = anchor_struct(n[:number], n, n[:label],
+                                           n[:klass], { unnumb: false, container: false })
         end
       end
     end

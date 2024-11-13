@@ -38,7 +38,7 @@ module IsoDoc
       end
 
       def termnote_parse(node, out)
-        name = node&.at(ns("./name"))&.remove
+        name = node&.at(ns("./fmt-name"))&.remove
         out.div **note_attrs(node) do |div|
           div.p do |p|
             name&.children&.each { |n| parse(n, p) }
@@ -60,7 +60,7 @@ module IsoDoc
       end
 
       def termdef_parse(node, out)
-        name = node.at(ns("./name"))&.remove
+        name = node.at(ns("./fmt-name"))&.remove
         out.p class: "TermNum", id: node["id"] do |p|
           name&.children&.each { |n| parse(n, p) }
         end

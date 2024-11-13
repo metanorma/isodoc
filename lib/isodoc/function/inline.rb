@@ -17,13 +17,18 @@ module IsoDoc
 
       def location_parse(node, out); end
 
+      # Presentation XML classes which we need not pass on to HTML or DOC
+      SPAN_UNWRAP_CLASSES =
+        %w[fmt-caption-label fmt-label-delim fmt-element-name].freeze
+
       def span_parse(node, out)
-        if node["style"] || node["class"]
+        klass = node["style"] || node["class"]
+        if klass && !SPAN_UNWRAP_CLASSES.include?(klass)
           out.span **attr_code(style: node["style"],
                                class: node["class"]) do |s|
-            node.children.each { |n| parse(n, s) }
+            children_parse(node, s)
           end
-        else node.children.each { |n| parse(n, out) }
+        else children_parse(node, out)
         end
       end
 
@@ -48,9 +53,8 @@ module IsoDoc
       end
 
       def suffix_url(url)
-        return url if url.nil? || %r{^https?://|^#}.match?(url)
-        return url unless File.extname(url).empty?
-
+        url.nil? || %r{^https?://|^#}.match?(url) and return url
+        File.extname(url).empty? or return url
         url.sub(/#{File.extname(url)}$/, ".html")
       end
 
@@ -136,8 +140,7 @@ module IsoDoc
       end
 
       def text_parse(node, out)
-        return if node.nil? || node.text.nil?
-
+        node.nil? || node.text.nil? and return
         text = node.to_s
         @sourcecode == "pre" and
           text = text.gsub("\n", "<br/>").gsub("<br/> ", "<br/>&#xa0;")
@@ -184,8 +187,20 @@ module IsoDoc
       end
 
       def author_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def semx_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def children_parse(node, out)
         node.children.each { |n| parse(n, out) }
       end
+
+      def xref_label_parse(node, out); end
+
+      def name_parse(node, out); end
     end
   end
 end

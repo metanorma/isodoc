@@ -24,7 +24,7 @@ module IsoDoc
     def recommendation1(elem, type)
       lbl = @reqt_models.model(elem["model"])
         .recommendation_label(elem, type, xrefs)
-      prefix_name(elem, "", l10n(lbl), "name")
+      prefix_name(elem, {}, l10n(lbl), "name")
     end
 
     def requirement_render_preprocessing(docxml); end

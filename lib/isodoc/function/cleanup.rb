@@ -28,7 +28,7 @@ module IsoDoc
       # todo PRESENTATION XML
       def admonition_cleanup(docxml)
         docxml.xpath("//div[@class = 'Admonition'][title]").each do |d|
-          title = d.at("./title")
+          title = d.at("./fmt-title")
           n = title.next_element
           n&.children&.first
             &.add_previous_sibling("#{title.remove.text}&#x2014;")

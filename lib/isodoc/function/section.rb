@@ -10,8 +10,8 @@ module IsoDoc
       # used for subclauses
       def clause_parse(node, out)
         out.div **attr_code(clause_attrs(node)) do |div|
-          clause_parse_title(node, div, node.at(ns("./title")), out)
-          node.children.reject { |c1| c1.name == "title" }.each do |c1|
+          clause_parse_title(node, div, node.at(ns("./fmt-title")), out)
+          node.children.reject { |c1| c1.name == "fmt-title" }.each do |c1|
             parse(c1, div)
           end
         end
@@ -19,8 +19,8 @@ module IsoDoc
 
       def clause(node, out)
         out.div **attr_code(clause_attrs(node)) do |s|
-          clause_name(node, node.at(ns("./title")), s, nil)
-          node.elements.reject { |c1| c1.name == "title" }.each do |c1|
+          clause_name(node, node.at(ns("./fmt-title")), s, nil)
+          node.elements.reject { |c1| c1.name == "fmt-title" }.each do |c1|
             parse(c1, s)
           end
         end
@@ -34,7 +34,7 @@ module IsoDoc
         page_break(out)
         out.div **attr_code(annex_attrs(node)) do |s|
           node.elements.each do |c1|
-            if c1.name == "title" then annex_name(node, c1, s)
+            if c1.name == "fmt-title" then annex_name(node, c1, s)
             else parse(c1, s)
             end
           end
@@ -47,9 +47,9 @@ module IsoDoc
 
       def scope(node, out)
         out.div **attr_code(id: node["id"]) do |div|
-          clause_name(node, node.at(ns("./title")), div, nil)
+          clause_name(node, node.at(ns("./fmt-title")), div, nil)
           node.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end
@@ -59,9 +59,9 @@ module IsoDoc
 
       def terms_defs(node, out)
         out.div **attr_code(id: node["id"]) do |div|
-          clause_name(node, node.at(ns("./title")), div, nil)
+          clause_name(node, node.at(ns("./fmt-title")), div, nil)
           node.elements.each do |e|
-            parse(e, div) unless %w{title source}.include? e.name
+            parse(e, div) unless %w{fmt-title source}.include? e.name
           end
         end
       end
@@ -73,9 +73,9 @@ module IsoDoc
 
       def symbols_abbrevs(node, out)
         out.div **attr_code(id: node["id"], class: "Symbols") do |div|
-          clause_name(node, node.at(ns("./title")), div, nil)
+          clause_name(node, node.at(ns("./fmt-title")), div, nil)
           node.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end
@@ -88,10 +88,10 @@ module IsoDoc
       def introduction(clause, out)
         page_break(out)
         out.div class: "Section3", id: clause["id"] do |div|
-          clause_name(clause, clause.at(ns("./title")), div,
+          clause_name(clause, clause.at(ns("./fmt-title")), div,
                       { class: "IntroTitle" })
           clause.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end
@@ -99,9 +99,9 @@ module IsoDoc
       def foreword(clause, out)
         page_break(out)
         out.div **attr_code(id: clause["id"]) do |s|
-          clause_name(clause, clause.at(ns("./title")), s,
+          clause_name(clause, clause.at(ns("./fmt-title")), s,
                       { class: "ForewordTitle" })
-          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
+          clause.elements.each { |e| parse(e, s) unless e.name == "fmt-title" }
         end
       end
 
@@ -109,9 +109,9 @@ module IsoDoc
         title_attr = { class: "IntroTitle" }
         page_break(out)
         out.div class: "Section3", id: clause["id"] do |div|
-          clause_name(clause, clause.at(ns("./title")), div, title_attr)
+          clause_name(clause, clause.at(ns("./fmt-title")), div, title_attr)
           clause.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end
@@ -119,9 +119,9 @@ module IsoDoc
       def abstract(clause, out)
         page_break(out)
         out.div **attr_code(id: clause["id"]) do |s|
-          clause_name(clause, clause.at(ns("./title")), s,
+          clause_name(clause, clause.at(ns("./fmt-title")), s,
                       { class: "AbstractTitle" })
-          clause.elements.each { |e| parse(e, s) unless e.name == "title" }
+          clause.elements.each { |e| parse(e, s) unless e.name == "fmt-title" }
         end
       end
 
@@ -141,10 +141,10 @@ module IsoDoc
       def preface_normal(clause, out)
         page_break(out)
         out.div **attr_code(preface_attrs(clause)) do |div|
-          clause_name(clause, clause.at(ns("./title")), div,
+          clause_name(clause, clause.at(ns("./fmt-title")), div,
                       { class: "IntroTitle" })
           clause.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end
@@ -153,10 +153,10 @@ module IsoDoc
         @bare and return
         page_break(out)
         out.div **attr_code(preface_attrs(clause)) do |div|
-          clause_name(clause, clause.at(ns("./title")), div,
+          clause_name(clause, clause.at(ns("./fmt-title")), div,
                       { class: "IntroTitle" })
           clause.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end
@@ -165,10 +165,10 @@ module IsoDoc
         @seen_colophon or page_break(out)
         @seen_colophon = true
         out.div class: "Section3", id: node["id"] do |div|
-          clause_name(node, node.at(ns("./title")), div,
+          clause_name(node, node.at(ns("./fmt-title")), div,
                       { class: "IntroTitle" })
           node.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end

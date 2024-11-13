@@ -2,7 +2,7 @@ module IsoDoc
   module Function
     module Table
       def table_title_parse(node, out)
-        name = node.at(ns("./name")) or return
+        name = node.at(ns("./fmt-name")) or return
         out.p class: "TableTitle", style: "text-align:center;" do |p|
           name&.children&.each { |n| parse(n, p) }
         end
