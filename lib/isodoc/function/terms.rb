@@ -37,15 +37,21 @@ module IsoDoc
         end
       end
 
-      def termnote_parse(node, out)
-        name = node&.at(ns("./fmt-name"))&.remove
-        out.div **note_attrs(node) do |div|
-          div.p do |p|
-            name&.children&.each { |n| parse(n, p) }
-            p << " "
-            para_then_remainder(node.first_element_child, node, p, div)
+      def termnote_p_class
+        nil
+      end
+
+      def termnote_parse(node, div)
+        name = node.at(ns("./fmt-name"))
+        para = node.at(ns("./p"))
+        div.p **attr_code(class: termnote_p_class) do |p|
+          name and p.span class: "note_label" do |s|
+            name.children.each { |n| parse(n, s) }
           end
+          p << " " # TODO to Presentation XML
+          para.children.each { |n| parse(n, p) }
         end
+        para.xpath("./following-sibling::*").each { |n| parse(n, div) }
       end
 
       def termref_parse(node, out)

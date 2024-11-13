@@ -17,24 +17,22 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-             <clause type="toc" id="_" displayorder="1">
+            <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
              <foreword displayorder="2">
-               <title id="_">Foreword</title>
-         <fmt-title depth="1">
-            <span class="fmt-caption-label">
-               <semx element="title" source="_">Foreword</semx>
-            </span>
-            <span class="fmt-label-delim"/>
-         </fmt-title>
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="title" source="_">Foreword</semx>
+                   </span>
+                </fmt-title>
                 <note id="A" keep-with-next="true" keep-lines-together="true" autonum="1">
                    <fmt-name>
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                          <semx element="autonum" source="A">1</semx>
                       </span>
-                      <span class="fmt-label-delim"/>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Note</span>
@@ -100,7 +98,6 @@ RSpec.describe IsoDoc do
                </div>
                <div id='B' class='Note' style='page-break-after: avoid;page-break-inside: avoid;'>
                  <p class='Note'>
-                   <span class='note_label'/>
                    <span style='mso-tab-count:1'>&#160; </span>
                     These results are based on a study carried out on three different
                    types of kernel.
@@ -115,15 +112,16 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true)))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(doc)
   end
 
@@ -141,33 +139,50 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <?xml version='1.0'?>
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-        <preface>
-              <clause type="toc" id="_" displayorder="1">
-                <title depth="1">Table of contents</title>
-              </clause>
-          <foreword displayorder="2"><title>Foreword</title>
-            <note id='note1'>
-              <name>NOTE 1</name>
-              <p id='_'>
-                These results are based on a study carried out on three different
-                types of kernel.
-              </p>
-            </note>
-            <note id='note2'>
-              <name>NOTE 2</name>
-              <p id='_'>
-                These results are based on a study carried out on three different
-                types of kernel.
-              </p>
-            </note>
-          </foreword>
-        </preface>
-      </iso-standard>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="title" source="_">Foreword</semx>
+                   </span>
+                </fmt-title>
+                <note id="note1" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">NOTE</span>
+                         <semx element="autonum" source="note1">1</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Note</span>
+                      <semx element="autonum" source="note1">1</semx>
+                   </fmt-xref-label>
+                   <p id="_">These results are based on a study carried out on three different types of kernel.</p>
+                </note>
+                <note id="note2" autonum="2">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">NOTE</span>
+                         <semx element="autonum" source="note2">2</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Note</span>
+                      <semx element="autonum" source="note2">2</semx>
+                   </fmt-xref-label>
+                   <p id="_">These results are based on a study carried out on three different types of kernel.</p>
+                </note>
+             </foreword>
+          </preface>
+       </iso-standard>
     OUTPUT
 
-    output = <<~OUTPUT
+    html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
                    <div>
@@ -183,13 +198,14 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes multi-para notes" do
@@ -403,23 +419,40 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-          <preface>
-              <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
-      </clause>
-            <foreword displayorder='2'><title>Foreword</title>
-              <note id='FB' coverpage='true' unnumbered='true'>
-                 <name>NOTE</name>
-                 <p>XYZ</p>
-               </note>
-               <admonition id='FC' coverpage='true' unnumbered='true' type='warning'>
-                 <name>WARNING</name>
-                 <p>XYZ</p>
-               </admonition>
-            </foreword>
-          </preface>
-        </iso-standard>
+          <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+         <clause type="toc" id="_" displayorder="1">
+              <fmt-title depth="1">Table of contents</fmt-title>
+           </clause>
+           <foreword displayorder="2">
+              <title id="_">Foreword</title>
+              <fmt-title depth="1">
+                 <span class="fmt-caption-label">
+                    <semx element="title" source="_">Foreword</semx>
+                 </span>
+              </fmt-title>
+            <note id='FB' coverpage='true' unnumbered='true'>
+                        <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">NOTE</span>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Note</span>
+            </fmt-xref-label>
+               <p>XYZ</p>
+             </note>
+             <admonition id='FC' coverpage='true' unnumbered='true' type='warning'>
+                         <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">WARNING</span>
+               </span>
+            </fmt-name>
+               <p>XYZ</p>
+             </admonition>
+          </foreword>
+        </preface>
+      </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -487,15 +520,16 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))))
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true))))
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(doc)
   end
 
@@ -510,36 +544,81 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-            <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-              <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
-      </clause>
-            <foreword displayorder='2'><title>Foreword</title>
-              <figure id='F'>
-                <name>Figure 1</name>
-                <note id='FB'>
-                  <name>NOTE</name>
-                  <p>XYZ</p>
-                </note>
-              </figure>
-              <table id='T'>
-                <name>Table 1</name>
-                <note id='TB'>
-                  <name>NOTE</name>
-                  <p>XYZ</p>
-                </note>
-              </table>
-              <p id='A'>
-                ABC
-                <note id='B'>
-                  <name>NOTE</name>
-                  <p id='C'>XYZ</p>
-                </note>
-              </p>
-            </foreword>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="title" source="_">Foreword</semx>
+                   </span>
+                </fmt-title>
+                <figure id="F" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Figure</span>
+                         <semx element="autonum" source="F">1</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="F">1</semx>
+                   </fmt-xref-label>
+                   <note id="FB" autonum="">
+                      <fmt-name>
+                         <span class="fmt-caption-label">
+                            <span class="fmt-element-name">NOTE</span>
+                         </span>
+                      </fmt-name>
+                      <fmt-xref-label>
+                         <span class="fmt-element-name">Note</span>
+                      </fmt-xref-label>
+                      <p>XYZ</p>
+                   </note>
+                </figure>
+                <table id="T" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Table</span>
+                         <semx element="autonum" source="T">1</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source="T">1</semx>
+                   </fmt-xref-label>
+                   <note id="TB" autonum="">
+                      <fmt-name>
+                         <span class="fmt-caption-label">
+                            <span class="fmt-element-name">NOTE</span>
+                         </span>
+                      </fmt-name>
+                      <fmt-xref-label>
+                         <span class="fmt-element-name">Note</span>
+                      </fmt-xref-label>
+                      <p>XYZ</p>
+                   </note>
+                </table>
+                <p id="A">
+                   ABC
+                   <note id="B" autonum="">
+                      <fmt-name>
+                         <span class="fmt-caption-label">
+                            <span class="fmt-element-name">NOTE</span>
+                         </span>
+                      </fmt-name>
+                      <fmt-xref-label>
+                         <span class="fmt-element-name">Note</span>
+                      </fmt-xref-label>
+                      <p id="C">XYZ</p>
+                   </note>
+                </p>
+             </foreword>
           </preface>
-        </iso-standard>
+       </iso-standard>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -563,12 +642,22 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
           <preface>
-             <clause type="toc" id="_" displayorder="1">
-              <title depth="1">Table of contents</title>
-            </clause>
-          <foreword displayorder="2"><title>Foreword</title>
+           <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="title" source="_">Foreword</semx>
+                   </span>
+                </fmt-title>
           <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true">
-          <name>CAUTION</name>
+            <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">CAUTION</span>
+               </span>
+            </fmt-name>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </admonition>
           <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true" notag="true">
@@ -593,12 +682,13 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -614,12 +704,22 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
-          <clause type="toc" id="_" displayorder="1">
-            <title depth="1">Table of contents</title>
-          </clause>
-          <foreword displayorder="2"><title>Foreword</title>
+           <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="title" source="_">Foreword</semx>
+                   </span>
+                </fmt-title>
             <admonition id="_" type="caution">
-              <name>CAUTION</name>
+              <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">CAUTION</span>
+               </span>
+            </fmt-name>
             </admonition>
           </foreword>
         </preface>
@@ -647,22 +747,39 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-              <title depth="1">Table of contents</title>
-            </clause>
-          <foreword displayorder="2"><title>Foreword</title>
-          <admonition id="_" type="caution">
-          <name>Title</name>
-        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-      </admonition>
-          <admonition id="_" type="caution" notag="true">
-          <name>Title</name>
-        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-      </admonition>
-          </foreword></preface>
-          </iso-standard>
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="title" source="_">Foreword</semx>
+                   </span>
+                </fmt-title>
+                <admonition id="_" type="caution">
+                   <name id="_">Title</name>
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <semx element="name" source="_">Title</semx>
+                      </span>
+                   </fmt-name>
+                   <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                </admonition>
+                <admonition id="_" type="caution" notag="true">
+                   <name id="_">Title</name>
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <semx element="name" source="_">Title</semx>
+                      </span>
+                   </fmt-name>
+                   <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                </admonition>
+             </foreword>
+          </preface>
+       </iso-standard>
     INPUT
     output = <<~OUTPUT
       #{HTML_HDR}
@@ -682,12 +799,13 @@ RSpec.describe IsoDoc do
               </body>
           </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -707,21 +825,48 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
+          <preface>
              <clause type="toc" id="_" displayorder="1">
-              <title depth="1">Table of contents</title>
-            </clause>
-           <foreword displayorder="2"><title>Foreword</title>
-             <admonition id="_" type="box">
-               <name>Box  1 — Title</name>
-               <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-             </admonition>
-             <admonition id="_" type="box" notag="true">
-               <name>Box  2</name>
-               <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-             </admonition>
-           </foreword>
-         </preface>
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="title" source="_">Foreword</semx>
+                   </span>
+                </fmt-title>
+                <admonition id="_" type="box" autonum="1">
+                   <name id="_">Title</name>
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Box</span>
+                         <semx element="autonum" source="_">1</semx>
+                         <span class="fmt-caption-delim"> — </span>
+                         <semx element="name" source="_">Title</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Box</span>
+                      <semx element="autonum" source="_">1</semx>
+                   </fmt-xref-label>
+                   <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                </admonition>
+                <admonition id="_" type="box" notag="true" autonum="2">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Box</span>
+                         <semx element="autonum" source="_">2</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Box</span>
+                      <semx element="autonum" source="_">2</semx>
+                   </fmt-xref-label>
+                   <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                </admonition>
+             </foreword>
+          </preface>
        </iso-standard>
     INPUT
     output = <<~OUTPUT
@@ -742,12 +887,13 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))))
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 end

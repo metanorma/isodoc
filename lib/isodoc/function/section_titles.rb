@@ -71,7 +71,7 @@ module IsoDoc
         div.h1 **attr_code(header_class) do |h1|
           if title.is_a?(String) then h1 << title
           else
-            title&.children&.each { |c2| parse(c2, h1) }
+            children_parse(title, h1)
             clause_parse_subtitle(title, h1)
           end
         end

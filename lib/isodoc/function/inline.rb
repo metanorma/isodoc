@@ -19,7 +19,8 @@ module IsoDoc
 
       # Presentation XML classes which we need not pass on to HTML or DOC
       SPAN_UNWRAP_CLASSES =
-        %w[fmt-caption-label fmt-label-delim fmt-element-name].freeze
+        %w[fmt-caption-label fmt-label-delim fmt-caption-delim fmt-autonum-delim
+           fmt-element-name].freeze
 
       def span_parse(node, out)
         klass = node["style"] || node["class"]

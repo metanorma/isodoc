@@ -4,6 +4,7 @@ module IsoDoc
       label&.empty? and label = nil
       name, ins, ids, number = prefix_name_prep(node, elem)
       label and ins.next = fmt_label(label, number, ids)
+      # autonum can be empty, e.g single note in clause: "NOTE []"
       number and node["autonum"] = number
       c = fmt_caption(label, elem, name, ids, delims) and ins.next = c
       node.at(ns("./sentinel"))&.remove
@@ -27,16 +28,17 @@ module IsoDoc
       "<semx element='autonum' source='#{id}'>#{num}</semx>"
     end
 
-    def fmt_label(label, _number, ids)
+    def fmt_label(_label, _number, ids)
       x = @xrefs.anchor(ids[:elem], :xref, false) and
         return "<fmt-xref-label>#{x}</fmt-xref-label>"
       ""
-      #label = cleanup_entities(label.strip)
-      #<<~XML
-        #<fmt-caption-label id='#{ids[:label]}'>#{label}</fmt-caption-label>#{xref}
-      #XML
+      # label = cleanup_entities(label.strip)
+      # <<~XML
+      # <fmt-caption-label id='#{ids[:label]}'>#{label}</fmt-caption-label>#{xref}
+      # XML
     end
 
+    # Remove ".blank?" tests if we want empty delim placeholders for manipulation
     def fmt_caption(label, elem, name, ids, delims)
       c = if name && !name.children.empty?
             label.blank? or
@@ -44,9 +46,9 @@ module IsoDoc
             attr = " element='#{elem}' source='#{ids[:name]}'"
             "#{label}#{d}<semx #{attr}>#{to_xml(name.children)}</semx>"
           elsif label then label
-          else return
-          end
-      f = "<span class='fmt-label-delim'>#{delims[:label]}</span>"
+          else return end
+      !delims[:label].blank? and
+        f = "<span class='fmt-label-delim'>#{delims[:label]}</span>"
       "<fmt-#{elem}><span class='fmt-caption-label'>#{c}</span>#{f}</fmt-#{elem}>"
     end
   end

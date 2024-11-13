@@ -42,7 +42,9 @@ module IsoDoc
               example_label(node, td, node.at(ns("./fmt-name")))
             end
             tr.td **EXAMPLE_TD_ATTR do |td|
-              node.children.each { |n| parse(n, td) unless n.name == "fmt-name" }
+              node.children.each do |n|
+                parse(n, td) unless n.name == "fmt-name"
+              end
             end
           end
         end
@@ -52,26 +54,40 @@ module IsoDoc
         example_div_parse(node, out)
       end
 
+      def starts_with_para?(node)
+        node.elements.each do |n|
+          %w(title fmt-title fmt-xref-label fmt-name name).include?(n) and next
+          n.name == "p" and return true
+        end
+        false
+      end
+
+      def note_p_class
+        nil
+      end
+
       def note_p_parse(node, div)
-        name = node.at(ns("./fmt-name"))&.remove
-        div.p do |p|
+        name = node.at(ns("./fmt-name"))
+        para = node.at(ns("./p"))
+        div.p **attr_code(class: note_p_class) do |p|
           name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
           end
-          insert_tab(p, 1)
-          node.first_element_child.children.each { |n| parse(n, p) }
+          insert_tab(p, 1) # TODO to Presentation XML
+          children_parse(para, p)
         end
-        node.element_children[1..].each { |n| parse(n, div) }
+        para.xpath("./following-sibling::*").each { |n| parse(n, div) }
       end
 
       def note_parse1(node, div)
-        name = node.at(ns("./fmt-name")) and div.p do |p|
-          p.span class: "note_label" do |s|
-            name.remove.children.each { |n| parse(n, s) }
+        name = node.at(ns("./fmt-name")) and
+          div.p **attr_code(class: note_p_class) do |p|
+            p.span class: "note_label" do |s|
+              name.remove.children.each { |n| parse(n, s) }
+            end
+            insert_tab(p, 1) # TODO to Presentation XML
           end
-          insert_tab(p, 1)
-        end
-        node.children.each { |n| parse(n, div) }
+        children_parse(node, div)
       end
 
       def keep_style(node)
@@ -94,7 +110,7 @@ module IsoDoc
       def note_parse(node, out)
         @note = true
         out.div **note_attrs(node) do |div|
-          if node&.at(ns("./*[local-name() != 'fmt-name'][1]"))&.name == "p"
+          if starts_with_para?(node)
             note_p_parse(node, div)
           else
             note_parse1(node, div)
@@ -105,7 +121,7 @@ module IsoDoc
 
       def admonition_name_parse(_node, div, name)
         div.p class: "AdmonitionTitle", style: "text-align:center;" do |p|
-          name.children.each { |n| parse(n, p) }
+          children_parse(name, p)
         end
       end
 
@@ -124,7 +140,7 @@ module IsoDoc
 
       def admonition_parse(node, out)
         out.div **admonition_attrs(node) do |div|
-          if node&.at(ns("./*[local-name() != 'fmt-name'][1]"))&.name == "p"
+          if starts_with_para?(node)
             admonition_p_parse(node, div)
           else
             admonition_parse1(node, div)
@@ -139,14 +155,16 @@ module IsoDoc
 
       # code to allow name and first paragraph to be rendered in same block
       def admonition_name_in_first_para(node, div)
+        name = node.at(ns("./fmt-name"))
+        para = node.at(ns("./p"))
         div.p do |p|
           if name = admonition_name(node, node["type"])&.remove
             name.children.each { |n| parse(n, p) }
-            admonition_name_para_delim(p)
+            admonition_name_para_delim(p) # TODO to Presentation XML
           end
-          node.first_element_child.children.each { |n| parse(n, p) }
+          para.children.each { |n| parse(n, p) }
         end
-        node.element_children[1..].each { |n| parse(n, div) }
+        para.xpath("./following-sibling::*").each { |n| parse(n, div) }
       end
 
       def admonition_name_para_delim(para)
