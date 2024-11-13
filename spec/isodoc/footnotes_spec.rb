@@ -4,12 +4,26 @@ require "fileutils"
 RSpec.describe IsoDoc do
   it "processes IsoXML footnotes" do
     input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-            <clause type="toc" id="_" displayorder="1">
-      <title depth="1">Table of contents</title>
-    </clause>
-          <foreword displayorder="2"><title>Foreword</title>
+          <foreword><title>Foreword</title>
+          <p>A.<fn reference="2">
+        <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
+      </fn></p>
+          <p>B.<fn reference="2">
+        <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
+      </fn></p>
+          <p>C.<fn reference="1">
+        <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
+      </fn></p>
+          </foreword>
+          </preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword><title>Foreword</title>
           <p>A.<fn reference="2">
         <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
       </fn></p>
@@ -57,7 +71,7 @@ RSpec.describe IsoDoc do
              </body>
          </html>
     OUTPUT
-    word = <<~OUTPUT
+    doc = <<~OUTPUT
       <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
         <head>
           <style>
@@ -123,16 +137,39 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({}).convert("test", input, true)))
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({}).convert("test", input, true)
-      .gsub(/_Ref\d+/, "_Ref")))
-      .to be_equivalent_to Xml::C14n.format(word)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true))))
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "processes IsoXML reviewer notes" do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword displayorder="1"><title>Foreword</title>
+          <p id="A">A.</p>
+          <p id="B">B.</p>
+          <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c711" date="20170101T0000" from="A" to="B"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
+      <p id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p></review>
+          <p id="C">C.</p>
+          <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
+          </foreword>
+          <introduction displayorder="2"><title>Introduction</title>
+          <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
+          </introduction>
+          </preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <foreword displayorder="1"><title>Foreword</title>
@@ -165,7 +202,7 @@ RSpec.describe IsoDoc do
       </main>
     OUTPUT
 
-    word = <<~OUTPUT
+    doc = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
          <div class="WordSection2">
            <p class="MsoNormal">
@@ -246,9 +283,14 @@ RSpec.describe IsoDoc do
          <div style="mso-element:footnote-list"/>
        </body>
     OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
-      .convert("test", input, false)
+      .convert("test", pres_output, false)
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
@@ -256,7 +298,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
-      .convert("test", input, false)
+      .convert("test", pres_output, false)
     out = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m,
                                                               "</body>")
     expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(word)
@@ -265,6 +307,25 @@ RSpec.describe IsoDoc do
   it "processes IsoXML reviewer notes spanning list" do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword displayorder="1"><title>Foreword</title>
+      <ol>
+      <li id="A"><p>A.</p><p>A1</p></li>
+      <li id="B">B.</li>
+      <ul>
+      <li><p>C.</p><p id="C">C1</p></li>
+      <li id="D">D.</li>
+      </ul>
+      </ol>
+      </foreword>
+      <introduction displayorder="2"><title>Introduction</title>
+      <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
+      </introduction>
+      </preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword displayorder="1"><title>Foreword</title>
@@ -314,7 +375,7 @@ RSpec.describe IsoDoc do
       </main>
     OUTPUT
     word = <<~OUTPUT
-           <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
          <div class="WordSection2">
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -377,9 +438,14 @@ RSpec.describe IsoDoc do
          <div style="mso-element:footnote-list"/>
        </body>
     OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
-      .convert("test", input, false)
+      .convert("test", pres_output, false)
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
@@ -387,7 +453,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
-      .convert("test", input, false)
+      .convert("test", pres_output, false)
     out = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m,
                                                               "</body>")
     expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(word)

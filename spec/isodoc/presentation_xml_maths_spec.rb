@@ -21,7 +21,9 @@ RSpec.describe IsoDoc do
           <title language='en'>test</title>
         </bibdata>
         <preface>
-          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
           <p displayorder="2">
             64,212,149,677,264,515
             642,121,496,772,645.15 30,000
@@ -157,7 +159,9 @@ RSpec.describe IsoDoc do
           </bibdata>
 
           <preface>
-              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                            <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
             <p displayorder="2">
               30,000
               <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1,000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1,000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1.00'30'0</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>459,384.12'34'5</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j) (1 - p)^(459384.123456789 - j)</asciimath></stem>
@@ -209,7 +213,11 @@ RSpec.describe IsoDoc do
           <language current='true'>fr</language>
         </bibdata>
         <preface>
-            <clause type="toc" id="_" displayorder="1">
+                  <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
           <title depth="1">Sommaire</title>
           </clause>
           <p displayorder="2">
@@ -247,7 +255,9 @@ RSpec.describe IsoDoc do
              </bibdata>
 
              <preface>
-                 <clause type="toc" id="_" displayorder="1"> <title depth="1">Sommaire</title> </clause>
+               <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
                <p displayorder="2">
                  30'000
                  <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1'000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1'000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>0,0000032</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1,003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (0.0000032 - p)^(1.003 - j)</asciimath></stem></p>
@@ -286,7 +296,9 @@ RSpec.describe IsoDoc do
            </bibdata>
 
            <preface>
-              <clause type="toc" id="_" displayorder="1"> <title depth="1">Inhaltsübersicht</title> </clause>
+             <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
              <p displayorder='2'> ... 64212149677264515 642121496772;64515 30000 </p>
            </preface>
          </iso-standard>
@@ -321,7 +333,9 @@ RSpec.describe IsoDoc do
              <title language='en'>test</title>
            </bibdata>
            <preface>
-              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+             <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
              <p displayorder='2'> ...
             6=42=12=14=96=77=26=45=15
             64=21=21=49=67=72;64$51$5
@@ -496,7 +510,9 @@ RSpec.describe IsoDoc do
               <title language='en'>test</title>
             </bibdata>
             <preface>
-               <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                              <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
                           <p displayorder="2">
             0.00
             31.00
@@ -569,7 +585,9 @@ RSpec.describe IsoDoc do
                  <title language='en'>test</title>
                </bibdata>
                <preface>
-                  <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                                 <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
                              <p displayorder="2">
             0.0
             31
@@ -642,7 +660,9 @@ RSpec.describe IsoDoc do
                  <title language='en'>test</title>
                </bibdata>
                <preface>
-                  <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                  <clause type="toc" id="_" displayorder="1">
+                  <fmt-title depth="1">Table of contents</fmt-title>
+                  </clause>
                              <p displayorder="2">
             0.0
             31
@@ -717,7 +737,8 @@ RSpec.describe IsoDoc do
                   <title language='en'>test</title>
                 </bibdata>
                 <preface>
-                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+                   <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title>i
+                   </clause>
                    <p displayorder="2">
                  0.0
                  31
@@ -844,7 +865,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <title depth="1">Table of contents</title>
+                 <fmt-title depth="1">Table of contents</fmt-title>
               </clause>
            </preface>
            <sections>

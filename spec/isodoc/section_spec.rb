@@ -5,16 +5,17 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <abstract id="A" displayorder="1"><title>abstract</title></abstract>
-      <introduction id="B" displayorder="2"><title>introduction</title></introduction>
+      <abstract id="A" displayorder="1"><fmt-title>abstract</fmt-title></abstract>
+      <introduction id="B" displayorder="2"><fmt-title>introduction</fmt-title></introduction>
       <note id="C" displayorder="3">note</note>
       </preface>
       <sections>
-       <clause id="M" inline-header="false" obligation="normative" displayorder="4"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-         <title>Introduction</title>
+       <clause id="M" inline-header="false" obligation="normative" displayorder="4">
+        <fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
+         <fmt-title>Introduction</fmt-title>
        </clause>
        <clause id="O" inline-header="true" obligation="normative" displayorder="5">
-         <title>Clause 4.2</title>
+         <fmt-title>Clause 4.2</fmt-title>
        </clause></clause>
        <admonition id="L" type="caution" displayorder="6"><p>admonition</p></admonition>
        </sections>

@@ -111,9 +111,10 @@ RSpec.describe IsoDoc do
         </bibdata>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -1293,13 +1294,19 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
         <bibdata/>
-
         <preface>
-          <clause type="toc" id="_" displayorder="1">
-            <title depth="1">Table of contents</title>
-          </clause>
-          <abstract displayorder="2"/>
-          <foreword displayorder="3"><title>Foreword</title></foreword>
+           <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+              <abstract displayorder="2"/>
+              <foreword displayorder="3">
+                 <title id="_">Foreword</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="title" source="_">Foreword</semx>
+                    </span>
+                 </fmt-title>
+              </foreword>
           <introduction displayorder="4"/>
           <p type="floating-title" displayorder="5">FL 1</p>
           <p type="floating-title" displayorder="6">FL 2</p>

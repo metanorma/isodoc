@@ -1035,10 +1035,10 @@ RSpec.describe IsoDoc do
         </p>
       </foreword>
     PRESXML
-    expect(Xml::C14n.format(Nokogiri::XML(
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
-    ).at("//xmlns:foreword").to_xml))
+    ).at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
@@ -1629,7 +1629,13 @@ RSpec.describe IsoDoc do
       </standard-document>
     INPUT
     presxml = <<~OUTPUT
-      <foreword id="A" displayorder="2"><title>Foreword</title>
+      <foreword id="A" displayorder="2">
+                  <title id="_">Foreword</title>
+            <fmt-title depth="1">
+               <span class="fmt-caption-label">
+                  <semx element="title" source="_">Foreword</semx>
+               </span>
+            </fmt-title>
         <p id="_">
           <eref bibitemid="B" citeas="what">what</eref>
         </p>

@@ -1878,7 +1878,7 @@ RSpec.describe IsoDoc do
 
   it "processes disconnected titles" do
     input = <<~INPUT
-           <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
            <sections>
            <clause id="A1" displayorder="1">
            <clause id="A2">

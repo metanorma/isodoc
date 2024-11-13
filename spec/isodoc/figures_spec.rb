@@ -765,12 +765,12 @@ RSpec.describe IsoDoc do
             </bibdata>
                 <preface>
       <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-                <foreword displayorder="2"><title>Foreword</title>
+                <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
                 <example>
                 <sourcecode id="B"><name>Label</name>A B C</sourcecode>
-          <figure id="A" class="pseudocode"><name>Label</name><p id="_">  <strong>A</strong></p></figure>
+          <figure id="A" class="pseudocode"><fmt-name>Label</fmt-name><p id="_">  <strong>A</strong></p></figure>
                 <sourcecode id="B1">A B C</sourcecode>
           <figure id="A1" class="pseudocode"><p id="_">  <strong>A</strong></p></figure>
         </example></foreword>

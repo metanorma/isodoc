@@ -473,11 +473,11 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
           <clause type="toc" displayorder="1" id="_">
-      <title depth="1">Table of contents</title>
+      <fmt-title depth="1">Table of contents</fmtfmt--title>
       </clause>
-      <foreword displayorder="2"><title>Foreword</title>
+      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
         <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" class="modspec">
-          <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
+          <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield</fmt-name>
         </table>
       </foreword>
       </preface>
@@ -556,9 +556,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <foreword displayorder="1"><title>Foreword</title>
+          <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
             <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-        <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+        <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
         <thead>
           <tr>
             <td>
@@ -748,9 +748,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1"><title>Foreword</title>
+        <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-      <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+      <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
       <thead>
         <tr>
           <td>X</td>
@@ -856,9 +856,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1"><title>Foreword</title>
+        <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-      <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+      <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
       <thead>
         <tr>
           <td>X</td>
@@ -976,9 +976,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1"><title>Foreword</title>
+        <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-      <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+      <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
       <thead>
         <tr>
           <td>X</td>
@@ -1085,9 +1085,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1"><title>Foreword</title>
+        <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-      <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+      <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
       <thead>
         <tr>
           <td>X</td>
