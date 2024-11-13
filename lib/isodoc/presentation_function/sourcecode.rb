@@ -150,11 +150,12 @@ module IsoDoc
     end
 
     def source_label(elem)
-      labelled_ancestor(elem) and return
-      lbl = @xrefs.anchor(elem["id"], :label, false) or return
-      a = autonum(elem["id"], lbl)
-      s = "<span class='fmt-element-name'>#{lower2cap @i18n.figure}</span> #{a}"
-      prefix_name(elem, { caption: block_delim }, l10n(s), "name")
+      if !labelled_ancestor(elem) && # do not number if labelled_ancestor
+          lbl = @xrefs.anchor(elem["id"], :label, false)
+        a = autonum(elem["id"], lbl)
+        s = "<span class='fmt-element-name'>#{lower2cap @i18n.figure}</span> #{a}"
+      end
+      prefix_name(elem, { caption: block_delim }, l10n(s&.strip), "name")
     end
   end
 end

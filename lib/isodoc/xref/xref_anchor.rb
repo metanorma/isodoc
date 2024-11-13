@@ -36,7 +36,7 @@ module IsoDoc
             "#{lbl}</semx>"
           "<span class='fmt-element-name'>#{elem}</span> #{s}"
         else
-          lbl.to_s
+          anchor_struct_value(lbl, elem)
         end
       end
 
@@ -50,9 +50,11 @@ module IsoDoc
 
       def anchor_struct_value(lbl, elem)
         case elem
-        when @labels["formula"], @labels["inequality"] then "(#{lbl})"
+        when @labels["formula"], @labels["inequality"] then <<~SPAN.strip
+          <span class='fmt-autonum-delim'>(</span>#{lbl}<span class='fmt-autonum-delim'>)</span>
+        SPAN
         else
-          lbl
+          lbl.to_s
         end
       end
 
@@ -64,7 +66,7 @@ module IsoDoc
           anchor_struct_xref(opt[:unnumb] == "true" ? "(??)" : lbl, node,
                              elem_name)
         ret[:container] = @klass.get_clause_id(node) if opt[:container]
-        ret[:value] = anchor_struct_value(lbl, elem_name)
+        ret[:value] = lbl
         ret
       end
     end

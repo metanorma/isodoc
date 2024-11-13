@@ -48,12 +48,14 @@ module IsoDoc
         return sourcecode1(elem)
       figure_fn(elem)
       figure_key(elem.at(ns("./dl")))
-      figure_label?(elem) or return nil
-      lbl = @xrefs.anchor(elem["id"], :label, false) or return
+      #figure_label?(elem) or return nil
+      #lbl = @xrefs.anchor(elem["id"], :label, false) or return
+      lbl = @xrefs.anchor(elem["id"], :label, false)
+      lbl and a = autonum(elem["id"], lbl)
       # no xref, no label: this can be set in xref
-      a = autonum(elem["id"], lbl)
-      s = "<span class='fmt-element-name'>#{figure_label(elem)}</span> #{a}"
-      prefix_name(elem, { caption: block_delim }, l10n(s), "name")
+      lbl && figure_label?(elem) and
+        s = "<span class='fmt-element-name'>#{figure_label(elem)}</span> #{a}"
+      prefix_name(elem, { caption: block_delim }, l10n(s&.strip), "name")
     end
 
     # move footnotes into key, and get rid of footnote reference

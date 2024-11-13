@@ -256,7 +256,7 @@ module IsoDoc
     def toc_refs(docxml)
       docxml.xpath(ns("//toc//xref[text()]")).each do |x|
         lbl = @xrefs.anchor(x["target"], :label) or next
-        x.add_first_child "#{lbl}<tab/>"
+        x.add_first_child "#{lbl}<span class='fmt-caption-delim'><tab/></span>"
       end
     end
   end

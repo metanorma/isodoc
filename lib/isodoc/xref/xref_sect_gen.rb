@@ -169,9 +169,10 @@ module IsoDoc
       end
 
       def section_name_anchors(clause, num, level)
-        s = labelled_autonum(@labels["clause"], clause, num)
+        xref = labelled_autonum(@labels["clause"], clause, num)
+        label = "<semx element='autonum' source='#{clause['id']}'>#{num}</semx>"
         @anchors[clause["id"]] =
-          { label: num, xref: s,
+          { label:, xref:,
             title: clause_title(clause), level:, type: "clause",
             elem: @labels["clause"] }
       end
@@ -187,16 +188,15 @@ module IsoDoc
       end
 
       def annex_name_anchors(clause, num, level)
-        label = num
+        label = "<semx element='autonum' source='#{clause['id']}'>#{num}</semx>"
         level == 1 && clause.name == "annex" and
           label = annex_name_lbl(clause, num)
-        s = labelled_autonum(@labels["annex"], clause, num)
+        xref = labelled_autonum(@labels["annex"], clause, num)
         @anchors[clause["id"]] =
-          { label:,
+          { label:, xref:,
             elem: @labels["annex"], type: "clause",
             subtype: "annex", value: num.to_s, level:,
-            title: clause_title(clause),
-            xref: s }
+            title: clause_title(clause) }
       end
 
       def annex_names(clause, num)

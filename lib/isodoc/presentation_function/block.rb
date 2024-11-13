@@ -21,7 +21,7 @@ module IsoDoc
     def formula1(elem)
       formula_where(elem.at(ns("./dl")))
       lbl = @xrefs.anchor(elem["id"], :label, false)
-      lbl.nil? || lbl.empty? or prefix_name(elem, {}, "(#{lbl})", "name")
+      lbl.nil? || lbl.empty? or prefix_name(elem, {}, lbl, "name")
     end
 
     def formula_where(dlist)
@@ -40,7 +40,7 @@ module IsoDoc
       lbl = "<span class='fmt-element-name'>#{@i18n.example}</span>"
       (n.nil? || n[:label].nil? || n[:label].empty?) or
         lbl = l10n("#{lbl} #{autonum(elem['id'], n[:label])}")
-      prefix_name(elem, { caption: block_delim}, lbl, "name")
+      prefix_name(elem, { caption: block_delim }, lbl, "name")
     end
 
     def note(docxml)
