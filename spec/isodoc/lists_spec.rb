@@ -5,10 +5,10 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder="2"><title>Foreword</title>
+          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
+          <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
-          <name>Caption</name>
+          <fmt-name>Caption</fmt-name>
         <li>
           <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
         </li>
@@ -95,8 +95,8 @@ RSpec.describe IsoDoc do
   it "processes unordered checklists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder="2"><title>Foreword</title>
+          <preface><clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
+          <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
         <li  checkedcheckbox="true" uncheckedcheckbox="false">
           <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
@@ -191,8 +191,8 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder="2"><title>Foreword</title>
+          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
+          <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <li>
@@ -311,9 +311,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
+          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
 
-        <foreword displayorder="2"><title>Foreword</title>
+        <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="roman_upper">
         <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
           <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
@@ -360,8 +360,8 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder="2"><title>Foreword</title>
+          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
+          <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <dt>
@@ -477,7 +477,7 @@ RSpec.describe IsoDoc do
   it "processes nested definition lists (Word)" do
     input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
-           <preface><foreword displayorder="1"><title>Foreword</title>
+           <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
        <dl id="_732d3f57-4f88-40bf-9ae9-633891edc394">
        <dt>A Deflist</dt>
        <dd>

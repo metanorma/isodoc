@@ -4,7 +4,7 @@ RSpec.describe IsoDoc do
   it "processes inline formatting" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="1"><title>Foreword</title>
+      <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
       <p>
       <em>A</em> <strong>B</strong> <sup>C</sup> <sub>D</sub> <tt>E</tt>
       <strike>F</strike> <smallcap>G</smallcap> <keyword>I</keyword> <br/> <hr/>
@@ -570,9 +570,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface> <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-        <foreword displayorder="2"><title>Foreword</title>
+        <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
         <p>
         <em><strong>&lt;</strong></em> <tt><link target="B"/></tt> <xref target="_http_1_1">Requirement <tt>/req/core/http</tt></xref> <eref type="inline" bibitemid="ISO712" citeas="ISO 712">Requirement <tt>/req/core/http</tt></eref>
         </p>
@@ -601,9 +601,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface> <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-      <foreword displayorder="2"><title>Foreword</title>
+      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <p>
         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
         </p>
@@ -631,9 +631,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface> <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-      <foreword displayorder="2"><title>Foreword</title>
+      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
         <p>
         <link target="http://example.com"/>
         <link target="http://example.com"><br/></link>
@@ -673,7 +673,7 @@ RSpec.describe IsoDoc do
   it "processes updatetype links" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="2"><title>Foreword</title>
+      <preface><foreword displayorder="2"><fmt-title>Foreword</fmt-title>
       <p>
       <link update-type="true" target="http://example.com"/>
       <link update-type="true" target="list.adoc">example</link>
@@ -717,9 +717,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface> <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-      <foreword displayorder="2"><title>Foreword</title>
+      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
         <p>
         <barry fred="http://example.com">example</barry>
         </p>
@@ -748,9 +748,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
         <preface>    <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-       <foreword displayorder="2"><title>Foreword</title>
+       <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
         <p>
         <stem type="AsciiMath">&lt;A&gt;</stem>
         <stem type="AsciiMath"><m:math><m:row>X</m:row></m:math><asciimath>&lt;A&gt;</asciimath></stem>
@@ -793,9 +793,9 @@ RSpec.describe IsoDoc do
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
             <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-        <foreword displayorder="2"><title>Foreword</title>
+        <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
         <p>
         <stem type="AsciiMath">A</stem>
         (#((Hello))#)
@@ -838,10 +838,16 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' xmlns:m='http://www.w3.org/1998/Math/MathML' type='presentation'>
         <preface>
-            <clause type="toc" id="_" displayorder="1">
-            <title depth="1">Table of contents</title>
-          </clause>
-          <foreword displayorder='2'><title>Foreword</title>
+                      <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+              <foreword displayorder="2">
+                 <title id="_">Foreword</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="title" source="_">Foreword</semx>
+                    </span>
+                 </fmt-title>
             <p>
               <stem type='MathML'>
                  <m:math>
@@ -887,34 +893,40 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-            <iso-standard xmlns='http://riboseinc.com/isoxml' xmlns:m='http://www.w3.org/1998/Math/MathML' type='presentation'>
-          <preface>
-              <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
-      </clause>
-            <foreword displayorder='2'><title>Foreword</title>
-              <p>
-                <stem type='MathML'>
-                   <m:math>
-                     <m:msup>
+      <iso-standard xmlns='http://riboseinc.com/isoxml' xmlns:m='http://www.w3.org/1998/Math/MathML' type='presentation'>
+            <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword displayorder="2">
+               <title id="_">Foreword</title>
+               <fmt-title depth="1">
+                  <span class="fmt-caption-label">
+                     <semx element="title" source="_">Foreword</semx>
+                  </span>
+               </fmt-title>
+            <p>
+              <stem type='MathML'>
+                 <m:math>
+                   <m:msup>
+                     <m:mrow>
+                       <m:mo>(</m:mo>
                        <m:mrow>
-                         <m:mo>(</m:mo>
-                         <m:mrow>
-                           <m:mi>x</m:mi>
-                           <m:mo>+</m:mo>
-                           <m:mi>y</m:mi>
-                         </m:mrow>
-                         <m:mo>)</m:mo>
+                         <m:mi>x</m:mi>
+                         <m:mo>+</m:mo>
+                         <m:mi>y</m:mi>
                        </m:mrow>
-                       <m:mn>2</m:mn>
-                     </m:msup>
-                   </m:math>
-                </stem>
-              </p>
-            </foreword>
-          </preface>
-          <sections> </sections>
-        </iso-standard>
+                       <m:mo>)</m:mo>
+                     </m:mrow>
+                     <m:mn>2</m:mn>
+                   </m:msup>
+                 </m:math>
+              </stem>
+            </p>
+          </foreword>
+        </preface>
+        <sections> </sections>
+      </iso-standard>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new({ suppressasciimathdup: true }
@@ -964,7 +976,13 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder="2"><title>Foreword</title>
+      <foreword displayorder="2">
+                 <title id="_">Foreword</title>
+           <fmt-title depth="1">
+              <span class="fmt-caption-label">
+                 <semx element="title" source="_">Foreword</semx>
+              </span>
+           </fmt-title>
         <p>
           <sup>
             <xref type="footnote" target="ISO712">A</xref>
@@ -1204,7 +1222,13 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder='2'><title>Avant-propos</title>
+      <foreword displayorder='2'>
+                 <title id="_">Avant-propos</title>
+           <fmt-title depth="1">
+              <span class="fmt-caption-label">
+                 <semx element="title" source="_">Avant-propos</semx>
+              </span>
+           </fmt-title>
         <p>
           <link target="https://www.google.com/fr">ISO 712</link>
           <link target="https://www.google.com/fr">ISO 712</link>
@@ -1321,7 +1345,13 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder='2'><title>Avant-propos</title>
+      <foreword displayorder='2'>
+        <title id="_">Avant-propos</title>
+           <fmt-title depth="1">
+              <span class="fmt-caption-label">
+                 <semx element="title" source="_">Avant-propos</semx>
+              </span>
+           </fmt-title>
         <p>
           <link attachment="true" target="https://example.google.com">ISO 712</link>
         </p>
@@ -1537,7 +1567,13 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder='2'><title>Foreword</title>
+      <foreword displayorder='2'>
+        <title id="_">Foreword</title>
+           <fmt-title depth="1">
+              <span class="fmt-caption-label">
+                 <semx element="title" source="_">Foreword</semx>
+              </span>
+           </fmt-title>
         <p>
           <xref type="inline" target='ISO712'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</link>
         </p>
@@ -1623,8 +1659,8 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <itu-standard xmlns="https://www.calconnect.org/standards/itu">
       <preface>
-             <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-       <foreword id="A" displayorder="2"><title>Foreword</title>
+      <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
+       <foreword id="A" displayorder="2"><fmt-title>Foreword</fmt-title>
       <add>ABC <xref target="A"></add> <del><strong>B</strong></del>
       </foreword></preface>
       </itu-standard>
