@@ -12,8 +12,8 @@ module IsoDoc
     end
 
     def anchor_value(id)
-      @xrefs.anchor(id, :bare_xref) || @xrefs.anchor(id, :value) ||
-        @xrefs.anchor(id, :label) || @xrefs.anchor(id, :xref)
+      @xrefs.anchor(id, :bare_xref) || @xrefs.anchor(id, :label) ||
+        @xrefs.anchor(id, :value) || @xrefs.anchor(id, :xref)
     end
 
     def anchor_linkend(node, linkend)
@@ -55,7 +55,7 @@ module IsoDoc
 
     def anchor_xref_short(node, target, container)
       if (l = node["label"]) && !container
-        @i18n.l10n("#{l} #{anchor_value(target)}")
+        @i18n.l10n(%[<span class="fmt-element-name">#{l}</span> #{anchor_value(target)}])
       else @xrefs.anchor(target, :xref)
       end
     end

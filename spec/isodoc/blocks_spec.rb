@@ -580,14 +580,12 @@ RSpec.describe IsoDoc do
                   <span class="fmt-autonum-delim">)</span>
                </span>
             </fmt-name>
-            <fmt-xref-label>
-               <span class="fmt-element-name">Formula</span>
-                <semx element="autonum" source="_">
-                  <span class="fmt-autonum-delim">(</span>
-                  1
-                  <span class="fmt-autonum-delim">)</span>
-               </semx>
-            </fmt-xref-label>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Formula</span>
+                      <span class="fmt-autonum-delim">(</span>
+                      <semx element="autonum" source="_">1</semx>
+                      <span class="fmt-autonum-delim">)</span>
+                   </fmt-xref-label>
         <stem type="AsciiMath">r = 1 %</stem>
         </formula>
           </foreword></preface>
@@ -931,14 +929,12 @@ RSpec.describe IsoDoc do
                         <span class="fmt-autonum-delim">)</span>
                      </span>
                   </fmt-name>
-                  <fmt-xref-label>
-                     <span class="fmt-element-name">Formula</span>
-                     <semx element="autonum" source="B">
-                        <span class="fmt-autonum-delim">(</span>
-                        1
-                        <span class="fmt-autonum-delim">)</span>
-                     </semx>
-                  </fmt-xref-label>
+                                           <fmt-xref-label>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
             <stem type="AsciiMath">r/1 = 0</stem>
           </formula>
         </div><div exclude="false" type="requirement-verification">
@@ -1120,14 +1116,12 @@ RSpec.describe IsoDoc do
                         <span class="fmt-autonum-delim">)</span>
                      </span>
                   </fmt-name>
-                  <fmt-xref-label>
-                     <span class="fmt-element-name">Formula</span>
-                     <semx element="autonum" source="B">
-                        <span class="fmt-autonum-delim">(</span>
-                        1
-                        <span class="fmt-autonum-delim">)</span>
-                     </semx>
-                  </fmt-xref-label>
+                                           <fmt-xref-label>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
             <stem type="AsciiMath">r/1 = 0</stem>
           </formula>
         </div><div exclude="false" type="requirement-verification">
@@ -1290,14 +1284,12 @@ RSpec.describe IsoDoc do
                         <span class="fmt-autonum-delim">)</span>
                      </span>
                   </fmt-name>
-                  <fmt-xref-label>
-                     <span class="fmt-element-name">Formula</span>
-                     <semx element="autonum" source="B">
-                        <span class="fmt-autonum-delim">(</span>
-                        1
-                        <span class="fmt-autonum-delim">)</span>
-                     </semx>
-                  </fmt-xref-label>
+                         <fmt-xref-label>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
             <stem type="AsciiMath">r/1 = 0</stem>
           </formula>
         </div><div exclude="false" type="requirement-verification">

@@ -35,7 +35,6 @@ module IsoDoc
       def increment_label(elems, node, counter, increment: true)
         elems.size == 1 && !node["number"] and return ""
         counter.increment(node) if increment
-        #" #{counter.print}"
         counter.print
       end
 
@@ -48,9 +47,7 @@ module IsoDoc
               { label: termnote_label(c.print), type: "termnote",
                 value: c.print, elem: @labels["termnote"],
                 container: t["id"],
-                #xref: "#{@labels['note_xref']} #{c.print}" 
-            xref: anchor_struct_xref(c.print, n, @labels['note_xref'])
-              }
+                xref: anchor_struct_xref(c.print, n, @labels["note_xref"]) }
           end
         end
       end
@@ -66,9 +63,7 @@ module IsoDoc
               { label: idx, type: "termexample",
                 value: idx, elem: @labels["example_xref"],
                 container: t["id"],
-                #xref: "#{@labels['example_xref']} #{idx}" }
-             xref: anchor_struct_xref(idx, n, @labels['example_xref']) 
-              }
+                xref: anchor_struct_xref(idx, n, @labels["example_xref"]) }
           end
         end
       end
@@ -86,7 +81,8 @@ module IsoDoc
         notes.noblank.each do |n|
           @anchors[n["id"]] =
             anchor_struct(increment_label(notes, n, counter), n,
-                          @labels["note_xref"], "note", { container: true, unnumb: false })
+                          @labels["note_xref"], "note",
+                          { container: true, unnumb: false })
         end
       end
 
@@ -103,7 +99,8 @@ module IsoDoc
         notes.noblank.each do |n|
           @anchors[n["id"]] ||=
             anchor_struct(increment_label(notes, n, counter), n,
-                          @labels["box"], "admonition", { container: true, unnumb: n["unnumbered"] })
+                          @labels["box"], "admonition",
+                          { container: true, unnumb: n["unnumbered"] })
         end
       end
 
@@ -119,7 +116,8 @@ module IsoDoc
         notes.noblank.each do |n|
           @anchors[n["id"]] ||=
             anchor_struct(increment_label(notes, n, counter), n,
-                          @labels["example_xref"], "example", { unnumb: n["unnumbered"], container: true })
+                          @labels["example_xref"], "example",
+                          { unnumb: n["unnumbered"], container: true })
         end
       end
 
@@ -129,23 +127,31 @@ module IsoDoc
             s.xpath(ns(".//appendix//ol")) - s.xpath(ns(".//ol//ol"))
           c = list_counter
           notes.noblank.each do |n|
-            @anchors[n["id"]] = anchor_struct(increment_label(notes, n, c), n,
-                                              @labels["list"], "list", { unnumb: false, container: true})
+            @anchors[n["id"]] =
+              anchor_struct(increment_label(notes, n, c), n,
+                            @labels["list"], "list",
+                            { unnumb: false, container: true })
             list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
           end
           list_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
         end
       end
 
-      def list_item_anchor_names(list, list_anchor, depth, prev_label, refer_list)
+      def list_item_delim
+        '<span class="fmt-autonum-delim">)</span>'
+      end
+
+      def list_item_anchor_names(list, list_anchor, depth, prev_label,
+refer_list)
         c = list_counter(list["start"] ? list["start"].to_i - 1 : 0)
         list.xpath(ns("./li")).each do |li|
           bare_label, label =
-            list_item_value(li, c, depth, { list_anchor:, prev_label:,
-                                            refer_list: depth == 1 ? refer_list : nil })
+            list_item_value(li, c, depth,
+                            { list_anchor:, prev_label:,
+                              refer_list: depth == 1 ? refer_list : nil })
           li["id"] and @anchors[li["id"]] =
                          { label: bare_label, bare_xref: "#{label})",
-                           xref: %[<semx element="autonum" source="#{li['id']}">#{label}</semx><span class="fmt-autonum-delim">)</span>],
+                           xref: %[#{label}#{list_item_delim}],
                            type: "listitem", refer_list:,
                            container: list_anchor[:container] }
           (li.xpath(ns(".//ol")) - li.xpath(ns(".//ol//ol"))).each do |ol|
@@ -157,14 +163,16 @@ module IsoDoc
 
       def list_item_value(entry, counter, depth, opts)
         label = counter.increment(entry).listlabel(entry.parent, depth)
+        semx = %(<semx element="autonum" source="#{entry['id']}">#{label}</semx>)
         [label,
-         list_item_anchor_label(label, opts[:list_anchor], opts[:prev_label],
+         list_item_anchor_label(semx, opts[:list_anchor], opts[:prev_label],
                                 opts[:refer_list])]
       end
 
       def list_item_anchor_label(label, list_anchor, prev_label, refer_list)
         prev_label.empty? or
-          label = @i18n.list_nested_xref.sub("%1", "#{prev_label})")
+          label = @i18n.list_nested_xref
+            .sub("%1", %[#{prev_label}#{list_item_delim}])
             .sub("%2", label)
         refer_list and
           label = @i18n.list_nested_xref.sub("%1", list_anchor[:xref])
@@ -185,7 +193,8 @@ module IsoDoc
         notes.noblank.each do |n|
           @anchors[n["id"]] =
             anchor_struct(increment_label(notes, n, counter), n,
-                          @labels["deflist"], "deflist", { unnumb: false, container: true })
+                          @labels["deflist"], "deflist",
+                          { unnumb: false, container: true })
           deflist_term_anchor_names(n, @anchors[n["id"]])
         end
       end

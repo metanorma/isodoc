@@ -119,9 +119,11 @@ module IsoDoc
       end
 
       def preface_name_anchors(clause, level, title)
+        xref = "<semx element='#{clause.name}' " \
+          "source='#{clause['id']}'>#{title}</semx>"
         @anchors[clause["id"]] =
           { label: nil, level:,
-            xref: "<semx source='title'>#{title}</semx>", title: nil,
+            xref:, title: nil,
             type: "clause", elem: @labels["clause"] }
       end
 
