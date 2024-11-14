@@ -28,30 +28,27 @@ module IsoDoc
         end
       end
 
-      def para_then_remainder(first, node, para, div)
-        if first.name == "p"
-          first.children.each { |n| parse(n, para) }
-          node.elements.drop(1).each { |n| parse(n, div) }
-        else
-          node.elements.each { |n| parse(n, div) }
-        end
-      end
-
       def termnote_p_class
         nil
       end
 
-      def termnote_parse(node, div)
-        name = node.at(ns("./fmt-name"))
-        para = node.at(ns("./p"))
-        div.p **attr_code(class: termnote_p_class) do |p|
-          name and p.span class: "note_label" do |s|
-            name.children.each { |n| parse(n, s) }
-          end
-          p << " " # TODO to Presentation XML
-          para.children.each { |n| parse(n, p) }
+      def termnote_parse(node, out)
+        para = block_body_first_elem(node)
+        out.div **note_attrs(node) do |div|
+          termnote_parse1(node, para, div)
+          para&.xpath("./following-sibling::*")&.each { |n| parse(n, div) }
         end
-        para.xpath("./following-sibling::*").each { |n| parse(n, div) }
+      end
+
+      def termnote_parse1(node, para, div)
+        div.p **attr_code(class: termnote_p_class) do |p|
+          name = node.at(ns("./fmt-name")) and
+            p.span class: "termnote_label" do |s|
+              children_parse(name, s)
+            end
+          para&.name == "p" and children_parse(para, p)
+        end
+        para&.name != "p" and parse(para, div)
       end
 
       def termref_parse(node, out)

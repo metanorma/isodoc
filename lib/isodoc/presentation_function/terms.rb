@@ -199,7 +199,7 @@ module IsoDoc
 
     def term1(elem)
       lbl = @xrefs.anchor(elem["id"], :label) or return
-      prefix_name(elem, { label: clausedelim }, "#{lbl}#{clausedelim}", "name")
+      prefix_name(elem, {}, "#{lbl}#{clausedelim}", "name")
     end
   end
 end

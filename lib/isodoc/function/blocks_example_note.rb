@@ -54,12 +54,17 @@ module IsoDoc
         example_div_parse(node, out)
       end
 
-      def starts_with_para?(node)
+      def block_body_first_elem(node)
         node.elements.each do |n|
-          %w(title fmt-title fmt-xref-label fmt-name name).include?(n) and next
-          n.name == "p" and return true
+          %w(title fmt-title fmt-xref-label fmt-name name)
+            .include?(n.name) and next
+          return n
         end
-        false
+        nil
+      end
+
+      def starts_with_para?(node)
+        block_body_first_elem(node)&.name == "p"
       end
 
       def note_p_class

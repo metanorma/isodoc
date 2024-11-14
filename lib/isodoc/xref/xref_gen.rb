@@ -28,8 +28,8 @@ module IsoDoc
         autonum
       end
 
-      def termnote_label(note)
-        @labels["termnote"].gsub("%", note.to_s)
+      def termnote_label(node, label)
+        @labels["termnote"].gsub("%", semx(node, label.to_s))
       end
 
       def increment_label(elems, node, counter, increment: true)
@@ -44,7 +44,7 @@ module IsoDoc
           t.xpath(ns("./termnote")).noblank.each do |n|
             c.increment(n)
             @anchors[n["id"]] =
-              { label: termnote_label(c.print), type: "termnote",
+              { label: termnote_label(n, c.print), type: "termnote",
                 value: c.print, elem: @labels["termnote"],
                 container: t["id"],
                 xref: anchor_struct_xref(c.print, n, @labels["note_xref"]) }
