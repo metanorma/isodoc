@@ -118,7 +118,7 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~PRESXML
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <boilerplate>
              <copyright-statement>
                 <clause>
