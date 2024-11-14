@@ -79,6 +79,7 @@ module IsoDoc
       note docxml
       admonition docxml
       source docxml
+      ul docxml
       ol docxml
       dl docxml
       quote docxml

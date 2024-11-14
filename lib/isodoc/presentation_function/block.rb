@@ -151,7 +151,17 @@ module IsoDoc
     end
 
     def dl1(elem)
-      prefix_name(elem, {}, "", "name") # copy name to fmt-name
+      elem.at(ns("./name")) and
+        prefix_name(elem, {}, "", "name") # copy name to fmt-name
+    end
+
+    def ul(docxml)
+      docxml.xpath(ns("//ul")).each { |f| ul1(f) }
+    end
+
+    def ul1(elem)
+      elem.at(ns("./name")) and
+        prefix_name(elem, {}, "", "name") # copy name to fmt-name
     end
 
     def ol(docxml)
@@ -178,6 +188,8 @@ module IsoDoc
       elem.xpath(ns("./li")).each do |li|
         li["id"] ||= "_#{UUIDTools::UUID.random_create}"
       end
+      elem.at(ns("./name")) and
+        prefix_name(elem, {}, "", "name") # copy name to fmt-name
     end
 
     def ol_label(elem)
