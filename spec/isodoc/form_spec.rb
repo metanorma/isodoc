@@ -3,11 +3,11 @@ require "spec_helper"
 RSpec.describe IsoDoc do
   it "renders form" do
     input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
             <clause type="toc" id="_" displayorder="1">
-      <title depth="1">Table of contents</title>
-    </clause>
+          <fmt-title depth="1">Table of contents</fmt-title>
+        </clause>
       </preface>
           <sections>
           <clause id="A" displayorder="2">

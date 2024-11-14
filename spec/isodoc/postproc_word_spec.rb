@@ -397,16 +397,16 @@ RSpec.describe IsoDoc do
                    <clause id="O" inline-header="false" obligation="normative" displayorder="2">
                      <fmt-title>Clause 4.2</fmt-title>
                      <recommendation id="AC" type="abstracttest" model="default">
-              <name>/ogc/recommendation/wfs/3</name>
+              <fmt-name>/ogc/recommendation/wfs/3</fmt-name>
               </recommendation>
                      <recommendation id="AA" model="default">
-              <name>/ogc/recommendation/wfs/2</name>
+              <fmt-name>/ogc/recommendation/wfs/2</fmt-name>
               </recommendation>
                      <recommendation id="AB" type="abstracttest" model="default">
-              <name>/ogc/recommendation/wfs/3</name>
+              <fmt-name>/ogc/recommendation/wfs/3</fmt-name>
               </recommendation>
-              <figure id="BA"><name>First figure</name></figure>
-              <table id="CA"><name>First table</name></table>
+              <figure id="BA"><fmt-name>First figure</fmt-name></figure>
+              <table id="CA"><fmt-name>First table</fmt-name></table>
                      <p>A<fn reference="1">
               <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
             </fn></p>
@@ -459,9 +459,9 @@ RSpec.describe IsoDoc do
     toc_input = input.sub(%r{<metanorma-extension>},
                           <<~MISC,
                             <metanorma-extension>
-                            <toc type="table"><fmt-title>List of tables</fmt-title></toc>
-                            <toc type="figure"><fmt-title>List of figures</fmt-title></toc>
-                            <toc type="recommendation"><fmt-title>List of recommendations</fmt-title></toc>
+                            <toc type="table"><title>List of tables</title></toc>
+                            <toc type="figure"><title>List of figures</title></toc>
+                            <toc type="recommendation"><title>List of recommendations</title></toc>
                           MISC
                          )
     IsoDoc::WordConvert.new(
@@ -682,7 +682,7 @@ RSpec.describe IsoDoc do
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
         <figure id="fig1">
-          <name>Typical arrangement of the far-field scan set-up</name>
+          <fmt-name>Typical arrangement of the far-field scan set-up</fmt-name>
           <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
           </figure>
            </foreword></preface>
@@ -935,7 +935,7 @@ RSpec.describe IsoDoc do
             <div>
               <h1>Foreword</h1>
               <div class="Note">
-                <p class="Note"><span class="note_label"/><span style="mso-tab-count:1">  </span>For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
+                <p class="Note"><span style="mso-tab-count:1">  </span>For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
                 <p class="Note">
                   <br clear="all" class="section"/>
                 </p>
@@ -963,7 +963,7 @@ RSpec.describe IsoDoc do
                     <td colspan="2" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
                       <div class="Note">
                         <a name="_8fff1596-290e-4314-b03c-7a8aab97eebe" id="_8fff1596-290e-4314-b03c-7a8aab97eebe"/>
-                        <p class="Note"><span class="note_label"/><span style="mso-tab-count:1">  </span>B</p>
+                        <p class="Note"><span style="mso-tab-count:1">  </span>B</p>
                       </div>
                     </td>
                   </tr>
