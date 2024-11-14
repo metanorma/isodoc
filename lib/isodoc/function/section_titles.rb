@@ -70,7 +70,7 @@ module IsoDoc
         header_class = {} if header_class.nil?
         div.h1 **attr_code(header_class) do |h1|
           if title.is_a?(String) then h1 << title
-          else
+          elsif title
             children_parse(title, h1)
             clause_parse_subtitle(title, h1)
           end
