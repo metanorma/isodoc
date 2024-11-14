@@ -163,9 +163,9 @@ refer_list)
 
       def list_item_value(entry, counter, depth, opts)
         label = counter.increment(entry).listlabel(entry.parent, depth)
-        semx = %(<semx element="autonum" source="#{entry['id']}">#{label}</semx>)
+        s = semx(entry, label)
         [label,
-         list_item_anchor_label(semx, opts[:list_anchor], opts[:prev_label],
+         list_item_anchor_label(s, opts[:list_anchor], opts[:prev_label],
                                 opts[:refer_list])]
       end
 
@@ -212,9 +212,8 @@ refer_list)
       end
 
       def deflist_term_anchor_lbl(listitem, list_anchor)
-        <<~LABEL
-          #{list_anchor[:xref]}<span class="fmt-autonum-delim">:</span> <semx element="autonum" source="#{listitem['id']}">#{dt2xreflabel(listitem)}</semx>
-        LABEL
+        s = semx(listitem, dt2xreflabel(listitem))
+        %(#{list_anchor[:xref]}<span class="fmt-autonum-delim">:</span> #{s}</semx>)
       end
 
       def dt2xreflabel(dterm)

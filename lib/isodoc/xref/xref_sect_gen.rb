@@ -165,17 +165,16 @@ module IsoDoc
       end
 
       def labelled_autonum(label, elem, autonum)
-        l10n(<<~SEMX)
-          <span class='fmt-element-name'>#{label}</span> <semx element='autonum' source='#{elem['id']}'>#{autonum}</semx>
-        SEMX
+        s = semx(elem, autonum)
+        l10n("<span class='fmt-element-name'>#{label}</span> #{s}")
       end
 
       def section_name_anchors(clause, num, level)
         xref = labelled_autonum(@labels["clause"], clause, num)
-        label = "<semx element='autonum' source='#{clause['id']}'>#{num}</semx>"
+        label = semx(clause, num)
+        c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
-          { label:, xref:,
-            title: clause_title(clause), level:, type: "clause",
+          { label:, xref:, title:, level:, type: "clause",
             elem: @labels["clause"] }
       end
 
@@ -190,15 +189,15 @@ module IsoDoc
       end
 
       def annex_name_anchors(clause, num, level)
-        label = "<semx element='autonum' source='#{clause['id']}'>#{num}</semx>"
+        label = semx(clause, num)
         level == 1 && clause.name == "annex" and
           label = annex_name_lbl(clause, num)
         xref = labelled_autonum(@labels["annex"], clause, num)
+        c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
-          { label:, xref:,
+          { label:, xref:, title:,
             elem: @labels["annex"], type: "clause",
-            subtype: "annex", value: num.to_s, level:,
-            title: clause_title(clause) }
+            subtype: "annex", value: num.to_s, level: }
       end
 
       def annex_names(clause, num)

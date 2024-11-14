@@ -43,6 +43,10 @@ module IsoDoc
 
       CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | " \
                  "./references".freeze
+
+      def semx(node, label, element = "autonum")
+        %(<semx element='#{element}' source='#{node['id']}'>#{label}</semx>)
+      end
     end
   end
 end
