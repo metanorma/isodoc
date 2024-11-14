@@ -26,7 +26,7 @@ module IsoDoc
             i += 1
             bibitem_entry(div, b, i, biblio)
           else
-            parse(b, div) unless %w(title).include? b.name
+            parse(b, div) unless %w(fmt-title).include? b.name
           end
         end
       end

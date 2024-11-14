@@ -57,7 +57,7 @@ RSpec.describe IsoDoc do
             </tr>
           </tfoot>
           <dl key="true">
-          <name>Key</name>
+             <name>Key</name>
           <dt>Drago</dt>
         <dd>A type of rice</dd>
         </dl>
@@ -109,18 +109,43 @@ RSpec.describe IsoDoc do
             <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
               <preface>
                 <clause type="toc" displayorder="1" id="_">
-              <title depth="1">Table of contents</title>
+              <fmt-title depth="1">Table of contents</fmt-title>
             </clause>
-            <foreword displayorder="2"><title>Foreword</title>
-                  <table id='tableD-1' alt='tool tip' summary='long desc' width='70%' keep-with-next='true' keep-lines-together='true'>
-                    <name>
-                      Table 1&#xA0;&#x2014; Repeatability and reproducibility of
-                      <em>husked</em>
-                       rice yield
-                      <fn reference='1'>
+            <foreword displayorder="2">
+                     <title id="_">Foreword</title>
+         <fmt-title depth="1">
+            <span class="fmt-caption-label">
+               <semx element="title" source="_">Foreword</semx>
+            </span>
+         </fmt-title>
+                  <table id='tableD-1' alt='tool tip' summary='long desc' width='70%' keep-with-next='true' keep-lines-together='true'  autonum="1">
+                     <name id="_">
+               Repeatability and reproducibility of
+               <em>husked</em>
+               rice yield
+               <fn reference="1">
+                  <p>X</p>
+               </fn>
+            </name>
+            <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Table</span>
+                  <semx element="autonum" source="tableD-1">1</semx>
+                  <span class="fmt-caption-delim"> — </span>
+                  <semx element="name" source="_">
+                     Repeatability and reproducibility of
+                     <em>husked</em>
+                     rice yield
+                     <fn reference="1">
                         <p>X</p>
-                      </fn>
-                    </name>
+                     </fn>
+                  </semx>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Table</span>
+               <semx element="autonum" source="tableD-1">1</semx>
+            </fmt-xref-label>
                      <colgroup>
         <col width='30%'/>
         <col width='20%'/>
@@ -187,14 +212,23 @@ RSpec.describe IsoDoc do
                       </tr>
                     </tfoot>
                     <dl key="true">
-                    <name>Key</name>
+                      <name id="_">Key</name>
+               <fmt-name>
+                  <span class="fmt-caption-label">
+                     <semx element="name" source="_">Key</semx>
+                  </span>
+               </fmt-name>
                       <dt>Drago</dt>
                       <dd>A type of rice</dd>
                     </dl>
                     <source status="generalisation">[SOURCE: <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
             — with adjustments ; <xref type="inline" target="ISO712">ISO 712, Section 2</xref>]</source>
                     <note>
-                      <name>NOTE</name>
+                                  <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">NOTE</span>
+               </span>
+            </fmt-name>
                       <p>This is a table about rice</p>
                     </note>
                   </table>
@@ -209,7 +243,21 @@ RSpec.describe IsoDoc do
               </preface>
                        <sections>
            <references id="_" obligation="informative" normative="true" displayorder="3">
-             <title depth="1">1.<tab/>Normative References</title>
+                    <title id="_">Normative References</title>
+         <fmt-title depth="1">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="_">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <span class="fmt-caption-delim">
+                  <tab/>
+               </span>
+               <semx element="title" source="_">Normative References</semx>
+            </span>
+         </fmt-title>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Clause</span>
+            <semx element="autonum" source="_">1</semx>
+         </fmt-xref-label>
              <bibitem id="ISO712" type="standard">
                <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
                <docidentifier type="ISO">ISO 712</docidentifier>
@@ -329,7 +377,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-                <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
                <head><style/></head>
                         <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
@@ -458,13 +506,17 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 

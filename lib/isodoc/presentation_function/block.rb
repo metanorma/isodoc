@@ -106,7 +106,7 @@ module IsoDoc
     def table1(elem)
       table_fn(elem)
       labelled_ancestor(elem) and return
-      # elem["unnumbered"] && !elem.at(ns("./name")) and return
+      elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
       lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.table}</span> "\
         "#{autonum(elem['id'], n)}"
@@ -146,7 +146,13 @@ module IsoDoc
       elem.replace(elem.children)
     end
 
-    def dl(docxml); end
+    def dl(docxml)
+      docxml.xpath(ns("//dl")).each { |f| dl1(f) }
+    end
+
+    def dl1(elem)
+      prefix_name(elem, {}, "", "name") # copy name to fmt-name
+    end
 
     def ol(docxml)
       docxml.xpath(ns("//ol")).each { |f| ol1(f) }
