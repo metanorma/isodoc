@@ -214,12 +214,8 @@ RSpec.describe IsoDoc do
         </bibdata>
         <preface>
                   <clause type="toc" id="_" displayorder="1">
-                  <fmt-title depth="1">Table of contents</fmt-title>
+                  <fmt-title depth="1">Sommaire</fmt-title>
                   </clause>
-                  <fmt-title depth="1">Table of contents</fmt-title>
-                  </clause>
-          <title depth="1">Sommaire</title>
-          </clause>
           <p displayorder="2">
             30&#x202F;000
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mfenced open="(" close=")"><mrow><mi>X</mi><mo>≥</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mfenced><mo>=</mo><munderover><mrow><mo>∑</mo></mrow><mrow><mrow><mi>j</mi><mo>=</mo><msub><mrow><mi>X</mi></mrow><mrow><mo>max</mo></mrow></msub></mrow></mrow><mrow><mn>1 000</mn></mrow></munderover><mfenced open="(" close=")"><mtable><mtr><mtd><mn>1 000</mn></mtd></mtr><mtr><mtd><mi>j</mi></mtd></mtr></mtable></mfenced><msup><mrow><mi>p</mi></mrow><mrow><mi>j</mi></mrow></msup><msup><mrow><mfenced open="(" close=")"><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfenced></mrow><mrow><mrow><mn>1,003</mn><mo>−</mo><mi>j</mi></mrow></mrow></msup></math><asciimath>P (X ge X_(max)) = sum_(j = X_(max))^(1000) ([[1000], [j]]) p^(j) (1 - p)^(1.003 - j)</asciimath></stem></p>
@@ -253,10 +249,9 @@ RSpec.describe IsoDoc do
                <title language='en'>test</title>
                <language current='true'>fr</language>
              </bibdata>
-
              <preface>
                <clause type="toc" id="_" displayorder="1">
-                  <fmt-title depth="1">Table of contents</fmt-title>
+                  <fmt-title depth="1">Sommaire</fmt-title>
                   </clause>
                <p displayorder="2">
                  30'000
@@ -297,7 +292,7 @@ RSpec.describe IsoDoc do
 
            <preface>
              <clause type="toc" id="_" displayorder="1">
-                  <fmt-title depth="1">Table of contents</fmt-title>
+                  <fmt-title depth="1">Inhaltsübersicht</fmt-title>
                   </clause>
              <p displayorder='2'> ... 64212149677264515 642121496772;64515 30000 </p>
            </preface>
@@ -362,7 +357,7 @@ RSpec.describe IsoDoc do
              <title language="en">test</title>
              </bibdata>
              <preface>
-             <p>
+             <p id="A">
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
                <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
              </math></stem>
@@ -490,7 +485,7 @@ RSpec.describe IsoDoc do
              </msqrt>
              </math></stem>
              <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn data-metanorma-numberformat="locale='fr'">30000</mn></math></stem>
-             </preface>
+             </p>
         </iso-standard>
       INPUT
     end
@@ -505,15 +500,7 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-         <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-            <bibdata>
-              <title language='en'>test</title>
-            </bibdata>
-            <preface>
-                              <clause type="toc" id="_" displayorder="1">
-                  <fmt-title depth="1">Table of contents</fmt-title>
-                  </clause>
-                          <p displayorder="2">
+        <p id="A" displayorder="2">
             0.00
             31.00
             327,428.74
@@ -558,16 +545,15 @@ RSpec.describe IsoDoc do
             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>64,21'00'00'00 × 10</mn><mn>-21</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
             30 000,00
             </p>
-          </preface>
-        </iso-standard>
+          </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .at("//xmlns:p[@id = 'A']").to_xml)))
         .to be_equivalent_to Xml::C14n.format(output1)
     end
 
@@ -580,15 +566,7 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-               <bibdata>
-                 <title language='en'>test</title>
-               </bibdata>
-               <preface>
-                                 <clause type="toc" id="_" displayorder="1">
-                  <fmt-title depth="1">Table of contents</fmt-title>
-                  </clause>
-                             <p displayorder="2">
+        <p id="A" displayorder="2">
             0.0
             31
             327,428.74'32'87'84'32'99'2
@@ -632,16 +610,15 @@ RSpec.describe IsoDoc do
             0,00'00'00'00'00'00'00'00'00'06'42'12'14'96'8
             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>64,21'21'49'68 × 10</mn><mn>-21</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
             30 000
-          </preface>
-        </iso-standard>
+          </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+            .convert("test", input, true))
+        .at("//xmlns:p[@id = 'A']").to_xml)))
         .to be_equivalent_to Xml::C14n.format(output1)
     end
 
@@ -655,15 +632,7 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-               <bibdata>
-                 <title language='en'>test</title>
-               </bibdata>
-               <preface>
-                  <clause type="toc" id="_" displayorder="1">
-                  <fmt-title depth="1">Table of contents</fmt-title>
-                  </clause>
-                             <p displayorder="2">
+        <p id="A" displayorder="2">
             0.0
             31
             327,428.74'32'87'84'32'99'2
@@ -707,16 +676,15 @@ RSpec.describe IsoDoc do
             6,42'12'14'96'8 × 10<sup>-20</sup>
             <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><msup><mn>6,42'12'14'96'8 × 10</mn><mn>-20</mn></msup></msqrt></math><asciimath>sqrt(0.6421214967726451564515e-19)</asciimath></stem>
             30 000
-          </preface>
-        </iso-standard>
+          </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .at("//xmlns:p[@id = 'A']").to_xml)))
         .to be_equivalent_to Xml::C14n.format(output1)
     end
 
@@ -732,14 +700,7 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-         <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-                <bibdata>
-                  <title language='en'>test</title>
-                </bibdata>
-                <preface>
-                   <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title>i
-                   </clause>
-                   <p displayorder="2">
+                   <p id="A" displayorder="2">
                  0.0
                  31
                  3.27'42'87'43'28'78'43'29'92 × 10<sup>5</sup>
@@ -791,16 +752,14 @@ RSpec.describe IsoDoc do
                  3,00'00 × 10
                  <sup>4</sup>
               </p>
-           </preface>
-        </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .at("//xmlns:p[@id = 'A']").to_xml)))
         .to be_equivalent_to Xml::C14n.format(output1)
     end
 
@@ -819,6 +778,7 @@ RSpec.describe IsoDoc do
               <title language="en">test</title>
               </bibdata>
              <sections>
+             <p id="A">
               <formula id="_">
                  <stem block="true" type="MathML">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -855,21 +815,12 @@ RSpec.describe IsoDoc do
                     <asciimath>3 + x</asciimath>
                  </stem>
               </formula>
+              </p>
            </sections>
         </standard-document>
       INPUT
       output = <<~OUTPUT
-         <standard-document xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <bibdata>
-              <title language="en">test</title>
-           </bibdata>
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-           </preface>
-           <sections>
-              <p class="zzSTDTitle1">test</p>
+         <p id="A">
               <formula id="_">
                  <stem block="true" type="MathML">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -906,14 +857,13 @@ RSpec.describe IsoDoc do
                     <asciimath>3 + x</asciimath>
                  </stem>
               </formula>
-           </sections>
-        </standard-document>
+           </p>
       OUTPUT
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
         .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
         .convert("test", input, true))
-        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+        .at("//xmlns:p[@id = 'A']").to_xml)))
         .to be_equivalent_to Xml::C14n.format(output)
     end
   end
@@ -954,10 +904,22 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
-              <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-          <foreword displayorder="2"><title>Foreword</title>
+              <clause type="toc" id="_" displayorder="1">
+            <fmt-title depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword displayorder="2">
+                    <title id="_">Foreword</title>
+        <fmt-title depth="1">
+           <span class="fmt-caption-label">
+              <semx element="title" source="_">Foreword</semx>
+           </span>
+        </fmt-title>
             <note>
-              <name>NOTE</name>
+                        <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">NOTE</span>
+               </span>
+            </fmt-name>
               <strong>
                 <stem type="MathML">
                   <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1020,13 +982,25 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
            <clause type="toc" id="_" displayorder="1">
-             <title depth="1">Table of contents</title>
+             <fmt-title depth="1">Table of contents</fmt-title>
            </clause>
            </preface>
                     <sections>
            <clause displayorder="2">
-             <formula id="_">
-               <name>(1)</name>
+                   <formula id="_" autonum="1">
+           <fmt-name>
+              <span class="fmt-caption-label">
+                 <span class="fmt-autonum-delim">(</span>
+                 1
+                 <span class="fmt-autonum-delim">)</span>
+              </span>
+           </fmt-name>
+           <fmt-xref-label>
+              <span class="fmt-element-name">Formula</span>
+              <span class="fmt-autonum-delim">(</span>
+              <semx element="autonum" source="_">1</semx>
+              <span class="fmt-autonum-delim">)</span>
+           </fmt-xref-label>
                <stem type="MathML" block="true">
                <math xmlns="http://www.w3.org/1998/Math/MathML">
                   <mstyle displaystyle="true">
