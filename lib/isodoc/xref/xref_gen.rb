@@ -149,11 +149,11 @@ refer_list)
             list_item_value(li, c, depth,
                             { list_anchor:, prev_label:,
                               refer_list: depth == 1 ? refer_list : nil })
-          li["id"] and @anchors[li["id"]] =
-                         { label: bare_label, bare_xref: "#{label})",
-                           xref: %[#{label}#{list_item_delim}],
-                           type: "listitem", refer_list:,
-                           container: list_anchor[:container] }
+          li["id"] ||= "_#{UUIDTools::UUID.random_create}"
+          @anchors[li["id"]] =
+            { label: bare_label, bare_xref: "#{label})", type: "listitem",
+              xref: %[#{label}#{list_item_delim}], refer_list:,
+              container: list_anchor[:container] }
           (li.xpath(ns(".//ol")) - li.xpath(ns(".//ol//ol"))).each do |ol|
             list_item_anchor_names(ol, list_anchor, depth + 1, label,
                                    refer_list)

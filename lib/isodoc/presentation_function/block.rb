@@ -185,9 +185,6 @@ module IsoDoc
 
     def ol1(elem)
       elem["type"] ||= ol_depth(elem).to_s
-      elem.xpath(ns("./li")).each do |li|
-        li["id"] ||= "_#{UUIDTools::UUID.random_create}"
-      end
       elem.at(ns("./name")) and
         prefix_name(elem, {}, "", "name") # copy name to fmt-name
     end
