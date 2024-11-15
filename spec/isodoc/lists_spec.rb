@@ -194,7 +194,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
           <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
-          <name>Caption</name>
+          <fmt-name>Caption</fmt-name>
         <li>
           <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
         </li>
@@ -268,19 +268,19 @@ RSpec.describe IsoDoc do
                 <h1 class='ForewordTitle'>Foreword</h1>
                 <div class="ol_wrap">
                 <p class='ListTitle'>Caption</p>
-                <ol type='a' id='_ae34a226-aab4-496d-987b-1aa7b6314026' style='page-break-after: avoid;page-break-inside: avoid;'>
-                  <li>
-                    <p id='_0091a277-fb0e-424a-aea8-f0001303fe78'>all information necessary for the complete identification of the sample;</p>
+                <ol type='a' id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
+                  <li id="_">
+                    <p id='_'>all information necessary for the complete identification of the sample;</p>
                   </li>
                   <div class="ol_wrap">
                   <ol type='1'>
                     <li>
-                      <p id='_8a7b6299-db05-4ff8-9de7-ff019b9017b2'>a reference to this document (i.e. ISO 17301-1);</p>
+                      <p id='_'>a reference to this document (i.e. ISO 17301-1);</p>
                     </li>
                                            <div class="ol_wrap">
                          <ol type="i">
                            <li>
-                             <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
+                             <p id="_">the sampling method used;</p>
                            </li>
                          </ol>
                        </div>
@@ -302,8 +302,8 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -363,7 +363,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
           <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395"  keep-with-next="true" keep-lines-together="true">
-          <name>Caption</name>
+          <fmt-name>Caption</n-ame>
         <dt>
           W
         </dt>
@@ -452,7 +452,7 @@ RSpec.describe IsoDoc do
                    <tr>
                     <td colspan="2">
                       <div class="Note">
-                        <p class="Note"><span class="note_label"/><span style="mso-tab-count:1">&#160; </span>This is a note</p>
+                        <p class="Note"><span style="mso-tab-count:1">&#160; </span>This is a note</p>
                       </div>
                      </td>
                    </tr>
