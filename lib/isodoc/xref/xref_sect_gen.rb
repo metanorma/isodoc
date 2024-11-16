@@ -185,7 +185,7 @@ module IsoDoc
         title = Common::case_with_markup(@labels["annex"], "capital",
                                          @script)
         s = labelled_autonum(title, clause, num)
-        "<strong>#{s}</strong><br/>#{obl}"
+        "<strong>#{s}</strong><br/>#{l10n obl}"
       end
 
       def annex_name_anchors(clause, num, level)
