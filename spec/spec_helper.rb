@@ -73,6 +73,8 @@ def strip_guid(xml)
     .gsub(%r( name="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' name="_"')
     .gsub(%r( reference="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"), ' reference="_"')
     .gsub(%r[ src="([^/]+)/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.], ' src="\\1/_.')
+    .gsub(%r[ _Ref\d+{8,10}], " _Ref")
+    .gsub(%r[:_Ref\d+{8,10}], ":_Ref")
 end
 
 HTML_HDR = <<~HEADER.freeze
