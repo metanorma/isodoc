@@ -71,33 +71,26 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
-      <p><date format="%F" value="2021-01-01"/></p>
+      <p id="A"><date format="%F" value="2021-01-01"/></p>
       </foreword></preface>
       <sections/>
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
-            <clause type="toc" id="_" displayorder="1">
-      <title depth="1">Table of contents</title>
-      </clause>
-          <foreword displayorder="2"><title>Foreword</title>
-            <p>2021-01-01</p>
-          </foreword>
-        </preface>
-        <sections> </sections>
-      </iso-standard>
+      <p id="A">2021-01-01</p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "ignores index entries" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
-      <p><index primary="A" secondary="B" tertiary="C"/></p>
+      <p id="A"><index primary="A" secondary="B" tertiary="C"/></p>
       </foreword></preface>
       <sections/>
       <indexsect>
@@ -106,27 +99,20 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
-            <clause type="toc" id="_" displayorder="1">
-      <title depth="1">Table of contents</title>
-      </clause>
-          <foreword displayorder="2"><title>Foreword</title>
-            <p/>
-          </foreword>
-        </preface>
-        <sections> </sections>
-      </iso-standard>
+      <p id="A"/>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes concept markup" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
-          <p>
+          <p id="A">
           <ul>
           <li>
           <concept><refterm>term</refterm>
@@ -225,144 +211,117 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface>
-          <clause type="toc" id="_" displayorder="1">
-            <title depth="1">Table of contents</title>
-          </clause>
-          <foreword displayorder="2"><title>Foreword</title>
-            <p>
-              <ul>
-                <li>
-              (<xref target="clause1">Clause 2</xref>)
-            </li>
-                <li><em>term</em>
-              (<xref target="clause1">Clause 2</xref>)
-            </li>
-                <li><em>w[o]rd</em>
-              [<xref target="clause1">Clause #1</xref>]
-            </li>
-                <li><em>term</em>
-              (<xref type="inline" target="ISO712">ISO 712</xref>)
-            </li>
-                <li><em>word</em>
-              [<xref type="inline" target="ISO712">The Aforementioned Citation</xref>]
-            </li>
-                <li><em>word</em>
-              (<xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>)
-            </li>
-                <li><em>word</em>
-              (<xref type="inline" target="ISO712">ISO 712, Clause 3.1 and Figure b</xref>)
-            </li>
-                <li><em>word</em>
-              [<xref type="inline" target="ISO712">
-              The Aforementioned Citation
-              </xref>]
-            </li>
-                <li><em>word</em>
-              (<termref base="IEV" target="135-13-13"/>)
-            </li>
-                <li><em>word</em>
-              [<termref base="IEV" target="135-13-13">The IEV database</termref>]
-            </li>
-                <li>
-                  <strong>error!</strong>
-                </li>
-              </ul>
-            </p>
-          </foreword>
-        </preface>
-        <sections>
-          <clause id="clause1" displayorder="4">
-            <title depth="1">2.<tab/>Clause 1</title>
-          </clause>
-          <references id="_" obligation="informative" normative="true" displayorder="3">
-            <title depth="1">1.<tab/>Normative References</title>
-            <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-            <bibitem id="ISO712" type="standard">
-              <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
-              <docidentifier type="ISO">ISO 712</docidentifier>
-              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
-              <biblio-tag>ISO 712, </biblio-tag>
-            </bibitem>
-          </references>
-        </sections>
-        <bibliography/>
-      </iso-standard>
+      <p id="A">
+        <ul>
+          <li>
+        (<xref target="clause1">
+           <span class="fmt-element-name">Clause</span>
+           <semx element="autonum" source="clause1">2</semx>
+        </xref>)
+      </li>
+          <li><em>term</em>
+        (<xref target="clause1">
+           <span class="fmt-element-name">Clause</span>
+           <semx element="autonum" source="clause1">2</semx>
+        </xref>)
+      </li>
+          <li><em>w[o]rd</em>
+        [<xref target="clause1">Clause #1</xref>]
+      </li>
+          <li><em>term</em>
+        (<xref type="inline" target="ISO712">ISO 712</xref>)
+      </li>
+          <li><em>word</em>
+        [<xref type="inline" target="ISO712">The Aforementioned Citation</xref>]
+      </li>
+          <li><em>word</em>
+        (<xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>)
+      </li>
+          <li><em>word</em>
+        (<xref type="inline" target="ISO712">ISO 712, Clause 3.1 and Figure b</xref>)
+      </li>
+          <li><em>word</em>
+        [<xref type="inline" target="ISO712">
+        The Aforementioned Citation
+        </xref>]
+      </li>
+          <li><em>word</em>
+        (<termref base="IEV" target="135-13-13"/>)
+      </li>
+          <li><em>word</em>
+        [<termref base="IEV" target="135-13-13">The IEV database</termref>]
+      </li>
+          <li>
+            <strong>error!</strong>
+          </li>
+        </ul>
+      </p>
     OUTPUT
-    output = <<~OUTPUT
-      #{HTML_HDR}
-                 <br/>
-                              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <p>
-               <div class="ul_wrap">
-                 <ul>
-                   <li>
+    html = <<~OUTPUT
+        <p id="A">
+        <div class="ul_wrap">
+          <ul>
+            <li>
 
-               (<a href="#clause1">Clause 2</a>)
-             </li>
-                   <li><i>term</i>
-               (<a href="#clause1">Clause 2</a>)
-             </li>
-                   <li><i>w[o]rd</i>
-               [<a href="#clause1">Clause #1</a>]
-             </li>
-                   <li><i>term</i>
-               (<a href="#ISO712">ISO 712</a>)
-             </li>
-                   <li><i>word</i>
-               [<a href="#ISO712">The Aforementioned Citation</a>]
-             </li>
-                   <li><i>word</i>
-               (<a href="#ISO712">ISO 712, Clause 3.1, Figure a</a>)
-             </li>
-                   <li><i>word</i>
-               (<a href="#ISO712">ISO 712, Clause 3.1 and Figure b</a>)
-             </li>
-                   <li><i>word</i>
-               [<a href="#ISO712">
+        (<a href="#clause1">Clause 2</a>)
+      </li>
+            <li><i>term</i>
+        (<a href="#clause1">Clause 2</a>)
+      </li>
+            <li><i>w[o]rd</i>
+        [<a href="#clause1">Clause #1</a>]
+      </li>
+            <li><i>term</i>
+        (<a href="#ISO712">ISO 712</a>)
+      </li>
+            <li><i>word</i>
+        [<a href="#ISO712">The Aforementioned Citation</a>]
+      </li>
+            <li><i>word</i>
+        (<a href="#ISO712">ISO 712, Clause 3.1, Figure a</a>)
+      </li>
+            <li><i>word</i>
+        (<a href="#ISO712">ISO 712, Clause 3.1 and Figure b</a>)
+      </li>
+            <li><i>word</i>
+        [<a href="#ISO712">
 
 
-               The Aforementioned Citation
-               </a>]
-             </li>
-                   <li><i>word</i>
-               (Termbase IEV, term ID 135-13-13)
-             </li>
-                   <li><i>word</i>
-               [The IEV database]
-             </li>
-                   <li>
-                     <b>error!</b>
-                   </li>
-                 </ul>
-                 </div>
-               </p>
-             </div>
-             <div>
-               <h1>1.  Normative References</h1>
-               <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
-             </div>
-             <div id="clause1">
-               <h1>2.  Clause 1</h1>
-             </div>
-           </div>
-         </body>
-       </html>
+        The Aforementioned Citation
+        </a>]
+      </li>
+            <li><i>word</i>
+        (Termbase IEV, term ID 135-13-13)
+      </li>
+            <li><i>word</i>
+        [The IEV database]
+      </li>
+            <li>
+              <b>error!</b>
+            </li>
+          </ul>
+          </div>
+        </p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(output)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+      IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true),
+    )
+      .at("//p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes concept attributes" do
     input = <<~INPUT
              <iso-standard xmlns="http://riboseinc.com/isoxml">
              <preface><foreword>
-             <p>
+             <p id="A">
              <ul>
              <li><concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
              <li><concept bold="true" ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
@@ -391,96 +350,80 @@ RSpec.describe IsoDoc do
              </sections>
             </iso-standard>
     INPUT
+
     presxml = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <preface>
-          <clause type="toc" id="_" displayorder="1">
-            <title depth="1">Table of contents</title>
-          </clause>
-          <foreword displayorder="2"><title>Foreword</title>
-            <p>
-              <ul>
-                <li><em>term</em> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><strong>term</strong> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><em>term</em> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><em>term</em> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><strong><em>term</em></strong> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><strong>term</strong> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><em>term</em>,</li>
-                <li>term,</li>
-                <li><xref target="clause1"><em>term</em></xref> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><xref target="clause1"><strong>term</strong></xref> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><xref target="clause1"><strong><em>term</em></strong></xref> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><xref target="clause1"><em>term</em></xref> (Clause 1),</li>
-                <li><em>term</em> (<xref target="clause1">Clause 1</xref>),</li>
-                <li><em>term</em> (Clause 1),</li>
-                <li>
-                  <strong>error!</strong>
-                </li>
-                <li>
-                  <xref target="term-cv_discretecoverage">CV_DiscreteCoverage</xref>
-                </li>
-              </ul>
-            </p>
-          </foreword>
-        </preface>
-        <sections>
-          <clause id="clause1" displayorder="3">
-            <title depth="1">1.<tab/>Clause 1</title>
-          </clause>
-        </sections>
-      </iso-standard>
+      <p id="A">
+        <ul>
+          <li><em>term</em> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><strong>term</strong> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><em>term</em> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><em>term</em> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><strong><em>term</em></strong> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><strong>term</strong> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><em>term</em>,</li>
+          <li>term,</li>
+          <li><xref target="clause1"><em>term</em></xref> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><xref target="clause1"><strong>term</strong></xref> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><xref target="clause1"><strong><em>term</em></strong></xref> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><xref target="clause1"><em>term</em></xref> (<span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx>),</li>
+          <li><em>term</em> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
+          <li><em>term</em> (<span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx>),</li>
+          <li>
+            <strong>error!</strong>
+          </li>
+          <li>
+            <xref target="term-cv_discretecoverage">CV_DiscreteCoverage</xref>
+          </li>
+        </ul>
+      </p>
     OUTPUT
-    output = <<~OUTPUT
-      #{HTML_HDR}
-           <br/>
-                        <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <p>
-               <div class="ul_wrap">
-                 <ul>
-                   <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><b><i>term</i></b> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><i>term</i>,</li>
-                   <li>term,</li>
-                   <li><a href="#clause1"><i>term</i></a> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><a href="#clause1"><b>term</b></a> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><a href="#clause1"><b><i>term</i></b></a> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><a href="#clause1"><i>term</i></a> (Clause 1),</li>
-                   <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
-                   <li><i>term</i> (Clause 1),</li>
-                   <li>
-                     <b>error!</b>
-                   </li>
-                   <li>
-                     <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
-                   </li>
-                 </ul>
-                 </div>
-               </p>
-             </div>
-             <div id="clause1">
-               <h1>1.  Clause 1</h1>
-             </div>
-           </div>
-         </body>
-       </html>
+    html = <<~OUTPUT
+      <p id="A">
+      <div class="ul_wrap">
+        <ul>
+          <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
+          <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
+          <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
+          <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
+          <li><b><i>term</i></b> (<a href="#clause1">Clause 1</a>),</li>
+          <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
+          <li><i>term</i>,</li>
+          <li>term,</li>
+          <li><a href="#clause1"><i>term</i></a> (<a href="#clause1">Clause 1</a>),</li>
+          <li><a href="#clause1"><b>term</b></a> (<a href="#clause1">Clause 1</a>),</li>
+          <li><a href="#clause1"><b><i>term</i></b></a> (<a href="#clause1">Clause 1</a>),</li>
+          <li><a href="#clause1"><i>term</i></a> (Clause 1),</li>
+          <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
+          <li><i>term</i> (Clause 1),</li>
+          <li>
+            <b>error!</b>
+          </li>
+          <li>
+            <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
+          </li>
+        </ul>
+        </div>
+      </p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(output)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+      IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true),
+    )
+      .at("//p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes concept markup for symbols" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
-      <p>
+      <p id="A">
       <ul>
       <li><concept>
           <refterm>term</refterm>
@@ -502,68 +445,33 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-          <preface>
-           <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
-      </clause>
-            <foreword displayorder='2'><title>Foreword</title>
-              <p>
-                <ul>
-                  <li>ISO</li>
-                </ul>
-              </p>
-            </foreword>
-            </preface>
-            <sections>
-              <definitions id='d' displayorder='3'>
-                <title depth="1">1.<tab/>Symbols</title>
-                <dl>
-                  <dt id='d1'>ISO</dt>
-                  <dd>xyz</dd>
-                  <dt id='d2'>IEC</dt>
-                  <dd>abc</dd>
-                </dl>
-              </definitions>
-            </sections>
-        </iso-standard>
+      <p id="A">
+        <ul>
+          <li>ISO</li>
+        </ul>
+      </p>
     OUTPUT
-    output = <<~OUTPUT
-          #{HTML_HDR}
-            <br/>
-            <div>
-              <h1 class='ForewordTitle'>Foreword</h1>
-              <p>
-              <div class="ul_wrap">
-                <ul>
-                  <li>ISO</li>
-                </ul>
-                </div>
-              </p>
-            </div>
-            <div id='d' class='Symbols'>
-              <h1>1.  Symbols</h1>
-              <div class="figdl">
-              <dl>
-                <dt id='d1'>
-                  <p>ISO</p>
-                </dt>
-                <dd>xyz</dd>
-                <dt id='d2'>
-                  <p>IEC</p>
-                </dt>
-                <dd>abc</dd>
-              </dl>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+    html = <<~OUTPUT
+      <p id="A">
+      <div class="ul_wrap">
+        <ul>
+          <li>ISO</li>
+        </ul>
+        </div>
+      </p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(output)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+      IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true),
+    )
+      .at("//p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes embedded inline formatting" do
@@ -1037,7 +945,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
-          <p>
+          <p id="A">
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712"/>
           <eref type="inline" bibitemid="ISO712"/>
           <eref type="inline" bibitemid="ISO712"><locality type="table"><referenceFrom>1</referenceFrom></locality></eref>
@@ -1074,11 +982,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-            <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-                <preface>
-                  <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-                <foreword displayorder="2"><title>Foreword</title>
-                <p>
+                <p id="A">
                 <xref type="inline" target="ISO712">ISO 712</xref>
                <xref type="inline" target="ISO712">ISO 712</xref>
                <xref type="inline" target="ISO712">ISO 712, Table 1</xref>
@@ -1098,28 +1002,10 @@ RSpec.describe IsoDoc do
                <xref type="inline" droploc="true" target="ISO712">ISO 712, 1</xref>
                <xref type="inline" case="lowercase" target="ISO712">ISO 712, clause 1</xref>
                 </p>
-                </foreword></preface>
-                <sections><references id="_" obligation="informative" normative="true" displayorder=
-      "3"><title depth='1'>1.<tab/>Normative References</title>
-            <bibitem id="ISO712" type="standard">
-              <formattedref><em>Cereals and cereal products</em>.</formattedref>
-              <docidentifier>ISO&#xa0;712</docidentifier>
-              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
-              <biblio-tag>ISO&#xa0;712,</biblio-tag>
-            </bibitem>
-                </references>
-                </sections>
-                <bibliography>
-                </bibliography>
-                </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
-          #{HTML_HDR}
-                     <br/>
-                     <div>
-                       <h1 class="ForewordTitle">Foreword</h1>
-                       <p>
+                       <p id="A">
                  <a href="#ISO712">ISO&#xa0;712</a>
                  <a href="#ISO712">ISO&#xa0;712</a>
                  <a href="#ISO712">ISO&#xa0;712, Table 1</a>
@@ -1139,19 +1025,19 @@ RSpec.describe IsoDoc do
                  <a href='#ISO712'>ISO&#xa0;712, 1</a>
                  <a href='#ISO712'>ISO&#xa0;712, clause 1</a>
                  </p>
-                     </div>
-                     <div>
-                       <h1>1.&#160; Normative References</h1>
-                       <p id="ISO712" class="NormRef">ISO&#xa0;712, <i>Cereals and cereal products</i>.</p>
-                     </div>
-                   </div>
-                 </body>
-             </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+      IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true),
+    )
+      .at("//p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes eref content pointing to reference with citation URL" do
