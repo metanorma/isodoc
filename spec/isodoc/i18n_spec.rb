@@ -1315,51 +1315,96 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <bibdata>
-          <language current="true">zh</language>
-          <script current="true">Hans</script>
-        </bibdata>
-        <boilerplate>
-          <copyright-statement>
-            <clause>
-              <title depth="1">版　權</title>
-            </clause>
-            <clause>
-              <title depth="1">版權聲明</title>
-            </clause>
-            <clause language="en">
-              <title depth="1">版　權</title>
-            </clause>
-          </copyright-statement>
-        </boilerplate>
-        <preface>
-           <clause type="toc" id="_" displayorder="1">
-             <title depth="1">目　次</title>
-           </clause>
-          <p type="floating-title" displayorder="2">樣　板</p>
-          <abstract obligation="informative" language="jp" displayorder="3">
-            <title>解　題</title>
-          </abstract>
-          <foreword obligation="informative" displayorder="4">
-            <title>文件序言</title>
-            <p id="A">This is a preamble</p>
-          </foreword>
-          <p type="floating-title" displayorder="5">介紹性陳述</p>
-          <introduction id="B" obligation="informative" displayorder="6">
-            <title>簡　介</title>
-            <clause id="C" inline-header="false" obligation="informative">
-              <title depth="3">引言部分</title>
-              <clause id="C" inline-header="false" obligation="informative">
-                <title depth="3">附則</title>
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
+              <language current="true">zh</language>
+              <script current="true">Hans</script>
+           </bibdata>
+           <boilerplate>
+              <copyright-statement>
+                 <clause>
+                    <title id="_">版權</title>
+                    <fmt-title depth="1">
+                       <span class="fmt-caption-label">
+                          <semx element="title" source="_">版　權</semx>
+                       </span>
+                    </fmt-title>
+                 </clause>
+                 <clause>
+                    <title id="_">版權聲明</title>
+                    <fmt-title depth="1">
+                       <span class="fmt-caption-label">
+                          <semx element="title" source="_">版權聲明</semx>
+                       </span>
+                    </fmt-title>
+                 </clause>
+                 <clause language="en">
+                    <title id="_">版權</title>
+                    <fmt-title depth="1">
+                       <span class="fmt-caption-label">
+                          <semx element="title" source="_">版　權</semx>
+                       </span>
+                    </fmt-title>
+                 </clause>
+              </copyright-statement>
+           </boilerplate>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">目　次</fmt-title>
               </clause>
-            </clause>
-            <clause id="D">
-              <title language="en" depth="2">Ad</title>
-            </clause>
-          </introduction>
-        </preface>
-      </iso-standard>
+              <p type="floating-title" displayorder="2">樣　板</p>
+              <abstract obligation="informative" language="jp" displayorder="3">
+                 <title id="_">解題</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="title" source="_">解　題</semx>
+                    </span>
+                 </fmt-title>
+              </abstract>
+              <foreword obligation="informative" displayorder="4">
+                 <title id="_">文件序言</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="title" source="_">文件序言</semx>
+                    </span>
+                 </fmt-title>
+                 <p id="A">This is a preamble</p>
+              </foreword>
+              <p type="floating-title" displayorder="5">介紹性陳述</p>
+              <introduction id="B" obligation="informative" displayorder="6">
+                 <title id="_">簡介</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="title" source="_">簡　介</semx>
+                    </span>
+                 </fmt-title>
+                 <clause id="C" inline-header="false" obligation="informative">
+                    <title id="_">引言部分</title>
+                    <fmt-title depth="3">
+                       <span class="fmt-caption-label">
+                          <semx element="title" source="_">引言部分</semx>
+                       </span>
+                    </fmt-title>
+                    <clause id="C" inline-header="false" obligation="informative">
+                       <title id="_">附則</title>
+                       <fmt-title depth="3">
+                          <span class="fmt-caption-label">
+                             <semx element="title" source="_">附則</semx>
+                          </span>
+                       </fmt-title>
+                    </clause>
+                 </clause>
+                 <clause id="D">
+                    <title language="en" id="_">Ad</title>
+                    <fmt-title depth="2">
+                       <span class="fmt-caption-label">
+                          <semx element="title" source="_">Ad</semx>
+                       </span>
+                    </fmt-title>
+                 </clause>
+              </introduction>
+           </preface>
+        </iso-standard>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
   .new(presxml_options).convert("test", input, true)

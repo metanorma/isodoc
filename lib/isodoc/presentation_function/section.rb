@@ -1,24 +1,8 @@
 require_relative "refs"
+require_relative "title"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def middle_title(docxml)
-      s = docxml.at(ns("//sections")) or return
-      t = @meta.get[:doctitle]
-      t.nil? || t.empty? and return
-      s.add_first_child "<p class='zzSTDTitle1'>#{t}</p>"
-    end
-
-    def missing_title(docxml)
-      docxml.xpath(ns("//definitions[not(./title)]")).each do |d|
-        # should only be happening for subclauses
-        d.add_first_child "<title>#{@i18n.symbols}</title>"
-      end
-      docxml.xpath(ns("//foreword[not(./title)]")).each do |d|
-        d.add_first_child "<title>#{@i18n.foreword}</title>"
-      end
-    end
-
     def clause(docxml)
       docxml.xpath(ns("//clause | //terms | //definitions | //references | " \
                       "//introduction | //foreword | //preface/abstract | " \
@@ -55,24 +39,6 @@ module IsoDoc
         prefix_name(elem, { caption: "<tab/>" }, "#{lbl}#{clausedelim}", "title")
       end
       t = elem.at(ns("./fmt-title")) and t["depth"] = level
-    end
-
-    def floattitle(docxml)
-      p = "//clause | //annex | //appendix | //introduction | //foreword | " \
-          "//preface/abstract | //acknowledgements | //terms | " \
-          "//definitions | //references | //colophon | //indexsect"
-      docxml.xpath(ns(p)).each { |f| floattitle1(f) }
-      # top-level
-      docxml.xpath(ns("//sections | //preface | //colophon"))
-        .each { |f| floattitle1(f) }
-    end
-
-    # TODO not currently doing anything with the @depth attribute of floating-title
-    def floattitle1(elem)
-      elem.xpath(ns(".//floating-title")).each do |p|
-        p.name = "p"
-        p["type"] = "floating-title"
-      end
     end
 
     def annex(docxml)
@@ -134,19 +100,6 @@ module IsoDoc
       idx
     end
 
-    def preceding_floating_titles(node, idx)
-      out = node.xpath("./preceding-sibling::*")
-        .reverse.each_with_object([]) do |p, m|
-        %w(note admonition p).include?(p.name) or break m
-        m << p
-      end
-      out.reject { |c| c["displayorder"] }.reverse_each do |c|
-        c["displayorder"] = idx
-        idx += 1
-      end
-      idx
-    end
-
     def display_order(docxml)
       i = 0
       d = @xrefs.clause_order(docxml)
@@ -157,27 +110,6 @@ module IsoDoc
               else display_order_at(docxml, a[:path], i)
               end
         end
-      end
-    end
-
-    def clausetitle(docxml)
-      cjk_extended_title(docxml)
-    end
-
-    def cjk_search
-      lang = %w(zh ja ko).map { |x| "@language = '#{x}'" }.join(" or ")
-      %(Hans Hant Jpan Hang Kore).include?(@script) and
-        lang += " or not(@language)"
-      lang
-    end
-
-    def cjk_extended_title(doc)
-      l = cjk_search
-      doc.xpath(ns("//bibdata/title[#{l}] | //floating-title[#{l}] | " \
-                   "//fmt-title[@depth = '1' or not(@depth)][#{l}]")).each do |t|
-        t.text.size < 4 or next
-        t.elements.empty? or next # can't be bothered
-        t.children = @i18n.cjk_extend(t.text)
       end
     end
 
@@ -214,39 +146,9 @@ module IsoDoc
       end
     end
 
-    def preceding_floats(clause)
-      ret = []
-      p = clause
-      while prev = p.previous_element
-        if prev.name == "floating-title"
-          ret << prev
-          p = prev
-        else break end
-      end
-      ret
-    end
-
     def rearrange_clauses(docxml)
       preface_rearrange(docxml) # feeds toc_title
       toc_title(docxml)
-    end
-
-    def toc_title(docxml)
-      docxml.at(ns("//preface/clause[@type = 'toc']")) and return
-      ins = toc_title_insert_pt(docxml) or return
-      id = UUIDTools::UUID.random_create.to_s
-      ins.previous = <<~CLAUSE
-        <clause type = 'toc' id='_#{id}'><fmt-title depth='1'>#{@i18n.table_of_contents}</fmt-title></clause>
-      CLAUSE
-    end
-
-    def toc_title_insert_pt(docxml)
-      ins = docxml.at(ns("//preface")) ||
-        docxml.at(ns("//sections | //annex | //bibliography"))
-          &.before("<preface> </preface>")
-          &.previous_element or return nil
-      ins.children.empty? and ins << " "
-      ins.children.first
     end
 
     def toc(docxml)
