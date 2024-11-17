@@ -48,7 +48,7 @@ module IsoDoc
             when "basic" then t
             when "full" then anchor_xref_full(x, t)
             when "short", nil then x
-            else @xrefs.anchor(node[:style].to_sym)
+            else @xrefs.anchor(target, node[:style].to_sym)
             end
       ret || x
     end
