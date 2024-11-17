@@ -764,14 +764,19 @@ RSpec.describe IsoDoc do
               <references id="R" obligation="informative" normative="true" displayorder="5">
                <title depth="1">2.<tab/>Normative References</title>
                <bibitem id="ISO712" type="standard">
-                  <formattedref><em>Cereals and cereal products</em>．</formattedref>
+                  <formattedref><em>Cereals and cereal products</em>.</formattedref>
                   <docidentifier>ISO&#xa0;712</docidentifier>
                   <docidentifier scope="biblio-tag">ISO 712</docidentifier>
                   <biblio-tag>ISO&#xa0;712,</biblio-tag>
                </bibitem>
              </references>
              </sections><annex id="P" inline-header="false" obligation="normative" displayorder="9">
-               <title><strong>&#x9644;&#x4EF6;A</strong><br/>&#xFF08;&#x89C4;&#x8303;&#x6027;&#x9644;&#x5F55;&#xFF09;<br/><br/><strong>Annex</strong></title>
+             <title>
+               <strong>附件 A</strong><br/>(规范性附录）
+               <br/>
+              <br/>
+              <strong>Annex</strong>
+              </title>
                <clause id="Q" inline-header="false" obligation="normative">
                <title depth="2">A.1.<tab/>Annex A.1</title>
                <clause id="Q1" inline-header="false" obligation="normative">
@@ -811,7 +816,7 @@ RSpec.describe IsoDoc do
              </div>
              <div><h1>2.　Normative References</h1>
 
-                <p id="ISO712" class="NormRef">ISO&#xa0;712, <i>Cereals and cereal products</i>．</p>
+             <p id="ISO712" class="NormRef">ISO&#xa0;712, <i>Cereals and cereal products</i>.</p>
               </div>
              <div id="H">
                <h1>3.　Terms, definitions, symbols and abbreviated terms</h1>
@@ -849,7 +854,7 @@ RSpec.describe IsoDoc do
              </div>
              <br/>
              <div id="P" class="Section3">
-               <h1 class="Annex"><b>附件A</b><br/>（规范性附录）<br/><br/><b>Annex</b></h1>
+               <h1 class="Annex"><b>附件 A</b><br/>(规范性附录）<br/><br/><b>Annex</b></h1>
                <div id="Q"><h2>A.1.　Annex A.1</h2>
 
                 <div id="Q1"><h3>A.1.1.　Annex A.1a</h3>
