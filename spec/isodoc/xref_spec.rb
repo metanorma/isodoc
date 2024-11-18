@@ -116,57 +116,57 @@ RSpec.describe IsoDoc do
            <p>
               <xref target="N1">
                  <semx element="introduction" source="intro">Introduction</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
               </xref>
               <xref target="N2">
                  <semx element="clause" source="xyz">Preparatory</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
               </xref>
               <xref target="N">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="scope">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
               </xref>
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note1">1</semx>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note2">2</semx>
               </xref>
               <xref target="AN">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1a">A.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
               </xref>
               <xref target="Anote1">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1b">A.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="Anote1">1</semx>
               </xref>
               <xref target="Anote2">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1b">A.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="Anote2">2</semx>
               </xref>
               <xref target="Anote3">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
               </xref>
            </p>
@@ -265,58 +265,58 @@ RSpec.describe IsoDoc do
            <p>
               <xref target="N1">
                  <semx element="introduction" source="intro">Introduction</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
               <xref target="N2">
                  <semx element="clause" source="xyz">Preparatory</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
               <xref target="N3">[N3]</xref>
               <xref target="N">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="scope">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
                  <semx element="autonum" source="note1">1</semx>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
                  <semx element="autonum" source="note2">2</semx>
               </xref>
               <xref target="AN">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1a">A.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
               <xref target="Anote1">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1b">A.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
                  <semx element="autonum" source="Anote1">1</semx>
               </xref>
               <xref target="Anote2">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1b">A.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
                  <semx element="autonum" source="Anote2">2</semx>
               </xref>
               <xref target="Anote3">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
            </p>
@@ -341,58 +341,58 @@ RSpec.describe IsoDoc do
            <p>
               <xref target="N1">
                  <semx element="introduction" source="intro">序文</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
               <xref target="N2">
                  <semx element="clause" source="xyz">Preparatory</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
               <xref target="N3">[N3]</xref>
               <xref target="N">
                  <span class="fmt-element-name">箇条</span>
                  <semx element="autonum" source="scope">1</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
               <xref target="note1">
                  <span class="fmt-element-name">箇条</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
                  <semx element="autonum" source="note1">1</semx>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">箇条</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
                  <semx element="autonum" source="note2">2</semx>
               </xref>
               <xref target="AN">
                  <span class="fmt-element-name">附属書</span>
                  <semx element="autonum" source="annex1a">A.1</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
               <xref target="Anote1">
                  <span class="fmt-element-name">附属書</span>
                  <semx element="autonum" source="annex1b">A.2</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
                  <semx element="autonum" source="Anote1">1</semx>
               </xref>
               <xref target="Anote2">
                  <span class="fmt-element-name">附属書</span>
                  <semx element="autonum" source="annex1b">A.2</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
                  <semx element="autonum" source="Anote2">2</semx>
               </xref>
               <xref target="Anote3">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 の
+                 <span class="fmt-conn">の</span>
                  <span class="fmt-element-name">Box</span>
               </xref>
            </p>
@@ -558,7 +558,7 @@ RSpec.describe IsoDoc do
               </xref>
               <xref target="Anote4">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Figure</span>
                  <semx element="autonum" source="Anote4">1</semx>
               </xref>
@@ -728,7 +728,7 @@ RSpec.describe IsoDoc do
               </xref>
               <xref target="Anote4">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Figure</span>
                  <semx element="autonum" source="Anote4">1</semx>
               </xref>
@@ -845,19 +845,19 @@ RSpec.describe IsoDoc do
               </xref>
               <xref target="AN1">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Figure</span>
                  <semx element="autonum" source="AN1">1</semx>
               </xref>
               <xref target="Anote11">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Figure</span>
                  <semx element="autonum" source="Anote11">1-1</semx>
               </xref>
               <xref target="Anote21">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Figure</span>
                  <semx element="autonum" source="Anote21">1-2</semx>
               </xref>
@@ -953,58 +953,58 @@ RSpec.describe IsoDoc do
            <p>
               <xref target="N1">
                  <semx element="introduction" source="intro">Introduction</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
               </xref>
               <xref target="N2">
                  <semx element="clause" source="xyz">Preparatory</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="N2">(??)</semx>
               </xref>
               <xref target="N">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="scope">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
               </xref>
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="note1">1</semx>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="note2">(??)</semx>
               </xref>
               <xref target="AN">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1a">A.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
               </xref>
               <xref target="Anote1">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1b">A.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="Anote1">(??)</semx>
               </xref>
               <xref target="Anote2">
                  <span class="fmt-element-name">Annex</span>
                  <semx element="autonum" source="annex1b">A.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="Anote2">1</semx>
               </xref>
               <xref target="Anote3">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
               </xref>
            </p>
@@ -1159,7 +1159,7 @@ RSpec.describe IsoDoc do
           <p>
              <xref target="N1">
                 <semx element="introduction" source="intro">Introduction</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="N1">1</semx>
@@ -1167,7 +1167,7 @@ RSpec.describe IsoDoc do
              </xref>
              <xref target="N2">
                 <semx element="clause" source="xyz">Preparatory</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="N2">(??)</semx>
@@ -1176,7 +1176,7 @@ RSpec.describe IsoDoc do
              <xref target="N">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="scope">1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="N">2</semx>
@@ -1185,7 +1185,7 @@ RSpec.describe IsoDoc do
              <xref target="note1">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="widgets1">3.1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="note1">3</semx>
@@ -1194,7 +1194,7 @@ RSpec.describe IsoDoc do
              <xref target="note2">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="widgets1">3.1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="note2">4</semx>
@@ -1220,7 +1220,7 @@ RSpec.describe IsoDoc do
              </xref>
              <xref target="Anote3">
                 <semx element="references" source="biblio">Bibliographical Section</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="Anote3">1</semx>
@@ -1325,48 +1325,48 @@ RSpec.describe IsoDoc do
           <p>
              <xref target="N1">
                 <semx element="introduction" source="intro">Introduction</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Requirement</span>
                 <semx element="autonum" source="N1">1</semx>
              </xref>
              <xref target="N2">
                 <semx element="clause" source="xyz">Preparatory</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Requirement</span>
                 <semx element="autonum" source="N2">(??)</semx>
              </xref>
              <xref target="N">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="scope">1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Requirement</span>
                 <semx element="autonum" source="N">2</semx>
              </xref>
              <xref target="N3">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="scope">1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">provision</span>
                 <semx element="autonum" source="N3">1</semx>
              </xref>
              <xref target="note1">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="widgets1">3.1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Requirement</span>
                 <semx element="autonum" source="note1">3</semx>
              </xref>
              <xref target="note2">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="widgets1">3.1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Requirement</span>
                 <semx element="autonum" source="note2">4</semx>
              </xref>
              <xref target="note3">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="widgets1">3.1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">provision</span>
                 <semx element="autonum" source="note3">2</semx>
              </xref>
@@ -1384,7 +1384,7 @@ RSpec.describe IsoDoc do
              </xref>
              <xref target="Anote3">
                 <semx element="references" source="biblio">Bibliographical Section</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Requirement</span>
                 <semx element="autonum" source="Anote3">1</semx>
              </xref>
@@ -1479,34 +1479,34 @@ RSpec.describe IsoDoc do
            <p>
               <xref target="N1">
                  <semx element="introduction" source="intro">Introduction</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Recommendation</span>
                  <semx element="autonum" source="N1">1</semx>
               </xref>
               <xref target="N2">
                  <semx element="clause" source="xyz">Preparatory</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Recommendation</span>
                  <semx element="autonum" source="N2">(??)</semx>
               </xref>
               <xref target="N">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="scope">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Recommendation</span>
                  <semx element="autonum" source="N">2</semx>
               </xref>
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Recommendation</span>
                  <semx element="autonum" source="note1">3</semx>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Recommendation</span>
                  <semx element="autonum" source="note2">4</semx>
               </xref>
@@ -1524,7 +1524,7 @@ RSpec.describe IsoDoc do
               </xref>
               <xref target="Anote3">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Recommendation</span>
                  <semx element="autonum" source="Anote3">1</semx>
               </xref>
@@ -1619,34 +1619,34 @@ RSpec.describe IsoDoc do
            <p>
               <xref target="N1">
                  <semx element="introduction" source="intro">Introduction</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="N1">1</semx>
               </xref>
               <xref target="N2">
                  <semx element="clause" source="xyz">Preparatory</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="N2">(??)</semx>
               </xref>
               <xref target="N">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="scope">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="N">2</semx>
               </xref>
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="note1">3</semx>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="note2">4</semx>
               </xref>
@@ -1664,7 +1664,7 @@ RSpec.describe IsoDoc do
               </xref>
               <xref target="Anote3">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="Anote3">1</semx>
               </xref>
@@ -1743,7 +1743,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword displayorder="2">
+      <foreword displayorder="2">
            <title id="_">Foreword</title>
            <fmt-title depth="1">
               <span class="fmt-caption-label">
@@ -1754,35 +1754,35 @@ RSpec.describe IsoDoc do
               <xref target="N1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="xyz">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="N1">1</semx>
               </xref>
               <xref target="N2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="xyz">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="N2">1-1</semx>
               </xref>
               <xref target="N">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="xyz">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="N">1-1-1</semx>
               </xref>
               <xref target="Q1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="xyz">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Requirement</span>
                  <semx element="autonum" source="Q1">1-1</semx>
               </xref>
               <xref target="R1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="xyz">1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Recommendation</span>
                  <semx element="autonum" source="R1">1-1</semx>
               </xref>
@@ -1808,31 +1808,31 @@ RSpec.describe IsoDoc do
               </xref>
               <xref target="BN1">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="BN1">1</semx>
               </xref>
               <xref target="BN2">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="BN2">1-1</semx>
               </xref>
               <xref target="BN">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Permission</span>
                  <semx element="autonum" source="BN">1-1-1</semx>
               </xref>
               <xref target="BQ1">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Requirement</span>
                  <semx element="autonum" source="BQ1">1-1</semx>
               </xref>
               <xref target="BR1">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Recommendation</span>
                  <semx element="autonum" source="BR1">1-1</semx>
               </xref>
@@ -2022,7 +2022,7 @@ RSpec.describe IsoDoc do
               </xref>
               <xref target="Anote3">
                  <semx element="references" source="biblio">Bibliographical Section</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Table</span>
                  <semx element="autonum" source="Anote3">1</semx>
               </xref>
@@ -2080,47 +2080,47 @@ RSpec.describe IsoDoc do
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note1">1</semx>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note2">1</semx>
               </xref>
               <xref target="note3">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note3">2</semx>
               </xref>
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note1">1</semx>
               </xref>
-              and
+              <span class="fmt-conn">and</span>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note2">1</semx>
               </xref>
               <span class="fmt-element-name">Clause</span>
               <semx element="autonum" source="_">2.2</semx>
-              ,
+              <span class="fmt-comma">,</span>
               <xref target="note2">
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note2">1</semx>
               </xref>
-              and
+              <span class="fmt-conn">and</span>
               <xref target="note3">
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note3">2</semx>
@@ -2177,21 +2177,21 @@ RSpec.describe IsoDoc do
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note1">1</semx>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note2">1</semx>
               </xref>
               <xref target="note3">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note3">2</semx>
               </xref>
@@ -2247,20 +2247,20 @@ RSpec.describe IsoDoc do
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="note2">1</semx>
               </xref>
               <xref target="note3">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.2</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="note3">2</semx>
               </xref>
@@ -2316,20 +2316,20 @@ RSpec.describe IsoDoc do
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
               </xref>
               <xref target="note2">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="note2">1</semx>
               </xref>
               <xref target="note3">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="_">2.1.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="note3">2</semx>
               </xref>
@@ -2913,7 +2913,7 @@ RSpec.describe IsoDoc do
               <xref target="note1">
                  <span class="fmt-element-name">Clause</span>
                  <semx element="autonum" source="widgets1">3.1</semx>
-                 ,
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Note</span>
                  <semx element="autonum" source="note1l">2</semx>
               </xref>

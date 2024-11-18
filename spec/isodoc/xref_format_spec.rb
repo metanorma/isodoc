@@ -143,7 +143,7 @@ RSpec.describe IsoDoc do
              <xref target="B">
                 <span class="fmt-element-name">klaŭzo</span>
                 <semx element="autonum" source="A">1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="B">1</semx>
@@ -207,7 +207,7 @@ RSpec.describe IsoDoc do
              <xref target="B" label="Formulen">
                 <span class="fmt-element-name">klaŭzo</span>
                 <semx element="autonum" source="A">1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formulen</span>
                 <span class="fmt-autonum-delim">(</span>
                 1
@@ -274,7 +274,7 @@ RSpec.describe IsoDoc do
              <xref target="B">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="A">1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="B">1</semx>
@@ -292,7 +292,8 @@ RSpec.describe IsoDoc do
              <xref style="basic" target="A"><semx element="title" source="A">My section</semx></xref>
              and
              <xref style="basic" target="B">
-                <semx element="title" source="A">My section</semx>,
+                <semx element="title" source="A">My section</semx>
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="B">1</semx>
@@ -315,7 +316,7 @@ RSpec.describe IsoDoc do
              <xref style="short" target="B">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="A">1</semx>
-                ,
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="B">1</semx>
@@ -333,13 +334,14 @@ RSpec.describe IsoDoc do
              <xref style="full" target="A">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="A">1</semx>
-                , <semx element="title" source="A">My section</semx>
+                <span class="fmt-comma">,</span> <semx element="title" source="A">My section</semx>
              </xref>
              and
              <xref style="full" target="B">
                 <span class="fmt-element-name">Clause</span>
                 <semx element="autonum" source="A">1</semx>
-                , <semx element="title" source="A">My section</semx>,
+                <span class="fmt-comma">,</span> <semx element="title" source="A">My section</semx>
+                <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="B">1</semx>
@@ -439,7 +441,7 @@ RSpec.describe IsoDoc do
             <xref target="B2" case="lowercase">
                <span class="fmt-element-name">klaŭzo</span>
                <semx element="autonum" source="A">1</semx>
-               ,
+               <span class="fmt-comma">,</span>
                <span class="fmt-element-name">Example</span>
             </xref>
             . Capitalising an xref affects only the first letter:

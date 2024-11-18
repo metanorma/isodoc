@@ -1,1 +1,2 @@
 gem "mn-requirements", git: "https://github.com/metanorma/mn-requirements", branch: "feature/presxml-autonum"
+gem "isodoc-i18n", git: "https://github.com/metanorma/isodoc-i18n", branch: "fix/markup-connectives"

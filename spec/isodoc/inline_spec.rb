@@ -238,7 +238,7 @@ RSpec.describe IsoDoc do
         (<xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>)
       </li>
           <li><em>word</em>
-        (<xref type="inline" target="ISO712">ISO 712, Clause 3.1 and Figure b</xref>)
+        (<xref type="inline" target="ISO712">ISO 712, Clause 3.1 <span class="fmt-conn">and</span> Figure b</xref>)
       </li>
           <li><em>word</em>
         [<xref type="inline" target="ISO712">
@@ -281,7 +281,7 @@ RSpec.describe IsoDoc do
         (<a href="#ISO712">ISO 712, Clause 3.1, Figure a</a>)
       </li>
             <li><i>word</i>
-        (<a href="#ISO712">ISO 712, Clause 3.1 and Figure b</a>)
+        (<a href="#ISO712">ISO 712, Clause 3.1 <span class="fmt-conn">and</span> Figure b</a>)
       </li>
             <li><i>word</i>
         [<a href="#ISO712">
@@ -987,7 +987,7 @@ RSpec.describe IsoDoc do
       <xref type="inline" target="ISO712">ISO 712</xref>
       <xref type="inline" target="ISO712">ISO 712, Table 1</xref>
       <xref type="inline" target="ISO712">ISO 712, Table 1</xref>
-      <xref type="inline" target="ISO712">ISO 712, Table 1 and Clause 1</xref>
+      <xref type="inline" target="ISO712">ISO 712, Table 1 <span class="fmt-conn">and</span> Clause 1</xref>
       <xref type="inline" target="ISO712">ISO 712, Table 1–1</xref>
       <xref type="inline" target="ISO712">ISO 712, Clause 1, Table 1</xref>
       <xref type="inline" target="ISO712">ISO 712, Clause 1</xref>
@@ -1010,7 +1010,7 @@ RSpec.describe IsoDoc do
                  <a href="#ISO712">ISO&#xa0;712</a>
                  <a href="#ISO712">ISO&#xa0;712, Table 1</a>
                  <a href='#ISO712'>ISO&#xa0;712, Table 1</a>
-      <a href='#ISO712'>ISO&#xa0;712, Table 1 and Clause 1</a>
+      <a href='#ISO712'>ISO&#xa0;712, Table 1 <span class="fmt-conn">and</span> Clause 1</a>
                  <a href="#ISO712">ISO&#xa0;712, Table 1&#8211;1</a>
                  <a href="#ISO712">ISO&#xa0;712, Clause 1, Table 1</a>
                  <a href="#ISO712">ISO&#xa0;712, Clause 1</a>
@@ -1120,7 +1120,7 @@ RSpec.describe IsoDoc do
           <link target="https://www.google.com/fr">ISO 712</link>
           <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
           <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
-          <link target="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</link>
+          <link target="spec/assets/iso713.html">ISO 713, Tableau 1 <span class="fmt-conn">et</span> Article 1</link>
           <link target="spec/assets/iso713.html">ISO 713, Tableau 1–1</link>
           <link target="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</link>
           <link target="spec/assets/iso713.html">ISO 713, Article 1</link>
@@ -1144,7 +1144,7 @@ RSpec.describe IsoDoc do
           <a href='https://www.google.com/fr'>ISO&#xa0;712</a>
           <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
           <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 et Article 1 </a>
+          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 <span class="fmt-conn">et</span> Article 1 </a>
           <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1&#x2013;1 </a>
           <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1, Tableau 1 </a>
           <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1 </a>
@@ -1168,7 +1168,7 @@ RSpec.describe IsoDoc do
            <a href="https://www.google.com/fr">ISO 712</a>
            <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
            <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
-           <a href="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</a>
+           <a href="spec/assets/iso713.html">ISO 713, Tableau 1 <span class="fmt-conn">et</span> Article 1</a>
            <a href="spec/assets/iso713.html">ISO 713, Tableau 1–1</a>
            <a href="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</a>
            <a href="spec/assets/iso713.html">ISO 713, Article 1</a>
@@ -1303,7 +1303,7 @@ RSpec.describe IsoDoc do
         <link target="http://www.example.com">ISO 712</link>
         <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1</link>
         <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1 and Clause 1</link>
+        <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1 <span class="fmt-conn">and</span> Clause 1</link>
         <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1–1</link>
         <link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1, Table 1</link>
         <link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1</link>
@@ -1322,7 +1322,7 @@ RSpec.describe IsoDoc do
         <a href='http://www.example.com'>ISO&#xa0;712</a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 and Clause 1 </a>
+        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 <span class="fmt-conn">and</span> Clause 1 </a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1&#8211;1 </a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1, Table 1 </a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1 </a>
@@ -1341,7 +1341,7 @@ RSpec.describe IsoDoc do
         <a href='http://www.example.com'>ISO&#xa0;712</a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 and Clause 1 </a>
+        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 <span class="fmt-conn">and</span> Clause 1 </a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1&#8211;1 </a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1, Table 1 </a>
         <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1 </a>
@@ -1718,16 +1718,137 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
-         <p id="_"><eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clauses  3 to  5</eref><eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality><locality type="table"><referenceFrom>2</referenceFrom></locality></localityStack>XYZ,  Clause 3 to  Clause 5,  Table 2</eref>
-                 text
-               </p>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clauses  3 and  5</eref>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>7</referenceFrom></locality></localityStack>XYZ,  Clauses  3,  5, and  7</eref>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="annex"><referenceFrom>5</referenceFrom></locality></localityStack>XYZ,  Clause 3 and  Annex 5</eref>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="and"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="or"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack>
-                 text
-               </eref>
-         <eref type="inline" bibitemid="ref1" citeas="XYZ"><localityStack connective="from"><locality type="clause"><referenceFrom>3</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>5</referenceFrom></locality></localityStack><localityStack connective="and"><locality type="clause"><referenceFrom>8</referenceFrom></locality></localityStack><localityStack connective="to"><locality type="clause"><referenceFrom>10</referenceFrom></locality></localityStack>XYZ,  Clauses  3 to  5 and  8 to  10</eref>
+          <p id="_">
+             <eref type="inline" bibitemid="ref1" citeas="XYZ">
+                <localityStack connective="from">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="to">
+                   <locality type="clause">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                </localityStack>
+                XYZ, Clauses 3
+                <span class="fmt-conn">to</span>
+                5
+             </eref>
+             <eref type="inline" bibitemid="ref1" citeas="XYZ">
+                <localityStack connective="from">
+                   <locality type="clause">
+                      <referenceFrom>3</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="to">
+                   <locality type="clause">
+                      <referenceFrom>5</referenceFrom>
+                   </locality>
+                   <locality type="table">
+                      <referenceFrom>2</referenceFrom>
+                   </locality>
+                </localityStack>
+                XYZ, Clause 3
+                <span class="fmt-conn">to</span>
+                Clause 5, Table 2
+             </eref>
+             text
+          </p>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ">
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+             XYZ, Clauses 3
+             <span class="fmt-conn">and</span>
+             5
+          </eref>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ">
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>7</referenceFrom>
+                </locality>
+             </localityStack>
+             XYZ, Clauses 3
+             <span class="fmt-enum-comma">, </span>
+             5
+             <span class="fmt-enum-comma">,</span>
+             <span class="fmt-conn">and</span>
+             7
+          </eref>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ">
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="annex">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+             XYZ, Clause 3
+             <span class="fmt-conn">and</span>
+             Annex 5
+          </eref>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ">
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="or">
+                <locality type="clause">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+             text
+          </eref>
+          <eref type="inline" bibitemid="ref1" citeas="XYZ">
+             <localityStack connective="from">
+                <locality type="clause">
+                   <referenceFrom>3</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="to">
+                <locality type="clause">
+                   <referenceFrom>5</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>8</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="to">
+                <locality type="clause">
+                   <referenceFrom>10</referenceFrom>
+                </locality>
+             </localityStack>
+             XYZ, Clauses 3
+             <span class="fmt-conn">to</span>
+             5
+             <span class="fmt-conn">and</span>
+             8
+             <span class="fmt-conn">to</span>
+             10
+          </eref>
        </itu-standard>
     OUTPUT
     expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)

@@ -161,5 +161,14 @@ module IsoDoc
       %w(ISO IEC IEV ITU W3C BIPM csd metanorma repository metanorma-ordinal)
         .include? prefix
     end
+
+    def connectives_spans(text)
+      text.gsub("<conn>", "<span class='fmt-conn'>")
+        .gsub("</conn>", "</span>")
+        .gsub("<enum-comma>", "<span class='fmt-enum-comma'>")
+        .gsub("</enum-comma>", "</span>")
+        .gsub("<comma>", "<span class='fmt-comma'>")
+        .gsub("</comma>", "</span>")
+    end
   end
 end

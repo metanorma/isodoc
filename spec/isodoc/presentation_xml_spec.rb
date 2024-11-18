@@ -1012,7 +1012,7 @@ RSpec.describe IsoDoc do
                Clauses
                <semx element="autonum" source="ref1">1</semx>
             </xref>
-            to
+            <span class="fmt-conn">to</span>
             <xref target="ref2">
                <semx element="autonum" source="ref2">2</semx>
             </xref>
@@ -1025,7 +1025,7 @@ RSpec.describe IsoDoc do
                Clauses
                <semx element="autonum" source="ref1">1</semx>
             </xref>
-            and
+            <span class="fmt-conn">and</span>
             <xref target="ref2">
                <semx element="autonum" source="ref2">2</semx>
             </xref>
@@ -1033,11 +1033,12 @@ RSpec.describe IsoDoc do
                Clauses
                <semx element="autonum" source="ref1">1</semx>
             </xref>
-            ,
+            <span class="fmt-enum-comma">, </span>
             <xref target="ref2">
                <semx element="autonum" source="ref2">2</semx>
             </xref>
-            , and
+            <span class="fmt-enum-comma">,</span>
+            <span class="fmt-conn">and</span>
             <xref target="ref3">
                <semx element="autonum" source="ref3">3</semx>
             </xref>
@@ -1050,7 +1051,7 @@ RSpec.describe IsoDoc do
                Clauses
                <semx element="autonum" source="ref1">1</semx>
             </xref>
-            or
+            <span class="fmt-conn">or</span>
             <xref target="ref2">
                <semx element="autonum" source="ref2">2</semx>
             </xref>
@@ -1058,11 +1059,12 @@ RSpec.describe IsoDoc do
                Clauses
                <semx element="autonum" source="ref1">1</semx>
             </xref>
-            ,
+            <span class="fmt-enum-comma">, </span>
             <xref target="ref2">
                <semx element="autonum" source="ref2">2</semx>
             </xref>
-            , or
+            <span class="fmt-enum-comma">,</span>
+            <span class="fmt-conn">or</span>
             <xref target="ref3">
                <semx element="autonum" source="ref3">3</semx>
             </xref>
@@ -1070,28 +1072,28 @@ RSpec.describe IsoDoc do
                Clauses
                <semx element="autonum" source="ref1">1</semx>
             </xref>
-            to
+            <span class="fmt-conn">to</span>
             <xref target="ref2">
                <semx element="autonum" source="ref2">2</semx>
             </xref>
-            and
+            <span class="fmt-conn">and</span>
             <xref target="ref3">
                <semx element="autonum" source="ref3">3</semx>
             </xref>
-            to
+            <span class="fmt-conn">to</span>
             <xref target="ref4">
                <semx element="autonum" source="ref4">4</semx>
             </xref>
             <span class="fmt-element-name">Clause</span>
             <semx element="autonum" source="id1">5</semx>
-            ,
+            <span class="fmt-comma">,</span>
             <xref target="item_6-4-a">
                <semx element="autonum" source="_">a</semx>
                <span class="fmt-autonum-delim">)</span>
                <semx element="autonum" source="item_6-4-a">1</semx>
                )
             </xref>
-            to
+            <span class="fmt-conn">to</span>
             <xref target="item_6-4-i">
                <semx element="autonum" source="_">b</semx>
                <span class="fmt-autonum-delim">)</span>
@@ -1156,7 +1158,7 @@ RSpec.describe IsoDoc do
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref1">1</semx>
          </xref>
-         ～
+         <span class="fmt-conn">～</span>
          <xref target="ref2">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref2">2</semx>
@@ -1170,7 +1172,7 @@ RSpec.describe IsoDoc do
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref1">1</semx>
          </xref>
-         and
+         <span class="fmt-conn">および</span>
          <xref target="ref2">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref2">2</semx>
@@ -1179,12 +1181,12 @@ RSpec.describe IsoDoc do
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref1">1</semx>
          </xref>
-         ，
+         <span class="fmt-enum-comma">，</span>
          <xref target="ref2">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref2">2</semx>
          </xref>
-         , and
+         <span class="fmt-enum-comma">、</span>
          <xref target="ref3">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref3">3</semx>
@@ -1198,7 +1200,7 @@ RSpec.describe IsoDoc do
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref1">1</semx>
          </xref>
-         or
+         <span class="fmt-conn">または</span>
          <xref target="ref2">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref2">2</semx>
@@ -1207,12 +1209,13 @@ RSpec.describe IsoDoc do
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref1">1</semx>
          </xref>
-         ，
+         <span class="fmt-enum-comma">，</span>
          <xref target="ref2">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref2">2</semx>
          </xref>
-         , or
+         <span class="fmt-enum-comma">、</span>
+         <span class="fmt-conn">または</span>
          <xref target="ref3">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref3">3</semx>
@@ -1221,17 +1224,17 @@ RSpec.describe IsoDoc do
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref1">1</semx>
          </xref>
-         ～
+         <span class="fmt-conn">～</span>
          <xref target="ref2">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref2">2</semx>
          </xref>
-         and
+         <span class="fmt-conn">および</span>
          <xref target="ref3">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref3">3</semx>
          </xref>
-         ～
+         <span class="fmt-conn">～</span>
          <xref target="ref4">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="ref4">4</semx>
@@ -1239,21 +1242,21 @@ RSpec.describe IsoDoc do
          <xref target="item_6-4-a">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="id1">5</semx>
-            の
+            <span class="fmt-conn">の</span>
             <semx element="autonum" source="_">a</semx>
             <span class="fmt-autonum-delim">)</span>
-            の
+            <span class="fmt-conn">の</span>
             <semx element="autonum" source="item_6-4-a">1</semx>
             <span class="fmt-autonum-delim">)</span>
          </xref>
-         ～
+         <span class="fmt-conn">～</span>
          <xref target="item_6-4-i">
             <span class="fmt-element-name">箇条</span>
             <semx element="autonum" source="id1">5</semx>
-            の
+            <span class="fmt-conn">の</span>
             <semx element="autonum" source="_">b</semx>
             <span class="fmt-autonum-delim">)</span>
-            の
+            <span class="fmt-conn">の</span>
             <semx element="autonum" source="item_6-4-i">1</semx>
             <span class="fmt-autonum-delim">)</span>
          </xref>
@@ -1316,7 +1319,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <p id='A2'>
         <eref connective='from' bibitemid='A' citeas='A' type='inline'>A</eref>
-         to
+         <span class="fmt-conn">to</span>
         <eref connective='to' bibitemid='B' citeas='B' type='inline'>B</eref>
       </p>
     OUTPUT

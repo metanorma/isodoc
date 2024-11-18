@@ -171,12 +171,13 @@ refer_list)
 
       def list_item_anchor_label(label, list_anchor, prev_label, refer_list)
         prev_label.empty? or
-          label = @i18n.list_nested_xref
+          label = @klass.connectives_spans(@i18n.list_nested_xref
             .sub("%1", %[#{prev_label}#{list_item_delim}])
-            .sub("%2", label)
+            .sub("%2", label))
         refer_list and
-          label = @i18n.list_nested_xref.sub("%1", list_anchor[:xref])
-            .sub("%2", label)
+          label = @klass.connectives_spans(@i18n.list_nested_xref
+            .sub("%1", list_anchor[:xref])
+            .sub("%2", label))
         label
       end
 
