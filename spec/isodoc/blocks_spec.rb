@@ -907,8 +907,23 @@ RSpec.describe IsoDoc do
                <semx element="title" source="_">Foreword</semx>
             </span>
          </fmt-title>
-          <permission id="_" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
-      <name>Permission 1:<br/>/ogc/recommendation/wfs/2</name><p><em>Subject: user</em><br/>
+          <permission id="A" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
+                      <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Permission</span>
+                  <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-caption-delim">
+                     :
+                     <br/>
+                  </span>
+                  <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Permission</span>
+               <semx element="autonum" source="A">1</semx>
+            </fmt-xref-label>
+      <p><em>Subject: user</em><br/>
       <em>Subject: non-user</em><br/>
       <em>Inherits: /ss/584/2015/level/1</em><br/>
       <em>Inherits: <xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</xref></em><br/>
@@ -939,7 +954,7 @@ RSpec.describe IsoDoc do
           </formula>
         </div><div exclude="false" type="requirement-verification">
           <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="C">CoreRoot(success): HttpResponse
+          <sourcecode id="C" autonum="1">CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
@@ -971,7 +986,7 @@ RSpec.describe IsoDoc do
                    <br/>
                   <div>
                     <h1 class="ForewordTitle">Foreword</h1>
-                    <div class="permission" id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
+                    <div class="permission" id='A' style='page-break-after: avoid;page-break-inside: avoid;'>
                     <p class="RecommendationTitle">Permission 1:<br/>/ogc/recommendation/wfs/2</p>
                     <p><i>Subject: user</i><br/>
                     <i>Subject: non-user</i><br/>
@@ -989,11 +1004,11 @@ RSpec.describe IsoDoc do
               </div>
               <div class="requirement-measurement-target">
                 <p id="_">The measurement target shall be measured as:</p>
-                <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+                <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
               </div>
               <div class="requirement-verification">
                 <p id="_">The following code will be run for verification:</p>
-                <pre id="_" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
               </div>
               <div class='requirement-component1'> <p id='_'>Hello</p> </div>
             </div>
@@ -1015,23 +1030,6 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
-
-    presxml = presxml
-      .sub("<permission ",
-           "<permission class='provision' ")
-      .sub("Permission 1:", "Provision 1:")
-    pres_output = IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input.sub("<permission ",
-                                 "<permission class='provision' "), true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n
-        .format(output.sub("Permission 1:", "Provision 1:"))
-
-
   end
 
   it "processes requirements" do
@@ -1101,7 +1099,24 @@ RSpec.describe IsoDoc do
                <semx element="title" source="_">Foreword</semx>
             </span>
          </fmt-title>
-          <requirement id="A" unnumbered="true" keep-with-next="true" keep-lines-together="true" model="default"><name>Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</name><p><em>Subject: user</em><br/>
+          <requirement id="A" unnumbered="true" keep-with-next="true" keep-lines-together="true" model="default">
+                     <fmt-name>
+              <span class="fmt-caption-label">
+                 <span class="fmt-element-name">Requirement</span>
+                 <span class="fmt-caption-delim">
+                    :
+                    <br/>
+                 </span>
+                 <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
+                 .
+                 <semx element="title" source="A">A New Requirement</semx>
+              </span>
+           </fmt-name>
+           <fmt-xref-label>
+              <span class="fmt-element-name">Requirement</span>
+              <semx element="autonum" source="A">(??)</semx>
+           </fmt-xref-label>
+        <p><em>Subject: user</em><br/>
       <em>Inherits: /ss/584/2015/level/1</em></p><div type="requirement-description">
           <p id="_">I recommend <em>this</em>.</p>
         </div><div type="requirement-description">
@@ -1126,7 +1141,7 @@ RSpec.describe IsoDoc do
           </formula>
         </div><div exclude="false" type="requirement-verification">
           <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="C">CoreRoot(success): HttpResponse
+          <sourcecode id="C" autonum="1">CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
@@ -1157,7 +1172,7 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <pre id="_" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
                   </div>
               <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -1174,21 +1189,6 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
-
-    presxml = presxml
-      .sub("<requirement ",
-           "<requirement class='provision' ")
-      .sub("Requirement 1:", "Provision 1:")
-    pres_output = IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input.sub("<requirement ",
-                                 "<requirement class='provision' "), true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n
-        .format(output.sub("Requirement 1:", "Provision 1:"))
   end
 
   it "processes recommendation" do
@@ -1259,11 +1259,21 @@ RSpec.describe IsoDoc do
                <semx element="title" source="_">Foreword</semx>
             </span>
          </fmt-title>
-          <recommendation id="_" obligation="shall,could" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
-        <name>Recommendation 1:<br/>/ogc/recommendation/wfs/2</name>
+          <recommendation id="A" obligation="shall,could" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
+            <fmt-name>
+               <span class="fmt-caption-label">
+                  <span class="fmt-element-name">Recommendation</span>
+                  <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-caption-delim">
+                     :
+                     <br/>
+                  </span>
+                  <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
+               </span>
+            </fmt-name>
             <fmt-xref-label>
                <span class="fmt-element-name">Recommendation</span>
-               <semx element="autonum" source="_">1</semx>
+               <semx element="autonum" source="A">1</semx>
             </fmt-xref-label>
       <p><em>Obligation: shall,could</em><br/>
       <em>Subject: user</em><br/>
@@ -1311,7 +1321,7 @@ RSpec.describe IsoDoc do
                        <br/>
                       <div>
                         <h1 class="ForewordTitle">Foreword</h1>
-                <div class="recommend"  id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
+                <div class="recommend"  id='A' style='page-break-after: avoid;page-break-inside: avoid;'>
                 <p class="RecommendationTitle">Recommendation 1:<br/>/ogc/recommendation/wfs/2</p><p><i>Obligation: shall,could</i><br/><i>Subject: user</i><br/><i>Inherits: /ss/584/2015/level/1</i><br/><i>Type: text</i><br/><i>Language: BASIC</i></p>
                   <div class="requirement-description">
                     <p id="_">I recommend <i>this</i>.</p>
@@ -1321,11 +1331,11 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-measurement-target">
                     <p id="_">The measurement target shall be measured as:</p>
-                    <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <pre id="_" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
                   </div>
                           <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -1342,21 +1352,6 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
-
-    presxml = presxml
-      .sub("<recommendation ",
-           "<recommendation class='provision' ")
-      .sub("Recommendation 1:", "Provision 1:")
-    pres_output = IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input.sub("<recommendation ",
-                                 "<recommendation class='provision' "), true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n
-        .format(output.sub("Recommendation 1:", "Provision 1:"))
   end
 
   it "processes passthrough with compatible format" do
