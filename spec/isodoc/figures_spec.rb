@@ -422,14 +422,18 @@ RSpec.describe IsoDoc do
                       <fmt-name>
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">Figure</span>
-                            <semx element="autonum" source="note1">1-1</semx>
+                            <semx element="autonum" source="figureA-1">1</semx>
+                            <span class="fmt-autonum-delim">-</span>
+                            <semx element="autonum" source="note1">1</semx>
                             <span class="fmt-caption-delim"> — </span>
                             <semx element="name" source="_">Subfigure 1</semx>
                          </span>
                       </fmt-name>
                       <fmt-xref-label>
                          <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="note1">1-1</semx>
+                         <semx element="autonum" source="figureA-1">1</semx>
+                         <span class="fmt-autonum-delim">-</span>
+                         <semx element="autonum" source="note1">1</semx>
                       </fmt-xref-label>
                       <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
                    </figure>
@@ -438,14 +442,18 @@ RSpec.describe IsoDoc do
                       <fmt-name>
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">Figure</span>
-                            <semx element="autonum" source="note2">1-2</semx>
+                            <semx element="autonum" source="figureA-1">1</semx>
+                            <span class="fmt-autonum-delim">-</span>
+                            <semx element="autonum" source="note2">2</semx>
                             <span class="fmt-caption-delim"> — </span>
                             <semx element="name" source="_">Subfigure 2</semx>
                          </span>
                       </fmt-name>
                       <fmt-xref-label>
                          <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="note2">1-2</semx>
+                         <semx element="autonum" source="figureA-1">1</semx>
+                         <span class="fmt-autonum-delim">-</span>
+                         <semx element="autonum" source="note2">2</semx>
                       </fmt-xref-label>
                       <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
                    </figure>

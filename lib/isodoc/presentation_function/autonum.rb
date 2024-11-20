@@ -25,6 +25,7 @@ module IsoDoc
     end
 
     def autonum(id, num)
+      /<semx/.match?(num) and return num # already contains markup
       "<semx element='autonum' source='#{id}'>#{num}</semx>"
     end
 

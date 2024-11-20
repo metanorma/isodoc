@@ -1818,10 +1818,8 @@ RSpec.describe IsoDoc do
                      <fmt-name>
                         <span class="fmt-caption-label">
                            <span class="fmt-element-name">NOTO</span>
-                           <semx element="autonum" source="M-n1">
                               <span class="fmt-element-name"/>
                               <semx element="autonum" source="M-n1"/>
-                           </semx>
                         </span>
                      </fmt-name>
                      <fmt-xref-label>

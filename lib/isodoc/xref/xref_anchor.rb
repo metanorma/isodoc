@@ -59,6 +59,7 @@ module IsoDoc
         end
       end
 
+      # def anchor_struct(lbl, container, elem, type, unnumb = false)
       def anchor_struct(lbl, node, elem_name, type, opt = {})
         ret = { type: type, elem: elem_name, label: nil }
         opt[:unnumb] != "true" and

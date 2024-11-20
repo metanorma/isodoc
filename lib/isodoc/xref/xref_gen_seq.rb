@@ -30,7 +30,9 @@ module IsoDoc
         clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank.each do |t|
           # labelled_ancestor(t, %w(figure)) and next # disable nested figure labelling
           j = subfigure_increment(j, c, t)
-          sequential_figure_body(j, c, t, "figure", container:)
+          sublabel = subfigure_label(j)
+          # sequential_figure_body(j, c, t, "figure", container:)
+          figure_anchor(t, sublabel, c.print, "figure", container: container)
         end
         sequential_figure_class_names(clause, container:)
       end
@@ -43,16 +45,30 @@ module IsoDoc
           c[t["class"]] ||= Counter.new
           # labelled_ancestor(t, %w(figure)) and next
           j = subfigure_increment(j, c[t["class"]], t)
-          sequential_figure_body(j, c[t["class"]], t, t["class"],
-                                 container:)
+          sublabel = subfigure_label(j)
+          figure_anchor(t, sublabel, c[t["class"]].print, t["class"],
+                        container: container)
+          # sequential_figure_body(j, c[t["class"]], t, t["class"],
+          # container:)
         end
       end
 
       def subfigure_label(subfignum)
-        subfignum.zero? and return ""
-        "#{hierfigsep}#{subfignum}"
+        subfignum.zero? and return
+        subfignum.to_s
       end
 
+      def subfigure_separator(markup: false)
+        h = hierfigsep
+        h.blank? || !markup or h = "<span class='fmt-autonum-delim'>#{h}</span>"
+        h
+      end
+
+      def subfigure_delim
+        ""
+      end
+
+      # TODO delete
       def sequential_figure_body(subfig, counter, elem, klass, container: false)
         label = counter.print
         label &&= label + subfigure_label(subfig)
@@ -61,6 +77,31 @@ module IsoDoc
           @labels[klass] || klass.capitalize, klass,
           { unnumb: elem["unnumbered"], container: container }
         )
+      end
+
+      def figure_anchor(elem, sublabel, label, klass, container: false)
+        if sublabel
+          subfigure_anchor(elem, sublabel, label, klass, container: false)
+        else
+          @anchors[elem["id"]] = anchor_struct(
+            label, elem, @labels[klass] || klass.capitalize, klass,
+            { unnumb: elem["unnumbered"], container: }
+          )
+        end
+      end
+
+      def subfigure_anchor(elem, sublabel, label, klass, container: false)
+        figlabel = "#{label}#{subfigure_separator}#{sublabel}"
+        @anchors[elem["id"]] = anchor_struct(
+          figlabel, elem, @labels[klass] || klass.capitalize, klass,
+          { unnumb: elem["unnumbered"], container: }
+        )
+        if elem["unnumbered"] != "true"
+          x = "#{subfigure_separator(markup: true)}#{semx(elem, sublabel)}"
+          @anchors[elem["id"]][:label] = "#{semx(elem.parent, label)}#{x}"
+          @anchors[elem["id"]][:xref] = @anchors[elem.parent["id"]][:xref] + x +
+            subfigure_delim
+        end
       end
 
       def sequential_table_names(clause, container: false)
@@ -162,7 +203,9 @@ container: false)
         clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank.each do |t|
           # labelled_ancestor(t, %w(figure)) and next
           j = subfigure_increment(j, c, t)
-          hierarchical_figure_body(num, j, c, t, "figure")
+          sublabel = subfigure_label(j)
+          # hierarchical_figure_body(num, j, c, t, "figure")
+          figure_anchor(t, sublabel, "#{num}#{hiersep}#{c.print}", "figure")
         end
         hierarchical_figure_class_names(clause, num)
       end
@@ -175,10 +218,14 @@ container: false)
           # labelled_ancestor(t, %w(figure)) and next
           c[t["class"]] ||= Counter.new
           j = subfigure_increment(j, c[t["class"]], t)
-          hierarchical_figure_body(num, j, c[t["class"]], t, t["class"])
+          sublabel = subfigure_label(j)
+          # hierarchical_figure_body(num, j, c[t["class"]], t, t["class"])
+          figure_anchor(t, sublabel, "#{num}#{hiersep}#{c[t['class']].print}",
+                        t["class"])
         end
       end
 
+      # TODO delete
       def hierarchical_figure_body(num, subfignum, counter, block, klass)
         label = "#{num}#{hiersep}#{counter.print}" +
           subfigure_label(subfignum)

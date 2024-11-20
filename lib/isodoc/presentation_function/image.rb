@@ -43,19 +43,32 @@ module IsoDoc
       elem.children = x
     end
 
+    def subfigure_delim
+      ""
+      # "<span class='fmt-label-delim'>)</span>"
+    end
+
+    def figure_delim(_elem)
+      block_delim
+    end
+
+    def figure_name(elem)
+      "<span class='fmt-element-name'>#{figure_label(elem)}</span> "
+    end
+
     def figure1(elem)
       elem["class"] == "pseudocode" || elem["type"] == "pseudocode" and
         return sourcecode1(elem)
       figure_fn(elem)
       figure_key(elem.at(ns("./dl")))
-      #figure_label?(elem) or return nil
-      #lbl = @xrefs.anchor(elem["id"], :label, false) or return
       lbl = @xrefs.anchor(elem["id"], :label, false)
       lbl and a = autonum(elem["id"], lbl)
-      # no xref, no label: this can be set in xref
-      lbl && figure_label?(elem) and
-        s = "<span class='fmt-element-name'>#{figure_label(elem)}</span> #{a}"
-      prefix_name(elem, { caption: block_delim }, l10n(s&.strip), "name")
+      figname = figure_name(elem)
+      if elem.parent.name == "figure"
+        a += subfigure_delim
+      end
+      lbl && figure_label?(elem) and s = "#{figname}#{a}"
+      prefix_name(elem, { caption: figure_delim(elem) }, l10n(s&.strip), "name")
     end
 
     # move footnotes into key, and get rid of footnote reference
