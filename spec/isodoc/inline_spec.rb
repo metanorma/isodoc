@@ -281,7 +281,7 @@ RSpec.describe IsoDoc do
         (<a href="#ISO712">ISO 712, Clause 3.1, Figure a</a>)
       </li>
             <li><i>word</i>
-        (<a href="#ISO712">ISO 712, Clause 3.1 <span class="fmt-conn">and</span> Figure b</a>)
+        (<a href="#ISO712">ISO 712, Clause 3.1 and Figure b</a>)
       </li>
             <li><i>word</i>
         [<a href="#ISO712">
@@ -1005,26 +1005,26 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     html = <<~OUTPUT
-                       <p id="A">
-                 <a href="#ISO712">ISO&#xa0;712</a>
-                 <a href="#ISO712">ISO&#xa0;712</a>
-                 <a href="#ISO712">ISO&#xa0;712, Table 1</a>
-                 <a href='#ISO712'>ISO&#xa0;712, Table 1</a>
-      <a href='#ISO712'>ISO&#xa0;712, Table 1 <span class="fmt-conn">and</span> Clause 1</a>
-                 <a href="#ISO712">ISO&#xa0;712, Table 1&#8211;1</a>
-                 <a href="#ISO712">ISO&#xa0;712, Clause 1, Table 1</a>
-                 <a href="#ISO712">ISO&#xa0;712, Clause 1</a>
-                 <a href="#ISO712">ISO&#xa0;712, Clause 1.5</a>
-                 <a href="#ISO712">A</a>
-                 <a href="#ISO712">ISO&#xa0;712, Whole of text</a>
-                 <a href="#ISO712">ISO&#xa0;712, Prelude 7</a>
-                 <a href="#ISO712">ISO&#xa0;712, URI 7</a>
-                 <a href="#ISO712">A</a>
-                 <a href='#ISO712'>ISO&#xa0;712</a>
-                 <a href='#ISO712'>ISO&#xa0;712, Clause 1</a>
-                 <a href='#ISO712'>ISO&#xa0;712, 1</a>
-                 <a href='#ISO712'>ISO&#xa0;712, clause 1</a>
-                 </p>
+            <p id="A">
+      <a href="#ISO712">ISO&#xa0;712</a>
+      <a href="#ISO712">ISO&#xa0;712</a>
+      <a href="#ISO712">ISO&#xa0;712, Table 1</a>
+      <a href='#ISO712'>ISO&#xa0;712, Table 1</a>
+      <a href="#ISO712">ISO 712, Table 1 and Clause 1</a>#{' '}
+      <a href="#ISO712">ISO&#xa0;712, Table 1&#8211;1</a>
+      <a href="#ISO712">ISO&#xa0;712, Clause 1, Table 1</a>
+      <a href="#ISO712">ISO&#xa0;712, Clause 1</a>
+      <a href="#ISO712">ISO&#xa0;712, Clause 1.5</a>
+      <a href="#ISO712">A</a>
+      <a href="#ISO712">ISO&#xa0;712, Whole of text</a>
+      <a href="#ISO712">ISO&#xa0;712, Prelude 7</a>
+      <a href="#ISO712">ISO&#xa0;712, URI 7</a>
+      <a href="#ISO712">A</a>
+      <a href='#ISO712'>ISO&#xa0;712</a>
+      <a href='#ISO712'>ISO&#xa0;712, Clause 1</a>
+      <a href='#ISO712'>ISO&#xa0;712, 1</a>
+      <a href='#ISO712'>ISO&#xa0;712, clause 1</a>
+      </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1138,25 +1138,25 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       <div>
-        <h1 class='ForewordTitle'>Avant-propos</h1>
-        <p>
-          <a href='https://www.google.com/fr'>ISO&#xa0;712</a>
-          <a href='https://www.google.com/fr'>ISO&#xa0;712</a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1 <span class="fmt-conn">et</span> Article 1 </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Tableau 1&#x2013;1 </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1, Tableau 1 </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1 </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Article 1.5 </a>
-          <a href='spec/assets/iso713.html'> A </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Ensemble du texte </a>
-          <a href='spec/assets/iso713.html'> ISO&#xa0;713, Prelude 7 </a>
-          <a href='spec/assets/iso713.html'>A</a>
-          <a href='spec/assets/iso713.html#xyz'> ISO&#xa0;713 </a>
-          <a href='spec/assets/iso713.html#xyz'> ISO&#xa0;713, Article 1 </a>
-          <a href='spec/assets/iso714.svg'>ISO&#xa0;714</a>
-        </p>
+         <h1 class="ForewordTitle">Avant-propos</h1>
+         <p>
+            <a href="https://www.google.com/fr">ISO 712</a>
+            <a href="https://www.google.com/fr">ISO 712</a>
+            <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
+            <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
+            <a href="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</a>
+            <a href="spec/assets/iso713.html">ISO 713, Tableau 1–1</a>
+            <a href="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</a>
+            <a href="spec/assets/iso713.html">ISO 713, Article 1</a>
+            <a href="spec/assets/iso713.html">ISO 713, Article 1.5</a>
+            <a href="spec/assets/iso713.html">A</a>
+            <a href="spec/assets/iso713.html">ISO 713, Ensemble du texte</a>
+            <a href="spec/assets/iso713.html">ISO 713, Prelude 7</a>
+            <a href="spec/assets/iso713.html">A</a>
+            <a href="spec/assets/iso713.html#xyz">ISO 713</a>
+            <a href="spec/assets/iso713.html#xyz">ISO 713, Article 1</a>
+            <a href="spec/assets/iso714.svg">ISO 714</a>
+         </p>
       </div>
     OUTPUT
 
@@ -1168,7 +1168,7 @@ RSpec.describe IsoDoc do
            <a href="https://www.google.com/fr">ISO 712</a>
            <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
            <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
-           <a href="spec/assets/iso713.html">ISO 713, Tableau 1 <span class="fmt-conn">et</span> Article 1</a>
+           <a href="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</a>
            <a href="spec/assets/iso713.html">ISO 713, Tableau 1–1</a>
            <a href="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</a>
            <a href="spec/assets/iso713.html">ISO 713, Article 1</a>
@@ -1318,40 +1318,40 @@ RSpec.describe IsoDoc do
     PRESXML
     html = <<~OUTPUT
       <p id="A">
-        <a href='http://www.example.com'>ISO&#xa0;712</a>
-        <a href='http://www.example.com'>ISO&#xa0;712</a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 <span class="fmt-conn">and</span> Clause 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1&#8211;1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1, Table 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1.5 </a>
-        <a href='https://www.iso.org/standard/3944.html'> A </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Whole of text </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Prelude 7 </a>
-        <a href='https://www.iso.org/standard/3944.html'>A</a>
-        <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713 </a>
-        <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713, Clause 1 </a>
+         <a href="http://www.example.com">ISO 712</a>
+         <a href="http://www.example.com">ISO 712</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1 and Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1–1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1.5</a>
+         <a href="https://www.iso.org/standard/3944.html">A</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Whole of text</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Prelude 7</a>
+         <a href="https://www.iso.org/standard/3944.html">A</a>
+         <a href="https://www.iso.org/standard/3944.html#xyz">ISO 713</a>
+         <a href="https://www.iso.org/standard/3944.html#xyz">ISO 713, Clause 1</a>
       </p>
     OUTPUT
     word = <<~OUTPUT
       <p id="A">
-        <a href='http://www.example.com'>ISO&#xa0;712</a>
-        <a href='http://www.example.com'>ISO&#xa0;712</a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1 <span class="fmt-conn">and</span> Clause 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Table 1&#8211;1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1, Table 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1 </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Clause 1.5 </a>
-        <a href='https://www.iso.org/standard/3944.html'> A </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Whole of text </a>
-        <a href='https://www.iso.org/standard/3944.html'> ISO&#xa0;713, Prelude 7 </a>
-        <a href='https://www.iso.org/standard/3944.html'>A</a>
-        <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713 </a>
-        <a href='https://www.iso.org/standard/3944.html#xyz'> ISO&#xa0;713, Clause 1 </a>
+         <a href="http://www.example.com">ISO 712</a>
+         <a href="http://www.example.com">ISO 712</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1 and Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1–1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1.5</a>
+         <a href="https://www.iso.org/standard/3944.html">A</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Whole of text</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO 713, Prelude 7</a>
+         <a href="https://www.iso.org/standard/3944.html">A</a>
+         <a href="https://www.iso.org/standard/3944.html#xyz">ISO 713</a>
+         <a href="https://www.iso.org/standard/3944.html#xyz">ISO 713, Clause 1</a>
       </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
