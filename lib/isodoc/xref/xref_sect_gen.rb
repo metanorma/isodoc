@@ -182,10 +182,11 @@ module IsoDoc
         obl = "(#{@labels['inform_annex']})"
         clause["obligation"] == "normative" and
           obl = "(#{@labels['norm_annex']})"
+        obl = "<span class='fmt-obligation'>#{l10n obl}</fmt>"
         title = Common::case_with_markup(@labels["annex"], "capital",
                                          @script)
         s = labelled_autonum(title, clause, num)
-        "<strong>#{s}</strong><br/>#{l10n obl}"
+        "<strong>#{s}</strong><br/>#{obl}"
       end
 
       def annex_name_anchors(clause, num, level)

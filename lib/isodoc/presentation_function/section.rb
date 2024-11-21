@@ -58,7 +58,7 @@ module IsoDoc
       if unnumbered_clause?(elem)
         prefix_name(elem, {}, nil, "title")
       else
-        prefix_name(elem, { caption: annex_delim }, lbl, "title")
+        prefix_name(elem, { caption: annex_delim(elem) }, lbl, "title")
       end
     end
 
