@@ -194,7 +194,7 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="_">A</semx>
                       </strong>
                       <br/>
-                      (normative)
+                      <span class="fmt-obligation">(normative)</span>
                       <span class="fmt-autonum-delim">.</span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -216,7 +216,7 @@ RSpec.describe IsoDoc do
                             <semx element="autonum" source="_">A</semx>
                          </strong>
                          <br/>
-                         (normative)
+                         <span class="fmt-obligation">(normative)</span>
                          <span class="fmt-autonum-delim">.</span>
                          <span class="fmt-caption-delim">
                             <tab/>
@@ -254,7 +254,7 @@ RSpec.describe IsoDoc do
                       <semx element="autonum" source="_">A</semx>
                    </strong>
                    <br/>
-                   (normative)
+                   <span class="fmt-obligation">(normative)</span>
                    <span class="fmt-caption-delim">
                       <br/>
                       <br/>
