@@ -78,7 +78,7 @@ module IsoDoc
           name and p.span class: "note_label" do |s|
             name.children.each { |n| parse(n, s) }
           end
-          insert_tab(p, 1) # TODO to Presentation XML
+          #insert_tab(p, 1) # TODO to Presentation XML
           children_parse(para, p)
         end
         para.xpath("./following-sibling::*").each { |n| parse(n, div) }
@@ -90,7 +90,7 @@ module IsoDoc
             p.span class: "note_label" do |s|
               name.remove.children.each { |n| parse(n, s) }
             end
-            insert_tab(p, 1) # TODO to Presentation XML
+            #insert_tab(p, 1) # TODO to Presentation XML
           end
         children_parse(node, div)
       end

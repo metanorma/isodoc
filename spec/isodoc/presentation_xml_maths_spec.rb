@@ -919,6 +919,9 @@ RSpec.describe IsoDoc do
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">NOTE</span>
                </span>
+               <span class="fmt-label-delim">
+                  <tab/>
+                </span>
             </fmt-name>
               <strong>
                 <stem type="MathML">

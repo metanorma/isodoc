@@ -228,6 +228,9 @@ RSpec.describe IsoDoc do
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">NOTE</span>
                </span>
+                 <span class="fmt-label-delim">
+                    <tab/>
+                  </span>
             </fmt-name>
                       <p>This is a table about rice</p>
                     </note>
@@ -353,7 +356,7 @@ RSpec.describe IsoDoc do
       with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
            </div>
            <div class="Note">
-             <p><span class="note_label">NOTE</span>  This is a table about rice</p>
+             <p><span class="note_label">NOTE  </span>This is a table about rice</p>
            </div>
                          </table>
                        <table id="tableD-2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
@@ -475,7 +478,7 @@ RSpec.describe IsoDoc do
              — with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
                    </div>
                    <div class="Note">
-                     <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is a table about rice</p>
+                     <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">  </span></span>This is a table about rice</p>
                    </div>
                  </table>
                </div>

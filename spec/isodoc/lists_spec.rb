@@ -401,7 +401,7 @@ RSpec.describe IsoDoc do
                   </dd>
                 </dl>
                 <div class="Note">
-           <p>&#160; This is a note</p>
+           <p>This is a note</p>
          </div>
          </div>
               </div>
@@ -452,7 +452,7 @@ RSpec.describe IsoDoc do
                    <tr>
                     <td colspan="2">
                       <div class="Note">
-                        <p class="Note"><span style="mso-tab-count:1">&#160; </span>This is a note</p>
+                        <p class="Note">This is a note</p>
                       </div>
                      </td>
                    </tr>

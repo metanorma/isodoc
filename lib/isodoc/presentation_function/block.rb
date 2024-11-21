@@ -48,7 +48,7 @@ module IsoDoc
     end
 
     def note_delim(_elem)
-      ""
+      "<tab/>"
     end
 
     def note1(elem)

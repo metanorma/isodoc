@@ -565,6 +565,9 @@ RSpec.describe IsoDoc do
                   <span class="fmt-caption-label">
                      <span class="fmt-element-name">NOTE</span>
                   </span>
+                  <span class="fmt-label-delim">
+                     <tab/>
+                  </span>
                </fmt-name>
                <fmt-xref-label>
                   <span class="fmt-element-name">Note</span>
@@ -606,7 +609,7 @@ RSpec.describe IsoDoc do
             </div>
 
 
-              <div id="_" class="Note"><p><span class="note_label">NOTE</span>&#160; [durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
+              <div id="_" class="Note"><p><span class="note_label">NOTE  </span>[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
 
                     <div id="_"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div></div>
                     </div>
@@ -661,8 +664,7 @@ RSpec.describe IsoDoc do
                  </table>
                  <div id='_' class='Note'>
                    <p class='Note'>
-                     <span class='note_label'>NOTE</span>
-                     <span style='mso-tab-count:1'>&#160; </span>
+                     <span class='note_label'>NOTE<span style='mso-tab-count:1'>&#160; </span></span>
                      [durationUnits] is essentially a duration statement without the "P"
                      prefix. "P" is unnecessary because between "G" and "U" duration is
                      always expressed.

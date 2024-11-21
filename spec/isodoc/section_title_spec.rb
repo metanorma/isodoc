@@ -228,6 +228,9 @@ RSpec.describe IsoDoc do
                 <fmt-name>
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">NOTE</span>
+                      </span>
+                      <span class="fmt-label-delim">
+                        <tab/>
                    </span>
                 </fmt-name>
                 <p>Initial note</p>
@@ -617,8 +620,8 @@ RSpec.describe IsoDoc do
                 </div>
                                  <div id='NN1' class='Note'>
                    <p>
-                   <span class='note_label'>NOTE</span>
-                     &#160; Initial note
+                   <span class='note_label'>NOTE  </span>
+                     Initial note
                    </p>
                  </div>
                  <div id='NN2' class='Admonition'>
@@ -785,7 +788,7 @@ RSpec.describe IsoDoc do
           </p>
           <div class="WordSection3">
             <div id="NN1" class="Note">
-              <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">&#160; </span>Initial note</p>
+              <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">&#160; </span></span>Initial note</p>
             </div>
             <div id="NN2" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
             <p>Initial admonition</p>
@@ -1064,8 +1067,8 @@ RSpec.describe IsoDoc do
             </div>
             <div id='NN1' class='Note'>
               <p>
-                <span class='note_label'>NOTE</span>
-                &#160; Initial note
+                <span class='note_label'>NOTE  </span>
+                Initial note
               </p>
             </div>
             <div id='NN2' class='Admonition'>
@@ -1328,8 +1331,8 @@ RSpec.describe IsoDoc do
           <div class='WordSection3'>
             <div id='NN1' class='Note'>
               <p class='Note'>
-                <span class='note_label'>NOTE</span>
-                <span style='mso-tab-count:1'>&#160; </span>
+                <span class='note_label'>NOTE
+                <span style='mso-tab-count:1'>&#160; </span></span>
                 Initial note
               </p>
             </div>

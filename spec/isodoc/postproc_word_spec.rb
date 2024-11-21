@@ -935,7 +935,7 @@ RSpec.describe IsoDoc do
             <div>
               <h1>Foreword</h1>
               <div class="Note">
-                <p class="Note"><span style="mso-tab-count:1">  </span>For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
+                <p class="Note">For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
                 <p class="Note">
                   <br clear="all" class="section"/>
                 </p>
@@ -963,7 +963,7 @@ RSpec.describe IsoDoc do
                     <td colspan="2" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
                       <div class="Note">
                         <a name="_8fff1596-290e-4314-b03c-7a8aab97eebe" id="_8fff1596-290e-4314-b03c-7a8aab97eebe"/>
-                        <p class="Note"><span style="mso-tab-count:1">  </span>B</p>
+                        <p class="Note">B</p>
                       </div>
                     </td>
                   </tr>

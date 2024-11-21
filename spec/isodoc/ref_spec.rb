@@ -225,6 +225,9 @@ RSpec.describe IsoDoc do
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">NOTE</span>
                </span>
+               <span class="fmt-label-delim">
+              <tab/>
+           </span>
             </fmt-name>
               <p>This is an annotation of ISO 20483:2013-2014</p>
             </note>
@@ -260,6 +263,9 @@ RSpec.describe IsoDoc do
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">NOTE</span>
                </span>
+               <span class="fmt-label-delim">
+              <tab/>
+           </span>
             </fmt-name>
               <p>This is an annotation of document ISSN.</p>
             </note>
@@ -268,6 +274,9 @@ RSpec.describe IsoDoc do
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">NOTE</span>
                </span>
+               <span class="fmt-label-delim">
+              <tab/>
+           </span>
             </fmt-name>
               <p>This is another annotation of document ISSN.</p>
             </note>
@@ -377,7 +386,7 @@ RSpec.describe IsoDoc do
                  )
                </p>
                <div class="Note">
-                 <p><span class="note_label">NOTE</span>  This is an annotation of ISO 20483:2013-2014</p>
+                 <p><span class="note_label">NOTE  </span>This is an annotation of ISO 20483:2013-2014</p>
                </div>
                <p id="zip_ffs" class="NormRef">[5] Title 5</p>
              </div>
@@ -387,10 +396,10 @@ RSpec.describe IsoDoc do
                <p id="ISBN" class="Biblio">[1]   <i>Chemicals for analytical laboratory use</i>. n.p.: n.d. ISBN: ISBN.</p>
                <p id="ISSN" class="Biblio">[2]   <i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.</p>
                <div class="Note">
-                 <p><span class="note_label">NOTE</span>  This is an annotation of document ISSN.</p>
+                 <p><span class="note_label">NOTE  </span>This is an annotation of document ISSN.</p>
                </div>
                <div class="Note">
-                 <p><span class="note_label">NOTE</span>  This is another annotation of document ISSN.</p>
+                 <p><span class="note_label">NOTE  </span>This is another annotation of document ISSN.</p>
                </div>
                <p id="ISO3696" class="Biblio">[3]  ISO&#xa0;3696<a class="FootnoteRef" href="#fn:_"><sup>_</sup></a>, <i>Water for analytical laboratory use</i>.</p>
                <p id="ref10" class="Biblio">[4] 
@@ -476,7 +485,7 @@ RSpec.describe IsoDoc do
                  )
                </p>
              <div class="Note">
-               <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is an annotation of ISO 20483:2013-2014</p>
+               <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">  </span></span>This is an annotation of ISO 20483:2013-2014</p>
              </div>
              <p class="NormRef"><a name="zip_ffs" id="zip_ffs"/>[5] Title 5</p>
            </div>
@@ -488,10 +497,10 @@ RSpec.describe IsoDoc do
              <p class="Biblio"><a name="ISBN" id="ISBN"/>[1]<span style="mso-tab-count:1">  </span><i>Chemicals for analytical laboratory use</i>. n.p.: n.d. ISBN: ISBN.</p>
              <p class="Biblio"><a name="ISSN" id="ISSN"/>[2]<span style="mso-tab-count:1">  </span><i>Instruments for analytical laboratory use</i>. n.d. ISSN: ISSN.</p>
              <div class="Note">
-               <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is an annotation of document ISSN.</p>
+               <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">  </span></span>This is an annotation of document ISSN.</p>
              </div>
              <div class="Note">
-               <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is another annotation of document ISSN.</p>
+               <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">  </span></span>This is another annotation of document ISSN.</p>
              </div>
              <p class="Biblio"><a name="ISO3696" id="ISO3696"/>[3]<span style="mso-tab-count:1">  </span>ISO&#xa0;3696
                          <span style="mso-bookmark:_Ref">
@@ -902,6 +911,9 @@ RSpec.describe IsoDoc do
                   <span class="fmt-caption-delim"/>
                   <semx element="name" source="_">NOTE</semx>
                </span>
+               <span class="fmt-label-delim">
+              <tab/>
+           </span>
             </fmt-name>
               <p>This is an annotation of ISO 20483:2013-2014</p>
             </note>
@@ -938,6 +950,9 @@ RSpec.describe IsoDoc do
                   <span class="fmt-caption-delim"/>
                   <semx element="name" source="_">NOTE</semx>
                </span>
+               <span class="fmt-label-delim">
+              <tab/>
+           </span>
             </fmt-name>
               <p>This is an annotation of document ISSN.</p>
             </note>
@@ -949,6 +964,9 @@ RSpec.describe IsoDoc do
                   <span class="fmt-caption-delim"/>
                   <semx element="name" source="_">NOTE</semx>
                </span>
+               <span class="fmt-label-delim">
+              <tab/>
+           </span>
             </fmt-name>
               <p>This is another annotation of document ISSN.</p>
             </note>

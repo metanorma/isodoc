@@ -420,7 +420,7 @@ RSpec.describe IsoDoc do
              <div id="fwd">
                <h1 class="ForewordTitle" id="_"><a class="anchor" href="#fwd"/><a class="header" href="#fwd">Foreword</a></h1>
                <div class="Note">
-                 <p>  These results are based on a study carried out on three different types of kernel.</p>
+                 <p>These results are based on a study carried out on three different types of kernel.</p>
                </div>
              </div>
            </main>
@@ -1127,7 +1127,7 @@ RSpec.describe IsoDoc do
       <body>
       <div class="main-section">
                       <div id='FB' class='Note' coverpage='true'>
-                 <p><span class='note_label'>NOTE</span>&#160; XYZ</p>
+                 <p><span class='note_label'>NOTE</span>XYZ</p>
                </div>
                <div id='FC' class='Admonition' coverpage='true'>
                  <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
@@ -1147,7 +1147,7 @@ RSpec.describe IsoDoc do
           <div id='FB' class='Note'>
             <p>
               <span class='note_label'>NOTE</span>
-              &#xA0; XYZ
+              XYZ
             </p>
           </div>
           <div id='FC' class='Admonition'>
@@ -1167,7 +1167,7 @@ RSpec.describe IsoDoc do
               <div id='FB' class='Note'>
                 <p>
                   <span class='note_label'>NOTE</span>
-                  &#xA0; XYZ
+                  XYZ
                 </p>
               </div>
               <div id='FC' class='Admonition'>
@@ -1200,7 +1200,7 @@ RSpec.describe IsoDoc do
       <body>
       <div class="main-section">
                       <div id='FB' class='Note'>
-                 <p><span class='note_label'>NOTE</span>&#160; XYZ</p>
+                 <p><span class='note_label'>NOTE</span>XYZ</p>
                </div>
                <div id='FC' class='Admonition'>
                  <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
@@ -1218,7 +1218,7 @@ RSpec.describe IsoDoc do
         <div id='FB' class='Note'>
           <p>
             <span class='note_label'>NOTE</span>
-            &#xA0; XYZ
+            XYZ
           </p>
         </div>
         <div id='FC' class='Admonition'>
@@ -1236,7 +1236,7 @@ RSpec.describe IsoDoc do
             <div id='FB' class='Note'>
               <p>
                 <span class='note_label'>NOTE</span>
-                &#xA0; XYZ
+                XYZ
               </p>
             </div>
             <div id='FC' class='Admonition'>
@@ -1293,7 +1293,7 @@ RSpec.describe IsoDoc do
             <h1 class='ForewordTitle'>Foreword</h1>
             <div class='Note'>
               <p>
-                &#xA0; These results are based on a study carried out on three
+                These results are based on a study carried out on three
                 different types of kernel.
               </p>
             </div>

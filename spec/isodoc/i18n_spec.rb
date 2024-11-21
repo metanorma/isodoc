@@ -1821,6 +1821,9 @@ RSpec.describe IsoDoc do
                               <span class="fmt-element-name"/>
                               <semx element="autonum" source="M-n1"/>
                         </span>
+                  <span class="fmt-label-delim">
+                     <tab/>
+                  </span>
                      </fmt-name>
                      <fmt-xref-label>
                         <span class="fmt-element-name"/>
@@ -2048,8 +2051,7 @@ RSpec.describe IsoDoc do
                        <h2>5.1.&#160; Introduction</h2>
                        <div id='M-n1' class='Note'>
         <p>
-          <span class='note_label'>NOTO </span>
-          &#160;
+          <span class='note_label'>NOTO    </span>
         </p>
       </div>
                      </div>

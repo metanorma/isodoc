@@ -29,10 +29,7 @@ module IsoDoc
     def clause1(elem)
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
-      # t = elem.at(ns("./title")) and t["depth"] = level
-      # unnumbered_clause?(elem) and return
-      lbl = @xrefs.anchor(elem["id"], :label,
-                          elem.parent.name != "sections") # or return
+      lbl = @xrefs.anchor(elem["id"], :label, elem.parent.name != "sections")
       if unnumbered_clause?(elem) || !lbl
         prefix_name(elem, {}, nil, "title")
       else
