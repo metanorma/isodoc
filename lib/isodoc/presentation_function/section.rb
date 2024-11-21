@@ -58,8 +58,12 @@ module IsoDoc
       if unnumbered_clause?(elem)
         prefix_name(elem, {}, nil, "title")
       else
-        prefix_name(elem, { caption: "<br/><br/>" }, lbl, "title")
+        prefix_name(elem, { caption: annex_delim }, lbl, "title")
       end
+    end
+
+    def annex_delim(_elem)
+      "<br/><br/>"
     end
 
     def single_term_clause_retitle(elem)
