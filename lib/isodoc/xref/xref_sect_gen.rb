@@ -138,20 +138,28 @@ module IsoDoc
       def section_names(clause, num, lvl)
         unnumbered_section_name?(clause) and return num
         num.increment(clause)
-        section_name_anchors(clause, num.print, lvl)
+        lbl = semx(clause, num.print)
+        section_name_anchors(clause, lbl, lvl)
         clause.xpath(ns(SUBCLAUSES))
-          .each_with_object(clause_counter(0, prefix: num.print)) do |c, i|
-          section_names1(c, i.increment(c).print, lvl + 1)
+          #.each_with_object(clause_counter(0, prefix: num.print)) do |c, i|
+          .each_with_object(clause_counter(0)) do |c, i|
+          section_names1(c, lbl, i.increment(c).print, lvl + 1)
         end
         num
       end
 
-      def section_names1(clause, num, level)
+      def section_names1(clause, parentnum, num, level)
         unnumbered_section_name?(clause) and return num
-        section_name_anchors(clause, num, level)
-        i = clause_counter(0, prefix: num)
+        lbl = if clause["branch-number"]
+                semx(clause, clause["branch-number"])
+              else
+                "#{parentnum}<span class='fmt-autonum-delim'>#{clausesep}</span>#{semx(clause, num)}"
+              end
+        section_name_anchors(clause, lbl, level)
+        #i = clause_counter(0, prefix: num)
+        i = clause_counter(0)
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          section_names1(c, i.increment(c).print, level + 1)
+          section_names1(c, lbl, i.increment(c).print, level + 1)
         end
       end
 
@@ -169,9 +177,13 @@ module IsoDoc
         l10n("<span class='fmt-element-name'>#{label}</span> #{s}")
       end
 
+      def clausesep
+        "."
+      end
+
       def section_name_anchors(clause, num, level)
         xref = labelled_autonum(@labels["clause"], clause, num)
-        label = semx(clause, num)
+        label = num
         c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
           { label:, xref:, title:, level:, type: "clause",

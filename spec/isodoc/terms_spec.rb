@@ -41,7 +41,9 @@ RSpec.describe IsoDoc do
                 <term id="J">
                    <fmt-name>
                       <span class="fmt-caption-label">
-                         <semx element="autonum" source="J">1.1</semx>
+                         <semx element="autonum" source="H">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="J">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                       </span>
                    </fmt-name>
@@ -180,8 +182,10 @@ RSpec.describe IsoDoc do
              <term id="paddy1">
                   <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy1">1.1</semx>
-            <span class="fmt-autonum-delim">.</span>
+                          <semx element="autonum" source="_">1</semx>
+                          <span class="fmt-autonum-delim">.</span>
+                          <semx element="autonum" source="paddy1">1</semx>
+                          <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
       <fmt-xref-label>
@@ -239,8 +243,10 @@ RSpec.describe IsoDoc do
              <term id="paddy">
                   <fmt-name>
         <span class="fmt-caption-label">
-           <semx element="autonum" source="paddy">1.2</semx>
-           <span class="fmt-autonum-delim">.</span>
+                                  <semx element="autonum" source="_">1</semx>
+                          <span class="fmt-autonum-delim">.</span>
+                          <semx element="autonum" source="paddy">2</semx>
+                          <span class="fmt-autonum-delim">.</span>
         </span>
      </fmt-name>
      <fmt-xref-label>
@@ -493,7 +499,9 @@ RSpec.describe IsoDoc do
          <term id='paddy1'>
               <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy1">1.1</semx>
+            <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy1">1</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -625,7 +633,9 @@ RSpec.describe IsoDoc do
             <term id='paddy1'>
                   <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy1">1.1</semx>
+                     <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy1">1</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -642,7 +652,9 @@ RSpec.describe IsoDoc do
                   <term id='paddy2'>
                        <fmt-name>
         <span class="fmt-caption-label">
-           <semx element="autonum" source="paddy2">1.2</semx>
+                    <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy2">2</semx>
            <span class="fmt-autonum-delim">.</span>
         </span>
      </fmt-name>
@@ -661,7 +673,9 @@ RSpec.describe IsoDoc do
       <term id='paddy3'>
             <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy3">1.3</semx>
+            <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy3">3</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -683,7 +697,9 @@ RSpec.describe IsoDoc do
       <term id='paddy4'>
             <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy4">1.4</semx>
+            <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy4">4</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -762,7 +778,9 @@ RSpec.describe IsoDoc do
          <term id='paddy1'>
               <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy1">1.1</semx>
+            <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy1">1</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -823,7 +841,9 @@ RSpec.describe IsoDoc do
          <term id='paddy1'>
               <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy1">1.1</semx>
+            <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy1">1</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -971,7 +991,9 @@ RSpec.describe IsoDoc do
          <term id='term-term'>
               <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="term-term">1.1</semx>
+            <semx element="autonum" source="A">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="term-term">1</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -1031,7 +1053,9 @@ RSpec.describe IsoDoc do
          <term id='term-term-2'>
               <fmt-name>
         <span class="fmt-caption-label">
-           <semx element="autonum" source="term-term-2">1.2</semx>
+            <semx element="autonum" source="A">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="term-term-2">2</semx>
            <span class="fmt-autonum-delim">.</span>
         </span>
      </fmt-name>
@@ -1169,7 +1193,9 @@ RSpec.describe IsoDoc do
          <term id='second'>
               <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="second">1.1</semx>
+            <semx element="autonum" source="A">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="second">1</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -1183,7 +1209,9 @@ RSpec.describe IsoDoc do
          <term id='C'>
               <fmt-name>
         <span class="fmt-caption-label">
-           <semx element="autonum" source="C">1.2</semx>
+            <semx element="autonum" source="A">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="C">2</semx>
            <span class="fmt-autonum-delim">.</span>
         </span>
      </fmt-name>
@@ -1286,7 +1314,9 @@ RSpec.describe IsoDoc do
          <term id="paddy1">
               <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy1">1.1</semx>
+            <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy1">1</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -1349,7 +1379,9 @@ RSpec.describe IsoDoc do
          <term id="paddy1">
               <fmt-name>
          <span class="fmt-caption-label">
-            <semx element="autonum" source="paddy1">1.1</semx>
+            <semx element="autonum" source="_">1</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="paddy1">1</semx>
             <span class="fmt-autonum-delim">.</span>
          </span>
       </fmt-name>
@@ -1432,7 +1464,9 @@ RSpec.describe IsoDoc do
            <term id="paddy1">
               <fmt-name>
                  <span class="fmt-caption-label">
-                    <semx element="autonum" source="paddy1">1.1</semx>
+                            <semx element="autonum" source="_">1</semx>
+           <span class="fmt-autonum-delim">.</span>
+           <semx element="autonum" source="paddy1">1</semx>
                     <span class="fmt-autonum-delim">.</span>
                  </span>
               </fmt-name>
@@ -1451,7 +1485,9 @@ RSpec.describe IsoDoc do
            <term id="muddy">
               <fmt-name>
                  <span class="fmt-caption-label">
-                    <semx element="autonum" source="muddy">1.2</semx>
+                    <semx element="autonum" source="_">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="muddy">2</semx>
                     <span class="fmt-autonum-delim">.</span>
                  </span>
               </fmt-name>

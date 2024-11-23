@@ -31,7 +31,6 @@ module IsoDoc
           # labelled_ancestor(t, %w(figure)) and next # disable nested figure labelling
           j = subfigure_increment(j, c, t)
           sublabel = subfigure_label(j)
-          # sequential_figure_body(j, c, t, "figure", container:)
           figure_anchor(t, sublabel, c.print, "figure", container: container)
         end
         sequential_figure_class_names(clause, container:)
@@ -48,8 +47,6 @@ module IsoDoc
           sublabel = subfigure_label(j)
           figure_anchor(t, sublabel, c[t["class"]].print, t["class"],
                         container: container)
-          # sequential_figure_body(j, c[t["class"]], t, t["class"],
-          # container:)
         end
       end
 
@@ -72,17 +69,6 @@ module IsoDoc
 
       def subfigure_delim
         ""
-      end
-
-      # TODO delete
-      def sequential_figure_body(subfig, counter, elem, klass, container: false)
-        label = counter.print
-        label &&= label + subfigure_label(subfig)
-        @anchors[elem["id"]] = anchor_struct(
-          label, elem,
-          @labels[klass] || klass.capitalize, klass,
-          { unnumb: elem["unnumbered"], container: container }
-        )
       end
 
       def figure_anchor(elem, sublabel, label, klass, container: false)
@@ -241,15 +227,6 @@ container: false)
           #figure_anchor(t, sublabel, "#{num}#{hier_separator}#{c[t['class']].print}", t["class"])
           figure_anchor(t, sublabel, hiersemx(clause, num, c[t["class"]], t), t["class"])
         end
-      end
-
-      # TODO delete
-      def hierarchical_figure_body(num, subfignum, counter, block, klass)
-        label = "#{num}#{hier_separator}#{counter.print}" +
-          subfigure_label(subfignum)
-        @anchors[block["id"]] =
-          anchor_struct(label, block, @labels[klass] || klass.capitalize,
-                        klass, { unnumb: block["unnumbered"], container: false })
       end
 
       def hierarchical_table_names(clause, num)

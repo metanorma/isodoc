@@ -1754,7 +1754,9 @@ RSpec.describe IsoDoc do
             <title id="_">Normative 1</title>
             <fmt-title depth="2">
                <span class="fmt-caption-label">
-                  <semx element="autonum" source="C">1.1</semx>
+                  <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="C">1</semx>
                   <span class="fmt-autonum-delim">.</span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1973,8 +1975,10 @@ RSpec.describe IsoDoc do
                    <title id="_">Normative References 1</title>
                    <fmt-title depth="2">
                       <span class="fmt-caption-label">
-                         <semx element="autonum" source="B">1.1</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="A">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
                          <span class="fmt-caption-delim">
                             <tab/>
                          </span>
@@ -1990,7 +1994,9 @@ RSpec.describe IsoDoc do
                    <title id="_">Normative References 2</title>
                    <fmt-title depth="2">
                       <span class="fmt-caption-label">
-                         <semx element="autonum" source="C">1.2</semx>
+                         <semx element="autonum" source="A">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="C">2</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <span class="fmt-caption-delim">
                             <tab/>

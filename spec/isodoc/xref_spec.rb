@@ -1028,7 +1028,9 @@ RSpec.describe IsoDoc do
         <clause id="widgets1">
            <fmt-title depth="2">
               <span class="fmt-caption-label">
-                 <semx element="autonum" source="widgets1">3.1</semx>
+              <semx element="autonum" source="widgets">3</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="widgets1">1</semx>
                  <span class="fmt-autonum-delim">.</span>
               </span>
            </fmt-title>
