@@ -89,6 +89,11 @@ RSpec.describe IsoDoc do
         </table>
         </foreword>
         </preface>
+        <annex id="Annex1">
+        <table id="AnnexTable">
+        <tbody><tr><td>A</td></td></tbody>
+        </table>
+        </annex>
         <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
         <bibitem id="ISO712" type="standard">
           <title format="text/plain">Cereals or cereal products</title>
@@ -270,6 +275,41 @@ RSpec.describe IsoDoc do
            </references>
          </sections>
          <bibliography></bibliography>
+            <annex id="Annex1" autonum="A" displayorder="4">
+      <fmt-title>
+         <span class="fmt-caption-label">
+            <strong>
+               <span class="fmt-element-name">Annex</span>
+               <semx element="autonum" source="Annex1">A</semx>
+            </strong>
+            <br/>
+            <span class="fmt-obligation">(informative)</span>
+         </span>
+      </fmt-title>
+      <fmt-xref-label>
+         <span class="fmt-element-name">Annex</span>
+         <semx element="autonum" source="Annex1">A</semx>
+      </fmt-xref-label>
+      <table id="AnnexTable" autonum="A.1">
+         <fmt-name>
+            <span class="fmt-caption-label">
+               <span class="fmt-element-name">Table</span>
+               <semx element="autonum" source="Annex1">A</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="AnnexTable">1</semx>
+            </span>
+         </fmt-name>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Table</span>
+            <semx element="autonum" source="AnnexTable">A.1</semx>
+         </fmt-xref-label>
+         <tbody>
+            <tr>
+               <td>A</td>
+            </tr>
+         </tbody>
+      </table>
+   </annex>
             </iso-standard>
     OUTPUT
 
@@ -371,6 +411,22 @@ RSpec.describe IsoDoc do
                  <h1>1.  Normative References</h1>
                  <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
                </div>
+                               <br/>
+                <div id="Annex1" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (informative)
+                   </h1>
+                   <p class="TableTitle" style="text-align:center;">Table A.1</p>
+                   <table id="AnnexTable" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                      <tbody>
+                         <tr>
+                            <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </div>
                       <aside id='fn:1' class='footnote'>
            <p>X</p>
          </aside>
@@ -502,6 +558,26 @@ RSpec.describe IsoDoc do
                <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
                <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
              </div>
+                             <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="Annex1" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (informative)
+                   </h1>
+                   <p class="TableTitle" style="text-align:center;">Table A.1</p>
+                   <div align="center" class="table_container">
+                      <table id="AnnexTable" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                </div>
              <aside id="ftn1">
                <p>X</p>
              </aside>

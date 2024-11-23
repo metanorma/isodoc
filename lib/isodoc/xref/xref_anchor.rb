@@ -1,4 +1,5 @@
 require "singleton"
+require_relative "xref_util"
 
 module IsoDoc
   module XrefGen
@@ -42,7 +43,8 @@ module IsoDoc
 
       def anchor_struct_xref(lbl, node, elem)
         unless lbl.blank?
-          lbl = "<semx element='autonum' source='#{node['id'] || node[:id]}'>#{lbl}</semx>"
+          lbl = semx(node, lbl)
+          #lbl = "<semx element='autonum' source='#{node['id'] || node[:id]}'>#{lbl}</semx>"
           s = " #{anchor_struct_value(lbl, elem)}"
         end
         l10n("<span class='fmt-element-name'>#{elem}</span>#{s}")
@@ -68,9 +70,11 @@ module IsoDoc
           anchor_struct_xref(opt[:unnumb] == "true" ? "(??)" : lbl, node,
                              elem_name)
         ret[:container] = @klass.get_clause_id(node) if opt[:container]
-        ret[:value] = lbl
+        ret[:value] = stripsemx(lbl)
         ret
       end
+
+      include ::IsoDoc::XrefGen::Util
     end
   end
 end

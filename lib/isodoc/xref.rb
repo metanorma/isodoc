@@ -4,6 +4,7 @@ require_relative "xref/xref_counter_types"
 require_relative "xref/xref_gen_seq"
 require_relative "xref/xref_gen"
 require_relative "xref/xref_sect_gen"
+require_relative "xref/xref_util"
 require_relative "class_utils"
 require_relative "function/utils"
 
@@ -92,5 +93,7 @@ module IsoDoc
     def l10n(text, lang = @lang, script = @script, locale = @locale)
       @i18n.l10n(text, lang, script, locale)
     end
+
+    include ::IsoDoc::XrefGen::Util
   end
 end

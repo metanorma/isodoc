@@ -53,6 +53,12 @@ module IsoDoc
         end
       end
 
+      def hier_separator(markup: false)
+        h = hiersep
+        h.blank? || !markup or h = "<span class='fmt-autonum-delim'>#{h}</span>"
+        h
+      end
+
       def subfigure_label(subfignum)
         subfignum.zero? and return
         subfignum.to_s
@@ -154,7 +160,7 @@ module IsoDoc
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
           ctr = c.increment(label, t).print
-          id = "#{lbl}#{hierfigsep}#{ctr}"
+          id = "#{lbl}#{subfigure_separator}#{ctr}"
           sequential_permission_body(ctr, lbl, t, label, klass, m,
                                      container:)
           sequential_permission_children(t, id, klass, container:)
@@ -163,7 +169,7 @@ module IsoDoc
 
       def sequential_permission_body(id, parent_id, elem, label, klass, model,
 container: false)
-        lbl = parent_id ? "#{parent_id}#{hierfigsep}#{id}" : id
+        lbl = parent_id ? "#{parent_id}#{subfigure_separator}#{id}" : id
         @anchors[elem["id"]] = model.postprocess_anchor_struct(
           elem, anchor_struct(lbl, elem,
                               label, klass, { unnumb: elem["unnumbered"], container: })
@@ -215,7 +221,9 @@ container: false)
           j = subfigure_increment(j, c, t)
           sublabel = subfigure_label(j)
           # hierarchical_figure_body(num, j, c, t, "figure")
-          figure_anchor(t, sublabel, "#{num}#{hiersep}#{c.print}", "figure")
+          #figure_anchor(t, sublabel, "#{num}#{hier_separator}#{c.print}", "figure")
+          #require "debug"; binding.b
+          figure_anchor(t, sublabel, hiersemx(clause, num, c, t), "figure")
         end
         hierarchical_figure_class_names(clause, num)
       end
@@ -230,14 +238,14 @@ container: false)
           j = subfigure_increment(j, c[t["class"]], t)
           sublabel = subfigure_label(j)
           # hierarchical_figure_body(num, j, c[t["class"]], t, t["class"])
-          figure_anchor(t, sublabel, "#{num}#{hiersep}#{c[t['class']].print}",
-                        t["class"])
+          #figure_anchor(t, sublabel, "#{num}#{hier_separator}#{c[t['class']].print}", t["class"])
+          figure_anchor(t, sublabel, hiersemx(clause, num, c[t["class"]], t), t["class"])
         end
       end
 
       # TODO delete
       def hierarchical_figure_body(num, subfignum, counter, block, klass)
-        label = "#{num}#{hiersep}#{counter.print}" +
+        label = "#{num}#{hier_separator}#{counter.print}" +
           subfigure_label(subfignum)
         @anchors[block["id"]] =
           anchor_struct(label, block, @labels[klass] || klass.capitalize,
@@ -249,7 +257,8 @@ container: false)
         clause.xpath(ns(".//table")).noblank.each do |t|
           # labelled_ancestor(t) and next
           @anchors[t["id"]] =
-            anchor_struct("#{num}#{hiersep}#{c.increment(t).print}",
+            #anchor_struct("#{num}#{hier_separator}#{c.increment(t).print}",
+            anchor_struct(hiersemx(clause, num, c.increment(t), t),
                           t, @labels["table"], "table", { unnumb: t["unnumbered"], container: false })
         end
       end
@@ -265,7 +274,8 @@ container: false)
         c = Counter.new
         clause.xpath(ns(".//formula")).noblank.each do |t|
           @anchors[t["id"]] = anchor_struct(
-            "#{num}#{hiersep}#{c.increment(t).print}", t,
+            #"#{num}#{hier_separator}#{c.increment(t).print}", t,
+                     hiersemx(clause, num, c.increment(t), t), t,
             t["inequality"] ? @labels["inequality"] : @labels["formula"],
             "formula", { unnumb: t["unnumbered"], container: false }
           )
@@ -277,7 +287,8 @@ container: false)
         clause.xpath(ns(FIRST_LVL_REQ)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_label(t, m)
-          id = "#{num}#{hiersep}#{c.increment(label, t).print}"
+          #id = "#{num}#{hier_separator}#{c.increment(label, t).print}"
+          id = hiersemx(clause, num, c.increment(label, t), t)
           sequential_permission_body(id, nil, t, label, klass, m, container: false)
           sequential_permission_children(t, id, klass, container: false)
         end
@@ -289,7 +300,7 @@ container: false)
         block.xpath(ns(REQ_CHILDREN)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
-          id = "#{lbl}#{hierfigsep}#{c.increment(label, t).print}"
+          id = "#{lbl}#{subfigure_separator}#{c.increment(label, t).print}"
           sequential_permission_body(c.print, lbl, t, label, klass, m)
           hierarchical_permission_children(t, id)
         end

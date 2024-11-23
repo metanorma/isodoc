@@ -14,7 +14,7 @@ end
 
 module IsoDoc
   module XrefGen
-    module Blocks
+    module Util
       def blank?(text)
         text.nil? || text.empty?
       end
@@ -44,8 +44,32 @@ module IsoDoc
       CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | " \
                  "./references".freeze
 
+      def child_sections
+        CHILD_SECTIONS
+      end
+
       def semx(node, label, element = "autonum")
-        %(<semx element='#{element}' source='#{node['id']}'>#{label}</semx>)
+        l = stripsemx(label)
+        id = node["id"] || node[:id]
+        %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
+      end
+
+      # assume parent is already semantically annotated with semx
+      def hiersemx(parent, parentlabel, counter, element, sep: nil)
+        sep ||= hier_separator(markup: true)
+        "#{semx(parent, parentlabel)}#{sep}#{semx(element, counter.print)}"
+      end
+
+      def stripsemx(elem)
+        elem.nil? and return elem
+        xml = Nokogiri::XML::DocumentFragment.parse(elem)
+        xml.traverse do |x|
+          x.name == "semx" ||
+            (x.name == "span" && /^fmt-/.match?(x["class"])) and
+            x.replace(x.children)
+        end
+        xml.to_xml(indent: 0, encoding: "UTF-8",
+                   save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
       end
     end
   end

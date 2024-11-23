@@ -49,9 +49,9 @@ module IsoDoc
 
     def annex1(elem)
       lbl = @xrefs.anchor(elem["id"], :label)
+      # TODO: do not alter title, alter semx/@element = title
       t = elem.at(ns("./title")) and
         t.children = "<strong>#{to_xml(t.children)}</strong>"
-      # unnumbered_clause?(elem) and return
       if unnumbered_clause?(elem)
         prefix_name(elem, {}, nil, "title")
       else

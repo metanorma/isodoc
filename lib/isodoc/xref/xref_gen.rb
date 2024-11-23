@@ -73,7 +73,7 @@ module IsoDoc
           notes = s.xpath(child_asset_path("note")) -
             s.xpath(ns(".//figure//note | .//table//note"))
           note_anchor_names1(notes, Counter.new)
-          note_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+          note_anchor_names(s.xpath(ns(child_sections)))
         end
       end
 
@@ -91,7 +91,7 @@ module IsoDoc
           s.at(ns(".//admonition[@type = 'box']")) or next
           notes = s.xpath(child_asset_path("admonition[@type = 'box']"))
           admonition_anchor_names1(notes, Counter.new)
-          admonition_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+          admonition_anchor_names(s.xpath(ns(child_sections)))
         end
       end
 
@@ -108,7 +108,7 @@ module IsoDoc
         sections.each do |s|
           notes = s.xpath(child_asset_path("example"))
           example_anchor_names1(notes, Counter.new)
-          example_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+          example_anchor_names(s.xpath(ns(child_sections)))
         end
       end
 
@@ -133,7 +133,7 @@ module IsoDoc
                             { unnumb: false, container: true })
             list_item_anchor_names(n, @anchors[n["id"]], 1, "", notes.size != 1)
           end
-          list_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+          list_anchor_names(s.xpath(ns(child_sections)))
         end
       end
 
@@ -186,7 +186,7 @@ refer_list)
           notes = s.xpath(ns(".//dl")) - s.xpath(ns(".//clause//dl")) -
             s.xpath(ns(".//appendix//dl")) - s.xpath(ns(".//dl//dl"))
           deflist_anchor_names1(notes, Counter.new)
-          deflist_anchor_names(s.xpath(ns(CHILD_SECTIONS)))
+          deflist_anchor_names(s.xpath(ns(child_sections)))
         end
       end
 
