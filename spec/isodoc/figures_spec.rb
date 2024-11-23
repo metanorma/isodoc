@@ -53,6 +53,12 @@ RSpec.describe IsoDoc do
         B</pre>
         </figure>
             </foreword></preface>
+            <annex id="Annex">
+            <figure id="AnnexFigure">
+        <pre>A &#x3c;
+        B</pre>
+        </figure>
+            </annex>
                   <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
         <bibitem id="ISO712" type="standard">
           <title format="text/plain">Cereals or cereal products</title>
@@ -200,6 +206,38 @@ RSpec.describe IsoDoc do
                 </bibitem>
              </references>
           </sections>
+          <annex id="Annex" autonum="A" displayorder="4">
+             <fmt-title>
+                <span class="fmt-caption-label">
+                   <strong>
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="Annex">A</semx>
+                   </strong>
+                   <br/>
+                   <span class="fmt-obligation">(informative)</span>
+                </span>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="Annex">A</semx>
+             </fmt-xref-label>
+      <figure id="AnnexFigure" autonum="A.1">
+         <fmt-name>
+            <span class="fmt-caption-label">
+               <span class="fmt-element-name">Figure</span>
+               <semx element="autonum" source="Annex">A</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="AnnexFigure">1</semx>
+            </span>
+         </fmt-name>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Figure</span>
+            <semx element="autonum" source="AnnexFigure">A.1</semx>
+         </fmt-xref-label>
+         <pre>A &lt;
+  B</pre>
+      </figure>
+          </annex>
           <bibliography>
              </bibliography>
        </iso-standard>
@@ -258,6 +296,19 @@ RSpec.describe IsoDoc do
                <h1>1.  Normative References</h1>
                <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
              </div>
+                             <br/>
+                <div id="Annex" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (informative)
+                   </h1>
+                   <div id="AnnexFigure" class="figure">
+                      <pre>A &lt;
+         B</pre>
+                      <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
+                   </div>
+                </div>
              <aside id="fn:1" class="footnote">
                <p>X</p>
              </aside>
@@ -349,10 +400,24 @@ RSpec.describe IsoDoc do
                <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
                <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
              </div>
+                      <p class="page-break">
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+         </p>
+         <div id="Annex" class="Section3">
+            <h1 class="Annex">
+               <b>Annex A</b>
+               <br/>
+               (informative)
+            </h1>
+            <div id="AnnexFigure" class="figure">
+               <pre>A &lt;
+  B</pre>
+               <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
+            </div>
+         </div>
                     <aside id='ftn1'>
          <p>X</p>
        </aside>
-                 </div>
                </body>
              </html>
     OUTPUT

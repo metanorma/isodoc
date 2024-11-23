@@ -534,6 +534,11 @@ RSpec.describe IsoDoc do
         <stem type="AsciiMath">r = 1 %</stem>
         </formula>
           </foreword></preface>
+          <annex id="Annex">
+           <formula id="AnnexFormula">
+           <stem type="AsciiMath">r = 1 %</stem>
+           </formula>
+          </annex>
           </iso-standard>
     INPUT
     presxml = <<~INPUT
@@ -592,6 +597,40 @@ RSpec.describe IsoDoc do
         <stem type="AsciiMath">r = 1 %</stem>
         </formula>
           </foreword></preface>
+             <annex id="Annex" autonum="A" displayorder="3">
+      <fmt-title>
+         <span class="fmt-caption-label">
+            <strong>
+               <span class="fmt-element-name">Annex</span>
+               <semx element="autonum" source="Annex">A</semx>
+            </strong>
+            <br/>
+            <span class="fmt-obligation">(informative)</span>
+         </span>
+      </fmt-title>
+      <fmt-xref-label>
+         <span class="fmt-element-name">Annex</span>
+         <semx element="autonum" source="Annex">A</semx>
+      </fmt-xref-label>
+      <formula id="AnnexFormula" autonum="A.1">
+         <fmt-name>
+            <span class="fmt-caption-label">
+               <span class="fmt-autonum-delim">(</span>
+               <semx element="autonum" source="Annex">A</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="AnnexFormula">1</semx>
+               <span class="fmt-autonum-delim">)</span>
+            </span>
+         </fmt-name>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Formula</span>
+            <span class="fmt-autonum-delim">(</span>
+            <semx element="autonum" source="AnnexFormula">A.1</semx>
+            <span class="fmt-autonum-delim">)</span>
+         </fmt-xref-label>
+         <stem type="AsciiMath">r = 1 %</stem>
+      </formula>
+   </annex>
           </iso-standard>
     INPUT
     html = <<~OUTPUT
@@ -613,6 +652,22 @@ RSpec.describe IsoDoc do
 
                     <div id="_"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div></div>
                     </div>
+                                    <br/>
+                <div id="Annex" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (informative)
+                   </h1>
+                   <div id="AnnexFormula">
+                      <div class="formula">
+                         <p>
+                            <span class="stem">(#(r = 1 %)#)</span>
+                              (A.1)
+                         </p>
+                      </div>
+                   </div>
+                </div>
                 </div>
               </body>
           </html>
@@ -686,7 +741,27 @@ RSpec.describe IsoDoc do
                <br clear='all' class='section'/>
              </p>
              <div class='WordSection3'>
-             </div>
+                     <p class="page-break">
+           <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+        </p>
+        <div id="Annex" class="Section3">
+           <h1 class="Annex">
+              <b>Annex A</b>
+              <br/>
+              (informative)
+           </h1>
+           <div id="AnnexFormula">
+              <div class="formula">
+                 <p>
+                    <span class="stem">(#(r = 1 %)#)</span>
+                    <span style="mso-tab-count:1">  </span>
+                    (A.1)
+                 </p>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
            </body>
          </html>
     OUTPUT
@@ -890,6 +965,13 @@ RSpec.describe IsoDoc do
                 </component>
       </permission>
           </foreword></preface>
+          <annex id="Annex">
+          <permission id="AnnexPermission" model="default">
+          <description>
+          <p id="_">As for the measurement targets,</p>
+        </description>
+          </permission>
+          </annex>
           <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
       <title>Bibliography</title>
       <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="IETF" scope="anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
@@ -965,7 +1047,42 @@ RSpec.describe IsoDoc do
                   <p id="_">Hello</p>
                 </div></permission>
           </foreword></preface>
-          <bibliography><references id="_" obligation="informative" normative="false" displayorder="3">
+   <annex id="Annex" autonum="A" displayorder="3">
+      <fmt-title>
+         <span class="fmt-caption-label">
+            <strong>
+               <span class="fmt-element-name">Annex</span>
+               <semx element="autonum" source="Annex">A</semx>
+            </strong>
+            <br/>
+            <span class="fmt-obligation">(informative)</span>
+         </span>
+      </fmt-title>
+      <fmt-xref-label>
+         <span class="fmt-element-name">Annex</span>
+         <semx element="autonum" source="Annex">A</semx>
+      </fmt-xref-label>
+      <permission id="AnnexPermission" model="default" autonum="A.1">
+         <fmt-name>
+            <span class="fmt-caption-label">
+               <span class="fmt-element-name">Permission</span>
+               <semx element="autonum" source="AnnexPermission">
+                  <semx element="autonum" source="Annex">A</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="AnnexPermission">1</semx>
+               </semx>
+            </span>
+         </fmt-name>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Permission</span>
+            <semx element="autonum" source="AnnexPermission">A.1</semx>
+         </fmt-xref-label>
+         <div type="requirement-description">
+            <p id="_">As for the measurement targets,</p>
+         </div>
+      </permission>
+   </annex>
+          <bibliography><references id="_" obligation="informative" normative="false" displayorder="4">
          <title id="_">Bibliography</title>
          <fmt-title depth="1">
             <span class="fmt-caption-label">
@@ -1012,7 +1129,22 @@ RSpec.describe IsoDoc do
                 <p id="_">The following code will be run for verification:</p>
                 <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
               </div>
-              <div class='requirement-component1'> <p id='_'>Hello</p> </div>
+              <div class='requirement-component1'> <p id='_'>Hello</p>
+               </div>
+            </div>
+         </div>
+         <br/>
+         <div id="Annex" class="Section3">
+            <h1 class="Annex">
+               <b>Annex A</b>
+               <br/>
+               (informative)
+            </h1>
+            <div class="permission" id="AnnexPermission">
+               <p class="RecommendationTitle">Permission A.1</p>
+               <div class="requirement-description">
+                  <p id="_">As for the measurement targets,</p>
+            </div>
             </div>
                   </div>
                    <br/>
