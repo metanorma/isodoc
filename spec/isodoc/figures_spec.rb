@@ -232,7 +232,9 @@ RSpec.describe IsoDoc do
          </fmt-name>
          <fmt-xref-label>
             <span class="fmt-element-name">Figure</span>
-            <semx element="autonum" source="AnnexFigure">A.1</semx>
+            <semx element="autonum" source="Annex">A</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="AnnexFigure">1</semx>
          </fmt-xref-label>
          <pre>A &lt;
   B</pre>

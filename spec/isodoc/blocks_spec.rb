@@ -625,7 +625,9 @@ RSpec.describe IsoDoc do
          <fmt-xref-label>
             <span class="fmt-element-name">Formula</span>
             <span class="fmt-autonum-delim">(</span>
-            <semx element="autonum" source="AnnexFormula">A.1</semx>
+            <semx element="autonum" source="Annex">A</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="AnnexFormula">1</semx>
             <span class="fmt-autonum-delim">)</span>
          </fmt-xref-label>
          <stem type="AsciiMath">r = 1 %</stem>
@@ -1075,7 +1077,9 @@ RSpec.describe IsoDoc do
          </fmt-name>
          <fmt-xref-label>
             <span class="fmt-element-name">Permission</span>
-            <semx element="autonum" source="AnnexPermission">A.1</semx>
+            <semx element="autonum" source="Annex">A</semx>
+            <span class="fmt-autonum-delim">.</span>
+            <semx element="autonum" source="AnnexPermission">1</semx>
          </fmt-xref-label>
          <div type="requirement-description">
             <p id="_">As for the measurement targets,</p>

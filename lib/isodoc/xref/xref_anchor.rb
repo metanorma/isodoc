@@ -44,7 +44,6 @@ module IsoDoc
       def anchor_struct_xref(lbl, node, elem)
         unless lbl.blank?
           lbl = semx(node, lbl)
-          #lbl = "<semx element='autonum' source='#{node['id'] || node[:id]}'>#{lbl}</semx>"
           s = " #{anchor_struct_value(lbl, elem)}"
         end
         l10n("<span class='fmt-element-name'>#{elem}</span>#{s}")

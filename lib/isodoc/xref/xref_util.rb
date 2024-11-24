@@ -48,9 +48,12 @@ module IsoDoc
         CHILD_SECTIONS
       end
 
+      # if hierarchically marked up node in label already,
+      # leave alone, else wrap in semx
       def semx(node, label, element = "autonum")
-        l = stripsemx(label)
         id = node["id"] || node[:id]
+        /<semx element='[^']+' source='#{id}'/.match?(label) and return label
+        l = stripsemx(label)
         %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
       end
 
