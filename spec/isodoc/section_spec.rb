@@ -248,13 +248,17 @@ RSpec.describe IsoDoc do
                 <term id="term-glossary" autonum="A.1">
                    <fmt-name>
                       <span class="fmt-caption-label">
-                         <semx element="autonum" source="term-glossary">A.1</semx>
+                         <semx element="autonum" source="PP1">A</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="term-glossary">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                       </span>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="term-glossary">A.1</semx>
+                      <semx element="autonum" source="PP1">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="term-glossary">1</semx>
                    </fmt-xref-label>
                    <preferred>
                       <strong>Glossary</strong>
@@ -291,7 +295,9 @@ RSpec.describe IsoDoc do
                 <title id="_">Term Collection</title>
                 <fmt-title depth="2">
                    <span class="fmt-caption-label">
-                      <semx element="autonum" source="QQ1">B.1</semx>
+                      <semx element="autonum" source="QQ">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="QQ1">1</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -301,18 +307,28 @@ RSpec.describe IsoDoc do
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Annex</span>
-                   <semx element="autonum" source="QQ1">B.1</semx>
+                   <semx element="autonum" source="QQ">B</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="QQ1">1</semx>
                 </fmt-xref-label>
                 <term id="term-term-1" autonum="B.1.1">
                    <fmt-name>
                       <span class="fmt-caption-label">
-                         <semx element="autonum" source="term-term-1">B.1.1</semx>
+                         <semx element="autonum" source="QQ">B</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="QQ1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="term-term-1">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                       </span>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="term-term-1">B.1.1</semx>
+                      <semx element="autonum" source="QQ">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="QQ1">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="term-term-1">1</semx>
                    </fmt-xref-label>
                    <preferred>
                       <strong>Term</strong>
@@ -323,7 +339,9 @@ RSpec.describe IsoDoc do
                 <title id="_">Term Collection 2</title>
                 <fmt-title depth="2">
                    <span class="fmt-caption-label">
-                      <semx element="autonum" source="QQ2">B.2</semx>
+                      <semx element="autonum" source="QQ">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="QQ2">2</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -333,18 +351,28 @@ RSpec.describe IsoDoc do
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Annex</span>
-                   <semx element="autonum" source="QQ2">B.2</semx>
+                   <semx element="autonum" source="QQ">B</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="QQ2">2</semx>
                 </fmt-xref-label>
                 <term id="term-term-2" autonum="B.2.1">
                    <fmt-name>
                       <span class="fmt-caption-label">
-                         <semx element="autonum" source="term-term-2">B.2.1</semx>
+                         <semx element="autonum" source="QQ">B</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="QQ2">2</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="term-term-2">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                       </span>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="term-term-2">B.2.1</semx>
+                      <semx element="autonum" source="QQ">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="QQ2">2</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="term-term-2">1</semx>
                    </fmt-xref-label>
                    <preferred>
                       <strong>Term</strong>
@@ -381,7 +409,9 @@ RSpec.describe IsoDoc do
                 <title id="_">Term Collection</title>
                 <fmt-title depth="2">
                    <span class="fmt-caption-label">
-                      <semx element="autonum" source="RR1">C.1</semx>
+                      <semx element="autonum" source="RR">C</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="RR1">1</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -391,18 +421,28 @@ RSpec.describe IsoDoc do
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Annex</span>
-                   <semx element="autonum" source="RR1">C.1</semx>
+                   <semx element="autonum" source="RR">C</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="RR1">1</semx>
                 </fmt-xref-label>
                 <term id="term-term-3" autonum="C.1.1">
                    <fmt-name>
                       <span class="fmt-caption-label">
-                         <semx element="autonum" source="term-term-3">C.1.1</semx>
+                         <semx element="autonum" source="RR">C</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="RR1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="term-term-3">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                       </span>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="term-term-3">C.1.1</semx>
+                      <semx element="autonum" source="RR">C</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="RR1">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="term-term-3">1</semx>
                    </fmt-xref-label>
                    <preferred>
                       <strong>Term</strong>
@@ -413,7 +453,9 @@ RSpec.describe IsoDoc do
                 <title id="_">References</title>
                 <fmt-title depth="2">
                    <span class="fmt-caption-label">
-                      <semx element="autonum" source="RR2">C.2</semx>
+                      <semx element="autonum" source="RR">C</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="RR2">2</semx>
                       <span class="fmt-autonum-delim">.</span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -423,7 +465,9 @@ RSpec.describe IsoDoc do
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Annex</span>
-                   <semx element="autonum" source="RR2">C.2</semx>
+                   <semx element="autonum" source="RR">C</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="RR2">2</semx>
                 </fmt-xref-label>
              </references>
           </annex>
@@ -456,13 +500,17 @@ RSpec.describe IsoDoc do
                 <term id="term-term-4" autonum="D.1">
                    <fmt-name>
                       <span class="fmt-caption-label">
-                         <semx element="autonum" source="term-term-4">D.1</semx>
+                         <semx element="autonum" source="SS1">D</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="term-term-4">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                       </span>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="term-term-4">D.1</semx>
+                      <semx element="autonum" source="SS1">D</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="term-term-4">1</semx>
                    </fmt-xref-label>
                    <preferred>
                       <strong>Term</strong>

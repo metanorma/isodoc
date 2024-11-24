@@ -1702,7 +1702,7 @@ RSpec.describe IsoDoc do
       </standard-document>
     INPUT
     presxml = <<~INPUT
-      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation" version="1.10.2">
+       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation" version="1.10.2">
           <bibdata type="standard">
              <title language="en" format="text/plain">Document title</title>
              <language current="true">en</language>
@@ -1756,7 +1756,9 @@ RSpec.describe IsoDoc do
                    </fmt-title>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1A">1.1</semx>
+                      <semx element="autonum" source="clause1">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="clause1A">1</semx>
                    </fmt-xref-label>
                    <clause id="clause1Aa" inline-header="false" obligation="normative">
                       <title id="_">Clause 1Aa</title>
@@ -1776,7 +1778,11 @@ RSpec.describe IsoDoc do
                       </fmt-title>
                       <fmt-xref-label>
                          <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1Aa">1.1.1</semx>
+                         <semx element="autonum" source="clause1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="clause1A">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="clause1Aa">1</semx>
                       </fmt-xref-label>
                    </clause>
                    <clause id="clause1Ab" inline-header="false" obligation="normative">
@@ -1797,7 +1803,11 @@ RSpec.describe IsoDoc do
                       </fmt-title>
                       <fmt-xref-label>
                          <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1Ab">1.1.2</semx>
+                         <semx element="autonum" source="clause1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="clause1A">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="clause1Ab">2</semx>
                       </fmt-xref-label>
                    </clause>
                 </clause>
@@ -1817,7 +1827,9 @@ RSpec.describe IsoDoc do
                    </fmt-title>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1B">1.2</semx>
+                      <semx element="autonum" source="clause1">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="clause1B">2</semx>
                    </fmt-xref-label>
                    <clause id="clause1Ba" inline-header="false" obligation="normative">
                       <title id="_">Clause 1Ba</title>
@@ -1837,7 +1849,11 @@ RSpec.describe IsoDoc do
                       </fmt-title>
                       <fmt-xref-label>
                          <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1Ba">1.2.1</semx>
+                         <semx element="autonum" source="clause1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="clause1B">2</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="clause1Ba">1</semx>
                       </fmt-xref-label>
                    </clause>
                 </clause>

@@ -1766,7 +1766,9 @@ RSpec.describe IsoDoc do
             </fmt-title>
             <fmt-xref-label>
                <span class="fmt-element-name">Clause</span>
-               <semx element="autonum" source="C">1.1</semx>
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="C">1</semx>
             </fmt-xref-label>
               <bibitem id="iso123">
                 <formattedref format="application/x-isodoc+xml">
@@ -1987,7 +1989,9 @@ RSpec.describe IsoDoc do
                    </fmt-title>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="B">1.1</semx>
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="B">1</semx>
                    </fmt-xref-label>
                 </references>
                 <references id="C" obligation="informative" normative="false">
@@ -2006,7 +2010,9 @@ RSpec.describe IsoDoc do
                    </fmt-title>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="C">1.2</semx>
+               <semx element="autonum" source="A">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="C">2</semx>
                    </fmt-xref-label>
                 </references>
              </clause>

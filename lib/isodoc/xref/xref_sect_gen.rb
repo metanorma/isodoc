@@ -148,13 +148,19 @@ module IsoDoc
         num
       end
 
-      def section_names1(clause, parentnum, num, level)
-        unnumbered_section_name?(clause) and return num
-        lbl = if clause["branch-number"]
+      def clause_number_semx(parentnum, clause, num)
+        if clause["branch-number"]
                 semx(clause, clause["branch-number"])
+        elsif parentnum.nil?
+          semx(clause, num)
               else
                 "#{parentnum}<span class='fmt-autonum-delim'>#{clausesep}</span>#{semx(clause, num)}"
               end
+      end
+
+      def section_names1(clause, parentnum, num, level)
+        unnumbered_section_name?(clause) and return num
+        lbl = clause_number_semx(parentnum, clause, num)
         section_name_anchors(clause, lbl, level)
         #i = clause_counter(0, prefix: num)
         i = clause_counter(0)
@@ -172,9 +178,8 @@ module IsoDoc
         false
       end
 
-      def labelled_autonum(label, elem, autonum)
-        s = semx(elem, autonum)
-        l10n("<span class='fmt-element-name'>#{label}</span> #{s}")
+      def labelled_autonum(label, autonum)
+        l10n("<span class='fmt-element-name'>#{label}</span> #{autonum}")
       end
 
       def clausesep
@@ -182,7 +187,7 @@ module IsoDoc
       end
 
       def section_name_anchors(clause, num, level)
-        xref = labelled_autonum(@labels["clause"], clause, num)
+        xref = labelled_autonum(@labels["clause"], num)
         label = num
         c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
@@ -197,15 +202,15 @@ module IsoDoc
         obl = "<span class='fmt-obligation'>#{l10n obl}</fmt>"
         title = Common::case_with_markup(@labels["annex"], "capital",
                                          @script)
-        s = labelled_autonum(title, clause, num)
+        s = labelled_autonum(title, num)
         "<strong>#{s}</strong><br/>#{obl}"
       end
 
       def annex_name_anchors(clause, num, level)
-        label = semx(clause, num)
+        label = num
         level == 1 && clause.name == "annex" and
-          label = annex_name_lbl(clause, num)
-        xref = labelled_autonum(@labels["annex"], clause, num)
+          label = annex_name_lbl(clause, label)
+        xref = labelled_autonum(@labels["annex"], num)
         c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
           { label:, xref:, title:,
@@ -214,24 +219,26 @@ module IsoDoc
       end
 
       def annex_names(clause, num)
-        annex_name_anchors(clause, num, 1)
+        label = semx(clause, num)
+        annex_name_anchors(clause, label, 1)
         if @klass.single_term_clause?(clause)
           annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
-                       num.to_s, 1)
+                       nil, num.to_s, 1)
         else
           clause.xpath(ns(SUBCLAUSES))
-            .each_with_object(clause_counter(0, prefix: num)) do |c, i|
-            annex_names1(c, i.increment(c).print, 2)
+            .each_with_object(clause_counter(0)) do |c, i|
+            annex_names1(c, label, i.increment(c).print, 2)
           end
         end
-        hierarchical_asset_names(clause, num)
+        hierarchical_asset_names(clause, label)
       end
 
-      def annex_names1(clause, num, level)
-        annex_name_anchors(clause, num, level)
-        i = clause_counter(0, prefix: num)
+      def annex_names1(clause, parentnum, num, level)
+        lbl = clause_number_semx(parentnum, clause, num)
+        annex_name_anchors(clause, lbl, level)
+        i = clause_counter(0)
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          annex_names1(c, i.increment(c).print, level + 1)
+          annex_names1(c, lbl, i.increment(c).print, level + 1)
         end
       end
     end

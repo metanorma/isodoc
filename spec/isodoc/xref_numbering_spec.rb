@@ -263,160 +263,184 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id="fwd" displayorder="2">
-           <title id="_">Foreword</title>
-           <fmt-title depth="1">
-              <span class="fmt-caption-label">
-                 <semx element="title" source="_">Foreword</semx>
-              </span>
-           </fmt-title>
-           <p>
-              <xref target="N1">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N1">1</semx>
-              </xref>
-              <xref target="N2">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N2">A</semx>
-              </xref>
-              <xref target="N3">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N3">B</semx>
-              </xref>
-              <xref target="N4">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N4">7</semx>
-              </xref>
-              <xref target="N5">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N5">8</semx>
-              </xref>
-              <xref target="N6">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N6">9a</semx>
-              </xref>
-              <xref target="N7">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N7">9c</semx>
-              </xref>
-              <xref target="N8">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N8">9d</semx>
-              </xref>
-              <xref target="N9">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N9">20f</semx>
-              </xref>
-              <xref target="N10">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N10">20g</semx>
-              </xref>
-              <xref target="N11">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N11">A.1</semx>
-              </xref>
-              <xref target="N12">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N12">A.2</semx>
-              </xref>
-              <xref target="N13">
-                 <span class="fmt-element-name">Figure</span>
-                 <semx element="autonum" source="N13">100</semx>
-              </xref>
-           </p>
-           <p>
-              <xref target="S1">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S1">1bis</semx>
-              </xref>
-              <xref target="S2">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S2">2bis</semx>
-              </xref>
-              <xref target="S3">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S3">3bis</semx>
-              </xref>
-              <xref target="S4">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S4">3bis.4bis</semx>
-              </xref>
-              <xref target="S12">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S12">12bis</semx>
-              </xref>
-              <xref target="S13">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S13">13bis</semx>
-              </xref>
-              <xref target="S14">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S14">13bis.14bis</semx>
-              </xref>
-              <xref target="S15">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S15">13bis.14bit</semx>
-              </xref>
-              <xref target="S16">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S16">13bis.14biu</semx>
-              </xref>
-              <xref target="S17">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S17">13bis.0</semx>
-              </xref>
-              <xref target="S18">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S18">13bis.1</semx>
-              </xref>
-              <xref target="S19">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S19">13bis.2</semx>
-              </xref>
-              <xref target="S20">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S20">13bis.a</semx>
-              </xref>
-              <xref target="S21">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S21">13bis.b</semx>
-              </xref>
-              <xref target="S22">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S22">13bis.B</semx>
-              </xref>
-              <xref target="S23">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S23">13bis.C</semx>
-              </xref>
-              <xref target="S24">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S24">16bis</semx>
-              </xref>
-              <xref target="S25">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S25">A</semx>
-              </xref>
-              <xref target="S26">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S26">17bis</semx>
-              </xref>
-              <xref target="S27">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S27">17bis.18bis</semx>
-              </xref>
-              <xref target="S28">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S28">17bit</semx>
-              </xref>
-              <xref target="S29">
-                 <semx element="clause" source="S29">Bibliography</semx>
-              </xref>
-              <xref target="S30">
-                 <semx element="references" source="S30">Bibliography Subsection</semx>
-              </xref>
-           </p>
-        </foreword>
+       <foreword id="fwd" displayorder="2">
+          <title id="_">Foreword</title>
+          <fmt-title depth="1">
+             <span class="fmt-caption-label">
+                <semx element="title" source="_">Foreword</semx>
+             </span>
+          </fmt-title>
+          <p>
+             <xref target="N1">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N1">1</semx>
+             </xref>
+             <xref target="N2">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N2">A</semx>
+             </xref>
+             <xref target="N3">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N3">B</semx>
+             </xref>
+             <xref target="N4">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N4">7</semx>
+             </xref>
+             <xref target="N5">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N5">8</semx>
+             </xref>
+             <xref target="N6">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N6">9a</semx>
+             </xref>
+             <xref target="N7">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N7">9c</semx>
+             </xref>
+             <xref target="N8">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N8">9d</semx>
+             </xref>
+             <xref target="N9">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N9">20f</semx>
+             </xref>
+             <xref target="N10">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N10">20g</semx>
+             </xref>
+             <xref target="N11">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N11">A.1</semx>
+             </xref>
+             <xref target="N12">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N12">A.2</semx>
+             </xref>
+             <xref target="N13">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N13">100</semx>
+             </xref>
+          </p>
+          <p>
+             <xref target="S1">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S1">1bis</semx>
+             </xref>
+             <xref target="S2">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S2">2bis</semx>
+             </xref>
+             <xref target="S3">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S3">3bis</semx>
+             </xref>
+             <xref target="S4">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S3">3bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S4">4bis</semx>
+             </xref>
+             <xref target="S12">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S12">12bis</semx>
+             </xref>
+             <xref target="S13">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+             </xref>
+             <xref target="S14">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S14">14bis</semx>
+             </xref>
+             <xref target="S15">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S15">14bit</semx>
+             </xref>
+             <xref target="S16">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S16">14biu</semx>
+             </xref>
+             <xref target="S17">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S17">0</semx>
+             </xref>
+             <xref target="S18">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S18">1</semx>
+             </xref>
+             <xref target="S19">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S19">2</semx>
+             </xref>
+             <xref target="S20">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S20">a</semx>
+             </xref>
+             <xref target="S21">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S21">b</semx>
+             </xref>
+             <xref target="S22">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S22">B</semx>
+             </xref>
+             <xref target="S23">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S13">13bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S23">C</semx>
+             </xref>
+             <xref target="S24">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S24">16bis</semx>
+             </xref>
+             <xref target="S25">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S25">A</semx>
+             </xref>
+             <xref target="S26">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S26">17bis</semx>
+             </xref>
+             <xref target="S27">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S26">17bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S27">18bis</semx>
+             </xref>
+             <xref target="S28">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S28">17bit</semx>
+             </xref>
+             <xref target="S29">
+                <semx element="clause" source="S29">Bibliography</semx>
+             </xref>
+             <xref target="S30">
+                <semx element="references" source="S30">Bibliography Subsection</semx>
+             </xref>
+          </p>
+       </foreword>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -518,120 +542,142 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id="fwd" displayorder="2">
-           <title id="_">Foreword</title>
-           <fmt-title depth="1">
-              <span class="fmt-caption-label">
-                 <semx element="title" source="_">Foreword</semx>
-              </span>
-           </fmt-title>
-           <p>
-              <xref target="S1">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S1">1</semx>
-              </xref>
-              <xref target="S2">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S2">1.1</semx>
-              </xref>
-              <xref target="S3">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S3">123</semx>
-              </xref>
-              <xref target="S4">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S4">1.2</semx>
-              </xref>
-              <xref target="S5">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S5">3</semx>
-              </xref>
-              <xref target="S6">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S6">124</semx>
-              </xref>
-              <xref target="S7">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S7">124.1</semx>
-              </xref>
-              <xref target="S7a">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S7a">3.1</semx>
-              </xref>
-              <xref target="S8">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S8">125</semx>
-              </xref>
-              <xref target="S9">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S9">126</semx>
-              </xref>
-              <xref target="S10">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S10">125.1</semx>
-              </xref>
-              <xref target="S10a">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S10a">2</semx>
-              </xref>
-              <xref target="S11">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S11">3bis</semx>
-              </xref>
-              <xref target="S12">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S12">4bis</semx>
-              </xref>
-              <xref target="S13">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S13">3bis.4bis</semx>
-              </xref>
-              <xref target="S14">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S14">3bis.4bit</semx>
-              </xref>
-              <xref target="S15">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S15">12bis</semx>
-              </xref>
-              <xref target="S16">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S16">A</semx>
-              </xref>
-              <xref target="S17">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S17">A.1</semx>
-              </xref>
-              <xref target="S18">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S18">123</semx>
-              </xref>
-              <xref target="S19">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S19">A.2</semx>
-              </xref>
-              <xref target="S20">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S20">B</semx>
-              </xref>
-              <xref target="S21">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S21">B.1</semx>
-              </xref>
-              <xref target="S22">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S22">123</semx>
-              </xref>
-              <xref target="S23">
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="S23">B.2</semx>
-              </xref>
-              <xref target="S24">
-                 <span class="fmt-element-name">Clause</span>
-                 <semx element="autonum" source="S24">2bis</semx>
-              </xref>
-           </p>
-        </foreword>
+       <foreword id="fwd" displayorder="2">
+          <title id="_">Foreword</title>
+          <fmt-title depth="1">
+             <span class="fmt-caption-label">
+                <semx element="title" source="_">Foreword</semx>
+             </span>
+          </fmt-title>
+          <p>
+             <xref target="S1">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S1">1</semx>
+             </xref>
+             <xref target="S2">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S1">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S2">1</semx>
+             </xref>
+             <xref target="S3">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S3">123</semx>
+             </xref>
+             <xref target="S4">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S1">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S4">2</semx>
+             </xref>
+             <xref target="S5">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S5">3</semx>
+             </xref>
+             <xref target="S6">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S6">124</semx>
+             </xref>
+             <xref target="S7">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S6">124</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S7">1</semx>
+             </xref>
+             <xref target="S7a">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S5">3</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S7a">1</semx>
+             </xref>
+             <xref target="S8">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S8">125</semx>
+             </xref>
+             <xref target="S9">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S9">126</semx>
+             </xref>
+             <xref target="S10">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S8">125</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S10">1</semx>
+             </xref>
+             <xref target="S10a">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S10a">2</semx>
+             </xref>
+             <xref target="S11">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S11">3bis</semx>
+             </xref>
+             <xref target="S12">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S12">4bis</semx>
+             </xref>
+             <xref target="S13">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S11">3bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S13">4bis</semx>
+             </xref>
+             <xref target="S14">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S11">3bis</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S14">4bit</semx>
+             </xref>
+             <xref target="S15">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S15">12bis</semx>
+             </xref>
+             <xref target="S16">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S16">A</semx>
+             </xref>
+             <xref target="S17">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S16">A</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S17">1</semx>
+             </xref>
+             <xref target="S18">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S18">123</semx>
+             </xref>
+             <xref target="S19">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S16">A</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S19">2</semx>
+             </xref>
+             <xref target="S20">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S20">B</semx>
+             </xref>
+             <xref target="S21">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S20">B</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S21">1</semx>
+             </xref>
+             <xref target="S22">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S22">123</semx>
+             </xref>
+             <xref target="S23">
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="S20">B</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="S23">2</semx>
+             </xref>
+             <xref target="S24">
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="S24">2bis</semx>
+             </xref>
+          </p>
+       </foreword>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)

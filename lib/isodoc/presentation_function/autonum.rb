@@ -5,7 +5,7 @@ module IsoDoc
       name, ins, ids, number = prefix_name_prep(node, elem)
       label and ins.next = fmt_label(label, number, ids)
       # autonum can be empty, e.g single note in clause: "NOTE []"
-      number and node["autonum"] = number
+      number and node["autonum"] = number.gsub(/<[^>]+>/, "")
       c = fmt_caption(label, elem, name, ids, delims) and ins.next = c
       node.at(ns("./sentinel"))&.remove
     end
