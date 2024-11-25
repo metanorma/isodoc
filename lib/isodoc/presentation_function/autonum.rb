@@ -24,6 +24,13 @@ module IsoDoc
         name: "_#{UUIDTools::UUID.random_create}" }
     end
 
+    def semx(node, label, element = "autonum")
+        id = node["id"] || node[:id]
+        /<semx element='[^']+' source='#{id}'/.match?(label) and return label
+        l = stripsemx(label)
+        %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
+    end
+
     def autonum(id, num)
       /<semx/.match?(num) and return num # already contains markup
       "<semx element='autonum' source='#{id}'>#{num}</semx>"

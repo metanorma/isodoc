@@ -104,8 +104,9 @@ module IsoDoc
         title = clause_title(clause, use_elem_name: true)
         preface_name_anchors(clause, 1, title)
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-          preface_names1(c, c.at(ns("./title"))&.text,
-                         "#{title}, #{i + 1}", 2)
+          t = c.at(ns("./title"))
+          preface_names1(c, t ? semx(c, t.text, c.name) : nil,
+                         "#{semx(clause, title, clause.name)}<span class='fmt-comma'>,</span> #{semx(c, i + 1)}", 2)
         end
       end
 
@@ -113,7 +114,9 @@ module IsoDoc
         label = title || parent_title
         preface_name_anchors(clause, level, title || parent_title)
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-          preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i + 1}",
+          t = c.at(ns("./title"))
+          preface_names1(c, t ? semx(c, t.text, c.name) : nil,
+                         "#{label} #{semx(c, i + 1)}",
                          level + 1)
         end
       end
