@@ -199,9 +199,21 @@ container: false)
         sequential_permission_names(clause, container:)
       end
 
-      def hierarchical_figure_names(clause, num)
+      def nodeSet(clauses)
+        case clauses
+        when Nokogiri::XML::Node
+          [clauses]
+        when Nokogiri::XML::NodeSet
+          clauses
+        end
+      end
+
+      # these can take a NodeSet as argument; semx will point to members of the NodeSet,
+      # but numbering will be consecutive
+      def hierarchical_figure_names(clauses, num)
         c = Counter.new
         j = 0
+        nodeSet(clauses).each do |clause|
         clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank.each do |t|
           # labelled_ancestor(t, %w(figure)) and next
           j = subfigure_increment(j, c, t)
@@ -212,11 +224,13 @@ container: false)
           figure_anchor(t, sublabel, hiersemx(clause, num, c, t), "figure")
         end
         hierarchical_figure_class_names(clause, num)
+        end
       end
 
-      def hierarchical_figure_class_names(clause, num)
+      def hierarchical_figure_class_names(clauses, num)
         c = {}
         j = 0
+        nodeSet(clauses).each do |clause|
         clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
           .noblank.each do |t|
           # labelled_ancestor(t, %w(figure)) and next
@@ -227,16 +241,19 @@ container: false)
           #figure_anchor(t, sublabel, "#{num}#{hier_separator}#{c[t['class']].print}", t["class"])
           figure_anchor(t, sublabel, hiersemx(clause, num, c[t["class"]], t), t["class"])
         end
+        end
       end
 
-      def hierarchical_table_names(clause, num)
+      def hierarchical_table_names(clauses, num)
         c = Counter.new
+        nodeSet(clauses).each do |clause|
         clause.xpath(ns(".//table")).noblank.each do |t|
           # labelled_ancestor(t) and next
           @anchors[t["id"]] =
             #anchor_struct("#{num}#{hier_separator}#{c.increment(t).print}",
             anchor_struct(hiersemx(clause, num, c.increment(t), t),
                           t, @labels["table"], "table", { unnumb: t["unnumbered"], container: false })
+        end
         end
       end
 
@@ -247,8 +264,9 @@ container: false)
         hierarchical_permission_names(clause, num)
       end
 
-      def hierarchical_formula_names(clause, num)
+      def hierarchical_formula_names(clauses, num)
         c = Counter.new
+        nodeSet(clauses).each do |clause|
         clause.xpath(ns(".//formula")).noblank.each do |t|
           @anchors[t["id"]] = anchor_struct(
             #"#{num}#{hier_separator}#{c.increment(t).print}", t,
@@ -257,10 +275,12 @@ container: false)
             "formula", { unnumb: t["unnumbered"], container: false }
           )
         end
+        end
       end
 
-      def hierarchical_permission_names(clause, num)
+      def hierarchical_permission_names(clauses, num)
         c = ReqCounter.new
+        nodeSet(clauses).each do |clause|
         clause.xpath(ns(FIRST_LVL_REQ)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_label(t, m)
@@ -268,6 +288,7 @@ container: false)
           id = hiersemx(clause, num, c.increment(label, t), t)
           sequential_permission_body(id, nil, t, label, klass, m, container: false)
           sequential_permission_children(t, id, klass, container: false)
+        end
         end
       end
 
