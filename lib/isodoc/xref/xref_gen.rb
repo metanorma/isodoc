@@ -29,7 +29,11 @@ module IsoDoc
       end
 
       def termnote_label(node, label)
-        @labels["termnote"].gsub("%", semx(node, label.to_s))
+        if label.blank?
+          @labels["termnote"].gsub(/%\s?/, "")
+        else
+          @labels["termnote"].gsub("%", semx(node, label.to_s))
+        end
       end
 
       def increment_label(elems, node, counter, increment: true)
