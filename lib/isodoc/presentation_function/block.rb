@@ -6,8 +6,12 @@ require "rouge"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def lower2cap(text)
-      /^[[:upper:]][[:upper:]]/.match?(text) and return text
-      text&.capitalize
+      text.nil? and return text
+      x = Nokogiri::XML("<a>#{text}</a>")
+      firsttext = x.at(".//text()[string-length(normalize-space(.))>0]") or return text
+      /^[[:upper:]][[:upper:]]/.match?(firsttext.text) and return text
+      firsttext.replace(firsttext.text.capitalize)
+      to_xml(x.root.children)
     end
 
     def block_delim
