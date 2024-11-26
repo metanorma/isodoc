@@ -48,6 +48,8 @@ module IsoDoc
 
     # Remove ".blank?" tests if we want empty delim placeholders for manipulation
     def fmt_caption(label, elem, name, ids, delims)
+      label.blank? || %r{<span class=['"]fmt-caption-label['"]}.match?(label) or
+        label = "<span class='fmt-caption-label'>#{label}</span>"
       c = if name && !name.children.empty?
             label.blank? or
               d = "<span class='fmt-caption-delim'>#{delims[:caption]}</span>"
@@ -57,7 +59,7 @@ module IsoDoc
           else return end
       !delims[:label].blank? and
         f = "<span class='fmt-label-delim'>#{delims[:label]}</span>"
-      "<fmt-#{elem}><span class='fmt-caption-label'>#{c}</span>#{f}</fmt-#{elem}>"
+      "<fmt-#{elem}>#{c}#{f}</fmt-#{elem}>"
     end
   end
 end

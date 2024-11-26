@@ -137,15 +137,13 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-        <clause type="toc" id="_" displayorder="1">#{' '}
+        <clause type="toc" id="_" displayorder="1">
         <fmt-title depth="1">Table of contents</fmt-title>
         </clause>
           <foreword displayorder="2">
                    <title id="_">Foreword</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Foreword</semx>
-            </span>
          </fmt-title>
             <p id='_'>
               <xref target='ISO712'>[110]</xref>
@@ -166,11 +164,11 @@ RSpec.describe IsoDoc do
            <span class="fmt-caption-label">
               <semx element="autonum" source="_">1</semx>
               <span class="fmt-autonum-delim">.</span>
+              </span>
               <span class="fmt-caption-delim">
                  <tab/>
               </span>
               <semx element="title" source="_">Normative References</semx>
-           </span>
         </fmt-title>
         <fmt-xref-label>
            <span class="fmt-element-name">Clause</span>
@@ -242,9 +240,7 @@ RSpec.describe IsoDoc do
           <references id='_' obligation='informative' normative='false' displayorder="4">
                    <title id="_">Bibliography</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Bibliography</semx>
-            </span>
          </fmt-title>
             <bibitem id='ISBN' type='book'>
               <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: n.d. ISBN: ISBN.</formattedref>
@@ -600,7 +596,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-          <preface> <clause type="toc" id="_" displayorder="1">#{' '}
+          <preface> <clause type="toc" id="_" displayorder="1">
           <fmt-title depth="1">Table of contents</fmt-title>
           </clause>
          </preface>
@@ -608,9 +604,7 @@ RSpec.describe IsoDoc do
           <references hidden='true'>
                    <title id="_">Title</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Title</semx>
-            </span>
          </fmt-title>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
@@ -643,7 +637,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-        <clause type="toc" id="_toc" displayorder="1">#{' '}
+        <clause type="toc" id="_toc" displayorder="1">
           <fmt-title depth="1">Table of contents</fmt-title>
           </clause>
           <foreword>
@@ -824,9 +818,7 @@ RSpec.describe IsoDoc do
           <foreword displayorder="1">
                    <title id="_">Foreword</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Foreword</semx>
-            </span>
          </fmt-title>
             <p id="_">
               <xref target="ISO712">[110]</xref>
@@ -850,11 +842,11 @@ RSpec.describe IsoDoc do
            <span class="fmt-caption-label">
               <semx element="autonum" source="_"/>
               <span class="fmt-autonum-delim">.</span>
+              </span>
               <span class="fmt-caption-delim">
                  <tab/>
               </span>
               <semx element="title" source="_">Normative References</semx>
-           </span>
         </fmt-title>
         <fmt-xref-label>
            <span class="fmt-element-name">Clause</span>
@@ -908,9 +900,9 @@ RSpec.describe IsoDoc do
             <fmt-name>
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">NOTE</span>
+                </span>
                   <span class="fmt-caption-delim"/>
                   <semx element="name" source="_">NOTE</semx>
-               </span>
                <span class="fmt-label-delim">
               <tab/>
            </span>
@@ -928,9 +920,7 @@ RSpec.describe IsoDoc do
           <references id="_" obligation="informative" normative="false" hidden="true" displayorder="4">
                      <title depth="1" id="_">Bibliography</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Bibliography</semx>
-            </span>
          </fmt-title>
             <bibitem id="ISBN" type="book">
               <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: n.d. ISBN: ISBN.</formattedref>
@@ -944,30 +934,30 @@ RSpec.describe IsoDoc do
             </bibitem>
             <note>
                         <name id="_">NOTE</name>
-            <fmt-name>
-               <span class="fmt-caption-label">
-                  <span class="fmt-element-name">NOTE</span>
-                  <span class="fmt-caption-delim"/>
-                  <semx element="name" source="_">NOTE</semx>
-               </span>
-               <span class="fmt-label-delim">
-              <tab/>
-           </span>
-            </fmt-name>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">NOTE</span>
+                       </span>
+                       <span class="fmt-caption-delim"/>
+                       <semx element="name" source="_">NOTE</semx>
+                       <span class="fmt-label-delim">
+                          <tab/>
+                       </span>
+                    </fmt-name>
               <p>This is an annotation of document ISSN.</p>
             </note>
             <note>
               <name id="_">NOTE</name>
-            <fmt-name>
-               <span class="fmt-caption-label">
-                  <span class="fmt-element-name">NOTE</span>
-                  <span class="fmt-caption-delim"/>
-                  <semx element="name" source="_">NOTE</semx>
-               </span>
-               <span class="fmt-label-delim">
-              <tab/>
-           </span>
-            </fmt-name>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">NOTE</span>
+                       </span>
+                       <span class="fmt-caption-delim"/>
+                       <semx element="name" source="_">NOTE</semx>
+                       <span class="fmt-label-delim">
+                          <tab/>
+                       </span>
+                    </fmt-name>
               <p>This is another annotation of document ISSN.</p>
             </note>
             <bibitem id="ISO3696" type="standard">
@@ -1084,9 +1074,7 @@ RSpec.describe IsoDoc do
           <foreword displayorder="1">
                    <title id="_">Foreword</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Foreword</semx>
-            </span>
          </fmt-title>
             <p id="_">
               <eref bibitemid="ISO712">[110]</eref>
@@ -1096,9 +1084,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="2">
                    <title depth="1" id="_">Table of contents</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Table of contents</semx>
-            </span>
          </fmt-title>
           </clause>
         </preface>
@@ -1109,11 +1095,11 @@ RSpec.describe IsoDoc do
            <span class="fmt-caption-label">
               <semx element="autonum" source="_">1</semx>
               <span class="fmt-autonum-delim">.</span>
+              </span>
               <span class="fmt-caption-delim">
                  <tab/>
               </span>
               <semx element="title" source="_">Normative References</semx>
-           </span>
         </fmt-title>
         <fmt-xref-label>
            <span class="fmt-element-name">Clause</span>
@@ -1197,9 +1183,7 @@ RSpec.describe IsoDoc do
       <foreword displayorder='2'>
         <title id="_">Foreword</title>
           <fmt-title depth="1">
-             <span class="fmt-caption-label">
                 <semx element="title" source="_">Foreword</semx>
-             </span>
           </fmt-title>
           <p id="_">
           <xref target='ISO712'>IEC&#xa0;217</xref>
@@ -1230,11 +1214,11 @@ RSpec.describe IsoDoc do
            <span class="fmt-caption-label">
               <semx element="autonum" source="A">1</semx>
               <span class="fmt-autonum-delim">.</span>
+              </span>
               <span class="fmt-caption-delim">
                  <tab/>
               </span>
               <semx element="title" source="_">Normative References</semx>
-           </span>
         </fmt-title>
         <fmt-xref-label>
            <span class="fmt-element-name">Clause</span>
@@ -1259,9 +1243,7 @@ RSpec.describe IsoDoc do
       <foreword displayorder='2'>
         <title id="_">Foreword</title>
           <fmt-title depth="1">
-             <span class="fmt-caption-label">
                 <semx element="title" source="_">Foreword</semx>
-             </span>
           </fmt-title>
           <p id="_">
           <xref target='ISO712'>ISO&#xa0;712&#xA0;/ IEC&#xa0;217</xref>
@@ -1301,9 +1283,7 @@ RSpec.describe IsoDoc do
          <references id='_' obligation='informative' normative='false' displayorder='2'>
                   <title id="_">Bibliography</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Bibliography</semx>
-            </span>
          </fmt-title>
            <bibitem id='ref1' type='standard'>
              <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1360,9 +1340,7 @@ RSpec.describe IsoDoc do
         <references id='_' obligation='informative' normative='false' displayorder='2'>
                  <title id="_">Bibliography</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Bibliography</semx>
-            </span>
          </fmt-title>
           <bibitem id='ref1' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1413,9 +1391,7 @@ RSpec.describe IsoDoc do
         <references id='_' obligation='informative' normative='false' displayorder='2'>
                  <title id="_">Bibliography</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Bibliography</semx>
-            </span>
          </fmt-title>
           <bibitem id='ref1' type='standard'>
             <formattedref><em>Cereals or cereal products</em>.</formattedref>
@@ -1481,11 +1457,11 @@ RSpec.describe IsoDoc do
            <span class="fmt-caption-label">
               <semx element="autonum" source="_">1</semx>
               <span class="fmt-autonum-delim">.</span>
+              </span>
               <span class="fmt-caption-delim">
                  <tab/>
               </span>
               <semx element="title" source="_">Normative References</semx>
-           </span>
         </fmt-title>
         <fmt-xref-label>
            <span class="fmt-element-name">Clause</span>
@@ -1603,11 +1579,11 @@ RSpec.describe IsoDoc do
            <span class="fmt-caption-label">
               <semx element="autonum" source="_">1</semx>
               <span class="fmt-autonum-delim">.</span>
+              </span>
               <span class="fmt-caption-delim">
                  <tab/>
               </span>
               <semx element="title" source="_">Normative References</semx>
-           </span>
         </fmt-title>
         <fmt-xref-label>
            <span class="fmt-element-name">Clause</span>
@@ -1727,11 +1703,11 @@ RSpec.describe IsoDoc do
            <span class="fmt-caption-label">
               <semx element="autonum" source="A">1</semx>
               <span class="fmt-autonum-delim">.</span>
+              </span>
               <span class="fmt-caption-delim">
                  <tab/>
               </span>
               <semx element="title" source="_">Normative References</semx>
-           </span>
         </fmt-title>
         <fmt-xref-label>
            <span class="fmt-element-name">Clause</span>
@@ -1758,11 +1734,11 @@ RSpec.describe IsoDoc do
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="C">1</semx>
                   <span class="fmt-autonum-delim">.</span>
+                  </span>
                   <span class="fmt-caption-delim">
                      <tab/>
                   </span>
                   <semx element="title" source="_">Normative 1</semx>
-               </span>
             </fmt-title>
             <fmt-xref-label>
                <span class="fmt-element-name">Clause</span>
@@ -1786,9 +1762,7 @@ RSpec.describe IsoDoc do
           <clause id="D" obligation="informative" displayorder="3">
                    <title id="_">Bibliography</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Bibliography</semx>
-            </span>
          </fmt-title>
             <p id="_">Text</p>
             <references id="E" unnumbered="true" normative="false">
@@ -1806,9 +1780,7 @@ RSpec.describe IsoDoc do
             <references id="F" normative="false" obligation="informative">
                        <title id="_">Bibliography 1</title>
            <fmt-title depth="2">
-              <span class="fmt-caption-label">
                  <semx element="title" source="_">Bibliography 1</semx>
-              </span>
            </fmt-title>
               <bibitem id="iso125">
                 <formattedref format="application/x-isodoc+xml">
@@ -1907,9 +1879,7 @@ RSpec.describe IsoDoc do
       <foreword id="A" displayorder="2">
                   <title id="_">Foreword</title>
             <fmt-title depth="1">
-               <span class="fmt-caption-label">
                   <semx element="title" source="_">Foreword</semx>
-               </span>
             </fmt-title>
         <p id="_">
           <eref bibitemid="B" citeas="what">what</eref>
@@ -1963,11 +1933,11 @@ RSpec.describe IsoDoc do
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">1</semx>
                       <span class="fmt-autonum-delim">.</span>
+                      </span>
                       <span class="fmt-caption-delim">
                          <tab/>
                       </span>
                       <semx element="title" source="_">First References</semx>
-                   </span>
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Clause</span>
@@ -1981,11 +1951,11 @@ RSpec.describe IsoDoc do
                  <span class="fmt-autonum-delim">.</span>
                  <semx element="autonum" source="B">1</semx>
                  <span class="fmt-autonum-delim">.</span>
+                 </span>
                          <span class="fmt-caption-delim">
                             <tab/>
                          </span>
                          <semx element="title" source="_">Normative References 1</semx>
-                      </span>
                    </fmt-title>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Clause</span>
@@ -2002,11 +1972,11 @@ RSpec.describe IsoDoc do
                   <span class="fmt-autonum-delim">.</span>
                   <semx element="autonum" source="C">2</semx>
                          <span class="fmt-autonum-delim">.</span>
+                         </span>
                          <span class="fmt-caption-delim">
                             <tab/>
                          </span>
                          <semx element="title" source="_">Normative References 2</semx>
-                      </span>
                    </fmt-title>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Clause</span>
@@ -2021,24 +1991,18 @@ RSpec.describe IsoDoc do
              <clause id="D" obligation="informative" displayorder="3">
                 <title id="_">Bibliography</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Bibliography</semx>
-                   </span>
                 </fmt-title>
                 <references id="E" obligation="informative" normative="false">
                    <title id="_">Bibliography Subsection 1</title>
                    <fmt-title depth="2">
-                      <span class="fmt-caption-label">
                          <semx element="title" source="_">Bibliography Subsection 1</semx>
-                      </span>
                    </fmt-title>
                 </references>
                 <references id="F" obligation="informative" normative="false">
                    <title id="_">Bibliography Subsection 2</title>
                    <fmt-title depth="2">
-                      <span class="fmt-caption-label">
                          <semx element="title" source="_">Bibliography Subsection 2</semx>
-                      </span>
                    </fmt-title>
                 </references>
              </clause>
@@ -2113,11 +2077,11 @@ RSpec.describe IsoDoc do
             <span class="fmt-caption-label">
                <semx element="autonum" source="C">1</semx>
                <span class="fmt-autonum-delim">.</span>
+               </span>
                <span class="fmt-caption-delim">
                   <tab/>
                </span>
                <semx element="title" source="_">Normative References 2</semx>
-            </span>
          </fmt-title>
          <fmt-xref-label>
             <span class="fmt-element-name">Clause</span>
@@ -2156,11 +2120,11 @@ RSpec.describe IsoDoc do
             <span class="fmt-caption-label">
                <semx element="autonum" source="C">1</semx>
                <span class="fmt-autonum-delim">.</span>
+               </span>
                <span class="fmt-caption-delim">
                   <tab/>
                </span>
                <semx element="title" source="_">Normative References 2</semx>
-            </span>
          </fmt-title>
          <fmt-xref-label>
             <span class="fmt-element-name">klaŭzo</span>

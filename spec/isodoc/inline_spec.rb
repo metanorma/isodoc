@@ -752,9 +752,7 @@ RSpec.describe IsoDoc do
               <foreword displayorder="2">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
-                    <span class="fmt-caption-label">
                        <semx element="title" source="_">Foreword</semx>
-                    </span>
                  </fmt-title>
             <p>
               <stem type='MathML'>
@@ -809,9 +807,7 @@ RSpec.describe IsoDoc do
             <foreword displayorder="2">
                <title id="_">Foreword</title>
                <fmt-title depth="1">
-                  <span class="fmt-caption-label">
                      <semx element="title" source="_">Foreword</semx>
-                  </span>
                </fmt-title>
             <p>
               <stem type='MathML'>
@@ -887,9 +883,7 @@ RSpec.describe IsoDoc do
       <foreword displayorder="2">
                  <title id="_">Foreword</title>
            <fmt-title depth="1">
-              <span class="fmt-caption-label">
                  <semx element="title" source="_">Foreword</semx>
-              </span>
            </fmt-title>
         <p>
           <sup>
@@ -1111,9 +1105,7 @@ RSpec.describe IsoDoc do
       <foreword displayorder='2'>
                  <title id="_">Avant-propos</title>
            <fmt-title depth="1">
-              <span class="fmt-caption-label">
                  <semx element="title" source="_">Avant-propos</semx>
-              </span>
            </fmt-title>
         <p>
           <link target="https://www.google.com/fr">ISO 712</link>
@@ -1234,9 +1226,7 @@ RSpec.describe IsoDoc do
       <foreword displayorder='2'>
         <title id="_">Avant-propos</title>
            <fmt-title depth="1">
-              <span class="fmt-caption-label">
                  <semx element="title" source="_">Avant-propos</semx>
-              </span>
            </fmt-title>
         <p>
           <link attachment="true" target="https://example.google.com">ISO 712</link>
@@ -1402,9 +1392,7 @@ RSpec.describe IsoDoc do
       <foreword displayorder='2'>
         <title id="_">Foreword</title>
            <fmt-title depth="1">
-              <span class="fmt-caption-label">
                  <semx element="title" source="_">Foreword</semx>
-              </span>
            </fmt-title>
         <p>
           <xref type="inline" target='ISO712'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</link>
@@ -1464,57 +1452,43 @@ RSpec.describe IsoDoc do
              <clause id="A" displayorder="2">
                 <title id="_">ABC</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">ABC</semx>
-                   </span>
                 </fmt-title>
              </clause>
              <clause id="A1" displayorder="3">
                 <title id="_">ABC/DEF</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">ABC/DEF</semx>
-                   </span>
                 </fmt-title>
              </clause>
              <clause id="A2" displayorder="4">
                 <title id="_">ABC</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">ABC</semx>
-                   </span>
                 </fmt-title>
              </clause>
              <clause id="B" displayorder="5">
                 <title id="_">GHI/JKL</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">GHI/JKL</semx>
-                   </span>
                 </fmt-title>
              </clause>
              <clause id="C" displayorder="6">
                 <title id="_">DEF</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">DEF</semx>
-                   </span>
                 </fmt-title>
              </clause>
              <clause id="C1" displayorder="7">
                 <title id="_">ABC/DEF</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">ABC/DEF</semx>
-                   </span>
                 </fmt-title>
              </clause>
              <clause id="C2" displayorder="8">
                 <title id="_">DEF</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">DEF</semx>
-                   </span>
                 </fmt-title>
              </clause>
              <p displayorder="9">A B D E</p>

@@ -42,23 +42,17 @@ RSpec.describe IsoDoc do
              <clause displayorder="2">
                 <title id="_">A</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">A</semx>
-                   </span>
                 </fmt-title>
                 <clause>
                    <title id="_">B</title>
                    <fmt-title depth="2">
-                      <span class="fmt-caption-label">
                          <semx element="title" source="_">B</semx>
-                      </span>
                    </fmt-title>
                    <clause>
                       <title id="_">C</title>
                       <fmt-title depth="3">
-                         <span class="fmt-caption-label">
                             <semx element="title" source="_">C</semx>
-                         </span>
                       </fmt-title>
                    </clause>
                 </clause>
@@ -177,110 +171,110 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata/>
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
-             </clause>
-          </preface>
-          <sections>
-             <clause id="_" inline-header="false" obligation="normative" autonum="A" displayorder="2">
-                <title id="_">Clause</title>
-                <fmt-title depth="1">
-                   <span class="fmt-caption-label">
-                      <strong>
-                         <span class="fmt-element-name">Annex</span>
-                         <semx element="autonum" source="_">A</semx>
-                      </strong>
-                      <br/>
-                      <span class="fmt-obligation">(normative)</span>
-                      <span class="fmt-autonum-delim">.</span>
-                      <span class="fmt-caption-delim">
-                         <tab/>
-                      </span>
-                      <semx element="title" source="_">Clause</semx>
-                   </span>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Annex</span>
-                   <semx element="autonum" source="_">A</semx>
-                </fmt-xref-label>
-                <p id="_">Text</p>
-                <clause id="_" inline-header="false" obligation="normative" autonum="A">
-                   <title id="_">Subclause</title>
-                   <fmt-title depth="1">
-                      <span class="fmt-caption-label">
-                         <strong>
-                            <span class="fmt-element-name">Annex</span>
-                            <semx element="autonum" source="_">A</semx>
-                         </strong>
-                         <br/>
-                         <span class="fmt-obligation">(normative)</span>
-                         <span class="fmt-autonum-delim">.</span>
-                         <span class="fmt-caption-delim">
-                            <tab/>
-                         </span>
-                         <semx element="title" source="_">Subclause</semx>
-                      </span>
-                   </fmt-title>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="_">A</semx>
-                   </fmt-xref-label>
-                   <variant-title variant_title="true" type="sub" id="_">“A” ‘B’</variant-title>
-                   <variant-title variant_title="true" type="toc" id="_">
-                      Clause
-                      <em>A</em>
-                      <stem type="MathML">
-                         <math xmlns="http://www.w3.org/1998/Math/MathML">
-                            <mi>x</mi>
-                         </math>
-                         <asciimath>x</asciimath>
-                      </stem>
-                   </variant-title>
-                   <p id="_">Text</p>
-                </clause>
-             </clause>
-          </sections>
-          <annex id="_" inline-header="false" obligation="normative" autonum="A" displayorder="3">
-             <title id="_">
-                <strong>Clause</strong>
-             </title>
-             <fmt-title>
-                <span class="fmt-caption-label">
-                   <strong>
-                      <span class="fmt-element-name">Annex</span>
-                      <semx element="autonum" source="_">A</semx>
-                   </strong>
-                   <br/>
-                   <span class="fmt-obligation">(normative)</span>
-                   <span class="fmt-caption-delim">
-                      <br/>
-                      <br/>
-                   </span>
-                   <semx element="title" source="_">
-                      <strong>Clause</strong>
-                   </semx>
-                </span>
-             </fmt-title>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Annex</span>
-                <semx element="autonum" source="_">A</semx>
-             </fmt-xref-label>
-             <variant-title variant_title="true" type="toc" id="_">
-                Clause
-                <em>A</em>
-                <stem type="MathML">
-                   <math xmlns="http://www.w3.org/1998/Math/MathML">
-                      <mi>x</mi>
-                   </math>
-                   <asciimath>x</asciimath>
-                </stem>
-             </variant-title>
-             <p id="_">Text</p>
-          </annex>
-       </iso-standard>
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata/>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+           </preface>
+           <sections>
+              <clause id="_" inline-header="false" obligation="normative" autonum="A" displayorder="2">
+                 <title id="_">Clause</title>
+                 <fmt-title depth="1">
+                    <strong>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">Annex</span>
+                          <semx element="autonum" source="_">A</semx>
+                       </span>
+                    </strong>
+                    <br/>
+                    <span class="fmt-obligation">(normative)</span>
+                    <span class="fmt-autonum-delim">.</span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Clause</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Annex</span>
+                    <semx element="autonum" source="_">A</semx>
+                 </fmt-xref-label>
+                 <p id="_">Text</p>
+                 <clause id="_" inline-header="false" obligation="normative" autonum="A">
+                    <title id="_">Subclause</title>
+                    <fmt-title depth="1">
+                       <strong>
+                          <span class="fmt-caption-label">
+                             <span class="fmt-element-name">Annex</span>
+                             <semx element="autonum" source="_">A</semx>
+                          </span>
+                       </strong>
+                       <br/>
+                       <span class="fmt-obligation">(normative)</span>
+                       <span class="fmt-autonum-delim">.</span>
+                       <span class="fmt-caption-delim">
+                          <tab/>
+                       </span>
+                       <semx element="title" source="_">Subclause</semx>
+                    </fmt-title>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Annex</span>
+                       <semx element="autonum" source="_">A</semx>
+                    </fmt-xref-label>
+                    <variant-title variant_title="true" type="sub" id="_">“A” ‘B’</variant-title>
+                    <variant-title variant_title="true" type="toc" id="_">
+                       Clause
+                       <em>A</em>
+                       <stem type="MathML">
+                          <math xmlns="http://www.w3.org/1998/Math/MathML">
+                             <mi>x</mi>
+                          </math>
+                          <asciimath>x</asciimath>
+                       </stem>
+                    </variant-title>
+                    <p id="_">Text</p>
+                 </clause>
+              </clause>
+           </sections>
+           <annex id="_" inline-header="false" obligation="normative" autonum="A" displayorder="3">
+              <title id="_">
+                 <strong>Clause</strong>
+              </title>
+              <fmt-title>
+                 <strong>
+                    <span class="fmt-caption-label">
+                       <span class="fmt-element-name">Annex</span>
+                       <semx element="autonum" source="_">A</semx>
+                    </span>
+                 </strong>
+                 <br/>
+                 <span class="fmt-obligation">(normative)</span>
+                 <span class="fmt-caption-delim">
+                    <br/>
+                    <br/>
+                 </span>
+                 <semx element="title" source="_">
+                    <strong>Clause</strong>
+                 </semx>
+              </fmt-title>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="_">A</semx>
+              </fmt-xref-label>
+              <variant-title variant_title="true" type="toc" id="_">
+                 Clause
+                 <em>A</em>
+                 <stem type="MathML">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                       <mi>x</mi>
+                    </math>
+                    <asciimath>x</asciimath>
+                 </stem>
+              </variant-title>
+              <p id="_">Text</p>
+           </annex>
+        </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -1003,9 +997,7 @@ RSpec.describe IsoDoc do
       <foreword displayorder="2">
          <title id="_">Section</title>
          <fmt-title depth="1">
-            <span class="fmt-caption-label">
                <semx element="title" source="_">Section</semx>
-            </span>
          </fmt-title>
          <p id="A">
             <xref target="ref1">
@@ -1358,100 +1350,98 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <clause id="A" inline-header="false" obligation="normative" displayorder="2">
-          <title id="_">Section</title>
-          <fmt-title depth="1">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-                <span class="fmt-caption-delim">
-                   <tab/>
-                </span>
-                <semx element="title" source="_">Section</semx>
-             </span>
-          </fmt-title>
-          <fmt-xref-label>
-             <span class="fmt-element-name">Clause</span>
-             <semx element="autonum" source="A">1</semx>
-          </fmt-xref-label>
-          <figure id="B1" autonum="1">
-             <name id="_">First</name>
-             <fmt-name>
-                <span class="fmt-caption-label">
-                   <span class="fmt-element-name">Figure</span>
-                   <semx element="autonum" source="B1">1</semx>
-                   <span class="fmt-caption-delim"> — </span>
-                   <semx element="name" source="_">First</semx>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Figure</span>
-                <semx element="autonum" source="B1">1</semx>
-             </fmt-xref-label>
-          </figure>
-          <example id="C1" autonum="1">
-             <fmt-name>
-                <span class="fmt-caption-label">
-                   <span class="fmt-element-name">EXAMPLE</span>
-                   <semx element="autonum" source="C1">1</semx>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Example</span>
-                <semx element="autonum" source="C1">1</semx>
-             </fmt-xref-label>
-             <figure id="B2" autonum="2">
-                <name id="_">Second</name>
-                <fmt-name>
-                   <span class="fmt-caption-label">
-                      <span class="fmt-element-name">Figure</span>
-                      <semx element="autonum" source="B2">2</semx>
-                      <span class="fmt-caption-delim"> — </span>
-                      <semx element="name" source="_">Second</semx>
-                   </span>
-                </fmt-name>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Figure</span>
-                   <semx element="autonum" source="B2">2</semx>
-                </fmt-xref-label>
-             </figure>
-          </example>
-          <example id="C2" autonum="2">
-             <fmt-name>
-                <span class="fmt-caption-label">
-                   <span class="fmt-element-name">EXAMPLE</span>
-                   <semx element="autonum" source="C2">2</semx>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Example</span>
-                <semx element="autonum" source="C2">2</semx>
-             </fmt-xref-label>
-             <figure id="B4" unnumbered="true">
-                <name id="_">Unnamed</name>
-                <fmt-name>
-                   <span class="fmt-caption-label">
-                      <semx element="name" source="_">Unnamed</semx>
-                   </span>
-                </fmt-name>
-             </figure>
-          </example>
-          <figure id="B3" autonum="3">
-             <name id="_">Third</name>
-             <fmt-name>
-                <span class="fmt-caption-label">
-                   <span class="fmt-element-name">Figure</span>
-                   <semx element="autonum" source="B3">3</semx>
-                   <span class="fmt-caption-delim"> — </span>
-                   <semx element="name" source="_">Third</semx>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Figure</span>
-                <semx element="autonum" source="B3">3</semx>
-             </fmt-xref-label>
-          </figure>
-       </clause>
+        <clause id="A" inline-header="false" obligation="normative" displayorder="2">
+           <title id="_">Section</title>
+           <fmt-title depth="1">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="A">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
+              <semx element="title" source="_">Section</semx>
+           </fmt-title>
+           <fmt-xref-label>
+              <span class="fmt-element-name">Clause</span>
+              <semx element="autonum" source="A">1</semx>
+           </fmt-xref-label>
+           <figure id="B1" autonum="1">
+              <name id="_">First</name>
+              <fmt-name>
+                 <span class="fmt-caption-label">
+                    <span class="fmt-element-name">Figure</span>
+                    <semx element="autonum" source="B1">1</semx>
+                 </span>
+                 <span class="fmt-caption-delim"> — </span>
+                 <semx element="name" source="_">First</semx>
+              </fmt-name>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="B1">1</semx>
+              </fmt-xref-label>
+           </figure>
+           <example id="C1" autonum="1">
+              <fmt-name>
+                 <span class="fmt-caption-label">
+                    <span class="fmt-element-name">EXAMPLE</span>
+                    <semx element="autonum" source="C1">1</semx>
+                 </span>
+              </fmt-name>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Example</span>
+                 <semx element="autonum" source="C1">1</semx>
+              </fmt-xref-label>
+              <figure id="B2" autonum="2">
+                 <name id="_">Second</name>
+                 <fmt-name>
+                    <span class="fmt-caption-label">
+                       <span class="fmt-element-name">Figure</span>
+                       <semx element="autonum" source="B2">2</semx>
+                    </span>
+                    <span class="fmt-caption-delim"> — </span>
+                    <semx element="name" source="_">Second</semx>
+                 </fmt-name>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Figure</span>
+                    <semx element="autonum" source="B2">2</semx>
+                 </fmt-xref-label>
+              </figure>
+           </example>
+           <example id="C2" autonum="2">
+              <fmt-name>
+                 <span class="fmt-caption-label">
+                    <span class="fmt-element-name">EXAMPLE</span>
+                    <semx element="autonum" source="C2">2</semx>
+                 </span>
+              </fmt-name>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Example</span>
+                 <semx element="autonum" source="C2">2</semx>
+              </fmt-xref-label>
+              <figure id="B4" unnumbered="true">
+                 <name id="_">Unnamed</name>
+                 <fmt-name>
+                    <semx element="name" source="_">Unnamed</semx>
+                 </fmt-name>
+              </figure>
+           </example>
+           <figure id="B3" autonum="3">
+              <name id="_">Third</name>
+              <fmt-name>
+                 <span class="fmt-caption-label">
+                    <span class="fmt-element-name">Figure</span>
+                    <semx element="autonum" source="B3">3</semx>
+                 </span>
+                 <span class="fmt-caption-delim"> — </span>
+                 <semx element="name" source="_">Third</semx>
+              </fmt-name>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="B3">3</semx>
+              </fmt-xref-label>
+           </figure>
+        </clause>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1481,65 +1471,63 @@ RSpec.describe IsoDoc do
       </bibliography></standard-document>
     INPUT
     presxml = <<~OUTPUT
-      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
-         <bibdata/>
-         <preface>
-            <clause type="toc" id="_" displayorder="1">
-               <fmt-title depth="1">Table of contents</fmt-title>
-            </clause>
-         </preface>
-         <sections>
-            <clause id="_" type="scope" inline-header="false" obligation="normative" displayorder="2">
-               <title id="_">Scope</title>
-               <fmt-title depth="1">
-                  <span class="fmt-caption-label">
-                     <semx element="autonum" source="_">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
-                     <span class="fmt-caption-delim">
-                        <tab/>
-                     </span>
-                     <semx element="title" source="_">Scope</semx>
-                  </span>
-               </fmt-title>
-               <fmt-xref-label>
-                  <span class="fmt-element-name">Clause</span>
-                  <semx element="autonum" source="_">1</semx>
-               </fmt-xref-label>
-               <p id="_">A</p>
-               <p id="_">
-                  <eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2">ISO 639-2</eref>
-               </p>
-            </clause>
-            <terms id="_" obligation="normative" displayorder="4">
-               <title id="_">Terms and definitions</title>
-               <fmt-title depth="1">
-                  <span class="fmt-caption-label">
-                     <semx element="autonum" source="_">2</semx>
-                     <span class="fmt-autonum-delim">.</span>
-                     <span class="fmt-caption-delim">
-                        <tab/>
-                     </span>
-                     <semx element="title" source="_">Terms and definitions</semx>
-                  </span>
-               </fmt-title>
-               <fmt-xref-label>
-                  <span class="fmt-element-name">Clause</span>
-                  <semx element="autonum" source="_">2</semx>
-               </fmt-xref-label>
-               <p id="_">No terms and definitions are listed in this document.</p>
-            </terms>
-            <references hidden="true" normative="true" displayorder="3">
-               <title id="_">Normative references</title>
-               <fmt-title depth="1">
-                  <span class="fmt-caption-label">
-                     <semx element="title" source="_">Normative references</semx>
-                  </span>
-               </fmt-title>
-            </references>
-         </sections>
-         <bibliography>
-      </bibliography>
-      </standard-document>
+        <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+           <bibdata/>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+           </preface>
+           <sections>
+              <clause id="_" type="scope" inline-header="false" obligation="normative" displayorder="2">
+                 <title id="_">Scope</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="_">1</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Scope</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="_">1</semx>
+                 </fmt-xref-label>
+                 <p id="_">A</p>
+                 <p id="_">
+                    <eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2">ISO 639-2</eref>
+                 </p>
+              </clause>
+              <terms id="_" obligation="normative" displayorder="4">
+                 <title id="_">Terms and definitions</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="_">2</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Terms and definitions</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="_">2</semx>
+                 </fmt-xref-label>
+                 <p id="_">No terms and definitions are listed in this document.</p>
+              </terms>
+              <references hidden="true" normative="true" displayorder="3">
+                 <title id="_">Normative references</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Normative references</semx>
+                 </fmt-title>
+              </references>
+           </sections>
+           <bibliography>
+        </bibliography>
+        </standard-document>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1600,9 +1588,7 @@ RSpec.describe IsoDoc do
               <foreword displayorder="3">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
-                    <span class="fmt-caption-label">
                        <semx element="title" source="_">Foreword</semx>
-                    </span>
                  </fmt-title>
               </foreword>
           <introduction displayorder="4"/>
@@ -1657,7 +1643,9 @@ RSpec.describe IsoDoc do
            <p type="floating-title" displayorder="5">FL 3</p>
            <p type="floating-title" displayorder="6">FL 4</p>
            <foreword displayorder="7">
-           <title id="_">Foreword</title><fmt-title depth="1"><span class="fmt-caption-label"><semx element="title" source="_">Foreword</semx></span></fmt-title>
+           <title id="_">Foreword</title><fmt-title depth="1">
+              <semx element="title" source="_">Foreword</semx>
+            </fmt-title>
               </foreword>
            <p type="floating-title" displayorder="8">FL 5</p>
            <p type="floating-title" displayorder="9">FL 6</p>
@@ -1804,22 +1792,31 @@ RSpec.describe IsoDoc do
        </foreword></preface></standard-document>
     INPUT
     presxml = <<~OUTPUT
-          <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
-      <presentation-metadata><custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font></presentation-metadata>
-        <preface><clause type="toc" id="_" displayorder="1">
-        <fmt-title depth="1">Table of contents</fmt-title>
-        </clause>
-
-          <foreword id="A" displayorder="2">
-          <title id="_">Foreword</title><fmt-title depth="1"><span class="fmt-caption-label"><semx element="title" source="_">Foreword</semx></span></fmt-title>
-            <p id="_"><span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">&#xFD80;</span></p>
-       </foreword></preface></standard-document>
+       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+           <presentation-metadata>
+              <custom-charset-font>weather:"OGC Weather Symbols",conscript:"Code 2000"</custom-charset-font>
+           </presentation-metadata>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+              <foreword id="A" displayorder="2">
+                 <title id="_">Foreword</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Foreword</semx>
+                 </fmt-title>
+                 <p id="_">
+                    <span custom-charset="weather" style=";font-family:&quot;OGC Weather Symbols&quot;">ﶀ</span>
+                 </p>
+              </foreword>
+           </preface>
+        </standard-document>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to (presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "realises text-transform" do
@@ -1843,7 +1840,7 @@ RSpec.describe IsoDoc do
       </clause>
 
            <foreword id="A" displayorder="2">
-           <title id="_">Foreword</title><fmt-title depth="1"><span class="fmt-caption-label"><semx element="title" source="_">Foreword</semx></span></fmt-title>
+           <title id="_">Foreword</title><fmt-title depth="1"><semx element="title" source="_">Foreword</semx></fmt-title>
              <p id="_">
              AB<span style="x:y">C</span>D<span style="x:y;text-transform:none">ABC</span>
              <span style="text-transform:none">A<em>B</em>C</span>
@@ -1857,7 +1854,7 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to (presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "label figures embedded within other assets" do
@@ -1884,9 +1881,7 @@ RSpec.describe IsoDoc do
               <foreword id="A" displayorder="2">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
-                    <span class="fmt-caption-label">
                        <semx element="title" source="_">Foreword</semx>
-                    </span>
                  </fmt-title>
                  <p id="B">
                     <table id="C" autonum="1">

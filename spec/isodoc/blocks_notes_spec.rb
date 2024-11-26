@@ -23,9 +23,7 @@ RSpec.describe IsoDoc do
              <foreword displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
                 <note id="A" keep-with-next="true" keep-lines-together="true" autonum="1">
                    <fmt-name>
@@ -149,9 +147,7 @@ RSpec.describe IsoDoc do
              <foreword displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
                 <note id="note1" autonum="1">
                    <fmt-name>
@@ -429,9 +425,7 @@ RSpec.describe IsoDoc do
            <foreword displayorder="2">
               <title id="_">Foreword</title>
               <fmt-title depth="1">
-                 <span class="fmt-caption-label">
                     <semx element="title" source="_">Foreword</semx>
-                 </span>
               </fmt-title>
             <note id='FB' coverpage='true' unnumbered='true'>
                         <fmt-name>
@@ -557,9 +551,7 @@ RSpec.describe IsoDoc do
              <foreword displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
                 <figure id="F" autonum="1">
                    <fmt-name>
@@ -662,9 +654,7 @@ RSpec.describe IsoDoc do
              <foreword displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
           <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true">
             <fmt-name>
@@ -724,9 +714,7 @@ RSpec.describe IsoDoc do
              <foreword displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
             <admonition id="_" type="caution">
               <fmt-name>
@@ -769,25 +757,19 @@ RSpec.describe IsoDoc do
              <foreword displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
                 <admonition id="_" type="caution">
                    <name id="_">Title</name>
                    <fmt-name>
-                      <span class="fmt-caption-label">
                          <semx element="name" source="_">Title</semx>
-                      </span>
                    </fmt-name>
                    <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                 </admonition>
                 <admonition id="_" type="caution" notag="true">
                    <name id="_">Title</name>
                    <fmt-name>
-                      <span class="fmt-caption-label">
                          <semx element="name" source="_">Title</semx>
-                      </span>
                    </fmt-name>
                    <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                 </admonition>
@@ -846,9 +828,7 @@ RSpec.describe IsoDoc do
              <foreword displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
                 <admonition id="_" type="box" autonum="1">
                    <name id="_">Title</name>
@@ -856,9 +836,9 @@ RSpec.describe IsoDoc do
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Box</span>
                          <semx element="autonum" source="_">1</semx>
+                         </span>
                          <span class="fmt-caption-delim"> — </span>
                          <semx element="name" source="_">Title</semx>
-                      </span>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Box</span>

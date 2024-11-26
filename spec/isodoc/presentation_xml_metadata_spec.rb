@@ -50,9 +50,7 @@ RSpec.describe IsoDoc do
              <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
                 <p>
                    <math xmlns:sodipodi="ABC" id="b">
@@ -71,9 +69,9 @@ RSpec.describe IsoDoc do
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="N1">1</semx>
+                         </span>
                          <span class="fmt-caption-delim"> — </span>
                          <semx element="name" source="_">Split-it-right sample divider</semx>
-                      </span>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Figure</span>
@@ -110,9 +108,7 @@ RSpec.describe IsoDoc do
              <clause id="_" inline-header="false" obligation="normative">
                 <title id="_">user-css</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">user-css</semx>
-                   </span>
                 </fmt-title>
                 <sourcecode id="_">.green { background-color: green }</sourcecode>
              </clause>

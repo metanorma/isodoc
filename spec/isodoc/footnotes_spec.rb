@@ -29,9 +29,7 @@ RSpec.describe IsoDoc do
              <foreword displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                   <span class="fmt-caption-label">
                       <semx element="title" source="_">Foreword</semx>
-                   </span>
                 </fmt-title>
                 <p>
                    A.
@@ -196,9 +194,7 @@ RSpec.describe IsoDoc do
               <foreword displayorder="2">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
-                    <span class="fmt-caption-label">
                        <semx element="title" source="_">Foreword</semx>
-                    </span>
                  </fmt-title>
                  <p id="A">A.</p>
                  <p id="B">B.</p>
@@ -217,9 +213,7 @@ RSpec.describe IsoDoc do
               <introduction displayorder="3">
                  <title id="_">Introduction</title>
                  <fmt-title depth="1">
-                    <span class="fmt-caption-label">
                        <semx element="title" source="_">Introduction</semx>
-                    </span>
                  </fmt-title>
                  <review reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
                     <p id="_">Second note.</p>
@@ -385,9 +379,7 @@ RSpec.describe IsoDoc do
               <foreword displayorder="2">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
-                    <span class="fmt-caption-label">
                        <semx element="title" source="_">Foreword</semx>
-                    </span>
                  </fmt-title>
                  <ol type="alphabet">
                     <li id="A" label="">
@@ -407,9 +399,7 @@ RSpec.describe IsoDoc do
               <introduction displayorder="3">
                  <title id="_">Introduction</title>
                  <fmt-title depth="1">
-                    <span class="fmt-caption-label">
                        <semx element="title" source="_">Introduction</semx>
-                    </span>
                  </fmt-title>
                  <review reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
                     <p id="_">Second note.</p>
