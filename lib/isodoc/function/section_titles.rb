@@ -18,16 +18,17 @@ module IsoDoc
         end
       end
 
-      SECTIONS_NAMES =
+      def sections_names
         %w[clause annex terms references definitions
-           acknowledgements introduction abstract foreword appendix].freeze
+           acknowledgements introduction abstract foreword appendix]
+      end
 
       def freestanding_title(node, out)
         # node.parent.at(ns("./fmt-title[@source = '#{node['id']}']")) and
         # return # this title is already being rendered as fmt-title
         # For testing convenience, let's just go by parent
-        SECTIONS_NAMES.include?(node.parent.name) and return
-        parents = node.ancestors(SECTIONS_NAMES.join(", "))
+        sections_names.include?(node.parent.name) and return
+        parents = node.ancestors(sections_names.join(", "))
         clause_parse_title(parents.empty? ? node : parents.first,
                            out, node, out)
       end
