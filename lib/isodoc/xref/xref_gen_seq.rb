@@ -289,7 +289,7 @@ container: false)
           sequential_permission_body(id, nil, t, label, klass, m, container: false)
           sequential_permission_children(t, id, klass, container: false)
         end
-        end
+       end
       end
 
       # TODO remove

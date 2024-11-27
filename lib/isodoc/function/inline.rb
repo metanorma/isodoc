@@ -203,6 +203,10 @@ module IsoDoc
       def xref_label_parse(node, out); end
 
       def name_parse(node, out); end
+
+      def fmt_name_parse(node, out)
+        children_parse(node, out)
+      end
     end
   end
 end
