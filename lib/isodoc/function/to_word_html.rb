@@ -265,7 +265,7 @@ module IsoDoc
           when "semx" then semx_parse(node, out)
           when "name" then name_parse(node, out)
           when "fmt-xref-label" then xref_label_parse(node, out)
-          when "fmt-name" then name_parse(node, out)
+          when "fmt-name" then fmt_name_parse(node, out)
           else error_parse(node, out)
           end
         end
