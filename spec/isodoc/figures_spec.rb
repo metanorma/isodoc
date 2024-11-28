@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
   it "processes figures" do
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword>
+            <preface><foreword id="fwd">
             <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
           <name>Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
           <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
@@ -440,7 +440,7 @@ RSpec.describe IsoDoc do
   it "processes subfigures" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-           <preface><foreword>
+           <preface><foreword id="fwd">
            <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
          <name>Overall title</name>
          <figure id="note1">
@@ -612,7 +612,7 @@ RSpec.describe IsoDoc do
   it "processes figure classes, existing figure keys" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" class="diagram">
         <name>Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>

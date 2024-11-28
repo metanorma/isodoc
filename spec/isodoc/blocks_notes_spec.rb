@@ -4,7 +4,7 @@ RSpec.describe IsoDoc do
   it "processes unlabelled notes" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <note id="A" keep-with-next="true" keep-lines-together="true">
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -128,7 +128,7 @@ RSpec.describe IsoDoc do
   it "processes sequences of notes" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <note id="note1">
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -211,7 +211,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
               <fmt-title depth="1">Table of contents</fmt-title>
           </clause>
-        <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+        <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
           <note>
           <fmt-name>NOTE<span class="fmt-label-delim"><tab/></span></fmt-name>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
@@ -244,7 +244,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><clause type="toc" id="_" displayorder="1">
               <fmt-title depth="1">Table of contents</fmt-title>
-            </clause><foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+            </clause><foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
           <note id="A"><fmt-name>NOTE<span class="fmt-label-delim"><tab/></span></fmt-name>
           <dl>
           <dt>A</dt>
@@ -410,7 +410,7 @@ RSpec.describe IsoDoc do
   it "converts notes and admonitions intended for coverpage" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <note id="FB" coverpage="true" unnumbered="true"><p>XYZ</p></note>
           <admonition id="FC" coverpage="true" unnumbered="true" type="warning"><p>XYZ</p></admonition>
       </foreword></preface>
@@ -535,7 +535,7 @@ RSpec.describe IsoDoc do
   it "numbers notes in tables and figures separately from notes outside them" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <figure id="F"><note id="FB"><p>XYZ</p></note></figure>
           <table id="T"><note id="TB"><p>XYZ</p></note></table>
           <p id="A">ABC <note id="B"><p id="C">XYZ</p></note>
@@ -635,7 +635,7 @@ RSpec.describe IsoDoc do
   it "processes admonitions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution" keep-with-next="true" keep-lines-together="true">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </admonition>
@@ -699,7 +699,7 @@ RSpec.describe IsoDoc do
   it "processes empty admonitions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
       </admonition>
           </foreword></preface>
@@ -754,7 +754,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2">
+             <foreword displayorder="2" id="fwd">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                       <semx element="title" source="_">Foreword</semx>
@@ -808,7 +808,7 @@ RSpec.describe IsoDoc do
   it "processes box admonitions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="box">
           <name>Title</name>
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>

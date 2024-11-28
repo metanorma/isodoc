@@ -299,7 +299,7 @@ RSpec.describe IsoDoc do
   it "processes examples" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <example id="samplecode" keep-with-next="true" keep-lines-together="true">
           <name>Title</name>
         <p>Hello</p>
@@ -428,7 +428,7 @@ RSpec.describe IsoDoc do
   it "processes sequences of examples" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <example id="samplecode">
         <p>Hello</p>
       </example>
@@ -507,7 +507,7 @@ RSpec.describe IsoDoc do
   it "processes formulae" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <formula id="_be9158af-7e93-4ee2-90c5-26d31c181934" unnumbered="true"  keep-with-next="true" keep-lines-together="true">
         <stem type="AsciiMath">r = 1 %</stem>
       <dl id="_e4fe94fe-1cde-49d9-b1ad-743293b7e21d">
@@ -539,7 +539,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1">
           <fmt-title depth="1">Table of contents</fmt-title>
           </clause>
-          <foreword displayorder="2">
+          <foreword displayorder="2" id="fwd">
                    <title id="_">Foreword</title>
          <fmt-title depth="1">
                <semx element="title" source="_">Foreword</semx>
@@ -842,7 +842,7 @@ RSpec.describe IsoDoc do
   it "processes blockquotes" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <quote id="_044bd364-c832-4b78-8fea-92242402a1d1">
         <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>1</referenceFrom></locality></source>
         <author>ISO</author>
@@ -904,7 +904,7 @@ RSpec.describe IsoDoc do
   it "processes permissions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <permission id="A"   keep-with-next="true" keep-lines-together="true" model="default">
         <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
@@ -1157,7 +1157,7 @@ RSpec.describe IsoDoc do
   it "processes requirements" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <requirement id="A" unnumbered="true"  keep-with-next="true" keep-lines-together="true" model="default">
         <title>A New Requirement</title>
         <identifier>/ogc/recommendation/wfs/2</identifier>
@@ -1314,7 +1314,7 @@ RSpec.describe IsoDoc do
   it "processes recommendation" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <recommendation id="A" obligation="shall,could"   keep-with-next="true" keep-lines-together="true" model="default">
         <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>

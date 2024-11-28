@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
-            <foreword>
+            <foreword id="fwd">
               <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
           <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
           <colgroup>

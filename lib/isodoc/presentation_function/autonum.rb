@@ -3,11 +3,12 @@ module IsoDoc
     def prefix_name(node, delims, label, elem)
       label&.empty? and label = nil
       name, ins, ids, number = prefix_name_prep(node, elem)
-      label and ins.next = fmt_xref_label(label, number, ids)
+      ins.next = fmt_xref_label(label, number, ids)
       # autonum can be empty, e.g single note in clause: "NOTE []"
       number and node["autonum"] = number.gsub(/<[^>]+>/, "")
-      c = fmt_caption(label, elem, name, ids, delims) and ins.next = c
-      node.at(ns("./sentinel"))&.remove
+      !node.at(ns("./fmt-#{elem}")) &&
+        (c = fmt_caption(label, elem, name, ids, delims)) and ins.next = c
+      prefix_name_postprocess(node)
     end
 
     def prefix_name_prep(node, elem)
@@ -24,6 +25,10 @@ module IsoDoc
         name: "_#{UUIDTools::UUID.random_create}" }
     end
 
+    def prefix_name_postprocess(node)
+      node.at(ns("./sentinel"))&.remove
+    end
+
     def semx(node, label, element = "autonum")
       id = node["id"] || node[:id]
       /<semx element='[^']+' source='#{id}'/.match?(label) and return label
@@ -36,7 +41,8 @@ module IsoDoc
       "<semx element='autonum' source='#{id}'>#{num}</semx>"
     end
 
-    def fmt_xref_label(_label, _number, ids)
+    def fmt_xref_label(label, _number, ids)
+      label or return ""
       x = @xrefs.anchor(ids[:elem], :xref, false) or return ""
       ret = "<fmt-xref-label>#{x}</fmt-xref-label>"
       container = @xrefs.anchor(ids[:elem], :container, false)
@@ -61,6 +67,7 @@ module IsoDoc
     def fmt_caption(label, elem, name, ids, delims)
       label = fmt_caption_label_wrap(label)
       c = fmt_caption2(label, elem, name, ids, delims)
+      c.blank? and return
       !delims[:label].blank? and
         f = "<span class='fmt-label-delim'>#{delims[:label]}</span>"
       "<fmt-#{elem}>#{c}#{f}</fmt-#{elem}>"

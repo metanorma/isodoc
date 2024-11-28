@@ -6,7 +6,7 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
-          <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+          <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
           <fmt-name>Caption</fmt-name>
         <li>
@@ -191,6 +191,29 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
+          <foreword displayorder="2">
+          <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
+          <name>Caption</name>
+        <li>
+          <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
+        </li>
+        <ol>
+        <li>
+          <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
+        </li>
+        <ol>
+        <li>
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
+        </li>
+        </ol>
+        </ol>
+      </ol>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
           <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
           <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
@@ -212,6 +235,7 @@ RSpec.describe IsoDoc do
       </foreword></preface>
       </iso-standard>
     INPUT
+
     html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
@@ -299,11 +323,15 @@ RSpec.describe IsoDoc do
           </body>
         </html>
     OUTPUT
+    pres_output = IsoDoc::PresentationMLConvert.new({})
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+      .convert("test", pres_output, true)))
       .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))))
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -360,10 +388,29 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
+          <foreword displayorder="2">
+          <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395"  keep-with-next="true" keep-lines-together="true">
+          <name>Caption</name>
+        <dt>
+          W
+        </dt>
+        <dd>
+          <p id="_05d81174-3a41-44af-94d8-c78b8d2e175d">mass fraction of gelatinized kernels, expressed in per cent</p>
+        </dd>
+        <dt><stem type="AsciiMath">w</stem></dt>
+        <dd><p>??</p></dd>
+        <note><p>This is a note</p></note>
+        </dl>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+       presxml = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
           <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
           <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
           <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395"  keep-with-next="true" keep-lines-together="true">
-          <fmt-name>Caption</n-ame>
+          <fmt-name>Caption</fmt-name>
         <dt>
           W
         </dt>
@@ -466,11 +513,15 @@ RSpec.describe IsoDoc do
            </body>
        </html>
     OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+      .convert("test", pres_output, true)))
       .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))
+      .convert("test", pres_output, true)))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 

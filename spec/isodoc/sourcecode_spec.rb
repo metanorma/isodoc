@@ -4,7 +4,7 @@ RSpec.describe IsoDoc do
   it "processes sourcecode" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
+          <preface><foreword id="fwd">
           <sourcecode lang="ruby" id="samplecode"><name>Ruby <em>code</em></name>puts x</sourcecode>
       <sourcecode unnumbered="true" linenums="true">Hey
       Que?
@@ -1094,8 +1094,8 @@ RSpec.describe IsoDoc do
           <bibdata>
           <language>en</language>
           </bibdata>
-              <preface><foreword>
-        <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Label</name><p id="_">  <strong>A</strong><br/>
+              <preface><foreword id="fwd">
+        <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true"><name>Label</name><p id="_">  <strong>A</strong><br/>
               <smallcap>B</smallcap></p>
       <p id="_">  <em>C</em></p></figure>
       </preface></itu-standard>
