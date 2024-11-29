@@ -116,10 +116,6 @@ WORD_HDR = <<~HEADER.freeze
           <div class="TOC" id="_">
             <p class="zzContents">Table of contents</p>
           </div>
-             <p>&#160;</p>
-           </div>
-           <p class="section-break"><br clear="all" class="section"/></p>
-           <div class="WordSection3">
 HEADER
 
 # It is profoundly embarrassing that this is necessary...

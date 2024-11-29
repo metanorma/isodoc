@@ -8,7 +8,7 @@ module IsoDoc
                          anchor_xref(node, container, container: true),
                          node, target)
       l10n(connectives_spans(@i18n.nested_xref
-        .sub("%1", container_label)
+        .sub("%1", "<span class='fmt-xref-container'>#{container_label}</span>")
         .sub("%2", linkend)))
     end
 
@@ -56,7 +56,8 @@ module IsoDoc
 
     def anchor_xref_short(node, target, container)
       if (l = node["label"]) && !container
-        @i18n.l10n(%[<span class="fmt-element-name">#{l}</span> #{anchor_value(target)}])
+        v = anchor_value(target)
+        @i18n.l10n(%[<span class="fmt-element-name">#{l}</span> #{v}])
       else @xrefs.anchor(target, :xref)
       end
     end
@@ -134,9 +135,13 @@ module IsoDoc
     def combine_conn(list)
       list.size == 1 and list.first[:label]
       if list[1..].all? { |l| l[:conn] == "and" }
-        connectives_spans(@i18n.boolean_conj(list.map { |l| loc2xref(l) }, "and"))
+        connectives_spans(@i18n.boolean_conj(list.map do |l|
+          loc2xref(l)
+        end, "and"))
       elsif list[1..].all? { |l| l[:conn] == "or" }
-        connectives_spans(@i18n.boolean_conj(list.map { |l| loc2xref(l) }, "or"))
+        connectives_spans(@i18n.boolean_conj(list.map do |l|
+          loc2xref(l)
+        end, "or"))
       else
         ret = loc2xref(list[0])
         list[1..].each { |l| ret = i18n_chain_boolean(ret, l) }

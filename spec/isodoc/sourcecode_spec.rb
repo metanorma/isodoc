@@ -18,7 +18,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2">
+             <foreword displayorder="2" id="fwd">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                       <semx element="title" source="_">Foreword</semx>
@@ -56,7 +56,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                          <br/>
-                                         <div>
+                                         <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <pre id="samplecode" class="sourcecode">puts x</pre>
                    <p class="SourceTitle" style="text-align:center;">
@@ -76,26 +76,11 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     doc = <<~OUTPUT
-        <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-             <head><style/></head>
-             <body lang="EN-US" link="blue" vlink="#954F72">
-               <div class="WordSection1">
-                 <p>&#160;</p>
-               </div>
-               <p class="section-break">
-                 <br clear="all" class="section"/>
-               </p>
-               <div class="WordSection2">
+      #{WORD_HDR}
                <p class="page-break">
                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
-               <div id="_" class="TOC">
-                  <p class="zzContents">Table of contents</p>
-               </div>
-               <p class="page-break">
-                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-               </p>
-               <div>
+               <div id="fwd">
                   <h1 class="ForewordTitle">Foreword</h1>
                   <p id="samplecode" class="Sourcecode">puts x</p>
                   <p class="SourceTitle" style="text-align:center;">
@@ -636,22 +621,7 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     doc = <<~OUTPUT
-      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-      <head><style/>         </head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p> </p>
-             </div>
-             <p class="section-break">
-               <br clear="all" class="section"/>
-             </p>
-             <div class="WordSection2">
-             <p class="page-break">
-         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
                <p class="page-break">
                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
@@ -863,22 +833,7 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     doc = <<~OUTPUT
-          <html lang="en">
-        <head><style/></head>
-                 <body lang="EN-US" link="blue" vlink="#954F72">
-          <div class="WordSection1">
-            <p> </p>
-          </div>
-          <p class="section-break">
-            <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection2">
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-                  <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
@@ -1102,46 +1057,58 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-      <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata>
-          <language current="true">en</language>
-          </bibdata>
-              <preface>    <clause type="toc" id="_" displayorder="1">
-              <fmt-title depth="1">Table of contents</fmt-title>
-        </clause>
-        <foreword displayorder="2">
+        <itu-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
+              <language current="true">en</language>
+           </bibdata>
+           
+           
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+              <foreword id="fwd" displayorder="2">
                  <title id="_">Foreword</title>
-         <fmt-title depth="1">
-               <semx element="title" source="_">Foreword</semx>
-         </fmt-title>
-                 <figure id="_" class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
-            <name id="_">Label</name>
-            <fmt-name>
-               <span class="fmt-caption-label">
-                  <span class="fmt-element-name">Figure</span>
-                  <semx element="autonum" source="_">1</semx>
-                  </span>
-                  <span class="fmt-caption-delim"> — </span>
-                  <semx element="name" source="_">Label</semx>
-            </fmt-name>
-            <fmt-xref-label>
-               <span class="fmt-element-name">Figure</span>
-               <semx element="autonum" source="_">1</semx>
-            </fmt-xref-label>
-      <p id="_">&#xA0;&#xA0;<strong>A</strong><br/>
-      &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<smallcap>B</smallcap></p>
-      <p id="_">&#xA0;&#xA0;<em>C</em></p></figure>
-      </foreword></preface>
-      </itu-standard>
-
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Foreword</semx>
+                 </fmt-title>
+                 <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
+                    <name id="_">Label</name>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">Figure</span>
+                          <semx element="autonum" source="fig">1</semx>
+                       </span>
+                       <span class="fmt-caption-delim"> — </span>
+                       <semx element="name" source="_">Label</semx>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Figure</span>
+                       <semx element="autonum" source="fig">1</semx>
+                    </fmt-xref-label>
+                    <p id="_">
+                         
+                       <strong>A</strong>
+                       <br/>
+                               
+                       <smallcap>B</smallcap>
+                    </p>
+                    <p id="_">
+                         
+                       <em>C</em>
+                    </p>
+                 </figure>
+              </foreword>
+           </preface>
+        </itu-standard>
     OUTPUT
 
     html = <<~OUTPUT
       #{HTML_HDR}
                        <br/>
-                       <div>
+                       <div id="fwd">
                          <h1 class="ForewordTitle">Foreword</h1>
-                         <div id="_" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'><p id="_">&#160;&#160;<b>A</b><br/>
+                         <div id="fig" class="pseudocode" style='page-break-after: avoid;page-break-inside: avoid;'><p id="_">&#160;&#160;<b>A</b><br/>
                  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-variant:small-caps;">B</span></p>
                  <p id="_">&#160;&#160;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
                        </div>
@@ -1167,7 +1134,7 @@ RSpec.describe IsoDoc do
       .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
       .gsub(%r{</div>.*}m, "</div>")))
       .to be_equivalent_to Xml::C14n.format(<<~"OUTPUT")
-             <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="_" id="_"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
+             <div class="pseudocode"  style='page-break-after: avoid;page-break-inside: avoid;'><a name="fig" id="fig"></a><p class="pseudocode"><a name="_" id="_"></a>&#xA0;&#xA0;<b>A</b><br/>
         &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span style="font-variant:small-caps;">B</span></p>
         <p class="pseudocode" style="page-break-after:avoid;"><a name="_" id="_"></a>&#xA0;&#xA0;<i>C</i></p><p class="SourceTitle" style="text-align:center;">Figure 1&#xA0;&#x2014; Label</p></div>
       OUTPUT

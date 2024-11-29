@@ -1908,16 +1908,24 @@ RSpec.describe IsoDoc do
                        <fmt-name>
                           <span class="fmt-caption-label">
                              <span class="fmt-element-name">NOTO</span>
-                             <span class="fmt-element-name"/>
-                             <semx element="autonum" source="M-n1"/>
                           </span>
                           <span class="fmt-label-delim">
                              <tab/>
                           </span>
                        </fmt-name>
                        <fmt-xref-label>
-                          <span class="fmt-element-name"/>
+                          <span class="fmt-element-name">noto</span>
                        </fmt-xref-label>
+                       <fmt-xref-label container="N">
+                  <span class="fmt-xref-container">
+                     <span class="fmt-element-name">klaŭzo</span>
+                     <semx element="autonum" source="M">5</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                     <semx element="autonum" source="N">1</semx>
+                  </span>
+                  <span class="fmt-comma">—</span>
+                  <span class="fmt-element-name">noto</span>
+               </fmt-xref-label>
                     </note>
                  </clause>
                  <clause id="O" inline-header="false" obligation="normative">
@@ -2153,7 +2161,7 @@ RSpec.describe IsoDoc do
                        <h2>5.1.&#160; Introduction</h2>
                        <div id='M-n1' class='Note'>
         <p>
-          <span class='note_label'>NOTO    </span>
+          <span class="note_label">NOTO  </span>
         </p>
       </div>
                      </div>

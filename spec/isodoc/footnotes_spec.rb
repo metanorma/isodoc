@@ -88,25 +88,7 @@ RSpec.describe IsoDoc do
          </html>
     OUTPUT
     doc = <<~OUTPUT
-      <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-        <head>
-          <style>
-          </style>
-        </head>
-        <body lang='EN-US' link='blue' vlink='#954F72'>
-           <div class="WordSection1">
-              <p> </p>
-            </div>
-            <p class="section-break">
-              <br clear="all" class="section"/>
-            </p>
-          <div class='WordSection2'>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-                  <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>

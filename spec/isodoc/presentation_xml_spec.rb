@@ -333,6 +333,12 @@ RSpec.describe IsoDoc do
     OUTPUT
     doc = <<~OUTPUT
       #{WORD_HDR}
+              <p> </p>
+     </div>
+     <p class="section-break">
+        <br clear="all" class="section"/>
+     </p>
+     <div class="WordSection3">
               <div id='_'>
                 <h1>
                   <b>Annex A</b>
@@ -1076,8 +1082,10 @@ RSpec.describe IsoDoc do
             <xref target="ref4">
                <semx element="autonum" source="ref4">4</semx>
             </xref>
-            <span class="fmt-element-name">Clause</span>
-            <semx element="autonum" source="id1">5</semx>
+            <span class="fmt-xref-container">
+         <span class="fmt-element-name">Clause</span>
+         <semx element="autonum" source="id1">5</semx>
+      </span>
             <span class="fmt-comma">,</span>
             <xref target="item_6-4-a">
                <semx element="autonum" source="_">a</semx>
@@ -1145,114 +1153,118 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <p id="A">
-         <xref target="ref1">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref1">1</semx>
-         </xref>
-         <span class="fmt-conn">～</span>
-         <xref target="ref2">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref2">2</semx>
-         </xref>
-         <xref target="ref1">
-            <location target="ref1" connective="from"/>
-            <location target="ref2" connective="to"/>
-            text
-         </xref>
-         <xref target="ref1">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref1">1</semx>
-         </xref>
-         <span class="fmt-conn">および</span>
-         <xref target="ref2">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref2">2</semx>
-         </xref>
-         <xref target="ref1">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref1">1</semx>
-         </xref>
-         <span class="fmt-enum-comma">，</span>
-         <xref target="ref2">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref2">2</semx>
-         </xref>
-         <span class="fmt-enum-comma">、</span>
-         <xref target="ref3">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref3">3</semx>
-         </xref>
-         <xref target="ref1">
-            <location target="ref1" connective="and"/>
-            <location target="ref2" connective="and"/>
-            text
-         </xref>
-         <xref target="ref1">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref1">1</semx>
-         </xref>
-         <span class="fmt-conn">または</span>
-         <xref target="ref2">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref2">2</semx>
-         </xref>
-         <xref target="ref1">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref1">1</semx>
-         </xref>
-         <span class="fmt-enum-comma">，</span>
-         <xref target="ref2">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref2">2</semx>
-         </xref>
-         <span class="fmt-enum-comma">、</span>
-         <span class="fmt-conn">または</span>
-         <xref target="ref3">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref3">3</semx>
-         </xref>
-         <xref target="ref1">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref1">1</semx>
-         </xref>
-         <span class="fmt-conn">～</span>
-         <xref target="ref2">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref2">2</semx>
-         </xref>
-         <span class="fmt-conn">および</span>
-         <xref target="ref3">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref3">3</semx>
-         </xref>
-         <span class="fmt-conn">～</span>
-         <xref target="ref4">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="ref4">4</semx>
-         </xref>
-         <xref target="item_6-4-a">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="id1">5</semx>
-            <span class="fmt-conn">の</span>
-            <semx element="autonum" source="_">a</semx>
-            <span class="fmt-autonum-delim">)</span>
-            <span class="fmt-conn">の</span>
-            <semx element="autonum" source="item_6-4-a">1</semx>
-            <span class="fmt-autonum-delim">)</span>
-         </xref>
-         <span class="fmt-conn">～</span>
-         <xref target="item_6-4-i">
-            <span class="fmt-element-name">箇条</span>
-            <semx element="autonum" source="id1">5</semx>
-            <span class="fmt-conn">の</span>
-            <semx element="autonum" source="_">b</semx>
-            <span class="fmt-autonum-delim">)</span>
-            <span class="fmt-conn">の</span>
-            <semx element="autonum" source="item_6-4-i">1</semx>
-            <span class="fmt-autonum-delim">)</span>
-         </xref>
-      </p>
+        <p id="A">
+           <xref target="ref1">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref1">1</semx>
+           </xref>
+           <span class="fmt-conn">～</span>
+           <xref target="ref2">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref2">2</semx>
+           </xref>
+           <xref target="ref1">
+              <location target="ref1" connective="from"/>
+              <location target="ref2" connective="to"/>
+              text
+           </xref>
+           <xref target="ref1">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref1">1</semx>
+           </xref>
+           <span class="fmt-conn">および</span>
+           <xref target="ref2">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref2">2</semx>
+           </xref>
+           <xref target="ref1">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref1">1</semx>
+           </xref>
+           <span class="fmt-enum-comma">，</span>
+           <xref target="ref2">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref2">2</semx>
+           </xref>
+           <span class="fmt-enum-comma">、</span>
+           <xref target="ref3">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref3">3</semx>
+           </xref>
+           <xref target="ref1">
+              <location target="ref1" connective="and"/>
+              <location target="ref2" connective="and"/>
+              text
+           </xref>
+           <xref target="ref1">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref1">1</semx>
+           </xref>
+           <span class="fmt-conn">または</span>
+           <xref target="ref2">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref2">2</semx>
+           </xref>
+           <xref target="ref1">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref1">1</semx>
+           </xref>
+           <span class="fmt-enum-comma">，</span>
+           <xref target="ref2">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref2">2</semx>
+           </xref>
+           <span class="fmt-enum-comma">、</span>
+           <span class="fmt-conn">または</span>
+           <xref target="ref3">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref3">3</semx>
+           </xref>
+           <xref target="ref1">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref1">1</semx>
+           </xref>
+           <span class="fmt-conn">～</span>
+           <xref target="ref2">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref2">2</semx>
+           </xref>
+           <span class="fmt-conn">および</span>
+           <xref target="ref3">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref3">3</semx>
+           </xref>
+           <span class="fmt-conn">～</span>
+           <xref target="ref4">
+              <span class="fmt-element-name">箇条</span>
+              <semx element="autonum" source="ref4">4</semx>
+           </xref>
+           <xref target="item_6-4-a">
+              <span class="fmt-xref-container">
+                 <span class="fmt-element-name">箇条</span>
+                 <semx element="autonum" source="id1">5</semx>
+              </span>
+              <span class="fmt-conn">の</span>
+              <semx element="autonum" source="_">a</semx>
+              <span class="fmt-autonum-delim">）</span>
+              <span class="fmt-conn">の</span>
+              <semx element="autonum" source="item_6-4-a">1</semx>
+              <span class="fmt-autonum-delim">）</span>
+           </xref>
+           <span class="fmt-conn">～</span>
+           <xref target="item_6-4-i">
+              <span class="fmt-xref-container">
+                 <span class="fmt-element-name">箇条</span>
+                 <semx element="autonum" source="id1">5</semx>
+              </span>
+              <span class="fmt-conn">の</span>
+              <semx element="autonum" source="_">b</semx>
+              <span class="fmt-autonum-delim">)</span>
+              <span class="fmt-conn">の</span>
+              <semx element="autonum" source="item_6-4-i">1</semx>
+              <span class="fmt-autonum-delim">）</span>
+           </xref>
+        </p>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
@@ -1392,6 +1404,15 @@ RSpec.describe IsoDoc do
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="C1">1</semx>
               </fmt-xref-label>
+              <fmt-xref-label container="A">
+                 <span class="fmt-xref-container">
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="A">1</semx>
+                 </span>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">Example</span>
+                 <semx element="autonum" source="C1">1</semx>
+              </fmt-xref-label>
               <figure id="B2" autonum="2">
                  <name id="_">Second</name>
                  <fmt-name>
@@ -1416,6 +1437,15 @@ RSpec.describe IsoDoc do
                  </span>
               </fmt-name>
               <fmt-xref-label>
+                 <span class="fmt-element-name">Example</span>
+                 <semx element="autonum" source="C2">2</semx>
+              </fmt-xref-label>
+              <fmt-xref-label container="A">
+                 <span class="fmt-xref-container">
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="A">1</semx>
+                 </span>
+                 <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Example</span>
                  <semx element="autonum" source="C2">2</semx>
               </fmt-xref-label>

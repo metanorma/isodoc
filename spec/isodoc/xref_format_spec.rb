@@ -139,9 +139,11 @@ RSpec.describe IsoDoc do
              </xref>
              and
              <xref target="B">
-                <span class="fmt-element-name">klaŭzo</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-comma">,</span>
+         <span class="fmt-xref-container">
+            <span class="fmt-element-name">klaŭzo</span>
+            <semx element="autonum" source="A">1</semx>
+         </span>
+                <span class="fmt-comma">—</span>
                 <span class="fmt-element-name">Formula</span>
                 <span class="fmt-autonum-delim">(</span>
                 <semx element="autonum" source="B">1</semx>
@@ -203,9 +205,11 @@ RSpec.describe IsoDoc do
              </xref>
              and
              <xref target="B" label="Formulen">
-                <span class="fmt-element-name">klaŭzo</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-comma">,</span>
+         <span class="fmt-xref-container">
+            <span class="fmt-element-name">klaŭzo</span>
+            <semx element="autonum" source="A">1</semx>
+         </span>
+                <span class="fmt-comma">—</span>
                 <span class="fmt-element-name">Formulen</span>
                 <span class="fmt-autonum-delim">(</span>
                 1
@@ -243,116 +247,129 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <clause id='C' displayorder='3'>
-        <fmt-title depth="1">
-          <span class="fmt-caption-label">
-         <semx element="autonum" source="C">2</semx>
-         <span class="fmt-autonum-delim">.</span>
-          </span>
-      </fmt-title>
-          <fmt-xref-label>
-          <span class="fmt-element-name">Clause</span>
-          <semx element="autonum" source="C">2</semx>
-      </fmt-xref-label>
-            <p>This is
-        <xref style='id' target='A'>A</xref>
-         and
-        <xref style='id' target='B'>B</xref>
-         and
-        <xref style='id' target='C'>C</xref>
-        .
-      </p>
-            <p>
-             This is
-             <xref target="A">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-             </xref>
-             and
-             <xref target="B">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-comma">,</span>
-                <span class="fmt-element-name">Formula</span>
-                <span class="fmt-autonum-delim">(</span>
-                <semx element="autonum" source="B">1</semx>
-                <span class="fmt-autonum-delim">)</span>
-             </xref>
-             and
-             <xref target="C">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="C">2</semx>
-             </xref>
-             .
-          </p>
-            <p>
-             This is
-             <xref style="basic" target="A"><semx element="title" source="A">My section</semx></xref>
-             and
-             <xref style="basic" target="B">
-                <semx element="title" source="A">My section</semx>
-                <span class="fmt-comma">,</span>
-                <span class="fmt-element-name">Formula</span>
-                <span class="fmt-autonum-delim">(</span>
-                <semx element="autonum" source="B">1</semx>
-                <span class="fmt-autonum-delim">)</span>
-             </xref>
-             and
-             <xref style="basic" target="C">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="C">2</semx>
-             </xref>
-             .
-          </p>
-            <p>
-             This is
-             <xref style="short" target="A">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-             </xref>
-             and
-             <xref style="short" target="B">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-comma">,</span>
-                <span class="fmt-element-name">Formula</span>
-                <span class="fmt-autonum-delim">(</span>
-                <semx element="autonum" source="B">1</semx>
-                <span class="fmt-autonum-delim">)</span>
-             </xref>
-             and
-             <xref style="short" target="C">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="C">2</semx>
-             </xref>
-             .
-            </p>
-          <p>
-             This is
-             <xref style="full" target="A">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-comma">,</span> <semx element="title" source="A">My section</semx>
-             </xref>
-             and
-             <xref style="full" target="B">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-comma">,</span> <semx element="title" source="A">My section</semx>
-                <span class="fmt-comma">,</span>
-                <span class="fmt-element-name">Formula</span>
-                <span class="fmt-autonum-delim">(</span>
-                <semx element="autonum" source="B">1</semx>
-                <span class="fmt-autonum-delim">)</span>
-             </xref>
-             and
-             <xref style="full" target="C">
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="C">2</semx>
-             </xref>
-             .
-          </p>
-          </clause>
+        <clause id="C" displayorder="3">
+           <fmt-title depth="1">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="C">2</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+           </fmt-title>
+           <fmt-xref-label>
+              <span class="fmt-element-name">Clause</span>
+              <semx element="autonum" source="C">2</semx>
+           </fmt-xref-label>
+           <p>
+              This is
+              <xref target="A">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">1</semx>
+              </xref>
+              and
+              <xref target="B">
+                 <span class="fmt-xref-container">
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="A">1</semx>
+                 </span>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">Formula</span>
+                 <span class="fmt-autonum-delim">(</span>
+                 <semx element="autonum" source="B">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              and
+              <xref target="C">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="C">2</semx>
+              </xref>
+              .
+           </p>
+           <p>
+              This is
+              <xref style="id" target="A">A</xref>
+              and
+              <xref style="id" target="B">B</xref>
+              and
+              <xref style="id" target="C">C</xref>
+              .
+           </p>
+           <p>
+              This is
+              <xref style="basic" target="A">
+                 <semx element="title" source="A">My section</semx>
+              </xref>
+              and
+              <xref style="basic" target="B">
+                 <span class="fmt-xref-container">
+                    <semx element="title" source="A">My section</semx>
+                 </span>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">Formula</span>
+                 <span class="fmt-autonum-delim">(</span>
+                 <semx element="autonum" source="B">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              and
+              <xref style="basic" target="C">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="C">2</semx>
+              </xref>
+              .
+           </p>
+           <p>
+              This is
+              <xref style="short" target="A">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">1</semx>
+              </xref>
+              and
+              <xref style="short" target="B">
+                 <span class="fmt-xref-container">
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="A">1</semx>
+                 </span>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">Formula</span>
+                 <span class="fmt-autonum-delim">(</span>
+                 <semx element="autonum" source="B">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              and
+              <xref style="short" target="C">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="C">2</semx>
+              </xref>
+              .
+           </p>
+           <p>
+              This is
+              <xref style="full" target="A">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">1</semx>
+                 <span class="fmt-comma">,</span>
+                 <semx element="title" source="A">My section</semx>
+              </xref>
+              and
+              <xref style="full" target="B">
+                 <span class="fmt-xref-container">
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="A">1</semx>
+                    <span class="fmt-comma">,</span>
+                    <semx element="title" source="A">My section</semx>
+                 </span>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">Formula</span>
+                 <span class="fmt-autonum-delim">(</span>
+                 <semx element="autonum" source="B">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              and
+              <xref style="full" target="C">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="C">2</semx>
+              </xref>
+              .
+           </p>
+        </clause>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -437,9 +454,11 @@ RSpec.describe IsoDoc do
             </xref>
             . Downcasing an xref affects only the first letter:
             <xref target="B2" case="lowercase">
-               <span class="fmt-element-name">klaŭzo</span>
-               <semx element="autonum" source="A">1</semx>
-               <span class="fmt-comma">,</span>
+               <span class="fmt-xref-container">
+            <span class="fmt-element-name">klaŭzo</span>
+            <semx element="autonum" source="A">1</semx>
+         </span>
+               <span class="fmt-comma">—</span>
                <span class="fmt-element-name">Example</span>
             </xref>
             . Capitalising an xref affects only the first letter:

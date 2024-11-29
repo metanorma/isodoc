@@ -1034,6 +1034,12 @@ RSpec.describe IsoDoc do
     OUTPUT
     word = <<~OUTPUT
       #{WORD_HDR}
+              <p> </p>
+     </div>
+     <p class="section-break">
+        <br clear="all" class="section"/>
+     </p>
+     <div class="WordSection3">
                  <div>
                <h1/>
                <div id="_">

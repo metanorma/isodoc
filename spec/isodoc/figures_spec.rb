@@ -81,7 +81,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2">
+             <foreword displayorder="2" id="fwd">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -246,7 +246,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                                <br/>
-                               <div>
+                               <div id="fwd">
                                  <h1 class="ForewordTitle">Foreword</h1>
                                  <div id="figureA-1" class="figure" style='page-break-after: avoid;page-break-inside: avoid;'>
                          <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletxt"/>
@@ -319,22 +319,11 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-                 <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-               <head><style/></head>
-               <body lang="EN-US" link="blue" vlink="#954F72">
-                 <div class="WordSection1">
-                   <p>&#160;</p>
-                 </div>
-                 <p class="section-break"><br clear="all" class="section"/></p>
-                 <div class="WordSection2">
-                   <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-                         <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-                   <div>
+                   <div id="fwd">
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div id="figureA-1" class="figure"  style='page-break-after: avoid;page-break-inside: avoid;'>
                <img src="rice_images/rice_image1.png" height="20" width="30" alt="alttext" title="titletxt"/>
@@ -461,7 +450,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2">
+             <foreword displayorder="2" id="fwd">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                       <semx element="title" source="_">Foreword</semx>
@@ -528,7 +517,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
              <br/>
-             <div>
+             <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                  <div id="note1" class="figure">
@@ -547,29 +536,11 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-        <head>
-          <style>
-          </style>
-        </head>
-        <body lang="EN-US" link="blue" vlink="#954F72">
-          <div class="WordSection1">
-            <p> </p>
-          </div>
-          <p class="section-break">
-            <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection2">
-          <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div>
+            <div id="fwd">
               <h1 class="ForewordTitle">Foreword</h1>
               <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                 <div id="note1" class="figure">
@@ -644,7 +615,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
       <fmt-title depth="1">Table of contents</fmt-title>
                    </clause>
-             <foreword displayorder="2">
+             <foreword displayorder="2" id="fwd">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                       <semx element="title" source="_">Foreword</semx>
@@ -846,25 +817,7 @@ RSpec.describe IsoDoc do
     HTML
 
     doc = <<~DOC
-          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-      <head>
-      <style>
-              </style>
-        </head>
-            <body lang='EN-US' link='blue' vlink='#954F72'>
-          <div class='WordSection1'>
-            <p>&#160;</p>
-          </div>
-          <p class="section-break">
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection2'>
-                <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
             <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
@@ -960,25 +913,7 @@ RSpec.describe IsoDoc do
         </iso-standard>
     OUTPUT
     word = <<~OUTPUT
-          <html xmlns:epub='http://www.idpf.org/2007/ops' lang='en'>
-      <head>
-      <style>
-              </style>
-        </head>
-        <body lang='EN-US' link='blue' vlink='#954F72'>
-          <div class='WordSection1'>
-            <p>&#160;</p>
-          </div>
-          <p class="section-break">
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection2'>
-                <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
             <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>

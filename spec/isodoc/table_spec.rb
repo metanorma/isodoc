@@ -116,7 +116,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Table of contents</fmt-title>
               </clause>
-              <foreword displayorder="2">
+              <foreword id="fwd" displayorder="2">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
                     <semx element="title" source="_">Foreword</semx>
@@ -324,7 +324,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
             #{HTML_HDR}
                          <br/>
-                     <div>
+                     <div id="fwd">
                        <h1 class="ForewordTitle">Foreword</h1>
                        <p class="TableTitle" style="text-align:center;">Table 1&#160;&#8212; Repeatability and reproducibility of <i>husked</i> rice yield
                        <a class='FootnoteRef' href='#fn:1'>
@@ -444,26 +444,11 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-               <head><style/></head>
-                        <body lang="EN-US" link="blue" vlink="#954F72">
-           <div class="WordSection1">
-             <p> </p>
-           </div>
-           <p class="section-break">
-             <br clear="all" class="section"/>
-           </p>
-           <div class="WordSection2">
+      #{WORD_HDR}
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div id="_" class="TOC">
-               <p class="zzContents">Table of contents</p>
-             </div>
-             <p class="page-break">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <div>
+             <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">
                        Table 1 — Repeatability and reproducibility of
@@ -643,22 +628,7 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-               <head><style/></head>
-             <body lang='EN-US' link='blue' vlink='#954F72'>
-           <div class='WordSection1'>
-             <p>&#xa0;</p>
-           </div>
-           <p class="section-break">
-             <br clear='all' class='section'/>
-           </p>
-           <div class='WordSection2'>
-             <p class="page-break">
-               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-             </p>
-             <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>

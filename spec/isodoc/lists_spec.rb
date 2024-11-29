@@ -22,7 +22,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
-                   <div>
+                   <div id="fwd">
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div class="ul_wrap">
                      <p class='ListTitle'>Caption</p>
@@ -41,26 +41,11 @@ RSpec.describe IsoDoc do
            </html>
     OUTPUT
     word = <<~OUTPUT
-       <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-                 <head><style/></head>
-          <body lang='EN-US' link='blue' vlink='#954F72'>
-            <div class='WordSection1'>
-              <p>&#xa0;</p>
-            </div>
-            <p class="section-break">
-              <br clear='all' class='section'/>
-            </p>
-            <div class='WordSection2'>
-                 <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
               <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
-              <div>
+              <div id="fwd">
                 <h1 class='ForewordTitle'>Foreword</h1>
                 <div class="ul_wrap">
                 <p class='ListTitle'>Caption</p>
@@ -135,22 +120,7 @@ RSpec.describe IsoDoc do
            </html>
     OUTPUT
     word = <<~OUTPUT
-              <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-                 <head><style/></head>
-       <body lang='EN-US' link='blue' vlink='#954F72'>
-                  <div class='WordSection1'>
-                    <p>&#160;</p>
-                  </div>
-                  <p class="section-break">
-                    <br clear='all' class='section'/>
-                  </p>
-                  <div class='WordSection2'>
-                       <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
                     <p class="page-break">
                       <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                     </p>
@@ -212,28 +182,38 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface>
-          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
-          <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
-          <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
-          <fmt-name>Caption</fmt-name>
-        <li>
-          <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
-        </li>
-        <ol>
-        <li>
-          <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
-        </li>
-        <ol>
-        <li>
-          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
-        </li>
-        </ol>
-        </ol>
-      </ol>
-      </foreword></preface>
-      </iso-standard>
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+              <foreword displayorder="2">
+                 <title id="_">Foreword</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Foreword</semx>
+                 </fmt-title>
+                 <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="">
+                    <name id="_">Caption</name>
+                    <fmt-name>
+                       <semx element="name" source="_">Caption</semx>
+                    </fmt-name>
+                    <li id="_" label="a">
+                       <p id="_">all information necessary for the complete identification of the sample;</p>
+                    </li>
+                    <ol type="arabic">
+                       <li label="">
+                          <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
+                       </li>
+                       <ol type="roman">
+                          <li label="">
+                             <p id="_">the sampling method used;</p>
+                          </li>
+                       </ol>
+                    </ol>
+                 </ol>
+              </foreword>
+           </preface>
+        </iso-standard>
     INPUT
 
     html = <<~OUTPUT
@@ -243,19 +223,19 @@ RSpec.describe IsoDoc do
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div class="ol_wrap">
                  <p class='ListTitle'>Caption</p>
-                     <ol type="a" id="_ae34a226-aab4-496d-987b-1aa7b6314026" style="page-break-after: avoid;page-break-inside: avoid;">
-             <li>
-               <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
+                     <ol type="a" id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+             <li id="_">
+               <p id="_">all information necessary for the complete identification of the sample;</p>
              </li>
              <div class="ol_wrap">
              <ol type="1">
              <li>
-               <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
+               <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
              </li>
              <div class="ol_wrap">
              <ol type="i">
              <li>
-               <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
+               <p id="_">the sampling method used;</p>
              </li>
              </ol>
              </div>
@@ -269,22 +249,7 @@ RSpec.describe IsoDoc do
            </html>
     OUTPUT
     word = <<~OUTPUT
-       <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-                 <head><style/></head>
-                          <body lang='EN-US' link='blue' vlink='#954F72'>
-            <div class='WordSection1'>
-              <p>&#xa0;</p>
-            </div>
-            <p class="section-break">
-              <br clear='all' class='section'/>
-            </p>
-            <div class='WordSection2'>
-                 <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
               <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
@@ -323,12 +288,13 @@ RSpec.describe IsoDoc do
           </body>
         </html>
     OUTPUT
-    pres_output = IsoDoc::PresentationMLConvert.new({})
+    pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true)))
+    expect(Xml::C14n.format(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
@@ -404,25 +370,49 @@ RSpec.describe IsoDoc do
       </foreword></preface>
       </iso-standard>
     INPUT
-       presxml = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface>
-          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
-          <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
-          <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395"  keep-with-next="true" keep-lines-together="true">
-          <fmt-name>Caption</fmt-name>
-        <dt>
-          W
-        </dt>
-        <dd>
-          <p id="_05d81174-3a41-44af-94d8-c78b8d2e175d">mass fraction of gelatinized kernels, expressed in per cent</p>
-        </dd>
-        <dt><stem type="AsciiMath">w</stem></dt>
-        <dd><p>??</p></dd>
-        <note><p>This is a note</p></note>
-        </dl>
-      </foreword></preface>
-      </iso-standard>
+    presxml = <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+              <foreword displayorder="2">
+                 <title id="_">Foreword</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Foreword</semx>
+                 </fmt-title>
+                 <dl id="_" keep-with-next="true" keep-lines-together="true" autonum="">
+                    <name id="_">Caption</name>
+                    <fmt-name>
+                       <semx element="name" source="_">Caption</semx>
+                    </fmt-name>
+                    <dt>
+            W
+          </dt>
+                    <dd>
+                       <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
+                    </dd>
+                    <dt>
+                       <stem type="AsciiMath">w</stem>
+                    </dt>
+                    <dd>
+                       <p>??</p>
+                    </dd>
+                    <note>
+                       <fmt-name>
+                          <span class="fmt-caption-label">
+                             <span class="fmt-element-name">NOTE</span>
+                          </span>
+                          <span class="fmt-label-delim">
+                             <tab/>
+                          </span>
+                       </fmt-name>
+                       <p>This is a note</p>
+                    </note>
+                 </dl>
+              </foreword>
+           </preface>
+        </iso-standard>
     INPUT
     html = <<~OUTPUT
          #{HTML_HDR}
@@ -431,14 +421,14 @@ RSpec.describe IsoDoc do
                 <h1 class="ForewordTitle">Foreword</h1>
                 <div class="figdl">
                 <p class='ListTitle'>Caption</p>
-                <dl id="_732d3f57-4f88-40bf-9ae9-633891edc395" style="page-break-after: avoid;page-break-inside: avoid;">
+                <dl id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                   <dt>
                     <p>
           W
         </p>
                   </dt>
                   <dd>
-          <p id="_05d81174-3a41-44af-94d8-c78b8d2e175d">mass fraction of gelatinized kernels, expressed in per cent</p>
+          <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
         </dd>
                   <dt>
                     <span class="stem">(#(w)#)</span>
@@ -448,7 +438,7 @@ RSpec.describe IsoDoc do
                   </dd>
                 </dl>
                 <div class="Note">
-           <p>This is a note</p>
+           <p><span class="note_label">NOTE  </span>This is a note</p>
          </div>
          </div>
               </div>
@@ -457,25 +447,12 @@ RSpec.describe IsoDoc do
       </html>
     OUTPUT
     word = <<~OUTPUT
-          <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-         <head><style/></head>
-           <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-               <p>&#160;</p>
-             </div>
-             <p class="section-break"><br clear="all" class="section"/></p>
-             <div class="WordSection2">
-                  <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
                <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p class='ListTitle'>Caption</p>
-                 <table class="dl" id="_732d3f57-4f88-40bf-9ae9-633891edc395">
+                 <table class="dl" id="_">
                    <tr>
                      <td valign="top" align="left">
                        <p align="left" style="margin-left:0pt;text-align:left;">
@@ -483,7 +460,7 @@ RSpec.describe IsoDoc do
          </p>
                      </td>
                      <td valign="top">
-           <p id="_05d81174-3a41-44af-94d8-c78b8d2e175d">mass fraction of gelatinized kernels, expressed in per cent</p>
+           <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
          </td>
                    </tr>
                    <tr>
@@ -499,7 +476,13 @@ RSpec.describe IsoDoc do
                    <tr>
                     <td colspan="2">
                       <div class="Note">
-                        <p class="Note">This is a note</p>
+                        <p class="Note">
+                           <span class="note_label">
+                              NOTE
+                              <span style="mso-tab-count:1">  </span>
+                           </span>
+                           This is a note
+                        </p>
                       </div>
                      </td>
                    </tr>
@@ -515,13 +498,14 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(Xml::C14n.format(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true)))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true)))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
