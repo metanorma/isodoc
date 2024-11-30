@@ -954,12 +954,20 @@ RSpec.describe IsoDoc do
                 <semx element="autonum" source="AN1">1</semx>
              </xref>
              <xref target="Anote11">
+                      <span class="fmt-xref-container">
+            <semx element="references" source="biblio">Bibliographical Section</semx>
+         </span>
+         <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Figure</span>
                 <semx element="autonum" source="AN1">1</semx>
                 <span class="fmt-autonum-delim">-</span>
                 <semx element="autonum" source="Anote11">1</semx>
              </xref>
              <xref target="Anote21">
+                      <span class="fmt-xref-container">
+            <semx element="references" source="biblio">Bibliographical Section</semx>
+         </span>
+         <span class="fmt-comma">,</span>
                 <span class="fmt-element-name">Figure</span>
                 <semx element="autonum" source="AN1">1</semx>
                 <span class="fmt-autonum-delim">-</span>
