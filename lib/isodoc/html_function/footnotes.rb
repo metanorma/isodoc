@@ -24,6 +24,7 @@ module IsoDoc
         end
       end
 
+      # Move to Presentation XML, as <fmt-footnote>: it's a footnote body
       def make_table_footnote_text(node, fnid, fnref)
         attrs = { id: "fn:#{fnid}" }
         noko do |xml|
