@@ -1,7 +1,7 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_name(node, delims, label, elem)
-      label&.empty? and label = nil
+      label, delims = prefix_name_defaults(node, delims, label)
       name, ins, ids, number = prefix_name_prep(node, elem)
       ins.next = fmt_xref_label(label, number, ids)
       # autonum can be empty, e.g single note in clause: "NOTE []"
@@ -9,6 +9,12 @@ module IsoDoc
       !node.at(ns("./fmt-#{elem}")) &&
         (c = fmt_caption(label, elem, name, ids, delims)) and ins.next = c
       prefix_name_postprocess(node)
+    end
+
+    def prefix_name_defaults(node, delims, label)
+      label&.empty? and label = nil
+      delims.nil? and delims = {}
+      [label, delims]
     end
 
     def prefix_name_prep(node, elem)
