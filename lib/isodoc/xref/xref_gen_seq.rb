@@ -52,7 +52,7 @@ module IsoDoc
 
       def hier_separator(markup: false)
         h = hiersep
-        h.blank? || !markup or h = "<span class='fmt-autonum-delim'>#{h}</span>"
+        h.blank? || !markup or h = delim_wrap(h)
         h
       end
 
@@ -63,7 +63,7 @@ module IsoDoc
 
       def subfigure_separator(markup: false)
         h = hierfigsep
-        h.blank? || !markup or h = "<span class='fmt-autonum-delim'>#{h}</span>"
+        h.blank? || !markup or h = delim_wrap(h)
         h
       end
 
@@ -92,7 +92,7 @@ module IsoDoc
           x = "#{subfigure_separator(markup: true)}#{semx(elem, sublabel)}"
           @anchors[elem["id"]][:label] = "#{semx(elem.parent, label)}#{x}"
           @anchors[elem["id"]][:xref] = @anchors[elem.parent["id"]][:xref] + x +
-            subfigure_delim
+            delim_wrap(subfigure_delim)
         end
       end
 

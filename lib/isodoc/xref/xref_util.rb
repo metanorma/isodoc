@@ -64,6 +64,11 @@ module IsoDoc
         "#{semx(parent, parentlabel)}#{sep}#{semx(element, counter.print)}"
       end
 
+      def delim_wrap(delim, klass = "fmt-autonum-delim")
+        delim.blank? and return ""
+        "<span class='#{klass}'>#{delim}</span>"
+      end
+
       def stripsemx(elem)
         elem.nil? and return elem
         xml = Nokogiri::XML::DocumentFragment.parse(elem)

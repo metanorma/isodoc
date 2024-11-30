@@ -52,8 +52,9 @@ module IsoDoc
 
       def anchor_struct_value(lbl, elem)
         case elem
+          # TODO hardcoded ( ) ?
         when @labels["formula"], @labels["inequality"] then <<~SPAN.strip
-          <span class='fmt-autonum-delim'>(</span>#{lbl}<span class='fmt-autonum-delim'>)</span>
+          #{delim_wrap('(')}#{lbl}#{delim_wrap(')')}
         SPAN
         else
           lbl.to_s

@@ -157,7 +157,7 @@ module IsoDoc
         elsif parentnum.nil?
           semx(clause, num)
               else
-                "#{parentnum}<span class='fmt-autonum-delim'>#{clausesep}</span>#{semx(clause, num)}"
+                "#{parentnum}#{delim_wrap(clausesep)}#{semx(clause, num)}"
               end
       end
 

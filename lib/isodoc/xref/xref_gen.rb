@@ -142,7 +142,7 @@ module IsoDoc
       end
 
       def list_item_delim
-        '<span class="fmt-autonum-delim">)</span>'
+        ")"
       end
 
       def list_item_anchor_names(list, list_anchor, depth, prev_label,
@@ -156,7 +156,7 @@ refer_list)
           li["id"] ||= "_#{UUIDTools::UUID.random_create}"
           @anchors[li["id"]] =
             { label: bare_label, bare_xref: "#{label})", type: "listitem",
-              xref: %[#{label}#{list_item_delim}], refer_list:,
+              xref: %[#{label}#{delim_wrap(list_item_delim)}], refer_list:,
               container: list_anchor[:container] }
           (li.xpath(ns(".//ol")) - li.xpath(ns(".//ol//ol"))).each do |ol|
             list_item_anchor_names(ol, list_anchor, depth + 1, label,
@@ -176,7 +176,7 @@ refer_list)
       def list_item_anchor_label(label, list_anchor, prev_label, refer_list)
         prev_label.empty? or
           label = @klass.connectives_spans(@i18n.list_nested_xref
-            .sub("%1", %[#{prev_label}#{list_item_delim}])
+            .sub("%1", %[#{prev_label}#{delim_wrap(list_item_delim)}])
             .sub("%2", label))
         refer_list and
           label = @klass.connectives_spans(@i18n.list_nested_xref
@@ -218,7 +218,7 @@ refer_list)
 
       def deflist_term_anchor_lbl(listitem, list_anchor)
         s = semx(listitem, dt2xreflabel(listitem))
-        %(#{list_anchor[:xref]}<span class="fmt-autonum-delim">:</span> #{s}</semx>)
+        %(#{list_anchor[:xref]}#{delim_wrap(":")} #{s}</semx>)
       end
 
       def dt2xreflabel(dterm)
