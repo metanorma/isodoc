@@ -129,7 +129,7 @@ module IsoDoc
         sections.each do |s|
           notes = s.xpath(ns(".//ol")) - s.xpath(ns(".//clause//ol")) -
             s.xpath(ns(".//appendix//ol")) - s.xpath(ns(".//ol//ol"))
-          c = list_counter
+          c = list_counter(0, {})
           notes.noblank.each do |n|
             @anchors[n["id"]] =
               anchor_struct(increment_label(notes, n, c), n,
@@ -147,7 +147,7 @@ module IsoDoc
 
       def list_item_anchor_names(list, list_anchor, depth, prev_label,
 refer_list)
-        c = list_counter(list["start"] ? list["start"].to_i - 1 : 0)
+        c = list_counter(list["start"] ? list["start"].to_i - 1 : 0, {})
         list.xpath(ns("./li")).each do |li|
           bare_label, label =
             list_item_value(li, c, depth,
