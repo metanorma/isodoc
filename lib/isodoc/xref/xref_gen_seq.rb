@@ -11,6 +11,10 @@ module IsoDoc
         "-"
       end
 
+      def hierreqtsep
+        "-"
+      end
+
       def subfigure_increment(idx, counter, elem)
         if elem.parent.name == "figure" then idx += 1
         else
@@ -63,6 +67,12 @@ module IsoDoc
 
       def subfigure_separator(markup: false)
         h = hierfigsep
+        h.blank? || !markup or h = delim_wrap(h)
+        h
+      end
+
+            def subreqt_separator(markup: false)
+        h = hierreqtsep
         h.blank? || !markup or h = delim_wrap(h)
         h
       end
@@ -150,7 +160,7 @@ module IsoDoc
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
           ctr = c.increment(label, t).print
-          id = "#{lbl}#{subfigure_separator}#{ctr}"
+          id = "#{lbl}#{subreqt_separator}#{ctr}"
           sequential_permission_body(ctr, lbl, t, label, klass, m,
                                      container:)
           sequential_permission_children(t, id, klass, container:)
@@ -159,14 +169,14 @@ module IsoDoc
 
       def sequential_permission_body(id, parent_id, elem, label, klass, model,
 container: false)
-        lbl = parent_id ? "#{parent_id}#{subfigure_separator}#{id}" : id
+        lbl = parent_id ? "#{parent_id}#{subreqt_separator}#{id}" : id
         @anchors[elem["id"]] = model.postprocess_anchor_struct(
           elem, anchor_struct(lbl, elem,
                               label, klass, { unnumb: elem["unnumbered"], container: })
         )
         @anchors[elem["id"]][:semx] = semx(elem, lbl)
         if parent_id
-          x = "#{subfigure_separator(markup: true)}#{semx(elem, id)}"
+          x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
           @anchors[elem["id"]][:semx] = @anchors[elem.parent["id"]][:semx] + x
           @anchors[elem["id"]][:label] =
             "<span class='fmt-element-name'>#{label}</span> #{@anchors[elem["id"]][:semx]}"
@@ -302,7 +312,7 @@ container: false)
         block.xpath(ns(REQ_CHILDREN)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
-          id = "#{lbl}#{subfigure_separator}#{c.increment(label, t).print}"
+          id = "#{lbl}#{subreqt_separator}#{c.increment(label, t).print}"
           sequential_permission_body(c.print, lbl, t, label, klass, m)
           hierarchical_permission_children(t, id)
         end
@@ -314,7 +324,7 @@ container: false)
           elem, anchor_struct(id, elem,
                               label, klass, { unnumb: elem["unnumbered"], container: false })
         )
-        x = "#{subfigure_separator(markup: true)}#{semx(elem, id)}"
+        x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
         @anchors[elem["id"]][:label] = "#{semx(elem.parent, parent_id)}#{x}"
         @anchors[elem["id"]][:xref] = @anchors[elem.parent["id"]][:xref] + x
         model.permission_parts(elem, id, label, klass).each do |n|
