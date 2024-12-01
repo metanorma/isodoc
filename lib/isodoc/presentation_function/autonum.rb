@@ -47,6 +47,12 @@ module IsoDoc
       "<semx element='autonum' source='#{id}'>#{num}</semx>"
     end
 
+    def labelled_autonum(label, id, num)
+      elem = "<span class='fmt-element-name'>#{label}</span>"
+      num.blank? and return elem
+      l10n("#{elem} #{autonum(id, num)}")
+    end
+
     def fmt_xref_label(label, _number, ids)
       label or return ""
       x = @xrefs.anchor(ids[:elem], :xref, false) or return ""

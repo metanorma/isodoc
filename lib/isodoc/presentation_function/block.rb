@@ -41,9 +41,7 @@ module IsoDoc
 
     def example1(elem)
       n = @xrefs.get[elem["id"]]
-      lbl = "<span class='fmt-element-name'>#{@i18n.example}</span>"
-      (n.nil? || n[:label].nil? || n[:label].empty?) or
-        lbl = l10n("#{lbl} #{autonum(elem['id'], n[:label])}")
+      lbl = labelled_autonum(@i18n.example, elem["id"], n&.dig(:label))
       prefix_name(elem, { caption: block_delim }, lbl, "name")
     end
 
@@ -63,10 +61,7 @@ module IsoDoc
 
     def note_label(elem)
       n = @xrefs.get[elem["id"]]
-      lbl = "<span class='fmt-element-name'>#{@i18n.note}</span>"
-      (n.nil? || n[:label].nil? || n[:label].empty?) or
-        lbl = l10n("#{lbl} #{autonum(elem['id'], n[:label])}")
-      lbl
+      labelled_autonum(@i18n.note, elem["id"], n&.dig(:label))
     end
 
     def admonition(docxml)
@@ -93,9 +88,9 @@ module IsoDoc
     def admonition_label(elem, num)
       lbl = if elem["type"] == "box" then @i18n.box
             else @i18n.admonition[elem["type"]]&.upcase end
-      lbl &&= "<span class='fmt-element-name'>#{lbl}</span>"
-      num and lbl = l10n("#{lbl} #{autonum(elem['id'], num)}")
-      lbl
+      #lbl &&= "<span class='fmt-element-name'>#{lbl}</span>"
+      #num and lbl = l10n("#{lbl} #{autonum(elem['id'], num)}")
+      labelled_autonum(lbl, elem["id"], num)
     end
 
     def admonition_delim(_elem)
@@ -112,8 +107,9 @@ module IsoDoc
       labelled_ancestor(elem) and return
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
-      lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.table}</span> "\
-        "#{autonum(elem['id'], n)}"
+      #lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.table}</span> "\
+        #"#{autonum(elem['id'], n)}"
+      lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"], n)
       prefix_name(elem, { caption: block_delim }, l10n(lbl), "name")
     end
 

@@ -181,10 +181,6 @@ module IsoDoc
         false
       end
 
-      def labelled_autonum(label, autonum)
-        l10n("<span class='fmt-element-name'>#{label}</span> #{autonum}")
-      end
-
       def clausesep
         "."
       end

@@ -80,6 +80,10 @@ module IsoDoc
         xml.to_xml(indent: 0, encoding: "UTF-8",
                    save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
       end
+
+      def labelled_autonum(label, autonum)
+        l10n("<span class='fmt-element-name'>#{label}</span> #{autonum}")
+      end
     end
   end
 end
