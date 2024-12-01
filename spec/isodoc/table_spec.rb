@@ -93,6 +93,9 @@ RSpec.describe IsoDoc do
         <table id="AnnexTable">
         <tbody><tr><td>A</td></td></tbody>
         </table>
+        <table>
+        <tbody><tr><td>B</td></td></tbody>
+        </table>
         </annex>
         <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
         <bibitem id="ISO712" type="standard">
@@ -315,6 +318,18 @@ RSpec.describe IsoDoc do
                     </tr>
                  </tbody>
               </table>
+                    <table>
+         <fmt-name>
+            <span class="fmt-caption-label">
+               <span class="fmt-element-name">Table</span>
+            </span>
+         </fmt-name>
+         <tbody>
+            <tr>
+               <td>B</td>
+            </tr>
+         </tbody>
+      </table>
            </annex>
            <bibliography>
           </bibliography>
@@ -434,6 +449,14 @@ RSpec.describe IsoDoc do
                          </tr>
                       </tbody>
                    </table>
+                               <p class="TableTitle" style="text-align:center;">Table</p>
+            <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+               <tbody>
+                  <tr>
+                     <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
+                  </tr>
+               </tbody>
+            </table>
                 </div>
                       <aside id='fn:1' class='footnote'>
            <p>X</p>
@@ -546,12 +569,20 @@ RSpec.describe IsoDoc do
            <p class="section-break">
              <br clear="all" class="section"/>
            </p>
-           <div class="WordSection3">
-             <div>
-               <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
-               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
-             </div>
-                             <p class="page-break">
+                        <div class="WordSection3">
+                <div>
+                   <h1>
+                      1.
+                      <span style="mso-tab-count:1">  </span>
+                      Normative References
+                   </h1>
+                   <p id="ISO712" class="NormRef">
+                      ISO 712, International Organization for Standardization.
+                      <i>Cereals and cereal products</i>
+                      .
+                   </p>
+                </div>
+                <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div id="Annex1" class="Section3">
@@ -570,12 +601,22 @@ RSpec.describe IsoDoc do
                          </tbody>
                       </table>
                    </div>
+                   <p class="TableTitle" style="text-align:center;">Table</p>
+                   <div align="center" class="table_container">
+                      <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
                 </div>
-             <aside id="ftn1">
-               <p>X</p>
-             </aside>
-           </div>
-         </body>
+                <aside id="ftn1">
+                   <p>X</p>
+                </aside>
+             </div>
+          </body>
        </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
