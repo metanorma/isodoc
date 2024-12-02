@@ -110,7 +110,11 @@ module IsoDoc
       #lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.table}</span> "\
         #"#{autonum(elem['id'], n)}"
       lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"], n)
-      prefix_name(elem, { caption: block_delim }, l10n(lbl), "name")
+      prefix_name(elem, { caption: table_delim }, l10n(lbl), "name")
+    end
+
+    def table_delim
+      block_delim
     end
 
     def table_long_strings_cleanup(docxml)
