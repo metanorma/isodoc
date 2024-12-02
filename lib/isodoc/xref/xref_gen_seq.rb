@@ -71,7 +71,7 @@ module IsoDoc
         h
       end
 
-            def subreqt_separator(markup: false)
+      def subreqt_separator(markup: false)
         h = hierreqtsep
         h.blank? || !markup or h = delim_wrap(h)
         h

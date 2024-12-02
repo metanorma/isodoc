@@ -5,7 +5,8 @@ module IsoDoc
     def citeas(xmldoc)
       xmldoc.xpath(ns("//eref | //origin | //quote//source")).each do |e|
         e["bibitemid"] && e["citeas"] or next
-        a = @xrefs.anchor(e["bibitemid"], :xref, false) and e["citeas"] = a
+        a = @xrefs.anchor(e["bibitemid"], :xref, false) and
+          e["citeas"] = a.gsub(%r{</?[^>]+>}, "")
       end
     end
 
