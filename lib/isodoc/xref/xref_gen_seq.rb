@@ -83,6 +83,7 @@ module IsoDoc
 
       def figure_anchor(elem, sublabel, label, klass, container: false)
         if sublabel
+          /<semx/.match?(label) or label = semx(elem.parent, label)
           subfigure_anchor(elem, sublabel, label, klass, container: false)
         else
           @anchors[elem["id"]] = anchor_struct(
@@ -104,7 +105,7 @@ module IsoDoc
         )
         if elem["unnumbered"] != "true"
           x = "#{subfigure_separator(markup: true)}#{semx(elem, sublabel)}"
-          @anchors[elem["id"]][:label] = "#{semx(elem.parent, label)}#{x}"
+          @anchors[elem["id"]][:label] = "#{label}#{x}" # "#{semx(elem.parent, label)}#{x}"
           @anchors[elem["id"]][:xref] = @anchors[elem.parent["id"]][:xref] + x +
             delim_wrap(subfigure_delim)
           x = @anchors[elem.parent["id"]][:container] and
