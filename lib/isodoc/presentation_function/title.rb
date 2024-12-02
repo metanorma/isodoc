@@ -20,30 +20,37 @@ module IsoDoc
     end
 
     def floattitle(docxml)
-      p = "//clause | //annex | //appendix | //introduction | //foreword | " \
-          "//preface/abstract | //acknowledgements | //terms | " \
-          "//definitions | //references | //colophon | //indexsect"
-      docxml.xpath(ns(p)).each { |f| floattitle1(f) }
-      # top-level
-      docxml.xpath(ns("//sections | //preface | //colophon"))
-        .each { |f| floattitle1(f) }
+      docxml.xpath(ns(".//floating-title")).each { |f| floattitle1(f) }
     end
 
     # TODO not currently doing anything with the @depth attribute of floating-title
     def floattitle1(elem)
-      elem.xpath(ns(".//floating-title")).each do |p|
-        p.name = "p"
-        p["type"] = "floating-title"
-      end
+      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      p = elem.dup
+      p.children = "<semx element='floating-title' source='#{elem['id']}'>" \
+        "#{to_xml(p.children)}</semx>"
+      elem.next = p
+      p.name = "p"
+      p["type"] = "floating-title"
+      transfer_id(elem, p)
+    end
+
+    def transfer_id(old, new)
+      old["id"] or return
+      new["id"] = old["id"]
+      old["original-id"] = old["id"]
+      old.delete("id")
     end
 
     def preceding_floating_titles(node, idx)
       out = node.xpath("./preceding-sibling::*")
         .reverse.each_with_object([]) do |p, m|
-        %w(note admonition p).include?(p.name) or break m
+        %w(note admonition p floating-title).include?(p.name) or break m
         m << p
       end
+      #require 'debug'; out.empty? or binding.b
       out.reject { |c| c["displayorder"] }.reverse_each do |c|
+          skip_display_order?(c) and next
         c["displayorder"] = idx
         idx += 1
       end

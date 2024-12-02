@@ -1608,30 +1608,51 @@ RSpec.describe IsoDoc do
       </standard-document>
     INPUT
     presxml = <<~OUTPUT
-          <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
-        <bibdata/>
-        <preface>
-           <clause type="toc" id="_" displayorder="1">
-           <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-              <abstract displayorder="2"/>
-              <foreword displayorder="3">
-                 <title id="_">Foreword</title>
-                 <fmt-title depth="1">
-                       <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-              </foreword>
-          <introduction displayorder="4"/>
-          <p type="floating-title" displayorder="5">FL 1</p>
-          <p type="floating-title" displayorder="6">FL 2</p>
-          <p type="floating-title" displayorder="7">FL 3</p>
-          <p type="floating-title" displayorder="8">FL 4</p>
-          <p type="floating-title" displayorder="9">FL 5</p>
-          <p type="floating-title" displayorder="10">FL 6</p>
-          <p type="floating-title" displayorder="11">FL 0</p>
-          <acknowledgements displayorder="12"/>
-        </preface>
-      </standard-document>
+       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+          <bibdata/>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <abstract displayorder="2"/>
+             <foreword displayorder="3">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+             </foreword>
+             <introduction displayorder="4"/>
+             <floating-title original-id="_">FL 1</floating-title>
+             <p id="_" type="floating-title" displayorder="5">
+                <semx element="floating-title" source="_">FL 1</semx>
+             </p>
+             <floating-title original-id="_">FL 2</floating-title>
+             <p id="_" type="floating-title" displayorder="6">
+                <semx element="floating-title" source="_">FL 2</semx>
+             </p>
+             <floating-title original-id="_">FL 3</floating-title>
+             <p id="_" type="floating-title" displayorder="7">
+                <semx element="floating-title" source="_">FL 3</semx>
+             </p>
+             <floating-title original-id="_">FL 4</floating-title>
+             <p id="_" type="floating-title" displayorder="8">
+                <semx element="floating-title" source="_">FL 4</semx>
+             </p>
+             <floating-title original-id="_">FL 5</floating-title>
+             <p id="_" type="floating-title" displayorder="9">
+                <semx element="floating-title" source="_">FL 5</semx>
+             </p>
+             <floating-title original-id="_">FL 6</floating-title>
+             <p id="_" type="floating-title" displayorder="10">
+                <semx element="floating-title" source="_">FL 6</semx>
+             </p>
+             <floating-title original-id="_">FL 0</floating-title>
+             <p id="_" type="floating-title" displayorder="11">
+                <semx element="floating-title" source="_">FL 0</semx>
+             </p>
+             <acknowledgements displayorder="12"/>
+          </preface>
+       </standard-document>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1660,29 +1681,50 @@ RSpec.describe IsoDoc do
       </standard-document>
     INPUT
     presxml = <<~OUTPUT
-      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
-         <bibdata/>
-
-         <preface>
-           <clause type="toc" id="_" displayorder="1">
-           <fmt-title depth="1">Table of contents</fmt-title>
-           </clause>
-           <p type="floating-title" displayorder="2">FL 1</p>
-           <p type="floating-title" displayorder="3">FL 2</p>
-           <abstract displayorder="4"/>
-           <p type="floating-title" displayorder="5">FL 3</p>
-           <p type="floating-title" displayorder="6">FL 4</p>
-           <foreword displayorder="7">
-           <title id="_">Foreword</title><fmt-title depth="1">
-              <semx element="title" source="_">Foreword</semx>
-            </fmt-title>
-              </foreword>
-           <p type="floating-title" displayorder="8">FL 5</p>
-           <p type="floating-title" displayorder="9">FL 6</p>
-           <introduction displayorder="10"/>
-           <p type="floating-title" displayorder="11">FL 7</p>
-           <acknowledgements displayorder="12"/>
-         </preface>
+       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="presentation">
+          <bibdata/>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <floating-title original-id="_">FL 1</floating-title>
+             <p id="_" type="floating-title" displayorder="2">
+                <semx element="floating-title" source="_">FL 1</semx>
+             </p>
+             <floating-title original-id="_">FL 2</floating-title>
+             <p id="_" type="floating-title" displayorder="3">
+                <semx element="floating-title" source="_">FL 2</semx>
+             </p>
+             <abstract displayorder="4"/>
+             <floating-title original-id="_">FL 3</floating-title>
+             <p id="_" type="floating-title" displayorder="5">
+                <semx element="floating-title" source="_">FL 3</semx>
+             </p>
+             <floating-title original-id="_">FL 4</floating-title>
+             <p id="_" type="floating-title" displayorder="6">
+                <semx element="floating-title" source="_">FL 4</semx>
+             </p>
+             <foreword displayorder="7">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+             </foreword>
+             <floating-title original-id="_">FL 5</floating-title>
+             <p id="_" type="floating-title" displayorder="8">
+                <semx element="floating-title" source="_">FL 5</semx>
+             </p>
+             <floating-title original-id="_">FL 6</floating-title>
+             <p id="_" type="floating-title" displayorder="9">
+                <semx element="floating-title" source="_">FL 6</semx>
+             </p>
+             <introduction displayorder="10"/>
+             <floating-title original-id="_">FL 7</floating-title>
+             <p id="_" type="floating-title" displayorder="11">
+                <semx element="floating-title" source="_">FL 7</semx>
+             </p>
+             <acknowledgements displayorder="12"/>
+          </preface>
        </standard-document>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert

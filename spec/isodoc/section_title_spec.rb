@@ -1974,16 +1974,16 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-        <floating-title depth="1">A0</p>
+        <floating-title depth="1" id="F1">A0</p>
         <introduction id="B" obligation="informative">
         <title>Introduction</title>
-        <floating-title depth="1">A</p>
+        <floating-title depth="1" id="F2">A</p>
         <clause id="B1" obligation="informative">
          <title>Introduction Subsection</title>
-        <floating-title depth="2">B</p>
+        <floating-title depth="2" id="F3">B</p>
         <clause id="B2" obligation="informative">
          <title>Introduction Sub-subsection</title>
-        <floating-title depth="1">C</p>
+        <floating-title depth="1" id="F4">C</p>
        </clause>
        </clause>
        </introduction>
@@ -2009,181 +2009,274 @@ RSpec.describe IsoDoc do
 
     presxml = <<~PRESXML
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-              <p depth="1" type="floating-title" displayorder="2">A0</p>
-              <introduction id="B" obligation="informative" displayorder="3">
-                 <title id="_">Introduction</title>
-                 <fmt-title depth="1">
-                       <semx element="title" source="_">Introduction</semx>
-                 </fmt-title>
-                 <p depth="1" type="floating-title">A</p>
-                 <clause id="B1" obligation="informative">
-                    <title id="_">Introduction Subsection</title>
-                    <fmt-title depth="2">
-                          <semx element="title" source="_">Introduction Subsection</semx>
-                    </fmt-title>
-                    <p depth="2" type="floating-title">B</p>
-                    <clause id="B2" obligation="informative">
-                       <title id="_">Introduction Sub-subsection</title>
-                       <fmt-title depth="3">
-                             <semx element="title" source="_">Introduction Sub-subsection</semx>
-                       </fmt-title>
-                       <p depth="1" type="floating-title">C</p>
-                    </clause>
-                 </clause>
-              </introduction>
-           </preface>
-           <sections>
-              <clause id="C" obligation="informative" displayorder="4">
-                 <title id="_">Introduction</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="C">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                        </span>
-                       <span class="fmt-caption-delim">
-                          <tab/>
-                       </span>
-                       <semx element="title" source="_">Introduction</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="C">1</semx>
-                 </fmt-xref-label>
-                 <p depth="1" type="floating-title">A</p>
-                 <clause id="C1" obligation="informative">
-                    <title id="_">Introduction Subsection</title>
-                    <fmt-title depth="2">
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="C">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="C1">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                           </span>
-                          <span class="fmt-caption-delim">
-                             <tab/>
-                          </span>
-                          <semx element="title" source="_">Introduction Subsection</semx>
-                    </fmt-title>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Clause</span>
-                       <semx element="autonum" source="C">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="C1">1</semx>
-                    </fmt-xref-label>
-                    <p depth="2" type="floating-title">B</p>
-                    <clause id="C2" obligation="informative">
-                       <title id="_">Introduction Sub-subsection</title>
-                       <fmt-title depth="3">
-                          <span class="fmt-caption-label">
-                             <semx element="autonum" source="C">1</semx>
-                             <span class="fmt-autonum-delim">.</span>
-                             <semx element="autonum" source="C1">1</semx>
-                             <span class="fmt-autonum-delim">.</span>
-                             <semx element="autonum" source="C2">1</semx>
-                             <span class="fmt-autonum-delim">.</span>
-                              </span>
-                             <span class="fmt-caption-delim">
-                                <tab/>
-                             </span>
-                             <semx element="title" source="_">Introduction Sub-subsection</semx>
-                       </fmt-title>
-                       <fmt-xref-label>
-                          <span class="fmt-element-name">Clause</span>
-                          <semx element="autonum" source="C">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="C1">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="C2">1</semx>
-                       </fmt-xref-label>
-                       <p depth="1" type="floating-title">C</p>
-                    </clause>
-                 </clause>
-              </clause>
-              <p depth="1" type="floating-title" displayorder="5">D</p>
-              <clause id="C4" displayorder="6">
-                 <title id="_">Clause 2</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="C4">2</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                        </span>
-                       <span class="fmt-caption-delim">
-                          <tab/>
-                       </span>
-                       <semx element="title" source="_">Clause 2</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="C4">2</semx>
-                 </fmt-xref-label>
-              </clause>
-           </sections>
-        </iso-standard>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <floating-title depth="1" original-id="F1">A0</floating-title>
+             <p depth="1" id="F1" type="floating-title" displayorder="2">
+                <semx element="floating-title" source="F1">A0</semx>
+             </p>
+             <introduction id="B" obligation="informative" displayorder="3">
+                <title id="_">Introduction</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Introduction</semx>
+                </fmt-title>
+                <floating-title depth="1" original-id="F2">A</floating-title>
+                <p depth="1" id="F2" type="floating-title">
+                   <semx element="floating-title" source="F2">A</semx>
+                </p>
+                <clause id="B1" obligation="informative">
+                   <title id="_">Introduction Subsection</title>
+                   <fmt-title depth="2">
+                      <semx element="title" source="_">Introduction Subsection</semx>
+                   </fmt-title>
+                   <floating-title depth="2" original-id="F3">B</floating-title>
+                   <p depth="2" id="F3" type="floating-title">
+                      <semx element="floating-title" source="F3">B</semx>
+                   </p>
+                   <clause id="B2" obligation="informative">
+                      <title id="_">Introduction Sub-subsection</title>
+                      <fmt-title depth="3">
+                         <semx element="title" source="_">Introduction Sub-subsection</semx>
+                      </fmt-title>
+                      <floating-title depth="1" original-id="F4">C</floating-title>
+                      <p depth="1" id="F4" type="floating-title">
+                         <semx element="floating-title" source="F4">C</semx>
+                      </p>
+                   </clause>
+                </clause>
+             </introduction>
+          </preface>
+          <sections>
+             <clause id="C" obligation="informative" displayorder="4">
+                <title id="_">Introduction</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="C">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Introduction</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="C">1</semx>
+                </fmt-xref-label>
+                <floating-title depth="1" original-id="_">A</floating-title>
+                <p depth="1" id="_" type="floating-title">
+                   <semx element="floating-title" source="_">A</semx>
+                </p>
+                <clause id="C1" obligation="informative">
+                   <title id="_">Introduction Subsection</title>
+                   <fmt-title depth="2">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="C">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="C1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">Introduction Subsection</semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="C">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="C1">1</semx>
+                   </fmt-xref-label>
+                   <floating-title depth="2" original-id="_">B</floating-title>
+                   <p depth="2" id="_" type="floating-title">
+                      <semx element="floating-title" source="_">B</semx>
+                   </p>
+                   <clause id="C2" obligation="informative">
+                      <title id="_">Introduction Sub-subsection</title>
+                      <fmt-title depth="3">
+                         <span class="fmt-caption-label">
+                            <semx element="autonum" source="C">1</semx>
+                            <span class="fmt-autonum-delim">.</span>
+                            <semx element="autonum" source="C1">1</semx>
+                            <span class="fmt-autonum-delim">.</span>
+                            <semx element="autonum" source="C2">1</semx>
+                            <span class="fmt-autonum-delim">.</span>
+                         </span>
+                         <span class="fmt-caption-delim">
+                            <tab/>
+                         </span>
+                         <semx element="title" source="_">Introduction Sub-subsection</semx>
+                      </fmt-title>
+                      <fmt-xref-label>
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="C">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="C1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="C2">1</semx>
+                      </fmt-xref-label>
+                      <floating-title depth="1" original-id="_">C</floating-title>
+                      <p depth="1" id="_" type="floating-title">
+                         <semx element="floating-title" source="_">C</semx>
+                      </p>
+                   </clause>
+                </clause>
+             </clause>
+             <floating-title depth="1" original-id="_">D</floating-title>
+             <p depth="1" id="_" type="floating-title" displayorder="5">
+                <semx element="floating-title" source="_">D</semx>
+             </p>
+             <clause id="C4" displayorder="6">
+                <title id="_">Clause 2</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="C4">2</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Clause 2</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="C4">2</semx>
+                </fmt-xref-label>
+             </clause>
+          </sections>
+       </iso-standard>
     PRESXML
 
     html = <<~OUTPUT
       #{HTML_HDR}
-             <p class='h1'>A0</p>
-             <br/>
-             <div class='Section3' id='B'>
-               <h1 class='IntroTitle'>Introduction</h1>
-               <p class='h1'>A</p>
-               <div id='B1'>
-                 <h2>Introduction Subsection</h2>
-                 <p class='h2'>B</p>
-                 <div id='B2'>
-                   <h3>Introduction Sub-subsection</h3>
-                   <p class='h1'>C</p>
-                 </div>
-               </div>
+                <p class="h1" id="F1">A0</p>
+                <br/>
+                <div class="Section3" id="B">
+                   <h1 class="IntroTitle">Introduction</h1>
+                   <p class="h1" id="F2">A</p>
+                   <div id="B1">
+                      <h2>Introduction Subsection</h2>
+                      <p class="h2" id="F3">B</p>
+                      <div id="B2">
+                         <h3>Introduction Sub-subsection</h3>
+                         <p class="h1" id="F4">C</p>
+                      </div>
+                   </div>
+                </div>
+                <div id="C">
+                   <h1>1.  Introduction</h1>
+                   <p class="h1" id="_">A</p>
+                   <div id="C1">
+                      <h2>1.1.  Introduction Subsection</h2>
+                      <p class="h2" id="_">B</p>
+                      <div id="C2">
+                         <h3>1.1.1.  Introduction Sub-subsection</h3>
+                         <p class="h1" id="_">C</p>
+                      </div>
+                   </div>
+                </div>
+                <p class="h1" id="_">D</p>
+                <div id="C4">
+                   <h1>2.  Clause 2</h1>
+                </div>
              </div>
-                   <div id='C'>
-        <h1>1.&#160; Introduction</h1>
-        <p class='h1'>A</p>
-        <div id='C1'>
-          <h2>1.1.&#160; Introduction Subsection</h2>
-          <p class='h2'>B</p>
-          <div id='C2'>
-            <h3>1.1.1.&#160; Introduction Sub-subsection</h3>
-            <p class='h1'>C</p>
-          </div>
-        </div>
-      </div>
-      <p class='h1'>D</p>
-      <div id='C4'>
-        <h1>2.&#160; Clause 2</h1>
-      </div>
-           </div>
-         </body>
+          </body>
        </html>
     OUTPUT
 
     word = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-              <div class="WordSection2"><p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-             <p class="h1">A0</p>
-              <div class="Section3"><a name="B" id="B"/><h1 class="IntroTitle">Introduction</h1><p class="h1">A</p><div><a name="B1" id="B1"/><h2>Introduction Subsection</h2><p class="h2">B</p><div><a name="B2" id="B2"/><h3>Introduction Sub-subsection</h3><p class="h1">C</p></div></div></div><p class="MsoNormal"> </p></div><p class="MsoNormal"><br clear="all" class="section"/></p><div class="WordSection3"><div><a name="C" id="C"/><h1>
-               1.
-               <span style="mso-tab-count:1">  </span>
-               Introduction
-             </h1><p class="h1">A</p><div><a name="C1" id="C1"/><h2>
-                 1.1.
-                 <span style="mso-tab-count:1">  </span>
-                 Introduction Subsection
-               </h2><p class="h2">B</p><div><a name="C2" id="C2"/><h3>
-                   1.1.1.
+       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+          <div class="WordSection2">
+             <p class="MsoNormal">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <p class="h1">
+                <a name="F1" id="F1"/>
+                A0
+             </p>
+             <div class="Section3">
+                <a name="B" id="B"/>
+                <h1 class="IntroTitle">Introduction</h1>
+                <p class="h1">
+                   <a name="F2" id="F2"/>
+                   A
+                </p>
+                <div>
+                   <a name="B1" id="B1"/>
+                   <h2>Introduction Subsection</h2>
+                   <p class="h2">
+                      <a name="F3" id="F3"/>
+                      B
+                   </p>
+                   <div>
+                      <a name="B2" id="B2"/>
+                      <h3>Introduction Sub-subsection</h3>
+                      <p class="h1">
+                         <a name="F4" id="F4"/>
+                         C
+                      </p>
+                   </div>
+                </div>
+             </div>
+             <p class="MsoNormal"> </p>
+          </div>
+          <p class="MsoNormal">
+             <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection3">
+             <div>
+                <a name="C" id="C"/>
+                <h1>
+                   1.
                    <span style="mso-tab-count:1">  </span>
-                   Introduction Sub-subsection
-                 </h3><p class="h1">C</p></div></div></div><p class="h1">D</p><div><a name="C4" id="C4"/><h1>
-               2.
-               <span style="mso-tab-count:1">  </span>
-               Clause 2
-             </h1></div></div><div style="mso-element:footnote-list"/>
-         </body>
+                   Introduction
+                </h1>
+                <p class="h1">
+                   <a name="_" id="_"/>
+                   A
+                </p>
+                <div>
+                   <a name="C1" id="C1"/>
+                   <h2>
+                      1.1.
+                      <span style="mso-tab-count:1">  </span>
+                      Introduction Subsection
+                   </h2>
+                   <p class="h2">
+                      <a name="_" id="_"/>
+                      B
+                   </p>
+                   <div>
+                      <a name="C2" id="C2"/>
+                      <h3>
+                         1.1.1.
+                         <span style="mso-tab-count:1">  </span>
+                         Introduction Sub-subsection
+                      </h3>
+                      <p class="h1">
+                         <a name="_" id="_"/>
+                         C
+                      </p>
+                   </div>
+                </div>
+             </div>
+             <p class="h1">
+                <a name="_" id="_"/>
+                D
+             </p>
+             <div>
+                <a name="C4" id="C4"/>
+                <h1>
+                   2.
+                   <span style="mso-tab-count:1">  </span>
+                   Clause 2
+                </h1>
+             </div>
+          </div>
+          <div style="mso-element:footnote-list"/>
+       </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -2194,9 +2287,9 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
-    expect(Xml::C14n.format(File.read("test.doc")
+    expect(Xml::C14n.format(strip_guid(File.read("test.doc")
     .sub(/^.*<body/m, "<body")
-    .sub(%r{</body>.*$}m, "")))
+    .sub(%r{</body>.*$}m, ""))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 

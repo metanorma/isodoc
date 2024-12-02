@@ -33,7 +33,8 @@ module IsoDoc
       if unnumbered_clause?(elem) || !lbl
         prefix_name(elem, {}, nil, "title")
       else
-        prefix_name(elem, { caption: "<tab/>" }, "#{lbl}#{clausedelim}", "title")
+        prefix_name(elem, { caption: "<tab/>" }, "#{lbl}#{clausedelim}",
+                    "title")
       end
       t = elem.at(ns("./fmt-title")) and t["depth"] = level
     end
@@ -84,8 +85,13 @@ module IsoDoc
       docxml.xpath(ns("//index | //index-xref | //indexsect")).each(&:remove)
     end
 
+    def skip_display_order?(node)
+      node.name == "floating-title"
+    end
+
     def display_order_at(docxml, xpath, idx)
       c = docxml.at(ns(xpath)) or return idx
+      skip_display_order?(c) and return idx
       idx += 1
       idx = preceding_floating_titles(c, idx)
       c["displayorder"] = idx
@@ -94,6 +100,7 @@ module IsoDoc
 
     def display_order_xpath(docxml, xpath, idx)
       docxml.xpath(ns(xpath)).each do |c|
+        skip_display_order?(c) and next
         idx += 1
         idx = preceding_floating_titles(c, idx)
         c["displayorder"] = idx
