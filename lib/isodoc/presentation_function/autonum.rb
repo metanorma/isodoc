@@ -75,25 +75,32 @@ module IsoDoc
         .sub("%2", xref)))
     end
 
+    # detect whether string which may contain XML markup is empty
+    def empty_xml?(str)
+      str.blank? and return true
+      x = Nokogiri::XML::DocumentFragment.parse(str)
+      x.to_str.strip.empty?
+    end
+
     # Remove ".blank?" tests if want empty delim placeholders for manipulation
     def fmt_caption(label, elem, name, ids, delims)
       label = fmt_caption_label_wrap(label)
       c = fmt_caption2(label, elem, name, ids, delims)
-      c.blank? and return
+      empty_xml?(c) and return
       !delims[:label].blank? and
         f = "<span class='fmt-label-delim'>#{delims[:label]}</span>"
       "<fmt-#{elem}>#{c}#{f}</fmt-#{elem}>"
     end
 
     def fmt_caption_label_wrap(label)
-      label.blank? || %r{<span class=['"]fmt-caption-label['"]}.match?(label) or
+      empty_xml?(label) || %r{<span class=['"]fmt-caption-label['"]}.match?(label) or
         label = "<span class='fmt-caption-label'>#{label}</span>"
       label
     end
 
     def fmt_caption2(label, elem, name, ids, delims)
       if name && !name.children.empty?
-        label.blank? or
+        empty_xml?(label) or
           d = "<span class='fmt-caption-delim'>#{delims[:caption]}</span>"
         attr = " element='#{elem}' source='#{ids[:name]}'"
         "#{label}#{d}<semx #{attr}>#{to_xml(name.children)}</semx>"
