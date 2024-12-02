@@ -82,6 +82,7 @@ module IsoDoc
       end
 
       def labelled_autonum(label, autonum)
+        label.blank? and return autonum
         l10n("<span class='fmt-element-name'>#{label}</span> #{autonum}")
       end
     end
