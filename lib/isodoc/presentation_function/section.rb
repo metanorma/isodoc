@@ -142,7 +142,7 @@ module IsoDoc
     end
 
     def preface_move1(clause, preface, float, prev, xpath)
-      preface.elements.each do |x|
+      preface.elements.reverse_each do |x|
         ((x.name == "floating-title" || x.at(xpath)) &&
         xpath != "./self::*[not(following-sibling::*)]") or prev = x
         x.at(xpath) or next
