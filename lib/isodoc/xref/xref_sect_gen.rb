@@ -105,8 +105,9 @@ module IsoDoc
         preface_name_anchors(clause, 1, title)
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
           t = c.at(ns("./title"))
-          preface_names1(c, t ? semx(c, t.text, c.name) : nil,
-                         "#{semx(clause, title, clause.name)}<span class='fmt-comma'>,</span> #{semx(c, i + 1)}", 2)
+          tt = "#{semx(clause, title, clause.name)}" \
+            "<span class='fmt-comma'>,</span> #{semx(c, i + 1)}"
+          preface_names1(c, t ? semx(c, t.text, c.name) : nil, tt, 2)
         end
       end
 
@@ -123,7 +124,6 @@ module IsoDoc
 
       def preface_name_anchors(clause, level, title)
         xref = semx(clause, title, clause.name)
-        #xref = "<semx element='#{clause.name}' source='#{clause['id']}'>#{title}</semx>"
         @anchors[clause["id"]] =
           { label: nil, level:,
             xref:, title: nil,
@@ -144,7 +144,6 @@ module IsoDoc
         lbl = semx(clause, num.print)
         section_name_anchors(clause, lbl, lvl)
         clause.xpath(ns(SUBCLAUSES))
-          #.each_with_object(clause_counter(0, prefix: num.print)) do |c, i|
           .each_with_object(clause_counter(0)) do |c, i|
           section_names1(c, lbl, i.increment(c).print, lvl + 1)
         end
@@ -165,7 +164,6 @@ module IsoDoc
         unnumbered_section_name?(clause) and return num
         lbl = clause_number_semx(parentnum, clause, num)
         section_name_anchors(clause, lbl, level)
-        #i = clause_counter(0, prefix: num)
         i = clause_counter(0)
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           section_names1(c, lbl, i.increment(c).print, level + 1)
@@ -234,11 +232,16 @@ module IsoDoc
 
       def annex_names1(clause, parentnum, num, level)
         lbl = clause_number_semx(parentnum, clause, num)
-        annex_name_anchors(clause, lbl, level)
+        annex_name_anchors1(clause, lbl, level)
         i = clause_counter(0)
         clause.xpath(ns(SUBCLAUSES)).each do |c|
           annex_names1(c, lbl, i.increment(c).print, level + 1)
         end
+      end
+
+      # subclauses of Annexes
+      def annex_name_anchors1(clause, num, level)
+        annex_name_anchors(clause, num, level)
       end
     end
   end
