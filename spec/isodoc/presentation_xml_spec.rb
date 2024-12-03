@@ -1600,8 +1600,9 @@ RSpec.describe IsoDoc do
       <introduction/>
       <floating-title>FL 3</p>
       <floating-title>FL 4</p>
-      <foreword/>
+      <foreword><title>Foreword 1</title></foreword>
       <floating-title>FL 5</p>
+      <foreword><title>Foreword 2</title></foreword>
       <floating-title>FL 6</p>
       <abstract/>
       </preface>
@@ -1614,43 +1615,49 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <abstract displayorder="2"/>
-             <foreword displayorder="3">
-                <title id="_">Foreword</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_">Foreword</semx>
-                </fmt-title>
-             </foreword>
-             <introduction displayorder="4"/>
-             <floating-title original-id="_">FL 1</floating-title>
-             <p id="_" type="floating-title" displayorder="5">
-                <semx element="floating-title" source="_">FL 1</semx>
+             <floating-title original-id="_">FL 6</floating-title>
+             <p id="_" type="floating-title" displayorder="2">
+                <semx element="floating-title" source="_">FL 6</semx>
              </p>
-             <floating-title original-id="_">FL 2</floating-title>
-             <p id="_" type="floating-title" displayorder="6">
-                <semx element="floating-title" source="_">FL 2</semx>
-             </p>
+             <abstract displayorder="3"/>
              <floating-title original-id="_">FL 3</floating-title>
-             <p id="_" type="floating-title" displayorder="7">
+             <p id="_" type="floating-title" displayorder="4">
                 <semx element="floating-title" source="_">FL 3</semx>
              </p>
              <floating-title original-id="_">FL 4</floating-title>
-             <p id="_" type="floating-title" displayorder="8">
+             <p id="_" type="floating-title" displayorder="5">
                 <semx element="floating-title" source="_">FL 4</semx>
              </p>
+             <foreword displayorder="6">
+                <title id="_">Foreword 1</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword 1</semx>
+                </fmt-title>
+             </foreword>
              <floating-title original-id="_">FL 5</floating-title>
-             <p id="_" type="floating-title" displayorder="9">
+             <p id="_" type="floating-title" displayorder="7">
                 <semx element="floating-title" source="_">FL 5</semx>
              </p>
-             <floating-title original-id="_">FL 6</floating-title>
-             <p id="_" type="floating-title" displayorder="10">
-                <semx element="floating-title" source="_">FL 6</semx>
+             <foreword displayorder="8">
+                <title id="_">Foreword 2</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword 2</semx>
+                </fmt-title>
+             </foreword>
+             <floating-title original-id="_">FL 1</floating-title>
+             <p id="_" type="floating-title" displayorder="9">
+                <semx element="floating-title" source="_">FL 1</semx>
              </p>
+             <floating-title original-id="_">FL 2</floating-title>
+             <p id="_" type="floating-title" displayorder="10">
+                <semx element="floating-title" source="_">FL 2</semx>
+             </p>
+             <introduction displayorder="11"/>
              <floating-title original-id="_">FL 0</floating-title>
-             <p id="_" type="floating-title" displayorder="11">
+             <p id="_" type="floating-title" displayorder="12">
                 <semx element="floating-title" source="_">FL 0</semx>
              </p>
-             <acknowledgements displayorder="12"/>
+             <acknowledgements displayorder="13"/>
           </preface>
        </standard-document>
     OUTPUT

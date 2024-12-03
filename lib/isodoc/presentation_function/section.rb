@@ -122,33 +122,35 @@ module IsoDoc
     end
 
     def preface_rearrange(doc)
-      preface_move(doc.at(ns("//preface/abstract")),
+      preface_move(doc.xpath(ns("//preface/abstract")),
                    %w(foreword introduction clause acknowledgements), doc)
-      preface_move(doc.at(ns("//preface/foreword")),
+      preface_move(doc.xpath(ns("//preface/foreword")),
                    %w(introduction clause acknowledgements), doc)
-      preface_move(doc.at(ns("//preface/introduction")),
+      preface_move(doc.xpath(ns("//preface/introduction")),
                    %w(clause acknowledgements), doc)
-      preface_move(doc.at(ns("//preface/acknowledgements")),
+      preface_move(doc.xpath(ns("//preface/acknowledgements")),
                    %w(), doc)
     end
 
-    def preface_move(clause, after, _doc)
-      clause or return
-      preface = clause.parent
+    def preface_move(clauses, after, _doc)
+      clauses.empty? and return
+      preface = clauses.first.parent
+      clauses.each do |clause|
       float = preceding_floats(clause)
       xpath = after.map { |n| "./self::xmlns:#{n}" }.join(" | ")
       xpath.empty? and xpath = "./self::*[not(following-sibling::*)]"
       preface_move1(clause, preface, float, nil, xpath)
+      end
     end
 
     def preface_move1(clause, preface, float, prev, xpath)
-      preface.elements.reverse_each do |x|
+      preface.elements.each do |x|
         ((x.name == "floating-title" || x.at(xpath)) &&
         xpath != "./self::*[not(following-sibling::*)]") or prev = x
         x.at(xpath) or next
         clause == prev and break
         prev ||= preface.children.first
-        float << clause
+        prev.next = clause
         float.each { |n| prev.next = n }
         break
       end
