@@ -1547,10 +1547,7 @@ RSpec.describe IsoDoc do
              <br/>
                              <div id="P" class="Section3">
                    <h1 class="Annex">
-                      <b>
-        附件
-        A
-      </b>
+                      <b>附件A</b>
                       <br/>
                       （规范性附录）
                       <br/>
