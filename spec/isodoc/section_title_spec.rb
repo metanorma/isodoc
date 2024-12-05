@@ -2654,7 +2654,7 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
            <sections>
            <clause id="A1">
-           <title>Title <bookmark id="A2"/></title>
+           <title>Title <bookmark id="A2"/> <index><primary>title</primary></index></title>
            </clause>
            </sections>
       </iso-standard>

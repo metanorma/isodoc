@@ -62,9 +62,9 @@ module IsoDoc
       annex docxml
       clause docxml # feeds clausetitle
       term docxml
-      index docxml
       clausetitle docxml # feeds floattitle
       floattitle docxml # feeds rearrange_clauses
+      index docxml # fed by strip_duplicate_ids
       toc docxml
       display_order docxml
     end

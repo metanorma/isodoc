@@ -44,16 +44,23 @@ module IsoDoc
       old.delete("id")
     end
 
-    def strip_duplicate_ids(_node, sem_title, pres_title)
-      sem_title && pres_title or return
-      ids = pres_title.xpath(".//*[@id]").each_with_object([]) do |i, m|
+    def gather_all_ids(elem)
+      elem.xpath(".//*[@id]").each_with_object([]) do |i, m|
         m << i["id"]
       end
+    end
+
+    # remove ids duplicated between title and fmt-title
+    # index terms are assumed transferred to fmt-title from title
+    def strip_duplicate_ids(_node, sem_title, pres_title)
+      sem_title && pres_title or return
+      ids = gather_all_ids(pres_title)
       sem_title.xpath(".//*[@id]").each do |x|
         ids.include?(x["id"]) or next
         x["original-id"] = x["id"]
         x.delete("id")
       end
+      sem_title.xpath(ns(".//index")).each(&:remove)
     end
 
     def semx(node, label, element = "autonum")
