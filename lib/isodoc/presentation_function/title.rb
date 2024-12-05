@@ -35,13 +35,6 @@ module IsoDoc
       transfer_id(elem, p)
     end
 
-    def transfer_id(old, new)
-      old["id"] or return
-      new["id"] = old["id"]
-      old["original-id"] = old["id"]
-      old.delete("id")
-    end
-
     def preceding_floating_titles(node, idx)
       out = node.xpath("./preceding-sibling::*")
         .reverse.each_with_object([]) do |p, m|

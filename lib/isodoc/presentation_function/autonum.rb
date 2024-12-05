@@ -8,7 +8,7 @@ module IsoDoc
       number and node["autonum"] = number.gsub(/<[^>]+>/, "")
       !node.at(ns("./fmt-#{elem}")) &&
         (c = fmt_caption(label, elem, name, ids, delims)) and ins.next = c
-      prefix_name_postprocess(node)
+      prefix_name_postprocess(node, elem)
     end
 
     def prefix_name_defaults(node, delims, label)
@@ -31,8 +31,29 @@ module IsoDoc
         name: "_#{UUIDTools::UUID.random_create}" }
     end
 
-    def prefix_name_postprocess(node)
+    def prefix_name_postprocess(node, elem)
       node.at(ns("./sentinel"))&.remove
+      strip_duplicate_ids(node, node.at(ns("./#{elem}")),
+                          node.at(ns("./fmt-#{elem}")))
+    end
+
+    def transfer_id(old, new)
+      old["id"] or return
+      new["id"] = old["id"]
+      old["original-id"] = old["id"]
+      old.delete("id")
+    end
+
+    def strip_duplicate_ids(_node, sem_title, pres_title)
+      sem_title && pres_title or return
+      ids = pres_title.xpath(".//*[@id]").each_with_object([]) do |i, m|
+        m << i["id"]
+      end
+      sem_title.xpath(".//*[@id]").each do |x|
+        ids.include?(x["id"]) or next
+        x["original-id"] = x["id"]
+        x.delete("id")
+      end
     end
 
     def semx(node, label, element = "autonum")
