@@ -149,7 +149,7 @@ RSpec.describe IsoDoc do
               <xref target='ISO712'>[110]</xref>
               <xref target='ISBN'>[1]</xref>
               <xref target='ISSN'>[2]</xref>
-              <xref target='ISO16634'>ISO 16634:-- (all parts)</xref>
+              <xref target='ISO16634'>ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</xref>
               <xref target='ref1'>ICC/167</xref>
               <xref target='ref10'>[4]</xref>
               <xref target='ref12'>Citn</xref>
@@ -190,10 +190,10 @@ RSpec.describe IsoDoc do
             </bibitem>
             <bibitem id='ISO16634' type='standard'>
                <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
-              <docidentifier type='ISO'>ISO 16634:-- (all parts)</docidentifier>
-              <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
+              <docidentifier type='ISO'>ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</docidentifier>
+              <docidentifier scope="biblio-tag">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</docidentifier>
               <note format='text/plain' type='Unpublished-Status' reference='1'>Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
-              <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
+              <biblio-tag>ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
             </bibitem>
             <bibitem id='ISO20483' type='standard'>
               <formattedref>International Organization for Standardization. <em>Cereals and pulses</em>. 2013&#x2013;2014.</formattedref>
@@ -350,7 +350,7 @@ RSpec.describe IsoDoc do
                  <a href="#ISO712">[110]</a>
                  <a href="#ISBN">[1]</a>
                  <a href="#ISSN">[2]</a>
-                 <a href="#ISO16634">ISO 16634:-- (all parts)</a>
+                 <a href="#ISO16634">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</a>
                  <a href="#ref1">ICC/167</a>
                  <a href="#ref10">[4]</a>
                  <a href="#ref12">Citn</a>
@@ -367,7 +367,7 @@ RSpec.describe IsoDoc do
                amendments) applies.
              </p>
                <p id="ISO712" class="NormRef">[110], ISO&#xa0;712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
-               <p id="ISO16634" class="NormRef">ISO 16634:-- (all parts)<a class="FootnoteRef" href="#fn:_"><sup>_</sup></a>, <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>.</p>
+               <p id="ISO16634" class="NormRef">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)<a class="FootnoteRef" href="#fn:_"><sup>_</sup></a>, <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>.</p>
                <p id="ISO20483" class="NormRef">ISO&#xa0;20483:2013-2014, International Organization for Standardization. <i>Cereals and pulses</i>. 2013–2014.</p>
                <p id="ref1" class="NormRef">ICC/167,
                  <span style="font-variant:small-caps;">Standard No I.C.C 167</span>
@@ -443,7 +443,7 @@ RSpec.describe IsoDoc do
                <a href="#ISO712">[110]</a>
                <a href="#ISBN">[1]</a>
                <a href="#ISSN">[2]</a>
-               <a href="#ISO16634">ISO 16634:-- (all parts)</a>
+               <a href="#ISO16634">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</a>
                <a href="#ref1">ICC/167</a>
                <a href="#ref10">[4]</a>
                <a href="#ref12">Citn</a>
@@ -868,10 +868,10 @@ RSpec.describe IsoDoc do
             </bibitem>
             <bibitem id="ISO16634" type="standard">
               <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
-              <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
-              <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
+              <docidentifier type="ISO">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</docidentifier>
+              <docidentifier scope="biblio-tag">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</docidentifier>
               <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
-              <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
+              <biblio-tag>ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
             </bibitem>
             <bibitem id="ISO20483" type="standard">
               <formattedref>International Organization for Standardization. <em>Cereals and pulses</em>. 2013–2014.</formattedref>
@@ -1122,8 +1122,8 @@ RSpec.describe IsoDoc do
               <formattedref language="en" format="text/plain">
                 <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
               </formattedref>
-              <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
-              <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
+              <docidentifier type="ISO">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</docidentifier>
+              <docidentifier scope="biblio-tag">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</docidentifier>
               <date type="published">
                 <on>--</on>
               </date>
@@ -1137,7 +1137,7 @@ RSpec.describe IsoDoc do
               <extent type="part">
                 <referenceFrom>all</referenceFrom>
               </extent>
-              <biblio-tag>ISO 16634:-- (all parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
+              <biblio-tag>ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
             </bibitem>
           </references>
           </sections>
@@ -1596,10 +1596,10 @@ RSpec.describe IsoDoc do
           <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
           <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
           <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
-          <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
-          <docidentifier type="metanorma">[ISO/IEC Guide 99:2007]</docidentifier>
-          <docidentifier type="URN">URN urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-          <biblio-tag>ISO/IEC Guide 99:2007<fn reference="1"><p id="_">Also known as JCGM 200</p></fn> </biblio-tag>
+          <docidentifier type="ISO" primary="true">ISO/IEC&#xa0;Guide&#xa0;99:2007</docidentifier>
+          <docidentifier type="metanorma">[ISO/IEC&#xa0;Guide&#xa0;99:2007]</docidentifier>
+          <docidentifier type="URN">URN&#xa0;urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+          <biblio-tag>ISO/IEC&#xa0;Guide&#xa0;99:2007<fn reference="1"><p id="_">Also known as JCGM 200</p></fn> </biblio-tag>
         </bibitem>
       </references>
     PRESXML
@@ -1608,7 +1608,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1>1.  Normative References</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-               <p id="ISO712" class="NormRef">ISO/IEC Guide 99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. First edition. 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</p>
+               <p id="ISO712" class="NormRef">ISO/IEC&#xa0;Guide&#xa0;99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. First edition. 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</p>
              </div>
              <aside id="fn:1" class="footnote">
                <p id="_">Also known as JCGM 200</p>
