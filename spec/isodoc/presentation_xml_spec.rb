@@ -1172,7 +1172,7 @@ RSpec.describe IsoDoc do
              <span class="fmt-element-name">箇条</span>
              <semx element="autonum" source="ref1">1</semx>
           </xref>
-          <span class="fmt-conn">および</span>
+          <span class="fmt-conn">及び</span>
           <xref target="ref2">
              <span class="fmt-element-name">箇条</span>
              <semx element="autonum" source="ref2">2</semx>
@@ -1229,7 +1229,7 @@ RSpec.describe IsoDoc do
              <span class="fmt-element-name">箇条</span>
              <semx element="autonum" source="ref2">2</semx>
           </xref>
-          <span class="fmt-conn">および</span>
+          <span class="fmt-conn">及び</span>
           <xref target="ref3">
              <span class="fmt-element-name">箇条</span>
              <semx element="autonum" source="ref3">3</semx>
