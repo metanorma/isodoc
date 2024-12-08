@@ -13,7 +13,7 @@ module IsoDoc
       node["style"] == "id" and anchor_id_postprocess(node)
       xref_empty?(node) or return
       target = docid_l10n(node["target"]) ||
-        expand_citeas(docid_l10n(node["citeas"]))
+        docid_l10n(expand_citeas(node["citeas"]))
       link = anchor_linkend(node, target)
       link += eref_localities(node.xpath(ns("./locality | ./localityStack")),
                               link, node)

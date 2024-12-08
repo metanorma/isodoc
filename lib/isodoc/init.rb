@@ -141,13 +141,14 @@ module IsoDoc
       self.class::AGENCIES.include?(text)
     end
 
-    # This is highly specific to ISO, but it's not a bad precedent for
-    # references anyway; keeping here instead of in IsoDoc::Iso for now
     def docid_l10n(text)
       text.nil? and return text
       @i18n.all_parts and text.gsub!(/All Parts/i, @i18n.all_parts.downcase)
-      text.size < 20 and text.gsub!(/ /, "&#xa0;")
-      text
+      x = Nokogiri::XML::DocumentFragment.parse(text)
+      (x.xpath(".//text()") - x.xpath(".//fn//text()")).each do |n|
+        n.replace(n.text.gsub(/ /, "&#xa0;"))
+      end
+      to_xml(x)
     end
 
     def docid_prefix(prefix, docid)
