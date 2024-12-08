@@ -1539,7 +1539,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <foreword displayorder='2'><title>Foreword</title>
         <p>
-          <xref type="inline" target='ISO712'>BSI BS EN ISO 19011:2018&#x2009;&#x2014;&#x2009;TC</link>
+          <xref type="inline" target='ISO712'>BSI&#xa0;BS&#xa0;EN&#xa0;ISO&#xa0;19011:2018&#x2009;&#x2014;&#x2009;TC</link>
         </p>
       </foreword>
     OUTPUT

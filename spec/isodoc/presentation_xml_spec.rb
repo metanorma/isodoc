@@ -1017,10 +1017,10 @@ RSpec.describe IsoDoc do
       <foreword displayorder="2">
          <title>Section</title>
          <p id="A"><xref target="ref1">箇条1</xref>～<xref target="ref2">箇条2</xref><xref target="ref1"><location target="ref1" connective="from"/><location target="ref2" connective="to"/>text</xref><xref target="ref1">箇条1</xref> and <xref target="ref2">箇条2</xref>
-        <xref target="ref1">箇条1</xref>，<xref target="ref2">箇条2</xref>, and <xref target="ref3">箇条3</xref>
+        <xref target="ref1">箇条1</xref>, <xref target="ref2">箇条2</xref>, and <xref target="ref3">箇条3</xref>
         <xref target="ref1"><location target="ref1" connective="and"/><location target="ref2" connective="and"/>text</xref>
         <xref target="ref1">箇条1</xref> or <xref target="ref2">箇条2</xref>
-        <xref target="ref1">箇条1</xref>，<xref target="ref2">箇条2</xref>, or <xref target="ref3">箇条3</xref>
+        <xref target="ref1">箇条1</xref>, <xref target="ref2">箇条2</xref>, or <xref target="ref3">箇条3</xref>
         <xref target="ref1">箇条1</xref>～<xref target="ref2">箇条2</xref> and <xref target="ref3">箇条3</xref>～<xref target="ref4">箇条4</xref>
         <xref target="item_6-4-a">箇条5のa)の1)</xref>～<xref target="item_6-4-i">箇条5のb)の1)</xref>
          </p>
