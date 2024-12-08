@@ -2,7 +2,7 @@ module IsoDoc
   module Function
     module Lists
       def list_title_parse(node, out)
-        name = node.at(ns("./name")) or return
+        name = node.at(ns("./fmt-name")) or return
         out.p class: "ListTitle" do |p|
           name.children&.each { |n| parse(n, p) }
         end
@@ -16,7 +16,7 @@ module IsoDoc
         out.div **attr_code(class: "ul_wrap") do |div|
           list_title_parse(node, div)
           div.ul **attr_code(ul_attrs(node)) do |ul|
-            node.children.each { |n| n.name == "name" or parse(n, ul) }
+            node.children.each { |n| n.name == "fmt-name" or parse(n, ul) }
           end
         end
       end
@@ -57,7 +57,7 @@ module IsoDoc
         out.div **attr_code(class: "ol_wrap") do |div|
           list_title_parse(node, div)
           div.ol **attr_code(ol_attrs(node)) do |ol|
-            node.children.each { |n| n.name == "name" or parse(n, ol) }
+            node.children.each { |n| n.name == "fmt-name" or parse(n, ol) }
           end
         end
       end
@@ -106,7 +106,7 @@ module IsoDoc
       end
 
       def dl_parse_notes(node, out)
-        node.elements.reject { |n| dt_dd?(n) || n.name == "name" }
+        node.elements.reject { |n| dt_dd?(n) || n.name == "fmt-name" }
           .each { |n| parse(n, out) }
       end
 

@@ -7,6 +7,7 @@ module Nokogiri
         else
           children.first.previous = content
         end
+        self
       end
     end
   end

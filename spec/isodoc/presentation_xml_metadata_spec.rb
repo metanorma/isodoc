@@ -43,23 +43,44 @@ RSpec.describe IsoDoc do
              </source>
            </metanorma>
          </metanorma-extension>
-         <preface>
-             <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause>
-           <foreword id="fwd" displayorder="2"><title>Foreword</title>
-             <p>
-               <math xmlns:sodipodi="ABC" id="b">
-                 <sodipodi:b> xmlns:sodipodi</sodipodi:b>
-               </math>
-               <xref target="N1">Figure 1</xref>
-             </p>
-           </foreword>
-           <introduction id="intro" displayorder="3">
-             <figure id="N1">
-               <name>Figure 1 — Split-it-right sample divider</name>
-               <image src="rice_images/rice_image1.png" id="_" mimetype="image/png"/>
-             </figure>
-           </introduction>
-         </preface>
+                   <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword id="fwd" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                      <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <p>
+                   <math xmlns:sodipodi="ABC" id="b">
+                      <sodipodi:b> xmlns:sodipodi</sodipodi:b>
+                   </math>
+                   <xref target="N1">
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="N1">1</semx>
+                   </xref>
+                </p>
+             </foreword>
+             <introduction id="intro" displayorder="3">
+                <figure id="N1" autonum="1">
+                   <name id="_">Split-it-right sample divider</name>
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Figure</span>
+                         <semx element="autonum" source="N1">1</semx>
+                         </span>
+                         <span class="fmt-caption-delim"> — </span>
+                         <semx element="name" source="_">Split-it-right sample divider</semx>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="N1">1</semx>
+                   </fmt-xref-label>
+                   <image src="rice_images/rice_image1.png" id="_" mimetype="image/png"/>
+                </figure>
+             </introduction>
+          </preface>
        </iso-standard>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
@@ -81,22 +102,24 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <bibdata type="standard"/>
-
-        <metanorma-extension>
-          <clause id="_user_css" inline-header="false" obligation="normative">
-            <title depth="1">user-css</title>
-            <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
-          </clause>
-          <source-highlighter-css>
-      .green { background-color: green }</source-highlighter-css>
-        </metanorma-extension>
-      </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <bibdata type="standard"/>
+          <metanorma-extension>
+             <clause id="_" inline-header="false" obligation="normative">
+                <title id="_">user-css</title>
+                <fmt-title depth="1">
+                      <semx element="title" source="_">user-css</semx>
+                </fmt-title>
+                <sourcecode id="_">.green { background-color: green }</sourcecode>
+             </clause>
+             <source-highlighter-css>
+       .green { background-color: green }</source-highlighter-css>
+          </metanorma-extension>
+       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))
-  .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+  .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -122,17 +145,17 @@ RSpec.describe IsoDoc do
             <title>List of recommendations</title>
           </toc>
         </metanorma-extension>
-         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
-        <sections> </sections>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ tocfigures: true,
              toctables: true,
              tocrecommendations: true }
       .merge(presxml_options))
-      .convert("test", input, true)))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .convert("test", input, true))
+    xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
+      .each(&:remove)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
@@ -167,26 +190,15 @@ RSpec.describe IsoDoc do
           <value>font1</value>
         </presentation-metadata>
         </metanorma-extension>
-        <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Table of contents</title> </clause> </preface>
-                 <sections>
-           <clause id='A' inline-header='false' obligation='normative' displayorder='2'>
-             <title depth='1'>
-               1.
-               <tab/>
-               Section
-             </title>
-             <figure id='B1'>
-               <name>Figure 1&#xA0;&#x2014; First</name>
-             </figure>
-           </clause>
-         </sections>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ fonts: "font1; font2", fontlicenseagreement: "no-install-fonts" }
       .merge(presxml_options))
-      .convert("test", input, true)))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
+      .convert("test", input, true))
+    xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
+      .each(&:remove)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 

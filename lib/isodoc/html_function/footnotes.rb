@@ -24,6 +24,7 @@ module IsoDoc
         end
       end
 
+      # Move to Presentation XML, as <fmt-footnote>: it's a footnote body
       def make_table_footnote_text(node, fnid, fnref)
         attrs = { id: "fn:#{fnid}" }
         noko do |xml|
@@ -68,7 +69,7 @@ module IsoDoc
 
       def footnote_parse(node, out)
         return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
-          !node.ancestors.map(&:name).include?("name")
+          !node.ancestors.map(&:name).include?("fmt-name")
 
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
         attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }

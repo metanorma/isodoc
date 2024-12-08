@@ -44,7 +44,7 @@ module IsoDoc
 
       def word_nested_tables(docxml)
         docxml.xpath("//table").each do |t|
-          t.xpath(".//table").reverse.each do |tt|
+          t.xpath(".//table").reverse_each do |tt|
             t.next = tt.remove
           end
         end

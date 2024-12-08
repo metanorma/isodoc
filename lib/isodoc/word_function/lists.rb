@@ -25,13 +25,13 @@ module IsoDoc
 
       def dl_parse_nontable(node, out)
         out.div **attr_code(class: "figdl") do |div|
-        node["id"] and bookmark_parse(node, div)
-        list_title_parse(node, div)
-        node.elements.select { |n| dt_dd?(n) }
-          .each_slice(2) do |dt, dd|
-          dl_parse_nontable1(div, dt, dd)
-        end
-        dl_parse_notes(node, div)
+          node["id"] and bookmark_parse(node, div)
+          list_title_parse(node, div)
+          node.elements.select { |n| dt_dd?(n) }
+            .each_slice(2) do |dt, dd|
+            dl_parse_nontable1(div, dt, dd)
+          end
+          dl_parse_notes(node, div)
         end
       end
 
@@ -58,13 +58,13 @@ module IsoDoc
 
       def ddef_other_paras(out, ddef)
         ddef.elements&.first&.name == "p" or return
-        ddef.children[1..-1].each { |n| parse(n, out) }
+        ddef.children[1..].each { |n| parse(n, out) }
       end
 
       def dl_parse_table(node, out)
         list_title_parse(node, out)
         out.table **attr_code(id: node["id"],
-                              class: (node["class"] || "dl")) do |v|
+                              class: node["class"] || "dl") do |v|
           node.elements.select { |n| dt_dd?(n) }
             .each_slice(2) do |dt, dd|
             dl_parse_table1(v, dt, dd)
@@ -85,7 +85,9 @@ module IsoDoc
       end
 
       def dl_parse_table_notes(node, out)
-        remainder = node.elements.reject { |n| dt_dd?(n) || n.name == "name" }
+        remainder = node.elements.reject do |n|
+          dt_dd?(n) || n.name == "fmt-name"
+        end
         remainder.empty? and return
         out.tr do |tr|
           tr.td colspan: 2 do |td|

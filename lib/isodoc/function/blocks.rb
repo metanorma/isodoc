@@ -25,9 +25,9 @@ module IsoDoc
       def figure_parse1(node, out)
         out.div **figure_attrs(node) do |div|
           node.children.each do |n|
-            parse(n, div) unless n.name == "name"
+            parse(n, div) unless n.name == "fmt-name"
           end
-          figure_name_parse(node, div, node.at(ns("./name")))
+          figure_name_parse(node, div, node.at(ns("./fmt-name")))
         end
       end
 
@@ -37,9 +37,9 @@ module IsoDoc
 
       def pseudocode_parse(node, out)
         @in_figure = true
-        name = node.at(ns("./name"))
+        name = node.at(ns("./fmt-name"))
         out.div **pseudocode_attrs(node) do |div|
-          node.children.each { |n| parse(n, div) unless n.name == "name" }
+          node.children.each { |n| parse(n, div) unless n.name == "fmt-name" }
           sourcecode_name_parse(node, div, name)
         end
         @in_figure = false
@@ -57,7 +57,7 @@ module IsoDoc
       end
 
       def sourcecode_parse(node, out)
-        name = node.at(ns("./name"))
+        name = node.at(ns("./fmt-name"))
         out.p **sourcecode_attrs(node) do |div|
           sourcecode_parse1(node, div)
         end
@@ -71,7 +71,7 @@ module IsoDoc
           node.at("./ancestor::xmlns:table[@class = 'rouge-line-table']") and
           @sourcecode = "table"
         node.children.each do |n|
-          %w(name dl).include?(n.name) and next
+          %w(fmt-name dl).include?(n.name) and next
           parse(n, div)
         end
         @sourcecode = false
@@ -93,7 +93,7 @@ module IsoDoc
         out.div **attr_code(class: "formula") do |div|
           div.p do |_p|
             parse(node.at(ns("./stem")), div)
-            if lbl = node&.at(ns("./name"))&.text
+            if lbl = node&.at(ns("./fmt-name"))&.text
               insert_tab(div, 1)
               div << lbl
             end
@@ -109,7 +109,7 @@ module IsoDoc
         out.div **formula_attrs(node) do |div|
           formula_parse1(node, div)
           node.children.each do |n|
-            %w(stem name).include? n.name and next
+            %w(stem fmt-name).include? n.name and next
             parse(n, div)
           end
         end

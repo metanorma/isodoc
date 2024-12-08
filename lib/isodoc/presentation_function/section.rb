@@ -1,26 +1,12 @@
 require_relative "refs"
+require_relative "title"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def middle_title(docxml)
-      s = docxml.at(ns("//sections")) or return
-      t = @meta.get[:doctitle]
-      t.nil? || t.empty? and return
-      s.add_first_child "<p class='zzSTDTitle1'>#{t}</p>"
-    end
-
-    def missing_title(docxml)
-      docxml.xpath(ns("//definitions[not(./title)]")).each do |d|
-        # should only be happening for subclauses
-        d.add_first_child "<title>#{@i18n.symbols}</title>"
-      end
-      docxml.xpath(ns("//foreword[not(./title)]")).each do |d|
-        d.add_first_child "<title>#{@i18n.foreword}</title>"
-      end
-    end
-
     def clause(docxml)
-      docxml.xpath(ns("//clause | //terms | //definitions | //references"))
+      docxml.xpath(ns("//clause | //terms | //definitions | //references | " \
+                      "//introduction | //foreword | //preface/abstract | " \
+                      "//acknowledgements | //colophon | //indexsect "))
         .each do |f|
         f.parent.name == "annex" &&
           @xrefs.klass.single_term_clause?(f.parent) and next
@@ -34,32 +20,23 @@ module IsoDoc
         elem.at("./ancestor::*[@unnumbered = 'true']")
     end
 
+    def clausedelim
+      ret = super
+      ret && !ret.empty? or return ret
+      "<span class='fmt-autonum-delim'>#{ret}</span>"
+    end
+
     def clause1(elem)
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
-      t = elem.at(ns("./title")) and t["depth"] = level
-      unnumbered_clause?(elem) and return
-      lbl = @xrefs.anchor(elem["id"], :label,
-                          elem.parent.name != "sections") or return
-      prefix_name(elem, "<tab/>", "#{lbl}#{clausedelim}", "title")
-    end
-
-    def floattitle(docxml)
-      p = "//clause | //annex | //appendix | //introduction | //foreword | " \
-          "//preface/abstract | //acknowledgements | //terms | " \
-          "//definitions | //references | //colophon | //indexsect"
-      docxml.xpath(ns(p)).each { |f| floattitle1(f) }
-      # top-level
-      docxml.xpath(ns("//sections | //preface | //colophon"))
-        .each { |f| floattitle1(f) }
-    end
-
-    # TODO not currently doing anything with the @depth attribute of floating-title
-    def floattitle1(elem)
-      elem.xpath(ns(".//floating-title")).each do |p|
-        p.name = "p"
-        p["type"] = "floating-title"
+      lbl = @xrefs.anchor(elem["id"], :label, elem.parent.name != "sections")
+      if unnumbered_clause?(elem) || !lbl
+        prefix_name(elem, {}, nil, "title")
+      else
+        prefix_name(elem, { caption: "<tab/>" }, "#{lbl}#{clausedelim}",
+                    "title")
       end
+      t = elem.at(ns("./fmt-title")) and t["depth"] = level
     end
 
     def annex(docxml)
@@ -73,10 +50,18 @@ module IsoDoc
 
     def annex1(elem)
       lbl = @xrefs.anchor(elem["id"], :label)
+      # TODO: do not alter title, alter semx/@element = title
       t = elem.at(ns("./title")) and
         t.children = "<strong>#{to_xml(t.children)}</strong>"
-      unnumbered_clause?(elem) and return
-      prefix_name(elem, "<br/><br/>", lbl, "title")
+      if unnumbered_clause?(elem)
+        prefix_name(elem, {}, nil, "title")
+      else
+        prefix_name(elem, { caption: annex_delim(elem) }, lbl, "title")
+      end
+    end
+
+    def annex_delim(_elem)
+      "<br/><br/>"
     end
 
     def single_term_clause_retitle(elem)
@@ -91,7 +76,7 @@ module IsoDoc
       t = elem.at(ns("./terms | ./definitions | ./references"))
       t.xpath(ns(".//clause | .//terms | .//definitions | .//references"))
         .each do |c|
-          tit = c.at(ns("./title")) or return
+          tit = c.at(ns("./fmt-title")) or next
           tit["depth"] = tit["depth"].to_i - 1 unless tit["depth"] == "1"
         end
     end
@@ -100,8 +85,13 @@ module IsoDoc
       docxml.xpath(ns("//index | //index-xref | //indexsect")).each(&:remove)
     end
 
+    def skip_display_order?(node)
+      node.name == "floating-title"
+    end
+
     def display_order_at(docxml, xpath, idx)
       c = docxml.at(ns(xpath)) or return idx
+      skip_display_order?(c) and return idx
       idx += 1
       idx = preceding_floating_titles(c, idx)
       c["displayorder"] = idx
@@ -110,22 +100,10 @@ module IsoDoc
 
     def display_order_xpath(docxml, xpath, idx)
       docxml.xpath(ns(xpath)).each do |c|
+        skip_display_order?(c) and next
         idx += 1
         idx = preceding_floating_titles(c, idx)
         c["displayorder"] = idx
-      end
-      idx
-    end
-
-    def preceding_floating_titles(node, idx)
-      out = node.xpath("./preceding-sibling::*")
-        .reverse.each_with_object([]) do |p, m|
-        %w(note admonition p).include?(p.name) or break m
-        m << p
-      end
-      out.reject { |c| c["displayorder"] }.reverse_each do |c|
-        c["displayorder"] = idx
-        idx += 1
       end
       idx
     end
@@ -143,46 +121,26 @@ module IsoDoc
       end
     end
 
-    def clausetitle(docxml)
-      cjk_extended_title(docxml)
-    end
-
-    def cjk_search
-      lang = %w(zh ja ko).map { |x| "@language = '#{x}'" }.join(" or ")
-      %(Hans Hant Jpan Hang Kore).include?(@script) and
-        lang += " or not(@language)"
-      lang
-    end
-
-    def cjk_extended_title(docxml)
-      l = cjk_search
-      docxml.xpath(ns("//bibdata/title[#{l}] | //floating-title[#{l}] | " \
-                      "//title[@depth = '1' or not(@depth)][#{l}]")).each do |t|
-        t.text.size < 4 or next
-        t.elements.empty? or next # can't be bothered
-        t.children = @i18n.cjk_extend(t.text)
-      end
-    end
-
     def preface_rearrange(doc)
-      preface_move(doc.at(ns("//preface/abstract")),
+      preface_move(doc.xpath(ns("//preface/abstract")),
                    %w(foreword introduction clause acknowledgements), doc)
-      preface_move(doc.at(ns("//preface/foreword")),
+      preface_move(doc.xpath(ns("//preface/foreword")),
                    %w(introduction clause acknowledgements), doc)
-      preface_move(doc.at(ns("//preface/introduction")),
+      preface_move(doc.xpath(ns("//preface/introduction")),
                    %w(clause acknowledgements), doc)
-      preface_move(doc.at(ns("//preface/acknowledgements")),
+      preface_move(doc.xpath(ns("//preface/acknowledgements")),
                    %w(), doc)
     end
 
-    def preface_move(clause, after, _doc)
-      clause or return
-      preface = clause.parent
+    def preface_move(clauses, after, _doc)
+      clauses.empty? and return
+      preface = clauses.first.parent
+      clauses.each do |clause|
       float = preceding_floats(clause)
-      prev = nil
       xpath = after.map { |n| "./self::xmlns:#{n}" }.join(" | ")
       xpath.empty? and xpath = "./self::*[not(following-sibling::*)]"
-      preface_move1(clause, preface, float, prev, xpath)
+      preface_move1(clause, preface, float, nil, xpath)
+      end
     end
 
     def preface_move1(clause, preface, float, prev, xpath)
@@ -192,45 +150,15 @@ module IsoDoc
         x.at(xpath) or next
         clause == prev and break
         prev ||= preface.children.first
-        float << clause
+        prev.next = clause
         float.each { |n| prev.next = n }
         break
       end
     end
 
-    def preceding_floats(clause)
-      ret = []
-      p = clause
-      while prev = p.previous_element
-        if prev.name == "floating-title"
-          ret << prev
-          p = prev
-        else break end
-      end
-      ret
-    end
-
     def rearrange_clauses(docxml)
       preface_rearrange(docxml) # feeds toc_title
       toc_title(docxml)
-    end
-
-    def toc_title(docxml)
-      docxml.at(ns("//preface/clause[@type = 'toc']")) and return
-      ins = toc_title_insert_pt(docxml) or return
-      id = UUIDTools::UUID.random_create.to_s
-      ins.previous = <<~CLAUSE
-        <clause type = 'toc' id='_#{id}'><title depth='1'>#{@i18n.table_of_contents}</title></clause>
-      CLAUSE
-    end
-
-    def toc_title_insert_pt(docxml)
-      ins = docxml.at(ns("//preface")) ||
-        docxml.at(ns("//sections | //annex | //bibliography"))
-          &.before("<preface> </preface>")
-          &.previous_element or return nil
-      ins.children.empty? and ins << " "
-      ins.children.first
     end
 
     def toc(docxml)
@@ -240,7 +168,7 @@ module IsoDoc
     def toc_refs(docxml)
       docxml.xpath(ns("//toc//xref[text()]")).each do |x|
         lbl = @xrefs.anchor(x["target"], :label) or next
-        x.add_first_child "#{lbl}<tab/>"
+        x.add_first_child "#{lbl}<span class='fmt-caption-delim'><tab/></span>"
       end
     end
   end

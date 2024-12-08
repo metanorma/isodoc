@@ -104,8 +104,10 @@ module IsoDoc
         title = clause_title(clause, use_elem_name: true)
         preface_name_anchors(clause, 1, title)
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-          preface_names1(c, c.at(ns("./title"))&.text,
-                         "#{title}, #{i + 1}", 2)
+          t = c.at(ns("./title"))
+          tt = "#{semx(clause, title, clause.name)}" \
+            "<span class='fmt-comma'>,</span> #{semx(c, i + 1)}"
+          preface_names1(c, t ? semx(c, t.text, c.name) : nil, tt, 2)
         end
       end
 
@@ -113,15 +115,18 @@ module IsoDoc
         label = title || parent_title
         preface_name_anchors(clause, level, title || parent_title)
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-          preface_names1(c, c.at(ns("./title"))&.text, "#{label} #{i + 1}",
+          t = c.at(ns("./title"))
+          preface_names1(c, t ? semx(c, t.text, c.name) : nil,
+                         "#{label} #{semx(c, i + 1)}",
                          level + 1)
         end
       end
 
       def preface_name_anchors(clause, level, title)
+        xref = semx(clause, title, clause.name)
         @anchors[clause["id"]] =
           { label: nil, level:,
-            xref: title, title: nil,
+            xref:, title: nil,
             type: "clause", elem: @labels["clause"] }
       end
 
@@ -136,20 +141,32 @@ module IsoDoc
       def section_names(clause, num, lvl)
         unnumbered_section_name?(clause) and return num
         num.increment(clause)
-        section_name_anchors(clause, num.print, lvl)
+        lbl = semx(clause, num.print)
+        section_name_anchors(clause, lbl, lvl)
         clause.xpath(ns(SUBCLAUSES))
-          .each_with_object(clause_counter(0, prefix: num.print)) do |c, i|
-          section_names1(c, i.increment(c).print, lvl + 1)
+          .each_with_object(clause_counter(0)) do |c, i|
+          section_names1(c, lbl, i.increment(c).print, lvl + 1)
         end
         num
       end
 
-      def section_names1(clause, num, level)
+      def clause_number_semx(parentnum, clause, num)
+        if clause["branch-number"]
+                semx(clause, clause["branch-number"])
+        elsif parentnum.nil?
+          semx(clause, num)
+              else
+                "#{parentnum}#{delim_wrap(clausesep)}#{semx(clause, num)}"
+              end
+      end
+
+      def section_names1(clause, parentnum, num, level)
         unnumbered_section_name?(clause) and return num
-        section_name_anchors(clause, num, level)
-        i = clause_counter(0, prefix: num)
+        lbl = clause_number_semx(parentnum, clause, num)
+        section_name_anchors(clause, lbl, level)
+        i = clause_counter(0)
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          section_names1(c, i.increment(c).print, level + 1)
+          section_names1(c, lbl, i.increment(c).print, level + 1)
         end
       end
 
@@ -162,10 +179,16 @@ module IsoDoc
         false
       end
 
+      def clausesep
+        "."
+      end
+
       def section_name_anchors(clause, num, level)
+        xref = labelled_autonum(@labels["clause"], num)
+        label = num
+        c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
-          { label: num, xref: "#{@labels['clause']} #{num}",
-            title: clause_title(clause), level:, type: "clause",
+          { label:, xref:, title:, level:, type: "clause",
             elem: @labels["clause"] }
       end
 
@@ -173,43 +196,52 @@ module IsoDoc
         obl = "(#{@labels['inform_annex']})"
         clause["obligation"] == "normative" and
           obl = "(#{@labels['norm_annex']})"
+        obl = "<span class='fmt-obligation'>#{l10n obl}</fmt>"
         title = Common::case_with_markup(@labels["annex"], "capital",
                                          @script)
-        "<strong>#{title} #{num}</strong><br/>#{obl}"
+        s = labelled_autonum(title, num)
+        "<strong><span class='fmt-caption-label'>#{s}</span></strong><br/>#{obl}"
       end
 
       def annex_name_anchors(clause, num, level)
         label = num
         level == 1 && clause.name == "annex" and
-          label = annex_name_lbl(clause, num)
+          label = annex_name_lbl(clause, label)
+        xref = labelled_autonum(@labels["annex"], num)
+        c = clause_title(clause) and title = semx(clause, c, "title")
         @anchors[clause["id"]] =
-          { label:,
+          { label:, xref:, title:,
             elem: @labels["annex"], type: "clause",
-            subtype: "annex", value: num.to_s, level:,
-            title: clause_title(clause),
-            xref: "#{@labels['annex']} #{num}" }
+            subtype: "annex", value: num.to_s, level: }
       end
 
       def annex_names(clause, num)
-        annex_name_anchors(clause, num, 1)
+        label = semx(clause, num)
+        annex_name_anchors(clause, label, 1)
         if @klass.single_term_clause?(clause)
           annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
-                       num.to_s, 1)
+                       nil, num.to_s, 1)
         else
           clause.xpath(ns(SUBCLAUSES))
-            .each_with_object(clause_counter(0, prefix: num)) do |c, i|
-            annex_names1(c, i.increment(c).print, 2)
+            .each_with_object(clause_counter(0)) do |c, i|
+            annex_names1(c, label, i.increment(c).print, 2)
           end
         end
-        hierarchical_asset_names(clause, num)
+        hierarchical_asset_names(clause, label)
       end
 
-      def annex_names1(clause, num, level)
-        annex_name_anchors(clause, num, level)
-        i = clause_counter(0, prefix: num)
+      def annex_names1(clause, parentnum, num, level)
+        lbl = clause_number_semx(parentnum, clause, num)
+        annex_name_anchors1(clause, lbl, level)
+        i = clause_counter(0)
         clause.xpath(ns(SUBCLAUSES)).each do |c|
-          annex_names1(c, i.increment(c).print, level + 1)
+          annex_names1(c, lbl, i.increment(c).print, level + 1)
         end
+      end
+
+      # subclauses of Annexes
+      def annex_name_anchors1(clause, num, level)
+        annex_name_anchors(clause, num, level)
       end
     end
   end

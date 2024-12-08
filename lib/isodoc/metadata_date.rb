@@ -42,7 +42,7 @@ module IsoDoc
 
     def bibdate(isoxml, _out)
       isoxml.xpath(ns("//bibdata/date")).each do |d|
-        set("#{d['type'].gsub(/-/, '_')}date".to_sym, Common::date_range(d))
+        set("#{d['type'].tr('-', '_')}date".to_sym, Common::date_range(d))
       end
     end
   end

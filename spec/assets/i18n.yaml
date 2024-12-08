@@ -15,6 +15,7 @@ norm_annex: normative
 figure: figur-etikedo duvorta
 example: Ekzempl-etikedo Duvorta
 note: NOTO
+note_xref: noto
 locality: {
   table: Tabelo,
   prelude: preludo
@@ -41,3 +42,4 @@ SpelloutRules:
 edition_ordinal: "eldono {{ var1 | ordinal_word: edition, '' }}"
 edition: eldono
 no_identifier: null
+nested_xref: "%1<comma>—</comma>%2"

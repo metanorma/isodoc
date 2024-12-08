@@ -28,24 +28,27 @@ module IsoDoc
         end
       end
 
-      def para_then_remainder(first, node, para, div)
-        if first.name == "p"
-          first.children.each { |n| parse(n, para) }
-          node.elements.drop(1).each { |n| parse(n, div) }
-        else
-          node.elements.each { |n| parse(n, div) }
-        end
+      def termnote_p_class
+        nil
       end
 
       def termnote_parse(node, out)
-        name = node&.at(ns("./name"))&.remove
+        para = block_body_first_elem(node)
         out.div **note_attrs(node) do |div|
-          div.p do |p|
-            name&.children&.each { |n| parse(n, p) }
-            p << " "
-            para_then_remainder(node.first_element_child, node, p, div)
-          end
+          termnote_parse1(node, para, div)
+          para&.xpath("./following-sibling::*")&.each { |n| parse(n, div) }
         end
+      end
+
+      def termnote_parse1(node, para, div)
+        div.p **attr_code(class: termnote_p_class) do |p|
+          name = node.at(ns("./fmt-name")) and
+            p.span class: "termnote_label" do |s|
+              children_parse(name, s)
+            end
+          para&.name == "p" and children_parse(para, p)
+        end
+        para&.name != "p" and parse(para, div)
       end
 
       def termref_parse(node, out)
@@ -60,7 +63,7 @@ module IsoDoc
       end
 
       def termdef_parse(node, out)
-        name = node.at(ns("./name"))&.remove
+        name = node.at(ns("./fmt-name"))&.remove
         out.p class: "TermNum", id: node["id"] do |p|
           name&.children&.each { |n| parse(n, p) }
         end

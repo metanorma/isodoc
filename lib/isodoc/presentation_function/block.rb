@@ -1,27 +1,21 @@
 require_relative "image"
 require_relative "sourcecode"
+require_relative "autonum"
 require "rouge"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def lower2cap(text)
-      /^[[:upper:]][[:upper:]]/.match?(text) and return text
-      text&.capitalize
+      text.nil? and return text
+      x = Nokogiri::XML("<a>#{text}</a>")
+      firsttext = x.at(".//text()[string-length(normalize-space(.))>0]") or return text
+      /^[[:upper:]][[:upper:]]/.match?(firsttext.text) and return text
+      firsttext.replace(firsttext.text.capitalize)
+      to_xml(x.root.children)
     end
 
     def block_delim
       "&#xa0;&#x2014; "
-    end
-
-    def prefix_name(node, delim, number, elem)
-      number.nil? || number.empty? and return
-      unless name = node.at(ns("./#{elem}"))
-        node.add_first_child "<#{elem}></#{elem}>"
-        name = node.children.first
-      end
-      if name.children.empty? then name.add_child(cleanup_entities(number.strip))
-      else (name.children.first.previous = "#{number.strip}#{delim}")
-      end
     end
 
     def formula(docxml)
@@ -31,7 +25,7 @@ module IsoDoc
     def formula1(elem)
       formula_where(elem.at(ns("./dl")))
       lbl = @xrefs.anchor(elem["id"], :label, false)
-      lbl.nil? || lbl.empty? or prefix_name(elem, "", "(#{lbl})", "name")
+      lbl.nil? || lbl.empty? or prefix_name(elem, {}, lbl, "name")
     end
 
     def formula_where(dlist)
@@ -47,11 +41,8 @@ module IsoDoc
 
     def example1(elem)
       n = @xrefs.get[elem["id"]]
-      lbl = if n.nil? || n[:label].nil? || n[:label].empty?
-              @i18n.example
-            else l10n("#{@i18n.example} #{n[:label]}")
-            end
-      prefix_name(elem, block_delim, lbl, "name")
+      lbl = labelled_autonum(@i18n.example, elem["id"], n&.dig(:label))
+      prefix_name(elem, { caption: block_delim }, lbl, "name")
     end
 
     def note(docxml)
@@ -59,22 +50,18 @@ module IsoDoc
     end
 
     def note_delim(_elem)
-      ""
+      "<tab/>"
     end
 
     def note1(elem)
       %w(bibdata bibitem).include?(elem.parent.name) ||
-        elem["notag"] == "true" and return
-      lbl = note_label(elem)
-      prefix_name(elem, "", lbl, "name")
+        elem["notag"] == "true" or lbl = note_label(elem)
+      prefix_name(elem, { label: note_delim(elem) }, lbl, "name")
     end
 
     def note_label(elem)
       n = @xrefs.get[elem["id"]]
-      lbl = @i18n.note
-      (n.nil? || n[:label].nil? || n[:label].empty?) or
-        lbl = l10n("#{lbl} #{n[:label]}")
-      "#{lbl}#{note_delim(elem)}"
+      labelled_autonum(@i18n.note, elem["id"], n&.dig(:label))
     end
 
     def admonition(docxml)
@@ -85,24 +72,25 @@ module IsoDoc
       if elem["type"] == "box"
         admonition_numbered1(elem)
       elsif elem["notag"] == "true" || elem.at(ns("./name"))
+        prefix_name(elem, { label: admonition_delim(elem) }, nil, "name")
       else
         label = admonition_label(elem, nil)
-        prefix_name(elem, "", label, "name")
+        prefix_name(elem, { label: admonition_delim(elem) }, label, "name")
       end
-      n = elem.at(ns("./name")) and n << admonition_delim(elem)
     end
 
     def admonition_numbered1(elem)
-      elem["unnumbered"] && !elem.at(ns("./name")) and return
+      # elem["unnumbered"] && !elem.at(ns("./name")) and return
       label = admonition_label(elem, @xrefs.anchor(elem["id"], :label, false))
-      prefix_name(elem, block_delim, label, "name")
+      prefix_name(elem, { caption: block_delim }, label, "name")
     end
 
     def admonition_label(elem, num)
       lbl = if elem["type"] == "box" then @i18n.box
             else @i18n.admonition[elem["type"]]&.upcase end
-      num and lbl = l10n("#{lbl} #{num}")
-      lbl
+      #lbl &&= "<span class='fmt-element-name'>#{lbl}</span>"
+      #num and lbl = l10n("#{lbl} #{autonum(elem['id'], num)}")
+      labelled_autonum(lbl, elem["id"], num)
     end
 
     def admonition_delim(_elem)
@@ -119,8 +107,14 @@ module IsoDoc
       labelled_ancestor(elem) and return
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
-      prefix_name(elem, block_delim, l10n("#{lower2cap @i18n.table} #{n}"),
-                  "name")
+      #lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.table}</span> "\
+        #"#{autonum(elem['id'], n)}"
+      lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"], n)
+      prefix_name(elem, { caption: table_delim }, l10n(lbl), "name")
+    end
+
+    def table_delim
+      block_delim
     end
 
     def table_long_strings_cleanup(docxml)
@@ -156,7 +150,23 @@ module IsoDoc
       elem.replace(elem.children)
     end
 
-    def dl(docxml); end
+    def dl(docxml)
+      docxml.xpath(ns("//dl")).each { |f| dl1(f) }
+    end
+
+    def dl1(elem)
+      elem.at(ns("./name")) and
+        prefix_name(elem, {}, "", "name") # copy name to fmt-name
+    end
+
+    def ul(docxml)
+      docxml.xpath(ns("//ul")).each { |f| ul1(f) }
+    end
+
+    def ul1(elem)
+      elem.at(ns("./name")) and
+        prefix_name(elem, {}, "", "name") # copy name to fmt-name
+    end
 
     def ol(docxml)
       docxml.xpath(ns("//ol")).each { |f| ol1(f) }
@@ -179,9 +189,8 @@ module IsoDoc
 
     def ol1(elem)
       elem["type"] ||= ol_depth(elem).to_s
-      elem.xpath(ns("./li")).each do |li|
-        li["id"] ||= "_#{UUIDTools::UUID.random_create}"
-      end
+      elem.at(ns("./name")) and
+        prefix_name(elem, {}, "", "name") # copy name to fmt-name
     end
 
     def ol_label(elem)

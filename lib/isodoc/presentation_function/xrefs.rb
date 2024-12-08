@@ -7,13 +7,14 @@ module IsoDoc
         prefix_container(container_container,
                          anchor_xref(node, container, container: true),
                          node, target)
-      l10n(@i18n.nested_xref.sub("%1", container_label)
-        .sub("%2", linkend))
+      l10n(connectives_spans(@i18n.nested_xref
+        .sub("%1", "<span class='fmt-xref-container'>#{container_label}</span>")
+        .sub("%2", linkend)))
     end
 
     def anchor_value(id)
-      @xrefs.anchor(id, :bare_xref) || @xrefs.anchor(id, :value) ||
-        @xrefs.anchor(id, :label) || @xrefs.anchor(id, :xref)
+      @xrefs.anchor(id, :bare_xref) || @xrefs.anchor(id, :label) ||
+        @xrefs.anchor(id, :value) || @xrefs.anchor(id, :xref)
     end
 
     def anchor_linkend(node, linkend)
@@ -55,14 +56,15 @@ module IsoDoc
 
     def anchor_xref_short(node, target, container)
       if (l = node["label"]) && !container
-        @i18n.l10n("#{l} #{anchor_value(target)}")
+        v = anchor_value(target)
+        @i18n.l10n(%[<span class="fmt-element-name">#{l}</span> #{v}])
       else @xrefs.anchor(target, :xref)
       end
     end
 
     def anchor_xref_full(num, title)
       (!title.nil? && !title.empty?) or return nil
-      l10n("#{num}, #{title}")
+      l10n("#{num}<span class='fmt-comma'>,</span> #{title}")
     end
 
     def prefix_container?(container, node)
@@ -133,9 +135,13 @@ module IsoDoc
     def combine_conn(list)
       list.size == 1 and list.first[:label]
       if list[1..].all? { |l| l[:conn] == "and" }
-        @i18n.boolean_conj(list.map { |l| loc2xref(l) }, "and")
+        connectives_spans(@i18n.boolean_conj(list.map do |l|
+          loc2xref(l)
+        end, "and"))
       elsif list[1..].all? { |l| l[:conn] == "or" }
-        @i18n.boolean_conj(list.map { |l| loc2xref(l) }, "or")
+        connectives_spans(@i18n.boolean_conj(list.map do |l|
+          loc2xref(l)
+        end, "or"))
       else
         ret = loc2xref(list[0])
         list[1..].each { |l| ret = i18n_chain_boolean(ret, l) }
@@ -144,8 +150,9 @@ module IsoDoc
     end
 
     def i18n_chain_boolean(value, entry)
-      @i18n.send("chain_#{entry[:conn]}").sub("%1", value)
-        .sub("%2", loc2xref(entry))
+      connectives_spans(@i18n.send("chain_#{entry[:conn]}")
+        .sub("%1", value)
+        .sub("%2", loc2xref(entry)))
     end
 
     def can_conflate_xref_rendering?(locs)

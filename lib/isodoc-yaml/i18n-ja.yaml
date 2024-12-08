@@ -34,16 +34,16 @@ internal_external_terms_boilerplate: |
           この規格で用いる主な用語及び定義は，次によるほか，% による。
 no_information_available: "[情報はありません]"
 term_defined_in: "(%)"
-binary_and: "%1 and %2"
-multiple_and: "%1, and %2"
-binary_or: "%1 or %2"
-multiple_or: "%1, or %2"
-chain_and: "%1 and %2"
-chain_or: "%1 or %2"
-chain_from: "%1 from %2"
-chain_to: "%1～%2"
-nested_xref: "%1の%2"
-list_nested_xref: "%1の%2"
+binary_and: "%1 <conn>及び</conn> %2"
+multiple_and: "%1<enum-comma>、</enum-comma>%2"
+binary_or: "%1 <conn>または</conn> %2"
+multiple_or: "%1<enum-comma>、</enum-comma> <conn>または</conn> %2"
+chain_and: "%1 <conn>及び</conn> %2"
+chain_or: "%1 <conn>または</conn> %2"
+chain_from: "%1 <conn>から</conn> %2"
+chain_to: "%1<conn>～</conn>%2"
+nested_xref: "%1<conn>の</conn>%2"
+list_nested_xref: "%1<conn>の</conn>%2"
 no_conflate_xref_locations: true
 ordinal_keys: []
 SpelloutRules: spellout-ordinal

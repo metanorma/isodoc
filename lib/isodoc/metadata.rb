@@ -13,6 +13,15 @@ module IsoDoc
       @i18n.l10n(expr, lang, script, locale)
     end
 
+    def connectives_strip(text)
+      text.gsub("<conn>", "")
+        .gsub("</conn>", "")
+        .gsub("<enum-comma>", "")
+        .gsub("</enum-comma>", "")
+        .gsub("<comma>", "")
+        .gsub("</comma>", "")
+    end
+
     def initialize(lang, script, locale, i18n, fonts_options = {})
       @metadata = { lang:, script: }
       DATETYPES.each { |w| @metadata["#{w.tr('-', '_')}date".to_sym] = "XXX" }

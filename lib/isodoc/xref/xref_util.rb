@@ -14,7 +14,7 @@ end
 
 module IsoDoc
   module XrefGen
-    module Blocks
+    module Util
       def blank?(text)
         text.nil? || text.empty?
       end
@@ -43,6 +43,48 @@ module IsoDoc
 
       CHILD_SECTIONS = "./clause | ./appendix | ./terms | ./definitions | " \
                  "./references".freeze
+
+      def child_sections
+        CHILD_SECTIONS
+      end
+
+      # if hierarchically marked up node in label already,
+      # leave alone, else wrap in semx
+      def semx(node, label, element = "autonum")
+        label = label.to_s
+        id = node["id"] || node[:id]
+        /<semx element='[^']+' source='#{id}'/.match?(label) and return label
+        l = stripsemx(label)
+        %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
+      end
+
+      # assume parent is already semantically annotated with semx
+      def hiersemx(parent, parentlabel, counter, element, sep: nil)
+        sep ||= hier_separator(markup: true)
+        "#{semx(parent, parentlabel)}#{sep}#{semx(element, counter.print)}"
+      end
+
+      def delim_wrap(delim, klass = "fmt-autonum-delim")
+        delim.blank? and return ""
+        "<span class='#{klass}'>#{delim}</span>"
+      end
+
+      def stripsemx(elem)
+        elem.nil? and return elem
+        xml = Nokogiri::XML::DocumentFragment.parse(elem)
+        xml.traverse do |x|
+          x.name == "semx" ||
+            (x.name == "span" && /^fmt-/.match?(x["class"])) and
+            x.replace(x.children)
+        end
+        xml.to_xml(indent: 0, encoding: "UTF-8",
+                   save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
+      end
+
+      def labelled_autonum(label, autonum)
+        label.blank? and return autonum
+        l10n("<span class='fmt-element-name'>#{label}</span> #{autonum}")
+      end
     end
   end
 end

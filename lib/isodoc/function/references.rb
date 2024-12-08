@@ -26,7 +26,7 @@ module IsoDoc
             i += 1
             bibitem_entry(div, b, i, biblio)
           else
-            parse(b, div) unless %w(title).include? b.name
+            parse(b, div) unless %w(fmt-title).include? b.name
           end
         end
       end
@@ -41,9 +41,9 @@ module IsoDoc
       def norm_ref(node, out)
         node["hidden"] != "true" or return
         out.div do |div|
-          clause_name(node, node.at(ns("./title")), div, nil)
+          clause_name(node, node.at(ns("./fmt-title")), div, nil)
           if node.name == "clause"
-            node.elements.each { |e| parse(e, div) unless e.name == "title" }
+            node.elements.each { |e| parse(e, div) unless e.name == "fmt-title" }
           else biblio_list(node, div, false)
           end
         end
@@ -60,7 +60,7 @@ module IsoDoc
         page_break(out)
         out.div do |div|
           div.h1 class: "Section3" do |h1|
-            node.at(ns("./title"))&.children&.each { |c2| parse(c2, h1) }
+            node.at(ns("./fmt-title"))&.children&.each { |c2| parse(c2, h1) }
           end
           biblio_list(node, div, true)
         end
@@ -69,7 +69,7 @@ module IsoDoc
       def bibliography_parse(node, out)
         node["hidden"] != true or return
         out.div do |div|
-          clause_parse_title(node, div, node.at(ns("./title")), out,
+          clause_parse_title(node, div, node.at(ns("./fmt-title")), out,
                              { class: "Section3" })
           biblio_list(node, div, true)
         end

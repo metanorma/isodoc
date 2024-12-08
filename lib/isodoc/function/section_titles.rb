@@ -18,18 +18,24 @@ module IsoDoc
         end
       end
 
+      def sections_names
+        %w[clause annex terms references definitions
+           acknowledgements introduction abstract foreword appendix]
+      end
+
       def freestanding_title(node, out)
-        parents = node.ancestors("clause, annex, terms, references, " \
-                               "definitions, acknowledgements, introduction, " \
-                               "foreword")
+        # node.parent.at(ns("./fmt-title[@source = '#{node['id']}']")) and
+        # return # this title is already being rendered as fmt-title
+        # For testing convenience, let's just go by parent
+        sections_names.include?(node.parent.name) and return
+        parents = node.ancestors(sections_names.join(", "))
         clause_parse_title(parents.empty? ? node : parents.first,
                            out, node, out)
       end
 
       # used for subclauses
       def clause_parse_title(node, div, title, out, header_class = {})
-        return if title.nil?
-
+        title.nil? and return
         if node["inline-header"] == "true"
           inline_header_title(out, node, title)
         else
@@ -46,9 +52,7 @@ module IsoDoc
       end
 
       def clause_title_depth(node, title)
-        depth = node.ancestors("clause, annex, terms, references, " \
-                               "definitions, acknowledgements, introduction, " \
-                               "foreword").size + 1
+        depth = node.ancestors(sections_names.join(", ")).size + 1
         depth = title["depth"] if title && title["depth"]
         depth
       end
@@ -67,8 +71,8 @@ module IsoDoc
         header_class = {} if header_class.nil?
         div.h1 **attr_code(header_class) do |h1|
           if title.is_a?(String) then h1 << title
-          else
-            title&.children&.each { |c2| parse(c2, h1) }
+          elsif title
+            children_parse(title, h1)
             clause_parse_subtitle(title, h1)
           end
         end
@@ -76,8 +80,7 @@ module IsoDoc
       end
 
       def annex_name(_annex, name, div)
-        return if name.nil?
-
+        name.nil? and return
         div.h1 class: "Annex" do |t|
           name.children.each { |c2| parse(c2, t) }
           clause_parse_subtitle(name, t)

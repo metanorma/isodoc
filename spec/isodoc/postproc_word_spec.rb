@@ -13,7 +13,7 @@ RSpec.describe IsoDoc do
         htmlstylesheet: "spec/assets/html.scss" },
     ).convert("test", <<~INPUT, false)
        <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="1"><title>Foreword</title>
+      <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
       <dl>
       <dt>Term</dt>
       <dd>Definition</dd>
@@ -56,7 +56,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword displayorder="1"><title>Foreword</title>
+      <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
       <dl>
       <dt>Term</dt>
       <dd>Definition</dd>
@@ -124,18 +124,18 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <sections>
-                     <clause id="A" inline-header="false" obligation="normative" displayorder="1"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-               <title>Introduction<bookmark id="Q"/> to this <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/> <fn reference="1">
+                     <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
+               <fmt-title>Introduction<bookmark id="Q"/> to this <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/> <fn reference="1">
         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
-      </fn></title>
+      </fn></fmt-title>
              </clause>
              <clause id="O" inline-header="false" obligation="normative" displayorder="2">
-               <title>Clause 4.2</title>
+               <fmt-title>Clause 4.2</fmt-title>
                <p>A<fn reference="1">
         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
       </fn></p>
       <clause id="P" inline-header="false" obligation="normative">
-      <title>Clause 4.2.1</title>
+      <fmt-title>Clause 4.2.1</fmt-title>
       <variant-title type="toc">SUBCLOZ</variant-title>
       </clause>
              </clause></clause>
@@ -208,21 +208,21 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <preface>
-              <clause displayorder="1" type="toc"><title>Table of Contents</title></clause>
+              <clause displayorder="1" type="toc"><fmt-title>Table of Contents</fmt-title></clause>
               </preface>
               <sections>
-                     <clause id="A" inline-header="false" obligation="normative" displayorder="1"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-               <title>Introduction<bookmark id="Q"/> to this <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/> <fn reference="1">
+                     <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
+               <fmt-title>Introduction<bookmark id="Q"/> to this <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/> <fn reference="1">
         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
-      </fn></title>
+      </fn></fmt-title>
              </clause>
              <clause id="O" inline-header="false" obligation="normative" displayorder="2">
-               <title>Clause 4.2</title>
+               <fmt-title>Clause 4.2</fmt-title>
                <p>A<fn reference="1">
         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
       </fn></p>
       <clause id="P" inline-header="false" obligation="normative">
-      <title>Clause 4.2.1</title>
+      <fmt-title>Clause 4.2.1</fmt-title>
       <variant-title type="toc">SUBCLOZ</variant-title>
       </clause>
              </clause></clause>
@@ -285,18 +285,18 @@ RSpec.describe IsoDoc do
           </presentation-metadata>
         </metanorma-extension>
                     <sections>
-                           <clause id="A" inline-header="false" obligation="normative" displayorder="1"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-                     <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
+                           <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
+                     <fmt-title>Introduction<bookmark id="Q"/> to this<fn reference="1">
               <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
-            </fn></title>
+            </fn></fmt-title>
                    </clause>
                    <clause id="O" inline-header="false" obligation="normative" displayorder="2">
-                     <title>Clause 4.2</title>
+                     <fmt-title>Clause 4.2</fmt-title>
                      <p>A<fn reference="1">
               <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
             </fn></p>
             <clause id="P" inline-header="false" obligation="normative">
-            <title>Clause 4.2.1</title>
+            <fmt-title>Clause 4.2.1</fmt-title>
             </clause>
                    </clause></clause>
                     </sections>
@@ -389,29 +389,29 @@ RSpec.describe IsoDoc do
           </presentation-metadata>
         </metanorma-extension>
                     <sections>
-                           <clause id="A" inline-header="false" obligation="normative" displayorder="1"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-                     <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
+                           <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
+                     <fmt-title>Introduction<bookmark id="Q"/> to this<fn reference="1">
               <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
-            </fn></title>
+            </fn></fmt-title>
                    </clause>
                    <clause id="O" inline-header="false" obligation="normative" displayorder="2">
-                     <title>Clause 4.2</title>
+                     <fmt-title>Clause 4.2</fmt-title>
                      <recommendation id="AC" type="abstracttest" model="default">
-              <name>/ogc/recommendation/wfs/3</name>
+              <fmt-name>/ogc/recommendation/wfs/3</fmt-name>
               </recommendation>
                      <recommendation id="AA" model="default">
-              <name>/ogc/recommendation/wfs/2</name>
+              <fmt-name>/ogc/recommendation/wfs/2</fmt-name>
               </recommendation>
                      <recommendation id="AB" type="abstracttest" model="default">
-              <name>/ogc/recommendation/wfs/3</name>
+              <fmt-name>/ogc/recommendation/wfs/3</fmt-name>
               </recommendation>
-              <figure id="BA"><name>First figure</name></figure>
-              <table id="CA"><name>First table</name></table>
+              <figure id="BA"><fmt-name>First figure</fmt-name></figure>
+              <table id="CA"><fmt-name>First table</fmt-name></table>
                      <p>A<fn reference="1">
               <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
             </fn></p>
             <clause id="P" inline-header="false" obligation="normative">
-            <title>Clause 4.2.1</title>
+            <fmt-title>Clause 4.2.1</fmt-title>
             </clause>
                    </clause></clause>
                     </sections>
@@ -575,7 +575,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(options)
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1"><title>Foreword</title>
+            <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
             <ul>
             <li><p>A</p>
             <p>B</p></li>
@@ -648,7 +648,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     IsoDoc::WordConvert.new(options).convert("test", <<~INPUT, false)
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword displayorder="1"><title>Foreword</title>
+          <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <example id="samplecode">
         <p>ABC</p>
       </example>
@@ -680,9 +680,9 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(options)
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1"><title>Foreword</title>
+            <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
         <figure id="fig1">
-          <name>Typical arrangement of the far-field scan set-up</name>
+          <fmt-name>Typical arrangement of the far-field scan set-up</fmt-name>
           <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/>
           </figure>
            </foreword></preface>
@@ -714,7 +714,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(options)
       .convert("test", <<~INPUT, false)
             <iso-standard xmlns="http://riboseinc.com/isoxml">
-            <preface><foreword displayorder="1"><title>Foreword</title>
+            <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
         <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
               <td rowspan="2">
                 <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>(</mo><mi>μ</mi><mi>m</mi><mo>)</mo></mrow></math></stem></p>
@@ -762,7 +762,7 @@ RSpec.describe IsoDoc do
     IsoDoc::WordConvert.new(options)
       .convert("test", <<~INPUT, false)
         <iso-standard xmlns="http://riboseinc.com/isoxml">
-                  <preface><foreword displayorder="1"><title>Foreword</title>
+                  <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
               <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
                     <td rowspan="2" align="left">
                       <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength</p>
@@ -816,7 +816,7 @@ RSpec.describe IsoDoc do
     ).convert("test", <<~INPUT, false)
               <standard-document xmlns="http://riboseinc.com/isoxml">
              <bibdata type="standard">
-               <title language="en" format="text/plain">Document title</title>
+               <fmt-title language="en" format="text/plain">Document title</fmt-title>
                <version>
                  <draft>1.2</draft>
                </version>
@@ -828,24 +828,24 @@ RSpec.describe IsoDoc do
                </ext>
              </bibdata>
              <preface>
-             <introduction displayorder="1"><title>Preface 1</title>
+             <introduction displayorder="1"><fmt-title>Preface 1</fmt-title>
              <p align="center">This is a <pagebreak orientation="landscape"/> paragraph</p>
              <table>
              <tbody>
              <tr><td>A</td><td>B</td></tr>
              </tbody>
              </table>
-             <clause><title>Preface 1.1</title>
+             <clause><fmt-title>Preface 1.1</fmt-title>
              <p>On my side</p>
              <pagebreak orientation="portrait"/>
              <p>Upright again</p>
              </clause>
-             <clause><title>Preface 1.3</title>
+             <clause><fmt-title>Preface 1.3</fmt-title>
              <p>And still upright</p>
              </clause>
              </introduction>
              </preface>
-             <sections><clause displayorder="2"><title>Foreword</title>
+             <sections><clause displayorder="2"><fmt-title>Foreword</fmt-title>
              <note>
              <p id="_">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p>
              <pagebreak orientation="landscape"/>
@@ -871,7 +871,7 @@ RSpec.describe IsoDoc do
              <pagebreak orientation="portrait"/>
               </clause></sections>
               <annex id="_level_1" inline-header="false" obligation="normative" displayorder="3">
-              <title>Annex 1</title>
+              <fmt-title>Annex 1</fmt-title>
               </annex>
              </standard-document>
     INPUT
@@ -935,7 +935,7 @@ RSpec.describe IsoDoc do
             <div>
               <h1>Foreword</h1>
               <div class="Note">
-                <p class="Note"><span class="note_label"/><span style="mso-tab-count:1">  </span>For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
+                <p class="Note">For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
                 <p class="Note">
                   <br clear="all" class="section"/>
                 </p>
@@ -963,7 +963,7 @@ RSpec.describe IsoDoc do
                     <td colspan="2" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
                       <div class="Note">
                         <a name="_8fff1596-290e-4314-b03c-7a8aab97eebe" id="_8fff1596-290e-4314-b03c-7a8aab97eebe"/>
-                        <p class="Note"><span class="note_label"/><span style="mso-tab-count:1">  </span>B</p>
+                        <p class="Note">B</p>
                       </div>
                     </td>
                   </tr>

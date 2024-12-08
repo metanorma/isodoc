@@ -6,29 +6,6 @@ module IsoDoc
       end
     end
 
-=begin
-    # This is highly specific to ISO, but it's not a bad precedent for
-    # references anyway; keeping here instead of in IsoDoc::Iso for now
-    def docid_l10n(text)
-      text.nil? and return text
-      @i18n.all_parts and text.gsub!(/All Parts/i, @i18n.all_parts.downcase)
-      text.size < 20 and text.gsub!(/ /, "&#xa0;")
-      text
-    end
-
-    def docid_prefix(prefix, docid)
-      docid = "#{prefix} #{docid}" if prefix && !omit_docid_prefix(prefix) &&
-        !/^#{prefix}\b/.match(docid)
-      docid_l10n(docid)
-    end
-
-    def omit_docid_prefix(prefix)
-      prefix.nil? || prefix.empty? and return true
-      %w(ISO IEC IEV ITU W3C BIPM csd metanorma repository metanorma-ordinal)
-        .include? prefix
-    end
-=end
-
     def pref_ref_code(bib)
       bib["suppress_identifier"] == "true" and return nil
       ret = bib.xpath(ns("./docidentifier[@scope = 'biblio-tag']"))

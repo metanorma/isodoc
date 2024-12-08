@@ -34,7 +34,7 @@ module IsoDoc
       def make_tr_attr_style(cell, row, rowmax, totalrows, opt)
         top = row.zero? ? "#{SW1} 1.5pt;" : "none;"
         bottom = "#{SW1} #{rowmax >= totalrows ? '1.5' : '1.0'}pt;"
-        ret = <<~STYLE.gsub(/\n/, "")
+        ret = <<~STYLE.delete("\n")
           border-top:#{top}mso-border-top-alt:#{top}
           border-bottom:#{bottom}mso-border-bottom-alt:#{bottom}
         STYLE
@@ -46,7 +46,7 @@ module IsoDoc
       def keep_rows_together(_cell, rowmax, totalrows, opt)
         opt[:header] and return true
         @table_line_count > 15 and return false
-        (totalrows <= 10 && rowmax < totalrows)
+        totalrows <= 10 && rowmax < totalrows
       end
 
       def tbody_parse(node, table)

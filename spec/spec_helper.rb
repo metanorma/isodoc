@@ -64,12 +64,18 @@ end
 def strip_guid(xml)
   xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
     .gsub(%r{ target="_[^"]+"}, ' target="_"')
+    .gsub(%r{ source="_[^"]+"}, ' source="_"')
+    .gsub(%r{ original-id="_[^"]+"}, ' original-id="_"')
     .gsub(%r( href="#_?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' href="#_"')
+    .gsub(%r( href="#fn:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' href="#fn:_"')
     .gsub(%r( id="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' id="_"')
     .gsub(%r( id="ftn[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="ftn_"')
-    .gsub(%r( id="fn:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="fn:_"')
+    .gsub(%r( id="fn:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' id="fn:_"')
+    .gsub(%r( name="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' name="_"')
     .gsub(%r( reference="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"), ' reference="_"')
     .gsub(%r[ src="([^/]+)/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.], ' src="\\1/_.')
+    .gsub(%r[ _Ref\d+{8,10}], " _Ref")
+    .gsub(%r[:_Ref\d+{8,10}], ":_Ref")
 end
 
 HTML_HDR = <<~HEADER.freeze
@@ -111,10 +117,6 @@ WORD_HDR = <<~HEADER.freeze
           <div class="TOC" id="_">
             <p class="zzContents">Table of contents</p>
           </div>
-             <p>&#160;</p>
-           </div>
-           <p class="section-break"><br clear="all" class="section"/></p>
-           <div class="WordSection3">
 HEADER
 
 # It is profoundly embarrassing that this is necessary...

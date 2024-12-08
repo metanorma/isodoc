@@ -115,12 +115,11 @@ module IsoDoc
 
     def termnote1(elem)
       lbl = termnote_label(elem)
-      prefix_name(elem, "", lower2cap(lbl), "name")
+      prefix_name(elem, { label: termnote_delim(elem) }, lower2cap(lbl), "name")
     end
 
     def termnote_label(elem)
-      lbl = @xrefs.anchor(elem["id"], :label) || "???"
-      l10n "#{lbl}#{termnote_delim(elem)}"
+      @xrefs.anchor(elem["id"], :label) || "???"
     end
 
     def termdefinition(docxml)
@@ -200,7 +199,7 @@ module IsoDoc
 
     def term1(elem)
       lbl = @xrefs.anchor(elem["id"], :label) or return
-      prefix_name(elem, "", "#{lbl}#{clausedelim}", "name")
+      prefix_name(elem, {}, "#{lbl}#{clausedelim}", "name")
     end
   end
 end

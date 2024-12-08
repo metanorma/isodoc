@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
-            <foreword>
+            <foreword id="fwd">
               <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
           <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
           <colgroup>
@@ -57,7 +57,7 @@ RSpec.describe IsoDoc do
             </tr>
           </tfoot>
           <dl key="true">
-          <name>Key</name>
+             <name>Key</name>
           <dt>Drago</dt>
         <dd>A type of rice</dd>
         </dl>
@@ -89,6 +89,14 @@ RSpec.describe IsoDoc do
         </table>
         </foreword>
         </preface>
+        <annex id="Annex1">
+        <table id="AnnexTable">
+        <tbody><tr><td>A</td></td></tbody>
+        </table>
+        <table>
+        <tbody><tr><td>B</td></td></tbody>
+        </table>
+        </annex>
         <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
         <bibitem id="ISO712" type="standard">
           <title format="text/plain">Cereals or cereal products</title>
@@ -106,126 +114,232 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-            <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-              <preface>
-                <clause type="toc" displayorder="1" id="_">
-              <title depth="1">Table of contents</title>
-            </clause>
-            <foreword displayorder="2"><title>Foreword</title>
-                  <table id='tableD-1' alt='tool tip' summary='long desc' width='70%' keep-with-next='true' keep-lines-together='true'>
-                    <name>
-                      Table 1&#xA0;&#x2014; Repeatability and reproducibility of
-                      <em>husked</em>
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+              <foreword id="fwd" displayorder="2">
+                 <title id="_">Foreword</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Foreword</semx>
+                 </fmt-title>
+                 <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" autonum="1">
+                    <name id="_">
+                       Repeatability and reproducibility of
+                       <em>husked</em>
                        rice yield
-                      <fn reference='1'>
-                        <p>X</p>
-                      </fn>
+                       <fn reference="1">
+                          <p>X</p>
+                       </fn>
                     </name>
-                     <colgroup>
-        <col width='30%'/>
-        <col width='20%'/>
-        <col width='20%'/>
-        <col width='20%'/>
-        <col width='10%'/>
-      </colgroup>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">Table</span>
+                          <semx element="autonum" source="tableD-1">1</semx>
+                       </span>
+                       <span class="fmt-caption-delim"> — </span>
+                       <semx element="name" source="_">
+                          Repeatability and reproducibility of
+                          <em>husked</em>
+                          rice yield
+                          <fn reference="1">
+                             <p>X</p>
+                          </fn>
+                       </semx>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Table</span>
+                       <semx element="autonum" source="tableD-1">1</semx>
+                    </fmt-xref-label>
+                    <colgroup>
+                       <col width="30%"/>
+                       <col width="20%"/>
+                       <col width="20%"/>
+                       <col width="20%"/>
+                       <col width="10%"/>
+                    </colgroup>
                     <thead>
-                      <tr>
-                        <td rowspan='2' align='left'>Description</td>
-                        <td colspan='4' align='center'>Rice sample</td>
-                      </tr>
-                      <tr>
-                        <td valign="top" align='left'>Arborio</td>
-                        <td valign="middle" align='center'>
-                          Drago
-                          <fn reference='a'>
-                            <p id='_'>Parboiled rice.</p>
-                          </fn>
-                        </td>
-                        <td valign="bottom" align='center'>
-                          Balilla
-                          <fn reference='a'>
-                            <p id='_'>Parboiled rice.</p>
-                          </fn>
-                        </td>
-                        <td align='center'>Thaibonnet</td>
-                      </tr>
+                       <tr>
+                          <td rowspan="2" align="left">Description</td>
+                          <td colspan="4" align="center">Rice sample</td>
+                       </tr>
+                       <tr>
+                          <td valign="top" align="left">Arborio</td>
+                          <td valign="middle" align="center">
+                             Drago
+                             <fn reference="a">
+                                <p id="_">Parboiled rice.</p>
+                             </fn>
+                          </td>
+                          <td valign="bottom" align="center">
+                             Balilla
+                             <fn reference="a">
+                                <p id="_">Parboiled rice.</p>
+                             </fn>
+                          </td>
+                          <td align="center">Thaibonnet</td>
+                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th align='left'>Number of laboratories retained after eliminating outliers</th>
-                        <td align='center'>13</td>
-                        <td align='center'>11</td>
-                        <td align='center'>13</td>
-                        <td align='center'>13</td>
-                      </tr>
-                      <tr>
-                        <td align='left'>Mean value, g/100 g</td>
-                        <td align='center'>81,2</td>
-                        <td align='center'>82,0</td>
-                        <td align='center'>81,8</td>
-                        <td align='center'>77,7</td>
-                      </tr>
+                       <tr>
+                          <th align="left">Number of laboratories retained after eliminating outliers</th>
+                          <td align="center">13</td>
+                          <td align="center">11</td>
+                          <td align="center">13</td>
+                          <td align="center">13</td>
+                       </tr>
+                       <tr>
+                          <td align="left">Mean value, g/100 g</td>
+                          <td align="center">81,2</td>
+                          <td align="center">82,0</td>
+                          <td align="center">81,8</td>
+                          <td align="center">77,7</td>
+                       </tr>
                     </tbody>
                     <tfoot>
-                      <tr>
-                        <td align='left'>
-                          Reproducibility limit,
-                          <stem type='AsciiMath'>R</stem>
-                           (= 2,83
-                          <stem type='AsciiMath'>s_R</stem>
-                          )
-                        </td>
-                        <td align='center'>2,89</td>
-                        <td align='center'>0,57</td>
-                        <td align='center'>2,26</td>
-                                    <td align="center">
-              <dl>
-                <dt>6,06</dt>
-                <dd>Definition</dd>
-              </dl>
-            </td>
-                      </tr>
+                       <tr>
+                          <td align="left">
+                             Reproducibility limit,
+                             <stem type="AsciiMath">R</stem>
+                             (= 2,83
+                             <stem type="AsciiMath">s_R</stem>
+                             )
+                          </td>
+                          <td align="center">2,89</td>
+                          <td align="center">0,57</td>
+                          <td align="center">2,26</td>
+                          <td align="center">
+                             <dl>
+                                <dt>6,06</dt>
+                                <dd>Definition</dd>
+                             </dl>
+                          </td>
+                       </tr>
                     </tfoot>
                     <dl key="true">
-                    <name>Key</name>
-                      <dt>Drago</dt>
-                      <dd>A type of rice</dd>
+                       <name id="_">Key</name>
+                       <fmt-name>
+                          <semx element="name" source="_">Key</semx>
+                       </fmt-name>
+                       <dt>Drago</dt>
+                       <dd>A type of rice</dd>
                     </dl>
-                    <source status="generalisation">[SOURCE: <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
-            — with adjustments ; <xref type="inline" target="ISO712">ISO 712, Section 2</xref>]</source>
+                    <source status="generalisation">
+                       [SOURCE:
+                       <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
+                       — with adjustments ;
+                       <xref type="inline" target="ISO712">ISO 712, Section 2</xref>
+                       ]
+                    </source>
                     <note>
-                      <name>NOTE</name>
-                      <p>This is a table about rice</p>
+                       <fmt-name>
+                          <span class="fmt-caption-label">
+                             <span class="fmt-element-name">NOTE</span>
+                          </span>
+                          <span class="fmt-label-delim">
+                             <tab/>
+                          </span>
+                       </fmt-name>
+                       <p>This is a table about rice</p>
                     </note>
-                  </table>
-                  <table id='tableD-2' unnumbered='true'>
+                 </table>
+                 <table id="tableD-2" unnumbered="true">
                     <tbody>
-                      <tr>
-                        <td>A</td>
-                      </tr>
+                       <tr>
+                          <td>A</td>
+                       </tr>
                     </tbody>
-                  </table>
-                </foreword>
-              </preface>
-                       <sections>
-           <references id="_" obligation="informative" normative="true" displayorder="3">
-             <title depth="1">1.<tab/>Normative References</title>
-             <bibitem id="ISO712" type="standard">
-               <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
-               <docidentifier type="ISO">ISO 712</docidentifier>
-               <docidentifier scope="biblio-tag">ISO 712</docidentifier>
-               <biblio-tag>ISO 712, </biblio-tag>
-             </bibitem>
-           </references>
-         </sections>
-         <bibliography></bibliography>
-            </iso-standard>
+                 </table>
+              </foreword>
+           </preface>
+           <sections>
+              <references id="_" obligation="informative" normative="true" displayorder="3">
+                 <title id="_">Normative References</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="_">1</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Normative References</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="_">1</semx>
+                 </fmt-xref-label>
+                 <bibitem id="ISO712" type="standard">
+                    <formattedref>
+                       International Organization for Standardization.
+                       <em>Cereals and cereal products</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="ISO">ISO 712</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+                    <biblio-tag>ISO 712, </biblio-tag>
+                 </bibitem>
+              </references>
+           </sections>
+           <annex id="Annex1" autonum="A" displayorder="4">
+              <fmt-title>
+                 <strong>
+                    <span class="fmt-caption-label">
+                       <span class="fmt-element-name">Annex</span>
+                       <semx element="autonum" source="Annex1">A</semx>
+                    </span>
+                 </strong>
+                 <br/>
+                 <span class="fmt-obligation">(informative)</span>
+              </fmt-title>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="Annex1">A</semx>
+              </fmt-xref-label>
+              <table id="AnnexTable" autonum="A.1">
+                 <fmt-name>
+                    <span class="fmt-caption-label">
+                       <span class="fmt-element-name">Table</span>
+                       <semx element="autonum" source="Annex1">A</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                       <semx element="autonum" source="AnnexTable">1</semx>
+                    </span>
+                 </fmt-name>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Table</span>
+                    <semx element="autonum" source="Annex1">A</semx>
+                    <span class="fmt-autonum-delim">.</span>
+                    <semx element="autonum" source="AnnexTable">1</semx>
+                 </fmt-xref-label>
+                 <tbody>
+                    <tr>
+                       <td>A</td>
+                    </tr>
+                 </tbody>
+              </table>
+                    <table>
+         <fmt-name>
+            <span class="fmt-caption-label">
+               <span class="fmt-element-name">Table</span>
+            </span>
+         </fmt-name>
+         <tbody>
+            <tr>
+               <td>B</td>
+            </tr>
+         </tbody>
+      </table>
+           </annex>
+           <bibliography>
+          </bibliography>
+        </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
             #{HTML_HDR}
                          <br/>
-                     <div>
+                     <div id="fwd">
                        <h1 class="ForewordTitle">Foreword</h1>
                        <p class="TableTitle" style="text-align:center;">Table 1&#160;&#8212; Repeatability and reproducibility of <i>husked</i> rice yield
                        <a class='FootnoteRef' href='#fn:1'>
@@ -305,7 +419,7 @@ RSpec.describe IsoDoc do
       with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
            </div>
            <div class="Note">
-             <p><span class="note_label">NOTE</span>  This is a table about rice</p>
+             <p><span class="note_label">NOTE  </span>This is a table about rice</p>
            </div>
                          </table>
                        <table id="tableD-2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
@@ -320,6 +434,30 @@ RSpec.describe IsoDoc do
                  <h1>1.  Normative References</h1>
                  <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
                </div>
+                               <br/>
+                <div id="Annex1" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (informative)
+                   </h1>
+                   <p class="TableTitle" style="text-align:center;">Table A.1</p>
+                   <table id="AnnexTable" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                      <tbody>
+                         <tr>
+                            <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
+                         </tr>
+                      </tbody>
+                   </table>
+                               <p class="TableTitle" style="text-align:center;">Table</p>
+            <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+               <tbody>
+                  <tr>
+                     <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">B</td>
+                  </tr>
+               </tbody>
+            </table>
+                </div>
                       <aside id='fn:1' class='footnote'>
            <p>X</p>
          </aside>
@@ -329,26 +467,11 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-                <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-               <head><style/></head>
-                        <body lang="EN-US" link="blue" vlink="#954F72">
-           <div class="WordSection1">
-             <p> </p>
-           </div>
-           <p class="section-break">
-             <br clear="all" class="section"/>
-           </p>
-           <div class="WordSection2">
+      #{WORD_HDR}
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div id="_" class="TOC">
-               <p class="zzContents">Table of contents</p>
-             </div>
-             <p class="page-break">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <div>
+             <div id="fwd">
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">
                        Table 1 — Repeatability and reproducibility of
@@ -427,7 +550,7 @@ RSpec.describe IsoDoc do
              — with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
                    </div>
                    <div class="Note">
-                     <p class="Note"><span class="note_label">NOTE</span><span style="mso-tab-count:1">  </span>This is a table about rice</p>
+                     <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">  </span></span>This is a table about rice</p>
                    </div>
                  </table>
                </div>
@@ -446,25 +569,67 @@ RSpec.describe IsoDoc do
            <p class="section-break">
              <br clear="all" class="section"/>
            </p>
-           <div class="WordSection3">
-             <div>
-               <h1>1.<span style="mso-tab-count:1">  </span>Normative References</h1>
-               <p id="ISO712" class="NormRef">ISO 712, International Organization for Standardization. <i>Cereals and cereal products</i>.</p>
+                        <div class="WordSection3">
+                <div>
+                   <h1>
+                      1.
+                      <span style="mso-tab-count:1">  </span>
+                      Normative References
+                   </h1>
+                   <p id="ISO712" class="NormRef">
+                      ISO 712, International Organization for Standardization.
+                      <i>Cereals and cereal products</i>
+                      .
+                   </p>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="Annex1" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (informative)
+                   </h1>
+                   <p class="TableTitle" style="text-align:center;">Table A.1</p>
+                   <div align="center" class="table_container">
+                      <table id="AnnexTable" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                   <p class="TableTitle" style="text-align:center;">Table</p>
+                   <div align="center" class="table_container">
+                      <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                </div>
+                <aside id="ftn1">
+                   <p>X</p>
+                </aside>
              </div>
-             <aside id="ftn1">
-               <p>X</p>
-             </aside>
-           </div>
-         </body>
+          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true))).to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", presxml, true)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -473,11 +638,11 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
           <clause type="toc" displayorder="1" id="_">
-      <title depth="1">Table of contents</title>
+      <fmt-title depth="1">Table of contents</fmtfmt--title>
       </clause>
-      <foreword displayorder="2"><title>Foreword</title>
+      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
         <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" class="modspec">
-          <name>Repeatability and reproducibility of <em>husked</em> rice yield</name>
+          <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield</fmt-name>
         </table>
       </foreword>
       </preface>
@@ -504,22 +669,7 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-      <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-               <head><style/></head>
-             <body lang='EN-US' link='blue' vlink='#954F72'>
-           <div class='WordSection1'>
-             <p>&#xa0;</p>
-           </div>
-           <p class="section-break">
-             <br clear='all' class='section'/>
-           </p>
-           <div class='WordSection2'>
-             <p class="page-break">
-               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-             </p>
-             <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
+      #{WORD_HDR}
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
@@ -556,9 +706,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <foreword displayorder="1"><title>Foreword</title>
+          <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
             <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-        <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+        <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
         <thead>
           <tr>
             <td>
@@ -748,9 +898,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1"><title>Foreword</title>
+        <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-      <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+      <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
       <thead>
         <tr>
           <td>X</td>
@@ -856,9 +1006,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1"><title>Foreword</title>
+        <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-      <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+      <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
       <thead>
         <tr>
           <td>X</td>
@@ -976,9 +1126,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1"><title>Foreword</title>
+        <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-      <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+      <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
       <thead>
         <tr>
           <td>X</td>
@@ -1085,9 +1235,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
-        <foreword displayorder="1"><title>Foreword</title>
+        <foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true">
-      <name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></name>
+      <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield<fn reference="1"><p>X</p></fn></fmt-name>
       <thead>
         <tr>
           <td>X</td>

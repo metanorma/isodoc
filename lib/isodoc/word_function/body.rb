@@ -102,40 +102,12 @@ module IsoDoc
         end
       end
 
-      def note_p_parse(node, div)
-        name = node.at(ns("./name"))&.remove
-        div.p class: "Note" do |p|
-          p.span class: "note_label" do |s|
-            name&.children&.each { |n| parse(n, s) }
-          end
-          insert_tab(p, 1)
-          node.first_element_child.children.each { |n| parse(n, p) }
-        end
-        node.element_children[1..].each { |n| parse(n, div) }
+      def note_p_class
+        "Note"
       end
 
-      def note_parse1(node, div)
-        name = node.at(ns("./name"))&.remove
-        div.p class: "Note" do |p|
-          p.span class: "note_label" do |s|
-            name&.children&.each { |n| parse(n, s) }
-          end
-          insert_tab(p, 1)
-        end
-        node.children.each { |n| parse(n, div) }
-      end
-
-      def termnote_parse(node, out)
-        name = node&.at(ns("./name"))&.remove
-        out.div **note_attrs(node) do |div|
-          div.p class: "Note" do |p|
-            if name
-              name.children.each { |n| parse(n, p) }
-              p << " "
-            end
-            para_then_remainder(node.first_element_child, node, p, div)
-          end
-        end
+      def termnote_p_class
+        "Note"
       end
 
       def para_attrs(node)
@@ -164,7 +136,7 @@ module IsoDoc
           div.p do |_p|
             parse(node.at(ns("./stem")), div)
             insert_tab(div, 1)
-            if lbl = node&.at(ns("./name"))&.text
+            if lbl = node&.at(ns("./fmt-name"))&.text
               div << lbl
             end
           end
@@ -185,10 +157,10 @@ module IsoDoc
         page_break(out)
         out.div **attr_code(preface_attrs(clause)) do |div|
           div.p class: "zzContents" do |p|
-            clause.at(ns("./title"))&.children&.each { |c| parse(c, p) }
+            clause.at(ns("./fmt-title"))&.children&.each { |c| parse(c, p) }
           end
           clause.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end
