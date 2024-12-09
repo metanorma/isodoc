@@ -43,6 +43,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
   spec.add_dependency "uuidtools"
+  spec.add_dependency "nokogiri", "<= 1.16.8"
 
   spec.add_development_dependency "bigdecimal"
   spec.add_development_dependency "debug"
