@@ -169,7 +169,7 @@ module IsoDoc
       def recommmendation_sort_key(header)
         m = /^([^0-9]+) (\d+)/.match(header) || /^([^:]+)/.match(header)
         m ||= [header, nil]
-        ret = "#{recommmendation_sort_key1(m[1])}::"
+        ret = "#{recommmendation_sort_key1(m[1]&.strip)}::"
         m[2] and ret += ("%04d" % m[2].to_i).to_s
         ret
       end
