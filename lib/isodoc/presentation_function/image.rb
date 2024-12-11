@@ -64,9 +64,8 @@ module IsoDoc
       lbl = @xrefs.anchor(elem["id"], :label, false)
       lbl and a = autonum(elem["id"], lbl)
       figname = figure_name(elem)
-      if elem.parent.name == "figure"
+      (elem.parent.name == "figure") && a and
         a += subfigure_delim
-      end
       lbl && figure_label?(elem) and s = "#{figname}#{a}"
       prefix_name(elem, { caption: figure_delim(elem) }, l10n(s&.strip), "name")
     end

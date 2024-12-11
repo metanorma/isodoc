@@ -94,6 +94,7 @@ module IsoDoc
       end
 
       def fig_subfig_label(label, sublabel)
+        label && sublabel or return
         "#{label}#{subfigure_separator}#{sublabel}"
       end
 

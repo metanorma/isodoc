@@ -983,6 +983,77 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
+   it "cross-references unnumbered subfigures" do
+    input = <<~INPUT
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+            <preface>
+        <foreword id="fwd">
+        <p>
+        <xref target="N"/>
+        <xref target="note1"/>
+        <xref target="AN"/>
+        <xref target="Anote1"/>
+        </p>
+        </foreword>
+        </preface>
+        <sections>
+        <clause id="scope" type="scope"><title>Scope</title>
+        <figure id="N" unnumbered="true">
+            <figure id="note1">
+      <name>Split-it-right sample divider</name>
+      <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+      </figure>
+      </figure>
+      <p>    <xref target="note1"/> <xref target="note2"/> </p>
+        <figure id="AN">
+            <figure id="Anote1" unnumbered="true">
+      <name>Split-it-right sample divider</name>
+      <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+      </figure>
+        <figure id="Anote2">
+      <name>Split-it-right sample divider</name>
+      <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+      </figure>
+      </figure>
+      </clause>
+      </sections>
+        </iso-standard>
+    INPUT
+output = <<~OUTPUT
+       <foreword id="fwd" displayorder="2">
+          <title id="_">Foreword</title>
+          <fmt-title depth="1">
+             <semx element="title" source="_">Foreword</semx>
+          </fmt-title>
+          <p>
+             <xref target="N">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N">(??)</semx>
+             </xref>
+             <xref target="note1">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="N">(??)</semx>
+                <span class="fmt-autonum-delim">-</span>
+                <semx element="autonum" source="note1">1</semx>
+             </xref>
+             <xref target="AN">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="AN">1</semx>
+             </xref>
+             <xref target="Anote1">
+                <span class="fmt-element-name">Figure</span>
+                <semx element="autonum" source="Anote1">(??)</semx>
+             </xref>
+          </p>
+       </foreword>
+OUTPUT
+expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(output)
+  end
+
   it "cross-references examples" do
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">

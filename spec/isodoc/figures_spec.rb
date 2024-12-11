@@ -441,6 +441,20 @@ RSpec.describe IsoDoc do
          <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
          </figure>
        </figure>
+        <figure id="figureA-2" keep-with-next="true" keep-lines-together="true" unnumbered='true'>
+         <name>Overall title</name>
+         <figure id="note3">
+       <name>Subfigure 1</name>
+         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+         </figure>
+         </figure>
+         <figure id="figureA-3" keep-with-next="true" keep-lines-together="true">
+         <name>Overall title</name>
+         <figure id="note4" unnumbered="true">
+       <name>Subfigure 1</name>
+         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+         </figure>
+         </figure>
            </foreword></preface>
            </iso-standard>
     INPUT
@@ -510,6 +524,57 @@ RSpec.describe IsoDoc do
                       <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
                    </figure>
                 </figure>
+                <figure id="figureA-2" keep-with-next="true" keep-lines-together="true" unnumbered="true">
+                   <name id="_">Overall title</name>
+                   <fmt-name>
+                      <semx element="name" source="_">Overall title</semx>
+                   </fmt-name>
+                   <figure id="note3" autonum="-1">
+                      <name id="_">Subfigure 1</name>
+                      <fmt-name>
+                         <span class="fmt-caption-label">
+                            <span class="fmt-element-name">Figure</span>
+                            <semx element="autonum" source="figureA-2"/>
+                            <span class="fmt-autonum-delim">-</span>
+                            <semx element="autonum" source="note3">1</semx>
+                         </span>
+                         <span class="fmt-caption-delim"> — </span>
+                         <semx element="name" source="_">Subfigure 1</semx>
+                      </fmt-name>
+                      <fmt-xref-label>
+                         <span class="fmt-element-name">Figure</span>
+                         <semx element="autonum" source="figureA-2">(??)</semx>
+                         <span class="fmt-autonum-delim">-</span>
+                         <semx element="autonum" source="note3">1</semx>
+                      </fmt-xref-label>
+                      <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+                   </figure>
+                </figure>
+                <figure id="figureA-3" keep-with-next="true" keep-lines-together="true" autonum="2">
+                   <name id="_">Overall title</name>
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Figure</span>
+                         <semx element="autonum" source="figureA-3">2</semx>
+                      </span>
+                      <span class="fmt-caption-delim"> — </span>
+                      <semx element="name" source="_">Overall title</semx>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="figureA-3">2</semx>
+                   </fmt-xref-label>
+                   <figure id="note4" unnumbered="true">
+                      <name id="_">Subfigure 1</name>
+                      <fmt-name>
+                         <semx element="name" source="_">Subfigure 1</semx>
+                      </fmt-name>
+                      <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+                   </figure>
+                </figure>
+             </foreword>
+          </preface>
+       </iso-standard>
              </foreword>
           </preface>
        </iso-standard>
@@ -517,22 +582,36 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
              <br/>
-             <div id="fwd">
-               <h1 class="ForewordTitle">Foreword</h1>
-               <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                 <div id="note1" class="figure">
-                   <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
-                   <p class="FigureTitle" style="text-align:center;">Figure 1-1 — Subfigure 1</p>
-                 </div>
-                 <div id="note2" class="figure">
-                   <img src="rice_images/rice_image1.png" height="20" width="auto"/>
-                   <p class="FigureTitle" style="text-align:center;">Figure 1-2 — Subfigure 2</p>
-                 </div>
-                 <p class="FigureTitle" style="text-align:center;">Figure 1 — Overall title</p>
-               </div>
+                            <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <div id="note1" class="figure">
+                         <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+                         <p class="FigureTitle" style="text-align:center;">Figure 1-1 — Subfigure 1</p>
+                      </div>
+                      <div id="note2" class="figure">
+                         <img src="rice_images/rice_image1.png" height="20" width="auto"/>
+                         <p class="FigureTitle" style="text-align:center;">Figure 1-2 — Subfigure 2</p>
+                      </div>
+                      <p class="FigureTitle" style="text-align:center;">Figure 1 — Overall title</p>
+                   </div>
+                   <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <div id="note3" class="figure">
+                         <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+                         <p class="FigureTitle" style="text-align:center;">Figure -1 — Subfigure 1</p>
+                      </div>
+                      <p class="FigureTitle" style="text-align:center;">Overall title</p>
+                   </div>
+                   <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <div id="note4" class="figure">
+                         <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+                         <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
+                      </div>
+                      <p class="FigureTitle" style="text-align:center;">Figure 2 — Overall title</p>
+                   </div>
+                </div>
              </div>
-           </div>
-         </body>
+          </body>
        </html>
     OUTPUT
     word = <<~OUTPUT
@@ -553,6 +632,20 @@ RSpec.describe IsoDoc do
                 </div>
                 <p class="FigureTitle" style="text-align:center;">Figure 1 — Overall title</p>
               </div>
+                          <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+               <div id="note3" class="figure">
+                  <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
+                  <p class="FigureTitle" style="text-align:center;">Figure -1 — Subfigure 1</p>
+               </div>
+               <p class="FigureTitle" style="text-align:center;">Overall title</p>
+            </div>
+            <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+               <div id="note4" class="figure">
+                  <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
+                  <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
+               </div>
+               <p class="FigureTitle" style="text-align:center;">Figure 2 — Overall title</p>
+            </div>
             </div>
             <p> </p>
           </div>
