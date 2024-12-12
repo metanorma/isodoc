@@ -29,7 +29,7 @@ module IsoDoc
     def clause1(elem)
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
-      lbl = @xrefs.anchor(elem["id"], :label, elem.parent.name != "sections")
+      lbl = @xrefs.anchor(elem["id"], :label, !unnumbered_clause?(elem))
       if unnumbered_clause?(elem) || !lbl
         prefix_name(elem, {}, nil, "title")
       else
@@ -49,7 +49,7 @@ module IsoDoc
     end
 
     def annex1(elem)
-      lbl = @xrefs.anchor(elem["id"], :label)
+      lbl = @xrefs.anchor(elem["id"], :label, false)
       # TODO: do not alter title, alter semx/@element = title
       t = elem.at(ns("./title")) and
         t.children = "<strong>#{to_xml(t.children)}</strong>"
