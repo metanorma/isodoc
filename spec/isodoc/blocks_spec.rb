@@ -1128,7 +1128,7 @@ RSpec.describe IsoDoc do
                     <formattedref>
                        R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.
                        <em>Hypertext Transfer Protocol — HTTP/1.1</em>
-                       . In: RFC. 1999. Fremont, CA.
+                       . 1999. Fremont, CA.
                     </formattedref>
                     <docidentifier type="metanorma-ordinal">[1]</docidentifier>
                     <docidentifier type="IETF">IETF RFC 2616</docidentifier>
@@ -1195,7 +1195,7 @@ RSpec.describe IsoDoc do
                    <br/>
              <div>
                <h1 class='Section3'>Bibliography</h1>
-               <p id="rfc2616" class="Biblio">[1]  IETF&#xa0;RFC&#xa0;2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. In: RFC. 1999. Fremont, CA.</p>
+               <p id="rfc2616" class="Biblio">[1]  IETF&#xa0;RFC&#xa0;2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. 1999. Fremont, CA.</p>
              </div>
                 </div>
               </body>
