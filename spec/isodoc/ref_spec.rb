@@ -1868,7 +1868,7 @@ RSpec.describe IsoDoc do
         </fmt-xref-label>
         <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
         <bibitem id="ISO712" type="standard" suppress_identifier="true">
-          <formattedref>International Organization for Standardization and International Electrotechnical Commission. <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. First edition. 2007. <link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</link>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</formattedref>
+          <formattedref>International Organization for Standardization and International Electrotechnical Commission. <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. First edition. 2007. <link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</link>.</formattedref>
           <uri type="src">https://www.iso.org/standard/45324.html</uri>
           <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
           <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
@@ -1885,7 +1885,7 @@ RSpec.describe IsoDoc do
              <div>
                <h1>1.  Normative References</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-               <p id="ISO712" class="NormRef">ISO/IEC&#xa0;Guide&#xa0;99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. First edition. 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>. [viewed: #{Date.today.strftime('%B %-d, %Y')}].</p>
+               <p id="ISO712" class="NormRef">ISO/IEC&#xa0;Guide&#xa0;99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. First edition. 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>.</p>
              </div>
              <aside id="fn:1" class="footnote">
                <p id="_">Also known as JCGM 200</p>
