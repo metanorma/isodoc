@@ -14,6 +14,9 @@ termsdefsymbols: Terms, definitions and symbols
 termsdefabbrev: Terms, definitions and abbreviated terms
 normref: Normative references
 bibliography: Bibliography
+index: Index
+see: see
+see_also: see also
 preface: Preface
 section: Section
 clause: Clause

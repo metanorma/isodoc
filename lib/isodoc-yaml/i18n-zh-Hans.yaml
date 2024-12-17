@@ -14,6 +14,9 @@ termsdefsymbols: 术语、定义、符号和代号
 termsdefabbrev: 术语、定义、符号和缩略语
 normref: 规范性引用文件
 bibliography: 参考文献
+index: 索引
+see: 见
+see_also: 另见
 preface: 序言
 section: 条
 clause: 条

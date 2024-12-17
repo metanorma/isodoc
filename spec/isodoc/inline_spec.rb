@@ -86,28 +86,6 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
-  it "ignores index entries" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
-      <p id="A"><index primary="A" secondary="B" tertiary="C"/></p>
-      </foreword></preface>
-      <sections/>
-      <indexsect>
-        <title>Index</title>
-      </indexsect>
-      </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-      <p id="A"/>
-    OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input, true))
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
-  end
-
   it "processes concept markup" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">

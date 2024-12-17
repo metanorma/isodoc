@@ -14,6 +14,9 @@ termsdefsymbols: Термины, определения и символы
 termsdefabbrev: Термины, определения и сокращенные термины
 normref: Нормативные ссылки
 bibliography: Библиография
+index: Алфавитный указатель
+see: см.
+see_also: см. также
 section: Раздел
 clause: Пункт
 annex: Дополнение

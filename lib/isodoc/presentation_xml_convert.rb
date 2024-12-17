@@ -7,6 +7,7 @@ require_relative "presentation_function/erefs"
 require_relative "presentation_function/inline"
 require_relative "presentation_function/math"
 require_relative "presentation_function/section"
+require_relative "presentation_function/index"
 require_relative "presentation_function/bibdata"
 require_relative "presentation_function/metadata"
 

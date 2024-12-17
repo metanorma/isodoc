@@ -14,6 +14,9 @@ termsdefsymbols: 用語及び定義並びに記号
 termsdefabbrev: 用語及び定義並びに略語
 normref: 引用規格
 bibliography: 参考文献
+index: 索引
+see: 参照
+see_also: 追加参照
 preface: 序文
 section: セクション
 clause: 箇条

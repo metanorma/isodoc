@@ -15,6 +15,9 @@ termsdefsymbols: المصطلحات والتعريفات والرموز
 termsdefabbrev: المصطلحات والتعريفات والاختصارات
 normref: المراجع المعيارية
 bibliography: بيبليوغرافيا
+index: الفهرس
+see: انظر
+see_also: انظر أيضًا
 clause: فقرة
 annex: ملحق
 appendix: تذييل
