@@ -100,24 +100,27 @@ module IsoDoc
       implicit_reference(bibitem) ||
         bibitem.at(ns(".//docidentifier[@type = 'metanorma']")) ||
         bibitem.at(ns(".//docidentifier[@type = 'metanorma-ordinal']")) ||
+        bibitem["suppress_identifier"] == "true" ||
         bibitem["hidden"] == "true" || bibitem.parent["hidden"] == "true"
     end
 
     def bibliography_bibitem_number(docxml)
       i = 0
-      docxml.xpath(ns("//references[@normative = 'false']/bibitem")).each do |b|
-        i = bibliography_bibitem_number1(b, i)
+      docxml.xpath(ns("//references")).each do |r|
+        r.xpath(ns(".//bibitem")).each do |b|
+          i = bibliography_bibitem_number1(b, i, r["normative"] == "true")
+        end
       end
       reference_names docxml
       bibliography_bibitem_tag(docxml)
     end
 
-    def bibliography_bibitem_number1(bibitem, idx)
+    def bibliography_bibitem_number1(bibitem, idx, normative)
       ins = bibliography_bibitem_number_insert_pt(bibitem)
       mn = bibitem.at(ns(".//docidentifier[@type = 'metanorma']")) and
-        /^\[?\d+\]?$/.match?(mn.text) and
-        mn.remove # ignore numbers already inserted
-      unless bibliography_bibitem_number_skip(bibitem)
+        /^\[?\d+\]?$/.match?(mn.text) and mn.remove # ignore numbers already inserted
+      if !bibliography_bibitem_number_skip(bibitem) && (!normative || mn)
+        # respect numeric ids in normative only if already inserted
         idx += 1
         ins.next =
           "<docidentifier type='metanorma-ordinal'>[#{idx}]</docidentifier>"
@@ -126,10 +129,10 @@ module IsoDoc
     end
 
     def bibliography_bibitem_number_insert_pt(bibitem)
+      bibitem.children.empty? and bibitem.add_child(" ")
       unless d = bibitem.at(ns(".//docidentifier"))
         d = bibitem.children.first
-        d.previous = " "
-        return d.previous
+        d.previous = " " and return d.previous
       end
       unless ins = d.previous_element
         d.previous = " "
