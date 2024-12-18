@@ -1,0 +1,1 @@
+gem "relaton-render", git: "https://github.com/relaton/relaton-render", branch: "main"
