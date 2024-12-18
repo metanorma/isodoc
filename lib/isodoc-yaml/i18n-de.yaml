@@ -15,6 +15,9 @@ termsdefsymbols: Begriffe, Definitionen und Symbole
 termsdefabbrev: Begriffe, Definitionen und abgekürzte Begriffe
 normref: Normative Verweise
 bibliography: Bibliographie
+index: Index
+see: schau
+see_also: siehe auch
 clause: Klausel
 annex: Anhang
 appendix: Appendix

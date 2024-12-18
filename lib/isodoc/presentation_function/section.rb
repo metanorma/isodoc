@@ -81,10 +81,6 @@ module IsoDoc
         end
     end
 
-    def index(docxml)
-      docxml.xpath(ns("//index | //index-xref | //indexsect")).each(&:remove)
-    end
-
     def skip_display_order?(node)
       node.name == "floating-title"
     end
