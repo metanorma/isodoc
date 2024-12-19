@@ -1999,7 +1999,7 @@ RSpec.describe IsoDoc do
                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
                 <docidentifier>XYZ</docidentifier>
                 <docidentifier scope="biblio-tag">XYZ</docidentifier>
-                <biblio-tag>A., XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+                <biblio-tag><strong>A</strong>., XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
               </bibitem>
               <p id="_">More text</p>
             </references>
@@ -2030,7 +2030,7 @@ RSpec.describe IsoDoc do
                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
                 <docidentifier>XYZ</docidentifier>
                 <docidentifier scope="biblio-tag">XYZ</docidentifier>
-                <biblio-tag>A., XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+                <biblio-tag><strong>A</strong>., XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
               </bibitem>
             </references>
           </clause>
@@ -2050,7 +2050,7 @@ RSpec.describe IsoDoc do
                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
                 <docidentifier>XYZ</docidentifier>
                 <docidentifier scope="biblio-tag">XYZ</docidentifier>
-                <biblio-tag>A.<tab/>XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+                <biblio-tag><strong>A</strong>.<tab/>XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
               </bibitem>
               <p id="_">More text</p>
             </references>
@@ -2066,7 +2066,7 @@ RSpec.describe IsoDoc do
                 <docidentifier type="metanorma">[<strong>A</strong>.]</docidentifier>
                 <docidentifier>XYZ</docidentifier>
                 <docidentifier scope="biblio-tag">XYZ</docidentifier>
-                <biblio-tag>A.<tab/>XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
+                <biblio-tag><strong>A</strong>.<tab/>XYZ<fn reference="1"><p id="_">hello</p></fn>, </biblio-tag>
               </bibitem>
             </references>
           </clause>
@@ -2094,14 +2094,14 @@ RSpec.describe IsoDoc do
                <h1>1.  Normative References</h1>
                <p id="_">Text</p>
                <div>
-                 <p id="iso122" class="Biblio">A., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <p id="iso122" class="Biblio"><b>A</b>., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
                  <i>Standard</i>
                </p>
                  <p id="_">More text</p>
                </div>
                <div>
                  <h2 class="Section3">1.1.  Normative 1</h2>
-                 <p id="iso123" class="Biblio">A., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <p id="iso123" class="Biblio"><b>A</b>., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
                  <i>Standard</i>
                </p>
                </div>
@@ -2111,14 +2111,14 @@ RSpec.describe IsoDoc do
                <h1 class="Section3">Bibliography</h1>
                <p id="_">Text</p>
                <div>
-                 <p id="iso124" class="Biblio">A.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <p id="iso124" class="Biblio"><b>A</b>.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
                  <i>Standard</i>
                </p>
                  <p id="_">More text</p>
                </div>
                <div>
                  <h2 class="Section3">Bibliography 1</h2>
-                 <p id="iso125" class="Biblio">A.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <p id="iso125" class="Biblio"><b>A</b>.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
                  <i>Standard</i>
                </p>
                </div>

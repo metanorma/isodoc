@@ -50,14 +50,14 @@ module IsoDoc
 
     def bracket_if_num(num)
       num.nil? and return nil
-      num = num.text.sub(/^\[/, "").sub(/\]$/, "")
+      num = to_xml(num.children).sub(/^\[/, "").sub(/\]$/, "")
       /^\d+$/.match?(num) and return "[#{num}]"
       num
     end
 
     def unbracket1(ident)
       ident.nil? and return nil
-      ident.is_a?(String) or ident = ident.text
+      ident.is_a?(String) or ident = to_xml(ident.children)
       ident.sub(/^\[/, "").sub(/\]$/, "")
     end
 
