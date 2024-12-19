@@ -9,7 +9,7 @@ module IsoDoc
     def pref_ref_code(bib)
       bib["suppress_identifier"] == "true" and return nil
       ret = bib.xpath(ns("./docidentifier[@scope = 'biblio-tag']"))
-      ret.empty? or return ret.map(&:text)
+      ret.empty? or return ret.map { |x| to_xml(x.children) }
       ret = pref_ref_code_parse(bib) or return nil
       ins = bib.at(ns("./docidentifier[last()]"))
       ret.reverse_each do |r|
