@@ -3,10 +3,13 @@ require "metanorma-utils"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def citeas(xmldoc)
-      xmldoc.xpath(ns("//eref | //origin | //quote//source")).each do |e|
+      xmldoc.xpath(ns("//eref | //origin | //quote//source | //link"))
+        .each do |e|
         e["bibitemid"] && e["citeas"] or next
         a = @xrefs.anchor(e["bibitemid"], :xref, false) and
           e["citeas"] = a.gsub(%r{</?[^>]+>}, "")
+        # link generated in collection postprocessing from eref
+        e.name == "link" && e.text.empty? and e.children = e["citeas"]
       end
     end
 
