@@ -6,11 +6,20 @@ module IsoDoc
       xmldoc.xpath(ns("//eref | //origin | //quote//source | //link"))
         .each do |e|
         e["bibitemid"] && e["citeas"] or next
-        a = @xrefs.anchor(e["bibitemid"], :xref, false) and
-          e["citeas"] = a.gsub(%r{</?[^>]+>}, "")
+        a = @xrefs.anchor(e["bibitemid"], :xref, false) or next
+        e["citeas"] = citeas_cleanup(a)
         # link generated in collection postprocessing from eref
         e.name == "link" && e.text.empty? and e.children = e["citeas"]
       end
+    end
+
+    def citeas_cleanup(ref)
+      if /</.match?(ref)
+        xml = Nokogiri::XML("<root>#{ref}</root>")
+        xml.xpath("//semx").each { |x| x.replace(x.children) }
+        ref = to_xml(xml.at("//root").children)
+      end
+      ref
     end
 
     def expand_citeas(text)

@@ -21,7 +21,7 @@ module IsoDoc
       node["style"] == "id" and
         return anchor_id_postproc(node)
       node["citeas"].nil? && node["bibitemid"] and
-        return @xrefs.anchor(node["bibitemid"], :xref) || "???"
+        return citeas_cleanup(@xrefs.anchor(node["bibitemid"], :xref)) || "???"
       node.at(ns("./location")) and
         return combine_xref_locations(node) || "???"
       node["target"] && node["droploc"] and
