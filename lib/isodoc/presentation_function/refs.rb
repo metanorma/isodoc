@@ -153,6 +153,7 @@ module IsoDoc
     def bibliography_bibitem_tag1(ref, idx, norm)
       ref.xpath(ns("./bibitem")).each do |b|
         implicit_reference(b) and next
+        b["suppress_identifier"] == "true" and next
         idx += 1 unless b["hidden"]
         insert_biblio_tag(b, idx, !norm, standard?(b))
       end
