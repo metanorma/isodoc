@@ -1838,7 +1838,6 @@ RSpec.describe IsoDoc do
             .
           </formattedref>
           <docidentifier type='ISO'>ISO&#xa0;712</docidentifier>
-          <biblio-tag/>
         </bibitem>
         <bibitem id='ref1' suppress_identifier='true'>
           <formattedref format='application/x-isodoc+xml'>
@@ -1854,7 +1853,6 @@ RSpec.describe IsoDoc do
             )
           </formattedref>
           <docidentifier type='ICC'>ICC/167</docidentifier>
-          <biblio-tag/>
         </bibitem>
       </references>
     PRESXML
@@ -1910,7 +1908,7 @@ RSpec.describe IsoDoc do
                 </bibdata>
                 <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-            <bibitem id="ISO712" type="standard" suppress_identifier="true">
+            <bibitem id="ISO712" type="standard">
               <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
               <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
               <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
@@ -1946,7 +1944,7 @@ RSpec.describe IsoDoc do
            <semx element="autonum" source="_">1</semx>
         </fmt-xref-label>
         <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-        <bibitem id="ISO712" type="standard" suppress_identifier="true">
+        <bibitem id="ISO712" type="standard">
           <formattedref>International Organization for Standardization and International Electrotechnical Commission. <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. First edition. 2007. <link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</link>.</formattedref>
           <uri type="src">https://www.iso.org/standard/45324.html</uri>
           <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
@@ -1955,7 +1953,8 @@ RSpec.describe IsoDoc do
           <docidentifier type="ISO" primary="true">ISO/IEC&#xa0;Guide&#xa0;99:2007</docidentifier>
           <docidentifier type="metanorma">[ISO/IEC&#xa0;Guide&#xa0;99:2007]</docidentifier>
           <docidentifier type="URN">URN&#xa0;urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-          <biblio-tag>ISO/IEC&#xa0;Guide&#xa0;99:2007<fn reference="1"><p id="_">Also known as JCGM 200</p></fn> </biblio-tag>
+          <docidentifier scope="biblio-tag">ISO/IEC Guide 99:2007</docidentifier>
+          <biblio-tag>ISO/IEC Guide 99:2007, ISO/IEC Guide 99:2007<fn reference="1"><p id="_">Also known as JCGM 200</p></fn>, </biblio-tag>
         </bibitem>
       </references>
     PRESXML
@@ -1964,13 +1963,23 @@ RSpec.describe IsoDoc do
              <div>
                <h1>1.  Normative References</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-               <p id="ISO712" class="NormRef">ISO/IEC&#xa0;Guide&#xa0;99:2007<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a> International Organization for Standardization and International Electrotechnical Commission. <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>. First edition. 2007. <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>.</p>
+                                  <p id="ISO712" class="NormRef">
+                      ISO/IEC Guide 99:2007, ISO/IEC Guide 99:2007
+                      <a class="FootnoteRef" href="#fn:1">
+                         <sup>1</sup>
+                      </a>
+                      , International Organization for Standardization and International Electrotechnical Commission.
+                      <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>
+                      . First edition. 2007.
+                      <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>
+                      .
+                   </p>
+                </div>
+                <aside id="fn:1" class="footnote">
+                   <p id="_">Also known as JCGM 200</p>
+                </aside>
              </div>
-             <aside id="fn:1" class="footnote">
-               <p id="_">Also known as JCGM 200</p>
-             </aside>
-           </div>
-         </body>
+          </body>
        </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
