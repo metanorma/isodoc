@@ -228,7 +228,7 @@ RSpec.describe IsoDoc do
                     <source status="generalisation">
                        [SOURCE:
                        <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
-                       — with adjustments ;
+                       — with adjustments;
                        <xref type="inline" target="ISO712">ISO 712, Section 2</xref>
                        ]
                     </source>
@@ -416,7 +416,7 @@ RSpec.describe IsoDoc do
            </div>
            <div class="BlockSource">
              <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a> —
-      with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
+      with adjustments; <a href="#ISO712">ISO 712, Section 2</a>]</p>
            </div>
            <div class="Note">
              <p><span class="note_label">NOTE  </span>This is a table about rice</p>
@@ -547,7 +547,7 @@ RSpec.describe IsoDoc do
                    </div>
                    <div class="BlockSource">
                      <p>[SOURCE: <a href="#ISO712">ISO 712, Section 1</a>
-             — with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
+             — with adjustments; <a href="#ISO712">ISO 712, Section 2</a>]</p>
                    </div>
                    <div class="Note">
                      <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">  </span></span>This is a table about rice</p>
