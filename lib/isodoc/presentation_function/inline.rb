@@ -61,6 +61,8 @@ module IsoDoc
     end
 
     def xref1(node)
+      # Semantic XML
+      node.ancestors("related, definition, termsource").empty? or return
       get_linkend(node)
     end
 

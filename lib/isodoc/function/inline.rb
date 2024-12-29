@@ -203,6 +203,7 @@ module IsoDoc
       def xref_label_parse(node, out); end
 
       def name_parse(node, out); end
+      def semx_definition_parse(node, out); end
 
       def floating_title_parse(node, out); end
 

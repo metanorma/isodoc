@@ -44,14 +44,23 @@ module IsoDoc
       old.delete("id")
     end
 
+    def semx_fmt_dup(elem)
+      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      new = Nokogiri::XML(<<~XML).root
+        <semx xmlns='#{elem.namespace.href}' element='#{elem.name}' source='#{elem['original-id'] || elem['id']}'>#{to_xml(elem.children)}</semx>
+      XML
+      strip_duplicate_ids(nil, elem, new)
+      new
+    end
+
     def gather_all_ids(elem)
       elem.xpath(".//*[@id]").each_with_object([]) do |i, m|
         m << i["id"]
       end
     end
 
-    # remove ids duplicated between title and fmt-title
-    # index terms are assumed transferred to fmt-title from title
+    # remove ids duplicated between sem_title and pres_title
+    # index terms are assumed transferred to pres_title from sem_title
     def strip_duplicate_ids(_node, sem_title, pres_title)
       sem_title && pres_title or return
       ids = gather_all_ids(pres_title)
@@ -73,6 +82,10 @@ module IsoDoc
     def autonum(id, num)
       /<semx/.match?(num) and return num # already contains markup
       "<semx element='autonum' source='#{id}'>#{num}</semx>"
+    end
+
+    def semx_orig(node)
+      node.parent.parent.at(".//*[@id = '#{node['source']}']")
     end
 
     def labelled_autonum(label, id, num)
