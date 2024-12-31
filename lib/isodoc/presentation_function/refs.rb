@@ -107,7 +107,7 @@ module IsoDoc
     def bibliography_bibitem_number(docxml)
       i = 0
       docxml.xpath(ns("//references")).each do |r|
-        r.xpath(ns(".//bibitem")).each do |b|
+        r.xpath(ns("./bibitem")).each do |b|
           i = bibliography_bibitem_number1(b, i, r["normative"] == "true")
         end
       end
