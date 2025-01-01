@@ -7,6 +7,7 @@ module IsoDoc
     end
 
     def concept1(node)
+      node.ancestors("definition, termsource, related").empty? or return
       xref = node&.at(ns("./xref/@target"))&.text or
         return concept_render(node, ital: "true", ref: "true", bold: "false",
                                     linkref: "true", linkmention: "false")

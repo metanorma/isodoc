@@ -2461,4 +2461,116 @@ RSpec.describe IsoDoc do
       .at("//xmlns:terms").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
+
+  it "do not process concept markup in Semantic XML" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata><language>en</language></bibdata>
+          <sections>
+          <terms id="terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+      <term id="paddy1"><preferred><expression><name>paddy</name></expression></preferred>
+      <definition><verbal-definition>
+      <ul>
+      <concept><refterm>term1</refterm>
+          <renderterm>term</renderterm>
+          <xref target='clause1'/>
+        </concept></li>
+      <li><concept><refterm>term1</refterm>
+          <renderterm>term</renderterm>
+          <xref target='clause1'/>
+        </concept></li>
+        </ul>
+        </verbal-definition></definition>
+      </term>
+      </terms>
+      </sections></iso-standard>
+    INPUT
+    output = <<~OUTPUT
+          <terms id="terms_and_definitions" obligation="normative" displayorder="2">
+          <title id="_">Terms and Definitions</title>
+          <fmt-title depth="1">
+             <span class="fmt-caption-label">
+                <semx element="autonum" source="terms_and_definitions">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+             </span>
+             <span class="fmt-caption-delim">
+                <tab/>
+             </span>
+             <semx element="title" source="_">Terms and Definitions</semx>
+          </fmt-title>
+          <fmt-xref-label>
+             <span class="fmt-element-name">Clause</span>
+             <semx element="autonum" source="terms_and_definitions">1</semx>
+          </fmt-xref-label>
+          <term id="paddy1">
+             <fmt-name>
+                <span class="fmt-caption-label">
+                   <semx element="autonum" source="terms_and_definitions">1</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="paddy1">1</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                </span>
+             </fmt-name>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Clause</span>
+                <semx element="autonum" source="terms_and_definitions">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+                <semx element="autonum" source="paddy1">1</semx>
+             </fmt-xref-label>
+             <preferred id="_">
+                <expression>
+                   <name>paddy</name>
+                </expression>
+             </preferred>
+             <fmt-preferred>
+                <p>
+                   <semx element="preferred" source="_">
+                      <strong>paddy</strong>
+                   </semx>
+                </p>
+             </fmt-preferred>
+             <definition id="_">
+                <verbal-definition>
+                   <ul>
+                      <concept>
+                         <refterm>term1</refterm>
+                         <renderterm>term</renderterm>
+                         <xref target="clause1"/>
+                      </concept>
+                   </ul>
+                   <li>
+                      <concept>
+                         <refterm>term1</refterm>
+                         <renderterm>term</renderterm>
+                         <xref target="clause1"/>
+                      </concept>
+                   </li>
+                </verbal-definition>
+             </definition>
+             <fmt-definition>
+                <semx element="definition" source="_">
+                   <ul>
+                      <em>term</em>
+                      (
+                      <xref target="clause1">[clause1]</xref>
+                      )
+                   </ul>
+                   <li>
+                      <em>term</em>
+                      (
+                      <xref target="clause1">[clause1]</xref>
+                      )
+                   </li>
+                </semx>
+             </fmt-definition>
+          </term>
+       </terms>
+    OUTPUT
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(output)
+  end
+
 end
