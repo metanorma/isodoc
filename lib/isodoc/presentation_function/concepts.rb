@@ -166,7 +166,7 @@ module IsoDoc
                          "./graphical-symbol")) or return
       designation_annotate(d1, name, desgn)
       out << d1
-      s and out.next = s.wrap("<fmt-termsource></fmt-termsource>")
+      s and out << s.wrap("<fmt-termsource></fmt-termsource>").parent
     end
 
     def designation_annotate(desgn, name, orig)

@@ -17,7 +17,7 @@ module IsoDoc
         %w(preferred admitted deprecates related definition termsource)
           .each do |w|
           t.xpath(ns("./#{w}//fmt-name | ./#{w}//fmt-xref-label")).each(&:remove)
-          f = t.at(ns("./fmt-#{w}"))
+          f = t.at(ns(".//fmt-#{w}"))
           f&.children&.empty? and f.remove
         end
       end
@@ -88,7 +88,7 @@ module IsoDoc
     def termsource(docxml)
       copy_baselevel_termsource(docxml)
       # TODO should I wrap fmt-definition//termsource in fmt-termsource, in order to preserve termsource attributes?
-      docxml.xpath(ns("//fmt-termsource/termsource | //fmt-definition//termsource"))
+      docxml.xpath(ns("//fmt-termsource/termsource | //fmt-definition//termsource | //fmt-preferred//termsource | //fmt-admitted//termsource | //fmt-deprecates//termsource"))
         .each do |f|
         termsource_modification(f)
       end
