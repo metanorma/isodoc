@@ -171,7 +171,7 @@ module IsoDoc
 
     def designation_annotate(desgn, name, orig)
       designation_boldface(desgn)
-      designation_field(desgn, name)
+      designation_field(desgn, name, orig)
       g = desgn.at(ns("./expression/grammar")) and
         name << ", #{designation_grammar(g).join(', ')}"
       designation_localization(desgn, name, orig)
@@ -186,7 +186,7 @@ module IsoDoc
       name.children = "<strong>#{name.children}</strong>"
     end
 
-    def designation_field(desgn, name)
+    def designation_field(desgn, name, orig)
       f = desgn.xpath(ns("./field-of-application | ./usage-info"))
         &.map { |u| to_xml(u.children) }&.join(", ")
       f&.empty? and return nil
