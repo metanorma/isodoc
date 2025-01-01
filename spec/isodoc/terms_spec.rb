@@ -1879,12 +1879,12 @@ RSpec.describe IsoDoc do
                 <usage-info>Usage Info 1</usage-info>
              </preferred>
              <fmt-preferred>
-             <p>
-                <semx element="preferred" source="_">
-                   <strong>Second Term</strong>
-                   , &lt;Field, Usage Info 1&gt;
-                </semx>
-             </p>
+                <p>
+                   <semx element="preferred" source="_">
+                      <strong>Second Term</strong>
+                      , &lt;Field, Usage Info 1&gt;
+                   </semx>
+                </p>
              </fmt-preferred>
              <definition id="_">
                 <verbal-definition>Definition 1</verbal-definition>
@@ -1914,11 +1914,11 @@ RSpec.describe IsoDoc do
                 </expression>
              </preferred>
              <fmt-preferred>
-             <p>
-                <semx element="preferred" source="_">
-                   <strong>First Designation</strong>
-                </semx>
-             </p>
+                <p>
+                   <semx element="preferred" source="_">
+                      <strong>First Designation</strong>
+                   </semx>
+                </p>
              </fmt-preferred>
              <related type="contrast" id="_">
                 <preferred>
@@ -1945,33 +1945,39 @@ RSpec.describe IsoDoc do
                 <xref target="second"/>
              </related>
              <fmt-related>
-                <p>
-                   <strong>CONTRAST:</strong>
-                   <em>
-                      <fmt-preferred>
-                         <semx element="preferred" source="_">
-                            <strong>Fifth Designation</strong>
-                            , n
-                         </semx>
-                      </fmt-preferred>
-                   </em>
-                   (
-                   <xref target="second">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="A">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                      <semx element="autonum" source="second">1</semx>
-                   </xref>
-                   )
-                </p>
-                <p>
-                   <strong>SEE:</strong>
-                   <strong>**RELATED TERM NOT FOUND**</strong>
-                </p>
-                <p>
-                   <strong>SEE ALSO:</strong>
-                   <strong>**RELATED TERM NOT FOUND**</strong>
-                </p>
+                <semx element="related" source="_">
+                   <p>
+                      <strong>CONTRAST:</strong>
+                      <em>
+                         <fmt-preferred>
+                            <semx element="preferred" source="_">
+                               <strong>Fifth Designation</strong>
+                               , n
+                            </semx>
+                         </fmt-preferred>
+                      </em>
+                      (
+                      <xref target="second">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="A">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="second">1</semx>
+                      </xref>
+                      )
+                   </p>
+                </semx>
+                <semx element="related" source="_">
+                   <p>
+                      <strong>SEE:</strong>
+                      <strong>**RELATED TERM NOT FOUND**</strong>
+                   </p>
+                </semx>
+                <semx element="related" source="_">
+                   <p>
+                      <strong>SEE ALSO:</strong>
+                      <strong>**RELATED TERM NOT FOUND**</strong>
+                   </p>
+                </semx>
              </fmt-related>
              <definition id="_">
                 <verbal-definition>Definition 2</verbal-definition>

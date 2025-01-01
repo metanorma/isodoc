@@ -78,10 +78,10 @@ module IsoDoc
       p, ref, orig = related1_prep(node)
       label = @i18n.relatedterms[orig["type"]].upcase
       if p && ref
-        node.replace(l10n("<p><strong>#{label}:</strong> " \
+        node.children =(l10n("<p><strong>#{label}:</strong> " \
                           "<em>#{to_xml(p)}</em> (#{Common::to_xml(ref)})</p>"))
       else
-        node.replace(l10n("<p><strong>#{label}:</strong> " \
+        node.children = (l10n("<p><strong>#{label}:</strong> " \
                           "<strong>**RELATED TERM NOT FOUND**</strong></p>"))
       end
     end
