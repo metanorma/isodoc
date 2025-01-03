@@ -84,8 +84,9 @@ module IsoDoc
       "<semx element='autonum' source='#{id}'>#{num}</semx>"
     end
 
-    def semx_orig(node)
-      node.parent.parent.at(".//*[@id = '#{node['source']}']")
+    def semx_orig(node, orig = nil)
+      orig ||= node.parent.parent
+      orig.at(".//*[@id = '#{node['source']}']")
     end
 
     def labelled_autonum(label, id, num)
