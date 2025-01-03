@@ -209,8 +209,8 @@ RSpec.describe IsoDoc do
                       <expression>
                          <name>paddy</name>
                       </expression>
-                      <field-of-application>in agriculture</field-of-application>
-                      <usage-info>dated</usage-info>
+                      <field-of-application id="_">in agriculture</field-of-application>
+                      <usage-info id="_">dated</usage-info>
                       <termsource status="modified" original-id="_">
                          <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
                             <locality type="clause">
@@ -226,22 +226,28 @@ RSpec.describe IsoDoc do
                       <p>
                          <semx element="preferred" source="_">
                             <strong>paddy</strong>
-                            , &lt;in agriculture, dated&gt;
+                            <span class="fmt-designation-field">
+                               , &lt;
+                               <semx element="field-of-application" source="_">in agriculture</semx>
+                               ,
+                               <semx element="usage-info" source="_">dated</semx>
+                               &gt;
+                            </span>
                          </semx>
                       </p>
                       <fmt-termsource>
-                  [SOURCE:
-                  <semx element="termsource" source="_">
-                     <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
-                        <locality type="clause">
-                           <referenceFrom>3.1</referenceFrom>
-                        </locality>
-                        ISO 7301:2011, Clause 3.1
-                     </origin>
-                     , modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
-                  </semx>
-                  ]
-               </fmt-termsource>
+                         [SOURCE:
+                         <semx element="termsource" source="_">
+                            <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
+                               <locality type="clause">
+                                  <referenceFrom>3.1</referenceFrom>
+                               </locality>
+                               ISO 7301:2011, Clause 3.1
+                            </origin>
+                            , modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
+                         </semx>
+                         ]
+                      </fmt-termsource>
                    </fmt-preferred>
                    <domain id="_">rice</domain>
                    <definition id="_">
@@ -376,7 +382,7 @@ RSpec.describe IsoDoc do
                       <letter-symbol>
                          <name>paddy rice</name>
                       </letter-symbol>
-                      <field-of-application>in agriculture</field-of-application>
+                      <field-of-application id="_">in agriculture</field-of-application>
                    </admitted>
                    <admitted id="_">
                       <expression>
@@ -385,7 +391,14 @@ RSpec.describe IsoDoc do
                    </admitted>
                    <fmt-admitted>
                       <p>
-                         <semx element="admitted" source="_">paddy rice, &lt;in agriculture&gt;</semx>
+                         <semx element="admitted" source="_">
+                            paddy rice
+                            <span class="fmt-designation-field">
+                               , &lt;
+                               <semx element="field-of-application" source="_">in agriculture</semx>
+                               &gt;
+                            </span>
+                         </semx>
                       </p>
                       <p>
                          <semx element="admitted" source="_">rough rice</semx>
@@ -398,7 +411,7 @@ RSpec.describe IsoDoc do
                    </deprecates>
                    <fmt-deprecates>
                       <p>
-                      DEPRECATED:
+                         DEPRECATED:
                          <semx element="deprecates" source="_">cargo rice</semx>
                       </p>
                    </fmt-deprecates>
@@ -1870,14 +1883,20 @@ RSpec.describe IsoDoc do
                 <expression>
                    <name>Second Term</name>
                 </expression>
-                <field-of-application>Field</field-of-application>
-                <usage-info>Usage Info 1</usage-info>
+                <field-of-application id="_">Field</field-of-application>
+                <usage-info id="_">Usage Info 1</usage-info>
              </preferred>
              <fmt-preferred>
                 <p>
                    <semx element="preferred" source="_">
                       <strong>Second Term</strong>
-                      , &lt;Field, Usage Info 1&gt;
+                      <span class="fmt-designation-field">
+                         , &lt;
+                         <semx element="field-of-application" source="_">Field</semx>
+                         ,
+                         <semx element="usage-info" source="_">Usage Info 1</semx>
+                         &gt;
+                      </span>
                    </semx>
                 </p>
              </fmt-preferred>

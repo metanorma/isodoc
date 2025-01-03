@@ -188,10 +188,10 @@ module IsoDoc
     end
 
     def designation_field(desgn, name, orig)
-      f = desgn.xpath(ns("./field-of-application | ./usage-info"))
-        &.map { |u| to_xml(u.children) }&.join(", ")
+      f = orig.xpath(ns("./field-of-application | ./usage-info"))
+        &.map { |u| to_xml(semx_fmt_dup(u)) }&.join(", ")
       f&.empty? and return nil
-      name << ", &#x3c;#{f}&#x3e;"
+      name << "<span class='fmt-designation-field'>, &#x3c;#{f}&#x3e;</span>"
     end
 
     def designation_grammar(grammar)
