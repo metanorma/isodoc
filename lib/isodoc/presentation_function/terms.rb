@@ -114,7 +114,11 @@ module IsoDoc
         ret << semx_fmt_dup(elem.next_element.remove)
       end
       s = ret.map { |x| to_xml(x) }.map(&:strip).join("; ")
-      elem.replace(l10n("[#{@i18n.source}: #{s}]"))
+      termsource_label(elem, s)
+    end
+
+    def termsource_label(elem, sources)
+      elem.replace(l10n("[#{@i18n.source}: #{sources}]"))
     end
 
     def termsource_modification(elem)
