@@ -38,6 +38,8 @@ module IsoDoc
 
       def semx_term_parse(node, out); end
 
+      def semx_related_parse(node, out); end
+
       def term_parse(node, out)
         node.children.each do |c|
           if c.name == "p"
