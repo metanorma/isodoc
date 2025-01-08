@@ -114,8 +114,9 @@ module IsoDoc
     end
 
     def deprecates(elem)
-      ins = elem.at(ns("./p")) || elem
-      ins.add_first_child @i18n.l10n("#{@i18n.deprecated}: ")
+      elem.xpath(ns(".//semx[@element = 'deprecates']")).each do |t|
+        t.previous = i18n.l10n("#{@i18n.deprecated}: ")
+      end
     end
 
     def admits(elem); end
