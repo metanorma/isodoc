@@ -242,8 +242,6 @@ RSpec.describe IsoDoc do
                                &gt;
                             </span>
                          </semx>
-                      </p>
-                      <fmt-termsource>
                          [SOURCE:
                          <semx element="termsource" source="_">
                             <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
@@ -255,7 +253,7 @@ RSpec.describe IsoDoc do
                             , modified — <semx element="modification" source="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</semx>
                          </semx>
                          ]
-                      </fmt-termsource>
+                      </p>
                    </fmt-preferred>
                    <domain id="_">rice</domain>
                    <definition id="_">
@@ -570,9 +568,8 @@ RSpec.describe IsoDoc do
                    <p class="TermNum" id="paddy1">1.1.</p>
                    <p class="Terms" style="text-align:left;">
                       <b>paddy</b>
-                      , &lt;in agriculture, dated&gt;
+                      , &lt;in agriculture, dated&gt; [SOURCE: ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
                    </p>
-                   <p>[SOURCE: ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
                    <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
                    <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
                       <p class="example-title">EXAMPLE 1</p>
@@ -650,9 +647,8 @@ RSpec.describe IsoDoc do
                    <p class="TermNum" id="paddy1">1.1.</p>
                    <p class="Terms" style="text-align:left;">
                       <b>paddy</b>
-                      , &lt;in agriculture, dated&gt;
+                      , &lt;in agriculture, dated&gt; [SOURCE: ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
                    </p>
-                   <p>[SOURCE: ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]</p>
                    <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
                    <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
                       <p class="example-title">EXAMPLE 1</p>

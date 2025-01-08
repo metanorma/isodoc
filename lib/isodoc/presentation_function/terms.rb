@@ -92,10 +92,21 @@ module IsoDoc
         .each do |f|
         termsource_modification(f)
       end
-      docxml.xpath(ns("//fmt-termsource/termsource | //fmt-definition//termsource"))
+      docxml.xpath(ns("//fmt-preferred//fmt-termsource | //fmt-admitted//fmt-termsource | //fmt-deprecates//fmt-termsource"))
+        .each do |f|
+          termsource_designation(f)
+        end
+      docxml.xpath(ns("//fmt-termsource/termsource | //fmt-definition//termsource | //fmt-preferred//termsource | //fmt-admitted//termsource | //fmt-deprecates//termsource"))
         .each do |f|
         f.parent and termsource1(f)
       end
+    end
+
+    def termsource_designation(fmtsource)
+      p = fmtsource.previous_element
+          p&.name == "p" or return
+          p << " "
+          p << fmtsource.children
     end
 
     def copy_baselevel_termsource(docxml)
