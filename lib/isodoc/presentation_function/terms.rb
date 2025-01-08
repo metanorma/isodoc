@@ -132,7 +132,7 @@ module IsoDoc
       mod or return
       mod.text.strip.empty? or mod.previous = " &#x2014; "
       mod.elements.size == 1 and mod.children = to_xml(mod.elements[0].children)
-      mod.replace(semx_fmt_dup(mod))
+      mod.text.strip.empty? or mod.replace(semx_fmt_dup(mod))
     end
 
     def termsource_status(status)
