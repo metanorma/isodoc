@@ -130,9 +130,13 @@ module IsoDoc
 
     def termsource_add_modification_text(mod)
       mod or return
-      mod.text.strip.empty? or mod.previous = " &#x2014; "
+      if mod.text.strip.empty?
+        mod.remove
+        return
+      end
+      mod.previous = " &#x2014; "
       mod.elements.size == 1 and mod.children = to_xml(mod.elements[0].children)
-      mod.text.strip.empty? or mod.replace(semx_fmt_dup(mod))
+      mod.replace(semx_fmt_dup(mod))
     end
 
     def termsource_status(status)

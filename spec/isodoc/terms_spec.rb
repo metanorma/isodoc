@@ -136,6 +136,14 @@ RSpec.describe IsoDoc do
             <p id='_'>with adjustments</p>
           </modification>
         </termsource>
+        <termsource status='adapted'>
+          <origin citeas=''>
+            <termref base='IEV' target='xyz'>t1</termref>
+          </origin>
+          <modification>
+            <p id='_'/>
+          </modification>
+        </termsource>
       </term>
       <term id="paddy"><preferred><expression><name>paddy</name></expression></preferred>
       <admitted><letter-symbol><name>paddy rice</name></letter-symbol>
@@ -333,6 +341,14 @@ RSpec.describe IsoDoc do
                          <p original-id="_">with adjustments</p>
                       </modification>
                    </termsource>
+                   <termsource status="adapted" id="_">
+                      <origin citeas="">
+                         <termref base="IEV" target="xyz">t1</termref>
+                      </origin>
+                      <modification>
+                         <p original-id="_"/>
+                      </modification>
+                   </termsource>
                    <fmt-termsource status="identical">
                       [SOURCE:
                       <semx element="termsource" source="_">
@@ -347,6 +363,13 @@ RSpec.describe IsoDoc do
                             <termref base="IEV" target="xyz"/>
                          </origin>
                          , modified — <semx element="modification" source="_">with adjustments</semx>
+               </semx>
+               ;
+               <semx element="termsource" source="_">
+                  <origin citeas="">
+                     <termref base="IEV" target="xyz">t1</termref>
+                  </origin>
+                  , adapted
                       </semx>
                       ]
                    </fmt-termsource>
@@ -568,7 +591,7 @@ RSpec.describe IsoDoc do
                          </ul>
                       </div>
                    </div>
-                   <p>[SOURCE: t1 — comment; Termbase IEV, term ID xyz, modified — with adjustments]</p>
+                   <p>[SOURCE: t1 — comment; Termbase IEV, term ID xyz, modified — with adjustments; t1, adapted]</p>
                    <p class="TermNum" id="paddy">1.2.</p>
                    <p class="Terms" style="text-align:left;">
                       <b>paddy</b>
@@ -648,7 +671,7 @@ RSpec.describe IsoDoc do
                          </ul>
                       </div>
                    </div>
-                   <p>[SOURCE: t1 — comment; Termbase IEV, term ID xyz, modified — with adjustments]</p>
+                   <p>[SOURCE: t1 — comment; Termbase IEV, term ID xyz, modified — with adjustments; t1, adapted]</p>
                    <p class="TermNum" id="paddy">1.2.</p>
                    <p class="Terms" style="text-align:left;">
                       <b>paddy</b>
