@@ -174,8 +174,9 @@ module IsoDoc
     def designation_annotate(desgn, name, orig)
       designation_boldface(desgn)
       designation_field(desgn, name, orig)
-      g = desgn.at(ns("./expression/grammar")) and
-        name << ", #{designation_grammar(g).join(', ')}"
+      #g = desgn.at(ns("./expression/grammar")) and
+        #name << ", #{designation_grammar(g).join(', ')}"
+      designation_grammar(desgn, name)
       designation_localization(desgn, name, orig)
       designation_pronunciation(desgn, name)
       designation_bookmarks(desgn, name)
@@ -195,17 +196,17 @@ module IsoDoc
       name << "<span class='fmt-designation-field'>, &#x3c;#{f}&#x3e;</span>"
     end
 
-    def designation_grammar(grammar)
+    def designation_grammar(desgn, name)
+      g = desgn.at(ns("./expression/grammar")) or return
       ret = []
-      grammar.xpath(ns("./gender | ./number")).each do |x|
+      g.xpath(ns("./gender | ./number")).each do |x|
         ret << @i18n.grammar_abbrevs[x.text]
       end
       %w(isPreposition isParticiple isAdjective isVerb isAdverb isNoun)
         .each do |x|
-        grammar.at(ns("./#{x}[text() = 'true']")) and
-          ret << @i18n.grammar_abbrevs[x]
+        g.at(ns("./#{x}[text() = 'true']")) and ret << @i18n.grammar_abbrevs[x]
       end
-      ret
+      name << ", #{ret.join(', ')}"
     end
 
     def designation_localization(desgn, name, orig_desgn)
