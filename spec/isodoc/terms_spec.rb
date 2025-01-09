@@ -1982,12 +1982,10 @@ RSpec.describe IsoDoc do
                    <p>
                       <strong>CONTRAST:</strong>
                       <em>
-                         <fmt-preferred>
                             <semx element="preferred" source="_">
                                <strong>Fifth Designation</strong>
                                , n
                             </semx>
-                         </fmt-preferred>
                       </em>
                       (
                       <xref target="second">
