@@ -108,6 +108,7 @@ module IsoDoc
     end
 
     def terms(docxml)
+      termcontainers docxml
       termexample docxml
       termnote docxml
       termdefinition docxml
@@ -115,6 +116,7 @@ module IsoDoc
       termsource docxml
       concept docxml
       related docxml
+      termcleanup docxml
     end
 
     def semantic_xml_insert(xml)

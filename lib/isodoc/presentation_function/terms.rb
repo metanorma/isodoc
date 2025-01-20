@@ -1,103 +1,25 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
-    def designation(docxml)
-      docxml.xpath(ns("//term")).each { |t| merge_second_preferred(t) }
-      docxml.xpath(ns("//preferred | //admitted | //deprecates"))
-        .each { |p| designation1(p) }
-      docxml.xpath(ns("//deprecates")).each { |d| deprecates(d) }
-      docxml.xpath(ns("//admitted")).each { |d| admits(d) }
-    end
-
-    def deprecates(elem)
-      elem.add_first_child @i18n.l10n("#{@i18n.deprecated}: ")
-    end
-
-    def admits(elem); end
-
-    def merge_second_preferred(term)
-      pref = nil
-      term.xpath(ns("./preferred[expression/name]")).each_with_index do |p, i|
-        (i.zero? and pref = p) or merge_second_preferred1(pref, p)
+    def termcontainers(docxml)
+      docxml.xpath(ns("//term")).each do |t|
+        %w(preferred admitted deprecates related definition termsource)
+          .each do |w|
+          d = t.at(ns("./#{w}[last()]")) and d.after("<fmt-#{w}/>")
+        end
+      end
+      docxml.xpath(ns("//termsource")).each do |s|
+        s["id"] ||= "_#{UUIDTools::UUID.random_create}"
       end
     end
 
-    def merge_second_preferred1(pref, second)
-      merge_preferred_eligible?(pref, second) or return
-      n1 = pref.at(ns("./expression/name"))
-      n2 = second.remove.at(ns("./expression/name"))
-      n1.children = l10n("#{to_xml(n1.children)}; #{Common::to_xml(n2.children)}")
-    end
-
-    def merge_preferred_eligible?(first, second)
-      firstex = first.at(ns("./expression")) || {}
-      secondex = second.at(ns("./expression")) || {}
-      first["geographic-area"] == second["geographic-area"] &&
-        firstex["language"] == secondex["language"] &&
-        !first.at(ns("./pronunciation | ./grammar")) &&
-        !second.at(ns("./pronunciation | ./grammar"))
-    end
-
-    def designation1(desgn)
-      s = desgn.at(ns("./termsource"))
-      name = desgn.at(ns("./expression/name | ./letter-symbol/name | " \
-                         "./graphical-symbol")) or return
-      designation_annotate(desgn, name)
-      s and desgn.next = s
-    end
-
-    def designation_annotate(desgn, name)
-      designation_boldface(desgn)
-      designation_field(desgn, name)
-      g = desgn.at(ns("./expression/grammar")) and
-        name << ", #{designation_grammar(g).join(', ')}"
-      designation_localization(desgn, name)
-      designation_pronunciation(desgn, name)
-      designation_bookmarks(desgn, name)
-      desgn.children = name.children
-    end
-
-    def designation_boldface(desgn)
-      desgn.name == "preferred" or return
-      name = desgn.at(ns("./expression/name | ./letter-symbol/name")) or return
-      name.children = "<strong>#{name.children}</strong>"
-    end
-
-    def designation_field(desgn, name)
-      f = desgn.xpath(ns("./field-of-application | ./usage-info"))
-        &.map { |u| to_xml(u.children) }&.join(", ")
-      f&.empty? and return nil
-      name << ", &#x3c;#{f}&#x3e;"
-    end
-
-    def designation_grammar(grammar)
-      ret = []
-      grammar.xpath(ns("./gender | ./number")).each do |x|
-        ret << @i18n.grammar_abbrevs[x.text]
-      end
-      %w(isPreposition isParticiple isAdjective isVerb isAdverb isNoun)
-        .each do |x|
-        grammar.at(ns("./#{x}[text() = 'true']")) and
-          ret << @i18n.grammar_abbrevs[x]
-      end
-      ret
-    end
-
-    def designation_localization(desgn, name)
-      loc = [desgn&.at(ns("./expression/@language"))&.text,
-             desgn&.at(ns("./expression/@script"))&.text,
-             desgn&.at(ns("./@geographic-area"))&.text].compact
-      loc.empty? and return
-      name << ", #{loc.join(' ')}"
-    end
-
-    def designation_pronunciation(desgn, name)
-      f = desgn.at(ns("./expression/pronunciation")) or return
-      name << ", /#{to_xml(f.children)}/"
-    end
-
-    def designation_bookmarks(desgn, name)
-      desgn.xpath(ns(".//bookmark")).each do |b|
-        name << b.remove
+    def termcleanup(docxml)
+      docxml.xpath(ns("//term")).each do |t|
+        %w(preferred admitted deprecates related definition termsource)
+          .each do |w|
+          t.xpath(ns("./#{w}//fmt-name | ./#{w}//fmt-xref-label")).each(&:remove)
+          f = t.at(ns(".//fmt-#{w}"))
+          f&.children&.empty? and f.remove
+        end
       end
     end
 
@@ -123,29 +45,32 @@ module IsoDoc
     end
 
     def termdefinition(docxml)
-      docxml.xpath(ns("//term[definition]")).each do |f|
-        termdefinition1(f)
-      end
+      docxml.xpath(ns("//term[definition]")).each { |f| termdefinition1(f) }
     end
 
     def termdefinition1(elem)
-      unwrap_definition(elem)
-      multidef(elem) if elem.xpath(ns("./definition")).size > 1
-      termdomain(elem)
-    end
-
-    def multidef(elem)
-      d = elem.at(ns("./definition"))
-      d = d.replace("<ol><li>#{to_xml(d.children)}</li></ol>").first
-      elem.xpath(ns("./definition")).each do |f|
-        f = f.replace("<li>#{to_xml(f.children)}</li>").first
-        d << f
+      d = elem.xpath(ns("./definition"))
+      d1 = elem.at(ns("./fmt-definition"))
+      if d.size > 1 then multidef(elem, d, d1)
+      else singledef(elem, d, d1)
       end
-      d.wrap("<definition></definition>")
+      unwrap_definition(elem, d1)
+      termdomain(elem, d1)
     end
 
-    def unwrap_definition(elem)
-      elem.xpath(ns("./definition")).each do |d|
+    def multidef(_elem, defn, fmt_defn)
+      ret = defn.each_with_object([]) do |f, m|
+        m << "<li>#{to_xml(semx_fmt_dup(f))}</li>"
+      end
+      fmt_defn << "<ol>#{ret.join("\n")}</ol>"
+    end
+
+    def singledef(_elem, defn, fmt_defn)
+      fmt_defn << semx_fmt_dup(defn.first)
+    end
+
+    def unwrap_definition(_elem, fmt_defn)
+      fmt_defn.xpath(ns(".//semx[@element = 'definition']")).each do |d|
         %w(verbal-definition non-verbal-representation).each do |e|
           v = d&.at(ns("./#{e}"))
           v&.replace(v.children)
@@ -153,26 +78,62 @@ module IsoDoc
       end
     end
 
-    def termdomain(elem)
+    def termdomain(elem, fmt_defn)
       d = elem.at(ns(".//domain")) or return
-      p = elem.at(ns(".//definition//p")) or return
-      p.add_first_child "&lt;#{d.to_xml}&gt;  "
-      d["hidden"] = true
+      p = fmt_defn.at(ns(".//p")) or return
+      d1 = semx_fmt_dup(d)
+      p.add_first_child "&lt;#{to_xml(d1)}&gt;  "
     end
 
     def termsource(docxml)
-      docxml.xpath(ns("//termsource")).each { |f| termsource_modification(f) }
-      docxml.xpath(ns("//termsource")).each { |f| termsource1(f) }
+      copy_baselevel_termsource(docxml)
+      # TODO should I wrap fmt-definition//termsource in fmt-termsource, in order to preserve termsource attributes?
+      docxml.xpath(ns("//fmt-termsource/termsource | //fmt-definition//termsource | //fmt-preferred//termsource | //fmt-admitted//termsource | //fmt-deprecates//termsource"))
+        .each do |f|
+        termsource_modification(f)
+      end
+      docxml.xpath(ns("//fmt-preferred//fmt-termsource | //fmt-admitted//fmt-termsource | //fmt-deprecates//fmt-termsource"))
+        .each do |f|
+          termsource_designation(f)
+        end
+      docxml.xpath(ns("//fmt-termsource/termsource | //fmt-definition//termsource | //fmt-preferred//termsource | //fmt-admitted//termsource | //fmt-deprecates//termsource"))
+        .each do |f|
+        f.parent and termsource1(f)
+      end
+    end
+
+    def termsource_designation(fmtsource)
+      p = fmtsource.previous_element
+          p&.name == "p" or return
+          p << " "
+          p << fmtsource.children
+    end
+
+    def copy_baselevel_termsource(docxml)
+      docxml.xpath(ns("//term[termsource]")).each do |x|
+        s = x.xpath(ns("./termsource"))
+        s1 = x.at(ns("./fmt-termsource"))
+        s.each { |ss| s1 << ss.clone }
+        strip_duplicate_ids(nil, s, s1)
+        %w(status type).each { |a| s[0][a] and s1[a] = s[0][a] }
+      end
     end
 
     def termsource1(elem)
+      ret = [semx_fmt_dup(elem)]
       while elem&.next_element&.name == "termsource"
-        elem << "; #{to_xml(elem.next_element.remove.children)}"
+        ret << semx_fmt_dup(elem.next_element.remove)
       end
-      elem.children = l10n("[#{@i18n.source}: #{to_xml(elem.children).strip}]")
+      s = ret.map { |x| to_xml(x) }.map(&:strip).join("; ")
+      termsource_label(elem, s)
+    end
+
+    def termsource_label(elem, sources)
+      elem.replace(l10n("[#{@i18n.source}: #{sources}]"))
     end
 
     def termsource_modification(elem)
+      elem.xpath(".//text()[normalize-space() = '']").each(&:remove)
       origin = elem.at(ns("./origin"))
       s = termsource_status(elem["status"]) and origin.next = l10n(", #{s}")
       termsource_add_modification_text(elem.at(ns("./modification")))
@@ -180,10 +141,13 @@ module IsoDoc
 
     def termsource_add_modification_text(mod)
       mod or return
-      mod.text.strip.empty? or mod.previous = " &#x2014; "
-      mod.elements.size == 1 and
-        mod.elements[0].replace(mod.elements[0].children)
-      mod.replace(mod.children)
+      if mod.text.strip.empty?
+        mod.remove
+        return
+      end
+      mod.previous = " &#x2014; "
+      mod.elements.size == 1 and mod.children = to_xml(mod.elements[0].children)
+      mod.replace(semx_fmt_dup(mod))
     end
 
     def termsource_status(status)

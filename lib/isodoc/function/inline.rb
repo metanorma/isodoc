@@ -21,7 +21,7 @@ module IsoDoc
       SPAN_UNWRAP_CLASSES =
         %w[fmt-caption-label fmt-label-delim fmt-caption-delim fmt-autonum-delim
            fmt-element-name fmt-conn fmt-comma fmt-enum-comma fmt-obligation
-           fmt-xref-container].freeze
+           fmt-xref-container fmt-designation-field].freeze
 
       def span_parse(node, out)
         klass = node["style"] || node["class"]
@@ -203,6 +203,7 @@ module IsoDoc
       def xref_label_parse(node, out); end
 
       def name_parse(node, out); end
+      def semx_definition_parse(node, out); end
 
       def floating_title_parse(node, out); end
 

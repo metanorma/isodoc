@@ -10,21 +10,44 @@ module IsoDoc
         para.children.each { |n| parse(n, out) }
       end
 
+      def semx_deprecated_term_parse(node, out); end
+
       def deprecated_term_parse(node, out)
-        out.p class: "DeprecatedTerms", style: "text-align:left;" do |p|
-          node.children.each { |c| parse(c, p) }
+        node.children.each do |c|
+          if c.name == "p"
+            out.p class: "DeprecatedTerms", style: "text-align:left;" do |p|
+              c.children.each { |c1| parse(c1, p) }
+            end
+          else parse(c, out)
+          end
         end
       end
+
+      def semx_admitted_term_parse(node, out); end
 
       def admitted_term_parse(node, out)
-        out.p class: "AltTerms", style: "text-align:left;" do |p|
-          node.children.each { |c| parse(c, p) }
+                node.children.each do |c|
+          if c.name == "p"
+            out.p class: "AltTerms", style: "text-align:left;" do |p|
+              c.children.each { |c1| parse(c1, p) }
+            end
+          else parse(c, out)
+          end
         end
       end
 
+      def semx_term_parse(node, out); end
+
+      def semx_related_parse(node, out); end
+
       def term_parse(node, out)
-        out.p class: "Terms", style: "text-align:left;" do |p|
-          node.children.each { |c| parse(c, p) }
+        node.children.each do |c|
+          if c.name == "p"
+            out.p class: "Terms", style: "text-align:left;" do |p|
+              c.children.each { |c1| parse(c1, p) }
+            end
+          else parse(c, out)
+          end
         end
       end
 
@@ -51,16 +74,15 @@ module IsoDoc
         para&.name != "p" and parse(para, div)
       end
 
+      def semx_termref_parse(node, out); end
+
       def termref_parse(node, out)
         out.p do |p|
           node.children.each { |n| parse(n, p) }
         end
       end
 
-      def termdomain_parse(node, out)
-        node["hidden"] == "true" and return
-        node.children.each { |n| parse(n, out) }
-      end
+      def termdomain_parse(node, out); end
 
       def termdef_parse(node, out)
         name = node.at(ns("./fmt-name"))&.remove

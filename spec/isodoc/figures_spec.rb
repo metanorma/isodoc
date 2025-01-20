@@ -150,7 +150,7 @@ RSpec.describe IsoDoc do
                    <source status="generalisation">
                       [SOURCE:
                       <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
-                      — with adjustments ;
+                      — <semx element="modification" source="_">with adjustments</semx>;
                       <xref type="inline" target="ISO712">ISO 712, Section 2</xref>
                       ]
                    </source>
@@ -275,7 +275,7 @@ RSpec.describe IsoDoc do
                   <dt><p>A</p></dt><dd><p>B</p></dd></dl>
                     </div>
                 <div class="BlockSource">
-                  <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
+                  <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments; <a href="#ISO712">ISO 712, Section 2</a>]</p>
                 </div>
                        <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider
                        <a class='FootnoteRef' href='#fn:1'>
@@ -361,7 +361,7 @@ RSpec.describe IsoDoc do
                 </tr>
               <tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p>B</p></td></tr></table>
                <div class="BlockSource">
-               <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments ; <a href="#ISO712">ISO 712, Section 2</a>]</p>
+               <p>[SOURCE: <a href="#ISO712">ISO&#xa0;712, Section 1</a> &#x2014; with adjustments; <a href="#ISO712">ISO 712, Section 2</a>]</p>
                </div>
                 <p class='FigureTitle' style='text-align:center;'>
          Figure 1&#160;&#8212; Split-it-right <i>sample</i> divider
