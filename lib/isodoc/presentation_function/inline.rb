@@ -91,7 +91,8 @@ module IsoDoc
         docxml.xpath(ns("//bibdata/identifier")) -
         docxml.xpath(ns("//bibitema/identifier")))
         .each do |n|
-        n.name = "tt"
+          s = semx_fmt_dup(n)
+          n.next = "<fmt-identifier><tt>#{to_xml(s)}</tt></fmt-identifier>"
       end
     end
 

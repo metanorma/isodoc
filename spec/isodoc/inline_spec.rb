@@ -67,6 +67,45 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(doc)
   end
 
+  it "processes identifier" do
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <bibdata/>
+      <sections><clause id="_scope" type="scope" inline-header="false" obligation="normative">
+      <title>Scope</title>
+      <p id="A"><identifier>http://www.example.com</identifier></p>
+      </clause>
+      </standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <p id='A'>
+         <identifier id="_">http://www.example.com</identifier>
+        <fmt-identifier>
+            <tt>
+              <semx element="identifier" source="_">http://www.example.com</semx>
+            </tt>
+        </fmt-identifier>
+      </p>
+    OUTPUT
+    html = <<~OUTPUT
+       <p id="A">
+          <tt>http://www.example.com</tt>
+       </p>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+      IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true),
+    )
+      .at("//p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
+  end
+
   it "processes dates" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -76,14 +115,16 @@ RSpec.describe IsoDoc do
       <sections/>
       </iso-standard>
     INPUT
-    output = <<~OUTPUT
+    presxml = <<~OUTPUT
       <p id="A">2021-01-01</p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    html = <<~OUTPUT
+    OUTPUT
+       expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes concept markup" do

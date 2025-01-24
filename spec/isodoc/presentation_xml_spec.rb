@@ -1566,28 +1566,6 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
-  it "processes identifier" do
-    input = <<~INPUT
-      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
-      <bibdata/>
-      <sections><clause id="_scope" type="scope" inline-header="false" obligation="normative">
-      <title>Scope</title>
-      <p id="A"><identifier>http://www.example.com</identifier></p>
-      </clause>
-      </standard-document>
-    INPUT
-    presxml = <<~OUTPUT
-      <p id='A'>
-        <tt>http://www.example.com</tt>
-      </p>
-    OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input, true))
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-  end
-
   it "sorts preface sections" do
     input = <<~INPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
