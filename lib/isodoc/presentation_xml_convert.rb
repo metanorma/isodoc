@@ -39,7 +39,7 @@ module IsoDoc
     end
 
     def conversions(docxml)
-      semantic_xml_insert(docxml)
+      #semantic_xml_insert(docxml)
       metadata docxml
       bibdata docxml
       @xrefs.parse docxml
@@ -119,6 +119,7 @@ module IsoDoc
       termcleanup docxml
     end
 
+    # KILL
     def semantic_xml_insert(xml)
       @semantic_xml_insert or return
       embed = embedable_semantic_xml(xml)
