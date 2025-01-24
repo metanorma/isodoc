@@ -60,9 +60,19 @@ module IsoDoc
       end
     end
 
+    # do not change to Presentation XML rendering
+    def sem_xml_descendant?(node)
+      !node.ancestors("related, definition, termsource").empty? and return true
+      !node.ancestors("requirement, recommendation, permission").empty? &&
+        node.ancestors("fmt-provision").empty? and return true
+      false
+    end
+
     def xref1(node)
-      # Semantic XML
+      sem_xml_descendant?(node) and return
       node.ancestors("related, definition, termsource").empty? or return
+      !node.ancestors("requirement, recommendation, permission").empty? &&
+        node.ancestors("fmt-provision").empty? and return
       get_linkend(node)
     end
 
@@ -91,7 +101,8 @@ module IsoDoc
         docxml.xpath(ns("//bibdata/identifier")) -
         docxml.xpath(ns("//bibitema/identifier")))
         .each do |n|
-        n.name = "tt"
+          s = semx_fmt_dup(n)
+          n.next = "<fmt-identifier><tt>#{to_xml(s)}</tt></fmt-identifier>"
       end
     end
 
