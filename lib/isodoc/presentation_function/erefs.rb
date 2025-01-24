@@ -5,6 +5,7 @@ module IsoDoc
     def citeas(xmldoc)
       xmldoc.xpath(ns("//eref | //origin | //quote//source | //link"))
         .each do |e|
+          sem_xml_descendant?(e) and next
         e["bibitemid"] && e["citeas"] or next
         a = @xrefs.anchor(e["bibitemid"], :xref, false) or next
         e["citeas"] = citeas_cleanup(a)
@@ -194,6 +195,7 @@ module IsoDoc
     def eref2link(docxml)
       docxml.xpath(ns("//eref | //origin[not(termref)] | //quote//source"))
         .each do |e|
+          sem_xml_descendant?(e) and next
         href = eref_target(e) or next
         e.xpath(ns("./locality | ./localityStack")).each(&:remove)
         if href[:type] == :anchor then eref2xref(e)

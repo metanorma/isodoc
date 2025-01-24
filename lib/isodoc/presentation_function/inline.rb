@@ -60,8 +60,16 @@ module IsoDoc
       end
     end
 
+    # do not change to Presentation XML rendering
+    def sem_xml_descendant?(node)
+      !node.ancestors("related, definition, termsource").empty? and return true
+      !node.ancestors("requirement, recommendation, permission").empty? &&
+        node.ancestors("fmt-provision").empty? and return true
+      false
+    end
+
     def xref1(node)
-      # Semantic XML
+      sem_xml_descendant?(node) and return
       node.ancestors("related, definition, termsource").empty? or return
       !node.ancestors("requirement, recommendation, permission").empty? &&
         node.ancestors("fmt-provision").empty? and return
