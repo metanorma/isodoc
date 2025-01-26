@@ -97,10 +97,9 @@ module IsoDoc
     end
 
     def identifier(docxml)
-      (docxml.xpath(ns("//identifier")) -
-        docxml.xpath(ns("//bibdata/identifier")) -
-        docxml.xpath(ns("//bibitema/identifier")))
-        .each do |n|
+      docxml.xpath(ns("//identifier")).each do |n|
+        %(bibdata bibitem requirement recommendation permission)
+          .include?(n.name) and next
           s = semx_fmt_dup(n)
           n.next = "<fmt-identifier><tt>#{to_xml(s)}</tt></fmt-identifier>"
       end
