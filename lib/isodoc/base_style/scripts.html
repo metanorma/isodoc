@@ -6,21 +6,34 @@
   </script>
 
   <script>
-  //TOC toggle animation
-$('#toggle').on('click', function(){
-    if( $('nav').is(':visible') ) {
-        $('nav').animate({ 'left': '-353px' }, 'slow', function(){
-            $('nav').hide();
+    //TOC toggle animation
+    (function() {
+      const jqNav = $('nav');
+      const jqBody = $('body');
+      const jqToggle = $('#toggle');
+      const animationSpeed = 'slow';
+
+      jqToggle.on('click', function() {
+        const isNavVisible = jqNav.is(':visible');
+        const fullNavWidth = jqNav.outerWidth();
+        const navLeft = isNavVisible ? '-' + fullNavWidth + 'px' : '0px';
+        const bodyMarginLeft = isNavVisible ? '0px' : fullNavWidth + 'px';
+
+        // Stop current animations
+        jqNav.stop(true, true);
+        jqBody.stop(true, true);
+
+        if(!isNavVisible) {
+            jqNav.show();
+        }
+        jqNav.animate({'left': navLeft}, animationSpeed, function() {
+          if(isNavVisible) {jqNav.hide()}
         });
-        $('body').animate({ 'padding-left': '30px' }, 'slow');
-    }
-    else {
-        $('nav').show();
-        $('nav').animate({ 'left': '0px' }, 'slow');
-        $('body').animate({ 'padding-left': '360px' }, 'slow');
-    }
-});
-</script>
+        jqBody.animate({'marginLeft': bodyMarginLeft}, animationSpeed);
+
+      });
+    })();
+  </script>
 
 <script>
     // Scroll to top button
