@@ -20,9 +20,10 @@ module IsoDoc
       end
 
       def recommendation_parse1(node, out)
+        p = node.at(ns("./fmt-provision")) or return
         recommendation_name(node.at(ns("./fmt-name")), out)
-        node.children.each do |n|
-          parse(n, out) unless n.name == "fmt-name"
+        p.children.each do |n|
+          parse(n, out)
         end
       end
 
