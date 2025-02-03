@@ -273,6 +273,8 @@ module IsoDoc
           when "fmt-xref-label" then xref_label_parse(node, out)
           when "fmt-name" then fmt_name_parse(node, out)
           when "floating-title" then floating_title_parse(node, out)
+          when "fmt-identifier" then fmt_identifier_parse(node, out)
+          when "identifier" then identifier_parse(node, out)
           else error_parse(node, out)
           end
         end

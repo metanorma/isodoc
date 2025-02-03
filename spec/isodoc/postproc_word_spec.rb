@@ -398,12 +398,15 @@ RSpec.describe IsoDoc do
                      <fmt-title>Clause 4.2</fmt-title>
                      <recommendation id="AC" type="abstracttest" model="default">
               <fmt-name>/ogc/recommendation/wfs/3</fmt-name>
+              <fmt-provision/>
               </recommendation>
                      <recommendation id="AA" model="default">
               <fmt-name>/ogc/recommendation/wfs/2</fmt-name>
+              <fmt-provision/>
               </recommendation>
                      <recommendation id="AB" type="abstracttest" model="default">
               <fmt-name>/ogc/recommendation/wfs/3</fmt-name>
+              <fmt-provision/>
               </recommendation>
               <figure id="BA"><fmt-name>First figure</fmt-name></figure>
               <table id="CA"><fmt-name>First table</fmt-name></table>
