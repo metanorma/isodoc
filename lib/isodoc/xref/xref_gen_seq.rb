@@ -184,7 +184,7 @@ container: false)
           @anchors[elem["id"]][:semx] = @anchors[elem.parent["id"]][:semx] + x
           @anchors[elem["id"]][:label] =
             "<span class='fmt-element-name'>#{label}</span> #{@anchors[elem["id"]][:semx]}"
-          @anchors[elem["id"]][:xref] =  "<span class='fmt-element-name'>#{label}</span> #{@anchors[elem["id"]][:semx]}"
+          @anchors[elem["id"]][:xref] = "<span class='fmt-element-name'>#{label}</span> #{@anchors[elem["id"]][:semx]}"
         end
         model.permission_parts(elem, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
@@ -308,34 +308,6 @@ container: false)
           sequential_permission_children(t, id, klass, container: false)
         end
        end
-      end
-
-      # TODO remove
-      def hierarchical_permission_children(block, lbl)
-        c = ReqCounter.new
-        block.xpath(ns(REQ_CHILDREN)).noblank.each do |t|
-          m = @reqt_models.model(t["model"])
-          klass, label = reqt2class_nested_label(t, m)
-          id = "#{lbl}#{subreqt_separator}#{c.increment(label, t).print}"
-          sequential_permission_body(c.print, lbl, t, label, klass, m)
-          hierarchical_permission_children(t, id)
-        end
-      end
-
-      # TODO remove
-      def hierarchical_permission_body(id, parent_id, elem, label, klass, model)
-        @anchors[elem["id"]] = model.postprocess_anchor_struct(
-          elem, anchor_struct(id, elem,
-                              label, klass, { unnumb: elem["unnumbered"], container: false })
-        )
-        x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
-        @anchors[elem["id"]][:label] = "#{semx(elem.parent, parent_id)}#{x}"
-        @anchors[elem["id"]][:xref] = @anchors[elem.parent["id"]][:xref] + x
-        model.permission_parts(elem, id, label, klass).each do |n|
-          # we don't have an n["id"], so we allow n[:id] in anchor_struct
-          @anchors[n[:id]] = anchor_struct(n[:number], n, n[:label],
-                                           n[:klass], { unnumb: false, container: false })
-        end
       end
     end
   end
