@@ -71,19 +71,34 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
-      <p id="A"><date format="%F" value="2021-01-01"/></p>
+      <p id="A"><date format="%m/%d/%Y" value="2021-01-03"/></p>
       </foreword></preface>
       <sections/>
       </iso-standard>
     INPUT
-    output = <<~OUTPUT
-      <p id="A">2021-01-01</p>
+    presxml = <<~OUTPUT
+      <p id="A">
+          <date format="%m/%d/%Y" value="2021-01-03" id="_"/>
+          <fmt-date>
+             <semx element="date" source="_">01/03/2021</semx>
+          </fmt-date>
+      </p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    html = <<~OUTPUT
+      <p id="A">01/03/2021</p>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input, true))
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+      IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true),
+    )
+      .at("//p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes concept markup" do

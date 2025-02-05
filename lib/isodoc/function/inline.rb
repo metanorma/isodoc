@@ -204,10 +204,15 @@ module IsoDoc
 
       def name_parse(node, out); end
       def semx_definition_parse(node, out); end
+      def date_parse(node, out); end
 
       def floating_title_parse(node, out); end
 
       def fmt_name_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_date_parse(node, out)
         children_parse(node, out)
       end
     end
