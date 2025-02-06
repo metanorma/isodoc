@@ -201,9 +201,15 @@ RSpec.describe IsoDoc do
                        <tr>
                           <td align="left">
                              Reproducibility limit,
-                             <stem type="AsciiMath">R</stem>
+                             <stem type="AsciiMath" id="_">R</stem>
+                             <fmt-stem type="AsciiMath">
+                                <semx element="stem" source="_">R</semx>
+                             </fmt-stem>
                              (= 2,83
-                             <stem type="AsciiMath">s_R</stem>
+                             <stem type="AsciiMath" id="_">s_R</stem>
+                             <fmt-stem type="AsciiMath">
+                                <semx element="stem" source="_">s_R</semx>
+                             </fmt-stem>
                              )
                           </td>
                           <td align="center">2,89</td>
@@ -228,7 +234,9 @@ RSpec.describe IsoDoc do
                     <source status="generalisation">
                        [SOURCE:
                        <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
-                       — <semx element="modification" source="_">with adjustments</semx>;
+                       —
+                       <semx element="modification" source="_">with adjustments</semx>
+                       ;
                        <xref type="inline" target="ISO712">ISO 712, Section 2</xref>
                        ]
                     </source>
@@ -318,18 +326,18 @@ RSpec.describe IsoDoc do
                     </tr>
                  </tbody>
               </table>
-                    <table>
-         <fmt-name>
-            <span class="fmt-caption-label">
-               <span class="fmt-element-name">Table</span>
-            </span>
-         </fmt-name>
-         <tbody>
-            <tr>
-               <td>B</td>
-            </tr>
-         </tbody>
-      </table>
+              <table>
+                 <fmt-name>
+                    <span class="fmt-caption-label">
+                       <span class="fmt-element-name">Table</span>
+                    </span>
+                 </fmt-name>
+                 <tbody>
+                    <tr>
+                       <td>B</td>
+                    </tr>
+                 </tbody>
+              </table>
            </annex>
            <bibliography>
           </bibliography>

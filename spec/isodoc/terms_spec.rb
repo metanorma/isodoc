@@ -1548,265 +1548,283 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <terms id="A" obligation="normative" displayorder="2">
-          <title id="_">Terms and definitions</title>
-          <fmt-title depth="1">
-             <span class="fmt-caption-label">
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-             </span>
-             <span class="fmt-caption-delim">
-                <tab/>
-             </span>
-             <semx element="title" source="_">Terms and definitions</semx>
-          </fmt-title>
-          <fmt-xref-label>
-             <span class="fmt-element-name">Clause</span>
-             <semx element="autonum" source="A">1</semx>
-          </fmt-xref-label>
-          <p id="B">For the purposes of this document, the following terms and definitions apply.</p>
-          <term id="term-term">
-             <fmt-name>
-                <span class="fmt-caption-label">
-                   <semx element="autonum" source="A">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                   <semx element="autonum" source="term-term">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-                <semx element="autonum" source="term-term">1</semx>
-             </fmt-xref-label>
-             <preferred id="_">
-                <expression>
-                   <name>Term</name>
-                </expression>
-             </preferred>
-             <fmt-preferred>
-             <p>
-                <semx element="preferred" source="_">
-                   <strong>Term</strong>
-                </semx>
-             </p>
-             </fmt-preferred>
-             <definition id="_">
-                <verbal-definition>
-                   <p original-id="C">Definition</p>
-                   <termsource status="identical" type="authoritative" original-id="_">
-                      <origin bibitemid="ISO2191" type="inline" citeas="">
-                         <localityStack>
-                            <locality type="section">
-                               <referenceFrom>1</referenceFrom>
-                            </locality>
-                         </localityStack>
-                      </origin>
-                   </termsource>
-                </verbal-definition>
-                <non-verbal-representation>
-                   <table autonum="1" original-id="D">
-                      <thead>
-                         <tr>
-                            <th valign="top" align="left">A</th>
-                            <th valign="top" align="left">B</th>
-                         </tr>
-                      </thead>
-                      <tbody>
-                         <tr>
-                            <td valign="top" align="left">C</td>
-                            <td valign="top" align="left">D</td>
-                         </tr>
-                      </tbody>
-                   </table>
-                </non-verbal-representation>
-             </definition>
-             <fmt-definition>
-                <semx element="definition" source="_">
-                   <p id="C">Definition</p>
-                   [SOURCE:
-                   <semx element="termsource" source="_">
-                      <origin bibitemid="ISO2191" type="inline" citeas="">
-                         <localityStack>
-                            <locality type="section">
-                               <referenceFrom>1</referenceFrom>
-                            </locality>
-                         </localityStack>
-                         , Section 1
-                      </origin>
-                   </semx>
-                   ]
-                   <table id="D" autonum="1">
-                      <fmt-name>
-                         <span class="fmt-caption-label">
-                            <span class="fmt-element-name">Table</span>
-                            <semx element="autonum" source="D">1</semx>
-                         </span>
-                      </fmt-name>
-                      <fmt-xref-label>
-                         <span class="fmt-element-name">Table</span>
-                         <semx element="autonum" source="D">1</semx>
-                      </fmt-xref-label>
-                      <thead>
-                         <tr>
-                            <th valign="top" align="left">A</th>
-                            <th valign="top" align="left">B</th>
-                         </tr>
-                      </thead>
-                      <tbody>
-                         <tr>
-                            <td valign="top" align="left">C</td>
-                            <td valign="top" align="left">D</td>
-                         </tr>
-                      </tbody>
-                   </table>
-                </semx>
-             </fmt-definition>
-             <termsource status="identical" type="authoritative" id="_">
-                <origin bibitemid="ISO2191" type="inline" citeas="">
-                   <localityStack>
-                      <locality type="section">
-                         <referenceFrom>2</referenceFrom>
-                      </locality>
-                   </localityStack>
-                </origin>
-             </termsource>
-             <fmt-termsource status="identical" type="authoritative">
-                [SOURCE:
-                <semx element="termsource" source="_">
-                   <origin bibitemid="ISO2191" type="inline" citeas="">
-                      <localityStack>
-                         <locality type="section">
-                            <referenceFrom>2</referenceFrom>
-                         </locality>
-                      </localityStack>
-                      , Section 2
-                   </origin>
-                </semx>
-                ]
-             </fmt-termsource>
-          </term>
-          <term id="term-term-2">
-             <fmt-name>
-                <span class="fmt-caption-label">
-                   <semx element="autonum" source="A">1</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                   <semx element="autonum" source="term-term-2">2</semx>
-                   <span class="fmt-autonum-delim">.</span>
-                </span>
-             </fmt-name>
-             <fmt-xref-label>
-                <span class="fmt-element-name">Clause</span>
-                <semx element="autonum" source="A">1</semx>
-                <span class="fmt-autonum-delim">.</span>
-                <semx element="autonum" source="term-term-2">2</semx>
-             </fmt-xref-label>
-             <preferred id="_">
-                <expression>
-                   <name>Term 2</name>
-                </expression>
-             </preferred>
-             <fmt-preferred>
-             <p>
-                <semx element="preferred" source="_">
-                   <strong>Term 2</strong>
-                </semx>
-              </p>
-             </fmt-preferred>
-             <definition id="_">
-                <non-verbal-representation>
-                   <figure autonum="1" original-id="E">
-                      <pre original-id="F">Literal</pre>
-                   </figure>
-                   <formula autonum="1" original-id="G">
-                      <stem type="MathML">
-                         <math xmlns="http://www.w3.org/1998/Math/MathML">
-                            <mi>x</mi>
-                            <mo>=</mo>
-                            <mi>y</mi>
-                         </math>
-                         <asciimath>x = y</asciimath>
-                      </stem>
-                   </formula>
-                   <termsource status="identical" type="authoritative" original-id="_">
-                      <origin bibitemid="ISO2191" type="inline" citeas="">
-                         <localityStack>
-                            <locality type="section">
-                               <referenceFrom>3</referenceFrom>
-                            </locality>
-                         </localityStack>
-                      </origin>
-                   </termsource>
-                </non-verbal-representation>
-             </definition>
-             <fmt-definition>
-                <semx element="definition" source="_">
-                   <figure id="E" autonum="1">
-                      <fmt-name>
-                         <span class="fmt-caption-label">
-                            <span class="fmt-element-name">Figure</span>
-                            <semx element="autonum" source="E">1</semx>
-                         </span>
-                      </fmt-name>
-                      <fmt-xref-label>
-                         <span class="fmt-element-name">Figure</span>
-                         <semx element="autonum" source="E">1</semx>
-                      </fmt-xref-label>
-                      <pre id="F">Literal</pre>
-                   </figure>
-                   <formula id="G" autonum="1">
-                      <fmt-name>
-                         <span class="fmt-caption-label">
-                            <span class="fmt-autonum-delim">(</span>
-                            1
-                            <span class="fmt-autonum-delim">)</span>
-                         </span>
-                      </fmt-name>
-                      <fmt-xref-label>
-                         <span class="fmt-element-name">Formula</span>
-                         <span class="fmt-autonum-delim">(</span>
-                         <semx element="autonum" source="G">1</semx>
-                         <span class="fmt-autonum-delim">)</span>
-                      </fmt-xref-label>
-                      <fmt-xref-label container="term-term-2">
-                         <span class="fmt-xref-container">
-                            <span class="fmt-element-name">Clause</span>
-                            <semx element="autonum" source="A">1</semx>
-                            <span class="fmt-autonum-delim">.</span>
-                            <semx element="autonum" source="term-term-2">2</semx>
-                         </span>
-                         <span class="fmt-comma">,</span>
-                         <span class="fmt-element-name">Formula</span>
-                         <span class="fmt-autonum-delim">(</span>
-                         <semx element="autonum" source="G">1</semx>
-                         <span class="fmt-autonum-delim">)</span>
-                      </fmt-xref-label>
-                      <stem type="MathML">
-                         <math xmlns="http://www.w3.org/1998/Math/MathML">
-                            <mi>x</mi>
-                            <mo>=</mo>
-                            <mi>y</mi>
-                         </math>
-                         <asciimath>x = y</asciimath>
-                      </stem>
-                   </formula>
-                   [SOURCE:
-                   <semx element="termsource" source="_">
-                      <origin bibitemid="ISO2191" type="inline" citeas="">
-                         <localityStack>
-                            <locality type="section">
-                               <referenceFrom>3</referenceFrom>
-                            </locality>
-                         </localityStack>
-                         , Section 3
-                      </origin>
-                   </semx>
-                   ]
-                </semx>
-             </fmt-definition>
-          </term>
-       </terms>
+       <terms id="A" obligation="normative" displayorder="2">
+           <title id="_">Terms and definitions</title>
+           <fmt-title depth="1">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="A">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
+              <semx element="title" source="_">Terms and definitions</semx>
+           </fmt-title>
+           <fmt-xref-label>
+              <span class="fmt-element-name">Clause</span>
+              <semx element="autonum" source="A">1</semx>
+           </fmt-xref-label>
+           <p id="B">For the purposes of this document, the following terms and definitions apply.</p>
+           <term id="term-term">
+              <fmt-name>
+                 <span class="fmt-caption-label">
+                    <semx element="autonum" source="A">1</semx>
+                    <span class="fmt-autonum-delim">.</span>
+                    <semx element="autonum" source="term-term">1</semx>
+                    <span class="fmt-autonum-delim">.</span>
+                 </span>
+              </fmt-name>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="term-term">1</semx>
+              </fmt-xref-label>
+              <preferred id="_">
+                 <expression>
+                    <name>Term</name>
+                 </expression>
+              </preferred>
+              <fmt-preferred>
+                 <p>
+                    <semx element="preferred" source="_">
+                       <strong>Term</strong>
+                    </semx>
+                 </p>
+              </fmt-preferred>
+              <definition id="_">
+                 <verbal-definition>
+                    <p original-id="C">Definition</p>
+                    <termsource status="identical" type="authoritative" original-id="_">
+                       <origin bibitemid="ISO2191" type="inline" citeas="">
+                          <localityStack>
+                             <locality type="section">
+                                <referenceFrom>1</referenceFrom>
+                             </locality>
+                          </localityStack>
+                       </origin>
+                    </termsource>
+                 </verbal-definition>
+                 <non-verbal-representation>
+                    <table autonum="1" original-id="D">
+                       <thead>
+                          <tr>
+                             <th valign="top" align="left">A</th>
+                             <th valign="top" align="left">B</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td valign="top" align="left">C</td>
+                             <td valign="top" align="left">D</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                 </non-verbal-representation>
+              </definition>
+              <fmt-definition>
+                 <semx element="definition" source="_">
+                    <p id="C">Definition</p>
+                    [SOURCE:
+                    <semx element="termsource" source="_">
+                       <origin bibitemid="ISO2191" type="inline" citeas="">
+                          <localityStack>
+                             <locality type="section">
+                                <referenceFrom>1</referenceFrom>
+                             </locality>
+                          </localityStack>
+                          , Section 1
+                       </origin>
+                    </semx>
+                    ]
+                    <table id="D" autonum="1">
+                       <fmt-name>
+                          <span class="fmt-caption-label">
+                             <span class="fmt-element-name">Table</span>
+                             <semx element="autonum" source="D">1</semx>
+                          </span>
+                       </fmt-name>
+                       <fmt-xref-label>
+                          <span class="fmt-element-name">Table</span>
+                          <semx element="autonum" source="D">1</semx>
+                       </fmt-xref-label>
+                       <thead>
+                          <tr>
+                             <th valign="top" align="left">A</th>
+                             <th valign="top" align="left">B</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                          <tr>
+                             <td valign="top" align="left">C</td>
+                             <td valign="top" align="left">D</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                 </semx>
+              </fmt-definition>
+              <termsource status="identical" type="authoritative" id="_">
+                 <origin bibitemid="ISO2191" type="inline" citeas="">
+                    <localityStack>
+                       <locality type="section">
+                          <referenceFrom>2</referenceFrom>
+                       </locality>
+                    </localityStack>
+                 </origin>
+              </termsource>
+              <fmt-termsource status="identical" type="authoritative">
+                 [SOURCE:
+                 <semx element="termsource" source="_">
+                    <origin bibitemid="ISO2191" type="inline" citeas="">
+                       <localityStack>
+                          <locality type="section">
+                             <referenceFrom>2</referenceFrom>
+                          </locality>
+                       </localityStack>
+                       , Section 2
+                    </origin>
+                 </semx>
+                 ]
+              </fmt-termsource>
+           </term>
+           <term id="term-term-2">
+              <fmt-name>
+                 <span class="fmt-caption-label">
+                    <semx element="autonum" source="A">1</semx>
+                    <span class="fmt-autonum-delim">.</span>
+                    <semx element="autonum" source="term-term-2">2</semx>
+                    <span class="fmt-autonum-delim">.</span>
+                 </span>
+              </fmt-name>
+              <fmt-xref-label>
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="term-term-2">2</semx>
+              </fmt-xref-label>
+              <preferred id="_">
+                 <expression>
+                    <name>Term 2</name>
+                 </expression>
+              </preferred>
+              <fmt-preferred>
+                 <p>
+                    <semx element="preferred" source="_">
+                       <strong>Term 2</strong>
+                    </semx>
+                 </p>
+              </fmt-preferred>
+              <definition id="_">
+                 <non-verbal-representation>
+                    <figure autonum="1" original-id="E">
+                       <pre original-id="F">Literal</pre>
+                    </figure>
+                    <formula autonum="1" original-id="G">
+                       <stem type="MathML" id="_">
+                          <math xmlns="http://www.w3.org/1998/Math/MathML">
+                             <mi>x</mi>
+                             <mo>=</mo>
+                             <mi>y</mi>
+                          </math>
+                       </stem>
+                       <fmt-stem type="MathML">
+                          <semx element="stem" source="_">
+                             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mi>x</mi>
+                                <mo>=</mo>
+                                <mi>y</mi>
+                             </math>
+                             <asciimath>x = y</asciimath>
+                          </semx>
+                       </fmt-stem>
+                    </formula>
+                    <termsource status="identical" type="authoritative" original-id="_">
+                       <origin bibitemid="ISO2191" type="inline" citeas="">
+                          <localityStack>
+                             <locality type="section">
+                                <referenceFrom>3</referenceFrom>
+                             </locality>
+                          </localityStack>
+                       </origin>
+                    </termsource>
+                 </non-verbal-representation>
+              </definition>
+              <fmt-definition>
+                 <semx element="definition" source="_">
+                    <figure id="E" autonum="1">
+                       <fmt-name>
+                          <span class="fmt-caption-label">
+                             <span class="fmt-element-name">Figure</span>
+                             <semx element="autonum" source="E">1</semx>
+                          </span>
+                       </fmt-name>
+                       <fmt-xref-label>
+                          <span class="fmt-element-name">Figure</span>
+                          <semx element="autonum" source="E">1</semx>
+                       </fmt-xref-label>
+                       <pre id="F">Literal</pre>
+                    </figure>
+                    <formula id="G" autonum="1">
+                       <fmt-name>
+                          <span class="fmt-caption-label">
+                             <span class="fmt-autonum-delim">(</span>
+                             1
+                             <span class="fmt-autonum-delim">)</span>
+                          </span>
+                       </fmt-name>
+                       <fmt-xref-label>
+                          <span class="fmt-element-name">Formula</span>
+                          <span class="fmt-autonum-delim">(</span>
+                          <semx element="autonum" source="G">1</semx>
+                          <span class="fmt-autonum-delim">)</span>
+                       </fmt-xref-label>
+                       <fmt-xref-label container="term-term-2">
+                          <span class="fmt-xref-container">
+                             <span class="fmt-element-name">Clause</span>
+                             <semx element="autonum" source="A">1</semx>
+                             <span class="fmt-autonum-delim">.</span>
+                             <semx element="autonum" source="term-term-2">2</semx>
+                          </span>
+                          <span class="fmt-comma">,</span>
+                          <span class="fmt-element-name">Formula</span>
+                          <span class="fmt-autonum-delim">(</span>
+                          <semx element="autonum" source="G">1</semx>
+                          <span class="fmt-autonum-delim">)</span>
+                       </fmt-xref-label>
+                       <stem type="MathML" id="_">
+                          <math xmlns="http://www.w3.org/1998/Math/MathML">
+                             <mi>x</mi>
+                             <mo>=</mo>
+                             <mi>y</mi>
+                          </math>
+                       </stem>
+                       <fmt-stem type="MathML">
+                          <semx element="stem" source="_">
+                             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mi>x</mi>
+                                <mo>=</mo>
+                                <mi>y</mi>
+                             </math>
+                             <asciimath>x = y</asciimath>
+                          </semx>
+                       </fmt-stem>
+                    </formula>
+                    [SOURCE:
+                    <semx element="termsource" source="_">
+                       <origin bibitemid="ISO2191" type="inline" citeas="">
+                          <localityStack>
+                             <locality type="section">
+                                <referenceFrom>3</referenceFrom>
+                             </locality>
+                          </localityStack>
+                          , Section 3
+                       </origin>
+                    </semx>
+                    ]
+                 </semx>
+              </fmt-definition>
+           </term>
+        </terms>
     PRESXML
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)

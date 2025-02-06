@@ -558,114 +558,126 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="fwd" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <formula id="_" unnumbered="true" keep-with-next="true" keep-lines-together="true">
-                    <stem type="AsciiMath">r = 1 %</stem>
-                    <p keep-with-next="true">where</p>
-                    <dl id="_" class="formula_dl">
-                       <dt>
-                          <stem type="AsciiMath">r</stem>
-                       </dt>
-                       <dd>
-                          <p id="_">is the repeatability limit.</p>
-                       </dd>
-                    </dl>
-                    <note id="_" autonum="">
-                       <fmt-name>
-                          <span class="fmt-caption-label">
-                             <span class="fmt-element-name">NOTE</span>
-                          </span>
-                          <span class="fmt-label-delim">
-                             <tab/>
-                          </span>
-                       </fmt-name>
-                       <fmt-xref-label>
-                          <span class="fmt-element-name">Note</span>
-                       </fmt-xref-label>
-                       <fmt-xref-label container="fwd">
-                          <span class="fmt-xref-container">
-                             <semx element="foreword" source="fwd">Foreword</semx>
-                          </span>
-                          <span class="fmt-comma">,</span>
-                          <span class="fmt-element-name">Note</span>
-                       </fmt-xref-label>
-                       <p id="_">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
-                    </note>
-                 </formula>
-                 <formula id="_" autonum="1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-autonum-delim">(</span>
-                          1
-                          <span class="fmt-autonum-delim">)</span>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Formula</span>
-                       <span class="fmt-autonum-delim">(</span>
-                       <semx element="autonum" source="_">1</semx>
-                       <span class="fmt-autonum-delim">)</span>
-                    </fmt-xref-label>
-                    <fmt-xref-label container="fwd">
-                       <span class="fmt-xref-container">
-                          <semx element="foreword" source="fwd">Foreword</semx>
-                       </span>
-                       <span class="fmt-comma">,</span>
-                       <span class="fmt-element-name">Formula</span>
-                       <span class="fmt-autonum-delim">(</span>
-                       <semx element="autonum" source="_">1</semx>
-                       <span class="fmt-autonum-delim">)</span>
-                    </fmt-xref-label>
-                    <stem type="AsciiMath">r = 1 %</stem>
-                 </formula>
-              </foreword>
-           </preface>
-           <annex id="Annex" autonum="A" displayorder="3">
-              <fmt-title>
-                 <strong>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="Annex">A</semx>
-                    </span>
-                 </strong>
-                 <br/>
-                 <span class="fmt-obligation">(informative)</span>
-              </fmt-title>
-              <fmt-xref-label>
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="Annex">A</semx>
-              </fmt-xref-label>
-              <formula id="AnnexFormula" autonum="A.1">
-                 <fmt-name>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-autonum-delim">(</span>
-                       <semx element="autonum" source="Annex">A</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="AnnexFormula">1</semx>
-                       <span class="fmt-autonum-delim">)</span>
-                    </span>
-                 </fmt-name>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Formula</span>
-                    <span class="fmt-autonum-delim">(</span>
-                    <semx element="autonum" source="Annex">A</semx>
-                    <span class="fmt-autonum-delim">.</span>
-                    <semx element="autonum" source="AnnexFormula">1</semx>
-                    <span class="fmt-autonum-delim">)</span>
-                 </fmt-xref-label>
-                 <stem type="AsciiMath">r = 1 %</stem>
-              </formula>
-           </annex>
-        </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword id="fwd" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <formula id="_" unnumbered="true" keep-with-next="true" keep-lines-together="true">
+                   <stem type="AsciiMath" id="_">r = 1 %</stem>
+                   <fmt-stem type="AsciiMath">
+                      <semx element="stem" source="_">r = 1 %</semx>
+                   </fmt-stem>
+                   <p keep-with-next="true">where</p>
+                   <dl id="_" class="formula_dl">
+                      <dt>
+                         <stem type="AsciiMath" id="_">r</stem>
+                         <fmt-stem type="AsciiMath">
+                            <semx element="stem" source="_">r</semx>
+                         </fmt-stem>
+                      </dt>
+                      <dd>
+                         <p id="_">is the repeatability limit.</p>
+                      </dd>
+                   </dl>
+                   <note id="_" autonum="">
+                      <fmt-name>
+                         <span class="fmt-caption-label">
+                            <span class="fmt-element-name">NOTE</span>
+                         </span>
+                         <span class="fmt-label-delim">
+                            <tab/>
+                         </span>
+                      </fmt-name>
+                      <fmt-xref-label>
+                         <span class="fmt-element-name">Note</span>
+                      </fmt-xref-label>
+                      <fmt-xref-label container="fwd">
+                         <span class="fmt-xref-container">
+                            <semx element="foreword" source="fwd">Foreword</semx>
+                         </span>
+                         <span class="fmt-comma">,</span>
+                         <span class="fmt-element-name">Note</span>
+                      </fmt-xref-label>
+                      <p id="_">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
+                   </note>
+                </formula>
+                <formula id="_" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-autonum-delim">(</span>
+                         1
+                         <span class="fmt-autonum-delim">)</span>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Formula</span>
+                      <span class="fmt-autonum-delim">(</span>
+                      <semx element="autonum" source="_">1</semx>
+                      <span class="fmt-autonum-delim">)</span>
+                   </fmt-xref-label>
+                   <fmt-xref-label container="fwd">
+                      <span class="fmt-xref-container">
+                         <semx element="foreword" source="fwd">Foreword</semx>
+                      </span>
+                      <span class="fmt-comma">,</span>
+                      <span class="fmt-element-name">Formula</span>
+                      <span class="fmt-autonum-delim">(</span>
+                      <semx element="autonum" source="_">1</semx>
+                      <span class="fmt-autonum-delim">)</span>
+                   </fmt-xref-label>
+                   <stem type="AsciiMath" id="_">r = 1 %</stem>
+                   <fmt-stem type="AsciiMath">
+                      <semx element="stem" source="_">r = 1 %</semx>
+                   </fmt-stem>
+                </formula>
+             </foreword>
+          </preface>
+          <annex id="Annex" autonum="A" displayorder="3">
+             <fmt-title>
+                <strong>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="Annex">A</semx>
+                   </span>
+                </strong>
+                <br/>
+                <span class="fmt-obligation">(informative)</span>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="Annex">A</semx>
+             </fmt-xref-label>
+             <formula id="AnnexFormula" autonum="A.1">
+                <fmt-name>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-autonum-delim">(</span>
+                      <semx element="autonum" source="Annex">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="AnnexFormula">1</semx>
+                      <span class="fmt-autonum-delim">)</span>
+                   </span>
+                </fmt-name>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Formula</span>
+                   <span class="fmt-autonum-delim">(</span>
+                   <semx element="autonum" source="Annex">A</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="AnnexFormula">1</semx>
+                   <span class="fmt-autonum-delim">)</span>
+                </fmt-xref-label>
+                <stem type="AsciiMath" id="_">r = 1 %</stem>
+                <fmt-stem type="AsciiMath">
+                   <semx element="stem" source="_">r = 1 %</semx>
+                </fmt-stem>
+             </formula>
+          </annex>
+       </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -982,168 +994,171 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="fwd" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <permission id="A" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">Permission</span>
-                          <semx element="autonum" source="A">1</semx>
-                          <span class="fmt-caption-delim">
-                             :
-                             <br/>
-                          </span>
-                          <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Permission</span>
-                       <semx element="autonum" source="A">1</semx>
-                    </fmt-xref-label>
-                    <p>
-                       <em>Subject: user</em>
-                       <br/>
-                       <em>Subject: non-user</em>
-                       <br/>
-                       <em>Inherits: /ss/584/2015/level/1</em>
-                       <br/>
-                       <em>
-                          Inherits:
-                          <xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</xref>
-                       </em>
-                       <br/>
-                       <em>Control-class: Technical</em>
-                       <br/>
-                       <em>Priority: P0</em>
-                       <br/>
-                       <em>Family: System and Communications Protection</em>
-                       <br/>
-                       <em>Family: System and Communications Protocols</em>
-                    </p>
-                    <div type="requirement-description">
-                       <p id="_">
-                          I recommend
-                          <em>this</em>
-                          .
-                       </p>
-                    </div>
-                    <div type="requirement-description">
-                       <p id="_">As for the measurement targets,</p>
-                    </div>
-                    <div exclude="false" type="requirement-measurement-target">
-                       <p id="_">The measurement target shall be measured as:</p>
-                       <formula id="B" autonum="1">
-                          <fmt-name>
-                             <span class="fmt-caption-label">
-                                <span class="fmt-autonum-delim">(</span>
-                                1
-                                <span class="fmt-autonum-delim">)</span>
-                             </span>
-                          </fmt-name>
-                          <fmt-xref-label>
-                             <span class="fmt-element-name">Formula</span>
-                             <span class="fmt-autonum-delim">(</span>
-                             <semx element="autonum" source="B">1</semx>
-                             <span class="fmt-autonum-delim">)</span>
-                          </fmt-xref-label>
-                          <fmt-xref-label container="fwd">
-                             <span class="fmt-xref-container">
-                                <semx element="foreword" source="fwd">Foreword</semx>
-                             </span>
-                             <span class="fmt-comma">,</span>
-                             <span class="fmt-element-name">Formula</span>
-                             <span class="fmt-autonum-delim">(</span>
-                             <semx element="autonum" source="B">1</semx>
-                             <span class="fmt-autonum-delim">)</span>
-                          </fmt-xref-label>
-                          <stem type="AsciiMath">r/1 = 0</stem>
-                       </formula>
-                    </div>
-                    <div exclude="false" type="requirement-verification">
-                       <p id="_">The following code will be run for verification:</p>
-                       <sourcecode id="C" autonum="1">CoreRoot(success): HttpResponse
-              if (success)
-              recommendation(label: success-response)
-              end
-            </sourcecode>
-                    </div>
-                    <div exclude="false" class="component1" type="requirement-component1">
-                       <p id="_">Hello</p>
-                    </div>
-                 </permission>
-              </foreword>
-           </preface>
-           <annex id="Annex" autonum="A" displayorder="3">
-              <fmt-title>
-                 <strong>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="Annex">A</semx>
-                    </span>
-                 </strong>
-                 <br/>
-                 <span class="fmt-obligation">(informative)</span>
-              </fmt-title>
-              <fmt-xref-label>
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="Annex">A</semx>
-              </fmt-xref-label>
-              <permission id="AnnexPermission" model="default" autonum="A.1">
-                 <fmt-name>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-element-name">Permission</span>
-                       <semx element="autonum" source="AnnexPermission">
-                          <semx element="autonum" source="Annex">A</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="AnnexPermission">1</semx>
-                       </semx>
-                    </span>
-                 </fmt-name>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Permission</span>
-                    <semx element="autonum" source="Annex">A</semx>
-                    <span class="fmt-autonum-delim">.</span>
-                    <semx element="autonum" source="AnnexPermission">1</semx>
-                 </fmt-xref-label>
-                 <div type="requirement-description">
-                    <p id="_">As for the measurement targets,</p>
-                 </div>
-              </permission>
-           </annex>
-           <bibliography>
-              <references id="_" obligation="informative" normative="false" displayorder="4">
-                 <title id="_">Bibliography</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Bibliography</semx>
-                 </fmt-title>
-                 <bibitem id="rfc2616" type="standard">
-                    <formattedref>
-                       R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.
-                       <em>Hypertext Transfer Protocol — HTTP/1.1</em>
-                       . 1999. Fremont, CA.
-                    </formattedref>
-                    <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                    <docidentifier type="IETF">IETF RFC 2616</docidentifier>
-                    <docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier>
-                    <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
-                    <docidentifier scope="biblio-tag">IETF RFC 2616</docidentifier>
-                    <biblio-tag>
-                       [1]
-                       <tab/>
-                       IETF RFC 2616,
-                    </biblio-tag>
-                 </bibitem>
-              </references>
-           </bibliography>
-        </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword id="fwd" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <permission id="A" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Permission</span>
+                         <semx element="autonum" source="A">1</semx>
+                         <span class="fmt-caption-delim">
+                            :
+                            <br/>
+                         </span>
+                         <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Permission</span>
+                      <semx element="autonum" source="A">1</semx>
+                   </fmt-xref-label>
+                   <p>
+                      <em>Subject: user</em>
+                      <br/>
+                      <em>Subject: non-user</em>
+                      <br/>
+                      <em>Inherits: /ss/584/2015/level/1</em>
+                      <br/>
+                      <em>
+                         Inherits:
+                         <xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</xref>
+                      </em>
+                      <br/>
+                      <em>Control-class: Technical</em>
+                      <br/>
+                      <em>Priority: P0</em>
+                      <br/>
+                      <em>Family: System and Communications Protection</em>
+                      <br/>
+                      <em>Family: System and Communications Protocols</em>
+                   </p>
+                   <div type="requirement-description">
+                      <p id="_">
+                         I recommend
+                         <em>this</em>
+                         .
+                      </p>
+                   </div>
+                   <div type="requirement-description">
+                      <p id="_">As for the measurement targets,</p>
+                   </div>
+                   <div exclude="false" type="requirement-measurement-target">
+                      <p id="_">The measurement target shall be measured as:</p>
+                      <formula id="B" autonum="1">
+                         <fmt-name>
+                            <span class="fmt-caption-label">
+                               <span class="fmt-autonum-delim">(</span>
+                               1
+                               <span class="fmt-autonum-delim">)</span>
+                            </span>
+                         </fmt-name>
+                         <fmt-xref-label>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
+                         <fmt-xref-label container="fwd">
+                            <span class="fmt-xref-container">
+                               <semx element="foreword" source="fwd">Foreword</semx>
+                            </span>
+                            <span class="fmt-comma">,</span>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
+                         <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                         <fmt-stem type="AsciiMath">
+                            <semx element="stem" source="_">r/1 = 0</semx>
+                         </fmt-stem>
+                      </formula>
+                   </div>
+                   <div exclude="false" type="requirement-verification">
+                      <p id="_">The following code will be run for verification:</p>
+                      <sourcecode id="C" autonum="1">CoreRoot(success): HttpResponse
+             if (success)
+             recommendation(label: success-response)
+             end
+           </sourcecode>
+                   </div>
+                   <div exclude="false" class="component1" type="requirement-component1">
+                      <p id="_">Hello</p>
+                   </div>
+                </permission>
+             </foreword>
+          </preface>
+          <annex id="Annex" autonum="A" displayorder="3">
+             <fmt-title>
+                <strong>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="Annex">A</semx>
+                   </span>
+                </strong>
+                <br/>
+                <span class="fmt-obligation">(informative)</span>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="Annex">A</semx>
+             </fmt-xref-label>
+             <permission id="AnnexPermission" model="default" autonum="A.1">
+                <fmt-name>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Permission</span>
+                      <semx element="autonum" source="AnnexPermission">
+                         <semx element="autonum" source="Annex">A</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="AnnexPermission">1</semx>
+                      </semx>
+                   </span>
+                </fmt-name>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Permission</span>
+                   <semx element="autonum" source="Annex">A</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="AnnexPermission">1</semx>
+                </fmt-xref-label>
+                <div type="requirement-description">
+                   <p id="_">As for the measurement targets,</p>
+                </div>
+             </permission>
+          </annex>
+          <bibliography>
+             <references id="_" obligation="informative" normative="false" displayorder="4">
+                <title id="_">Bibliography</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Bibliography</semx>
+                </fmt-title>
+                <bibitem id="rfc2616" type="standard">
+                   <formattedref>
+                      R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.
+                      <em>Hypertext Transfer Protocol — HTTP/1.1</em>
+                      . 1999. Fremont, CA.
+                   </formattedref>
+                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                   <docidentifier type="IETF">IETF RFC 2616</docidentifier>
+                   <docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier>
+                   <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
+                   <docidentifier scope="biblio-tag">IETF RFC 2616</docidentifier>
+                   <biblio-tag>
+                      [1]
+                      <tab/>
+                      IETF RFC 2616,
+                   </biblio-tag>
+                </bibitem>
+             </references>
+          </bibliography>
+       </iso-standard>
     OUTPUT
     output = <<~OUTPUT
       #{HTML_HDR}
@@ -1266,92 +1281,95 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="fwd" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <requirement id="A" unnumbered="true" keep-with-next="true" keep-lines-together="true" model="default">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">Requirement</span>
-                          <span class="fmt-caption-delim">
-                             :
-                             <br/>
-                          </span>
-                          <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
-                          .
-                          <semx element="title" source="A">A New Requirement</semx>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Requirement</span>
-                       <semx element="autonum" source="A">(??)</semx>
-                    </fmt-xref-label>
-                    <p>
-                       <em>Subject: user</em>
-                       <br/>
-                       <em>Inherits: /ss/584/2015/level/1</em>
-                    </p>
-                    <div type="requirement-description">
-                       <p id="_">
-                          I recommend
-                          <em>this</em>
-                          .
-                       </p>
-                    </div>
-                    <div type="requirement-description">
-                       <p id="_">As for the measurement targets,</p>
-                    </div>
-                    <div exclude="false" keep-with-next="true" keep-lines-together="true" type="requirement-measurement-target">
-                       <p id="_">The measurement target shall be measured as:</p>
-                       <formula id="B" autonum="1">
-                          <fmt-name>
-                             <span class="fmt-caption-label">
-                                <span class="fmt-autonum-delim">(</span>
-                                1
-                                <span class="fmt-autonum-delim">)</span>
-                             </span>
-                          </fmt-name>
-                          <fmt-xref-label>
-                             <span class="fmt-element-name">Formula</span>
-                             <span class="fmt-autonum-delim">(</span>
-                             <semx element="autonum" source="B">1</semx>
-                             <span class="fmt-autonum-delim">)</span>
-                          </fmt-xref-label>
-                          <fmt-xref-label container="fwd">
-                             <span class="fmt-xref-container">
-                                <semx element="foreword" source="fwd">Foreword</semx>
-                             </span>
-                             <span class="fmt-comma">,</span>
-                             <span class="fmt-element-name">Formula</span>
-                             <span class="fmt-autonum-delim">(</span>
-                             <semx element="autonum" source="B">1</semx>
-                             <span class="fmt-autonum-delim">)</span>
-                          </fmt-xref-label>
-                          <stem type="AsciiMath">r/1 = 0</stem>
-                       </formula>
-                    </div>
-                    <div exclude="false" type="requirement-verification">
-                       <p id="_">The following code will be run for verification:</p>
-                       <sourcecode id="C" autonum="1">CoreRoot(success): HttpResponse
-              if (success)
-              recommendation(label: success-response)
-              end
-            </sourcecode>
-                    </div>
-                    <div exclude="false" class="component1" type="requirement-component1">
-                       <p id="_">Hello</p>
-                    </div>
-                 </requirement>
-              </foreword>
-           </preface>
-        </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword id="fwd" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <requirement id="A" unnumbered="true" keep-with-next="true" keep-lines-together="true" model="default">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Requirement</span>
+                         <span class="fmt-caption-delim">
+                            :
+                            <br/>
+                         </span>
+                         <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
+                         .
+                         <semx element="title" source="A">A New Requirement</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Requirement</span>
+                      <semx element="autonum" source="A">(??)</semx>
+                   </fmt-xref-label>
+                   <p>
+                      <em>Subject: user</em>
+                      <br/>
+                      <em>Inherits: /ss/584/2015/level/1</em>
+                   </p>
+                   <div type="requirement-description">
+                      <p id="_">
+                         I recommend
+                         <em>this</em>
+                         .
+                      </p>
+                   </div>
+                   <div type="requirement-description">
+                      <p id="_">As for the measurement targets,</p>
+                   </div>
+                   <div exclude="false" keep-with-next="true" keep-lines-together="true" type="requirement-measurement-target">
+                      <p id="_">The measurement target shall be measured as:</p>
+                      <formula id="B" autonum="1">
+                         <fmt-name>
+                            <span class="fmt-caption-label">
+                               <span class="fmt-autonum-delim">(</span>
+                               1
+                               <span class="fmt-autonum-delim">)</span>
+                            </span>
+                         </fmt-name>
+                         <fmt-xref-label>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
+                         <fmt-xref-label container="fwd">
+                            <span class="fmt-xref-container">
+                               <semx element="foreword" source="fwd">Foreword</semx>
+                            </span>
+                            <span class="fmt-comma">,</span>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
+                         <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                         <fmt-stem type="AsciiMath">
+                            <semx element="stem" source="_">r/1 = 0</semx>
+                         </fmt-stem>
+                      </formula>
+                   </div>
+                   <div exclude="false" type="requirement-verification">
+                      <p id="_">The following code will be run for verification:</p>
+                      <sourcecode id="C" autonum="1">CoreRoot(success): HttpResponse
+             if (success)
+             recommendation(label: success-response)
+             end
+           </sourcecode>
+                   </div>
+                   <div exclude="false" class="component1" type="requirement-component1">
+                      <p id="_">Hello</p>
+                   </div>
+                </requirement>
+             </foreword>
+          </preface>
+       </iso-standard>
     OUTPUT
 
     output = <<~OUTPUT
@@ -1449,96 +1467,99 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~OUTPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="fwd" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <recommendation id="A" obligation="shall,could" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">Recommendation</span>
-                          <semx element="autonum" source="A">1</semx>
-                          <span class="fmt-caption-delim">
-                             :
-                             <br/>
-                          </span>
-                          <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Recommendation</span>
-                       <semx element="autonum" source="A">1</semx>
-                    </fmt-xref-label>
-                    <p>
-                       <em>Obligation: shall,could</em>
-                       <br/>
-                       <em>Subject: user</em>
-                       <br/>
-                       <em>Inherits: /ss/584/2015/level/1</em>
-                       <br/>
-                       <em>Type: text</em>
-                       <br/>
-                       <em>Language: BASIC</em>
-                    </p>
-                    <div type="requirement-description">
-                       <p id="_">
-                          I recommend
-                          <em>this</em>
-                          .
-                       </p>
-                    </div>
-                    <div type="requirement-description">
-                       <p id="_">As for the measurement targets,</p>
-                    </div>
-                    <div exclude="false" type="requirement-measurement-target">
-                       <p id="_">The measurement target shall be measured as:</p>
-                       <formula id="B" autonum="1">
-                          <fmt-name>
-                             <span class="fmt-caption-label">
-                                <span class="fmt-autonum-delim">(</span>
-                                1
-                                <span class="fmt-autonum-delim">)</span>
-                             </span>
-                          </fmt-name>
-                          <fmt-xref-label>
-                             <span class="fmt-element-name">Formula</span>
-                             <span class="fmt-autonum-delim">(</span>
-                             <semx element="autonum" source="B">1</semx>
-                             <span class="fmt-autonum-delim">)</span>
-                          </fmt-xref-label>
-                          <fmt-xref-label container="fwd">
-                             <span class="fmt-xref-container">
-                                <semx element="foreword" source="fwd">Foreword</semx>
-                             </span>
-                             <span class="fmt-comma">,</span>
-                             <span class="fmt-element-name">Formula</span>
-                             <span class="fmt-autonum-delim">(</span>
-                             <semx element="autonum" source="B">1</semx>
-                             <span class="fmt-autonum-delim">)</span>
-                          </fmt-xref-label>
-                          <stem type="AsciiMath">r/1 = 0</stem>
-                       </formula>
-                    </div>
-                    <div exclude="false" type="requirement-verification">
-                       <p id="_">The following code will be run for verification:</p>
-                       <sourcecode id="C" autonum="1">CoreRoot(success): HttpResponse
-              if (success)
-              recommendation(label: success-response)
-              end
-            </sourcecode>
-                    </div>
-                    <div exclude="false" class="component1" type="requirement-component1">
-                       <p id="_">Hello</p>
-                    </div>
-                 </recommendation>
-              </foreword>
-           </preface>
-        </iso-standard>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword id="fwd" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <recommendation id="A" obligation="shall,could" keep-with-next="true" keep-lines-together="true" model="default" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Recommendation</span>
+                         <semx element="autonum" source="A">1</semx>
+                         <span class="fmt-caption-delim">
+                            :
+                            <br/>
+                         </span>
+                         <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Recommendation</span>
+                      <semx element="autonum" source="A">1</semx>
+                   </fmt-xref-label>
+                   <p>
+                      <em>Obligation: shall,could</em>
+                      <br/>
+                      <em>Subject: user</em>
+                      <br/>
+                      <em>Inherits: /ss/584/2015/level/1</em>
+                      <br/>
+                      <em>Type: text</em>
+                      <br/>
+                      <em>Language: BASIC</em>
+                   </p>
+                   <div type="requirement-description">
+                      <p id="_">
+                         I recommend
+                         <em>this</em>
+                         .
+                      </p>
+                   </div>
+                   <div type="requirement-description">
+                      <p id="_">As for the measurement targets,</p>
+                   </div>
+                   <div exclude="false" type="requirement-measurement-target">
+                      <p id="_">The measurement target shall be measured as:</p>
+                      <formula id="B" autonum="1">
+                         <fmt-name>
+                            <span class="fmt-caption-label">
+                               <span class="fmt-autonum-delim">(</span>
+                               1
+                               <span class="fmt-autonum-delim">)</span>
+                            </span>
+                         </fmt-name>
+                         <fmt-xref-label>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
+                         <fmt-xref-label container="fwd">
+                            <span class="fmt-xref-container">
+                               <semx element="foreword" source="fwd">Foreword</semx>
+                            </span>
+                            <span class="fmt-comma">,</span>
+                            <span class="fmt-element-name">Formula</span>
+                            <span class="fmt-autonum-delim">(</span>
+                            <semx element="autonum" source="B">1</semx>
+                            <span class="fmt-autonum-delim">)</span>
+                         </fmt-xref-label>
+                         <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                         <fmt-stem type="AsciiMath">
+                            <semx element="stem" source="_">r/1 = 0</semx>
+                         </fmt-stem>
+                      </formula>
+                   </div>
+                   <div exclude="false" type="requirement-verification">
+                      <p id="_">The following code will be run for verification:</p>
+                      <sourcecode id="C" autonum="1">CoreRoot(success): HttpResponse
+             if (success)
+             recommendation(label: success-response)
+             end
+           </sourcecode>
+                   </div>
+                   <div exclude="false" class="component1" type="requirement-component1">
+                      <p id="_">Hello</p>
+                   </div>
+                </recommendation>
+             </foreword>
+          </preface>
+       </iso-standard>
     OUTPUT
 
     output = <<~OUTPUT

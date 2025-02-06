@@ -226,12 +226,19 @@ RSpec.describe IsoDoc do
                     <variant-title variant_title="true" type="toc" id="_">
                        Clause
                        <em>A</em>
-                       <stem type="MathML">
+                       <stem type="MathML" id="_">
                           <math xmlns="http://www.w3.org/1998/Math/MathML">
                              <mi>x</mi>
                           </math>
-                          <asciimath>x</asciimath>
                        </stem>
+                       <fmt-stem type="MathML">
+                          <semx element="stem" source="_">
+                             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mi>x</mi>
+                             </math>
+                             <asciimath>x</asciimath>
+                          </semx>
+                       </fmt-stem>
                     </variant-title>
                     <p id="_">Text</p>
                  </clause>
@@ -265,12 +272,19 @@ RSpec.describe IsoDoc do
               <variant-title variant_title="true" type="toc" id="_">
                  Clause
                  <em>A</em>
-                 <stem type="MathML">
+                 <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mi>x</mi>
                     </math>
-                    <asciimath>x</asciimath>
                  </stem>
+                 <fmt-stem type="MathML">
+                    <semx element="stem" source="_">
+                       <math xmlns="http://www.w3.org/1998/Math/MathML">
+                          <mi>x</mi>
+                       </math>
+                       <asciimath>x</asciimath>
+                    </semx>
+                 </fmt-stem>
               </variant-title>
               <p id="_">Text</p>
            </annex>

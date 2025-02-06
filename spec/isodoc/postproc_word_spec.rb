@@ -589,7 +589,7 @@ RSpec.describe IsoDoc do
             <p>B1</p></li>
             <li><ul><li><p>C1</p>
             <formula id="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62">
-            <stem type="AsciiMath">D1</stem>
+            <fmt-stem type="AsciiMath">D1</fmt-stem>
             </formula>
             <dl id="_f8fb7ed7-7874-44a8-933f-06e0e86fb264">
         <dt>
@@ -717,7 +717,7 @@ RSpec.describe IsoDoc do
             <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
         <table id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" unnumbered="true"><thead><tr>
               <td rowspan="2">
-                <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>(</mo><mi>μ</mi><mi>m</mi><mo>)</mo></mrow></math></stem></p>
+                <p id="_c47d9b39-adb2-431d-9320-78cb148fdb56">Output wavelength <fmt-stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>(</mo><mi>μ</mi><mi>m</mi><mo>)</mo></mrow></math></fmt-stem></p>
               </td>
               <th colspan="3" align="left">Predictive wavelengths</th>
             </tr>

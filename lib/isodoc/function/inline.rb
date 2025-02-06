@@ -82,11 +82,12 @@ module IsoDoc
       end
 
       def stem_parse(node, out)
+        ret = node.at(ns("./semx[@element = 'stem']")) || node
         ooml = case node["type"]
-               when "AsciiMath" then asciimath_parse(node)
-               when "MathML" then mathml_parse(node)
-               when "LaTeX" then latexmath_parse(node)
-               else HTMLEntities.new.encode(node.text)
+               when "AsciiMath" then asciimath_parse(ret)
+               when "MathML" then mathml_parse(ret)
+               when "LaTeX" then latexmath_parse(ret)
+               else HTMLEntities.new.encode(ret.text)
                end
         out.span class: "stem" do |span|
           span.parent.add_child ooml
@@ -205,6 +206,7 @@ module IsoDoc
       def name_parse(node, out); end
       def semx_definition_parse(node, out); end
       def date_parse(node, out); end
+      def semx_stem_parse(node, out); end
 
       def floating_title_parse(node, out); end
 

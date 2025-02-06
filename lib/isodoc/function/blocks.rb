@@ -92,7 +92,7 @@ module IsoDoc
       def formula_parse1(node, out)
         out.div **attr_code(class: "formula") do |div|
           div.p do |_p|
-            parse(node.at(ns("./stem")), div)
+            parse(node.at(ns("./fmt-stem")), div)
             if lbl = node&.at(ns("./fmt-name"))&.text
               insert_tab(div, 1)
               div << lbl
@@ -109,7 +109,7 @@ module IsoDoc
         out.div **formula_attrs(node) do |div|
           formula_parse1(node, div)
           node.children.each do |n|
-            %w(stem fmt-name).include? n.name and next
+            %w(stem fmt-name fmt-stem).include? n.name and next
             parse(n, div)
           end
         end

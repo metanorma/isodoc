@@ -641,7 +641,7 @@ RSpec.describe IsoDoc do
               <clause id="_clause" inline-header="false" obligation="normative" displayorder="1">
                 <fmt-title>Clause</fmt-title>
                 <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
-                  <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <fmt-stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
                       <mi>x</mi>
                       <mo>=</mo>
                       <mstyle mathvariant="script">
@@ -649,7 +649,7 @@ RSpec.describe IsoDoc do
                       </mstyle>
                       <mo>+</mo>
                       <mn>1</mn>
-                    </math></stem>
+                    </math></fmt-stem>
                 </p>
               </clause>
             </sections>
@@ -691,7 +691,7 @@ RSpec.describe IsoDoc do
               <clause id="_clause" inline-header="false" obligation="normative" displayorder="1">
                 <fmt-title>Clause</fmt-title>
                 <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
-                  <stem type="MathML">
+                  <fmt-stem type="MathML">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                       <mstyle mathvariant="sans-serif">
                         <mfrac>
@@ -729,7 +729,7 @@ RSpec.describe IsoDoc do
                         </mfrac>
                       </mstyle>
                     </math>
-                  </stem>
+                  </fmt-stem>
                 </p>
               </clause>
             </sections>

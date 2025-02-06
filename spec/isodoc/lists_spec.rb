@@ -393,7 +393,10 @@ RSpec.describe IsoDoc do
                        <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
                     </dd>
                     <dt>
-                       <stem type="AsciiMath">w</stem>
+               <stem type="AsciiMath" id="_">w</stem>
+               <fmt-stem type="AsciiMath">
+                  <semx element="stem" source="_">w</semx>
+               </fmt-stem>
                     </dt>
                     <dd>
                        <p>??</p>
