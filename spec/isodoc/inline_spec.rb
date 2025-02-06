@@ -231,50 +231,195 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~OUTPUT
       <p id="A">
-        <ul>
-          <li>
-        (<xref target="clause1">
-           <span class="fmt-element-name">Clause</span>
-           <semx element="autonum" source="clause1">2</semx>
-        </xref>)
-      </li>
-          <li><em>term</em>
-        (<xref target="clause1">
-           <span class="fmt-element-name">Clause</span>
-           <semx element="autonum" source="clause1">2</semx>
-        </xref>)
-      </li>
-          <li><em>w[o]rd</em>
-        [<xref target="clause1">Clause #1</xref>]
-      </li>
-          <li><em>term</em>
-        (<xref type="inline" target="ISO712">ISO 712</xref>)
-      </li>
-          <li><em>word</em>
-        [<xref type="inline" target="ISO712">The Aforementioned Citation</xref>]
-      </li>
-          <li><em>word</em>
-        (<xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>)
-      </li>
-          <li><em>word</em>
-        (<xref type="inline" target="ISO712">ISO 712, Clause 3.1 <span class="fmt-conn">and</span> Figure b</xref>)
-      </li>
-          <li><em>word</em>
-        [<xref type="inline" target="ISO712">
-        The Aforementioned Citation
-        </xref>]
-      </li>
-          <li><em>word</em>
-        (<termref base="IEV" target="135-13-13"/>)
-      </li>
-          <li><em>word</em>
-        [<termref base="IEV" target="135-13-13">The IEV database</termref>]
-      </li>
-          <li>
-            <strong>error!</strong>
-          </li>
-        </ul>
-      </p>
+          <ul>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">2</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">2</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">2</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>term</em>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">2</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>w[o]rd</renderterm>
+                   <xref target="clause1">Clause #1</xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>w[o]rd</em>
+                      [
+                      <xref target="clause1">Clause #1</xref>
+                      ]
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref type="inline" target="ISO712">ISO 712</xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>term</em>
+                      (
+                      <xref type="inline" target="ISO712">ISO 712</xref>
+                      )
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>word</renderterm>
+                   <xref type="inline" target="ISO712">The Aforementioned Citation</xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>word</em>
+                      [
+                      <xref type="inline" target="ISO712">The Aforementioned Citation</xref>
+                      ]
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>word</renderterm>
+                   <xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>word</em>
+                      (
+                      <xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>
+                      )
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>word</renderterm>
+                   <xref type="inline" target="ISO712">
+                      ISO 712, Clause 3.1
+                      <span class="fmt-conn">and</span>
+                      Figure b
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>word</em>
+                      (
+                      <xref type="inline" target="ISO712">
+                         ISO 712, Clause 3.1
+                         <span class="fmt-conn">and</span>
+                         Figure b
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>word</renderterm>
+                   <xref type="inline" target="ISO712">
+               
+               
+               The Aforementioned Citation
+               </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>word</em>
+                      [
+                      <xref type="inline" target="ISO712">
+               
+               
+               The Aforementioned Citation
+               </xref>
+                      ]
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>word</renderterm>
+                   <termref base="IEV" target="135-13-13"/>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>word</em>
+                      (
+                      <termref base="IEV" target="135-13-13"/>
+                      )
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>word</renderterm>
+                   <termref base="IEV" target="135-13-13">The IEV database</termref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>word</em>
+                      [
+                      <termref base="IEV" target="135-13-13">The IEV database</termref>
+                      ]
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept id="_">
+                   <strong>error!</strong>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <strong>error!</strong>
+                   </semx>
+                </fmt-concept>
+             </li>
+          </ul>
+       </p>
     OUTPUT
     html = <<~OUTPUT
         <p id="A">
@@ -372,29 +517,333 @@ RSpec.describe IsoDoc do
 
     presxml = <<~OUTPUT
       <p id="A">
-        <ul>
-          <li><em>term</em> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><strong>term</strong> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><em>term</em> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><em>term</em> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><strong><em>term</em></strong> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><strong>term</strong> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><em>term</em>,</li>
-          <li>term,</li>
-          <li><xref target="clause1"><em>term</em></xref> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><xref target="clause1"><strong>term</strong></xref> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><xref target="clause1"><strong><em>term</em></strong></xref> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><xref target="clause1"><em>term</em></xref> (<span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx>),</li>
-          <li><em>term</em> (<xref target="clause1"><span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx></xref>),</li>
-          <li><em>term</em> (<span class="fmt-element-name">Clause</span> <semx element="autonum" source="clause1">1</semx>),</li>
-          <li>
-            <strong>error!</strong>
-          </li>
-          <li>
-            <xref target="term-cv_discretecoverage">CV_DiscreteCoverage</xref>
-          </li>
-        </ul>
-      </p>
+          <ul>
+             <li>
+                <concept ital="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>term</em>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept bold="true" ital="false" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <strong>term</strong>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ref="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>term</em>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ital="true" ref="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>term</em>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept bold="true" ital="true" ref="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <strong>
+                         <em>term</em>
+                      </strong>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ital="false" bold="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <strong>term</strong>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ref="false" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>term</em>
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ital="false" ref="false" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">term</semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ital="true" ref="true" linkmention="true" linkref="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <xref target="clause1">
+                         <em>term</em>
+                      </xref>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept bold="true" ital="false" ref="true" linkmention="true" linkref="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <xref target="clause1">
+                         <strong>term</strong>
+                      </xref>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept bold="true" ital="true" ref="true" linkmention="true" linkref="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <xref target="clause1">
+                         <strong>
+                            <em>term</em>
+                         </strong>
+                      </xref>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ital="true" ref="true" linkmention="true" linkref="false" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <xref target="clause1">
+                         <em>term</em>
+                      </xref>
+                      (
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ital="true" ref="true" linkmention="false" linkref="true" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>term</em>
+                      (
+                      <xref target="clause1">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="clause1">1</semx>
+                      </xref>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ital="true" ref="true" linkmention="false" linkref="false" id="_">
+                   <refterm>term</refterm>
+                   <renderterm>term</renderterm>
+                   <xref target="clause1">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                   </xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <em>term</em>
+                      (
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="clause1">1</semx>
+                      )
+                   </semx>
+                </fmt-concept>
+                ,
+             </li>
+             <li>
+                <concept ital="true" ref="true" linkmention="true" linkref="true" id="_">
+                   <strong>error!</strong>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <strong>error!</strong>
+                   </semx>
+                </fmt-concept>
+             </li>
+             <li>
+                <concept ital="false" bold="false" ref="false" linkmention="true" id="_">
+                   <refterm>CV_DiscreteCoverage</refterm>
+                   <renderterm>CV_DiscreteCoverage</renderterm>
+                   <xref target="term-cv_discretecoverage">[term-cv_discretecoverage]</xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">
+                      <xref target="term-cv_discretecoverage">CV_DiscreteCoverage</xref>
+                   </semx>
+                </fmt-concept>
+             </li>
+          </ul>
+       </p>
     OUTPUT
     html = <<~OUTPUT
       <p id="A">
@@ -444,11 +893,7 @@ RSpec.describe IsoDoc do
       <preface><foreword>
       <p id="A">
       <ul>
-      <li><concept>
-          <refterm>term</refterm>
-          <renderterm>ISO</renderterm>
-          <xref target='d1'/>
-        </concept></li>
+      <li><concept><refterm>term</refterm><renderterm>ISO</renderterm><xref target='d1'/></concept></li>
         </ul>
         </p>
         </foreword>
@@ -464,11 +909,20 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <p id="A">
-        <ul>
-          <li>ISO</li>
-        </ul>
-      </p>
+       <p id="A">
+          <ul>
+             <li>
+                <concept id="_">
+                   <refterm>term</refterm>
+                   <renderterm>ISO</renderterm>
+                   <xref target="d1">[d1]</xref>
+                </concept>
+                <fmt-concept>
+                   <semx element="concept" source="_">ISO</semx>
+                </fmt-concept>
+             </li>
+          </ul>
+       </p>
     OUTPUT
     html = <<~OUTPUT
       <p id="A">

@@ -207,12 +207,17 @@ module IsoDoc
 
       def floating_title_parse(node, out); end
       def identifier_parse(node, out); end
+      def concept_parse(node, out); end
 
       def fmt_name_parse(node, out)
         children_parse(node, out)
       end
 
       def fmt_identifier_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_concept_parse(node, out)
         children_parse(node, out)
       end
     end
