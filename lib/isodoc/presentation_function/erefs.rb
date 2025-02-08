@@ -193,6 +193,7 @@ module IsoDoc
     end
 
     def eref2link(docxml)
+      docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//eref | //origin[not(termref)] | //quote//source"))
         .each do |e|
           sem_xml_descendant?(e) and next

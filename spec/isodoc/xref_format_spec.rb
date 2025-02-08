@@ -612,11 +612,31 @@ RSpec.describe IsoDoc do
       <itu-standard xmlns="https://www.calconnect.org/standards/itu">
       <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
                   <p id='_'>
-              <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/>6.4 List 1.a) to 2.b)</xref>
+              <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/><display-text>6.4 List 1.a) to 2.b)</display-text></xref>
               </p>
               </foreword></preface>
               </itu-standard>
     INPUT
+    presxml = <<~OUTPUT
+      <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">Foreword</fmt-title>
+                <p id="_">
+                   <xref target="item_6-4-a">
+                      <location target="item_6-4-a" connective="from"/>
+                      <location target="item_6-4-i" connective="to"/>
+                      6.4 List 1.a) to 2.b)
+                   </xref>
+                </p>
+             </foreword>
+          </preface>
+       </itu-standard>
+    OUTPUT
     html = <<~OUTPUT
       <div><h1 class='ForewordTitle'>Foreword</h1>
           <p id='_'>
@@ -631,6 +651,11 @@ RSpec.describe IsoDoc do
           </p>
         </div>
     OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
     .convert("test", input, true))
     .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))

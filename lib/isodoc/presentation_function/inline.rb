@@ -39,6 +39,7 @@ module IsoDoc
     def anchor_id_postprocess(node); end
 
     def xref(docxml)
+      #docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//xref")).each { |f| xref1(f) }
       docxml.xpath(ns("//xref//xref")).each { |f| f.replace(f.children) }
     end
