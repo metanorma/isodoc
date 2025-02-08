@@ -657,11 +657,11 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-    .convert("test", input, true))
+    .convert("test", pres_output, true))
     .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
       .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))
+      .convert("test", pres_output, true))
       .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
       .to be_equivalent_to Xml::C14n.format(doc)
   end
