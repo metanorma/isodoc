@@ -1,5 +1,17 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
+    def fmt_ref(docxml)
+      docxml.xpath(ns("//xref | //eref | //origin | //link")).each do |x|
+        tag = x.name
+        y = Nokogiri::XML::Node.new("fmt-#{tag}", x.document)
+        x.attributes.each_key { |a| y[a] = x[a] }
+        n = semx_fmt_dup(x) # semx/fmt-xref for ease of processing
+        n.children.each { |c| y << c }
+        n << y
+        x.next = n
+      end
+    end
+
     def prefix_container(container, linkend, node, target)
       prefix_container?(container, node) or return linkend
       container_container = @xrefs.anchor(container, :container, false)
@@ -126,7 +138,7 @@ module IsoDoc
 
     def loc2xref(entry)
       if entry[:target]
-        "<xref nested='true' target='#{entry[:target]}'>#{entry[:label]}</xref>"
+        "<fmt-xref nested='true' target='#{entry[:target]}'>#{entry[:label]}</fmt-xref>"
       else
         entry[:label]
       end

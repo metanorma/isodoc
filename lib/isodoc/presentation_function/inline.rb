@@ -25,8 +25,8 @@ module IsoDoc
     # <locality type="section"><reference>3.1</reference></locality></origin>
 
     def unnest_linkend(node)
-      node.at(ns("./xref[@nested]")) or return
-      node.xpath(ns("./xref[@nested]")).each { |x| x.delete("nested") }
+      node.at(ns("./fmt-xref[@nested]")) or return
+      node.xpath(ns("./fmt-xref[@nested]")).each { |x| x.delete("nested") }
       node.xpath(ns("./location | ./locationStack")).each(&:remove)
       node.replace(node.children)
     end
@@ -40,21 +40,22 @@ module IsoDoc
 
     def xref(docxml)
       #docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
-      docxml.xpath(ns("//xref")).each { |f| xref1(f) }
-      docxml.xpath(ns("//xref//xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-xref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//fmt-xref//fmt-xref")).each { |f| f.replace(f.children) }
     end
 
     def eref(docxml)
-      docxml.xpath(ns("//eref")).each { |f| xref1(f) }
-      docxml.xpath(ns("//eref//xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-eref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//fmt-eref//fmt-xref")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//erefstack")).each { |f| erefstack1(f) }
     end
 
     def origin(docxml)
-      docxml.xpath(ns("//origin[not(termref)]")).each { |f| xref1(f) }
+      docxml.xpath(ns("//fmt-origin[not(.//termref)]")).each { |f| xref1(f) }
     end
 
-    def quotesource(docxml)
+    # KILL
+    def quotesourcex(docxml)
       docxml.xpath(ns("//quote//source")).each { |f| xref1(f) }
       docxml.xpath(ns("//quote//source//xref")).each do |f|
         f.replace(f.children)

@@ -122,7 +122,9 @@ RSpec.describe IsoDoc do
       </termexample>
       <termsource status='identical'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'>t1</termref>
+          </display-text>
           </origin>
           <modification>
             <p id='_'>comment</p>
@@ -130,7 +132,9 @@ RSpec.describe IsoDoc do
         </termsource>
         <termsource status='modified'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'/>
+          </display-text>
           </origin>
           <modification>
             <p id='_'>with adjustments</p>
@@ -138,7 +142,9 @@ RSpec.describe IsoDoc do
         </termsource>
         <termsource status='adapted'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'>t1</termref>
+          </display-text>
           </origin>
           <modification>
             <p id='_'/>
@@ -751,12 +757,16 @@ RSpec.describe IsoDoc do
       </termexample>
       <termsource status='identical'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'>t1</termref>
+          </display-text>
           </origin>
         </termsource>
         <termsource status='modified'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'/>
+          </display-text>
           </origin>
           <modification>
             <p id='_'>with adjustments</p>
@@ -2037,7 +2047,9 @@ RSpec.describe IsoDoc do
       <definition><verbal-definition><p id="_eb29b35e-123e-4d1c-b50b-2714d41e747f">rice retaining its husk after threshing</p></verbal-definition></definition>
         <termsource status='identical'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'>t1</termref>
+          </display-text>
           </origin>
           <modification>
             <p id='_'>with adjustments</p>
@@ -2045,7 +2057,9 @@ RSpec.describe IsoDoc do
         </termsource>
         <termsource status='adapted'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'/>
+          </display-text>
           </origin>
           <modification>
             <p id='_'>with adjustments</p>
@@ -2053,7 +2067,9 @@ RSpec.describe IsoDoc do
         </termsource>
         <termsource status='modified'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'/>
+          </display-text>
           </origin>
           <modification>
             <p id='_'>with adjustments</p>
@@ -2061,17 +2077,23 @@ RSpec.describe IsoDoc do
         </termsource>
         <termsource status='identical'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'>t1</termref>
+          </display-text>
           </origin>
         </termsource>
         <termsource status='adapted'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'/>
+          </display-text>
           </origin>
         </termsource>
         <termsource status='modified'>
           <origin citeas=''>
+          <display-text>
             <termref base='IEV' target='xyz'/>
+          </display-text>
           </origin>
         </termsource>
       </term></terms>

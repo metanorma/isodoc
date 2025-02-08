@@ -8,7 +8,7 @@ module IsoDoc
 
     def concept1(node)
       node.ancestors("definition, termsource, related").empty? or return
-      xref = node&.at(ns("./xref/@target"))&.text or
+      xref = node&.at(ns("./fmt-xref/@target"))&.text or
         return concept_render(node, ital: "true", ref: "true", bold: "false",
                                     linkref: "true", linkmention: "false")
       if @definition_ids[xref]
@@ -41,7 +41,7 @@ module IsoDoc
       opts = %i(bold ital ref linkref linkmention)
         .each_with_object({}) { |x, m| m[x] = node[x.to_s] || defaults[x] }
       [opts, node.at(ns("./renderterm")),
-       node.at(ns("./xref | ./eref | ./termref"))]
+       node.at(ns("./fmt-xref | ./fmt-eref | ./termref"))]
     end
 
     def concept1_linkmention(ref, renderterm, opts)
@@ -55,8 +55,8 @@ module IsoDoc
       ref.nil? and return
       opts[:ref] == "false" and return ref.remove
       concept1_ref_content(ref)
-      %w(xref eref).include? ref.name and get_linkend(ref)
-      opts[:linkref] == "false" && %w(xref eref).include?(ref.name) and
+      %w(fmt-xref fmt-eref).include? ref.name and get_linkend(ref)
+      opts[:linkref] == "false" && %w(fmt-xref fmt-eref).include?(ref.name) and
         ref.replace(ref.children)
     end
 
@@ -89,7 +89,7 @@ module IsoDoc
 
     def related1_prep(node)
       p = node.at(ns("./fmt-preferred"))&.children
-      ref = node.at(ns("./xref | ./eref | ./termref"))
+      ref = node.at(ns("./fmt-xref | ./fmt-eref | ./termref"))
       orig = semx_orig(node)
       [p, ref, orig]
     end

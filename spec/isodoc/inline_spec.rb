@@ -574,6 +574,25 @@ RSpec.describe IsoDoc do
         <sections>
         </iso-standard>
     INPUT
+    presxml = <<~INPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface> <clause type="toc" id="_" displayorder="1">
+        <fmt-title depth="1">Table of contents</fmt-title>
+      </clause>
+      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+        <p>
+        <link target="http://example.com"/>
+        <link target="http://example.com"><br/></link>
+        <link target="http://example.com">example</link>
+        <link target="http://example.com" alt="tip">example</link>
+        <link target="mailto:fred@example.com"/>
+        <link target="mailto:fred@example.com">mailto:fred@example.com</link>
+        <link target="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512"/>
+        </p>
+        </foreword></preface>
+        <sections>
+        </iso-standard>
+    INPUT
     output = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
@@ -593,8 +612,15 @@ RSpec.describe IsoDoc do
              </body>
          </html>
     OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", pres_output, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes updatetype links" do
@@ -602,9 +628,9 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword displayorder="2"><fmt-title>Foreword</fmt-title>
       <p>
-      <link update-type="true" target="http://example.com"/>
-      <link update-type="true" target="list.adoc">example</link>
-      <link update-type="true" target="list" alt="tip">example</link>
+      <fmt-link update-type="true" target="http://example.com"/>
+      <fmt-link update-type="true" target="list.adoc">example</fmt-link>
+      <fmt-link update-type="true" target="list" alt="tip">example</fmt-link>
       </p>
       </foreword></preface>
       <sections>
@@ -1526,7 +1552,7 @@ RSpec.describe IsoDoc do
       <preface>
       <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
        <foreword id="A" displayorder="2"><fmt-title>Foreword</fmt-title>
-      <add>ABC <xref target="A"></add> <del><strong>B</strong></del>
+      <add>ABC <fmt-xref target="A"/></add> <del><strong>B</strong></del>
       </foreword></preface>
       </itu-standard>
     INPUT
@@ -1844,8 +1870,8 @@ RSpec.describe IsoDoc do
           </eref>
        </itu-standard>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes ruby markup" do

@@ -92,11 +92,12 @@ module IsoDoc
 
     def inline(docxml)
       bibitem_lookup(docxml) # feeds citeas
+      fmt_ref docxml # feeds citeas, xref, eref, origin, quotesource
       citeas docxml # feeds xref, eref, origin, quotesource
       xref docxml
       eref docxml # feeds eref2link
       origin docxml # feeds eref2link
-      quotesource docxml # feeds eref2link
+      #quotesource docxml # feeds eref2link
       eref2link docxml
       mathml docxml
       ruby docxml

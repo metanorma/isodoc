@@ -204,6 +204,10 @@ module IsoDoc
 
       def name_parse(node, out); end
       def semx_definition_parse(node, out); end
+      def semx_xref_parse(node, out); end
+      def semx_eref_parse(node, out); end
+      def semx_link_parse(node, out); end
+      def semx_origin_parse(node, out); end
 
       def floating_title_parse(node, out); end
       def identifier_parse(node, out); end

@@ -3,14 +3,14 @@ require "metanorma-utils"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def citeas(xmldoc)
-      xmldoc.xpath(ns("//eref | //origin | //quote//source | //link"))
+      xmldoc.xpath(ns("//fmt-eref | //fmt-origin | //fmt-link"))
         .each do |e|
           sem_xml_descendant?(e) and next
         e["bibitemid"] && e["citeas"] or next
         a = @xrefs.anchor(e["bibitemid"], :xref, false) or next
         e["citeas"] = citeas_cleanup(a)
         # link generated in collection postprocessing from eref
-        e.name == "link" && e.text.empty? and e.children = e["citeas"]
+        e.name == "fmt-link" && e.text.empty? and e.children = e["citeas"]
       end
     end
 
@@ -29,11 +29,13 @@ module IsoDoc
     end
 
     def erefstack1(elem)
-      locs = elem.xpath(ns("./eref")).map do |e|
+      locs = elem.xpath(ns("./fmt-eref")).map do |e|
         [e["connective"], to_xml(e)]
       end.flatten
       ret = resolve_eref_connectives(locs)
-      elem.replace(ret[1])
+      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      elem.next = "<semx element='erefstack' source='#{elem['id']}'>#{ret[1]}</semx>"
+      #elem.replace(ret[1])
     end
 
     def eref_localities(refs, target, node)
@@ -194,7 +196,7 @@ module IsoDoc
 
     def eref2link(docxml)
       docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
-      docxml.xpath(ns("//eref | //origin[not(termref)] | //quote//source"))
+      docxml.xpath(ns("//fmt-eref | //fmt-origin[not(.//termref)]"))
         .each do |e|
           sem_xml_descendant?(e) and next
         href = eref_target(e) or next
@@ -206,7 +208,7 @@ module IsoDoc
     end
 
     def eref2xref(node)
-      node.name = "xref"
+      node.name = "fmt-xref"
       node["target"] = node["bibitemid"]
       node.delete("bibitemid")
       node.delete("citeas")
@@ -216,7 +218,7 @@ module IsoDoc
     def eref2link1(node, href)
       url = href[:link]
       att = href[:type] == :attachment ? "attachment='true'" : ""
-      repl = "<link #{att} target='#{url}'>#{node.children}</link>"
+      repl = "<fmt-link #{att} target='#{url}'>#{node.children}</link>"
       node["type"] == "footnote" and repl = "<sup>#{repl}</sup>"
       node.replace(repl)
     end
