@@ -279,6 +279,8 @@ module IsoDoc
           when "floating-title" then floating_title_parse(node, out)
           when "fmt-identifier" then fmt_identifier_parse(node, out)
           when "identifier" then identifier_parse(node, out)
+          when "fmt-concept" then fmt_concept_parse(node, out)
+          when "concept" then concept_parse(node, out)
           else error_parse(node, out)
           end
         end

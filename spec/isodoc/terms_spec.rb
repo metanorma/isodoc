@@ -2544,7 +2544,7 @@ RSpec.describe IsoDoc do
       </sections></iso-standard>
     INPUT
     output = <<~OUTPUT
-          <terms id="terms_and_definitions" obligation="normative" displayorder="2">
+      <terms id="terms_and_definitions" obligation="normative" displayorder="2">
           <title id="_">Terms and Definitions</title>
           <fmt-title depth="1">
              <span class="fmt-caption-label">
@@ -2608,16 +2608,34 @@ RSpec.describe IsoDoc do
              <fmt-definition>
                 <semx element="definition" source="_">
                    <ul>
-                      <em>term</em>
-                      (
-                      <xref target="clause1">[clause1]</xref>
-                      )
+                      <concept id="_">
+                         <refterm>term1</refterm>
+                         <renderterm>term</renderterm>
+                         <xref target="clause1">[clause1]</xref>
+                      </concept>
+                      <fmt-concept>
+                         <semx element="concept" source="_">
+                            <em>term</em>
+                            (
+                            <xref target="clause1">[clause1]</xref>
+                            )
+                         </semx>
+                      </fmt-concept>
                    </ul>
                    <li>
-                      <em>term</em>
-                      (
-                      <xref target="clause1">[clause1]</xref>
-                      )
+                      <concept id="_">
+                         <refterm>term1</refterm>
+                         <renderterm>term</renderterm>
+                         <xref target="clause1">[clause1]</xref>
+                      </concept>
+                      <fmt-concept>
+                         <semx element="concept" source="_">
+                            <em>term</em>
+                            (
+                            <xref target="clause1">[clause1]</xref>
+                            )
+                         </semx>
+                      </fmt-concept>
                    </li>
                 </semx>
              </fmt-definition>

@@ -20,13 +20,19 @@ module IsoDoc
     end
 
     def concept_render(node, defaults)
-      opts, render, ref = concept_render_init(node, defaults)
-      node&.at(ns("./refterm"))&.remove
+      opts, render, ref, ret = concept_render_init(node, defaults)
+      ret&.at(ns("./refterm"))&.remove
       ref && opts[:ref] != "false" and render&.next = " "
       concept1_linkmention(ref, render, opts)
-      concept1_ref(node, ref, opts)
-      concept1_style(node, opts)
-      node.replace(node.children)
+      concept1_ref(ret, ref, opts)
+      concept1_style(ret, opts)
+      concept_dup(node, ret)
+    end
+
+    def concept_dup(node, ret)
+      f = Nokogiri::XML::Node.new("fmt-concept", node.document)
+      f << ret
+      node.next = f
     end
 
     def concept1_style(node, opts)
@@ -38,7 +44,15 @@ module IsoDoc
     end
 
     def concept_render_init(node, defaults)
-      opts = %i(bold ital ref linkref linkmention)
+      opts = concept_render_opts(node, defaults)
+      ret = semx_fmt_dup(node)
+      ret.children.each { |x| x.text? and x.remove }
+      [opts, ret.at(ns("./renderterm")),
+       ret.at(ns("./xref | ./eref | ./termref")), ret]
+    end
+
+    def concept_render_opts(node, defaults)
+      %i(bold ital ref linkref linkmention)
         .each_with_object({}) { |x, m| m[x] = node[x.to_s] || defaults[x] }
       [opts, node.at(ns("./renderterm")),
        node.at(ns("./fmt-xref | ./fmt-eref | ./termref"))]
