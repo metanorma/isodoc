@@ -127,826 +127,6 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
-  it "processes concept markup" do
-    input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword>
-          <p id="A">
-          <ul>
-          <li>
-          <concept><refterm>term</refterm>
-              <xref target='clause1'/>
-            </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>term</renderterm>
-              <xref target='clause1'/>
-            </concept></li>
-          <li><concept><refterm>term</refterm>
-              <renderterm>w[o]rd</renderterm>
-              <xref target='clause1'>Clause #1</xref>
-            </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>term</renderterm>
-              <eref bibitemid="ISO712" type="inline" citeas="ISO 712"/>
-            </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>word</renderterm>
-              <eref bibitemid="ISO712" type="inline" citeas="ISO 712">The Aforementioned Citation</eref>
-            </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>word</renderterm>
-              <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
-                <locality type='clause'>
-                  <referenceFrom>3.1</referenceFrom>
-                </locality>
-                <locality type='figure'>
-                  <referenceFrom>a</referenceFrom>
-                </locality>
-              </eref>
-            </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>word</renderterm>
-              <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
-              <localityStack connective="and">
-                <locality type='clause'>
-                  <referenceFrom>3.1</referenceFrom>
-                </locality>
-              </localityStack>
-              <localityStack connective="and">
-                <locality type='figure'>
-                  <referenceFrom>b</referenceFrom>
-                </locality>
-              </localityStack>
-              </eref>
-            </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>word</renderterm>
-              <eref bibitemid="ISO712" type="inline" citeas="ISO 712">
-              <localityStack connective="and">
-                <locality type='clause'>
-                  <referenceFrom>3.1</referenceFrom>
-                </locality>
-              </localityStack>
-              <localityStack connective="and">
-                <locality type='figure'>
-                  <referenceFrom>b</referenceFrom>
-                </locality>
-              </localityStack>
-              The Aforementioned Citation
-              </eref>
-            </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>word</renderterm>
-              <termref base='IEV' target='135-13-13'/>
-            </concept></li>
-            <li><concept><refterm>term</refterm>
-              <renderterm>word</renderterm>
-              <termref base='IEV' target='135-13-13'>The IEV database</termref>
-            </concept></li>
-            <li><concept>
-              <strong>error!</strong>
-              </concept>
-              </li>
-            </ul>
-          </p>
-          </foreword></preface>
-          <sections>
-          <clause id="clause1"><title>Clause 1</title></clause>
-          </sections>
-          <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
-          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-      <bibitem id="ISO712" type="standard">
-        <title format="text/plain">Cereals or cereal products</title>
-        <title type="main" format="text/plain">Cereals and cereal products</title>
-        <docidentifier type="ISO">ISO 712</docidentifier>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-            <name>International Organization for Standardization</name>
-          </organization>
-        </contributor>
-      </bibitem>
-      </references></bibliography>
-          </iso-standard>
-    INPUT
-    presxml = <<~OUTPUT
-      <p id="A">
-          <ul>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">2</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">2</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">2</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>term</em>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">2</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>w[o]rd</renderterm>
-                   <xref target="clause1">Clause #1</xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>w[o]rd</em>
-                      [
-                      <xref target="clause1">Clause #1</xref>
-                      ]
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref type="inline" target="ISO712">ISO 712</xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>term</em>
-                      (
-                      <xref type="inline" target="ISO712">ISO 712</xref>
-                      )
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>word</renderterm>
-                   <xref type="inline" target="ISO712">The Aforementioned Citation</xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>word</em>
-                      [
-                      <xref type="inline" target="ISO712">The Aforementioned Citation</xref>
-                      ]
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>word</renderterm>
-                   <xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>word</em>
-                      (
-                      <xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</xref>
-                      )
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>word</renderterm>
-                   <xref type="inline" target="ISO712">
-                      ISO 712, Clause 3.1
-                      <span class="fmt-conn">and</span>
-                      Figure b
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>word</em>
-                      (
-                      <xref type="inline" target="ISO712">
-                         ISO 712, Clause 3.1
-                         <span class="fmt-conn">and</span>
-                         Figure b
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>word</renderterm>
-                   <xref type="inline" target="ISO712">
-               
-               
-               The Aforementioned Citation
-               </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>word</em>
-                      [
-                      <xref type="inline" target="ISO712">
-               
-               
-               The Aforementioned Citation
-               </xref>
-                      ]
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>word</renderterm>
-                   <termref base="IEV" target="135-13-13"/>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>word</em>
-                      (
-                      <termref base="IEV" target="135-13-13"/>
-                      )
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>word</renderterm>
-                   <termref base="IEV" target="135-13-13">The IEV database</termref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>word</em>
-                      [
-                      <termref base="IEV" target="135-13-13">The IEV database</termref>
-                      ]
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept id="_">
-                   <strong>error!</strong>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <strong>error!</strong>
-                   </semx>
-                </fmt-concept>
-             </li>
-          </ul>
-       </p>
-    OUTPUT
-    html = <<~OUTPUT
-        <p id="A">
-        <div class="ul_wrap">
-          <ul>
-            <li>
-
-        (<a href="#clause1">Clause 2</a>)
-      </li>
-            <li><i>term</i>
-        (<a href="#clause1">Clause 2</a>)
-      </li>
-            <li><i>w[o]rd</i>
-        [<a href="#clause1">Clause #1</a>]
-      </li>
-            <li><i>term</i>
-        (<a href="#ISO712">ISO 712</a>)
-      </li>
-            <li><i>word</i>
-        [<a href="#ISO712">The Aforementioned Citation</a>]
-      </li>
-            <li><i>word</i>
-        (<a href="#ISO712">ISO 712, Clause 3.1, Figure a</a>)
-      </li>
-            <li><i>word</i>
-        (<a href="#ISO712">ISO 712, Clause 3.1 and Figure b</a>)
-      </li>
-            <li><i>word</i>
-        [<a href="#ISO712">
-
-
-        The Aforementioned Citation
-        </a>]
-      </li>
-            <li><i>word</i>
-        (Termbase IEV, term ID 135-13-13)
-      </li>
-            <li><i>word</i>
-        [The IEV database]
-      </li>
-            <li>
-              <b>error!</b>
-            </li>
-          </ul>
-          </div>
-        </p>
-    OUTPUT
-    pres_output = IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
-      IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true),
-    )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
-  end
-
-  it "processes concept attributes" do
-    input = <<~INPUT
-             <iso-standard xmlns="http://riboseinc.com/isoxml">
-             <preface><foreword>
-             <p id="A">
-             <ul>
-             <li><concept ital="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept bold="true" ital="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept bold="true" ital="true" ref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="false" bold="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="false" ref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept bold="true" ital="false" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept bold="true" ital="true" ref="true" linkmention="true" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="true" ref="true" linkmention="true" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="true" ref="true" linkmention="false" linkref="true"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="true" ref="true" linkmention="false" linkref="false"><refterm>term</refterm><renderterm>term</renderterm><xref target='clause1'/></concept>,</li>
-             <li><concept ital="true" ref="true" linkmention="true" linkref="true"><strong>error!</strong></concept></li>
-             <li><concept ital="false" bold="false" ref="false" linkmention="true">
-      <refterm>CV_DiscreteCoverage</refterm>
-      <renderterm>CV_DiscreteCoverage</renderterm>
-      <xref target="term-cv_discretecoverage"/>
-      </concept></li>
-              </ul></p>
-               </foreword></preface>
-             <sections>
-             <clause id="clause1"><title>Clause 1</title></clause>
-             </sections>
-            </iso-standard>
-    INPUT
-
-    presxml = <<~OUTPUT
-      <p id="A">
-          <ul>
-             <li>
-                <concept ital="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>term</em>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept bold="true" ital="false" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <strong>term</strong>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ref="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>term</em>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ital="true" ref="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>term</em>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept bold="true" ital="true" ref="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <strong>
-                         <em>term</em>
-                      </strong>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ital="false" bold="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <strong>term</strong>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ref="false" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>term</em>
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ital="false" ref="false" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">term</semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ital="true" ref="true" linkmention="true" linkref="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <xref target="clause1">
-                         <em>term</em>
-                      </xref>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept bold="true" ital="false" ref="true" linkmention="true" linkref="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <xref target="clause1">
-                         <strong>term</strong>
-                      </xref>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept bold="true" ital="true" ref="true" linkmention="true" linkref="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <xref target="clause1">
-                         <strong>
-                            <em>term</em>
-                         </strong>
-                      </xref>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ital="true" ref="true" linkmention="true" linkref="false" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <xref target="clause1">
-                         <em>term</em>
-                      </xref>
-                      (
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ital="true" ref="true" linkmention="false" linkref="true" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>term</em>
-                      (
-                      <xref target="clause1">
-                         <span class="fmt-element-name">Clause</span>
-                         <semx element="autonum" source="clause1">1</semx>
-                      </xref>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ital="true" ref="true" linkmention="false" linkref="false" id="_">
-                   <refterm>term</refterm>
-                   <renderterm>term</renderterm>
-                   <xref target="clause1">
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                   </xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <em>term</em>
-                      (
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="clause1">1</semx>
-                      )
-                   </semx>
-                </fmt-concept>
-                ,
-             </li>
-             <li>
-                <concept ital="true" ref="true" linkmention="true" linkref="true" id="_">
-                   <strong>error!</strong>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <strong>error!</strong>
-                   </semx>
-                </fmt-concept>
-             </li>
-             <li>
-                <concept ital="false" bold="false" ref="false" linkmention="true" id="_">
-                   <refterm>CV_DiscreteCoverage</refterm>
-                   <renderterm>CV_DiscreteCoverage</renderterm>
-                   <xref target="term-cv_discretecoverage">[term-cv_discretecoverage]</xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">
-                      <xref target="term-cv_discretecoverage">CV_DiscreteCoverage</xref>
-                   </semx>
-                </fmt-concept>
-             </li>
-          </ul>
-       </p>
-    OUTPUT
-    html = <<~OUTPUT
-      <p id="A">
-      <div class="ul_wrap">
-        <ul>
-          <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
-          <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
-          <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
-          <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
-          <li><b><i>term</i></b> (<a href="#clause1">Clause 1</a>),</li>
-          <li><b>term</b> (<a href="#clause1">Clause 1</a>),</li>
-          <li><i>term</i>,</li>
-          <li>term,</li>
-          <li><a href="#clause1"><i>term</i></a> (<a href="#clause1">Clause 1</a>),</li>
-          <li><a href="#clause1"><b>term</b></a> (<a href="#clause1">Clause 1</a>),</li>
-          <li><a href="#clause1"><b><i>term</i></b></a> (<a href="#clause1">Clause 1</a>),</li>
-          <li><a href="#clause1"><i>term</i></a> (Clause 1),</li>
-          <li><i>term</i> (<a href="#clause1">Clause 1</a>),</li>
-          <li><i>term</i> (Clause 1),</li>
-          <li>
-            <b>error!</b>
-          </li>
-          <li>
-            <a href="#term-cv_discretecoverage">CV_DiscreteCoverage</a>
-          </li>
-        </ul>
-        </div>
-      </p>
-    OUTPUT
-    pres_output = IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
-      IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true),
-    )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
-  end
-
-  it "processes concept markup for symbols" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
-      <p id="A">
-      <ul>
-      <li><concept><refterm>term</refterm><renderterm>ISO</renderterm><xref target='d1'/></concept></li>
-        </ul>
-        </p>
-        </foreword>
-        </preface>
-        <sections>
-        <definitions id="d">
-        <dl>
-        <dt id="d1">ISO</dt> <dd>xyz</xyz>
-        <dt id="d2">IEC</dt> <dd>abc</xyz>
-        </dl>
-        </definitions>
-        </sections>
-        </iso-standard>
-    INPUT
-    presxml = <<~OUTPUT
-       <p id="A">
-          <ul>
-             <li>
-                <concept id="_">
-                   <refterm>term</refterm>
-                   <renderterm>ISO</renderterm>
-                   <xref target="d1">[d1]</xref>
-                </concept>
-                <fmt-concept>
-                   <semx element="concept" source="_">ISO</semx>
-                </fmt-concept>
-             </li>
-          </ul>
-       </p>
-    OUTPUT
-    html = <<~OUTPUT
-      <p id="A">
-      <div class="ul_wrap">
-        <ul>
-          <li>ISO</li>
-        </ul>
-        </div>
-      </p>
-    OUTPUT
-    pres_output = IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
-      .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
-      IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true),
-    )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
-  end
-
   it "processes embedded inline formatting" do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -961,6 +141,52 @@ RSpec.describe IsoDoc do
         <sections>
         </iso-standard>
     INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <foreword displayorder="1">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">Foreword</fmt-title>
+                <p>
+                   <em>
+                      <strong>&lt;</strong>
+                   </em>
+                   <tt>
+                      <link target="B" id="_"/>
+                      <semx element="link" source="_">
+                         <fmt-link target="B"/>
+                      </semx>
+                   </tt>
+                   <xref target="_" id="_">
+                      Requirement
+                      <tt>/req/core/http</tt>
+                   </xref>
+                   <semx element="xref" source="_">
+                      <fmt-xref target="_">
+                         Requirement
+                         <tt>/req/core/http</tt>
+                      </fmt-xref>
+                   </semx>
+                   <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_">
+                      Requirement
+                      <tt>/req/core/http</tt>
+                   </eref>
+                   <semx element="eref" source="_">
+                      <fmt-eref type="inline" bibitemid="ISO712" citeas="ISO 712">
+                         Requirement
+                         <tt>/req/core/http</tt>
+                      </fmt-eref>
+                   </semx>
+                </p>
+             </foreword>
+             <clause type="toc" id="_" displayorder="2">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+          </preface>
+          <sections>
+         </sections>
+       </iso-standard>
+    OUTPUT
     output = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
@@ -974,8 +200,14 @@ RSpec.describe IsoDoc do
              </body>
          </html>
     OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", pres_output, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes inline images" do
@@ -1029,23 +261,53 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     presxml = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <preface> <clause type="toc" id="_" displayorder="1">
-        <fmt-title depth="1">Table of contents</fmt-title>
-      </clause>
-      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
-        <p>
-        <link target="http://example.com"/>
-        <link target="http://example.com"><br/></link>
-        <link target="http://example.com">example</link>
-        <link target="http://example.com" alt="tip">example</link>
-        <link target="mailto:fred@example.com"/>
-        <link target="mailto:fred@example.com">mailto:fred@example.com</link>
-        <link target="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512"/>
-        </p>
-        </foreword></preface>
-        <sections>
-        </iso-standard>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <foreword displayorder="1">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">Foreword</fmt-title>
+                <p>
+                   <link target="http://example.com" id="_"/>
+                   <semx element="link" source="_">
+                      <fmt-link target="http://example.com"/>
+                   </semx>
+                   <link target="http://example.com" id="_">
+                      <br/>
+                   </link>
+                   <semx element="link" source="_">
+                      <fmt-link target="http://example.com">
+                         <br/>
+                      </fmt-link>
+                   </semx>
+                   <link target="http://example.com" id="_">example</link>
+                   <semx element="link" source="_">
+                      <fmt-link target="http://example.com">example</fmt-link>
+                   </semx>
+                   <link target="http://example.com" alt="tip" id="_">example</link>
+                   <semx element="link" source="_">
+                      <fmt-link target="http://example.com" alt="tip">example</fmt-link>
+                   </semx>
+                   <link target="mailto:fred@example.com" id="_"/>
+                   <semx element="link" source="_">
+                      <fmt-link target="mailto:fred@example.com"/>
+                   </semx>
+                   <link target="mailto:fred@example.com" id="_">mailto:fred@example.com</link>
+                   <semx element="link" source="_">
+                      <fmt-link target="mailto:fred@example.com">mailto:fred@example.com</fmt-link>
+                   </semx>
+                   <link target="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512" id="_"/>
+                   <semx element="link" source="_">
+                      <fmt-link target="https://maps.gnosis.earth/ogcapi/collections/sentinel2-l2a/map?center=0,51.5&amp;scale-denominator=50000&amp;datetime=2022-04-01&amp;width=1024&amp;height=512"/>
+                   </semx>
+                </p>
+             </foreword>
+             <clause type="toc" id="_" displayorder="2">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+          </preface>
+          <sections>
+         </sections>
+       </iso-standard>
     INPUT
     output = <<~OUTPUT
       #{HTML_HDR}
@@ -1379,22 +641,34 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder="2">
-                 <title id="_">Foreword</title>
-           <fmt-title depth="1">
-                 <semx element="title" source="_">Foreword</semx>
-           </fmt-title>
-        <p>
-          <sup>
-            <xref type="footnote" target="ISO712">A</xref>
-          </sup>
-          <xref type="inline" target="ISO712">A</xref>
-          <sup>
-            <link target="http://wwww.example.com">A</link>
-          </sup>
-          <link target="http://wwww.example.com">A</link>
-        </p>
-      </foreword>
+       <foreword displayorder="2">
+          <title id="_">Foreword</title>
+          <fmt-title depth="1">
+             <semx element="title" source="_">Foreword</semx>
+          </fmt-title>
+          <p>
+             <eref type="footnote" bibitemid="ISO712" citeas="ISO 712" id="_">A</eref>
+             <semx element="eref" source="_">
+                <sup>
+                   <fmt-xref type="footnote" target="ISO712">A</fmt-xref>
+                </sup>
+             </semx>
+             <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_">A</eref>
+             <semx element="eref" source="_">
+                <fmt-xref type="inline" target="ISO712">A</fmt-xref>
+             </semx>
+             <eref type="footnote" bibitemid="ISO713" citeas="ISO 713" id="_">A</eref>
+             <semx element="eref" source="_">
+                <sup>
+                   <fmt-link target="http://wwww.example.com">A</fmt-link>
+                </sup>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" citeas="ISO 713" id="_">A</eref>
+             <semx element="eref" source="_">
+                <fmt-link target="http://wwww.example.com">A</fmt-link>
+             </semx>
+          </p>
+       </foreword>
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -1475,25 +749,164 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <p id="A">
-       <xref type="inline" target="ISO712">ISO 712</xref>
-      <xref type="inline" target="ISO712">ISO 712</xref>
-      <xref type="inline" target="ISO712">ISO 712, Table 1</xref>
-      <xref type="inline" target="ISO712">ISO 712, Table 1</xref>
-      <xref type="inline" target="ISO712">ISO 712, Table 1 <span class="fmt-conn">and</span> Clause 1</xref>
-      <xref type="inline" target="ISO712">ISO 712, Table 1–1</xref>
-      <xref type="inline" target="ISO712">ISO 712, Clause 1, Table 1</xref>
-      <xref type="inline" target="ISO712">ISO 712, Clause 1</xref>
-      <xref type="inline" target="ISO712">ISO 712, Clause 1.5</xref>
-      <xref type="inline" target="ISO712">A</xref>
-      <xref type="inline" target="ISO712">ISO 712, Whole of text</xref>
-      <xref type="inline" target="ISO712">ISO 712, Prelude 7</xref>
-      <xref type="inline" target="ISO712">ISO 712, URI 7</xref>
-      <xref type="inline" target="ISO712">A</xref>
-      <xref type="inline" target="ISO712">ISO 712</xref>
-      <xref type="inline" target="ISO712">ISO 712, Clause 1</xref>
-      <xref type="inline" droploc="true" target="ISO712">ISO 712, 1</xref>
-      <xref type="inline" case="lowercase" target="ISO712">ISO 712, clause 1</xref>
+      <p id="A">
+          <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_"/>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_"/>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="table">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Table 1</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <localityStack connective="and">
+                <locality type="table">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+             </localityStack>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Table 1</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <localityStack connective="and">
+                <locality type="table">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+             </localityStack>
+             <localityStack connective="and">
+                <locality type="clause">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+             </localityStack>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">
+                ISO 712, Table 1
+                <span class="fmt-conn">and</span>
+                Clause 1
+             </fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="table">
+                <referenceFrom>1</referenceFrom>
+                <referenceTo>1</referenceTo>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Table 1–1</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="clause">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+             <locality type="table">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Clause 1, Table 1</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="clause">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Clause 1</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="clause">
+                <referenceFrom>1.5</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Clause 1.5</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="table">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+             A
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">A</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="whole"/>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Whole of text</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="locality:prelude">
+                <referenceFrom>7</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Prelude 7</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="locality:URI">
+                <referenceFrom>7</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, URI 7</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_">A</eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">A</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="anchor">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712</fmt-xref>
+          </semx>
+          <eref type="inline" bibitemid="ISO712" id="_">
+             <locality type="anchor">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+             <locality type="clause">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" target="ISO712">ISO 712, Clause 1</fmt-xref>
+          </semx>
+          <eref type="inline" droploc="true" bibitemid="ISO712" id="_">
+             <locality type="anchor">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+             <locality type="clause">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" droploc="true" target="ISO712">ISO 712, 1</fmt-xref>
+          </semx>
+          <eref type="inline" case="lowercase" bibitemid="ISO712" id="_">
+             <locality type="anchor">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+             <locality type="clause">
+                <referenceFrom>1</referenceFrom>
+             </locality>
+          </eref>
+          <semx element="eref" source="_">
+             <fmt-xref type="inline" case="lowercase" target="ISO712">ISO 712, clause 1</fmt-xref>
+          </semx>
        </p>
     OUTPUT
 
@@ -1503,7 +916,7 @@ RSpec.describe IsoDoc do
       <a href="#ISO712">ISO&#xa0;712</a>
       <a href="#ISO712">ISO&#xa0;712, Table 1</a>
       <a href='#ISO712'>ISO&#xa0;712, Table 1</a>
-      <a href="#ISO712">ISO 712, Table 1 and Clause 1</a>#{' '}
+      <a href="#ISO712">ISO 712, Table 1 and Clause 1</a>
       <a href="#ISO712">ISO&#xa0;712, Table 1&#8211;1</a>
       <a href="#ISO712">ISO&#xa0;712, Clause 1, Table 1</a>
       <a href="#ISO712">ISO&#xa0;712, Clause 1</a>
@@ -1601,30 +1014,145 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder='2'>
-                 <title id="_">Avant-propos</title>
-           <fmt-title depth="1">
-                 <semx element="title" source="_">Avant-propos</semx>
-           </fmt-title>
-        <p>
-          <link target="https://www.google.com/fr">ISO 712</link>
-          <link target="https://www.google.com/fr">ISO 712</link>
-          <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
-          <link target="spec/assets/iso713.html">ISO 713, Tableau 1</link>
-          <link target="spec/assets/iso713.html">ISO 713, Tableau 1 <span class="fmt-conn">et</span> Article 1</link>
-          <link target="spec/assets/iso713.html">ISO 713, Tableau 1–1</link>
-          <link target="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</link>
-          <link target="spec/assets/iso713.html">ISO 713, Article 1</link>
-          <link target="spec/assets/iso713.html">ISO 713, Article 1.5</link>
-          <link target="spec/assets/iso713.html">A</link>
-          <link target="spec/assets/iso713.html">ISO 713, Ensemble du texte</link>
-          <link target="spec/assets/iso713.html">ISO 713, Prelude 7</link>
-          <link target="spec/assets/iso713.html">A</link>
-          <link target="spec/assets/iso713.html#xyz">ISO 713</link>
-          <link target="spec/assets/iso713.html#xyz">ISO 713, Article 1</link>
-          <link target="spec/assets/iso714.svg">ISO 714</link>
-        </p>
-      </foreword>
+      <foreword displayorder="2">
+          <title id="_">Avant-propos</title>
+          <fmt-title depth="1">
+             <semx element="title" source="_">Avant-propos</semx>
+          </fmt-title>
+          <p>
+             <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_"/>
+             <semx element="eref" source="_">
+                <fmt-link target="https://www.google.com/fr">ISO 712</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO712" id="_"/>
+             <semx element="eref" source="_">
+                <fmt-link target="https://www.google.com/fr">ISO 712</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="table">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">ISO 713, Tableau 1</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <localityStack connective="and">
+                   <locality type="table">
+                      <referenceFrom>1</referenceFrom>
+                   </locality>
+                </localityStack>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">ISO 713, Tableau 1</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <localityStack connective="and">
+                   <locality type="table">
+                      <referenceFrom>1</referenceFrom>
+                   </locality>
+                </localityStack>
+                <localityStack connective="and">
+                   <locality type="clause">
+                      <referenceFrom>1</referenceFrom>
+                   </locality>
+                </localityStack>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">
+                   ISO 713, Tableau 1
+                   <span class="fmt-conn">et</span>
+                   Article 1
+                </fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="table">
+                   <referenceFrom>1</referenceFrom>
+                   <referenceTo>1</referenceTo>
+                </locality>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">ISO 713, Tableau 1–1</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="clause">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+                <locality type="table">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="clause">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">ISO 713, Article 1</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="clause">
+                   <referenceFrom>1.5</referenceFrom>
+                </locality>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">ISO 713, Article 1.5</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="table">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+                A
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">A</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="whole"/>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">ISO 713, Ensemble du texte</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="locality:prelude">
+                   <referenceFrom>7</referenceFrom>
+                </locality>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">ISO 713, Prelude 7</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" citeas="ISO 713" id="_">A</eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html">A</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="anchor">
+                   <referenceFrom>xyz</referenceFrom>
+                </locality>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html#xyz">ISO 713</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO713" id="_">
+                <locality type="anchor">
+                   <referenceFrom>xyz</referenceFrom>
+                </locality>
+                <locality type="clause">
+                   <referenceFrom>1</referenceFrom>
+                </locality>
+             </eref>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso713.html#xyz">ISO 713, Article 1</fmt-link>
+             </semx>
+             <eref type="inline" bibitemid="ISO714" id="_"/>
+             <semx element="eref" source="_">
+                <fmt-link target="spec/assets/iso714.svg">ISO 714</fmt-link>
+             </semx>
+          </p>
+       </foreword>
     OUTPUT
 
     html = <<~OUTPUT
@@ -1722,15 +1250,18 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder='2'>
-        <title id="_">Avant-propos</title>
-           <fmt-title depth="1">
-                 <semx element="title" source="_">Avant-propos</semx>
-           </fmt-title>
-        <p>
-          <link attachment="true" target="https://example.google.com">ISO 712</link>
-        </p>
-      </foreword>
+      <foreword displayorder="2">
+          <title id="_">Avant-propos</title>
+          <fmt-title depth="1">
+             <semx element="title" source="_">Avant-propos</semx>
+          </fmt-title>
+          <p>
+             <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_"/>
+             <semx element="eref" source="_">
+                <fmt-link attachment="true" target="https://example.google.com">ISO 712</fmt-link>
+             </semx>
+          </p>
+       </foreword>
     OUTPUT
     output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
@@ -1787,23 +1318,135 @@ RSpec.describe IsoDoc do
       </bibitem>
     INPUT
     presxml = <<~PRESXML
-      <p id="A">
-        <link target="http://www.example.com">ISO 712</link>
-        <link target="http://www.example.com">ISO 712</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1 <span class="fmt-conn">and</span> Clause 1</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1–1</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1, Table 1</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1.5</link>
-        <link target="https://www.iso.org/standard/3944.html">A</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Whole of text</link>
-        <link target="https://www.iso.org/standard/3944.html">ISO 713, Prelude 7</link>
-        <link target="https://www.iso.org/standard/3944.html">A</link>
-        <link target="https://www.iso.org/standard/3944.html#xyz">ISO 713</link>
-        <link target="https://www.iso.org/standard/3944.html#xyz">ISO 713, Clause 1</link>
-      </p>
+       <p id="A">
+           <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_"/>
+           <semx element="eref" source="_">
+              <fmt-link target="http://www.example.com">ISO 712</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO712" id="_"/>
+           <semx element="eref" source="_">
+              <fmt-link target="http://www.example.com">ISO 712</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="table">
+                 <referenceFrom>1</referenceFrom>
+              </locality>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <localityStack connective="and">
+                 <locality type="table">
+                    <referenceFrom>1</referenceFrom>
+                 </locality>
+              </localityStack>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <localityStack connective="and">
+                 <locality type="table">
+                    <referenceFrom>1</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>1</referenceFrom>
+                 </locality>
+              </localityStack>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">
+                 ISO 713, Table 1
+                 <span class="fmt-conn">and</span>
+                 Clause 1
+              </fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="table">
+                 <referenceFrom>1</referenceFrom>
+                 <referenceTo>1</referenceTo>
+              </locality>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1–1</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="clause">
+                 <referenceFrom>1</referenceFrom>
+              </locality>
+              <locality type="table">
+                 <referenceFrom>1</referenceFrom>
+              </locality>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1, Table 1</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="clause">
+                 <referenceFrom>1</referenceFrom>
+              </locality>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="clause">
+                 <referenceFrom>1.5</referenceFrom>
+              </locality>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1.5</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="table">
+                 <referenceFrom>1</referenceFrom>
+              </locality>
+              A
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">A</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="whole"/>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Whole of text</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="locality:prelude">
+                 <referenceFrom>7</referenceFrom>
+              </locality>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Prelude 7</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" citeas="ISO 713" id="_">A</eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html">A</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="anchor">
+                 <referenceFrom>xyz</referenceFrom>
+              </locality>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html#xyz">ISO 713</fmt-link>
+           </semx>
+           <eref type="inline" bibitemid="ISO713" id="_">
+              <locality type="anchor">
+                 <referenceFrom>xyz</referenceFrom>
+              </locality>
+              <locality type="clause">
+                 <referenceFrom>1</referenceFrom>
+              </locality>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-link target="https://www.iso.org/standard/3944.html#xyz">ISO 713, Clause 1</fmt-link>
+           </semx>
+        </p>
     PRESXML
     html = <<~OUTPUT
       <p id="A">
@@ -1888,14 +1531,18 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <foreword displayorder='2'>
-        <title id="_">Foreword</title>
+        <foreword displayorder="2">
+           <title id="_">Foreword</title>
            <fmt-title depth="1">
-                 <semx element="title" source="_">Foreword</semx>
+              <semx element="title" source="_">Foreword</semx>
            </fmt-title>
-        <p>
-          <xref type="inline" target='ISO712'>BSI&#xa0;BS&#xa0;EN&#xa0;ISO&#xa0;19011:2018&#x2009;&#x2014;&#x2009;TC</link>
-        </p>
+           <p>
+              <eref type="inline" bibitemid="ISO712" citeas="BSI BS EN ISO 19011:2018 — TC" id="_"/>
+              <semx element="eref" source="_">
+                 <fmt-xref type="inline" target="ISO712">BSI BS EN ISO 19011:2018 — TC</fmt-xref>
+              </semx>
+           </p>
+        </foreword>
       </foreword>
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
@@ -2013,19 +1660,19 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
              <br/>
-             <div id='A'>
-               <h1 class='ForewordTitle'>Foreword</h1>
-               <span class='addition'>
-                 ABC
-                 <a href='#A'/>
-                 <span class='deletion'>
-                   <b>B</b>
-                 </span>
-               </span>
-             </div>
-           </div>
-         </body>
-       </html>
+                 <div id="A">
+                    <h1 class="ForewordTitle">Foreword</h1>
+                    <span class="addition">
+                       ABC
+                       <a href="#A"/>
+                    </span>
+                    <span class="deletion">
+                       <b>B</b>
+                    </span>
+                 </div>
+              </div>
+           </body>
+        </html>
     OUTPUT
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
@@ -2045,17 +1692,20 @@ RSpec.describe IsoDoc do
       </itu-standard>
     INPUT
     output = <<~OUTPUT
-      <p id='A'>
-        <eref type='inline' bibitemid='iso124' citeas='[&amp;#x3c;strong&amp;#x3e;A&amp;#x3c;/strong&amp;#x3e;.&amp;#x3c;fn reference=&amp;#x22;1&amp;#x22;&amp;#x3e;&amp;#xa;  &amp;#x3c;p&amp;#x3e;hello&amp;#x3c;/p&amp;#x3e;&amp;#xa;&amp;#x3c;/fn&amp;#x3e;]'>
-          [
-          <strong>A</strong>
-          .
-          <fn reference='1'>
-            <p>hello</p>
-          </fn>
-          ]
-        </eref>
-      </p>
+        <p id="A">
+           <eref type="inline" bibitemid="iso124" citeas="[&amp;#x3c;strong&amp;#x3e;A&amp;#x3c;/strong&amp;#x3e;.&amp;#x3c;fn reference=&amp;#x22;1&amp;#x22;&amp;#x3e;&amp;#xa;  &amp;#x3c;p&amp;#x3e;hello&amp;#x3c;/p&amp;#x3e;&amp;#xa;&amp;#x3c;/fn&amp;#x3e;]" id="_"/>
+           <semx element="eref" source="_">
+              <fmt-eref type="inline" bibitemid="iso124" citeas="[&amp;#x3c;strong&amp;#x3e;A&amp;#x3c;/strong&amp;#x3e;.&amp;#x3c;fn reference=&amp;#x22;1&amp;#x22;&amp;#x3e;&amp;#xa;  &amp;#x3c;p&amp;#x3e;hello&amp;#x3c;/p&amp;#x3e;&amp;#xa;&amp;#x3c;/fn&amp;#x3e;]">
+                 [
+                 <strong>A</strong>
+                 .
+                 <fn reference="1">
+                    <p>hello</p>
+                 </fn>
+                 ]
+              </fmt-eref>
+           </semx>
+        </p>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -2190,139 +1840,256 @@ RSpec.describe IsoDoc do
       </itu-standard>
     INPUT
     output = <<~OUTPUT
-      <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
-          <p id="_">
-             <eref type="inline" bibitemid="ref1" citeas="XYZ">
-                <localityStack connective="from">
-                   <locality type="clause">
-                      <referenceFrom>3</referenceFrom>
-                   </locality>
-                </localityStack>
-                <localityStack connective="to">
-                   <locality type="clause">
-                      <referenceFrom>5</referenceFrom>
-                   </locality>
-                </localityStack>
-                XYZ, Clauses 3
-                <span class="fmt-conn">to</span>
-                5
-             </eref>
-             <eref type="inline" bibitemid="ref1" citeas="XYZ">
-                <localityStack connective="from">
-                   <locality type="clause">
-                      <referenceFrom>3</referenceFrom>
-                   </locality>
-                </localityStack>
-                <localityStack connective="to">
-                   <locality type="clause">
-                      <referenceFrom>5</referenceFrom>
-                   </locality>
-                   <locality type="table">
-                      <referenceFrom>2</referenceFrom>
-                   </locality>
-                </localityStack>
-                XYZ, Clause 3
-                <span class="fmt-conn">to</span>
-                Clause 5, Table 2
-             </eref>
-             text
-          </p>
-          <eref type="inline" bibitemid="ref1" citeas="XYZ">
-             <localityStack connective="and">
-                <locality type="clause">
-                   <referenceFrom>3</referenceFrom>
-                </locality>
-             </localityStack>
-             <localityStack connective="and">
-                <locality type="clause">
-                   <referenceFrom>5</referenceFrom>
-                </locality>
-             </localityStack>
-             XYZ, Clauses 3
-             <span class="fmt-conn">and</span>
-             5
-          </eref>
-          <eref type="inline" bibitemid="ref1" citeas="XYZ">
-             <localityStack connective="and">
-                <locality type="clause">
-                   <referenceFrom>3</referenceFrom>
-                </locality>
-             </localityStack>
-             <localityStack connective="and">
-                <locality type="clause">
-                   <referenceFrom>5</referenceFrom>
-                </locality>
-             </localityStack>
-             <localityStack connective="and">
-                <locality type="clause">
-                   <referenceFrom>7</referenceFrom>
-                </locality>
-             </localityStack>
-             XYZ, Clauses 3
-             <span class="fmt-enum-comma">, </span>
-             5
-             <span class="fmt-enum-comma">,</span>
-             <span class="fmt-conn">and</span>
-             7
-          </eref>
-          <eref type="inline" bibitemid="ref1" citeas="XYZ">
-             <localityStack connective="and">
-                <locality type="clause">
-                   <referenceFrom>3</referenceFrom>
-                </locality>
-             </localityStack>
-             <localityStack connective="and">
-                <locality type="annex">
-                   <referenceFrom>5</referenceFrom>
-                </locality>
-             </localityStack>
-             XYZ, Clause 3
-             <span class="fmt-conn">and</span>
-             Annex 5
-          </eref>
-          <eref type="inline" bibitemid="ref1" citeas="XYZ">
-             <localityStack connective="and">
-                <locality type="clause">
-                   <referenceFrom>3</referenceFrom>
-                </locality>
-             </localityStack>
-             <localityStack connective="or">
-                <locality type="clause">
-                   <referenceFrom>5</referenceFrom>
-                </locality>
-             </localityStack>
-             text
-          </eref>
-          <eref type="inline" bibitemid="ref1" citeas="XYZ">
-             <localityStack connective="from">
-                <locality type="clause">
-                   <referenceFrom>3</referenceFrom>
-                </locality>
-             </localityStack>
-             <localityStack connective="to">
-                <locality type="clause">
-                   <referenceFrom>5</referenceFrom>
-                </locality>
-             </localityStack>
-             <localityStack connective="and">
-                <locality type="clause">
-                   <referenceFrom>8</referenceFrom>
-                </locality>
-             </localityStack>
-             <localityStack connective="to">
-                <locality type="clause">
-                   <referenceFrom>10</referenceFrom>
-                </locality>
-             </localityStack>
-             XYZ, Clauses 3
-             <span class="fmt-conn">to</span>
-             5
-             <span class="fmt-conn">and</span>
-             8
-             <span class="fmt-conn">to</span>
-             10
-          </eref>
-       </itu-standard>
+        <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
+           <p id="_">
+              <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+                 <localityStack connective="from">
+                    <locality type="clause">
+                       <referenceFrom>3</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="to">
+                    <locality type="clause">
+                       <referenceFrom>5</referenceFrom>
+                    </locality>
+                 </localityStack>
+              </eref>
+              <semx element="eref" source="_">
+                 <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                    <localityStack connective="from">
+                       <locality type="clause">
+                          <referenceFrom>3</referenceFrom>
+                       </locality>
+                    </localityStack>
+                    <localityStack connective="to">
+                       <locality type="clause">
+                          <referenceFrom>5</referenceFrom>
+                       </locality>
+                    </localityStack>
+                    XYZ, Clauses 3
+                    <span class="fmt-conn">to</span>
+                    5
+                 </fmt-eref>
+              </semx>
+              <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+                 <localityStack connective="from">
+                    <locality type="clause">
+                       <referenceFrom>3</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="to">
+                    <locality type="clause">
+                       <referenceFrom>5</referenceFrom>
+                    </locality>
+                    <locality type="table">
+                       <referenceFrom>2</referenceFrom>
+                    </locality>
+                 </localityStack>
+              </eref>
+              <semx element="eref" source="_">
+                 <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                    <localityStack connective="from">
+                       <locality type="clause">
+                          <referenceFrom>3</referenceFrom>
+                       </locality>
+                    </localityStack>
+                    <localityStack connective="to">
+                       <locality type="clause">
+                          <referenceFrom>5</referenceFrom>
+                       </locality>
+                       <locality type="table">
+                          <referenceFrom>2</referenceFrom>
+                       </locality>
+                    </localityStack>
+                    XYZ, Clause 3
+                    <span class="fmt-conn">to</span>
+                    Clause 5, Table 2
+                 </fmt-eref>
+              </semx>
+              text
+           </p>
+           <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>3</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>5</referenceFrom>
+                 </locality>
+              </localityStack>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                 <localityStack connective="and">
+                    <locality type="clause">
+                       <referenceFrom>3</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="and">
+                    <locality type="clause">
+                       <referenceFrom>5</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 XYZ, Clauses 3
+                 <span class="fmt-conn">and</span>
+                 5
+              </fmt-eref>
+           </semx>
+           <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>3</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>5</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>7</referenceFrom>
+                 </locality>
+              </localityStack>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                 <localityStack connective="and">
+                    <locality type="clause">
+                       <referenceFrom>3</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="and">
+                    <locality type="clause">
+                       <referenceFrom>5</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="and">
+                    <locality type="clause">
+                       <referenceFrom>7</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 XYZ, Clauses 3
+                 <span class="fmt-enum-comma">,</span>
+                 5
+                 <span class="fmt-enum-comma">,</span>
+                 <span class="fmt-conn">and</span>
+                 7
+              </fmt-eref>
+           </semx>
+           <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>3</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="and">
+                 <locality type="annex">
+                    <referenceFrom>5</referenceFrom>
+                 </locality>
+              </localityStack>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                 <localityStack connective="and">
+                    <locality type="clause">
+                       <referenceFrom>3</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="and">
+                    <locality type="annex">
+                       <referenceFrom>5</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 XYZ, Clause 3
+                 <span class="fmt-conn">and</span>
+                 Annex 5
+              </fmt-eref>
+           </semx>
+           <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>3</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="or">
+                 <locality type="clause">
+                    <referenceFrom>5</referenceFrom>
+                 </locality>
+              </localityStack>
+              text
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                 <localityStack connective="and">
+                    <locality type="clause">
+                       <referenceFrom>3</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="or">
+                    <locality type="clause">
+                       <referenceFrom>5</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 text
+              </fmt-eref>
+           </semx>
+           <eref type="inline" bibitemid="ref1" citeas="XYZ" id="_">
+              <localityStack connective="from">
+                 <locality type="clause">
+                    <referenceFrom>3</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="to">
+                 <locality type="clause">
+                    <referenceFrom>5</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="and">
+                 <locality type="clause">
+                    <referenceFrom>8</referenceFrom>
+                 </locality>
+              </localityStack>
+              <localityStack connective="to">
+                 <locality type="clause">
+                    <referenceFrom>10</referenceFrom>
+                 </locality>
+              </localityStack>
+           </eref>
+           <semx element="eref" source="_">
+              <fmt-eref type="inline" bibitemid="ref1" citeas="XYZ">
+                 <localityStack connective="from">
+                    <locality type="clause">
+                       <referenceFrom>3</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="to">
+                    <locality type="clause">
+                       <referenceFrom>5</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="and">
+                    <locality type="clause">
+                       <referenceFrom>8</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 <localityStack connective="to">
+                    <locality type="clause">
+                       <referenceFrom>10</referenceFrom>
+                    </locality>
+                 </localityStack>
+                 XYZ, Clauses 3
+                 <span class="fmt-conn">to</span>
+                 5
+                 <span class="fmt-conn">and</span>
+                 8
+                 <span class="fmt-conn">to</span>
+                 10
+              </fmt-eref>
+           </semx>
+        </itu-standard>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)

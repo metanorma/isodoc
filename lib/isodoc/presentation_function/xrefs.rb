@@ -2,6 +2,7 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def fmt_ref(docxml)
       docxml.xpath(ns("//xref | //eref | //origin | //link")).each do |x|
+        sem_xml_descendant?(x) and next
         tag = x.name
         y = Nokogiri::XML::Node.new("fmt-#{tag}", x.document)
         x.attributes.each_key { |a| y[a] = x[a] }
