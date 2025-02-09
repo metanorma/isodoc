@@ -113,7 +113,7 @@ module IsoDoc
 
     def related1_prep(node)
       p = node.at(ns("./fmt-preferred"))&.children
-      ref = node.at(ns("./fmt-xref | ./fmt-eref | ./termref"))
+      ref = node.at(ns("./xref | ./eref | ./termref"))
       orig = semx_orig(node)
       [p, ref, orig]
     end
