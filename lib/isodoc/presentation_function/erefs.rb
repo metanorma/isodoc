@@ -29,8 +29,8 @@ module IsoDoc
     end
 
     def erefstack1(elem)
-      locs = elem.xpath(ns("./fmt-eref")).map do |e|
-        [e["connective"], to_xml(e)]
+      locs = elem.xpath(ns("./semx/fmt-eref")).map do |e|
+        [e["connective"], to_xml(e.parent.remove)]
       end.flatten
       ret = resolve_eref_connectives(locs)
       elem["id"] ||= "_#{UUIDTools::UUID.random_create}"

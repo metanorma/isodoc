@@ -132,269 +132,299 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <bibdata>
-            <language current="true">en</language>
-         </bibdata>
-         <preface>
-            <clause type="toc" id="_" displayorder="1">
-               <fmt-title depth="1">Table of contents</fmt-title>
-            </clause>
-            <foreword displayorder="2">
-               <title id="_">Foreword</title>
-               <fmt-title depth="1">
-                  <semx element="title" source="_">Foreword</semx>
-               </fmt-title>
-               <p id="_">
-                  <xref target="ISO712">ISO 712</xref>
-                  <xref target="ISBN">[3]</xref>
-                  <xref target="ISSN">[4]</xref>
-                  <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
-                  <xref target="ref1">ICC/167</xref>
-                  <xref target="ref10">[6]</xref>
-                  <xref target="ref12">Citn</xref>
-                  <xref target="zip_ffs">[2]</xref>
-               </p>
-            </foreword>
-         </preface>
-         <sections>
-            <references id="_" obligation="informative" normative="true" displayorder="3">
-               <title id="_">Normative References</title>
-               <fmt-title depth="1">
-                  <span class="fmt-caption-label">
-                     <semx element="autonum" source="_">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
-                  </span>
-                  <span class="fmt-caption-delim">
-                     <tab/>
-                  </span>
-                  <semx element="title" source="_">Normative References</semx>
-               </fmt-title>
-               <fmt-xref-label>
-                  <span class="fmt-element-name">Clause</span>
-                  <semx element="autonum" source="_">1</semx>
-               </fmt-xref-label>
-               <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-               <bibitem id="ISO712" type="standard">
-                  <formattedref>
-                     International Organization for Standardization.
-                     <em>Cereals and cereal products</em>
-                     .
-                  </formattedref>
-                  <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                  <docidentifier type="ISO">ISO 712</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO 712</docidentifier>
-                  <biblio-tag>[1], ISO 712, </biblio-tag>
-               </bibitem>
-               <bibitem id="ISO16634" type="standard">
-                  <formattedref>
-                     <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
-                     .
-                  </formattedref>
-                  <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
-                  <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
-                  <biblio-tag>
-                     ISO 16634:-- (all parts)
-                     <fn reference="_">
-                        <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
-                     </fn>
-                     ,
-                  </biblio-tag>
-               </bibitem>
-               <bibitem id="ISO20483" type="standard">
-                  <formattedref>
-                     International Organization for Standardization.
-                     <em>Cereals and pulses</em>
-                     . 2013–2014.
-                  </formattedref>
-                  <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
-                  <biblio-tag>ISO 20483:2013-2014, </biblio-tag>
-               </bibitem>
-               <bibitem id="ref1">
-                  <formattedref format="application/x-isodoc+xml">
-                     <smallcap>Standard No I.C.C 167</smallcap>
-                     .
-                     <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
-                     (see
-                     <link target="http://www.icc.or.at"/>
-                     )
-                  </formattedref>
-                  <docidentifier type="ICC">ICC/167</docidentifier>
-                  <docidentifier scope="biblio-tag">ICC/167</docidentifier>
-                  <biblio-tag>ICC/167, </biblio-tag>
-               </bibitem>
-               <note>
-                  <fmt-name>
-                     <span class="fmt-caption-label">
-                        <span class="fmt-element-name">NOTE</span>
-                     </span>
-                     <span class="fmt-label-delim">
-                        <tab/>
-                     </span>
-                  </fmt-name>
-                  <p>This is an annotation of ISO 20483:2013-2014</p>
-               </note>
-               <bibitem id="zip_ffs">
-                  <formattedref format="application/x-isodoc+xml">Title 5</formattedref>
-                  <docidentifier type="metanorma-ordinal">[2]</docidentifier>
-                  <biblio-tag>[2] </biblio-tag>
-               </bibitem>
-            </references>
-         </sections>
-         <bibliography>
-            <references id="_" obligation="informative" normative="false" displayorder="4">
-               <title id="_">Bibliography</title>
-               <fmt-title depth="1">
-                  <semx element="title" source="_">Bibliography</semx>
-               </fmt-title>
-               <bibitem id="ISBN" type="book">
-                  <formattedref>
-                     <em>Chemicals for analytical laboratory use</em>
-                     . n.p.: n.d. ISBN: ISBN.
-                  </formattedref>
-                  <docidentifier type="metanorma-ordinal">[3]</docidentifier>
-                  <docidentifier type="ISBN">ISBN</docidentifier>
-                  <biblio-tag>
-                     [3]
-                     <tab/>
-                  </biblio-tag>
-               </bibitem>
-               <bibitem id="ISSN" type="journal">
-                  <formattedref>
-                     <em>Instruments for analytical laboratory use</em>
-                     . n.d. ISSN: ISSN.
-                  </formattedref>
-                  <docidentifier type="metanorma-ordinal">[4]</docidentifier>
-                  <docidentifier type="ISSN">ISSN</docidentifier>
-                  <biblio-tag>
-                     [4]
-                     <tab/>
-                  </biblio-tag>
-               </bibitem>
-               <note>
-                  <fmt-name>
-                     <span class="fmt-caption-label">
-                        <span class="fmt-element-name">NOTE</span>
-                     </span>
-                     <span class="fmt-label-delim">
-                        <tab/>
-                     </span>
-                  </fmt-name>
-                  <p>This is an annotation of document ISSN.</p>
-               </note>
-               <note>
-                  <fmt-name>
-                     <span class="fmt-caption-label">
-                        <span class="fmt-element-name">NOTE</span>
-                     </span>
-                     <span class="fmt-label-delim">
-                        <tab/>
-                     </span>
-                  </fmt-name>
-                  <p>This is another annotation of document ISSN.</p>
-               </note>
-               <bibitem id="ISO3696" type="standard">
-                  <formattedref>
-                     <em>Water for analytical laboratory use</em>
-                     .
-                  </formattedref>
-                  <docidentifier type="metanorma-ordinal">[5]</docidentifier>
-                  <docidentifier type="ISO">ISO 3696</docidentifier>
-                  <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
-                  <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 3696)</note>
-                  <biblio-tag>
-                     [5]
-                     <tab/>
-                     ISO 3696
-                     <fn reference="_">
-                        <p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p>
-                     </fn>
-                     ,
-                  </biblio-tag>
-               </bibitem>
-               <bibitem id="ref10">
-                  <formattedref format="application/x-isodoc+xml">
-                     <smallcap>Standard No I.C.C 167</smallcap>
-                     .
-                     <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
-                     (see
-                     <link target="http://www.icc.or.at"/>
-                     )
-                  </formattedref>
-                  <docidentifier type="metanorma-ordinal">[6]</docidentifier>
-                  <biblio-tag>
-                     [6]
-                     <tab/>
-                  </biblio-tag>
-               </bibitem>
-               <bibitem id="ref10a" hidden="true">
-                  <formattedref>
-                     <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
-                     .
-                  </formattedref>
-                  <docidentifier type="IETF">IETF RFC 20</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
-               </bibitem>
-               <bibitem id="ref11">
-                  <formattedref>
-                     <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
-                     .
-                  </formattedref>
-                  <docidentifier type="metanorma-ordinal">[7]</docidentifier>
-                  <docidentifier type="IETF">IETF RFC 10</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
-                  <biblio-tag>
-                     [7]
-                     <tab/>
-                     IETF RFC 10,
-                  </biblio-tag>
-               </bibitem>
-               <bibitem id="ref12">
-                  <formattedref format="application/x-isodoc+xml">
-                     CitationWorks. 2019.
-                     <em>How to cite a reference</em>
-                     .
-                  </formattedref>
-                  <docidentifier type="metanorma">[Citn]</docidentifier>
-                  <docidentifier type="IETF">IETF RFC 20</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
-                  <biblio-tag>
-                     Citn
-                     <tab/>
-                     IETF RFC 20,
-                  </biblio-tag>
-               </bibitem>
-               <bibitem id="ref10b">
-                  <formattedref>
-                     <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
-                     .
-                  </formattedref>
-                  <docidentifier type="metanorma-ordinal">[8]</docidentifier>
-                  <docidentifier type="IETF">IETF RFC 20</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
-                  <biblio-tag>
-                     [8]
-                     <tab/>
-                     IETF RFC 20,
-                  </biblio-tag>
-               </bibitem>
-               <bibitem id="ref10c">
-                  <formattedref>
-                     <em>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</em>
-                     .
-                  </formattedref>
-                  <docidentifier type="metanorma-ordinal">[9]</docidentifier>
-                  <docidentifier type="DOI">DOI ABC 20</docidentifier>
-                  <biblio-tag>
-                     [9]
-                     <tab/>
-                  </biblio-tag>
-               </bibitem>
-            </references>
-         </bibliography>
-      </iso-standard>
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
+              <language current="true">en</language>
+           </bibdata>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+              <foreword displayorder="2">
+                 <title id="_">Foreword</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Foreword</semx>
+                 </fmt-title>
+                 <p id="_">
+                    <eref bibitemid="ISO712" id="_"/>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ISO712">ISO 712</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ISBN" id="_"/>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ISBN">[3]</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ISSN" id="_"/>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ISSN">[4]</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ISO16634" id="_"/>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ISO16634">ISO 16634:-- (all parts)</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ref1" id="_"/>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ref1">ICC/167</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ref10" id="_"/>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ref10">[6]</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ref12" id="_"/>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ref12">Citn</fmt-xref>
+                    </semx>
+                    <eref bibitemid="zip_ffs" id="_"/>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="zip_ffs">[2]</fmt-xref>
+                    </semx>
+                 </p>
+              </foreword>
+           </preface>
+           <sections>
+              <references id="_" obligation="informative" normative="true" displayorder="3">
+                 <title id="_">Normative References</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="_">1</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Normative References</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="_">1</semx>
+                 </fmt-xref-label>
+                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+                 <bibitem id="ISO712" type="standard">
+                    <formattedref>
+                       International Organization for Standardization.
+                       <em>Cereals and cereal products</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                    <docidentifier type="ISO">ISO 712</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+                    <biblio-tag>[1], ISO 712, </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ISO16634" type="standard">
+                    <formattedref>
+                       <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
+                    <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
+                    <biblio-tag>
+                       ISO 16634:-- (all parts)
+                       <fn reference="_">
+                          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
+                       </fn>
+                       ,
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ISO20483" type="standard">
+                    <formattedref>
+                       International Organization for Standardization.
+                       <em>Cereals and pulses</em>
+                       . 2013–2014.
+                    </formattedref>
+                    <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
+                    <biblio-tag>ISO 20483:2013-2014, </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref1">
+                    <formattedref format="application/x-isodoc+xml">
+                       <smallcap>Standard No I.C.C 167</smallcap>
+                       .
+                       <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
+                       (see
+                       <link target="http://www.icc.or.at" id="_"/>
+                       <semx element="link" source="_">
+                          <fmt-link target="http://www.icc.or.at"/>
+                       </semx>
+                       )
+                    </formattedref>
+                    <docidentifier type="ICC">ICC/167</docidentifier>
+                    <docidentifier scope="biblio-tag">ICC/167</docidentifier>
+                    <biblio-tag>ICC/167, </biblio-tag>
+                 </bibitem>
+                 <note>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">NOTE</span>
+                       </span>
+                       <span class="fmt-label-delim">
+                          <tab/>
+                       </span>
+                    </fmt-name>
+                    <p>This is an annotation of ISO 20483:2013-2014</p>
+                 </note>
+                 <bibitem id="zip_ffs">
+                    <formattedref format="application/x-isodoc+xml">Title 5</formattedref>
+                    <docidentifier type="metanorma-ordinal">[2]</docidentifier>
+                    <biblio-tag>[2] </biblio-tag>
+                 </bibitem>
+              </references>
+           </sections>
+           <bibliography>
+              <references id="_" obligation="informative" normative="false" displayorder="4">
+                 <title id="_">Bibliography</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Bibliography</semx>
+                 </fmt-title>
+                 <bibitem id="ISBN" type="book">
+                    <formattedref>
+                       <em>Chemicals for analytical laboratory use</em>
+                       . n.p.: n.d. ISBN: ISBN.
+                    </formattedref>
+                    <docidentifier type="metanorma-ordinal">[3]</docidentifier>
+                    <docidentifier type="ISBN">ISBN</docidentifier>
+                    <biblio-tag>
+                       [3]
+                       <tab/>
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ISSN" type="journal">
+                    <formattedref>
+                       <em>Instruments for analytical laboratory use</em>
+                       . n.d. ISSN: ISSN.
+                    </formattedref>
+                    <docidentifier type="metanorma-ordinal">[4]</docidentifier>
+                    <docidentifier type="ISSN">ISSN</docidentifier>
+                    <biblio-tag>
+                       [4]
+                       <tab/>
+                    </biblio-tag>
+                 </bibitem>
+                 <note>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">NOTE</span>
+                       </span>
+                       <span class="fmt-label-delim">
+                          <tab/>
+                       </span>
+                    </fmt-name>
+                    <p>This is an annotation of document ISSN.</p>
+                 </note>
+                 <note>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">NOTE</span>
+                       </span>
+                       <span class="fmt-label-delim">
+                          <tab/>
+                       </span>
+                    </fmt-name>
+                    <p>This is another annotation of document ISSN.</p>
+                 </note>
+                 <bibitem id="ISO3696" type="standard">
+                    <formattedref>
+                       <em>Water for analytical laboratory use</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="metanorma-ordinal">[5]</docidentifier>
+                    <docidentifier type="ISO">ISO 3696</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
+                    <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 3696)</note>
+                    <biblio-tag>
+                       [5]
+                       <tab/>
+                       ISO 3696
+                       <fn reference="_">
+                          <p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p>
+                       </fn>
+                       ,
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref10">
+                    <formattedref format="application/x-isodoc+xml">
+                       <smallcap>Standard No I.C.C 167</smallcap>
+                       .
+                       <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
+                       (see
+                       <link target="http://www.icc.or.at" id="_"/>
+                       <semx element="link" source="_">
+                          <fmt-link target="http://www.icc.or.at"/>
+                       </semx>
+                       )
+                    </formattedref>
+                    <docidentifier type="metanorma-ordinal">[6]</docidentifier>
+                    <biblio-tag>
+                       [6]
+                       <tab/>
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref10a" hidden="true">
+                    <formattedref>
+                       <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="IETF">IETF RFC 20</docidentifier>
+                    <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
+                 </bibitem>
+                 <bibitem id="ref11">
+                    <formattedref>
+                       <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="metanorma-ordinal">[7]</docidentifier>
+                    <docidentifier type="IETF">IETF RFC 10</docidentifier>
+                    <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
+                    <biblio-tag>
+                       [7]
+                       <tab/>
+                       IETF RFC 10,
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref12">
+                    <formattedref format="application/x-isodoc+xml">
+                       CitationWorks. 2019.
+                       <em>How to cite a reference</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="metanorma">[Citn]</docidentifier>
+                    <docidentifier type="IETF">IETF RFC 20</docidentifier>
+                    <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
+                    <biblio-tag>
+                       Citn
+                       <tab/>
+                       IETF RFC 20,
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref10b">
+                    <formattedref>
+                       <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="metanorma-ordinal">[8]</docidentifier>
+                    <docidentifier type="IETF">IETF RFC 20</docidentifier>
+                    <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
+                    <biblio-tag>
+                       [8]
+                       <tab/>
+                       IETF RFC 20,
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref10c">
+                    <formattedref>
+                       <em>Internet Calendaring &amp; Scheduling Core Object Specification (iCalendar)</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="metanorma-ordinal">[9]</docidentifier>
+                    <docidentifier type="DOI">DOI ABC 20</docidentifier>
+                    <biblio-tag>
+                       [9]
+                       <tab/>
+                    </biblio-tag>
+                 </bibitem>
+              </references>
+           </bibliography>
+        </iso-standard>
     PRESXML
 
     html = <<~OUTPUT
@@ -998,128 +1028,137 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-        <bibdata>
-          <language current="true">en</language>
-        </bibdata>
-        <preface>
-          <foreword displayorder="1">
-                   <title id="_">Foreword</title>
-         <fmt-title depth="1">
-               <semx element="title" source="_">Foreword</semx>
-         </fmt-title>
-            <p id="_">
-              <xref target="ISO712">[110]</xref>
-              <xref target="ISBN">[1]</xref>
-              <xref target="ISSN">[2]</xref>
-              <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
-              <xref target="ref1">ICC/167</xref>
-              <xref target="ref10">[10]</xref>
-              <xref target="ref12">Citn</xref>
-              <xref target="zip_ffs">[5]</xref>
-            </p>
-          </foreword>
-          <clause type="toc" id="_" displayorder="2">
-          <fmt-title depth="1">Table of contents</fmt-title>
-          </clause>
-        </preface>
-        <sections>
-          <references id="_" obligation="informative" normative="true" hidden="true" displayorder="3">
-                  <title id="_">Normative References</title>
-        <fmt-title depth="1">
-           <span class="fmt-caption-label">
-              <semx element="autonum" source="_"/>
-              <span class="fmt-autonum-delim">.</span>
-              </span>
-              <span class="fmt-caption-delim">
-                 <tab/>
-              </span>
-              <semx element="title" source="_">Normative References</semx>
-        </fmt-title>
-        <fmt-xref-label>
-           <span class="fmt-element-name">Clause</span>
-           <semx element="autonum" source="_"/>
-        </fmt-xref-label>
-            <p>
-              The following documents are referred to in the text in such a way that
-              some or all of their content constitutes requirements of this document.
-              For dated references, only the edition cited applies. For undated
-              references, the latest edition of the referenced document (including any
-              amendments) applies.
-            </p>
-            <bibitem id="ISO712" type="standard">
-              <formattedref>International Organization for Standardization. <em>Cereals and cereal products</em>.</formattedref>
-              <docidentifier type="ISO">ISO 712</docidentifier>
-              <docidentifier scope="biblio-tag">ISO 712</docidentifier>
-              <biblio-tag>ISO 712, </biblio-tag>
-            </bibitem>
-            <bibitem id="ISO16634" type="standard">
-              <formattedref><em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>.</formattedref>
-              <docidentifier type="ISO">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</docidentifier>
-              <docidentifier scope="biblio-tag">ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)</docidentifier>
-              <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
-              <biblio-tag>ISO&#xa0;16634:--&#xa0;(all&#xa0;parts)<fn reference="_"><p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p></fn>, </biblio-tag>
-            </bibitem>
-            <bibitem id="ISO20483" type="standard">
-              <formattedref>International Organization for Standardization. <em>Cereals and pulses</em>. 2013–2014.</formattedref>
-              <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
-              <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
-              <biblio-tag>ISO 20483:2013-2014, </biblio-tag>
-            </bibitem>
-            <bibitem id="ref1">
-              <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>
-                .
-                <em>
-                  Determination of the protein content in cereal and cereal products
-                  for food and animal feeding stuffs according to the Dumas combustion
-                  method
-                </em>
-                 (see
-                <link target="http://www.icc.or.at"/>
-                )
-              </formattedref>
-              <docidentifier type="ICC">ICC/167</docidentifier>
-              <docidentifier scope="biblio-tag">ICC/167</docidentifier>
-              <biblio-tag>ICC/167, </biblio-tag>
-            </bibitem>
-            <note>
-                        <name id="_">NOTE</name>
-            <fmt-name>
-               <span class="fmt-caption-label">
-                  <span class="fmt-element-name">NOTE</span>
-                </span>
-                  <span class="fmt-caption-delim"/>
-                  <semx element="name" source="_">NOTE</semx>
-               <span class="fmt-label-delim">
-              <tab/>
-           </span>
-            </fmt-name>
-              <p>This is an annotation of ISO 20483:2013-2014</p>
-            </note>
-            <bibitem id="zip_ffs">
-              <formattedref format="application/x-isodoc+xml">Title 5</formattedref>
-              <biblio-tag>(NO ID), </biblio-tag>
-            </bibitem>
-          </references>
-          </sections>
-          <bibliography>
-          <references id="_" obligation="informative" normative="false" hidden="true" displayorder="4">
-                     <title depth="1" id="_">Bibliography</title>
-         <fmt-title depth="1">
-               <semx element="title" source="_">Bibliography</semx>
-         </fmt-title>
-            <bibitem id="ISBN" type="book">
-              <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: n.d. ISBN: ISBN.</formattedref>
-              <docidentifier type="ISBN">ISBN</docidentifier>
-              <biblio-tag>[1]<tab/></biblio-tag>
-            </bibitem>
-            <bibitem id="ISSN" type="journal">
-              <formattedref><em>Instruments for analytical laboratory use</em>. n.d. ISSN: ISSN.</formattedref>
-              <docidentifier type="ISSN">ISSN</docidentifier>
-              <biblio-tag>[2]<tab/></biblio-tag>
-            </bibitem>
-            <note>
-                        <name id="_">NOTE</name>
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
+              <language current="true">en</language>
+           </bibdata>
+           <preface>
+              <foreword displayorder="1">
+                 <title id="_">Foreword</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Foreword</semx>
+                 </fmt-title>
+                 <p id="_">
+                    <eref bibitemid="ISO712" id="_">[110]</eref>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ISO712">[110]</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ISBN" id="_">[1]</eref>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ISBN">[1]</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ISSN" id="_">[2]</eref>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ISSN">[2]</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ISO16634" id="_">ISO 16634:-- (all parts)</eref>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ISO16634">ISO 16634:-- (all parts)</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ref1" id="_">ICC/167</eref>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ref1">ICC/167</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ref10" id="_">[10]</eref>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ref10">[10]</fmt-xref>
+                    </semx>
+                    <eref bibitemid="ref12" id="_">Citn</eref>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="ref12">Citn</fmt-xref>
+                    </semx>
+                    <eref bibitemid="zip_ffs" id="_">[5]</eref>
+                    <semx element="eref" source="_">
+                       <fmt-xref target="zip_ffs">[5]</fmt-xref>
+                    </semx>
+                 </p>
+              </foreword>
+              <clause type="toc" id="_" displayorder="2">
+                 <fmt-title depth="1">Table of contents</fmt-title>
+              </clause>
+           </preface>
+           <sections>
+              <references id="_" obligation="informative" normative="true" hidden="true" displayorder="3">
+                 <title id="_">Normative References</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="_"/>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Normative References</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="_"/>
+                 </fmt-xref-label>
+                 <p>
+                The following documents are referred to in the text in such a way that
+                some or all of their content constitutes requirements of this document.
+                For dated references, only the edition cited applies. For undated
+                references, the latest edition of the referenced document (including any
+                amendments) applies.
+              </p>
+                 <bibitem id="ISO712" type="standard">
+                    <formattedref>
+                       International Organization for Standardization.
+                       <em>Cereals and cereal products</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="ISO">ISO 712</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+                    <biblio-tag>ISO 712, </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ISO16634" type="standard">
+                    <formattedref>
+                       <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
+                    <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
+                    <biblio-tag>
+                       ISO 16634:-- (all parts)
+                       <fn reference="_">
+                          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
+                       </fn>
+                       ,
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ISO20483" type="standard">
+                    <formattedref>
+                       International Organization for Standardization.
+                       <em>Cereals and pulses</em>
+                       . 2013–2014.
+                    </formattedref>
+                    <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
+                    <biblio-tag>ISO 20483:2013-2014, </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref1">
+                    <formattedref format="application/x-isodoc+xml">
+                       <smallcap>Standard No I.C.C 167</smallcap>
+                       .
+                       <em>
+                    Determination of the protein content in cereal and cereal products
+                    for food and animal feeding stuffs according to the Dumas combustion
+                    method
+                  </em>
+                       (see
+                       <link target="http://www.icc.or.at" id="_"/>
+                       <semx element="link" source="_">
+                          <fmt-link target="http://www.icc.or.at"/>
+                       </semx>
+                       )
+                    </formattedref>
+                    <docidentifier type="ICC">ICC/167</docidentifier>
+                    <docidentifier scope="biblio-tag">ICC/167</docidentifier>
+                    <biblio-tag>ICC/167, </biblio-tag>
+                 </bibitem>
+                 <note>
+                    <name id="_">NOTE</name>
                     <fmt-name>
                        <span class="fmt-caption-label">
                           <span class="fmt-element-name">NOTE</span>
@@ -1130,10 +1169,44 @@ RSpec.describe IsoDoc do
                           <tab/>
                        </span>
                     </fmt-name>
-              <p>This is an annotation of document ISSN.</p>
-            </note>
-            <note>
-              <name id="_">NOTE</name>
+                    <p>This is an annotation of ISO 20483:2013-2014</p>
+                 </note>
+                 <bibitem id="zip_ffs">
+                    <formattedref format="application/x-isodoc+xml">Title 5</formattedref>
+                    <biblio-tag>(NO ID), </biblio-tag>
+                 </bibitem>
+              </references>
+           </sections>
+           <bibliography>
+              <references id="_" obligation="informative" normative="false" hidden="true" displayorder="4">
+                 <title depth="1" id="_">Bibliography</title>
+                 <fmt-title depth="1">
+                    <semx element="title" source="_">Bibliography</semx>
+                 </fmt-title>
+                 <bibitem id="ISBN" type="book">
+                    <formattedref>
+                       <em>Chemicals for analytical laboratory use</em>
+                       . n.p.: n.d. ISBN: ISBN.
+                    </formattedref>
+                    <docidentifier type="ISBN">ISBN</docidentifier>
+                    <biblio-tag>
+                       [1]
+                       <tab/>
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ISSN" type="journal">
+                    <formattedref>
+                       <em>Instruments for analytical laboratory use</em>
+                       . n.d. ISSN: ISSN.
+                    </formattedref>
+                    <docidentifier type="ISSN">ISSN</docidentifier>
+                    <biblio-tag>
+                       [2]
+                       <tab/>
+                    </biblio-tag>
+                 </bibitem>
+                 <note>
+                    <name id="_">NOTE</name>
                     <fmt-name>
                        <span class="fmt-caption-label">
                           <span class="fmt-element-name">NOTE</span>
@@ -1144,48 +1217,88 @@ RSpec.describe IsoDoc do
                           <tab/>
                        </span>
                     </fmt-name>
-              <p>This is another annotation of document ISSN.</p>
-            </note>
-            <bibitem id="ISO3696" type="standard">
-              <formattedref><em>Water for analytical laboratory use</em>.</formattedref>
-              <docidentifier type="ISO">ISO 3696</docidentifier>
-              <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
-              <biblio-tag>[3]<tab/>ISO 3696, </biblio-tag>
-            </bibitem>
-            <bibitem id="ref10">
-              <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>
-                .
-                <em>
-                  Determination of the protein content in cereal and cereal products
-                  for food and animal feeding stuffs according to the Dumas combustion
-                  method
-                </em>
-                 (see
-                <link target="http://www.icc.or.at"/>
-                )
-              </formattedref>
-              <biblio-tag>[4]<tab/>(NO ID), </biblio-tag>
-            </bibitem>
-            <bibitem id="ref11">
-              <formattedref><em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
-              <docidentifier type="IETF">IETF RFC 10</docidentifier>
-              <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
-              <biblio-tag>[5]<tab/>IETF RFC 10, </biblio-tag>
-            </bibitem>
-            <bibitem id="ref12">
-              <formattedref format="application/x-isodoc+xml">
-                CitationWorks. 2019.
-                <em>How to cite a reference</em>
-                .
-              </formattedref>
-              <docidentifier type="metanorma">[Citn]</docidentifier>
-              <docidentifier type="IETF">IETF RFC 20</docidentifier>
-              <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
-              <biblio-tag>Citn<tab/>IETF RFC 20, </biblio-tag>
-            </bibitem>
-          </references>
-        </bibliography>
-      </iso-standard>
+                    <p>This is an annotation of document ISSN.</p>
+                 </note>
+                 <note>
+                    <name id="_">NOTE</name>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">NOTE</span>
+                       </span>
+                       <span class="fmt-caption-delim"/>
+                       <semx element="name" source="_">NOTE</semx>
+                       <span class="fmt-label-delim">
+                          <tab/>
+                       </span>
+                    </fmt-name>
+                    <p>This is another annotation of document ISSN.</p>
+                 </note>
+                 <bibitem id="ISO3696" type="standard">
+                    <formattedref>
+                       <em>Water for analytical laboratory use</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="ISO">ISO 3696</docidentifier>
+                    <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
+                    <biblio-tag>
+                       [3]
+                       <tab/>
+                       ISO 3696,
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref10">
+                    <formattedref format="application/x-isodoc+xml">
+                       <smallcap>Standard No I.C.C 167</smallcap>
+                       .
+                       <em>
+                    Determination of the protein content in cereal and cereal products
+                    for food and animal feeding stuffs according to the Dumas combustion
+                    method
+                  </em>
+                       (see
+                       <link target="http://www.icc.or.at" id="_"/>
+                       <semx element="link" source="_">
+                          <fmt-link target="http://www.icc.or.at"/>
+                       </semx>
+                       )
+                    </formattedref>
+                    <biblio-tag>
+                       [4]
+                       <tab/>
+                       (NO ID),
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref11">
+                    <formattedref>
+                       <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="IETF">IETF RFC 10</docidentifier>
+                    <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
+                    <biblio-tag>
+                       [5]
+                       <tab/>
+                       IETF RFC 10,
+                    </biblio-tag>
+                 </bibitem>
+                 <bibitem id="ref12">
+                    <formattedref format="application/x-isodoc+xml">
+                       CitationWorks. 2019.
+                       <em>How to cite a reference</em>
+                       .
+                    </formattedref>
+                    <docidentifier type="metanorma">[Citn]</docidentifier>
+                    <docidentifier type="IETF">IETF RFC 20</docidentifier>
+                    <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
+                    <biblio-tag>
+                       Citn
+                       <tab/>
+                       IETF RFC 20,
+                    </biblio-tag>
+                 </bibitem>
+              </references>
+           </bibliography>
+        </iso-standard>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1263,8 +1376,14 @@ RSpec.describe IsoDoc do
                <semx element="title" source="_">Foreword</semx>
          </fmt-title>
             <p id="_">
-              <eref bibitemid="ISO712">[110]</eref>
-              <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
+            <eref bibitemid="ISO712" id="_">[110]</eref>
+            <semx element="eref" source="_">
+               <fmt-eref bibitemid="ISO712">[110]</fmt-eref>
+            </semx>
+            <eref bibitemid="ISO16634" id="_">ISO 16634:-- (all parts)</eref>
+            <semx element="eref" source="_">
+               <fmt-xref target="ISO16634">ISO 16634:-- (all parts)</fmt-xref>
+            </semx>
             </p>
           </foreword>
           <clause type="toc" id="_" displayorder="2">
@@ -1371,14 +1490,20 @@ RSpec.describe IsoDoc do
                 <semx element="title" source="_">Foreword</semx>
           </fmt-title>
           <p id="_">
-             <xref target="ISO712">
-                ISO 712
-                <sup>1</sup>
-             </xref>
-             <xref target="ISO712">
-                ISO 712
-                <sup>1</sup>
-             </xref>
+      <eref bibitemid="ISO712" id="_"/>
+      <semx element="eref" source="_">
+         <fmt-xref target="ISO712">
+            ISO 712
+            <sup>1</sup>
+         </fmt-xref>
+      </semx>
+      <eref bibitemid="ISO712" citeas="x" id="_"/>
+      <semx element="eref" source="_">
+         <fmt-xref target="ISO712">
+            ISO 712
+            <sup>1</sup>
+         </fmt-xref>
+      </semx>
         </p>
       </foreword>
     PRESXML
@@ -1395,14 +1520,20 @@ RSpec.describe IsoDoc do
                 <semx element="title" source="_">Foreword</semx>
           </fmt-title>
           <p id="_">
-             <link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
-                ISO 712
-                <sup>1</sup>
-             </link>
-             <link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
-                ISO 712
-                <sup>1</sup>
-             </link>
+      <eref bibitemid="ISO712" id="_"/>
+      <semx element="eref" source="_">
+         <fmt-link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
+            ISO 712
+            <sup>1</sup>
+         </fmt-link>
+      </semx>
+      <eref bibitemid="ISO712" citeas="x" id="_"/>
+      <semx element="eref" source="_">
+         <fmt-link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
+            ISO 712
+            <sup>1</sup>
+         </fmt-link>
+      </semx>
         </p>
       </foreword>
     PRESXML
@@ -1450,7 +1581,10 @@ RSpec.describe IsoDoc do
                 <semx element="title" source="_">Foreword</semx>
           </fmt-title>
           <p id="_">
-          <xref target='ISO712'>IEC&#xa0;217</xref>
+        <eref bibitemid="ISO712" id="_"/>
+      <semx element="eref" source="_">
+         <fmt-xref target="ISO712">IEC 217</fmt-xref>
+      </semx>
         </p>
       </foreword>
     PRESXML
@@ -1510,7 +1644,10 @@ RSpec.describe IsoDoc do
                 <semx element="title" source="_">Foreword</semx>
           </fmt-title>
           <p id="_">
-          <xref target="ISO712">ISO 712 / IEC 217</xref>
+        <eref bibitemid="ISO712" id="_"/>
+      <semx element="eref" source="_">
+         <fmt-xref target="ISO712">ISO 712 / IEC 217</fmt-xref>
+      </semx>
         </p>
       </foreword>
     PRESXML
@@ -1849,7 +1986,10 @@ RSpec.describe IsoDoc do
               method
             </em>
              (see
-            <link target='http://www.icc.or.at'/>
+        <link target="http://www.icc.or.at" id="_"/>
+        <semx element="link" source="_">
+           <fmt-link target="http://www.icc.or.at"/>
+        </semx>
             )
           </formattedref>
           <docidentifier type='ICC'>ICC/167</docidentifier>
@@ -1945,7 +2085,11 @@ RSpec.describe IsoDoc do
         </fmt-xref-label>
         <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
         <bibitem id="ISO712" type="standard">
-          <formattedref>International Organization for Standardization and International Electrotechnical Commission. <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. First edition. 2007. <link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</link>.</formattedref>
+          <formattedref>International Organization for Standardization and International Electrotechnical Commission. <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>. First edition. 2007. 
+          <link target="https://www.iso.org/standard/45324.html" id="_">https://www.iso.org/standard/45324.html</link>
+         <semx element="link" source="_">
+            <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
+         </semx>.</formattedref>
           <uri type="src">https://www.iso.org/standard/45324.html</uri>
           <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
           <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
@@ -2247,7 +2391,10 @@ RSpec.describe IsoDoc do
                   <semx element="title" source="_">Foreword</semx>
             </fmt-title>
         <p id="_">
-          <eref bibitemid="B" citeas="what">what</eref>
+              <eref bibitemid="B" citeas="what" id="_"/>
+      <semx element="eref" source="_">
+         <fmt-eref bibitemid="B" citeas="what">what</fmt-eref>
+      </semx>
         </p>
       </foreword>
     OUTPUT
