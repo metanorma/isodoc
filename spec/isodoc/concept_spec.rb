@@ -837,7 +837,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>ISO</renderterm>
-                   <xref target="d1">[d1]</xref>
+                   <xref target="d1" original-id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">ISO</semx>

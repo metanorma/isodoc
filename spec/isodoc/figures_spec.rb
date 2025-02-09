@@ -81,7 +81,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2" id="fwd">
+             <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -149,9 +149,29 @@ RSpec.describe IsoDoc do
                    </dl>
                    <source status="generalisation">
                       [SOURCE:
-                      <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
-                      — <semx element="modification" source="_">with adjustments</semx>;
-                      <xref type="inline" target="ISO712">ISO 712, Section 2</xref>
+                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_">
+                         <localityStack>
+                            <locality type="section">
+                               <referenceFrom>1</referenceFrom>
+                            </locality>
+                         </localityStack>
+                      </origin>
+                      <semx element="origin" source="_">
+                         <fmt-xref type="inline" target="ISO712">ISO 712, Section 1</fmt-xref>
+                      </semx>
+                      —
+                      <semx element="modification" source="_">with adjustments</semx>
+                      ;
+                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_">
+                         <localityStack>
+                            <locality type="section">
+                               <referenceFrom>2</referenceFrom>
+                            </locality>
+                         </localityStack>
+                      </origin>
+                      <semx element="origin" source="_">
+                         <fmt-xref type="inline" target="ISO712">ISO 712, Section 2</fmt-xref>
+                      </semx>
                       ]
                    </source>
                 </figure>
