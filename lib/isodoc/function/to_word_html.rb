@@ -281,6 +281,7 @@ module IsoDoc
           when "identifier" then identifier_parse(node, out)
           when "fmt-concept" then fmt_concept_parse(node, out)
           when "concept" then concept_parse(node, out)
+          when "erefstack" then erefstack_parse(node, out)
           else error_parse(node, out)
           end
         end

@@ -1551,6 +1551,93 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
+    it "processes erefstack" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+        <sections>
+       <clause id="A1" inline-header="false" obligation="normative">
+       <title>Section</title>
+       <p id="A2">
+       <erefstack><eref connective="from" bibitemid="A" citeas="A" type="inline" /><eref connective="to" bibitemid="B" citeas="B" type="inline" /></erefstack>
+       </p>
+       </clause>
+       </sections>
+       <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+      <bibitem id="ISO712" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="ISO">ISO 712</docidentifier>
+        <docidentifier type="metanorma">[110]</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+      <bibitem id="ISO16634" type="standard">
+        <title language="x" format="text/plain">Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</title>
+        <title language="en" format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
+        <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+        <date type="published"><on>--</on></date>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <abbreviation>ISO</abbreviation>
+          </organization>
+        </contributor>
+        <note format="text/plain" type="Unpublished-Status" reference="1">Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
+        <extent type="part">
+        <referenceFrom>all</referenceFrom>
+        </extent>
+      </bibitem>
+      </bibliography>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+       <p id="A2">
+          <erefstack id="_">
+             <eref connective="from" bibitemid="A" citeas="A" type="inline" id="_"/>
+             <eref connective="to" bibitemid="B" citeas="B" type="inline" id="_"/>
+          </erefstack>
+          <semx element="erefstack" source="_">
+             <semx element="eref" source="_">
+                <fmt-eref connective="from" bibitemid="A" citeas="A" type="inline">A</fmt-eref>
+             </semx>
+             <span class="fmt-conn">to</span>
+             <semx element="eref" source="_">
+                <fmt-eref connective="to" bibitemid="B" citeas="B" type="inline">B</fmt-eref>
+             </semx>
+          </semx>
+       </p>
+    OUTPUT
+html = <<~OUTPUT
+<p id="A2">
+ A to B
+ </p>
+OUTPUT
+    xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
+        .convert("test", input, true))
+    xml = xml.at("//xmlns:p[@id = 'A2']")
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+        pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A2']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+      IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true),
+    )
+      .at("//p[@id = 'A2']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
+  end
+
+
   it "processes variant" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
