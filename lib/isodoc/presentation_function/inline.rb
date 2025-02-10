@@ -42,6 +42,7 @@ module IsoDoc
       #docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//fmt-xref")).each { |f| xref1(f) }
       docxml.xpath(ns("//fmt-xref//fmt-xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-xref//xref")).each { |f| f.replace(f.children) }
     end
 
     def eref(docxml)
