@@ -38,8 +38,9 @@ module IsoDoc
       def pseudocode_parse(node, out)
         @in_figure = true
         name = node.at(ns("./fmt-name"))
+        s = node.at(ns("./fmt-figure")) || node
         out.div **pseudocode_attrs(node) do |div|
-          node.children.each { |n| parse(n, div) unless n.name == "fmt-name" }
+          s.children.each { |n| parse(n, div) unless n.name == "fmt-name" }
           sourcecode_name_parse(node, div, name)
         end
         @in_figure = false
@@ -58,10 +59,12 @@ module IsoDoc
 
       def sourcecode_parse(node, out)
         name = node.at(ns("./fmt-name"))
+        n = node.at(ns("./fmt-sourcecode"))
+        s = n || node
         out.p **sourcecode_attrs(node) do |div|
-          sourcecode_parse1(node, div)
+          sourcecode_parse1(s, div)
         end
-        annotation_parse(node, out)
+        annotation_parse(s, out)
         sourcecode_name_parse(node, out, name)
       end
 
