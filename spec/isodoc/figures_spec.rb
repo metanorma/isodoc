@@ -1162,12 +1162,43 @@ RSpec.describe IsoDoc do
              </clause>
           </preface>
           <sections>
+             <svgmap id="_">
+                <target href="http://www.example.com">
+                   <xref target="ref1" id="_">Computer</xref>
+                   <semx element="xref" source="_">
+                      <fmt-xref target="ref1">Computer</fmt-xref>
+                   </semx>
+                </target>
+             </svgmap>
              <figure id="_">
                 <image src="spec/assets/action_schemaexpg1.svg" id="_" mimetype="image/svg+xml" height="auto" width="auto"/>
              </figure>
-             <figure id="_">
-                <image src="spec/assets/action_schemaexpg2.svg" id="_" mimetype="image/svg+xml" height="auto" width="auto" alt="Workmap"/>
-             </figure>
+             <svgmap id="_">
+                <figure original-id="_">
+                   <image src="spec/assets/action_schemaexpg2.svg" mimetype="image/svg+xml" height="auto" width="auto" alt="Workmap" original-id="_"/>
+                </figure>
+                <target href="mn://support_resource_schema">
+                   <eref bibitemid="express_action_schema" citeas="" id="_">
+                      <localityStack>
+                         <locality type="anchor">
+                            <referenceFrom>action_schema.basic</referenceFrom>
+                         </locality>
+                      </localityStack>
+                      Coffee
+                   </eref>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="express_action_schema">
+
+               Coffee
+             </fmt-xref>
+                   </semx>
+                </target>
+             </svgmap>
+             <semx element="svgmap" source="_">
+                <figure id="_">
+                   <image src="spec/assets/action_schemaexpg2.svg" id="_" mimetype="image/svg+xml" height="auto" width="auto" alt="Workmap"/>
+                </figure>
+             </semx>
           </sections>
           <bibliography>
              <references hidden="true" normative="false" displayorder="2">

@@ -213,6 +213,7 @@ module IsoDoc
       def identifier_parse(node, out); end
       def concept_parse(node, out); end
       def erefstack_parse(node, out); end
+      def svgmap_parse(node, out); end
 
       def fmt_name_parse(node, out)
         children_parse(node, out)
