@@ -46,9 +46,19 @@ module IsoDoc
     end
 
     def eref(docxml)
+      docxml.xpath(ns("//eref[@deleteme]")).each { |f| redundant_eref(f) }
       docxml.xpath(ns("//fmt-eref")).each { |f| xref1(f) }
       docxml.xpath(ns("//fmt-eref//fmt-xref")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//erefstack")).each { |f| erefstack1(f) }
+    end
+
+    # redundant eref copied from quote/source
+    def redundant_eref(elem)
+      if elem.next.name == "semx"
+        elem.next.elements.first.delete("deleteme")
+        elem.next.replace(elem.next.children)
+      end
+      elem.remove
     end
 
     def origin(docxml)

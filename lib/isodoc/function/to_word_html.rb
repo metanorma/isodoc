@@ -283,6 +283,7 @@ module IsoDoc
           when "concept" then concept_parse(node, out)
           when "erefstack" then erefstack_parse(node, out)
           when "svgmap" then svgmap_parse(node, out)
+          when "amend" then amend_parse(node, out)
           else error_parse(node, out)
           end
         end

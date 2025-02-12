@@ -112,104 +112,166 @@ RSpec.describe IsoDoc do
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">1</semx>
                       <span class="fmt-autonum-delim">.</span>
-                      </span>
-                      <span class="fmt-caption-delim">
-                         <tab/>
-                      </span>
-                      <semx element="title" source="_">Change Clause</semx>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Change Clause</semx>
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Clause</span>
                    <semx element="autonum" source="A">1</semx>
                 </fmt-xref-label>
-                <p id="C">
-                   <em>
+                <amend id="B" change="modify" path="//table[2]" path_end="//table[2]/following-sibling:example[1]" title="Change">
+                   <autonumber type="table">2</autonumber>
+                   <autonumber type="example">A.7</autonumber>
+                   <description>
+                      <p original-id="C">
+                         <em>
                         This table contains information on polygon cells which are not
                         included in ISO 10303-52. Remove table 2 completely and replace
                         with:
                       </em>
-                </p>
-                <quote id="D">
-                   <table id="E" number="2" autonum="2">
-                      <name id="_">Edges of triangle and quadrilateral cells</name>
-                      <fmt-name>
-                         <span class="fmt-caption-label">
-                            <span class="fmt-element-name">Table</span>
-                            <semx element="autonum" source="E">2</semx>
+                      </p>
+                   </description>
+                   <newcontent original-id="D">
+                      <table number="2" autonum="2" original-id="E">
+                         <name original-id="_">Edges of triangle and quadrilateral cells</name>
+                         <tbody>
+                            <tr>
+                               <th colspan="2" valign="middle" align="center">triangle</th>
+                               <th colspan="2" valign="middle" align="center">quadrilateral</th>
+                            </tr>
+                            <tr>
+                               <td valign="middle" align="center">edge</td>
+                               <td valign="middle" align="center">vertices</td>
+                               <td valign="middle" align="center">edge</td>
+                               <td valign="middle" align="center">vertices</td>
+                            </tr>
+                            <tr>
+                               <td valign="middle" align="center">1</td>
+                               <td valign="middle" align="center">1, 2</td>
+                               <td valign="middle" align="center">1</td>
+                               <td valign="middle" align="center">1, 2</td>
+                            </tr>
+                            <tr>
+                               <td valign="middle" align="center">2</td>
+                               <td valign="middle" align="center">2, 3</td>
+                               <td valign="middle" align="center">2</td>
+                               <td valign="middle" align="center">2, 3</td>
+                            </tr>
+                            <tr>
+                               <td valign="middle" align="center">3</td>
+                               <td valign="middle" align="center">3, 1</td>
+                               <td valign="middle" align="center">3</td>
+                               <td valign="middle" align="center">3, 4</td>
+                            </tr>
+                            <tr>
+                               <td valign="top" align="left"/>
+                               <td valign="top" align="left"/>
+                               <td valign="middle" align="center">4</td>
+                               <td valign="middle" align="center">4, 1</td>
+                            </tr>
+                         </tbody>
+                      </table>
+                      <figure unnumbered="true" original-id="H">
+                         <name original-id="_">Imago</name>
+                      </figure>
+                      <example number="A.7" autonum="A.7" original-id="F">
+                         <p original-id="G">This is not generalised further.</p>
+                      </example>
+                   </newcontent>
+                </amend>
+                <semx element="amend" source="B">
+                   <p id="C">
+                      <em>
+                        This table contains information on polygon cells which are not
+                        included in ISO 10303-52. Remove table 2 completely and replace
+                        with:
+                      </em>
+                   </p>
+                   <quote id="D">
+                      <table id="E" number="2" autonum="2">
+                         <name id="_">Edges of triangle and quadrilateral cells</name>
+                         <fmt-name>
+                            <span class="fmt-caption-label">
+                               <span class="fmt-element-name">Table</span>
+                               <semx element="autonum" source="E">2</semx>
                             </span>
                             <span class="fmt-caption-delim"> — </span>
                             <semx element="name" source="_">Edges of triangle and quadrilateral cells</semx>
-                      </fmt-name>
-                      <fmt-xref-label>
-                         <span class="fmt-element-name">Table</span>
-                         <semx element="autonum" source="E">2</semx>
-                      </fmt-xref-label>
-                      <tbody>
-                         <tr>
-                            <th colspan="2" valign="middle" align="center">triangle</th>
-                            <th colspan="2" valign="middle" align="center">quadrilateral</th>
-                         </tr>
-                         <tr>
-                            <td valign="middle" align="center">edge</td>
-                            <td valign="middle" align="center">vertices</td>
-                            <td valign="middle" align="center">edge</td>
-                            <td valign="middle" align="center">vertices</td>
-                         </tr>
-                         <tr>
-                            <td valign="middle" align="center">1</td>
-                            <td valign="middle" align="center">1, 2</td>
-                            <td valign="middle" align="center">1</td>
-                            <td valign="middle" align="center">1, 2</td>
-                         </tr>
-                         <tr>
-                            <td valign="middle" align="center">2</td>
-                            <td valign="middle" align="center">2, 3</td>
-                            <td valign="middle" align="center">2</td>
-                            <td valign="middle" align="center">2, 3</td>
-                         </tr>
-                         <tr>
-                            <td valign="middle" align="center">3</td>
-                            <td valign="middle" align="center">3, 1</td>
-                            <td valign="middle" align="center">3</td>
-                            <td valign="middle" align="center">3, 4</td>
-                         </tr>
-                         <tr>
-                            <td valign="top" align="left"/>
-                            <td valign="top" align="left"/>
-                            <td valign="middle" align="center">4</td>
-                            <td valign="middle" align="center">4, 1</td>
-                         </tr>
-                      </tbody>
-                   </table>
-                   <figure id="H" unnumbered="true">
-                   <name id="_">Imago</name>
-               <fmt-name>
-                     <semx element="name" source="_">Imago</semx>
-               </fmt-name>
-                   </figure>
-                   <example id="F" number="A.7" autonum="A.7">
-                      <fmt-name>
-                         <span class="fmt-caption-label">
-                            <span class="fmt-element-name">EXAMPLE</span>
+                         </fmt-name>
+                         <fmt-xref-label>
+                            <span class="fmt-element-name">Table</span>
+                            <semx element="autonum" source="E">2</semx>
+                         </fmt-xref-label>
+                         <tbody>
+                            <tr>
+                               <th colspan="2" valign="middle" align="center">triangle</th>
+                               <th colspan="2" valign="middle" align="center">quadrilateral</th>
+                            </tr>
+                            <tr>
+                               <td valign="middle" align="center">edge</td>
+                               <td valign="middle" align="center">vertices</td>
+                               <td valign="middle" align="center">edge</td>
+                               <td valign="middle" align="center">vertices</td>
+                            </tr>
+                            <tr>
+                               <td valign="middle" align="center">1</td>
+                               <td valign="middle" align="center">1, 2</td>
+                               <td valign="middle" align="center">1</td>
+                               <td valign="middle" align="center">1, 2</td>
+                            </tr>
+                            <tr>
+                               <td valign="middle" align="center">2</td>
+                               <td valign="middle" align="center">2, 3</td>
+                               <td valign="middle" align="center">2</td>
+                               <td valign="middle" align="center">2, 3</td>
+                            </tr>
+                            <tr>
+                               <td valign="middle" align="center">3</td>
+                               <td valign="middle" align="center">3, 1</td>
+                               <td valign="middle" align="center">3</td>
+                               <td valign="middle" align="center">3, 4</td>
+                            </tr>
+                            <tr>
+                               <td valign="top" align="left"/>
+                               <td valign="top" align="left"/>
+                               <td valign="middle" align="center">4</td>
+                               <td valign="middle" align="center">4, 1</td>
+                            </tr>
+                         </tbody>
+                      </table>
+                      <figure id="H" unnumbered="true">
+                         <name id="_">Imago</name>
+                         <fmt-name>
+                            <semx element="name" source="_">Imago</semx>
+                         </fmt-name>
+                      </figure>
+                      <example id="F" number="A.7" autonum="A.7">
+                         <fmt-name>
+                            <span class="fmt-caption-label">
+                               <span class="fmt-element-name">EXAMPLE</span>
+                               <semx element="autonum" source="F">A.7</semx>
+                            </span>
+                         </fmt-name>
+                         <fmt-xref-label>
+                            <span class="fmt-element-name">Example</span>
                             <semx element="autonum" source="F">A.7</semx>
-                         </span>
-                      </fmt-name>
-                      <fmt-xref-label>
-                         <span class="fmt-element-name">Example</span>
-                         <semx element="autonum" source="F">A.7</semx>
-                      </fmt-xref-label>
-                                     <fmt-xref-label container="A">
-                  <span class="fmt-xref-container">
-                     <span class="fmt-element-name">Clause</span>
-                     <semx element="autonum" source="A">1</semx>
-                  </span>
-                  <span class="fmt-comma">,</span>
-                  <span class="fmt-element-name">Example</span>
-                  <semx element="autonum" source="F">A.7</semx>
-               </fmt-xref-label>
-                      <p id="G">This is not generalised further.</p>
-                   </example>
-                </quote>
+                         </fmt-xref-label>
+                         <fmt-xref-label container="A">
+                            <span class="fmt-xref-container">
+                               <span class="fmt-element-name">Clause</span>
+                               <semx element="autonum" source="A">1</semx>
+                            </span>
+                            <span class="fmt-comma">,</span>
+                            <span class="fmt-element-name">Example</span>
+                            <semx element="autonum" source="F">A.7</semx>
+                         </fmt-xref-label>
+                         <p id="G">This is not generalised further.</p>
+                      </example>
+                   </quote>
+                </semx>
              </clause>
           </sections>
        </standard-document>
@@ -877,6 +939,12 @@ RSpec.describe IsoDoc do
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <quote id="_">
+                   <source type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011" id="_">
+                      <locality type="clause">
+                         <referenceFrom>1</referenceFrom>
+                      </locality>
+                   </source>
+                   <author id="_">ISO</author>
                    <p id="_">
                       This International Standard gives the minimum specifications for rice (
                       <em>Oryza sativa</em>
@@ -885,15 +953,10 @@ RSpec.describe IsoDoc do
                    <attribution>
                       <p>
                          —
-                         <author>ISO</author>
+                         <semx element="author" source="_">ISO</semx>
                          ,
-                         <eref type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011" id="_">
-                            <locality type="clause">
-                               <referenceFrom>1</referenceFrom>
-                            </locality>
-                         </eref>
-                         <semx element="eref" source="_">
-                            <fmt-eref type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011">
+                         <semx element="source" source="_">
+                            <fmt-eref type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011" id="_">
                                <locality type="clause">
                                   <referenceFrom>1</referenceFrom>
                                </locality>

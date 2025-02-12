@@ -137,17 +137,18 @@ module IsoDoc
 
     def table_fn1(table, fnote, idx); end
 
-    # we use this to eliminate the semantic amend blocks from rendering
     def amend(docxml)
       docxml.xpath(ns("//amend")).each { |f| amend1(f) }
     end
 
     def amend1(elem)
-      elem.xpath(ns("./locality | ./localityStack | ./autonumber | " \
+      ret = semx_fmt_dup(elem)
+      ret.xpath(ns("./locality | ./localityStack | ./autonumber | " \
                     "./classification | ./contributor")).each(&:remove)
-      elem.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
-      elem.xpath(ns("./description")).each { |a| a.replace(a.children) }
-      elem.replace(elem.children)
+      ret.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
+      ret.xpath(ns("./description")).each { |a| a.replace(a.children) }
+      elem.xpath(ns(".//fmt-name | .//fmt-xref-label")).each(&:remove)
+      elem.next = ret
     end
 
     def dl(docxml)
@@ -233,11 +234,16 @@ module IsoDoc
       source = elem.at(ns("./source"))
       author.nil? && source.nil? and return
       p = "&#x2014; "
-      p += author.remove.to_xml if author
+      p += to_xml(semx_fmt_dup(author)) if author
       p += ", " if author && source
       if source
-        source.name = "eref"
-        p += source.remove.to_xml
+        s = semx_fmt_dup(source)
+e = Nokogiri::XML::Node.new("eref", elem.document)
+e << s.children
+s << e
+source.attributes.each_key { |k| e[k] = source[k] }
+e["deleteme"] = "true" # duplicate of source, will be duplicated in fmt-eref, need to delete after
+        p += to_xml(s)
       end
       elem << "<attribution><p>#{l10n p}</p></attribution>"
     end

@@ -148,7 +148,7 @@ module IsoDoc
         attrs = para_attrs(node)
         attrs[:class] = "Quote"
         out.div **attr_code(attrs) do |p|
-          node.children.each { |n| parse(n, p) }
+          node.children.each { |n| parse(n, p) unless n.name == "source" }
         end
       end
 

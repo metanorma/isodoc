@@ -188,9 +188,7 @@ module IsoDoc
         end
       end
 
-      def author_parse(node, out)
-        children_parse(node, out)
-      end
+      def author_parse(node, out); end
 
       def semx_parse(node, out)
         children_parse(node, out)
@@ -214,6 +212,7 @@ module IsoDoc
       def concept_parse(node, out); end
       def erefstack_parse(node, out); end
       def svgmap_parse(node, out); end
+      def amend_parse(node, out); end
 
       def fmt_name_parse(node, out)
         children_parse(node, out)
