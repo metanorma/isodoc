@@ -201,9 +201,15 @@ RSpec.describe IsoDoc do
                        <tr>
                           <td align="left">
                              Reproducibility limit,
-                             <stem type="AsciiMath">R</stem>
+                             <stem type="AsciiMath" id="_">R</stem>
+                             <fmt-stem type="AsciiMath">
+                                <semx element="stem" source="_">R</semx>
+                             </fmt-stem>
                              (= 2,83
-                             <stem type="AsciiMath">s_R</stem>
+                             <stem type="AsciiMath" id="_">s_R</stem>
+                             <fmt-stem type="AsciiMath">
+                                <semx element="stem" source="_">s_R</semx>
+                             </fmt-stem>
                              )
                           </td>
                           <td align="center">2,89</td>

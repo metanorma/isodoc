@@ -125,7 +125,10 @@ module IsoDoc
 
     def date1(elem)
       elem["value"] && elem["format"] or return
-      elem.replace(@i18n.date(elem["value"], elem["format"].strip))
+      val = @i18n.date(elem["value"], elem["format"].strip)
+      d = semx_fmt_dup(elem)
+      d << val
+      elem.next = "<fmt-date>#{to_xml(d)}</fmt-date>"
     end
 
     def inline_format(docxml)

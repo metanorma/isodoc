@@ -130,7 +130,10 @@ RSpec.describe IsoDoc do
                       <dd>
                          <p id="_">
                             The time
-                            <stem type="AsciiMath">t_90</stem>
+                            <stem type="AsciiMath" id="_">t_90</stem>
+                            <fmt-stem type="AsciiMath">
+                               <semx element="stem" source="_">t_90</semx>
+                            </fmt-stem>
                             was estimated to be 18,2 min for this example.
                          </p>
                       </dd>
@@ -723,15 +726,15 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-           <preface>
-      <clause type="toc" id="_" displayorder="1">
-      <fmt-title depth="1">Table of contents</fmt-title>
-                   </clause>
-             <foreword displayorder="2" id="fwd">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                      <semx element="title" source="_">Foreword</semx>
+                   <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" class="diagram" autonum="1">
                    <name id="_">
@@ -746,63 +749,72 @@ RSpec.describe IsoDoc do
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Diagram</span>
                          <semx element="autonum" source="figureA-1">1</semx>
-                         </span>
-                         <span class="fmt-caption-delim"> — </span>
-                         <semx element="name" source="_">
-                            Split-it-right
-                            <em>sample</em>
-                            divider
-                            <fn reference="1">
-                               <p>X</p>
-                            </fn>
-                         </semx>
+                      </span>
+                      <span class="fmt-caption-delim"> — </span>
+                      <semx element="name" source="_">
+                         Split-it-right
+                         <em>sample</em>
+                         divider
+                         <fn reference="1">
+                            <p>X</p>
+                         </fn>
+                      </semx>
                    </fmt-name>
                    <fmt-xref-label>
                       <span class="fmt-element-name">Diagram</span>
                       <semx element="autonum" source="figureA-1">1</semx>
                    </fmt-xref-label>
-                 <image src='rice_images/rice_image1.png' height='20' width='30' id='_' mimetype='image/png' alt='alttext' title='titletxt'/>
-                 <image src='rice_images/rice_image1.png' height='20' width='auto' id='_' mimetype='image/png'/>
-                 <image src='data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7' height='20' width='auto' id='_' mimetype='image/png'/>
-                 <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_' mimetype='application/xml'/>
-           <dl class="formula_dl">
-              <name id="_">Key of figure</name>
-               <fmt-name>
-                     <semx element="name" source="_">Key of figure</semx>
-               </fmt-name>
-              <dt><p><sup>a</sup></p></dt>
-              <dd>
-                 <p id="_">
-                    The time
-                    <stem type="AsciiMath">t_90</stem>
-                    was estimated to be 18,2 min for this example.
-                 </p>
-              </dd>
-                   <dt>A</dt>
-                   <dd>
-                     <p>B</p>
-                   </dd>
-                 </dl>
-               </figure>
-                 <figure id="figure-B" class="plate" autonum="1">
-            <fmt-name>
-               <span class="fmt-caption-label">
-                  <span class="fmt-element-name">Plate</span>
-                  <semx element="autonum" source="figure-B">1</semx>
-               </span>
-            </fmt-name>
-            <fmt-xref-label>
-               <span class="fmt-element-name">Plate</span>
-               <semx element="autonum" source="figure-B">1</semx>
-            </fmt-xref-label>
-                 <pre alt='A B'>A &#x3c; B</pre>
-               </figure>
-               <figure id='figure-C' unnumbered='true' class='diagram'>
-                 <pre>A &#x3c; B</pre>
-               </figure>
+                   <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+                   <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
+                   <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
+                   <image src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
+                   <dl class="formula_dl">
+                      <name id="_">Key of figure</name>
+                      <fmt-name>
+                         <semx element="name" source="_">Key of figure</semx>
+                      </fmt-name>
+                      <dt>
+                         <p>
+                            <sup>a</sup>
+                         </p>
+                      </dt>
+                      <dd>
+                         <p id="_">
+                            The time
+                            <stem type="AsciiMath" id="_">t_90</stem>
+                            <fmt-stem type="AsciiMath">
+                               <semx element="stem" source="_">t_90</semx>
+                            </fmt-stem>
+                            was estimated to be 18,2 min for this example.
+                         </p>
+                      </dd>
+                      <dt>A</dt>
+                      <dd>
+                         <p>B</p>
+                      </dd>
+                   </dl>
+                </figure>
+                <figure id="figure-B" class="plate" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Plate</span>
+                         <semx element="autonum" source="figure-B">1</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Plate</span>
+                      <semx element="autonum" source="figure-B">1</semx>
+                   </fmt-xref-label>
+                   <pre alt="A B">A &lt;
+       B</pre>
+                </figure>
+                <figure id="figure-C" unnumbered="true" class="diagram">
+                   <pre>A &lt;
+       B</pre>
+                </figure>
              </foreword>
-           </preface>
-         </iso-standard>
+          </preface>
+       </iso-standard>
     OUTPUT
     expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)

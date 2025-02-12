@@ -620,114 +620,126 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="fwd" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <formula id="_" unnumbered="true" keep-with-next="true" keep-lines-together="true">
-                    <stem type="AsciiMath">r = 1 %</stem>
-                    <p keep-with-next="true">where</p>
-                    <dl id="_" class="formula_dl">
-                       <dt>
-                          <stem type="AsciiMath">r</stem>
-                       </dt>
-                       <dd>
-                          <p id="_">is the repeatability limit.</p>
-                       </dd>
-                    </dl>
-                    <note id="_" autonum="">
-                       <fmt-name>
-                          <span class="fmt-caption-label">
-                             <span class="fmt-element-name">NOTE</span>
-                          </span>
-                          <span class="fmt-label-delim">
-                             <tab/>
-                          </span>
-                       </fmt-name>
-                       <fmt-xref-label>
-                          <span class="fmt-element-name">Note</span>
-                       </fmt-xref-label>
-                       <fmt-xref-label container="fwd">
-                          <span class="fmt-xref-container">
-                             <semx element="foreword" source="fwd">Foreword</semx>
-                          </span>
-                          <span class="fmt-comma">,</span>
-                          <span class="fmt-element-name">Note</span>
-                       </fmt-xref-label>
-                       <p id="_">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
-                    </note>
-                 </formula>
-                 <formula id="_" autonum="1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-autonum-delim">(</span>
-                          1
-                          <span class="fmt-autonum-delim">)</span>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Formula</span>
-                       <span class="fmt-autonum-delim">(</span>
-                       <semx element="autonum" source="_">1</semx>
-                       <span class="fmt-autonum-delim">)</span>
-                    </fmt-xref-label>
-                    <fmt-xref-label container="fwd">
-                       <span class="fmt-xref-container">
-                          <semx element="foreword" source="fwd">Foreword</semx>
-                       </span>
-                       <span class="fmt-comma">,</span>
-                       <span class="fmt-element-name">Formula</span>
-                       <span class="fmt-autonum-delim">(</span>
-                       <semx element="autonum" source="_">1</semx>
-                       <span class="fmt-autonum-delim">)</span>
-                    </fmt-xref-label>
-                    <stem type="AsciiMath">r = 1 %</stem>
-                 </formula>
-              </foreword>
-           </preface>
-           <annex id="Annex" autonum="A" displayorder="3">
-              <fmt-title>
-                 <strong>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="Annex">A</semx>
-                    </span>
-                 </strong>
-                 <br/>
-                 <span class="fmt-obligation">(informative)</span>
-              </fmt-title>
-              <fmt-xref-label>
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="Annex">A</semx>
-              </fmt-xref-label>
-              <formula id="AnnexFormula" autonum="A.1">
-                 <fmt-name>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-autonum-delim">(</span>
-                       <semx element="autonum" source="Annex">A</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="AnnexFormula">1</semx>
-                       <span class="fmt-autonum-delim">)</span>
-                    </span>
-                 </fmt-name>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Formula</span>
-                    <span class="fmt-autonum-delim">(</span>
-                    <semx element="autonum" source="Annex">A</semx>
-                    <span class="fmt-autonum-delim">.</span>
-                    <semx element="autonum" source="AnnexFormula">1</semx>
-                    <span class="fmt-autonum-delim">)</span>
-                 </fmt-xref-label>
-                 <stem type="AsciiMath">r = 1 %</stem>
-              </formula>
-           </annex>
-        </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword id="fwd" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <formula id="_" unnumbered="true" keep-with-next="true" keep-lines-together="true">
+                   <stem type="AsciiMath" id="_">r = 1 %</stem>
+                   <fmt-stem type="AsciiMath">
+                      <semx element="stem" source="_">r = 1 %</semx>
+                   </fmt-stem>
+                   <p keep-with-next="true">where</p>
+                   <dl id="_" class="formula_dl">
+                      <dt>
+                         <stem type="AsciiMath" id="_">r</stem>
+                         <fmt-stem type="AsciiMath">
+                            <semx element="stem" source="_">r</semx>
+                         </fmt-stem>
+                      </dt>
+                      <dd>
+                         <p id="_">is the repeatability limit.</p>
+                      </dd>
+                   </dl>
+                   <note id="_" autonum="">
+                      <fmt-name>
+                         <span class="fmt-caption-label">
+                            <span class="fmt-element-name">NOTE</span>
+                         </span>
+                         <span class="fmt-label-delim">
+                            <tab/>
+                         </span>
+                      </fmt-name>
+                      <fmt-xref-label>
+                         <span class="fmt-element-name">Note</span>
+                      </fmt-xref-label>
+                      <fmt-xref-label container="fwd">
+                         <span class="fmt-xref-container">
+                            <semx element="foreword" source="fwd">Foreword</semx>
+                         </span>
+                         <span class="fmt-comma">,</span>
+                         <span class="fmt-element-name">Note</span>
+                      </fmt-xref-label>
+                      <p id="_">[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p>
+                   </note>
+                </formula>
+                <formula id="_" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-autonum-delim">(</span>
+                         1
+                         <span class="fmt-autonum-delim">)</span>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Formula</span>
+                      <span class="fmt-autonum-delim">(</span>
+                      <semx element="autonum" source="_">1</semx>
+                      <span class="fmt-autonum-delim">)</span>
+                   </fmt-xref-label>
+                   <fmt-xref-label container="fwd">
+                      <span class="fmt-xref-container">
+                         <semx element="foreword" source="fwd">Foreword</semx>
+                      </span>
+                      <span class="fmt-comma">,</span>
+                      <span class="fmt-element-name">Formula</span>
+                      <span class="fmt-autonum-delim">(</span>
+                      <semx element="autonum" source="_">1</semx>
+                      <span class="fmt-autonum-delim">)</span>
+                   </fmt-xref-label>
+                   <stem type="AsciiMath" id="_">r = 1 %</stem>
+                   <fmt-stem type="AsciiMath">
+                      <semx element="stem" source="_">r = 1 %</semx>
+                   </fmt-stem>
+                </formula>
+             </foreword>
+          </preface>
+          <annex id="Annex" autonum="A" displayorder="3">
+             <fmt-title>
+                <strong>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="Annex">A</semx>
+                   </span>
+                </strong>
+                <br/>
+                <span class="fmt-obligation">(informative)</span>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="Annex">A</semx>
+             </fmt-xref-label>
+             <formula id="AnnexFormula" autonum="A.1">
+                <fmt-name>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-autonum-delim">(</span>
+                      <semx element="autonum" source="Annex">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="AnnexFormula">1</semx>
+                      <span class="fmt-autonum-delim">)</span>
+                   </span>
+                </fmt-name>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Formula</span>
+                   <span class="fmt-autonum-delim">(</span>
+                   <semx element="autonum" source="Annex">A</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="AnnexFormula">1</semx>
+                   <span class="fmt-autonum-delim">)</span>
+                </fmt-xref-label>
+                <stem type="AsciiMath" id="_">r = 1 %</stem>
+                <fmt-stem type="AsciiMath">
+                   <semx element="stem" source="_">r = 1 %</semx>
+                </fmt-stem>
+             </formula>
+          </annex>
+       </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -1140,7 +1152,10 @@ RSpec.describe IsoDoc do
                    <measurement-target exclude="false" id="_">
                       <p original-id="_">The measurement target shall be measured as:</p>
                       <formula autonum="1" original-id="B">
-                         <stem type="AsciiMath">r/1 = 0</stem>
+                         <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                         <fmt-stem type="AsciiMath">
+                            <semx element="stem" source="_">r/1 = 0</semx>
+                         </fmt-stem>
                       </formula>
                    </measurement-target>
                    <verification exclude="false" id="_">
@@ -1177,10 +1192,10 @@ RSpec.describe IsoDoc do
                          <em>
                             Inherits:
                             <semx element="inherit" source="_">
-                            <eref type="inline" bibitemid="rfc2616" citeas="RFC 2616" id="_">RFC 2616 (HTTP/1.1)</eref>
-                        <semx element="eref" source="_">
-                           <fmt-xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</fmt-xref>
-                        </semx>
+                               <eref type="inline" bibitemid="rfc2616" citeas="RFC 2616" id="_">RFC 2616 (HTTP/1.1)</eref>
+                               <semx element="eref" source="_">
+                                  <fmt-xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</fmt-xref>
+                               </semx>
                             </semx>
                          </em>
                          <br/>
@@ -1249,7 +1264,10 @@ RSpec.describe IsoDoc do
                                   <semx element="autonum" source="B">1</semx>
                                   <span class="fmt-autonum-delim">)</span>
                                </fmt-xref-label>
-                               <stem type="AsciiMath">r/1 = 0</stem>
+                               <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                               <fmt-stem type="AsciiMath">
+                                  <semx element="stem" source="_">r/1 = 0</semx>
+                               </fmt-stem>
                             </formula>
                          </semx>
                       </div>
@@ -1464,7 +1482,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
@@ -1523,7 +1541,10 @@ RSpec.describe IsoDoc do
                    <measurement-target exclude="false" keep-with-next="true" keep-lines-together="true" id="_">
                       <p original-id="_">The measurement target shall be measured as:</p>
                       <formula autonum="1" original-id="B">
-                         <stem type="AsciiMath">r/1 = 0</stem>
+                         <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                         <fmt-stem type="AsciiMath">
+                            <semx element="stem" source="_">r/1 = 0</semx>
+                         </fmt-stem>
                       </formula>
                    </measurement-target>
                    <verification exclude="false" id="_">
@@ -1593,7 +1614,10 @@ RSpec.describe IsoDoc do
                                   <semx element="autonum" source="B">1</semx>
                                   <span class="fmt-autonum-delim">)</span>
                                </fmt-xref-label>
-                               <stem type="AsciiMath">r/1 = 0</stem>
+                               <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                               <fmt-stem type="AsciiMath">
+                                  <semx element="stem" source="_">r/1 = 0</semx>
+                               </fmt-stem>
                             </formula>
                          </semx>
                       </div>
@@ -1713,7 +1737,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
@@ -1778,7 +1802,10 @@ RSpec.describe IsoDoc do
                    <measurement-target exclude="false" id="_">
                       <p original-id="_">The measurement target shall be measured as:</p>
                       <formula autonum="1" original-id="B">
-                         <stem type="AsciiMath">r/1 = 0</stem>
+                         <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                         <fmt-stem type="AsciiMath">
+                            <semx element="stem" source="_">r/1 = 0</semx>
+                         </fmt-stem>
                       </formula>
                    </measurement-target>
                    <verification exclude="false" id="_">
@@ -1862,7 +1889,10 @@ RSpec.describe IsoDoc do
                                   <semx element="autonum" source="B">1</semx>
                                   <span class="fmt-autonum-delim">)</span>
                                </fmt-xref-label>
-                               <stem type="AsciiMath">r/1 = 0</stem>
+                               <stem type="AsciiMath" id="_">r/1 = 0</stem>
+                               <fmt-stem type="AsciiMath">
+                                  <semx element="stem" source="_">r/1 = 0</semx>
+                               </fmt-stem>
                             </formula>
                          </semx>
                       </div>

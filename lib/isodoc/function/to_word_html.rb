@@ -188,7 +188,8 @@ module IsoDoc
           when "bookmark" then bookmark_parse(node, out)
           when "pagebreak" then pagebreak_parse(node, out)
           when "callout" then callout_parse(node, out)
-          when "stem" then stem_parse(node, out)
+          when "fmt-stem" then stem_parse(node, out)
+          when "stem" then semx_stem_parse(node, out)
           when "clause" then clause_parse(node, out)
           when "xref" then semx_xref_parse(node, out)
           when "fmt-xref" then xref_parse(node, out)
@@ -249,7 +250,6 @@ module IsoDoc
           when "legal-statement" then legal_parse(node, out)
           when "feedback-statement" then feedback_parse(node, out)
           when "passthrough" then passthrough_parse(node, out)
-          when "amend" then amend_parse(node, out)
           when "tab" then clausedelimspace(node, out) # in Presentation XML only
           when "svg" then svg_parse(node, out) # in Presentation XML only
           when "add" then add_parse(node, out)
@@ -284,6 +284,8 @@ module IsoDoc
           when "erefstack" then erefstack_parse(node, out)
           when "svgmap" then svgmap_parse(node, out)
           when "amend" then amend_parse(node, out)
+          when "date" then date_parse(node, out)
+          when "fmt-date" then fmt_date_parse(node, out)
           else error_parse(node, out)
           end
         end

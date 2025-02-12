@@ -1556,23 +1556,23 @@ RSpec.describe IsoDoc do
                 </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder="2">
+        <foreword displayorder="2">
            <title id="_">Foreword</title>
            <fmt-title depth="1">
-                 <semx element="title" source="_">Foreword</semx>
+              <semx element="title" source="_">Foreword</semx>
            </fmt-title>
            <p>
            <xref target="N1" id="_"/>
            <semx element="xref" source="_">
               <fmt-xref target="N1">
                  <span class="fmt-xref-container">
-            <semx element="introduction" source="intro">Introduction</semx>
-         </span>
+                    <semx element="introduction" source="intro">Introduction</semx>
+                 </span>
                  <span class="fmt-comma">,</span>
                  <span class="fmt-element-name">Definition List</span>
                  <span class="fmt-autonum-delim">:</span>
                  <semx element="autonum" source="N1">
-                    <stem type="MathML">
+                    <stem type="MathML" id="_">
                        <math xmlns="http://www.w3.org/1998/Math/MathML">
                           <msub>
                              <mrow>
@@ -1588,8 +1588,27 @@ RSpec.describe IsoDoc do
                              </mrow>
                           </msub>
                        </math>
-                       <asciimath>hat(e)_(r)</asciimath>
                     </stem>
+                    <fmt-stem type="MathML">
+                       <semx element="stem" source="_">
+                          <math xmlns="http://www.w3.org/1998/Math/MathML">
+                             <msub>
+                                <mrow>
+                                   <mover accent="true">
+                                      <mrow>
+                                         <mi>e</mi>
+                                      </mrow>
+                                      <mo>^</mo>
+                                   </mover>
+                                </mrow>
+                                <mrow>
+                                   <mi>r</mi>
+                                </mrow>
+                             </msub>
+                          </math>
+                          <asciimath>hat(e)_(r)</asciimath>
+                       </semx>
+                    </fmt-stem>
                  </semx>
               </fmt-xref>
               </semx>
