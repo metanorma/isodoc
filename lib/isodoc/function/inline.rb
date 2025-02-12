@@ -216,6 +216,7 @@ module IsoDoc
       def erefstack_parse(node, out); end
       def svgmap_parse(node, out); end
       def amend_parse(node, out); end
+      def semx_sourcecode_parse(node, out); end
 
       def fmt_name_parse(node, out)
         children_parse(node, out)
