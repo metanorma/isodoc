@@ -162,6 +162,7 @@ module IsoDoc
     end
 
     def stem_dup(node)
+      sem_xml_descendant?(node) and return
       ret = semx_fmt_dup(node)
       f = Nokogiri::XML::Node.new("fmt-stem", node.document)
       t = node["type"] and f["type"] = t
