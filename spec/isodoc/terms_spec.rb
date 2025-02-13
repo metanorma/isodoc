@@ -1806,23 +1806,13 @@ RSpec.describe IsoDoc do
                       <pre original-id="F">Literal</pre>
                    </figure>
                    <formula autonum="1" original-id="G">
-                      <stem type="MathML" id="_">
+                      <stem type="MathML">
                          <math xmlns="http://www.w3.org/1998/Math/MathML">
                             <mi>x</mi>
                             <mo>=</mo>
                             <mi>y</mi>
                          </math>
                       </stem>
-                      <fmt-stem type="MathML">
-                         <semx element="stem" source="_">
-                            <math xmlns="http://www.w3.org/1998/Math/MathML">
-                               <mi>x</mi>
-                               <mo>=</mo>
-                               <mi>y</mi>
-                            </math>
-                            <asciimath>x = y</asciimath>
-                         </semx>
-                      </fmt-stem>
                    </formula>
                    <termsource status="identical" type="authoritative" original-id="_">
                       <origin bibitemid="ISO2191" type="inline" citeas="">
