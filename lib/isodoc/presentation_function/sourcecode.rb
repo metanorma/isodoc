@@ -50,7 +50,6 @@ module IsoDoc
     end
 
     def sourcecode1(elem)
-      sem_xml_descendant?(elem) and return
       ret1 = semx_fmt_dup(elem)
       #sourcecode_annot_id(elem)
       source_label(elem)
