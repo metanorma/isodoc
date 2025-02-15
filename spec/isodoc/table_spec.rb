@@ -666,7 +666,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" displayorder="1" id="_">
       <fmt-title depth="1">Table of contents</fmtfmt--title>
       </clause>
-      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+      <foreword id="_" displayorder="2"><fmt-title>Foreword</fmt-title>
         <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" class="modspec">
           <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield</fmt-name>
         </table>
@@ -677,7 +677,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
              <br/>
-             <div>
+             <div id="_">
                <h1 class='ForewordTitle'>Foreword</h1>
                <p class='TableTitle' style='text-align:center;'>
                  Repeatability and reproducibility of
@@ -699,7 +699,7 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-             <div>
+             <div id="_">
                <h1 class='ForewordTitle'>Foreword</h1>
                <p class='TableTitle' style='text-align:center;'>
                  Repeatability and reproducibility of
@@ -805,7 +805,7 @@ RSpec.describe IsoDoc do
                <p class="page-break">
                  <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                </p>
-               <div>
+               <div id="_">
                  <h1 class='ForewordTitle'>Foreword</h1>
                  <p class='TableTitle' style='text-align:center;'>
                    Repeatability and reproducibility of
@@ -914,8 +914,8 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -966,7 +966,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div>
+            <div id="_">
               <h1 class="ForewordTitle">Foreword</h1>
               <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span></p>
               <div align="center" class="table_container">
@@ -1024,8 +1024,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-        .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+        .convert("test", input, true))
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
 
@@ -1076,7 +1076,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div>
+            <div id="_">
               <h1 class="ForewordTitle">Foreword</h1>
               <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span></p>
               <div align="center" class="table_container">
@@ -1142,8 +1142,8 @@ RSpec.describe IsoDoc do
       </html>
 
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-        .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+        .convert("test", input, true))
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -1187,7 +1187,7 @@ RSpec.describe IsoDoc do
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div>
+             <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span></p>
                <div align="center" class="table_container">
@@ -1253,8 +1253,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-           .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+           .convert("test", input, true))
            .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
 
@@ -1296,7 +1296,7 @@ RSpec.describe IsoDoc do
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div>
+             <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span></p>
                <div align="center" class="table_container">
@@ -1369,8 +1369,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-               .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+               .convert("test", input, true))
                .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
   end

@@ -795,7 +795,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
     INPUT
 
     output = <<~OUTPUT
-       <foreword displayorder="2">
+       <foreword id="_" displayorder="2">
           <title id="_">Foreword</title>
           <fmt-title depth="1">
              <semx element="title" source="_">Foreword</semx>
@@ -1089,7 +1089,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
+       <foreword id="_" displayorder="2">
           <title id="_">Foreword</title>
           <fmt-title depth="1">
              <semx element="title" source="_">Foreword</semx>
@@ -1300,7 +1300,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
+       <foreword id="_" displayorder="2">
           <title id="_">Foreword</title>
           <fmt-title depth="1">
              <semx element="title" source="_">Foreword</semx>
@@ -1472,7 +1472,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
+       <foreword id="_" displayorder="2">
           <title id="_">Foreword</title>
           <fmt-title depth="1">
              <semx element="title" source="_">Foreword</semx>
@@ -1630,7 +1630,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
+       <foreword id="_" displayorder="2">
           <title id="_">Foreword</title>
           <fmt-title depth="1">
              <semx element="title" source="_">Foreword</semx>
@@ -1782,7 +1782,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword displayorder="2">
+        <foreword id="_" displayorder="2">
            <title id="_">Foreword</title>
            <fmt-title depth="1">
               <semx element="title" source="_">Foreword</semx>
@@ -2097,7 +2097,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword displayorder="2">
+        <foreword id="_" displayorder="2">
            <title id="_">Foreword</title>
            <fmt-title depth="1">
               <semx element="title" source="_">Foreword</semx>
@@ -2215,7 +2215,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword displayorder="2">
+        <foreword id="_" displayorder="2">
            <title id="_">Foreword</title>
            <fmt-title depth="1">
               <semx element="title" source="_">Foreword</semx>
@@ -2303,7 +2303,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
+       <foreword id="_" displayorder="2">
            <title id="_">Foreword</title>
            <fmt-title depth="1">
               <semx element="title" source="_">Foreword</semx>
@@ -2434,7 +2434,7 @@ expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
+       <foreword id="_" displayorder="2">
            <title id="_">Foreword</title>
            <fmt-title depth="1">
               <semx element="title" source="_">Foreword</semx>

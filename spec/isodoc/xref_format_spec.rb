@@ -70,7 +70,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
               #{HTML_HDR}
             <br/>
-            <div>
+            <div id="_">
               <h1 class="ForewordTitle">Foreword</h1>
               <p>
       <a href="a.html#b">a#b</a>
@@ -87,7 +87,7 @@ RSpec.describe IsoDoc do
               <p class="zzContents">Table of contents</p>
             </div>
             <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-            <div>
+            <div id="_">
               <h1 class="ForewordTitle">Foreword</h1>
               <p>
       <a href="a.doc#b">a#b</a>
@@ -742,7 +742,7 @@ RSpec.describe IsoDoc do
   it "ignores locations in xrefs" do
     input = <<~INPUT
       <itu-standard xmlns="https://www.calconnect.org/standards/itu">
-      <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
+      <preface><foreword id="_" displayorder="1"><fmt-title>Foreword</fmt-title>
                   <p id='_'>
               <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/><display-text>6.4 List 1.a) to 2.b)</display-text></xref>
               </p>
@@ -755,7 +755,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2">
+             <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">Foreword</fmt-title>
                 <p id="_">

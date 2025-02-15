@@ -1089,7 +1089,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
         <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-                <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+                <foreword id="_" displayorder="2"><fmt-title>Foreword</fmt-title>
                 <example>
                 <sourcecode id="B"><name>Label</name>A B C</sourcecode>
           <figure id="A" class="pseudocode"><fmt-name>Label</fmt-name><p id="_">  <strong>A</strong></p></figure>

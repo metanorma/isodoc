@@ -183,7 +183,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
              <fmt-title depth="1">Table of contents</fmt-title>
         </clause>
-        <foreword displayorder="2">
+        <foreword id="_" displayorder="2">
                  <title id="_">Foreword</title>
          <fmt-title depth="1">
                <semx element="title" source="_">Foreword</semx>
@@ -276,7 +276,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
-                                <div>
+                                <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <pre id="samplecode" class="sourcecode"><span class="nb">puts</span><span class="n">x</span></pre>
                <p class="SourceTitle" style="text-align:center;">Figure 1 — Ruby <i>code</i></p>
@@ -303,7 +303,7 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
-           <div>
+           <div><a name="_" id="_"/>
              <h1 class="ForewordTitle">Foreword</h1>
              <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"/><span class="nb">puts</span><span class="n">x</span></p>
              <p class="SourceTitle" style="text-align:center;">Figure 1 — Ruby <i>code</i></p>
@@ -464,7 +464,7 @@ RSpec.describe IsoDoc do
       <preface>    <clause type="toc" id="_" displayorder="1">
       <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-      <foreword displayorder="2">
+      <foreword id="_" displayorder="2">
                <title id="_">Foreword</title>
          <fmt-title depth="1">
                <semx element="title" source="_">Foreword</semx>
@@ -514,7 +514,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
                   <br/>
-                               <div>
+                               <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <pre id="samplecode" class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
                <p class="SourceTitle" style="text-align:center;">Figure 1 — XML code</p>
@@ -567,7 +567,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2">
+             <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -658,7 +658,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                   <br/>
-                  <div>
+                  <div id="_">
                                  <h1 class="ForewordTitle">Foreword</h1>
                <pre id="_" class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c"> &lt;3&gt;</span><br/>   end</pre>
                        <div class="annotation">
@@ -697,7 +697,7 @@ RSpec.describe IsoDoc do
                <p class="page-break">
                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
-               <div>
+               <div id="_">
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p id="_" class="Sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>   %w{a b c}.each do |x|<br/>     puts x <span class="c"> &lt;3&gt;</span><br/>   end</p>
                  <div class="annotation">
@@ -793,7 +793,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2">
+             <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -921,7 +921,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
-             <div>
+             <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <div id="_" class="sourcecode"><table class="rouge-line-table" style=""><tbody><tr><td style="" class="rouge-gutter gl"><pre>1</pre></td><td style="" class="rouge-code"><pre class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
                       </td></tr><tr><td style="" class="rouge-gutter gl"><pre>2</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   %w{a b c}.each do |x|</pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>3</pre></td><td style="" class="rouge-code"><pre class="sourcecode">     puts x <span class="c"> &lt;3&gt;</span> </pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>4</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   end</pre></td></tr></tbody></table></div>
@@ -961,7 +961,7 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-            <div>
+            <div id="_">
               <h1 class="ForewordTitle">Foreword</h1>
               <p id="_" class="Sourcecode"><div align="center" class="table_container"><table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;"><tbody><tr><td style="page-break-after:avoid;" class="rouge-gutter gl"><pre>1</pre></td>
                 <td style="page-break-after:avoid;" class="rouge-code"><p class="Sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </p>

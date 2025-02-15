@@ -584,7 +584,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword obligation="informative" displayorder="2">
+        <foreword id="_" obligation="informative" displayorder="2">
            <title id="_">Foreword</title>
            <fmt-title depth="1">
               <semx element="title" source="_">Foreword</semx>

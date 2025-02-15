@@ -1014,7 +1014,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-        <foreword displayorder="2">
+        <foreword id="_" displayorder="2">
            <title id="_">Section</title>
            <fmt-title depth="1">
               <semx element="title" source="_">Section</semx>

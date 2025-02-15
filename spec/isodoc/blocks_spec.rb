@@ -878,7 +878,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_toc" displayorder="1">
           <fmt-title depth="1">Table of contents</fmt-title>
           </clause>
-          <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+          <foreword id="_" displayorder="2"><fmt-title>Foreword</fmt-title>
           <p align="left" id="_08bfe952-d57f-4150-9c95-5d52098cc2a8">Vache Equipment<br/>
       Fictitious<br/>
       World</p>
@@ -1974,7 +1974,7 @@ RSpec.describe IsoDoc do
            <clause type="toc" id="_" displayorder="1">
            <fmt-title depth="1">Table of contents</fmt-title>
            </clause>
-           <foreword displayorder="2">
+           <foreword id="_" displayorder="2">
                     <title id="_">Foreword</title>
          <fmt-title depth="1">
                <semx element="title" source="_">Foreword</semx>
@@ -2040,7 +2040,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_toc" displayorder="1">
           <fmt-title depth="1">Table of contents</fmt-title>
           </clause>
-        <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+        <foreword id="_" displayorder="2"><fmt-title>Foreword</fmt-title>
       <passthrough formats="doc,rfc">&lt;A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
@@ -2072,7 +2072,7 @@ RSpec.describe IsoDoc do
           <fmt-title depth="1">Table of contents</fmt-title>
            <columnbreak/>
           </clause>
-        <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+        <foreword id="_" displayorder="2"><fmt-title>Foreword</fmt-title>
       </foreword></preface>
       </iso-standard>
     INPUT
