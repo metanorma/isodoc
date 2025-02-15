@@ -26,10 +26,11 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(Xml::C14n.format(word)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+    expect(Xml::C14n.format(strip_guid(word)))
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
       <div class="WordSection2">
               <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-              <div>
+              <div><a name="_" id="_"/>
                 <h1 class="ForewordTitle">Foreword</h1>
                 <table class="dl">
                   <tr>
@@ -237,12 +238,13 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(Xml::C14n.format(word.gsub(/_Toc\d\d+/, "_Toc")
+    expect(Xml::C14n.format(strip_guid(word).gsub(/_Toc\d\d+/, "_Toc")
       .gsub(/<o:p>&#xA0;<\/o:p>/, "")))
       .to be_equivalent_to Xml::C14n.format(<<~'OUTPUT')
            <div class="WordSection2">
          /* an empty word intro page */
-        <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="TOC"><p class="zzContents">Table of Contents</p><p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"/><span style="mso-spacerun:yes"> </span>TOC \o "1-2" \h \z \u <span style="mso-element:field-separator"/></span><span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB"><a href="#_Toc">Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-tab-count:1 dotted">. </span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-begin"/></span>
+        <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="TOC"><a name="_" id="_"/>
+        <p class="zzContents">Table of Contents</p><p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"/><span style="mso-spacerun:yes"> </span>TOC \o "1-2" \h \z \u <span style="mso-element:field-separator"/></span><span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB"><a href="#_Toc">Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-tab-count:1 dotted">. </span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-begin"/></span>
         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \h </span>
           <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"/></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
           <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"/><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-end"/></span></a></span></span></p><p class="MsoToc2"><span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB"><a href="#_Toc">Introduction to this  <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-tab-count:1 dotted">. </span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-begin"/></span>
@@ -610,39 +612,83 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(Xml::C14n.format(word)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-      <div xmlns:m="m" class="WordSection2">
+    expect(Xml::C14n.format(strip_guid(word)))
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+       <div xmlns:m="m" class="WordSection2">
           <p class="MsoNormal">
-            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
           </p>
           <div>
-            <h1 class="ForewordTitle">Foreword</h1>
-            <div class="ul_wrap">
-              <p class="MsoListParagraphCxSpFirst" style="">A
-            <div class="ListContLevel1"><p class="MsoNormal">B</p></div></p>
-              <p class="MsoListParagraphCxSpLast">
-                <div class="ol_wrap">
-                  <p class="MsoListParagraphCxSpFirst" style="">C
-            <div class="ListContLevel2"><p class="MsoNormal">D</p></div>
-            <div class="ListContLevel2"><p class="Sourcecode">E</p></div></p>
-                </div>
-              </p>
-            </div>
-            <div class="ol_wrap">
-              <p class="MsoListParagraphCxSpFirst" style="">A1
-            <div class="ListContLevel1"><p class="MsoNormal">B1</p></div></p>
-              <p class="MsoListParagraphCxSpLast">
-                <div class="ul_wrap">
-                  <p class="MsoListParagraphCxSpFirst" style="">C1
-            <div class="ListContLevel2"><div><a name="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62" id="_5fc1ef0f-75d2-4b54-802c-b1bad4a53b62"/><div class="formula"><p class="MsoNormal"><span class="stem">(#(D1)#)</span><span style="mso-tab-count:1">  </span></p></div></div></div>
-            <div class="ListContLevel2"><table class="dl"><a name="_f8fb7ed7-7874-44a8-933f-06e0e86fb264" id="_f8fb7ed7-7874-44a8-933f-06e0e86fb264"/><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal"><i>n</i></p></td><td valign="top"><p class="MsoNormal"><a name="_a27281a4-b20e-4d0b-a780-bab9e851b03e" id="_a27281a4-b20e-4d0b-a780-bab9e851b03e"/>is the number of coating layers</p></td></tr></table></div>
-            </p>
-                </div>
-              </p>
-            </div>
+             <a name="_" id="_"/>
+             <h1 class="ForewordTitle">Foreword</h1>
+             <div class="ul_wrap">
+                <p class="MsoListParagraphCxSpFirst" style="">
+                   A
+                   <div class="ListContLevel1">
+                      <p class="MsoNormal">B</p>
+                   </div>
+                </p>
+                <p class="MsoListParagraphCxSpLast">
+                   <div class="ol_wrap">
+                      <p class="MsoListParagraphCxSpFirst" style="">
+                         C
+                         <div class="ListContLevel2">
+                            <p class="MsoNormal">D</p>
+                         </div>
+                         <div class="ListContLevel2">
+                            <p class="Sourcecode">E</p>
+                         </div>
+                      </p>
+                   </div>
+                </p>
+             </div>
+             <div class="ol_wrap">
+                <p class="MsoListParagraphCxSpFirst" style="">
+                   A1
+                   <div class="ListContLevel1">
+                      <p class="MsoNormal">B1</p>
+                   </div>
+                </p>
+                <p class="MsoListParagraphCxSpLast">
+                   <div class="ul_wrap">
+                      <p class="MsoListParagraphCxSpFirst" style="">
+                         C1
+                         <div class="ListContLevel2">
+                            <div>
+                               <a name="_" id="_"/>
+                               <div class="formula">
+                                  <p class="MsoNormal">
+                                     <span class="stem">(#(D1)#)</span>
+                                     <span style="mso-tab-count:1">  </span>
+                                  </p>
+                               </div>
+                            </div>
+                         </div>
+                         <div class="ListContLevel2">
+                            <table class="dl">
+                               <a name="_" id="_"/>
+                               <tr>
+                                  <td valign="top" align="left">
+                                     <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">
+                                        <i>n</i>
+                                     </p>
+                                  </td>
+                                  <td valign="top">
+                                     <p class="MsoNormal">
+                                        <a name="_" id="_"/>
+                                        is the number of coating layers
+                                     </p>
+                                  </td>
+                               </tr>
+                            </table>
+                         </div>
+                      </p>
+                   </div>
+                </p>
+             </div>
           </div>
           <p class="MsoNormal"> </p>
-        </div>
+       </div>
     OUTPUT
   end
 
@@ -661,12 +707,13 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(Xml::C14n.format(word)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+    expect(Xml::C14n.format(strip_guid(word)))
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
       <div class="WordSection2">
                    <p class="MsoNormal">
                      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                    </p>
-                   <div>
+                   <div><a name="_" id="_"/>
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div class="example"><a name="samplecode" id="samplecode"></a>
                <p class="example">ABC</p>
@@ -695,12 +742,13 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(Xml::C14n.format(word)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+    expect(Xml::C14n.format(strip_guid(word)))
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
       <div class="WordSection2">
                <p class="MsoNormal">
                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
-               <div>
+               <div><a name="_" id="_"/>
                  <h1 class="ForewordTitle">Foreword</h1>
                  <div class="figure"><a name="fig1" id="fig1"></a>
            <p style="page-break-after:avoid;" class="figure"><img src="_" width="400" height="337"/></p>
@@ -734,28 +782,53 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(Xml::C14n.format(word)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-      <div class="WordSection2" xmlns:m="m">
-              <p class="MsoNormal">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-              </p>
-              <div>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <div align="center" class="table_container">
-                  <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;"><a name="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7" id="_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7"></a>
-                    <thead>
+    expect(Xml::C14n.format(strip_guid(word)))
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+       <div xmlns:m="m" class="WordSection2">
+          <p class="MsoNormal">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div>
+             <a name="_" id="_"/>
+             <h1 class="ForewordTitle">Foreword</h1>
+             <div align="center" class="table_container">
+                <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                   <a name="_" id="_"/>
+                   <thead>
                       <tr>
                          <td rowspan="2" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                         <p style="page-break-after:avoid" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"/>Output wavelength <span class="stem"><m:oMath><m:d><m:dPr><m:begChr m:val="("/><m:sepChr m:val=""/><m:endChr m:val=")"/></m:dPr><m:e><m:r><m:t>μ</m:t></m:r><m:r><m:t>m</m:t></m:r></m:e></m:d></m:oMath></span></p>
-              </td>
-               <th colspan="3" align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Predictive wavelengths</th>
+                            <p style="page-break-after:avoid" class="MsoNormal">
+                               <a name="_" id="_"/>
+                               Output wavelength
+                               <span class="stem">
+                                  <m:oMath>
+                                     <m:d>
+                                        <m:dPr>
+                                           <m:begChr m:val="("/>
+                                           <m:sepChr m:val=""/>
+                                           <m:endChr m:val=")"/>
+                                        </m:dPr>
+                                        <m:e>
+                                           <m:r>
+                                              <m:t>μ</m:t>
+                                           </m:r>
+                                           <m:r>
+                                              <m:t>m</m:t>
+                                           </m:r>
+                                        </m:e>
+                                     </m:d>
+                                  </m:oMath>
+                               </span>
+                            </p>
+                         </td>
+                         <th colspan="3" align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Predictive wavelengths</th>
                       </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-              <p class="MsoNormal">&#xA0;</p>
-            </div>
+                   </thead>
+                </table>
+             </div>
+          </div>
+          <p class="MsoNormal"> </p>
+       </div>
     OUTPUT
   end
 
@@ -782,32 +855,43 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2" xmlns:m="m">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(/src="[^"]+"/, 'src="_"')
-    expect(Xml::C14n.format(word)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-      <div class='WordSection2' xmlns:m='m'>
-           <p class='MsoNormal'>
-             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-           </p>
-           <div>
-             <h1 class='ForewordTitle'>Foreword</h1>
-             <div align='center' class="table_container">
-               <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;'>
-                 <a name='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7' id='_fe12b8f8-6858-4cd6-af7d-d4b6f3ebd1a7'/>
-                                <thead>
-                 <tr>
-                   <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                     <p style="text-align: left;page-break-after:avoid" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb56" id="_c47d9b39-adb2-431d-9320-78cb148fdb56"/>Output wavelength</p>
-                     <p style="text-align: left;page-break-after:avoid" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb57" id="_c47d9b39-adb2-431d-9320-78cb148fdb57"/>Output wavelength</p>
-                   </td>
-                   <th colspan="3" align="right" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-                     <p style="text-align: right;page-break-after:avoid" class="MsoNormal"><a name="_c47d9b39-adb2-431d-9320-78cb148fdb58" id="_c47d9b39-adb2-431d-9320-78cb148fdb58"/>Predictive wavelengths</p>
-                   </th>
-                 </tr>
-               </thead>
-               </table>
+    expect(Xml::C14n.format(strip_guid(word)))
+    .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+       <div xmlns:m="m" class="WordSection2">
+          <p class="MsoNormal">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div>
+             <a name="_" id="_"/>
+             <h1 class="ForewordTitle">Foreword</h1>
+             <div align="center" class="table_container">
+                <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                   <a name="_" id="_"/>
+                   <thead>
+                      <tr>
+                         <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
+                            <p style="text-align: left;page-break-after:avoid" class="MsoNormal">
+                               <a name="_" id="_"/>
+                               Output wavelength
+                            </p>
+                            <p style="text-align: left;page-break-after:avoid" class="MsoNormal">
+                               <a name="_" id="_"/>
+                               Output wavelength
+                            </p>
+                         </td>
+                         <th colspan="3" align="right" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
+                            <p style="text-align: right;page-break-after:avoid" class="MsoNormal">
+                               <a name="_" id="_"/>
+                               Predictive wavelengths
+                            </p>
+                         </th>
+                      </tr>
+                   </thead>
+                </table>
              </div>
-           </div>
-           <p class='MsoNormal'>&#xA0;</p>
-         </div>
+          </div>
+          <p class="MsoNormal"> </p>
+       </div>
     OUTPUT
   end
 
@@ -886,111 +970,118 @@ RSpec.describe IsoDoc do
     expect(html).to include("div.WordSection3_1 {page:WordSection3P;}")
     expect(html).to include("div.WordSection3_2 {page:WordSection3L;}")
 
-    expect(Xml::C14n.format(html.sub(/^.*<body /m, "<body ")
+    expect(Xml::C14n.format(strip_guid(html).sub(/^.*<body /m, "<body ")
       .sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-                <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72'>
-                  <div class='WordSection2'>
-                  <p class='MsoNormal'>
-           <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-         </p>
-                    <div class='Section3' id=''>
-                      <h1 class='IntroTitle'>Preface 1</h1>
-                      <p align='center' style='text-align:center;' class='MsoNormal'>
-                        This is a
-                        <p class='MsoNormal'>
-                          <br clear='all' class='section'/>
-                        </p>
-                         paragraph
-                      </p>
-                    </div>
-                  </div>
-                           <div class="WordSection2_1">
-            <div align="center" class="table_container">
-              <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
-                <tbody>
-                  <tr>
-                    <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
-                    <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div>
-              <h2>Preface 1.1</h2>
-              <p class="MsoNormal">On my side</p>
-              <p class="MsoNormal">
-                <br clear="all" class="section"/>
-              </p>
-            </div>
+       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+          <div class="WordSection2">
+             <p class="MsoNormal">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div class="Section3">
+                <a name="_" id="_"/>
+                <h1 class="IntroTitle">Preface 1</h1>
+                <p style="text-align:center;" align="center" class="MsoNormal">
+                   This is a
+                   <p class="MsoNormal">
+                      <br clear="all" class="section"/>
+                   </p>
+                   paragraph
+                </p>
+             </div>
+          </div>
+          <div class="WordSection2_1">
+             <div align="center" class="table_container">
+                <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                   <tbody>
+                      <tr>
+                         <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
+                         <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
+                      </tr>
+                   </tbody>
+                </table>
+             </div>
+             <div>
+                <a name="_" id="_"/>
+                <h2>Preface 1.1</h2>
+                <p class="MsoNormal">On my side</p>
+                <p class="MsoNormal">
+                   <br clear="all" class="section"/>
+                </p>
+             </div>
           </div>
           <div class="WordSection2_0">
-            <p class="MsoNormal">Upright again</p>
-            <div>
-              <h2>Preface 1.3</h2>
-              <p class="MsoNormal">And still upright</p>
-            </div>
-            <p class="MsoNormal"> </p>
+             <p class="MsoNormal">Upright again</p>
+             <div>
+                <a name="_" id="_"/>
+                <h2>Preface 1.3</h2>
+                <p class="MsoNormal">And still upright</p>
+             </div>
+             <p class="MsoNormal"> </p>
           </div>
           <p class="MsoNormal">
-            <br clear="all" class="section"/>
+             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
-            <div>
-              <h1>Foreword</h1>
-              <div class="Note">
-                <p class="Note">For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
-                <p class="Note">
-                  <br clear="all" class="section"/>
-                </p>
-              </div>
-            </div>
+             <div>
+                <a name="_" id="_"/>
+                <h1>Foreword</h1>
+                <div class="Note">
+                   <p class="Note">
+                      For further information on the Foreword, see
+                      <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
+                   </p>
+                   <p class="Note">
+                      <br clear="all" class="section"/>
+                   </p>
+                </div>
+             </div>
           </div>
           <div class="WordSection3_2">
-            <div align="center" class="table_container">
-              <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
-                <a name="_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249" id="_c09a7e60-b0c7-4418-9bfc-2ef0bc09a249"/>
-                <thead>
-                  <tr>
-                    <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">A</th>
-                    <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">B</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">C</td>
-                    <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">D</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="2" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
-                      <div class="Note">
-                        <a name="_8fff1596-290e-4314-b03c-7a8aab97eebe" id="_8fff1596-290e-4314-b03c-7a8aab97eebe"/>
-                        <p class="Note">B</p>
-                      </div>
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-            <p class="Note">
-              <br clear="all" class="section"/>
-            </p>
+             <div align="center" class="table_container">
+                <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                   <a name="_" id="_"/>
+                   <thead>
+                      <tr>
+                         <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">A</th>
+                         <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">B</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                      <tr>
+                         <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">C</td>
+                         <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">D</td>
+                      </tr>
+                   </tbody>
+                   <tfoot>
+                      <tr>
+                         <td colspan="2" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
+                            <div class="Note">
+                               <a name="_" id="_"/>
+                               <p class="Note">B</p>
+                            </div>
+                         </td>
+                      </tr>
+                   </tfoot>
+                </table>
+             </div>
+             <p class="Note">
+                <br clear="all" class="section"/>
+             </p>
           </div>
           <div class="WordSection3_1">
-            <p class="Note">And up</p>
-            <p class="MsoNormal">
-              <br clear="all" class="section"/>
-            </p>
+             <p class="Note">And up</p>
+             <p class="MsoNormal">
+                <br clear="all" class="section"/>
+             </p>
           </div>
           <div class="WordSection3_0">
-            <div class="Section3">
-              <a name="_level_1" id="_level_1"/>
-              <h1 class="Annex">Annex 1</h1>
-            </div>
+             <div class="Section3">
+                <a name="_level_1" id="_"/>
+                <h1 class="Annex">Annex 1</h1>
+             </div>
           </div>
           <div style="mso-element:footnote-list"/>
-        </body>
+       </body>
       OUTPUT
   end
 

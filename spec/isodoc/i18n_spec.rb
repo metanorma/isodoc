@@ -93,7 +93,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword obligation="informative" displayorder="2">
+             <foreword obligation="informative" displayorder="2" id="_">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -426,7 +426,7 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
               #{HTML_HDR}
                      <br/>
-                     <div>
+                     <div id="_">
                        <h1 class="ForewordTitle">Foreword</h1>
                        <p id='A'>
         See
@@ -666,7 +666,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Sommaire</fmt-title>
              </clause>
-             <foreword obligation="informative" displayorder="2">
+             <foreword obligation="informative" displayorder="2" id="_">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -999,7 +999,7 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
                   #{HTML_HDR.gsub(' lang="en">', ' lang="fr">').sub('Table of contents', 'Sommaire')}
                      <br/>
-                     <div>
+                     <div id="_">
                        <h1 class="ForewordTitle">Foreword</h1>
                        <p id='A'>
         See
@@ -1184,7 +1184,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">目　次</fmt-title>
              </clause>
-             <foreword obligation="informative" displayorder="2">
+             <foreword obligation="informative" displayorder="2" id="_">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -1536,7 +1536,7 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
       #{HTML_HDR.gsub(' lang="en">', ' lang="zh">').gsub('Table of contents', '目　次')}
              <br/>
-             <div>
+             <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <p id="A">See <a href="#M">条5</a></p>
              </div>
@@ -1739,7 +1739,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1"/>
               </clause>
-              <foreword obligation="informative" displayorder="2">
+              <foreword obligation="informative" displayorder="2" id="_">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
                     <semx element="title" source="_">Foreword</semx>
@@ -2159,7 +2159,7 @@ RSpec.describe IsoDoc do
         <h1 class="IntroTitle"/>
       </div>
       <br/>
-                   <div>
+                   <div id="_">
                      <h1 class='ForewordTitle'>Foreword</h1>
                      <p id='A'>
         See
@@ -2295,7 +2295,7 @@ RSpec.describe IsoDoc do
       </ext>
       </bibdata>
       <preface>
-      <foreword obligation="informative">
+      <foreword obligation="informative" id="_">
          <title>Foreword</title>
          <p id="A"><eref type="inline" bibitemid="ISO712"><locality type="locality:prelude"><referenceFrom>7</referenceFrom></locality></eref></p>
        </foreword>
@@ -2447,13 +2447,13 @@ RSpec.describe IsoDoc do
              <p id="_" type="floating-title" displayorder="2">
                 <semx element="floating-title" source="_">樣　板</semx>
              </p>
-             <abstract obligation="informative" language="jp" displayorder="3">
+             <abstract obligation="informative" language="jp" displayorder="3" id="_">
                 <title id="_">解題</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">解　題</semx>
                 </fmt-title>
              </abstract>
-             <foreword obligation="informative" displayorder="4">
+             <foreword obligation="informative" displayorder="4" id="_">
                 <title id="_">文件序言</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">文件序言</semx>

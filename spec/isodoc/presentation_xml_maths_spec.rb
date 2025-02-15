@@ -24,7 +24,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Table of contents</fmt-title>
               </clause>
-              <p displayorder="2">
+              <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mstyle>
@@ -241,7 +241,7 @@ RSpec.describe IsoDoc do
                  <div id="_" class="TOC">
                     <h1 class="IntroTitle">Table of contents</h1>
                  </div>
-                 <p>
+                 <p id="_">
                     <span class="stem"/>
                     <span class="stem"/>
                     <span class="stem"/>
@@ -467,7 +467,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Table of contents</fmt-title>
               </clause>
-              <p displayorder="2">
+              <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mn>30000</mn>
@@ -730,7 +730,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Sommaire</fmt-title>
               </clause>
-              <p displayorder="2">
+              <p displayorder="2" id="_">
                  <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <mn>30000</mn>
                  </math>
@@ -936,7 +936,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Sommaire</fmt-title>
               </clause>
-              <p displayorder="2">
+              <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mn>30000</mn>
@@ -1150,7 +1150,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Inhaltsübersicht</fmt-title>
               </clause>
-              <p displayorder="2">
+              <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mn>...</mn>
@@ -1220,7 +1220,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Table of contents</fmt-title>
               </clause>
-              <p displayorder="2">
+              <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mn>...</mn>
@@ -3387,7 +3387,17 @@ RSpec.describe IsoDoc do
               </clause>
            </preface>
            <sections>
-              <clause displayorder="2">
+              <clause id="_" displayorder="2">
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="_">1</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="_">1</semx>
+                 </fmt-xref-label>
                  <formula id="_" autonum="1">
                     <fmt-name>
                        <span class="fmt-caption-label">
@@ -3397,6 +3407,17 @@ RSpec.describe IsoDoc do
                        </span>
                     </fmt-name>
                     <fmt-xref-label>
+                       <span class="fmt-element-name">Formula</span>
+                       <span class="fmt-autonum-delim">(</span>
+                       <semx element="autonum" source="_">1</semx>
+                       <span class="fmt-autonum-delim">)</span>
+                    </fmt-xref-label>
+                    <fmt-xref-label container="_">
+                       <span class="fmt-xref-container">
+                          <span class="fmt-element-name">Clause</span>
+                          <semx element="autonum" source="_">1</semx>
+                       </span>
+                       <span class="fmt-comma">,</span>
                        <span class="fmt-element-name">Formula</span>
                        <span class="fmt-autonum-delim">(</span>
                        <semx element="autonum" source="_">1</semx>
@@ -3433,8 +3454,8 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
-             <div>
-               <h1/>
+             <div id="_">
+               <h1>1.</h1>
                <div id="_">
                  <div class="formula">
                     <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>  (1)</p>
@@ -3453,8 +3474,8 @@ RSpec.describe IsoDoc do
         <br clear="all" class="section"/>
      </p>
      <div class="WordSection3">
-                 <div>
-               <h1/>
+             <div id="_">
+               <h1>1.</h1>
                <div id="_">
                  <div class="formula">
                  <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">  </span>(1)</p>

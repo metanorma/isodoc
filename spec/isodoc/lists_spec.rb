@@ -96,7 +96,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
-         <div>
+         <div id="_">
                    <h1 class='ForewordTitle'>Foreword</h1>
                    <div class="ul_wrap">
                    <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
@@ -124,7 +124,7 @@ RSpec.describe IsoDoc do
                     <p class="page-break">
                       <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                     </p>
-                    <div>
+                    <div id="_">
                       <h1 class='ForewordTitle'>Foreword</h1>
                       <div class="ul_wrap">
                       <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
@@ -219,7 +219,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
-                   <div>
+                   <div id="_">
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div class="ol_wrap">
                  <p class='ListTitle'>Caption</p>
@@ -253,7 +253,7 @@ RSpec.describe IsoDoc do
               <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
-              <div>
+              <div id="_">
                 <h1 class='ForewordTitle'>Foreword</h1>
                 <div class="ol_wrap">
                 <p class='ListTitle'>Caption</p>
@@ -325,7 +325,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
-                   <div>
+                   <div id="_">
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div class="ol_wrap">
                      <ol type="I" id="_ae34a226-aab4-496d-987b-1aa7b6314026">
@@ -420,7 +420,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
          #{HTML_HDR}
               <br/>
-              <div>
+              <div id="_">
                 <h1 class="ForewordTitle">Foreword</h1>
                 <div class="figdl">
                 <p class='ListTitle'>Caption</p>
@@ -452,7 +452,7 @@ RSpec.describe IsoDoc do
     word = <<~OUTPUT
       #{WORD_HDR}
                <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-               <div>
+               <div id="_">
                  <h1 class="ForewordTitle">Foreword</h1>
                  <p class='ListTitle'>Caption</p>
                  <table class="dl" id="_">
@@ -546,59 +546,66 @@ RSpec.describe IsoDoc do
          <style>
          </style>
        </head>
-                <body lang="EN-US" link="blue" vlink="#954F72">
-           <div class="WordSection1">
-             <p> </p>
-           </div>
-           <p class="section-break">
-             <br clear="all" class="section"/>
-           </p>
-           <div class="WordSection2">
-             <p class="page-break">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <table id="_732d3f57-4f88-40bf-9ae9-633891edc394" class="dl">
-                 <tr>
-                   <td valign="top" align="left">
-                     <p align="left" style="margin-left:0pt;text-align:left;">A Deflist</p>
-                   </td>
-                   <td valign="top">
-                   <div class="figdl">
-                     <a id="_732d3f57-4f88-40bf-9ae9-633891edc395"/>
-                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">W<span style="mso-tab-count:1">  </span>mass fraction of gelatinized kernels</p>
-                     </div>
-                   </td>
-                 </tr>
-               </table>
-               <div align="center" class="table_container">
-                 <table id="_732d3f57-4f88-40bf-9ae9-633891edc396" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
-                   <tbody>
-                     <tr>
-                       <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
-                       <div class="figdl">
-                         <a id="_732d3f57-4f88-40bf-9ae9-633891edc397"/>
-                         <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">X<span style="mso-tab-count:1">  </span>expressed in per cent</p>
-                         </div>
-                       </td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </div>
+          <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+                <p> </p>
              </div>
-             <p> </p>
-           </div>
-           <p class="section-break">
-             <br clear="all" class="section"/>
-           </p>
-           <div class="WordSection3">
-           </div>
-         </body>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection2">
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <table id="_" class="dl">
+                      <tr>
+                         <td valign="top" align="left">
+                            <p align="left" style="margin-left:0pt;text-align:left;">A Deflist</p>
+                         </td>
+                         <td valign="top">
+                            <div class="figdl">
+                               <a id="_"/>
+                               <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
+                                  W
+                                  <span style="mso-tab-count:1">  </span>
+                                  mass fraction of gelatinized kernels
+                               </p>
+                            </div>
+                         </td>
+                      </tr>
+                   </table>
+                   <div align="center" class="table_container">
+                      <table id="_" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                  <div class="figdl">
+                                     <a id="_"/>
+                                     <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
+                                        X
+                                        <span style="mso-tab-count:1">  </span>
+                                        expressed in per cent
+                                     </p>
+                                  </div>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                </div>
+                <p> </p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3"/>
+          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 end

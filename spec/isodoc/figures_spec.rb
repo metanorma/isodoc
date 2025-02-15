@@ -842,7 +842,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
       <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-             <foreword displayorder='2'>
+             <foreword displayorder='2' id="_">
                       <title id="_">Foreword</title>
          <fmt-title depth="1">
                <semx element="title" source="_">Foreword</semx>
@@ -894,7 +894,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
       <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-             <foreword displayorder='2'>
+             <foreword displayorder='2' id="_">
                  <title id="_">Foreword</title>
         <fmt-title depth="1">
               <semx element="title" source="_">Foreword</semx>
@@ -926,7 +926,7 @@ RSpec.describe IsoDoc do
     html = <<~HTML
       #{HTML_HDR}
               <br/>
-                <div>
+                <div id="_">
                   <h1 class='ForewordTitle'>Foreword</h1>
                   <div id='figureA-1' class='figure'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' height="200" width="200">
@@ -946,7 +946,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-            <div>
+            <div id="_">
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='figureA-1' class='figure'>
               <img src='_.emf' height='200' width='200'/>
@@ -974,7 +974,8 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(presxml
          .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", output, true)))).to be_equivalent_to strip_guid(Xml::C14n.format(html))
+      .convert("test", output, true))))
+      .to be_equivalent_to strip_guid(Xml::C14n.format(html))
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", output, true)
       .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
@@ -1002,7 +1003,7 @@ RSpec.describe IsoDoc do
       <clause type="toc" id="_" displayorder="1">
       <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
-            <foreword displayorder='2'>
+            <foreword displayorder='2' id="_">
                 <title id="_">Foreword</title>
         <fmt-title depth="1">
               <semx element="title" source="_">Foreword</semx>
@@ -1042,7 +1043,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-            <div>
+            <div id="_">
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='figureA-1' class='figure'>
                 <img src='spec/assets/odf.emf'  height='' width=''/>
@@ -1101,7 +1102,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
             <br/>
-            <div>
+            <div id="_">
             <h1 class='ForewordTitle'>Foreword</h1>
                      <div class='example'>
                        <pre id='B' class='sourcecode'>A B C</pre>
@@ -1126,7 +1127,8 @@ RSpec.describe IsoDoc do
              </html>
     OUTPUT
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(output)
+      .convert("test", input, true)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes svgmap" do
@@ -1213,7 +1215,7 @@ RSpec.describe IsoDoc do
              </semx>
           </sections>
           <bibliography>
-             <references hidden="true" normative="false" displayorder="2">
+             <references hidden="true" normative="false" displayorder="2" id="_">
                 <bibitem id="express_action_schema" type="internal">
                    <docidentifier type="repository">express/action_schema</docidentifier>
                    <docidentifier scope="biblio-tag">express/action_schema</docidentifier>

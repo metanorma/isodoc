@@ -20,53 +20,6 @@ RSpec.describe IsoDoc do
     expect(File.exist?("test.presentation.xml")).to be true
   end
 
-  it "calculates depth of clauses regardless of whether they have anchors" do
-    input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
-        <sections>
-          <clause><title>A</title>
-          <clause><title>B</title>
-          <clause><title>C</title>
-          </clause></clause></clause>
-        </sections>
-      </iso-standard>
-    INPUT
-    output = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
-             </clause>
-          </preface>
-          <sections>
-             <clause displayorder="2">
-                <title id="_">A</title>
-                <fmt-title depth="1">
-                      <semx element="title" source="_">A</semx>
-                </fmt-title>
-                <clause>
-                   <title id="_">B</title>
-                   <fmt-title depth="2">
-                         <semx element="title" source="_">B</semx>
-                   </fmt-title>
-                   <clause>
-                      <title id="_">C</title>
-                      <fmt-title depth="3">
-                            <semx element="title" source="_">C</semx>
-                      </fmt-title>
-                   </clause>
-                </clause>
-             </clause>
-          </sections>
-       </iso-standard>
-    OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
-      .new(presxml_options)
-      .convert("test", input, true))
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(output)
-  end
-
   it "resolve address components" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1626,11 +1579,22 @@ RSpec.describe IsoDoc do
                  </fmt-xref-label>
                  <p id="_">No terms and definitions are listed in this document.</p>
               </terms>
-              <references hidden="true" normative="true" displayorder="3">
+              <references hidden="true" normative="true" id="_" displayorder="3">
                  <title id="_">Normative references</title>
                  <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="_"/>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
                     <semx element="title" source="_">Normative references</semx>
                  </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="_"/>
+                 </fmt-xref-label>
               </references>
            </sections>
            <bibliography>
@@ -1675,7 +1639,7 @@ RSpec.describe IsoDoc do
              <p id="_" type="floating-title" displayorder="2">
                 <semx element="floating-title" source="_">FL 6</semx>
              </p>
-             <abstract displayorder="3"/>
+             <abstract displayorder="3" id="_"/>
              <floating-title original-id="_">FL 3</floating-title>
              <p id="_" type="floating-title" displayorder="4">
                 <semx element="floating-title" source="_">FL 3</semx>
@@ -1684,7 +1648,7 @@ RSpec.describe IsoDoc do
              <p id="_" type="floating-title" displayorder="5">
                 <semx element="floating-title" source="_">FL 4</semx>
              </p>
-             <foreword displayorder="6">
+             <foreword displayorder="6" id="_">
                 <title id="_">Foreword 1</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword 1</semx>
@@ -1694,7 +1658,7 @@ RSpec.describe IsoDoc do
              <p id="_" type="floating-title" displayorder="7">
                 <semx element="floating-title" source="_">FL 5</semx>
              </p>
-             <foreword displayorder="8">
+             <foreword displayorder="8" id="_">
                 <title id="_">Foreword 2</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword 2</semx>
@@ -1708,12 +1672,12 @@ RSpec.describe IsoDoc do
              <p id="_" type="floating-title" displayorder="10">
                 <semx element="floating-title" source="_">FL 2</semx>
              </p>
-             <introduction displayorder="11"/>
+             <introduction displayorder="11" id="_"/>
              <floating-title original-id="_">FL 0</floating-title>
              <p id="_" type="floating-title" displayorder="12">
                 <semx element="floating-title" source="_">FL 0</semx>
              </p>
-             <acknowledgements displayorder="13"/>
+             <acknowledgements displayorder="13" id="_"/>
           </preface>
        </standard-document>
     OUTPUT
@@ -1758,7 +1722,7 @@ RSpec.describe IsoDoc do
              <p id="_" type="floating-title" displayorder="3">
                 <semx element="floating-title" source="_">FL 2</semx>
              </p>
-             <abstract displayorder="4"/>
+             <abstract displayorder="4" id="_"/>
              <floating-title original-id="_">FL 3</floating-title>
              <p id="_" type="floating-title" displayorder="5">
                 <semx element="floating-title" source="_">FL 3</semx>
@@ -1767,7 +1731,7 @@ RSpec.describe IsoDoc do
              <p id="_" type="floating-title" displayorder="6">
                 <semx element="floating-title" source="_">FL 4</semx>
              </p>
-             <foreword displayorder="7">
+             <foreword displayorder="7" id="_">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -1781,12 +1745,12 @@ RSpec.describe IsoDoc do
              <p id="_" type="floating-title" displayorder="9">
                 <semx element="floating-title" source="_">FL 6</semx>
              </p>
-             <introduction displayorder="10"/>
+             <introduction displayorder="10" id="_"/>
              <floating-title original-id="_">FL 7</floating-title>
              <p id="_" type="floating-title" displayorder="11">
                 <semx element="floating-title" source="_">FL 7</semx>
              </p>
-             <acknowledgements displayorder="12"/>
+             <acknowledgements displayorder="12" id="_"/>
           </preface>
        </standard-document>
     OUTPUT

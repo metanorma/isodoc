@@ -889,7 +889,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                   <br/>
-                  <div>
+                  <div id="_">
                     <h1 class="ForewordTitle">Foreword</h1>
                     <p id="_" style="text-align:left;">Vache Equipment<br/>
           Fictitious<br/>
@@ -907,7 +907,7 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-              <div>
+              <div id="_">
                 <h1 class="ForewordTitle">Foreword</h1>
                 <p id="_" align="left" style="text-align:left;">Vache Equipment<br/>
       Fictitious<br/>
@@ -1963,7 +1963,7 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
-      <preface><foreword>
+      <preface><foreword id="A">
       <passthrough formats="html,rfc">&lt;A&gt;</passthrough><em>Hello</em><passthrough formats="html,rfc">&lt;/A&gt;</passthrough>
       </foreword></preface>
       </iso-standard>
@@ -1974,7 +1974,7 @@ RSpec.describe IsoDoc do
            <clause type="toc" id="_" displayorder="1">
            <fmt-title depth="1">Table of contents</fmt-title>
            </clause>
-           <foreword id="_" displayorder="2">
+           <foreword id="A" displayorder="2">
                     <title id="_">Foreword</title>
          <fmt-title depth="1">
                <semx element="title" source="_">Foreword</semx>
@@ -1994,10 +1994,18 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::HtmlConvert.new({}).convert("test", output, false)
-    expect(Xml::C14n.format(File.read("test.html")
-      .gsub(%r{^.*<h1 class="ForewordTitle">Foreword</h1>}m, "")
-      .gsub(%r{</div>.*}m, ""))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-        <A><i>Hello</i></A>
+    expect(Nokogiri::XML(Xml::C14n.format(File.read("test.html")))
+      .at("//*[@id = 'A']").to_xml)
+    .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+           <div id="A">
+                   <h1 class="ForewordTitle">
+                      <a class="anchor" href="#A"/>
+                      <a class="header" href="#A">Foreword</a>
+                   </h1>
+                   <A>
+                      <i>Hello</i>
+                   </A>
+                </div>
       OUTPUT
 
     output = IsoDoc::PresentationXMLConvert
@@ -2048,7 +2056,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                 <br/>
-                <div>
+                <div id="_">
                   <h1 class='ForewordTitle'>Foreword</h1>
                 </div>
               </div>
@@ -2079,7 +2087,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
                 <br/>
-                <div>
+                <div id="_">
                   <h1 class='ForewordTitle'>Foreword</h1>
                 </div>
               </div>

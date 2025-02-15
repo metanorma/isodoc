@@ -537,7 +537,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-             <foreword displayorder="1">
+             <foreword displayorder="1" id="_">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">Foreword</fmt-title>
                 <p>
@@ -583,7 +583,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
-                 <div>
+                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
          <i><b>&lt;</b></i> <tt><a href="B">B</a></tt> <a href="#_http_1_1">Requirement <tt>/req/core/http</tt></a>  Requirement <tt>/req/core/http</tt>
@@ -619,7 +619,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
           #{HTML_HDR}
             <br/>
-            <div>
+            <div id="_">
               <h1 class='ForewordTitle'>Foreword</h1>
               <p>
                 <img src='rice_images/rice_image1.png' height='20' width='30' title='titletxt' alt='alttext'/>
@@ -656,7 +656,7 @@ RSpec.describe IsoDoc do
     presxml = <<~INPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-             <foreword displayorder="1">
+             <foreword displayorder="1" id="_">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">Foreword</fmt-title>
                 <p>
@@ -705,7 +705,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
-                 <div>
+                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
          <a href="http://example.com">http://example.com</a>
@@ -724,7 +724,8 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
@@ -792,7 +793,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
-                 <div>
+                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
          <para><b role="strong">&lt;barry fred="http://example.com"&gt;example&lt;/barry&gt;</b></para>
@@ -1167,7 +1168,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
              <br/>
-             <div>
+             <div id="_">
                <h1 class='ForewordTitle'>Foreword</h1>
                               <p>
                  <sup>
@@ -1199,7 +1200,8 @@ RSpec.describe IsoDoc do
       .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", output, true)))).to be_equivalent_to Xml::C14n.format(html)
+      .convert("test", output, true))))
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes eref content" do
@@ -1650,7 +1652,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     html = <<~OUTPUT
-      <div>
+      <div id="_">
          <h1 class="ForewordTitle">Avant-propos</h1>
          <p>
             <a href="https://www.google.com/fr">ISO 712</a>
@@ -1674,7 +1676,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-      <div>
+      <div id="_">
          <h1 class="ForewordTitle">Avant-propos</h1>
          <p>
            <a href="https://www.google.com/fr">ISO 712</a>
@@ -1703,12 +1705,12 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(presxml)
     xml = IsoDoc::HtmlConvert.new({})
       .convert("test", output, true)
-    expect(Xml::C14n.format(Nokogiri::XML(xml)
+    expect(Xml::C14n.format(Nokogiri::XML(strip_guid(xml))
       .at("//div[h1/@class='ForewordTitle']").to_xml))
       .to be_equivalent_to Xml::C14n.format(html)
     xml = IsoDoc::WordConvert.new({})
       .convert("test", output, true)
-    expect(Xml::C14n.format(Nokogiri::XML(xml)
+    expect(Xml::C14n.format(Nokogiri::XML(strip_guid(xml))
       .at("//div[h1/@class='ForewordTitle']").to_xml))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -2218,11 +2220,12 @@ OUTPUT
                       <semx element="title" source="_">DEF</semx>
                 </fmt-title>
              </clause>
-             <p displayorder="9">A B D E</p>
+             <p displayorder="9" id="_">A B D E</p>
           </preface>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(output)

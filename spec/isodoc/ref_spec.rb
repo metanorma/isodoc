@@ -430,7 +430,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                <br/>
-                <div>
+                <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p id="_">
                       <a href="#ISO712">ISO 712</a>
@@ -563,7 +563,7 @@ RSpec.describe IsoDoc do
             <p class="MsoNormal">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div>
+            <div><a name="_" id="_"/>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="MsoNormal">
                   <a name="_" id="_"/>
@@ -1033,7 +1033,7 @@ RSpec.describe IsoDoc do
               <language current="true">en</language>
            </bibdata>
            <preface>
-              <foreword displayorder="1">
+              <foreword displayorder="1" id="_">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
                     <semx element="title" source="_">Foreword</semx>
@@ -1370,7 +1370,7 @@ RSpec.describe IsoDoc do
           <language current="true">en</language>
         </bibdata>
         <preface>
-          <foreword displayorder="1">
+          <foreword displayorder="1" id="_">
                    <title id="_">Foreword</title>
          <fmt-title depth="1">
                <semx element="title" source="_">Foreword</semx>
@@ -1484,7 +1484,7 @@ RSpec.describe IsoDoc do
       </references></bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <foreword displayorder='2'>
+      <foreword displayorder='2' id="_">
         <title id="_">Foreword</title>
           <fmt-title depth="1">
                 <semx element="title" source="_">Foreword</semx>
@@ -1514,7 +1514,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(presxml)
 
     presxml = <<~PRESXML
-      <foreword displayorder='2'>
+      <foreword displayorder='2' id="_">
         <title id="_">Foreword</title>
           <fmt-title depth="1">
                 <semx element="title" source="_">Foreword</semx>
@@ -1575,7 +1575,7 @@ RSpec.describe IsoDoc do
       </references></bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <foreword displayorder='2'>
+      <foreword displayorder='2' id="_">
         <title id="_">Foreword</title>
           <fmt-title depth="1">
                 <semx element="title" source="_">Foreword</semx>
@@ -1638,7 +1638,7 @@ RSpec.describe IsoDoc do
       </references></bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <foreword displayorder='2'>
+      <foreword displayorder='2' id="_">
         <title id="_">Foreword</title>
           <fmt-title depth="1">
                 <semx element="title" source="_">Foreword</semx>
