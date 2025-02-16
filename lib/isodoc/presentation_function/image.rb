@@ -20,8 +20,11 @@ module IsoDoc
     end
 
     def svgmap_extract(elem)
-      if f = elem.at(ns("./figure")) then elem.replace(f)
-      else elem.remove
+      if elem.at(ns("./figure"))# then elem.replace(f)
+        n = semx_fmt_dup(elem)
+        n.xpath(ns("./target")).each(&:remove)
+        elem.next = n
+      #else elem.remove
       end
     end
 

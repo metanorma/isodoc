@@ -8,7 +8,7 @@ module IsoDoc
 
     def concept1(node)
       node.ancestors("definition, termsource, related").empty? or return
-      xref = node&.at(ns("./xref/@target"))&.text or
+      xref = node&.at(ns("./semx/fmt-xref/@target"))&.text or
         return concept_render(node, ital: "true", ref: "true", bold: "false",
                                     linkref: "true", linkmention: "false")
       if @definition_ids[xref]
@@ -20,13 +20,25 @@ module IsoDoc
     end
 
     def concept_render(node, defaults)
-      opts, render, ref = concept_render_init(node, defaults)
-      node&.at(ns("./refterm"))&.remove
+      #require "debug"; binding.b
+      opts, render, ref, ret = concept_render_init(node, defaults)
+      ret&.at(ns("./refterm"))&.remove
       ref && opts[:ref] != "false" and render&.next = " "
       concept1_linkmention(ref, render, opts)
-      concept1_ref(node, ref, opts)
-      concept1_style(node, opts)
-      node.replace(node.children)
+      concept1_ref(ret, ref, opts)
+      concept1_style(ret, opts)
+      concept_dup(node, ret)
+    end
+
+    def concept_dup(node, ret)
+      node.xpath(".//xmlns:semx[xmlns:fmt-xref | xmlns:fmt-eref | xmlns:fmt-origin | xmlns:fmt-link]").each(&:remove)
+      ret.xpath(ns(".//xref | .//eref | .//origin | .//link")).each(&:remove)
+      ret.xpath(ns(".//semx")).each do |s|
+        s.children.empty? and s.remove
+      end
+      f = Nokogiri::XML::Node.new("fmt-concept", node.document)
+      f << ret
+      node.next = f
     end
 
     def concept1_style(node, opts)
@@ -38,25 +50,37 @@ module IsoDoc
     end
 
     def concept_render_init(node, defaults)
-      opts = %i(bold ital ref linkref linkmention)
+      opts = concept_render_opts(node, defaults)
+      ret = semx_fmt_dup(node)
+      ret.children.each { |x| x.text? and x.remove }
+      [opts, ret.at(ns("./renderterm")),
+       ret.at(ns("./semx/fmt-xref | ./semx/fmt-eref | ./termref")), ret]
+    end
+
+    def concept_render_opts(node, defaults)
+      %i(bold ital ref linkref linkmention)
         .each_with_object({}) { |x, m| m[x] = node[x.to_s] || defaults[x] }
-      [opts, node.at(ns("./renderterm")),
-       node.at(ns("./xref | ./eref | ./termref"))]
     end
 
     def concept1_linkmention(ref, renderterm, opts)
       (opts[:linkmention] == "true" && !renderterm.nil? && !ref.nil?) or return
       ref2 = ref.clone
       r2 = renderterm.clone
-      renderterm.replace(ref2).children = r2
+      #renderterm.replace(ref2).children = r2
+      ref2.children = r2
+      if ref.parent.name == "semx"
+        renderterm.replace("<semx element='#{ref.parent['element']}' source='#{ref.parent['source']}'>#{to_xml(ref2)}</semx>")
+      else
+        renderterm.replace(ref2)
+      end
     end
 
     def concept1_ref(_node, ref, opts)
       ref.nil? and return
       opts[:ref] == "false" and return ref.remove
       concept1_ref_content(ref)
-      %w(xref eref).include? ref.name and get_linkend(ref)
-      opts[:linkref] == "false" && %w(xref eref).include?(ref.name) and
+      %w(fmt-xref fmt-eref).include? ref.name and get_linkend(ref)
+      opts[:linkref] == "false" && %w(fmt-xref fmt-eref).include?(ref.name) and
         ref.replace(ref.children)
     end
 
@@ -65,7 +89,7 @@ module IsoDoc
       foll = "]"
       non_locality_elems(ref).select do |c|
         !c.text? || /\S/.match(c)
-      end.empty? and
+      end.empty? or
         (prev, foll = @i18n.term_defined_in.split("%"))
       ref.previous = prev
       ref.next = foll

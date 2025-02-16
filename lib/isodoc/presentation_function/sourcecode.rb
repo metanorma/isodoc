@@ -34,7 +34,7 @@ module IsoDoc
 
     def callouts(elem)
       elem.xpath(ns(".//callout")).each do |c|
-        @callouts[c["target"]] = c.children.to_xml
+        @callouts[c["target"]] = to_xml(c.children)
       end
     end
 
@@ -42,36 +42,66 @@ module IsoDoc
       sourcehighlighter_css(docxml)
       @highlighter = sourcehighlighter
       @callouts = {}
-      docxml.xpath(ns("//sourcecode")).each do |f|
+      (docxml.xpath(ns("//sourcecode")) - 
+       docxml.xpath(ns("//metanorma-extension//sourcecode")))
+        .each do |f|
         sourcecode1(f)
       end
     end
 
     def sourcecode1(elem)
-      source_highlight(elem)
+      ret1 = semx_fmt_dup(elem)
+      #sourcecode_annot_id(elem)
       source_label(elem)
+      source_highlight(ret1, elem["linenums"] == "true", elem["lang"])
       callouts(elem)
-      annotations(elem)
+      annotations(elem, ret1)
+      fmt_sourcecode(elem, ret1)
     end
 
-    def annotations(elem)
+    def fmt_sourcecode(elem, ret1)
+      ret = Nokogiri::XML::Node.new("fmt-#{elem.name}", elem.document)
+      elem.attributes.each_key { |x| x != "id" and ret[x] = elem[x] }
+      ret1.xpath(ns("./name")).each(&:remove)
+      ret << ret1.children
+      elem << ret
+    end
+
+    # KILL
+    def sourcecode_annot_id(elem)
+      elem.xpath(ns("./annotation")).each do |a|
+        if a["original-id"]
+          a["id"] = a["original-id"]
+          a.delete("original-id")
+        end
+          a.xpath(".//*[@original-id]").each do |n|
+            n["id"] = n["original-id"]
+          n.delete("original-id")
+          end
+        end
+    end
+
+    def annotations(elem, fmt_elem)
       elem.at(ns("./annotation")) or return
       ret = ""
       elem.xpath(ns("./annotation")).each do |a|
-        a.remove
+        id = a['original-id']
+        dd = semx_fmt_dup(a)
+        dd["source"] = a["id"]
         ret += <<~OUT
-          <dt id='#{a['id']}'><span class='c'>#{@callouts[a['id']]}</span></dt>
-          <dd>#{a.children.to_xml}</dd>
+          <dt id='#{id}'><span class='c'>#{@callouts[id]}</span></dt>
+          <dd>#{to_xml dd}</dd>
         OUT
       end
-      elem << "<dl><name>#{@i18n.key}</name>#{ret}</dl>"
+      fmt_elem.xpath(ns("./annotation")).each(&:remove)
+      fmt_elem << "<dl><name>#{@i18n.key}</name>#{ret}</dl>"
     end
 
-    def source_highlight(elem)
+    def source_highlight(elem, linenums, lang)
       @highlighter or return
       markup = source_remove_markup(elem)
-      p = source_lex(elem)
-      elem.children = if elem["linenums"] == "true"
+      p = source_lex(elem, lang)
+      elem.children = if linenums
                         r = sourcecode_table_to_elem(elem, p)
                         source_restore_markup_table(r, markup)
                       else
@@ -140,8 +170,8 @@ module IsoDoc
       r
     end
 
-    def source_lex(elem)
-      lexer = Rouge::Lexer.find(elem["lang"] || "plaintext") ||
+    def source_lex(elem, lang)
+      lexer = Rouge::Lexer.find(lang || "plaintext") ||
         Rouge::Lexer.find("plaintext")
       l = Rouge::Lexers::Escape.new(start: "{^^{", end: "}^^}", lang: lexer)
       source = to_xml(elem.children).gsub(/</, "{^^{<").gsub(/>/, ">}^^}")

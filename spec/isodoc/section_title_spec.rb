@@ -157,13 +157,13 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <abstract obligation="informative" displayorder="2">
+             <abstract obligation="informative" displayorder="2" id="_">
                 <title id="_">Abstract</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Abstract</semx>
                 </fmt-title>
              </abstract>
-             <foreword obligation="informative" displayorder="3">
+             <foreword obligation="informative" displayorder="3" id="_">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -194,7 +194,7 @@ RSpec.describe IsoDoc do
                    <semx element="title" source="_">Note to reader</semx>
                 </fmt-title>
              </clause>
-             <acknowledgements obligation="informative" displayorder="7">
+             <acknowledgements obligation="informative" displayorder="7" id="_">
                 <title id="_">Acknowledgements</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Acknowledgements</semx>
@@ -616,11 +616,11 @@ RSpec.describe IsoDoc do
                   </div>
                 </div>
                     <br/>
-                        <div>
+                        <div id="_">
                         <h1 class="AbstractTitle">Abstract</h1>
                         </div>
                                 <br/>
-                                <div>
+                                <div id="_">
                                   <h1 class="ForewordTitle">Foreword</h1>
                                   <p id="A">This is a preamble</p>
                                 </div>
@@ -640,7 +640,7 @@ RSpec.describe IsoDoc do
                   <h1 class='IntroTitle'>Note to reader</h1>
                 </div>
                                 <br/>
-                <div class='Section3' id=''>
+                <div class='Section3' id='_'>
                   <h1 class='IntroTitle'>Acknowledgements</h1>
                 </div>
                                  <div id='NN1' class='Note'>
@@ -770,13 +770,13 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-            <div>
+            <div id="_">
               <h1 class="AbstractTitle">Abstract</h1>
             </div>
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div>
+            <div id="_">
               <h1 class="ForewordTitle">Foreword</h1>
               <p id="A">This is a preamble</p>
             </div>
@@ -803,7 +803,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div class="Section3" id="">
+            <div class="Section3" id="_">
               <h1 class="IntroTitle">Acknowledgements</h1>
             </div>
             <p>&#160;</p>
@@ -1033,7 +1033,7 @@ RSpec.describe IsoDoc do
             <h1 class="IntroTitle">Table of contents</h1>
           </div>
           <br/>
-            <div>
+            <div id="_">
               <h1 class='AbstractTitle'>
                 Abstract
                 <br/>
@@ -1042,7 +1042,7 @@ RSpec.describe IsoDoc do
               </h1>
             </div>
             <br/>
-            <div>
+            <div id="_">
               <h1 class='ForewordTitle'>
                 Foreword
                 <br/>
@@ -1082,7 +1082,7 @@ RSpec.describe IsoDoc do
               </h1>
             </div>
             <br/>
-            <div class='Section3' id=''>
+            <div class='Section3' id='_'>
               <h1 class='IntroTitle'>
                 Acknowledgements
                 <br/>
@@ -1263,7 +1263,7 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-      <div>
+      <div id="_">
               <h1 class='AbstractTitle'>
                 Abstract
                 <br/>
@@ -1274,7 +1274,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-            <div>
+            <div id="_">
               <h1 class='ForewordTitle'>
                 Foreword
                 <br/>
@@ -1322,7 +1322,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
             </p>
-            <div class='Section3' id=''>
+            <div class='Section3' id='_'>
               <h1 class='IntroTitle'>
                 Acknowledgements
                 <br/>
@@ -1616,7 +1616,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword obligation="informative" displayorder="2">
+             <foreword obligation="informative" displayorder="2" id="_">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -2342,9 +2342,9 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1">
                       <semx element="title" source="_">Introduction</semx>
                 </fmt-title>
-                <clause obligation="informative">
+                <clause obligation="informative" id="_">
                    <title id="_">Introduction Subsection</title>
-                   <fmt-title depth="1">
+                   <fmt-title depth="2">
                          <semx element="title" source="_">Introduction Subsection</semx>
                    </fmt-title>
                 </clause>

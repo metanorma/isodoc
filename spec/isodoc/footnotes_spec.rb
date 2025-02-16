@@ -26,7 +26,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2">
+             <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                       <semx element="title" source="_">Foreword</semx>
@@ -56,7 +56,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
-                 <div>
+                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
                    A.
@@ -92,7 +92,7 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-            <div>
+            <div id="_">
               <h1 class='ForewordTitle'>Foreword</h1>
               <p>
                 A.
@@ -173,7 +173,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Table of contents</fmt-title>
               </clause>
-              <foreword displayorder="2">
+              <foreword id="_" displayorder="2">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
                        <semx element="title" source="_">Foreword</semx>
@@ -192,7 +192,7 @@ RSpec.describe IsoDoc do
                     <p id="_">Second note.</p>
                  </review>
               </foreword>
-              <introduction displayorder="3">
+              <introduction displayorder="3" id="_">
                  <title id="_">Introduction</title>
                  <fmt-title depth="1">
                        <semx element="title" source="_">Introduction</semx>
@@ -214,15 +214,18 @@ RSpec.describe IsoDoc do
               </h1>
            </div>
            <br/>
-        <div>
-          <h1 class="ForewordTitle">Foreword</h1>
+              <div id="_">
+      <h1 class="ForewordTitle">
+         <a class="anchor" href="#_"/>
+         <a class="header" href="#_">Foreword</a>
+      </h1>
           <p id="A">A.</p>
           <p id="B">B.</p>
           <p id="C">C.</p>
         </div>
         <br />
-        <div class="Section3" id="">
-          <h1 class="IntroTitle"><a class="anchor" href="#"/> <a class="header" href="#">Introduction</a></h1>
+        <div class="Section3" id="_">
+          <h1 class="IntroTitle"><a class="anchor" href="#_"/> <a class="header" href="#_">Introduction</a></h1>
         </div>
       </main>
     OUTPUT
@@ -233,7 +236,7 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
-           <div>
+           <div><a name="_" id="_"/>
              <h1 class="ForewordTitle">Foreword</h1>
              <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
                <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
@@ -277,7 +280,7 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
-           <div class="Section3" id="">
+           <div class="Section3"><a name="_" id="_"/>
              <h1 class="IntroTitle">Introduction</h1>
            </div>
            <p class="MsoNormal"> </p>
@@ -358,7 +361,7 @@ RSpec.describe IsoDoc do
               <clause type="toc" id="_" displayorder="1">
                  <fmt-title depth="1">Table of contents</fmt-title>
               </clause>
-              <foreword displayorder="2">
+              <foreword id="_" displayorder="2" id="_">
                  <title id="_">Foreword</title>
                  <fmt-title depth="1">
                        <semx element="title" source="_">Foreword</semx>
@@ -378,7 +381,7 @@ RSpec.describe IsoDoc do
                     </ul>
                  </ol>
               </foreword>
-              <introduction displayorder="3">
+              <introduction displayorder="3" id="_">
                  <title id="_">Introduction</title>
                  <fmt-title depth="1">
                        <semx element="title" source="_">Introduction</semx>
@@ -400,8 +403,11 @@ RSpec.describe IsoDoc do
       </h1>
       </div>
       <br/>
-        <div>
-          <h1 class="ForewordTitle">Foreword</h1>
+        <div id="_">
+                <h1 class="ForewordTitle">
+         <a class="anchor" href="#_"/>
+         <a class="header" href="#_">Foreword</a>
+      </h1>
           <div class="ol_wrap">
           <ol type="a">
              <li id="A">
@@ -422,8 +428,8 @@ RSpec.describe IsoDoc do
            </div>
         </div>
         <br />
-        <div class="Section3" id="">
-          <h1 class="IntroTitle"><a class="anchor" href="#"/><a class="header" href="#">Introduction</a></h1>
+        <div class="Section3" id="_">
+          <h1 class="IntroTitle"><a class="anchor" href="#_"/><a class="header" href="#_">Introduction</a></h1>
         </div>
       </main>
     OUTPUT
@@ -433,7 +439,7 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
-           <div>
+           <div><a name="_" id="_"/>
              <h1 class="ForewordTitle">Foreword</h1>
              <div class="ol_wrap">
                <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="C">
@@ -471,7 +477,7 @@ RSpec.describe IsoDoc do
            <p class="MsoNormal">
              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
-           <div class="Section3" id="">
+           <div class="Section3"><a name="_" id="_"/>
              <h1 class="IntroTitle">Introduction</h1>
            </div>
            <p class="MsoNormal"> </p>

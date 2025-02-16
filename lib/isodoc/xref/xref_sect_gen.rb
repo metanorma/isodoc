@@ -124,6 +124,7 @@ module IsoDoc
 
       def preface_name_anchors(clause, level, title)
         xref = semx(clause, title, clause.name)
+        clause["id"] ||= "_#{UUIDTools::UUID.random_create}"
         @anchors[clause["id"]] =
           { label: nil, level:,
             xref:, title: nil,
@@ -187,6 +188,7 @@ module IsoDoc
         xref = labelled_autonum(@labels["clause"], num)
         label = num
         c = clause_title(clause) and title = semx(clause, c, "title")
+        clause["id"] ||= "_#{UUIDTools::UUID.random_create}"
         @anchors[clause["id"]] =
           { label:, xref:, title:, level:, type: "clause",
             elem: @labels["clause"] }
@@ -207,10 +209,10 @@ module IsoDoc
         label = num
         level == 1 && clause.name == "annex" and
           label = annex_name_lbl(clause, label)
-        xref = labelled_autonum(@labels["annex"], num)
         c = clause_title(clause) and title = semx(clause, c, "title")
+        clause["id"] ||= "_#{UUIDTools::UUID.random_create}"
         @anchors[clause["id"]] =
-          { label:, xref:, title:,
+          { label:, xref: labelled_autonum(@labels["annex"], num), title:,
             elem: @labels["annex"], type: "clause",
             subtype: "annex", value: num.to_s, level: }
       end

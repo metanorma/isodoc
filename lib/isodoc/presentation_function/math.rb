@@ -7,11 +7,13 @@ module IsoDoc
     MATHML = { "m" => "http://www.w3.org/1998/Math/MathML" }.freeze
 
     def mathml(docxml)
+      docxml.xpath(ns("//stem")).each { |s| stem_dup(s) }
       locale = @lang.to_sym
       @numfmt = Plurimath::NumberFormatter
         .new(locale, localize_number: @localizenumber,
                      localizer_symbols: twitter_cldr_localiser_symbols)
       docxml.xpath("//m:math", MATHML).each do |f| # rubocop:disable Style/CombinableLoops
+        f.parent&.parent&.name == "fmt-stem" or next
         mathml1(f, locale)
       end
     end
@@ -147,16 +149,25 @@ module IsoDoc
     def maths_just_numeral(node)
       mn = node.at(".//m:mn", MATHML).children.text
         .sub(/\^([0-9+-]+)$/, "<sup>\\1</sup>")
-      if node.parent.name == "stem"
-        node.parent.replace(mn)
-      else
+      #if node.parent.parent.name == "stem"
+        #node.replace(mn)
+      #else
         node.replace(mn)
-      end
+      #end
     end
 
     def mathml1(node, locale)
       mathml_style_inherit(node)
       mathml_number(node, locale)
+    end
+
+    def stem_dup(node)
+      sem_xml_descendant?(node) and return
+      ret = semx_fmt_dup(node)
+      f = Nokogiri::XML::Node.new("fmt-stem", node.document)
+      t = node["type"] and f["type"] = t
+      f << ret
+      node.next = f
     end
 
     # convert any Ascii superscripts to correct(ish) MathML
@@ -198,11 +209,11 @@ module IsoDoc
     def mathml_number_to_number(node)
       (node.elements.size == 1 && node.elements.first.name == "mn") or return
       repl = node.at("./m:mn", MATHML).children
-      if node.parent.name == "stem"
-        node.parent.replace(repl)
-      else
+      #if node.parent.name == "stem"
+        #node.parent.replace(repl)
+      #else
         node.replace(repl)
-      end
+      #end
     end
   end
 end

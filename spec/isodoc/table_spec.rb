@@ -201,9 +201,15 @@ RSpec.describe IsoDoc do
                        <tr>
                           <td align="left">
                              Reproducibility limit,
-                             <stem type="AsciiMath">R</stem>
+                             <stem type="AsciiMath" id="_">R</stem>
+                             <fmt-stem type="AsciiMath">
+                                <semx element="stem" source="_">R</semx>
+                             </fmt-stem>
                              (= 2,83
-                             <stem type="AsciiMath">s_R</stem>
+                             <stem type="AsciiMath" id="_">s_R</stem>
+                             <fmt-stem type="AsciiMath">
+                                <semx element="stem" source="_">s_R</semx>
+                             </fmt-stem>
                              )
                           </td>
                           <td align="center">2,89</td>
@@ -227,9 +233,29 @@ RSpec.describe IsoDoc do
                     </dl>
                     <source status="generalisation">
                        [SOURCE:
-                       <xref type="inline" target="ISO712">ISO 712, Section 1</xref>
-                       — <semx element="modification" source="_">with adjustments</semx>;
-                       <xref type="inline" target="ISO712">ISO 712, Section 2</xref>
+                       <origin bibitemid="ISO712" type="inline" citeas="" id="_">
+                          <localityStack>
+                             <locality type="section">
+                                <referenceFrom>1</referenceFrom>
+                             </locality>
+                          </localityStack>
+                       </origin>
+                       <semx element="origin" source="_">
+                          <fmt-xref type="inline" target="ISO712">ISO 712, Section 1</fmt-xref>
+                       </semx>
+                       —
+                       <semx element="modification" source="_">with adjustments</semx>
+                       ;
+                       <origin bibitemid="ISO712" type="inline" citeas="" id="_">
+                          <localityStack>
+                             <locality type="section">
+                                <referenceFrom>2</referenceFrom>
+                             </locality>
+                          </localityStack>
+                       </origin>
+                       <semx element="origin" source="_">
+                          <fmt-xref type="inline" target="ISO712">ISO 712, Section 2</fmt-xref>
+                       </semx>
                        ]
                     </source>
                     <note>
@@ -318,18 +344,18 @@ RSpec.describe IsoDoc do
                     </tr>
                  </tbody>
               </table>
-                    <table>
-         <fmt-name>
-            <span class="fmt-caption-label">
-               <span class="fmt-element-name">Table</span>
-            </span>
-         </fmt-name>
-         <tbody>
-            <tr>
-               <td>B</td>
-            </tr>
-         </tbody>
-      </table>
+              <table>
+                 <fmt-name>
+                    <span class="fmt-caption-label">
+                       <span class="fmt-element-name">Table</span>
+                    </span>
+                 </fmt-name>
+                 <tbody>
+                    <tr>
+                       <td>B</td>
+                    </tr>
+                 </tbody>
+              </table>
            </annex>
            <bibliography>
           </bibliography>
@@ -640,7 +666,7 @@ RSpec.describe IsoDoc do
           <clause type="toc" displayorder="1" id="_">
       <fmt-title depth="1">Table of contents</fmtfmt--title>
       </clause>
-      <foreword displayorder="2"><fmt-title>Foreword</fmt-title>
+      <foreword id="_" displayorder="2"><fmt-title>Foreword</fmt-title>
         <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" class="modspec">
           <fmt-name>Repeatability and reproducibility of <em>husked</em> rice yield</fmt-name>
         </table>
@@ -651,7 +677,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
              <br/>
-             <div>
+             <div id="_">
                <h1 class='ForewordTitle'>Foreword</h1>
                <p class='TableTitle' style='text-align:center;'>
                  Repeatability and reproducibility of
@@ -673,7 +699,7 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-             <div>
+             <div id="_">
                <h1 class='ForewordTitle'>Foreword</h1>
                <p class='TableTitle' style='text-align:center;'>
                  Repeatability and reproducibility of
@@ -779,7 +805,7 @@ RSpec.describe IsoDoc do
                <p class="page-break">
                  <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                </p>
-               <div>
+               <div id="_">
                  <h1 class='ForewordTitle'>Foreword</h1>
                  <p class='TableTitle' style='text-align:center;'>
                    Repeatability and reproducibility of
@@ -888,8 +914,8 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -940,7 +966,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div>
+            <div id="_">
               <h1 class="ForewordTitle">Foreword</h1>
               <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span></p>
               <div align="center" class="table_container">
@@ -998,8 +1024,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-        .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+        .convert("test", input, true))
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
 
@@ -1050,7 +1076,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div>
+            <div id="_">
               <h1 class="ForewordTitle">Foreword</h1>
               <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span></p>
               <div align="center" class="table_container">
@@ -1116,8 +1142,8 @@ RSpec.describe IsoDoc do
       </html>
 
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-        .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+        .convert("test", input, true))
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -1161,7 +1187,7 @@ RSpec.describe IsoDoc do
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div>
+             <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span></p>
                <div align="center" class="table_container">
@@ -1227,8 +1253,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-           .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+           .convert("test", input, true))
            .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
 
@@ -1270,7 +1296,7 @@ RSpec.describe IsoDoc do
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div>
+             <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield<span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span></p>
                <div align="center" class="table_container">
@@ -1343,8 +1369,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-               .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+               .convert("test", input, true))
                .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(output)
   end

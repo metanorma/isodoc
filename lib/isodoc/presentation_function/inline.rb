@@ -25,8 +25,8 @@ module IsoDoc
     # <locality type="section"><reference>3.1</reference></locality></origin>
 
     def unnest_linkend(node)
-      node.at(ns("./xref[@nested]")) or return
-      node.xpath(ns("./xref[@nested]")).each { |x| x.delete("nested") }
+      node.at(ns("./fmt-xref[@nested]")) or return
+      node.xpath(ns("./fmt-xref[@nested]")).each { |x| x.delete("nested") }
       node.xpath(ns("./location | ./locationStack")).each(&:remove)
       node.replace(node.children)
     end
@@ -39,21 +39,34 @@ module IsoDoc
     def anchor_id_postprocess(node); end
 
     def xref(docxml)
-      docxml.xpath(ns("//xref")).each { |f| xref1(f) }
-      docxml.xpath(ns("//xref//xref")).each { |f| f.replace(f.children) }
+      #docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-xref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//fmt-xref//fmt-xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-xref//xref")).each { |f| f.replace(f.children) }
     end
 
     def eref(docxml)
-      docxml.xpath(ns("//eref")).each { |f| xref1(f) }
-      docxml.xpath(ns("//eref//xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//eref[@deleteme]")).each { |f| redundant_eref(f) }
+      docxml.xpath(ns("//fmt-eref")).each { |f| xref1(f) }
+      docxml.xpath(ns("//fmt-eref//fmt-xref")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//erefstack")).each { |f| erefstack1(f) }
     end
 
-    def origin(docxml)
-      docxml.xpath(ns("//origin[not(termref)]")).each { |f| xref1(f) }
+    # redundant eref copied from quote/source
+    def redundant_eref(elem)
+      if elem.next.name == "semx"
+        elem.next.elements.first.delete("deleteme")
+        elem.next.replace(elem.next.children)
+      end
+      elem.remove
     end
 
-    def quotesource(docxml)
+    def origin(docxml)
+      docxml.xpath(ns("//fmt-origin[not(.//termref)]")).each { |f| xref1(f) }
+    end
+
+    # KILL
+    def quotesourcex(docxml)
       docxml.xpath(ns("//quote//source")).each { |f| xref1(f) }
       docxml.xpath(ns("//quote//source//xref")).each do |f|
         f.replace(f.children)
@@ -62,7 +75,9 @@ module IsoDoc
 
     # do not change to Presentation XML rendering
     def sem_xml_descendant?(node)
-      !node.ancestors("related, definition, termsource").empty? and return true
+      !node.ancestors("preferred, admitted, deprecated, related, " \
+        "definition, termsource").empty? and return true
+      !node.ancestors("xref, eref, origin, link").empty? and return true
       !node.ancestors("requirement, recommendation, permission").empty? &&
         node.ancestors("fmt-provision").empty? and return true
       false
@@ -70,9 +85,6 @@ module IsoDoc
 
     def xref1(node)
       sem_xml_descendant?(node) and return
-      node.ancestors("related, definition, termsource").empty? or return
-      !node.ancestors("requirement, recommendation, permission").empty? &&
-        node.ancestors("fmt-provision").empty? and return
       get_linkend(node)
     end
 
@@ -114,7 +126,10 @@ module IsoDoc
 
     def date1(elem)
       elem["value"] && elem["format"] or return
-      elem.replace(@i18n.date(elem["value"], elem["format"].strip))
+      val = @i18n.date(elem["value"], elem["format"].strip)
+      d = semx_fmt_dup(elem)
+      d << val
+      elem.next = "<fmt-date>#{to_xml(d)}</fmt-date>"
     end
 
     def inline_format(docxml)

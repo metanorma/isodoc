@@ -641,7 +641,7 @@ RSpec.describe IsoDoc do
               <clause id="_clause" inline-header="false" obligation="normative" displayorder="1">
                 <fmt-title>Clause</fmt-title>
                 <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
-                  <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <fmt-stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML">
                       <mi>x</mi>
                       <mo>=</mo>
                       <mstyle mathvariant="script">
@@ -649,7 +649,7 @@ RSpec.describe IsoDoc do
                       </mstyle>
                       <mo>+</mo>
                       <mn>1</mn>
-                    </math></stem>
+                    </math></fmt-stem>
                 </p>
               </clause>
             </sections>
@@ -691,7 +691,7 @@ RSpec.describe IsoDoc do
               <clause id="_clause" inline-header="false" obligation="normative" displayorder="1">
                 <fmt-title>Clause</fmt-title>
                 <p id="_20514f5a-9f86-454e-b6ce-927f65ba6441">
-                  <stem type="MathML">
+                  <fmt-stem type="MathML">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                       <mstyle mathvariant="sans-serif">
                         <mfrac>
@@ -729,7 +729,7 @@ RSpec.describe IsoDoc do
                         </mfrac>
                       </mstyle>
                     </math>
-                  </stem>
+                  </fmt-stem>
                 </p>
               </clause>
             </sections>
@@ -1033,12 +1033,13 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(Xml::C14n.format(word)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+    expect(Xml::C14n.format(strip_guid(word)))
+        .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
       <div class="WordSection2">
         <p class="MsoNormal">
           <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
         </p>
-        <div>
+        <div><a name="_" id="_"/>
           <h1 class="ForewordTitle">Foreword</h1>
           <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"></a><br/>&#xA0;&#xA0;&#xA0; <br/>&#xA0; &lt;xml&gt; &amp;<br/></p><p class="SourceTitle" style="text-align:center;">XML code</p>
         </div>
