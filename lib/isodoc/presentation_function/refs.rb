@@ -86,10 +86,15 @@ module IsoDoc
     def bibrender_formattedref(formattedref, xml); end
 
     def bibrender_relaton(xml, renderings)
-      f = renderings[xml["id"]][:formattedref]
+      f = renderings[xml["id"]][:formattedref] or return
       f &&= "<formattedref>#{f}</formattedref>"
-      x = xml.xpath(ns("./docidentifier | ./uri | ./note | ./biblio-tag"))
-      xml.children = "#{f}#{x.to_xml}"
+      if x = xml.at(ns("./formattedref"))
+        x.replace(f)
+      elsif xml.children.empty?
+        xml << f
+      else
+        xml.children.first.previous = f
+      end
     end
 
     def citestyle
