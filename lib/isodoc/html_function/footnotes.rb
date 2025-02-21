@@ -1,12 +1,6 @@
 module IsoDoc
   module HtmlFunction
     module Footnotes
-      def footnotes(div)
-        return if @footnotes.empty?
-
-        @footnotes.each { |fn| div.parent << fn }
-      end
-
       def make_table_footnote_link(out, fnid, fnref)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
         out.a **attrs do |a|
@@ -35,6 +29,7 @@ module IsoDoc
         end.join("\n")
       end
 
+      # KILL
       def make_generic_footnote_text(node, fnid)
         noko do |xml|
           xml.aside id: "fn:#{fnid}", class: "footnote" do |div|

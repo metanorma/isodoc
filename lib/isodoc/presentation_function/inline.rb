@@ -39,16 +39,19 @@ module IsoDoc
     def anchor_id_postprocess(node); end
 
     def xref(docxml)
-      #docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//fmt-xref")).each { |f| xref1(f) }
-      docxml.xpath(ns("//fmt-xref//fmt-xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-xref//fmt-xref")).each do |f|
+        f.replace(f.children)
+      end
       docxml.xpath(ns("//fmt-xref//xref")).each { |f| f.replace(f.children) }
     end
 
     def eref(docxml)
       docxml.xpath(ns("//eref[@deleteme]")).each { |f| redundant_eref(f) }
       docxml.xpath(ns("//fmt-eref")).each { |f| xref1(f) }
-      docxml.xpath(ns("//fmt-eref//fmt-xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-eref//fmt-xref")).each do |f|
+        f.replace(f.children)
+      end
       docxml.xpath(ns("//erefstack")).each { |f| erefstack1(f) }
     end
 
@@ -63,14 +66,6 @@ module IsoDoc
 
     def origin(docxml)
       docxml.xpath(ns("//fmt-origin[not(.//termref)]")).each { |f| xref1(f) }
-    end
-
-    # KILL
-    def quotesourcex(docxml)
-      docxml.xpath(ns("//quote//source")).each { |f| xref1(f) }
-      docxml.xpath(ns("//quote//source//xref")).each do |f|
-        f.replace(f.children)
-      end
     end
 
     # do not change to Presentation XML rendering
@@ -112,8 +107,8 @@ module IsoDoc
       docxml.xpath(ns("//identifier")).each do |n|
         %w(bibdata bibitem requirement recommendation permission)
           .include?(n.parent.name) and next
-          s = semx_fmt_dup(n)
-          n.next = "<fmt-identifier><tt>#{to_xml(s)}</tt></fmt-identifier>"
+        s = semx_fmt_dup(n)
+        n.next = "<fmt-identifier><tt>#{to_xml(s)}</tt></fmt-identifier>"
       end
     end
 

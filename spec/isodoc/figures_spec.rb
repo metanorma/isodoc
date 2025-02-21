@@ -91,7 +91,7 @@ RSpec.describe IsoDoc do
                       Split-it-right
                       <em>sample</em>
                       divider
-                      <fn reference="1">
+                      <fn reference="1" target="_" original-id="_">
                          <p>X</p>
                       </fn>
                    </name>
@@ -105,7 +105,7 @@ RSpec.describe IsoDoc do
                          Split-it-right
                          <em>sample</em>
                          divider
-                         <fn reference="1">
+                         <fn reference="1" id="_" target="_">
                             <p>X</p>
                          </fn>
                       </semx>
@@ -271,6 +271,23 @@ RSpec.describe IsoDoc do
           </annex>
           <bibliography>
              </bibliography>
+          <fmt-footnote-container>
+             <fmt-fn-body id="_" target="_">
+                <semx element="fn" source="_">
+                   <p>
+                      <sup>
+                         <span class="fmt-caption-label">
+                            <semx element="autonum" source="_">1</semx>
+                         </span>
+                      </sup>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      X
+                   </p>
+                </semx>
+             </fmt-fn-body>
+          </fmt-footnote-container>
        </iso-standard>
     OUTPUT
 
@@ -749,7 +766,7 @@ RSpec.describe IsoDoc do
                       Split-it-right
                       <em>sample</em>
                       divider
-                      <fn reference="1">
+                      <fn reference="1" target="_" original-id="_">
                          <p>X</p>
                       </fn>
                    </name>
@@ -763,7 +780,7 @@ RSpec.describe IsoDoc do
                          Split-it-right
                          <em>sample</em>
                          divider
-                         <fn reference="1">
+                         <fn reference="1" id="_" target="_">
                             <p>X</p>
                          </fn>
                       </semx>
@@ -822,6 +839,23 @@ RSpec.describe IsoDoc do
                 </figure>
              </foreword>
           </preface>
+          <fmt-footnote-container>
+             <fmt-fn-body id="_" target="_">
+                <semx element="fn" source="_">
+                   <p>
+                      <sup>
+                         <span class="fmt-caption-label">
+                            <semx element="autonum" source="_">1</semx>
+                         </span>
+                      </sup>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      X
+                   </p>
+                </semx>
+             </fmt-fn-body>
+          </fmt-footnote-container>
        </iso-standard>
     OUTPUT
     expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert

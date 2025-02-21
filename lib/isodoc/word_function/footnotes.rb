@@ -10,12 +10,6 @@ module IsoDoc
         sprintf "%09d", ret
       end
 
-      def footnotes(div)
-        return if @footnotes.empty?
-
-        @footnotes.each { |fn| div.parent << fn }
-      end
-
       def make_table_footnote_link(out, fnid, fnref)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
         out.a **attrs do |a|
@@ -43,12 +37,20 @@ module IsoDoc
         end.join("\n")
       end
 
+      # KILL
       def make_generic_footnote_text(node, fnid)
         noko do |xml|
           xml.aside id: "ftn#{fnid}" do |div|
             node.children.each { |n| parse(n, div) }
           end
         end.join("\n")
+      end
+
+      def fmt_fn_body_parse(node, out)
+        node.at(ns(".//span[@class = 'fmt-footnote-label']"))&.remove
+        out.aside id: "ftn#{node['reference']}" do |div|
+          node.children.each { |n| parse(n, div) }
+        end
       end
 
       def get_table_ancestor_id(node)

@@ -10,6 +10,7 @@ require_relative "presentation_function/section"
 require_relative "presentation_function/index"
 require_relative "presentation_function/bibdata"
 require_relative "presentation_function/metadata"
+require_relative "presentation_function/footnotes"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -68,6 +69,7 @@ module IsoDoc
       index docxml # fed by strip_duplicate_ids
       toc docxml
       display_order docxml
+      document_footnotes docxml
     end
 
     def block(docxml)

@@ -29,63 +29,103 @@ RSpec.describe IsoDoc do
              <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
-                      <semx element="title" source="_">Foreword</semx>
+                   <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <p>
                    A.
-                   <fn reference="2">
-                      <p id="_">Formerly denoted as 15 % (m/m).</p>
+                   <fn reference="2" id="_" target="_">
+                      <p original-id="_">Formerly denoted as 15 % (m/m).</p>
                    </fn>
                 </p>
                 <p>
                    B.
-                   <fn reference="2">
+                   <fn reference="2" id="_" target="_">
                       <p id="_">Formerly denoted as 15 % (m/m).</p>
                    </fn>
                 </p>
                 <p>
                    C.
-                   <fn reference="1">
-                      <p id="_">Hello! denoted as 15 % (m/m).</p>
+                   <fn reference="1" id="_" target="_">
+                      <p original-id="_">Hello! denoted as 15 % (m/m).</p>
                    </fn>
                 </p>
              </foreword>
           </preface>
+          <fmt-footnote-container>
+             <fmt-fn-body id="_" target="_" reference="2">
+                <semx element="fn" source="_">
+                   <p id="_">
+                      <span class="fmt-footnote-label">
+                         <sup>
+                            <semx element="autonum" source="_">2</semx>
+                         </sup>
+                         <span class="fmt-caption-delim">
+                            <tab/>
+                         </span>
+                      </span>
+                      Formerly denoted as 15 % (m/m).
+                   </p>
+                </semx>
+             </fmt-fn-body>
+             <fmt-fn-body id="_" target="_" reference="1">
+                <semx element="fn" source="_">
+                   <p id="_">
+                      <span class="fmt-footnote-label">
+                         <sup>
+                            <semx element="autonum" source="_">1</semx>
+                         </sup>
+                         <span class="fmt-caption-delim">
+                            <tab/>
+                         </span>
+                      </span>
+                      Hello! denoted as 15 % (m/m).
+                   </p>
+                </semx>
+             </fmt-fn-body>
+          </fmt-footnote-container>
        </iso-standard>
     INPUT
     html = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
-                 <div id="_">
+                                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
-                   A.
-                   <a class='FootnoteRef' href='#fn:2'>
-                     <sup>2</sup>
-                   </a>
-                 </p>
-                 <p>
-                   B.
-                   <a class='FootnoteRef' href='#fn:2'>
-                     <sup>2</sup>
-                   </a>
-                 </p>
-                 <p>
-                   C.
-                   <a class='FootnoteRef' href='#fn:1'>
-                     <sup>1</sup>
-                   </a>
-                 </p>
-                 </div>
-                               <aside id="fn:2" class="footnote">
-            <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-          </aside>
+                      A.
+                      <a class="FootnoteRef" href="#fn:2">
+                         <sup>2</sup>
+                      </a>
+                   </p>
+                   <p>
+                      B.
+                      <a class="FootnoteRef" href="#fn:2">
+                         <sup>2</sup>
+                      </a>
+                   </p>
+                   <p>
+                      C.
+                      <a class="FootnoteRef" href="#fn:1">
+                         <sup>1</sup>
+                      </a>
+                   </p>
+                </div>
+                <aside id="fn:2" class="footnote">
+                   <p id="_">
+                      <sup>2
+       </sup>
+                        Formerly denoted as 15 % (m/m).
+                   </p>
+                </aside>
                 <aside id="fn:1" class="footnote">
-            <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
-          </aside>
-               </div>
-             </body>
-         </html>
+                   <p id="_">
+                      <sup>1
+       </sup>
+                        Hello! denoted as 15 % (m/m).
+                   </p>
+                </aside>
+             </div>
+          </body>
+       </html>
     OUTPUT
     doc = <<~OUTPUT
       #{WORD_HDR}
@@ -124,16 +164,16 @@ RSpec.describe IsoDoc do
           <p class="section-break">
             <br clear='all' class='section'/>
           </p>
-          <div class='WordSection3'>
-            <aside id='ftn2'>
-              <p id='_'>Formerly denoted as 15 % (m/m).</p>
-            </aside>
-            <aside id='ftn1'>
-              <p id='_'>Hello! denoted as 15 % (m/m).</p>
-            </aside>
-          </div>
-        </body>
-      </html>
+          <div class="WordSection3">
+                <aside id="ftn2">
+                   <p id="_">Formerly denoted as 15 % (m/m).</p>
+                </aside>
+                <aside id="ftn1">
+                   <p id="_">Hello! denoted as 15 % (m/m).</p>
+                </aside>
+             </div>
+          </body>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
