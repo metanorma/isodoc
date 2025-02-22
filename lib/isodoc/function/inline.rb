@@ -21,7 +21,7 @@ module IsoDoc
       SPAN_UNWRAP_CLASSES =
         %w[fmt-caption-label fmt-label-delim fmt-caption-delim fmt-autonum-delim
            fmt-element-name fmt-conn fmt-comma fmt-enum-comma fmt-obligation
-           fmt-xref-container fmt-designation-field fmt-footnote-label].freeze
+           fmt-xref-container fmt-designation-field].freeze
 
       def span_parse(node, out)
         klass = node["style"] || node["class"]
@@ -231,6 +231,10 @@ module IsoDoc
       end
 
       def fmt_date_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_footnote_container_parse(node, out)
         children_parse(node, out)
       end
     end

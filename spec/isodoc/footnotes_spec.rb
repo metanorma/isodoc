@@ -265,30 +265,38 @@ RSpec.describe IsoDoc do
                 </div>
                 <aside id="fn:1" class="footnote">
                    <p id="_">
-                      <sup>1
-       </sup>
-                        Formerly denoted as 15 % (m/m).
+                      <span class="fmt-footnote-label">
+                         <sup>1</sup>
+                          
+                      </span>
+                      Formerly denoted as 15 % (m/m).
                    </p>
                 </aside>
                 <aside id="fn:2" class="footnote">
                    <p id="_">
-                      <sup>2
-       </sup>
-                        Hello! denoted as 15 % (m/m).
+                      <span class="fmt-footnote-label">
+                         <sup>2</sup>
+                          
+                      </span>
+                      Hello! denoted as 15 % (m/m).
                    </p>
                 </aside>
                 <aside id="fn:3" class="footnote">
                    <p id="_">
-                      <sup>3
-       </sup>
-                        ISO is a standards organisation.
+                      <span class="fmt-footnote-label">
+                         <sup>3</sup>
+                          
+                      </span>
+                      ISO is a standards organisation.
                    </p>
                 </aside>
                 <aside id="fn:4" class="footnote">
                    <p id="_">
-                      <sup>4
-       </sup>
-                        Third footnote.
+                      <span class="fmt-footnote-label">
+                         <sup>4</sup>
+                          
+                      </span>
+                      Third footnote.
                    </p>
                 </aside>
              </div>

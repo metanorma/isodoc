@@ -544,7 +544,7 @@ RSpec.describe IsoDoc do
                    <p id="ISO16634" class="NormRef">
                       ISO 16634:-- (all parts)
                       <a class="FootnoteRef" href="#fn:1">
-                         <sup>_</sup>
+                         <sup>1</sup>
                       </a>
                       ,
                       <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>
@@ -600,7 +600,7 @@ RSpec.describe IsoDoc do
                    <p id="ISO3696" class="Biblio">
                       [5]  ISO 3696
                       <a class="FootnoteRef" href="#fn:2">
-                         <sup>_</sup>
+                         <sup>2</sup>
                       </a>
                       ,
                       <i>Water for analytical laboratory use</i>
@@ -638,14 +638,20 @@ RSpec.describe IsoDoc do
                 </div>
                 <aside id="fn:1" class="footnote">
                    <p>
-                      <sup>_</sup>
-                        Under preparation. (Stage at the time of publication ISO/DIS 16634)
+                      <span class="fmt-footnote-label">
+                         <sup>1</sup>
+                          
+                      </span>
+                      Under preparation. (Stage at the time of publication ISO/DIS 16634)
                    </p>
                 </aside>
                 <aside id="fn:2" class="footnote">
                    <p>
-                      <sup>_</sup>
-                        Under preparation. (Stage at the time of publication ISO/DIS 3696)
+                      <span class="fmt-footnote-label">
+                         <sup>2</sup>
+                          
+                      </span>
+                      Under preparation. (Stage at the time of publication ISO/DIS 3696)
                    </p>
                 </aside>
              </div>
@@ -867,8 +873,7 @@ RSpec.describe IsoDoc do
       .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true)
-      .gsub(%r{<sup>[0-9a-f-]+</sup>}, "<sup>_</sup>"))))
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
     IsoDoc::WordConvert.new({})
       .convert("test", pres_output, false)
@@ -1947,9 +1952,11 @@ RSpec.describe IsoDoc do
              </div>
              <aside id="fn:1" class="footnote">
                          <p id="_">
-               <sup>1
-</sup>
-                 hello
+               <span class="fmt-footnote-label">
+                  <sup>1</sup>
+                   
+               </span>
+               hello
             </p>
              </aside>
            </div>

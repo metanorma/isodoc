@@ -287,6 +287,7 @@ module IsoDoc
           when "date" then date_parse(node, out)
           when "fmt-date" then fmt_date_parse(node, out)
           when "fmt-fn-body" then fmt_fn_body_parse(node, out)
+          when "fmt-footnote-container" then fmt_footnote_container_parse(node, out)
           else error_parse(node, out)
           end
         end
