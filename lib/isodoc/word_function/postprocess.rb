@@ -178,7 +178,7 @@ module IsoDoc
         docxml.xpath("//a[@epub:type = 'footnote']").each do |x|
           footnote_reference_format(x)
         end
-        docxml.xpath("//span[@class = 'MsoFootnoteReference]").each do |x|
+        docxml.xpath("//span[@class = 'MsoFootnoteReference']").each do |x|
           footnote_reference_format(x)
         end
         docxml.xpath("//a[@class = 'TableFootnoteRef'] | " \
