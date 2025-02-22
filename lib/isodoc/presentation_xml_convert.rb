@@ -68,7 +68,7 @@ module IsoDoc
       floattitle docxml # feeds rearrange_clauses
       index docxml # fed by strip_duplicate_ids
       toc docxml
-      display_order docxml
+      display_order docxml # feeds document_footnotes
       document_footnotes docxml
     end
 

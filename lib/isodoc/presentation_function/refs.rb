@@ -210,7 +210,7 @@ module IsoDoc
       ret = ident_fn(bib)
       date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
       date_note.nil? and return ret
-      id = UUIDTools::UUID.random_create.to_s
+      id = "_#{UUIDTools::UUID.random_create}"
       "#{ret}<fn reference='#{id}'><p>#{date_note.content}</p></fn>"
     end
 
