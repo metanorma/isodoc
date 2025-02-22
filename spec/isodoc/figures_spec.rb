@@ -385,10 +385,6 @@ RSpec.describe IsoDoc do
                 </div>
                 <aside id="fn:1" class="footnote">
                    <p>
-                      <span class="fmt-footnote-label">
-                         <sup>1</sup>
-                          
-                      </span>
                       X
                    </p>
                 </aside>

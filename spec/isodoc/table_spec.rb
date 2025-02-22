@@ -388,14 +388,14 @@ RSpec.describe IsoDoc do
              <fmt-fn-body id="_" target="_" reference="1">
                 <semx element="fn" source="_">
                    <p>
-                      <span class="fmt-footnote-label">
-                         <sup>
-                            <semx element="autonum" source="_">1</semx>
-                         </sup>
-                         <span class="fmt-caption-delim">
-                            <tab/>
-                         </span>
-                      </span>
+               <span class="fmt-footnote-label">
+                  <sup>
+                     <semx element="autonum" source="_">1</semx>
+                  </sup>
+                  <span class="fmt-caption-delim">
+                     <tab/>
+                  </span>
+               </span>
                       X
                    </p>
                 </semx>
@@ -561,10 +561,6 @@ RSpec.describe IsoDoc do
                 </div>
                 <aside id="fn:1" class="footnote">
                    <p>
-                      <span class="fmt-footnote-label">
-                         <sup>1</sup>
-                          
-                      </span>
                       X
                    </p>
                 </aside>

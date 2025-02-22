@@ -48,6 +48,7 @@ module IsoDoc
         end.join("\n")
       end
 
+      # KILL
       def fmt_fn_body_parse(node, out)
         node.at(ns(".//span[@class = 'fmt-footnote-label']"))&.remove
         out.aside id: "ftn#{node['reference']}" do |div|

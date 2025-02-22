@@ -745,10 +745,6 @@ RSpec.describe IsoDoc do
                 </div>
                <aside id="fn:1" class="footnote">
                    <p id="_">
-               <span class="fmt-footnote-label">
-                  <sup>1</sup>
-                   
-               </span>
                Also known as JCGM 200
                    </p>
                 </aside>

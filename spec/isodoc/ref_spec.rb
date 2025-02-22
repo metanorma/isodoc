@@ -638,19 +638,11 @@ RSpec.describe IsoDoc do
                 </div>
                 <aside id="fn:1" class="footnote">
                    <p>
-                      <span class="fmt-footnote-label">
-                         <sup>1</sup>
-                          
-                      </span>
                       Under preparation. (Stage at the time of publication ISO/DIS 16634)
                    </p>
                 </aside>
                 <aside id="fn:2" class="footnote">
                    <p>
-                      <span class="fmt-footnote-label">
-                         <sup>2</sup>
-                          
-                      </span>
                       Under preparation. (Stage at the time of publication ISO/DIS 3696)
                    </p>
                 </aside>
@@ -1952,10 +1944,6 @@ RSpec.describe IsoDoc do
              </div>
              <aside id="fn:1" class="footnote">
                          <p id="_">
-               <span class="fmt-footnote-label">
-                  <sup>1</sup>
-                   
-               </span>
                hello
             </p>
              </aside>
