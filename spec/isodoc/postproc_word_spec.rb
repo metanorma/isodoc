@@ -586,7 +586,7 @@ RSpec.describe IsoDoc do
             <p>B</p></li>
             <li><ol><li><p>C</p>
             <p>D</p>
-            <sourcecode>E</sourcecode></li>
+            <sourcecode><fmt-sourcecode>E</fmt-sourcecode></sourcecode></li>
             </ol></li>
             </ul>
             <ol>

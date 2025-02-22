@@ -1005,9 +1005,9 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
           <sourcecode id="samplecode">
-          <fmt-name>XML code</fmt-name>
+          <fmt-name>XML code</fmt-name><fmt-sourcecode>
         &lt;xml&gt; &amp;
-      </sourcecode>
+      </fmt-sourcecode></sourcecode>
           </foreword></preface>
           </iso-standard>
     INPUT
@@ -1016,15 +1016,19 @@ RSpec.describe IsoDoc do
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
     expect(Xml::C14n.format(html)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-      <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-        <br />
-        <div>
-          <h1 class="ForewordTitle">Foreword</h1>
-          <pre id="samplecode" class="sourcecode"><br />&#xA0;&#xA0;&#xA0; <br />&#xA0; &lt;xml&gt; &amp;<br />
-          </pre>
-          <p class="SourceTitle" style="text-align:center;">XML code</p>
-        </div>
-      </main>
+       <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+          <br/>
+          <div>
+             <h1 class="ForewordTitle">Foreword</h1>
+             <pre id="samplecode" class="sourcecode">
+                <br/>
+                  &lt;xml&gt; &amp;
+                <br/>
+             </pre>
+             <p class="SourceTitle" style="text-align:center;">XML code</p>
+          </div>
+       </main>
     OUTPUT
 
     FileUtils.rm_f "test.doc"
@@ -1036,15 +1040,22 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(word)))
         .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
       <div class="WordSection2">
-        <p class="MsoNormal">
-          <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-        </p>
-        <div><a name="_" id="_"/>
-          <h1 class="ForewordTitle">Foreword</h1>
-          <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"></a><br/>&#xA0;&#xA0;&#xA0; <br/>&#xA0; &lt;xml&gt; &amp;<br/></p><p class="SourceTitle" style="text-align:center;">XML code</p>
-        </div>
-        <p class="MsoNormal">&#xA0;</p>
-      </div>
+          <p class="MsoNormal">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div>
+             <a name="_" id="_"/>
+             <h1 class="ForewordTitle">Foreword</h1>
+             <p class="Sourcecode" style="page-break-after:avoid;">
+                <a name="samplecode" id="samplecode"/>
+                <br/>
+                  &lt;xml&gt; &amp;
+                <br/>
+             </p>
+             <p class="SourceTitle" style="text-align:center;">XML code</p>
+          </div>
+          <p class="MsoNormal"> </p>
+       </div>
     OUTPUT
   end
 
