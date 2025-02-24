@@ -404,6 +404,141 @@ RSpec.describe IsoDoc do
           </body>
        </html>
     OUTPUT
+    doc1 = <<~OUTPUT
+       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+          <div class="WordSection2">
+             <p class="MsoNormal">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div>
+                <a name="F" id="F"/>
+                <h1 class="ForewordTitle">Foreword</h1>
+                <p class="MsoNormal">
+                   A.
+                   <span style="mso-bookmark:_Ref">
+                      <a class="FootnoteRef" href="#_ftn1" epub:type="footnote" style="mso-footnote-id:ftn1" name="_ftnref1" title="" id="_">
+                         <span class="MsoFootnoteReference">
+                            <span style="mso-special-character:footnote"/>
+                         </span>
+                      </a>
+                   </span>
+                </p>
+                <p class="MsoNormal">
+                   B.
+                   <span style="mso-element:field-begin"/>
+                   NOTEREF _Ref \\f \\h
+                   <span style="mso-element:field-separator"/>
+                   <span class="MsoFootnoteReference">1</span>
+                   <span style="mso-element:field-end"/>
+                </p>
+                <p class="MsoNormal">
+                   C.
+                   <span style="mso-bookmark:_Ref">
+                      <a class="FootnoteRef" href="#_ftn2" epub:type="footnote" style="mso-footnote-id:ftn2" name="_ftnref2" title="" id="_">
+                         <span class="MsoFootnoteReference">
+                            <span style="mso-special-character:footnote"/>
+                         </span>
+                      </a>
+                   </span>
+                </p>
+             </div>
+             <p class="MsoNormal"> </p>
+          </div>
+          <p class="MsoNormal">
+             <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection3">
+             <p class="MsoNormal">
+                B.
+                <span style="mso-element:field-begin"/>
+                NOTEREF _Ref \\f \\h
+                <span style="mso-element:field-separator"/>
+                <span class="MsoFootnoteReference">1</span>
+                <span style="mso-element:field-end"/>
+             </p>
+             <div>
+                <h1>
+                   1.
+                   <span style="mso-tab-count:1">  </span>
+                   Normative References
+                </h1>
+                <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+                <p class="NormRef">
+                   <a name="ISO712" id="ISO712"/>
+                   ISO 712, International Organization for Standardization.
+                   <i>
+                      Cereals and cereal products
+                      <span style="mso-bookmark:_Ref">
+                         <a class="FootnoteRef" href="#_ftn3" epub:type="footnote" style="mso-footnote-id:ftn3" name="_ftnref3" title="" id="_">
+                            <span class="MsoFootnoteReference">
+                               <span style="mso-special-character:footnote"/>
+                            </span>
+                         </a>
+                      </span>
+                   </i>
+                   .
+                </p>
+             </div>
+             <div>
+                <a name="A" id="A"/>
+                <h1>2.</h1>
+                <span style="mso-bookmark:_Ref">
+                   <a class="FootnoteRef" href="#_ftn4" epub:type="footnote" style="mso-footnote-id:ftn4" name="_ftnref4" title="" id="_">
+                      <span class="MsoFootnoteReference">
+                         <span style="mso-special-character:footnote"/>
+                      </span>
+                   </a>
+                </span>
+             </div>
+          </div>
+          <div style="mso-element:footnote-list">
+             <div style="mso-element:footnote" id="ftn1">
+                <p class="MsoFootnoteText">
+                   <a name="_" id="_"/>
+                   <a style="mso-footnote-id:ftn1" href="#_ftn1" name="_ftnref1" title="" id="_">
+                      <span class="MsoFootnoteReference">
+                         <span style="mso-special-character:footnote"/>
+                      </span>
+                   </a>
+                   Formerly denoted as 15 % (m/m).
+                </p>
+             </div>
+             <div style="mso-element:footnote" id="ftn2">
+                <p class="MsoFootnoteText">
+                   <a name="_" id="_"/>
+                   <a style="mso-footnote-id:ftn2" href="#_ftn2" name="_ftnref2" title="" id="_">
+                      <span class="MsoFootnoteReference">
+                         <span style="mso-special-character:footnote"/>
+                      </span>
+                   </a>
+                   Hello! denoted as 15 % (m/m).
+                </p>
+             </div>
+             <div style="mso-element:footnote" id="ftn3">
+                <p class="MsoFootnoteText">
+                   <a name="_" id="_"/>
+                   <a style="mso-footnote-id:ftn3" href="#_ftn3" name="_ftnref3" title="" id="_">
+                      <span class="MsoFootnoteReference">
+                         <span style="mso-special-character:footnote"/>
+                      </span>
+                   </a>
+                   ISO is a standards organisation.
+                </p>
+             </div>
+             <div style="mso-element:footnote" id="ftn4">
+                <p class="MsoFootnoteText">
+                   <a name="_" id="_"/>
+                   <a style="mso-footnote-id:ftn4" href="#_ftn4" name="_ftnref4" title="" id="_">
+                      <span class="MsoFootnoteReference">
+                         <span style="mso-special-character:footnote"/>
+                      </span>
+                   </a>
+                   Third footnote.
+                </p>
+             </div>
+          </div>
+       </body>
+    OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
@@ -415,6 +550,11 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(strip_guid(doc))
+    IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
+    expect(File.exist?("test.doc")).to be true
+    output = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
+    expect(strip_guid(Xml::C14n.format(output)))
+      .to be_equivalent_to Xml::C14n.format(doc1)
   end
 
   it "processes IsoXML reviewer notes" do
