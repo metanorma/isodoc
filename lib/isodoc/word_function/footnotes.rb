@@ -131,6 +131,7 @@ children_parse(f, out)
 
         @fn_bookmarks[fn] = bookmarkid
                 f = node.at(ns("./fmt-fn-label"))
+        #sup = f.at(ns(".//sup")) and sup.replace(sup.children)
         out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}" do |s|
           s.a class: "FootnoteRef", "epub:type": "footnote",
               href: "#ftn#{fn}" do |a|
