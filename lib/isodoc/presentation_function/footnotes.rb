@@ -62,6 +62,7 @@ module IsoDoc
     def document_footnotes(docxml)
       sects = docxml.xpath(".//*[@displayorder]")
         .sort_by { |c| c["displayorder"].to_i }
+      sects.unshift docxml.at("//boilerplate") # no @displayorder
       excl = non_document_footnotes(docxml)
       fns = filter_document_footnotes(sects, excl)
       fns = renumber_document_footnotes(fns, 1)
