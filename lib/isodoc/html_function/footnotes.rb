@@ -1,10 +1,11 @@
 module IsoDoc
   module HtmlFunction
     module Footnotes
-      def make_table_footnote_link(out, fnid, fnref)
+      def make_table_footnote_link(out, fnid, node)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
+        sup = node.at(ns("./sup")) and sup.replace(sup.children)
         out.a **attrs do |a|
-          a << fnref
+          children_parse(node, a)
         end
       end
 
@@ -52,7 +53,7 @@ module IsoDoc
       def table_footnote_parse(node, out)
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
         table, tid = get_table_ancestor_id(node)
-        make_table_footnote_link(out, tid + fn, fn)
+        make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         return if @seen_footnote.include?(tid + fn)
         update_table_fn_body_ref(node, table, tid + fn)
 =begin
@@ -69,8 +70,9 @@ module IsoDoc
         fnbody = table.at(ns("./fmt-footnote-container/" \
           "fmt-fn-body[@id = '#{fnote['target']}']"))
         fnbody["reference"] = reference
-        fnbody.xpath(ns(".//span[@class = 'fmt-footnote-label']")).each do |s|
+        fnbody.xpath(ns(".//fmt-fn-label")).each do |s|
           s["class"] = "TableFootnoteRef"
+          s.name = "span"
           d = s.at(ns("./span[@class = 'fmt-caption-delim']")) and
             s.next = d
         end
@@ -82,8 +84,10 @@ module IsoDoc
 
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
         attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
+        f = node.at(ns("./fmt-fn-label"))
         out.a **attrs do |a|
-          a.sup { |sup| sup << fn }
+          #a.sup { |sup| sup << fn }
+                          children_parse(f, a)
         end
         #make_footnote(node, fn)
       end

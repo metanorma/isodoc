@@ -720,6 +720,11 @@ RSpec.describe IsoDoc do
                  ISO/IEC Guide 99:2007, ISO/IEC Guide 99:2007
                  <fn reference="1" original-reference="1" id="_" target="_">
                    <p original-id="_">Also known as JCGM 200</p>
+                   <fmt-fn-label>
+               <sup>
+                  <semx element="autonum" source="_">1</semx>
+               </sup>
+            </fmt-fn-label>
                 </fn>
                  ,
               </biblio-tag>

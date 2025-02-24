@@ -76,7 +76,7 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
@@ -93,6 +93,11 @@ RSpec.describe IsoDoc do
                       divider
                       <fn reference="1" original-reference="1" target="_" original-id="_">
                          <p>X</p>
+                         <fmt-fn-label>
+                            <sup>
+                               <semx element="autonum" source="_">1</semx>
+                            </sup>
+                         </fmt-fn-label>
                       </fn>
                    </name>
                    <fmt-name>
@@ -107,6 +112,11 @@ RSpec.describe IsoDoc do
                          divider
                          <fn reference="1" original-reference="1" id="_" target="_">
                             <p>X</p>
+                            <fmt-fn-label>
+                               <sup>
+                                  <semx element="autonum" source="_">1</semx>
+                               </sup>
+                            </fmt-fn-label>
                          </fn>
                       </semx>
                    </fmt-name>
@@ -275,14 +285,14 @@ RSpec.describe IsoDoc do
              <fmt-fn-body id="_" target="_" reference="1">
                 <semx element="fn" source="_">
                    <p>
-                      <span class="fmt-footnote-label">
+                      <fmt-fn-label>
                          <sup>
                             <semx element="autonum" source="_">1</semx>
                          </sup>
                          <span class="fmt-caption-delim">
                             <tab/>
                          </span>
-                      </span>
+                      </fmt-fn-label>
                       X
                    </p>
                 </semx>
@@ -778,7 +788,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
@@ -795,6 +805,11 @@ RSpec.describe IsoDoc do
                       divider
                       <fn reference="1" original-reference="1" target="_" original-id="_">
                          <p>X</p>
+                         <fmt-fn-label>
+                            <sup>
+                               <semx element="autonum" source="_">1</semx>
+                            </sup>
+                         </fmt-fn-label>
                       </fn>
                    </name>
                    <fmt-name>
@@ -809,6 +824,11 @@ RSpec.describe IsoDoc do
                          divider
                          <fn reference="1" original-reference="1" id="_" target="_">
                             <p>X</p>
+                            <fmt-fn-label>
+                               <sup>
+                                  <semx element="autonum" source="_">1</semx>
+                               </sup>
+                            </fmt-fn-label>
                          </fn>
                       </semx>
                    </fmt-name>
@@ -870,14 +890,14 @@ RSpec.describe IsoDoc do
              <fmt-fn-body id="_" target="_" reference="1">
                 <semx element="fn" source="_">
                    <p>
-                      <span class="fmt-footnote-label">
+                      <fmt-fn-label>
                          <sup>
                             <semx element="autonum" source="_">1</semx>
                          </sup>
                          <span class="fmt-caption-delim">
                             <tab/>
                          </span>
-                      </span>
+                      </fmt-fn-label>
                       X
                    </p>
                 </semx>

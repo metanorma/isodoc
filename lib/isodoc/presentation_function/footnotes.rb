@@ -6,6 +6,7 @@ module IsoDoc
         x["id"] ||= "_#{UUIDTools::UUID.random_create}"
         seen[x["reference"]] or m << fnbody(x, seen)
         x["target"] = seen[x["reference"]]
+        x << "<fmt-fn-label>#{fn_ref_label(x)}</fmt-fn-label>"
       end
       footnote_container(fnotes, ret)
     end
@@ -24,18 +25,26 @@ module IsoDoc
       body["target"] = fnote["id"]
       body["reference"] = fnote["reference"]
       body << semx_fmt_dup(fnote)
-      insert_fn_ref(fnote, body)
+      insert_fn_body_ref(fnote, body)
       seen[fnote["reference"]] = body["id"]
       body
     end
 
-    def insert_fn_ref(fnote, body)
+    def insert_fn_body_ref(fnote, body)
       ins = body.at(ns(".//p")) ||
         body.at(ns("./semx")).children.first.before("<p> </p>").previous
-      lbl = fn_label(fnote)
+      lbl = fn_body_label(fnote)
       ins.children.first.previous = <<~FNOTE.strip
-        <span class="fmt-footnote-label"><sup>#{lbl}</sup><span class="fmt-caption-delim"><tab/></span>
+        <fmt-fn-label>#{lbl}<span class="fmt-caption-delim"><tab/></fmt-fn-label>
       FNOTE
+    end
+
+    def fn_ref_label(fnote)
+      "<sup>#{fn_label(fnote)}</sup>"
+    end
+
+    def fn_body_label(fnote)
+      "<sup>#{fn_label(fnote)}</sup>"
     end
 
     def fn_label(fnote)

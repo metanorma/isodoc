@@ -10,10 +10,19 @@ module IsoDoc
         sprintf "%09d", ret
       end
 
+      # KILL
       def make_table_footnote_link(out, fnid, fnref)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
         out.a **attrs do |a|
           a << fnref
+        end
+      end
+
+      def make_table_footnote_link(out, fnid, node)
+        attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
+        sup = node.at(ns("./sup")) and sup.replace(sup.children)
+        out.a **attrs do |a|
+          children_parse(node, a)
         end
       end
 
@@ -48,9 +57,8 @@ module IsoDoc
         end.join("\n")
       end
 
-      # KILL
       def fmt_fn_body_parse(node, out)
-        node.at(ns(".//span[@class = 'fmt-footnote-label']"))&.remove
+        node.at(ns(".//fmt-fn-label"))&.remove
         out.aside id: "ftn#{node['reference']}" do |div|
           node.children.each { |n| parse(n, div) }
         end
@@ -67,7 +75,7 @@ module IsoDoc
       def table_footnote_parse(node, out)
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
         table, tid = get_table_ancestor_id(node)
-        make_table_footnote_link(out, tid + fn, fn)
+        make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         # do not output footnote text if we have already seen it for this table
         return if @seen_footnote.include?(tid + fn)
         update_table_fn_body_ref(node, table, tid + fn)
@@ -84,8 +92,9 @@ module IsoDoc
         fnbody = table.at(ns("./fmt-footnote-container/" \
           "fmt-fn-body[@id = '#{fnote['target']}']"))
         fnbody["reference"] = reference
-        fnbody.xpath(ns(".//span[@class = 'fmt-footnote-label']")).each do |s|
+        fnbody.xpath(ns(".//fmt-fn-label")).each do |s|
           s["class"] = "TableFootnoteRef"
+          s.name = "span"
           d = s.at(ns("./span[@class = 'fmt-caption-delim']")) and
             s.next = d
         end
@@ -109,18 +118,24 @@ module IsoDoc
         return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)
 
         @fn_bookmarks[fn] = bookmarkid
+                f = node.at(ns("./fmt-fn-label"))
         out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}" do |s|
           s.a class: "FootnoteRef", "epub:type": "footnote",
               href: "#ftn#{fn}" do |a|
-            a.sup { |sup| sup << fn }
+            #a.sup { |sup| sup << fn }
+                children_parse(f, a)
           end
         end
+        @seen_footnote << fn
+=begin
         @in_footnote = true
         @footnotes << make_generic_footnote_text(node, fn)
         @in_footnote = false
         @seen_footnote << fn
+=end
       end
 
+      # KILL
       def make_footnote(node, footnote)
         return if @seen_footnote.include?(footnote)
 
