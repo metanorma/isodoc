@@ -142,14 +142,6 @@ module IsoDoc
       end
 
       def symbols_cleanup(docxml); end
-
-      def table_footnote_reference_format(link)
-        link
-      end
-
-      def footnote_reference_format(link)
-        link
-      end
     end
   end
 end
