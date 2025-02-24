@@ -100,7 +100,18 @@ module IsoDoc
         end
       end
 
-      def seen_footnote_parse(_node, out, footnote)
+      def seen_footnote_parse(node, out, footnote)
+        f = node.at(ns("./fmt-fn-label"))
+        sup = f.at(ns(".//sup")) and sup.replace(sup.children)
+        s = f.at(ns(".//semx[@source = '#{node['id']}']"))
+
+semx = <<~SPAN
+<span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/><span class="MsoFootnoteReference">#{footnote}</span><span style="mso-element:field-end"/>
+SPAN
+s.replace(semx)
+children_parse(f, out)
+
+=begin
         out.span style: "mso-element:field-begin"
         out << " NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h"
         out.span style: "mso-element:field-separator"
@@ -108,6 +119,7 @@ module IsoDoc
           s << footnote
         end
         out.span style: "mso-element:field-end"
+=end
       end
 
       def footnote_parse(node, out)
