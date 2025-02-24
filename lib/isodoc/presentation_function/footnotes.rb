@@ -60,14 +60,20 @@ module IsoDoc
     end
 
     def document_footnotes(docxml)
-      sects = docxml.xpath(".//*[@displayorder]")
-        .sort_by { |c| c["displayorder"].to_i }
-      sects.unshift docxml.at("//boilerplate") # no @displayorder
+      sects = sort_footnote_sections(docxml)
       excl = non_document_footnotes(docxml)
       fns = filter_document_footnotes(sects, excl)
       fns = renumber_document_footnotes(fns, 1)
       fns = footnote_collect(fns)
       fns and docxml.root << fns
+    end
+
+    def sort_footnote_sections(docxml)
+      sects = docxml.xpath(".//*[@displayorder]")
+        .sort_by { |c| c["displayorder"].to_i }
+      b = docxml.at(ns("//boilerplate")) and # no @displayorder
+        sects.unshift b
+      sects
     end
 
     def non_document_footnotes(docxml)
