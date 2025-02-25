@@ -12,7 +12,7 @@ module IsoDoc
       ret = ""
       @sourcehighlighter and ret += rouge_css_location
       a = docxml.at(ns("//metanorma-extension/" \
-                       "clause[title = 'user-css']/sourcecode")) and
+                       "clause[title = 'user-css']/sourcecode/body")) and
         ret += "\n#{to_xml(a.children)}"
       ret
     end
@@ -51,6 +51,7 @@ module IsoDoc
 
     def sourcecode1(elem)
       ret1 = semx_fmt_dup(elem)
+      b = ret1.at(ns(".//body")) and b.replace(b.children)
       #sourcecode_annot_id(elem)
       source_label(elem)
       source_highlight(ret1, elem["linenums"] == "true", elem["lang"])

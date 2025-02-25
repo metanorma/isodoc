@@ -55,6 +55,7 @@ module IsoDoc
       @sectionsplit = options[:sectionsplit] == "true"
       @bare = options[:bare]
       @semantic_xml_insert = options[:semanticxmlinsert] != "false"
+      @log = options[:log]
     end
 
     def init_i18n(options)

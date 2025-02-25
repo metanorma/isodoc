@@ -7,7 +7,7 @@ RSpec.describe IsoDoc do
           <bibdata type="standard"/>
           <metanorma-extension><clause id="_user_css" inline-header="false" obligation="normative">
       <title>user-css</title>
-      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
+      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646"><body>.green { background-color: green }</body></sourcecode>
 
       </clause>
       </metanorma-extension>
@@ -22,7 +22,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1">
                       <semx element="title" source="_">user-css</semx>
                 </fmt-title>
-                <sourcecode id="_">.green { background-color: green }</sourcecode>
+                <sourcecode id="_"><body>.green { background-color: green }</body></sourcecode>
              </clause>
              <source-highlighter-css>
        .green { background-color: green }</source-highlighter-css>
