@@ -73,6 +73,7 @@ module IsoDoc
       !node.ancestors("preferred, admitted, deprecated, related, " \
         "definition, termsource").empty? and return true
       !node.ancestors("xref, eref, origin, link").empty? and return true
+      !node.ancestors("name, title").empty? and return true
       node.ancestors("bibitem") &&
         !node.ancestors("formattedref, biblio-tag") and return true
       !node.ancestors("requirement, recommendation, permission").empty? &&
