@@ -5,10 +5,10 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword id="fwd">
-          <sourcecode lang="ruby" id="samplecode"><name>Ruby <em>code</em></name>puts x</sourcecode>
-      <sourcecode unnumbered="true" linenums="true">Hey
+          <sourcecode lang="ruby" id="samplecode"><name>Ruby <em>code</em></name><body>puts x</body></sourcecode>
+      <sourcecode unnumbered="true" linenums="true"><body>Hey
       Que?
-      </sourcecode>
+      </body></sourcecode>
           </foreword></preface>
           </iso-standard>
     INPUT
@@ -43,12 +43,12 @@ RSpec.describe IsoDoc do
                       <span class="fmt-element-name">Figure</span>
                       <semx element="autonum" source="samplecode">1</semx>
                    </fmt-xref-label>
-                   puts x
+                   <body>puts x</body>
                    <fmt-sourcecode lang="ruby" autonum="1">puts x</fmt-sourcecode>
                 </sourcecode>
-                <sourcecode unnumbered="true" linenums="true" id="_">
+                <sourcecode unnumbered="true" linenums="true" id="_"><body>
                    Hey Que?
-                   <fmt-sourcecode unnumbered="true" linenums="true">Hey
+                   </body><fmt-sourcecode unnumbered="true" linenums="true">Hey
        Que?
        </fmt-sourcecode>
                 </sourcecode>
@@ -125,13 +125,13 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata/>
           <preface><foreword>
-          <sourcecode lang="ruby" id="samplecode"><name>Ruby <em>code</em></name>puts x</sourcecode>
-      <sourcecode unnumbered="true" linenums="true" id="A"><name>More</name>Hey
+          <sourcecode lang="ruby" id="samplecode"><name>Ruby <em>code</em></name><body>puts x</body></sourcecode>
+      <sourcecode unnumbered="true" linenums="true" id="A"><name>More</name><body>Hey
       Que?
-      </sourcecode>
-      <sourcecode unnumbered="true" linenums="true" id="B"><name>More</name>Hey
+      </body></sourcecode>
+      <sourcecode unnumbered="true" linenums="true" id="B"><name>More</name><body>Hey
       Que?
-      </sourcecode>
+      </body></sourcecode>
           </foreword></preface>
           </iso-standard>
     INPUT
@@ -207,7 +207,7 @@ RSpec.describe IsoDoc do
             <fmt-xref-label>
                <span class="fmt-element-name">Figure</span>
                <semx element="autonum" source="samplecode">1</semx>
-            </fmt-xref-label>puts x<fmt-sourcecode lang="ruby" autonum="1">
+            </fmt-xref-label><body>puts x</body><fmt-sourcecode lang="ruby" autonum="1">
                <span class="nb">puts</span>
                <span class="n">x</span>
                </fmt-sourcecode>
@@ -216,8 +216,8 @@ RSpec.describe IsoDoc do
             <name id="_">More</name>
             <fmt-name>
                   <semx element="name" source="_">More</semx>
-            </fmt-name>Hey
-      Que?<fmt-sourcecode unnumbered="true" linenums="true">
+            </fmt-name><body>Hey
+      Que?</body><fmt-sourcecode unnumbered="true" linenums="true">
                <table class="rouge-line-table">
                  <tbody>
                    <tr id="line-1" class="lineno">
@@ -244,8 +244,8 @@ RSpec.describe IsoDoc do
                <name id="_">More</name>
             <fmt-name>
                   <semx element="name" source="_">More</semx>
-            </fmt-name>Hey
-      Que?<fmt-sourcecode unnumbered="true" linenums="true">
+            </fmt-name><body>Hey
+      Que?</body><fmt-sourcecode unnumbered="true" linenums="true">
                <table class="rouge-line-table">
                  <tbody>
                    <tr id="line-1" class="lineno">
@@ -377,13 +377,13 @@ RSpec.describe IsoDoc do
       <bibdata/>
       <metanorma-extension><clause id="_user_css" inline-header="false" obligation="normative">
       <title>user-css</title>
-      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646">.green { background-color: green }</sourcecode>
+      <sourcecode id="_2d494494-0538-c337-37ca-6d083d748646"><body>.green { background-color: green }</body></sourcecode>
       </clause>
       </metanorma-extension>
       <preface><foreword>
-      <sourcecode lang="ruby" id="samplecode">
+      <sourcecode lang="ruby" id="samplecode"><body>
           puts x
-      </sourcecode>
+      </body></sourcecode>
       </foreword></preface>
       </iso-standard>
     INPUT
@@ -394,7 +394,7 @@ RSpec.describe IsoDoc do
       <fmt-title depth="1">
             <semx element="title" source="_">user-css</semx>
       </fmt-title>
-             <sourcecode id="_">.green { background-color: green }</sourcecode>
+             <sourcecode id="_"><body>.green { background-color: green }</body></sourcecode>
            </clause>
            <source-highlighter-css>sourcecode table td { padding: 5px; }
        sourcecode table pre { margin: 0; }
@@ -453,8 +453,8 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
       <preface><foreword>
-      <sourcecode id="samplecode" lang="xml"><name>XML code</name>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</sourcecode>
-      <sourcecode id="samplecode1" lang="xml" linenums="true"><name>XML code</name>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</sourcecode>
+      <sourcecode id="samplecode" lang="xml"><name>XML code</name><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body></sourcecode>
+      <sourcecode id="samplecode1" lang="xml" linenums="true"><name>XML code</name><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body></sourcecode>
       </foreword></preface>
       </iso-standard>
     INPUT
@@ -479,7 +479,7 @@ RSpec.describe IsoDoc do
             </fmt-name><fmt-xref-label>
                <span class="fmt-element-name">Figure</span>
                <semx element="autonum" source="samplecode">1</semx>
-            </fmt-xref-label>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;<fmt-sourcecode lang="xml" autonum="1"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></fmt-sourcecode></sourcecode>
+            </fmt-xref-label><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body><fmt-sourcecode lang="xml" autonum="1"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></fmt-sourcecode></sourcecode>
                      <sourcecode id="samplecode1" lang="xml" linenums="true" autonum="2">
             <name id="_">XML code</name>
             <fmt-name>
@@ -493,7 +493,7 @@ RSpec.describe IsoDoc do
             <fmt-xref-label>
                <span class="fmt-element-name">Figure</span>
                <semx element="autonum" source="samplecode1">2</semx>
-            </fmt-xref-label>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;
+            </fmt-xref-label><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body>
                <fmt-sourcecode lang="xml" linenums="true" autonum="2"><table class="rouge-line-table">
                                 <tbody>
                    <tr id="line-1" class="lineno">
@@ -545,10 +545,10 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata/>
       <preface><foreword>
-      <sourcecode id="_">puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
+      <sourcecode id="_"><body>puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
          %w{a b c}.each do |x|
            puts x <callout target="C">3</callout>
-         end<annotation id="A">
+         end</body><annotation id="A">
            <p id="_">This is <em>one</em> callout</p>
          </annotation><annotation id="B">
            <p id="_">This is another callout</p>
@@ -582,14 +582,14 @@ RSpec.describe IsoDoc do
                    <fmt-xref-label>
                       <span class="fmt-element-name">Figure</span>
                       <semx element="autonum" source="_">1</semx>
-                   </fmt-xref-label>
+                   </fmt-xref-label><body>
                    puts "Hello, world."
                    <callout target="A">1</callout>
                    <callout target="B">2</callout>
                    %w{a b c}.each do |x| puts x
                    <callout target="C">3</callout>
                    end
-                   <annotation original-id="A" id="_">
+                   </body><annotation original-id="A" id="_">
                       <p original-id="_">
                          This is
                          <em>one</em>
@@ -771,10 +771,10 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata/>
       <preface><foreword>
-      <sourcecode id="_" linenums="true">puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
+      <sourcecode id="_" linenums="true"><body>puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
          %w{a b c}.each do |x|
            puts x <callout target="C">3</callout>
-         end<annotation id="A">
+         end</body><annotation id="A">
            <p id="_">This is <em>one</em> callout</p>
          </annotation><annotation id="B">
            <p id="_">This is another callout</p>
@@ -808,14 +808,14 @@ RSpec.describe IsoDoc do
                    <fmt-xref-label>
                       <span class="fmt-element-name">Figure</span>
                       <semx element="autonum" source="_">1</semx>
-                   </fmt-xref-label>
+                   </fmt-xref-label><body>
                    puts "Hello, world."
                    <callout target="A">1</callout>
                    <callout target="B">2</callout>
                    %w{a b c}.each do |x| puts x
                    <callout target="C">3</callout>
                    end
-                   <annotation original-id="A" id="_">
+                   </body><annotation original-id="A" id="_">
                       <p original-id="_">
                          This is
                          <em>one</em>
@@ -1038,10 +1038,10 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata/>
       <preface><foreword id="X">
-      <sourcecode id="_" lang="ruby" linenums="true">puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
+      <sourcecode id="_" lang="ruby" linenums="true"><body>puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
          %w{a b c}.each do |x|
            <strong>puts</strong> <xref target="X">x</xref> <callout target="C">3</callout>
-         end<annotation id="A">
+         end</body><annotation id="A">
            <p id="A1">This is <em>one</em> callout</p>
          </annotation>
          </sourcecode>
@@ -1072,7 +1072,7 @@ RSpec.describe IsoDoc do
                    <fmt-xref-label>
                       <span class="fmt-element-name">Figure</span>
                       <semx element="autonum" source="_">1</semx>
-                   </fmt-xref-label>
+                   </fmt-xref-label><body>
                    puts "Hello, world."
                    <callout target="A">1</callout>
                    <callout target="B">2</callout>
@@ -1084,7 +1084,7 @@ RSpec.describe IsoDoc do
                    </semx>
                    <callout target="C">3</callout>
                    end
-                   <annotation original-id="A" id="_">
+                   </body><annotation original-id="A" id="_">
                       <p original-id="A1">
                          This is
                          <em>one</em>

@@ -1050,14 +1050,14 @@ RSpec.describe IsoDoc do
         </measurement-target>
         <verification exclude="false">
           <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="C">CoreRoot(success): HttpResponse
+          <sourcecode id="C"><body>CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
-          </sourcecode>
+          </body></sourcecode>
         </verification>
         <import exclude="true">
-          <sourcecode id="D">success-response()</sourcecode>
+          <sourcecode id="D"><body>success-response()</body></sourcecode>
         </import>
         <component exclude='false' class='component1'>
                   <p id='_'>Hello</p>
@@ -1160,14 +1160,14 @@ RSpec.describe IsoDoc do
                    </measurement-target>
                    <verification exclude="false" id="_">
                       <p original-id="_">The following code will be run for verification:</p>
-                      <sourcecode autonum="1" original-id="C">CoreRoot(success): HttpResponse
+                      <sourcecode autonum="1" original-id="C"><body>CoreRoot(success): HttpResponse
              if (success)
              recommendation(label: success-response)
              end
-           </sourcecode>
+           </body></sourcecode>
                    </verification>
                    <import exclude="true">
-                      <sourcecode id="D" autonum="2">success-response()</sourcecode>
+                      <sourcecode id="D" autonum="2"><body>success-response()</body></sourcecode>
                    </import>
                    <component exclude="false" class="component1" id="_">
                       <p original-id="_">Hello</p>
@@ -1274,9 +1274,9 @@ RSpec.describe IsoDoc do
                       <div type="requirement-verification">
                          <semx element="verification" source="_">
                             <p id="_">The following code will be run for verification:</p>
-                            <sourcecode id="C" autonum="1">
+                            <sourcecode id="C" autonum="1"><body>
                                CoreRoot(success): HttpResponse if (success) recommendation(label: success-response) end
-                               <fmt-sourcecode autonum="1">CoreRoot(success): HttpResponse
+                               </body><fmt-sourcecode autonum="1">CoreRoot(success): HttpResponse
              if (success)
              recommendation(label: success-response)
              end
@@ -1468,14 +1468,14 @@ RSpec.describe IsoDoc do
         </measurement-target>
         <verification exclude="false">
           <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="C">CoreRoot(success): HttpResponse
+          <sourcecode id="C"><body>CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
-          </sourcecode>
+          </body></sourcecode>
         </verification>
         <import exclude="true">
-          <sourcecode id="D">success-response()</sourcecode>
+          <sourcecode id="D"><body>success-response()</body></sourcecode>
         </import>
         <component exclude='false' class='component1'>
                   <p id='_'>Hello</p>
@@ -1549,14 +1549,14 @@ RSpec.describe IsoDoc do
                    </measurement-target>
                    <verification exclude="false" id="_">
                       <p original-id="_">The following code will be run for verification:</p>
-                      <sourcecode autonum="1" original-id="C">CoreRoot(success): HttpResponse
+                      <sourcecode autonum="1" original-id="C"><body>CoreRoot(success): HttpResponse
              if (success)
              recommendation(label: success-response)
              end
-           </sourcecode>
+           </body></sourcecode>
                    </verification>
                    <import exclude="true">
-                      <sourcecode id="D" autonum="2">success-response()</sourcecode>
+                      <sourcecode id="D" autonum="2"><body>success-response()</body></sourcecode>
                    </import>
                    <component exclude="false" class="component1" id="_">
                       <p original-id="_">Hello</p>
@@ -1624,9 +1624,9 @@ RSpec.describe IsoDoc do
                       <div type="requirement-verification">
                          <semx element="verification" source="_">
                             <p id="_">The following code will be run for verification:</p>
-                            <sourcecode id="C" autonum="1">
+                            <sourcecode id="C" autonum="1"><body>
                                CoreRoot(success): HttpResponse if (success) recommendation(label: success-response) end
-                               <fmt-sourcecode autonum="1">CoreRoot(success): HttpResponse
+                               </body><fmt-sourcecode autonum="1">CoreRoot(success): HttpResponse
              if (success)
              recommendation(label: success-response)
              end
@@ -1723,14 +1723,14 @@ RSpec.describe IsoDoc do
         </measurement-target>
         <verification exclude="false">
           <p id="_">The following code will be run for verification:</p>
-          <sourcecode id="C">CoreRoot(success): HttpResponse
+          <sourcecode id="C"><body>CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
-          </sourcecode>
+          </body></sourcecode>
         </verification>
         <import exclude="true">
-          <sourcecode id="D">success-response()</sourcecode>
+          <sourcecode id="D"><body>success-response()</body></sourcecode>
         </import>
         <component exclude='false' class='component1'>
                   <p id='_'>Hello</p>
@@ -1810,14 +1810,14 @@ RSpec.describe IsoDoc do
                    </measurement-target>
                    <verification exclude="false" id="_">
                       <p original-id="_">The following code will be run for verification:</p>
-                      <sourcecode autonum="1" original-id="C">CoreRoot(success): HttpResponse
+                      <sourcecode autonum="1" original-id="C"><body>CoreRoot(success): HttpResponse
              if (success)
              recommendation(label: success-response)
              end
-           </sourcecode>
+           </body></sourcecode>
                    </verification>
                    <import exclude="true">
-                      <sourcecode id="D" autonum="2">success-response()</sourcecode>
+                      <sourcecode id="D" autonum="2"><body>success-response()</body></sourcecode>
                    </import>
                    <component exclude="false" class="component1" id="_">
                       <p original-id="_">Hello</p>
@@ -1899,9 +1899,9 @@ RSpec.describe IsoDoc do
                       <div type="requirement-verification">
                          <semx element="verification" source="_">
                             <p id="_">The following code will be run for verification:</p>
-                            <sourcecode id="C" autonum="1">
+                            <sourcecode id="C" autonum="1"><body>
                                CoreRoot(success): HttpResponse if (success) recommendation(label: success-response) end
-                               <fmt-sourcecode autonum="1">CoreRoot(success): HttpResponse
+                               </body><fmt-sourcecode autonum="1">CoreRoot(success): HttpResponse
              if (success)
              recommendation(label: success-response)
              end
