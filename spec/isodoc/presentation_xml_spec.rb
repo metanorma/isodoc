@@ -2023,4 +2023,45 @@ RSpec.describe IsoDoc do
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to (presxml)
   end
+
+  it "validates on duplicate identifiers" do
+    FileUtils.rm_f "test.presentation.xml"
+    log = Metanorma::Utils::Log.new
+    IsoDoc::PresentationXMLConvert.new({ filename: "test", log: log }
+      .merge(presxml_options))
+      .convert("test", <<~INPUT, false)
+                <iso-standard xmlns="http://riboseinc.com/isoxml">
+                <bibdata>
+                <title language="en">test</title>
+                </bibdata>
+            <preface><foreword>
+            <note>
+          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e">These results are based on a study carried out on three different types of kernel.</p>
+          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
+        </note>
+            </foreword></preface>
+            </iso-standard>
+    INPUT
+    expect(File.exist?("test.presentation.xml")).to be true
+    expect(log.abort_messages).to be_empty
+        log = Metanorma::Utils::Log.new
+    IsoDoc::PresentationXMLConvert.new({ filename: "test", log: log }
+      .merge(presxml_options))
+      .convert("test", <<~INPUT, false)
+                <iso-standard xmlns="http://riboseinc.com/isoxml">
+                <bibdata>
+                <title language="en">test</title>
+                </bibdata>
+            <preface><foreword>
+            <note>
+          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e">These results are based on a study carried out on three different types of kernel.</p>
+          <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83e">These results are based on a study carried out on three different types of kernel.</p>
+        </note>
+            </foreword></preface>
+            </iso-standard>
+    INPUT
+    expect(File.exist?("test.presentation.xml")).to be true
+    expect(log.abort_messages).not_to be_empty
+    expect(log.abort_messages.first).to eq "Anchor _f06fd0d1-a203-4f3d-a515-0bdba0f8d83e has already been used at line 7"
+  end
 end

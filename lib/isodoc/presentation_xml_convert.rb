@@ -28,8 +28,26 @@ module IsoDoc
       @xrefs.klass.info docxml, nil
       conversions(docxml)
       docxml.root["type"] = "presentation"
+      repeat_id_validate(docxml.root)
       docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
     end
+
+    def repeat_id_validate1(elem)
+        if @doc_ids[elem["id"]]
+          @log.add("Anchors", elem,
+                   "Anchor #{elem['id']} has already been " \
+                   "used at line #{@doc_ids[elem['id']]}", severity: 0)
+        end
+        @doc_ids[elem["id"]] = elem.line
+      end
+
+      def repeat_id_validate(doc)
+        @log or return
+        @doc_ids = {}
+        doc.xpath("//*[@id]").each do |x|
+          repeat_id_validate1(x)
+        end
+      end
 
     def bibitem_lookup(docxml)
       @bibitem_lookup ||= docxml.xpath(ns("//references/bibitem"))
