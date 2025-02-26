@@ -42,7 +42,8 @@ module IsoDoc
       end
 
       def get_table_ancestor_id(node)
-        table = node.ancestors("table") || node.ancestors("figure")
+        table = node.ancestors("table")
+        table.empty? and table = node.ancestors("figure")
         table.empty? and return [nil, UUIDTools::UUID.random_create.to_s]
         [table.last, table.last["id"]]
       end
