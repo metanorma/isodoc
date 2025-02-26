@@ -277,84 +277,62 @@ RSpec.describe IsoDoc do
        </standard-document>
     OUTPUT
     html = <<~OUTPUT
-      <html lang='en'>
-           <head/>
-           <body lang='en'>
-             <div class='title-section'>
-               <p>&#160;</p>
+       <div id="A">
+          <h1 class="ForewordTitle">Foreword</h1>
+          <div align="right">
+             <b>Units in mm</b>
+          </div>
+          <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+             <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+             <img src="rice_images/rice_image1.png" height="20" width="auto"/>
+             <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto"/>
+             <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto"/>
+             <a href="#figureA-1a" class="TableFootnoteRef">a)</a>
+             <p class="ListTitle">
+                Key
+                <a id="DL1"/>
+             </p>
+             <p class="dl">A: B</p>
+             <div class="BlockSource">
+                <p>
+                   [SOURCE:
+                   <a href="#ISO712">ISO 712, Section 1</a>
+                   — with adjustments]
+                </p>
              </div>
-             <br/>
-             <div class='prefatory-section'>
-               <p>&#160;</p>
+             <div id="note1" class="Note">
+                <p>
+                   <span class="note_label">NOTE  </span>
+                </p>
+                This is a note
              </div>
-             <br/>
-             <div class='main-section'>
-                   <br/>
-      <div class="TOC" id="_">
-        <h1 class="IntroTitle">Table of contents</h1>
-      </div>
-               <p class='zzSTDTitle1'>Document title</p>
-               <div id='A'>
-                 <h1>1.&#160; Change Clause</h1>
-                 <p id='C'>
-                   <i>
-                      This table contains information on polygon cells which are not
-                     included in ISO 10303-52. Remove table 2 completely and replace
-                     with:
-                   </i>
-                 </p>
-                 <div class='Quote' id="D">
-                   <p class='TableTitle' style='text-align:center;'>Table 2&#160;&#8212; Edges of triangle and quadrilateral cells</p>
-                   <table id='E' class='MsoISOTable' style='border-width:1px;border-spacing:0;'>
-                     <tbody>
-                       <tr>
-                         <th colspan='2' style='font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;' scope='row'>triangle</th>
-                         <th colspan='2' style='font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;' scope='row'>quadrilateral</th>
-                       </tr>
-                       <tr>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>edge</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>vertices</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>edge</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>vertices</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1, 2</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1, 2</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2, 3</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2, 3</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3, 1</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3, 4</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;'/>
-                         <td style='text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;'/>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;'>4</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;'>4, 1</td>
-                       </tr>
-                     </tbody>
-                   </table>
-                   <div id='H' class='figure'>
-                     <p class='FigureTitle' style='text-align:center;'>Imago</p>
-                   </div>
-                   <div id='F' class='example'>
-                     <p class='example-title'>EXAMPLE A.7</p>
-                     <p id='G'>This is not generalised further.</p>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </body>
-         </html>
+             <aside id="fn:figureA-1a" class="footnote">
+                <p id="_">
+                   <span class="TableFootnoteRef">Footnote a)</span>
+                     The time
+                   <span class="stem">(#(t_90)#)</span>
+                   was estimated to be 18,2 min for this example.
+                </p>
+             </aside>
+             <p class="FigureTitle" style="text-align:center;">
+                Figure 1 — Split-it-right
+                <i>sample</i>
+                divider
+                <a class="FootnoteRef" href="#fn:1">
+                   <sup>1)</sup>
+                </a>
+             </p>
+          </div>
+          <div id="figure-B" class="figure">
+             <pre>A &lt;
+         B</pre>
+             <p class="FigureTitle" style="text-align:center;">Figure 2</p>
+          </div>
+          <div id="figure-C" class="figure">
+             <pre>A &lt;
+         B</pre>
+          </div>
+       </div>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)

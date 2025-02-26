@@ -68,11 +68,12 @@ module IsoDoc
       fns and docxml.root << fns
     end
 
+    # bibdata, boilerplate, @displayorder sections
     def sort_footnote_sections(docxml)
       sects = docxml.xpath(".//*[@displayorder]")
         .sort_by { |c| c["displayorder"].to_i }
-      b = docxml.at(ns("//boilerplate")) and # no @displayorder
-        sects.unshift b
+      b = docxml.at(ns("//boilerplate")) and sects.unshift b
+      b = docxml.at(ns("//bibdata")) and sects.unshift b
       sects
     end
 

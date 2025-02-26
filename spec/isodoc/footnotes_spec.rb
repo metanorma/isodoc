@@ -5,6 +5,15 @@ RSpec.describe IsoDoc do
   it "processes IsoXML footnotes" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata>
+      <title><fn reference="43"><p>C</p></fn></title>
+      </bibdata>
+      <boilerplate>
+      <copyright-statement>
+      <clause><title><fn reference="44"><p>D</p></fn><</title>
+      </clause>
+      </copyright-statement>
+      </boilerplate>
           <preface>
           <foreword id="F"><title>Foreword</title>
           <p>A.<fn reference="2">
@@ -48,6 +57,47 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~INPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <bibdata>
+             <title>
+                <fn reference="1" original-reference="43" id="_" target="_">
+                   <p>C</p>
+                   <fmt-fn-label>
+                      <sup>
+                         <semx element="autonum" source="_">1</semx>
+                      </sup>
+                   </fmt-fn-label>
+                </fn>
+             </title>
+          </bibdata>
+          
+          <boilerplate>
+             <copyright-statement>
+                <clause>
+                   <title id="_">
+                      <fn reference="2" original-reference="44" id="_" target="_">
+                         <p>D</p>
+                         <fmt-fn-label>
+                            <sup>
+                               <semx element="autonum" source="_">2</semx>
+                            </sup>
+                         </fmt-fn-label>
+                      </fn>
+                   </title>
+                   <fmt-title depth="1">
+                      <semx element="title" source="_">
+                         <fn reference="2" original-reference="44" id="_" target="_">
+                            <p>D</p>
+                            <fmt-fn-label>
+                               <sup>
+                                  <semx element="autonum" source="_">2</semx>
+                               </sup>
+                            </fmt-fn-label>
+                         </fn>
+                      </semx>
+                   </fmt-title>
+                </clause>
+             </copyright-statement>
+          </boilerplate>
           <preface>
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
@@ -59,33 +109,33 @@ RSpec.describe IsoDoc do
                 </fmt-title>
                 <p>
                    A.
-                   <fn reference="1" original-reference="2" id="_" target="_">
+                   <fn reference="3" original-reference="2" id="_" target="_">
                       <p original-id="_">Formerly denoted as 15 % (m/m).</p>
                       <fmt-fn-label>
                          <sup>
-                            <semx element="autonum" source="_">1</semx>
+                            <semx element="autonum" source="_">3</semx>
                          </sup>
                       </fmt-fn-label>
                    </fn>
                 </p>
                 <p>
                    B.
-                   <fn reference="1" original-reference="2" id="_" target="_">
+                   <fn reference="3" original-reference="2" id="_" target="_">
                       <p id="_">Formerly denoted as 15 % (m/m).</p>
                       <fmt-fn-label>
                          <sup>
-                            <semx element="autonum" source="_">1</semx>
+                            <semx element="autonum" source="_">3</semx>
                          </sup>
                       </fmt-fn-label>
                    </fn>
                 </p>
                 <p>
                    C.
-                   <fn reference="2" original-reference="1" id="_" target="_">
+                   <fn reference="4" original-reference="1" id="_" target="_">
                       <p original-id="_">Hello! denoted as 15 % (m/m).</p>
                       <fmt-fn-label>
                          <sup>
-                            <semx element="autonum" source="_">2</semx>
+                            <semx element="autonum" source="_">4</semx>
                          </sup>
                       </fmt-fn-label>
                    </fn>
@@ -105,22 +155,22 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="A">2</semx>
                 </fmt-xref-label>
                 A.
-                <fn reference="4" original-reference="42" id="_" target="_">
+                <fn reference="6" original-reference="42" id="_" target="_">
                    <p original-id="_">Third footnote.</p>
                    <fmt-fn-label>
                       <sup>
-                         <semx element="autonum" source="_">4</semx>
+                         <semx element="autonum" source="_">6</semx>
                       </sup>
                    </fmt-fn-label>
                 </fn>
              </clause>
              <p displayorder="3">
                 B.
-                <fn reference="1" original-reference="2" id="_" target="_">
+                <fn reference="3" original-reference="2" id="_" target="_">
                    <p id="_">Formerly denoted as 15 % (m/m).</p>
                    <fmt-fn-label>
                       <sup>
-                         <semx element="autonum" source="_">1</semx>
+                         <semx element="autonum" source="_">3</semx>
                       </sup>
                    </fmt-fn-label>
                 </fn>
@@ -147,11 +197,11 @@ RSpec.describe IsoDoc do
                       International Organization for Standardization.
                       <em>
                          Cereals and cereal products
-                         <fn reference="3" original-reference="7" id="_" target="_">
+                         <fn reference="5" original-reference="7" id="_" target="_">
                             <p original-id="_">ISO is a standards organisation.</p>
                             <fmt-fn-label>
                                <sup>
-                                  <semx element="autonum" source="_">3</semx>
+                                  <semx element="autonum" source="_">5</semx>
                                </sup>
                             </fmt-fn-label>
                          </fn>
@@ -161,11 +211,11 @@ RSpec.describe IsoDoc do
                    <title format="text/plain">Cereals or cereal products</title>
                    <title type="main" format="text/plain">
                       Cereals and cereal products
-                      <fn reference="3" original-reference="7" id="_" target="_">
+                      <fn reference="5" original-reference="7" id="_" target="_">
                          <p id="_">ISO is a standards organisation.</p>
                          <fmt-fn-label>
                             <sup>
-                               <semx element="autonum" source="_">3</semx>
+                               <semx element="autonum" source="_">5</semx>
                             </sup>
                          </fmt-fn-label>
                       </fn>
@@ -187,7 +237,7 @@ RSpec.describe IsoDoc do
           <fmt-footnote-container>
              <fmt-fn-body id="_" target="_" reference="1">
                 <semx element="fn" source="_">
-                   <p id="_">
+                   <p>
                       <fmt-fn-label>
                          <sup>
                             <semx element="autonum" source="_">1</semx>
@@ -196,13 +246,13 @@ RSpec.describe IsoDoc do
                             <tab/>
                          </span>
                       </fmt-fn-label>
-                      Formerly denoted as 15 % (m/m).
+                      C
                    </p>
                 </semx>
              </fmt-fn-body>
              <fmt-fn-body id="_" target="_" reference="2">
                 <semx element="fn" source="_">
-                   <p id="_">
+                   <p>
                       <fmt-fn-label>
                          <sup>
                             <semx element="autonum" source="_">2</semx>
@@ -211,7 +261,7 @@ RSpec.describe IsoDoc do
                             <tab/>
                          </span>
                       </fmt-fn-label>
-                      Hello! denoted as 15 % (m/m).
+                      D
                    </p>
                 </semx>
              </fmt-fn-body>
@@ -226,7 +276,7 @@ RSpec.describe IsoDoc do
                             <tab/>
                          </span>
                       </fmt-fn-label>
-                      ISO is a standards organisation.
+                      Formerly denoted as 15 % (m/m).
                    </p>
                 </semx>
              </fmt-fn-body>
@@ -241,6 +291,36 @@ RSpec.describe IsoDoc do
                             <tab/>
                          </span>
                       </fmt-fn-label>
+                      Hello! denoted as 15 % (m/m).
+                   </p>
+                </semx>
+             </fmt-fn-body>
+             <fmt-fn-body id="_" target="_" reference="5">
+                <semx element="fn" source="_">
+                   <p id="_">
+                      <fmt-fn-label>
+                         <sup>
+                            <semx element="autonum" source="_">5</semx>
+                         </sup>
+                         <span class="fmt-caption-delim">
+                            <tab/>
+                         </span>
+                      </fmt-fn-label>
+                      ISO is a standards organisation.
+                   </p>
+                </semx>
+             </fmt-fn-body>
+             <fmt-fn-body id="_" target="_" reference="6">
+                <semx element="fn" source="_">
+                   <p id="_">
+                      <fmt-fn-label>
+                         <sup>
+                            <semx element="autonum" source="_">6</semx>
+                         </sup>
+                         <span class="fmt-caption-delim">
+                            <tab/>
+                         </span>
+                      </fmt-fn-label>
                       Third footnote.
                    </p>
                 </semx>
@@ -249,33 +329,59 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
+          <html lang="en">
+          <head/>
+          <body lang="en">
+             <div class="title-section">
+                <p> </p>
+             </div>
+             <br/>
+             <div class="prefatory-section">
+                <p> </p>
+             </div>
+             <br/>
+             <div class="main-section">
+                <div class="authority">
+                   <div class="boilerplate-copyright">
+                      <div>
+                         <h1>
+                            <a class="FootnoteRef" href="#fn:2">
+                               <sup>2</sup>
+                            </a>
+                         </h1>
+                      </div>
+                   </div>
+                </div>
+                <br/>
+                <div id="_" class="TOC">
+                   <h1 class="IntroTitle">Table of contents</h1>
+                </div>
                 <br/>
                 <div id="F">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
                       A.
-                      <a class="FootnoteRef" href="#fn:1">
-                         <sup>1</sup>
+                      <a class="FootnoteRef" href="#fn:3">
+                         <sup>3</sup>
                       </a>
                    </p>
                    <p>
                       B.
-                      <a class="FootnoteRef" href="#fn:1">
-                         <sup>1</sup>
+                      <a class="FootnoteRef" href="#fn:3">
+                         <sup>3</sup>
                       </a>
                    </p>
                    <p>
                       C.
-                      <a class="FootnoteRef" href="#fn:2">
-                         <sup>2</sup>
+                      <a class="FootnoteRef" href="#fn:4">
+                         <sup>4</sup>
                       </a>
                    </p>
                 </div>
                 <p>
                    B.
-                   <a class="FootnoteRef" href="#fn:1">
-                      <sup>1</sup>
+                   <a class="FootnoteRef" href="#fn:3">
+                      <sup>3</sup>
                    </a>
                 </p>
                 <div>
@@ -285,8 +391,8 @@ RSpec.describe IsoDoc do
                       ISO 712, International Organization for Standardization.
                       <i>
                          Cereals and cereal products
-                         <a class="FootnoteRef" href="#fn:3">
-                            <sup>3</sup>
+                         <a class="FootnoteRef" href="#fn:5">
+                            <sup>5</sup>
                          </a>
                       </i>
                       .
@@ -294,20 +400,26 @@ RSpec.describe IsoDoc do
                 </div>
                 <div id="A">
                    <h1>2.</h1>
-                   <a class="FootnoteRef" href="#fn:4">
-                      <sup>4</sup>
+                   <a class="FootnoteRef" href="#fn:6">
+                      <sup>6</sup>
                    </a>
                 </div>
                 <aside id="fn:1" class="footnote">
-                   <p id="_">Formerly denoted as 15 % (m/m).</p>
+                   <p>C</p>
                 </aside>
                 <aside id="fn:2" class="footnote">
-                   <p id="_">Hello! denoted as 15 % (m/m).</p>
+                   <p>D</p>
                 </aside>
                 <aside id="fn:3" class="footnote">
-                   <p id="_">ISO is a standards organisation.</p>
+                   <p id="_">Formerly denoted as 15 % (m/m).</p>
                 </aside>
                 <aside id="fn:4" class="footnote">
+                   <p id="_">Hello! denoted as 15 % (m/m).</p>
+                </aside>
+                <aside id="fn:5" class="footnote">
+                   <p id="_">ISO is a standards organisation.</p>
+                </aside>
+                <aside id="fn:6" class="footnote">
                    <p id="_">Third footnote.</p>
                 </aside>
              </div>
@@ -315,7 +427,33 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     doc = <<~OUTPUT
-      #{WORD_HDR}
+          <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+                <p> </p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection2">
+                <div class="authority">
+                   <div class="boilerplate-copyright">
+                      <div>
+                         <h1>
+                            <span style="mso-bookmark:_Ref">
+                               <a class="FootnoteRef" href="#ftn2" epub:type="footnote">
+                                  <sup>2</sup>
+                               </a>
+                            </span>
+                         </h1>
+                      </div>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="_" class="TOC">
+                   <p class="zzContents">Table of contents</p>
+                </div>
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
@@ -324,8 +462,8 @@ RSpec.describe IsoDoc do
                    <p>
                       A.
                       <span style="mso-bookmark:_Ref">
-                         <a class="FootnoteRef" href="#ftn1" epub:type="footnote">
-                            <sup>1</sup>
+                         <a class="FootnoteRef" href="#ftn3" epub:type="footnote">
+                            <sup>3</sup>
                          </a>
                       </span>
                    </p>
@@ -334,14 +472,14 @@ RSpec.describe IsoDoc do
                       <span style="mso-element:field-begin"/>
                       NOTEREF _Ref \\f \\h
                       <span style="mso-element:field-separator"/>
-                      <span class="MsoFootnoteReference">1</span>
+                      <span class="MsoFootnoteReference">3</span>
                       <span style="mso-element:field-end"/>
                    </p>
                    <p>
                       C.
                       <span style="mso-bookmark:_Ref">
-                         <a class="FootnoteRef" href="#ftn2" epub:type="footnote">
-                            <sup>2</sup>
+                         <a class="FootnoteRef" href="#ftn4" epub:type="footnote">
+                            <sup>4</sup>
                          </a>
                       </span>
                    </p>
@@ -357,7 +495,7 @@ RSpec.describe IsoDoc do
                    <span style="mso-element:field-begin"/>
                    NOTEREF _Ref \\f \\h
                    <span style="mso-element:field-separator"/>
-                   <span class="MsoFootnoteReference">1</span>
+                   <span class="MsoFootnoteReference">3</span>
                    <span style="mso-element:field-end"/>
                 </p>
                 <div>
@@ -372,8 +510,8 @@ RSpec.describe IsoDoc do
                       <i>
                          Cereals and cereal products
                          <span style="mso-bookmark:_Ref">
-                            <a class="FootnoteRef" href="#ftn3" epub:type="footnote">
-                               <sup>3</sup>
+                            <a class="FootnoteRef" href="#ftn5" epub:type="footnote">
+                               <sup>5</sup>
                             </a>
                          </span>
                       </i>
@@ -383,30 +521,41 @@ RSpec.describe IsoDoc do
                 <div id="A">
                    <h1>2.</h1>
                    <span style="mso-bookmark:_Ref">
-                      <a class="FootnoteRef" href="#ftn4" epub:type="footnote">
-                         <sup>4</sup>
+                      <a class="FootnoteRef" href="#ftn6" epub:type="footnote">
+                         <sup>6</sup>
                       </a>
                    </span>
                 </div>
                 <aside id="ftn1">
-                   <p id="_">Formerly denoted as 15 % (m/m).</p>
+                   <p>C</p>
                 </aside>
                 <aside id="ftn2">
-                   <p id="_">Hello! denoted as 15 % (m/m).</p>
+                   <p>D</p>
                 </aside>
                 <aside id="ftn3">
-                   <p id="_">ISO is a standards organisation.</p>
+                   <p id="_">Formerly denoted as 15 % (m/m).</p>
                 </aside>
                 <aside id="ftn4">
+                   <p id="_">Hello! denoted as 15 % (m/m).</p>
+                </aside>
+                <aside id="ftn5">
+                   <p id="_">ISO is a standards organisation.</p>
+                </aside>
+                <aside id="ftn6">
                    <p id="_">Third footnote.</p>
                 </aside>
              </div>
           </body>
-       </html>
     OUTPUT
     doc1 = <<~OUTPUT
        <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
           <div class="WordSection2">
+             <div class="authority">
+                <div class="boilerplate-copyright">
+                   <div>
+       </div>
+                </div>
+             </div>
              <p class="MsoNormal">
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
@@ -428,7 +577,7 @@ RSpec.describe IsoDoc do
                    <span style="mso-element:field-begin"/>
                    NOTEREF _Ref \\f \\h
                    <span style="mso-element:field-separator"/>
-                   <span class="MsoFootnoteReference">1</span>
+                   <span class="MsoFootnoteReference">3</span>
                    <span style="mso-element:field-end"/>
                 </p>
                 <p class="MsoNormal">
@@ -453,7 +602,7 @@ RSpec.describe IsoDoc do
                 <span style="mso-element:field-begin"/>
                 NOTEREF _Ref \\f \\h
                 <span style="mso-element:field-separator"/>
-                <span class="MsoFootnoteReference">1</span>
+                <span class="MsoFootnoteReference">3</span>
                 <span style="mso-element:field-end"/>
              </p>
              <div>
@@ -490,6 +639,14 @@ RSpec.describe IsoDoc do
                    </a>
                 </span>
              </div>
+             <aside>
+                <a name="ftn1" id="ftn1"/>
+                <p class="MsoNormal">C</p>
+             </aside>
+             <aside>
+                <a name="ftn2" id="ftn2"/>
+                <p class="MsoNormal">D</p>
+             </aside>
           </div>
           <div style="mso-element:footnote-list">
              <div style="mso-element:footnote" id="ftn1">
@@ -542,13 +699,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(Xml::C14n.format(strip_guid(pres_output))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(strip_guid(html))
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true))))
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true))
+      .at("//body").to_xml)))
       .to be_equivalent_to Xml::C14n.format(strip_guid(doc))
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
