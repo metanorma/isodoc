@@ -1,6 +1,6 @@
-@import 'base_style/reset';
-@import 'base_style/typography';
-@import 'base_style/nav';
-@import 'base_style/bands';
-@import 'base_style/blocks';
-@import 'base_style/coverpage';
+@use 'base_style/reset';
+@use 'base_style/typography';
+@use 'base_style/nav';
+@use 'base_style/bands';
+@use 'base_style/blocks';
+@use 'base_style/coverpage';

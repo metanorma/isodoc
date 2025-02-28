@@ -1,9 +1,12 @@
+@use "sass:string";
+@use "defaults";
+
 @mixin docBandTitle($length, $fontWeight: 400, $fontFamily: null, $color: white) {
   position: relative;
   width: 25px;
 
   @if $fontFamily {
-    font-family: unquote($fontFamily);
+    font-family: string.unquote($fontFamily);
   }
 
   font-weight: $fontWeight;
@@ -59,7 +62,7 @@
 }
 
 
-@each $key, $val in $doctype-colors-list {
+@each $key, $val in defaults.$doctype-colors-list {
   ##{$key}-band {
     background-color: #{$val};
   }
@@ -69,7 +72,7 @@
 }
 
 
-@each $key, $val in $docstage-colors-list {
+@each $key, $val in defaults.$docstage-colors-list {
   ##{$key}-band {
     background-color: #{$val};
   }
