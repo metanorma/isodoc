@@ -219,6 +219,13 @@ module IsoDoc
           node.children.each { |n| parse(n, div) }
         end
       end
+
+      def footnotes(docxml, div)
+        docxml.xpath(ns("/*/fmt-footnote-container"))
+          .each do |fn|
+            fn.children.each { |n| parse(n, div) }
+          end
+      end
     end
   end
 end

@@ -1,19 +1,15 @@
 module IsoDoc
   module HtmlFunction
     module Footnotes
-      def footnotes(div)
-        return if @footnotes.empty?
-
-        @footnotes.each { |fn| div.parent << fn }
-      end
-
-      def make_table_footnote_link(out, fnid, fnref)
+      def make_table_footnote_link(out, fnid, node)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
+        sup = node.at(ns("./sup")) and sup.replace(sup.children)
         out.a **attrs do |a|
-          a << fnref
+          children_parse(node, a)
         end
       end
 
+      # KILL
       def make_table_footnote_target(out, fnid, fnref)
         attrs = { id: fnid, class: "TableFootnoteRef" }
         out.span do |s|
@@ -25,6 +21,7 @@ module IsoDoc
       end
 
       # Move to Presentation XML, as <fmt-footnote>: it's a footnote body
+      # # KILL
       def make_table_footnote_text(node, fnid, fnref)
         attrs = { id: "fn:#{fnid}" }
         noko do |xml|
@@ -35,6 +32,7 @@ module IsoDoc
         end.join("\n")
       end
 
+      # KILL
       def make_generic_footnote_text(node, fnid)
         noko do |xml|
           xml.aside id: "fn:#{fnid}", class: "footnote" do |div|
@@ -44,10 +42,10 @@ module IsoDoc
       end
 
       def get_table_ancestor_id(node)
-        table = node.ancestors("table") || node.ancestors("figure")
-        return UUIDTools::UUID.random_create.to_s if table.empty?
-
-        table.last["id"]
+        table = node.ancestors("table")
+        table.empty? and table = node.ancestors("figure")
+        table.empty? and return [nil, UUIDTools::UUID.random_create.to_s]
+        [table.last, table.last["id"]]
       end
 
       # @seen_footnote:
@@ -55,16 +53,31 @@ module IsoDoc
 
       def table_footnote_parse(node, out)
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
-        tid = get_table_ancestor_id(node)
-        make_table_footnote_link(out, tid + fn, fn)
+        table, tid = get_table_ancestor_id(node)
+        make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         return if @seen_footnote.include?(tid + fn)
-
+        update_table_fn_body_ref(node, table, tid + fn)
+=begin
         @in_footnote = true
         out.aside class: "footnote" do |a|
           a << make_table_footnote_text(node, tid + fn, fn)
         end
         @in_footnote = false
+=end
         @seen_footnote << (tid + fn)
+      end
+
+      def update_table_fn_body_ref(fnote, table, reference)
+        fnbody = table.at(ns("./fmt-footnote-container/" \
+          "fmt-fn-body[@id = '#{fnote['target']}']"))
+        fnbody["reference"] = reference
+        sup = fnbody.at(ns(".//fmt-fn-label/sup")) and sup.replace(sup.children)
+        fnbody.xpath(ns(".//fmt-fn-label")).each do |s|
+          s["class"] = "TableFootnoteRef"
+          s.name = "span"
+          d = s.at(ns("./span[@class = 'fmt-caption-delim']")) and
+            s.next = d
+        end
       end
 
       def footnote_parse(node, out)
@@ -73,12 +86,15 @@ module IsoDoc
 
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
         attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
+        f = node.at(ns("./fmt-fn-label"))
         out.a **attrs do |a|
-          a.sup { |sup| sup << fn }
+          #a.sup { |sup| sup << fn }
+                          children_parse(f, a)
         end
-        make_footnote(node, fn)
+        #make_footnote(node, fn)
       end
 
+      # KILL
       def make_footnote(node, fnote)
         return if @seen_footnote.include?(fnote)
 

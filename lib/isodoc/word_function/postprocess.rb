@@ -63,7 +63,7 @@ module IsoDoc
         word_section_breaks(docxml)
         word_tab_clean(docxml)
         authority_cleanup(docxml)
-        word_footnote_format(docxml)
+        #word_footnote_format(docxml)
         word_remove_empty_toc(docxml)
         word_remove_empty_sections(docxml)
         docxml
@@ -172,10 +172,14 @@ module IsoDoc
         end
       end
 
-      def word_footnote_format(docxml)
+      # KILL
+      def word_footnote_formatx(docxml)
         # the content is in a[@epub:type = 'footnote']//sup, but in Word,
         # we need to inject content around the autonumbered footnote reference
         docxml.xpath("//a[@epub:type = 'footnote']").each do |x|
+          footnote_reference_format(x)
+        end
+        docxml.xpath("//span[@class = 'MsoFootnoteReference']").each do |x|
           footnote_reference_format(x)
         end
         docxml.xpath("//a[@class = 'TableFootnoteRef'] | " \

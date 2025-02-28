@@ -233,6 +233,14 @@ module IsoDoc
       def fmt_date_parse(node, out)
         children_parse(node, out)
       end
+
+      def fmt_fn_label_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_footnote_container_parse(node, out)
+        children_parse(node, out)
+      end
     end
   end
 end

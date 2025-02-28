@@ -473,62 +473,6 @@ RSpec.describe IsoDoc do
       OUTPUT
   end
 
-  it "reorders footnote numbers in HTML" do
-    FileUtils.rm_f "test.html"
-    IsoDoc::HtmlConvert.new(
-      { wordstylesheet: "spec/assets/word.css",
-        htmlstylesheet: "spec/assets/html.scss",
-        wordintropage: "spec/assets/wordintro.html" },
-    ).convert("test", <<~INPUT, false)
-              <iso-standard xmlns="http://riboseinc.com/isoxml">
-              <sections>
-                     <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><fn reference="3">
-        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">This is a footnote.</p>
-      </fn><clause id="N" inline-header="false" obligation="normative">
-               <fmt-title>Introduction to this<fn reference="2">
-        Formerly denoted as 15 % (m/m).
-      </fn></fmt-title>
-             </clause>
-             <clause id="O" inline-header="false" obligation="normative">
-               <fmt-title>Clause 4.2</fmt-title>
-               <p>A<fn reference="1">
-        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
-      </fn></p>
-             </clause></clause>
-              </sections>
-              </iso-standard>
-    INPUT
-    html = File.read("test.html")
-      .sub(/^.*<main class="main-section">/m,
-           '<main xmlns:epub="epub" class="main-section">')
-      .sub(%r{</main>.*$}m, "</main>")
-    expect(Xml::C14n.format(html)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-          <main  xmlns:epub="epub" class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-            <div id="A">
-              <h1><a class="anchor" href="#A"/><a class="header" href="#A">Clause 4</a></h1>
-              <a class='FootnoteRef' href='#fn:3' id='fnref:1'>
-                <sup>1</sup>
-              </a>
-              <div id="N">
-               <h2><a class="anchor" href="#N"/><a class="header" href="#N">Introduction to this<a class='FootnoteRef' href='#fn:2' id='fnref:2'><sup>2</sup></a></a></h2>
-             </div>
-              <div id="O">
-               <h2><a class="anchor" href="#O"/><a class="header" href="#O">Clause 4.2</a></h2>
-               <p>A<a class='FootnoteRef' href='#fn:2'><sup>2</sup></a></p>
-             </div>
-            </div>
-            <aside id="fn:3" class="footnote">
-        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6"><a class='FootnoteRef' href='#fn:3'>
-                <sup>1</sup>
-              </a>This is a footnote.</p>
-      <a href="#fnref:1">&#x21A9;</a></aside>
-            <aside id="fn:2" class="footnote">
-        <a class='FootnoteRef' href='#fn:2'><sup>2</sup></a>Formerly denoted as 15 % (m/m).
-      <a href="#fnref:2">&#x21A9;</a></aside>
-          </main>
-    OUTPUT
-  end
-
   it "moves images in HTML #1" do
     FileUtils.rm_f "test.html"
     FileUtils.rm_rf Dir.glob "test_*_htmlimages"

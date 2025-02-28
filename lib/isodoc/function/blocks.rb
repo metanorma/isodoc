@@ -192,6 +192,14 @@ module IsoDoc
       end
 
       def columnbreak_parse(node, out); end
+
+      def fmt_fn_body_parse(node, out)
+        node.ancestors("table, figure").empty? and
+          node.at(ns(".//fmt-fn-label"))&.remove
+        out.aside id: "fn:#{node['reference']}", class: "footnote" do |div|
+          node.children.each { |n| parse(n, div) }
+        end
+      end
     end
   end
 end
