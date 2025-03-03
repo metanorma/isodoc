@@ -1,6 +1,7 @@
-@use 'base_style/reset';
-@use 'base_style/typography';
-@use 'base_style/nav';
-@use 'base_style/bands';
-@use 'base_style/blocks';
-@use 'base_style/coverpage';
+@use 'variables' as *;
+@forward 'base_style/reset';
+@forward 'base_style/typography';
+@forward 'base_style/nav';
+@forward 'base_style/bands';
+@forward 'base_style/blocks';
+@forward 'base_style/coverpage';

@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 @mixin coverpageStageBlock($fontFamily: $bodyfont, $fontSize: 1em) {
   font-family: $fontFamily;
   font-weight: 400;
