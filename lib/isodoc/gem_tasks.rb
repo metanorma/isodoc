@@ -3,6 +3,7 @@
 require "sassc-embedded"
 require "isodoc/sassc_importer"
 require "rake/clean"
+require "tmpdir"
 
 module IsoDoc
   module GemTasks
@@ -135,7 +136,7 @@ module IsoDoc
         .render
     end
     end
-    
+
     def compile_scss_task(current_task)
       filename = current_task.source
       basename = File.basename(filename, ".*")
