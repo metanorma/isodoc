@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "sassc-embedded"
+require "sassc"
 require "isodoc/sassc_importer"
 require "rake/clean"
 require "tmpdir"
@@ -111,7 +111,7 @@ module IsoDoc
     end
 
     def compile_scss(filename)
-      require "sassc-embedded"
+      require "sassc"
       require "isodoc/sassc_importer"
 
       isodoc_path = if Gem.loaded_specs["isodoc"]
