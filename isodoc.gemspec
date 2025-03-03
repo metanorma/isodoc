@@ -37,13 +37,13 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mn2pdf", ">= 2.13"
   spec.add_dependency "mn-requirements", "~> 0.5.0"
 
+  spec.add_dependency "nokogiri", "<= 1.16.8"
   spec.add_dependency "relaton-render", "~> 0.9.0"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
   spec.add_dependency "uuidtools"
-  spec.add_dependency "nokogiri", "<= 1.16.8"
 
   spec.add_development_dependency "bigdecimal"
   spec.add_development_dependency "debug"
@@ -53,8 +53,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.6"
   spec.add_development_dependency "rubocop", "~> 1.5.2"
-  #spec.add_development_dependency "sassc", "~> 2.4.0"
-  spec.add_development_dependency "sassc-embedded", "~> 1"
+  # spec.add_development_dependency "sassc", "~> 2.4.0"
+  if RUBY_VERSION.start_with?("3.1")
+    spec.add_development_dependency "sassc-embedded", "1.54.0"
+  else
+    spec.add_development_dependency "sassc-embedded", "~> 1"
+  end
+  #spec.add_development_dependency "sassc-embedded", "~> 1"
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
   spec.add_development_dependency "xml-c14n"
