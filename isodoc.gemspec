@@ -56,8 +56,10 @@ Gem::Specification.new do |spec|
   # spec.add_development_dependency "sassc", "~> 2.4.0"
   if RUBY_VERSION.start_with?("3.1")
     spec.add_development_dependency "sassc-embedded", "1.54.0"
+    spec.add_development_dependency "sass-embedded", "1.54.2"
   else
     spec.add_development_dependency "sassc-embedded", "~> 1"
+    spec.add_development_dependency "sass-embedded", "~> 1"
   end
   #spec.add_development_dependency "sassc-embedded", "~> 1"
   spec.add_development_dependency "simplecov", "~> 0.15"
