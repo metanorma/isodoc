@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "sassc"
+require "sassc-embedded"
 require "isodoc/sassc_importer"
 require "rake/clean"
 

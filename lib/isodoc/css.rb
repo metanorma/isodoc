@@ -75,7 +75,7 @@ module IsoDoc
     end
 
     def convert_scss(filename, stylesheet, stripwordcss)
-      require "sassc"
+      require "sassc-embedded"
       require "isodoc/sassc_importer"
 
       [File.join(Gem.loaded_specs["isodoc"].full_gem_path,
