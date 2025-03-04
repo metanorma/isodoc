@@ -81,11 +81,16 @@ module IsoDoc
         File.write(variables_file_path, scss_fontheader(stripwordcss))
         SassC.load_paths << dir
         modified_stylesheet = %( @use "variables" as *;\n#{stylesheet})
-        SassC::Engine
-          .new(modified_stylesheet, quiet_deps: true, syntax: :scss,
-                                    importer: SasscImporter)
-          .render.gsub(/__WORD__/, "")
+        compile_scss(modified_stylesheet)
       end
+    end
+
+    def compile_scss(modified_stylesheet)
+      SassC::Engine
+        .new(modified_stylesheet, quiet_deps: true, syntax: :scss,
+                                  silence_deprecations: %w(mixed-decls),
+                                  importer: SasscImporter)
+        .render.gsub(/__WORD__/, "")
     end
 
     def load_scss_paths(filename)
