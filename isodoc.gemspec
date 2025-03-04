@@ -63,7 +63,8 @@ Gem::Specification.new do |spec|
   end
   #spec.add_development_dependency "sassc-embedded", "~> 1"
 =end
-  spec.add_development_dependency "sassc"
+  #spec.add_development_dependency "sassc"
+  spec.add_development_dependency "sassc-embedded", "~> 1"
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
   spec.add_development_dependency "xml-c14n"
