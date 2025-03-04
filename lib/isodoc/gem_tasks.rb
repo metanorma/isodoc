@@ -20,6 +20,7 @@ module IsoDoc
     def install
       rule ".css" => [proc { |tn| tn.sub(/\.css$/, ".scss") }] do |current_task|
         puts(current_task)
+        require "debug"; binding.b
         compile_scss_task(current_task)
       rescue StandardError => e
         notify_broken_compilation(e, current_task)
@@ -111,30 +112,31 @@ module IsoDoc
     end
 
     def compile_scss(filename)
-      require "sassc-embedded"
-      require "isodoc/sassc_importer"
-
-      isodoc_path = if Gem.loaded_specs["isodoc"]
-                      File.join(Gem.loaded_specs["isodoc"].full_gem_path,
-                                "lib", "isodoc")
-                    else
-                      File.join("lib", "isodoc")
-                    end
-      [isodoc_path,
-       File.dirname(filename)].each do |name|
-        SassC.load_paths << name
-      end
+      load_scss_paths(filename)
       Dir.mktmpdir do |dir|
         variables_file_path = File.join(dir, "variables.scss")
         File.write(variables_file_path, fonts_placeholder)
         SassC.load_paths << dir
-
-      sheet_content = File.read(filename, encoding: "UTF-8")
-      SassC::Engine.new(%<@use "variables" as *;\n#{sheet_content}>,
-                        syntax: :scss,
-                        importer: SasscImporter)
-        .render
+        sheet_content = File.read(filename, encoding: "UTF-8")
+        require  "debug"; binding.b
+        SassC::Engine.new(%<@use "variables" as *;\n#{sheet_content}>,
+                          syntax: :scss, importer: SasscImporter)
+          .render
+      end
     end
+
+    def load_scss_paths(filename)
+      require "sassc-embedded"
+      require "isodoc/sassc_importer"
+      isodoc_path = if Gem.loaded_specs["isodoc"]
+                      File.join(Gem.loaded_specs["isodoc"].full_gem_path,
+                                "lib", "isodoc")
+                    else File.join("lib", "isodoc")
+                    end
+      [isodoc_path,
+       File.dirname(filename)].each do |name|
+         SassC.load_paths << name
+       end
     end
 
     def compile_scss_task(current_task)

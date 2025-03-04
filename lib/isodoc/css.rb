@@ -75,29 +75,25 @@ module IsoDoc
     end
 
     def convert_scss(filename, stylesheet, stripwordcss)
+      load_scss_paths(filename)
+      Dir.mktmpdir do |dir|
+        variables_file_path = File.join(dir, "variables.scss")
+        File.write(variables_file_path, scss_fontheader(stripwordcss))
+        SassC.load_paths << dir
+        modified_stylesheet = %( @use "variables" as *;\n#{stylesheet})
+        SassC::Engine.new(modified_stylesheet,
+                          syntax: :scss, importer: SasscImporter)
+          .render.gsub(/__WORD__/, "")
+      end
+    end
+
+    def load_scss_paths(filename)
       require "sassc-embedded"
       require "isodoc/sassc_importer"
       [File.join(Gem.loaded_specs["isodoc"].full_gem_path,
                  "lib", "isodoc"),
        File.dirname(filename)].each do |name|
         SassC.load_paths << name
-      end
-
-      Dir.mktmpdir do |dir|
-        variables_file_path = File.join(dir, "variables.scss")
-        File.write(variables_file_path,
-                   scss_fontheader(stripwordcss))
-
-        SassC.load_paths << dir
-
-        # Modify the stylesheet to use the tempfile with @use
-        modified_stylesheet = <<~SCSS
-          @use "variables" as *;
-          #{stylesheet}
-        SCSS
-        SassC::Engine.new(modified_stylesheet,
-                          syntax: :scss, importer: SasscImporter)
-          .render
       end
     end
 
@@ -106,17 +102,28 @@ module IsoDoc
       filename.nil? and return nil
       filename = precompiled_style_or_original(filename)
       stylesheet = File.read(filename, encoding: "UTF-8")
-      stylesheet = populate_template(stylesheet, :word)
-      stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1") if stripwordcss
-      stylesheet.gsub!(/--/, "-DOUBLE_HYPHEN_ESCAPE-") unless stripwordcss
+      stylesheet = preprocess_css(stylesheet, stripwordcss)
       File.extname(filename) == ".scss" and
         stylesheet = convert_scss(filename, stylesheet, stripwordcss)
+      write_css(filename, stylesheet)
+    end
+
+    def write_css(filename, stylesheet)
       Tempfile.open([File.basename(filename, ".*"), "css"],
                     mode: File::BINARY | File::SHARE_DELETE,
                     encoding: "utf-8") do |f|
-        f.write(stylesheet)
-        f
-      end
+                      f.write(stylesheet)
+                      f
+                    end
+    end
+
+    def preprocess_css(stylesheet, word)
+      stylesheet = populate_template(stylesheet, :word)
+      word and stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1")
+      !word and stylesheet.gsub!(/--/, "-DOUBLE_HYPHEN_ESCAPE-")
+      word and stylesheet.gsub(%r<([a-z])\.([0-9])([^\r\n]*){>,
+                               "\1.__WORD__\2\3{")
+      stylesheet
     end
   end
 end
