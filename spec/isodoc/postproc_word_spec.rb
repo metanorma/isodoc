@@ -1480,7 +1480,7 @@ RSpec.describe IsoDoc do
   it "preserves Word CSS classes starting with digit" do
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.html"
-    Tempfile.open(["word", ".css"], encoding: "utf-8") do |f|
+    Tempfile.open(["word", ".scss"], encoding: "utf-8") do |f|
       f.write <<~CSS
           div.1Char, p.1Char, p.Heading1Char { font-size: 3pt; }
           p.2Char

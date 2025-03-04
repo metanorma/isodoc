@@ -117,11 +117,11 @@ module IsoDoc
                     end
     end
 
-    def preprocess_css(stylesheet, word)
+    def preprocess_css(stylesheet, html)
       stylesheet = populate_template(stylesheet, :word)
-      word and stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1")
-      !word and stylesheet.gsub!(/--/, "-DOUBLE_HYPHEN_ESCAPE-")
-      word and stylesheet.gsub!(%r<([a-z])\.([0-9])(?=[^{}]*{)>m,
+      !html and stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1")
+      html and stylesheet.gsub!(/--/, "-DOUBLE_HYPHEN_ESCAPE-")
+      !html and stylesheet.gsub!(%r<([a-z])\.([0-9])(?=[^{}]*{)>m,
                                "\\1.__WORD__\\2")
       stylesheet
     end
