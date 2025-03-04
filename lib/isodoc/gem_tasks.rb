@@ -20,7 +20,6 @@ module IsoDoc
     def install
       rule ".css" => [proc { |tn| tn.sub(/\.css$/, ".scss") }] do |current_task|
         puts(current_task)
-        require "debug"; binding.b
         compile_scss_task(current_task)
       rescue StandardError => e
         notify_broken_compilation(e, current_task)
@@ -114,14 +113,13 @@ module IsoDoc
     def compile_scss(filename)
       load_scss_paths(filename)
       Dir.mktmpdir do |dir|
-        variables_file_path = File.join(dir, "variables.scss")
-        File.write(variables_file_path, fonts_placeholder)
+        File.write(File.join(dir, "variables.scss"), fonts_placeholder)
         SassC.load_paths << dir
         sheet_content = File.read(filename, encoding: "UTF-8")
-        require  "debug"; binding.b
+          .gsub(%r<([a-z])\.([0-9])(?=[^{}]*{)>m, "\\1.__WORD__\\2")
         SassC::Engine.new(%<@use "variables" as *;\n#{sheet_content}>,
                           syntax: :scss, importer: SasscImporter)
-          .render
+          .render.gsub(/__WORD__/, "")
       end
     end
 

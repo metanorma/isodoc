@@ -1482,10 +1482,9 @@ RSpec.describe IsoDoc do
     FileUtils.rm_f "test.html"
     Tempfile.open(["word", ".css"], encoding: "utf-8") do |f|
       f.write <<~CSS
-          p.1Char, p.Heading1Char { font-size: 3pt; }
-          p.2Char {
-            font-size: 5pt;
-            }
+          div.1Char, p.1Char, p.Heading1Char { font-size: 3pt; }
+          p.2Char
+          { font-size: 5pt; }
       CSS
       f.flush
       IsoDoc::WordConvert.new(
@@ -1499,7 +1498,7 @@ RSpec.describe IsoDoc do
       INPUT
     end
     word = File.read("test.doc")
-    expect(word).to include("p.1Char, p.Heading1Char {")
-    expect(word).to include("p.2Char {")
+    expect(word).to include("div.1Char, p.1Char, p.Heading1Char {")
+    expect(word).to include("p.2Char")
   end
 end

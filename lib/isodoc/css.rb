@@ -121,8 +121,8 @@ module IsoDoc
       stylesheet = populate_template(stylesheet, :word)
       word and stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1")
       !word and stylesheet.gsub!(/--/, "-DOUBLE_HYPHEN_ESCAPE-")
-      word and stylesheet.gsub(%r<([a-z])\.([0-9])([^\r\n]*){>,
-                               "\1.__WORD__\2\3{")
+      word and stylesheet.gsub(%r<([a-z])\.([0-9])(?=[^{}]*{)>m,
+                               "\\1.__WORD__\\2")
       stylesheet
     end
   end
