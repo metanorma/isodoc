@@ -81,8 +81,9 @@ module IsoDoc
         File.write(variables_file_path, scss_fontheader(stripwordcss))
         SassC.load_paths << dir
         modified_stylesheet = %( @use "variables" as *;\n#{stylesheet})
-        SassC::Engine.new(modified_stylesheet,
-                          syntax: :scss, importer: SasscImporter)
+        SassC::Engine
+          .new(modified_stylesheet, quiet_deps: true, syntax: :scss,
+                                    importer: SasscImporter)
           .render.gsub(/__WORD__/, "")
       end
     end
@@ -122,7 +123,7 @@ module IsoDoc
       !html and stylesheet.gsub!(/(\s|\{)mso-[^:]+:[^;]+;/m, "\\1")
       !html and stylesheet.gsub!(/--/, "-DOUBLE_HYPHEN_ESCAPE-")
       !html and stylesheet.gsub!(%r<([a-z])\.([0-9])(?=[^{}]*{)>m,
-                               "\\1.__WORD__\\2")
+                                 "\\1.__WORD__\\2")
       stylesheet
     end
   end
