@@ -108,11 +108,15 @@ module IsoDoc
         sup = f.at(ns(".//sup")) and sup.replace(sup.children)
         s = f.at(ns(".//semx[@source = '#{node['id']}']"))
 
+#<span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/><span class="MsoFootnoteReference">#{footnote}</span><span style="mso-element:field-end"/>
 semx = <<~SPAN
-<span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/><span class="MsoFootnoteReference">#{footnote}</span><span style="mso-element:field-end"/>
+<span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/>#{footnote}<span style="mso-element:field-end"/>
 SPAN
 s.replace(semx)
-children_parse(f, out)
+require "debug"; binding.b
+out.span class:MsoFootnoteReference do |fn|
+children_parse(f, fn)
+end
 
 =begin
         out.span style: "mso-element:field-begin"
@@ -134,8 +138,9 @@ children_parse(f, out)
 
         @fn_bookmarks[fn] = bookmarkid
                 f = node.at(ns("./fmt-fn-label"))
-        #sup = f.at(ns(".//sup")) and sup.replace(sup.children)
-        out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}" do |s|
+        sup = f.at(ns(".//sup")) and sup.replace(sup.children)
+                require "debug"; binding.b
+        out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}", class: "MsoFootnoteReference" do |s|
           s.a class: "FootnoteRef", "epub:type": "footnote",
               href: "#ftn#{fn}" do |a|
             #a.sup { |sup| sup << fn }
