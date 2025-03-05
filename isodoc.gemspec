@@ -53,18 +53,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.6"
   spec.add_development_dependency "rubocop", "~> 1"
-spec.add_development_dependency "rubocop-performance"
-=begin
-  if RUBY_VERSION.start_with?("3.1")
-    spec.add_development_dependency "sassc-embedded", "1.54.0"
-    spec.add_development_dependency "sass-embedded", "1.54.2"
-  else
-    spec.add_development_dependency "sassc-embedded", "~> 1"
-    spec.add_development_dependency "sass-embedded", "~> 1"
-  end
-  #spec.add_development_dependency "sassc-embedded", "~> 1"
-=end
-  #spec.add_development_dependency "sassc"
+  spec.add_development_dependency "rubocop-performance"
   spec.add_development_dependency "sassc-embedded", "~> 1"
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
