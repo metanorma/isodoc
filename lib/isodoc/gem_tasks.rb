@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require "sassc"
+require "sassc-embedded"
 require "isodoc/sassc_importer"
 require "rake/clean"
+require "tmpdir"
 
 module IsoDoc
   module GemTasks
@@ -110,23 +111,30 @@ module IsoDoc
     end
 
     def compile_scss(filename)
-      require "sassc"
+      load_scss_paths(filename)
+      Dir.mktmpdir do |dir|
+        File.write(File.join(dir, "variables.scss"), fonts_placeholder)
+        SassC.load_paths << dir
+        sheet_content = File.read(filename, encoding: "UTF-8")
+          .gsub(%r<([a-z])\.([0-9])(?=[^{}]*{)>m, "\\1.__WORD__\\2")
+        SassC::Engine.new(%<@use "variables" as *;\n#{sheet_content}>,
+                          syntax: :scss, importer: SasscImporter)
+          .render.gsub(/__WORD__/, "")
+      end
+    end
 
+    def load_scss_paths(filename)
+      require "sassc-embedded"
+      require "isodoc/sassc_importer"
       isodoc_path = if Gem.loaded_specs["isodoc"]
                       File.join(Gem.loaded_specs["isodoc"].full_gem_path,
                                 "lib", "isodoc")
-                    else
-                      File.join("lib", "isodoc")
+                    else File.join("lib", "isodoc")
                     end
       [isodoc_path,
        File.dirname(filename)].each do |name|
-        SassC.load_paths << name
-      end
-      sheet_content = File.read(filename, encoding: "UTF-8")
-      SassC::Engine.new(fonts_placeholder + sheet_content,
-                        syntax: :scss,
-                        importer: SasscImporter)
-        .render
+         SassC.load_paths << name
+       end
     end
 
     def compile_scss_task(current_task)

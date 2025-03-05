@@ -1476,4 +1476,29 @@ RSpec.describe IsoDoc do
       .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
       .to be_equivalent_to Xml::C14n.format(output)
   end
+
+  it "preserves Word CSS classes starting with digit" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    Tempfile.open(["word", ".scss"], encoding: "utf-8") do |f|
+      f.write <<~CSS
+          div.1Char, p.1Char, p.Heading1Char { font-size: 3pt; }
+          p.2Char
+          { font-size: 5pt; }
+      CSS
+      f.flush
+      IsoDoc::WordConvert.new(
+        { wordstylesheet: f.path,
+          htmlstylesheet: "spec/assets/html.scss" },
+      ).convert("test", <<~INPUT, false)
+       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
+      </foreword></preface>
+      </iso-standard>
+      INPUT
+    end
+    word = File.read("test.doc")
+    expect(word).to include("div.1Char, p.1Char, p.Heading1Char {")
+    expect(word).to include("p.2Char")
+  end
 end

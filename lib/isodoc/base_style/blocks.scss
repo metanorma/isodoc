@@ -1,4 +1,5 @@
-@import 'defaults';
+@use 'variables' as *;
+@use 'defaults';
 
 @mixin blockTitle() {
   font-weight: 700;

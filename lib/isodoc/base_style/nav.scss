@@ -1,4 +1,5 @@
-@import 'defaults';
+@use 'variables' as *;
+@use 'defaults';
 
 @mixin toc($colorLink, $colorLinkActiveBg, $colorLinkActiveFg) {
   ul {
@@ -70,7 +71,7 @@
 @mixin sidebarNavContainer($offset) {
   // Expected to be applied to body.
 
-  @media screen and (min-width: $bigscreenBreakpoint) {
+  @media screen and (min-width: defaults.$bigscreenBreakpoint) {
     padding-left: $offset;
   }
 
@@ -83,7 +84,7 @@
   font-family: $font;
   font-weight: $fontWeight;
 
-  @media screen and (max-width: $bigscreenBreakpoint) {
+  @media screen and (max-width: defaults.$bigscreenBreakpoint) {
     padding: 0 1.5em;
     overflow: visible;
   }
@@ -95,7 +96,7 @@
     $offsetLeft,
     $lineHeight: null) {
 
-  @media screen and (min-width: $bigscreenBreakpoint) {
+  @media screen and (min-width: defaults.$bigscreenBreakpoint) {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -123,7 +124,7 @@
 }
 
 @mixin sidebarNavToggle($colorFg: white, $colorBg: black) {
-  @media screen and (min-width: $bigscreenBreakpoint) {
+  @media screen and (min-width: defaults.$bigscreenBreakpoint) {
     position: fixed;
     height: 100%;
     width: 30px;
@@ -141,7 +142,7 @@
     }
   }
 
-  @media screen and (max-width: $bigscreenBreakpoint) {
+  @media screen and (max-width: defaults.$bigscreenBreakpoint) {
     display: none;
   }
 
@@ -151,7 +152,7 @@
 }
 
 @mixin tocSeparator {
-  @media screen and (min-width: $bigscreenBreakpoint) {
+  @media screen and (min-width: defaults.$bigscreenBreakpoint) {
     display: none;
   }
 }
