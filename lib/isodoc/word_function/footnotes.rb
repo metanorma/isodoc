@@ -59,7 +59,9 @@ module IsoDoc
 
       def fmt_fn_body_parse(node, out)
         node.at(ns(".//fmt-fn-label"))&.remove
-        out.aside id: "ftn#{node['reference']}" do |div|
+        aside = node.parent.name == "fmt-footnote-container"
+        tag = aside ? "aside" : "div"
+        out.send tag, id: "ftn#{node['reference']}" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end

@@ -363,13 +363,13 @@ RSpec.describe IsoDoc do
                                </p>
                             </dt>
                             <dd>
-                               <aside id="fn:figureA-1a" class="footnote">
+                               <div id="fn:figureA-1a" class="footnote">
                                   <p id="_">
                                      The time
                                      <span class="stem">(#(t_90)#)</span>
                                      was estimated to be 18,2 min for this example.
                                   </p>
-                               </aside>
+                               </div>
                             </dd>
                             <dt>
                                <p>
@@ -377,9 +377,9 @@ RSpec.describe IsoDoc do
                                </p>
                             </dt>
                             <dd>
-                               <aside id="fn:figureA-1b" class="footnote">
+                               <div id="fn:figureA-1b" class="footnote">
                                   <p id="_">Second footnote.</p>
-                               </aside>
+                               </div>
                             </dd>
                             <dt>
                                <p>A</p>
@@ -473,13 +473,13 @@ RSpec.describe IsoDoc do
                                </p>
                             </td>
                             <td valign="top">
-                               <aside id="ftnfigureA-1a">
+                               <div id="ftnfigureA-1a">
                                   <p id="_">
                                      The time
                                      <span class="stem">(#(t_90)#)</span>
                                      was estimated to be 18,2 min for this example.
                                   </p>
-                               </aside>
+                               </div>
                             </td>
                          </tr>
                          <tr>
@@ -491,9 +491,9 @@ RSpec.describe IsoDoc do
                                </p>
                             </td>
                             <td valign="top">
-                               <aside id="ftnfigureA-1b">
+                               <div id="ftnfigureA-1b">
                                   <p id="_">Second footnote.</p>
-                               </aside>
+                               </div>
                             </td>
                          </tr>
                          <tr>

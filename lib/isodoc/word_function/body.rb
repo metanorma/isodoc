@@ -79,7 +79,8 @@ module IsoDoc
         node.xpath(ns("./note")).each { |n| parse(n, out) }
       end
 
-      def figure_get_or_make_dl(node)
+      # KILL
+      def figure_get_or_make_dlx(node)
         dl = node.at(".//table[@class = 'dl']")
         if dl.nil?
           node.add_child("<p><b>#{@i18n.key}</b></p><table class='dl'></table>")
@@ -89,7 +90,8 @@ module IsoDoc
       end
 
       # get rid of footnote link, it is in diagram
-      def figure_aside_process(fig, aside, key)
+      # KILL
+      def figure_aside_processx(fig, aside, key)
         fig.at("./a[@class='TableFootnoteRef']")&.remove
         fnref = fig.at(".//span[@class='TableFootnoteRef']/..")
         tr = key.add_child("<tr></tr>").first
