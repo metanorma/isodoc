@@ -2,13 +2,13 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def footnote_collect(fnotes)
       seen = {}
-      ret = fnotes.each_with_object([]) do |x, m|
+      fnotes.each_with_object([]) do |x, m|
         x["id"] ||= "_#{UUIDTools::UUID.random_create}"
         seen[x["reference"]] or m << fnbody(x, seen)
         x["target"] = seen[x["reference"]]
-        x << "<fmt-fn-label>#{fn_ref_label(x)}</fmt-fn-label>"
+        ref = x["hiddenref"] == "true" ? "" : fn_ref_label(x)
+        x << "<fmt-fn-label>#{ref}</fmt-fn-label>"
       end
-      footnote_container(fnotes, ret)
     end
 
     def footnote_container(fnotes, fnbodies)
@@ -54,9 +54,9 @@ module IsoDoc
     end
 
     def table_fn(elem)
-      fns = footnote_collect((elem.xpath(ns(".//fn")) -
-                              elem.xpath(ns("./name//fn")))) and
-        elem << fns
+      fnotes = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
+      ret = footnote_collect(fnotes)
+      f = footnote_container(fnotes, ret) and elem << f
     end
 
     def document_footnotes(docxml)
@@ -64,8 +64,8 @@ module IsoDoc
       excl = non_document_footnotes(docxml)
       fns = filter_document_footnotes(sects, excl)
       fns = renumber_document_footnotes(fns, 1)
-      fns = footnote_collect(fns)
-      fns and docxml.root << fns
+      ret = footnote_collect(fns)
+      f = footnote_container(fns, ret) and docxml.root << f
     end
 
     # bibdata, boilerplate, @displayorder sections
@@ -113,5 +113,25 @@ module IsoDoc
       end
       idx
     end
+
+     # move footnotes into key
+        def figure_fn(elem)
+          fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
+          fn.empty? and return
+          ret = footnote_collect(fn)
+          dl = figure_key_insert_pt(elem)
+          ret.each do |f|
+            label = f.at(ns(".//fmt-fn-label")).remove
+            label.at(ns(".//span[@class = 'fmt-caption-delim']"))&.remove
+            dl.previous = "<dt><p><sup>#{label}</sup></p></dt>" \
+              "<dd>#{f.to_xml}</dd>"
+          end
+        end
+    
+        def figure_key_insert_pt(elem)
+          elem.at(ns("//dl/name"))&.next ||
+            elem.at(ns("//dl"))&.children&.first ||
+            elem.add_child("<dl> </dl>").first.children.first
+        end
   end
 end
