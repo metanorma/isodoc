@@ -598,7 +598,7 @@ RSpec.describe IsoDoc do
                        Table 1 — Repeatability and reproducibility of
                        <i>husked</i>
                         rice yield
-                       <span style="mso-bookmark:_Ref"><a class="FootnoteRef" href="#ftn1" epub:type="footnote"><sup>1</sup></a></span>
+                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn1" epub:type="footnote">1</a></span>
                      </p>
                <div align="center" class="table_container">
                  <table id="tableD-1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">

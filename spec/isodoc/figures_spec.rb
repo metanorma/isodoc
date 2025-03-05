@@ -451,7 +451,7 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-                <div id="fwd">
+               <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
@@ -518,10 +518,8 @@ RSpec.describe IsoDoc do
                          Figure 1 — Split-it-right
                          <i>sample</i>
                          divider
-                         <span style="mso-bookmark:_Ref">
-                            <a class="FootnoteRef" href="#ftn1" epub:type="footnote">
-                               <sup>1</sup>
-                            </a>
+                         <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                            <a class="FootnoteRef" epub:type="footnote" href="#ftn1">1</a>
                          </span>
                       </p>
                    </div>

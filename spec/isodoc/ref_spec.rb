@@ -703,7 +703,7 @@ RSpec.describe IsoDoc do
                <p class="NormRef">
                   <a name="ISO16634" id="ISO16634"/>
                   ISO 16634:-- (all parts)
-                  <span style="mso-bookmark:_Ref">
+                  <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
                      <a class="FootnoteRef" href="#_ftn1" type="footnote" style="mso-footnote-id:ftn1" name="_ftnref1" title="" id="_">
                         <span class="MsoFootnoteReference">
                            <span style="mso-special-character:footnote"/>
@@ -786,7 +786,7 @@ RSpec.describe IsoDoc do
                   [5]
                   <span style="mso-tab-count:1">  </span>
                   ISO 3696
-                  <span style="mso-bookmark:_Ref">
+                  <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
                      <a class="FootnoteRef" href="#_ftn2" type="footnote" style="mso-footnote-id:ftn2" name="_ftnref2" title="" id="_">
                         <span class="MsoFootnoteReference">
                            <span style="mso-special-character:footnote"/>

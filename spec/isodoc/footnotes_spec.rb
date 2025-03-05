@@ -427,125 +427,119 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     doc = <<~OUTPUT
-          <body lang="EN-US" link="blue" vlink="#954F72">
-             <div class="WordSection1">
-                <p> </p>
-             </div>
-             <p class="section-break">
-                <br clear="all" class="section"/>
-             </p>
-             <div class="WordSection2">
-                <div class="authority">
-                   <div class="boilerplate-copyright">
-                      <div>
-                         <h1>
-                            <span style="mso-bookmark:_Ref">
-                               <a class="FootnoteRef" href="#ftn2" epub:type="footnote">
-                                  <sup>2</sup>
-                               </a>
-                            </span>
-                         </h1>
-                      </div>
+      <body lang="EN-US" link="blue" vlink="#954F72">
+          <div class="WordSection1">
+             <p> </p>
+          </div>
+          <p class="section-break">
+             <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection2">
+             <div class="authority">
+                <div class="boilerplate-copyright">
+                   <div>
+                      <h1>
+                         <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                            <a class="FootnoteRef" epub:type="footnote" href="#ftn2">2</a>
+                         </span>
+                      </h1>
                    </div>
                 </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </div>
+             <p class="page-break">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div id="_" class="TOC">
+                <p class="zzContents">Table of contents</p>
+             </div>
+             <p class="page-break">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div id="F">
+                <h1 class="ForewordTitle">Foreword</h1>
+                <p>
+                   A.
+                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                      <a class="FootnoteRef" epub:type="footnote" href="#ftn3">3</a>
+                   </span>
                 </p>
-                <div id="_" class="TOC">
-                   <p class="zzContents">Table of contents</p>
-                </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="F">
-                   <h1 class="ForewordTitle">Foreword</h1>
-                   <p>
-                      A.
-                      <span style="mso-bookmark:_Ref">
-                         <a class="FootnoteRef" href="#ftn3" epub:type="footnote">
-                            <sup>3</sup>
-                         </a>
-                      </span>
-                   </p>
-                   <p>
-                      B.
+                <p>
+                   B.
+                   <span class="MsoFootnoteReference">
                       <span style="mso-element:field-begin"/>
                       NOTEREF _Ref \\f \\h
                       <span style="mso-element:field-separator"/>
-                      <span class="MsoFootnoteReference">3</span>
+                      3
                       <span style="mso-element:field-end"/>
-                   </p>
-                   <p>
-                      C.
-                      <span style="mso-bookmark:_Ref">
-                         <a class="FootnoteRef" href="#ftn4" epub:type="footnote">
-                            <sup>4</sup>
-                         </a>
-                      </span>
-                   </p>
-                </div>
-                <p> </p>
-             </div>
-             <p class="section-break">
-                <br clear="all" class="section"/>
-             </p>
-             <div class="WordSection3">
+                   </span>
+                </p>
                 <p>
-                   B.
+                   C.
+                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                      <a class="FootnoteRef" epub:type="footnote" href="#ftn4">4</a>
+                   </span>
+                </p>
+             </div>
+             <p> </p>
+          </div>
+          <p class="section-break">
+             <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection3">
+             <p>
+                B.
+                <span class="MsoFootnoteReference">
                    <span style="mso-element:field-begin"/>
                    NOTEREF _Ref \\f \\h
                    <span style="mso-element:field-separator"/>
-                   <span class="MsoFootnoteReference">3</span>
+                   3
                    <span style="mso-element:field-end"/>
+                </span>
+             </p>
+             <div>
+                <h1>
+                   1.
+                   <span style="mso-tab-count:1">  </span>
+                   Normative References
+                </h1>
+                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+                <p id="ISO712" class="NormRef">
+                   ISO 712, International Organization for Standardization.
+                   <i>
+                      Cereals and cereal products
+                      <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                         <a class="FootnoteRef" epub:type="footnote" href="#ftn5">5</a>
+                      </span>
+                   </i>
+                   .
                 </p>
-                <div>
-                   <h1>
-                      1.
-                      <span style="mso-tab-count:1">  </span>
-                      Normative References
-                   </h1>
-                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                   <p id="ISO712" class="NormRef">
-                      ISO 712, International Organization for Standardization.
-                      <i>
-                         Cereals and cereal products
-                         <span style="mso-bookmark:_Ref">
-                            <a class="FootnoteRef" href="#ftn5" epub:type="footnote">
-                               <sup>5</sup>
-                            </a>
-                         </span>
-                      </i>
-                      .
-                   </p>
-                </div>
-                <div id="A">
-                   <h1>2.</h1>
-                   <span style="mso-bookmark:_Ref">
-                      <a class="FootnoteRef" href="#ftn6" epub:type="footnote">
-                         <sup>6</sup>
-                      </a>
-                   </span>
-                </div>
-                <aside id="ftn1">
-                   <p>C</p>
-                </aside>
-                <aside id="ftn2">
-                   <p>D</p>
-                </aside>
-                <aside id="ftn3">
-                   <p id="_">Formerly denoted as 15 % (m/m).</p>
-                </aside>
-                <aside id="ftn4">
-                   <p id="_">Hello! denoted as 15 % (m/m).</p>
-                </aside>
-                <aside id="ftn5">
-                   <p id="_">ISO is a standards organisation.</p>
-                </aside>
-                <aside id="ftn6">
-                   <p id="_">Third footnote.</p>
-                </aside>
              </div>
-          </body>
+             <div id="A">
+                <h1>2.</h1>
+                <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                   <a class="FootnoteRef" epub:type="footnote" href="#ftn6">6</a>
+                </span>
+             </div>
+             <aside id="ftn1">
+                <p>C</p>
+             </aside>
+             <aside id="ftn2">
+                <p>D</p>
+             </aside>
+             <aside id="ftn3">
+                <p id="_">Formerly denoted as 15 % (m/m).</p>
+             </aside>
+             <aside id="ftn4">
+                <p id="_">Hello! denoted as 15 % (m/m).</p>
+             </aside>
+             <aside id="ftn5">
+                <p id="_">ISO is a standards organisation.</p>
+             </aside>
+             <aside id="ftn6">
+                <p id="_">Third footnote.</p>
+             </aside>
+          </div>
+       </body>
     OUTPUT
     doc1 = <<~OUTPUT
        <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
@@ -564,8 +558,8 @@ RSpec.describe IsoDoc do
                 <h1 class="ForewordTitle">Foreword</h1>
                 <p class="MsoNormal">
                    A.
-                   <span style="mso-bookmark:_Ref">
-                      <a class="FootnoteRef" href="#_ftn1" epub:type="footnote" style="mso-footnote-id:ftn1" name="_ftnref1" title="" id="_">
+                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                      <a class="FootnoteRef" epub:type="footnote" href="#_ftn1" style="mso-footnote-id:ftn1" name="_ftnref1" title="" id="_">
                          <span class="MsoFootnoteReference">
                             <span style="mso-special-character:footnote"/>
                          </span>
@@ -574,16 +568,18 @@ RSpec.describe IsoDoc do
                 </p>
                 <p class="MsoNormal">
                    B.
-                   <span style="mso-element:field-begin"/>
-                   NOTEREF _Ref \\f \\h
-                   <span style="mso-element:field-separator"/>
-                   <span class="MsoFootnoteReference">3</span>
-                   <span style="mso-element:field-end"/>
+                   <span class="MsoFootnoteReference">
+                      <span style="mso-element:field-begin"/>
+                      NOTEREF _Ref \\f \\h
+                      <span style="mso-element:field-separator"/>
+                      3
+                      <span style="mso-element:field-end"/>
+                   </span>
                 </p>
                 <p class="MsoNormal">
                    C.
-                   <span style="mso-bookmark:_Ref">
-                      <a class="FootnoteRef" href="#_ftn2" epub:type="footnote" style="mso-footnote-id:ftn2" name="_ftnref2" title="" id="_">
+                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                      <a class="FootnoteRef" epub:type="footnote" href="#_ftn2" style="mso-footnote-id:ftn2" name="_ftnref2" title="" id="_">
                          <span class="MsoFootnoteReference">
                             <span style="mso-special-character:footnote"/>
                          </span>
@@ -599,11 +595,13 @@ RSpec.describe IsoDoc do
           <div class="WordSection3">
              <p class="MsoNormal">
                 B.
-                <span style="mso-element:field-begin"/>
-                NOTEREF _Ref \\f \\h
-                <span style="mso-element:field-separator"/>
-                <span class="MsoFootnoteReference">3</span>
-                <span style="mso-element:field-end"/>
+                <span class="MsoFootnoteReference">
+                   <span style="mso-element:field-begin"/>
+                   NOTEREF _Ref \\f \\h
+                   <span style="mso-element:field-separator"/>
+                   3
+                   <span style="mso-element:field-end"/>
+                </span>
              </p>
              <div>
                 <h1>
@@ -617,8 +615,8 @@ RSpec.describe IsoDoc do
                    ISO 712, International Organization for Standardization.
                    <i>
                       Cereals and cereal products
-                      <span style="mso-bookmark:_Ref">
-                         <a class="FootnoteRef" href="#_ftn3" epub:type="footnote" style="mso-footnote-id:ftn3" name="_ftnref3" title="" id="_">
+                      <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                         <a class="FootnoteRef" epub:type="footnote" href="#_ftn3" style="mso-footnote-id:ftn3" name="_ftnref3" title="" id="_">
                             <span class="MsoFootnoteReference">
                                <span style="mso-special-character:footnote"/>
                             </span>
@@ -631,8 +629,8 @@ RSpec.describe IsoDoc do
              <div>
                 <a name="A" id="A"/>
                 <h1>2.</h1>
-                <span style="mso-bookmark:_Ref">
-                   <a class="FootnoteRef" href="#_ftn4" epub:type="footnote" style="mso-footnote-id:ftn4" name="_ftnref4" title="" id="_">
+                <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                   <a class="FootnoteRef" epub:type="footnote" href="#_ftn4" style="mso-footnote-id:ftn4" name="_ftnref4" title="" id="_">
                       <span class="MsoFootnoteReference">
                          <span style="mso-special-character:footnote"/>
                       </span>

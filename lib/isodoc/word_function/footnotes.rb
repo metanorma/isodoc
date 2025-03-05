@@ -108,15 +108,14 @@ module IsoDoc
         sup = f.at(ns(".//sup")) and sup.replace(sup.children)
         s = f.at(ns(".//semx[@source = '#{node['id']}']"))
 
-#<span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/><span class="MsoFootnoteReference">#{footnote}</span><span style="mso-element:field-end"/>
-semx = <<~SPAN
+        #<span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/><span class="MsoFootnoteReference">#{footnote}</span><span style="mso-element:field-end"/>
+        semx = <<~SPAN.strip
 <span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/>#{footnote}<span style="mso-element:field-end"/>
-SPAN
-s.replace(semx)
-require "debug"; binding.b
-out.span class:MsoFootnoteReference do |fn|
-children_parse(f, fn)
-end
+        SPAN
+        s.replace(semx)
+        out.span class: "MsoFootnoteReference" do |fn|
+          children_parse(f, fn)
+        end
 
 =begin
         out.span style: "mso-element:field-begin"
@@ -137,23 +136,22 @@ end
         return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)
 
         @fn_bookmarks[fn] = bookmarkid
-                f = node.at(ns("./fmt-fn-label"))
+        f = node.at(ns("./fmt-fn-label"))
         sup = f.at(ns(".//sup")) and sup.replace(sup.children)
-                require "debug"; binding.b
+        if semx = f.at(ns(".//semx[@element = 'autonum']"))
+          semx.name = "span"
+          semx["class"] = "FMT-PLACEHOLDER"
+        end
         out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}", class: "MsoFootnoteReference" do |s|
-          s.a class: "FootnoteRef", "epub:type": "footnote",
-              href: "#ftn#{fn}" do |a|
-            #a.sup { |sup| sup << fn }
-                children_parse(f, a)
-          end
+              children_parse(f, out)
+        end
+        if semx = out.parent.at(".//span[@class = 'FMT-PLACEHOLDER']")
+          semx.name = "a"
+          semx["class"] = "FootnoteRef"
+          semx["epub:type"] = "footnote"
+          semx["href"] = "#ftn#{fn}"
         end
         @seen_footnote << fn
-=begin
-        @in_footnote = true
-        @footnotes << make_generic_footnote_text(node, fn)
-        @in_footnote = false
-        @seen_footnote << fn
-=end
       end
 
       # KILL
