@@ -49,7 +49,8 @@ module IsoDoc
         docxml
       end
 
-      def footnote_format(docxml)
+      # KILL
+      def footnote_formatx(docxml)
         docxml.xpath("//a[@class = 'FootnoteRef']/sup").each do |x|
           footnote_reference_format(x)
         end

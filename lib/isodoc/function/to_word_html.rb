@@ -88,7 +88,7 @@ module IsoDoc
         body.div class: "main-section" do |div3|
           boilerplate docxml, div3
           content(div3, docxml, ns(self.class::TOP_ELEMENTS))
-          footnotes div3
+          footnotes docxml, div3
           comments div3
         end
       end
@@ -286,6 +286,9 @@ module IsoDoc
           when "amend" then amend_parse(node, out)
           when "date" then date_parse(node, out)
           when "fmt-date" then fmt_date_parse(node, out)
+          when "fmt-fn-body" then fmt_fn_body_parse(node, out)
+          when "fmt-fn-label" then fmt_fn_label_parse(node, out)
+          when "fmt-footnote-container" then fmt_footnote_container_parse(node, out)
           else error_parse(node, out)
           end
         end

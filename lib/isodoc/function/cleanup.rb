@@ -16,7 +16,7 @@ module IsoDoc
       def cleanup(docxml)
         @i18n ||= i18n_init(@lang, @script, @locale)
         comment_cleanup(docxml)
-        footnote_cleanup(docxml)
+        #footnote_cleanup(docxml)
         inline_header_cleanup(docxml)
         figure_cleanup(docxml)
         table_cleanup(docxml)
@@ -58,7 +58,7 @@ module IsoDoc
         docxml
       end
 
-      # todo PRESENTATION XML
+      # KILL
       def footnote_cleanup(docxml)
         docxml.xpath('//a[@class = "FootnoteRef"]/sup')
           .each_with_index do |x, i|
@@ -68,7 +68,7 @@ module IsoDoc
       end
 
       def merge_fnref_into_fn_text(elem)
-        fn = elem.at('.//span[@class="TableFootnoteRef"]/..')
+        fn = elem.at('.//span[@class="TableFootnoteRef"]/..') or return
         n = fn.next_element
         n&.children&.first&.add_previous_sibling(fn.remove)
       end
@@ -80,7 +80,7 @@ module IsoDoc
             merge_fnref_into_fn_text(a)
             a.name = "div"
             a["class"] = "TableFootnote"
-            t << a.remove
+            t << a.remove # this is redundant
           end
         end
         table_footnote_cleanup_propagate(docxml)
@@ -142,14 +142,6 @@ module IsoDoc
       end
 
       def symbols_cleanup(docxml); end
-
-      def table_footnote_reference_format(link)
-        link
-      end
-
-      def footnote_reference_format(link)
-        link
-      end
     end
   end
 end

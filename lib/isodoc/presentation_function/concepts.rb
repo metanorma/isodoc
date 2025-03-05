@@ -20,7 +20,6 @@ module IsoDoc
     end
 
     def concept_render(node, defaults)
-      #require "debug"; binding.b
       opts, render, ref, ret = concept_render_init(node, defaults)
       ret&.at(ns("./refterm"))&.remove
       ref && opts[:ref] != "false" and render&.next = " "
@@ -31,7 +30,8 @@ module IsoDoc
     end
 
     def concept_dup(node, ret)
-      node.xpath(".//xmlns:semx[xmlns:fmt-xref | xmlns:fmt-eref | xmlns:fmt-origin | xmlns:fmt-link]").each(&:remove)
+      node.xpath(".//xmlns:semx[xmlns:fmt-xref | xmlns:fmt-eref | " \
+        "xmlns:fmt-origin | xmlns:fmt-link]").each(&:remove)
       ret.xpath(ns(".//xref | .//eref | .//origin | .//link")).each(&:remove)
       ret.xpath(ns(".//semx")).each do |s|
         s.children.empty? and s.remove
@@ -66,10 +66,11 @@ module IsoDoc
       (opts[:linkmention] == "true" && !renderterm.nil? && !ref.nil?) or return
       ref2 = ref.clone
       r2 = renderterm.clone
-      #renderterm.replace(ref2).children = r2
       ref2.children = r2
       if ref.parent.name == "semx"
-        renderterm.replace("<semx element='#{ref.parent['element']}' source='#{ref.parent['source']}'>#{to_xml(ref2)}</semx>")
+        renderterm.replace(<<~SEMX)
+          <semx element='#{ref.parent['element']}' source='#{ref.parent['source']}'>#{to_xml(ref2)}</semx>
+        SEMX
       else
         renderterm.replace(ref2)
       end
@@ -103,7 +104,7 @@ module IsoDoc
       p, ref, orig = related1_prep(node)
       label = @i18n.relatedterms[orig["type"]].upcase
       if p && ref
-        node.children =(l10n("<p><strong>#{label}:</strong> " \
+        node.children = (l10n("<p><strong>#{label}:</strong> " \
                           "<em>#{to_xml(p)}</em> (#{Common::to_xml(ref)})</p>"))
       else
         node.children = (l10n("<p><strong>#{label}:</strong> " \
@@ -198,8 +199,6 @@ module IsoDoc
     def designation_annotate(desgn, name, orig)
       designation_boldface(desgn)
       designation_field(desgn, name, orig)
-      #g = desgn.at(ns("./expression/grammar")) and
-        #name << ", #{designation_grammar(g).join(', ')}"
       designation_grammar(desgn, name)
       designation_localization(desgn, name, orig)
       designation_pronunciation(desgn, name)
@@ -213,7 +212,7 @@ module IsoDoc
       name.children = "<strong>#{name.children}</strong>"
     end
 
-    def designation_field(desgn, name, orig)
+    def designation_field(_desgn, name, orig)
       f = orig.xpath(ns("./field-of-application | ./usage-info"))
         &.map { |u| to_xml(semx_fmt_dup(u)) }&.join(", ")
       f&.empty? and return nil

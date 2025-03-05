@@ -5,7 +5,7 @@ module IsoDoc
     def citeas(xmldoc)
       xmldoc.xpath(ns("//fmt-eref | //fmt-origin | //fmt-link"))
         .each do |e|
-          sem_xml_descendant?(e) and next
+        sem_xml_descendant?(e) and next
         e["bibitemid"] && e["citeas"] or next
         a = @xrefs.anchor(e["bibitemid"], :xref, false) or next
         e["citeas"] = citeas_cleanup(a)
@@ -35,7 +35,6 @@ module IsoDoc
       ret = resolve_eref_connectives(locs)
       elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
       elem.next = "<semx element='erefstack' source='#{elem['id']}'>#{ret[1]}</semx>"
-      #elem.replace(ret[1])
     end
 
     def eref_localities(refs, target, node)
@@ -198,7 +197,7 @@ module IsoDoc
       docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//fmt-eref | //fmt-origin[not(.//termref)]"))
         .each do |e|
-          sem_xml_descendant?(e) and next
+        sem_xml_descendant?(e) and next
         href = eref_target(e) or next
         e.xpath(ns("./locality | ./localityStack")).each(&:remove)
         if href[:type] == :anchor then eref2xref(e)
