@@ -114,24 +114,27 @@ module IsoDoc
       idx
     end
 
-     # move footnotes into key
-        def figure_fn(elem)
-          fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
-          fn.empty? and return
-          ret = footnote_collect(fn)
-          dl = figure_key_insert_pt(elem)
-          ret.each do |f|
-            label = f.at(ns(".//fmt-fn-label")).remove
-            label.at(ns(".//span[@class = 'fmt-caption-delim']"))&.remove
-            dl.previous = "<dt><p><sup>#{label}</sup></p></dt>" \
-              "<dd>#{f.to_xml}</dd>"
-          end
-        end
-    
-        def figure_key_insert_pt(elem)
-          elem.at(ns("//dl/name"))&.next ||
-            elem.at(ns("//dl"))&.children&.first ||
-            elem.add_child("<dl> </dl>").first.children.first
-        end
+    # move footnotes into key
+    def figure_fn(elem)
+      fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
+      fn.empty? and return
+      dl = figure_key_insert_pt(elem)
+      footnote_collect(fn).each do |f|
+        label, fbody = figure_fn_to_dt_dd(f)
+        dl.previous = "<dt><p>#{to_xml(label)}</p></dt><dd>#{to_xml(fbody)}</dd>"
+      end
+    end
+
+    def figure_fn_to_dt_dd(f)
+      label = f.at(ns(".//fmt-fn-label")).remove
+      label.at(ns(".//span[@class = 'fmt-caption-delim']"))&.remove
+      [label, f]
+    end
+
+    def figure_key_insert_pt(elem)
+      elem.at(ns("//dl/name"))&.next ||
+        elem.at(ns("//dl"))&.children&.first ||
+        elem.add_child("<dl> </dl>").first.children.first
+    end
   end
 end
