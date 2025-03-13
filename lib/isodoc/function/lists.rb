@@ -37,7 +37,7 @@ module IsoDoc
       # We don't really want users to specify type of ordered list;
       # we will use a fixed hierarchy as practiced by ISO (though not
       # fully spelled out): a) 1) i) A) I)
-
+      # Fallback, this is now being done in Presentation XML
       def ol_depth(node)
         depth = node.ancestors("ul, ol").size + 1
         type = :alphabet
