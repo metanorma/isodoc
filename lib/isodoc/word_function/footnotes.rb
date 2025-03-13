@@ -10,51 +10,12 @@ module IsoDoc
         sprintf "%09d", ret
       end
 
-      # KILL
-      def make_table_footnote_link(out, fnid, fnref)
-        attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
-        out.a **attrs do |a|
-          a << fnref
-        end
-      end
-
       def make_table_footnote_link(out, fnid, node)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
         sup = node.at(ns("./sup")) and sup.replace(sup.children)
         out.a **attrs do |a|
           children_parse(node, a)
         end
-      end
-
-      # KILL
-      def make_table_footnote_target(out, fnid, fnref)
-        attrs = { id: fnid, class: "TableFootnoteRef" }
-        out.span do |s|
-          out.span **attrs do |a|
-            a << fnref
-          end
-          insert_tab(s, 1)
-        end
-      end
-
-      # KILL
-      def make_table_footnote_text(node, fnid, fnref)
-        attrs = { id: "ftn#{fnid}" }
-        noko do |xml|
-          xml.div **attr_code(attrs) do |div|
-            make_table_footnote_target(div, fnid, fnref)
-            node.children.each { |n| parse(n, div) }
-          end
-        end.join("\n")
-      end
-
-      # KILL
-      def make_generic_footnote_text(node, fnid)
-        noko do |xml|
-          xml.aside id: "ftn#{fnid}" do |div|
-            node.children.each { |n| parse(n, div) }
-          end
-        end.join("\n")
       end
 
       def fmt_fn_body_parse(node, out)
@@ -82,11 +43,6 @@ module IsoDoc
         # do not output footnote text if we have already seen it for this table
         return if @seen_footnote.include?(tid + fn)
         update_table_fn_body_ref(node, table, tid + fn)
-=begin
-        @in_footnote = true
-        out.aside { |a| a << make_table_footnote_text(node, tid + fn, fn) }
-        @in_footnote = false
-=end
         @seen_footnote << (tid + fn)
       end
 
@@ -108,7 +64,6 @@ module IsoDoc
         sup = f.at(ns(".//sup")) and sup.replace(sup.children)
         s = f.at(ns(".//semx[@source = '#{node['id']}']"))
 
-        #<span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/><span class="MsoFootnoteReference">#{footnote}</span><span style="mso-element:field-end"/>
         semx = <<~SPAN.strip
 <span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/>#{footnote}<span style="mso-element:field-end"/>
         SPAN
@@ -116,16 +71,6 @@ module IsoDoc
         out.span class: "MsoFootnoteReference" do |fn|
           children_parse(f, fn)
         end
-
-=begin
-        out.span style: "mso-element:field-begin"
-        out << " NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h"
-        out.span style: "mso-element:field-separator"
-        out.span class: "MsoFootnoteReference" do |s|
-          s << footnote
-        end
-        out.span style: "mso-element:field-end"
-=end
       end
 
       def footnote_parse(node, out)
@@ -152,16 +97,6 @@ module IsoDoc
           semx["href"] = "#ftn#{fn}"
         end
         @seen_footnote << fn
-      end
-
-      # KILL
-      def make_footnote(node, footnote)
-        return if @seen_footnote.include?(footnote)
-
-        @in_footnote = true
-        @footnotes << make_generic_footnote_text(node, footnote)
-        @in_footnote = false
-        @seen_footnote << footnote
       end
     end
   end

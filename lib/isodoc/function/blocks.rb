@@ -193,7 +193,7 @@ module IsoDoc
 
       def columnbreak_parse(node, out); end
 
-      # we dont't want figure dl/dd/fmt-fn-body to be processed 
+      # we dont't want figure dl/dd/fmt-fn-body to be processed
       # as actual footnotes
       def fmt_fn_body_parse(node, out)
         node.ancestors("table, figure").empty? and

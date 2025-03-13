@@ -36,12 +36,6 @@ module IsoDoc
         end
       end
 
-      def increment_label(elems, node, counter, increment: true)
-        elems.size == 1 && !node["number"] and return ""
-        counter.increment(node) if increment
-        counter.print
-      end
-
       def termnote_anchor_names(docxml)
         docxml.xpath(ns("//*[termnote]")).each do |t|
           c = Counter.new
@@ -240,8 +234,7 @@ refer_list)
       def bookmark_container(parent)
         if parent
           clause = parent.xpath(CLAUSE_ANCESTOR)&.last
-          if clause["id"] == id
-            nil
+          if clause["id"] == id then nil
           else
             @anchors.dig(clause["id"], :xref)
           end
@@ -251,7 +244,6 @@ refer_list)
       def bookmark_anchor_names(xml)
         xml.xpath(ns(".//bookmark")).noblank.each do |n|
           _parent, id = id_ancestor(n)
-          # container = bookmark_container(parent)
           @anchors[n["id"]] = { type: "bookmark", label: nil, value: nil,
                                 xref: @anchors.dig(id, :xref) || "???",
                                 container: @anchors.dig(id, :container) }

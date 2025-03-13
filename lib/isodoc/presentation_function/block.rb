@@ -124,16 +124,6 @@ module IsoDoc
       end
     end
 
-    # KILL 
-    def table_fnx(elem)
-      (elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn")))
-        .each_with_index do |f, i|
-          table_fn1(elem, f, i)
-        end
-    end
-
-    def table_fn1(table, fnote, idx); end
-
     def amend(docxml)
       docxml.xpath(ns("//amend")).each { |f| amend1(f) }
     end
@@ -234,19 +224,24 @@ module IsoDoc
       elem << "<attribution><p>#{l10n p}</p></attribution>"
     end
 
-    # e["deleteme"]: duplicate of source, will be duplicated in fmt-eref, need to delete after
+    # e["deleteme"]: duplicate of source, will be duplicated in fmt-eref,
+    # need to delete after
     def quote_attribution(author, source, elem)
       p = "&#x2014; "
       p += to_xml(semx_fmt_dup(author)) if author
       p += ", " if author && source
       source or return p
+      p + to_xml(quote_source(source, elem))
+    end
+
+    def quote_source(source, elem)
       s = semx_fmt_dup(source)
       e = Nokogiri::XML::Node.new("eref", elem.document)
       e << s.children
       s << e
       source.attributes.each_key { |k| e[k] = source[k] }
       e["deleteme"] = "true"
-      p + to_xml(s)
+      s
     end
   end
 end
