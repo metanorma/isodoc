@@ -20,7 +20,7 @@ module IsoDoc
       # do not output footnote text if we have already seen it for this table
 
       def table_footnote_parse(node, out)
-        fn = node["reference"] || UUIDTools::UUID.random_create.to_s
+        fn = node["id"] # || UUIDTools::UUID.random_create.to_s
         table, tid = get_table_ancestor_id(node)
         make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         # do not output footnote text if we have already seen it for this table
@@ -45,7 +45,7 @@ module IsoDoc
         return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
           !node.ancestors.map(&:name).include?("fmt-name")
 
-        fn = node["reference"] || UUIDTools::UUID.random_create.to_s
+        fn = node["id"] # || UUIDTools::UUID.random_create.to_s
         attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
         f = node.at(ns("./fmt-fn-label"))
         out.a **attrs do |a|

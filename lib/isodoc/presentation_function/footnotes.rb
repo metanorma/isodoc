@@ -125,10 +125,10 @@ module IsoDoc
       end
     end
 
-    def figure_fn_to_dt_dd(f)
-      label = f.at(ns(".//fmt-fn-label")).remove
+    def figure_fn_to_dt_dd(fnote)
+      label = fnote.at(ns(".//fmt-fn-label")).remove
       label.at(ns(".//span[@class = 'fmt-caption-delim']"))&.remove
-      [label, f]
+      [label, fnote]
     end
 
     def figure_key_insert_pt(elem)

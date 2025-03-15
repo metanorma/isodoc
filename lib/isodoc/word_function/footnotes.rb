@@ -22,7 +22,7 @@ module IsoDoc
         node.at(ns(".//fmt-fn-label"))&.remove
         aside = node.parent.name == "fmt-footnote-container"
         tag = aside ? "aside" : "div"
-        out.send tag, id: "ftn#{node['reference']}" do |div|
+        out.send tag, id: "ftn#{node['id']}" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
@@ -37,7 +37,7 @@ module IsoDoc
 
       # dupe to HTML
       def table_footnote_parse(node, out)
-        fn = node["reference"] || UUIDTools::UUID.random_create.to_s
+        fn = node["id"] # || UUIDTools::UUID.random_create.to_s
         table, tid = get_table_ancestor_id(node)
         make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         # do not output footnote text if we have already seen it for this table
@@ -77,7 +77,7 @@ module IsoDoc
         return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
           !node.ancestors.map(&:name).include?("fmt-name")
 
-        fn = node["reference"] || UUIDTools::UUID.random_create.to_s
+        fn = node["id"] # || UUIDTools::UUID.random_create.to_s
         return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)
 
         @fn_bookmarks[fn] = bookmarkid
