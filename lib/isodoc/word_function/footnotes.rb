@@ -37,7 +37,7 @@ module IsoDoc
 
       # dupe to HTML
       def table_footnote_parse(node, out)
-        fn = node["id"] # || UUIDTools::UUID.random_create.to_s
+        fn = node["reference"] || UUIDTools::UUID.random_create.to_s
         table, tid = get_table_ancestor_id(node)
         make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         # do not output footnote text if we have already seen it for this table
