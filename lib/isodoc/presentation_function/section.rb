@@ -15,9 +15,23 @@ module IsoDoc
     end
 
     def unnumbered_clause?(elem)
-      !elem.ancestors("boilerplate, metanorma-extension").empty? ||
+      has_required_ancestor?(elem) ||
         @suppressheadingnumbers || elem["unnumbered"] ||
         elem.at("./ancestor::*[@unnumbered = 'true']")
+    end
+
+    def has_required_ancestor?(elem)
+      @ancestor_cache ||= {}
+
+      return false unless elem
+      return @ancestor_cache[elem] if @ancestor_cache.key?(elem)
+
+      if elem.name == "metanorma-extension" || elem.name == "boilerplate"
+        @ancestor_cache[elem] = true
+      else
+        return false unless elem.respond_to?(:parent)
+        @ancestor_cache[elem] = has_required_ancestor?(elem.parent)
+      end
     end
 
     def clausedelim
@@ -29,8 +43,9 @@ module IsoDoc
     def clause1(elem)
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
-      lbl = @xrefs.anchor(elem["id"], :label, !unnumbered_clause?(elem))
-      if unnumbered_clause?(elem) || !lbl
+      is_unnumbered = unnumbered_clause?(elem)
+      lbl = @xrefs.anchor(elem["id"], :label, !is_unnumbered)
+      if is_unnumbered || !lbl
         prefix_name(elem, {}, nil, "title")
       else
         prefix_name(elem, { caption: "<tab/>" }, "#{lbl}#{clausedelim}",
