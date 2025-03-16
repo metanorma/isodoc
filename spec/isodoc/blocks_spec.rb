@@ -277,84 +277,64 @@ RSpec.describe IsoDoc do
        </standard-document>
     OUTPUT
     html = <<~OUTPUT
-      <html lang='en'>
-           <head/>
-           <body lang='en'>
-             <div class='title-section'>
-               <p>&#160;</p>
+       <div id="A">
+          <h1>1.  Change Clause</h1>
+          <p id="C">
+             <i>
+                        This table contains information on polygon cells which are not
+                        included in ISO 10303-52. Remove table 2 completely and replace
+                        with:
+                      </i>
+          </p>
+          <div class="Quote" id="D">
+             <p class="TableTitle" style="text-align:center;">Table 2 — Edges of triangle and quadrilateral cells</p>
+             <table id="E" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                <tbody>
+                   <tr>
+                      <th colspan="2" style="font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">triangle</th>
+                      <th colspan="2" style="font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">quadrilateral</th>
+                   </tr>
+                   <tr>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">edge</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">vertices</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">edge</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">vertices</td>
+                   </tr>
+                   <tr>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">1</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">1, 2</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">1</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">1, 2</td>
+                   </tr>
+                   <tr>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">2</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">2, 3</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">2</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">2, 3</td>
+                   </tr>
+                   <tr>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">3</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">3, 1</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">3</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;">3, 4</td>
+                   </tr>
+                   <tr>
+                      <td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;"/>
+                      <td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;"/>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;">4</td>
+                      <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;">4, 1</td>
+                   </tr>
+                </tbody>
+             </table>
+             <div id="H" class="figure">
+                <p class="FigureTitle" style="text-align:center;">Imago</p>
              </div>
-             <br/>
-             <div class='prefatory-section'>
-               <p>&#160;</p>
+             <div id="F" class="example">
+                <p class="example-title">EXAMPLE A.7</p>
+                <p id="G">This is not generalised further.</p>
              </div>
-             <br/>
-             <div class='main-section'>
-                   <br/>
-      <div class="TOC" id="_">
-        <h1 class="IntroTitle">Table of contents</h1>
-      </div>
-               <p class='zzSTDTitle1'>Document title</p>
-               <div id='A'>
-                 <h1>1.&#160; Change Clause</h1>
-                 <p id='C'>
-                   <i>
-                      This table contains information on polygon cells which are not
-                     included in ISO 10303-52. Remove table 2 completely and replace
-                     with:
-                   </i>
-                 </p>
-                 <div class='Quote' id="D">
-                   <p class='TableTitle' style='text-align:center;'>Table 2&#160;&#8212; Edges of triangle and quadrilateral cells</p>
-                   <table id='E' class='MsoISOTable' style='border-width:1px;border-spacing:0;'>
-                     <tbody>
-                       <tr>
-                         <th colspan='2' style='font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;' scope='row'>triangle</th>
-                         <th colspan='2' style='font-weight:bold;text-align:center;vertical-align:middle;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;' scope='row'>quadrilateral</th>
-                       </tr>
-                       <tr>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>edge</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>vertices</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>edge</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>vertices</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1, 2</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>1, 2</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2, 3</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>2, 3</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3, 1</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.0pt;'>3, 4</td>
-                       </tr>
-                       <tr>
-                         <td style='text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;'/>
-                         <td style='text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;'/>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;'>4</td>
-                         <td style='text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;'>4, 1</td>
-                       </tr>
-                     </tbody>
-                   </table>
-                   <div id='H' class='figure'>
-                     <p class='FigureTitle' style='text-align:center;'>Imago</p>
-                   </div>
-                   <div id='F' class='example'>
-                     <p class='example-title'>EXAMPLE A.7</p>
-                     <p id='G'>This is not generalised further.</p>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </body>
-         </html>
+          </div>
+       </div>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -362,8 +342,9 @@ RSpec.describe IsoDoc do
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
     expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))
+      .at("//div[@id ='A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -1078,7 +1059,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
@@ -1349,11 +1330,122 @@ RSpec.describe IsoDoc do
                       <em>Hypertext Transfer Protocol — HTTP/1.1</em>
                       . 1999. Fremont, CA.
                    </formattedref>
+                   <fetched>2020-03-27</fetched>
+                   <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>
                    <docidentifier type="metanorma-ordinal">[1]</docidentifier>
                    <docidentifier type="IETF">IETF RFC 2616</docidentifier>
                    <docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier>
                    <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
                    <docidentifier scope="biblio-tag">IETF RFC 2616</docidentifier>
+                   <date type="published">
+                      <on>1999-06</on>
+                   </date>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">R. Fielding</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">J. Gettys</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">J. Mogul</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">H. Frystyk</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">L. Masinter</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">P. Leach</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">T. Berners-Lee</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <language>en</language>
+                   <script>Latn</script>
+                   <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>
+                   <series type="main">
+                      <title format="text/plain" language="en" script="Latn">RFC</title>
+                      <number>2616</number>
+                   </series>
+                   <place>Fremont, CA</place>
                    <biblio-tag>
                       [1]
                       <tab/>

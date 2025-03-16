@@ -1,11 +1,9 @@
 require_relative "html_function/comments"
-require_relative "html_function/footnotes"
 require_relative "html_function/html"
 
 module IsoDoc
   class PdfConvert < ::IsoDoc::Convert
     include HtmlFunction::Comments
-    include HtmlFunction::Footnotes
     include HtmlFunction::Html
 
     def initialize(options)

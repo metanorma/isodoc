@@ -42,7 +42,7 @@ module IsoDoc
       sourcehighlighter_css(docxml)
       @highlighter = sourcehighlighter
       @callouts = {}
-      (docxml.xpath(ns("//sourcecode")) - 
+      (docxml.xpath(ns("//sourcecode")) -
        docxml.xpath(ns("//metanorma-extension//sourcecode")))
         .each do |f|
         sourcecode1(f)
@@ -52,7 +52,6 @@ module IsoDoc
     def sourcecode1(elem)
       ret1 = semx_fmt_dup(elem)
       b = ret1.at(ns(".//body")) and b.replace(b.children)
-      #sourcecode_annot_id(elem)
       source_label(elem)
       source_highlight(ret1, elem["linenums"] == "true", elem["lang"])
       callouts(elem)
@@ -68,25 +67,11 @@ module IsoDoc
       elem << ret
     end
 
-    # KILL
-    def sourcecode_annot_id(elem)
-      elem.xpath(ns("./annotation")).each do |a|
-        if a["original-id"]
-          a["id"] = a["original-id"]
-          a.delete("original-id")
-        end
-          a.xpath(".//*[@original-id]").each do |n|
-            n["id"] = n["original-id"]
-          n.delete("original-id")
-          end
-        end
-    end
-
     def annotations(elem, fmt_elem)
       elem.at(ns("./annotation")) or return
       ret = ""
       elem.xpath(ns("./annotation")).each do |a|
-        id = a['original-id']
+        id = a["original-id"]
         dd = semx_fmt_dup(a)
         dd["source"] = a["id"]
         ret += <<~OUT
@@ -183,8 +168,6 @@ module IsoDoc
     def source_label(elem)
       if !labelled_ancestor(elem) && # do not number if labelled_ancestor
           lbl = @xrefs.anchor(elem["id"], :label, false)
-        #a = autonum(elem["id"], lbl)
-        #s = "<span class='fmt-element-name'>#{lower2cap @i18n.figure}</span> #{a}"
         s = labelled_autonum(lower2cap(@i18n.figure), elem["id"], lbl)&.strip
       end
       prefix_name(elem, { caption: block_delim }, s, "name")

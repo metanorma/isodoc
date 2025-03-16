@@ -86,6 +86,8 @@ module IsoDoc
         (dl = node.at(ns("./dl"))) && parse(dl, out)
         node.xpath(ns("./source")).each { |n| parse(n, out) }
         node.xpath(ns("./note")).each { |n| parse(n, out) }
+        node.xpath(ns("./fmt-footnote-container/fmt-fn-body"))
+          .each { |n| parse(n, out) }
       end
 
       def table_parse_core(node, out)

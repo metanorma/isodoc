@@ -73,24 +73,6 @@ module IsoDoc
       prefix_name(elem, { caption: figure_delim(elem) }, l10n(s&.strip), "name")
     end
 
-    # move footnotes into key, and get rid of footnote reference
-    # since it is in diagram
-    def figure_fn(elem)
-      fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
-      fn.empty? and return
-      dl = figure_key_insert_pt(elem)
-      fn.each do |f|
-        dl.previous = "<dt><p><sup>#{f['reference']}</sup></p></dt>" \
-          "<dd>#{f.remove.children.to_xml}</dd>"
-      end
-    end
-
-    def figure_key_insert_pt(elem)
-      elem.at(ns("//dl/name"))&.next ||
-        elem.at(ns("//dl"))&.children&.first ||
-        elem.add_child("<dl> </dl>").first.children.first
-    end
-
     def figure_label?(elem)
       elem.at(ns("./figure")) && !elem.at(ns("./name")) and return false
       true

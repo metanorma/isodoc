@@ -8,7 +8,8 @@ module IsoDoc
     def lower2cap(text)
       text.nil? and return text
       x = Nokogiri::XML("<a>#{text}</a>")
-      firsttext = x.at(".//text()[string-length(normalize-space(.))>0]") or return text
+      firsttext = x.at(".//text()[string-length(normalize-space(.))>0]") or
+        return text
       /^[[:upper:]][[:upper:]]/.match?(firsttext.text) and return text
       firsttext.replace(firsttext.text.capitalize)
       to_xml(x.root.children)
@@ -80,7 +81,6 @@ module IsoDoc
     end
 
     def admonition_numbered1(elem)
-      # elem["unnumbered"] && !elem.at(ns("./name")) and return
       label = admonition_label(elem, @xrefs.anchor(elem["id"], :label, false))
       prefix_name(elem, { caption: block_delim }, label, "name")
     end
@@ -88,8 +88,6 @@ module IsoDoc
     def admonition_label(elem, num)
       lbl = if elem["type"] == "box" then @i18n.box
             else @i18n.admonition[elem["type"]]&.upcase end
-      #lbl &&= "<span class='fmt-element-name'>#{lbl}</span>"
-      #num and lbl = l10n("#{lbl} #{autonum(elem['id'], num)}")
       labelled_autonum(lbl, elem["id"], num)
     end
 
@@ -107,8 +105,6 @@ module IsoDoc
       labelled_ancestor(elem) and return
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
-      #lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.table}</span> "\
-        #"#{autonum(elem['id'], n)}"
       lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"], n)
       prefix_name(elem, { caption: table_delim }, l10n(lbl), "name")
     end
@@ -127,15 +123,6 @@ module IsoDoc
         end
       end
     end
-
-    def table_fn(elem)
-      (elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn")))
-        .each_with_index do |f, i|
-          table_fn1(elem, f, i)
-        end
-    end
-
-    def table_fn1(table, fnote, idx); end
 
     def amend(docxml)
       docxml.xpath(ns("//amend")).each { |f| amend1(f) }
@@ -233,19 +220,28 @@ module IsoDoc
       author = elem.at(ns("./author"))
       source = elem.at(ns("./source"))
       author.nil? && source.nil? and return
+      p = quote_attribution(author, source, elem)
+      elem << "<attribution><p>#{l10n p}</p></attribution>"
+    end
+
+    # e["deleteme"]: duplicate of source, will be duplicated in fmt-eref,
+    # need to delete after
+    def quote_attribution(author, source, elem)
       p = "&#x2014; "
       p += to_xml(semx_fmt_dup(author)) if author
       p += ", " if author && source
-      if source
-        s = semx_fmt_dup(source)
-e = Nokogiri::XML::Node.new("eref", elem.document)
-e << s.children
-s << e
-source.attributes.each_key { |k| e[k] = source[k] }
-e["deleteme"] = "true" # duplicate of source, will be duplicated in fmt-eref, need to delete after
-        p += to_xml(s)
-      end
-      elem << "<attribution><p>#{l10n p}</p></attribution>"
+      source or return p
+      p + to_xml(quote_source(source, elem))
+    end
+
+    def quote_source(source, elem)
+      s = semx_fmt_dup(source)
+      e = Nokogiri::XML::Node.new("eref", elem.document)
+      e << s.children
+      s << e
+      source.attributes.each_key { |k| e[k] = source[k] }
+      e["deleteme"] = "true"
+      s
     end
   end
 end
