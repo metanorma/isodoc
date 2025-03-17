@@ -63,9 +63,7 @@ module IsoDoc
       end
 
       def footnote_parse(node, out)
-        (@in_table || @in_figure) &&
-          !node.ancestors.map(&:name).include?("fmt-name") and
-          return table_footnote_parse(node, out)
+        table_footnote?(node) and return table_footnote_parse(node, out)
         fn = node["reference"] # || UUIDTools::UUID.random_create.to_s
         @seen_footnote.include?(fn) and return seen_footnote_parse(node, out, fn)
         @fn_bookmarks[fn] = bookmarkid

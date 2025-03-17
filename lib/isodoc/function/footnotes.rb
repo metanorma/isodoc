@@ -42,9 +42,13 @@ module IsoDoc
         end
       end
 
-      def footnote_parse(node, out)
-        return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
+      def table_footnote?(node)
+        (@in_table || @in_figure) &&
           !node.ancestors.map(&:name).include?("fmt-name")
+      end
+
+      def footnote_parse(node, out)
+        table_footnote?(node) and return table_footnote_parse(node, out)
         fn = node["target"] # || UUIDTools::UUID.random_create.to_s
         attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
         f = node.at(ns("./fmt-fn-label"))
