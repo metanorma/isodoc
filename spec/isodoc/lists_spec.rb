@@ -8,72 +8,146 @@ RSpec.describe IsoDoc do
           <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
           <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
-          <fmt-name>Caption</fmt-name>
+          <name>Caption</name>
         <li>
           <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
         </li>
         <li>
           <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+          <ul id="_61961034-0fb1-436b-b281-828857a59ddc"  keep-with-next="true" keep-lines-together="true">
+          <li>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">updated normative references;</p>
+        </li>
+          </ul>
         </li>
       </ul>
       </foreword></preface>
       </iso-standard>
     INPUT
+    presxml = <<~INPUT
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <foreword displayorder="1" id="fwd">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">Foreword</fmt-title>
+                <ul id="_" keep-with-next="true" keep-lines-together="true">
+                   <name id="_">Caption</name>
+                   <fmt-name>
+                      <semx element="name" source="_">Caption</semx>
+                   </fmt-name>
+                   <li label="—">
+                      <p id="_">updated normative references;</p>
+                   </li>
+                   <li label="—">
+                      <p id="_">deletion of 4.3.</p>
+                      <ul id="_" keep-with-next="true" keep-lines-together="true">
+                         <li label="—">
+                            <p id="_">updated normative references;</p>
+                         </li>
+                      </ul>
+                   </li>
+                </ul>
+             </foreword>
+             <clause type="toc" id="_" displayorder="2">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+          </preface>
+       </iso-standard>
+    INPUT
     html = <<~OUTPUT
-      #{HTML_HDR}
-                   <br/>
-                   <div id="fwd">
-                     <h1 class="ForewordTitle">Foreword</h1>
-                     <div class="ul_wrap">
-                     <p class='ListTitle'>Caption</p>
-                     <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
-             <li>
-               <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
-             </li>
-             <li>
-               <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
-             </li>
-           </ul>
-           </div>
+       <html lang="en">
+          <head/>
+          <body lang="en">
+             <div class="title-section">
+                <p> </p>
+             </div>
+             <br/>
+             <div class="prefatory-section">
+                <p> </p>
+             </div>
+             <br/>
+             <div class="main-section">
+                <br/>
+                <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div class="ul_wrap">
+                      <p class="ListTitle">Caption</p>
+                      <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
+                         <li>
+                            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
+                         </li>
+                         <li>
+                            <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+                            <div class="ul_wrap">
+                               <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                                  <li>
+                                     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">updated normative references;</p>
+                                  </li>
+                               </ul>
+                            </div>
+                         </li>
+                      </ul>
                    </div>
-                 </div>
-               </body>
-           </html>
+                </div>
+                <br/>
+                <div id="_" class="TOC">
+                   <h1 class="IntroTitle">Table of contents</h1>
+                </div>
+             </div>
+          </body>
+       </html>
     OUTPUT
     word = <<~OUTPUT
       #{WORD_HDR}
               <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
-              <div id="fwd">
-                <h1 class='ForewordTitle'>Foreword</h1>
-                <div class="ul_wrap">
-                <p class='ListTitle'>Caption</p>
-                <ul id='_61961034-0fb1-436b-b281-828857a59ddb' style='page-break-after: avoid;page-break-inside: avoid;'>
-                  <li>
-                    <p id='_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2'>updated normative references;</p>
-                  </li>
-                  <li>
-                    <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
-                  </li>
-                </ul>
+                <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div class="ul_wrap">
+                      <p class="ListTitle">Caption</p>
+                      <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
+                         <li>
+                            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
+                         </li>
+                         <li>
+                            <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+                            <div class="ul_wrap">
+                               <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                                  <li>
+                                     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">updated normative references;</p>
+                                  </li>
+                               </ul>
+                            </div>
+                         </li>
+                      </ul>
+                   </div>
                 </div>
-              </div>
-              <p>&#xa0;</p>
-            </div>
-            <p class="section-break">
-              <br clear='all' class='section'/>
-            </p>
-            <div class='WordSection3'>
-            </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="_" class="TOC">
+                   <p class="zzContents">Table of contents</p>
+                </div>
+                <p> </p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3"/>
           </body>
-        </html>
+       </html>
     OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+    expect(Xml::C14n.format(strip_guid(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+      .convert("test", pres_output, true)))
       .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))
+      .convert("test", pres_output, true)))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -166,54 +240,54 @@ RSpec.describe IsoDoc do
           <name>Caption</name>
         <li>
           <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
-        </li>
         <ol>
         <li>
           <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
-        </li>
         <ol>
         <li>
           <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
         </li>
         </ol>
+        </li>
         </ol>
+        </li>
       </ol>
       </foreword></preface>
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-              <foreword id="_" displayorder="2">
-                 <title id="_">Foreword</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Foreword</semx>
-                 </fmt-title>
-                 <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="">
-                    <name id="_">Caption</name>
-                    <fmt-name>
-                       <semx element="name" source="_">Caption</semx>
-                    </fmt-name>
-                    <li id="_" label="a">
-                       <p id="_">all information necessary for the complete identification of the sample;</p>
-                    </li>
-                    <ol type="arabic">
-                       <li label="">
-                          <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
-                       </li>
-                       <ol type="roman">
-                          <li label="">
-                             <p id="_">the sampling method used;</p>
-                          </li>
-                       </ol>
-                    </ol>
-                 </ol>
-              </foreword>
-           </preface>
-        </iso-standard>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword id="_" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="">
+                   <name id="_">Caption</name>
+                   <fmt-name>
+                      <semx element="name" source="_">Caption</semx>
+                   </fmt-name>
+                   <li id="_" label="a" label-template="%">
+                      <p id="_">all information necessary for the complete identification of the sample;</p>
+                      <ol type="arabic">
+                         <li id="_" label="1" label-template="%">
+                            <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
+                            <ol type="roman">
+                               <li id="_" label="i" label-template="%">
+                                  <p id="_">the sampling method used;</p>
+                               </li>
+                            </ol>
+                         </li>
+                      </ol>
+                   </li>
+                </ol>
+             </foreword>
+          </preface>
+       </iso-standard>
     INPUT
 
     html = <<~OUTPUT
@@ -221,32 +295,32 @@ RSpec.describe IsoDoc do
                    <br/>
                    <div id="_">
                      <h1 class="ForewordTitle">Foreword</h1>
-                     <div class="ol_wrap">
-                 <p class='ListTitle'>Caption</p>
-                     <ol type="a" id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-             <li id="_">
-               <p id="_">all information necessary for the complete identification of the sample;</p>
-             </li>
-             <div class="ol_wrap">
-             <ol type="1">
-             <li>
-               <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
-             </li>
-             <div class="ol_wrap">
-             <ol type="i">
-             <li>
-               <p id="_">the sampling method used;</p>
-             </li>
-             </ol>
-             </div>
-             </ol>
-             </div>
-           </ol>
-           </div>
+                   <div class="ol_wrap">
+                      <p class="ListTitle">Caption</p>
+                      <ol type="a" id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+                         <li id="_">
+                            <p id="_">all information necessary for the complete identification of the sample;</p>
+                            <div class="ol_wrap">
+                               <ol type="1">
+                                  <li id="_">
+                                     <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
+                                     <div class="ol_wrap">
+                                        <ol type="i">
+                                           <li id="_">
+                                              <p id="_">the sampling method used;</p>
+                                           </li>
+                                        </ol>
+                                     </div>
+                                  </li>
+                               </ol>
+                            </div>
+                         </li>
+                      </ol>
                    </div>
-                 </div>
-               </body>
-           </html>
+                </div>
+             </div>
+          </body>
+       </html>
     OUTPUT
     word = <<~OUTPUT
       #{WORD_HDR}
@@ -260,21 +334,21 @@ RSpec.describe IsoDoc do
                 <ol type='a' id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
                   <li id="_">
                     <p id='_'>all information necessary for the complete identification of the sample;</p>
-                  </li>
-                  <div class="ol_wrap">
-                  <ol type='1'>
-                    <li>
-                      <p id='_'>a reference to this document (i.e. ISO 17301-1);</p>
-                    </li>
-                                           <div class="ol_wrap">
-                         <ol type="i">
-                           <li>
-                             <p id="_">the sampling method used;</p>
+                                         <div class="ol_wrap">
+                        <ol type="1">
+                           <li id="_">
+                              <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
+                              <div class="ol_wrap">
+                                 <ol type="i">
+                                    <li id="_">
+                                       <p id="_">the sampling method used;</p>
+                                    </li>
+                                 </ol>
+                              </div>
                            </li>
-                         </ol>
-                       </div>
-                     </ol>
-                   </div>
+                        </ol>
+                     </div>
+                    </li>
                  </ol>
                </div>
              </div>

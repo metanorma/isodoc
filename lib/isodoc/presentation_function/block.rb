@@ -149,6 +149,7 @@ module IsoDoc
 
     def ul(docxml)
       docxml.xpath(ns("//ul")).each { |f| ul1(f) }
+      docxml.xpath(ns("//ul/li")).each { |f| ul_label(f) }
     end
 
     def ul1(elem)
@@ -183,6 +184,16 @@ module IsoDoc
 
     def ol_label(elem)
       elem["label"] = @xrefs.anchor(elem["id"], :label, false)
+      elem["label-template"] = "%"
+    end
+
+    def ul_label_list
+      %w(—)
+    end
+
+    def ul_label(elem)
+      depth = elem.ancestors("ul, ol").size
+      elem["label"] = ul_label_list[depth % ul_label_list.size]
     end
 
     def source(docxml)
