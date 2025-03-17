@@ -628,6 +628,7 @@ RSpec.describe IsoDoc do
   end
 
   it "renders footnote in metanorma docidentifier" do
+    mock_uuid_increment
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
                 <bibdata>
@@ -738,7 +739,7 @@ RSpec.describe IsoDoc do
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                                   <p id="ISO712" class="NormRef">
                       ISO/IEC Guide 99:2007, ISO/IEC Guide 99:2007
-                      <a class="FootnoteRef" href="#fn:1">
+                      <a class="FootnoteRef" href="#fn:_5">
                          <sup>1</sup>
                       </a>
                       , International Organization for Standardization and International Electrotechnical Commission.
@@ -748,7 +749,7 @@ RSpec.describe IsoDoc do
                       .
                    </p>
                 </div>
-               <aside id="fn:1" class="footnote">
+               <aside id="fn:_5" class="footnote">
                    <p id="_">
                Also known as JCGM 200
                    </p>

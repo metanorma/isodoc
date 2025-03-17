@@ -49,20 +49,6 @@ module IsoDoc
         @seen_footnote << (tid + fn)
       end
 
-      # KILL
-      def update_table_fn_body_refxx(fnote, table, reference)
-        fnbody = table.at(ns(".//fmt-fn-body[@id = '#{fnote['target']}']")) or return
-        fnbody["reference"] = reference
-        fnbody["is_table"] = true
-        sup = fnbody.at(ns(".//fmt-fn-label/sup")) and sup.replace(sup.children)
-        fnbody.xpath(ns(".//fmt-fn-label")).each do |s|
-          s["class"] = "TableFootnoteRef"
-          s.name = "span"
-          d = s.at(ns("./span[@class = 'fmt-caption-delim']")) and
-            s.next = d
-        end
-      end
-
       def seen_footnote_parse(node, out, footnote)
         f = node.at(ns("./fmt-fn-label"))
         sup = f.at(ns(".//sup")) and sup.replace(sup.children)
@@ -81,7 +67,7 @@ module IsoDoc
           !node.ancestors.map(&:name).include?("fmt-name") and
           return table_footnote_parse(node, out)
         fn = node["reference"] # || UUIDTools::UUID.random_create.to_s
-        @seen_footnote.include?(fn) and seen_footnote_parse(node, out, fn)
+        @seen_footnote.include?(fn) and return seen_footnote_parse(node, out, fn)
         @fn_bookmarks[fn] = bookmarkid
         f = footnote_label_process(node)
         out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}",
