@@ -2,6 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes IsoXML tables" do
+    mock_uuid_increment
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
@@ -433,7 +434,7 @@ RSpec.describe IsoDoc do
                       Table 1 — Repeatability and reproducibility of
                       <i>husked</i>
                       rice yield
-                      <a class="FootnoteRef" href="#fn:1">
+                      <a class="FootnoteRef" href="#fn:_7">
                          <sup>1</sup>
                       </a>
                    </p>
@@ -577,7 +578,7 @@ RSpec.describe IsoDoc do
                       </tbody>
                    </table>
                 </div>
-                <aside id="fn:1" class="footnote">
+                <aside id="fn:_7" class="footnote">
                    <p>
                       X
                    </p>
@@ -598,7 +599,7 @@ RSpec.describe IsoDoc do
                        Table 1 — Repeatability and reproducibility of
                        <i>husked</i>
                         rice yield
-                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn1" epub:type="footnote">1</a></span>
+                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn_7" epub:type="footnote">1</a></span>
                      </p>
                <div align="center" class="table_container">
                  <table id="tableD-1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
@@ -740,7 +741,7 @@ RSpec.describe IsoDoc do
                       </table>
                    </div>
                 </div>
-                <aside id="ftn1">
+                <aside id="ftn_7">
                    <p>X</p>
                 </aside>
              </div>
@@ -752,7 +753,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format((IsoDoc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})

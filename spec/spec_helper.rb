@@ -9,6 +9,7 @@ require "rspec/matchers"
 require "equivalent-xml"
 require "tzinfo"
 require "xml-c14n"
+require_relative "support/uuid_mock"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

@@ -198,9 +198,9 @@ module IsoDoc
       def fmt_fn_body_parse(node, out)
         node.ancestors("table, figure").empty? and
           node.at(ns(".//fmt-fn-label"))&.remove
-        aside = node.parent.name == "fmt-footnote-container"
-        tag = aside ? "aside" : "div"
-        out.send tag, id: "fn:#{node['id']}", class: "footnote" do |div|
+        tag = node.parent.name == "fmt-footnote-container" ? "aside" : "div"
+        id = node["is_table"] ? node["reference"] : node["id"]
+        out.send tag, id: "fn:#{id}", class: "footnote" do |div|
           node.children.each { |n| parse(n, div) }
         end
       end
