@@ -15,9 +15,23 @@ module IsoDoc
     end
 
     def unnumbered_clause?(elem)
-      !elem.ancestors("boilerplate, metanorma-extension").empty? ||
+      numbered_clause_invalid_context?(elem) ||
         @suppressheadingnumbers || elem["unnumbered"] ||
         elem.at("./ancestor::*[@unnumbered = 'true']")
+    end
+
+    # context in which clause numbering is invalid:
+    # metanorma-extension, boilerplate
+    def numbered_clause_invalid_context?(elem)
+      @ncic_cache ||= {}
+      elem or return false
+      @ncic_cache.key?(elem) and return @ncic_cache[elem]
+      if ["metanorma-extension", "boilerplate"].include?(elem.name)
+        @ncic_cache[elem] = true
+      else
+        elem.respond_to?(:parent) or return false
+        @ncic_cache[elem] = numbered_clause_invalid_context?(elem.parent)
+      end
     end
 
     def clausedelim
@@ -29,8 +43,9 @@ module IsoDoc
     def clause1(elem)
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
-      lbl = @xrefs.anchor(elem["id"], :label, !unnumbered_clause?(elem))
-      if unnumbered_clause?(elem) || !lbl
+      is_unnumbered = unnumbered_clause?(elem)
+      lbl = @xrefs.anchor(elem["id"], :label, !is_unnumbered)
+      if is_unnumbered || !lbl
         prefix_name(elem, {}, nil, "title")
       else
         prefix_name(elem, { caption: "<tab/>" }, "#{lbl}#{clausedelim}",
@@ -132,10 +147,10 @@ module IsoDoc
       clauses.empty? and return
       preface = clauses.first.parent
       clauses.each do |clause|
-      float = preceding_floats(clause)
-      xpath = after.map { |n| "./self::xmlns:#{n}" }.join(" | ")
-      xpath.empty? and xpath = "./self::*[not(following-sibling::*)]"
-      preface_move1(clause, preface, float, nil, xpath)
+        float = preceding_floats(clause)
+        xpath = after.map { |n| "./self::xmlns:#{n}" }.join(" | ")
+        xpath.empty? and xpath = "./self::*[not(following-sibling::*)]"
+        preface_move1(clause, preface, float, nil, xpath)
       end
     end
 

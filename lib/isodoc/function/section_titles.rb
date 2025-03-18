@@ -52,8 +52,8 @@ module IsoDoc
       end
 
       def clause_title_depth(node, title)
-        depth = node.ancestors(sections_names.join(", ")).size + 1
         depth = title["depth"] if title && title["depth"]
+        depth = node.ancestors(sections_names.join(", ")).size + 1 unless depth
         depth
       end
 
