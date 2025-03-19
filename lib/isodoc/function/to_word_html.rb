@@ -236,6 +236,7 @@ module IsoDoc
           when "fmt-footnote-container" then fmt_footnote_container_parse(node, out)
           when "fmt-review-start" then fmt_review_start_parse(node, out)
           when "fmt-review-end" then fmt_review_end_parse(node, out)
+          when "fmt-review-body" then fmt_review_body_parse(node, out)
           else error_parse(node, out)
           end
         end

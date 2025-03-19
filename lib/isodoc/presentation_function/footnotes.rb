@@ -161,13 +161,21 @@ module IsoDoc
       elem["to"] = new_to["id"]
     end
 
+    def comment_to_bookmark_attrs(elem, bookmark, start: true)
+      bookmark["target"] = elem["id"]
+      if start then bookmark["end"] = elem["to"]
+      else bookmark["start"] = elem["from"] end
+        %w(author date).each { |k| bookmark[k] = elem[k] }
+    end
+
     def comment_bookmark_start(from, elem)
       ret = if from.at(".//text()")
               from.at(".//text()").before("<fmt-review-start/>").previous
             else from.before("<fmt-review-start/>").previous
             end
       ret["id"] = "_#{UUIDTools::UUID.random_create}"
-      ret["source"] = elem["id"]
+      ret["source"] = from["id"]
+      comment_to_bookmark_attrs(elem, ret, start: true)
       ret << comment_bookmark_start_label(elem)
       ret
     end
@@ -179,7 +187,7 @@ module IsoDoc
               to.after("<fmt-review-end/>").next
             end
       ret["id"] = "_#{UUIDTools::UUID.random_create}"
-      ret["source"] = elem["id"]
+      comment_to_bookmark_attrs(elem, ret, start: false)
       ret << comment_bookmark_end_label(elem)
       ret
     end

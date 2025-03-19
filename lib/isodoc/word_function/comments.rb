@@ -1,15 +1,18 @@
 module IsoDoc
   module WordFunction
     module Comments
-      def comments(docxml, div)
+      def comments(docxml, out)
         c = docxml.xpath(ns("//fmt-review-body"))
         c.empty? and return
-        div.div style: "mso-element:comment-list" do |div1|
-          @comments.each { |fn| div1.parent << fn }
+        out.div style: "mso-element:comment-list" do |div|
+          @in_comment = true
+          c.each { |fn| parse(fn, div) }
+          @in_comment = false
         end
       end
 
-      def review_note_parse(node, out)
+      # KILL
+      def review_note_parsex(node, out)
         fn = @comments.length + 1
         make_comment_link(out, fn, node)
         @in_comment = true
@@ -23,6 +26,11 @@ module IsoDoc
           to: node["to"] }
       end
 
+      def fmt_review_start_parse(node, out)
+        make_comment_link(out, node["target"], node)
+      end
+
+      # TODO: CONSOLIDATE
       # add in from and to links to move the comment into place
       def make_comment_link(out, fnote, node)
         out.span(**comment_link_attrs(fnote, node)) do |s1|
@@ -43,6 +51,7 @@ module IsoDoc
         end
       end
 
+      # KILL
       def make_comment_text(node, fnote)
         noko do |xml|
           xml.div style: "mso-element:comment", id: fnote do |div|
@@ -51,6 +60,14 @@ module IsoDoc
             node.children.each { |n| parse(n, div) }
           end
         end.join("\n")
+      end
+
+      def fmt_review_body_parse(node, out)
+        out.div style: "mso-element:comment", id: node["id"] do |div|
+          div.span style: %{mso-comment-author:"#{node['reviewer']}"}
+          make_comment_target(div)
+          node.children.each { |n| parse(n, div) }
+        end
       end
 
       def comment_cleanup(docxml)
