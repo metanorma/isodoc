@@ -22,8 +22,8 @@ module IsoDoc
 
       def comment_link_attrs(fnote, node)
         { style: "MsoCommentReference", target: fnote,
-          class: "commentLink", from: node["from"],
-          to: node["to"] }
+          class: "commentLink", from: node["source"],
+          to: node["end"] }
       end
 
       def fmt_review_start_parse(node, out)

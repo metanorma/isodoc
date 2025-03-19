@@ -70,7 +70,6 @@ RSpec.describe IsoDoc do
                </fn>
             </title>
          </bibdata>
-      #{'   '}
          <boilerplate>
             <copyright-statement>
                <clause>
@@ -543,157 +542,157 @@ RSpec.describe IsoDoc do
        </body>
     OUTPUT
     doc1 = <<~OUTPUT
-        <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-          <div class="WordSection2">
-             <div class="authority">
-                <div class="boilerplate-copyright">
-                   <div>
-       </div>
-                </div>
-             </div>
-             <p class="MsoNormal">
-                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-             </p>
-             <div>
-                <a name="F" id="F"/>
-                <h1 class="ForewordTitle">Foreword</h1>
-                <p class="MsoNormal">
-                   A.
-                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                      <a class="FootnoteRef" epub:type="footnote" href="#_ftn1" style="mso-footnote-id:ftn1" name="_ftnref1" title="" id="_ftnref1">
-                         <span class="MsoFootnoteReference">
-                            <span style="mso-special-character:footnote"/>
-                         </span>
-                      </a>
-                   </span>
-                </p>
-                <p class="MsoNormal">
-                   B.
-                   <span class="MsoFootnoteReference">
-                      <span style="mso-element:field-begin"/>
-                      NOTEREF _Ref \\f \\h
-                      <span style="mso-element:field-separator"/>
-                      3
-                      <span style="mso-element:field-end"/>
-                   </span>
-                </p>
-                <p class="MsoNormal">
-                   C.
-                   <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                      <a class="FootnoteRef" epub:type="footnote" href="#_ftn2" style="mso-footnote-id:ftn2" name="_ftnref2" title="" id="_ftnref2">
-                         <span class="MsoFootnoteReference">
-                            <span style="mso-special-character:footnote"/>
-                         </span>
-                      </a>
-                   </span>
-                </p>
-             </div>
-             <p class="MsoNormal"> </p>
-          </div>
-          <p class="MsoNormal">
-             <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection3">
-             <p class="MsoNormal">
-                B.
-                <span class="MsoFootnoteReference">
-                   <span style="mso-element:field-begin"/>
-                   NOTEREF _Ref \\f \\h
-                   <span style="mso-element:field-separator"/>
-                   3
-                   <span style="mso-element:field-end"/>
-                </span>
-             </p>
-             <div>
-                <h1>
-                   1.
-                   <span style="mso-tab-count:1">  </span>
-                   Normative References
-                </h1>
-                <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                <p class="NormRef">
-                   <a name="ISO712" id="ISO712"/>
-                   ISO 712, International Organization for Standardization.
-                   <i>
-                      Cereals and cereal products
-                      <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                         <a class="FootnoteRef" epub:type="footnote" href="#_ftn3" style="mso-footnote-id:ftn3" name="_ftnref3" title="" id="_ftnref3">
-                            <span class="MsoFootnoteReference">
-                               <span style="mso-special-character:footnote"/>
-                            </span>
-                         </a>
-                      </span>
-                   </i>
-                   .
-                </p>
-             </div>
-             <div>
-                <a name="A" id="A"/>
-                <h1>2.</h1>
-                <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                   <a class="FootnoteRef" epub:type="footnote" href="#_ftn4" style="mso-footnote-id:ftn4" name="_ftnref4" title="" id="_ftnref4">
-                      <span class="MsoFootnoteReference">
-                         <span style="mso-special-character:footnote"/>
-                      </span>
-                   </a>
-                </span>
-             </div>
-             <aside>
-                <a name="ftn_8" id="ftn_8"/>
-                <p class="MsoNormal">C</p>
-             </aside>
-             <aside>
-                <a name="ftn_10" id="ftn_10"/>
-                <p class="MsoNormal">D</p>
-             </aside>
-          </div>
-          <div style="mso-element:footnote-list">
-             <div style="mso-element:footnote" id="ftn1">
-                <p class="MsoFootnoteText">
-                   <a name="_" id="_"/>
-                   <a style="mso-footnote-id:ftn1" href="#_ftn1" name="_ftnref1" title="" id="_ftnref1">
-                      <span class="MsoFootnoteReference">
-                         <span style="mso-special-character:footnote"/>
-                      </span>
-                   </a>
-                   Formerly denoted as 15 % (m/m).
-                </p>
-             </div>
-             <div style="mso-element:footnote" id="ftn2">
-                <p class="MsoFootnoteText">
-                   <a name="_" id="_"/>
-                   <a style="mso-footnote-id:ftn2" href="#_ftn2" name="_ftnref2" title="" id="_ftnref2">
-                      <span class="MsoFootnoteReference">
-                         <span style="mso-special-character:footnote"/>
-                      </span>
-                   </a>
-                   Hello! denoted as 15 % (m/m).
-                </p>
-             </div>
-             <div style="mso-element:footnote" id="ftn3">
-                <p class="MsoFootnoteText">
-                   <a name="_" id="_"/>
-                   <a style="mso-footnote-id:ftn3" href="#_ftn3" name="_ftnref3" title="" id="_ftnref3">
-                      <span class="MsoFootnoteReference">
-                         <span style="mso-special-character:footnote"/>
-                      </span>
-                   </a>
-                   ISO is a standards organisation.
-                </p>
-             </div>
-             <div style="mso-element:footnote" id="ftn4">
-                <p class="MsoFootnoteText">
-                   <a name="_" id="_"/>
-                   <a style="mso-footnote-id:ftn4" href="#_ftn4" name="_ftnref4" title="" id="_ftnref4">
-                      <span class="MsoFootnoteReference">
-                         <span style="mso-special-character:footnote"/>
-                      </span>
-                   </a>
-                   Third footnote.
-                </p>
-             </div>
-          </div>
-       </body>
+       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+         <div class="WordSection2">
+            <div class="authority">
+               <div class="boilerplate-copyright">
+                  <div>
+      </div>
+               </div>
+            </div>
+            <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div>
+               <a name="F" id="F"/>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p class="MsoNormal">
+                  A.
+                  <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                     <a class="FootnoteRef" epub:type="footnote" href="#_ftn1" style="mso-footnote-id:ftn1" name="_ftnref1" title="" id="_ftnref1">
+                        <span class="MsoFootnoteReference">
+                           <span style="mso-special-character:footnote"/>
+                        </span>
+                     </a>
+                  </span>
+               </p>
+               <p class="MsoNormal">
+                  B.
+                  <span class="MsoFootnoteReference">
+                     <span style="mso-element:field-begin"/>
+                     NOTEREF _Ref \\f \\h
+                     <span style="mso-element:field-separator"/>
+                     3
+                     <span style="mso-element:field-end"/>
+                  </span>
+               </p>
+               <p class="MsoNormal">
+                  C.
+                  <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                     <a class="FootnoteRef" epub:type="footnote" href="#_ftn2" style="mso-footnote-id:ftn2" name="_ftnref2" title="" id="_ftnref2">
+                        <span class="MsoFootnoteReference">
+                           <span style="mso-special-character:footnote"/>
+                        </span>
+                     </a>
+                  </span>
+               </p>
+            </div>
+            <p class="MsoNormal"> </p>
+         </div>
+         <p class="MsoNormal">
+            <br clear="all" class="section"/>
+         </p>
+         <div class="WordSection3">
+            <p class="MsoNormal">
+               B.
+               <span class="MsoFootnoteReference">
+                  <span style="mso-element:field-begin"/>
+                  NOTEREF _Ref \\f \\h
+                  <span style="mso-element:field-separator"/>
+                  3
+                  <span style="mso-element:field-end"/>
+               </span>
+            </p>
+            <div>
+               <h1>
+                  1.
+                  <span style="mso-tab-count:1">  </span>
+                  Normative References
+               </h1>
+               <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+               <p class="NormRef">
+                  <a name="ISO712" id="ISO712"/>
+                  ISO 712, International Organization for Standardization.
+                  <i>
+                     Cereals and cereal products
+                     <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                        <a class="FootnoteRef" epub:type="footnote" href="#_ftn3" style="mso-footnote-id:ftn3" name="_ftnref3" title="" id="_ftnref3">
+                           <span class="MsoFootnoteReference">
+                              <span style="mso-special-character:footnote"/>
+                           </span>
+                        </a>
+                     </span>
+                  </i>
+                  .
+               </p>
+            </div>
+            <div>
+               <a name="A" id="A"/>
+               <h1>2.</h1>
+               <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+                  <a class="FootnoteRef" epub:type="footnote" href="#_ftn4" style="mso-footnote-id:ftn4" name="_ftnref4" title="" id="_ftnref4">
+                     <span class="MsoFootnoteReference">
+                        <span style="mso-special-character:footnote"/>
+                     </span>
+                  </a>
+               </span>
+            </div>
+            <aside>
+               <a name="ftn_8" id="ftn_8"/>
+               <p class="MsoNormal">C</p>
+            </aside>
+            <aside>
+               <a name="ftn_10" id="ftn_10"/>
+               <p class="MsoNormal">D</p>
+            </aside>
+         </div>
+         <div style="mso-element:footnote-list">
+            <div style="mso-element:footnote" id="ftn1">
+               <p class="MsoFootnoteText">
+                  <a name="_" id="_"/>
+                  <a style="mso-footnote-id:ftn1" href="#_ftn1" name="_ftnref1" title="" id="_ftnref1">
+                     <span class="MsoFootnoteReference">
+                        <span style="mso-special-character:footnote"/>
+                     </span>
+                  </a>
+                  Formerly denoted as 15 % (m/m).
+               </p>
+            </div>
+            <div style="mso-element:footnote" id="ftn2">
+               <p class="MsoFootnoteText">
+                  <a name="_" id="_"/>
+                  <a style="mso-footnote-id:ftn2" href="#_ftn2" name="_ftnref2" title="" id="_ftnref2">
+                     <span class="MsoFootnoteReference">
+                        <span style="mso-special-character:footnote"/>
+                     </span>
+                  </a>
+                  Hello! denoted as 15 % (m/m).
+               </p>
+            </div>
+            <div style="mso-element:footnote" id="ftn3">
+               <p class="MsoFootnoteText">
+                  <a name="_" id="_"/>
+                  <a style="mso-footnote-id:ftn3" href="#_ftn3" name="_ftnref3" title="" id="_ftnref3">
+                     <span class="MsoFootnoteReference">
+                        <span style="mso-special-character:footnote"/>
+                     </span>
+                  </a>
+                  ISO is a standards organisation.
+               </p>
+            </div>
+            <div style="mso-element:footnote" id="ftn4">
+               <p class="MsoFootnoteText">
+                  <a name="_" id="_"/>
+                  <a style="mso-footnote-id:ftn4" href="#_ftn4" name="_ftnref4" title="" id="_ftnref4">
+                     <span class="MsoFootnoteReference">
+                        <span style="mso-special-character:footnote"/>
+                     </span>
+                  </a>
+                  Third footnote.
+               </p>
+            </div>
+         </div>
+      </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -746,123 +745,123 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_3" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword displayorder="2" id="_1">
-                <title id="_5">Foreword</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_5">Foreword</semx>
-                </fmt-title>
-                <p id="A">
-                   <em>
-                      <strong>
-                         <fmt-review-start id="_9" source="A" target="_8" end="B" author="" date="20170101T0000"/>
-                         <fmt-review-start id="_17" source="A" target="_16" end="C" author="" date="20170108T0000"/>
-                         A.
-                      </strong>
-                   </em>
-                   <fmt-review-start id="_21" source="A1" target="_20" end="C" author="" date="20170108T0000"/>
-                   <fmt-review-start id="_24" source="A1" target="_23" end="A1" author="" date="20170108T0000"/>
-                   <bookmark id="A1"/>
-                   <fmt-review-end id="_25" target="_23" start="A1" author="" date="20170108T0000"/>
-                   B
-                   <em>
-                      <strong>C.</strong>
-                   </em>
-                </p>
-                <p id="B">
-                   <em>
-                      <strong>
-                         A.
-                         <fmt-review-end id="_10" target="_8" start="A" author="" date="20170101T0000"/>
-                      </strong>
-                   </em>
-                   B
-                   <em>
-                      <strong>C.</strong>
-                   </em>
-                </p>
-             </foreword>
-             <introduction displayorder="3" id="_2">
-                <title id="_6">Introduction</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_6">Introduction</semx>
-                </fmt-title>
-                <p id="C">
-                   <fmt-review-start id="_13" source="C" target="_12" end="C" author="" date="20170108T0000"/>
-                   C.
-                   <fmt-review-end id="_22" target="_20" start="A1" author="" date="20170108T0000"/>
-                   <fmt-review-end id="_18" target="_16" start="A" author="" date="20170108T0000"/>
-                   <fmt-review-end id="_14" target="_12" start="C" author="" date="20170108T0000"/>
-                </p>
-             </introduction>
-          </preface>
-          <review-container>
-             <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_7">
-                <p original-id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-                <p original-id="_">
-                   For further information on the Foreword, see
-                   <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
-                </p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170101T0000" from="_9" to="_10" id="_8">
-                <semx element="review" source="_7">
-                   <p id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-                   <p id="_">
-                      For further information on the Foreword, see
-                      <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
-                   </p>
-                </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_11">
-                <p original-id="_">Second note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_13" to="_14" id="_12">
-                <semx element="review" source="_11">
-                   <p id="_">Second note.</p>
-                </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_15">
-                <p original-id="_">Third note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_17" to="_18" id="_16">
-                <semx element="review" source="_15">
-                   <p id="_">Third note.</p>
-                </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_19">
-                <p original-id="_">Fourth note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_21" to="_22" id="_20">
-                <semx element="review" source="_19">
-                   <p id="_">Fourth note.</p>
-                </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1">
-                <p original-id="_">
-                   <fmt-review-start id="_27" source="B1" target="_26" end="B1" author="" date="20170108T0000"/>
-                   Fifth note.
-                   <fmt-review-end id="_28" target="_26" start="B1" author="" date="20170108T0000"/>
-                </p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_24" to="_25" id="_23">
-                <semx element="review" source="B1">
-                   <p id="_">Fifth note.</p>
-                </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B1">
-                <p original-id="_">Sixth note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_27" to="_28" id="_26">
-                <semx element="review" source="B1">
-                   <p id="_">Sixth note.</p>
-                </semx>
-             </fmt-review-body>
-          </review-container>
-       </iso-standard>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_3" displayorder="1">
+               <fmt-title depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword displayorder="2" id="_1">
+               <title id="_5">Foreword</title>
+               <fmt-title depth="1">
+                  <semx element="title" source="_5">Foreword</semx>
+               </fmt-title>
+               <p id="A">
+                  <em>
+                     <strong>
+                        <fmt-review-start id="_9" source="A" target="_8" end="B" author="" date="20170101T0000"/>
+                        <fmt-review-start id="_17" source="A" target="_16" end="C" author="" date="20170108T0000"/>
+                        A.
+                     </strong>
+                  </em>
+                  <fmt-review-start id="_21" source="A1" target="_20" end="C" author="" date="20170108T0000"/>
+                  <fmt-review-start id="_24" source="A1" target="_23" end="A1" author="" date="20170108T0000"/>
+                  <bookmark id="A1"/>
+                  <fmt-review-end id="_25" target="_23" start="A1" author="" date="20170108T0000"/>
+                  B
+                  <em>
+                     <strong>C.</strong>
+                  </em>
+               </p>
+               <p id="B">
+                  <em>
+                     <strong>
+                        A.
+                        <fmt-review-end id="_10" target="_8" start="A" author="" date="20170101T0000"/>
+                     </strong>
+                  </em>
+                  B
+                  <em>
+                     <strong>C.</strong>
+                  </em>
+               </p>
+            </foreword>
+            <introduction displayorder="3" id="_2">
+               <title id="_6">Introduction</title>
+               <fmt-title depth="1">
+                  <semx element="title" source="_6">Introduction</semx>
+               </fmt-title>
+               <p id="C">
+                  <fmt-review-start id="_13" source="C" target="_12" end="C" author="" date="20170108T0000"/>
+                  C.
+                  <fmt-review-end id="_22" target="_20" start="A1" author="" date="20170108T0000"/>
+                  <fmt-review-end id="_18" target="_16" start="A" author="" date="20170108T0000"/>
+                  <fmt-review-end id="_14" target="_12" start="C" author="" date="20170108T0000"/>
+               </p>
+            </introduction>
+         </preface>
+         <review-container>
+            <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_7">
+               <p original-id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
+               <p original-id="_">
+                  For further information on the Foreword, see
+                  <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
+               </p>
+            </review>
+            <fmt-review-body reviewer="ISO" date="20170101T0000" from="_9" to="_10" id="_8">
+               <semx element="review" source="_7">
+                  <p id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
+                  <p id="_">
+                     For further information on the Foreword, see
+                     <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
+                  </p>
+               </semx>
+            </fmt-review-body>
+            <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_11">
+               <p original-id="_">Second note.</p>
+            </review>
+            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_13" to="_14" id="_12">
+               <semx element="review" source="_11">
+                  <p id="_">Second note.</p>
+               </semx>
+            </fmt-review-body>
+            <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_15">
+               <p original-id="_">Third note.</p>
+            </review>
+            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_17" to="_18" id="_16">
+               <semx element="review" source="_15">
+                  <p id="_">Third note.</p>
+               </semx>
+            </fmt-review-body>
+            <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_19">
+               <p original-id="_">Fourth note.</p>
+            </review>
+            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_21" to="_22" id="_20">
+               <semx element="review" source="_19">
+                  <p id="_">Fourth note.</p>
+               </semx>
+            </fmt-review-body>
+            <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1">
+               <p original-id="_">
+                  <fmt-review-start id="_27" source="B1" target="_26" end="B1" author="" date="20170108T0000"/>
+                  Fifth note.
+                  <fmt-review-end id="_28" target="_26" start="B1" author="" date="20170108T0000"/>
+               </p>
+            </review>
+            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_24" to="_25" id="_23">
+               <semx element="review" source="B1">
+                  <p id="_">Fifth note.</p>
+               </semx>
+            </fmt-review-body>
+            <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B1">
+               <p original-id="_">Sixth note.</p>
+            </review>
+            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_27" to="_28" id="_26">
+               <semx element="review" source="B1">
+                  <p id="_">Sixth note.</p>
+               </semx>
+            </fmt-review-body>
+         </review-container>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
       <main class="main-section">
@@ -909,87 +908,210 @@ RSpec.describe IsoDoc do
              <p id="C">C.</p>
           </div>
        </main>
-           OUTPUT
+    OUTPUT
 
     word = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-         <div class="WordSection2">
-           <p class="MsoNormal">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div><a name="_" id="_"/>
-             <h1 class="ForewordTitle">Foreword</h1>
-             <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
-               <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                 <a style="mso-comment-reference:SMC_1;mso-comment-date:20170101T0000">
-                   <span style="MsoCommentReference" target="3" class="commentLink" from="A" to="C">
-                     <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                       <a style="mso-comment-reference:SMC_3;mso-comment-date:20170108T0000">
-                         <p class="MsoNormal"><a name="A" id="A"/>A.</p>
-                       </a>
-                       <span style="mso-comment-continuation:3">
-                         <span style="mso-special-character:comment" target="3"/>
-                       </span>
-                     </span>
-                   </span>
-                 </a>
-                 <span style="mso-comment-continuation:3">
-                   <span style="mso-comment-continuation:1">
-                     <span style="mso-special-character:comment" target="1"/>
-                   </span>
-                 </span>
-               </span>
-             </span>
+         <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+          <div class="WordSection2">
              <p class="MsoNormal">
-               <a name="B" id="B"/>
-               <span style="mso-comment-continuation:3">
-                 <span style="mso-comment-continuation:1">B.</span>
-               </span>
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <span style="MsoCommentReference" target="2" class="commentLink" from="C" to="C">
-               <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                 <a style="mso-comment-reference:SMC_2;mso-comment-date:20170108T0000">
-                   <p class="MsoNormal">
-                     <a name="C" id="C"/>
-                     <span style="mso-comment-continuation:3">C.</span>
+             <div>
+                <a name="_1" id="_1"/>
+                <h1 class="ForewordTitle">Foreword</h1>
+                <span style="MsoCommentReference" target="_8" class="commentLink" from="A" to="B">
+                   <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                      <a style="mso-comment-reference:SMC__8;mso-comment-date:20170101T0000">
+                         <span style="MsoCommentReference" target="_16" class="commentLink" from="A" to="C">
+                            <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                               <a style="mso-comment-reference:SMC__16;mso-comment-date:20170108T0000">
+                                  <p class="MsoNormal">
+                                     <a name="A" id="A"/>
+                                     <i>
+                                        <b>A.</b>
+                                     </i>
+                                     <span style="MsoCommentReference" target="_20" class="commentLink" from="A1" to="C">
+                                        <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                                           <a style="mso-comment-reference:SMC__20;mso-comment-date:20170108T0000">
+                                              <span style="MsoCommentReference" target="_23" class="commentLink" from="A1" to="A1">
+                                                 <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                                                    <a style="mso-comment-reference:SMC__23;mso-comment-date:20170108T0000">
+                                                       <a>
+                                                          <a name="A1" id="A1"/>
+                                                       </a>
+                                                    </a>
+                                                    <span style="mso-special-character:comment" target="_23"/>
+                                                 </span>
+                                              </span>
+                                           </a>
+                                           <span style="mso-comment-continuation:_20">
+                                              <span style="mso-special-character:comment" target="_20"/>
+                                           </span>
+                                        </span>
+                                     </span>
+                                     B
+                                     <span style="mso-comment-continuation:_20">
+                                        <i>
+                                           <b>C.</b>
+                                        </i>
+                                     </span>
+                                  </p>
+                               </a>
+                               <span style="mso-comment-continuation:_20">
+                                  <span style="mso-comment-continuation:_16">
+                                     <span style="mso-special-character:comment" target="_16"/>
+                                  </span>
+                               </span>
+                            </span>
+                         </span>
+                      </a>
+                      <span style="mso-comment-continuation:_20">
+                         <span style="mso-comment-continuation:_16">
+                            <span style="mso-comment-continuation:_8">
+                               <span style="mso-special-character:comment" target="_8"/>
+                            </span>
+                         </span>
+                      </span>
+                   </span>
+                </span>
+                <p class="MsoNormal">
+                   <a name="B" id="B"/>
+                   <span style="mso-comment-continuation:_20">
+                      <span style="mso-comment-continuation:_16">
+                         <span style="mso-comment-continuation:_8">
+                            <i>
+                               <b>A.</b>
+                            </i>
+                         </span>
+                      </span>
+                   </span>
+                   <span style="mso-comment-continuation:_20">
+                      <span style="mso-comment-continuation:_16">
+                         <span style="mso-comment-continuation:_8"> B </span>
+                      </span>
+                   </span>
+                   <span style="mso-comment-continuation:_20">
+                      <span style="mso-comment-continuation:_16">
+                         <span style="mso-comment-continuation:_8">
+                            <i>
+                               <b>C.</b>
+                            </i>
+                         </span>
+                      </span>
+                   </span>
+                </p>
+             </div>
+             <p class="MsoNormal">
+                <span style="mso-comment-continuation:_20">
+                   <span style="mso-comment-continuation:_16">
+                      <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                   </span>
+                </span>
+             </p>
+             <div class="Section3">
+                <a name="_2" id="_2"/>
+                <span style="mso-comment-continuation:_20">
+                   <span style="mso-comment-continuation:_16">
+                      <h1 class="IntroTitle">Introduction</h1>
+                   </span>
+                </span>
+                <span style="MsoCommentReference" target="_12" class="commentLink" from="C" to="C">
+                   <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                      <a style="mso-comment-reference:SMC__12;mso-comment-date:20170108T0000">
+                         <p class="MsoNormal">
+                            <a name="C" id="C"/>
+                            <span style="mso-comment-continuation:_20">
+                               <span style="mso-comment-continuation:_16"/>
+                            </span>
+                            <span style="mso-comment-continuation:_20">
+                               <span style="mso-comment-continuation:_16">C.</span>
+                            </span>
+                         </p>
+                      </a>
+                      <span style="mso-special-character:comment" target="_12"/>
+                   </span>
+                </span>
+             </div>
+             <p class="MsoNormal"> </p>
+          </div>
+          <p class="MsoNormal">
+             <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection3">
+             <div style="mso-element:comment-list">
+                <div style="mso-element:comment">
+                   <a name="_23" id="_23"/>
+                   <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="MsoCommentReference">
+                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                            <span style="mso-special-character:comment"/>
+                         </span>
+                      </span>
+                      Fifth note.
                    </p>
-                 </a>
-                 <span style="mso-special-character:comment" target="2"/>
-               </span>
-             </span>
-           </div>
-           <p class="MsoNormal">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div class="Section3"><a name="_" id="_"/>
-             <h1 class="IntroTitle">Introduction</h1>
-           </div>
-           <p class="MsoNormal"> </p>
-         </div>
-         <p class="MsoNormal">
-           <br clear="all" class="section"/>
-         </p>
-         <div class="WordSection3">
-           <div style="mso-element:comment-list">
-             <div style="mso-element:comment">
-               <a name="3" id="3"/>
-               <span style="mso-comment-author:&quot;ISO&quot;"/>
-               <p class="MsoCommentText"><a name="_" id="_"/><span style="MsoCommentReference"><span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB"><span style="mso-special-character:comment"/></span></span>Second note.</p>
+                </div>
+                <div style="mso-element:comment">
+                   <a name="_20" id="_20"/>
+                   <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="MsoCommentReference">
+                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                            <span style="mso-special-character:comment"/>
+                         </span>
+                      </span>
+                      Fourth note.
+                   </p>
+                </div>
+                <div style="mso-element:comment">
+                   <a name="_16" id="_16"/>
+                   <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="MsoCommentReference">
+                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                            <span style="mso-special-character:comment"/>
+                         </span>
+                      </span>
+                      Third note.
+                   </p>
+                </div>
+                <div style="mso-element:comment">
+                   <a name="_8" id="_8"/>
+                   <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="MsoCommentReference">
+                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                            <span style="mso-special-character:comment"/>
+                         </span>
+                      </span>
+                      A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.
+                   </p>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      For further information on the Foreword, see
+                      <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
+                   </p>
+                </div>
+                <div style="mso-element:comment">
+                   <a name="_12" id="_12"/>
+                   <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="MsoCommentReference">
+                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                            <span style="mso-special-character:comment"/>
+                         </span>
+                      </span>
+                      Second note.
+                   </p>
+                </div>
              </div>
-             <div style="mso-element:comment">
-               <a name="1" id="1"/>
-               <span style="mso-comment-author:&quot;ISO&quot;"/>
-               <p class="MsoCommentText"><a name="_" id="_"/><span style="MsoCommentReference"><span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB"><span style="mso-special-character:comment"/></span></span>A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-               <p class="MsoCommentText"><a name="_" id="_"/>For further information on the Foreword, see <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b></p>
-             </div>
-             <div style="mso-element:comment">
-               <a name="2" id="2"/>
-               <span style="mso-comment-author:&quot;ISO&quot;"/>
-               <p class="MsoCommentText"><a name="_" id="_"/><span style="MsoCommentReference"><span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB"><span style="mso-special-character:comment"/></span></span>Second note.</p>
-             </div>
-           </div>
-         </div>
-         <div style="mso-element:footnote-list"/>
+          </div>
+          <div style="mso-element:footnote-list"/>
        </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
@@ -1040,165 +1162,178 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <clause type="toc" id="_3" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
-             </clause>
-             <foreword displayorder="2" id="_1">
-                <title id="_5">Foreword</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_5">Foreword</semx>
-                </fmt-title>
-                <ol type="alphabet">
-                   <li id="A" label="">
-                      <p>
-                         <fmt-review-start id="_8" source="A" target="_7" end="C" author="" date="20170108T0000"/>
-                         A.
-                      </p>
-                      <p>A1</p>
-                   </li>
-                   <li id="B" label="">B.</li>
-                   <ul>
-                      <li>
-                         <p>C.</p>
-                         <p id="C">
-                            C1
-                            <fmt-review-end id="_9" target="_7" start="A" author="" date="20170108T0000"/>
-                         </p>
-                      </li>
-                      <li id="D">D.</li>
-                   </ul>
-                </ol>
-             </foreword>
-             <introduction displayorder="3" id="_2">
-                <title id="_6">Introduction</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_6">Introduction</semx>
-                </fmt-title>
-             </introduction>
-          </preface>
-          <review-container>
-             <review reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
-                <p original-id="_">Second note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" id="_7" date="20170108T0000" from="_8" to="_9">
-                <semx element="review" source="_">
-                   <p id="_">Second note.</p>
-                </semx>
-             </fmt-review-body>
-          </review-container>
-       </iso-standard>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_3" displayorder="1">
+               <fmt-title depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword displayorder="2" id="_1">
+               <title id="_5">Foreword</title>
+               <fmt-title depth="1">
+                  <semx element="title" source="_5">Foreword</semx>
+               </fmt-title>
+               <ol type="alphabet">
+                  <li id="A" label="">
+                     <p>
+                        <fmt-review-start id="_8" source="A" target="_7" end="C" author="" date="20170108T0000"/>
+                        A.
+                     </p>
+                     <p>A1</p>
+                  </li>
+                  <li id="B" label="">B.</li>
+                  <ul>
+                     <li>
+                        <p>C.</p>
+                        <p id="C">
+                           C1
+                           <fmt-review-end id="_9" target="_7" start="A" author="" date="20170108T0000"/>
+                        </p>
+                     </li>
+                     <li id="D">D.</li>
+                  </ul>
+               </ol>
+            </foreword>
+            <introduction displayorder="3" id="_2">
+               <title id="_6">Introduction</title>
+               <fmt-title depth="1">
+                  <semx element="title" source="_6">Introduction</semx>
+               </fmt-title>
+            </introduction>
+         </preface>
+         <review-container>
+            <review reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
+               <p original-id="_">Second note.</p>
+            </review>
+            <fmt-review-body reviewer="ISO" id="_7" date="20170108T0000" from="_8" to="_9">
+               <semx element="review" source="_">
+                  <p id="_">Second note.</p>
+               </semx>
+            </fmt-review-body>
+         </review-container>
+      </iso-standard>
     INPUT
     html = <<~OUTPUT
-       <main class="main-section">
-          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-          <br/>
-          <div id="_3" class="TOC">
-             <h1 class="IntroTitle">
-                <a class="anchor" href="#_3"/>
-                <a class="header" href="#_3">Table of contents</a>
-             </h1>
-          </div>
-          <br/>
-          <div id="_1">
-             <h1 class="ForewordTitle">
-                <a class="anchor" href="#_1"/>
-                <a class="header" href="#_1">Foreword</a>
-             </h1>
-             <div class="ol_wrap">
-                <ol type="a">
-                   <li id="A">
-                      <p>A.</p>
-                      <p>A1</p>
-                   </li>
-                   <li id="B">
-                      B.
-                      <div class="ul_wrap">
-                         <ul>
-                            <li>
-                               <p>C.</p>
-                               <p id="C">C1</p>
-                            </li>
-                            <li id="D">D.</li>
-                         </ul>
-                      </div>
-                   </li>
-                </ol>
-             </div>
-          </div>
-          <br/>
-          <div class="Section3" id="_2">
-             <h1 class="IntroTitle">
-                <a class="anchor" href="#_2"/>
-                <a class="header" href="#_2">Introduction</a>
-             </h1>
-          </div>
-       </main>
+      <main class="main-section">
+         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+         <br/>
+         <div id="_3" class="TOC">
+            <h1 class="IntroTitle">
+               <a class="anchor" href="#_3"/>
+               <a class="header" href="#_3">Table of contents</a>
+            </h1>
+         </div>
+         <br/>
+         <div id="_1">
+            <h1 class="ForewordTitle">
+               <a class="anchor" href="#_1"/>
+               <a class="header" href="#_1">Foreword</a>
+            </h1>
+            <div class="ol_wrap">
+               <ol type="a">
+                  <li id="A">
+                     <p>A.</p>
+                     <p>A1</p>
+                  </li>
+                  <li id="B">
+                     B.
+                     <div class="ul_wrap">
+                        <ul>
+                           <li>
+                              <p>C.</p>
+                              <p id="C">C1</p>
+                           </li>
+                           <li id="D">D.</li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <br/>
+         <div class="Section3" id="_2">
+            <h1 class="IntroTitle">
+               <a class="anchor" href="#_2"/>
+               <a class="header" href="#_2">Introduction</a>
+            </h1>
+         </div>
+      </main>
     OUTPUT
     word = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
          <div class="WordSection2">
-           <p class="MsoNormal">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div><a name="_" id="_"/>
-             <h1 class="ForewordTitle">Foreword</h1>
-             <div class="ol_wrap">
-               <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="C">
-                 <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                   <a style="mso-comment-reference:SMC_1;mso-comment-date:20170108T0000">
-                     <li class="MsoNormal">
-                       <a name="A" id="A"/>
-                       <p class="MsoNormal">A.</p>
-                       <div class="ListContLevel1">
-                         <p class="MsoNormal">A1</p>
-                       </div>
-                     </li>
-                   </a>
-                   <span style="mso-comment-continuation:1">
-                     <span style="mso-special-character:comment" target="1"/>
-                   </span>
-                 </span>
-               </span>
-               <p class="MsoListParagraphCxSpFirst">
-                 <a name="B" id="B"/>
-                 <span style="mso-comment-continuation:1">B.</span>
-               </p>
-               <div class="ul_wrap">
-                 <p class="MsoListParagraphCxSpFirst" style="">
-                   <span style="mso-comment-continuation:1">C.</span>
-                   <p class="MsoListParagraphCxSpMiddle">
-                     <a name="C" id="C"/>
-                     <span style="mso-comment-continuation:1">C1</span>
-                   </p>
-                 </p>
-                 <p class="MsoListParagraphCxSpLast"><a name="D" id="D"/>D.</p>
+            <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div>
+               <a name="_1" id="_1"/>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div class="ol_wrap">
+                  <span style="MsoCommentReference" target="_7" class="commentLink" from="A" to="C">
+                     <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                        <a style="mso-comment-reference:SMC__7;mso-comment-date:20170108T0000">
+                           <li class="MsoNormal">
+                              <a name="A" id="A"/>
+                              <p class="MsoNormal">A.</p>
+                              <div class="ListContLevel1">
+                                 <p class="MsoNormal">A1</p>
+                              </div>
+                           </li>
+                        </a>
+                        <span style="mso-comment-continuation:_7">
+                           <span style="mso-special-character:comment" target="_7"/>
+                        </span>
+                     </span>
+                  </span>
+                  <p class="MsoListParagraphCxSpFirst">
+                     <a name="B" id="B"/>
+                     <span style="mso-comment-continuation:_7">B.</span>
+                  </p>
+                  <div class="ul_wrap">
+                     <p class="MsoListParagraphCxSpFirst" style="">
+                        <span style="mso-comment-continuation:_7">C.</span>
+                        <p class="MsoListParagraphCxSpMiddle">
+                           <a name="C" id="C"/>
+                           <span style="mso-comment-continuation:_7">C1</span>
+                        </p>
+                     </p>
+                     <p class="MsoListParagraphCxSpLast">
+                        <a name="D" id="D"/>
+                        D.
+                     </p>
+                  </div>
                </div>
-             </div>
-           </div>
-           <p class="MsoNormal">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div class="Section3"><a name="_" id="_"/>
-             <h1 class="IntroTitle">Introduction</h1>
-           </div>
-           <p class="MsoNormal"> </p>
+            </div>
+            <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div class="Section3">
+               <a name="_2" id="_2"/>
+               <h1 class="IntroTitle">Introduction</h1>
+            </div>
+            <p class="MsoNormal"> </p>
          </div>
          <p class="MsoNormal">
-           <br clear="all" class="section"/>
+            <br clear="all" class="section"/>
          </p>
          <div class="WordSection3">
-           <div style="mso-element:comment-list">
-             <div style="mso-element:comment">
-               <a name="1" id="1"/>
-               <span style="mso-comment-author:&quot;ISO&quot;"/>
-               <p class="MsoCommentText"><a name="_" id="_"/><span style="MsoCommentReference"><span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB"><span style="mso-special-character:comment"/></span></span>Second note.</p>
-             </div>
-           </div>
+            <div style="mso-element:comment-list">
+               <div style="mso-element:comment">
+                  <a name="_7" id="_7"/>
+                  <span style="mso-comment-author:&quot;ISO&quot;"/>
+                  <p class="MsoCommentText">
+                     <a name="_" id="_"/>
+                     <span style="MsoCommentReference">
+                        <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                           <span style="mso-special-character:comment"/>
+                        </span>
+                     </span>
+                     Second note.
+                  </p>
+               </div>
+            </div>
          </div>
          <div style="mso-element:footnote-list"/>
-       </body>
+      </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
