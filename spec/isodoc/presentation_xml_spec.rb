@@ -1537,7 +1537,7 @@ RSpec.describe IsoDoc do
               </clause>
            </preface>
            <sections>
-              <clause id="_" type="scope" inline-header="false" obligation="normative" displayorder="2">
+              <clause id="_scope" type="scope" inline-header="false" obligation="normative" displayorder="2">
                  <title id="_">Scope</title>
                  <fmt-title depth="1">
                     <span class="fmt-caption-label">
@@ -1561,7 +1561,7 @@ RSpec.describe IsoDoc do
             </semx>
                  </p>
               </clause>
-              <terms id="_" obligation="normative" displayorder="4">
+              <terms id="_terms_and_definitions" obligation="normative" displayorder="4">
                  <title id="_">Terms and definitions</title>
                  <fmt-title depth="1">
                     <span class="fmt-caption-label">

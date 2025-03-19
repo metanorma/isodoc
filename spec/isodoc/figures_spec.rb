@@ -77,22 +77,22 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-             <clause type="toc" id="_" displayorder="1">
+             <clause type="toc" id="_1" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
-                <title id="_">Foreword</title>
+                <title id="_4">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <name id="_">
+                   <name id="_12">
                       Split-it-right
                       <em>sample</em>
                       divider
-                      <fn reference="1" original-reference="1" target="_" original-id="_">
+                      <fn reference="1" original-reference="1" target="_7" original-id="_">
                          <p>X</p>
                          <fmt-fn-label>
                             <sup>
@@ -111,7 +111,7 @@ RSpec.describe IsoDoc do
                          Split-it-right
                          <em>sample</em>
                          divider
-                         <fn reference="1" original-reference="1" id="_" target="_">
+                         <fn reference="1" original-reference="1" id="_6" target="_7">
                             <p>X</p>
                             <fmt-fn-label>
                                <sup>
@@ -129,10 +129,10 @@ RSpec.describe IsoDoc do
                    <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
                    <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
                    <image src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="auto" id="_" mimetype="application/xml"/>
-                   <fn reference="a" id="_" target="_">
+                   <fn reference="a" id="_8" target="_9">
                       <p original-id="_">
                          The time
-                         <stem type="AsciiMath" id="_">t_90</stem>
+                         <stem type="AsciiMath" id="_19">t_90</stem>
                          <fmt-stem type="AsciiMath">
                             <semx element="stem" source="_">t_90</semx>
                          </fmt-stem>
@@ -144,7 +144,7 @@ RSpec.describe IsoDoc do
                          </sup>
                       </fmt-fn-label>
                    </fn>
-                   <fn reference="b" id="_" target="_">
+                   <fn reference="b" id="_10" target="_11">
                       <p original-id="_">Second footnote.</p>
                       <fmt-fn-label>
                          <sup>
@@ -166,11 +166,11 @@ RSpec.describe IsoDoc do
                          </p>
                       </dt>
                       <dd>
-                         <fmt-fn-body id="_" target="_" reference="a">
+                         <fmt-fn-body id="_9" target="_8" reference="a">
                             <semx element="fn" source="_">
                                <p id="_">
                                   The time
-                                  <stem type="AsciiMath" id="_">t_90</stem>
+                                  <stem type="AsciiMath" id="_20">t_90</stem>
                                   <fmt-stem type="AsciiMath">
                                      <semx element="stem" source="_">t_90</semx>
                                   </fmt-stem>
@@ -189,7 +189,7 @@ RSpec.describe IsoDoc do
                          </p>
                       </dt>
                       <dd>
-                         <fmt-fn-body id="_" target="_" reference="b">
+                         <fmt-fn-body id="_11" target="_10" reference="b">
                             <semx element="fn" source="_">
                                <p id="_">Second footnote.</p>
                             </semx>
@@ -202,7 +202,7 @@ RSpec.describe IsoDoc do
                    </dl>
                    <source status="generalisation">
                       [SOURCE:
-                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_">
+                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_17">
                          <localityStack>
                             <locality type="section">
                                <referenceFrom>1</referenceFrom>
@@ -215,7 +215,7 @@ RSpec.describe IsoDoc do
                       —
                       <semx element="modification" source="_">with adjustments</semx>
                       ;
-                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_">
+                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_18">
                          <localityStack>
                             <locality type="section">
                                <referenceFrom>2</referenceFrom>
@@ -249,8 +249,8 @@ RSpec.describe IsoDoc do
              </foreword>
           </preface>
           <sections>
-             <references id="_" obligation="informative" normative="true" displayorder="3">
-                <title id="_">Normative References</title>
+             <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
+                <title id="_5">Normative References</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">1</semx>
@@ -322,7 +322,7 @@ RSpec.describe IsoDoc do
           <bibliography>
              </bibliography>
           <fmt-footnote-container>
-             <fmt-fn-body id="_" target="_" reference="1">
+             <fmt-fn-body id="_7" target="_6" reference="1">
                 <semx element="fn" source="_">
                    <p>
                       <fmt-fn-label>
@@ -579,14 +579,18 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(pres_output
       .gsub(/&lt;/, "&#x3c;"))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
+      output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(Xml::C14n.format(strip_guid(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
-    FileUtils.rm_rf "spec/assets/odf1.emf"
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true)
+     FileUtils.rm_rf "spec/assets/odf1.emf"
+   output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+     .convert("test", pres_output, true))
+   output.at("//div[@class='TOC']")["id"] = "_"
+  expect(Xml::C14n.format(strip_guid(output.to_xml)
       .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 

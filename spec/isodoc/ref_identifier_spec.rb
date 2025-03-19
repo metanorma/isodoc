@@ -251,7 +251,7 @@ RSpec.describe IsoDoc do
               </clause>
            </preface>
            <sections>
-              <references id="_" obligation="informative" normative="true" displayorder="2">
+              <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
                  <title id="_">Normative references</title>
                  <fmt-title depth="1">
                     <span class="fmt-caption-label">
@@ -299,7 +299,7 @@ RSpec.describe IsoDoc do
               </references>
            </sections>
            <bibliography>
-              <references id="_" obligation="informative" normative="false" displayorder="3">
+              <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
                  <title id="_">Bibliography</title>
                  <fmt-title depth="1">
                     <semx element="title" source="_">Bibliography</semx>
@@ -382,7 +382,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
         <bibliography>
-           <references id="_" obligation="informative" normative="false" displayorder="2">
+           <references id="_normative_references" obligation="informative" normative="false" displayorder="2">
               <title id="_">Bibliography</title>
               <fmt-title depth="1">
                  <semx element="title" source="_">Bibliography</semx>
@@ -451,7 +451,7 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
         <bibliography>
-           <references id="_" obligation="informative" normative="false" displayorder="2">
+           <references id="_normative_references" obligation="informative" normative="false" displayorder="2">
               <title id="_">Bibliography</title>
               <fmt-title depth="1">
                  <semx element="title" source="_">Bibliography</semx>
@@ -534,7 +534,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~PRESXML
-        <references id="_" obligation="informative" normative="true" displayorder="2">
+        <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
            <title id="_">Normative References</title>
            <fmt-title depth="1">
               <span class="fmt-caption-label">
@@ -655,82 +655,82 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     presxml = <<~PRESXML
-       <references id="_" obligation="informative" normative="true" displayorder="2">
-           <title id="_">Normative References</title>
-           <fmt-title depth="1">
-              <span class="fmt-caption-label">
-                 <semx element="autonum" source="_">1</semx>
-                 <span class="fmt-autonum-delim">.</span>
-              </span>
-              <span class="fmt-caption-delim">
-                 <tab/>
-              </span>
-              <semx element="title" source="_">Normative References</semx>
-           </fmt-title>
-           <fmt-xref-label>
-              <span class="fmt-element-name">Clause</span>
-              <semx element="autonum" source="_">1</semx>
-           </fmt-xref-label>
-           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-           <bibitem id="ISO712" type="standard">
-              <formattedref>
-                 International Organization for Standardization and International Electrotechnical Commission.
-                 <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>
-                 . First edition. 2007.
-                 <link target="https://www.iso.org/standard/45324.html" id="_">https://www.iso.org/standard/45324.html</link>
-                 <semx element="link" source="_">
-                    <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
-                 </semx>
-                 .
-              </formattedref>
-              <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
-              <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
-              <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
-              <uri type="src">https://www.iso.org/standard/45324.html</uri>
-              <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
-              <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
-              <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
-              <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
-              <docidentifier type="metanorma">[ISO/IEC Guide 99:2007]</docidentifier>
-              <docidentifier type="URN">URN urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-              <docidentifier scope="biblio-tag">ISO/IEC Guide 99:2007</docidentifier>
-              <docnumber>99</docnumber>
-              <date type="published">
-                 <on>2007-12</on>
-              </date>
-              <contributor>
-                 <role type="publisher"/>
-                 <organization>
-                    <name>International Organization for Standardization</name>
-                    <abbreviation>ISO</abbreviation>
-                    <uri>www.iso.org</uri>
-                 </organization>
-              </contributor>
-              <contributor>
-                 <role type="publisher"/>
-                 <organization>
-                    <name>International Electrotechnical Commission</name>
-                    <abbreviation>IEC</abbreviation>
-                    <uri>www.iec.ch</uri>
-                 </organization>
-              </contributor>
-              <edition>1</edition>
-              <language>en</language>
-              <script>Latn</script>
-              <biblio-tag>
-                 ISO/IEC Guide 99:2007, ISO/IEC Guide 99:2007
-                 <fn reference="1" original-reference="1" id="_" target="_">
+       <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+          <title id="_3">Normative References</title>
+          <fmt-title depth="1">
+             <span class="fmt-caption-label">
+                <semx element="autonum" source="_">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+             </span>
+             <span class="fmt-caption-delim">
+                <tab/>
+             </span>
+             <semx element="title" source="_">Normative References</semx>
+          </fmt-title>
+          <fmt-xref-label>
+             <span class="fmt-element-name">Clause</span>
+             <semx element="autonum" source="_">1</semx>
+          </fmt-xref-label>
+          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+          <bibitem id="ISO712" type="standard">
+             <formattedref>
+                International Organization for Standardization and International Electrotechnical Commission.
+                <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>
+                . First edition. 2007.
+                <link target="https://www.iso.org/standard/45324.html" id="_6">https://www.iso.org/standard/45324.html</link>
+                <semx element="link" source="_">
+                   <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
+                </semx>
+                .
+             </formattedref>
+             <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
+             <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
+             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
+             <uri type="src">https://www.iso.org/standard/45324.html</uri>
+             <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
+             <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
+             <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
+             <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC Guide 99:2007]</docidentifier>
+             <docidentifier type="URN">URN urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <docidentifier scope="biblio-tag">ISO/IEC Guide 99:2007</docidentifier>
+             <docnumber>99</docnumber>
+             <date type="published">
+                <on>2007-12</on>
+             </date>
+             <contributor>
+                <role type="publisher"/>
+                <organization>
+                   <name>International Organization for Standardization</name>
+                   <abbreviation>ISO</abbreviation>
+                   <uri>www.iso.org</uri>
+                </organization>
+             </contributor>
+             <contributor>
+                <role type="publisher"/>
+                <organization>
+                   <name>International Electrotechnical Commission</name>
+                   <abbreviation>IEC</abbreviation>
+                   <uri>www.iec.ch</uri>
+                </organization>
+             </contributor>
+             <edition>1</edition>
+             <language>en</language>
+             <script>Latn</script>
+             <biblio-tag>
+                ISO/IEC Guide 99:2007, ISO/IEC Guide 99:2007
+                <fn reference="1" original-reference="1" id="_4" target="_5">
                    <p original-id="_">Also known as JCGM 200</p>
                    <fmt-fn-label>
-               <sup>
-                  <semx element="autonum" source="_">1</semx>
-               </sup>
-            </fmt-fn-label>
+                      <sup>
+                         <semx element="autonum" source="_">1</semx>
+                      </sup>
+                   </fmt-fn-label>
                 </fn>
-                 ,
-              </biblio-tag>
-           </bibitem>
-        </references>
+                ,
+             </biblio-tag>
+          </bibitem>
+       </references>
     PRESXML
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -764,8 +764,10 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
       .at("//xmlns:references").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
+      output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(Xml::C14n.format(strip_guid(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 

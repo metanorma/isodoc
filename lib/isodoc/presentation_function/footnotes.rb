@@ -170,7 +170,7 @@ module IsoDoc
     end
 
     def comment_bookmark_end(to, elem)
-      ret = to.after("<fmt-review-start/>").next
+      ret = to.after("<fmt-review-end/>").next
       ret["id"] = "_#{UUIDTools::UUID.random_create}"
       ret["source"] = elem["id"]
       ret << comment_bookmark_end_label(elem)

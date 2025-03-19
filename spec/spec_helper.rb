@@ -63,8 +63,8 @@ def metadata(hash)
 end
 
 def strip_guid(xml)
-  xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
-    .gsub(%r{ target="_[^"]+"}, ' target="_"')
+  xml.gsub(%r{ id="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' id="_"')
+    .gsub(%r{ target="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' target="_"')
     .gsub(%r{ source="_[^"]+"}, ' source="_"')
     .gsub(%r{ container="_[^"]+"}, ' container="_"')
     .gsub(%r{ original-id="_[^"]+"}, ' original-id="_"')
