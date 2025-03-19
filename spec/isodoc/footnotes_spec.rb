@@ -724,15 +724,18 @@ RSpec.describe IsoDoc do
           <p id="B"><em><strong>A.</strong></em> B <em><strong>C.</strong></em></p>
           </foreword>
           <introduction displayorder="2"><title>Introduction</title>
-          </introduction>
+            <p id="C">C.</p>
+         </introduction>
           </preface>
           <review-container>
           <review reviewer="ISO" date="20170101T0000" from="A" to="B"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-      <p id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p></review>
-          <p id="C">C.</p>
+            <p id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p></review>
           <review reviewer="ISO" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
-          <review reviewer="ISO" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
-          </review-container>
+          <review reviewer="ISO" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Third note.</p></review>
+          <review reviewer="ISO" date="20170108T0000" from="A1" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Fourth note.</p></review>
+           <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Fifth note.</p></review>
+            <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B1"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Sixth note.</p></review>
+        </review-container>
           </iso-standard>
     INPUT
     presxml = <<~INPUT
@@ -918,10 +921,12 @@ RSpec.describe IsoDoc do
       </ol>
       </foreword>
       <introduction displayorder="2"><title>Introduction</title>
-      <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
       </introduction>
       </preface>
-      </iso-standard>
+           <review-container>
+       <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
+         </review-container>
+     </iso-standard>
     INPUT
     presxml = <<~INPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
