@@ -162,26 +162,33 @@ module IsoDoc
     end
 
     def comment_bookmark_start(from, elem)
-      ret = from.before("<fmt-review-start/>").previous
+      ret = if from.at(".//text()")
+              from.at(".//text()").before("<fmt-review-start/>").previous
+            else from.before("<fmt-review-start/>").previous
+            end
       ret["id"] = "_#{UUIDTools::UUID.random_create}"
       ret["source"] = elem["id"]
       ret << comment_bookmark_start_label(elem)
-      ret 
+      ret
     end
 
     def comment_bookmark_end(to, elem)
-      ret = to.after("<fmt-review-end/>").next
+      ret = if to.at(".//text()[last()]")
+              to.at(".//text()[last()]").after("<fmt-review-end/>").next
+            else
+              to.after("<fmt-review-end/>").next
+            end
       ret["id"] = "_#{UUIDTools::UUID.random_create}"
       ret["source"] = elem["id"]
       ret << comment_bookmark_end_label(elem)
       ret
     end
 
-    def comment_bookmark_start_label(elem)
+    def comment_bookmark_start_label(_elem)
       ""
     end
 
-    def comment_bookmark_end_label(elem)
+    def comment_bookmark_end_label(_elem)
       ""
     end
   end
