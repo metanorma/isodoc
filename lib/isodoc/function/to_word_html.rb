@@ -54,7 +54,7 @@ module IsoDoc
           boilerplate docxml, div3
           content(div3, docxml, ns(self.class::TOP_ELEMENTS))
           footnotes docxml, div3
-          comments div3
+          comments docxml, div3
         end
       end
 
@@ -234,6 +234,8 @@ module IsoDoc
           when "fmt-fn-body" then fmt_fn_body_parse(node, out)
           when "fmt-fn-label" then fmt_fn_label_parse(node, out)
           when "fmt-footnote-container" then fmt_footnote_container_parse(node, out)
+          when "fmt-review-start" then fmt_review_start_parse(node, out)
+          when "fmt-review-end" then fmt_review_end_parse(node, out)
           else error_parse(node, out)
           end
         end

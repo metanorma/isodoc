@@ -865,30 +865,51 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-        <br />
-                   <div id="_" class="TOC">
-              <h1 class="IntroTitle">
-                 <a class="anchor" href="#_"/>
-                 <a class="header" href="#_">Table of contents</a>
-              </h1>
-           </div>
-           <br/>
-              <div id="_">
-      <h1 class="ForewordTitle">
-         <a class="anchor" href="#_"/>
-         <a class="header" href="#_">Foreword</a>
-      </h1>
-          <p id="A">A.</p>
-          <p id="B">B.</p>
-          <p id="C">C.</p>
-        </div>
-        <br />
-        <div class="Section3" id="_">
-          <h1 class="IntroTitle"><a class="anchor" href="#_"/> <a class="header" href="#_">Introduction</a></h1>
-        </div>
-      </main>
-    OUTPUT
+      <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+          <br/>
+          <div id="_3" class="TOC">
+             <h1 class="IntroTitle">
+                <a class="anchor" href="#_3"/>
+                <a class="header" href="#_3">Table of contents</a>
+             </h1>
+          </div>
+          <br/>
+          <div id="_1">
+             <h1 class="ForewordTitle">
+                <a class="anchor" href="#_1"/>
+                <a class="header" href="#_1">Foreword</a>
+             </h1>
+             <p id="A">
+                <i>
+                   <b>A.</b>
+                </i>
+                <a id="A1"/>
+                B
+                <i>
+                   <b>C.</b>
+                </i>
+             </p>
+             <p id="B">
+                <i>
+                   <b>A.</b>
+                </i>
+                B
+                <i>
+                   <b>C.</b>
+                </i>
+             </p>
+          </div>
+          <br/>
+          <div class="Section3" id="_2">
+             <h1 class="IntroTitle">
+                <a class="anchor" href="#_2"/>
+                <a class="header" href="#_2">Introduction</a>
+             </h1>
+             <p id="C">C.</p>
+          </div>
+       </main>
+           OUTPUT
 
     word = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
@@ -1070,44 +1091,50 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-        <br />
-           <div id="_" class="TOC">
-      <h1 class="IntroTitle">
-         <a class="anchor" href="#_"/>
-         <a class="header" href="#_">Table of contents</a>
-      </h1>
-      </div>
-      <br/>
-        <div id="_">
-                <h1 class="ForewordTitle">
-         <a class="anchor" href="#_"/>
-         <a class="header" href="#_">Foreword</a>
-      </h1>
-          <div class="ol_wrap">
-          <ol type="a">
-             <li id="A">
-               <p>A.</p>
-               <p>A1</p>
-             </li>
-             <li id="B">B.
-             <div class="ul_wrap">
-             <ul>
-               <li>
-                 <p>C.</p>
-                 <p id="C">C1</p>
-               </li>
-               <li id="D">D.</li>
-             </ul>
-             </div></li>
-           </ol>
-           </div>
-        </div>
-        <br />
-        <div class="Section3" id="_">
-          <h1 class="IntroTitle"><a class="anchor" href="#_"/><a class="header" href="#_">Introduction</a></h1>
-        </div>
-      </main>
+       <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+          <br/>
+          <div id="_3" class="TOC">
+             <h1 class="IntroTitle">
+                <a class="anchor" href="#_3"/>
+                <a class="header" href="#_3">Table of contents</a>
+             </h1>
+          </div>
+          <br/>
+          <div id="_1">
+             <h1 class="ForewordTitle">
+                <a class="anchor" href="#_1"/>
+                <a class="header" href="#_1">Foreword</a>
+             </h1>
+             <div class="ol_wrap">
+                <ol type="a">
+                   <li id="A">
+                      <p>A.</p>
+                      <p>A1</p>
+                   </li>
+                   <li id="B">
+                      B.
+                      <div class="ul_wrap">
+                         <ul>
+                            <li>
+                               <p>C.</p>
+                               <p id="C">C1</p>
+                            </li>
+                            <li id="D">D.</li>
+                         </ul>
+                      </div>
+                   </li>
+                </ol>
+             </div>
+          </div>
+          <br/>
+          <div class="Section3" id="_2">
+             <h1 class="IntroTitle">
+                <a class="anchor" href="#_2"/>
+                <a class="header" href="#_2">Introduction</a>
+             </h1>
+          </div>
+       </main>
     OUTPUT
     word = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">

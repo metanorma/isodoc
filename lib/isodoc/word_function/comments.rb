@@ -1,9 +1,9 @@
 module IsoDoc
   module WordFunction
     module Comments
-      def comments(div)
-        return if @comments.empty?
-
+      def comments(docxml, div)
+        c = docxml.xpath(ns("//fmt-review-body"))
+        c.empty? and return
         div.div style: "mso-element:comment-list" do |div1|
           @comments.each { |fn| div1.parent << fn }
         end
