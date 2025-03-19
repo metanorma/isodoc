@@ -740,7 +740,7 @@ RSpec.describe IsoDoc do
         <review reviewer="ISO" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c09">Third note.</p></review>
         <review reviewer="ISO" date="20170108T0000" from="A1" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0a">Fourth note.</p></review>
          <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0b">Fifth note.</p></review>
-          <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B1"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0c">Sixth note.</p></review>
+          <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0c">Sixth note.</p></review>
       </review-container>
         </iso-standard>
     INPUT
@@ -852,11 +852,11 @@ RSpec.describe IsoDoc do
                   <p id="_">Fifth note.</p>
                </semx>
             </fmt-review-body>
-            <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B1">
+            <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2">
                <p original-id="_">Sixth note.</p>
             </review>
             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_27" to="_28" id="_26">
-               <semx element="review" source="B1">
+               <semx element="review" source="B2">
                   <p id="_">Sixth note.</p>
                </semx>
             </fmt-review-body>
@@ -911,7 +911,7 @@ RSpec.describe IsoDoc do
     OUTPUT
 
     word = <<~OUTPUT
-         <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+        <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
           <div class="WordSection2">
              <p class="MsoNormal">
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -919,10 +919,10 @@ RSpec.describe IsoDoc do
              <div>
                 <a name="_1" id="_1"/>
                 <h1 class="ForewordTitle">Foreword</h1>
-                <span style="MsoCommentReference" target="_8" class="commentLink" from="A" to="B">
+                <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                       <a style="mso-comment-reference:SMC__8;mso-comment-date:20170101T0000">
-                         <span style="MsoCommentReference" target="_16" class="commentLink" from="A" to="C">
+                         <span style="MsoCommentReference" target="2" class="commentLink" from="A" to="C">
                             <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                                <a style="mso-comment-reference:SMC__16;mso-comment-date:20170108T0000">
                                   <p class="MsoNormal">
@@ -930,45 +930,45 @@ RSpec.describe IsoDoc do
                                      <i>
                                         <b>A.</b>
                                      </i>
-                                     <span style="MsoCommentReference" target="_20" class="commentLink" from="A1" to="C">
+                                     <span style="MsoCommentReference" target="3" class="commentLink" from="A1" to="C">
                                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                                            <a style="mso-comment-reference:SMC__20;mso-comment-date:20170108T0000">
-                                              <span style="MsoCommentReference" target="_23" class="commentLink" from="A1" to="A1">
+                                              <span style="MsoCommentReference" target="4" class="commentLink" from="A1" to="A1">
                                                  <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                                                     <a style="mso-comment-reference:SMC__23;mso-comment-date:20170108T0000">
                                                        <a>
                                                           <a name="A1" id="A1"/>
                                                        </a>
                                                     </a>
-                                                    <span style="mso-special-character:comment" target="_23"/>
+                                                    <span style="mso-special-character:comment" target="4"/>
                                                  </span>
                                               </span>
                                            </a>
-                                           <span style="mso-comment-continuation:_20">
-                                              <span style="mso-special-character:comment" target="_20"/>
+                                           <span style="mso-comment-continuation:3">
+                                              <span style="mso-special-character:comment" target="3"/>
                                            </span>
                                         </span>
                                      </span>
                                      B
-                                     <span style="mso-comment-continuation:_20">
+                                     <span style="mso-comment-continuation:3">
                                         <i>
                                            <b>C.</b>
                                         </i>
                                      </span>
                                   </p>
                                </a>
-                               <span style="mso-comment-continuation:_20">
-                                  <span style="mso-comment-continuation:_16">
-                                     <span style="mso-special-character:comment" target="_16"/>
+                               <span style="mso-comment-continuation:3">
+                                  <span style="mso-comment-continuation:2">
+                                     <span style="mso-special-character:comment" target="2"/>
                                   </span>
                                </span>
                             </span>
                          </span>
                       </a>
-                      <span style="mso-comment-continuation:_20">
-                         <span style="mso-comment-continuation:_16">
-                            <span style="mso-comment-continuation:_8">
-                               <span style="mso-special-character:comment" target="_8"/>
+                      <span style="mso-comment-continuation:3">
+                         <span style="mso-comment-continuation:2">
+                            <span style="mso-comment-continuation:1">
+                               <span style="mso-special-character:comment" target="1"/>
                             </span>
                          </span>
                       </span>
@@ -976,23 +976,23 @@ RSpec.describe IsoDoc do
                 </span>
                 <p class="MsoNormal">
                    <a name="B" id="B"/>
-                   <span style="mso-comment-continuation:_20">
-                      <span style="mso-comment-continuation:_16">
-                         <span style="mso-comment-continuation:_8">
+                   <span style="mso-comment-continuation:3">
+                      <span style="mso-comment-continuation:2">
+                         <span style="mso-comment-continuation:1">
                             <i>
                                <b>A.</b>
                             </i>
                          </span>
                       </span>
                    </span>
-                   <span style="mso-comment-continuation:_20">
-                      <span style="mso-comment-continuation:_16">
-                         <span style="mso-comment-continuation:_8"> B </span>
+                   <span style="mso-comment-continuation:3">
+                      <span style="mso-comment-continuation:2">
+                         <span style="mso-comment-continuation:1"> B </span>
                       </span>
                    </span>
-                   <span style="mso-comment-continuation:_20">
-                      <span style="mso-comment-continuation:_16">
-                         <span style="mso-comment-continuation:_8">
+                   <span style="mso-comment-continuation:3">
+                      <span style="mso-comment-continuation:2">
+                         <span style="mso-comment-continuation:1">
                             <i>
                                <b>C.</b>
                             </i>
@@ -1002,33 +1002,33 @@ RSpec.describe IsoDoc do
                 </p>
              </div>
              <p class="MsoNormal">
-                <span style="mso-comment-continuation:_20">
-                   <span style="mso-comment-continuation:_16">
+                <span style="mso-comment-continuation:3">
+                   <span style="mso-comment-continuation:2">
                       <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                    </span>
                 </span>
              </p>
              <div class="Section3">
                 <a name="_2" id="_2"/>
-                <span style="mso-comment-continuation:_20">
-                   <span style="mso-comment-continuation:_16">
+                <span style="mso-comment-continuation:3">
+                   <span style="mso-comment-continuation:2">
                       <h1 class="IntroTitle">Introduction</h1>
                    </span>
                 </span>
-                <span style="MsoCommentReference" target="_12" class="commentLink" from="C" to="C">
+                <span style="MsoCommentReference" target="5" class="commentLink" from="C" to="C">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                       <a style="mso-comment-reference:SMC__12;mso-comment-date:20170108T0000">
                          <p class="MsoNormal">
                             <a name="C" id="C"/>
-                            <span style="mso-comment-continuation:_20">
-                               <span style="mso-comment-continuation:_16"/>
+                            <span style="mso-comment-continuation:3">
+                               <span style="mso-comment-continuation:2"/>
                             </span>
-                            <span style="mso-comment-continuation:_20">
-                               <span style="mso-comment-continuation:_16">C.</span>
+                            <span style="mso-comment-continuation:3">
+                               <span style="mso-comment-continuation:2">C.</span>
                             </span>
                          </p>
                       </a>
-                      <span style="mso-special-character:comment" target="_12"/>
+                      <span style="mso-special-character:comment" target="5"/>
                    </span>
                 </span>
              </div>
@@ -1040,7 +1040,7 @@ RSpec.describe IsoDoc do
           <div class="WordSection3">
              <div style="mso-element:comment-list">
                 <div style="mso-element:comment">
-                   <a name="_23" id="_23"/>
+                   <a name="4" id="4"/>
                    <span style="mso-comment-author:&quot;ISO&quot;"/>
                    <p class="MsoCommentText">
                       <a name="_" id="_"/>
@@ -1053,7 +1053,7 @@ RSpec.describe IsoDoc do
                    </p>
                 </div>
                 <div style="mso-element:comment">
-                   <a name="_20" id="_20"/>
+                   <a name="3" id="3"/>
                    <span style="mso-comment-author:&quot;ISO&quot;"/>
                    <p class="MsoCommentText">
                       <a name="_" id="_"/>
@@ -1066,7 +1066,7 @@ RSpec.describe IsoDoc do
                    </p>
                 </div>
                 <div style="mso-element:comment">
-                   <a name="_16" id="_16"/>
+                   <a name="2" id="2"/>
                    <span style="mso-comment-author:&quot;ISO&quot;"/>
                    <p class="MsoCommentText">
                       <a name="_" id="_"/>
@@ -1079,7 +1079,7 @@ RSpec.describe IsoDoc do
                    </p>
                 </div>
                 <div style="mso-element:comment">
-                   <a name="_8" id="_8"/>
+                   <a name="1" id="1"/>
                    <span style="mso-comment-author:&quot;ISO&quot;"/>
                    <p class="MsoCommentText">
                       <a name="_" id="_"/>
@@ -1097,7 +1097,7 @@ RSpec.describe IsoDoc do
                    </p>
                 </div>
                 <div style="mso-element:comment">
-                   <a name="_12" id="_12"/>
+                   <a name="5" id="5"/>
                    <span style="mso-comment-author:&quot;ISO&quot;"/>
                    <p class="MsoCommentText">
                       <a name="_" id="_"/>
@@ -1259,81 +1259,81 @@ RSpec.describe IsoDoc do
       </main>
     OUTPUT
     word = <<~OUTPUT
-       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-         <div class="WordSection2">
-            <p class="MsoNormal">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div>
-               <a name="_1" id="_1"/>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <div class="ol_wrap">
-                  <span style="MsoCommentReference" target="_7" class="commentLink" from="A" to="C">
-                     <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                        <a style="mso-comment-reference:SMC__7;mso-comment-date:20170108T0000">
-                           <li class="MsoNormal">
-                              <a name="A" id="A"/>
-                              <p class="MsoNormal">A.</p>
-                              <div class="ListContLevel1">
-                                 <p class="MsoNormal">A1</p>
-                              </div>
-                           </li>
-                        </a>
-                        <span style="mso-comment-continuation:_7">
-                           <span style="mso-special-character:comment" target="_7"/>
-                        </span>
-                     </span>
-                  </span>
-                  <p class="MsoListParagraphCxSpFirst">
-                     <a name="B" id="B"/>
-                     <span style="mso-comment-continuation:_7">B.</span>
-                  </p>
-                  <div class="ul_wrap">
-                     <p class="MsoListParagraphCxSpFirst" style="">
-                        <span style="mso-comment-continuation:_7">C.</span>
-                        <p class="MsoListParagraphCxSpMiddle">
-                           <a name="C" id="C"/>
-                           <span style="mso-comment-continuation:_7">C1</span>
-                        </p>
-                     </p>
-                     <p class="MsoListParagraphCxSpLast">
-                        <a name="D" id="D"/>
-                        D.
-                     </p>
-                  </div>
-               </div>
-            </div>
-            <p class="MsoNormal">
-               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div class="Section3">
-               <a name="_2" id="_2"/>
-               <h1 class="IntroTitle">Introduction</h1>
-            </div>
-            <p class="MsoNormal"> </p>
-         </div>
-         <p class="MsoNormal">
-            <br clear="all" class="section"/>
-         </p>
-         <div class="WordSection3">
-            <div style="mso-element:comment-list">
-               <div style="mso-element:comment">
-                  <a name="_7" id="_7"/>
-                  <span style="mso-comment-author:&quot;ISO&quot;"/>
-                  <p class="MsoCommentText">
-                     <a name="_" id="_"/>
-                     <span style="MsoCommentReference">
-                        <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                           <span style="mso-special-character:comment"/>
-                        </span>
-                     </span>
-                     Second note.
-                  </p>
-               </div>
-            </div>
-         </div>
-         <div style="mso-element:footnote-list"/>
-      </body>
+             <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+          <div class="WordSection2">
+             <p class="MsoNormal">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div>
+                <a name="_1" id="_1"/>
+                <h1 class="ForewordTitle">Foreword</h1>
+                <div class="ol_wrap">
+                   <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="C">
+                      <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                         <a style="mso-comment-reference:SMC__7;mso-comment-date:20170108T0000">
+                            <li class="MsoNormal">
+                               <a name="A" id="A"/>
+                               <p class="MsoNormal">A.</p>
+                               <div class="ListContLevel1">
+                                  <p class="MsoNormal">A1</p>
+                               </div>
+                            </li>
+                         </a>
+                         <span style="mso-comment-continuation:1">
+                            <span style="mso-special-character:comment" target="1"/>
+                         </span>
+                      </span>
+                   </span>
+                   <p class="MsoListParagraphCxSpFirst">
+                      <a name="B" id="B"/>
+                      <span style="mso-comment-continuation:1">B.</span>
+                   </p>
+                   <div class="ul_wrap">
+                      <p class="MsoListParagraphCxSpFirst" style="">
+                         <span style="mso-comment-continuation:1">C.</span>
+                         <p class="MsoListParagraphCxSpMiddle">
+                            <a name="C" id="C"/>
+                            <span style="mso-comment-continuation:1">C1</span>
+                         </p>
+                      </p>
+                      <p class="MsoListParagraphCxSpLast">
+                         <a name="D" id="D"/>
+                         D.
+                      </p>
+                   </div>
+                </div>
+             </div>
+             <p class="MsoNormal">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div class="Section3">
+                <a name="_2" id="_2"/>
+                <h1 class="IntroTitle">Introduction</h1>
+             </div>
+             <p class="MsoNormal"> </p>
+          </div>
+          <p class="MsoNormal">
+             <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection3">
+             <div style="mso-element:comment-list">
+                <div style="mso-element:comment">
+                   <a name="1" id="1"/>
+                   <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="MsoCommentReference">
+                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                            <span style="mso-special-character:comment"/>
+                         </span>
+                      </span>
+                      Second note.
+                   </p>
+                </div>
+             </div>
+          </div>
+          <div style="mso-element:footnote-list"/>
+       </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)

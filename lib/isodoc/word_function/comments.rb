@@ -71,9 +71,30 @@ module IsoDoc
       end
 
       def comment_cleanup(docxml)
+        number_comments(docxml)
         move_comment_link_to_from(docxml)
         reorder_comments_by_comment_link(docxml)
         embed_comment_in_comment_list(docxml)
+      end
+
+      def number_comments(docxml)
+        ids = docxml.xpath("//span[@style='MsoCommentReference']").map do |x|
+          x["target"]
+        end
+        map = ids.uniq.each_with_index.with_object({}) do |(id, i), m|
+          m[id] = i + 1
+        end
+        docxml.xpath("//span[@style='MsoCommentReference' or 'mso-special-character:comment']").each do |x|
+          x["target"] &&= map[x["target"]]
+        end
+        docxml.xpath("//div[@style='mso-element:comment']").each do |x|
+          x["id"] = map[x["id"]]
+        end
+        docxml.xpath("//a[@style]").each do |x|
+          m = /mso-comment-reference:SMC_([^;]+);/.match(x["style"]) or next
+          x["style"].sub!(/mso-comment-reference:SMC_#{m[1]}/,
+                          "mso-comment-reference:SMC_#{map[m[1]]};")
+        end
       end
 
       COMMENT_IN_COMMENT_LIST1 =
