@@ -136,5 +136,53 @@ module IsoDoc
         elem.at(ns(".//dl"))&.children&.first ||
         elem.add_child("<dl> </dl>").first.children.first
     end
+
+    def comments(docxml)
+      docxml.xpath(ns("//review")).each do |c|
+        c1 = comment_body(c)
+        comment_bookmarks(c1)
+      end
+    end
+
+    def comment_body(elem)
+      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      c1 = elem.after("<fmt-review-body/>").next
+      elem.attributes.each_key { |k| c1[k] = elem[k] }
+      c1["id"] = "_#{UUIDTools::UUID.random_create}"
+      c1 << semx_fmt_dup(elem)
+    end
+
+    def comment_bookmarks(elem)
+      from = elem.document.at("//*[@id = '#{elem['from']}']")
+      to = elem.document.at("//*[@id = '#{elem['to']}']")
+      new_from = comment_bookmark_start(from, elem)
+      new_to = comment_bookmark_end(to, elem)
+      elem["from"] = new_from["id"]
+      elem["to"] = new_to["id"]
+    end
+
+    def comment_bookmark_start(from, elem)
+      ret = from.before("<fmt-review-start/>").previous
+      ret["id"] = "_#{UUIDTools::UUID.random_create}"
+      ret["source"] = elem["id"]
+      ret << comment_bookmark_start_label(elem)
+      ret 
+    end
+
+    def comment_bookmark_end(to, elem)
+      ret = to.after("<fmt-review-start/>").next
+      ret["id"] = "_#{UUIDTools::UUID.random_create}"
+      ret["source"] = elem["id"]
+      ret << comment_bookmark_end_label(elem)
+      ret
+    end
+
+    def comment_bookmark_start_label(elem)
+      ""
+    end
+
+    def comment_bookmark_end_label(elem)
+      ""
+    end
   end
 end
