@@ -535,9 +535,9 @@ RSpec.describe IsoDoc do
         </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-             <foreword displayorder="1" id="_">
+             <foreword id="_" displayorder="1">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">Foreword</fmt-title>
                 <p>
@@ -550,12 +550,12 @@ RSpec.describe IsoDoc do
                          <fmt-link target="B"/>
                       </semx>
                    </tt>
-                   <xref target="_" id="_">
+                   <xref target="_http_1_1" id="_">
                       Requirement
                       <tt>/req/core/http</tt>
                    </xref>
                    <semx element="xref" source="_">
-                      <fmt-xref target="_">
+                      <fmt-xref target="_http_1_1">
                          Requirement
                          <tt>/req/core/http</tt>
                       </fmt-xref>

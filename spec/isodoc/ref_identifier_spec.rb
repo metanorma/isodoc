@@ -241,114 +241,114 @@ RSpec.describe IsoDoc do
       </bibliography></iso-standard>
     INPUT
     presxml = <<~PRESXML
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-           <bibdata>
-              <language current="true">en</language>
-           </bibdata>
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
-              </clause>
-           </preface>
-           <sections>
-              <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
-                 <title id="_">Normative references</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="_">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Normative references</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="_">1</semx>
-                 </fmt-xref-label>
-                 <bibitem id="ref1" type="standard">
-                    <formattedref>
-                       <em>Cereals or cereal products</em>
-                       .
-                    </formattedref>
-                    <title format="text/plain">Cereals or cereal products</title>
-                    <docidentifier type="IEC">IEC 217</docidentifier>
-                    <docidentifier scope="biblio-tag">IEC 217</docidentifier>
-                    <biblio-tag>IEC 217, </biblio-tag>
-                 </bibitem>
-                 <bibitem id="ref2" type="standard">
-                    <formattedref>
-                       <em>Cereals or cereal products</em>
-                       .
-                    </formattedref>
-                    <title format="text/plain">Cereals or cereal products</title>
-                    <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                    <biblio-tag>[1] </biblio-tag>
-                 </bibitem>
-                 <bibitem id="ref3" type="standard">
-                    <formattedref>
-                       <em>Cereals or cereal products</em>
-                       .
-                    </formattedref>
-                    <title format="text/plain">Cereals or cereal products</title>
-                    <docidentifier>ABC</docidentifier>
-                    <docidentifier scope="biblio-tag">ABC</docidentifier>
-                    <biblio-tag>ABC, </biblio-tag>
-                 </bibitem>
-              </references>
-           </sections>
-           <bibliography>
-              <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
-                 <title id="_">Bibliography</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Bibliography</semx>
-                 </fmt-title>
-                 <bibitem id="ref4" type="standard">
-                    <formattedref>
-                       <em>Cereals or cereal products</em>
-                       .
-                    </formattedref>
-                    <title format="text/plain">Cereals or cereal products</title>
-                    <docidentifier type="metanorma-ordinal">[2]</docidentifier>
-                    <docidentifier type="IEC">IEC 217</docidentifier>
-                    <docidentifier scope="biblio-tag">IEC 217</docidentifier>
-                    <biblio-tag>
-                       [2]
-                       <tab/>
-                       IEC 217,
-                    </biblio-tag>
-                 </bibitem>
-                 <bibitem id="ref5" type="standard">
-                    <formattedref>
-                       <em>Cereals or cereal products</em>
-                       .
-                    </formattedref>
-                    <title format="text/plain">Cereals or cereal products</title>
-                    <docidentifier type="metanorma-ordinal">[3]</docidentifier>
-                    <biblio-tag>
-                       [3]
-                       <tab/>
-                    </biblio-tag>
-                 </bibitem>
-                 <bibitem id="ref6" type="standard">
-                    <formattedref>
-                       <em>Cereals or cereal products</em>
-                       .
-                    </formattedref>
-                    <title format="text/plain">Cereals or cereal products</title>
-                    <docidentifier type="metanorma-ordinal">[4]</docidentifier>
-                    <docidentifier>ABC</docidentifier>
-                    <docidentifier scope="biblio-tag">ABC</docidentifier>
-                    <biblio-tag>
-                       [4]
-                       <tab/>
-                       ABC,
-                    </biblio-tag>
-                 </bibitem>
-              </references>
-           </bibliography>
-        </iso-standard>
+     <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <bibdata>
+             <language current="true">en</language>
+          </bibdata>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+          </preface>
+          <sections>
+             <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+                <title id="_">Normative references</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_normative_references">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Normative references</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="_normative_references">1</semx>
+                </fmt-xref-label>
+                <bibitem id="ref1" type="standard">
+                   <formattedref>
+                      <em>Cereals or cereal products</em>
+                      .
+                   </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <docidentifier type="IEC">IEC 217</docidentifier>
+                   <docidentifier scope="biblio-tag">IEC 217</docidentifier>
+                   <biblio-tag>IEC 217, </biblio-tag>
+                </bibitem>
+                <bibitem id="ref2" type="standard">
+                   <formattedref>
+                      <em>Cereals or cereal products</em>
+                      .
+                   </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                   <biblio-tag>[1] </biblio-tag>
+                </bibitem>
+                <bibitem id="ref3" type="standard">
+                   <formattedref>
+                      <em>Cereals or cereal products</em>
+                      .
+                   </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <docidentifier>ABC</docidentifier>
+                   <docidentifier scope="biblio-tag">ABC</docidentifier>
+                   <biblio-tag>ABC, </biblio-tag>
+                </bibitem>
+             </references>
+          </sections>
+          <bibliography>
+             <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
+                <title id="_">Bibliography</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Bibliography</semx>
+                </fmt-title>
+                <bibitem id="ref4" type="standard">
+                   <formattedref>
+                      <em>Cereals or cereal products</em>
+                      .
+                   </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <docidentifier type="metanorma-ordinal">[2]</docidentifier>
+                   <docidentifier type="IEC">IEC 217</docidentifier>
+                   <docidentifier scope="biblio-tag">IEC 217</docidentifier>
+                   <biblio-tag>
+                      [2]
+                      <tab/>
+                      IEC 217,
+                   </biblio-tag>
+                </bibitem>
+                <bibitem id="ref5" type="standard">
+                   <formattedref>
+                      <em>Cereals or cereal products</em>
+                      .
+                   </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <docidentifier type="metanorma-ordinal">[3]</docidentifier>
+                   <biblio-tag>
+                      [3]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+                <bibitem id="ref6" type="standard">
+                   <formattedref>
+                      <em>Cereals or cereal products</em>
+                      .
+                   </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <docidentifier type="metanorma-ordinal">[4]</docidentifier>
+                   <docidentifier>ABC</docidentifier>
+                   <docidentifier scope="biblio-tag">ABC</docidentifier>
+                   <biblio-tag>
+                      [4]
+                      <tab/>
+                      ABC,
+                   </biblio-tag>
+                </bibitem>
+             </references>
+          </bibliography>
+       </iso-standard>
     PRESXML
     xml = Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
@@ -535,53 +535,53 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~PRESXML
         <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
-           <title id="_">Normative References</title>
-           <fmt-title depth="1">
-              <span class="fmt-caption-label">
-                 <semx element="autonum" source="_">1</semx>
-                 <span class="fmt-autonum-delim">.</span>
-              </span>
-              <span class="fmt-caption-delim">
-                 <tab/>
-              </span>
-              <semx element="title" source="_">Normative References</semx>
-           </fmt-title>
-           <fmt-xref-label>
-              <span class="fmt-element-name">Clause</span>
-              <semx element="autonum" source="_">1</semx>
-           </fmt-xref-label>
-           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-           <bibitem id="ISO712" type="standard" suppress_identifier="true">
-              <formattedref>
-                 International Organization for Standardization.
-                 <em>Cereals and cereal products</em>
-                 .
-              </formattedref>
-              <title format="text/plain">Cereals or cereal products</title>
-              <title type="main" format="text/plain">Cereals and cereal products</title>
-              <docidentifier type="ISO">ISO 712</docidentifier>
-              <contributor>
-                 <role type="publisher"/>
-                 <organization>
-                    <name>International Organization for Standardization</name>
-                 </organization>
-              </contributor>
-           </bibitem>
-           <bibitem id="ref1" suppress_identifier="true">
-              <formattedref format="application/x-isodoc+xml">
-                 <smallcap>Standard No I.C.C 167</smallcap>
-                 .
-                 <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
-                 (see
-                 <link target="http://www.icc.or.at" id="_"/>
-                 <semx element="link" source="_">
-                    <fmt-link target="http://www.icc.or.at"/>
-                 </semx>
-                 )
-              </formattedref>
-              <docidentifier type="ICC">ICC/167</docidentifier>
-           </bibitem>
-        </references>
+          <title id="_">Normative References</title>
+          <fmt-title depth="1">
+             <span class="fmt-caption-label">
+                <semx element="autonum" source="_normative_references">1</semx>
+                <span class="fmt-autonum-delim">.</span>
+             </span>
+             <span class="fmt-caption-delim">
+                <tab/>
+             </span>
+             <semx element="title" source="_">Normative References</semx>
+          </fmt-title>
+          <fmt-xref-label>
+             <span class="fmt-element-name">Clause</span>
+             <semx element="autonum" source="_normative_references">1</semx>
+          </fmt-xref-label>
+          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+          <bibitem id="ISO712" type="standard" suppress_identifier="true">
+             <formattedref>
+                International Organization for Standardization.
+                <em>Cereals and cereal products</em>
+                .
+             </formattedref>
+             <title format="text/plain">Cereals or cereal products</title>
+             <title type="main" format="text/plain">Cereals and cereal products</title>
+             <docidentifier type="ISO">ISO 712</docidentifier>
+             <contributor>
+                <role type="publisher"/>
+                <organization>
+                   <name>International Organization for Standardization</name>
+                </organization>
+             </contributor>
+          </bibitem>
+          <bibitem id="ref1" suppress_identifier="true">
+             <formattedref format="application/x-isodoc+xml">
+                <smallcap>Standard No I.C.C 167</smallcap>
+                .
+                <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
+                (see
+                <link target="http://www.icc.or.at" id="_"/>
+                <semx element="link" source="_">
+                   <fmt-link target="http://www.icc.or.at"/>
+                </semx>
+                )
+             </formattedref>
+             <docidentifier type="ICC">ICC/167</docidentifier>
+          </bibitem>
+       </references>
     PRESXML
     html = <<~OUTPUT
       #{HTML_HDR}
@@ -655,21 +655,21 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     presxml = <<~PRESXML
-       <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+        <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
           <title id="_3">Normative References</title>
           <fmt-title depth="1">
              <span class="fmt-caption-label">
-                <semx element="autonum" source="_">1</semx>
+                <semx element="autonum" source="_normative_references">1</semx>
                 <span class="fmt-autonum-delim">.</span>
              </span>
              <span class="fmt-caption-delim">
                 <tab/>
              </span>
-             <semx element="title" source="_">Normative References</semx>
+             <semx element="title" source="_3">Normative References</semx>
           </fmt-title>
           <fmt-xref-label>
              <span class="fmt-element-name">Clause</span>
-             <semx element="autonum" source="_">1</semx>
+             <semx element="autonum" source="_normative_references">1</semx>
           </fmt-xref-label>
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
           <bibitem id="ISO712" type="standard">
@@ -678,7 +678,7 @@ RSpec.describe IsoDoc do
                 <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>
                 . First edition. 2007.
                 <link target="https://www.iso.org/standard/45324.html" id="_6">https://www.iso.org/standard/45324.html</link>
-                <semx element="link" source="_">
+                <semx element="link" source="_6">
                    <fmt-link target="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</fmt-link>
                 </semx>
                 .
@@ -723,7 +723,7 @@ RSpec.describe IsoDoc do
                    <p original-id="_">Also known as JCGM 200</p>
                    <fmt-fn-label>
                       <sup>
-                         <semx element="autonum" source="_">1</semx>
+                         <semx element="autonum" source="_4">1</semx>
                       </sup>
                    </fmt-fn-label>
                 </fn>
