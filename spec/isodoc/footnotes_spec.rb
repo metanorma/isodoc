@@ -921,10 +921,10 @@ RSpec.describe IsoDoc do
                 <h1 class="ForewordTitle">Foreword</h1>
                 <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                      <a style="mso-comment-reference:SMC__8;mso-comment-date:20170101T0000">
+                      <a style="mso-comment-reference:SMC_1;mso-comment-date:20170101T0000">
                          <span style="MsoCommentReference" target="2" class="commentLink" from="A" to="C">
                             <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                               <a style="mso-comment-reference:SMC__16;mso-comment-date:20170108T0000">
+                               <a style="mso-comment-reference:SMC_2;mso-comment-date:20170108T0000">
                                   <p class="MsoNormal">
                                      <a name="A" id="A"/>
                                      <i>
@@ -932,10 +932,10 @@ RSpec.describe IsoDoc do
                                      </i>
                                      <span style="MsoCommentReference" target="3" class="commentLink" from="A1" to="C">
                                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                                           <a style="mso-comment-reference:SMC__20;mso-comment-date:20170108T0000">
+                                           <a style="mso-comment-reference:SMC_3;mso-comment-date:20170108T0000">
                                               <span style="MsoCommentReference" target="4" class="commentLink" from="A1" to="A1">
                                                  <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                                                    <a style="mso-comment-reference:SMC__23;mso-comment-date:20170108T0000">
+                                                    <a style="mso-comment-reference:SMC_4;mso-comment-date:20170108T0000">
                                                        <a>
                                                           <a name="A1" id="A1"/>
                                                        </a>
@@ -1017,7 +1017,7 @@ RSpec.describe IsoDoc do
                 </span>
                 <span style="MsoCommentReference" target="5" class="commentLink" from="C" to="C">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                      <a style="mso-comment-reference:SMC__12;mso-comment-date:20170108T0000">
+                      <a style="mso-comment-reference:SMC_5;mso-comment-date:20170108T0000">
                          <p class="MsoNormal">
                             <a name="C" id="C"/>
                             <span style="mso-comment-continuation:3">
@@ -1259,7 +1259,7 @@ RSpec.describe IsoDoc do
       </main>
     OUTPUT
     word = <<~OUTPUT
-             <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
           <div class="WordSection2">
              <p class="MsoNormal">
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
@@ -1270,7 +1270,7 @@ RSpec.describe IsoDoc do
                 <div class="ol_wrap">
                    <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="C">
                       <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
-                         <a style="mso-comment-reference:SMC__7;mso-comment-date:20170108T0000">
+                         <a style="mso-comment-reference:SMC_1;mso-comment-date:20170108T0000">
                             <li class="MsoNormal">
                                <a name="A" id="A"/>
                                <p class="MsoNormal">A.</p>

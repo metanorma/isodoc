@@ -78,13 +78,9 @@ module IsoDoc
       end
 
       def number_comments(docxml)
-        ids = docxml.xpath("//span[@style='MsoCommentReference']").map do |x|
-          x["target"]
-        end
-        map = ids.uniq.each_with_index.with_object({}) do |(id, i), m|
-          m[id] = i + 1
-        end
-        docxml.xpath("//span[@style='MsoCommentReference' or 'mso-special-character:comment']").each do |x|
+        map = comment_id_to_number(docxml)
+        docxml.xpath("//span[@style='MsoCommentReference' or " \
+        "'mso-special-character:comment']").each do |x|
           x["target"] &&= map[x["target"]]
         end
         docxml.xpath("//div[@style='mso-element:comment']").each do |x|
@@ -92,8 +88,17 @@ module IsoDoc
         end
         docxml.xpath("//a[@style]").each do |x|
           m = /mso-comment-reference:SMC_([^;]+);/.match(x["style"]) or next
-          x["style"].sub!(/mso-comment-reference:SMC_#{m[1]}/,
-                          "mso-comment-reference:SMC_#{map[m[1]]};")
+          x["style"] = x["style"].sub(/mso-comment-reference:SMC_#{m[1]}/,
+                                      "mso-comment-reference:SMC_#{map[m[1]]}")
+        end
+      end
+
+      def comment_id_to_number(docxml)
+        ids = docxml.xpath("//span[@style='MsoCommentReference']").map do |x|
+          x["target"]
+        end
+        ids.uniq.each_with_index.with_object({}) do |(id, i), m|
+          m[id] = i + 1
         end
       end
 
@@ -161,14 +166,12 @@ module IsoDoc
       end
 
       def get_comments_from_text(docxml, link_order)
-        comments = []
-        docxml.xpath("//div[@style='mso-element:comment']").each do |c|
-          next unless c["id"] && !link_order[c["id"]].nil?
-
-          comments << { text: c.remove.to_s, id: c["id"] }
+        comments = docxml.xpath("//div[@style='mso-element:comment']")
+          .each_with_object([]) do |c, m|
+          c["id"] && !link_order[c["id"]].nil? or next
+          m << { text: c.remove.to_s, id: c["id"] }
         end
-        comments.sort! { |a, b| link_order[a[:id]] <=> link_order[b[:id]] }
-        # comments
+        comments.sort { |a, b| link_order[a[:id]] <=> link_order[b[:id]] }
       end
 
       COMMENT_TARGET_XREFS1 =
