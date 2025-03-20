@@ -161,8 +161,9 @@ module IsoDoc
     end
 
     # Do not insert a comment bookmark inside another comment bookmark
-    AVOID_COMMENT_BOOKMARKS =
-      "[not(ancestor::fmt-review-start)][not(ancestor::fmt-review-end)]".freeze
+    AVOID_COMMENT_BOOKMARKS = <<~XPATH.freeze
+      [not(ancestor::xmlns:fmt-review-start)][not(ancestor::xmlns:fmt-review-end)]
+    XPATH
 
     def comment_bookmarks_locate(elem)
       from = elem.document.at("//*[@id = '#{elem['from']}']")
