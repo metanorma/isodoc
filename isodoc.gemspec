@@ -37,14 +37,12 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mn2pdf", ">= 2.13"
   spec.add_dependency "mn-requirements", "~> 0.5.0"
 
-  spec.add_dependency "nokogiri", "<= 1.16.8"
   spec.add_dependency "relaton-render", "~> 0.9.0"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
   spec.add_dependency "thread_safe"
   spec.add_dependency "twitter_cldr", ">= 6.6.0"
   spec.add_dependency "uuidtools"
-  spec.add_dependency "lutaml-model", "~> 0.6.0"
 
   spec.add_development_dependency "bigdecimal"
   spec.add_development_dependency "debug"
