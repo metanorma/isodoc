@@ -277,80 +277,141 @@ RSpec.describe IsoDoc do
       #{HTML_HDR}
                    <br/>
                                 <div id="_">
-               <h1 class="ForewordTitle">Foreword</h1>
-               <pre id="samplecode" class="sourcecode"><span class="nb">puts</span><span class="n">x</span></pre>
-               <p class="SourceTitle" style="text-align:center;">Figure 1 — Ruby <i>code</i></p>
-               <div id="A" class="sourcecode"><table class="rouge-line-table" style=""><tbody><tr>
-                  <td style="" class="rouge-gutter gl"><pre>1</pre></td>
-                  <td style="" class="rouge-code"><pre class="sourcecode">Hey</pre></td>
-                </tr><tr><td style="" class="rouge-gutter gl"><pre>2</pre></td><td style="" class="rouge-code"><pre class="sourcecode">Que?</pre></td></tr></tbody></table>
-              </div>
-               <p class="SourceTitle" style="text-align:center;">More</p>
-               <div id="B" class="sourcecode"><table class="rouge-line-table" style=""><tbody><tr><td style="" class="rouge-gutter gl"><pre>1</pre></td>
-                    <td style="" class="rouge-code"><pre class="sourcecode">Hey</pre></td>
-                  </tr><tr><td style="" class="rouge-gutter gl"><pre>2</pre></td><td style="" class="rouge-code"><pre class="sourcecode">Que?</pre></td></tr></tbody></table>
-              </div>
-               <p class="SourceTitle" style="text-align:center;">More</p>
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <pre id="samplecode" class="sourcecode">
+                      <span class="nb">puts</span>
+                      <span class="n">x</span>
+                   </pre>
+                   <p class="SourceTitle" style="text-align:center;">
+                      Figure 1 — Ruby
+                      <i>code</i>
+                   </p>
+                   <div id="A" class="sourcecode">
+                      <table class="rouge-line-table" style="">
+                         <tbody>
+                            <tr>
+                               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                                  <pre>1</pre>
+                               </td>
+                               <td style="" class="rouge-code">
+                                  <pre class="sourcecode">Hey</pre>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                                  <pre>2</pre>
+                               </td>
+                               <td style="" class="rouge-code">
+                                  <pre class="sourcecode">Que?</pre>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                   <p class="SourceTitle" style="text-align:center;">More</p>
+                   <div id="B" class="sourcecode">
+                      <table class="rouge-line-table" style="">
+                         <tbody>
+                            <tr>
+                               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                                  <pre>1</pre>
+                               </td>
+                               <td style="" class="rouge-code">
+                                  <pre class="sourcecode">Hey</pre>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                                  <pre>2</pre>
+                               </td>
+                               <td style="" class="rouge-code">
+                                  <pre class="sourcecode">Que?</pre>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                   <p class="SourceTitle" style="text-align:center;">More</p>
+                </div>
              </div>
-           </div>
-         </body>
+          </body>
        </html>
     OUTPUT
 
     doc = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-         <div class="WordSection2">
-           <p class="MsoNormal">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div><a name="_" id="_"/>
-             <h1 class="ForewordTitle">Foreword</h1>
-             <p class="Sourcecode" style="page-break-after:avoid;"><a name="samplecode" id="samplecode"/><span class="nb">puts</span><span class="n">x</span></p>
-             <p class="SourceTitle" style="text-align:center;">Figure 1 — Ruby <i>code</i></p>
-             <div align="center" class="table_container" style="page-break-after:avoid;">
-               <a name="A" id="A"/>
-               <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
-                 <tbody>
-                   <tr>
-                     <td style="page-break-after:avoid;" class="rouge-gutter gl"><pre style="page-break-after:avoid">1</pre></td>
-                     <td style="page-break-after:avoid;" class="rouge-code"><p class="Sourcecode" style="page-break-after:avoid">Hey</p></td>
-                   </tr>
-                   <tr>
-                     <td style="page-break-after:auto;" class="rouge-gutter gl"><pre style="page-break-after:auto">2</pre></td>
-                     <td style="page-break-after:auto;" class="rouge-code"><p class="Sourcecode" style="page-break-after:auto">Que?</p></td>
-                   </tr>
-                 </tbody>
-               </table>
+       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+          <div class="WordSection2">
+             <p class="MsoNormal">
+                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+             </p>
+             <div>
+                <a name="_" id="_"/>
+                <h1 class="ForewordTitle">Foreword</h1>
+                <p class="Sourcecode" style="page-break-after:avoid;">
+                   <a name="samplecode" id="samplecode"/>
+                   <span class="nb">puts</span>
+                   <span class="n">x</span>
+                </p>
+                <p class="SourceTitle" style="text-align:center;">
+                   Figure 1 — Ruby
+                   <i>code</i>
+                </p>
+                <div align="center" class="table_container" style="page-break-after:avoid;">
+                   <a name="A" id="A"/>
+                   <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+                      <tbody>
+                         <tr>
+                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                               <pre style="page-break-after:avoid">1</pre>
+                            </td>
+                            <td style="page-break-after:avoid;" class="rouge-code">
+                               <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
+                               <pre style="page-break-after:auto">2</pre>
+                            </td>
+                            <td style="page-break-after:auto;" class="rouge-code">
+                               <p class="Sourcecode" style="page-break-after:auto">Que?</p>
+                            </td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </div>
+                <p class="SourceTitle" style="text-align:center;">More</p>
+                <div align="center" class="table_container" style="page-break-after:avoid;">
+                   <a name="B" id="B"/>
+                   <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+                      <tbody>
+                         <tr>
+                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                               <pre style="page-break-after:avoid">1</pre>
+                            </td>
+                            <td style="page-break-after:avoid;" class="rouge-code">
+                               <p class="Sourcecode" style="page-break-after:avoid">Hey</p>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
+                               <pre style="page-break-after:auto">2</pre>
+                            </td>
+                            <td style="page-break-after:auto;" class="rouge-code">
+                               <p class="Sourcecode" style="page-break-after:auto">Que?</p>
+                            </td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </div>
+                <p class="SourceTitle" style="text-align:center;">More</p>
              </div>
-             <p class="SourceTitle" style="text-align:center;">More</p>
-             <div align="center" class="table_container" style="page-break-after:avoid;">
-               <a name="B" id="B"/>
-               <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
-                 <tbody>
-                   <tr>
-                     <td style="page-break-after:avoid;" class="rouge-gutter gl"><pre style="page-break-after:avoid">1</pre></td>
-                     <td style="page-break-after:avoid;" class="rouge-code"><p class="Sourcecode" style="page-break-after:avoid">Hey</p></td>
-                   </tr>
-                   <tr>
-                     <td style="page-break-after:auto;" class="rouge-gutter gl">
-                       <pre style="page-break-after:auto">2</pre>
-                     </td>
-                     <td style="page-break-after:auto;" class="rouge-code">
-                       <p class="Sourcecode" style="page-break-after:auto">Que?</p>
-                     </td>
-                   </tr>
-                 </tbody>
-               </table>
-             </div>
-             <p class="SourceTitle" style="text-align:center;">More</p>
-           </div>
-           <p class="MsoNormal"> </p>
-         </div>
-         <p class="MsoNormal">
-           <br clear="all" class="section"/>
-         </p>
-         <div class="WordSection3"/>
-         <div style="mso-element:footnote-list"/>
+             <p class="MsoNormal"> </p>
+          </div>
+          <p class="MsoNormal">
+             <br clear="all" class="section"/>
+          </p>
+          <div class="WordSection3"/>
+          <div style="mso-element:footnote-list"/>
        </body>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
@@ -519,7 +580,9 @@ RSpec.describe IsoDoc do
                <pre id="samplecode" class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
                <p class="SourceTitle" style="text-align:center;">Figure 1 — XML code</p>
                <div id="samplecode1" class="sourcecode"><table class="rouge-line-table" style=""><tbody><tr>
-                <td style="" class="rouge-gutter gl"><pre>1</pre></td><td style="" class="rouge-code"><pre class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
+               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                <pre>1</pre></td>
+                <td style="" class="rouge-code"><pre class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
               </div>
                <p class="SourceTitle" style="text-align:center;">Figure 2 — XML code</p>
              </div>
@@ -921,39 +984,87 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
                    <br/>
-             <div id="_">
-               <h1 class="ForewordTitle">Foreword</h1>
-               <div id="_" class="sourcecode"><table class="rouge-line-table" style=""><tbody><tr><td style="" class="rouge-gutter gl"><pre>1</pre></td><td style="" class="rouge-code"><pre class="sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </pre>
-                      </td></tr><tr><td style="" class="rouge-gutter gl"><pre>2</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   %w{a b c}.each do |x|</pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>3</pre></td><td style="" class="rouge-code"><pre class="sourcecode">     puts x <span class="c"> &lt;3&gt;</span> </pre></td></tr><tr><td style="" class="rouge-gutter gl"><pre>4</pre></td><td style="" class="rouge-code"><pre class="sourcecode">   end</pre></td></tr></tbody></table></div>
-                              <div class="annotation">
-                              <div class="figdl">
-          <p class="ListTitle">Key</p>
-          <dl>
-            <dt id="A">
-              <span class="c">1</span>
-            </dt>
-            <dd>
-              <p>This is <i>one</i> callout</p>
-            </dd>
-            <dt id="B">
-              <span class="c">2</span>
-            </dt>
-            <dd>
-              <p>This is another callout</p>
-            </dd>
-            <dt id="C">
-              <span class="c">3</span>
-            </dt>
-            <dd>
-              <p>This is yet another callout</p>
-            </dd>
-          </dl>
-          </div>
-        </div>
-               <p class="SourceTitle" style="text-align:center;">Figure 1</p>
+                <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div id="_" class="sourcecode">
+                      <table class="rouge-line-table" style="">
+                         <tbody>
+                            <tr>
+                               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                                  <pre>1</pre>
+                               </td>
+                               <td style="" class="rouge-code">
+                                  <pre class="sourcecode">
+                                     puts "Hello, world."
+                                     <span class="c"> &lt;1&gt;</span>
+                                      
+                                     <span class="c"> &lt;2&gt;</span>
+                                  </pre>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                                  <pre>2</pre>
+                               </td>
+                               <td style="" class="rouge-code">
+                                  <pre class="sourcecode">   %w{a b c}.each do |x|</pre>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                                  <pre>3</pre>
+                               </td>
+                               <td style="" class="rouge-code">
+                                  <pre class="sourcecode">
+                                          puts x
+                                     <span class="c"> &lt;3&gt;</span>
+                                  </pre>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                                  <pre>4</pre>
+                               </td>
+                               <td style="" class="rouge-code">
+                                  <pre class="sourcecode">   end</pre>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                   <div class="annotation">
+                      <div class="figdl">
+                         <p class="ListTitle">Key</p>
+                         <dl>
+                            <dt id="A">
+                               <span class="c">1</span>
+                            </dt>
+                            <dd>
+                               <p>
+                                  This is
+                                  <i>one</i>
+                                  callout
+                               </p>
+                            </dd>
+                            <dt id="B">
+                               <span class="c">2</span>
+                            </dt>
+                            <dd>
+                               <p>This is another callout</p>
+                            </dd>
+                            <dt id="C">
+                               <span class="c">3</span>
+                            </dt>
+                            <dd>
+                               <p>This is yet another callout</p>
+                            </dd>
+                         </dl>
+                      </div>
+                   </div>
+                   <p class="SourceTitle" style="text-align:center;">Figure 1</p>
+                </div>
              </div>
-           </div>
-         </body>
+          </body>
        </html>
     OUTPUT
     doc = <<~OUTPUT
@@ -961,61 +1072,108 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-            <div id="_">
-              <h1 class="ForewordTitle">Foreword</h1>
-              <p id="_" class="Sourcecode"><div align="center" class="table_container"><table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;"><tbody><tr><td style="page-break-after:avoid;" class="rouge-gutter gl"><pre>1</pre></td>
-                <td style="page-break-after:avoid;" class="rouge-code"><p class="Sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span>  <span class="c"> &lt;2&gt;</span> </p>
-                     </td></tr><tr><td style="page-break-after:avoid;" class="rouge-gutter gl"><pre>2</pre></td><td style="page-break-after:avoid;" class="rouge-code"><p class="Sourcecode">   %w{a b c}.each do |x|</p></td></tr><tr><td style="page-break-after:avoid;" class="rouge-gutter gl"><pre>3</pre></td><td style="page-break-after:avoid;" class="rouge-code"><p class="Sourcecode">     puts x <span class="c"> &lt;3&gt;</span> </p></td></tr><tr><td style="page-break-after:auto;" class="rouge-gutter gl"><pre>4</pre></td><td style="page-break-after:auto;" class="rouge-code"><p class="Sourcecode">   end</p></td></tr></tbody></table></div>
+                <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <p id="_" class="Sourcecode">
+                      <div align="center" class="table_container">
+                         <table class="rouge-line-table" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
+                            <tbody>
+                               <tr>
+                                  <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                                     <pre>1</pre>
+                                  </td>
+                                  <td style="page-break-after:avoid;" class="rouge-code">
+                                     <p class="Sourcecode">
+                                        puts "Hello, world."
+                                        <span class="c"> &lt;1&gt;</span>
+                                         
+                                        <span class="c"> &lt;2&gt;</span>
+                                     </p>
+                                  </td>
+                               </tr>
+                               <tr>
+                                  <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                                     <pre>2</pre>
+                                  </td>
+                                  <td style="page-break-after:avoid;" class="rouge-code">
+                                     <p class="Sourcecode">   %w{a b c}.each do |x|</p>
+                                  </td>
+                               </tr>
+                               <tr>
+                                  <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:avoid;" class="rouge-gutter gl">
+                                     <pre>3</pre>
+                                  </td>
+                                  <td style="page-break-after:avoid;" class="rouge-code">
+                                     <p class="Sourcecode">
+                                             puts x
+                                        <span class="c"> &lt;3&gt;</span>
+                                     </p>
+                                  </td>
+                               </tr>
+                               <tr>
+                                  <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;page-break-after:auto;" class="rouge-gutter gl">
+                                     <pre>4</pre>
+                                  </td>
+                                  <td style="page-break-after:auto;" class="rouge-code">
+                                     <p class="Sourcecode">   end</p>
+                                  </td>
+                               </tr>
+                            </tbody>
+                         </table>
+                      </div>
+                   </p>
+                   <div class="annotation">
+                      <p class="ListTitle">Key</p>
+                      <table class="dl">
+                         <tr>
+                            <td valign="top" align="left">
+                               <p align="left" style="margin-left:0pt;text-align:left;">
+                                  <span class="c">1</span>
+                               </p>
+                            </td>
+                            <td valign="top">
+                               <p>
+                                  This is
+                                  <i>one</i>
+                                  callout
+                               </p>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td valign="top" align="left">
+                               <p align="left" style="margin-left:0pt;text-align:left;">
+                                  <span class="c">2</span>
+                               </p>
+                            </td>
+                            <td valign="top">
+                               <p>This is another callout</p>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td valign="top" align="left">
+                               <p align="left" style="margin-left:0pt;text-align:left;">
+                                  <span class="c">3</span>
+                               </p>
+                            </td>
+                            <td valign="top">
+                               <p>This is yet another callout</p>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td colspan="2"/>
+                         </tr>
+                      </table>
+                   </div>
+                   <p class="SourceTitle" style="text-align:center;">Figure 1</p>
+                </div>
+                <p> </p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
              </p>
-                     <div class="annotation">
-          <p class="ListTitle">Key</p>
-          <table class="dl">
-            <tr>
-              <td valign="top" align="left">
-                <p align="left" style="margin-left:0pt;text-align:left;">
-                  <span class="c">1</span>
-                </p>
-              </td>
-              <td valign="top">
-                <p>This is <i>one</i> callout</p>
-              </td>
-            </tr>
-            <tr>
-              <td valign="top" align="left">
-                <p align="left" style="margin-left:0pt;text-align:left;">
-                  <span class="c">2</span>
-                </p>
-              </td>
-              <td valign="top">
-                <p>This is another callout</p>
-              </td>
-            </tr>
-            <tr>
-              <td valign="top" align="left">
-                <p align="left" style="margin-left:0pt;text-align:left;">
-                  <span class="c">3</span>
-                </p>
-              </td>
-              <td valign="top">
-                <p>This is yet another callout</p>
-              </td>
-            </tr>
-          <tr>
-                    <td colspan="2"/>
-                 </tr>
-          </table>
-        </div>
-              <p class="SourceTitle" style="text-align:center;">Figure 1</p>
-            </div>
-            <p> </p>
-          </div>
-          <p class="section-break">
-            <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection3">
-          </div>
-        </body>
-      </html>
+             <div class="WordSection3"/>
+          </body>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
