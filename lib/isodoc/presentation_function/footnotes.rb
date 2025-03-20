@@ -153,40 +153,41 @@ module IsoDoc
     end
 
     def comment_bookmarks(elem)
-      from = elem.document.at("//*[@id = '#{elem['from']}']")
-      to = elem.document.at("//*[@id = '#{elem['to']}']") || from
+      from, to = comment_bookmarks_locate(elem)
       new_from = comment_bookmark_start(from, elem)
       new_to = comment_bookmark_end(to, elem)
       elem["from"] = new_from["id"]
       elem["to"] = new_to["id"]
     end
 
+    def comment_bookmarks_locate(elem)
+      from = elem.document.at("//*[@id = '#{elem['from']}']")
+      f = from.at(".//text()") and from = f
+      to = elem.document.at("//*[@id = '#{elem['to']}']") || from
+      f = to.at(".//text()[last()]") and to = f
+      [from, to]
+    end
+
     def comment_to_bookmark_attrs(elem, bookmark, start: true)
       bookmark["target"] = elem["id"]
       if start then bookmark["end"] = elem["to"]
       else bookmark["start"] = elem["from"] end
-        %w(author date).each { |k| bookmark[k] = elem[k] }
+      %w(author date).each { |k| bookmark[k] = elem[k] }
     end
 
     def comment_bookmark_start(from, elem)
-      ret = if from.at(".//text()")
-              from.at(".//text()").before("<fmt-review-start/>").previous
-            else from.before("<fmt-review-start/>").previous
-            end
+      ret = from.before("<fmt-review-start/>").previous
       ret["id"] = "_#{UUIDTools::UUID.random_create}"
-      ret["source"] = from["id"]
+      ret["source"] = elem["from"]
       comment_to_bookmark_attrs(elem, ret, start: true)
       ret << comment_bookmark_start_label(elem)
       ret
     end
 
     def comment_bookmark_end(to, elem)
-      ret = if to.at(".//text()[last()]")
-              to.at(".//text()[last()]").after("<fmt-review-end/>").next
-            else
-              to.after("<fmt-review-end/>").next
-            end
+      ret = to.after("<fmt-review-end/>").next
       ret["id"] = "_#{UUIDTools::UUID.random_create}"
+      ret["source"] = elem["to"]
       comment_to_bookmark_attrs(elem, ret, start: false)
       ret << comment_bookmark_end_label(elem)
       ret

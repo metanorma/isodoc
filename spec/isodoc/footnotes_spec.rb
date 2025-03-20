@@ -767,7 +767,7 @@ RSpec.describe IsoDoc do
                    <fmt-review-start id="_21" source="A1" target="_20" end="C" author="" date="20170108T0000"/>
                    <fmt-review-start id="_24" source="A1" target="_23" end="A1" author="" date="20170108T0000"/>
                    <bookmark id="A1"/>
-                   <fmt-review-end id="_25" target="_23" start="A1" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_25" source="A1" target="_23" start="A1" author="" date="20170108T0000"/>
                    B
                    <em>
                       <strong>C.</strong>
@@ -777,7 +777,7 @@ RSpec.describe IsoDoc do
                    <em>
                       <strong>
                          A.
-                         <fmt-review-end id="_10" target="_8" start="A" author="" date="20170101T0000"/>
+                         <fmt-review-end id="_10" source="B" target="_8" start="A" author="" date="20170101T0000"/>
                       </strong>
                    </em>
                    B
@@ -795,10 +795,10 @@ RSpec.describe IsoDoc do
                    <fmt-review-start id="_13" source="C" target="_12" end="C" author="" date="20170108T0000"/>
                    <fmt-review-start id="_31" source="C" target="_30" end="" author="" date="20170108T0000"/>
                    C.
-                   <fmt-review-end id="_32" target="_30" start="C" author="" date="20170108T0000"/>
-                   <fmt-review-end id="_22" target="_20" start="A1" author="" date="20170108T0000"/>
-                   <fmt-review-end id="_18" target="_16" start="A" author="" date="20170108T0000"/>
-                   <fmt-review-end id="_14" target="_12" start="C" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_32" source="" target="_30" start="C" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_22" source="C" target="_20" start="A1" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_18" source="C" target="_16" start="A" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_14" source="C" target="_12" start="C" author="" date="20170108T0000"/>
                 </p>
              </introduction>
           </preface>
@@ -847,7 +847,7 @@ RSpec.describe IsoDoc do
                 <p original-id="_">
                    <fmt-review-start id="_27" source="B1" target="_26" end="B1" author="" date="20170108T0000"/>
                    Fifth note.
-                   <fmt-review-end id="_28" target="_26" start="B1" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_28" source="B1" target="_26" start="B1" author="" date="20170108T0000"/>
                 </p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_24" to="_25" id="_23">
@@ -1229,54 +1229,54 @@ RSpec.describe IsoDoc do
     INPUT
     presxml = <<~INPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-            <clause type="toc" id="_3" displayorder="1">
-               <fmt-title depth="1">Table of contents</fmt-title>
-            </clause>
-            <foreword displayorder="2" id="_1">
-               <title id="_5">Foreword</title>
-               <fmt-title depth="1">
-                  <semx element="title" source="_5">Foreword</semx>
-               </fmt-title>
-               <ol type="alphabet">
-                  <li id="A" label="">
-                     <p>
-                        <fmt-review-start id="_8" source="A" target="_7" end="C" author="" date="20170108T0000"/>
-                        A.
-                     </p>
-                     <p>A1</p>
-                  </li>
-                  <li id="B" label="">B.</li>
-                  <ul>
-                     <li>
-                        <p>C.</p>
-                        <p id="C">
-                           C1
-                           <fmt-review-end id="_9" target="_7" start="A" author="" date="20170108T0000"/>
-                        </p>
-                     </li>
-                     <li id="D">D.</li>
-                  </ul>
-               </ol>
-            </foreword>
-            <introduction displayorder="3" id="_2">
-               <title id="_6">Introduction</title>
-               <fmt-title depth="1">
-                  <semx element="title" source="_6">Introduction</semx>
-               </fmt-title>
-            </introduction>
-         </preface>
-         <review-container>
-            <review reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
-               <p original-id="_">Second note.</p>
-            </review>
-            <fmt-review-body reviewer="ISO" id="_7" date="20170108T0000" from="_8" to="_9">
-               <semx element="review" source="_">
-                  <p id="_">Second note.</p>
-               </semx>
-            </fmt-review-body>
-         </review-container>
-      </iso-standard>
+          <preface>
+             <clause type="toc" id="_3" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2" id="_1">
+                <title id="_5">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_5">Foreword</semx>
+                </fmt-title>
+                <ol type="alphabet">
+                   <li id="A" label="">
+                      <p>
+                         <fmt-review-start id="_8" source="A" target="_7" end="C" author="" date="20170108T0000"/>
+                         A.
+                      </p>
+                      <p>A1</p>
+                   </li>
+                   <li id="B" label="">B.</li>
+                   <ul>
+                      <li>
+                         <p>C.</p>
+                         <p id="C">
+                            C1
+                            <fmt-review-end id="_9" source="C" target="_7" start="A" author="" date="20170108T0000"/>
+                         </p>
+                      </li>
+                      <li id="D">D.</li>
+                   </ul>
+                </ol>
+             </foreword>
+             <introduction displayorder="3" id="_2">
+                <title id="_6">Introduction</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_6">Introduction</semx>
+                </fmt-title>
+             </introduction>
+          </preface>
+          <review-container>
+             <review reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
+                <p original-id="_">Second note.</p>
+             </review>
+             <fmt-review-body reviewer="ISO" id="_7" date="20170108T0000" from="_8" to="_9">
+                <semx element="review" source="_">
+                   <p id="_">Second note.</p>
+                </semx>
+             </fmt-review-body>
+          </review-container>
+       </iso-standard>
     INPUT
     html = <<~OUTPUT
       <main class="main-section">
