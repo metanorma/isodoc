@@ -106,6 +106,7 @@ module IsoDoc
 
       def make_tr_attr(cell, row, totalrows, header, bordered)
         style = cell.name == "th" ? "font-weight:bold;" : ""
+        cell["style"] and style += "#{cell['style']};"
         cell["align"] and style += "text-align:#{cell['align']};"
         cell["valign"] and style += "vertical-align:#{cell['valign']};"
         rowmax = cell["rowspan"] ? row + cell["rowspan"].to_i - 1 : row
@@ -125,10 +126,14 @@ module IsoDoc
         STYLE
       end
 
-      def tr_parse(node, out, ord, totalrows, header)
+      def table_bordered?(node)
         c = node.parent.parent["class"]
-        bordered = %w(modspec).include?(c) || !c
-        out.tr do |r|
+        %w(modspec).include?(c) || !c
+      end
+
+      def tr_parse(node, out, ord, totalrows, header)
+        bordered = table_bordered?(node)
+        out.tr **attr_code(style: node["style"]) do |r|
           node.elements.each do |td|
             attrs = make_tr_attr(td, ord, totalrows - 1, header, bordered)
             r.send td.name, **attr_code(attrs) do |entry|

@@ -16,12 +16,12 @@ RSpec.describe IsoDoc do
           <col width="10%"/>
           </colgroup>
           <thead>
-            <tr>
+            <tr style="background-color: red;">
               <td rowspan="2" align="left">Description</td>
               <td colspan="4" align="center">Rice sample</td>
             </tr>
             <tr>
-              <td valign="top" align="left">Arborio</td>
+              <td valign="top" align="left" style="background-color: green;">Arborio</td>
               <td valign="middle" align="center">Drago<fn reference="a">
           <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
         </fn></td>
@@ -170,12 +170,12 @@ RSpec.describe IsoDoc do
                       <col width="10%"/>
                    </colgroup>
                    <thead>
-                      <tr>
+                      <tr style="background-color: red;">
                          <td rowspan="2" align="left">Description</td>
                          <td colspan="4" align="center">Rice sample</td>
                       </tr>
                       <tr>
-                         <td valign="top" align="left">Arborio</td>
+                         <td valign="top" align="left" style="background-color: green;">Arborio</td>
                          <td valign="middle" align="center">
                             Drago
                             <fn reference="a" id="_" target="_">
@@ -449,12 +449,12 @@ RSpec.describe IsoDoc do
                          <col style="width: 10%;"/>
                       </colgroup>
                       <thead>
-                         <tr>
+                         <tr style="background-color: red;">
                             <td rowspan="2" style="text-align:left;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">Description</td>
                             <td colspan="4" style="text-align:center;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="colgroup">Rice sample</td>
                          </tr>
                          <tr>
-                            <td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
+                            <td style="background-color: green;;text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Arborio</td>
                             <td style="text-align:center;vertical-align:middle;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">
                                Drago
                                <a href="#tableD-1a" class="TableFootnoteRef">a</a>
@@ -610,12 +610,12 @@ RSpec.describe IsoDoc do
                      <col width="10%"/>
                    </colgroup>
                    <thead>
-                     <tr>
+                     <tr style="background-color: red;">
                        <td rowspan="2" align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Description</td>
                        <td colspan="4" align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;page-break-after:avoid;">Rice sample</td>
                      </tr>
                      <tr>
-                       <td valign="top" align="left" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Arborio</td>
+                       <td valign="top" align="left" style="background-color: green;;border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Arborio</td>
                        <td valign="middle" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
                            Drago
                            <a href="#tableD-1a" class="TableFootnoteRef">a</a>
