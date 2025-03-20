@@ -160,11 +160,15 @@ module IsoDoc
       elem["to"] = new_to["id"]
     end
 
+    # Do not insert a comment bookmark inside another comment bookmark
+    AVOID_COMMENT_BOOKMARKS =
+      "[not(ancestor::fmt-review-start)][not(ancestor::fmt-review-end)]".freeze
+
     def comment_bookmarks_locate(elem)
       from = elem.document.at("//*[@id = '#{elem['from']}']")
-      f = from.at(".//text()") and from = f
+      f = from.at(".//text()#{AVOID_COMMENT_BOOKMARKS}") and from = f
       to = elem.document.at("//*[@id = '#{elem['to']}']") || from
-      f = to.at(".//text()[last()]") and to = f
+      f = to.at(".//text()[last()]#{AVOID_COMMENT_BOOKMARKS}") and to = f
       [from, to]
     end
 
