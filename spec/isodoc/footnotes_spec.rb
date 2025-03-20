@@ -741,127 +741,138 @@ RSpec.describe IsoDoc do
         <review reviewer="ISO" date="20170108T0000" from="A1" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0a">Fourth note.</p></review>
          <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0b">Fifth note.</p></review>
           <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0c">Sixth note.</p></review>
+        <review reviewer="ISO" date="20170108T0000" from="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Seventh note.</p></review>
       </review-container>
         </iso-standard>
     INPUT
     presxml = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-         <preface>
-            <clause type="toc" id="_3" displayorder="1">
-               <fmt-title depth="1">Table of contents</fmt-title>
-            </clause>
-            <foreword displayorder="2" id="_1">
-               <title id="_5">Foreword</title>
-               <fmt-title depth="1">
-                  <semx element="title" source="_5">Foreword</semx>
-               </fmt-title>
-               <p id="A">
-                  <em>
-                     <strong>
-                        <fmt-review-start id="_9" source="A" target="_8" end="B" author="" date="20170101T0000"/>
-                        <fmt-review-start id="_17" source="A" target="_16" end="C" author="" date="20170108T0000"/>
-                        A.
-                     </strong>
-                  </em>
-                  <fmt-review-start id="_21" source="A1" target="_20" end="C" author="" date="20170108T0000"/>
-                  <fmt-review-start id="_24" source="A1" target="_23" end="A1" author="" date="20170108T0000"/>
-                  <bookmark id="A1"/>
-                  <fmt-review-end id="_25" target="_23" start="A1" author="" date="20170108T0000"/>
-                  B
-                  <em>
-                     <strong>C.</strong>
-                  </em>
-               </p>
-               <p id="B">
-                  <em>
-                     <strong>
-                        A.
-                        <fmt-review-end id="_10" target="_8" start="A" author="" date="20170101T0000"/>
-                     </strong>
-                  </em>
-                  B
-                  <em>
-                     <strong>C.</strong>
-                  </em>
-               </p>
-            </foreword>
-            <introduction displayorder="3" id="_2">
-               <title id="_6">Introduction</title>
-               <fmt-title depth="1">
-                  <semx element="title" source="_6">Introduction</semx>
-               </fmt-title>
-               <p id="C">
-                  <fmt-review-start id="_13" source="C" target="_12" end="C" author="" date="20170108T0000"/>
-                  C.
-                  <fmt-review-end id="_22" target="_20" start="A1" author="" date="20170108T0000"/>
-                  <fmt-review-end id="_18" target="_16" start="A" author="" date="20170108T0000"/>
-                  <fmt-review-end id="_14" target="_12" start="C" author="" date="20170108T0000"/>
-               </p>
-            </introduction>
-         </preface>
-         <review-container>
-            <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_7">
-               <p original-id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-               <p original-id="_">
-                  For further information on the Foreword, see
-                  <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
-               </p>
-            </review>
-            <fmt-review-body reviewer="ISO" date="20170101T0000" from="_9" to="_10" id="_8">
-               <semx element="review" source="_7">
-                  <p id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-                  <p id="_">
-                     For further information on the Foreword, see
-                     <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
-                  </p>
-               </semx>
-            </fmt-review-body>
-            <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_11">
-               <p original-id="_">Second note.</p>
-            </review>
-            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_13" to="_14" id="_12">
-               <semx element="review" source="_11">
-                  <p id="_">Second note.</p>
-               </semx>
-            </fmt-review-body>
-            <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_15">
-               <p original-id="_">Third note.</p>
-            </review>
-            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_17" to="_18" id="_16">
-               <semx element="review" source="_15">
-                  <p id="_">Third note.</p>
-               </semx>
-            </fmt-review-body>
-            <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_19">
-               <p original-id="_">Fourth note.</p>
-            </review>
-            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_21" to="_22" id="_20">
-               <semx element="review" source="_19">
-                  <p id="_">Fourth note.</p>
-               </semx>
-            </fmt-review-body>
-            <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1">
-               <p original-id="_">
-                  <fmt-review-start id="_27" source="B1" target="_26" end="B1" author="" date="20170108T0000"/>
-                  Fifth note.
-                  <fmt-review-end id="_28" target="_26" start="B1" author="" date="20170108T0000"/>
-               </p>
-            </review>
-            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_24" to="_25" id="_23">
-               <semx element="review" source="B1">
-                  <p id="_">Fifth note.</p>
-               </semx>
-            </fmt-review-body>
-            <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2">
-               <p original-id="_">Sixth note.</p>
-            </review>
-            <fmt-review-body reviewer="ISO" date="20170108T0000" from="_27" to="_28" id="_26">
-               <semx element="review" source="B2">
-                  <p id="_">Sixth note.</p>
-               </semx>
-            </fmt-review-body>
-         </review-container>
-      </iso-standard>
+          <preface>
+             <clause type="toc" id="_3" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+             <foreword displayorder="2" id="_1">
+                <title id="_5">Foreword</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_5">Foreword</semx>
+                </fmt-title>
+                <p id="A">
+                   <em>
+                      <strong>
+                         <fmt-review-start id="_9" source="A" target="_8" end="B" author="" date="20170101T0000"/>
+                         <fmt-review-start id="_17" source="A" target="_16" end="C" author="" date="20170108T0000"/>
+                         A.
+                      </strong>
+                   </em>
+                   <fmt-review-start id="_21" source="A1" target="_20" end="C" author="" date="20170108T0000"/>
+                   <fmt-review-start id="_24" source="A1" target="_23" end="A1" author="" date="20170108T0000"/>
+                   <bookmark id="A1"/>
+                   <fmt-review-end id="_25" target="_23" start="A1" author="" date="20170108T0000"/>
+                   B
+                   <em>
+                      <strong>C.</strong>
+                   </em>
+                </p>
+                <p id="B">
+                   <em>
+                      <strong>
+                         A.
+                         <fmt-review-end id="_10" target="_8" start="A" author="" date="20170101T0000"/>
+                      </strong>
+                   </em>
+                   B
+                   <em>
+                      <strong>C.</strong>
+                   </em>
+                </p>
+             </foreword>
+             <introduction displayorder="3" id="_2">
+                <title id="_6">Introduction</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_6">Introduction</semx>
+                </fmt-title>
+                <p id="C">
+                   <fmt-review-start id="_13" source="C" target="_12" end="C" author="" date="20170108T0000"/>
+                   <fmt-review-start id="_31" source="C" target="_30" end="" author="" date="20170108T0000"/>
+                   C.
+                   <fmt-review-end id="_32" target="_30" start="C" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_22" target="_20" start="A1" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_18" target="_16" start="A" author="" date="20170108T0000"/>
+                   <fmt-review-end id="_14" target="_12" start="C" author="" date="20170108T0000"/>
+                </p>
+             </introduction>
+          </preface>
+          <review-container>
+             <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_7">
+                <p original-id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
+                <p original-id="_">
+                   For further information on the Foreword, see
+                   <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
+                </p>
+             </review>
+             <fmt-review-body reviewer="ISO" date="20170101T0000" from="_9" to="_10" id="_8">
+                <semx element="review" source="_7">
+                   <p id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
+                   <p id="_">
+                      For further information on the Foreword, see
+                      <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
+                   </p>
+                </semx>
+             </fmt-review-body>
+             <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_11">
+                <p original-id="_">Second note.</p>
+             </review>
+             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_13" to="_14" id="_12">
+                <semx element="review" source="_11">
+                   <p id="_">Second note.</p>
+                </semx>
+             </fmt-review-body>
+             <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_15">
+                <p original-id="_">Third note.</p>
+             </review>
+             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_17" to="_18" id="_16">
+                <semx element="review" source="_15">
+                   <p id="_">Third note.</p>
+                </semx>
+             </fmt-review-body>
+             <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_19">
+                <p original-id="_">Fourth note.</p>
+             </review>
+             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_21" to="_22" id="_20">
+                <semx element="review" source="_19">
+                   <p id="_">Fourth note.</p>
+                </semx>
+             </fmt-review-body>
+             <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1">
+                <p original-id="_">
+                   <fmt-review-start id="_27" source="B1" target="_26" end="B1" author="" date="20170108T0000"/>
+                   Fifth note.
+                   <fmt-review-end id="_28" target="_26" start="B1" author="" date="20170108T0000"/>
+                </p>
+             </review>
+             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_24" to="_25" id="_23">
+                <semx element="review" source="B1">
+                   <p id="_">Fifth note.</p>
+                </semx>
+             </fmt-review-body>
+             <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2">
+                <p original-id="_">Sixth note.</p>
+             </review>
+             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_27" to="_28" id="_26">
+                <semx element="review" source="B2">
+                   <p id="_">Sixth note.</p>
+                </semx>
+             </fmt-review-body>
+             <review reviewer="ISO" date="20170108T0000" from="C" id="_29">
+                <p original-id="_">Seventh note.</p>
+             </review>
+             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_31" id="_30" to="_32">
+                <semx element="review" source="_29">
+                   <p id="_">Seventh note.</p>
+                </semx>
+             </fmt-review-body>
+          </review-container>
+       </iso-standard>
     INPUT
     html = <<~OUTPUT
       <main class="main-section">
@@ -1018,68 +1029,124 @@ RSpec.describe IsoDoc do
                 <span style="MsoCommentReference" target="5" class="commentLink" from="C" to="C">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                       <a style="mso-comment-reference:SMC_5;mso-comment-date:20170108T0000">
-                         <p class="MsoNormal">
-                            <a name="C" id="C"/>
-                            <span style="mso-comment-continuation:3">
-                               <span style="mso-comment-continuation:2"/>
+                         <span style="MsoCommentReference" target="6" class="commentLink" from="C" to="">
+                            <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                               <a style="mso-comment-reference:SMC_6;mso-comment-date:20170108T0000">
+                                  <p class="MsoNormal">
+                                     <a name="C" id="C"/>
+                                     <span style="mso-comment-continuation:3">
+                                        <span style="mso-comment-continuation:2"/>
+                                     </span>
+                                     <span style="mso-comment-continuation:3">
+                                        <span style="mso-comment-continuation:2"/>
+                                     </span>
+                                     <span style="mso-comment-continuation:3">
+                                        <span style="mso-comment-continuation:2">C.</span>
+                                     </span>
+                                  </p>
+                               </a>
+                               <span style="mso-comment-continuation:6">
+                                  <span style="mso-special-character:comment" target="6"/>
+                               </span>
                             </span>
-                            <span style="mso-comment-continuation:3">
-                               <span style="mso-comment-continuation:2">C.</span>
-                            </span>
-                         </p>
+                         </span>
                       </a>
-                      <span style="mso-special-character:comment" target="5"/>
+                      <span style="mso-comment-continuation:6">
+                         <span style="mso-special-character:comment" target="5"/>
+                      </span>
                    </span>
                 </span>
              </div>
-             <p class="MsoNormal"> </p>
+             <p class="MsoNormal">
+                <span style="mso-comment-continuation:6"> </span>
+             </p>
           </div>
           <p class="MsoNormal">
-             <br clear="all" class="section"/>
+             <span style="mso-comment-continuation:6">
+                <br clear="all" class="section"/>
+             </span>
           </p>
           <div class="WordSection3">
              <div style="mso-element:comment-list">
                 <div style="mso-element:comment">
                    <a name="4" id="4"/>
-                   <span style="mso-comment-author:&quot;ISO&quot;"/>
-                   <p class="MsoCommentText">
-                      <a name="_" id="_"/>
+                   <span style="mso-comment-continuation:6">
+                      <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   </span>
+                   <span style="mso-comment-continuation:6">
                       <span style="MsoCommentReference">
                          <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                             <span style="mso-special-character:comment"/>
                          </span>
                       </span>
-                      Fifth note.
+                   </span>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="mso-comment-continuation:6">Fifth note.</span>
                    </p>
                 </div>
                 <div style="mso-element:comment">
                    <a name="3" id="3"/>
-                   <span style="mso-comment-author:&quot;ISO&quot;"/>
-                   <p class="MsoCommentText">
-                      <a name="_" id="_"/>
+                   <span style="mso-comment-continuation:6">
+                      <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   </span>
+                   <span style="mso-comment-continuation:6">
                       <span style="MsoCommentReference">
                          <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                             <span style="mso-special-character:comment"/>
                          </span>
                       </span>
-                      Fourth note.
+                   </span>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="mso-comment-continuation:6">Fourth note.</span>
                    </p>
                 </div>
                 <div style="mso-element:comment">
                    <a name="2" id="2"/>
-                   <span style="mso-comment-author:&quot;ISO&quot;"/>
-                   <p class="MsoCommentText">
-                      <a name="_" id="_"/>
+                   <span style="mso-comment-continuation:6">
+                      <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   </span>
+                   <span style="mso-comment-continuation:6">
                       <span style="MsoCommentReference">
                          <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                             <span style="mso-special-character:comment"/>
                          </span>
                       </span>
-                      Third note.
+                   </span>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="mso-comment-continuation:6">Third note.</span>
                    </p>
                 </div>
                 <div style="mso-element:comment">
                    <a name="1" id="1"/>
+                   <span style="mso-comment-continuation:6">
+                      <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   </span>
+                   <span style="mso-comment-continuation:6">
+                      <span style="MsoCommentReference">
+                         <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
+                            <span style="mso-special-character:comment"/>
+                         </span>
+                      </span>
+                   </span>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="mso-comment-continuation:6">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</span>
+                   </p>
+                   <span style="mso-comment-continuation:6">
+           </span>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="mso-comment-continuation:6">For further information on the Foreword, see </span>
+                      <span style="mso-comment-continuation:6">
+                         <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
+                      </span>
+                   </p>
+                </div>
+                <div style="mso-element:comment">
+                   <a name="6" id="6"/>
                    <span style="mso-comment-author:&quot;ISO&quot;"/>
                    <p class="MsoCommentText">
                       <a name="_" id="_"/>
@@ -1088,25 +1155,24 @@ RSpec.describe IsoDoc do
                             <span style="mso-special-character:comment"/>
                          </span>
                       </span>
-                      A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.
-                   </p>
-                   <p class="MsoCommentText">
-                      <a name="_" id="_"/>
-                      For further information on the Foreword, see
-                      <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
+                      Seventh note.
                    </p>
                 </div>
                 <div style="mso-element:comment">
                    <a name="5" id="5"/>
-                   <span style="mso-comment-author:&quot;ISO&quot;"/>
-                   <p class="MsoCommentText">
-                      <a name="_" id="_"/>
+                   <span style="mso-comment-continuation:6">
+                      <span style="mso-comment-author:&quot;ISO&quot;"/>
+                   </span>
+                   <span style="mso-comment-continuation:6">
                       <span style="MsoCommentReference">
                          <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
                             <span style="mso-special-character:comment"/>
                          </span>
                       </span>
-                      Second note.
+                   </span>
+                   <p class="MsoCommentText">
+                      <a name="_" id="_"/>
+                      <span style="mso-comment-continuation:6">Second note.</span>
                    </p>
                 </div>
              </div>

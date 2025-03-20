@@ -154,7 +154,7 @@ module IsoDoc
 
     def comment_bookmarks(elem)
       from = elem.document.at("//*[@id = '#{elem['from']}']")
-      to = elem.document.at("//*[@id = '#{elem['to']}']")
+      to = elem.document.at("//*[@id = '#{elem['to']}']") || from
       new_from = comment_bookmark_start(from, elem)
       new_to = comment_bookmark_end(to, elem)
       elem["from"] = new_from["id"]
