@@ -32,6 +32,7 @@ module IsoDoc
       def update_table_fn_body_ref(fnote, table, reference)
         fnbody = table.at(ns(".//fmt-fn-body[@id = '#{fnote['target']}']")) or return
         fnbody["reference"] = reference
+        fnbody["is_table"] = true
         sup = fnbody.at(ns(".//fmt-fn-label/sup")) and sup.replace(sup.children)
         fnbody.xpath(ns(".//fmt-fn-label")).each do |s|
           s["class"] = "TableFootnoteRef"
@@ -41,11 +42,14 @@ module IsoDoc
         end
       end
 
-      def footnote_parse(node, out)
-        return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
+      def table_footnote?(node)
+        (@in_table || @in_figure) &&
           !node.ancestors.map(&:name).include?("fmt-name")
+      end
 
-        fn = node["reference"] || UUIDTools::UUID.random_create.to_s
+      def footnote_parse(node, out)
+        table_footnote?(node) and return table_footnote_parse(node, out)
+        fn = node["target"] # || UUIDTools::UUID.random_create.to_s
         attrs = { class: "FootnoteRef", href: "#fn:#{fn}" }
         f = node.at(ns("./fmt-fn-label"))
         out.a **attrs do |a|
