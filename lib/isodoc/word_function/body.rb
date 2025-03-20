@@ -52,7 +52,7 @@ module IsoDoc
         body.div class: "WordSection3" do |div3|
           content(div3, docxml, ns(self.class::MAIN_ELEMENTS))
           footnotes docxml, div3
-          comments div3
+          comments docxml, div3
         end
       end
 

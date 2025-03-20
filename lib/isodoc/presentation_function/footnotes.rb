@@ -136,5 +136,74 @@ module IsoDoc
         elem.at(ns(".//dl"))&.children&.first ||
         elem.add_child("<dl> </dl>").first.children.first
     end
+
+    def comments(docxml)
+      docxml.xpath(ns("//review")).each do |c|
+        c1 = comment_body(c)
+        comment_bookmarks(c1)
+      end
+    end
+
+    def comment_body(elem)
+      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      c1 = elem.after("<fmt-review-body/>").next
+      elem.attributes.each_key { |k| c1[k] = elem[k] }
+      c1["id"] = "_#{UUIDTools::UUID.random_create}"
+      c1 << semx_fmt_dup(elem)
+    end
+
+    def comment_bookmarks(elem)
+      from, to = comment_bookmarks_locate(elem)
+      new_from = comment_bookmark_start(from, elem)
+      new_to = comment_bookmark_end(to, elem)
+      elem["from"] = new_from["id"]
+      elem["to"] = new_to["id"]
+    end
+
+    # Do not insert a comment bookmark inside another comment bookmark
+    AVOID_COMMENT_BOOKMARKS = <<~XPATH.freeze
+      [not(ancestor::xmlns:fmt-review-start)][not(ancestor::xmlns:fmt-review-end)]
+    XPATH
+
+    def comment_bookmarks_locate(elem)
+      from = elem.document.at("//*[@id = '#{elem['from']}']")
+      f = from.at(".//text()#{AVOID_COMMENT_BOOKMARKS}") and from = f
+      to = elem.document.at("//*[@id = '#{elem['to']}']") || from
+      f = to.at(".//text()[last()]#{AVOID_COMMENT_BOOKMARKS}") and to = f
+      [from, to]
+    end
+
+    def comment_to_bookmark_attrs(elem, bookmark, start: true)
+      bookmark["target"] = elem["id"]
+      if start then bookmark["end"] = elem["to"]
+      else bookmark["start"] = elem["from"] end
+      %w(author date).each { |k| bookmark[k] = elem[k] }
+    end
+
+    def comment_bookmark_start(from, elem)
+      ret = from.before("<fmt-review-start/>").previous
+      ret["id"] = "_#{UUIDTools::UUID.random_create}"
+      ret["source"] = elem["from"]
+      comment_to_bookmark_attrs(elem, ret, start: true)
+      ret << comment_bookmark_start_label(elem)
+      ret
+    end
+
+    def comment_bookmark_end(to, elem)
+      ret = to.after("<fmt-review-end/>").next
+      ret["id"] = "_#{UUIDTools::UUID.random_create}"
+      ret["source"] = elem["to"]
+      comment_to_bookmark_attrs(elem, ret, start: false)
+      ret << comment_bookmark_end_label(elem)
+      ret
+    end
+
+    def comment_bookmark_start_label(_elem)
+      ""
+    end
+
+    def comment_bookmark_end_label(_elem)
+      ""
+    end
   end
 end

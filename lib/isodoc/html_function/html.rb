@@ -110,6 +110,13 @@ module IsoDoc
         else super
         end
       end
+
+      def in_comment
+        @in_comment
+      end
+
+      def comments(docxml, div); end
+      def comment_cleanup(docxml); end
     end
   end
 end
