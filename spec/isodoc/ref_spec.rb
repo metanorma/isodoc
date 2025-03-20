@@ -2,6 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc do
   it "processes Relaton bibliographies" do
+    mock_uuid_increment
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <bibdata>
@@ -553,7 +554,7 @@ RSpec.describe IsoDoc do
                    </p>
                    <p id="ISO16634" class="NormRef">
                       ISO 16634:-- (all parts)
-                      <a class="FootnoteRef" href="#fn:1">
+                      <a class="FootnoteRef" href="#fn:_10">
                          <sup>1</sup>
                       </a>
                       ,
@@ -609,7 +610,7 @@ RSpec.describe IsoDoc do
                    </div>
                    <p id="ISO3696" class="Biblio">
                       [5]  ISO 3696
-                      <a class="FootnoteRef" href="#fn:2">
+                      <a class="FootnoteRef" href="#fn:_12">
                          <sup>2</sup>
                       </a>
                       ,
@@ -646,12 +647,12 @@ RSpec.describe IsoDoc do
                       .
                    </p>
                 </div>
-                <aside id="fn:1" class="footnote">
+                <aside id="fn:_10" class="footnote">
                    <p>
                       Under preparation. (Stage at the time of publication ISO/DIS 16634)
                    </p>
                 </aside>
-                <aside id="fn:2" class="footnote">
+                <aside id="fn:_12" class="footnote">
                    <p>
                       Under preparation. (Stage at the time of publication ISO/DIS 3696)
                    </p>
@@ -667,7 +668,7 @@ RSpec.describe IsoDoc do
             <p class="MsoNormal">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div><a name="_" id="_"/>
+            <div><a name="_1" id="_"/>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="MsoNormal">
                   <a name="_" id="_"/>
@@ -1680,6 +1681,7 @@ RSpec.describe IsoDoc do
   end
 
   it "renders mixed bibitems and bibliographic subclauses" do
+    mock_uuid_increment
     input = <<~INPUT
          <iso-standard xmlns="http://riboseinc.com/isoxml">
              <bibdata>
@@ -1953,14 +1955,14 @@ RSpec.describe IsoDoc do
                <h1>1.  Normative References</h1>
                <p id="_">Text</p>
                <div>
-                 <p id="iso122" class="Biblio"><b>A</b>., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <p id="iso122" class="Biblio"><b>A</b>., XYZ<a class="FootnoteRef" href="#fn:_10"><sup>1</sup></a>,
                  <i>Standard</i>
                </p>
                  <p id="_">More text</p>
                </div>
                <div>
                  <h2 class="Section3">1.1.  Normative 1</h2>
-                 <p id="iso123" class="Biblio"><b>A</b>., XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <p id="iso123" class="Biblio"><b>A</b>., XYZ<a class="FootnoteRef" href="#fn:_10"><sup>1</sup></a>,
                  <i>Standard</i>
                </p>
                </div>
@@ -1970,19 +1972,19 @@ RSpec.describe IsoDoc do
                <h1 class="Section3">Bibliography</h1>
                <p id="_">Text</p>
                <div>
-                 <p id="iso124" class="Biblio"><b>A</b>.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <p id="iso124" class="Biblio"><b>A</b>.  XYZ<a class="FootnoteRef" href="#fn:_10"><sup>1</sup></a>,
                  <i>Standard</i>
                </p>
                  <p id="_">More text</p>
                </div>
                <div>
                  <h2 class="Section3">Bibliography 1</h2>
-                 <p id="iso125" class="Biblio"><b>A</b>.  XYZ<a class="FootnoteRef" href="#fn:1"><sup>1</sup></a>,
+                 <p id="iso125" class="Biblio"><b>A</b>.  XYZ<a class="FootnoteRef" href="#fn:_10"><sup>1</sup></a>,
                  <i>Standard</i>
                </p>
                </div>
              </div>
-             <aside id="fn:1" class="footnote">
+             <aside id="fn:_10" class="footnote">
                          <p id="_">
                hello
             </p>

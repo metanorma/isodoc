@@ -3,6 +3,7 @@ require "fileutils"
 
 RSpec.describe IsoDoc do
   it "processes figures" do
+    mock_uuid_increment
     input = <<~INPUT
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface><foreword id="fwd">
@@ -402,7 +403,7 @@ RSpec.describe IsoDoc do
                          Figure 1 — Split-it-right
                          <i>sample</i>
                          divider
-                         <a class="FootnoteRef" href="#fn:1">
+                         <a class="FootnoteRef" href="#fn:_7">
                             <sup>1</sup>
                          </a>
                       </p>
@@ -438,7 +439,7 @@ RSpec.describe IsoDoc do
                       <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
                    </div>
                 </div>
-                <aside id="fn:1" class="footnote">
+                <aside id="fn:_7" class="footnote">
                    <p>X</p>
                 </aside>
              </div>
@@ -519,7 +520,7 @@ RSpec.describe IsoDoc do
                          <i>sample</i>
                          divider
                          <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                            <a class="FootnoteRef" epub:type="footnote" href="#ftn1">1</a>
+                            <a class="FootnoteRef" epub:type="footnote" href="#ftn_7">1</a>
                          </span>
                       </p>
                    </div>
@@ -566,7 +567,7 @@ RSpec.describe IsoDoc do
                       <p class="FigureTitle" style="text-align:center;">Figure A.1</p>
                    </div>
                 </div>
-                <aside id="ftn1">
+                <aside id="ftn_7">
                    <p>X</p>
                 </aside>
              </div>
