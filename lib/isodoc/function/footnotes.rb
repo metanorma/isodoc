@@ -56,6 +56,8 @@ module IsoDoc
           children_parse(f, a)
         end
       end
+
+      def fmt_review_body_parse(node, out); end
     end
   end
 end
