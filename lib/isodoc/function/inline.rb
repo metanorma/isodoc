@@ -213,6 +213,7 @@ module IsoDoc
       def svgmap_parse(node, out); end
       def amend_parse(node, out); end
       def semx_sourcecode_parse(node, out); end
+      def review_note_parse(node, out); end
 
       def fmt_name_parse(node, out)
         children_parse(node, out)
@@ -235,6 +236,14 @@ module IsoDoc
       end
 
       def fmt_footnote_container_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_review_start_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_review_end_parse(node, out)
         children_parse(node, out)
       end
     end

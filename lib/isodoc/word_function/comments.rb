@@ -1,15 +1,18 @@
 module IsoDoc
   module WordFunction
     module Comments
-      def comments(div)
-        return if @comments.empty?
-
-        div.div style: "mso-element:comment-list" do |div1|
-          @comments.each { |fn| div1.parent << fn }
+      def comments(docxml, out)
+        c = docxml.xpath(ns("//fmt-review-body"))
+        c.empty? and return
+        out.div style: "mso-element:comment-list" do |div|
+          @in_comment = true
+          c.each { |fn| parse(fn, div) }
+          @in_comment = false
         end
       end
 
-      def review_note_parse(node, out)
+      # KILL
+      def review_note_parsex(node, out)
         fn = @comments.length + 1
         make_comment_link(out, fn, node)
         @in_comment = true
@@ -19,10 +22,15 @@ module IsoDoc
 
       def comment_link_attrs(fnote, node)
         { style: "MsoCommentReference", target: fnote,
-          class: "commentLink", from: node["from"],
-          to: node["to"] }
+          class: "commentLink", from: node["source"],
+          to: node["end"] }
       end
 
+      def fmt_review_start_parse(node, out)
+        make_comment_link(out, node["target"], node)
+      end
+
+      # TODO: CONSOLIDATE
       # add in from and to links to move the comment into place
       def make_comment_link(out, fnote, node)
         out.span(**comment_link_attrs(fnote, node)) do |s1|
@@ -43,6 +51,7 @@ module IsoDoc
         end
       end
 
+      # KILL
       def make_comment_text(node, fnote)
         noko do |xml|
           xml.div style: "mso-element:comment", id: fnote do |div|
@@ -53,10 +62,44 @@ module IsoDoc
         end.join("\n")
       end
 
+      def fmt_review_body_parse(node, out)
+        out.div style: "mso-element:comment", id: node["id"] do |div|
+          div.span style: %{mso-comment-author:"#{node['reviewer']}"}
+          make_comment_target(div)
+          node.children.each { |n| parse(n, div) }
+        end
+      end
+
       def comment_cleanup(docxml)
+        number_comments(docxml)
         move_comment_link_to_from(docxml)
         reorder_comments_by_comment_link(docxml)
         embed_comment_in_comment_list(docxml)
+      end
+
+      def number_comments(docxml)
+        map = comment_id_to_number(docxml)
+        docxml.xpath("//span[@style='MsoCommentReference' or " \
+        "'mso-special-character:comment']").each do |x|
+          x["target"] &&= map[x["target"]]
+        end
+        docxml.xpath("//div[@style='mso-element:comment']").each do |x|
+          x["id"] = map[x["id"]]
+        end
+        docxml.xpath("//a[@style]").each do |x|
+          m = /mso-comment-reference:SMC_([^;]+);/.match(x["style"]) or next
+          x["style"] = x["style"].sub(/mso-comment-reference:SMC_#{m[1]}/,
+                                      "mso-comment-reference:SMC_#{map[m[1]]}")
+        end
+      end
+
+      def comment_id_to_number(docxml)
+        ids = docxml.xpath("//span[@style='MsoCommentReference']").map do |x|
+          x["target"]
+        end
+        ids.uniq.each_with_index.with_object({}) do |(id, i), m|
+          m[id] = i + 1
+        end
       end
 
       COMMENT_IN_COMMENT_LIST1 =
@@ -123,14 +166,12 @@ module IsoDoc
       end
 
       def get_comments_from_text(docxml, link_order)
-        comments = []
-        docxml.xpath("//div[@style='mso-element:comment']").each do |c|
-          next unless c["id"] && !link_order[c["id"]].nil?
-
-          comments << { text: c.remove.to_s, id: c["id"] }
+        comments = docxml.xpath("//div[@style='mso-element:comment']")
+          .each_with_object([]) do |c, m|
+          c["id"] && !link_order[c["id"]].nil? or next
+          m << { text: c.remove.to_s, id: c["id"] }
         end
-        comments.sort! { |a, b| link_order[a[:id]] <=> link_order[b[:id]] }
-        # comments
+        comments.sort { |a, b| link_order[a[:id]] <=> link_order[b[:id]] }
       end
 
       COMMENT_TARGET_XREFS1 =

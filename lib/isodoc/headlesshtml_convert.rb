@@ -1,10 +1,8 @@
-require_relative "html_function/comments"
 require_relative "html_function/html"
 require "fileutils"
 
 module IsoDoc
   class HeadlessHtmlConvert < ::IsoDoc::Convert
-    include HtmlFunction::Comments
     include HtmlFunction::Html
 
     def tmpimagedir_suffix

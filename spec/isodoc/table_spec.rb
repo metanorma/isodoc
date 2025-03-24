@@ -117,24 +117,24 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-             <clause type="toc" id="_" displayorder="1">
+             <clause type="toc" id="_1" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
-                <title id="_">Foreword</title>
+                <title id="_4">Foreword</title>
                 <fmt-title depth="1">
-                   <semx element="title" source="_">Foreword</semx>
+                   <semx element="title" source="_4">Foreword</semx>
                 </fmt-title>
                 <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <name id="_">
+                   <name id="_11">
                       Repeatability and reproducibility of
                       <em>husked</em>
                       rice yield
-                      <fn reference="1" original-reference="1" target="_" original-id="_">
+                      <fn reference="1" original-reference="1" target="_7" original-id="_6">
                          <p>X</p>
                          <fmt-fn-label>
                             <sup>
-                               <semx element="autonum" source="_">1</semx>
+                               <semx element="autonum" source="_6">1</semx>
                             </sup>
                          </fmt-fn-label>
                       </fn>
@@ -145,15 +145,15 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="tableD-1">1</semx>
                       </span>
                       <span class="fmt-caption-delim"> — </span>
-                      <semx element="name" source="_">
+                      <semx element="name" source="_11">
                          Repeatability and reproducibility of
                          <em>husked</em>
                          rice yield
-                         <fn reference="1" original-reference="1" id="_" target="_">
+                         <fn reference="1" original-reference="1" id="_6" target="_7">
                             <p>X</p>
                             <fmt-fn-label>
                                <sup>
-                                  <semx element="autonum" source="_">1</semx>
+                                  <semx element="autonum" source="_6">1</semx>
                                </sup>
                             </fmt-fn-label>
                          </fn>
@@ -179,22 +179,22 @@ RSpec.describe IsoDoc do
                          <td valign="top" align="left" style="background-color: green;">Arborio</td>
                          <td valign="middle" align="center">
                             Drago
-                            <fn reference="a" id="_" target="_">
+                            <fn reference="a" id="_8" target="_9">
                                <p original-id="_">Parboiled rice.</p>
                                <fmt-fn-label>
                                   <sup>
-                                     <semx element="autonum" source="_">a</semx>
+                                     <semx element="autonum" source="_8">a</semx>
                                   </sup>
                                </fmt-fn-label>
                             </fn>
                          </td>
                          <td valign="bottom" align="center">
                             Balilla
-                            <fn reference="a" id="_" target="_">
+                            <fn reference="a" id="_10" target="_9">
                                <p id="_">Parboiled rice.</p>
                                <fmt-fn-label>
                                   <sup>
-                                     <semx element="autonum" source="_">a</semx>
+                                     <semx element="autonum" source="_10">a</semx>
                                   </sup>
                                </fmt-fn-label>
                             </fn>
@@ -222,14 +222,14 @@ RSpec.describe IsoDoc do
                       <tr>
                          <td align="left">
                             Reproducibility limit,
-                            <stem type="AsciiMath" id="_">R</stem>
+                            <stem type="AsciiMath" id="_19">R</stem>
                             <fmt-stem type="AsciiMath">
-                               <semx element="stem" source="_">R</semx>
+                               <semx element="stem" source="_19">R</semx>
                             </fmt-stem>
                             (= 2,83
-                            <stem type="AsciiMath" id="_">s_R</stem>
+                            <stem type="AsciiMath" id="_20">s_R</stem>
                             <fmt-stem type="AsciiMath">
-                               <semx element="stem" source="_">s_R</semx>
+                               <semx element="stem" source="_20">s_R</semx>
                             </fmt-stem>
                             )
                          </td>
@@ -245,36 +245,36 @@ RSpec.describe IsoDoc do
                       </tr>
                    </tfoot>
                    <dl key="true">
-                      <name id="_">Key</name>
+                      <name id="_16">Key</name>
                       <fmt-name>
-                         <semx element="name" source="_">Key</semx>
+                         <semx element="name" source="_16">Key</semx>
                       </fmt-name>
                       <dt>Drago</dt>
                       <dd>A type of rice</dd>
                    </dl>
                    <source status="generalisation">
                       [SOURCE:
-                      <origin bibitemid="ISO712" type="inline" citeas="" id="_">
+                      <origin bibitemid="ISO712" type="inline" citeas="" id="_17">
                          <localityStack>
                             <locality type="section">
                                <referenceFrom>1</referenceFrom>
                             </locality>
                          </localityStack>
                       </origin>
-                      <semx element="origin" source="_">
+                      <semx element="origin" source="_17">
                          <fmt-xref type="inline" target="ISO712">ISO 712, Section 1</fmt-xref>
                       </semx>
                       —
-                      <semx element="modification" source="_">with adjustments</semx>
+                      <semx element="modification" source="_15">with adjustments</semx>
                       ;
-                      <origin bibitemid="ISO712" type="inline" citeas="" id="_">
+                      <origin bibitemid="ISO712" type="inline" citeas="" id="_18">
                          <localityStack>
                             <locality type="section">
                                <referenceFrom>2</referenceFrom>
                             </locality>
                          </localityStack>
                       </origin>
-                      <semx element="origin" source="_">
+                      <semx element="origin" source="_18">
                          <fmt-xref type="inline" target="ISO712">ISO 712, Section 2</fmt-xref>
                       </semx>
                       ]
@@ -291,12 +291,12 @@ RSpec.describe IsoDoc do
                       <p>This is a table about rice</p>
                    </note>
                    <fmt-footnote-container>
-                      <fmt-fn-body id="_" target="_" reference="a">
-                         <semx element="fn" source="_">
+                      <fmt-fn-body id="_9" target="_8" reference="a">
+                         <semx element="fn" source="_8">
                             <p id="_">
                                <fmt-fn-label>
                                   <sup>
-                                     <semx element="autonum" source="_">a</semx>
+                                     <semx element="autonum" source="_8">a</semx>
                                   </sup>
                                   <span class="fmt-caption-delim">
                                      <tab/>
@@ -318,21 +318,21 @@ RSpec.describe IsoDoc do
              </foreword>
           </preface>
           <sections>
-             <references id="_" obligation="informative" normative="true" displayorder="3">
-                <title id="_">Normative References</title>
+             <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
+                <title id="_5">Normative References</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
-                      <semx element="autonum" source="_">1</semx>
+                      <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_">Normative References</semx>
+                   <semx element="title" source="_5">Normative References</semx>
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="_">1</semx>
+                   <semx element="autonum" source="_normative_references">1</semx>
                 </fmt-xref-label>
                 <bibitem id="ISO712" type="standard">
                    <formattedref>
@@ -406,12 +406,12 @@ RSpec.describe IsoDoc do
           <bibliography>
          </bibliography>
           <fmt-footnote-container>
-             <fmt-fn-body id="_" target="_" reference="1">
-                <semx element="fn" source="_">
+             <fmt-fn-body id="_7" target="_6" reference="1">
+                <semx element="fn" source="_6">
                    <p>
                       <fmt-fn-label>
                          <sup>
-                            <semx element="autonum" source="_">1</semx>
+                            <semx element="autonum" source="_6">1</semx>
                          </sup>
                          <span class="fmt-caption-delim">
                             <tab/>
@@ -753,12 +753,16 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     expect(Xml::C14n.format(strip_guid(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
+    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(Xml::C14n.format(strip_guid(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true)
-      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
+    output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+    .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(Xml::C14n.format(strip_guid(output.to_xml)
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 

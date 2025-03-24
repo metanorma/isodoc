@@ -904,10 +904,16 @@ RSpec.describe IsoDoc do
           </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(word)
+    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(Xml::C14n.format(strip_guid(output.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
+      output = Nokogiri::XML(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(Xml::C14n.format(strip_guid(output.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes blockquotes" do
@@ -1319,7 +1325,7 @@ RSpec.describe IsoDoc do
              </permission>
           </annex>
           <bibliography>
-             <references id="_" obligation="informative" normative="false" displayorder="4">
+             <references id="_bibliography" obligation="informative" normative="false" displayorder="4">
                 <title id="_">Bibliography</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Bibliography</semx>
@@ -2158,8 +2164,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", rfc: "rfc" }))
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true))))
+      output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))
+    output.at("//div[@class='TOC']")["id"] = "_"
+    expect(Xml::C14n.format(strip_guid(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
 
   end
@@ -2176,7 +2184,7 @@ RSpec.describe IsoDoc do
       </foreword></preface>
       </iso-standard>
     INPUT
-    output = <<~OUTPUT
+    html = <<~OUTPUT
       #{HTML_HDR}
                 <br/>
                 <div id="_">
@@ -2186,9 +2194,12 @@ RSpec.describe IsoDoc do
             </body>
           </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
-     .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(output)
-  end
+    output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    .convert("test", input, true))
+  output.at("//div[@class='TOC']")["id"] = "_"
+  expect(Xml::C14n.format(strip_guid(output.to_xml)))
+    .to be_equivalent_to Xml::C14n.format(html)
+end
 
   it "processes toc" do
     input = <<~INPUT
