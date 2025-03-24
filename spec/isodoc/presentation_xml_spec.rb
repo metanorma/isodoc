@@ -397,7 +397,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-           <figure id="B" autonum="1">
+       <figure id="B" autonum="1">
           <fmt-name>
              <span class="fmt-caption-label">
                 <span class="fmt-element-name">Figure</span>
@@ -408,29 +408,39 @@ RSpec.describe IsoDoc do
              <span class="fmt-element-name">Figure</span>
              <semx element="autonum" source="B">1</semx>
           </fmt-xref-label>
-               <image src="spec/assets/odf.svg" mimetype="image/svg+xml" alt="1"><emf src="spec/assets/odf.emf"/></image>
-               <image src="" mimetype="image/svg+xml" alt="2">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
-      <g transform="translate(-0.0000, -0.0000)">
-      <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
-      <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
-      <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
-      </g>
-      </g>
-      </svg>
-      <emf src="data:image/emf;base64"/></image>
-      <image src="" mimetype="image/svg+xml" alt="3"  height="" width=""><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="#009" r="45" cx="50" cy="50"/><path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/></svg><emf src="data:image/emf;base64"/></image>
-               <image src="" mimetype="image/svg+xml" alt="4">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
-      <g transform="translate(-0.0000, -0.0000)">
-      <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
-      <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
-      <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
-      </g>
-      </g>
-      </svg>
-      <emf src="data:application/x-msmetafile;base64"/></image>
-             </figure>
+          <image src="spec/assets/odf.svg" mimetype="image/svg+xml" alt="1">
+             <emf src="spec/assets/odf.emf"/>
+          </image>
+          <image src="" mimetype="image/svg+xml" alt="2">
+             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000" preserveaspectratio="xMidYMin slice">
+                <g transform="translate(-0.0000, -0.0000)">
+                   <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
+                      <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
+                      <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
+                   </g>
+                </g>
+             </svg>
+             <emf src="data:image/emf;base64"/>
+          </image>
+          <image src="" mimetype="image/svg+xml" alt="3" height="" width="">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                <circle fill="#009" r="45" cx="50" cy="50"/>
+                <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+             </svg>
+             <emf src="data:image/emf;base64"/>
+          </image>
+          <image src="" mimetype="image/svg+xml" alt="4">
+             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000" preserveaspectratio="xMidYMin slice">
+                <g transform="translate(-0.0000, -0.0000)">
+                   <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
+                      <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
+                      <path d="M 413.0000,325.0000 L 975.0000,325.0000 C 1119.0000,493.0000 1124.0000,739.0000 987.0000,913.0000 C 850.0000,1086.0000 609.0000,1139.0000 413.0000,1038.0000 L 413.0000,713.0000 L 738.0000,713.0000 L 738.0000,538.0000 L 413.0000,538.0000 Z " fill="#FFFFFF" stroke="none"/>
+                   </g>
+                </g>
+             </svg>
+             <emf src="data:application/x-msmetafile;base64"/>
+          </image>
+       </figure>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
@@ -457,7 +467,7 @@ RSpec.describe IsoDoc do
         </fmt-xref-label>
              <image src="spec/assets/odf.svg" mimetype="image/svg+xml" alt="1"/>
              <image src="" mimetype="image/svg+xml" alt="2">
-               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
+               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000" preserveaspectratio="xMidYMin slice">
                  <g transform="translate(-0.0000, -0.0000)">
                    <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
                      <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
@@ -468,13 +478,13 @@ RSpec.describe IsoDoc do
                <emf src="data:image/emf;base64"/>
              </image>
              <image src="" mimetype="image/svg+xml" alt="3">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
                  <circle fill="#009" r="45" cx="50" cy="50"/>
                  <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
                </svg>
              </image>
              <image src="" mimetype="image/svg+xml" alt="4">
-               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000">
+               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1275.0000" height="1275.0000" preserveaspectratio="xMidYMin slice">
                  <g transform="translate(-0.0000, -0.0000)">
                    <g transform="matrix(1.0000 0.0000 0.0000 1.0000 0.0000 0.0000)">
                      <path d="M 1188.0000,625.0000 C 1188.0000,936.0000 936.0000,1188.0000 625.0000,1188.0000 C 314.0000,1188.0000 63.0000,936.0000 63.0000,625.0000 C 63.0000,314.0000 314.0000,63.0000 625.0000,63.0000 C 936.0000,63.0000 1188.0000,314.0000 1188.0000,625.0000 Z " fill="#000099" stroke="none"/>
@@ -495,7 +505,7 @@ RSpec.describe IsoDoc do
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
             '"data:application/x-msmetafile;base64"'))))
-      .to be_equivalent_to (output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "converts EPS to SVG files" do
@@ -732,7 +742,7 @@ RSpec.describe IsoDoc do
       .at("//xmlns:figure[@id = 'B']").to_xml
       .gsub(%r{src="[^"]+?\.emf"}, 'src="_.emf"')
       .gsub(%r{src="[^"]+?\.svg"}, 'src="_.svg"'))))
-      .to be_equivalent_to (output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "converts file EPS to SVG" do

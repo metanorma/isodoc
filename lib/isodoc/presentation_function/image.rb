@@ -10,13 +10,17 @@ module IsoDoc
       docxml.xpath(ns("//figure")).each { |f| figure1(f) }
       docxml.xpath(ns("//svgmap")).each { |s| svgmap_extract(s) }
       imageconvert(docxml)
+      docxml.xpath("//m:svg", SVG).each { |f| svg_scale(f) }
     end
 
     def svg_wrap(elem)
-      return if elem.parent.name == "image"
-
+      elem.parent.name == "image" and return
       elem.wrap("<image src='' mimetype='image/svg+xml' height='auto' " \
                 "width='auto'></image>")
+    end
+
+    def svg_scale(elem)
+      elem["preserveaspectratio"] = "xMidYMin slice"
     end
 
     def svgmap_extract(elem)
