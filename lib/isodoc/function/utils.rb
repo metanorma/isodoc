@@ -1,4 +1,5 @@
 require "metanorma-utils"
+require 'htmlentities/encoder'
 require_relative "../../nokogiri/xml/node"
 
 module IsoDoc
@@ -84,8 +85,24 @@ module IsoDoc
         "local-name() = 'introduction' or local-name() = 'terms' or " \
         "local-name() = 'clause' or local-name() = 'references']/@id".freeze
 
-      def get_clause_id(node)
+      CLAUSE_TAGS = %w[annex definitions acknowledgements term appendix foreword
+                  introduction terms clause references].freeze
+
+      def get_clause_id(node, cache = nil)
+        return lookup_clause_id(node, cache) if cache
+
         node.xpath(CLAUSE_ANCESTOR)&.last&.text || nil
+      end
+
+      def lookup_clause_id(node, cache)
+        return nil unless node
+        return cache[node.object_id] if cache.key?(node.object_id)
+
+        if CLAUSE_TAGS.include?(node.name) && node["id"]
+          return cache[node.object_id] = node["id"]
+        end
+
+        cache[node.object_id] = lookup_clause_id(node.parent, cache)
       end
 
       NOTE_CONTAINER_ANCESTOR =
@@ -228,9 +245,10 @@ module IsoDoc
 
       def cleanup_entities(text, is_xml: true)
         c = HTMLEntities.new
+        e = HTMLEntities::Encoder.new("xhtml1", [:hexadecimal])
         if is_xml
           text.split(/([<>])/).each_slice(4).map do |a|
-            a[0] = c.encode(c.decode(a[0]), :hexadecimal)
+            a[0] = e.encode(c.decode(a[0]))
             a
           end.join
         else

@@ -69,7 +69,8 @@ module IsoDoc
         ret[:xref] =
           anchor_struct_xref(opt[:unnumb] == "true" ? "(??)" : lbl, node,
                              elem_name)
-        ret[:container] = @klass.get_clause_id(node) if opt[:container]
+        @clause_id_cache ||= {}
+        ret[:container] = @klass.get_clause_id(node, @clause_id_cache) if opt[:container]
         ret[:value] = stripsemx(lbl)
         ret
       end
