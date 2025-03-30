@@ -243,9 +243,15 @@ module IsoDoc
 
     def eref_url(id)
       b = eref_url_prep(id) or return nil
+      uris = b.xpath(ns("./uri[@type]"))
       %i(attachment citation).each do |x|
-        u = b.at(ns("./uri[@type = '#{x}'][@language = '#{@lang}']")) ||
-          b.at(ns("./uri[@type = '#{x}']")) and return { link: u.text, type: x }
+        ul, u = nil, nil
+        uris.each do |uri|
+          ul = uri if ul.nil? and uri["type"] == x.to_s and uri["language"] == @lang
+          u = uri if u.nil? and uri["type"] == x.to_s
+        end
+        u = ul or u
+        return { link: u.text, type: x } if u
       end
       if b["hidden"] == "true"
         u = b.at(ns("./uri")) or return nil

@@ -28,7 +28,8 @@ module IsoDoc
         # return # this title is already being rendered as fmt-title
         # For testing convenience, let's just go by parent
         sections_names.include?(node.parent.name) and return
-        parents = node.ancestors(sections_names.join(", "))
+        ancestor_names = Metanorma::Utils.fast_ancestor_names(node)
+        parents = ancestor_names.select { |name| section_names.include?(name) }
         clause_parse_title(parents.empty? ? node : parents.first,
                            out, node, out)
       end
@@ -53,7 +54,7 @@ module IsoDoc
 
       def clause_title_depth(node, title)
         depth = title["depth"] if title && title["depth"]
-        depth = node.ancestors(sections_names.join(", ")).size + 1 unless depth
+        depth = Metanorma::Utils.fast_ancestor_names(node, section_names).size + 1 unless depth
         depth
       end
 

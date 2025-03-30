@@ -34,8 +34,9 @@ module IsoDoc
       end
 
       def attr_code(attributes)
+        d = nil
         attributes.compact.transform_values do |v|
-          v.is_a?(String) ? HTMLEntities.new.decode(v) : v
+          v.is_a?(String) ? (d ||= HTMLEntities.new).decode(v) : v
         end
       end
 

@@ -25,8 +25,9 @@ module IsoDoc
     # <locality type="section"><reference>3.1</reference></locality></origin>
 
     def unnest_linkend(node)
-      node.at(ns("./fmt-xref[@nested]")) or return
-      node.xpath(ns("./fmt-xref[@nested]")).each { |x| x.delete("nested") }
+      nested = node.xpath(ns("./fmt-xref[@nested]"))
+      return if nested.empty?
+      nested.each { |x| x.delete("nested") }
       node.xpath(ns("./location | ./locationStack")).each(&:remove)
       node.replace(node.children)
     end
@@ -70,7 +71,7 @@ module IsoDoc
 
     # do not change to Presentation XML rendering
     def sem_xml_descendant?(node)
-      ancestor_names = node.ancestors.map(&:name)
+      ancestor_names = Metanorma::Utils.fast_ancestor_names(node)
 
       return true if %w[preferred admitted deprecated related definition termsource].any? { |name| ancestor_names.include?(name) }
       return true if %w[xref eref origin link name title].any? { |name| ancestor_names.include?(name) }
