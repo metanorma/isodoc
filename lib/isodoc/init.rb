@@ -145,6 +145,8 @@ module IsoDoc
     def docid_l10n(text)
       text.nil? and return text
       @i18n.all_parts and text.gsub!(/All Parts/i, @i18n.all_parts.downcase)
+      return text unless text.include?(" ") # No spaces
+      return text.gsub(" ", "\u00A0") unless text.include?("<") # Not an XML
       x = Nokogiri::XML::DocumentFragment.parse(text)
       (x.xpath(".//text()") - x.xpath(".//fn//text()")).each do |n|
         n.replace(n.text.gsub(/ /, "&#xa0;"))

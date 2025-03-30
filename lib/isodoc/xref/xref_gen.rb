@@ -121,8 +121,7 @@ module IsoDoc
 
       def list_anchor_names(sections)
         sections.each do |s|
-          notes = s.xpath(ns(".//ol")) - s.xpath(ns(".//clause//ol")) -
-            s.xpath(ns(".//appendix//ol")) - s.xpath(ns(".//ol//ol"))
+          notes = s.xpath(ns(".//ol[not(ancestor::clause) and not(ancestor::appendix) and not(ancestor::ol)]"))
           c = list_counter(0, {})
           notes.noblank.each do |n|
             @anchors[n["id"]] =
@@ -181,8 +180,7 @@ refer_list)
 
       def deflist_anchor_names(sections)
         sections.each do |s|
-          notes = s.xpath(ns(".//dl")) - s.xpath(ns(".//clause//dl")) -
-            s.xpath(ns(".//appendix//dl")) - s.xpath(ns(".//dl//dl"))
+          notes = s.xpath(ns(".//dl[not(ancestor::clause) and not(ancestor::appendix) and not(ancestor::dl)]"))
           deflist_anchor_names1(notes, Counter.new)
           deflist_anchor_names(s.xpath(ns(child_sections)))
         end
