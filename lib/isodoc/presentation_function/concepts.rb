@@ -162,8 +162,7 @@ module IsoDoc
     def merge_second_preferred1(desgns, term)
       desgns[1..].each(&:remove)
       ret = l10n(desgns.map { |x| to_xml(x) }.join("; "))
-      ancestors = Metanorma::Utils.fast_ancestor_names(term)
-      !ancestors.include?("fmt-related") and ret = "<p>#{ret}</p>"
+      term.ancestors("fmt-related").empty? and ret = "<p>#{ret}</p>"
       ret
     end
 

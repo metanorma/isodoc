@@ -42,7 +42,7 @@ module IsoDoc
 
     def clause1(elem)
       level = @xrefs.anchor(elem["id"], :level, false) ||
-        (Metanorma::Utils.fast_ancestor_names(elem, %w[clause annex]).size + 1)
+        (elem.ancestors("clause, annex").size + 1)
       is_unnumbered = unnumbered_clause?(elem)
       lbl = @xrefs.anchor(elem["id"], :label, !is_unnumbered)
       if is_unnumbered || !lbl

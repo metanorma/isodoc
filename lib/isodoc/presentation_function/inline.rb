@@ -71,7 +71,7 @@ module IsoDoc
 
     # do not change to Presentation XML rendering
     def sem_xml_descendant?(node)
-      ancestor_names = Metanorma::Utils.fast_ancestor_names(node)
+      ancestor_names = node.ancestors.map(&:name)
 
       return true if %w[preferred admitted deprecated related definition termsource].any? { |name| ancestor_names.include?(name) }
       return true if %w[xref eref origin link name title].any? { |name| ancestor_names.include?(name) }

@@ -1,5 +1,4 @@
 require "metanorma-utils"
-require 'htmlentities/encoder'
 require_relative "../../nokogiri/xml/node"
 
 module IsoDoc
@@ -34,9 +33,9 @@ module IsoDoc
       end
 
       def attr_code(attributes)
-        d = nil
+        d = Metanorma::Utils.decoder
         attributes.compact.transform_values do |v|
-          v.is_a?(String) ? (d ||= HTMLEntities.new).decode(v) : v
+          v.is_a?(String) ? d.decode(v) : v
         end
       end
 
@@ -245,15 +244,15 @@ module IsoDoc
       end
 
       def cleanup_entities(text, is_xml: true)
-        c = HTMLEntities.new
-        e = HTMLEntities::Encoder.new("xhtml1", [:hexadecimal])
+        d = Metanorma::Utils.decoder
+        e = Metanorma::Utils.encoder_hex
         if is_xml
           text.split(/([<>])/).each_slice(4).map do |a|
-            a[0] = e.encode(c.decode(a[0]))
+            a[0] = e.encode(d.decode(a[0]))
             a
           end.join
         else
-          c.encode(c.decode(text), :hexadecimal)
+          e.encode(d.decode(text))
         end
       end
 

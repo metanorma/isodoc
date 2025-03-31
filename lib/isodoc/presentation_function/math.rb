@@ -42,7 +42,7 @@ module IsoDoc
     end
 
     def implicit_number_formatter(num, locale)
-      !Metanorma::Utils.fast_ancestor_names(term).include?("formula") or return
+      num.ancestors("formula").empty? or return
       ## by default, no formatting in formulas
       fmt = { significant: num_totaldigits(num.text) }.compact
       n = normalise_number(num.text)
