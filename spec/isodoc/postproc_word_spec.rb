@@ -1076,7 +1076,7 @@ RSpec.describe IsoDoc do
           </div>
           <div class="WordSection3_0">
              <div class="Section3">
-                <a name="_level_1" id="_"/>
+                <a name="_level_1" id="_level_1"/>
                 <h1 class="Annex">Annex 1</h1>
              </div>
           </div>

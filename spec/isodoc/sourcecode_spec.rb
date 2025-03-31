@@ -450,7 +450,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       <metanorma-extension>
-              <clause id="_" inline-header="false" obligation="normative">
+              <clause id="_user_css" inline-header="false" obligation="normative">
       <title id="_">user-css</title>
       <fmt-title depth="1">
             <semx element="title" source="_">user-css</semx>
