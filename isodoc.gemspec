@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "base64"
   spec.add_dependency "bigdecimal"
-  spec.add_dependency "html2doc", "~> 1.8.1"
+  spec.add_dependency "html2doc", "~> 1.9.0"
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
   # spec.add_dependency "relaton-cli"
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
