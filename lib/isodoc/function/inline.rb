@@ -15,8 +15,6 @@ module IsoDoc
         end
       end
 
-      def location_parse(node, out); end
-
       # Presentation XML classes which we need not pass on to HTML or DOC
       SPAN_UNWRAP_CLASSES =
         %w[fmt-caption-label fmt-label-delim fmt-caption-delim fmt-autonum-delim
@@ -189,8 +187,6 @@ module IsoDoc
         end
       end
 
-      def author_parse(node, out); end
-
       def semx_parse(node, out)
         children_parse(node, out)
       end
@@ -199,8 +195,9 @@ module IsoDoc
         node.children.each { |n| parse(n, out) }
       end
 
+      def location_parse(node, out); end
+      def author_parse(node, out); end
       def xref_label_parse(node, out); end
-
       def name_parse(node, out); end
       def semx_definition_parse(node, out); end
       def semx_xref_parse(node, out); end
@@ -209,7 +206,6 @@ module IsoDoc
       def semx_origin_parse(node, out); end
       def date_parse(node, out); end
       def semx_stem_parse(node, out); end
-
       def floating_title_parse(node, out); end
       def identifier_parse(node, out); end
       def concept_parse(node, out); end
@@ -217,6 +213,7 @@ module IsoDoc
       def svgmap_parse(node, out); end
       def amend_parse(node, out); end
       def semx_sourcecode_parse(node, out); end
+      def review_note_parse(node, out); end
 
       def fmt_name_parse(node, out)
         children_parse(node, out)
@@ -231,6 +228,22 @@ module IsoDoc
       end
 
       def fmt_date_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_fn_label_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_footnote_container_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_review_start_parse(node, out)
+        children_parse(node, out)
+      end
+
+      def fmt_review_end_parse(node, out)
         children_parse(node, out)
       end
     end

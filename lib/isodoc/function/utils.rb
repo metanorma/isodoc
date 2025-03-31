@@ -107,8 +107,7 @@ module IsoDoc
       end
 
       def sentence_join(array)
-        return "" if array.nil? || array.empty?
-
+        array.nil? || array.empty? and return ""
         if array.length == 1 then array[0]
         else
           @i18n.l10n("#{array[0..-2].join(', ')} " \
@@ -242,11 +241,9 @@ module IsoDoc
       def external_path(path)
         win = !!((RUBY_PLATFORM =~ /(win|w)(32|64)$/) ||
                  (RUBY_PLATFORM =~ /mswin|mingw/))
-        if win
-          path.tr!(%{/}, "\\")
-          path[/\s/] ? "\"#{path}\"" : path
-        else path
-        end
+        win or return path
+        path.tr!(%{/}, "\\")
+        path[/\s/] ? "\"#{path}\"" : path
       end
     end
   end

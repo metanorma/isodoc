@@ -9,6 +9,7 @@ require "rspec/matchers"
 require "equivalent-xml"
 require "tzinfo"
 require "xml-c14n"
+require_relative "support/uuid_mock"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -62,16 +63,17 @@ def metadata(hash)
 end
 
 def strip_guid(xml)
-  xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
-    .gsub(%r{ target="_[^"]+"}, ' target="_"')
-    .gsub(%r{ source="_[^"]+"}, ' source="_"')
-    .gsub(%r{ container="_[^"]+"}, ' container="_"')
-    .gsub(%r{ original-id="_[^"]+"}, ' original-id="_"')
+  xml.gsub(%r{ id="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' id="_"')
+    .gsub(%r{ target="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' target="_"')
+    .gsub(%r{ source="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' source="_"')
+    .gsub(%r{ container="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' container="_"')
+    .gsub(%r{ original-id="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' original-id="_"')
+    .gsub(%r{ original-reference="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' original-reference="_"')
     .gsub(%r( href="#_?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' href="#_"')
-    .gsub(%r( href="#fn:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' href="#fn:_"')
+    .gsub(%r( href="#fn:_?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' href="#fn:_"')
     .gsub(%r( id="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' id="_"')
-    .gsub(%r( id="ftn[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="ftn_"')
-    .gsub(%r( id="fn:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' id="fn:_"')
+    .gsub(%r( id="ftn_?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{13}"), ' id="ftn_"')
+    .gsub(%r( id="fn:_?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' id="fn:_"')
     .gsub(%r( name="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"), ' name="_"')
     .gsub(%r( reference="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"), ' reference="_"')
     .gsub(%r[ src="([^/]+)/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.], ' src="\\1/_.')

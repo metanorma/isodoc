@@ -23,6 +23,7 @@ module IsoDoc
 
       def make_tr_attr(cell, row, totalrows, header, bordered)
         style = cell.name == "th" ? "font-weight:bold;" : ""
+        cell["style"] and style += "#{cell['style']};"
         rowmax = cell["rowspan"] ? row + cell["rowspan"].to_i - 1 : row
         style += make_tr_attr_style(cell, row, rowmax, totalrows,
                                     { header: header, bordered: bordered })

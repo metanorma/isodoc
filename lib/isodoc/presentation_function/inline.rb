@@ -39,16 +39,19 @@ module IsoDoc
     def anchor_id_postprocess(node); end
 
     def xref(docxml)
-      #docxml.xpath(ns("//display-text")).each { |f| f.replace(f.children) }
       docxml.xpath(ns("//fmt-xref")).each { |f| xref1(f) }
-      docxml.xpath(ns("//fmt-xref//fmt-xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-xref//fmt-xref")).each do |f|
+        f.replace(f.children)
+      end
       docxml.xpath(ns("//fmt-xref//xref")).each { |f| f.replace(f.children) }
     end
 
     def eref(docxml)
       docxml.xpath(ns("//eref[@deleteme]")).each { |f| redundant_eref(f) }
       docxml.xpath(ns("//fmt-eref")).each { |f| xref1(f) }
-      docxml.xpath(ns("//fmt-eref//fmt-xref")).each { |f| f.replace(f.children) }
+      docxml.xpath(ns("//fmt-eref//fmt-xref")).each do |f|
+        f.replace(f.children)
+      end
       docxml.xpath(ns("//erefstack")).each { |f| erefstack1(f) }
     end
 
@@ -65,21 +68,17 @@ module IsoDoc
       docxml.xpath(ns("//fmt-origin[not(.//termref)]")).each { |f| xref1(f) }
     end
 
-    # KILL
-    def quotesourcex(docxml)
-      docxml.xpath(ns("//quote//source")).each { |f| xref1(f) }
-      docxml.xpath(ns("//quote//source//xref")).each do |f|
-        f.replace(f.children)
-      end
-    end
-
     # do not change to Presentation XML rendering
     def sem_xml_descendant?(node)
-      !node.ancestors("preferred, admitted, deprecated, related, " \
-        "definition, termsource").empty? and return true
-      !node.ancestors("xref, eref, origin, link").empty? and return true
-      !node.ancestors("requirement, recommendation, permission").empty? &&
-        node.ancestors("fmt-provision").empty? and return true
+      ancestor_names = node.ancestors.map(&:name)
+
+      return true if %w[preferred admitted deprecated related definition termsource].any? { |name| ancestor_names.include?(name) }
+      return true if %w[xref eref origin link name title].any? { |name| ancestor_names.include?(name) }
+      return true if ancestor_names.include?("bibitem") &&
+        !%w[formattedref biblio-tag].any? { |name| ancestor_names.include?(name) }
+      return true if (ancestor_names & %w[requirement recommendation permission]).any? &&
+        !ancestor_names.include?("fmt-provision")
+
       false
     end
 
@@ -112,8 +111,8 @@ module IsoDoc
       docxml.xpath(ns("//identifier")).each do |n|
         %w(bibdata bibitem requirement recommendation permission)
           .include?(n.parent.name) and next
-          s = semx_fmt_dup(n)
-          n.next = "<fmt-identifier><tt>#{to_xml(s)}</tt></fmt-identifier>"
+        s = semx_fmt_dup(n)
+        n.next = "<fmt-identifier><tt>#{to_xml(s)}</tt></fmt-identifier>"
       end
     end
 

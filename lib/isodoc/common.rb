@@ -2,6 +2,7 @@ require_relative "function/blocks"
 require_relative "function/cleanup"
 require_relative "function/form"
 require_relative "function/inline"
+require_relative "function/footnotes"
 require_relative "function/lists"
 require_relative "function/references"
 require_relative "function/section"
@@ -18,6 +19,7 @@ module IsoDoc
     include Function::Cleanup
     include Function::Form
     include Function::Inline
+    include Function::Footnotes
     include Function::Lists
     include Function::References
     include Function::Section

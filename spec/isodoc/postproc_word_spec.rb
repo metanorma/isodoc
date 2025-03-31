@@ -126,14 +126,14 @@ RSpec.describe IsoDoc do
               <iso-standard xmlns="http://riboseinc.com/isoxml">
               <sections>
                      <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
-               <fmt-title>Introduction<bookmark id="Q"/> to this <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/> <fn reference="1">
-        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+               <fmt-title>Introduction<bookmark id="Q"/> to this <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/> <fn id="F1" reference="1">
+        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p><fmt-fn-label><semx source="F1">1</semx></fmt-fn-label>
       </fn></fmt-title>
              </clause>
              <clause id="O" inline-header="false" obligation="normative" displayorder="2">
                <fmt-title>Clause 4.2</fmt-title>
-               <p>A<fn reference="1">
-        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+               <p>A<fn reference="1" id="F2">
+        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p><fmt-fn-label><semx source="F2">1</semx></fmt-fn-label>
       </fn></p>
       <clause id="P" inline-header="false" obligation="normative">
       <fmt-title>Clause 4.2.1</fmt-title>
@@ -213,14 +213,14 @@ RSpec.describe IsoDoc do
               </preface>
               <sections>
                      <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
-               <fmt-title>Introduction<bookmark id="Q"/> to this <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/> <fn reference="1">
-        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+               <fmt-title>Introduction<bookmark id="Q"/> to this <image src="spec/assets/rice_image1.png" id="_" mimetype="image/png"/> <fn reference="1" id="F1">
+        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p><fmt-fn-label><semx source="F1">1</semx></fmt-fn-label>
       </fn></fmt-title>
              </clause>
              <clause id="O" inline-header="false" obligation="normative" displayorder="2">
                <fmt-title>Clause 4.2</fmt-title>
-               <p>A<fn reference="1">
-        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+               <p>A<fn reference="1" id="F2">
+        <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p><fmt-fn-label><semx source="F2">1</semx></fmt-fn-label>
       </fn></p>
       <clause id="P" inline-header="false" obligation="normative">
       <fmt-title>Clause 4.2.1</fmt-title>
@@ -288,14 +288,14 @@ RSpec.describe IsoDoc do
         </metanorma-extension>
                     <sections>
                            <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
-                     <fmt-title>Introduction<bookmark id="Q"/> to this<fn reference="1">
-              <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+                     <fmt-title>Introduction<bookmark id="Q"/> to this<fn reference="1" id="F1">
+              <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p><fmt-fn-label><semx source="F1">1</semx></fmt-fn-label>
             </fn></fmt-title>
                    </clause>
                    <clause id="O" inline-header="false" obligation="normative" displayorder="2">
                      <fmt-title>Clause 4.2</fmt-title>
-                     <p>A<fn reference="1">
-              <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+                     <p>A<fn reference="1" id="F2">
+              <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p><fmt-fn-label><semx source="F2">1</semx></fmt-fn-label>
             </fn></p>
             <clause id="P" inline-header="false" obligation="normative">
             <fmt-title>Clause 4.2.1</fmt-title>
@@ -392,8 +392,8 @@ RSpec.describe IsoDoc do
         </metanorma-extension>
                     <sections>
                            <clause id="A" inline-header="false" obligation="normative" displayorder="1"><fmt-title>Clause 4</fmt-title><clause id="N" inline-header="false" obligation="normative">
-                     <fmt-title>Introduction<bookmark id="Q"/> to this<fn reference="1">
-              <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+                     <fmt-title>Introduction<bookmark id="Q"/> to this<fn reference="1" id="F1">
+              <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p><fmt-fn-label><semx source="F1">1</semx></fmt-fn-label>
             </fn></fmt-title>
                    </clause>
                    <clause id="O" inline-header="false" obligation="normative" displayorder="2">
@@ -412,8 +412,8 @@ RSpec.describe IsoDoc do
               </recommendation>
               <figure id="BA"><fmt-name>First figure</fmt-name></figure>
               <table id="CA"><fmt-name>First table</fmt-name></table>
-                     <p>A<fn reference="1">
-              <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
+                     <p>A<fn reference="1" id="F2">
+              <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p><fmt-fn-label><semx source="F2">1</semx></fmt-fn-label>
             </fn></p>
             <clause id="P" inline-header="false" obligation="normative">
             <fmt-title>Clause 4.2.1</fmt-title>
@@ -1076,7 +1076,7 @@ RSpec.describe IsoDoc do
           </div>
           <div class="WordSection3_0">
              <div class="Section3">
-                <a name="_level_1" id="_"/>
+                <a name="_level_1" id="_level_1"/>
                 <h1 class="Annex">Annex 1</h1>
              </div>
           </div>

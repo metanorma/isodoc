@@ -1,5 +1,3 @@
-require_relative "html_function/comments"
-require_relative "html_function/footnotes"
 require_relative "html_function/html"
 require_relative "html_function/postprocess"
 require_relative "html_function/form"
@@ -7,8 +5,6 @@ require_relative "html_function/form"
 module IsoDoc
   class HtmlConvert < ::IsoDoc::Convert
 
-    include HtmlFunction::Comments
-    include HtmlFunction::Footnotes
     include HtmlFunction::Form
     include HtmlFunction::Html
 

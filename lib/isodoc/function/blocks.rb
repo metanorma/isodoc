@@ -192,6 +192,18 @@ module IsoDoc
       end
 
       def columnbreak_parse(node, out); end
+
+      # we dont't want figure dl/dd/fmt-fn-body to be processed
+      # as actual footnotes
+      def fmt_fn_body_parse(node, out)
+        node.ancestors("table, figure").empty? and
+          node.at(ns(".//fmt-fn-label"))&.remove
+        tag = node.parent.name == "fmt-footnote-container" ? "aside" : "div"
+        id = node["is_table"] ? node["reference"] : node["id"]
+        out.send tag, id: "fn:#{id}", class: "footnote" do |div|
+          node.children.each { |n| parse(n, div) }
+        end
+      end
     end
   end
 end

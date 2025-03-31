@@ -100,51 +100,6 @@ RSpec.describe IsoDoc do
       .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((output))
   end
 
-  it "cleans up footnotes" do
-    input = <<~INPUT
-      #{HTML_HDR}
-      <br/>
-                 <div>
-                   <h1 class="ForewordTitle">Foreword</h1>
-                  <p>A.<a class="FootnoteRef" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
-                  <p>B.<a class="FootnoteRef" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
-                  <p>C.<a class="FootnoteRef" href="#fn:1" epub:type="footnote"><sup>1</sup></a></p>
-                 </div>
-                 <p class="zzSTDTitle1"/>
-                               <aside id="fn:2" class="footnote">
-            <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-          </aside>
-                <aside id="fn:1" class="footnote">
-            <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
-          </aside>
-               </div>
-             </body>
-         </html>
-    INPUT
-    output = <<~OUTPUT
-      #{HTML_HDR}
-      <br/>
-                 <div>
-                   <h1 class="ForewordTitle">Foreword</h1>
-                  <p>A.<a class="FootnoteRef" href="#fn:2" epub:type="footnote"><sup>1</sup></a></p>
-                  <p>B.<a class="FootnoteRef" href="#fn:2" epub:type="footnote"><sup>2</sup></a></p>
-                  <p>C.<a class="FootnoteRef" href="#fn:1" epub:type="footnote"><sup>3</sup></a></p>
-                 </div>
-                 <p class="zzSTDTitle1"/>
-                               <aside id="fn:2" class="footnote">
-            <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Formerly denoted as 15 % (m/m).</p>
-          </aside>
-                <aside id="fn:1" class="footnote">
-            <p id="_1e228e29-baef-4f38-b048-b05a051747e4">Hello! denoted as 15 % (m/m).</p>
-          </aside>
-               </div>
-             </body>
-         </html>
-    OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .cleanup(Nokogiri::XML(input)).to_s)).to be_equivalent_to Xml::C14n.format((output))
-  end
-
   it "cleans up footnotes (Word)" do
     input = <<~INPUT
       <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">

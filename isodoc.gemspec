@@ -30,14 +30,13 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "base64"
   spec.add_dependency "bigdecimal"
-  spec.add_dependency "html2doc", "~> 1.8.1"
+  spec.add_dependency "html2doc", "~> 1.9.0"
   # spec.add_dependency "isodoc-i18n", "~> 1.1.0" # already in relaton-render and mn-requirements
   # spec.add_dependency "relaton-cli"
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
   spec.add_dependency "mn2pdf", ">= 2.13"
   spec.add_dependency "mn-requirements", "~> 0.5.0"
 
-  spec.add_dependency "nokogiri", "<= 1.16.8"
   spec.add_dependency "relaton-render", "~> 0.9.0"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
@@ -53,18 +52,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.6"
   spec.add_development_dependency "rubocop", "~> 1"
-spec.add_development_dependency "rubocop-performance"
-=begin
-  if RUBY_VERSION.start_with?("3.1")
-    spec.add_development_dependency "sassc-embedded", "1.54.0"
-    spec.add_development_dependency "sass-embedded", "1.54.2"
-  else
-    spec.add_development_dependency "sassc-embedded", "~> 1"
-    spec.add_development_dependency "sass-embedded", "~> 1"
-  end
-  #spec.add_development_dependency "sassc-embedded", "~> 1"
-=end
-  #spec.add_development_dependency "sassc"
+  spec.add_development_dependency "rubocop-performance"
   spec.add_development_dependency "sassc-embedded", "~> 1"
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"

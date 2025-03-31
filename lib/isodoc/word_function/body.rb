@@ -51,8 +51,8 @@ module IsoDoc
       def make_body3(body, docxml)
         body.div class: "WordSection3" do |div3|
           content(div3, docxml, ns(self.class::MAIN_ELEMENTS))
-          footnotes div3
-          comments div3
+          footnotes docxml, div3
+          comments docxml, div3
         end
       end
 
@@ -77,29 +77,6 @@ module IsoDoc
           node.children.each { |n| parse(n, p) unless n.name == "note" }
         end
         node.xpath(ns("./note")).each { |n| parse(n, out) }
-      end
-
-      def figure_get_or_make_dl(node)
-        dl = node.at(".//table[@class = 'dl']")
-        if dl.nil?
-          node.add_child("<p><b>#{@i18n.key}</b></p><table class='dl'></table>")
-          dl = node.at(".//table[@class = 'dl']")
-        end
-        dl
-      end
-
-      # get rid of footnote link, it is in diagram
-      def figure_aside_process(fig, aside, key)
-        fig.at("./a[@class='TableFootnoteRef']")&.remove
-        fnref = fig.at(".//span[@class='TableFootnoteRef']/..")
-        tr = key.add_child("<tr></tr>").first
-        dt = tr.add_child("<td valign='top' align='left'></td>").first
-        dd = tr.add_child("<td valign='top'></td>").first
-        fnref.parent = dt
-        aside.xpath(".//p").each do |a|
-          a.delete("class")
-          a.parent = dd
-        end
       end
 
       def note_p_class

@@ -23,6 +23,49 @@ module IsoDoc
         xpath.reject { |n| blank?(n["id"]) }
       end
 
+      def hiersep
+        "."
+      end
+
+      def hierfigsep
+        "-"
+      end
+
+      def hierreqtsep
+        "-"
+      end
+
+      def hier_separator(markup: false)
+        h = hiersep
+        h.blank? || !markup or h = delim_wrap(h)
+        h
+      end
+
+      def subfigure_separator(markup: false)
+        h = hierfigsep
+        h.blank? || !markup or h = delim_wrap(h)
+        h
+      end
+
+      def subreqt_separator(markup: false)
+        h = hierreqtsep
+        h.blank? || !markup or h = delim_wrap(h)
+        h
+      end
+
+      def subfigure_delim
+        ""
+      end
+
+      def nodeSet(clauses)
+        case clauses
+        when Nokogiri::XML::Node
+          [clauses]
+        when Nokogiri::XML::NodeSet
+          clauses
+        end
+      end
+
       SECTIONS_XPATH =
         "//foreword | //introduction | //acknowledgements | " \
         "//preface/abstract | " \
@@ -84,6 +127,12 @@ module IsoDoc
       def labelled_autonum(label, autonum)
         label.blank? and return autonum
         l10n("<span class='fmt-element-name'>#{label}</span> #{autonum}")
+      end
+
+      def increment_label(elems, node, counter, increment: true)
+        elems.size == 1 && !node["number"] and return ""
+        counter.increment(node) if increment
+        counter.print
       end
     end
   end

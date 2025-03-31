@@ -10,104 +10,89 @@ module IsoDoc
         sprintf "%09d", ret
       end
 
-      def footnotes(div)
-        return if @footnotes.empty?
-
-        @footnotes.each { |fn| div.parent << fn }
-      end
-
-      def make_table_footnote_link(out, fnid, fnref)
+      def make_table_footnote_link(out, fnid, node)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
+        sup = node.at(ns("./sup")) and sup.replace(sup.children)
         out.a **attrs do |a|
-          a << fnref
+          children_parse(node, a)
         end
       end
 
-      def make_table_footnote_target(out, fnid, fnref)
-        attrs = { id: fnid, class: "TableFootnoteRef" }
-        out.span do |s|
-          out.span **attrs do |a|
-            a << fnref
-          end
-          insert_tab(s, 1)
+      def fmt_fn_body_parse(node, out)
+        node.at(ns(".//fmt-fn-label"))&.remove
+        aside = node.parent.name == "fmt-footnote-container"
+        tag = aside ? "aside" : "div"
+        id = node["is_table"] ? node["reference"] : node["id"]
+        out.send tag, id: "ftn#{id}" do |div|
+          node.children.each { |n| parse(n, div) }
         end
       end
 
-      def make_table_footnote_text(node, fnid, fnref)
-        attrs = { id: "ftn#{fnid}" }
-        noko do |xml|
-          xml.div **attr_code(attrs) do |div|
-            make_table_footnote_target(div, fnid, fnref)
-            node.children.each { |n| parse(n, div) }
-          end
-        end.join("\n")
-      end
-
-      def make_generic_footnote_text(node, fnid)
-        noko do |xml|
-          xml.aside id: "ftn#{fnid}" do |div|
-            node.children.each { |n| parse(n, div) }
-          end
-        end.join("\n")
-      end
-
+      # dupe to HTML
       def get_table_ancestor_id(node)
-        table = node.ancestors("table") || node.ancestors("figure")
-        return UUIDTools::UUID.random_create.to_s if table.empty?
-
-        table.last["id"]
+        table = node.ancestors("table")
+        table.empty? and table = node.ancestors("figure")
+        table.empty? and return [nil,
+                                 UUIDTools::UUID.random_create.to_s]
+        [table.last, table.last["id"]]
       end
 
+      # dupe to HTML
       def table_footnote_parse(node, out)
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
-        tid = get_table_ancestor_id(node)
-        make_table_footnote_link(out, tid + fn, fn)
+        table, tid = get_table_ancestor_id(node)
+        make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))
         # do not output footnote text if we have already seen it for this table
         return if @seen_footnote.include?(tid + fn)
 
-        @in_footnote = true
-        out.aside { |a| a << make_table_footnote_text(node, tid + fn, fn) }
-        @in_footnote = false
+        update_table_fn_body_ref(node, table, tid + fn)
         @seen_footnote << (tid + fn)
       end
 
-      def seen_footnote_parse(_node, out, footnote)
-        out.span style: "mso-element:field-begin"
-        out << " NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h"
-        out.span style: "mso-element:field-separator"
-        out.span class: "MsoFootnoteReference" do |s|
-          s << footnote
+      def seen_footnote_parse(node, out, footnote)
+        f = node.at(ns("./fmt-fn-label"))
+        sup = f.at(ns(".//sup")) and sup.replace(sup.children)
+        s = f.at(ns(".//semx[@source = '#{node['id']}']"))
+        semx = <<~SPAN.strip
+          <span style="mso-element:field-begin"/> NOTEREF _Ref#{@fn_bookmarks[footnote]} \\f \\h<span style="mso-element:field-separator"/>#{footnote}<span style="mso-element:field-end"/>
+        SPAN
+        s.replace(semx)
+        out.span class: "MsoFootnoteReference" do |fn|
+          children_parse(f, fn)
         end
-        out.span style: "mso-element:field-end"
       end
 
       def footnote_parse(node, out)
-        return table_footnote_parse(node, out) if (@in_table || @in_figure) &&
-          !node.ancestors.map(&:name).include?("fmt-name")
-
-        fn = node["reference"] || UUIDTools::UUID.random_create.to_s
-        return seen_footnote_parse(node, out, fn) if @seen_footnote.include?(fn)
-
+        table_footnote?(node) and return table_footnote_parse(node, out)
+        fn = node["reference"] # || UUIDTools::UUID.random_create.to_s
+        @seen_footnote.include?(fn) and return seen_footnote_parse(node, out, fn)
         @fn_bookmarks[fn] = bookmarkid
-        out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}" do |s|
-          s.a class: "FootnoteRef", "epub:type": "footnote",
-              href: "#ftn#{fn}" do |a|
-            a.sup { |sup| sup << fn }
-          end
+        f = footnote_label_process(node)
+        out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}",
+                 class: "MsoFootnoteReference" do |s|
+          children_parse(f, s)
         end
-        @in_footnote = true
-        @footnotes << make_generic_footnote_text(node, fn)
-        @in_footnote = false
+        footnote_hyperlink(node, out)
         @seen_footnote << fn
       end
 
-      def make_footnote(node, footnote)
-        return if @seen_footnote.include?(footnote)
+      def footnote_label_process(node)
+        f = node.at(ns("./fmt-fn-label"))
+        sup = f.at(ns(".//sup")) and sup.replace(sup.children)
+        if semx = f.at(ns(".//semx[@element = 'autonum']"))
+          semx.name = "span"
+          semx["class"] = "FMT-PLACEHOLDER"
+        end
+        f
+      end
 
-        @in_footnote = true
-        @footnotes << make_generic_footnote_text(node, footnote)
-        @in_footnote = false
-        @seen_footnote << footnote
+      def footnote_hyperlink(node, out)
+        if semx = out.parent.at(".//span[@class = 'FMT-PLACEHOLDER']")
+          semx.name = "a"
+          semx["class"] = "FootnoteRef"
+          semx["epub:type"] = "footnote"
+          semx["href"] = "#ftn#{node['target']}"
+        end
       end
     end
   end

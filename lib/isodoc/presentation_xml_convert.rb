@@ -10,6 +10,7 @@ require_relative "presentation_function/section"
 require_relative "presentation_function/index"
 require_relative "presentation_function/bibdata"
 require_relative "presentation_function/metadata"
+require_relative "presentation_function/footnotes"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -33,21 +34,21 @@ module IsoDoc
     end
 
     def repeat_id_validate1(elem)
-        if @doc_ids[elem["id"]]
-          @log.add("Anchors", elem,
-                   "Anchor #{elem['id']} has already been " \
-                   "used at line #{@doc_ids[elem['id']]}", severity: 0)
-        end
-        @doc_ids[elem["id"]] = elem.line
+      if @doc_ids[elem["id"]]
+        @log.add("Anchors", elem,
+                 "Anchor #{elem['id']} has already been " \
+                 "used at line #{@doc_ids[elem['id']]}", severity: 0)
       end
+      @doc_ids[elem["id"]] = elem.line
+    end
 
-      def repeat_id_validate(doc)
-        @log or return
-        @doc_ids = {}
-        doc.xpath("//*[@id]").each do |x|
-          repeat_id_validate1(x)
-        end
+    def repeat_id_validate(doc)
+      @log or return
+      @doc_ids = {}
+      doc.xpath("//*[@id]").each do |x|
+        repeat_id_validate1(x)
       end
+    end
 
     def bibitem_lookup(docxml)
       @bibitem_lookup ||= docxml.xpath(ns("//references/bibitem"))
@@ -57,7 +58,7 @@ module IsoDoc
     end
 
     def conversions(docxml)
-      #semantic_xml_insert(docxml)
+      # semantic_xml_insert(docxml)
       metadata docxml
       bibdata docxml
       @xrefs.parse docxml
@@ -85,7 +86,9 @@ module IsoDoc
       floattitle docxml # feeds rearrange_clauses
       index docxml # fed by strip_duplicate_ids
       toc docxml
-      display_order docxml
+      display_order docxml # feeds document_footnotes
+      document_footnotes docxml
+      comments docxml
     end
 
     def block(docxml)
@@ -115,7 +118,6 @@ module IsoDoc
       xref docxml
       eref docxml # feeds eref2link
       origin docxml # feeds eref2link
-      #quotesource docxml # feeds eref2link
       concept docxml
       eref2link docxml
       mathml docxml
@@ -134,19 +136,8 @@ module IsoDoc
       termdefinition docxml
       designation docxml
       termsource docxml
-      #concept docxml
       related docxml
       termcleanup docxml
-    end
-
-    # KILL
-    def semantic_xml_insert(xml)
-      @semantic_xml_insert or return
-      embed = embedable_semantic_xml(xml)
-      ins = metanorma_extension_insert_pt(xml)
-      ins = ins.at(ns("./metanorma")) || ins.add_child("<metanorma/>").first
-      ins = ins.add_child("<source/>").first
-      ins << embed
     end
 
     def metanorma_extension_insert_pt(xml)
