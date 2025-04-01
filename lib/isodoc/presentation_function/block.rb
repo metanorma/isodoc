@@ -183,8 +183,16 @@ module IsoDoc
     end
 
     def ol_label(elem)
-      elem["label"] = @xrefs.anchor(elem["id"], :label, false)
-      elem["label-template"] = "%"
+      # elem["label"] = @xrefs.anchor(elem["id"], :label, false)
+      # elem["label-template"] = "%"
+      val = @xrefs.anchor(elem["id"], :label, false)
+      semx = "<semx element='autonum' source='#{elem['id']}'>#{val}</semx>"
+      lbl = "<fmt-name>#{ol_label_template(semx, elem)}</fmt-name>"
+      elem.add_first_child(lbl)
+    end
+
+    def ol_label_template(semx, _elem)
+      semx
     end
 
     def ul_label_list
@@ -192,8 +200,15 @@ module IsoDoc
     end
 
     def ul_label(elem)
+      val = ul_label_value(elem)
+      semx = "<semx element='autonum' source='#{elem['id']}'>#{val}</semx>"
+      lbl = "<fmt-name>#{semx}</fmt-name>"
+      elem.add_first_child(lbl)
+    end
+
+    def ul_label_value(elem)
       depth = elem.ancestors("ul, ol").size
-      elem["label"] = ul_label_list[depth % ul_label_list.size]
+      ul_label_list[depth % ul_label_list.size]
     end
 
     def source(docxml)

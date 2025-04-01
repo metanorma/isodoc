@@ -1239,23 +1239,39 @@ RSpec.describe IsoDoc do
                    <semx element="title" source="_5">Foreword</semx>
                 </fmt-title>
                 <ol type="alphabet">
-                   <li id="A" label="">
+                   <li id="A">
+                      <fmt-name>
+                         <semx element="autonum" source="A"/>
+                      </fmt-name>
                       <p>
                          <fmt-review-start id="_8" source="A" target="_7" end="C" author="" date="20170108T0000"/>
                          A.
                       </p>
                       <p>A1</p>
                    </li>
-                   <li id="B" label="">B.</li>
+                   <li id="B">
+                      <fmt-name>
+                         <semx element="autonum" source="B"/>
+                      </fmt-name>
+                      B.
+                   </li>
                    <ul>
                       <li>
+                         <fmt-name>
+                            <semx element="autonum" source="">—</semx>
+                         </fmt-name>
                          <p>C.</p>
                          <p id="C">
                             C1
                             <fmt-review-end id="_9" source="C" target="_7" start="A" author="" date="20170108T0000"/>
                          </p>
                       </li>
-                      <li id="D">D.</li>
+                      <li id="D">
+                         <fmt-name>
+                            <semx element="autonum" source="D">—</semx>
+                         </fmt-name>
+                         D.
+                      </li>
                    </ul>
                 </ol>
              </foreword>

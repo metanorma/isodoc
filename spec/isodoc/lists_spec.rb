@@ -35,13 +35,22 @@ RSpec.describe IsoDoc do
                    <fmt-name>
                       <semx element="name" source="_">Caption</semx>
                    </fmt-name>
-                   <li label="—">
+                   <li>
+                      <fmt-name>
+                         <semx element="autonum" source="">—</semx>
+                      </fmt-name>
                       <p id="_">updated normative references;</p>
                    </li>
-                   <li label="—">
+                   <li>
+                      <fmt-name>
+                         <semx element="autonum" source="">—</semx>
+                      </fmt-name>
                       <p id="_">deletion of 4.3.</p>
                       <ul id="_" keep-with-next="true" keep-lines-together="true">
-                         <li label="—">
+                         <li>
+                            <fmt-name>
+                               <semx element="autonum" source="">—</semx>
+                            </fmt-name>
                             <p id="_">updated normative references;</p>
                          </li>
                       </ul>
@@ -98,10 +107,6 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-      #{WORD_HDR}
-              <p class="page-break">
-                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-              </p>
                 <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div class="ul_wrap">
@@ -123,20 +128,6 @@ RSpec.describe IsoDoc do
                       </ul>
                    </div>
                 </div>
-                <p class="page-break">
-                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-                </p>
-                <div id="_" class="TOC">
-                   <p class="zzContents">Table of contents</p>
-                </div>
-                <p> </p>
-             </div>
-             <p class="section-break">
-                <br clear="all" class="section"/>
-             </p>
-             <div class="WordSection3"/>
-          </body>
-       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
@@ -146,8 +137,10 @@ RSpec.describe IsoDoc do
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true)))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true)))
+    xml = Nokogiri::XML(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true))
+    xml = xml.at("//div[@id = 'fwd']")
+    expect(Xml::C14n.format(xml.to_xml))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -271,13 +264,22 @@ RSpec.describe IsoDoc do
                    <fmt-name>
                       <semx element="name" source="_">Caption</semx>
                    </fmt-name>
-                   <li id="_" label="a" label-template="%">
+                   <li id="_">
+                      <fmt-name>
+                         <semx element="autonum" source="_">a</semx>
+                      </fmt-name>
                       <p id="_">all information necessary for the complete identification of the sample;</p>
                       <ol type="arabic">
-                         <li id="_" label="1" label-template="%">
+                         <li id="_">
+                            <fmt-name>
+                               <semx element="autonum" source="_">1</semx>
+                            </fmt-name>
                             <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
                             <ol type="roman">
-                               <li id="_" label="i" label-template="%">
+                               <li id="_">
+                                  <fmt-name>
+                                     <semx element="autonum" source="_">i</semx>
+                                  </fmt-name>
                                   <p id="_">the sampling method used;</p>
                                </li>
                             </ol>

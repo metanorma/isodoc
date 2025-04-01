@@ -96,14 +96,12 @@ module IsoDoc
         end
       end
 
-      def li_parse(node, out)
-        out.li **attr_code(id: node["id"]) do |li|
-          if node["uncheckedcheckbox"] == "true"
-            li << '<span class="zzMoveToFollowing">&#x2610; </span>'
-          elsif node["checkedcheckbox"] == "true"
-            li << '<span class="zzMoveToFollowing">&#x2611; </span>'
-          end
-          node.children.each { |n| parse(n, li) }
+      def li_checkbox(node)
+        if node["uncheckedcheckbox"] == "true"
+          '<span class="zzMoveToFollowing">&#x2610; </span>'
+        elsif node["checkedcheckbox"] == "true"
+          '<span class="zzMoveToFollowing">&#x2611; </span>'
+        else ""
         end
       end
     end
