@@ -149,6 +149,7 @@ module IsoDoc
     def maths_just_numeral(node)
       mn = node.at(".//m:mn", MATHML).children.text
         .sub(/\^([0-9+-]+)$/, "<sup>\\1</sup>")
+      node.replace(mn)
     end
 
     def mathml1(node, locale)
@@ -204,6 +205,7 @@ module IsoDoc
     def mathml_number_to_number(node)
       (node.elements.size == 1 && node.elements.first.name == "mn") or return
       repl = node.at("./m:mn", MATHML).children
+      node.replace(repl)
     end
   end
 end
