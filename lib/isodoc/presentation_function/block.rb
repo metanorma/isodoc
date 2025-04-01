@@ -198,7 +198,7 @@ module IsoDoc
       template.sub("%", semx)
     end
 
-    def ul_label_list
+    def ul_label_list(_elem)
       %w(&#x2014;)
     end
 
@@ -211,7 +211,7 @@ module IsoDoc
 
     def ul_label_value(elem)
       depth = elem.ancestors("ul, ol").size
-      ul_label_list[depth % ul_label_list.size]
+      ul_label_list(elem)[depth % ul_label_list.size]
     end
 
     def source(docxml)
