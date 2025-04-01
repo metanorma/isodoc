@@ -1242,6 +1242,7 @@ RSpec.describe IsoDoc do
                    <li id="A">
                       <fmt-name>
                          <semx element="autonum" source="A"/>
+                         <span class="fmt-label-delim">)</span>
                       </fmt-name>
                       <p>
                          <fmt-review-start id="_8" source="A" target="_7" end="C" author="" date="20170108T0000"/>
@@ -1252,6 +1253,7 @@ RSpec.describe IsoDoc do
                    <li id="B">
                       <fmt-name>
                          <semx element="autonum" source="B"/>
+                         <span class="fmt-label-delim">)</span>
                       </fmt-name>
                       B.
                    </li>

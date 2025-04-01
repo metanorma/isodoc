@@ -163,21 +163,13 @@ module IsoDoc
       docxml.xpath(ns("//ol/li")).each { |f| ol_label(f) }
     end
 
-    # We don't really want users to specify type of ordered list;
-    # we will use by default a fixed hierarchy as practiced by ISO (though not
-    # fully spelled out): a) 1) i) A) I)
     def ol_depth(node)
       depth = node.ancestors("ul, ol").size + 1
-      type = :alphabet
-      type = :arabic if [2, 7].include? depth
-      type = :roman if [3, 8].include? depth
-      type = :alphabet_upper if [4, 9].include? depth
-      type = :roman_upper if [5, 10].include? depth
-      type
+      @counter.ol_type(node, depth) # defined in Xref::Counter
     end
 
     def ol1(elem)
-      elem["type"] ||= ol_depth(elem).to_s
+      elem["type"] ||= ol_depth(elem).to_s # feeds ol_label_format
       elem.at(ns("./name")) and
         prefix_name(elem, {}, "", "name") # copy name to fmt-name
     end
@@ -187,16 +179,27 @@ module IsoDoc
       # elem["label-template"] = "%"
       val = @xrefs.anchor(elem["id"], :label, false)
       semx = "<semx element='autonum' source='#{elem['id']}'>#{val}</semx>"
-      lbl = "<fmt-name>#{ol_label_template(semx, elem)}</fmt-name>"
+      lbl = "<fmt-name>#{ol_label_format(semx, elem)}</fmt-name>"
       elem.add_first_child(lbl)
     end
 
-    def ol_label_template(semx, _elem)
-      semx
+    def ol_label_template(_elem)
+      {
+        alphabet: %{%<span class="fmt-label-delim">)</span>},
+        alphabet_upper: %{%<span class="fmt-label-delim">.</span>},
+        roman: %{%<span class="fmt-label-delim">)</span>},
+        roman_upper: %{%<span class="fmt-label-delim">.</span>},
+        arabic: %{%<span class="fmt-label-delim">)</span>},
+      }
+    end
+
+    def ol_label_format(semx, elem)
+      template = ol_label_template(elem)[elem.parent["type"].to_sym]
+      template.sub("%", semx)
     end
 
     def ul_label_list
-      %w(—)
+      %w(&#x2014;)
     end
 
     def ul_label(elem)

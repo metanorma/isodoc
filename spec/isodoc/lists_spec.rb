@@ -267,18 +267,21 @@ RSpec.describe IsoDoc do
                    <li id="_">
                       <fmt-name>
                          <semx element="autonum" source="_">a</semx>
+                         <span class="fmt-label-delim">)</span>
                       </fmt-name>
                       <p id="_">all information necessary for the complete identification of the sample;</p>
                       <ol type="arabic">
                          <li id="_">
                             <fmt-name>
                                <semx element="autonum" source="_">1</semx>
+                               <span class="fmt-label-delim">)</span>
                             </fmt-name>
                             <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
                             <ol type="roman">
                                <li id="_">
                                   <fmt-name>
                                      <semx element="autonum" source="_">i</semx>
+                                     <span class="fmt-label-delim">)</span>
                                   </fmt-name>
                                   <p id="_">the sampling method used;</p>
                                </li>

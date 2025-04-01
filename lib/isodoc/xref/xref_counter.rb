@@ -172,6 +172,9 @@ module IsoDoc
         "#{prefix}#{@base}#{out}#{@letter_override || @letter}"
       end
 
+      # We don't really want users to specify type of ordered list;
+      # we will use by default a fixed hierarchy as practiced by ISO (though not
+      # fully spelled out): a) 1) i) A) I)
       def ol_type(list, depth)
         return list["type"].to_sym if list["type"]
         return :arabic if [2, 7].include? depth
