@@ -211,7 +211,8 @@ module IsoDoc
 
     def ul_label_value(elem)
       depth = elem.ancestors("ul, ol").size
-      ul_label_list(elem)[depth % ul_label_list.size]
+      val = ul_label_list(elem)
+      val[depth % val.size]
     end
 
     def source(docxml)
