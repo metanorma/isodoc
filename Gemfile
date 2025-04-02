@@ -8,4 +8,4 @@ gemspec
 
 eval_gemfile("Gemfile.devel") rescue nil
 
-gem "sanitize", "7.0.0"
+gem "sanitize", "~> 7"
