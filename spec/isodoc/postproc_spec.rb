@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require "sanitize"
 require "fileutils"
 
 options = { wordstylesheet: "spec/assets/word.css",
@@ -1262,8 +1263,9 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(%r{^.*<body}m, "<body")
       .sub(%r{</body>.*$}m, "</body>")
-      .gsub(%r{<script.+?</script>}mi, "<script/>")
-      .sub(%r{(<script/>\s+)+}mi, "<script/>")
+      .gsub(%r{<script.+?</script>}mi, "")
+      .sub(%r{(<script/>\s+)+}mi, "")
+      .then { |html| Sanitize.fragment(html, elements: ['script']) }
     expect(Xml::C14n.format(html)).to be_equivalent_to Xml::C14n.format(output)
   end
 
