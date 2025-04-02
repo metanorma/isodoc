@@ -38,7 +38,8 @@ module IsoDoc
       # we will use a fixed hierarchy as practiced by ISO (though not
       # fully spelled out): a) 1) i) A) I)
       # Fallback, this is now being done in Presentation XML
-      def ol_depth(node)
+      # KILL
+      def ol_depthx(node)
         depth = node.ancestors("ul, ol").size + 1
         type = :alphabet
         type = :arabic if [2, 7].include? depth
@@ -49,7 +50,8 @@ module IsoDoc
       end
 
       def ol_attrs(node)
-        { type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
+        { # type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
+          type: ol_style(node["type"]&.to_sym),
           id: node["id"], style: keep_style(node) }
       end
 
