@@ -29,6 +29,10 @@ module IsoDoc
       docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
     end
 
+    def counter_init
+      @counter = IsoDoc::XrefGen::Counter.new(0, {})
+    end
+
     def presxml_convert_init(docxml, filename, dir)
       @outputdir = dir
       @outputfile = Pathname.new(filename).basename.to_s
@@ -36,7 +40,7 @@ module IsoDoc
       @xrefs.parse docxml
       @xrefs.klass.meta = @meta
       @xrefs.klass.info docxml, nil
-      @counter = IsoDoc::XrefGen::Counter.new(0, {})
+      counter_init
     end
 
     def repeat_id_validate1(elem)
