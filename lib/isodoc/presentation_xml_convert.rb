@@ -1,4 +1,5 @@
 require_relative "presentation_function/block"
+require_relative "presentation_function/list"
 require_relative "presentation_function/reqt"
 require_relative "presentation_function/concepts"
 require_relative "presentation_function/terms"
