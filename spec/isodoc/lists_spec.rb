@@ -3,20 +3,30 @@ require "spec_helper"
 RSpec.describe IsoDoc do
   it "processes unordered lists" do
     input = <<~INPUT
-          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
           <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <li>
-          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">Level 1</p>
         </li>
         <li>
           <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddc"  keep-with-next="true" keep-lines-together="true">
           <li>
-          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">updated normative references;</p>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 2</p>
+          <ul id="_61961034-0fb1-436b-b281-828857a59ddc"  keep-with-next="true" keep-lines-together="true">
+          <li>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 3</p>
+          <ul id="_61961034-0fb1-436b-b281-828857a59ddc"  keep-with-next="true" keep-lines-together="true">
+          <li>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 4</p>
+        </li>
+        </ul>
+        </li>
+        </ul>
         </li>
           </ul>
         </li>
@@ -25,7 +35,7 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <foreword displayorder="1" id="fwd">
                 <title id="_">Foreword</title>
@@ -39,7 +49,7 @@ RSpec.describe IsoDoc do
                       <fmt-name>
                          <semx element="autonum" source="">—</semx>
                       </fmt-name>
-                      <p id="_">updated normative references;</p>
+                      <p id="_">Level 1</p>
                    </li>
                    <li>
                       <fmt-name>
@@ -51,7 +61,23 @@ RSpec.describe IsoDoc do
                             <fmt-name>
                                <semx element="autonum" source="">—</semx>
                             </fmt-name>
-                            <p id="_">updated normative references;</p>
+                            <p id="_">Level 2</p>
+                            <ul id="_" keep-with-next="true" keep-lines-together="true">
+                               <li>
+                                  <fmt-name>
+                                     <semx element="autonum" source="">—</semx>
+                                  </fmt-name>
+                                  <p id="_">Level 3</p>
+                                  <ul id="_" keep-with-next="true" keep-lines-together="true">
+                                     <li>
+                                        <fmt-name>
+                                           <semx element="autonum" source="">—</semx>
+                                        </fmt-name>
+                                        <p id="_">Level 4</p>
+                                     </li>
+                                  </ul>
+                               </li>
+                            </ul>
                          </li>
                       </ul>
                    </li>
@@ -64,7 +90,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     html = <<~OUTPUT
-       <html lang="en">
+      <html lang="en">
           <head/>
           <body lang="en">
              <div class="title-section">
@@ -83,14 +109,28 @@ RSpec.describe IsoDoc do
                       <p class="ListTitle">Caption</p>
                       <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
                          <li>
-                            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
+                            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">Level 1</p>
                          </li>
                          <li>
                             <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
                             <div class="ul_wrap">
                                <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
                                   <li>
-                                     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">updated normative references;</p>
+                                     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 2</p>
+                                     <div class="ul_wrap">
+                                        <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                                           <li>
+                                              <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 3</p>
+                                              <div class="ul_wrap">
+                                                 <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                                                    <li>
+                                                       <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 4</p>
+                                                    </li>
+                                                 </ul>
+                                              </div>
+                                           </li>
+                                        </ul>
+                                     </div>
                                   </li>
                                </ul>
                             </div>
@@ -107,27 +147,41 @@ RSpec.describe IsoDoc do
        </html>
     OUTPUT
     word = <<~OUTPUT
-                <div id="fwd">
-                   <h1 class="ForewordTitle">Foreword</h1>
+       <div id="fwd">
+          <h1 class="ForewordTitle">Foreword</h1>
+          <div class="ul_wrap">
+             <p class="ListTitle">Caption</p>
+             <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
+                <li>
+                   <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">Level 1</p>
+                </li>
+                <li>
+                   <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
                    <div class="ul_wrap">
-                      <p class="ListTitle">Caption</p>
-                      <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
                          <li>
-                            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
-                         </li>
-                         <li>
-                            <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+                            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 2</p>
                             <div class="ul_wrap">
                                <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
                                   <li>
-                                     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">updated normative references;</p>
+                                     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 3</p>
+                                     <div class="ul_wrap">
+                                        <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                                           <li>
+                                              <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 4</p>
+                                           </li>
+                                        </ul>
+                                     </div>
                                   </li>
                                </ul>
                             </div>
                          </li>
                       </ul>
                    </div>
-                </div>
+                </li>
+             </ul>
+          </div>
+       </div>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
@@ -232,13 +286,28 @@ RSpec.describe IsoDoc do
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <li>
-          <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
+          <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">Level 1</p>
+          </li>
+          </ol>
+        <ol id="A">
+        <li>
+          <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">Level 1</p>
+          </li>
+        <li>
+          <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">Level 1</p>
         <ol>
         <li>
-          <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 2</p>
         <ol>
         <li>
-          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 3</p>
+        <ol>
+        <li>
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 4</p>
+        </li>
+        </ol>
+        </li>
+        </ol>
         </li>
         </ol>
         </li>
@@ -259,7 +328,7 @@ RSpec.describe IsoDoc do
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
-                <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="">
+                <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="1">
                    <name id="_">Caption</name>
                    <fmt-name>
                       <semx element="name" source="_">Caption</semx>
@@ -269,21 +338,46 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="_">a</semx>
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
-                      <p id="_">all information necessary for the complete identification of the sample;</p>
+                      <p id="_">Level 1</p>
+                   </li>
+                </ol>
+                <ol id="A" type="alphabet">
+                   <li id="_">
+                      <fmt-name>
+                         <semx element="autonum" source="_">a</semx>
+                         <span class="fmt-label-delim">)</span>
+                      </fmt-name>
+                      <p id="_">Level 1</p>
+                   </li>
+                   <li id="_">
+                      <fmt-name>
+                         <semx element="autonum" source="_">b</semx>
+                         <span class="fmt-label-delim">)</span>
+                      </fmt-name>
+                      <p id="_">Level 1</p>
                       <ol type="arabic">
                          <li id="_">
                             <fmt-name>
                                <semx element="autonum" source="_">1</semx>
                                <span class="fmt-label-delim">)</span>
                             </fmt-name>
-                            <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
+                            <p id="_">Level 2</p>
                             <ol type="roman">
                                <li id="_">
                                   <fmt-name>
                                      <semx element="autonum" source="_">i</semx>
                                      <span class="fmt-label-delim">)</span>
                                   </fmt-name>
-                                  <p id="_">the sampling method used;</p>
+                                  <p id="_">Level 3</p>
+                                  <ol type="alphabet_upper">
+                                     <li id="_">
+                                        <fmt-name>
+                                           <semx element="autonum" source="_">A</semx>
+                                           <span class="fmt-label-delim">.</span>
+                                        </fmt-name>
+                                        <p id="_">Level 4</p>
+                                     </li>
+                                  </ol>
                                </li>
                             </ol>
                          </li>
@@ -297,22 +391,39 @@ RSpec.describe IsoDoc do
 
     html = <<~OUTPUT
       #{HTML_HDR}
-                   <br/>
-                   <div id="_">
-                     <h1 class="ForewordTitle">Foreword</h1>
+                <br/>
+                <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
                    <div class="ol_wrap">
                       <p class="ListTitle">Caption</p>
                       <ol type="a" id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                          <li id="_">
-                            <p id="_">all information necessary for the complete identification of the sample;</p>
+                            <p id="_">Level 1</p>
+                         </li>
+                      </ol>
+                   </div>
+                   <div class="ol_wrap">
+                      <ol type="a" id="A">
+                         <li id="_">
+                            <p id="_">Level 1</p>
+                         </li>
+                         <li id="_">
+                            <p id="_">Level 1</p>
                             <div class="ol_wrap">
                                <ol type="1">
                                   <li id="_">
-                                     <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
+                                     <p id="_">Level 2</p>
                                      <div class="ol_wrap">
                                         <ol type="i">
                                            <li id="_">
-                                              <p id="_">the sampling method used;</p>
+                                              <p id="_">Level 3</p>
+                                              <div class="ol_wrap">
+                                                 <ol type="A">
+                                                    <li id="_">
+                                                       <p id="_">Level 4</p>
+                                                    </li>
+                                                 </ol>
+                                              </div>
                                            </li>
                                         </ol>
                                      </div>
@@ -332,40 +443,56 @@ RSpec.describe IsoDoc do
               <p class="page-break">
                 <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
               </p>
-              <div id="_">
-                <h1 class='ForewordTitle'>Foreword</h1>
-                <div class="ol_wrap">
-                <p class='ListTitle'>Caption</p>
-                <ol type='a' id='_' style='page-break-after: avoid;page-break-inside: avoid;'>
-                  <li id="_">
-                    <p id='_'>all information necessary for the complete identification of the sample;</p>
-                                         <div class="ol_wrap">
-                        <ol type="1">
-                           <li id="_">
-                              <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
-                              <div class="ol_wrap">
-                                 <ol type="i">
-                                    <li id="_">
-                                       <p id="_">the sampling method used;</p>
-                                    </li>
-                                 </ol>
-                              </div>
-                           </li>
-                        </ol>
-                     </div>
-                    </li>
-                 </ol>
-               </div>
+               <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div class="ol_wrap">
+                      <p class="ListTitle">Caption</p>
+                      <ol type="a" id="_" style="page-break-after: avoid;page-break-inside: avoid;">
+                         <li id="_">
+                            <p id="_">Level 1</p>
+                         </li>
+                      </ol>
+                   </div>
+                   <div class="ol_wrap">
+                      <ol type="a" id="A">
+                         <li id="_">
+                            <p id="_">Level 1</p>
+                         </li>
+                         <li id="_">
+                            <p id="_">Level 1</p>
+                            <div class="ol_wrap">
+                               <ol type="1">
+                                  <li id="_">
+                                     <p id="_">Level 2</p>
+                                     <div class="ol_wrap">
+                                        <ol type="i">
+                                           <li id="_">
+                                              <p id="_">Level 3</p>
+                                              <div class="ol_wrap">
+                                                 <ol type="A">
+                                                    <li id="_">
+                                                       <p id="_">Level 4</p>
+                                                    </li>
+                                                 </ol>
+                                              </div>
+                                           </li>
+                                        </ol>
+                                     </div>
+                                  </li>
+                               </ol>
+                            </div>
+                         </li>
+                      </ol>
+                   </div>
+                </div>
+                <p> </p>
              </div>
-              <p>&#xa0;</p>
-            </div>
-            <p class="section-break">
-              <br clear='all' class='section'/>
-            </p>
-            <div class='WordSection3'>
-            </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3"/>
           </body>
-        </html>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
