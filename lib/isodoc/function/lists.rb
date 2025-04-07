@@ -37,8 +37,9 @@ module IsoDoc
       # We don't really want users to specify type of ordered list;
       # we will use a fixed hierarchy as practiced by ISO (though not
       # fully spelled out): a) 1) i) A) I)
-
-      def ol_depth(node)
+      # Fallback, this is now being done in Presentation XML
+      # KILL
+      def ol_depthx(node)
         depth = node.ancestors("ul, ol").size + 1
         type = :alphabet
         type = :arabic if [2, 7].include? depth
@@ -49,7 +50,8 @@ module IsoDoc
       end
 
       def ol_attrs(node)
-        { type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
+        { # type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
+          type: ol_style(node["type"]&.to_sym),
           id: node["id"], style: keep_style(node) }
       end
 
@@ -62,16 +64,24 @@ module IsoDoc
         end
       end
 
+      def li_checkbox(node)
+        if node["uncheckedcheckbox"] == "true"
+          '<span class="zzMoveToFollowing">' \
+                '<input type="checkbox" checked="checked"/></span>'
+        elsif node["checkedcheckbox"] == "true"
+          '<span class="zzMoveToFollowing">' \
+                '<input type="checkbox"/></span>'
+        else ""
+        end
+      end
+
       def li_parse(node, out)
         out.li **attr_code(id: node["id"]) do |li|
-          if node["uncheckedcheckbox"] == "true"
-            li << '<span class="zzMoveToFollowing">' \
-                  '<input type="checkbox" checked="checked"/></span>'
-          elsif node["checkedcheckbox"] == "true"
-            li << '<span class="zzMoveToFollowing">' \
-                  '<input type="checkbox"/></span>'
+          li << li_checkbox(node)
+          node.children.each do |n|
+            n.name == "fmt-name" and next
+            parse(n, li)
           end
-          node.children.each { |n| parse(n, li) }
         end
       end
 

@@ -28,11 +28,8 @@ module IsoDoc
         xdup = xref.dup
         xdup.remove["id"]
         if footnote.elements.empty?
-          #footnote.children.empty? and footnote << " "
-          #footnote.children.first.previous = xdup
           footnote.add_first_child xdup
         else
-          #footnote.elements.first.children.first.previous = xdup
           footnote.elements.first.add_first_child xdup
         end
       end
@@ -45,18 +42,6 @@ module IsoDoc
           footnote_backlinks1(x, fn)
           x["id"] ||= "fnref:#{i + 1}"
           fn.add_child "<a href='##{x['id']}'>&#x21A9;</a>"
-        end
-        docxml
-      end
-
-      # KILL
-      def footnote_formatx(docxml)
-        docxml.xpath("//a[@class = 'FootnoteRef']/sup").each do |x|
-          footnote_reference_format(x)
-        end
-        docxml.xpath("//a[@class = 'TableFootnoteRef'] | "\
-                     "//span[@class = 'TableFootnoteRef']").each do |x|
-          table_footnote_reference_format(x)
         end
         docxml
       end

@@ -1,5 +1,6 @@
 require "roman-numerals"
 require "twitter_cldr"
+require_relative "ol_type_provider"
 
 module IsoDoc
   module XrefGen
@@ -16,6 +17,7 @@ module IsoDoc
     end
 
     class Counter
+      include OlTypeProvider
       attr_accessor :prefix_override
 
       def initialize(num = 0, opts = { numerals: :arabic })
@@ -170,17 +172,6 @@ module IsoDoc
         prefix = @prefix
         prefix &&= "#{prefix}#{@separator}"
         "#{prefix}#{@base}#{out}#{@letter_override || @letter}"
-      end
-
-      def ol_type(list, depth)
-        return list["type"].to_sym if list["type"]
-        return :arabic if [2, 7].include? depth
-        return :alphabet if [1, 6].include? depth
-        return :alphabet_upper if [4, 9].include? depth
-        return :roman if [3, 8].include? depth
-        return :roman_upper if [5, 10].include? depth
-
-        :arabic
       end
 
       def listlabel(list, depth)

@@ -16,7 +16,6 @@ module IsoDoc
       def cleanup(docxml)
         @i18n ||= i18n_init(@lang, @script, @locale)
         comment_cleanup(docxml)
-        #footnote_cleanup(docxml)
         inline_header_cleanup(docxml)
         figure_cleanup(docxml)
         table_cleanup(docxml)
@@ -54,15 +53,6 @@ module IsoDoc
           else
             n.add_first_child(x.remove)
           end
-        end
-        docxml
-      end
-
-      # KILL
-      def footnote_cleanup(docxml)
-        docxml.xpath('//a[@class = "FootnoteRef"]/sup')
-          .each_with_index do |x, i|
-          x.content = (i + 1).to_s
         end
         docxml
       end

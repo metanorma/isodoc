@@ -138,53 +138,6 @@ module IsoDoc
       elem.next = ret
     end
 
-    def dl(docxml)
-      docxml.xpath(ns("//dl")).each { |f| dl1(f) }
-    end
-
-    def dl1(elem)
-      elem.at(ns("./name")) and
-        prefix_name(elem, {}, "", "name") # copy name to fmt-name
-    end
-
-    def ul(docxml)
-      docxml.xpath(ns("//ul")).each { |f| ul1(f) }
-    end
-
-    def ul1(elem)
-      elem.at(ns("./name")) and
-        prefix_name(elem, {}, "", "name") # copy name to fmt-name
-    end
-
-    def ol(docxml)
-      docxml.xpath(ns("//ol")).each { |f| ol1(f) }
-      @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
-      docxml.xpath(ns("//ol/li")).each { |f| ol_label(f) }
-    end
-
-    # We don't really want users to specify type of ordered list;
-    # we will use by default a fixed hierarchy as practiced by ISO (though not
-    # fully spelled out): a) 1) i) A) I)
-    def ol_depth(node)
-      depth = node.ancestors("ul, ol").size + 1
-      type = :alphabet
-      type = :arabic if [2, 7].include? depth
-      type = :roman if [3, 8].include? depth
-      type = :alphabet_upper if [4, 9].include? depth
-      type = :roman_upper if [5, 10].include? depth
-      type
-    end
-
-    def ol1(elem)
-      elem["type"] ||= ol_depth(elem).to_s
-      elem.at(ns("./name")) and
-        prefix_name(elem, {}, "", "name") # copy name to fmt-name
-    end
-
-    def ol_label(elem)
-      elem["label"] = @xrefs.anchor(elem["id"], :label, false)
-    end
-
     def source(docxml)
       docxml.xpath(ns("//source/modification")).each do |f|
         source_modification(f)

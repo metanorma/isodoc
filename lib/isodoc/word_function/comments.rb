@@ -11,15 +11,6 @@ module IsoDoc
         end
       end
 
-      # KILL
-      def review_note_parsex(node, out)
-        fn = @comments.length + 1
-        make_comment_link(out, fn, node)
-        @in_comment = true
-        @comments << make_comment_text(node, fn)
-        @in_comment = false
-      end
-
       def comment_link_attrs(fnote, node)
         { style: "MsoCommentReference", target: fnote,
           class: "commentLink", from: node["source"],
@@ -49,17 +40,6 @@ module IsoDoc
             s2.span style: "mso-special-character:comment"
           end
         end
-      end
-
-      # KILL
-      def make_comment_text(node, fnote)
-        noko do |xml|
-          xml.div style: "mso-element:comment", id: fnote do |div|
-            div.span style: %{mso-comment-author:"#{node['reviewer']}"}
-            make_comment_target(div)
-            node.children.each { |n| parse(n, div) }
-          end
-        end.join("\n")
       end
 
       def fmt_review_body_parse(node, out)

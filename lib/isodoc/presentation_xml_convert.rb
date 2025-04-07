@@ -1,4 +1,5 @@
 require_relative "presentation_function/block"
+require_relative "presentation_function/list"
 require_relative "presentation_function/reqt"
 require_relative "presentation_function/concepts"
 require_relative "presentation_function/terms"
@@ -21,16 +22,25 @@ module IsoDoc
     end
 
     def convert1(docxml, filename, dir)
+      presxml_convert_init(docxml, filename, dir)
+      conversions(docxml)
+      docxml.root["type"] = "presentation"
+      repeat_id_validate(docxml.root)
+      docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
+    end
+
+    def counter_init
+      @counter = IsoDoc::XrefGen::Counter.new(0, {})
+    end
+
+    def presxml_convert_init(docxml, filename, dir)
       @outputdir = dir
       @outputfile = Pathname.new(filename).basename.to_s
       docid_prefixes(docxml) # feeds @xrefs.parse citation processing
       @xrefs.parse docxml
       @xrefs.klass.meta = @meta
       @xrefs.klass.info docxml, nil
-      conversions(docxml)
-      docxml.root["type"] = "presentation"
-      repeat_id_validate(docxml.root)
-      docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
+      counter_init
     end
 
     def repeat_id_validate1(elem)

@@ -630,7 +630,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
-    it "ignores index entries" do
+  it "ignores index entries" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface><foreword>
@@ -651,11 +651,11 @@ RSpec.describe IsoDoc do
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
 
-mock_indexsect(true)
+    mock_indexsect(true)
     output = <<~OUTPUT
-       <p id="A">
-          <bookmark primary="A" secondary="B" tertiary="C" id="_"/>
-       </p>
+      <p id="A">
+         <bookmark primary="A" secondary="B" tertiary="C" id="_"/>
+      </p>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -664,8 +664,8 @@ mock_indexsect(true)
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
- it "generates an index in English" do
-mock_indexsect(true)
+  it "generates an index in English" do
+    mock_indexsect(true)
     input = <<~INPUT
       <iso-standard xmlns="https://open.ribose.com/standards/bipm">
         <bibdata>
@@ -696,7 +696,7 @@ mock_indexsect(true)
         </sections>
       </bipm-standard>
     INPUT
-        presxml = <<~OUTPUT
+    presxml = <<~OUTPUT
         <iso-standard xmlns="https://open.ribose.com/standards/bipm" type="presentation">
            <bibdata>
               <language current="true">en</language>
@@ -752,12 +752,18 @@ mock_indexsect(true)
               <title>Index</title>
               <ul>
                  <li>
+                    <fmt-name>
+                       <semx element="autonum" source="">—</semx>
+                    </fmt-name>
                     <em>Dasein</em>
                     , see
                     <em>Eman</em>
                     cipation, être
                  </li>
                  <li>
+                    <fmt-name>
+                       <semx element="autonum" source="">—</semx>
+                    </fmt-name>
                     élongé,
                     <xref target="_" pagenumber="true" id="_"/>
                     <semx element="xref" source="_">
@@ -768,6 +774,9 @@ mock_indexsect(true)
                     </semx>
                  </li>
                  <li>
+                    <fmt-name>
+                       <semx element="autonum" source="">—</semx>
+                    </fmt-name>
                     <em>Eman</em>
                     cipation,
                     <xref target="_" pagenumber="true" id="_"/>
@@ -789,6 +798,9 @@ mock_indexsect(true)
                     </semx>
                     <ul>
                        <li>
+                          <fmt-name>
+                             <semx element="autonum" source="">—</semx>
+                          </fmt-name>
                           dans la France,
                           <xref target="_" pagenumber="true" id="_"/>
                           <semx element="xref" source="_">
@@ -799,6 +811,9 @@ mock_indexsect(true)
                           </semx>
                           <ul>
                              <li>
+                                <fmt-name>
+                                   <semx element="autonum" source="">—</semx>
+                                </fmt-name>
                                 à Paris,
                                 <xref target="_" pagenumber="true" id="_"/>
                                 <semx element="xref" source="_">
@@ -811,6 +826,9 @@ mock_indexsect(true)
                                 </semx>
                              </li>
                              <li>
+                                <fmt-name>
+                                   <semx element="autonum" source="">—</semx>
+                                </fmt-name>
                                 en Bretagne,
                                 <xref target="_" pagenumber="true" id="_"/>
                                 <semx element="xref" source="_">
@@ -823,6 +841,9 @@ mock_indexsect(true)
                           </ul>
                        </li>
                        <li>
+                          <fmt-name>
+                             <semx element="autonum" source="">—</semx>
+                          </fmt-name>
                           dans les États-Unis,
                           <xref target="_" pagenumber="true" id="_"/>
                           <semx element="xref" source="_">
@@ -837,14 +858,23 @@ mock_indexsect(true)
                     </ul>
                  </li>
                  <li>
+                    <fmt-name>
+                       <semx element="autonum" source="">—</semx>
+                    </fmt-name>
                     être
                     <ul>
                        <li>
+                          <fmt-name>
+                             <semx element="autonum" source="">—</semx>
+                          </fmt-name>
                           Husserl, see zebra, see also
                           <em>Eman</em>
                           cipation, zebra
                           <ul>
                              <li>
+                                <fmt-name>
+                                   <semx element="autonum" source="">—</semx>
+                                </fmt-name>
                                 en allemand,
                                 <xref target="_" pagenumber="true" id="_"/>
                                 <semx element="xref" source="_">
@@ -859,6 +889,9 @@ mock_indexsect(true)
                     </ul>
                  </li>
                  <li>
+                    <fmt-name>
+                       <semx element="autonum" source="">—</semx>
+                    </fmt-name>
                     zebra,
                     <xref target="_" pagenumber="true" id="_"/>
                     <semx element="xref" source="_">
@@ -875,221 +908,221 @@ mock_indexsect(true)
         </iso-standard>
     OUTPUT
     html = <<~OUTPUT
-       <html lang="en">
-          <head/>
-          <body lang="en">
-             <div class="title-section">
-                <p> </p>
-             </div>
-             <br/>
-             <div class="prefatory-section">
-                <p> </p>
-             </div>
-             <br/>
-             <div class="main-section">
-                <br/>
-                <div id="_" class="TOC">
-                   <h1 class="IntroTitle">Table of contents</h1>
-                </div>
-                <div id="A">
-                   <h1>1.</h1>
-                   <p>A</p>
-                   <a id="_"/>
-                   <a id="_"/>
-                   <a id="_"/>
-                   <a id="_"/>
-                   <a id="_"/>
-                   <div id="B">
-                      <h2>1.1.</h2>
-                      <p>B</p>
-                      <a id="_"/>
-                      <a id="_"/>
-                      <a id="_"/>
-                      <a id="_"/>
-                   </div>
-                </div>
-                <div id="_">
-                   <h1>Index</h1>
-                   <div class="ul_wrap">
-                      <ul>
-                         <li>
-                            <i>Dasein</i>
-                            , see
-                            <i>Eman</i>
-                            cipation, être
-                         </li>
-                         <li>
-                            élongé,
-                            <a href="#_">Clause 1</a>
-                         </li>
-                         <li>
-                            <i>Eman</i>
-                            cipation,
-                            <a href="#_">Clause 1</a>
-                            ,
-                            <a href="#_">Clause 1.1</a>
-                            <div class="ul_wrap">
-                               <ul>
-                                  <li>
-                                     dans la France,
-                                     <a href="#_">Clause 1</a>
-                                     <div class="ul_wrap">
-                                        <ul>
-                                           <li>
-                                              à Paris,
-                                              <a href="#_">Clause 1.1</a>
-                                           </li>
-                                           <li>
-                                              en Bretagne,
-                                              <a href="#_">Clause 1</a>
-                                           </li>
-                                        </ul>
-                                     </div>
-                                  </li>
-                                  <li>
-                                     dans les États-Unis,
-                                     <a href="#_">Clause 1.1</a>
-                                  </li>
-                               </ul>
-                            </div>
-                         </li>
-                         <li>
-                            être
-                            <div class="ul_wrap">
-                               <ul>
-                                  <li>
-                                     Husserl, see zebra, see also
-                                     <i>Eman</i>
-                                     cipation, zebra
-                                     <div class="ul_wrap">
-                                        <ul>
-                                           <li>
-                                              en allemand,
-                                              <a href="#_">Clause 1</a>
-                                           </li>
-                                        </ul>
-                                     </div>
-                                  </li>
-                               </ul>
-                            </div>
-                         </li>
-                         <li>
-                            zebra,
-                            <a href="#_">Clause 1.1</a>
-                         </li>
-                      </ul>
-                   </div>
-                </div>
-             </div>
-          </body>
-       </html>
+      <html lang="en">
+         <head/>
+         <body lang="en">
+            <div class="title-section">
+               <p> </p>
+            </div>
+            <br/>
+            <div class="prefatory-section">
+               <p> </p>
+            </div>
+            <br/>
+            <div class="main-section">
+               <br/>
+               <div id="_" class="TOC">
+                  <h1 class="IntroTitle">Table of contents</h1>
+               </div>
+               <div id="A">
+                  <h1>1.</h1>
+                  <p>A</p>
+                  <a id="_"/>
+                  <a id="_"/>
+                  <a id="_"/>
+                  <a id="_"/>
+                  <a id="_"/>
+                  <div id="B">
+                     <h2>1.1.</h2>
+                     <p>B</p>
+                     <a id="_"/>
+                     <a id="_"/>
+                     <a id="_"/>
+                     <a id="_"/>
+                  </div>
+               </div>
+               <div id="_">
+                  <h1>Index</h1>
+                  <div class="ul_wrap">
+                     <ul>
+                        <li>
+                           <i>Dasein</i>
+                           , see
+                           <i>Eman</i>
+                           cipation, être
+                        </li>
+                        <li>
+                           élongé,
+                           <a href="#_">Clause 1</a>
+                        </li>
+                        <li>
+                           <i>Eman</i>
+                           cipation,
+                           <a href="#_">Clause 1</a>
+                           ,
+                           <a href="#_">Clause 1.1</a>
+                           <div class="ul_wrap">
+                              <ul>
+                                 <li>
+                                    dans la France,
+                                    <a href="#_">Clause 1</a>
+                                    <div class="ul_wrap">
+                                       <ul>
+                                          <li>
+                                             à Paris,
+                                             <a href="#_">Clause 1.1</a>
+                                          </li>
+                                          <li>
+                                             en Bretagne,
+                                             <a href="#_">Clause 1</a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    dans les États-Unis,
+                                    <a href="#_">Clause 1.1</a>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li>
+                           être
+                           <div class="ul_wrap">
+                              <ul>
+                                 <li>
+                                    Husserl, see zebra, see also
+                                    <i>Eman</i>
+                                    cipation, zebra
+                                    <div class="ul_wrap">
+                                       <ul>
+                                          <li>
+                                             en allemand,
+                                             <a href="#_">Clause 1</a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li>
+                           zebra,
+                           <a href="#_">Clause 1.1</a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </body>
+      </html>
     OUTPUT
     doc = <<~DOC
-       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-          <div class="WordSection3">
-             <div>
-                <a name="A" id="A"/>
-                <h1>1.</h1>
-                <p class="MsoNormal">A</p>
-                <a>
-                   <a name="_" id="_"/>
-                </a>
-                <a>
-                   <a name="_" id="_"/>
-                </a>
-                <a>
-                   <a name="_" id="_"/>
-                </a>
-                <a>
-                   <a name="_" id="_"/>
-                </a>
-                <a>
-                   <a name="_" id="_"/>
-                </a>
-                <div>
-                   <a name="B" id="B"/>
-                   <h2>1.1.</h2>
-                   <p class="MsoNormal">B</p>
-                   <a>
-                      <a name="_" id="_"/>
-                   </a>
-                   <a>
-                      <a name="_" id="_"/>
-                   </a>
-                   <a>
-                      <a name="_" id="_"/>
-                   </a>
-                   <a>
-                      <a name="_" id="_"/>
-                   </a>
-                </div>
-             </div>
-             <div>
-                <a name="_" id="_"/>
-                <h1>Index</h1>
-                <div class="ul_wrap">
-                   <p class="MsoListParagraphCxSpFirst">
-                      <i>Dasein</i>
-                      , see
-                      <i>Eman</i>
-                      cipation, être
-                   </p>
-                   <p class="MsoListParagraphCxSpMiddle">
-                      élongé,
-                      <a href="#_">Clause 1</a>
-                   </p>
-                   <p class="MsoListParagraphCxSpMiddle">
-                      <i>Eman</i>
-                      cipation,
-                      <a href="#_">Clause 1</a>
-                      ,
-                      <a href="#_">Clause 1.1</a>
-                      <div class="ul_wrap">
-                         <p class="MsoListParagraphCxSpFirst">
-                            dans la France,
-                            <a href="#_">Clause 1</a>
-                            <div class="ul_wrap">
-                               <p class="MsoListParagraphCxSpFirst">
-                                  à Paris,
-                                  <a href="#_">Clause 1.1</a>
-                               </p>
-                               <p class="MsoListParagraphCxSpLast">
-                                  en Bretagne,
-                                  <a href="#_">Clause 1</a>
-                               </p>
-                            </div>
-                         </p>
-                         <p class="MsoListParagraphCxSpLast">
-                            dans les États-Unis,
-                            <a href="#_">Clause 1.1</a>
-                         </p>
-                      </div>
-                   </p>
-                   <p class="MsoListParagraphCxSpMiddle">
-                      être
-                      <div class="ul_wrap">
-                         <p class="MsoListParagraphCxSpFirst">
-                            Husserl, see zebra, see also
-                            <i>Eman</i>
-                            cipation, zebra
-                            <div class="ul_wrap">
-                               <p class="MsoListParagraphCxSpFirst">
-                                  en allemand,
-                                  <a href="#_">Clause 1</a>
-                               </p>
-                            </div>
-                         </p>
-                      </div>
-                   </p>
-                   <p class="MsoListParagraphCxSpLast">
-                      zebra,
-                      <a href="#_">Clause 1.1</a>
-                   </p>
-                </div>
-             </div>
-          </div>
-          <div style="mso-element:footnote-list"/>
-       </body>
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+         <div class="WordSection3">
+            <div>
+               <a name="A" id="A"/>
+               <h1>1.</h1>
+               <p class="MsoNormal">A</p>
+               <a>
+                  <a name="_" id="_"/>
+               </a>
+               <a>
+                  <a name="_" id="_"/>
+               </a>
+               <a>
+                  <a name="_" id="_"/>
+               </a>
+               <a>
+                  <a name="_" id="_"/>
+               </a>
+               <a>
+                  <a name="_" id="_"/>
+               </a>
+               <div>
+                  <a name="B" id="B"/>
+                  <h2>1.1.</h2>
+                  <p class="MsoNormal">B</p>
+                  <a>
+                     <a name="_" id="_"/>
+                  </a>
+                  <a>
+                     <a name="_" id="_"/>
+                  </a>
+                  <a>
+                     <a name="_" id="_"/>
+                  </a>
+                  <a>
+                     <a name="_" id="_"/>
+                  </a>
+               </div>
+            </div>
+            <div>
+               <a name="_" id="_"/>
+               <h1>Index</h1>
+               <div class="ul_wrap">
+                  <p class="MsoListParagraphCxSpFirst">
+                     <i>Dasein</i>
+                     , see
+                     <i>Eman</i>
+                     cipation, être
+                  </p>
+                  <p class="MsoListParagraphCxSpMiddle">
+                     élongé,
+                     <a href="#_">Clause 1</a>
+                  </p>
+                  <p class="MsoListParagraphCxSpMiddle">
+                     <i>Eman</i>
+                     cipation,
+                     <a href="#_">Clause 1</a>
+                     ,
+                     <a href="#_">Clause 1.1</a>
+                     <div class="ul_wrap">
+                        <p class="MsoListParagraphCxSpFirst">
+                           dans la France,
+                           <a href="#_">Clause 1</a>
+                           <div class="ul_wrap">
+                              <p class="MsoListParagraphCxSpFirst">
+                                 à Paris,
+                                 <a href="#_">Clause 1.1</a>
+                              </p>
+                              <p class="MsoListParagraphCxSpLast">
+                                 en Bretagne,
+                                 <a href="#_">Clause 1</a>
+                              </p>
+                           </div>
+                        </p>
+                        <p class="MsoListParagraphCxSpLast">
+                           dans les États-Unis,
+                           <a href="#_">Clause 1.1</a>
+                        </p>
+                     </div>
+                  </p>
+                  <p class="MsoListParagraphCxSpMiddle">
+                     être
+                     <div class="ul_wrap">
+                        <p class="MsoListParagraphCxSpFirst">
+                           Husserl, see zebra, see also
+                           <i>Eman</i>
+                           cipation, zebra
+                           <div class="ul_wrap">
+                              <p class="MsoListParagraphCxSpFirst">
+                                 en allemand,
+                                 <a href="#_">Clause 1</a>
+                              </p>
+                           </div>
+                        </p>
+                     </div>
+                  </p>
+                  <p class="MsoListParagraphCxSpLast">
+                     zebra,
+                     <a href="#_">Clause 1.1</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div style="mso-element:footnote-list"/>
+      </body>
     DOC
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1106,14 +1139,9 @@ mock_indexsect(true)
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
     wordxml = Nokogiri::XML(word)
-    #wordxml.xpath("//div[@class = 'WordSection1' or @class = 'WordSection2']")
-      #.each(&:remove)
-    #wordxml.at("//div[@class = 'WordSection3']")&.remove
     expect(Xml::C14n.format(strip_guid(wordxml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(doc)
   end
-
-
 
   private
 

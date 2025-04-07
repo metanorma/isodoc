@@ -824,54 +824,96 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <ol id='B1' type='alphabet'>
-        <li id="_" label="a">
-          A1
-          <ol id='B2' type='arabic'>
-            <li id="_" label="1">
-              A2
-              <ol id='B3' type='roman'>
-                <li id="_" label="i">
-                  A3
-                  <ol id='B4' type='alphabet_upper'>
-                    <li id="_" label="A">
-                      A4
-                      <ol id='B5' type='roman_upper'>
-                        <li id="_" label="I">
-                          A5
-                          <ol id='B6' type='alphabet'>
-                            <li id="_" label="a">
-                              A6
-                              <ol id='B7' type='arabic'>
-                                <li id="_" label="1">
-                                  A7
-                                  <ol id='B8' type='roman'>
-                                    <li id="_" label="i">
-                                      A8
-                                      <ol id='B9' type='alphabet_upper'>
-                                        <li id="_" label="A">
-                                          A9
-                                          <ol id='B0' type='roman_upper'>
-                                            <li id="_" label="I">A0</li>
-                                          </ol>
+       <ol id="B1" type="alphabet">
+          <li id="_">
+             <fmt-name>
+                <semx element="autonum" source="_">a</semx>
+                <span class="fmt-label-delim">)</span>
+             </fmt-name>
+             A1
+             <ol id="B2" type="arabic">
+                <li id="_">
+                   <fmt-name>
+                      <semx element="autonum" source="_">1</semx>
+                      <span class="fmt-label-delim">)</span>
+                   </fmt-name>
+                   A2
+                   <ol id="B3" type="roman">
+                      <li id="_">
+                         <fmt-name>
+                            <semx element="autonum" source="_">i</semx>
+                            <span class="fmt-label-delim">)</span>
+                         </fmt-name>
+                         A3
+                         <ol id="B4" type="alphabet_upper">
+                            <li id="_">
+                               <fmt-name>
+                                  <semx element="autonum" source="_">A</semx>
+                                  <span class="fmt-label-delim">.</span>
+                               </fmt-name>
+                               A4
+                               <ol id="B5" type="roman_upper">
+                                  <li id="_">
+                                     <fmt-name>
+                                        <semx element="autonum" source="_">I</semx>
+                                        <span class="fmt-label-delim">.</span>
+                                     </fmt-name>
+                                     A5
+                                     <ol id="B6" type="alphabet">
+                                        <li id="_">
+                                           <fmt-name>
+                                              <semx element="autonum" source="_">a</semx>
+                                              <span class="fmt-label-delim">)</span>
+                                           </fmt-name>
+                                           A6
+                                           <ol id="B7" type="arabic">
+                                              <li id="_">
+                                                 <fmt-name>
+                                                    <semx element="autonum" source="_">1</semx>
+                                                    <span class="fmt-label-delim">)</span>
+                                                 </fmt-name>
+                                                 A7
+                                                 <ol id="B8" type="roman">
+                                                    <li id="_">
+                                                       <fmt-name>
+                                                          <semx element="autonum" source="_">i</semx>
+                                                          <span class="fmt-label-delim">)</span>
+                                                       </fmt-name>
+                                                       A8
+                                                       <ol id="B9" type="alphabet_upper">
+                                                          <li id="_">
+                                                             <fmt-name>
+                                                                <semx element="autonum" source="_">A</semx>
+                                                                <span class="fmt-label-delim">.</span>
+                                                             </fmt-name>
+                                                             A9
+                                                             <ol id="B0" type="roman_upper">
+                                                                <li id="_">
+                                                                   <fmt-name>
+                                                                      <semx element="autonum" source="_">I</semx>
+                                                                      <span class="fmt-label-delim">.</span>
+                                                                   </fmt-name>
+                                                                   A0
+                                                                </li>
+                                                             </ol>
+                                                          </li>
+                                                       </ol>
+                                                    </li>
+                                                 </ol>
+                                              </li>
+                                           </ol>
                                         </li>
-                                      </ol>
-                                    </li>
-                                  </ol>
-                                </li>
-                              </ol>
+                                     </ol>
+                                  </li>
+                               </ol>
                             </li>
-                          </ol>
-                        </li>
-                      </ol>
-                    </li>
-                  </ol>
+                         </ol>
+                      </li>
+                   </ol>
                 </li>
-              </ol>
-            </li>
-          </ol>
-        </li>
-      </ol>
+             </ol>
+          </li>
+       </ol>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -915,19 +957,32 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <ol id='B1' type='alphabet'>
-        <li id="_" label="a">
-          A1
-          <ul id='B2'>
-            <li>
-              A2
-              <ol id='B3' type='roman'>
-                <li id="_" label="i">A3 </li>
-              </ol>
-            </li>
-          </ul>
-        </li>
-      </ol>
+       <ol id="B1" type="alphabet">
+          <li id="_">
+             <fmt-name>
+                <semx element="autonum" source="_">a</semx>
+                <span class="fmt-label-delim">)</span>
+             </fmt-name>
+             A1
+             <ul id="B2">
+                <li>
+                   <fmt-name>
+                      <semx element="autonum" source="">—</semx>
+                   </fmt-name>
+                   A2
+                   <ol id="B3" type="roman">
+                      <li id="_">
+                         <fmt-name>
+                            <semx element="autonum" source="_">i</semx>
+                            <span class="fmt-label-delim">)</span>
+                         </fmt-name>
+                         A3
+                      </li>
+                   </ol>
+                </li>
+             </ul>
+          </li>
+       </ol>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
