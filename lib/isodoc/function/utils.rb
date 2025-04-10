@@ -246,12 +246,13 @@ module IsoDoc
       def cleanup_entities(text, is_xml: true)
         d = Metanorma::Utils.decoder
         e = Metanorma::Utils.encoder_hex
-        if is_xml
+        if is_xml and text.include?("<")
           text.split(/([<>])/).each_slice(4).map do |a|
             a[0] = e.encode(d.decode(a[0]))
             a
           end.join
         else
+          return text unless text.include?("&")
           e.encode(d.decode(text))
         end
       end
