@@ -68,7 +68,6 @@ module IsoDoc
     end
 
     def conversions(docxml)
-      # semantic_xml_insert(docxml)
       metadata docxml
       bibdata docxml
       @xrefs.parse docxml

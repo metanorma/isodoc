@@ -98,7 +98,7 @@ module IsoDoc
         # node.xpath("./m:math", MATHML).map(&:to_xml).join
         node.xpath(ns("./asciimath | ./latexmath")).each(&:remove)
         node.xpath(ns("./br")).each { |e| e.namespace = nil }
-        node.elements
+        node.children
       end
 
       def asciimath_parse(node)
