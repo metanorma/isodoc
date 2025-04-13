@@ -27,7 +27,9 @@ module IsoDoc
         x.children =
           if !fmt.nil? && !fmt.empty?
             explicit_number_formatter(x, locale, fmt)
-          else implicit_number_formatter(x, locale)
+          else
+            in_formula ||= node.ancestors("formula").any?
+            implicit_number_formatter(x, locale, in_formula)
           end
       rescue ArgumentError
       rescue StandardError, RuntimeError => e
@@ -41,8 +43,8 @@ module IsoDoc
       n
     end
 
-    def implicit_number_formatter(num, locale)
-      num.ancestors("formula").empty? or return
+    def implicit_number_formatter(num, locale, in_formula)
+      return unless in_formula
       ## by default, no formatting in formulas
       fmt = { significant: num_totaldigits(num.text) }.compact
       n = normalise_number(num.text)
