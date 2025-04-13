@@ -44,8 +44,12 @@ module IsoDoc
       n
     end
 
-    def implicit_number_formatter(num, locale, in_formula)
-      return unless in_formula
+    def implicit_number_formatter(num, locale, in_formula=nil)
+      if in_formula.nil?
+        num.ancestors("formula").empty? or return
+      else
+        return unless in_formula
+      end
       ## by default, no formatting in formulas
       fmt = { significant: num_totaldigits(num.text) }.compact
       n = normalise_number(num.text)
