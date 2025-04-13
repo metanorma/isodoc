@@ -5,7 +5,7 @@ module IsoDoc
         sem_xml_descendant?(x) and next
         tag = x.name
         y = Nokogiri::XML::Node.new("fmt-#{tag}", x.document)
-        x.attributes.each_key { |a| y[a] = x[a] }
+        x.attributes.keys.reject { |a| a == "id" }.each { |a| y[a] = x[a] }
         n = semx_fmt_dup(x) # semx/fmt-xref for ease of processing
         n.children.each { |c| y << c }
         n << y
