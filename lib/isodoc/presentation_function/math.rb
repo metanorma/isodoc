@@ -21,6 +21,7 @@ module IsoDoc
     # symbols is merged into
     # TwitterCldr::DataReaders::NumberDataReader.new(locale).symbols
     def localize_maths(node, locale)
+      in_formula = nil
       node.xpath(".//m:mn", MATHML).each do |x|
         fmt = x["data-metanorma-numberformat"]
         x.delete("data-metanorma-numberformat")
@@ -28,7 +29,7 @@ module IsoDoc
           if !fmt.nil? && !fmt.empty?
             explicit_number_formatter(x, locale, fmt)
           else
-            in_formula ||= node.ancestors("formula").any?
+            in_formula = node.ancestors("formula").any? if in_formula.nil?
             implicit_number_formatter(x, locale, in_formula)
           end
       rescue ArgumentError
