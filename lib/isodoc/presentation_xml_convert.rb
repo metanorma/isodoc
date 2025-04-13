@@ -26,6 +26,7 @@ module IsoDoc
       conversions(docxml)
       docxml.root["type"] = "presentation"
       repeat_id_validate(docxml.root)
+      idref_validate(docxml.root)
       docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
     end
 
@@ -57,6 +58,28 @@ module IsoDoc
       @doc_ids = {}
       doc.xpath("//*[@id]").each do |x|
         repeat_id_validate1(x)
+      end
+    end
+
+    IDREF =
+      [%w(review from), %w(review to), %w(index to), %w(xref target),
+       %w(callout target), %w(eref bibitemid), %w(citation bibitemid),
+       %w(admonition target), %w(label for), %w(semx source),
+       %w(fmt-title source), %w(fmt-xref-label container), %w(fn target),
+       %w(fmt-fn-body target), %w(fmt-review-start source),
+       %w(fmt-review-start end), %w(fmt-review-start target),
+       %w(fmt-review-end source), %w(fmt-review-end start),
+       %w(fmt-review-end target)].freeze
+
+    def idref_validate(doc)
+      @log or return
+      IDREF.each do |e|
+        doc.xpath("//xmlns:#{e[0]}[@#{e[1]}]").each do |x|
+          @doc_ids[x[e[1]]] and next
+          @log.add("Anchors", x,
+                   "Anchor #{x[e[1]]} pointed to by #{e[0]} " \
+                   "is not defined in the document", severity: 1)
+        end
       end
     end
 
