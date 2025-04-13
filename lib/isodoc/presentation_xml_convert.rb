@@ -75,12 +75,17 @@ module IsoDoc
       @log or return
       IDREF.each do |e|
         doc.xpath("//xmlns:#{e[0]}[@#{e[1]}]").each do |x|
-          @doc_ids[x[e[1]]] and next
-          @log.add("Anchors", x,
-                   "Anchor #{x[e[1]]} pointed to by #{e[0]} " \
-                   "is not defined in the document", severity: 1)
+          idref_validate1(x, e[1])
         end
       end
+    end
+
+    def idref_validate1(node, attr)
+      node[attr].strip.empty? and return
+      @doc_ids[node[attr]] and return
+      @log.add("Anchors", node,
+               "Anchor #{node[attr]} pointed to by #{node.name} " \
+               "is not defined in the document", severity: 1)
     end
 
     def bibitem_lookup(docxml)
