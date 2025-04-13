@@ -242,9 +242,9 @@ RSpec.describe IsoDoc do
                     <h1 class="IntroTitle">Table of contents</h1>
                  </div>
                  <p id="_">
-            <span class="stem">64,212,149,677,264,515</span>
-            <span class="stem">642,121,496,772,645.15</span>
-            <span class="stem">30,000</span>
+            <span>64,212,149,677,264,515</span>
+            <span>642,121,496,772,645.15</span>
+            <span>30,000</span>
                     <span class="stem">
                        <math xmlns="http://www.w3.org/1998/Math/MathML">
                           <mi>P</mi>

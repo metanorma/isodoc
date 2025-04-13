@@ -81,14 +81,20 @@ module IsoDoc
 
       def stem_parse(node, out)
         ret = node.at(ns("./semx[@element = 'stem']")) || node
-        ooml = case node["type"]
-               when "AsciiMath" then asciimath_parse(ret)
-               when "MathML" then mathml_parse(ret)
-               when "LaTeX" then latexmath_parse(ret)
-               else HTMLEntities.new.encode(ret.text)
-               end
-        out.span class: "stem" do |span|
+        ooml, text_only = stem_parse1(ret, node["type"])
+        klass = text_only ? {} : { class: "stem" }
+        out.span **klass do |span|
           span.parent.add_child ooml
+        end
+      end
+
+      def stem_parse1(ret, type)
+        case type
+        when "AsciiMath" then asciimath_parse(ret)
+        when "MathML" then mathml_parse(ret)
+        when "LaTeX" then latexmath_parse(ret)
+        else [HTMLEntities.new.encode(ret.text),
+              /^[[0-9,.+-]]*$/.match?(ret.text)]
         end
       end
 
@@ -98,18 +104,18 @@ module IsoDoc
         # node.xpath("./m:math", MATHML).map(&:to_xml).join
         node.xpath(ns("./asciimath | ./latexmath")).each(&:remove)
         node.xpath(ns("./br")).each { |e| e.namespace = nil }
-        node.children
+        [node.children, node.elements.empty?]
       end
 
       def asciimath_parse(node)
         a = node.at(ns("./asciimath"))&.text || node.text
-        "#{@openmathdelim}#{HTMLEntities.new.encode(a)}" \
-          "#{@closemathdelim}"
+        ["#{@openmathdelim}#{HTMLEntities.new.encode(a)}" \
+          "#{@closemathdelim}", /^[[0-9,.+-]]*$/.match?(a)]
       end
 
       def latexmath_parse(node)
         a = node.at(ns("./latexmath"))&.text || node.text
-        HTMLEntities.new.encode(a)
+        [HTMLEntities.new.encode(a), /^[[0-9,.+-]]*$/.match?(a)]
       end
 
       def image_title_parse(out, caption)
