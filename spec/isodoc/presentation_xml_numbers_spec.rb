@@ -1408,6 +1408,21 @@ RSpec.describe IsoDoc do
       INPUT
     end
 
+    it "correctly parses options with commas inside values" do
+      converter = IsoDoc::PresentationXMLConvert.new({})
+      options = "'group_digits=3','fraction_group_digits=3','decimal=,','group= ','fraction_group= ','notation=general'"
+      result = converter.numberformat_extract(options)
+      
+      expect(result).to eq({
+        group_digits: "3",
+        fraction_group_digits: "3",
+        decimal: ",",
+        group: " ",
+        fraction_group: " ",
+        notation: "general"
+      })
+    end  
+
     it "with data-metanorma-numberformat attributes and default precision" do
       allow_any_instance_of(IsoDoc::PresentationXMLConvert)
         .to(receive(:twitter_cldr_localiser_symbols)
