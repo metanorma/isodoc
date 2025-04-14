@@ -958,7 +958,7 @@ RSpec.describe IsoDoc do
                         <semx element="author" source="_">ISO</semx>
                         ,
                         <semx element="source" source="_">
-                           <fmt-eref type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011" id="_">
+                           <fmt-eref type="inline" bibitemid="ISO7301" citeas="ISO 7301:2011">
                               <locality type="clause">
                                  <referenceFrom>1</referenceFrom>
                               </locality>

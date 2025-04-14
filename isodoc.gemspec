@@ -60,6 +60,6 @@ Gem::Specification.new do |spec|
   # html2doc locks lutaml-model to ~ 0.7.0, but until testing of lutaml-model
   # releases against dowmstream gems (notably Plurimath) is in place, locking at
   # patch level
-  spec.add_dependency "lutaml-model", "0.7.1"
+  #spec.add_dependency "lutaml-model", "0.7.1"
   # spec.metadata["rubygems_mfa_required"] = "true"
 end
