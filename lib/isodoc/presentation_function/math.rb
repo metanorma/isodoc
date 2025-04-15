@@ -52,10 +52,32 @@ module IsoDoc
 
     def numberformat_extract(options)
       options.gsub!(/([a-z_]+)='/, %('\\1=))
-      CSV.parse_line(options, quote_char: "'").each_with_object({}) do |x, acc|
+      
+      # Temporarily replace commas inside quotes with a placeholder
+      processed = ""
+      in_quotes = false
+      placeholder = "##COMMA##"
+      
+      options.each_char do |c|
+        if c == "'"
+          in_quotes = !in_quotes
+        end
+        
+        if c == ',' && in_quotes
+          processed << placeholder
+        else
+          processed << c
+        end
+      end
+      
+      result = CSV.parse_line(processed, quote_char: "'").each_with_object({}) do |x, acc|
+        # Restore commas from placeholders
+        x.gsub!(placeholder, ',')
         m = /^(.+?)=(.+)?$/.match(x) or next
         acc[m[1].to_sym] = m[2].sub(/^(["'])(.+)\1$/, "\\2")
       end
+      
+      result
     end
 
     def numberformat_type(ret)
