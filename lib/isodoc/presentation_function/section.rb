@@ -6,8 +6,8 @@ module IsoDoc
     def clause(docxml)
       docxml.xpath(ns("//clause | //terms | //definitions | //references | " \
                       "//introduction | //foreword | //preface/abstract | " \
-                      "//acknowledgements | //colophon | //indexsect "))
-        .each do |f|
+                      "//acknowledgements | //colophon | //indexsect | " \
+                      "//executivesummary")).each do |f|
         f.parent.name == "annex" &&
           @xrefs.klass.single_term_clause?(f.parent) and next
         clause1(f)
@@ -133,14 +133,15 @@ module IsoDoc
     end
 
     def preface_rearrange(doc)
-      preface_move(doc.xpath(ns("//preface/abstract")),
-                   %w(foreword introduction clause acknowledgements), doc)
-      preface_move(doc.xpath(ns("//preface/foreword")),
-                   %w(introduction clause acknowledgements), doc)
-      preface_move(doc.xpath(ns("//preface/introduction")),
-                   %w(clause acknowledgements), doc)
-      preface_move(doc.xpath(ns("//preface/acknowledgements")),
-                   %w(), doc)
+      [["//preface/abstract",
+        %w(foreword introduction clause acknowledgements executivesummary)],
+       ["//preface/foreword",
+        %w(introduction clause acknowledgements executivesummary)],
+       ["//preface/introduction", %w(clause acknowledgements executivesummary)],
+       ["//preface/acknowledgements", %w(executivesummary)],
+       ["//preface/executivesummary", %w()]].each do |x|
+        preface_move(doc.xpath(ns(x[0])), x[1], doc)
+      end
     end
 
     def preface_move(clauses, after, _doc)

@@ -19,7 +19,7 @@ module IsoDoc
       end
 
       def sections_names
-        %w[clause annex terms references definitions
+        %w[clause annex terms references definitions executivesummary
            acknowledgements introduction abstract foreword appendix]
       end
 
@@ -53,7 +53,7 @@ module IsoDoc
 
       def clause_title_depth(node, title)
         depth = title["depth"] if title && title["depth"]
-        depth = node.ancestors(sections_names.join(", ")).size + 1 unless depth
+        depth ||= node.ancestors(sections_names.join(", ")).size + 1
         depth
       end
 

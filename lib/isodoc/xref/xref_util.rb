@@ -68,7 +68,7 @@ module IsoDoc
 
       SECTIONS_XPATH =
         "//foreword | //introduction | //acknowledgements | " \
-        "//preface/abstract | " \
+        "//executivesummary | //preface/abstract | " \
         "//preface/terms | //preface/definitions | //preface/references | " \
         "//preface/clause | //sections/terms | //annex | " \
         "//sections/clause | //sections/definitions | " \

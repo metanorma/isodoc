@@ -42,6 +42,9 @@ RSpec.describe IsoDoc do
        <acknowledgements obligation="informative">
          <title>Acknowledgements</title>
        </acknowledgements>
+       <executivesummary obligation="informative">
+         <title>Executive Summary</title>
+       </executivesummary>
         </preface><sections>
         <note id="NN1"><p>Initial note</p></note>
         <admonition id="NN2" type="warning">
@@ -157,13 +160,13 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <abstract obligation="informative" displayorder="2" id="_">
+             <abstract obligation="informative" id="_" displayorder="2">
                 <title id="_">Abstract</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Abstract</semx>
                 </fmt-title>
              </abstract>
-             <foreword obligation="informative" displayorder="3" id="_">
+             <foreword obligation="informative" id="_" displayorder="3">
                 <title id="_">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Foreword</semx>
@@ -194,15 +197,21 @@ RSpec.describe IsoDoc do
                    <semx element="title" source="_">Note to reader</semx>
                 </fmt-title>
              </clause>
-             <acknowledgements obligation="informative" displayorder="7" id="_">
+             <acknowledgements obligation="informative" id="_" displayorder="7">
                 <title id="_">Acknowledgements</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Acknowledgements</semx>
                 </fmt-title>
              </acknowledgements>
+             <executivesummary obligation="informative" id="_" displayorder="8">
+                <title id="_">Executive Summary</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Executive Summary</semx>
+                </fmt-title>
+             </executivesummary>
           </preface>
           <sections>
-             <note id="NN1" displayorder="8">
+             <note id="NN1" displayorder="9">
                 <fmt-name>
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">NOTE</span>
@@ -213,14 +222,14 @@ RSpec.describe IsoDoc do
                 </fmt-name>
                 <p>Initial note</p>
              </note>
-             <admonition id="NN2" type="warning" displayorder="9">
+             <admonition id="NN2" type="warning" displayorder="10">
                 <name id="_">WARNING</name>
                 <fmt-name>
                    <semx element="name" source="_">WARNING</semx>
                 </fmt-name>
                 <p>Initial admonition</p>
              </admonition>
-             <clause id="D" obligation="normative" type="scope" displayorder="10">
+             <clause id="D" obligation="normative" type="scope" displayorder="11">
                 <title id="_">Scope</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
@@ -238,7 +247,7 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
                 <p id="E">Text</p>
              </clause>
-             <clause id="H" obligation="normative" displayorder="12">
+             <clause id="H" obligation="normative" displayorder="13">
                 <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
@@ -333,7 +342,7 @@ RSpec.describe IsoDoc do
                    </dl>
                 </definitions>
              </clause>
-             <definitions id="L" displayorder="13">
+             <definitions id="L" displayorder="14">
                 <title id="_">Symbols and abbreviated terms</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
@@ -354,7 +363,7 @@ RSpec.describe IsoDoc do
                    <dd>Definition</dd>
                 </dl>
              </definitions>
-             <clause id="M" inline-header="false" obligation="normative" displayorder="14">
+             <clause id="M" inline-header="false" obligation="normative" displayorder="15">
                 <title id="_">Clause 4</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
@@ -429,7 +438,7 @@ RSpec.describe IsoDoc do
                    </fmt-xref-label>
                 </clause>
              </clause>
-             <references id="R" obligation="informative" normative="true" displayorder="11">
+             <references id="R" obligation="informative" normative="true" displayorder="12">
                 <title id="_">Normative References</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
@@ -447,7 +456,7 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
              </references>
           </sections>
-          <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="15">
+          <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="16">
              <title id="_">
                 <strong>Annex</strong>
              </title>
@@ -544,7 +553,7 @@ RSpec.describe IsoDoc do
                 </references>
              </clause>
           </annex>
-          <annex id="P1" inline-header="false" obligation="normative" autonum="B" displayorder="16">
+          <annex id="P1" inline-header="false" obligation="normative" autonum="B" displayorder="17">
              <fmt-title>
                 <strong>
                    <span class="fmt-caption-label">
@@ -561,7 +570,7 @@ RSpec.describe IsoDoc do
              </fmt-xref-label>
           </annex>
           <bibliography>
-             <clause id="S" obligation="informative" displayorder="17">
+             <clause id="S" obligation="informative" displayorder="18">
                 <title id="_">Bibliography</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Bibliography</semx>
@@ -575,13 +584,13 @@ RSpec.describe IsoDoc do
              </clause>
           </bibliography>
           <colophon>
-             <clause id="U1" obligation="informative" displayorder="18">
+             <clause id="U1" obligation="informative" displayorder="19">
                 <title id="_">Postface 1</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Postface 1</semx>
                 </fmt-title>
              </clause>
-             <clause id="U2" obligation="informative" displayorder="19">
+             <clause id="U2" obligation="informative" displayorder="20">
                 <title id="_">Postface 2</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_">Postface 2</semx>
@@ -592,144 +601,182 @@ RSpec.describe IsoDoc do
     PRESXML
 
     html = <<~"OUTPUT"
-       #{HTML_HDR}
-                    <div class='authority'>
-                  <div class='boilerplate-copyright'>
-                    <div>
-                      <h1>Copyright</h1>
-                    </div>
-                  </div>
-                  <div class='boilerplate-license'>
-                    <div>
-                      <h1>License</h1>
-                    </div>
-                  </div>
-                  <div class='boilerplate-legal'>
-                    <div>
-                      <h1>Legal</h1>
-                    </div>
-                  </div>
-                  <div class='boilerplate-feedback'>
-                    <div>
-                      <h1>Feedback</h1>
-                    </div>
-                  </div>
-                </div>
-                    <br/>
-                        <div id="_">
-                        <h1 class="AbstractTitle">Abstract</h1>
-                        </div>
-                                <br/>
-                                <div id="_">
-                                  <h1 class="ForewordTitle">Foreword</h1>
-                                  <p id="A">This is a preamble</p>
-                                </div>
-                                <br/>
-                                <div class="Section3" id="B">
-                                  <h1 class="IntroTitle">Introduction</h1>
-                                  <div id="C">
-                           <h2>Introduction Subsection</h2>
-                         </div>
-                                </div>
-                                <br/>
-                <div class='Section3' id='B1'>
-                  <h1 class='IntroTitle'>Dedication</h1>
+       <html lang="en">
+          <head/>
+          <body lang="en">
+             <div class="title-section">
+                <p> </p>
+             </div>
+             <br/>
+             <div class="prefatory-section">
+                <p> </p>
+             </div>
+             <br/>
+             <div class="main-section">
+                <div class="authority">
+                   <div class="boilerplate-copyright">
+                      <div>
+                         <h1>Copyright</h1>
+                      </div>
+                   </div>
+                   <div class="boilerplate-license">
+                      <div>
+                         <h1>License</h1>
+                      </div>
+                   </div>
+                   <div class="boilerplate-legal">
+                      <div>
+                         <h1>Legal</h1>
+                      </div>
+                   </div>
+                   <div class="boilerplate-feedback">
+                      <div>
+                         <h1>Feedback</h1>
+                      </div>
+                   </div>
                 </div>
                 <br/>
-                <div class='Section3' id='B2'>
-                  <h1 class='IntroTitle'>Note to reader</h1>
+                <div id="_" class="TOC">
+                   <h1 class="IntroTitle">Table of contents</h1>
                 </div>
-                                <br/>
-                <div class='Section3' id='_'>
-                  <h1 class='IntroTitle'>Acknowledgements</h1>
+                <br/>
+                <div id="_">
+                   <h1 class="AbstractTitle">Abstract</h1>
                 </div>
-                                 <div id='NN1' class='Note'>
+                <br/>
+                <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <p id="A">This is a preamble</p>
+                </div>
+                <br/>
+                <div class="Section3" id="B">
+                   <h1 class="IntroTitle">Introduction</h1>
+                   <div id="C">
+                      <h2>Introduction Subsection</h2>
+                   </div>
+                </div>
+                <br/>
+                <div id="B1" class="Section3">
+                   <h1 class="IntroTitle">Dedication</h1>
+                </div>
+                <br/>
+                <div id="B2" class="Section3">
+                   <h1 class="IntroTitle">Note to reader</h1>
+                </div>
+                <br/>
+                <div class="Section3" id="_">
+                   <h1 class="IntroTitle">Acknowledgements</h1>
+                </div>
+                <br/>
+                <div class="Section3" id="_">
+                   <h1 class="IntroTitle">Executive Summary</h1>
+                </div>
+                <div id="NN1" class="Note">
                    <p>
-                   <span class='note_label'>NOTE  </span>
-                     Initial note
+                      <span class="note_label">NOTE  </span>
+                      Initial note
                    </p>
-                 </div>
-                 <div id='NN2' class='Admonition'>
-                   <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
+                </div>
+                <div id="NN2" class="Admonition">
+                   <p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
                    <p>Initial admonition</p>
-                 </div>
-                                <div id="D">
-                                  <h1>1.&#160; Scope</h1>
-                                  <p id="E">Text</p>
-                                </div>
-                                <div>
-                                  <h1>2.&#160; Normative References</h1>
-                                </div>
-                                <div id="H"><h1>3.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-                        <div id="I">
-                           <h2>3.1.&#160; Normal Terms</h2>
-                           <p class="TermNum" id="J">3.1.1.</p>
-                           <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-                         </div><div id="K"><h2>3.2.&#160; Symbols</h2>
-                         <div class="figdl">
-                           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
-                           </div>
-                         </div></div>
-                                <div id="L" class="Symbols">
-                                  <h1>4.&#160; Symbols and abbreviated terms</h1>
-                                  <div class="figdl">
-                                  <dl>
-                                    <dt>
-                                      <p>Symbol</p>
-                                    </dt>
-                                    <dd>Definition</dd>
-                                  </dl>
-                                  </div>
-                                </div>
-                                <div id="M">
-                                  <h1>5.&#160; Clause 4</h1>
-                                  <div id="N">
-                           <h2>5.1.&#160; Introduction</h2>
-                         </div>
-                                  <div id="O">
-                           <h2>5.2.&#160; Clause 4.2</h2>
-                         </div>
-                                  <div id="O1">
-                           <h2>5.3.</h2>
-                         </div>
-                                </div>
-                                <br/>
-                                <div id="P" class="Section3">
-                                  <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
-                                  <div id="Q">
-                           <h2>A.1.&#160; Annex A.1</h2>
-                           <div id="Q1">
-                           <h3>A.1.1.&#160; Annex A.1a</h3>
-                           </div>
-                           <div><h3 class="Section3">A.1.2.&#160; Annex Bibliography</h3></div>
-                         </div>
-                                </div>
-                                 <br/>
-                 <div id='P1' class='Section3'>
-                   <h1 class='Annex'>
-                     <b>Annex B</b>
-                     <br/>
-                     (normative)
+                </div>
+                <div id="D">
+                   <h1>1.  Scope</h1>
+                   <p id="E">Text</p>
+                </div>
+                <div>
+                   <h1>2.  Normative References</h1>
+                </div>
+                <div id="H">
+                   <h1>3.  Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                   <div id="I">
+                      <h2>3.1.  Normal Terms</h2>
+                      <p class="TermNum" id="J">3.1.1.</p>
+                      <p class="Terms" style="text-align:left;">
+                         <b>Term2</b>
+                      </p>
+                   </div>
+                   <div id="K">
+                      <h2>3.2.  Symbols</h2>
+                      <div class="figdl">
+                         <dl>
+                            <dt>
+                               <p>Symbol</p>
+                            </dt>
+                            <dd>Definition</dd>
+                         </dl>
+                      </div>
+                   </div>
+                </div>
+                <div id="L" class="Symbols">
+                   <h1>4.  Symbols and abbreviated terms</h1>
+                   <div class="figdl">
+                      <dl>
+                         <dt>
+                            <p>Symbol</p>
+                         </dt>
+                         <dd>Definition</dd>
+                      </dl>
+                   </div>
+                </div>
+                <div id="M">
+                   <h1>5.  Clause 4</h1>
+                   <div id="N">
+                      <h2>5.1.  Introduction</h2>
+                   </div>
+                   <div id="O">
+                      <h2>5.2.  Clause 4.2</h2>
+                   </div>
+                   <div id="O1">
+                      <h2>5.3.</h2>
+                   </div>
+                </div>
+                <br/>
+                <div id="P" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (normative)
+                      <br/>
+                      <br/>
+                      <b>Annex</b>
                    </h1>
-                 </div>
-                                <br/>
-                                <div>
-                                  <h1 class="Section3">Bibliography</h1>
-                                  <div>
-                                    <h2 class="Section3">Bibliography Subsection</h2>
-                                  </div>
-                               </div>
-                                               <br/>
-      <div class="Section3" id="U1">
-        <h1 class="IntroTitle">Postface 1</h1>
-      </div>
-      <div class="Section3" id="U2">
-        <h1 class="IntroTitle">Postface 2</h1>
-      </div>
-                                </div>
-                              </div>
-                            </body>
-                        </html>
+                   <div id="Q">
+                      <h2>A.1.  Annex A.1</h2>
+                      <div id="Q1">
+                         <h3>A.1.1.  Annex A.1a</h3>
+                      </div>
+                      <div>
+                         <h3 class="Section3">A.1.2.  Annex Bibliography</h3>
+                      </div>
+                   </div>
+                </div>
+                <br/>
+                <div id="P1" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex B</b>
+                      <br/>
+                      (normative)
+                   </h1>
+                </div>
+                <br/>
+                <div>
+                   <h1 class="Section3">Bibliography</h1>
+                   <div>
+                      <h2 class="Section3">Bibliography Subsection</h2>
+                   </div>
+                </div>
+                <br/>
+                <div class="Section3" id="U1">
+                   <h1 class="IntroTitle">Postface 1</h1>
+                </div>
+                <div class="Section3" id="U2">
+                   <h1 class="IntroTitle">Postface 2</h1>
+                </div>
+             </div>
+          </body>
+       </html>
     OUTPUT
 
     word = <<~OUTPUT
@@ -806,6 +853,12 @@ RSpec.describe IsoDoc do
             <div class="Section3" id="_">
               <h1 class="IntroTitle">Acknowledgements</h1>
             </div>
+            <p class="page-break">
+           <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+        </p>
+        <div class="Section3" id="_">
+           <h1 class="IntroTitle">Executive Summary</h1>
+        </div>
             <p>&#160;</p>
           </div>
           <p class="section-break">
@@ -935,6 +988,10 @@ RSpec.describe IsoDoc do
          <title>Acknowledgements</title>
          <variant-title type="sub">Variant 1</variant-title>
        </acknowledgements>
+       <executivesummary obligation="informative">
+         <title>Executive Summary</title>
+         <variant-title type="sub">Variant 1</variant-title>
+       </executivesummary>
         </preface><sections>
         <note id="NN1"><p>Initial note</p></note>
         <admonition id="NN2" type="warning"><p>Initial admonition</p></admonition>
@@ -1090,6 +1147,15 @@ RSpec.describe IsoDoc do
                 Variant 1
               </h1>
             </div>
+                <br/>
+                <div class="Section3" id="_">
+                   <h1 class="IntroTitle">
+                      Executive Summary
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                </div>
             <div id='NN1' class='Note'>
               <p>
                 <span class='note_label'>NOTE  </span>
@@ -1330,6 +1396,17 @@ RSpec.describe IsoDoc do
                 Variant 1
               </h1>
             </div>
+            <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div class="Section3" id="_">
+                   <h1 class="IntroTitle">
+                      Executive Summary
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                </div>
             <p>&#160;</p>
           </div>
           <p class="section-break">

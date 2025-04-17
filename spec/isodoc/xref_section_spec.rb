@@ -14,6 +14,7 @@ RSpec.describe IsoDoc do
          <xref target="C1"/>
          <xref target="C2"/>
          <xref target="C3"/>
+         <xref target="C4"/>
          <xref target="D"/>
          <xref target="H"/>
          <xref target="I"/>
@@ -41,6 +42,7 @@ RSpec.describe IsoDoc do
        <acknowledgements id="C2"><p>Ack</p>
        <clause id="C3" inline-header="false" obligation="informative">Text</clause>
         </acknowledgements>
+       <executivesummary id="C4"/>
         </preface><sections>
        <clause id="D" obligation="normative" type="scope">
          <title>Scope</title>
@@ -146,6 +148,12 @@ RSpec.describe IsoDoc do
                     <semx element="autonum" source="C3">1</semx>
                  </fmt-xref>
               </semx>
+      <xref target="C4" id="_"/>
+      <semx element="xref" source="_">
+         <fmt-xref target="C4">
+            <semx element="executivesummary" source="C4">Executivesummary</semx>
+         </fmt-xref>
+      </semx>
               <xref target="D" id="_"/>
               <semx element="xref" source="_">
                  <fmt-xref target="D">
@@ -340,6 +348,12 @@ RSpec.describe IsoDoc do
                     <semx element="autonum" source="C3">1</semx>
                  </fmt-xref>
               </semx>
+      <xref target="C4" id="_"/>
+      <semx element="xref" source="_">
+         <fmt-xref target="C4">
+            <semx element="executivesummary" source="C4">Executivesummary</semx>
+         </fmt-xref>
+      </semx>
               <xref target="D" id="_"/>
               <semx element="xref" source="_">
                  <fmt-xref target="D">
@@ -716,7 +730,8 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri
+      .XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))
