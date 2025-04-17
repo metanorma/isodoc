@@ -71,7 +71,6 @@ module IsoDoc
         when "abstract" then abstract e, out
         when "foreword" then foreword e, out
         when "introduction" then introduction e, out
-        when "executivesummary" then executivesummary e, out
         when "acknowledgements" then acknowledgements e, out
         when "annex" then annex e, out
         when "definitions" then symbols_abbrevs e, out

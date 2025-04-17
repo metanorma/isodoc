@@ -183,10 +183,6 @@ module IsoDoc
         t.size == 1 && %w(terms definitions references).include?(t[0].name)
       end
 
-      def executivesummary(clause, out)
-        introduction clause, out
-      end
-
       # block, e.g. note, admonition
       def preface_block(block, out)
         parse(block, out)
