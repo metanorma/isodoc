@@ -7,7 +7,7 @@ module IsoDoc
       docxml.xpath(ns("//clause | //terms | //definitions | //references | " \
                       "//introduction | //foreword | //preface/abstract | " \
                       "//acknowledgements | //colophon | //indexsect | " \
-                      "//executivesummary")).each do |f|
+                      "//executivesummary | //appendix")).each do |f|
         f.parent.name == "annex" &&
           @xrefs.klass.single_term_clause?(f.parent) and next
         clause1(f)

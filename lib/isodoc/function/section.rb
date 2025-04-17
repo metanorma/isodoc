@@ -41,6 +41,10 @@ module IsoDoc
         end
       end
 
+      def appendix_parse(isoxml, out)
+        clause_parse(isoxml, out)
+      end
+
       def indexsect(node, out)
         clause_parse(node, out)
       end

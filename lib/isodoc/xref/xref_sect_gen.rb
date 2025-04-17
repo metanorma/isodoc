@@ -1,4 +1,5 @@
 require_relative "clause_order"
+require_relative "xref_sect_asset"
 
 module IsoDoc
   module XrefGen
@@ -58,22 +59,6 @@ module IsoDoc
         end
       end
 
-      # preempt clause notes with all other types of note (ISO default)
-      def asset_anchor_names(doc)
-        (@parse_settings.empty? || @parse_settings[:assets]) or return
-        middle_section_asset_names(doc)
-        termnote_anchor_names(doc)
-        termexample_anchor_names(doc)
-        note_anchor_names(doc.xpath(ns("//table | //figure")))
-        sections = doc.xpath(ns(sections_xpath))
-        note_anchor_names(sections)
-        admonition_anchor_names(sections)
-        example_anchor_names(sections)
-        list_anchor_names(sections)
-        deflist_anchor_names(sections)
-        bookmark_anchor_names(doc)
-      end
-
       def clause_title(clause, use_elem_name: false)
         ret = clause.at(ns("./title"))&.text
         if use_elem_name && ret.blank?
@@ -82,9 +67,6 @@ module IsoDoc
         else ret
         end
       end
-
-      SUBCLAUSES =
-        "./clause | ./references | ./term  | ./terms | ./definitions".freeze
 
       # in StanDoc, prefaces have no numbering; they are referenced only by title
       def preface_names(clause)
@@ -103,7 +85,7 @@ module IsoDoc
         clause.nil? and return
         title = clause_title(clause, use_elem_name: true)
         preface_name_anchors(clause, 1, title)
-        clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
+        clause.xpath(ns(subclauses)).each_with_index do |c, i|
           t = c.at(ns("./title"))
           tt = "#{semx(clause, title, clause.name)}" \
             "<span class='fmt-comma'>,</span> #{semx(c, i + 1)}"
@@ -114,7 +96,7 @@ module IsoDoc
       def preface_names1(clause, title, parent_title, level)
         label = title || parent_title
         preface_name_anchors(clause, level, title || parent_title)
-        clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
+        clause.xpath(ns(subclauses)).each_with_index do |c, i|
           t = c.at(ns("./title"))
           preface_names1(c, t ? semx(c, t.text, c.name) : nil,
                          "#{label} #{semx(c, i + 1)}",
@@ -131,20 +113,12 @@ module IsoDoc
             type: "clause", elem: @labels["clause"] }
       end
 
-      def middle_section_asset_names(doc)
-        middle_sections =
-          "//clause[@type = 'scope'] | #{@klass.norm_ref_xpath} | " \
-          "//sections/terms | //preface/* | " \
-          "//sections/definitions | //clause[parent::sections]"
-        sequential_asset_names(doc.xpath(ns(middle_sections)))
-      end
-
       def section_names(clause, num, lvl)
         unnumbered_section_name?(clause) and return num
         num.increment(clause)
         lbl = semx(clause, num.print)
         section_name_anchors(clause, lbl, lvl)
-        clause.xpath(ns(SUBCLAUSES))
+        clause.xpath(ns(subclauses))
           .each_with_object(clause_counter(0)) do |c, i|
           section_names1(c, lbl, i.increment(c).print, lvl + 1)
         end
@@ -153,12 +127,12 @@ module IsoDoc
 
       def clause_number_semx(parentnum, clause, num)
         if clause["branch-number"]
-                semx(clause, clause["branch-number"])
+          semx(clause, clause["branch-number"])
         elsif parentnum.nil?
           semx(clause, num)
-              else
-                "#{parentnum}#{delim_wrap(clausesep)}#{semx(clause, num)}"
-              end
+        else
+          "#{parentnum}#{delim_wrap(clausesep)}#{semx(clause, num)}"
+        end
       end
 
       def section_names1(clause, parentnum, num, level)
@@ -166,7 +140,7 @@ module IsoDoc
         lbl = clause_number_semx(parentnum, clause, num)
         section_name_anchors(clause, lbl, level)
         i = clause_counter(0)
-        clause.xpath(ns(SUBCLAUSES)).each do |c|
+        clause.xpath(ns(subclauses)).each do |c|
           section_names1(c, lbl, i.increment(c).print, level + 1)
         end
       end
@@ -218,13 +192,14 @@ module IsoDoc
       end
 
       def annex_names(clause, num)
+        appendix_names(clause, num)
         label = semx(clause, num)
         annex_name_anchors(clause, label, 1)
         if @klass.single_term_clause?(clause)
           annex_names1(clause.at(ns("./references | ./terms | ./definitions")),
                        nil, num.to_s, 1)
         else
-          clause.xpath(ns(SUBCLAUSES))
+          clause.xpath(ns(subclauses))
             .each_with_object(clause_counter(0)) do |c, i|
             annex_names1(c, label, i.increment(c).print, 2)
           end
@@ -236,7 +211,7 @@ module IsoDoc
         lbl = clause_number_semx(parentnum, clause, num)
         annex_name_anchors1(clause, lbl, level)
         i = clause_counter(0)
-        clause.xpath(ns(SUBCLAUSES)).each do |c|
+        clause.xpath(ns(subclauses)).each do |c|
           annex_names1(c, lbl, i.increment(c).print, level + 1)
         end
       end
@@ -244,6 +219,33 @@ module IsoDoc
       # subclauses of Annexes
       def annex_name_anchors1(clause, num, level)
         annex_name_anchors(clause, num, level)
+      end
+
+      def appendix_names(clause, _num)
+        i = clause_counter(0)
+        clause.xpath(ns("./appendix")).each do |c|
+          i.increment(c)
+          num = semx(c, i.print)
+          lbl = labelled_autonum(@labels["appendix"], num)
+          @anchors[c["id"]] =
+            anchor_struct(i.print, c, @labels["appendix"],
+                          "clause").merge(level: 2, subtype: "annex",
+                                          container: clause["id"])
+          j = clause_counter(0)
+          c.xpath(ns("./clause | ./references")).each do |c1|
+            appendix_names1(c1, lbl, j.increment(c1).print, 3, clause["id"])
+          end
+        end
+      end
+
+      def appendix_names1(clause, parentnum, num, level, container)
+        num = clause_number_semx(parentnum, clause, num)
+        @anchors[clause["id"]] = { label: num, xref: num, level: level,
+                                   container: container }
+        i = clause_counter(0)
+        clause.xpath(ns("./clause | ./references")).each do |c|
+          appendix_names1(c, num, i.increment(c).print, level + 1, container)
+        end
       end
     end
   end

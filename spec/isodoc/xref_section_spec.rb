@@ -151,7 +151,7 @@ RSpec.describe IsoDoc do
       <xref target="C4" id="_"/>
       <semx element="xref" source="_">
          <fmt-xref target="C4">
-            <semx element="executivesummary" source="C4">Executivesummary</semx>
+            <semx element="executivesummary" source="C4">Executive summary</semx>
          </fmt-xref>
       </semx>
               <xref target="D" id="_"/>

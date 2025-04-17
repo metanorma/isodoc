@@ -74,6 +74,7 @@ module IsoDoc
         when "executivesummary" then executivesummary e, out
         when "acknowledgements" then acknowledgements e, out
         when "annex" then annex e, out
+        when "appendix" then appendix e, out
         when "definitions" then symbols_abbrevs e, out
         when "indexsect" then indexsect e, out
         when "references"

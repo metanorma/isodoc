@@ -91,6 +91,33 @@ module IsoDoc
         CHILD_SECTIONS
       end
 
+      SUBCLAUSES =
+        "./clause | ./references | ./term  | ./terms | ./definitions".freeze
+
+      def subclauses
+        SUBCLAUSES
+      end
+
+      FIRST_LVL_REQ_RULE = <<~XPATH.freeze
+        [not(ancestor::permission or ancestor::requirement or ancestor::recommendation)]
+      XPATH
+
+      FIRST_LVL_REQ = <<~XPATH.freeze
+        .//permission#{FIRST_LVL_REQ_RULE} | .//requirement#{FIRST_LVL_REQ_RULE} | .//recommendation#{FIRST_LVL_REQ_RULE}
+      XPATH
+
+      def first_lvl_req
+        FIRST_LVL_REQ
+      end
+
+      REQ_CHILDREN = <<~XPATH.freeze
+        ./permission | ./requirement | ./recommendation
+      XPATH
+
+      def req_children
+        REQ_CHILDREN
+      end
+
       # if hierarchically marked up node in label already,
       # leave alone, else wrap in semx
       def semx(node, label, element = "autonum")
