@@ -177,7 +177,7 @@ module IsoDoc
         end
       end
 
-      def is_clause?(name)
+      def clause?(name)
         %w(clause references definitions terms foreword introduction abstract
            executivesummary acknowledgements indexsect).include? name
       end

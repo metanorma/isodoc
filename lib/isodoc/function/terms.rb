@@ -26,7 +26,7 @@ module IsoDoc
       def semx_admitted_term_parse(node, out); end
 
       def admitted_term_parse(node, out)
-                node.children.each do |c|
+        node.children.each do |c|
           if c.name == "p"
             out.p class: "AltTerms", style: "text-align:left;" do |p|
               c.children.each { |c1| parse(c1, p) }

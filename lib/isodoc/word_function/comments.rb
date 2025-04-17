@@ -29,7 +29,7 @@ module IsoDoc
             s2.a style: "mso-comment-reference:SMC_#{fnote};" \
                             "mso-comment-date:#{node['date'].gsub(/[:-]+/,
                                                                   '')}"
-            s2.span style: "mso-special-character:comment", target: fnote # do |s|
+            s2.span style: "mso-special-character:comment", target: fnote
           end
         end
       end
@@ -126,7 +126,6 @@ module IsoDoc
       end
 
       def insert_comment_cont(from, upto, target)
-        # includes_to = from.at(".//*[@id='#{upto}']")
         while !from.nil? && from["id"] != upto
           following = from.xpath("./following::*")
           (from = following.shift) && incl_to = from.at(".//*[@id='#{upto}']")

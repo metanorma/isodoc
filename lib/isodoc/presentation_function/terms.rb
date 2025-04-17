@@ -104,9 +104,9 @@ module IsoDoc
 
     def termsource_designation(fmtsource)
       p = fmtsource.previous_element
-          p&.name == "p" or return
-          p << " "
-          p << fmtsource.children
+      p&.name == "p" or return
+      p << " "
+      p << fmtsource.children
     end
 
     def copy_baselevel_termsource(docxml)

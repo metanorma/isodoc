@@ -41,9 +41,8 @@ module IsoDoc
         %w(note admonition p floating-title).include?(p.name) or break m
         m << p
       end
-      #require 'debug'; out.empty? or binding.b
       out.reject { |c| c["displayorder"] }.reverse_each do |c|
-          skip_display_order?(c) and next
+        skip_display_order?(c) and next
         c["displayorder"] = idx
         idx += 1
       end

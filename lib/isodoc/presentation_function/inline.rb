@@ -71,13 +71,19 @@ module IsoDoc
     # do not change to Presentation XML rendering
     def sem_xml_descendant?(node)
       ancestor_names = node.ancestors.map(&:name)
-
-      return true if %w[preferred admitted deprecated related definition termsource].any? { |name| ancestor_names.include?(name) }
-      return true if %w[xref eref origin link name title].any? { |name| ancestor_names.include?(name) }
-      return true if ancestor_names.include?("bibitem") &&
-        !%w[formattedref biblio-tag].any? { |name| ancestor_names.include?(name) }
-      return true if (ancestor_names & %w[requirement recommendation permission]).any? &&
-        !ancestor_names.include?("fmt-provision")
+      %w[preferred admitted deprecated related definition termsource]
+        .any? do |name|
+        ancestor_names.include?(name)
+      end and return true
+      %w[xref eref origin link name title].any? do |name|
+        ancestor_names.include?(name)
+      end and return true
+      ancestor_names.include?("bibitem") &&
+        %w[formattedref biblio-tag].none? do |name|
+          ancestor_names.include?(name)
+        end and return true
+      (ancestor_names & %w[requirement recommendation permission]).any? &&
+        !ancestor_names.include?("fmt-provision") and return true
 
       false
     end
