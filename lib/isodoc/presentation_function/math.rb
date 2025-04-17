@@ -21,7 +21,6 @@ module IsoDoc
     # symbols is merged into
     # TwitterCldr::DataReaders::NumberDataReader.new(locale).symbols
     def localize_maths(node, locale)
-      in_formula = nil
       node.xpath(".//m:mn", MATHML).each do |x|
         fmt = x["data-metanorma-numberformat"]
         x.delete("data-metanorma-numberformat")
@@ -29,8 +28,7 @@ module IsoDoc
           if !fmt.nil? && !fmt.empty?
             explicit_number_formatter(x, locale, fmt)
           else
-            in_formula = node.ancestors("formula").any? if in_formula.nil?
-            implicit_number_formatter(x, locale, in_formula)
+            implicit_number_formatter(x, locale)
           end
       rescue ArgumentError
       rescue StandardError, RuntimeError => e
@@ -44,12 +42,10 @@ module IsoDoc
       n
     end
 
-    def implicit_number_formatter(num, locale, in_formula=nil)
-      if in_formula.nil?
-        num.ancestors("formula").empty? or return
-      else
-        return unless in_formula
-      end
+    def implicit_number_formatter(num, locale)
+      return unless ::Metanorma::Utils.fast_ancestor_include?(num, "formula")
+      #num.ancestors("formula").empty? or return
+
       ## by default, no formatting in formulas
       fmt = { significant: num_totaldigits(num.text) }.compact
       n = normalise_number(num.text)
