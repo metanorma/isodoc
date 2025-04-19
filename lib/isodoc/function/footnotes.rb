@@ -30,7 +30,8 @@ module IsoDoc
       end
 
       def update_table_fn_body_ref(fnote, table, reference)
-        fnbody = table.at(ns(".//fmt-fn-body[@id = '#{fnote['target']}']")) or return
+        fnbody = table.at(ns(".//fmt-fn-body[@id = '#{fnote['target']}']")) or
+          return
         fnbody["reference"] = reference
         fnbody["is_table"] = true
         sup = fnbody.at(ns(".//fmt-fn-label/sup")) and sup.replace(sup.children)

@@ -76,26 +76,17 @@ module IsoDoc
           .sub(%r{ xmlns="http://www.w3.org/1999/xhtml"}, ""))
       end
 
-      CLAUSE_ANCESTOR =
-        ".//ancestor::*[local-name() = 'annex' or " \
-        "local-name() = 'definitions' or " \
-        "local-name() = 'acknowledgements' or local-name() = 'term' or " \
-        "local-name() = 'appendix' or local-name() = 'foreword' or " \
-        "local-name() = 'introduction' or local-name() = 'terms' or " \
-        "local-name() = 'clause' or local-name() = 'references']/@id".freeze
+      CLAUSE_ANCESTOR = <<~XPATH.strip.freeze
+        .//ancestor::*[local-name() = 'annex' or local-name() = 'definitions' or local-name() = 'executivesummary' or local-name() = 'acknowledgements' or local-name() = 'term' or local-name() = 'appendix' or local-name() = 'foreword' or local-name() = 'introduction' or local-name() = 'terms' or local-name() = 'clause' or local-name() = 'references']/@id
+      XPATH
 
       def get_clause_id(node)
         node.xpath(CLAUSE_ANCESTOR)&.last&.text || nil
       end
 
-      NOTE_CONTAINER_ANCESTOR =
-        ".//ancestor::*[local-name() = 'annex' or " \
-        "local-name() = 'foreword' or local-name() = 'appendix' or " \
-        "local-name() = 'introduction' or local-name() = 'terms' or " \
-        "local-name() = 'acknowledgements' or local-name() = 'term' or " \
-        "local-name() = 'clause' or local-name() = 'references' or " \
-        "local-name() = 'figure' or local-name() = 'formula' or " \
-        "local-name() = 'table' or local-name() = 'example']/@id".freeze
+      NOTE_CONTAINER_ANCESTOR = <<~XPATH.strip.freeze
+        .//ancestor::*[local-name() = 'annex' or local-name() = 'foreword' or local-name() = 'appendix' or local-name() = 'introduction' or local-name() = 'terms' or local-name() = 'acknowledgements' or local-name() = 'executivesummary' or local-name() = 'term' or local-name() = 'clause' or local-name() = 'references' or local-name() = 'figure' or local-name() = 'formula' or local-name() = 'table' or local-name() = 'example']/@id
+      XPATH
 
       # no recursion on references
       def get_note_container_id(node, type)

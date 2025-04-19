@@ -50,41 +50,37 @@ module IsoDoc
                                   precision: num_precision(num.text))
     end
 
-    def numberformat_extract(options)
-      options.gsub!(/([a-z_]+)='/, %('\\1=))
-      
-      # Temporarily replace commas inside quotes with a placeholder
+    COMMA_PLACEHOLDER = "##COMMA##".freeze
+
+    # Temporarily replace commas inside quotes with a placeholder
+    def comma_placeholder(options)
       processed = ""
       in_quotes = false
-      placeholder = "##COMMA##"
-      
       options.each_char do |c|
-        if c == "'"
-          in_quotes = !in_quotes
-        end
-        
-        if c == ',' && in_quotes
-          processed << placeholder
-        else
-          processed << c
-        end
+        c == "'" and in_quotes = !in_quotes
+        processed << if c == "," && in_quotes
+                       COMMA_PLACEHOLDER
+                     else c end
       end
-      
-      result = CSV.parse_line(processed, quote_char: "'").each_with_object({}) do |x, acc|
-        # Restore commas from placeholders
-        x.gsub!(placeholder, ',')
+      processed
+    end
+
+    def numberformat_extract(options)
+      options.gsub!(/([a-z_]+)='/, %('\\1=))
+      processed = comma_placeholder(options)
+      CSV.parse_line(processed,
+                     quote_char: "'").each_with_object({}) do |x, acc|
+        x.gsub!(COMMA_PLACEHOLDER, ",")
         m = /^(.+?)=(.+)?$/.match(x) or next
         acc[m[1].to_sym] = m[2].sub(/^(["'])(.+)\1$/, "\\2")
       end
-      
-      result
     end
 
     def numberformat_type(ret)
       %i(precision significant digit_count group_digits fraction_group_digits)
         .each do |i|
-        ret[i] &&= ret[i].to_i
-      end
+          ret[i] &&= ret[i].to_i
+        end
       %i(notation exponent_sign number_sign locale).each do |i|
         ret[i] &&= ret[i].to_sym
       end

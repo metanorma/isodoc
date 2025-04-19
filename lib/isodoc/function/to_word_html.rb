@@ -74,6 +74,7 @@ module IsoDoc
         when "executivesummary" then executivesummary e, out
         when "acknowledgements" then acknowledgements e, out
         when "annex" then annex e, out
+        when "appendix" then appendix e, out
         when "definitions" then symbols_abbrevs e, out
         when "indexsect" then indexsect e, out
         when "references"
@@ -136,6 +137,7 @@ module IsoDoc
           when "fmt-stem" then stem_parse(node, out)
           when "stem" then semx_stem_parse(node, out)
           when "clause" then clause_parse(node, out)
+          when "appendix" then appendix_parse(node, out)
           when "xref" then semx_xref_parse(node, out)
           when "fmt-xref" then xref_parse(node, out)
           when "eref" then semx_eref_parse(node, out)

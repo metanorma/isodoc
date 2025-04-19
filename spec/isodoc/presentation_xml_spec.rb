@@ -1678,6 +1678,8 @@ RSpec.describe IsoDoc do
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
             <bibdata/>
       <preface>
+      <floating-title>FL 7</p>
+      <executivesummary/>
       <floating-title>FL 0</p>
       <acknowledgements/>
       <floating-title>FL 1</p>
@@ -1743,6 +1745,11 @@ RSpec.describe IsoDoc do
                <semx element="floating-title" source="_">FL 0</semx>
             </p>
             <acknowledgements displayorder="13" id="_"/>
+      <floating-title original-id="_">FL 7</floating-title>
+      <p id="_" type="floating-title" displayorder="14">
+         <semx element="floating-title" source="_">FL 7</semx>
+      </p>
+      <executivesummary id="_" displayorder="15"/>
          </preface>
       </standard-document>
     OUTPUT
@@ -1769,6 +1776,8 @@ RSpec.describe IsoDoc do
       <introduction/>
       <floating-title>FL 7</p>
       <acknowledgements/>
+      <floating-title>FL 8</p>
+      <executivesummary/>
       </preface>
       </standard-document>
     INPUT
@@ -1816,7 +1825,12 @@ RSpec.describe IsoDoc do
                <semx element="floating-title" source="_">FL 7</semx>
             </p>
             <acknowledgements displayorder="12" id="_"/>
-         </preface>
+          <floating-title original-id="_">FL 8</floating-title>
+          <p id="_" type="floating-title" displayorder="13">
+            <semx element="floating-title" source="_">FL 8</semx>
+          </p>
+          <executivesummary id="_" displayorder="14"/>
+            </preface>
       </standard-document>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert

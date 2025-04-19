@@ -41,6 +41,10 @@ module IsoDoc
         end
       end
 
+      def appendix_parse(isoxml, out)
+        clause_parse(isoxml, out)
+      end
+
       def indexsect(node, out)
         clause_parse(node, out)
       end
@@ -173,9 +177,9 @@ module IsoDoc
         end
       end
 
-      def is_clause?(name)
+      def clause?(name)
         %w(clause references definitions terms foreword introduction abstract
-           acknowledgements indexsect).include? name
+           executivesummary acknowledgements indexsect).include? name
       end
 
       def single_term_clause?(elem)

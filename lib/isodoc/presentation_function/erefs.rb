@@ -15,7 +15,7 @@ module IsoDoc
     end
 
     def citeas_cleanup(ref)
-      if /</.match?(ref)
+      if ref.include?("<")
         xml = Nokogiri::XML("<root>#{ref}</root>")
         xml.xpath("//semx").each { |x| x.replace(x.children) }
         ref = to_xml(xml.at("//root").children)

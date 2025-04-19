@@ -103,19 +103,9 @@ module IsoDoc
         end
       end
 
-      FIRST_LVL_REQ_RULE = <<~XPATH.freeze
-        [not(ancestor::permission or ancestor::requirement or ancestor::recommendation)]
-      XPATH
-      FIRST_LVL_REQ = <<~XPATH.freeze
-        .//permission#{FIRST_LVL_REQ_RULE} | .//requirement#{FIRST_LVL_REQ_RULE} | .//recommendation#{FIRST_LVL_REQ_RULE}
-      XPATH
-      REQ_CHILDREN = <<~XPATH.freeze
-        ./permission | ./requirement | ./recommendation
-      XPATH
-
       def sequential_permission_names(clause, container: true)
         c = ReqCounter.new
-        clause.xpath(ns(FIRST_LVL_REQ)).noblank.each do |t|
+        clause.xpath(ns(first_lvl_req)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_label(t, m)
           id = c.increment(label, t).print
@@ -127,7 +117,7 @@ module IsoDoc
 
       def sequential_permission_children(elem, lbl, klass, container: false)
         c = ReqCounter.new
-        elem.xpath(ns(REQ_CHILDREN)).noblank.each do |t|
+        elem.xpath(ns(req_children)).noblank.each do |t|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
           ctr = c.increment(label, t).print
@@ -177,14 +167,6 @@ container: false)
         [nil, nil]
       end
 
-      # container makes numbering be prefixed with the parent clause reference
-      def sequential_asset_names(clause, container: false)
-        sequential_table_names(clause, container:)
-        sequential_figure_names(clause, container:)
-        sequential_formula_names(clause, container:)
-        sequential_permission_names(clause, container:)
-      end
-
       # these can take a NodeSet as argument; semx will point to members of the NodeSet,
       # but numbering will be consecutive
       def hierarchical_figure_names(clauses, num)
@@ -229,19 +211,11 @@ container: false)
         end
       end
 
-      def hierarchical_asset_names(clause, num)
-        hierarchical_table_names(clause, num)
-        hierarchical_figure_names(clause, num)
-        hierarchical_formula_names(clause, num)
-        hierarchical_permission_names(clause, num)
-      end
-
       def hierarchical_formula_names(clauses, num)
         c = Counter.new
         nodeSet(clauses).each do |clause|
           clause.xpath(ns(".//formula")).noblank.each do |t|
             @anchors[t["id"]] = anchor_struct(
-              # "#{num}#{hier_separator}#{c.increment(t).print}", t,
               hiersemx(clause, num, c.increment(t), t), t,
               t["inequality"] ? @labels["inequality"] : @labels["formula"],
               "formula", { unnumb: t["unnumbered"], container: false }
@@ -253,10 +227,9 @@ container: false)
       def hierarchical_permission_names(clauses, num)
         c = ReqCounter.new
         nodeSet(clauses).each do |clause|
-          clause.xpath(ns(FIRST_LVL_REQ)).noblank.each do |t|
+          clause.xpath(ns(first_lvl_req)).noblank.each do |t|
             m = @reqt_models.model(t["model"])
             klass, label = reqt2class_label(t, m)
-            # id = "#{num}#{hier_separator}#{c.increment(label, t).print}"
             id = hiersemx(clause, num, c.increment(label, t), t)
             sequential_permission_body(id, nil, t, label, klass, m,
                                        container: false)

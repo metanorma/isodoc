@@ -61,7 +61,7 @@ module IsoDoc
       end
 
       def xref_parse(node, out)
-        target = if /#/.match?(node["target"])
+        target = if node["target"].include?("#")
                    node["target"].sub("#", ".doc#")
                  else
                    "##{node['target']}"

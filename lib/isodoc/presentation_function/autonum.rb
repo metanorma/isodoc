@@ -11,7 +11,7 @@ module IsoDoc
       prefix_name_postprocess(node, elem)
     end
 
-    def prefix_name_defaults(node, delims, label)
+    def prefix_name_defaults(_node, delims, label)
       label&.empty? and label = nil
       delims.nil? and delims = {}
       [label, delims]
@@ -80,7 +80,7 @@ module IsoDoc
     end
 
     def autonum(id, num)
-      /<semx/.match?(num) and return num # already contains markup
+      num.include?("<semx") and return num # already contains markup
       "<semx element='autonum' source='#{id}'>#{num}</semx>"
     end
 
@@ -135,7 +135,8 @@ module IsoDoc
     end
 
     def fmt_caption_label_wrap(label)
-      empty_xml?(label) || %r{<span class=['"]fmt-caption-label['"]}.match?(label) or
+      empty_xml?(label) ||
+        %r{<span class=['"]fmt-caption-label['"]}.match?(label) or
         label = "<span class='fmt-caption-label'>#{label}</span>"
       label
     end
