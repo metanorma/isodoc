@@ -1745,7 +1745,7 @@ RSpec.describe IsoDoc do
               </math>
            </stem>
            <fmt-stem type="MathML">
-              <semx element="stem" source="_">0,0000y0000y0000y000</semx>
+              <semx element="stem" source="_">0,0000y0000y0</semx>
            </fmt-stem>
            <stem type="MathML" id="_">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2138,7 +2138,7 @@ RSpec.describe IsoDoc do
               </math>
            </stem>
            <fmt-stem type="MathML">
-              <semx element="stem" source="_">0,0000y0000y0000y000</semx>
+              <semx element="stem" source="_">0,0000y0000y0</semx>
            </fmt-stem>
            <stem type="MathML" id="_">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
