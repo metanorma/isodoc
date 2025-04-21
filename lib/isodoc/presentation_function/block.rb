@@ -172,6 +172,8 @@ module IsoDoc
       elem.children = l10n("[#{@i18n.source}: #{to_xml(elem.children).strip}]")
     end
 
+    # TODO just as termsource is duplicated in fmt-termsource to allow for changes,
+    # should double up source with fmt-source 
     def source_modification(mod)
       termsource_modification(mod.parent)
     end

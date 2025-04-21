@@ -167,10 +167,9 @@ termdomain(elem, d1)
         return
       end
       mod.previous = " &#x2014; "
-      c = mod.at(ns("./semx" ))
-      require "debug"; binding.b unless c
+      c = mod.at(ns("./semx" )) || mod
       c.elements.size == 1 and c.children = to_xml(c.elements[0].children)
-      mod.replace(c)
+      mod.replace(mod.children)
     end
 
     def termsource_status(status)
