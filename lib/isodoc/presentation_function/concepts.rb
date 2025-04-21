@@ -30,8 +30,7 @@ module IsoDoc
     end
 
     def concept_dup(node, ret)
-      node.xpath(".//xmlns:semx[xmlns:fmt-xref | xmlns:fmt-eref | " \
-        "xmlns:fmt-origin | xmlns:fmt-link]").each(&:remove)
+      concept_dup_cleanup_orig(node)
       ret.xpath(ns(".//xref | .//eref | .//origin | .//link")).each(&:remove)
       ret.xpath(ns(".//semx")).each do |s|
         s.children.empty? and s.remove
@@ -39,6 +38,16 @@ module IsoDoc
       f = Nokogiri::XML::Node.new("fmt-concept", node.document)
       f << ret
       node.next = f
+    end
+
+    def concept_dup_cleanup_orig(node)
+      node.xpath(".//xmlns:semx[xmlns:fmt-xref | xmlns:fmt-eref | " \
+         "xmlns:fmt-origin | xmlns:fmt-link]").each(&:remove)
+      node.xpath(ns(".//xref | .//eref | .//origin | .//link")).each do |x|
+        x["original-id"] or next
+        x["id"] = x["original-id"]
+        x.delete("original-id")
+      end
     end
 
     def concept1_style(node, opts)
@@ -103,13 +112,9 @@ module IsoDoc
     def related1(node)
       p, ref, orig = related1_prep(node)
       label = @i18n.relatedterms[orig["type"]].upcase
-      if p && ref
-        node.children = (l10n("<p><strong>#{label}:</strong> " \
-                          "<em>#{to_xml(p)}</em> (#{Common::to_xml(ref)})</p>"))
-      else
-        node.children = (l10n("<p><strong>#{label}:</strong> " \
-                          "<strong>**RELATED TERM NOT FOUND**</strong></p>"))
-      end
+      ret = "<strong>**RELATED TERM NOT FOUND**</strong>"
+      p && ref and ret = "<em>#{to_xml(p)}</em> (#{Common::to_xml(ref)})"
+      node.children = (l10n("<p><strong>#{label}:</strong> #{ret}</p>"))
     end
 
     def related1_prep(node)
@@ -152,8 +157,7 @@ module IsoDoc
         .with_object([]) do |(p, i), m|
         if (i.zero? && (pref = p)) || merge_preferred_eligible?(pref, p)
           m << p
-        else
-          p.wrap("<p></p>")
+        else p.wrap("<p></p>")
         end
       end
       pref&.replace(merge_second_preferred1(out, term))
