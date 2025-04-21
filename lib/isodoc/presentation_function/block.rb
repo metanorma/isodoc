@@ -150,7 +150,7 @@ module IsoDoc
     end
 
     def source(docxml)
-      docxml.xpath(ns("//source/modification")).each do |f|
+     docxml.xpath(ns("//source/modification")).each do |f|
         source_modification(f)
       end
       docxml.xpath(ns("//table/source")).each { |f| tablesource(f) }
@@ -173,7 +173,6 @@ module IsoDoc
     end
 
     def source_modification(mod)
-      mod["id"] ||= "_#{UUIDTools::UUID.random_create}"
       termsource_modification(mod.parent)
     end
 

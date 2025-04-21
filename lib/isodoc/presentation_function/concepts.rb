@@ -193,6 +193,8 @@ module IsoDoc
       out = desgn.parent.at(ns("./fmt-#{desgn.name}"))
       d1 = semx_fmt_dup(desgn)
       s = d1.at(ns("./termsource"))
+      s0 = desgn.at(ns("./termsource"))
+      modification_dup_align(s0, s)
       name = d1.at(ns("./expression/name | ./letter-symbol/name | " \
                          "./graphical-symbol")) or return
       designation_annotate(d1, name, desgn)
