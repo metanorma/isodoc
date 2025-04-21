@@ -1,9 +1,11 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
+    DESIGNATION_ELEMS =
+      %w(preferred admitted deprecates related definition termsource).freeze
+
     def termcontainers(docxml)
       docxml.xpath(ns("//term")).each do |t|
-        %w(preferred admitted deprecates related definition termsource)
-          .each do |w|
+        DESIGNATION_ELEMS.each do |w|
           d = t.at(ns("./#{w}[last()]")) and d.after("<fmt-#{w}/>")
         end
       end
@@ -14,8 +16,7 @@ module IsoDoc
 
     def termcleanup(docxml)
       docxml.xpath(ns("//term")).each do |t|
-        %w(preferred admitted deprecates related definition termsource)
-          .each do |w|
+        DESIGNATION_ELEMS.each do |w|
           t.xpath(ns("./#{w}//fmt-name | ./#{w}//fmt-xref-label")).each(&:remove)
           f = t.at(ns(".//fmt-#{w}"))
           f&.children&.empty? and f.remove
@@ -133,7 +134,8 @@ module IsoDoc
     end
 
     def termsource_modification(elem)
-      elem.xpath(".//text()[normalize-space() = '']").each(&:remove)
+     #require "debug"; binding.b
+     elem.xpath(".//text()[normalize-space() = '']").each(&:remove)
       origin = elem.at(ns("./origin"))
       s = termsource_status(elem["status"]) and origin.next = l10n(", #{s}")
       termsource_add_modification_text(elem.at(ns("./modification")))

@@ -112,17 +112,10 @@ module IsoDoc
 
     def table_css(elem)
       parser = IsoDoc::CssBorderParser::BorderParser.new
-      
       elem.xpath(ns(".//tr | .//th | .//td")).each do |n|
-        next unless n["style"]
-        
-        # Parse the style attribute
+        n["style"] or next
         parsed_properties = parser.parse_declaration(n["style"])
-        
-        # Generate a new CSS string with broken down border attributes
         new_style = parser.to_css_string(parsed_properties)
-        
-        # Assign the new CSS string back to the style attribute
         n["style"] = new_style
       end
     end
@@ -180,6 +173,7 @@ module IsoDoc
     end
 
     def source_modification(mod)
+      mod["id"] ||= "_#{UUIDTools::UUID.random_create}"
       termsource_modification(mod.parent)
     end
 
