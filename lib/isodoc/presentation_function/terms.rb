@@ -1,9 +1,11 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
+    DESIGNATION_ELEMS =
+      %w(preferred admitted deprecates related definition termsource).freeze
+
     def termcontainers(docxml)
       docxml.xpath(ns("//term")).each do |t|
-        %w(preferred admitted deprecates related definition termsource)
-          .each do |w|
+        DESIGNATION_ELEMS.each do |w|
           d = t.at(ns("./#{w}[last()]")) and d.after("<fmt-#{w}/>")
         end
       end
@@ -14,8 +16,7 @@ module IsoDoc
 
     def termcleanup(docxml)
       docxml.xpath(ns("//term")).each do |t|
-        %w(preferred admitted deprecates related definition termsource)
-          .each do |w|
+        DESIGNATION_ELEMS.each do |w|
           t.xpath(ns("./#{w}//fmt-name | ./#{w}//fmt-xref-label")).each(&:remove)
           f = t.at(ns(".//fmt-#{w}"))
           f&.children&.empty? and f.remove
@@ -55,7 +56,12 @@ module IsoDoc
       else singledef(elem, d, d1)
       end
       unwrap_definition(elem, d1)
-      termdomain(elem, d1)
+s1 = d.xpath(ns(".//termsource"))
+s2 = d1.xpath(ns(".//termsource"))
+s1.each_with_index do |s, i|
+      modification_dup_align(s, s2[i])
+end
+termdomain(elem, d1)
     end
 
     def multidef(_elem, defn, fmt_defn)
@@ -110,13 +116,27 @@ module IsoDoc
     end
 
     def copy_baselevel_termsource(docxml)
+      docxml.xpath(ns("//term//modification")).each do |f|
+        f["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      end
       docxml.xpath(ns("//term[termsource]")).each do |x|
         s = x.xpath(ns("./termsource"))
         s1 = x.at(ns("./fmt-termsource"))
-        s.each { |ss| s1 << ss.clone }
+        s.each do |ss|
+          dup = ss.clone
+          modification_dup_align(ss, dup)
+          s1 << dup
+        end
         strip_duplicate_ids(nil, s, s1)
         %w(status type).each { |a| s[0][a] and s1[a] = s[0][a] }
       end
+    end
+
+    def modification_dup_align(sem, pres)
+      m = sem&.at(ns("./modification")) or return
+      m1 = pres.at(ns("./modification"))
+      new_m1 = semx_fmt_dup(m)
+      m1.replace("<modification>#{to_xml(new_m1)}</modification>")
     end
 
     def termsource1(elem)
@@ -136,7 +156,8 @@ module IsoDoc
       elem.xpath(".//text()[normalize-space() = '']").each(&:remove)
       origin = elem.at(ns("./origin"))
       s = termsource_status(elem["status"]) and origin.next = l10n(", #{s}")
-      termsource_add_modification_text(elem.at(ns("./modification")))
+      mod = elem.at(ns("./modification")) or return
+      termsource_add_modification_text(mod)
     end
 
     def termsource_add_modification_text(mod)
@@ -146,8 +167,9 @@ module IsoDoc
         return
       end
       mod.previous = " &#x2014; "
-      mod.elements.size == 1 and mod.children = to_xml(mod.elements[0].children)
-      mod.replace(semx_fmt_dup(mod))
+      c = mod.at(ns("./semx" )) || mod
+      c.elements.size == 1 and c.children = to_xml(c.elements[0].children)
+      mod.replace(mod.children)
     end
 
     def termsource_status(status)

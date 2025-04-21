@@ -112,7 +112,7 @@ RSpec.describe IsoDoc do
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -134,7 +134,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -157,7 +157,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>w[o]rd</renderterm>
-                   <xref target="clause1" original-id="_">Clause #1</xref>
+                   <xref target="clause1" id="_">Clause #1</xref>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -177,7 +177,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" original-id="_"/>
+                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -197,7 +197,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>word</renderterm>
-                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" original-id="_">The Aforementioned Citation</eref>
+                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" id="_">The Aforementioned Citation</eref>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -217,7 +217,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>word</renderterm>
-                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" original-id="_">
+                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" id="_">
                       <locality type="clause">
                          <referenceFrom>3.1</referenceFrom>
                       </locality>
@@ -244,7 +244,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>word</renderterm>
-                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" original-id="_">
+                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" id="_">
                       <localityStack connective="and">
                          <locality type="clause">
                             <referenceFrom>3.1</referenceFrom>
@@ -279,7 +279,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>word</renderterm>
-                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" original-id="_">
+                   <eref bibitemid="ISO712" type="inline" citeas="ISO 712" id="_">
                       <localityStack connective="and">
                          <locality type="clause">
                             <referenceFrom>3.1</referenceFrom>
@@ -488,7 +488,7 @@ RSpec.describe IsoDoc do
                 <concept ital="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -512,7 +512,7 @@ RSpec.describe IsoDoc do
                 <concept bold="true" ital="false" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -536,7 +536,7 @@ RSpec.describe IsoDoc do
                 <concept ref="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -560,7 +560,7 @@ RSpec.describe IsoDoc do
                 <concept ital="true" ref="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -584,7 +584,7 @@ RSpec.describe IsoDoc do
                 <concept bold="true" ital="true" ref="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -610,7 +610,7 @@ RSpec.describe IsoDoc do
                 <concept ital="false" bold="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -634,7 +634,7 @@ RSpec.describe IsoDoc do
                 <concept ref="false" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -650,7 +650,7 @@ RSpec.describe IsoDoc do
                 <concept ital="false" ref="false" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">term</semx>
@@ -664,7 +664,7 @@ RSpec.describe IsoDoc do
                 <concept ital="true" ref="true" linkmention="true" linkref="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -692,7 +692,7 @@ RSpec.describe IsoDoc do
                 <concept bold="true" ital="false" ref="true" linkmention="true" linkref="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -720,7 +720,7 @@ RSpec.describe IsoDoc do
                 <concept bold="true" ital="true" ref="true" linkmention="true" linkref="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -750,7 +750,7 @@ RSpec.describe IsoDoc do
                 <concept ital="true" ref="true" linkmention="true" linkref="false" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -776,7 +776,7 @@ RSpec.describe IsoDoc do
                 <concept ital="true" ref="true" linkmention="false" linkref="true" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -800,7 +800,7 @@ RSpec.describe IsoDoc do
                 <concept ital="true" ref="true" linkmention="false" linkref="false" id="_">
                    <refterm>term</refterm>
                    <renderterm>term</renderterm>
-                   <xref target="clause1" original-id="_"/>
+                   <xref target="clause1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -835,7 +835,7 @@ RSpec.describe IsoDoc do
                 <concept ital="false" bold="false" ref="false" linkmention="true" id="_">
                    <refterm>CV_DiscreteCoverage</refterm>
                    <renderterm>CV_DiscreteCoverage</renderterm>
-                   <xref target="term-cv_discretecoverage" original-id="_"/>
+                   <xref target="term-cv_discretecoverage" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">
@@ -921,7 +921,7 @@ RSpec.describe IsoDoc do
                 <concept id="_">
                    <refterm>term</refterm>
                    <renderterm>ISO</renderterm>
-                   <xref target="d1" original-id="_"/>
+                   <xref target="d1" id="_"/>
                 </concept>
                 <fmt-concept>
                    <semx element="concept" source="_">ISO</semx>
@@ -951,5 +951,138 @@ RSpec.describe IsoDoc do
     )
       .at("//p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
+  end
+
+    it "do not process concept markup in Semantic XML" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata><language>en</language></bibdata>
+          <sections>
+          <terms id="terms_and_definitions" obligation="normative"><title>Terms and Definitions</title>
+      <term id="paddy1"><preferred><expression><name>paddy</name></expression></preferred>
+      <definition><verbal-definition>
+      <ul>
+      <concept><refterm>term1</refterm>
+          <renderterm>term</renderterm>
+          <xref target='clause1'/>
+        </concept></li>
+      <li><concept><refterm>term1</refterm>
+          <renderterm>term</renderterm>
+          <xref target='clause1'/>
+        </concept></li>
+        </ul>
+        </verbal-definition></definition>
+      </term>
+      </terms>
+      </sections></iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <terms id="terms_and_definitions" obligation="normative" displayorder="2">
+         <title id="_">Terms and Definitions</title>
+         <fmt-title depth="1">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="terms_and_definitions">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+            <span class="fmt-caption-delim">
+               <tab/>
+            </span>
+            <semx element="title" source="_">Terms and Definitions</semx>
+         </fmt-title>
+         <fmt-xref-label>
+            <span class="fmt-element-name">Clause</span>
+            <semx element="autonum" source="terms_and_definitions">1</semx>
+         </fmt-xref-label>
+         <term id="paddy1">
+            <fmt-name>
+               <span class="fmt-caption-label">
+                  <semx element="autonum" source="terms_and_definitions">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+                  <semx element="autonum" source="paddy1">1</semx>
+                  <span class="fmt-autonum-delim">.</span>
+               </span>
+            </fmt-name>
+            <fmt-xref-label>
+               <span class="fmt-element-name">Clause</span>
+               <semx element="autonum" source="terms_and_definitions">1</semx>
+               <span class="fmt-autonum-delim">.</span>
+               <semx element="autonum" source="paddy1">1</semx>
+            </fmt-xref-label>
+            <preferred id="_">
+               <expression>
+                  <name>paddy</name>
+               </expression>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">
+                     <strong>paddy</strong>
+                  </semx>
+               </p>
+            </fmt-preferred>
+            <definition id="_">
+               <verbal-definition>
+                  <ul>
+                     <concept>
+                        <refterm>term1</refterm>
+                        <renderterm>term</renderterm>
+                        <xref target="clause1"/>
+                     </concept>
+                  </ul>
+                  <li>
+                    <concept>
+                        <refterm>term1</refterm>
+                        <renderterm>term</renderterm>
+                        <xref target="clause1"/>
+                     </concept>
+                  </li>
+               </verbal-definition>
+            </definition>
+            <fmt-definition>
+               <semx element="definition" source="_">
+                  <ul>
+                     <concept id="_">
+                        <refterm>term1</refterm>
+                        <renderterm>term</renderterm>
+                        <xref target="clause1" id="_"/>
+                     </concept>
+                     <fmt-concept>
+                        <semx element="concept" source="_">
+                           <em>term</em>
+                           <semx element="xref" source="_">
+                              (
+                              <fmt-xref target="clause1">[clause1]</fmt-xref>
+                              )
+                           </semx>
+                        </semx>
+                     </fmt-concept>
+                  </ul>
+                  <li>
+                     <concept id="_">
+                        <refterm>term1</refterm>
+                        <renderterm>term</renderterm>
+                        <xref target="clause1" id="_"/>
+                     </concept>
+                     <fmt-concept>
+                        <semx element="concept" source="_">
+                           <em>term</em>
+                           <semx element="xref" source="_">
+                              (
+                              <fmt-xref target="clause1">[clause1]</fmt-xref>
+                              )
+                           </semx>
+                        </semx>
+                     </fmt-concept>
+                  </li>
+               </semx>
+            </fmt-definition>
+         </term>
+      </terms>
+    OUTPUT
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+       .convert("test", input, true))
+      .at("//xmlns:terms").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 end

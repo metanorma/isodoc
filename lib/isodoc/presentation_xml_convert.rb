@@ -73,6 +73,9 @@ module IsoDoc
 
     def idref_validate(doc)
       @log or return
+      doc.xpath("//*[@original-id]").each do |x|
+        @doc_ids[x["original-id"]] = x.line
+      end
       IDREF.each do |e|
         doc.xpath("//xmlns:#{e[0]}[@#{e[1]}]").each do |x|
           idref_validate1(x, e[1])

@@ -112,17 +112,10 @@ module IsoDoc
 
     def table_css(elem)
       parser = IsoDoc::CssBorderParser::BorderParser.new
-      
       elem.xpath(ns(".//tr | .//th | .//td")).each do |n|
-        next unless n["style"]
-        
-        # Parse the style attribute
+        n["style"] or next
         parsed_properties = parser.parse_declaration(n["style"])
-        
-        # Generate a new CSS string with broken down border attributes
         new_style = parser.to_css_string(parsed_properties)
-        
-        # Assign the new CSS string back to the style attribute
         n["style"] = new_style
       end
     end
@@ -157,7 +150,7 @@ module IsoDoc
     end
 
     def source(docxml)
-      docxml.xpath(ns("//source/modification")).each do |f|
+     docxml.xpath(ns("//source/modification")).each do |f|
         source_modification(f)
       end
       docxml.xpath(ns("//table/source")).each { |f| tablesource(f) }
@@ -179,6 +172,8 @@ module IsoDoc
       elem.children = l10n("[#{@i18n.source}: #{to_xml(elem.children).strip}]")
     end
 
+    # TODO just as termsource is duplicated in fmt-termsource to allow for changes,
+    # should double up source with fmt-source 
     def source_modification(mod)
       termsource_modification(mod.parent)
     end

@@ -132,9 +132,9 @@ RSpec.describe IsoDoc do
                    <fn reference="a" id="_8" target="_9">
                       <p original-id="_">
                          The time
-                         <stem type="AsciiMath" id="_19">t_90</stem>
+                         <stem type="AsciiMath" id="_18">t_90</stem>
                          <fmt-stem type="AsciiMath">
-                            <semx element="stem" source="_19">t_90</semx>
+                            <semx element="stem" source="_18">t_90</semx>
                          </fmt-stem>
                          was estimated to be 18,2 min for this example.
                       </p>
@@ -170,9 +170,9 @@ RSpec.describe IsoDoc do
                             <semx element="fn" source="_8">
                                <p id="_">
                                   The time
-                                  <stem type="AsciiMath" id="_20">t_90</stem>
+                                  <stem type="AsciiMath" id="_19">t_90</stem>
                                   <fmt-stem type="AsciiMath">
-                                     <semx element="stem" source="_20">t_90</semx>
+                                     <semx element="stem" source="_19">t_90</semx>
                                   </fmt-stem>
                                   was estimated to be 18,2 min for this example.
                                </p>
@@ -202,27 +202,25 @@ RSpec.describe IsoDoc do
                    </dl>
                    <source status="generalisation">
                       [SOURCE:
-                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_17">
+                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_16">
                          <localityStack>
                             <locality type="section">
                                <referenceFrom>1</referenceFrom>
                             </locality>
                          </localityStack>
                       </origin>
-                      <semx element="origin" source="_17">
+                      <semx element="origin" source="_16">
                          <fmt-xref type="inline" target="ISO712">ISO 712, Section 1</fmt-xref>
                       </semx>
-                      —
-                      <semx element="modification" source="_16">with adjustments</semx>
-                      ;
-                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_18">
+                      — with adjustments;
+                      <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_17">
                          <localityStack>
                             <locality type="section">
                                <referenceFrom>2</referenceFrom>
                             </locality>
                          </localityStack>
                       </origin>
-                      <semx element="origin" source="_18">
+                      <semx element="origin" source="_17">
                          <fmt-xref type="inline" target="ISO712">ISO 712, Section 2</fmt-xref>
                       </semx>
                       ]
