@@ -100,6 +100,7 @@ module IsoDoc
             t["inequality"] ? @labels["inequality"] : @labels["formula"],
             "formula", { unnumb: t["unnumbered"], container: true }
           )
+          @anchors[t["id"]][:bare_xref] = @anchors[t["id"]][:label]
         end
       end
 
@@ -220,6 +221,7 @@ container: false)
               t["inequality"] ? @labels["inequality"] : @labels["formula"],
               "formula", { unnumb: t["unnumbered"], container: false }
             )
+            @anchors[t["id"]][:bare_xref] = @anchors[t["id"]][:label]
           end
         end
       end

@@ -1029,6 +1029,7 @@ RSpec.describe IsoDoc do
           <xref target="N"/>
           <xref target="note1"/>
           <xref target="note2"/>
+          <xref target="note1"><location target="note1" connective="and"/><location target="note2" connective="and"/></xref>
           <xref target="AN"/>
           <xref target="Anote1"/>
           <xref target="Anote2"/>
@@ -1167,6 +1168,31 @@ RSpec.describe IsoDoc do
                   <span class="fmt-autonum-delim">)</span>
                </fmt-xref>
             </semx>
+             <xref target="note1" id="_">
+                <location target="note1" connective="and"/>
+                <location target="note2" connective="and"/>
+             </xref>
+             <semx element="xref" source="_">
+                <span class="fmt-xref-container">
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="widgets">3</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="widgets1">1</semx>
+                </span>
+                <span class="fmt-comma">,</span>
+                <fmt-xref target="note1">
+                   Formulas
+                   <span class="fmt-autonum-delim">(</span>
+                   3
+                   <span class="fmt-autonum-delim">)</span>
+                </fmt-xref>
+                <span class="fmt-conn">and</span>
+                <fmt-xref target="note2">
+                   <span class="fmt-autonum-delim">(</span>
+                   4
+                   <span class="fmt-autonum-delim">)</span>
+                </fmt-xref>
+             </semx>
             <xref target="AN" id="_"/>
             <semx element="xref" source="_">
                <fmt-xref target="AN">
