@@ -143,9 +143,9 @@ module IsoDoc
       self.class::AGENCIES.include?(text)
     end
 
-    def docid_l10n(text)
+    def docid_l10n(text, citation: true)
       text.nil? and return text
-      @i18n.all_parts and text.gsub!(/All Parts/i, @i18n.all_parts.downcase)
+      docid_all_parts(text, citation)
       x = Nokogiri::XML::DocumentFragment.parse(text)
       (x.xpath(".//text()") - x.xpath(".//fn//text()")).each do |n|
         n.replace(n.text.gsub(/ /, "&#xa0;"))
@@ -153,10 +153,19 @@ module IsoDoc
       to_xml(x)
     end
 
+    def docid_all_parts(text, citation)
+      if citation
+        text.sub!(%r{\p{Zs}\(all\p{Zs}parts\)}, "")
+      else
+        @i18n.all_parts && !citation and
+          text.gsub!(/all\p{Zs}parts/, @i18n.all_parts.downcase)
+      end
+    end
+
     def docid_prefix(prefix, docid)
       docid = "#{prefix} #{docid}" if prefix && !omit_docid_prefix(prefix) &&
         !/^#{prefix}\b/.match(docid)
-      docid_l10n(docid)
+      docid_l10n(docid, citation: false)
     end
 
     def omit_docid_prefix(prefix)

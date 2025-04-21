@@ -13,7 +13,8 @@ module IsoDoc
       ret = pref_ref_code_parse(bib) or return nil
       ins = bib.at(ns("./docidentifier[last()]"))
       ret.reverse_each do |r|
-        ins.next = "<docidentifier scope='biblio-tag'>#{docid_l10n(r)}</docidentifier>"
+        id = docid_l10n(r, citation: false)
+        ins.next = "<docidentifier scope='biblio-tag'>#{id}</docidentifier>"
       end
       ret
     end
