@@ -102,11 +102,29 @@ module IsoDoc
 
     def table1(elem)
       table_fn(elem)
+      table_css(elem)
       labelled_ancestor(elem) and return
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
       lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"], n)
       prefix_name(elem, { caption: table_delim }, l10n(lbl), "name")
+    end
+
+    def table_css(elem)
+      parser = IsoDoc::CssBorderParser::BorderParser.new
+      
+      elem.xpath(ns(".//tr | .//th | .//td")).each do |n|
+        next unless n["style"]
+        
+        # Parse the style attribute
+        parsed_properties = parser.parse_declaration(n["style"])
+        
+        # Generate a new CSS string with broken down border attributes
+        new_style = parser.to_css_string(parsed_properties)
+        
+        # Assign the new CSS string back to the style attribute
+        n["style"] = new_style
+      end
     end
 
     def table_delim
