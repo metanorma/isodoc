@@ -178,9 +178,20 @@ module IsoDoc
       MATHJAX = <<~"MATHJAX".freeze
         <script type="text/x-mathjax-config">
           MathJax.Hub.Config({
-            "HTML-CSS": { preferredFont: "STIX" },
-            asciimath2jax: { delimiters: [['OPEN', 'CLOSE']] }
-         });
+            "HTML-CSS": {
+              preferredFont: "STIX",
+              linebreaks: {
+                automatic: true,
+                width: "container"  // or specify something like "90%"/"30em"
+              }
+            },
+            MathML: {
+              linebreaks: {
+                automatic: true
+              }
+            },
+            asciimath2jax: { delimiters: [['(#(', ')#)']] }
+          });
         </script>
         <script src="#{MATHJAX_ADDR}?config=MML_HTMLorMML-full" async="async"></script>
       MATHJAX
