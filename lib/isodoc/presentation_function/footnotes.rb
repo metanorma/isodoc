@@ -3,7 +3,6 @@ module IsoDoc
     def footnote_collect(fnotes)
       seen = {}
       fnotes.each_with_object([]) do |x, m|
-        x["id"] ||= "_#{UUIDTools::UUID.random_create}"
         seen[x["reference"]] or m << fnbody(x, seen)
         x["target"] = seen[x["reference"]]
         ref = x["hiddenref"] == "true" ? "" : fn_ref_label(x)
@@ -145,7 +144,6 @@ module IsoDoc
     end
 
     def comment_body(elem)
-      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
       c1 = elem.after("<fmt-review-body/>").next
       elem.attributes.each_key { |k| c1[k] = elem[k] }
       c1["id"] = "_#{UUIDTools::UUID.random_create}"

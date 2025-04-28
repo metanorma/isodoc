@@ -71,7 +71,7 @@ module IsoDoc
     # do not change to Presentation XML rendering
     def sem_xml_descendant?(node)
       ancestor_names = node.ancestors.map(&:name)
-      %w[preferred admitted deprecated related definition termsource]
+      %w[preferred admitted deprecated related definition source]
         .any? do |name|
         ancestor_names.include?(name)
       end and return true

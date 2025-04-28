@@ -142,19 +142,38 @@ module IsoDoc
     def amend1(elem)
       ret = semx_fmt_dup(elem)
       ret.xpath(ns("./locality | ./localityStack | ./autonumber | " \
-                    "./classification | ./contributor")).each(&:remove)
+                   "./classification | ./contributor")).each(&:remove)
       ret.xpath(ns("./newcontent")).each { |a| a.name = "quote" }
       ret.xpath(ns("./description")).each { |a| a.replace(a.children) }
       elem.xpath(ns(".//fmt-name | .//fmt-xref-label")).each(&:remove)
       elem.next = ret
     end
 
+    # TODO will go back to just one source/modification, preserving it
     def source(docxml)
-     docxml.xpath(ns("//source/modification")).each do |f|
+      fmt_source(docxml)
+      docxml.xpath(ns("//fmt-source/source/modification")).each do |f|
         source_modification(f)
       end
-      docxml.xpath(ns("//table/source")).each { |f| tablesource(f) }
-      docxml.xpath(ns("//figure/source")).each { |f| figuresource(f) }
+      source_types(docxml)
+      docxml.xpath(ns("//fmt-source/source")).each do |f|
+        f.replace(semx_fmt_dup(f))
+      end
+    end
+
+    def source_types(docxml)
+      docxml.xpath(ns("//table/fmt-source")).each { |f| tablesource(f) }
+      docxml.xpath(ns("//figure/fmt-source")).each { |f| figuresource(f) }
+    end
+
+    def fmt_source(docxml)
+      n = docxml.xpath(ns("//source")) - docxml.xpath(ns("//term//source")) -
+        docxml.xpath(ns("//quote/source"))
+      n.each do |s|
+        dup = s.clone
+        modification_dup_align(s, dup)
+        s.next = "<fmt-source>#{to_xml(dup)}</fmt-source>"
+      end
     end
 
     def tablesource(elem)
@@ -166,14 +185,18 @@ module IsoDoc
     end
 
     def source1(elem)
-      while elem&.next_element&.name == "source"
-        elem << "; #{to_xml(elem.next_element.remove.children)}"
+      n = elem
+      while n = n&.next_element
+        case n.name
+        when "source"
+        when "fmt-source"
+          elem << "; #{to_xml(n.remove.children)}"
+        else break
+        end
       end
       elem.children = l10n("[#{@i18n.source}: #{to_xml(elem.children).strip}]")
     end
 
-    # TODO just as termsource is duplicated in fmt-termsource to allow for changes,
-    # should double up source with fmt-source 
     def source_modification(mod)
       termsource_modification(mod.parent)
     end

@@ -7,7 +7,7 @@ module IsoDoc
     end
 
     def concept1(node)
-      node.ancestors("definition, termsource, related").empty? or return
+      node.ancestors("definition, source, related").empty? or return
       xref = node&.at(ns("./semx/fmt-xref/@target"))&.text or
         return concept_render(node, ital: "true", ref: "true", bold: "false",
                                     linkref: "true", linkmention: "false")
@@ -192,8 +192,8 @@ module IsoDoc
       desgn.parent.name == "related" and return
       out = desgn.parent.at(ns("./fmt-#{desgn.name}"))
       d1 = semx_fmt_dup(desgn)
-      s = d1.at(ns("./termsource"))
-      s0 = desgn.at(ns("./termsource"))
+      s = d1.at(ns("./source"))
+      s0 = desgn.at(ns("./source"))
       modification_dup_align(s0, s)
       name = d1.at(ns("./expression/name | ./letter-symbol/name | " \
                          "./graphical-symbol")) or return
