@@ -194,7 +194,11 @@ module IsoDoc
         else break
         end
       end
-      elem.children = l10n("[#{@i18n.source}: #{to_xml(elem.children).strip}]")
+      source1_label(elem, to_xml(elem.children).strip)
+    end
+
+    def source1_label(elem, sources)
+      elem.children = l10n("[#{@i18n.source}: #{sources}]")
     end
 
     def source_modification(mod)
