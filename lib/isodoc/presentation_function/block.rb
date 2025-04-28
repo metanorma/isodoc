@@ -177,14 +177,14 @@ module IsoDoc
     end
 
     def tablesource(elem)
-      source1(elem)
+      source1(elem, :table)
     end
 
     def figuresource(elem)
-      source1(elem)
+      source1(elem, :figure)
     end
 
-    def source1(elem)
+    def source1(elem, ancestor)
       n = elem
       while n = n&.next_element
         case n.name
@@ -194,10 +194,10 @@ module IsoDoc
         else break
         end
       end
-      source1_label(elem, to_xml(elem.children).strip)
+      source1_label(elem, to_xml(elem.children).strip, ancestor)
     end
 
-    def source1_label(elem, sources)
+    def source1_label(elem, sources, _ancestor)
       elem.children = l10n("[#{@i18n.source}: #{sources}]")
     end
 
