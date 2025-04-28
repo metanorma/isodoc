@@ -1433,379 +1433,379 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-        <p id="A" displayorder="2">
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0.00</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">31.00</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='basic',significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,00</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.11e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1100e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e22</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1 000 000 000 000 000 000 000,00</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e20</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">10 000 000 000 000 000 000,00</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e-18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0,00</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3.27e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'00'00'00e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='e',significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3.27e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'00'00'00e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'4e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,00e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.11e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1100e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e22</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,00e21</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e20</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,00e19</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e-18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,00e-19</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn>...</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">...</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">642x121x496x772x645x156</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>+17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 642,1214y967 × 10
-                 <sup>15</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">642x121x496x800x000x000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0,0000y0000y0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 64,2121y4960 × 10
-                 <sup>-21</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0,00</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <msqrt>
-                    <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=',',notation='engineering'">0.6421214967726451564515e-19</mn>
-                 </msqrt>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 <math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <msqrt>
-                       <msup>
-                          <mn>64,21'00'00'00 × 10</mn>
-                          <mn>-21</mn>
-                       </msup>
-                    </msqrt>
-                 </math>
-                 <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='fr'">30000</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">30 000,00</semx>
-           </fmt-stem>
-        </p>
+       <p id="A" displayorder="2">
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0.00</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">31.00</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74'0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='basic',significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,00</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.11e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,10</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1100e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,10</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e22</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1 000 000 000 000 000 000 000,00</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e20</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">10 000 000 000 000 000 000,00</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e-18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0,00</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3.27e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27'00'00'00e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='e',significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3.27e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27'4e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,00e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.11e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,10e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1100e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,10e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e22</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,00e21</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e20</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,00e19</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e-18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,00e-19</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn>...</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">...</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">642x121x496x772x645x156</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>+17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                642,1214y967 × 10
+                <sup>15</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">642x121x496x800x000x000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0,0000y0000y0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                64,2121y4960 × 10
+                <sup>-21</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0,00</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <msqrt>
+                   <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=',',notation='engineering'">0.6421214967726451564515e-19</mn>
+                </msqrt>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                   <msqrt>
+                      <msup>
+                         <mn>64,21 × 10</mn>
+                         <mn>-21</mn>
+                      </msup>
+                   </msqrt>
+                </math>
+                <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='fr'">30000</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">30 000,00</semx>
+          </fmt-stem>
+       </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
@@ -1826,379 +1826,379 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-        <p id="A" displayorder="2">
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0.0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">31</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'32'87'84'32'99'2</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'32'87'84'32'99'2</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='basic',significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.11e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,1</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1100e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10'0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e22</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1 000 000 000 000 000 000 000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e20</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">10 000 000 000 000 000 000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e-18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0,00'00'00'00'00'00'00'00'00'10</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3.27e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'42'87'43e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='e',significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3.27e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'42'87'43e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'4e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.11e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,1e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1100e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10'0e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e22</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1e21</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e20</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,0e19</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e-18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,0e-19</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn>...</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">...</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">642x121x496x772x645x156</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>+17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 642,1214y967 × 10
-                 <sup>15</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">642x121x496x800x000x000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0,0000y0000y0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 64,2121y4960 × 10
-                 <sup>-21</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0,00'00'00'00'00'00'00'00'00'06'42'12'14'96'8</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <msqrt>
-                    <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=',',notation='engineering'">0.6421214967726451564515e-19</mn>
-                 </msqrt>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 <math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <msqrt>
-                       <msup>
-                          <mn>64,21'21'49'68 × 10</mn>
-                          <mn>-21</mn>
-                       </msup>
-                    </msqrt>
-                 </math>
-                 <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='fr'">30000</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">30 000</semx>
-           </fmt-stem>
-        </p>
+       <p id="A" displayorder="2">
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0.0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">31</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'32'87'84'32'99'2</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'32'87'84'32'99'2</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='basic',significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.11e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1100e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e22</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1 000 000 000 000 000 000 000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e20</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">10 000 000 000 000 000 000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e-18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0,00'00'00'00'00'00'00'00'00'1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3.27e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27'42'87'43e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='e',significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3.27e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27'42'87'43e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27'4e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.11e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1100e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e22</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1e21</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e20</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,0e19</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e-18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,0e-19</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn>...</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">...</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">642x121x496x772x645x156</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>+17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                642,1214y967 × 10
+                <sup>15</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">642x121x496x800x000x000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0,0000y0000y0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                64,2121y4960 × 10
+                <sup>-21</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0,00'00'00'00'00'00'00'00'00'06'42'12'14'96'8</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <msqrt>
+                   <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=',',notation='engineering'">0.6421214967726451564515e-19</mn>
+                </msqrt>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                   <msqrt>
+                      <msup>
+                         <mn>64,21'21'49'68 × 10</mn>
+                         <mn>-21</mn>
+                      </msup>
+                   </msqrt>
+                </math>
+                <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='fr'">30000</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">30 000</semx>
+          </fmt-stem>
+       </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
@@ -2220,409 +2220,409 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-        <p id="A" displayorder="2">
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0.0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">31</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'32'87'84'32'99'2</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'32'87'84'32'99'2</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428.74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,428</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='basic',significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327,000</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">327 428,74'3</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.11e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,1</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1100e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10'0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e22</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1 × 10
-                 <sup>21</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e20</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1,0 × 10
-                 <sup>19</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e-18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1,0 × 10
-                 <sup>-19</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3.27e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'42'87'43e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='e',significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3.27e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'42'87'43e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">3,27'4e5</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.11e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,1e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1100e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10'0e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e22</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1 × 10
-                 <sup>21</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e20</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1,0 × 10
-                 <sup>19</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e-18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1,0 × 10
-                 <sup>-19</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn>...</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">...</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>+17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 642,1214y967 × 10
-                 <sup>15</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,42'12'14'96'8 × 10
-                 <sup>17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,42'12'14'96'8 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <msqrt>
-                    <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=',',notation='engineering'">0.6421214967726451564515e-19</mn>
-                 </msqrt>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 <math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <msqrt>
-                       <msup>
-                          <mn>6,42'12'14'96'8 × 10</mn>
-                          <mn>-20</mn>
-                       </msup>
-                    </msqrt>
-                 </math>
-                 <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='fr'">30000</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">30 000</semx>
-           </fmt-stem>
-        </p>
+      <p id="A" displayorder="2">
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0.0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">31</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'32'87'84'32'99'2</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'32'87'84'32'99'2</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428.74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,428</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='basic',significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327,000</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">327 428,74'3</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.11e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1100e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e22</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1 × 10
+                <sup>21</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e20</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1,0 × 10
+                <sup>19</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e-18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1,0 × 10
+                <sup>-19</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3.27e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27'42'87'43e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='e',significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3.27e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27'42'87'43e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">3,27'4e5</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.11e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1100e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e22</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1 × 10
+                <sup>21</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e20</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1,0 × 10
+                <sup>19</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e-18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1,0 × 10
+                <sup>-19</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn>...</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">...</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>+17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                642,1214y967 × 10
+                <sup>15</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,42'12'14'96'8 × 10
+                <sup>17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,42'12'14'96'8 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <msqrt>
+                   <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=',',notation='engineering'">0.6421214967726451564515e-19</mn>
+                </msqrt>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                   <msqrt>
+                      <msup>
+                         <mn>6,42'12'14'96'8 × 10</mn>
+                         <mn>-20</mn>
+                      </msup>
+                   </msqrt>
+                </math>
+                <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='fr'">30000</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">30 000</semx>
+          </fmt-stem>
+       </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
@@ -2646,463 +2646,463 @@ RSpec.describe IsoDoc do
                     }))
 
       output1 = <<~OUTPUT
-        <p id="A" displayorder="2">
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">0.0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">31</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27'42'87'43'28'78'43'29'92 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27'42'87'43'28'78'43'29'92 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27'42'87'43 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27'42'87'43 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27'4 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3,27'42'87'43 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='basic',significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3,27'42'87'43 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3,27'4 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.11e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,1</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1100e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10'0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e22</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1 × 10
-                 <sup>21</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e20</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1,0 × 10
-                 <sup>19</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e-18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1,0 × 10
-                 <sup>-19</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3,27'42'87'43 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal='.',notation='e',significant='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3.27 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',significant='9'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3,27'42'87'43 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',precision='3'">0.3274287432878432992e6</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3,27'4 × 10
-                 <sup>5</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.11e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,1e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1100e1</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">1,10'0e0</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e22</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1 × 10
-                 <sup>21</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e20</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1,0 × 10
-                 <sup>19</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e-18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 1,0 × 10
-                 <sup>-19</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn>...</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">...</semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>+17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 642,1214y967 × 10
-                 <sup>15</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,42'12'14'96'8 × 10
-                 <sup>17</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,4212y1490y0 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 6,42'12'14'96'8 × 10
-                 <sup>-20</sup>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <msqrt>
-                    <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=',',notation='engineering'">0.6421214967726451564515e-19</mn>
-                 </msqrt>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 <math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <msqrt>
-                       <msup>
-                          <mn>6,42'12'14'96'8 × 10</mn>
-                          <mn>-20</mn>
-                       </msup>
-                    </msqrt>
-                 </math>
-                 <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
-              </semx>
-           </fmt-stem>
-           <stem type="MathML" id="_">
-              <math xmlns="http://www.w3.org/1998/Math/MathML">
-                 <mn data-metanorma-numberformat="locale='fr'">30000</mn>
-              </math>
-           </stem>
-           <fmt-stem type="MathML">
-              <semx element="stem" source="_">
-                 3,00'00 × 10
-                 <sup>4</sup>
-              </semx>
-           </fmt-stem>
-        </p>
+       <p id="A" displayorder="2">
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.0</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">0.0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.31e2</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">31</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="notation='basic'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27'42'87'43'28'78'43'29'92 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27'42'87'43'28'78'43'29'92 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27'42'87'43 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27'42'87'43 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27'4 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='basic',digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3,27'42'87'43 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='basic',significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3,27'42'87'43 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic',precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3,27'4 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.11e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1100e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.1e22</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1 × 10
+                <sup>21</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e20</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1,0 × 10
+                <sup>19</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='basic'">0.10e-18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1,0 × 10
+                <sup>-19</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='e',digit_count='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',digit_count='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3,27'42'87'43 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal='.',notation='e',significant='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3.27 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',significant='9'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3,27'42'87'43 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e',precision='3'">0.3274287432878432992e6</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3,27'4 × 10
+                <sup>5</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.11e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1100e1</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">1,1e0</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.1e22</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1 × 10
+                <sup>21</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e20</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1,0 × 10
+                <sup>19</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="decimal=',',group=' ',notation='e'">0.10e-18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                1,0 × 10
+                <sup>-19</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn>...</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">...</semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='plus',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>+17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',large_notation='nil',exponent_sign='true',e='EE'">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                642,1214y967 × 10
+                <sup>15</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e18</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,42'12'14'96'8 × 10
+                <sup>17</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='scientific',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="precision='7',digit_count='10',group='x',group_digits='3',decimal=',',fraction_group='y',fraction_group_digits='4',notation='engineering',exponent_sign='true',e='EE'">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,4212y1490y0 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=','">0.6421214967726451564515e-19</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                6,42'12'14'96'8 × 10
+                <sup>-20</sup>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <msqrt>
+                   <mn data-metanorma-numberformat="locale='de',significant='10',group='x',group_digits='3',decimal=',',notation='engineering'">0.6421214967726451564515e-19</mn>
+                </msqrt>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                   <msqrt>
+                      <msup>
+                         <mn>6,42'12'14'96'8 × 10</mn>
+                         <mn>-20</mn>
+                      </msup>
+                   </msqrt>
+                </math>
+                <asciimath>sqrt(0.6421214967726451564515e-19)</asciimath>
+             </semx>
+          </fmt-stem>
+          <stem type="MathML" id="_">
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mn data-metanorma-numberformat="locale='fr'">30000</mn>
+             </math>
+          </stem>
+          <fmt-stem type="MathML">
+             <semx element="stem" source="_">
+                3,00'00 × 10
+                <sup>4</sup>
+             </semx>
+          </fmt-stem>
+       </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
