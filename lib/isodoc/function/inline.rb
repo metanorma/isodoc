@@ -220,6 +220,7 @@ module IsoDoc
       def amend_parse(node, out); end
       def semx_sourcecode_parse(node, out); end
       def review_note_parse(node, out); end
+      def semx_source_parse(node, out); end
 
       def fmt_name_parse(node, out)
         children_parse(node, out)

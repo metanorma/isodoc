@@ -25,7 +25,6 @@ module IsoDoc
 
     # TODO not currently doing anything with the @depth attribute of floating-title
     def floattitle1(elem)
-      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
       p = elem.dup
       p.children = "<semx element='floating-title' source='#{elem['id']}'>" \
         "#{to_xml(p.children)}</semx>"

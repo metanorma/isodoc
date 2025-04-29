@@ -33,7 +33,6 @@ module IsoDoc
         [e["connective"], to_xml(e.parent.remove)]
       end.flatten
       ret = resolve_eref_connectives(locs)
-      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
       elem.next = "<semx element='erefstack' source='#{elem['id']}'>#{ret[1]}</semx>"
     end
 

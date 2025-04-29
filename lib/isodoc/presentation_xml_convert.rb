@@ -102,6 +102,7 @@ module IsoDoc
       metadata docxml
       bibdata docxml
       @xrefs.parse docxml
+      provide_anchors docxml
       section docxml
       block docxml
       terms docxml
@@ -188,33 +189,11 @@ module IsoDoc
           .previous_element
     end
 
-    def embedable_semantic_xml(xml)
-      xml = embedable_semantic_xml_tags(xml)
-      embedable_semantic_xml_attributes(xml)
-    end
-
-    def embedable_semantic_xml_tags(xml)
-      ret = to_xml(xml)
-        .sub(/ xmlns=['"][^"']+['"]/, "") # root XMLNS
-        .split(/(?=[<> \t\r\n\f\v])/).map do |x|
-          case x
-          when /^<[^:]+:/ then x.sub(":", ":semantic__")
-          when /^<[^:]+$/ then x.sub(%r{(</?)([[:alpha:]])},
-                                     "\\1semantic__\\2")
-          else x end
-        end
-      Nokogiri::XML(ret.join).root
-    end
-
-    def embedable_semantic_xml_attributes(xml)
-      Metanorma::Utils::anchor_attributes.each do |(tag_name, attr_name)|
-        tag_name == "*" or tag_name = "semantic__#{tag_name}"
-        xml.xpath("//#{tag_name}[@#{attr_name}]").each do |elem|
-          elem.attributes[attr_name].value =
-            "semantic__#{elem.attributes[attr_name].value}"
-        end
+    def provide_anchors(docxml)
+      docxml.xpath(ns("//source | //modification | //erefstack | //fn | " \
+        "//review | //floating-title")).each do |s|
+        s["id"] ||= "_#{UUIDTools::UUID.random_create}"
       end
-      xml
     end
 
     def postprocess(result, filename, _dir)

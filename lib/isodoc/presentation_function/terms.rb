@@ -1,24 +1,29 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     DESIGNATION_ELEMS =
-      %w(preferred admitted deprecates related definition termsource).freeze
+      %w(preferred admitted deprecates related definition source).freeze
+
+    def target_desgn_elem(name)
+      target = "fmt-#{name}"
+      name == "source" and target = "fmt-termsource"
+      target
+    end
 
     def termcontainers(docxml)
       docxml.xpath(ns("//term")).each do |t|
         DESIGNATION_ELEMS.each do |w|
-          d = t.at(ns("./#{w}[last()]")) and d.after("<fmt-#{w}/>")
+          target = target_desgn_elem(w)
+          d = t.at(ns("./#{w}[last()]")) and d.after("<#{target}/>")
         end
-      end
-      docxml.xpath(ns("//termsource")).each do |s|
-        s["id"] ||= "_#{UUIDTools::UUID.random_create}"
       end
     end
 
     def termcleanup(docxml)
       docxml.xpath(ns("//term")).each do |t|
         DESIGNATION_ELEMS.each do |w|
+          target = target_desgn_elem(w)
           t.xpath(ns("./#{w}//fmt-name | ./#{w}//fmt-xref-label")).each(&:remove)
-          f = t.at(ns(".//fmt-#{w}"))
+          f = t.at(ns(".//#{target}"))
           f&.children&.empty? and f.remove
         end
       end
@@ -56,12 +61,12 @@ module IsoDoc
       else singledef(elem, d, d1)
       end
       unwrap_definition(elem, d1)
-s1 = d.xpath(ns(".//termsource"))
-s2 = d1.xpath(ns(".//termsource"))
-s1.each_with_index do |s, i|
-      modification_dup_align(s, s2[i])
-end
-termdomain(elem, d1)
+      s1 = d.xpath(ns(".//source"))
+      s2 = d1.xpath(ns(".//source"))
+      s1.each_with_index do |s, i|
+        modification_dup_align(s, s2[i])
+      end
+      termdomain(elem, d1)
     end
 
     def multidef(_elem, defn, fmt_defn)
@@ -94,7 +99,8 @@ termdomain(elem, d1)
     def termsource(docxml)
       copy_baselevel_termsource(docxml)
       # TODO should I wrap fmt-definition//termsource in fmt-termsource, in order to preserve termsource attributes?
-      docxml.xpath(ns("//fmt-termsource/termsource | //fmt-definition//termsource | //fmt-preferred//termsource | //fmt-admitted//termsource | //fmt-deprecates//termsource"))
+      # differentiating term and nonterm source under designations is not worth it
+      docxml.xpath(ns("//fmt-termsource/source | //fmt-definition//source | //fmt-preferred//source | //fmt-admitted//source | //fmt-deprecates//source"))
         .each do |f|
         termsource_modification(f)
       end
@@ -102,7 +108,7 @@ termdomain(elem, d1)
         .each do |f|
           termsource_designation(f)
         end
-      docxml.xpath(ns("//fmt-termsource/termsource | //fmt-definition//termsource | //fmt-preferred//termsource | //fmt-admitted//termsource | //fmt-deprecates//termsource"))
+      docxml.xpath(ns("//fmt-termsource/source | //fmt-definition//source | //fmt-preferred//source | //fmt-admitted//source | //fmt-deprecates//source"))
         .each do |f|
         f.parent and termsource1(f)
       end
@@ -116,11 +122,8 @@ termdomain(elem, d1)
     end
 
     def copy_baselevel_termsource(docxml)
-      docxml.xpath(ns("//term//modification")).each do |f|
-        f["id"] ||= "_#{UUIDTools::UUID.random_create}"
-      end
-      docxml.xpath(ns("//term[termsource]")).each do |x|
-        s = x.xpath(ns("./termsource"))
+      docxml.xpath(ns("//term[source]")).each do |x|
+        s = x.xpath(ns("./source"))
         s1 = x.at(ns("./fmt-termsource"))
         s.each do |ss|
           dup = ss.clone
@@ -135,13 +138,17 @@ termdomain(elem, d1)
     def modification_dup_align(sem, pres)
       m = sem&.at(ns("./modification")) or return
       m1 = pres.at(ns("./modification"))
+      if m["original-id"]
+        m["id"] = m["original-id"]
+        m.delete("original-id")
+      end
       new_m1 = semx_fmt_dup(m)
       m1.replace("<modification>#{to_xml(new_m1)}</modification>")
     end
 
     def termsource1(elem)
       ret = [semx_fmt_dup(elem)]
-      while elem&.next_element&.name == "termsource"
+      while elem&.next_element&.name == "source"
         ret << semx_fmt_dup(elem.next_element.remove)
       end
       s = ret.map { |x| to_xml(x) }.map(&:strip).join("; ")
@@ -167,7 +174,7 @@ termdomain(elem, d1)
         return
       end
       mod.previous = " &#x2014; "
-      c = mod.at(ns("./semx" )) || mod
+      c = mod.at(ns("./semx")) || mod
       c.elements.size == 1 and c.children = to_xml(c.elements[0].children)
       mod.replace(mod.children)
     end
