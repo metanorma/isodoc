@@ -34,21 +34,6 @@ module IsoDoc
         OL_STYLE[type.to_sym]
       end
 
-      # We don't really want users to specify type of ordered list;
-      # we will use a fixed hierarchy as practiced by ISO (though not
-      # fully spelled out): a) 1) i) A) I)
-      # Fallback, this is now being done in Presentation XML
-      # KILL
-      def ol_depthx(node)
-        depth = node.ancestors("ul, ol").size + 1
-        type = :alphabet
-        type = :arabic if [2, 7].include? depth
-        type = :roman if [3, 8].include? depth
-        type = :alphabet_upper if [4, 9].include? depth
-        type = :roman_upper if [5, 10].include? depth
-        ol_style(type)
-      end
-
       def ol_attrs(node)
         { # type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
           type: ol_style(node["type"]&.to_sym),

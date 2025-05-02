@@ -65,8 +65,8 @@ module IsoDoc
       [%w(review from), %w(review to), %w(index to), %w(xref target),
        %w(callout target), %w(eref bibitemid), %w(citation bibitemid),
        %w(admonition target), %w(label for), %w(semx source),
-       %w(fmt-title source), %w(fmt-xref-label container), %w(fn target),
-       %w(fmt-fn-body target), %w(fmt-review-start source),
+       %w(location target), %w(fmt-title source), %w(fmt-xref-label container),
+       %w(fn target), %w(fmt-fn-body target), %w(fmt-review-start source),
        %w(fmt-review-start end), %w(fmt-review-start target),
        %w(fmt-review-end source), %w(fmt-review-end start),
        %w(fmt-review-end target)].freeze
