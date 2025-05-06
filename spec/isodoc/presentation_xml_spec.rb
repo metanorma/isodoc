@@ -20,6 +20,80 @@ RSpec.describe IsoDoc do
     expect(File.exist?("test.presentation.xml")).to be true
   end
 
+  it "manipulates identifier attributes in Presentation XML" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <sections>
+          <clause id="A"/>
+          <clause id="B" anchor="C"/>
+          <clause id="D" anchor="Löwe">
+            <xref target="Löwe"/>
+          </clause>
+        </sections>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Table of contents</fmt-title>
+             </clause>
+          </preface>
+          <sections>
+             <clause id="A" semx-id="A" displayorder="2">
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="A">1</semx>
+                </fmt-xref-label>
+             </clause>
+             <clause id="C" anchor="C" semx-id="B" displayorder="3">
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="C">2</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="C">2</semx>
+                </fmt-xref-label>
+             </clause>
+             <clause id="L__xf6_we" anchor="Löwe" semx-id="D" displayorder="4">
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="L__xf6_we">3</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="L__xf6_we">3</semx>
+                </fmt-xref-label>
+                <xref target="L__xf6_we" id="_"/>
+                <semx element="xref" source="_">
+                   <fmt-xref target="L__xf6_we">
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="L__xf6_we">3</semx>
+                   </fmt-xref>
+                </semx>
+             </clause>
+          </sections>
+       </iso-standard>
+    OUTPUT
+    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .gsub(%r("_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"), '"_"'))
+      .to be_equivalent_to Xml::C14n.format(output)
+  end
+
   it "resolve address components" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">

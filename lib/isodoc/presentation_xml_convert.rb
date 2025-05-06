@@ -12,6 +12,7 @@ require_relative "presentation_function/index"
 require_relative "presentation_function/bibdata"
 require_relative "presentation_function/metadata"
 require_relative "presentation_function/footnotes"
+require_relative "presentation_function/ids"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -25,8 +26,7 @@ module IsoDoc
       presxml_convert_init(docxml, filename, dir)
       conversions(docxml)
       docxml.root["type"] = "presentation"
-      repeat_id_validate(docxml.root)
-      idref_validate(docxml.root)
+      id_validate(docxml.root)
       docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
     end
 
@@ -44,53 +44,6 @@ module IsoDoc
       counter_init
     end
 
-    def repeat_id_validate1(elem)
-      if @doc_ids[elem["id"]]
-        @log.add("Anchors", elem,
-                 "Anchor #{elem['id']} has already been " \
-                 "used at line #{@doc_ids[elem['id']]}", severity: 0)
-      end
-      @doc_ids[elem["id"]] = elem.line
-    end
-
-    def repeat_id_validate(doc)
-      @log or return
-      @doc_ids = {}
-      doc.xpath("//*[@id]").each do |x|
-        repeat_id_validate1(x)
-      end
-    end
-
-    IDREF =
-      [%w(review from), %w(review to), %w(index to), %w(xref target),
-       %w(callout target), %w(eref bibitemid), %w(citation bibitemid),
-       %w(admonition target), %w(label for), %w(semx source),
-       %w(location target), %w(fmt-title source), %w(fmt-xref-label container),
-       %w(fn target), %w(fmt-fn-body target), %w(fmt-review-start source),
-       %w(fmt-review-start end), %w(fmt-review-start target),
-       %w(fmt-review-end source), %w(fmt-review-end start),
-       %w(fmt-review-end target)].freeze
-
-    def idref_validate(doc)
-      @log or return
-      doc.xpath("//*[@original-id]").each do |x|
-        @doc_ids[x["original-id"]] = x.line
-      end
-      IDREF.each do |e|
-        doc.xpath("//xmlns:#{e[0]}[@#{e[1]}]").each do |x|
-          idref_validate1(x, e[1])
-        end
-      end
-    end
-
-    def idref_validate1(node, attr)
-      node[attr].strip.empty? and return
-      @doc_ids[node[attr]] and return
-      @log.add("Anchors", node,
-               "Anchor #{node[attr]} pointed to by #{node.name} " \
-               "is not defined in the document", severity: 1)
-    end
-
     def bibitem_lookup(docxml)
       @bibitem_lookup ||= docxml.xpath(ns("//references/bibitem"))
         .each_with_object({}) do |b, m|
@@ -102,7 +55,7 @@ module IsoDoc
       metadata docxml
       bibdata docxml
       @xrefs.parse docxml
-      provide_anchors docxml
+      provide_ids docxml
       section docxml
       block docxml
       terms docxml
@@ -187,13 +140,6 @@ module IsoDoc
           &.next_element ||
         xml.root.elements.first.before("<metanorma-extension/>")
           .previous_element
-    end
-
-    def provide_anchors(docxml)
-      docxml.xpath(ns("//source | //modification | //erefstack | //fn | " \
-        "//review | //floating-title")).each do |s|
-        s["id"] ||= "_#{UUIDTools::UUID.random_create}"
-      end
     end
 
     def postprocess(result, filename, _dir)
