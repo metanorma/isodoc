@@ -22,22 +22,12 @@ module IsoDoc
       end
     end
 
-    def presxml_anchor_attributes
-      Metanorma::Utils::anchor_attributes +
-        [%w(admonition target), %w(semx source),
-         %w(fmt-title source), %w(fmt-xref-label container),
-         %w(fn target), %w(fmt-fn-body target), %w(fmt-review-start source),
-         %w(fmt-review-start end), %w(fmt-review-start target),
-         %w(fmt-review-end source), %w(fmt-review-end start),
-         %w(fmt-review-end target)]
-    end
-
     def idref_validate(doc)
       @log or return
       doc.xpath("//*[@original-id]").each do |x|
         @doc_ids[x["original-id"]] = x.line
       end
-      presxml_anchor_attributes.each do |e|
+      Metanorma::Utils::anchor_attributes(presxml: true).each do |e|
         doc.xpath("//xmlns:#{e[0]}[@#{e[1]}]").each do |x|
           idref_validate1(x, e[1])
         end
