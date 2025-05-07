@@ -38,6 +38,7 @@ module IsoDoc
       @outputdir = dir
       @outputfile = Pathname.new(filename).basename.to_s
       docid_prefixes(docxml) # feeds @xrefs.parse citation processing
+      provide_ids docxml # feeds @xrefs.parse
       @xrefs.parse docxml
       @xrefs.klass.meta = @meta
       @xrefs.klass.info docxml, nil
@@ -54,7 +55,6 @@ module IsoDoc
     def conversions(docxml)
       metadata docxml
       bibdata docxml
-      provide_ids docxml # feeds @xrefs.parse
       @xrefs.parse docxml
       section docxml
       block docxml
