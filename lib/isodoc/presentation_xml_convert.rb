@@ -54,8 +54,8 @@ module IsoDoc
     def conversions(docxml)
       metadata docxml
       bibdata docxml
+      provide_ids docxml # feeds @xrefs.parse
       @xrefs.parse docxml
-      provide_ids docxml
       section docxml
       block docxml
       terms docxml
