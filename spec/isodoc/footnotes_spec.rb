@@ -752,7 +752,7 @@ RSpec.describe IsoDoc do
              <clause type="toc" id="_8" displayorder="1">
                 <fmt-title depth="1">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2" id="_1">
+             <foreword displayorder="2" id="_6">
                 <title id="_10">Foreword</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_10">Foreword</semx>
@@ -787,7 +787,7 @@ RSpec.describe IsoDoc do
                    </em>
                 </p>
              </foreword>
-             <introduction displayorder="3" id="_2">
+             <introduction displayorder="3" id="_7">
                 <title id="_11">Introduction</title>
                 <fmt-title depth="1">
                    <semx element="title" source="_11">Introduction</semx>
@@ -804,7 +804,7 @@ RSpec.describe IsoDoc do
              </introduction>
           </preface>
           <review-container>
-             <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_3">
+             <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_1">
                 <p original-id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
                 <p original-id="_">
                    For further information on the Foreword, see
@@ -812,7 +812,7 @@ RSpec.describe IsoDoc do
                 </p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170101T0000" from="_13" to="_14" id="_12">
-                <semx element="review" source="_3">
+                <semx element="review" source="_1">
                    <p id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
                    <p id="_">
                       For further information on the Foreword, see
@@ -820,27 +820,27 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_4">
+             <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_2">
                 <p original-id="_">Second note.</p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_16" to="_17" id="_15">
-                <semx element="review" source="_4">
+                <semx element="review" source="_2">
                    <p id="_">Second note.</p>
                 </semx>
              </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_5">
+             <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_3">
                 <p original-id="_">Third note.</p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_19" to="_20" id="_18">
-                <semx element="review" source="_5">
+                <semx element="review" source="_3">
                    <p id="_">Third note.</p>
                 </semx>
              </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_6">
+             <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_4">
                 <p original-id="_">Fourth note.</p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_22" to="_23" id="_21">
-                <semx element="review" source="_6">
+                <semx element="review" source="_4">
                    <p id="_">Fourth note.</p>
                 </semx>
              </fmt-review-body>
@@ -864,11 +864,11 @@ RSpec.describe IsoDoc do
                    <p id="_">Sixth note.</p>
                 </semx>
              </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="C" id="_7">
+             <review reviewer="ISO" date="20170108T0000" from="C" id="_5">
                 <p original-id="_">Seventh note.</p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_31" id="_30" to="_32">
-                <semx element="review" source="_7">
+                <semx element="review" source="_5">
                    <p id="_">Seventh note.</p>
                 </semx>
              </fmt-review-body>
@@ -886,10 +886,10 @@ RSpec.describe IsoDoc do
              </h1>
           </div>
           <br/>
-          <div id="_1">
+          <div id="_6">
              <h1 class="ForewordTitle">
-                <a class="anchor" href="#_1"/>
-                <a class="header" href="#_1">Foreword</a>
+                <a class="anchor" href="#_6"/>
+                <a class="header" href="#_6">Foreword</a>
              </h1>
              <p id="A">
                 <i>
@@ -912,10 +912,10 @@ RSpec.describe IsoDoc do
              </p>
           </div>
           <br/>
-          <div class="Section3" id="_2">
+          <div class="Section3" id="_7">
              <h1 class="IntroTitle">
-                <a class="anchor" href="#_2"/>
-                <a class="header" href="#_2">Introduction</a>
+                <a class="anchor" href="#_7"/>
+                <a class="header" href="#_7">Introduction</a>
              </h1>
              <p id="C">C.</p>
           </div>
@@ -929,7 +929,7 @@ RSpec.describe IsoDoc do
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
              <div>
-                <a name="_1" id="_1"/>
+                <a name="_6" id="_6"/>
                 <h1 class="ForewordTitle">Foreword</h1>
                 <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
@@ -1021,7 +1021,7 @@ RSpec.describe IsoDoc do
                 </span>
              </p>
              <div class="Section3">
-                <a name="_2" id="_2"/>
+                <a name="_7" id="_7"/>
                 <span style="mso-comment-continuation:3">
                    <span style="mso-comment-continuation:2">
                       <h1 class="IntroTitle">Introduction</h1>
