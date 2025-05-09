@@ -6,7 +6,9 @@ module IsoDoc
         seen[x["reference"]] or m << fnbody(x, seen)
         x["target"] = seen[x["reference"]]
         ref = x["hiddenref"] == "true" ? "" : fn_ref_label(x)
-        x << "<fmt-fn-label>#{ref}</fmt-fn-label>"
+        x << <<~FNOTE.strip
+          <fmt-fn-label><span class='fmt-caption-label'>#{ref}</span</fmt-fn-label>
+        FNOTE
       end
     end
 
@@ -34,7 +36,7 @@ module IsoDoc
         body.at(ns("./semx")).children.first.before("<p> </p>").previous
       lbl = fn_body_label(fnote)
       ins.children.first.previous = <<~FNOTE.strip
-        <fmt-fn-label>#{lbl}<span class="fmt-caption-delim"><tab/></fmt-fn-label>
+        <fmt-fn-label><span class='fmt-caption-label'>#{lbl}</span><span class="fmt-caption-delim"><tab/></fmt-fn-label>
       FNOTE
     end
 

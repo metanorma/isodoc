@@ -10,9 +10,10 @@ module IsoDoc
         sprintf "%09d", ret
       end
 
-      def make_table_footnote_link(out, fnid, node)
+      # KILL
+      def make_table_footnote_linkx(out, fnid, node)
         attrs = { href: "##{fnid}", class: "TableFootnoteRef" }
-        sup = node.at(ns("./sup")) and sup.replace(sup.children)
+        sup = node.at(ns(".//sup")) and sup.replace(sup.children)
         out.a **attrs do |a|
           children_parse(node, a)
         end
@@ -28,8 +29,8 @@ module IsoDoc
         end
       end
 
-      # dupe to HTML
-      def get_table_ancestor_id(node)
+      # KILL
+      def get_table_ancestor_idx(node)
         table = node.ancestors("table")
         table.empty? and table = node.ancestors("figure")
         table.empty? and return [nil,
@@ -37,8 +38,8 @@ module IsoDoc
         [table.last, table.last["id"]]
       end
 
-      # dupe to HTML
-      def table_footnote_parse(node, out)
+      # KILL
+      def table_footnote_parsex(node, out)
         fn = node["reference"] || UUIDTools::UUID.random_create.to_s
         table, tid = get_table_ancestor_id(node)
         make_table_footnote_link(out, tid + fn, node.at(ns("./fmt-fn-label")))

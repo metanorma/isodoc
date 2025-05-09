@@ -655,7 +655,7 @@ RSpec.describe IsoDoc do
             </iso-standard>
     INPUT
     presxml = <<~PRESXML
-      <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+       <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
           <title id="_4">Normative References</title>
           <fmt-title depth="1">
              <span class="fmt-caption-label">
@@ -722,9 +722,11 @@ RSpec.describe IsoDoc do
                 <fn reference="1" id="_1" original-reference="1" target="_5">
                    <p original-id="_">Also known as JCGM 200</p>
                    <fmt-fn-label>
-                      <sup>
-                         <semx element="autonum" source="_1">1</semx>
-                      </sup>
+                      <span class="fmt-caption-label">
+                         <sup>
+                            <semx element="autonum" source="_1">1</semx>
+                         </sup>
+                      </span>
                    </fmt-fn-label>
                 </fn>
                 ,
