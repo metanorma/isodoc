@@ -191,7 +191,7 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))
@@ -397,7 +397,7 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
        .at("//xmlns:foreword").to_xml)))
@@ -529,7 +529,7 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input1, true))
       .at("//xmlns:foreword").to_xml)))
@@ -671,7 +671,7 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))
@@ -764,7 +764,7 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))

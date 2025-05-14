@@ -38,21 +38,21 @@ RSpec.describe IsoDoc do
       <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
          <fmt-xref target="ISO712">
-            ISO 712
+            ISO\\u00a0712
             <sup>1</sup>
          </fmt-xref>
       </semx>
       <eref bibitemid="ISO712" citeas="x" id="_"/>
       <semx element="eref" source="_">
          <fmt-xref target="ISO712">
-            ISO 712
+            ISO\\u00a0712
             <sup>1</sup>
          </fmt-xref>
       </semx>
         </p>
       </foreword>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:foreword").to_xml)))
@@ -68,14 +68,14 @@ RSpec.describe IsoDoc do
       <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
          <fmt-link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
-            ISO 712
+            ISO\\u00a0712
             <sup>1</sup>
          </fmt-link>
       </semx>
       <eref bibitemid="ISO712" citeas="x" id="_"/>
       <semx element="eref" source="_">
          <fmt-link target="https://www.bipm.org/en/committees/ci/cipm/43-1950">
-            ISO 712
+            ISO\\u00a0712
             <sup>1</sup>
          </fmt-link>
       </semx>
@@ -85,7 +85,7 @@ RSpec.describe IsoDoc do
     input = input.sub("</bibitem>", <<~XML)
       <uri type="citation" language="en" script="Latn">https://www.bipm.org/en/committees/ci/cipm/43-1950</uri></bibitem>
     XML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:foreword").to_xml)))
@@ -128,12 +128,12 @@ RSpec.describe IsoDoc do
           <p id="_">
         <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
-         <fmt-xref target="ISO712">IEC 217</fmt-xref>
+         <fmt-xref target="ISO712">IEC\\u00a0217</fmt-xref>
       </semx>
         </p>
       </foreword>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:foreword").to_xml)))
@@ -191,12 +191,12 @@ RSpec.describe IsoDoc do
           <p id="_">
         <eref bibitemid="ISO712" id="_"/>
       <semx element="eref" source="_">
-         <fmt-xref target="ISO712">ISO 712 / IEC 217</fmt-xref>
+         <fmt-xref target="ISO712">ISO\\u00a0712\\u00a0/\\u00a0IEC\\u00a0217</fmt-xref>
       </semx>
         </p>
       </foreword>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:foreword").to_xml)))
@@ -273,9 +273,9 @@ RSpec.describe IsoDoc do
                       .
                    </formattedref>
                    <title format="text/plain">Cereals or cereal products</title>
-                   <docidentifier type="IEC">IEC 217</docidentifier>
-                   <docidentifier scope="biblio-tag">IEC 217</docidentifier>
-                   <biblio-tag>IEC 217, </biblio-tag>
+                   <docidentifier type="IEC">IEC\\u00a0217</docidentifier>
+                   <docidentifier scope="biblio-tag">IEC\\u00a0217</docidentifier>
+                   <biblio-tag>IEC\\u00a0217, </biblio-tag>
                 </bibitem>
                 <bibitem id="ref2" type="standard">
                    <formattedref>
@@ -311,12 +311,12 @@ RSpec.describe IsoDoc do
                    </formattedref>
                    <title format="text/plain">Cereals or cereal products</title>
                    <docidentifier type="metanorma-ordinal">[2]</docidentifier>
-                   <docidentifier type="IEC">IEC 217</docidentifier>
-                   <docidentifier scope="biblio-tag">IEC 217</docidentifier>
+                   <docidentifier type="IEC">IEC\\u00a0217</docidentifier>
+                   <docidentifier scope="biblio-tag">IEC\\u00a0217</docidentifier>
                    <biblio-tag>
                       [2]
                       <tab/>
-                      IEC 217,
+                      IEC\\u00a0217,
                    </biblio-tag>
                 </bibitem>
                 <bibitem id="ref5" type="standard">
@@ -355,7 +355,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true),
     )
     xml.at("//xmlns:localized-strings")&.remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
@@ -421,7 +421,7 @@ RSpec.describe IsoDoc do
            </references>
         </bibliography>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:bibliography").to_xml)))
@@ -498,7 +498,7 @@ RSpec.describe IsoDoc do
            </references>
         </bibliography>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     ).at("//xmlns:bibliography").to_xml)))
@@ -559,7 +559,7 @@ RSpec.describe IsoDoc do
              </formattedref>
              <title format="text/plain">Cereals or cereal products</title>
              <title type="main" format="text/plain">Cereals and cereal products</title>
-             <docidentifier type="ISO">ISO 712</docidentifier>
+             <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
              <contributor>
                 <role type="publisher"/>
                 <organization>
@@ -586,7 +586,7 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
              <div>
-               <h1>1.&#xa0; Normative References</h1>
+               <h1>1.\\u00a0 Normative References</h1>
                <p>
                  The following documents are referred to in the text in such a way that
                  some or all of their content constitutes requirements of this
@@ -619,10 +619,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:references").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -675,7 +675,7 @@ RSpec.describe IsoDoc do
           <bibitem id="ISO712" type="standard">
              <formattedref>
                 International Organization for Standardization and International Electrotechnical Commission.
-                <em>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</em>
+                <em>International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</em>
                 . First edition. 2007.
                 <link target="https://www.iso.org/standard/45324.html" id="_6">https://www.iso.org/standard/45324.html</link>
                 <semx element="link" source="_6">
@@ -685,15 +685,15 @@ RSpec.describe IsoDoc do
              </formattedref>
              <title type="title-intro" format="text/plain" language="en" script="Latn">International vocabulary of metrology</title>
              <title type="title-main" format="text/plain" language="en" script="Latn">Basic and general concepts and associated terms (VIM)</title>
-             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</title>
+             <title type="main" format="text/plain" language="en" script="Latn">International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</title>
              <uri type="src">https://www.iso.org/standard/45324.html</uri>
              <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:45324:en</uri>
              <uri type="rss">https://www.iso.org/contents/data/standard/04/53/45324.detail.rss</uri>
              <uri type="pub">https://isotc.iso.org/livelink/livelink/Open/8389141</uri>
-             <docidentifier type="ISO" primary="true">ISO/IEC Guide 99:2007</docidentifier>
-             <docidentifier type="metanorma">[ISO/IEC Guide 99:2007]</docidentifier>
-             <docidentifier type="URN">URN urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
-             <docidentifier scope="biblio-tag">ISO/IEC Guide 99:2007</docidentifier>
+             <docidentifier type="ISO" primary="true">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
+             <docidentifier type="metanorma">[ISO/IEC\\u00a0Guide\\u00a099:2007]</docidentifier>
+             <docidentifier type="URN">URN\\u00a0urn:iso:std:iso-iec:guide:99:ed-1</docidentifier>
+             <docidentifier scope="biblio-tag">ISO/IEC\\u00a0Guide\\u00a099:2007</docidentifier>
              <docnumber>99</docnumber>
              <date type="published">
                 <on>2007-12</on>
@@ -718,7 +718,7 @@ RSpec.describe IsoDoc do
              <language>en</language>
              <script>Latn</script>
              <biblio-tag>
-                ISO/IEC Guide 99:2007, ISO/IEC Guide 99:2007
+                ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
                 <fn reference="1" id="_1" original-reference="1" target="_5">
                    <p original-id="_">Also known as JCGM 200</p>
                    <fmt-fn-label>
@@ -737,15 +737,15 @@ RSpec.describe IsoDoc do
     html = <<~OUTPUT
       #{HTML_HDR}
              <div>
-               <h1>1.  Normative References</h1>
+               <h1>1.\\u00a0 Normative References</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                                   <p id="ISO712" class="NormRef">
-                      ISO/IEC Guide 99:2007, ISO/IEC Guide 99:2007
+                      ISO/IEC\\u00a0Guide\\u00a099:2007, ISO/IEC\\u00a0Guide\\u00a099:2007
                       <a class="FootnoteRef" href="#fn:_5">
                          <sup>1</sup>
                       </a>
                       , International Organization for Standardization and International Electrotechnical Commission.
-                      <i>International vocabulary of metrology — Basic and general concepts and associated terms (VIM)</i>
+                      <i>International vocabulary of metrology\\u2009—\\u2009Basic and general concepts and associated terms (VIM)</i>
                       . First edition. 2007.
                       <a href="https://www.iso.org/standard/45324.html">https://www.iso.org/standard/45324.html</a>
                       .
@@ -763,13 +763,13 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:references").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
       output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(Xml::C14n.format(strip_guid(output.to_xml)))
+    expect(strip_guid(Xml::C14n.format(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -858,7 +858,7 @@ RSpec.describe IsoDoc do
        </bibliography>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(presxml)
@@ -901,7 +901,7 @@ RSpec.describe IsoDoc do
        </bibliography>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input.sub(">en<", ">eo<"), true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(presxml)

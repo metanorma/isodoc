@@ -92,18 +92,18 @@ RSpec.describe IsoDoc do
               <p>
       <a href="a.doc#b">a#b</a>
       </p>
-            </div><p> </p></div>
+            </div><p>\\u00a0</p></div>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", presxml, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", presxml, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true))
-      .at("//div[@class = 'WordSection2']").to_xml))
+      .at("//div[@class = 'WordSection2']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(doc)
   end
 
@@ -178,7 +178,7 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ i18nyaml: "spec/assets/i18n.yaml" }
     .merge(presxml_options))
     .convert("test", input, true))
@@ -240,7 +240,7 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
       .convert("test", input, true))
@@ -437,7 +437,7 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:clause[@id = 'C']").to_xml)))
@@ -610,7 +610,7 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
       .convert("test", input, true))
@@ -731,7 +731,7 @@ RSpec.describe IsoDoc do
        </clause>
     OUTPUT
     # We pretend this is Chinese—so no capitalisation is applied
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml", script: "Hans" }
       .merge(presxml_options))
       .convert("test", input, true))
@@ -793,7 +793,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))

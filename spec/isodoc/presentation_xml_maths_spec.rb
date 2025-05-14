@@ -114,7 +114,7 @@ RSpec.describe IsoDoc do
          </preface>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(presxml)
@@ -218,7 +218,7 @@ RSpec.describe IsoDoc do
                <h1>1.</h1>
                <div id="_">
                  <div class="formula">
-                    <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>  (1)</p>
+                    <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span>\\u00a0 (1)</p>
                  </div>
                </div>
              </div>
@@ -228,7 +228,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     word = <<~OUTPUT
        #{WORD_HDR}
-               <p> </p>
+               <p>\\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>
@@ -238,7 +238,7 @@ RSpec.describe IsoDoc do
                 <h1>1.</h1>
                 <div id="_">
                   <div class="formula">
-                  <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">  </span>(1)</p>
+                  <p><span class="stem"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mi>x</mi><mo>=</mo><mo linebreak="newline"/><mi>y</mi></mstyle></math></span><span style="mso-tab-count:1">\\u00a0 </span>(1)</p>
                   </div>
                 </div>
               </div>
@@ -249,14 +249,14 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert.new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(output)
+    expect(strip_guid(Xml::C14n.format(output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -363,10 +363,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -408,10 +408,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -485,7 +485,7 @@ RSpec.describe IsoDoc do
         <sections> </sections>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
     .new(presxml_options)
       .convert("test", input, true)
       .gsub("<!--", "<comment>")
@@ -558,7 +558,7 @@ RSpec.describe IsoDoc do
         <sections> </sections>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new({ suppressasciimathdup: true }
       .merge(presxml_options))
       .convert("test", input, true)

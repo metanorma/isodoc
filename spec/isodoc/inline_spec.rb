@@ -95,10 +95,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -129,10 +129,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -323,7 +323,7 @@ RSpec.describe IsoDoc do
                       <em>term</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO 712</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -370,7 +370,7 @@ RSpec.describe IsoDoc do
                       <em>word</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 3.1, Figure a</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -402,7 +402,7 @@ RSpec.describe IsoDoc do
                       <semx element="eref" source="_">
                          (
                          <fmt-xref type="inline" target="ISO712">
-                            ISO 712, Clause 3.1
+                            ISO\\u00a0712, Clause 3.1
                             <span class="fmt-conn">and</span>
                             Figure b
                          </fmt-xref>
@@ -523,7 +523,7 @@ RSpec.describe IsoDoc do
                 <li>
                    <i>term</i>
                    (
-                   <a href="#ISO712">ISO 712</a>
+                   <a href="#ISO712">ISO\\u00a0712</a>
                    )
                 </li>
                 <li>
@@ -535,13 +535,13 @@ RSpec.describe IsoDoc do
                 <li>
                    <i>word</i>
                    (
-                   <a href="#ISO712">ISO 712, Clause 3.1, Figure a</a>
+                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1, Figure a</a>
                    )
                 </li>
                 <li>
                    <i>word</i>
                    (
-                   <a href="#ISO712">ISO 712, Clause 3.1 and Figure b</a>
+                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1 and Figure b</a>
                    )
                 </li>
                 <li>
@@ -572,12 +572,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
-      .at("//p[@id = 'A']").to_xml))
+      .at("//p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -657,10 +657,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -690,8 +690,8 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -786,12 +786,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -865,8 +865,8 @@ RSpec.describe IsoDoc do
              </body>
          </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -955,11 +955,11 @@ RSpec.describe IsoDoc do
                </p>
              </div>
              <div>
-               <h1>1.  Normative References</h1>
-               <p id="ISO712" class="NormRef">ISO 712,
+               <h1>1.\\u00a0 Normative References</h1>
+               <p id="ISO712" class="NormRef">ISO\\u00a0712,
                  <i>Cereals and cereal products</i>
                </p>
-               <p id="ISO713" class="NormRef">ISO 713,
+               <p id="ISO713" class="NormRef">ISO\\u00a0713,
                  <i>Cereals and cereal products</i>
                </p>
              </div>
@@ -969,10 +969,10 @@ RSpec.describe IsoDoc do
     OUTPUT
     output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(output)
       .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -1021,11 +1021,11 @@ RSpec.describe IsoDoc do
       <p id="A">
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_"/>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_"/>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <locality type="table">
@@ -1033,7 +1033,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Table 1</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Table 1</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <localityStack connective="and">
@@ -1043,7 +1043,7 @@ RSpec.describe IsoDoc do
              </localityStack>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Table 1</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Table 1</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <localityStack connective="and">
@@ -1059,7 +1059,7 @@ RSpec.describe IsoDoc do
           </eref>
           <semx element="eref" source="_">
              <fmt-xref type="inline" target="ISO712">
-                ISO 712, Table 1
+                ISO\\u00a0712, Table 1
                 <span class="fmt-conn">and</span>
                 Clause 1
              </fmt-xref>
@@ -1071,7 +1071,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Table 1–1</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Table 1–1</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <locality type="clause">
@@ -1082,7 +1082,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Clause 1, Table 1</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 1, Table 1</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <locality type="clause">
@@ -1090,7 +1090,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Clause 1</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 1</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <locality type="clause">
@@ -1098,7 +1098,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Clause 1.5</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 1.5</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <locality type="table">
@@ -1113,7 +1113,7 @@ RSpec.describe IsoDoc do
              <locality type="whole"/>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Whole of text</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Whole of text</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <locality type="locality:prelude">
@@ -1121,7 +1121,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Prelude 7</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Prelude 7</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <locality type="locality:URI">
@@ -1129,7 +1129,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, URI 7</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, URI 7</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_">A</eref>
           <semx element="eref" source="_">
@@ -1141,7 +1141,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712</fmt-xref>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_">
              <locality type="anchor">
@@ -1152,7 +1152,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" target="ISO712">ISO 712, Clause 1</fmt-xref>
+             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 1</fmt-xref>
           </semx>
           <eref type="inline" droploc="true" bibitemid="ISO712" id="_">
              <locality type="anchor">
@@ -1163,7 +1163,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" droploc="true" target="ISO712">ISO 712, 1</fmt-xref>
+             <fmt-xref type="inline" droploc="true" target="ISO712">ISO\\u00a0712, 1</fmt-xref>
           </semx>
           <eref type="inline" case="lowercase" bibitemid="ISO712" id="_">
              <locality type="anchor">
@@ -1174,40 +1174,40 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-xref type="inline" case="lowercase" target="ISO712">ISO 712, clause 1</fmt-xref>
+             <fmt-xref type="inline" case="lowercase" target="ISO712">ISO\\u00a0712, clause 1</fmt-xref>
           </semx>
        </p>
     OUTPUT
 
     html = <<~OUTPUT
             <p id="A">
-      <a href="#ISO712">ISO&#xa0;712</a>
-      <a href="#ISO712">ISO&#xa0;712</a>
-      <a href="#ISO712">ISO&#xa0;712, Table 1</a>
-      <a href='#ISO712'>ISO&#xa0;712, Table 1</a>
-      <a href="#ISO712">ISO 712, Table 1 and Clause 1</a>
-      <a href="#ISO712">ISO&#xa0;712, Table 1&#8211;1</a>
-      <a href="#ISO712">ISO&#xa0;712, Clause 1, Table 1</a>
-      <a href="#ISO712">ISO&#xa0;712, Clause 1</a>
-      <a href="#ISO712">ISO&#xa0;712, Clause 1.5</a>
+      <a href="#ISO712">ISO\\u00a0712</a>
+      <a href="#ISO712">ISO\\u00a0712</a>
+      <a href="#ISO712">ISO\\u00a0712, Table 1</a>
+      <a href='#ISO712'>ISO\\u00a0712, Table 1</a>
+      <a href="#ISO712">ISO\\u00a0712, Table 1 and Clause 1</a>
+      <a href="#ISO712">ISO\\u00a0712, Table 1&#8211;1</a>
+      <a href="#ISO712">ISO\\u00a0712, Clause 1, Table 1</a>
+      <a href="#ISO712">ISO\\u00a0712, Clause 1</a>
+      <a href="#ISO712">ISO\\u00a0712, Clause 1.5</a>
       <a href="#ISO712">A</a>
-      <a href="#ISO712">ISO&#xa0;712, Whole of text</a>
-      <a href="#ISO712">ISO&#xa0;712, Prelude 7</a>
-      <a href="#ISO712">ISO&#xa0;712, URI 7</a>
+      <a href="#ISO712">ISO\\u00a0712, Whole of text</a>
+      <a href="#ISO712">ISO\\u00a0712, Prelude 7</a>
+      <a href="#ISO712">ISO\\u00a0712, URI 7</a>
       <a href="#ISO712">A</a>
-      <a href='#ISO712'>ISO&#xa0;712</a>
-      <a href='#ISO712'>ISO&#xa0;712, Clause 1</a>
-      <a href='#ISO712'>ISO&#xa0;712, 1</a>
-      <a href='#ISO712'>ISO&#xa0;712, clause 1</a>
+      <a href='#ISO712'>ISO\\u00a0712</a>
+      <a href='#ISO712'>ISO\\u00a0712, Clause 1</a>
+      <a href='#ISO712'>ISO\\u00a0712, 1</a>
+      <a href='#ISO712'>ISO\\u00a0712, clause 1</a>
       </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -1291,11 +1291,11 @@ RSpec.describe IsoDoc do
           <p>
              <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
-                <fmt-link target="https://www.google.com/fr">ISO 712</fmt-link>
+                <fmt-link target="https://www.google.com/fr">ISO\\u00a0712</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO712" id="_"/>
              <semx element="eref" source="_">
-                <fmt-link target="https://www.google.com/fr">ISO 712</fmt-link>
+                <fmt-link target="https://www.google.com/fr">ISO\\u00a0712</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <locality type="table">
@@ -1303,7 +1303,7 @@ RSpec.describe IsoDoc do
                 </locality>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html">ISO 713, Tableau 1</fmt-link>
+                <fmt-link target="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <localityStack connective="and">
@@ -1313,7 +1313,7 @@ RSpec.describe IsoDoc do
                 </localityStack>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html">ISO 713, Tableau 1</fmt-link>
+                <fmt-link target="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <localityStack connective="and">
@@ -1329,7 +1329,7 @@ RSpec.describe IsoDoc do
              </eref>
              <semx element="eref" source="_">
                 <fmt-link target="spec/assets/iso713.html">
-                   ISO 713, Tableau 1
+                   ISO\\u00a0713, Tableau 1
                    <span class="fmt-conn">et</span>
                    Article 1
                 </fmt-link>
@@ -1341,7 +1341,7 @@ RSpec.describe IsoDoc do
                 </locality>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html">ISO 713, Tableau 1–1</fmt-link>
+                <fmt-link target="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1–1</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <locality type="clause">
@@ -1352,7 +1352,7 @@ RSpec.describe IsoDoc do
                 </locality>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</fmt-link>
+                <fmt-link target="spec/assets/iso713.html">ISO\\u00a0713, Article 1, Tableau 1</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <locality type="clause">
@@ -1360,7 +1360,7 @@ RSpec.describe IsoDoc do
                 </locality>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html">ISO 713, Article 1</fmt-link>
+                <fmt-link target="spec/assets/iso713.html">ISO\\u00a0713, Article 1</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <locality type="clause">
@@ -1368,7 +1368,7 @@ RSpec.describe IsoDoc do
                 </locality>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html">ISO 713, Article 1.5</fmt-link>
+                <fmt-link target="spec/assets/iso713.html">ISO\\u00a0713, Article 1.5</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <locality type="table">
@@ -1383,7 +1383,7 @@ RSpec.describe IsoDoc do
                 <locality type="whole"/>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html">ISO 713, Ensemble du texte</fmt-link>
+                <fmt-link target="spec/assets/iso713.html">ISO\\u00a0713, Ensemble du texte</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <locality type="locality:prelude">
@@ -1391,7 +1391,7 @@ RSpec.describe IsoDoc do
                 </locality>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html">ISO 713, Prelude 7</fmt-link>
+                <fmt-link target="spec/assets/iso713.html">ISO\\u00a0713, Prelude 7</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" citeas="ISO 713" id="_">A</eref>
              <semx element="eref" source="_">
@@ -1403,7 +1403,7 @@ RSpec.describe IsoDoc do
                 </locality>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html#xyz">ISO 713</fmt-link>
+                <fmt-link target="spec/assets/iso713.html#xyz">ISO\\u00a0713</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO713" id="_">
                 <locality type="anchor">
@@ -1414,11 +1414,11 @@ RSpec.describe IsoDoc do
                 </locality>
              </eref>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso713.html#xyz">ISO 713, Article 1</fmt-link>
+                <fmt-link target="spec/assets/iso713.html#xyz">ISO\\u00a0713, Article 1</fmt-link>
              </semx>
              <eref type="inline" bibitemid="ISO714" id="_"/>
              <semx element="eref" source="_">
-                <fmt-link target="spec/assets/iso714.svg">ISO 714</fmt-link>
+                <fmt-link target="spec/assets/iso714.svg">ISO\\u00a0714</fmt-link>
              </semx>
           </p>
        </foreword>
@@ -1428,22 +1428,22 @@ RSpec.describe IsoDoc do
       <div id="_">
          <h1 class="ForewordTitle">Avant-propos</h1>
          <p>
-            <a href="https://www.google.com/fr">ISO 712</a>
-            <a href="https://www.google.com/fr">ISO 712</a>
-            <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
-            <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
-            <a href="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</a>
-            <a href="spec/assets/iso713.html">ISO 713, Tableau 1–1</a>
-            <a href="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</a>
-            <a href="spec/assets/iso713.html">ISO 713, Article 1</a>
-            <a href="spec/assets/iso713.html">ISO 713, Article 1.5</a>
+            <a href="https://www.google.com/fr">ISO\\u00a0712</a>
+            <a href="https://www.google.com/fr">ISO\\u00a0712</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1 et Article 1</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1–1</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Article 1, Tableau 1</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Article 1</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Article 1.5</a>
             <a href="spec/assets/iso713.html">A</a>
-            <a href="spec/assets/iso713.html">ISO 713, Ensemble du texte</a>
-            <a href="spec/assets/iso713.html">ISO 713, Prelude 7</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Ensemble du texte</a>
+            <a href="spec/assets/iso713.html">ISO\\u00a0713, Prelude 7</a>
             <a href="spec/assets/iso713.html">A</a>
-            <a href="spec/assets/iso713.html#xyz">ISO 713</a>
-            <a href="spec/assets/iso713.html#xyz">ISO 713, Article 1</a>
-            <a href="spec/assets/iso714.svg">ISO 714</a>
+            <a href="spec/assets/iso713.html#xyz">ISO\\u00a0713</a>
+            <a href="spec/assets/iso713.html#xyz">ISO\\u00a0713, Article 1</a>
+            <a href="spec/assets/iso714.svg">ISO\\u00a0714</a>
          </p>
       </div>
     OUTPUT
@@ -1452,28 +1452,28 @@ RSpec.describe IsoDoc do
       <div id="_">
          <h1 class="ForewordTitle">Avant-propos</h1>
          <p>
-           <a href="https://www.google.com/fr">ISO 712</a>
-           <a href="https://www.google.com/fr">ISO 712</a>
-           <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
-           <a href="spec/assets/iso713.html">ISO 713, Tableau 1</a>
-           <a href="spec/assets/iso713.html">ISO 713, Tableau 1 et Article 1</a>
-           <a href="spec/assets/iso713.html">ISO 713, Tableau 1–1</a>
-           <a href="spec/assets/iso713.html">ISO 713, Article 1, Tableau 1</a>
-           <a href="spec/assets/iso713.html">ISO 713, Article 1</a>
-           <a href="spec/assets/iso713.html">ISO 713, Article 1.5</a>
+           <a href="https://www.google.com/fr">ISO\\u00a0712</a>
+           <a href="https://www.google.com/fr">ISO\\u00a0712</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1 et Article 1</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Tableau 1–1</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Article 1, Tableau 1</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Article 1</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Article 1.5</a>
            <a href="spec/assets/iso713.html">A</a>
-           <a href="spec/assets/iso713.html">ISO 713, Ensemble du texte</a>
-           <a href="spec/assets/iso713.html">ISO 713, Prelude 7</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Ensemble du texte</a>
+           <a href="spec/assets/iso713.html">ISO\\u00a0713, Prelude 7</a>
            <a href="spec/assets/iso713.html">A</a>
-           <a href="spec/assets/iso713.html#xyz">ISO 713</a>
-           <a href="spec/assets/iso713.html#xyz">ISO 713, Article 1</a>
-           <a href="spec/assets/iso714.svg">ISO 714</a>
+           <a href="spec/assets/iso713.html#xyz">ISO\\u00a0713</a>
+           <a href="spec/assets/iso713.html#xyz">ISO\\u00a0713, Article 1</a>
+           <a href="spec/assets/iso714.svg">ISO\\u00a0714</a>
          </p>
        </div>
     OUTPUT
     output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(output)
       .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     xml = IsoDoc::HtmlConvert.new({})
@@ -1527,14 +1527,14 @@ RSpec.describe IsoDoc do
           <p>
              <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
-                <fmt-link attachment="true" target="https://example.google.com">ISO 712</fmt-link>
+                <fmt-link attachment="true" target="https://example.google.com">ISO\\u00a0712</fmt-link>
              </semx>
           </p>
        </foreword>
     OUTPUT
     output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(output)
       .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
@@ -1590,11 +1590,11 @@ RSpec.describe IsoDoc do
       <p id="A">
           <eref type="inline" bibitemid="ISO712" citeas="ISO 712" id="_"/>
           <semx element="eref" source="_">
-             <fmt-link target="http://www.example.com">ISO 712</fmt-link>
+             <fmt-link target="http://www.example.com">ISO\\u00a0712</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO712" id="_"/>
           <semx element="eref" source="_">
-             <fmt-link target="http://www.example.com">ISO 712</fmt-link>
+             <fmt-link target="http://www.example.com">ISO\\u00a0712</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <locality type="table">
@@ -1602,7 +1602,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <localityStack connective="and">
@@ -1612,7 +1612,7 @@ RSpec.describe IsoDoc do
              </localityStack>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <localityStack connective="and">
@@ -1628,7 +1628,7 @@ RSpec.describe IsoDoc do
           </eref>
           <semx element="eref" source="_">
              <fmt-link target="https://www.iso.org/standard/3944.html">
-                ISO 713, Table 1
+                ISO\\u00a0713, Table 1
                 <span class="fmt-conn">and</span>
                 Clause 1
              </fmt-link>
@@ -1640,7 +1640,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Table 1–1</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1–1</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <locality type="clause">
@@ -1651,7 +1651,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1, Table 1</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1, Table 1</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <locality type="clause">
@@ -1659,7 +1659,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <locality type="clause">
@@ -1667,7 +1667,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Clause 1.5</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1.5</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <locality type="table">
@@ -1682,7 +1682,7 @@ RSpec.describe IsoDoc do
              <locality type="whole"/>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Whole of text</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Whole of text</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <locality type="locality:prelude">
@@ -1690,7 +1690,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html">ISO 713, Prelude 7</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Prelude 7</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" citeas="ISO 713" id="_">A</eref>
           <semx element="eref" source="_">
@@ -1702,7 +1702,7 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html#xyz">ISO 713</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html#xyz">ISO\\u00a0713</fmt-link>
           </semx>
           <eref type="inline" bibitemid="ISO713" id="_">
              <locality type="anchor">
@@ -1713,62 +1713,62 @@ RSpec.describe IsoDoc do
              </locality>
           </eref>
           <semx element="eref" source="_">
-             <fmt-link target="https://www.iso.org/standard/3944.html#xyz">ISO 713, Clause 1</fmt-link>
+             <fmt-link target="https://www.iso.org/standard/3944.html#xyz">ISO\\u00a0713, Clause 1</fmt-link>
           </semx>
        </p>
     PRESXML
     html = <<~OUTPUT
       <p id="A">
-         <a href="http://www.example.com">ISO 712</a>
-         <a href="http://www.example.com">ISO 712</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1 and Clause 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1–1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1, Table 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1.5</a>
+         <a href="http://www.example.com">ISO\\u00a0712</a>
+         <a href="http://www.example.com">ISO\\u00a0712</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1 and Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1–1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1.5</a>
          <a href="https://www.iso.org/standard/3944.html">A</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Whole of text</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Prelude 7</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Whole of text</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Prelude 7</a>
          <a href="https://www.iso.org/standard/3944.html">A</a>
-         <a href="https://www.iso.org/standard/3944.html#xyz">ISO 713</a>
-         <a href="https://www.iso.org/standard/3944.html#xyz">ISO 713, Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html#xyz">ISO\\u00a0713</a>
+         <a href="https://www.iso.org/standard/3944.html#xyz">ISO\\u00a0713, Clause 1</a>
       </p>
     OUTPUT
     word = <<~OUTPUT
       <p id="A">
-         <a href="http://www.example.com">ISO 712</a>
-         <a href="http://www.example.com">ISO 712</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1 and Clause 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Table 1–1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1, Table 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Clause 1.5</a>
+         <a href="http://www.example.com">ISO\\u00a0712</a>
+         <a href="http://www.example.com">ISO\\u00a0712</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1 and Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Table 1–1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1, Table 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Clause 1.5</a>
          <a href="https://www.iso.org/standard/3944.html">A</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Whole of text</a>
-         <a href="https://www.iso.org/standard/3944.html">ISO 713, Prelude 7</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Whole of text</a>
+         <a href="https://www.iso.org/standard/3944.html">ISO\\u00a0713, Prelude 7</a>
          <a href="https://www.iso.org/standard/3944.html">A</a>
-         <a href="https://www.iso.org/standard/3944.html#xyz">ISO 713</a>
-         <a href="https://www.iso.org/standard/3944.html#xyz">ISO 713, Clause 1</a>
+         <a href="https://www.iso.org/standard/3944.html#xyz">ISO\\u00a0713</a>
+         <a href="https://www.iso.org/standard/3944.html#xyz">ISO\\u00a0713, Clause 1</a>
       </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -1806,9 +1806,9 @@ RSpec.describe IsoDoc do
               <semx element="title" source="_">Foreword</semx>
            </fmt-title>
            <p>
-              <eref type="inline" bibitemid="ISO712" citeas="BSI BS EN ISO 19011:2018 — TC" id="_"/>
+              <eref type="inline" bibitemid="ISO712" citeas="BSI BS EN ISO 19011:2018\\u2009—\\u2009TC" id="_"/>
               <semx element="eref" source="_">
-                 <fmt-xref type="inline" target="ISO712">BSI BS EN ISO 19011:2018 — TC</fmt-xref>
+                 <fmt-xref type="inline" target="ISO712">BSI\\u00a0BS\\u00a0EN\\u00a0ISO\\u00a019011:2018\\u2009—\\u2009TC</fmt-xref>
               </semx>
            </p>
         </foreword>
@@ -1816,7 +1816,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-    expect(Xml::C14n.format(strip_guid(xml.at("//xmlns:foreword").to_xml)))
+    expect(strip_guid(Xml::C14n.format(xml.at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
@@ -1890,15 +1890,15 @@ RSpec.describe IsoDoc do
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true))
     xml = xml.at("//xmlns:p[@id = 'A2']")
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A2']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -1996,7 +1996,7 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
@@ -2030,8 +2030,8 @@ RSpec.describe IsoDoc do
            </body>
         </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -2064,7 +2064,7 @@ RSpec.describe IsoDoc do
          </semx>
       </p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:p[@id = 'A']").to_xml)))
@@ -2448,7 +2448,7 @@ RSpec.describe IsoDoc do
          </semx>
       </itu-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
     .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -2499,16 +2499,16 @@ RSpec.describe IsoDoc do
       .new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true),
     )

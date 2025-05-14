@@ -26,11 +26,11 @@ RSpec.describe IsoDoc do
         <head/>
         <body lang='en'>
           <div class='title-section'>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <br/>
           <div class='prefatory-section'>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <br/>
           <div class='main-section'>
@@ -50,7 +50,7 @@ RSpec.describe IsoDoc do
               </div>
               <div id='O'>
                 <span class='zzMoveToFollowing inline-header'>
-                  <b>Clause 4.2&#160; </b>
+                  <b>Clause 4.2\\u00a0 </b>
                 </span>
               </div>
             </div>
@@ -69,7 +69,7 @@ RSpec.describe IsoDoc do
         </head>
         <body lang='EN-US' link='blue' vlink='#954F72'>
           <div class='WordSection1'>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -88,7 +88,7 @@ RSpec.describe IsoDoc do
               <h1 class='IntroTitle'>introduction</h1>
             </div>
             <div id="C" class="Note">note</div>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -106,7 +106,7 @@ RSpec.describe IsoDoc do
                 <span class='zzMoveToFollowing inline-header'>
                   <b>
                     Clause 4.2
-                    <span style='mso-tab-count:1'>&#160; </span>
+                    <span style='mso-tab-count:1'>\\u00a0 </span>
                   </b>
                 </span>
               </div>
@@ -115,11 +115,11 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -139,11 +139,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p> </p>
+             <p>\\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p> </p>
+             <p>\\u00a0</p>
            </div>
            <br/>
            <div class="main-section">
@@ -159,8 +159,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -565,7 +565,7 @@ RSpec.describe IsoDoc do
           </annex>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(presxml)
@@ -597,11 +597,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p> </p>
+             <p>\\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p> </p>
+             <p>\\u00a0</p>
            </div>
            <br/>
            <div class="main-section">
@@ -625,8 +625,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -645,7 +645,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <p id="A"/>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:p[@id = 'A']").to_xml)))
@@ -657,7 +657,7 @@ RSpec.describe IsoDoc do
          <bookmark primary="A" secondary="B" tertiary="C" id="_"/>
       </p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:p[@id = 'A']").to_xml)))
@@ -912,11 +912,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
             <div class="title-section">
-               <p> </p>
+               <p>\\u00a0</p>
             </div>
             <br/>
             <div class="prefatory-section">
-               <p> </p>
+               <p>\\u00a0</p>
             </div>
             <br/>
             <div class="main-section">
@@ -1127,10 +1127,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
       .gsub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
     FileUtils.rm_f("test.doc")
@@ -1139,7 +1139,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
     wordxml = Nokogiri::XML(word)
-    expect(Xml::C14n.format(strip_guid(wordxml.to_xml)))
+    expect(strip_guid(Xml::C14n.format(wordxml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(doc)
   end
 

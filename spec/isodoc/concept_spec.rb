@@ -184,7 +184,7 @@ RSpec.describe IsoDoc do
                       <em>term</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO 712</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -231,7 +231,7 @@ RSpec.describe IsoDoc do
                       <em>word</em>
                       <semx element="eref" source="_">
                          (
-                         <fmt-xref type="inline" target="ISO712">ISO 712, Clause 3.1, Figure a</fmt-xref>
+                         <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Clause 3.1, Figure a</fmt-xref>
                          )
                       </semx>
                    </semx>
@@ -263,7 +263,7 @@ RSpec.describe IsoDoc do
                       <semx element="eref" source="_">
                          (
                          <fmt-xref type="inline" target="ISO712">
-                            ISO 712, Clause 3.1
+                            ISO\\u00a0712, Clause 3.1
                             <span class="fmt-conn">and</span>
                             Figure b
                          </fmt-xref>
@@ -384,7 +384,7 @@ RSpec.describe IsoDoc do
                 <li>
                    <i>term</i>
                    (
-                   <a href="#ISO712">ISO 712</a>
+                   <a href="#ISO712">ISO\\u00a0712</a>
                    )
                 </li>
                 <li>
@@ -396,13 +396,13 @@ RSpec.describe IsoDoc do
                 <li>
                    <i>word</i>
                    (
-                   <a href="#ISO712">ISO 712, Clause 3.1, Figure a</a>
+                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1, Figure a</a>
                    )
                 </li>
                 <li>
                    <i>word</i>
                    (
-                   <a href="#ISO712">ISO 712, Clause 3.1 and Figure b</a>
+                   <a href="#ISO712">ISO\\u00a0712, Clause 3.1 and Figure b</a>
                    )
                 </li>
                 <li>
@@ -433,10 +433,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -879,10 +879,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -942,10 +942,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(pres_output)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
@@ -1079,7 +1079,7 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))

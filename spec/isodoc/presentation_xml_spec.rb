@@ -151,7 +151,7 @@ RSpec.describe IsoDoc do
         </bibdata>
       </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -323,14 +323,14 @@ RSpec.describe IsoDoc do
                 <h1>
                   <b>Annex A</b>
                   <br/>
-                   (normative).&#160; Clause
+                   (normative).\\u00a0 Clause
                 </h1>
                 <p id='_'>Text</p>
                 <div id='_'>
                   <h1>
                     <b>Annex A</b>
                     <br/>
-                     (normative).&#160; Subclause
+                     (normative).\\u00a0 Subclause
                     <br/>
                     <br/>
                     &#8220;A&#8221; &#8216;B&#8217;
@@ -374,7 +374,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     doc = <<~OUTPUT
        #{WORD_HDR}
-               <p> </p>
+               <p>\\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>
@@ -385,7 +385,7 @@ RSpec.describe IsoDoc do
                    <b>Annex A</b>
                    <br/>
                     (normative).
-                   <span style='mso-tab-count:1'>&#160; </span>
+                   <span style='mso-tab-count:1'>\\u00a0 </span>
                     Clause
                  </h1>
                  <p id='_'>Text</p>
@@ -394,7 +394,7 @@ RSpec.describe IsoDoc do
                      <b>Annex A</b>
                      <br/>
                       (normative).
-                     <span style='mso-tab-count:1'>&#160; </span>
+                     <span style='mso-tab-count:1'>\\u00a0 </span>
                       Subclause
                      <br/>
                      <br/>
@@ -442,13 +442,13 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(doc)
   end
@@ -516,7 +516,7 @@ RSpec.describe IsoDoc do
          </image>
       </figure>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
@@ -570,7 +570,7 @@ RSpec.describe IsoDoc do
              </image>
            </figure>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html" }))
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
@@ -810,7 +810,7 @@ RSpec.describe IsoDoc do
          <image mimetype="image/svg+xml" alt="3" src="_.svg"/>
       </figure>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
@@ -848,7 +848,7 @@ RSpec.describe IsoDoc do
          <image mimetype="image/svg+xml" alt="3" src="_.svg"/>
       </figure>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
@@ -989,7 +989,7 @@ RSpec.describe IsoDoc do
          </li>
       </ol>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:ol[@id = 'B1']").to_xml)))
@@ -1058,7 +1058,7 @@ RSpec.describe IsoDoc do
          </li>
       </ol>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:ol[@id = 'B1']").to_xml)))
@@ -1269,7 +1269,7 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     )
@@ -1492,7 +1492,7 @@ RSpec.describe IsoDoc do
           </semx>
        </p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     )
@@ -1552,7 +1552,7 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="B1">1</semx>
                </span>
-               <span class="fmt-caption-delim"> — </span>
+               <span class="fmt-caption-delim">\\u00a0— </span>
                <semx element="name" source="_">First</semx>
             </fmt-name>
             <fmt-xref-label>
@@ -1587,7 +1587,7 @@ RSpec.describe IsoDoc do
                      <span class="fmt-element-name">Figure</span>
                      <semx element="autonum" source="B2">2</semx>
                   </span>
-                  <span class="fmt-caption-delim"> — </span>
+                  <span class="fmt-caption-delim">\\u00a0— </span>
                   <semx element="name" source="_">Second</semx>
                </fmt-name>
                <fmt-xref-label>
@@ -1630,7 +1630,7 @@ RSpec.describe IsoDoc do
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="B3">3</semx>
                </span>
-               <span class="fmt-caption-delim"> — </span>
+               <span class="fmt-caption-delim">\\u00a0— </span>
                <semx element="name" source="_">Third</semx>
             </fmt-name>
             <fmt-xref-label>
@@ -1640,7 +1640,7 @@ RSpec.describe IsoDoc do
          </figure>
       </clause>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:clause[@id = 'A']").to_xml)))
@@ -1696,7 +1696,7 @@ RSpec.describe IsoDoc do
                <p id="_">
                   <eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2" id="_"/>
                   <semx element="eref" source="_">
-                     <fmt-eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2">ISO 639-2</fmt-eref>
+                     <fmt-eref type="inline" bibitemid="_607373b1-0cc4-fcdb-c482-fd86ae572bd1" citeas="ISO 639-2">ISO\\u00a0639-2</fmt-eref>
                   </semx>
                </p>
             </clause>
@@ -1740,7 +1740,7 @@ RSpec.describe IsoDoc do
       </bibliography>
       </standard-document>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -1827,7 +1827,7 @@ RSpec.describe IsoDoc do
          </preface>
       </standard-document>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -1907,7 +1907,7 @@ RSpec.describe IsoDoc do
             </preface>
       </standard-document>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -1951,7 +1951,7 @@ RSpec.describe IsoDoc do
            </tbody>
          </table>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:table").to_xml)))
@@ -2027,7 +2027,7 @@ RSpec.describe IsoDoc do
          </tbody>
       </table>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(breakupurlsintables: "true"))
       .convert("test", input, true))
       .at("//xmlns:table").to_xml)))
@@ -2064,7 +2064,7 @@ RSpec.describe IsoDoc do
           </preface>
        </standard-document>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -2102,7 +2102,7 @@ RSpec.describe IsoDoc do
              </p>
         </foreword></preface></standard-document>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -2170,7 +2170,7 @@ RSpec.describe IsoDoc do
            </preface>
         </standard-document>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))

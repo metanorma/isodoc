@@ -35,27 +35,6 @@ def new_xrefs
          { bibrender: klass.bibrenderer })
 end
 
-def xmlpp(xml)
-  c = HTMLEntities.new
-  xml &&= xml.split(/(&\S+?;)/).map do |n|
-    if /^&\S+?;$/.match?(n)
-      c.encode(c.decode(n), :hexadecimal)
-    else n
-    end
-  end.join
-  xsl = <<~XSL
-    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-      <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-      <!--<xsl:strip-space elements="*"/>-->
-      <xsl:template match="/">
-        <xsl:copy-of select="."/>
-      </xsl:template>
-    </xsl:stylesheet>
-  XSL
-  Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml, &:noblanks))
-    .to_xml(indent: 2, encoding: "UTF-8")
-end
-
 def metadata(hash)
   hash.sort.to_h.delete_if do |_k, v|
     v.nil? || (v.respond_to?(:empty?) && v.empty?)
@@ -63,7 +42,7 @@ def metadata(hash)
 end
 
 def strip_guid(xml)
-  xml.gsub(%r{ id="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' id="_"')
+  xml = xml.gsub(%r{ id="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' id="_"')
     .gsub(%r{ target="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' target="_"')
     .gsub(%r{ source="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' source="_"')
     .gsub(%r{ container="_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,13}"}, ' container="_"')
@@ -80,6 +59,7 @@ def strip_guid(xml)
     .gsub(%r[ semx-id="([^"]+)"], "")
     .gsub(%r[ _Ref\d+{8,10}], " _Ref")
     .gsub(%r[:_Ref\d+{8,10}], ":_Ref")
+  escape_zs_chars(xml)
 end
 
 HTML_HDR = <<~HEADER.freeze
@@ -87,11 +67,11 @@ HTML_HDR = <<~HEADER.freeze
     <head/>
     <body lang="en">
       <div class="title-section">
-        <p>&#160;</p>
+        <p>\\u00a0</p>
       </div>
       <br/>
       <div class="prefatory-section">
-        <p>&#160;</p>
+        <p>\\u00a0</p>
       </div>
       <br/>
       <div class="main-section">
@@ -111,7 +91,7 @@ WORD_HDR = <<~HEADER.freeze
   </head>
          <body lang="EN-US" link="blue" vlink="#954F72">
            <div class="WordSection1">
-             <p>&#160;</p>
+             <p>\\u00a0</p>
            </div>
            <p class="section-break"><br clear="all" class="section"/></p>
            <div class="WordSection2">
@@ -133,4 +113,14 @@ def timezone_identifier_local
     end
   end
   nil # Return nil if no timezone found with the given offset
+end
+
+# Converts all characters in a string matching Unicode regex character class \p{Zs},
+# except for space (U+0020), to their HTMLEntities escaped counterparts.
+# Note: Tab (U+0009) is not in \p{Zs}, it's in \p{Cc} (control characters)
+def escape_zs_chars(str)
+  # Match all characters in \p{Zs} except space (U+0020)
+  str.gsub(/[\p{Zs}&&[^\u0020]]/) do |char|
+    "\\u#{char.ord.to_s(16).rjust(4, '0')}"
+  end
 end

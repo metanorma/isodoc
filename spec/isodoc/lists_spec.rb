@@ -94,11 +94,11 @@ RSpec.describe IsoDoc do
           <head/>
           <body lang="en">
              <div class="title-section">
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <br/>
              <div class="prefatory-section">
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <br/>
              <div class="main-section">
@@ -107,24 +107,24 @@ RSpec.describe IsoDoc do
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div class="ul_wrap">
                       <p class="ListTitle">Caption</p>
-                      <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                          <li>
-                            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">Level 1</p>
+                            <p id="_">Level 1</p>
                          </li>
                          <li>
-                            <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+                            <p id="_">deletion of 4.3.</p>
                             <div class="ul_wrap">
-                               <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                               <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                                   <li>
-                                     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 2</p>
+                                     <p id="_">Level 2</p>
                                      <div class="ul_wrap">
-                                        <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                                        <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                                            <li>
-                                              <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 3</p>
+                                              <p id="_">Level 3</p>
                                               <div class="ul_wrap">
-                                                 <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                                                 <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                                                     <li>
-                                                       <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 4</p>
+                                                       <p id="_">Level 4</p>
                                                     </li>
                                                  </ul>
                                               </div>
@@ -151,24 +151,24 @@ RSpec.describe IsoDoc do
           <h1 class="ForewordTitle">Foreword</h1>
           <div class="ul_wrap">
              <p class="ListTitle">Caption</p>
-             <ul id="_61961034-0fb1-436b-b281-828857a59ddb" style="page-break-after: avoid;page-break-inside: avoid;">
+             <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                 <li>
-                   <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">Level 1</p>
+                   <p id="_">Level 1</p>
                 </li>
                 <li>
-                   <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+                   <p id="_">deletion of 4.3.</p>
                    <div class="ul_wrap">
-                      <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                          <li>
-                            <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 2</p>
+                            <p id="_">Level 2</p>
                             <div class="ul_wrap">
-                               <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                               <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                                   <li>
-                                     <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 3</p>
+                                     <p id="_">Level 3</p>
                                      <div class="ul_wrap">
-                                        <ul id="_61961034-0fb1-436b-b281-828857a59ddc" style="page-break-after: avoid;page-break-inside: avoid;">
+                                        <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
                                            <li>
-                                              <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 4</p>
+                                              <p id="_">Level 4</p>
                                            </li>
                                         </ul>
                                      </div>
@@ -185,16 +185,16 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", pres_output, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
     xml = Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
     xml = xml.at("//div[@id = 'fwd']")
-    expect(Xml::C14n.format(xml.to_xml))
+    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -220,18 +220,18 @@ RSpec.describe IsoDoc do
          <div id="_">
                    <h1 class='ForewordTitle'>Foreword</h1>
                    <div class="ul_wrap">
-                   <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
+                   <ul id='_'>
                      <li>
                      <span class='zzMoveToFollowing'>
                        <input type='checkbox'/>
                        </span>
-                       <p id='_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2'>updated normative references;</p>
+                       <p id='_'>updated normative references;</p>
                      </li>
                      <li>
                      <span class='zzMoveToFollowing'>
                        <input type='checkbox'  checked='checked'/>
                        </span>
-                       <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
+                       <p id='_'>deletion of 4.3.</p>
                      </li>
                    </ul>
                    </div>
@@ -248,19 +248,19 @@ RSpec.describe IsoDoc do
                     <div id="_">
                       <h1 class='ForewordTitle'>Foreword</h1>
                       <div class="ul_wrap">
-                      <ul id='_61961034-0fb1-436b-b281-828857a59ddb'>
+                      <ul id='_'>
                         <li>
                           <span class='zzMoveToFollowing'>&#9745; </span>
-                          <p id='_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2'>updated normative references;</p>
+                          <p id='_'>updated normative references;</p>
                         </li>
                         <li>
                         <span class='zzMoveToFollowing'>&#9744; </span>
-                          <p id='_60eb765c-1f6c-418a-8016-29efa06bf4f9'>deletion of 4.3.</p>
+                          <p id='_'>deletion of 4.3.</p>
                         </li>
                       </ul>
                     </div>
                     </div>
-                    <p>&#160;</p>
+                    <p>\\u00a0</p>
                   </div>
                   <p class="section-break">
                     <br clear='all' class='section'/>
@@ -270,11 +270,11 @@ RSpec.describe IsoDoc do
                 </body>
               </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -485,7 +485,7 @@ RSpec.describe IsoDoc do
                       </ol>
                    </div>
                 </div>
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -496,13 +496,13 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -534,15 +534,15 @@ RSpec.describe IsoDoc do
                    <div id="_">
                      <h1 class="ForewordTitle">Foreword</h1>
                      <div class="ol_wrap">
-                     <ol type="I" id="_ae34a226-aab4-496d-987b-1aa7b6314026">
-             <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
-               <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
+                     <ol type="I" id="_">
+             <li id="_">
+               <p id="_">all information necessary for the complete identification of the sample;</p>
              </li>
              <li>
-               <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">a reference to this document (i.e. ISO 17301-1);</p>
+               <p id="_">a reference to this document (i.e. ISO 17301-1);</p>
              </li>
              <li>
-               <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">the sampling method used;</p>
+               <p id="_">the sampling method used;</p>
              </li>
            </ol>
            </div>
@@ -551,8 +551,8 @@ RSpec.describe IsoDoc do
                </body>
            </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -647,7 +647,7 @@ RSpec.describe IsoDoc do
                   </dd>
                 </dl>
                 <div class="Note">
-           <p><span class="note_label">NOTE  </span>This is a note</p>
+           <p><span class="note_label">NOTE\\u00a0 </span>This is a note</p>
          </div>
          </div>
               </div>
@@ -688,7 +688,7 @@ RSpec.describe IsoDoc do
                         <p class="Note">
                            <span class="note_label">
                               NOTE
-                              <span style="mso-tab-count:1">  </span>
+                              <span style="mso-tab-count:1">\\u00a0 </span>
                            </span>
                            This is a note
                         </p>
@@ -697,7 +697,7 @@ RSpec.describe IsoDoc do
                    </tr>
                  </table>
                </div>
-               <p>&#160;</p>
+               <p>\\u00a0</p>
              </div>
              <p class="section-break"><br clear="all" class="section"/></p>
              <div class="WordSection3">
@@ -707,13 +707,13 @@ RSpec.describe IsoDoc do
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
       .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -754,7 +754,7 @@ RSpec.describe IsoDoc do
        </head>
           <body lang="EN-US" link="blue" vlink="#954F72">
              <div class="WordSection1">
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -775,7 +775,7 @@ RSpec.describe IsoDoc do
                                <a id="_"/>
                                <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                                   W
-                                  <span style="mso-tab-count:1">  </span>
+                                  <span style="mso-tab-count:1">\\u00a0 </span>
                                   mass fraction of gelatinized kernels
                                </p>
                             </div>
@@ -791,7 +791,7 @@ RSpec.describe IsoDoc do
                                      <a id="_"/>
                                      <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
                                         X
-                                        <span style="mso-tab-count:1">  </span>
+                                        <span style="mso-tab-count:1">\\u00a0 </span>
                                         expressed in per cent
                                      </p>
                                   </div>
@@ -801,7 +801,7 @@ RSpec.describe IsoDoc do
                       </table>
                    </div>
                 </div>
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <p class="section-break">
                 <br clear="all" class="section"/>
@@ -810,7 +810,7 @@ RSpec.describe IsoDoc do
           </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end

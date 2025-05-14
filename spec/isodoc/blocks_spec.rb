@@ -198,7 +198,7 @@ RSpec.describe IsoDoc do
                               <span class="fmt-element-name">Table</span>
                               <semx element="autonum" source="E">2</semx>
                            </span>
-                           <span class="fmt-caption-delim"> — </span>
+                           <span class="fmt-caption-delim">\\u00a0— </span>
                            <semx element="name" source="_">Edges of triangle and quadrilateral cells</semx>
                         </fmt-name>
                         <fmt-xref-label>
@@ -278,7 +278,7 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       <div id="A">
-         <h1>1.  Change Clause</h1>
+         <h1>1.\\u00a0 Change Clause</h1>
          <p id="C">
             <i>
                        This table contains information on polygon cells which are not
@@ -287,7 +287,7 @@ RSpec.describe IsoDoc do
                      </i>
          </p>
          <div class="Quote" id="D">
-            <p class="TableTitle" style="text-align:center;">Table 2 — Edges of triangle and quadrilateral cells</p>
+            <p class="TableTitle" style="text-align:center;">Table 2\\u00a0— Edges of triangle and quadrilateral cells</p>
             <table id="E" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                <tbody>
                   <tr>
@@ -340,9 +340,9 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
       .at("//div[@id ='A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
@@ -379,7 +379,7 @@ RSpec.describe IsoDoc do
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">EXAMPLE</span>
                       </span>
-                      <span class="fmt-caption-delim"> — </span>
+                      <span class="fmt-caption-delim">\\u00a0— </span>
                       <semx element="name" source="_">Title</semx>
                    </fmt-name>
                    <fmt-xref-label>
@@ -414,13 +414,13 @@ RSpec.describe IsoDoc do
                        <div id="fwd">
                          <h1 class="ForewordTitle">Foreword</h1>
                          <div id="samplecode" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <p class="example-title">EXAMPLE&#160;&#8212; Title</p>
+                         <p class="example-title">EXAMPLE\\u00a0&#8212; Title</p>
                  <p>Hello</p>
                       <pre id="X" class="sourcecode">
                          <br/>
-      #{'                    '}
+      #{'                   \\u00a0'}
                          <br/>
-      #{'                    '}
+      #{'                   \\u00a0'}
                       </pre>
           <p class='SourceTitle' style='text-align:center;'>Sample</p>
                          </div>
@@ -437,18 +437,18 @@ RSpec.describe IsoDoc do
             <div id="fwd">
               <h1 class='ForewordTitle'>Foreword</h1>
               <div id='samplecode' class='example' style='page-break-after: avoid;page-break-inside: avoid;'>
-                <p class='example-title'>EXAMPLE&#160;&#8212; Title</p>
+                <p class='example-title'>EXAMPLE\\u00a0&#8212; Title</p>
                 <p>Hello</p>
                       <p id="X" class="Sourcecode">
                          <br/>
-      #{'                    '}
+      #{'                   \\u00a0'}
                          <br/>
-      #{'                    '}
+      #{'                   \\u00a0'}
                       </p>
                 <p class='SourceTitle' style='text-align:center;'>Sample</p>
               </div>
             </div>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -461,12 +461,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -527,7 +527,7 @@ RSpec.describe IsoDoc do
                          <span class="fmt-element-name">EXAMPLE</span>
                          <semx element="autonum" source="samplecode2">2</semx>
                       </span>
-                      <span class="fmt-caption-delim"> — </span>
+                      <span class="fmt-caption-delim">\\u00a0— </span>
                       <semx element="name" source="_">Title</semx>
                    </fmt-name>
                    <fmt-xref-label>
@@ -568,7 +568,7 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -740,9 +740,9 @@ RSpec.describe IsoDoc do
             </div>
 
 
-              <div id="_" class="Note"><p><span class="note_label">NOTE  </span>[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
+              <div id="_" class="Note"><p><span class="note_label">NOTE\\u00a0 </span>[durationUnits] is essentially a duration statement without the "P" prefix. "P" is unnecessary because between "G" and "U" duration is always expressed.</p></div></div>
 
-                    <div id="_"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>&#160; (1)</p></div></div>
+                    <div id="_"><div class="formula"><p><span class="stem">(#(r = 1 %)#)</span>\\u00a0 (1)</p></div></div>
                     </div>
                                     <br/>
                 <div id="Annex" class="Section3">
@@ -755,7 +755,7 @@ RSpec.describe IsoDoc do
                       <div class="formula">
                          <p>
                             <span class="stem">(#(r = 1 %)#)</span>
-                              (A.1)
+                            \\u00a0 (A.1)
                          </p>
                       </div>
                    </div>
@@ -775,7 +775,7 @@ RSpec.describe IsoDoc do
                   <div id='_' style='page-break-after: avoid;page-break-inside: avoid;'><div class='formula'>
                     <p>
                       <span class='stem'>(#(r = 1 %)#)</span>
-                      <span style='mso-tab-count:1'>&#160; </span>
+                      <span style='mso-tab-count:1'>\\u00a0 </span>
                     </p>
                   </div>
                   <p style="page-break-after: avoid;">where</p>
@@ -793,7 +793,7 @@ RSpec.describe IsoDoc do
                   </table>
                   <div id='_' class='Note'>
                     <p class='Note'>
-                      <span class='note_label'>NOTE<span style='mso-tab-count:1'>&#160; </span></span>
+                      <span class='note_label'>NOTE<span style='mso-tab-count:1'>\\u00a0 </span></span>
                       [durationUnits] is essentially a duration statement without the "P"
                       prefix. "P" is unnecessary because between "G" and "U" duration is
                       always expressed.
@@ -803,13 +803,13 @@ RSpec.describe IsoDoc do
                   <div id='_'><div class='formula'>
                     <p>
                       <span class='stem'>(#(r = 1 %)#)</span>
-                      <span style='mso-tab-count:1'>&#160; </span>
+                      <span style='mso-tab-count:1'>\\u00a0 </span>
                       (1)
                     </p>
                     </div>
                   </div>
                 </div>
-                <p>&#160;</p>
+                <p>\\u00a0</p>
               </div>
               <p class="section-break">
                 <br clear='all' class='section'/>
@@ -828,7 +828,7 @@ RSpec.describe IsoDoc do
                <div class="formula">
                   <p>
                      <span class="stem">(#(r = 1 %)#)</span>
-                     <span style="mso-tab-count:1">  </span>
+                     <span style="mso-tab-count:1">\\u00a0 </span>
                      (A.1)
                   </p>
                   </div>
@@ -842,12 +842,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -896,7 +896,7 @@ RSpec.describe IsoDoc do
           </p>
           <p style="text-align:justify;font-size:9pt;page-break-after: avoid;page-break-inside: avoid;">Justify</p>
               </div>
-              <p>&#160;</p>
+              <p>\\u00a0</p>
             </div>
             <p class="section-break"><br clear="all" class="section"/></p>
             <div class="WordSection3">
@@ -907,12 +907,12 @@ RSpec.describe IsoDoc do
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(Xml::C14n.format(strip_guid(output.to_xml)))
+    expect(strip_guid(Xml::C14n.format(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(Xml::C14n.format(strip_guid(output.to_xml)))
+    expect(strip_guid(Xml::C14n.format(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -962,7 +962,7 @@ RSpec.describe IsoDoc do
                               <locality type="clause">
                                  <referenceFrom>1</referenceFrom>
                               </locality>
-                              ISO 7301:2011, Clause 1
+                              ISO\\u00a07301:2011, Clause 1
                            </fmt-eref>
                         </semx>
                      </p>
@@ -981,7 +981,7 @@ RSpec.describe IsoDoc do
 
 
         <p id="_">This International Standard gives the minimum specifications for rice (<i>Oryza sativa</i> L.) which is subject to international trade. It is applicable to the following types: husked rice and milled rice, parboiled or not, intended for direct human consumption. It is neither applicable to other products derived from rice, nor to waxy rice (glutinous rice).</p>
-      <div class="QuoteAttribution"><p>&#8212; ISO, ISO&#xa0;7301:2011, Clause 1</p></div></div>
+      <div class="QuoteAttribution"><p>&#8212; ISO, ISO\\u00a07301:2011, Clause 1</p></div></div>
               </div>
             </div>
           </body>
@@ -990,9 +990,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -1060,7 +1060,7 @@ RSpec.describe IsoDoc do
           </annex>
           <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
       <title>Bibliography</title>
-      <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="IETF" scope="anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
+      <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol\\u2009—\\u2009HTTP/1.1</title>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="IETF" scope="anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
       </references></bibliography>
           </iso-standard>
     INPUT
@@ -1333,16 +1333,16 @@ RSpec.describe IsoDoc do
                <bibitem id="rfc2616" type="standard">
                   <formattedref>
                      R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE.
-                     <em>Hypertext Transfer Protocol — HTTP/1.1</em>
+                     <em>Hypertext Transfer Protocol\\u2009—\\u2009HTTP/1.1</em>
                      . 1999. Fremont, CA.
                   </formattedref>
                   <fetched>2020-03-27</fetched>
-                  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>
+                  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol\\u2009—\\u2009HTTP/1.1</title>
                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
-                  <docidentifier type="IETF">IETF RFC 2616</docidentifier>
-                  <docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier>
-                  <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
-                  <docidentifier scope="biblio-tag">IETF RFC 2616</docidentifier>
+                  <docidentifier type="IETF">IETF\\u00a0RFC\\u00a02616</docidentifier>
+                  <docidentifier type="IETF" scope="anchor">IETF\\u00a0RFC2616</docidentifier>
+                  <docidentifier type="DOI">DOI\\u00a010.17487/RFC2616</docidentifier>
+                  <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a02616</docidentifier>
                   <date type="published">
                      <on>1999-06</on>
                   </date>
@@ -1455,7 +1455,7 @@ RSpec.describe IsoDoc do
                   <biblio-tag>
                      [1]
                      <tab/>
-                     IETF RFC 2616,
+                     IETF\\u00a0RFC\\u00a02616,
                   </biblio-tag>
                </bibitem>
             </references>
@@ -1485,11 +1485,11 @@ RSpec.describe IsoDoc do
               </div>
               <div class="requirement-measurement-target">
                 <p id="_">The measurement target shall be measured as:</p>
-                <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+                <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>\\u00a0 (1)</p></div></div>
               </div>
               <div class="requirement-verification">
                 <p id="_">The following code will be run for verification:</p>
-                <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre>
               </div>
               <div class='requirement-component1'> <p id='_'>Hello</p>
                </div>
@@ -1512,7 +1512,7 @@ RSpec.describe IsoDoc do
                    <br/>
              <div>
                <h1 class='Section3'>Bibliography</h1>
-               <p id="rfc2616" class="Biblio">[1]  IETF&#xa0;RFC&#xa0;2616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol — HTTP/1.1</i>. 1999. Fremont, CA.</p>
+               <p id="rfc2616" class="Biblio">[1]\\u00a0 IETF\\u00a0RFC\\u00a02616, R. FIELDING, J. GETTYS, J. MOGUL, H. FRYSTYK, L. MASINTER, P. LEACH and T. BERNERS-LEE. <i>Hypertext Transfer Protocol\\u2009—\\u2009HTTP/1.1</i>. 1999. Fremont, CA.</p>
              </div>
                 </div>
               </body>
@@ -1521,9 +1521,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -1759,11 +1759,11 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-measurement-target"  style='page-break-after: avoid;page-break-inside: avoid;'>
                     <p id="_">The measurement target shall be measured as:</p>
-                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span> &#160; (1)</p></div></div>
+                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span> \\u00a0 (1)</p></div></div>
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre>
                   </div>
               <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -1775,9 +1775,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -2034,11 +2034,11 @@ RSpec.describe IsoDoc do
                   </div>
                   <div class="requirement-measurement-target">
                     <p id="_">The measurement target shall be measured as:</p>
-                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div></div>
+                    <div id="B"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>\\u00a0 (1)</p></div></div>
                   </div>
                   <div class="requirement-verification">
                     <p id="_">The following code will be run for verification:</p>
-                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+                    <pre id="C" class="sourcecode">CoreRoot(success): HttpResponse<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 if (success)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 recommendation(label: success-response)<br/>\\u00a0\\u00a0\\u00a0\\u00a0\\u00a0 end<br/>\\u00a0\\u00a0\\u00a0 </pre>
                   </div>
                           <div class='requirement-component1'> <p id='_'>Hello</p> </div>
                 </div>
@@ -2050,9 +2050,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -2089,7 +2089,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     xml = Nokogiri::XML(output)
     xml.at("//xmlns:metanorma-extension")&.remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::HtmlConvert.new({}).convert("test", output, false)
     expect(Nokogiri::XML(Xml::C14n.format(File.read("test.html")))
@@ -2111,7 +2111,7 @@ RSpec.describe IsoDoc do
       .convert("test", input.sub("html,rfc", "all"), true)
     xml = Nokogiri::XML(output)
     xml.at("//xmlns:metanorma-extension")&.remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
@@ -2167,7 +2167,7 @@ RSpec.describe IsoDoc do
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(Xml::C14n.format(strip_guid(output.to_xml)))
+    expect(strip_guid(Xml::C14n.format(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -2196,7 +2196,7 @@ RSpec.describe IsoDoc do
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", input, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(Xml::C14n.format(strip_guid(output.to_xml)))
+    expect(strip_guid(Xml::C14n.format(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -2671,52 +2671,52 @@ RSpec.describe IsoDoc do
         #{HTML_HDR}
                      <p class='zzSTDTitle1'>Document title</p>
             <div id='clause1'>
-              <h1>1.&#160; Clause 1</h1>
+              <h1>1.\\u00a0 Clause 1</h1>
               <div id='clause1A'>
-                <h2>1.1.&#160; Clause 1A</h2>
+                <h2>1.1.\\u00a0 Clause 1A</h2>
                 <div id='clause1Aa'>
-                  <h3>1.1.1.&#160; Clause 1Aa</h3>
+                  <h3>1.1.1.\\u00a0 Clause 1Aa</h3>
                 </div>
                 <div id='clause1Ab'>
-                  <h3>1.1.2.&#160; Clause 1Ab</h3>
+                  <h3>1.1.2.\\u00a0 Clause 1Ab</h3>
                 </div>
               </div>
               <div id='clause1B'>
-                <h2>1.2.&#160; Clause 1B</h2>
+                <h2>1.2.\\u00a0 Clause 1B</h2>
                 <div id='clause1Ba'>
-                  <h3>1.2.1.&#160; Clause 1Ba</h3>
+                  <h3>1.2.1.\\u00a0 Clause 1Ba</h3>
                 </div>
               </div>
             </div>
             <div id='clause2'>
-              <h1>2.&#160; Clause 2</h1>
+              <h1>2.\\u00a0 Clause 2</h1>
               <p id='A'>And introducing: </p>
               <div class='toc'>
               <div class="ul_wrap">
                 <ul id='B'>
                   <li>
-                    <a href='#clause1A'>1.1&#160; Clause 1A</a>
+                    <a href='#clause1A'>1.1\\u00a0 Clause 1A</a>
                   </li>
                   <li>
                   <div class="ul_wrap">
                     <ul id='C'>
                       <li>
-                        <a href='#clause1Aa'>1.1.1&#160; Clause 1Aa</a>
+                        <a href='#clause1Aa'>1.1.1\\u00a0 Clause 1Aa</a>
                       </li>
                       <li>
-                        <a href='#clause1Ab'>1.1.2&#160; Clause 1Ab</a>
+                        <a href='#clause1Ab'>1.1.2\\u00a0 Clause 1Ab</a>
                       </li>
                     </ul>
                     </div>
                   </li>
                   <li>
-                    <a href='#clause1B'>1.2&#160; Clause 1B</a>
+                    <a href='#clause1B'>1.2\\u00a0 Clause 1B</a>
                   </li>
                   <li>
                   <div class="ul_wrap">
                     <ul id='D'>
                       <li>
-                        <a href='#clause1Ba'>1.2.1&#160; Clause 1Ba</a>
+                        <a href='#clause1Ba'>1.2.1\\u00a0 Clause 1Ba</a>
                       </li>
                     </ul>
                     </div>
@@ -2728,10 +2728,10 @@ RSpec.describe IsoDoc do
                   <div class="ul_wrap">
                 <ul id='E'>
                   <li>
-                    <a href='#clause1A'>1.1&#160; Clause 1A</a>
+                    <a href='#clause1A'>1.1\\u00a0 Clause 1A</a>
                   </li>
                   <li>
-                    <a href='#clause1B'>1.2&#160; Clause 1B</a>
+                    <a href='#clause1B'>1.2\\u00a0 Clause 1B</a>
                   </li>
                 </ul>
                 </div>
@@ -2745,9 +2745,9 @@ RSpec.describe IsoDoc do
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end

@@ -605,11 +605,11 @@ RSpec.describe IsoDoc do
           <head/>
           <body lang="en">
              <div class="title-section">
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <br/>
              <div class="prefatory-section">
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <br/>
              <div class="main-section">
@@ -673,7 +673,7 @@ RSpec.describe IsoDoc do
                 </div>
                 <div id="NN1" class="Note">
                    <p>
-                      <span class="note_label">NOTE  </span>
+                      <span class="note_label">NOTE\\u00a0 </span>
                       Initial note
                    </p>
                 </div>
@@ -682,23 +682,23 @@ RSpec.describe IsoDoc do
                    <p>Initial admonition</p>
                 </div>
                 <div id="D">
-                   <h1>1.  Scope</h1>
+                   <h1>1.\\u00a0 Scope</h1>
                    <p id="E">Text</p>
                 </div>
                 <div>
-                   <h1>2.  Normative References</h1>
+                   <h1>2.\\u00a0 Normative References</h1>
                 </div>
                 <div id="H">
-                   <h1>3.  Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                   <h1>3.\\u00a0 Terms, Definitions, Symbols and Abbreviated Terms</h1>
                    <div id="I">
-                      <h2>3.1.  Normal Terms</h2>
+                      <h2>3.1.\\u00a0 Normal Terms</h2>
                       <p class="TermNum" id="J">3.1.1.</p>
                       <p class="Terms" style="text-align:left;">
                          <b>Term2</b>
                       </p>
                    </div>
                    <div id="K">
-                      <h2>3.2.  Symbols</h2>
+                      <h2>3.2.\\u00a0 Symbols</h2>
                       <div class="figdl">
                          <dl>
                             <dt>
@@ -710,7 +710,7 @@ RSpec.describe IsoDoc do
                    </div>
                 </div>
                 <div id="L" class="Symbols">
-                   <h1>4.  Symbols and abbreviated terms</h1>
+                   <h1>4.\\u00a0 Symbols and abbreviated terms</h1>
                    <div class="figdl">
                       <dl>
                          <dt>
@@ -721,12 +721,12 @@ RSpec.describe IsoDoc do
                    </div>
                 </div>
                 <div id="M">
-                   <h1>5.  Clause 4</h1>
+                   <h1>5.\\u00a0 Clause 4</h1>
                    <div id="N">
-                      <h2>5.1.  Introduction</h2>
+                      <h2>5.1.\\u00a0 Introduction</h2>
                    </div>
                    <div id="O">
-                      <h2>5.2.  Clause 4.2</h2>
+                      <h2>5.2.\\u00a0 Clause 4.2</h2>
                    </div>
                    <div id="O1">
                       <h2>5.3.</h2>
@@ -743,12 +743,12 @@ RSpec.describe IsoDoc do
                       <b>Annex</b>
                    </h1>
                    <div id="Q">
-                      <h2>A.1.  Annex A.1</h2>
+                      <h2>A.1.\\u00a0 Annex A.1</h2>
                       <div id="Q1">
-                         <h3>A.1.1.  Annex A.1a</h3>
+                         <h3>A.1.1.\\u00a0 Annex A.1a</h3>
                       </div>
                       <div>
-                         <h3 class="Section3">A.1.2.  Annex Bibliography</h3>
+                         <h3 class="Section3">A.1.2.\\u00a0 Annex Bibliography</h3>
                       </div>
                    </div>
                 </div>
@@ -784,7 +784,7 @@ RSpec.describe IsoDoc do
        <head><style/></head>
        <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
@@ -859,36 +859,36 @@ RSpec.describe IsoDoc do
         <div class="Section3" id="_">
            <h1 class="IntroTitle">Executive Summary</h1>
         </div>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <p class="section-break">
             <br clear="all" class="section"/>
           </p>
           <div class="WordSection3">
             <div id="NN1" class="Note">
-              <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">&#160; </span></span>Initial note</p>
+              <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">\\u00a0 </span></span>Initial note</p>
             </div>
             <div id="NN2" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
             <p>Initial admonition</p>
           </div>
             <div id="D">
-              <h1>1.<span style="mso-tab-count:1">&#160; </span>Scope</h1>
+              <h1>1.<span style="mso-tab-count:1">\\u00a0 </span>Scope</h1>
               <p id="E">Text</p>
             </div>
-            <div><h1>2.<span style="mso-tab-count:1">&#160; </span>Normative References</h1>
+            <div><h1>2.<span style="mso-tab-count:1">\\u00a0 </span>Normative References</h1>
           </div>
             <div id="H">
-              <h1>3.<span style="mso-tab-count:1">&#160; </span>Terms, Definitions, Symbols and Abbreviated Terms</h1>
-              <div id="I"><h2>3.1.<span style="mso-tab-count:1">&#160; </span>Normal Terms</h2>
+              <h1>3.<span style="mso-tab-count:1">\\u00a0 </span>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+              <div id="I"><h2>3.1.<span style="mso-tab-count:1">\\u00a0 </span>Normal Terms</h2>
               <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
             </div>
-              <div id="K"><h2>3.2.<span style="mso-tab-count:1">&#160; </span>Symbols</h2>
+              <div id="K"><h2>3.2.<span style="mso-tab-count:1">\\u00a0 </span>Symbols</h2>
               <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
             </div>
             </div>
             <div id="L" class="Symbols">
-              <h1>4.<span style="mso-tab-count:1">&#160; </span>Symbols and abbreviated terms</h1>
+              <h1>4.<span style="mso-tab-count:1">\\u00a0 </span>Symbols and abbreviated terms</h1>
               <table class="dl">
                 <tr>
                   <td valign="top" align="left">
@@ -899,10 +899,10 @@ RSpec.describe IsoDoc do
               </table>
             </div>
             <div id="M">
-              <h1>5.<span style="mso-tab-count:1">&#160; </span>Clause 4</h1>
-              <div id="N"><h2>5.1.<span style="mso-tab-count:1">&#160; </span>Introduction</h2>
+              <h1>5.<span style="mso-tab-count:1">\\u00a0 </span>Clause 4</h1>
+              <div id="N"><h2>5.1.<span style="mso-tab-count:1">\\u00a0 </span>Introduction</h2>
             </div>
-              <div id="O"><h2>5.2.<span style="mso-tab-count:1">&#160; </span>Clause 4.2</h2>
+              <div id="O"><h2>5.2.<span style="mso-tab-count:1">\\u00a0 </span>Clause 4.2</h2>
             </div>
               <div id="O1"><h2>5.3.</h2>
             </div>
@@ -913,10 +913,10 @@ RSpec.describe IsoDoc do
             <div id="P" class="Section3">
               <h1 class="Annex"> <b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b>
           </h1>
-              <div id="Q"><h2>A.1.<span style="mso-tab-count:1">&#160; </span>Annex A.1</h2>
-            <div id="Q1"><h3>A.1.1.<span style="mso-tab-count:1">&#160; </span>Annex A.1a</h3>
+              <div id="Q"><h2>A.1.<span style="mso-tab-count:1">\\u00a0 </span>Annex A.1</h2>
+            <div id="Q1"><h3>A.1.1.<span style="mso-tab-count:1">\\u00a0 </span>Annex A.1a</h3>
             </div>
-            <div><h3 class="Section3">A.1.2.<span style="mso-tab-count:1">&#160; </span>Annex Bibliography</h3>
+            <div><h3 class="Section3">A.1.2.<span style="mso-tab-count:1">\\u00a0 </span>Annex Bibliography</h3>
             </div>
           </div>
             </div>
@@ -949,12 +949,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -1077,11 +1077,11 @@ RSpec.describe IsoDoc do
         <head/>
         <body lang='en'>
           <div class='title-section'>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <br/>
           <div class='prefatory-section'>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <br/>
           <div class='main-section'>
@@ -1158,7 +1158,7 @@ RSpec.describe IsoDoc do
                 </div>
             <div id='NN1' class='Note'>
               <p>
-                <span class='note_label'>NOTE  </span>
+                <span class='note_label'>NOTE\\u00a0 </span>
                 Initial note
               </p>
             </div>
@@ -1168,7 +1168,7 @@ RSpec.describe IsoDoc do
             </div>
             <div id='D'>
               <h1>
-                1.&#160; Scope
+                1.\\u00a0 Scope
                 <br/>
                 <br/>
                 Variant 1
@@ -1177,7 +1177,7 @@ RSpec.describe IsoDoc do
             </div>
             <div>
               <h1>
-                2.&#160; Normative References
+                2.\\u00a0 Normative References
                 <br/>
                 <br/>
                 Variant 1
@@ -1185,14 +1185,14 @@ RSpec.describe IsoDoc do
             </div>
             <div id='H'>
               <h1>
-                3.&#160; Terms, Definitions, Symbols and Abbreviated Terms
+                3.\\u00a0 Terms, Definitions, Symbols and Abbreviated Terms
                 <br/>
                 <br/>
                 Variant 1
               </h1>
               <div id='I'>
                 <h2>
-                  3.1.&#160; Normal Terms
+                  3.1.\\u00a0 Normal Terms
                   <br/>
                   <br/>
                   Variant 1
@@ -1202,7 +1202,7 @@ RSpec.describe IsoDoc do
               </div>
               <div id='K'>
                 <h2>
-                  3.2.&#160; Definitions
+                  3.2.\\u00a0 Definitions
                   <br/>
                   <br/>
                   Variant 1
@@ -1219,7 +1219,7 @@ RSpec.describe IsoDoc do
             </div>
             <div id='L' class='Symbols'>
               <h1>
-                4.&#160; Symbols and abbreviated terms
+                4.\\u00a0 Symbols and abbreviated terms
                 <br/>
                 <br/>
                 Variant 1
@@ -1235,14 +1235,14 @@ RSpec.describe IsoDoc do
             </div>
             <div id='M'>
               <h1>
-                5.&#160; Clause 4
+                5.\\u00a0 Clause 4
                 <br/>
                 <br/>
                 Variant 1
               </h1>
               <div id='N'>
                 <h2>
-                  5.1.&#160; Introduction
+                  5.1.\\u00a0 Introduction
                   <br/>
                   <br/>
                   Variant 1
@@ -1250,7 +1250,7 @@ RSpec.describe IsoDoc do
               </div>
               <div id='O'>
                 <h2>
-                  5.2.&#160; Clause 4.2
+                  5.2.\\u00a0 Clause 4.2
                   <br/>
                   <br/>
                   Variant 1
@@ -1276,14 +1276,14 @@ RSpec.describe IsoDoc do
               <p style='display:none;' class='variant-title-sub'>Variant 1</p>
               <div id='Q'>
                 <h2>
-                  A.1.&#160; Annex A.1
+                  A.1.\\u00a0 Annex A.1
                   <br/>
                   <br/>
                   Variant 1
                 </h2>
                 <div id='Q1'>
                   <h3>
-                    A.1.1.&#160; Annex A.1a
+                    A.1.1.\\u00a0 Annex A.1a
                     <br/>
                     <br/>
                     Variant 1
@@ -1291,7 +1291,7 @@ RSpec.describe IsoDoc do
                 </div>
                 <div>
                   <h3 class='Section3'>
-                    A.1.2.&#160; Annex Bibliography
+                    A.1.2.\\u00a0 Annex Bibliography
                     <br/>
                     <br/>
                     Variant 1
@@ -1407,7 +1407,7 @@ RSpec.describe IsoDoc do
                       Variant 1
                    </h1>
                 </div>
-            <p>&#160;</p>
+            <p>\\u00a0</p>
           </div>
           <p class="section-break">
             <br clear='all' class='section'/>
@@ -1416,7 +1416,7 @@ RSpec.describe IsoDoc do
             <div id='NN1' class='Note'>
               <p class='Note'>
                 <span class='note_label'>NOTE
-                <span style='mso-tab-count:1'>&#160; </span></span>
+                <span style='mso-tab-count:1'>\\u00a0 </span></span>
                 Initial note
               </p>
             </div>
@@ -1427,7 +1427,7 @@ RSpec.describe IsoDoc do
             <div id='D'>
               <h1>
                 1.
-                <span style='mso-tab-count:1'>&#160; </span>
+                <span style='mso-tab-count:1'>\\u00a0 </span>
                 Scope
                 <br/>
                 <br/>
@@ -1438,7 +1438,7 @@ RSpec.describe IsoDoc do
             <div>
               <h1>
                 2.
-                <span style='mso-tab-count:1'>&#160; </span>
+                <span style='mso-tab-count:1'>\\u00a0 </span>
                 Normative References
                 <br/>
                 <br/>
@@ -1448,7 +1448,7 @@ RSpec.describe IsoDoc do
             <div id='H'>
               <h1>
                 3.
-                <span style='mso-tab-count:1'>&#160; </span>
+                <span style='mso-tab-count:1'>\\u00a0 </span>
                 Terms, Definitions, Symbols and Abbreviated Terms
                 <br/>
                 <br/>
@@ -1457,7 +1457,7 @@ RSpec.describe IsoDoc do
               <div id='I'>
                 <h2>
                   3.1.
-                  <span style='mso-tab-count:1'>&#160; </span>
+                  <span style='mso-tab-count:1'>\\u00a0 </span>
                   Normal Terms
                   <br/>
                   <br/>
@@ -1469,7 +1469,7 @@ RSpec.describe IsoDoc do
               <div id='K'>
                 <h2>
                   3.2.
-                  <span style='mso-tab-count:1'>&#160; </span>
+                  <span style='mso-tab-count:1'>\\u00a0 </span>
                   Definitions
                   <br/>
                   <br/>
@@ -1488,7 +1488,7 @@ RSpec.describe IsoDoc do
             <div id='L' class='Symbols'>
               <h1>
                 4.
-                <span style='mso-tab-count:1'>&#160; </span>
+                <span style='mso-tab-count:1'>\\u00a0 </span>
                 Symbols and abbreviated terms
                 <br/>
                 <br/>
@@ -1506,7 +1506,7 @@ RSpec.describe IsoDoc do
             <div id='M'>
               <h1>
                 5.
-                <span style='mso-tab-count:1'>&#160; </span>
+                <span style='mso-tab-count:1'>\\u00a0 </span>
                 Clause 4
                 <br/>
                 <br/>
@@ -1515,7 +1515,7 @@ RSpec.describe IsoDoc do
               <div id='N'>
                 <h2>
                   5.1.
-                  <span style='mso-tab-count:1'>&#160; </span>
+                  <span style='mso-tab-count:1'>\\u00a0 </span>
                   Introduction
                   <br/>
                   <br/>
@@ -1525,7 +1525,7 @@ RSpec.describe IsoDoc do
               <div id='O'>
                 <h2>
                   5.2.
-                  <span style='mso-tab-count:1'>&#160; </span>
+                  <span style='mso-tab-count:1'>\\u00a0 </span>
                   Clause 4.2
                   <br/>
                   <br/>
@@ -1555,7 +1555,7 @@ RSpec.describe IsoDoc do
               <div id='Q'>
                 <h2>
                   A.1.
-                  <span style='mso-tab-count:1'>&#160; </span>
+                  <span style='mso-tab-count:1'>\\u00a0 </span>
                   Annex A.1
                   <br/>
                   <br/>
@@ -1564,7 +1564,7 @@ RSpec.describe IsoDoc do
                 <div id='Q1'>
                   <h3>
                     A.1.1.
-                    <span style='mso-tab-count:1'>&#160; </span>
+                    <span style='mso-tab-count:1'>\\u00a0 </span>
                     Annex A.1a
                     <br/>
                     <br/>
@@ -1574,7 +1574,7 @@ RSpec.describe IsoDoc do
                 <div>
                   <h3 class='Section3'>
                     A.1.2.
-                    <span style='mso-tab-count:1'>&#160; </span>
+                    <span style='mso-tab-count:1'>\\u00a0 </span>
                     Annex Bibliography
                     <br/>
                     <br/>
@@ -1614,10 +1614,10 @@ RSpec.describe IsoDoc do
     OUTPUT
     presxml = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -1850,7 +1850,7 @@ RSpec.describe IsoDoc do
           </bibliography>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new({ suppressheadingnumbers: true }
       .merge(presxml_options))
       .convert("test", input, true))))
@@ -2068,7 +2068,7 @@ RSpec.describe IsoDoc do
           </bibliography>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -2270,20 +2270,20 @@ RSpec.describe IsoDoc do
                    </div>
                 </div>
                 <div id="C">
-                   <h1>1.  Introduction</h1>
+                   <h1>1.\\u00a0 Introduction</h1>
                    <p class="h1" id="_">A</p>
                    <div id="C1">
-                      <h2>1.1.  Introduction Subsection</h2>
+                      <h2>1.1.\\u00a0 Introduction Subsection</h2>
                       <p class="h2" id="_">B</p>
                       <div id="C2">
-                         <h3>1.1.1.  Introduction Sub-subsection</h3>
+                         <h3>1.1.1.\\u00a0 Introduction Sub-subsection</h3>
                          <p class="h1" id="_">C</p>
                       </div>
                    </div>
                 </div>
                 <p class="h1" id="_">D</p>
                 <div id="C4">
-                   <h1>2.  Clause 2</h1>
+                   <h1>2.\\u00a0 Clause 2</h1>
                 </div>
              </div>
           </body>
@@ -2324,7 +2324,7 @@ RSpec.describe IsoDoc do
                    </div>
                 </div>
              </div>
-             <p class="MsoNormal"> </p>
+             <p class="MsoNormal">\\u00a0</p>
           </div>
           <p class="MsoNormal">
              <br clear="all" class="section"/>
@@ -2334,7 +2334,7 @@ RSpec.describe IsoDoc do
                 <a name="C" id="C"/>
                 <h1>
                    1.
-                   <span style="mso-tab-count:1">  </span>
+                   <span style="mso-tab-count:1">\\u00a0 </span>
                    Introduction
                 </h1>
                 <p class="h1">
@@ -2345,7 +2345,7 @@ RSpec.describe IsoDoc do
                    <a name="C1" id="C1"/>
                    <h2>
                       1.1.
-                      <span style="mso-tab-count:1">  </span>
+                      <span style="mso-tab-count:1">\\u00a0 </span>
                       Introduction Subsection
                    </h2>
                    <p class="h2">
@@ -2356,7 +2356,7 @@ RSpec.describe IsoDoc do
                       <a name="C2" id="C2"/>
                       <h3>
                          1.1.1.
-                         <span style="mso-tab-count:1">  </span>
+                         <span style="mso-tab-count:1">\\u00a0 </span>
                          Introduction Sub-subsection
                       </h3>
                       <p class="h1">
@@ -2374,7 +2374,7 @@ RSpec.describe IsoDoc do
                 <a name="C4" id="C4"/>
                 <h1>
                    2.
-                   <span style="mso-tab-count:1">  </span>
+                   <span style="mso-tab-count:1">\\u00a0 </span>
                    Clause 2
                 </h1>
              </div>
@@ -2385,13 +2385,13 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
-    expect(Xml::C14n.format(strip_guid(File.read("test.doc")
+    expect(strip_guid(Xml::C14n.format(File.read("test.doc")
     .sub(/^.*<body/m, "<body")
     .sub(%r{</body>.*$}m, ""))))
       .to be_equivalent_to Xml::C14n.format(word)
@@ -2429,7 +2429,7 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new({ suppressheadingnumbers: true }
       .merge(presxml_options))
       .convert("test", input, true))))
@@ -2527,12 +2527,12 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
       #{HTML_HDR}
                    <div id="M">
-                     <h1>1.&#160; Clause 4</h1>
+                     <h1>1.\\u00a0 Clause 4</h1>
                      <div id="N">
-              <h2>1.1.&#160; Introduction</h2>
+              <h2>1.1.\\u00a0 Introduction</h2>
             </div>
                      <div id="O">
-              <span class="zzMoveToFollowing inline-header"><b>1.2.&#160; Clause 4.2&#160; </b></span>
+              <span class="zzMoveToFollowing inline-header"><b>1.2.\\u00a0 Clause 4.2\\u00a0 </b></span>
               <p>ABC</p>
             </div>
                    </div>
@@ -2543,9 +2543,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -2564,7 +2564,7 @@ RSpec.describe IsoDoc do
        </sections>
       </iso-standard>
     INPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new({ suppressheadingnumbers: true }
       .merge(presxml_options))
       .convert("test", input, true))))
@@ -2683,7 +2683,7 @@ RSpec.describe IsoDoc do
            </sections>
         </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -2717,11 +2717,11 @@ RSpec.describe IsoDoc do
          <head/>
          <body lang="en">
            <div class="title-section">
-             <p> </p>
+             <p>\\u00a0</p>
            </div>
            <br/>
            <div class="prefatory-section">
-             <p> </p>
+             <p>\\u00a0</p>
            </div>
            <br/>
                       <div class="main-section">
@@ -2748,8 +2748,8 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -2797,7 +2797,7 @@ RSpec.describe IsoDoc do
           </sections>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
       .to be_equivalent_to Xml::C14n.format(output)

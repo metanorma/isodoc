@@ -241,15 +241,15 @@ RSpec.describe IsoDoc do
                          </fmt-fn-label>
                       </fn>
                    </title>
-                   <docidentifier type="ISO">ISO 712</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+                   <docidentifier type="ISO">ISO\\u00a0712</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
                          <name>International Organization for Standardization</name>
                       </organization>
                    </contributor>
-                   <biblio-tag>ISO 712, </biblio-tag>
+                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
                 </bibitem>
              </references>
           </sections>
@@ -366,11 +366,11 @@ RSpec.describe IsoDoc do
           <head/>
           <body lang="en">
              <div class="title-section">
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <br/>
              <div class="prefatory-section">
-                <p> </p>
+                <p>\\u00a0</p>
              </div>
              <br/>
              <div class="main-section">
@@ -418,10 +418,10 @@ RSpec.describe IsoDoc do
                    </a>
                 </p>
                 <div>
-                   <h1>1.  Normative References</h1>
+                   <h1>1.\\u00a0 Normative References</h1>
                    <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                    <p id="ISO712" class="NormRef">
-                      ISO 712, International Organization for Standardization.
+                      ISO\\u00a0712, International Organization for Standardization.
                       <i>
                          Cereals and cereal products
                          <a class="FootnoteRef" href="#fn:_20">
@@ -462,7 +462,7 @@ RSpec.describe IsoDoc do
     doc = <<~OUTPUT
        <body lang="EN-US" link="blue" vlink="#954F72">
           <div class="WordSection1">
-             <p> </p>
+             <p>\\u00a0</p>
           </div>
           <p class="section-break">
              <br clear="all" class="section"/>
@@ -513,7 +513,7 @@ RSpec.describe IsoDoc do
                    </span>
                 </p>
              </div>
-             <p> </p>
+             <p>\\u00a0</p>
           </div>
           <p class="section-break">
              <br clear="all" class="section"/>
@@ -532,12 +532,12 @@ RSpec.describe IsoDoc do
              <div>
                 <h1>
                    1.
-                   <span style="mso-tab-count:1">  </span>
+                   <span style="mso-tab-count:1">\\u00a0 </span>
                    Normative References
                 </h1>
                 <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                 <p id="ISO712" class="NormRef">
-                   ISO 712, International Organization for Standardization.
+                   ISO\\u00a0712, International Organization for Standardization.
                    <i>
                       Cereals and cereal products
                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -620,7 +620,7 @@ RSpec.describe IsoDoc do
                    </span>
                 </p>
              </div>
-             <p class="MsoNormal"> </p>
+             <p class="MsoNormal">\\u00a0</p>
           </div>
           <p class="MsoNormal">
              <br clear="all" class="section"/>
@@ -639,13 +639,13 @@ RSpec.describe IsoDoc do
              <div>
                 <h1>
                    1.
-                   <span style="mso-tab-count:1">  </span>
+                   <span style="mso-tab-count:1">\\u00a0 </span>
                    Normative References
                 </h1>
                 <p class="MsoNormal">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
                 <p class="NormRef">
                    <a name="ISO712" id="ISO712"/>
-                   ISO 712, International Organization for Standardization.
+                   ISO\\u00a0712, International Organization for Standardization.
                    <i>
                       Cereals and cereal products
                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
@@ -730,18 +730,18 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output))
+    expect(strip_guid(Xml::C14n.format(pres_output))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
       .to be_equivalent_to Xml::C14n.format(presxml)
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(Xml::C14n.format(strip_guid(output.to_xml)))
+    expect(strip_guid(Xml::C14n.format(output.to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
       .at("//body").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(strip_guid(doc))
+      .to be_equivalent_to strip_guid(Xml::C14n.format(doc))
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
@@ -1091,7 +1091,7 @@ RSpec.describe IsoDoc do
                 </span>
              </div>
              <p class="MsoNormal">
-                <span style="mso-comment-continuation:6"> </span>
+                <span style="mso-comment-continuation:6">\\u00a0</span>
              </p>
           </div>
           <p class="MsoNormal">
@@ -1216,7 +1216,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
@@ -1224,7 +1224,7 @@ RSpec.describe IsoDoc do
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(Xml::C14n.format(strip_guid(out)))
+    expect(strip_guid(Xml::C14n.format(out)))
       .to be_equivalent_to Xml::C14n.format(html)
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
@@ -1232,7 +1232,7 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, false)
     out = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m,
                                                               "</body>")
-    expect(Xml::C14n.format(strip_guid(out)))
+    expect(strip_guid(Xml::C14n.format(out)))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
@@ -1427,7 +1427,7 @@ RSpec.describe IsoDoc do
                 <a name="_2" id="_2"/>
                 <h1 class="IntroTitle">Introduction</h1>
              </div>
-             <p class="MsoNormal"> </p>
+             <p class="MsoNormal">\\u00a0</p>
           </div>
           <p class="MsoNormal">
              <br clear="all" class="section"/>
@@ -1455,7 +1455,7 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
@@ -1463,7 +1463,7 @@ RSpec.describe IsoDoc do
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(Xml::C14n.format(strip_guid(out)))
+    expect(strip_guid(Xml::C14n.format(out)))
       .to be_equivalent_to Xml::C14n.format(html)
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
@@ -1471,7 +1471,7 @@ RSpec.describe IsoDoc do
       .convert("test", pres_output, false)
     out = File.read("test.doc")
       .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
-    expect(Xml::C14n.format(strip_guid(out)))
+    expect(strip_guid(Xml::C14n.format(out)))
       .to be_equivalent_to Xml::C14n.format(word)
   end
 end

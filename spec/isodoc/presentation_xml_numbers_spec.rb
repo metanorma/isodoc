@@ -229,11 +229,11 @@ RSpec.describe IsoDoc do
            <head/>
            <body lang="en">
               <div class="title-section">
-                 <p> </p>
+                 <p>\\u00a0</p>
               </div>
               <br/>
               <div class="prefatory-section">
-                 <p> </p>
+                 <p>\\u00a0</p>
               </div>
               <br/>
               <div class="main-section">
@@ -335,11 +335,11 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert.new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(output)
+    expect(strip_guid(Xml::C14n.format(output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -699,7 +699,7 @@ RSpec.describe IsoDoc do
     end
 
     it "Supports twitter_cldr_localiser_symbols fraction options" do
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
         .new(presxml_options)
         .convert("test", input, true))
         .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -854,14 +854,14 @@ RSpec.describe IsoDoc do
                                 </mrow>
                              </mrow>
                              <mrow>
-                                <mn>1 000</mn>
+                                <mn>1\\u202f000</mn>
                              </mrow>
                           </munderover>
                           <mfenced open="(" close=")">
                              <mtable>
                                 <mtr>
                                    <mtd>
-                                      <mn>1 000</mn>
+                                      <mn>1\\u202f000</mn>
                                    </mtd>
                                 </mtr>
                                 <mtr>
@@ -905,7 +905,7 @@ RSpec.describe IsoDoc do
            </preface>
         </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -1116,7 +1116,7 @@ RSpec.describe IsoDoc do
            </preface>
         </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -1188,7 +1188,7 @@ RSpec.describe IsoDoc do
         </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
         .new({ localizenumber: "##0;###" }
         .merge(presxml_options))
           .convert("test", input, true))
@@ -1258,7 +1258,7 @@ RSpec.describe IsoDoc do
         </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
-      expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
@@ -1803,13 +1803,13 @@ RSpec.describe IsoDoc do
              </math>
           </stem>
           <fmt-stem type="MathML">
-             <semx element="stem" source="_">30 000,00</semx>
+             <semx element="stem" source="_">30\\u202f000,00</semx>
           </fmt-stem>
        </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
@@ -2196,13 +2196,13 @@ RSpec.describe IsoDoc do
              </math>
           </stem>
           <fmt-stem type="MathML">
-             <semx element="stem" source="_">30 000</semx>
+             <semx element="stem" source="_">30\\u202f000</semx>
           </fmt-stem>
        </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
             .convert("test", input, true))
@@ -2620,13 +2620,13 @@ RSpec.describe IsoDoc do
              </math>
           </stem>
           <fmt-stem type="MathML">
-             <semx element="stem" source="_">30 000</semx>
+             <semx element="stem" source="_">30\\u202f000</semx>
           </fmt-stem>
        </p>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
@@ -3106,7 +3106,7 @@ RSpec.describe IsoDoc do
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
@@ -3246,7 +3246,7 @@ RSpec.describe IsoDoc do
            </formula>
         </p>
       OUTPUT
-      expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
         .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
         .convert("test", input, true))

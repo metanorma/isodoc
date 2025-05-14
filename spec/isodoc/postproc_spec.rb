@@ -959,7 +959,7 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(Xml::C14n.format(html)).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+    expect(strip_guid(Xml::C14n.format(html))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
        <main class="main-section">
           <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
           <br/>
@@ -967,7 +967,7 @@ RSpec.describe IsoDoc do
              <h1 class="ForewordTitle">Foreword</h1>
              <pre id="samplecode" class="sourcecode">
                 <br/>
-                  &lt;xml&gt; &amp;
+                \\u00a0 &lt;xml&gt; &amp;
                 <br/>
              </pre>
              <p class="SourceTitle" style="text-align:center;">XML code</p>
@@ -981,7 +981,7 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    expect(Xml::C14n.format(strip_guid(word)))
+    expect(strip_guid(Xml::C14n.format(word)))
         .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
       <div class="WordSection2">
           <p class="MsoNormal">
@@ -993,12 +993,12 @@ RSpec.describe IsoDoc do
              <p class="Sourcecode" style="page-break-after:avoid;">
                 <a name="samplecode" id="samplecode"/>
                 <br/>
-                  &lt;xml&gt; &amp;
+                \\u00a0 &lt;xml&gt; &amp;
                 <br/>
              </p>
              <p class="SourceTitle" style="text-align:center;">XML code</p>
           </div>
-          <p class="MsoNormal"> </p>
+          <p class="MsoNormal">\\u00a0</p>
        </div>
     OUTPUT
   end

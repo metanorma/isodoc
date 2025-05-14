@@ -110,7 +110,7 @@ RSpec.describe IsoDoc do
 
     doc = <<~DOC
       #{WORD_HDR}
-       <p> </p>
+       <p>\\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>
@@ -161,9 +161,9 @@ RSpec.describe IsoDoc do
          </html>
     DOC
 
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true))).to be_equivalent_to Xml::C14n.format(doc)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(html)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(doc)
   end
 end

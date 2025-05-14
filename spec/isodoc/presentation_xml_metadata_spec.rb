@@ -29,7 +29,7 @@ RSpec.describe IsoDoc do
           </metanorma-extension>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))
   .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -67,7 +67,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
     xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
       .each(&:remove)
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
@@ -110,7 +110,7 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
     xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
       .each(&:remove)
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
 

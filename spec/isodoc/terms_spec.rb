@@ -73,7 +73,7 @@ RSpec.describe IsoDoc do
 
     html = <<~"OUTPUT"
       #{HTML_HDR}
-                   <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                   <div id="H"><h1>1.\\u00a0 Terms, Definitions, Symbols and Abbreviated Terms</h1>
            <p class="TermNum" id="J">1.1.</p>
              <p class="Terms" style="text-align:left;"><b>Term2</b></p>
            </div>
@@ -84,9 +84,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -260,7 +260,7 @@ RSpec.describe IsoDoc do
                                   <locality type="clause">
                                      <referenceFrom>3.1</referenceFrom>
                                   </locality>
-                                  ISO 7301:2011, Clause 3.1
+                                  ISO\\u00a07301:2011, Clause 3.1
                                </fmt-origin>
                             </semx>
                             , modified —
@@ -600,7 +600,7 @@ RSpec.describe IsoDoc do
                                <locality type="clause">
                                   <referenceFrom>3.1</referenceFrom>
                                </locality>
-                               ISO 7301:2011, 3.1
+                               ISO\\u00a07301:2011, 3.1
                             </fmt-origin>
                          </semx>
                          <origin bibitemid="ISO7301" type="inline" case="lowercase" citeas="ISO 7301:2011" id="_">
@@ -613,7 +613,7 @@ RSpec.describe IsoDoc do
                                <locality type="clause">
                                   <referenceFrom>3.1</referenceFrom>
                                </locality>
-                               ISO 7301:2011, clause 3.1
+                               ISO\\u00a07301:2011, clause 3.1
                             </fmt-origin>
                          </semx>
                       </semx>
@@ -628,12 +628,12 @@ RSpec.describe IsoDoc do
     html = <<~"OUTPUT"
       #{HTML_HDR}
                 <div id="terms_and_definitions">
-                   <h1>1.  Terms and Definitions</h1>
+                   <h1>1.\\u00a0 Terms and Definitions</h1>
                    <p>For the purposes of this document, the following terms and definitions apply.</p>
                    <p class="TermNum" id="paddy1">1.1.</p>
                    <p class="Terms" style="text-align:left;">
                       <b>paddy</b>
-                      , &lt;in agriculture, dated&gt; [SOURCE: ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
+                      , &lt;in agriculture, dated&gt; [SOURCE: ISO\\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
                    </p>
                    <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
                    <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
@@ -687,7 +687,7 @@ RSpec.describe IsoDoc do
                       </div>
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
                    </div>
-                   <p>[SOURCE: ISO 7301:2011, 3.1ISO 7301:2011, clause 3.1]</p>
+                   <p>[SOURCE: ISO\\u00a07301:2011, 3.1ISO\\u00a07301:2011, clause 3.1]</p>
                 </div>
              </div>
           </body>
@@ -696,7 +696,7 @@ RSpec.describe IsoDoc do
 
     word = <<~"WORD"
       #{WORD_HDR}
-               <p> </p>
+               <p>\\u00a0</p>
       </div>
       <p class="section-break">
          <br clear="all" class="section"/>
@@ -705,14 +705,14 @@ RSpec.describe IsoDoc do
                 <div id="terms_and_definitions">
                    <h1>
                       1.
-                      <span style="mso-tab-count:1">  </span>
+                      <span style="mso-tab-count:1">\\u00a0 </span>
                       Terms and Definitions
                    </h1>
                    <p>For the purposes of this document, the following terms and definitions apply.</p>
                    <p class="TermNum" id="paddy1">1.1.</p>
                    <p class="Terms" style="text-align:left;">
                       <b>paddy</b>
-                      , &lt;in agriculture, dated&gt; [SOURCE: ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
+                      , &lt;in agriculture, dated&gt; [SOURCE: ISO\\u00a07301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
                    </p>
                    <p id="_">&lt;rice&gt;  rice retaining its husk after threshing</p>
                    <div id="_" class="example" style="page-break-after: avoid;page-break-inside: avoid;">
@@ -766,7 +766,7 @@ RSpec.describe IsoDoc do
                       </div>
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
                    </div>
-                   <p>[SOURCE: ISO 7301:2011, 3.1ISO 7301:2011, clause 3.1]</p>
+                   <p>[SOURCE: ISO\\u00a07301:2011, 3.1ISO\\u00a07301:2011, clause 3.1]</p>
                 </div>
              </div>
           </body>
@@ -775,12 +775,12 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
+    expect(strip_guid(Xml::C14n.format(pres_output)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(word)
   end
@@ -925,7 +925,7 @@ RSpec.describe IsoDoc do
                                   <locality type="clause">
                                      <referenceFrom>3.1</referenceFrom>
                                   </locality>
-                                  ISO 7301:2011, Clause 3.1
+                                  ISO\\u00a07301:2011, Clause 3.1
                                </fmt-origin>
                             </semx>
                             , modified —
@@ -1042,7 +1042,7 @@ RSpec.describe IsoDoc do
           </term>
        </terms>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))
@@ -1314,7 +1314,7 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))
@@ -1440,7 +1440,7 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))
@@ -1620,7 +1620,7 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))
@@ -2012,7 +2012,7 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     PRESXML
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))
@@ -2226,7 +2226,7 @@ RSpec.describe IsoDoc do
           </term>
        </terms>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))
@@ -2470,7 +2470,7 @@ RSpec.describe IsoDoc do
           </term>
        </terms>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
           .new(presxml_options)
            .convert("test", input, true))
           .at("//xmlns:terms").to_xml)))
@@ -2649,7 +2649,7 @@ RSpec.describe IsoDoc do
           </term>
        </terms>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
           .new(presxml_options)
           .convert("test", input.sub(%r{<language>en</language>},
                                      "<language>de</language>"), true))
@@ -2776,7 +2776,7 @@ RSpec.describe IsoDoc do
          </term>
       </terms>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))

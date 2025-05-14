@@ -441,24 +441,24 @@ RSpec.describe IsoDoc do
               </div>
                      </div>
                      <div id="D">
-                       <h1>1.&#160; Scope</h1>
+                       <h1>1.\\u00a0 Scope</h1>
                        <p id="E">Text</p>
                      </div>
                      <div>
-                       <h1>2.&#160; Normative References</h1>
+                       <h1>2.\\u00a0 Normative References</h1>
                      </div>
-                     <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
+                     <div id="H"><h1>3.\\u00a0 Terms, definitions, symbols and abbreviated terms</h1>
              <div id="I">
-                <h2>3.1.&#160; Normal Terms</h2>
+                <h2>3.1.\\u00a0 Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-              </div><div id="K"><h2>3.2.  Symbols</h2>
+              </div><div id="K"><h2>3.2.\\u00a0 Symbols</h2>
                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                 </div>
               </div></div>
                      <div id="L" class="Symbols">
-                       <h1>4.  Symbols</h1>
+                       <h1>4.\\u00a0 Symbols</h1>
                         <div class="figdl">
                        <dl>
                          <dt>
@@ -469,21 +469,21 @@ RSpec.describe IsoDoc do
                        </div>
                      </div>
                      <div id="M">
-                       <h1>5.&#160; Clause 4</h1>
+                       <h1>5.\\u00a0 Clause 4</h1>
                        <div id="N">
-                <h2>5.1.&#160; Introduction</h2>
+                <h2>5.1.\\u00a0 Introduction</h2>
               </div>
                        <div id="O">
-                <h2>5.2.&#160; Clause 4.2</h2>
+                <h2>5.2.\\u00a0 Clause 4.2</h2>
               </div>
                      </div>
                      <br/>
                      <div id="P" class="Section3">
                        <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                        <div id="Q">
-                <h2>A.1.&#160; Annex A.1</h2>
+                <h2>A.1.\\u00a0 Annex A.1</h2>
                 <div id="Q1">
-                <h3>A.1.1.&#160; Annex A.1a</h3>
+                <h3>A.1.1.\\u00a0 Annex A.1a</h3>
                 </div>
               </div>
                      </div>
@@ -501,10 +501,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -567,7 +567,7 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
@@ -1014,24 +1014,24 @@ RSpec.describe IsoDoc do
               </div>
                      </div>
                      <div id="D">
-                       <h1>1.&#160; Scope</h1>
+                       <h1>1.\\u00a0 Scope</h1>
                        <p id="E">Text</p>
                      </div>
                      <div>
-                       <h1>2.&#160; Normative References</h1>
+                       <h1>2.\\u00a0 Normative References</h1>
                      </div>
-                     <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
+                     <div id="H"><h1>3.\\u00a0 Terms, definitions, symbols and abbreviated terms</h1>
              <div id="I">
-                <h2>3.1.&#160; Normal Terms</h2>
+                <h2>3.1.\\u00a0 Normal Terms</h2>
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-              </div><div id="K"><h2>3.2.  Symboles</h2>
+              </div><div id="K"><h2>3.2.\\u00a0 Symboles</h2>
                <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                 </div>
               </div></div>
                      <div id="L" class="Symbols">
-                       <h1>4.  Symboles</h1>
+                       <h1>4.\\u00a0 Symboles</h1>
                         <div class="figdl">
                        <dl>
                          <dt>
@@ -1042,21 +1042,21 @@ RSpec.describe IsoDoc do
                        </div>
                      </div>
                      <div id="M">
-                       <h1>5.&#160; Clause 4</h1>
+                       <h1>5.\\u00a0 Clause 4</h1>
                        <div id="N">
-                <h2>5.1.&#160; Introduction</h2>
+                <h2>5.1.\\u00a0 Introduction</h2>
               </div>
                        <div id="O">
-                <h2>5.2.&#160; Clause 4.2</h2>
+                <h2>5.2.\\u00a0 Clause 4.2</h2>
               </div>
                      </div>
                      <br/>
                      <div id="P" class="Section3">
                        <h1 class="Annex"><b>Annexe A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
                        <div id="Q">
-                <h2>A.1.&#160; Annex A.1</h2>
+                <h2>A.1.\\u00a0 Annex A.1</h2>
                 <div id="Q1">
-                <h3>A.1.1.&#160; Annex A.1a</h3>
+                <h3>A.1.1.\\u00a0 Annex A.1a</h3>
                 </div>
               </div>
                      </div>
@@ -1074,10 +1074,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -1182,7 +1182,7 @@ RSpec.describe IsoDoc do
           </bibdata>
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">目　次</fmt-title>
+                <fmt-title depth="1">目\\u3000次</fmt-title>
              </clause>
              <foreword obligation="informative" id="_" displayorder="2">
                 <title id="_">Foreword</title>
@@ -1238,7 +1238,7 @@ RSpec.describe IsoDoc do
                       </locality>
                    </eref>
                    <semx element="eref" source="_">
-                      <fmt-xref type="inline" target="ISO712">ISO 712，第1～1表</fmt-xref>
+                      <fmt-xref type="inline" target="ISO712">ISO\\u00a0712，第1～1表</fmt-xref>
                    </semx>
                 </p>
              </clause>
@@ -1439,15 +1439,15 @@ RSpec.describe IsoDoc do
                       .
                    </formattedref>
                    <title format="text/plain">Cereals and cereal products</title>
-                   <docidentifier>ISO 712</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+                   <docidentifier>ISO\\u00a0712</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
                          <abbreviation>ISO</abbreviation>
                       </organization>
                    </contributor>
-                   <biblio-tag>ISO 712, </biblio-tag>
+                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
                 </bibitem>
              </references>
           </sections>
@@ -1541,7 +1541,7 @@ RSpec.describe IsoDoc do
     PRESXML
 
     html = <<~"OUTPUT"
-      #{HTML_HDR.gsub(' lang="en">', ' lang="zh">').gsub('Table of contents', '目　次')}
+      #{HTML_HDR.gsub(' lang="en">', ' lang="zh">').gsub('Table of contents', '目\\u3000次')}
              <br/>
              <div id="_">
                <h1 class="ForewordTitle">Foreword</h1>
@@ -1555,31 +1555,31 @@ RSpec.describe IsoDoc do
               </div>
              </div>
              <div id="D">
-               <h1>1.　Scope</h1>
+               <h1>1.\\u3000Scope</h1>
                <p id="E">
-                 <a href="#ISO712">ISO&#xa0;712，第1～1表</a>
+                 <a href="#ISO712">ISO\\u00a0712，第1～1表</a>
                </p>
              </div>
-             <div><h1>2.　Normative References</h1>
+             <div><h1>2.\\u3000Normative References</h1>
 
-             <p id="ISO712" class="NormRef">ISO&#xa0;712, <i>Cereals and cereal products</i>.</p>
+             <p id="ISO712" class="NormRef">ISO\\u00a0712, <i>Cereals and cereal products</i>.</p>
               </div>
              <div id="H">
-               <h1>3.　Terms, definitions, symbols and abbreviated terms</h1>
-               <div id="I"><h2>3.1.　Normal Terms</h2>
+               <h1>3.\\u3000Terms, definitions, symbols and abbreviated terms</h1>
+               <div id="I"><h2>3.1.\\u3000Normal Terms</h2>
 
                 <p class="TermNum" id="J">3.1.1.</p>
                 <p class="Terms" style="text-align:left;"><b>Term2</b></p>
 
               </div>
-               <div id="K"><h2>3.2.　符号</h2>
+               <div id="K"><h2>3.2.\\u3000符号</h2>
                 <div class="figdl">
                 <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
                 </div>
               </div>
              </div>
              <div id="L" class="Symbols">
-               <h1>4.　符号</h1>
+               <h1>4.\\u3000符号</h1>
                 <div class="figdl">
                <dl>
                  <dt>
@@ -1590,11 +1590,11 @@ RSpec.describe IsoDoc do
                </div>
              </div>
              <div id="M">
-               <h1>5.　Clause 4</h1>
-               <div id="N"><h2>5.1.　Introduction</h2>
+               <h1>5.\\u3000Clause 4</h1>
+               <div id="N"><h2>5.1.\\u3000Introduction</h2>
 
               </div>
-               <div id="O"><h2>5.2.　Clause 4.2</h2>
+               <div id="O"><h2>5.2.\\u3000Clause 4.2</h2>
 
               </div>
              </div>
@@ -1609,9 +1609,9 @@ RSpec.describe IsoDoc do
                       <b>Annex</b>
                    </h1>
                    <div id="Q">
-                      <h2>A.1.　Annex A.1</h2>
+                      <h2>A.1.\\u3000Annex A.1</h2>
                       <div id="Q1">
-                         <h3>A.1.1.　Annex A.1a</h3>
+                         <h3>A.1.1.\\u3000Annex A.1a</h3>
                       </div>
                    </div>
                 </div>
@@ -1629,10 +1629,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -1822,7 +1822,7 @@ RSpec.describe IsoDoc do
                       </locality>
                    </eref>
                    <semx element="eref" source="_">
-                      <fmt-xref type="inline" target="ISO712">ISO 712, Tabelo 1–1</fmt-xref>
+                      <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Tabelo 1–1</fmt-xref>
                    </semx>
                 </p>
              </clause>
@@ -2046,15 +2046,15 @@ RSpec.describe IsoDoc do
                       .
                    </formattedref>
                    <title format="text/plain">Cereals and cereal products</title>
-                   <docidentifier>ISO 712</docidentifier>
-                   <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+                   <docidentifier>ISO\\u00a0712</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO\\u00a0712</docidentifier>
                    <contributor>
                       <role type="publisher"/>
                       <organization>
                          <abbreviation>ISO</abbreviation>
                       </organization>
                    </contributor>
-                   <biblio-tag>ISO 712, </biblio-tag>
+                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
                 </bibitem>
              </references>
           </sections>
@@ -2160,11 +2160,11 @@ RSpec.describe IsoDoc do
                <head/>
                <body lang='eo'>
                  <div class='title-section'>
-                   <p>&#160;</p>
+                   <p>\\u00a0</p>
                  </div>
                  <br/>
                  <div class='prefatory-section'>
-                   <p>&#160;</p>
+                   <p>\\u00a0</p>
                  </div>
                  <br/>
                  <div class='main-section'>
@@ -2194,27 +2194,27 @@ RSpec.describe IsoDoc do
                      </div>
                    </div>
                    <div id='D'>
-                     <h1>1.&#160; Scope</h1>
+                     <h1>1.\\u00a0 Scope</h1>
                      <p id='E'>
-                       <a href='#ISO712'>ISO&#xa0;712, Tabelo 1&#8211;1</a>
+                       <a href='#ISO712'>ISO\\u00a0712, Tabelo 1&#8211;1</a>
                      </p>
                    </div>
                    <div>
-                     <h1>2.&#160; Normative References</h1>
+                     <h1>2.\\u00a0 Normative References</h1>
                      <p id='ISO712' class='NormRef'>
-                       ISO&#xa0;712,
+                       ISO\\u00a0712,
                        <i>Cereals and cereal products</i>.
                      </p>
                    </div>
                    <div id='H'>
-                     <h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
+                     <h1>3.\\u00a0 Terms, definitions, symbols and abbreviated terms</h1>
                      <div id='I'>
-                       <h2>3.1.&#160; Normal Terms</h2>
+                       <h2>3.1.\\u00a0 Normal Terms</h2>
                        <p class='TermNum' id='J'>3.1.1.</p>
                        <p class='Terms' style='text-align:left;'><b>Term2</b></p>
                      </div>
                      <div id='K'>
-                       <h2>3.2.  Simboloj kai mallongigitaj terminoj</h2>
+                       <h2>3.2.\\u00a0 Simboloj kai mallongigitaj terminoj</h2>
                         <div class="figdl">
                        <dl>
                          <dt>
@@ -2226,7 +2226,7 @@ RSpec.describe IsoDoc do
                      </div>
                    </div>
                    <div id='L' class='Symbols'>
-                     <h1>4.  Simboloj kai mallongigitaj terminoj</h1>
+                     <h1>4.\\u00a0 Simboloj kai mallongigitaj terminoj</h1>
                       <div class="figdl">
                      <dl>
                        <dt>
@@ -2237,17 +2237,17 @@ RSpec.describe IsoDoc do
                      </div>
                    </div>
                    <div id='M'>
-                     <h1>5.&#160; Clause 4</h1>
+                     <h1>5.\\u00a0 Clause 4</h1>
                      <div id='N'>
-                       <h2>5.1.&#160; Introduction</h2>
+                       <h2>5.1.\\u00a0 Introduction</h2>
                        <div id='M-n1' class='Note'>
         <p>
-          <span class="note_label">NOTO  </span>
+          <span class="note_label">NOTO\\u00a0 </span>
         </p>
       </div>
                      </div>
                      <div id='O'>
-                       <h2>5.2.&#160; Clause 4.2</h2>
+                       <h2>5.2.\\u00a0 Clause 4.2</h2>
                      </div>
                    </div>
                    <br/>
@@ -2261,9 +2261,9 @@ RSpec.describe IsoDoc do
                        <b>Annex</b>
                      </h1>
                      <div id='Q'>
-                       <h2>A.1.&#160; Annex A.1</h2>
+                       <h2>A.1.\\u00a0 Annex A.1</h2>
                        <div id='Q1'>
-                         <h3>A.1.1.&#160; Annex A.1a</h3>
+                         <h3>A.1.1.\\u00a0 Annex A.1a</h3>
                        </div>
                      </div>
                    </div>
@@ -2283,10 +2283,10 @@ RSpec.describe IsoDoc do
       .new(presxml_options
       .merge({ i18nyaml: "spec/assets/i18n.yaml" }))
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(strip_guid(Xml::C14n.format(pres_output
     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::HtmlConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" })
       .convert("test", pres_output, true))))
       .to be_equivalent_to Xml::C14n.format(html)
@@ -2337,11 +2337,11 @@ RSpec.describe IsoDoc do
               </locality>
            </eref>
            <semx element="eref" source="_">
-              <fmt-xref type="inline" target="ISO712">ISO 712, Preludo 7</fmt-xref>
+              <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Preludo 7</fmt-xref>
            </semx>
         </p>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
       .convert("test", input, true))
@@ -2436,7 +2436,7 @@ RSpec.describe IsoDoc do
                 <clause>
                    <title id="_">版權</title>
                    <fmt-title depth="1">
-                      <semx element="title" source="_">版　權</semx>
+                      <semx element="title" source="_">版\\u3000權</semx>
                    </fmt-title>
                 </clause>
                 <clause>
@@ -2448,23 +2448,23 @@ RSpec.describe IsoDoc do
                 <clause language="en">
                    <title id="_">版權</title>
                    <fmt-title depth="1">
-                      <semx element="title" source="_">版　權</semx>
+                      <semx element="title" source="_">版\\u3000權</semx>
                    </fmt-title>
                 </clause>
              </copyright-statement>
           </boilerplate>
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">目　次</fmt-title>
+                <fmt-title depth="1">目\\u3000次</fmt-title>
              </clause>
-             <floating-title original-id="_">樣　板</floating-title>
+             <floating-title original-id="_">樣\\u3000板</floating-title>
              <p id="_" type="floating-title" displayorder="2">
-                <semx element="floating-title" source="_">樣　板</semx>
+                <semx element="floating-title" source="_">樣\\u3000板</semx>
              </p>
              <abstract obligation="informative" language="jp" displayorder="3" id="_">
                 <title id="_">解題</title>
                 <fmt-title depth="1">
-                   <semx element="title" source="_">解　題</semx>
+                   <semx element="title" source="_">解\\u3000題</semx>
                 </fmt-title>
              </abstract>
              <foreword obligation="informative" displayorder="4" id="_">
@@ -2481,7 +2481,7 @@ RSpec.describe IsoDoc do
              <introduction id="B" obligation="informative" displayorder="6">
                 <title id="_">簡介</title>
                 <fmt-title depth="1">
-                   <semx element="title" source="_">簡　介</semx>
+                   <semx element="title" source="_">簡\\u3000介</semx>
                 </fmt-title>
                 <clause id="C" inline-header="false" obligation="informative">
                    <title id="_">引言部分</title>
@@ -2505,7 +2505,7 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
       .new(presxml_options).convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to Xml::C14n.format(presxml)
