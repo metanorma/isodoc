@@ -1173,7 +1173,7 @@ RSpec.describe IsoDoc do
                 <div id="_">
                   <h1 class='ForewordTitle'>Foreword</h1>
                   <div id='figureA-1' class='figure'>
-                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' height="200" width="200" preserveaspectratio="xMidYMin slice">
+                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' height="1" preserveaspectratio="xMidYMin slice">
                       <circle fill='#009' r='45' cx='50' cy='50'/>
                       <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
                     </svg>

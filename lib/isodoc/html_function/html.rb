@@ -102,10 +102,8 @@ module IsoDoc
 
       def image_body_parse(node, attrs, out)
         if svg = node.at("./m:svg", "m" => "http://www.w3.org/2000/svg")
-          %i(height width).each do |k|
-            v = attrs[k] and v != "auto" and !v.empty? and
-              svg[k.to_s] = v
-          end
+          svg.delete("width")
+          svg["height"] = "1"
           out.parent.add_child(svg)
         else super
         end
