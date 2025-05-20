@@ -103,7 +103,8 @@ module IsoDoc
       def image_body_parse(node, attrs, out)
         if svg = node.at("./m:svg", "m" => "http://www.w3.org/2000/svg")
           svg.delete("width")
-          svg["height"] = "1"
+          svg["height"] = "1px"
+          svg["padding-bottom"] = "calc(100% * 3 / 4);"
           out.parent.add_child(svg)
         else super
         end
