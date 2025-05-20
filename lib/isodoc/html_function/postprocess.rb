@@ -80,9 +80,9 @@ module IsoDoc
         IsoDoc::HtmlFunction::MathvariantToPlain.new(docxml).convert
       end
 
+      # do not resize SVG, their height is set to 1px in HTML for autofit
       def resize_images(docxml)
-        docxml.xpath("//*[local-name() = 'img' or local-name() = 'svg']")
-          .each do |i|
+        docxml.xpath("//*[local-name() = 'img']").each do |i|
           loc = image_localfile(i) or next
           i["width"], i["height"] = Vectory::ImageResize.new
             .call(i, loc, @maxheight, @maxwidth)
