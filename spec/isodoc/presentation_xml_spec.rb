@@ -64,22 +64,22 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="C">2</semx>
                 </fmt-xref-label>
              </clause>
-             <clause id="L__xf6_we" anchor="Löwe" semx-id="D" displayorder="4">
+             <clause id="Löwe" anchor="Löwe" semx-id="D" displayorder="4">
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
-                      <semx element="autonum" source="L__xf6_we">3</semx>
+                      <semx element="autonum" source="Löwe">3</semx>
                       <span class="fmt-autonum-delim">.</span>
                    </span>
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="L__xf6_we">3</semx>
+                   <semx element="autonum" source="Löwe">3</semx>
                 </fmt-xref-label>
-                <xref target="L__xf6_we" id="_"/>
+                <xref target="Löwe" id="_"/>
                 <semx element="xref" source="_">
-                   <fmt-xref target="L__xf6_we">
+                   <fmt-xref target="Löwe">
                       <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="L__xf6_we">3</semx>
+                      <semx element="autonum" source="Löwe">3</semx>
                    </fmt-xref>
                 </semx>
              </clause>
