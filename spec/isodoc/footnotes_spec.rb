@@ -57,7 +57,7 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata>
              <title>
                 <fn reference="1" id="_1" original-reference="43" target="_15">
@@ -88,7 +88,7 @@ RSpec.describe IsoDoc do
                          </fmt-fn-label>
                       </fn>
                    </title>
-                   <fmt-title depth="1">
+                   <fmt-title depth="1" id="_22">
                       <semx element="title" source="_10">
                          <fn reference="2" id="_2" original-reference="44" target="_16">
                             <p>D</p>
@@ -107,11 +107,11 @@ RSpec.describe IsoDoc do
           </boilerplate>
           <preface>
              <clause type="toc" id="_9" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_23">Table of contents</fmt-title>
              </clause>
              <foreword id="F" displayorder="2">
                 <title id="_12">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_24">
                    <semx element="title" source="_12">Foreword</semx>
                 </fmt-title>
                 <p>
@@ -157,7 +157,7 @@ RSpec.describe IsoDoc do
           </preface>
           <sections>
              <clause id="A" displayorder="5">
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_25">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">2</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -194,7 +194,7 @@ RSpec.describe IsoDoc do
              </p>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="4">
                 <title id="_14">Normative References</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_26">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -782,11 +782,11 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_8" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_33">Table of contents</fmt-title>
              </clause>
              <foreword displayorder="2" id="_6">
                 <title id="_10">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_34">
                    <semx element="title" source="_10">Foreword</semx>
                 </fmt-title>
                 <p id="A">
@@ -821,7 +821,7 @@ RSpec.describe IsoDoc do
              </foreword>
              <introduction displayorder="3" id="_7">
                 <title id="_11">Introduction</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_35">
                    <semx element="title" source="_11">Introduction</semx>
                 </fmt-title>
                 <p id="C">
@@ -1264,16 +1264,16 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_3" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_10">Table of contents</fmt-title>
              </clause>
              <foreword displayorder="2" id="_1">
                 <title id="_5">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_11">
                    <semx element="title" source="_5">Foreword</semx>
                 </fmt-title>
                 <ol type="alphabet">
                    <li id="A">
-                      <fmt-name>
+                      <fmt-name id="_12">
                          <semx element="autonum" source="A"/>
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
@@ -1284,7 +1284,7 @@ RSpec.describe IsoDoc do
                       <p>A1</p>
                    </li>
                    <li id="B">
-                      <fmt-name>
+                      <fmt-name id="_13">
                          <semx element="autonum" source="B"/>
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
@@ -1292,7 +1292,7 @@ RSpec.describe IsoDoc do
                    </li>
                    <ul>
                       <li>
-                         <fmt-name>
+                         <fmt-name id="_14">
                             <semx element="autonum" source="">—</semx>
                          </fmt-name>
                          <p>C.</p>
@@ -1302,7 +1302,7 @@ RSpec.describe IsoDoc do
                          </p>
                       </li>
                       <li id="D">
-                         <fmt-name>
+                         <fmt-name id="_15">
                             <semx element="autonum" source="D">—</semx>
                          </fmt-name>
                          D.
@@ -1312,7 +1312,7 @@ RSpec.describe IsoDoc do
              </foreword>
              <introduction displayorder="3" id="_2">
                 <title id="_6">Introduction</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_16">
                    <semx element="title" source="_6">Introduction</semx>
                 </fmt-title>
              </introduction>

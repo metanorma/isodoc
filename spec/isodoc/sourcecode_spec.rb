@@ -16,11 +16,11 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <sourcecode lang="ruby" id="samplecode" autonum="1">
@@ -28,7 +28,7 @@ RSpec.describe IsoDoc do
                       Ruby
                       <em>code</em>
                    </name>
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="samplecode">1</semx>
@@ -44,11 +44,11 @@ RSpec.describe IsoDoc do
                       <semx element="autonum" source="samplecode">1</semx>
                    </fmt-xref-label>
                    <body>puts x</body>
-                   <fmt-sourcecode lang="ruby" autonum="1">puts x</fmt-sourcecode>
+                   <fmt-sourcecode id="_" lang="ruby" autonum="1">puts x</fmt-sourcecode>
                 </sourcecode>
                 <sourcecode unnumbered="true" linenums="true" id="_"><body>
                    Hey Que?
-                   </body><fmt-sourcecode unnumbered="true" linenums="true">Hey
+                   </body><fmt-sourcecode id="_" unnumbered="true" linenums="true">Hey
        Que?
        </fmt-sourcecode>
                 </sourcecode>
@@ -181,11 +181,11 @@ RSpec.describe IsoDoc do
          </metanorma-extension>
          <preface>
              <clause type="toc" id="_" displayorder="1">
-             <fmt-title depth="1">Table of contents</fmt-title>
+             <fmt-title id="_" depth="1">Table of contents</fmt-title>
         </clause>
         <foreword id="_" displayorder="2">
                  <title id="_">Foreword</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
                <semx element="title" source="_">Foreword</semx>
          </fmt-title>
          <sourcecode lang="ruby" id="samplecode" autonum="1">
@@ -193,7 +193,7 @@ RSpec.describe IsoDoc do
                Ruby
                <em>code</em>
             </name>
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="samplecode">1</semx>
@@ -207,17 +207,17 @@ RSpec.describe IsoDoc do
             <fmt-xref-label>
                <span class="fmt-element-name">Figure</span>
                <semx element="autonum" source="samplecode">1</semx>
-            </fmt-xref-label><body>puts x</body><fmt-sourcecode lang="ruby" autonum="1">
+            </fmt-xref-label><body>puts x</body><fmt-sourcecode id="_" lang="ruby" autonum="1">
                <span class="nb">puts</span>
                <span class="n">x</span>
                </fmt-sourcecode>
              </sourcecode>
              <sourcecode unnumbered="true" linenums="true" id="A">
             <name id="_">More</name>
-            <fmt-name>
+            <fmt-name id="_">
                   <semx element="name" source="_">More</semx>
             </fmt-name><body>Hey
-      Que?</body><fmt-sourcecode unnumbered="true" linenums="true">
+      Que?</body><fmt-sourcecode id="_" unnumbered="true" linenums="true">
                <table class="rouge-line-table">
                  <tbody>
                    <tr id="line-1" class="lineno">
@@ -242,10 +242,10 @@ RSpec.describe IsoDoc do
              </sourcecode>
              <sourcecode unnumbered="true" linenums="true" id="B">
                <name id="_">More</name>
-            <fmt-name>
+            <fmt-name id="_">
                   <semx element="name" source="_">More</semx>
             </fmt-name><body>Hey
-      Que?</body><fmt-sourcecode unnumbered="true" linenums="true">
+      Que?</body><fmt-sourcecode id="_" unnumbered="true" linenums="true">
                <table class="rouge-line-table">
                  <tbody>
                    <tr id="line-1" class="lineno">
@@ -452,7 +452,7 @@ RSpec.describe IsoDoc do
       <metanorma-extension>
               <clause id="_user_css" inline-header="false" obligation="normative">
       <title id="_">user-css</title>
-      <fmt-title depth="1">
+      <fmt-title id="_" depth="1">
             <semx element="title" source="_">user-css</semx>
       </fmt-title>
              <sourcecode id="_"><body>.green { background-color: green }</body></sourcecode>
@@ -523,14 +523,14 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
       <bibdata/>
       <preface>    <clause type="toc" id="_" displayorder="1">
-      <fmt-title depth="1">Table of contents</fmt-title>
+      <fmt-title id="_" depth="1">Table of contents</fmt-title>
       </clause>
       <foreword id="_" displayorder="2">
                <title id="_">Foreword</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
                <semx element="title" source="_">Foreword</semx>
          </fmt-title>
-                  <sourcecode id="samplecode" lang="xml" autonum="1"><name id="_">XML code</name><fmt-name>
+                  <sourcecode id="samplecode" lang="xml" autonum="1"><name id="_">XML code</name><fmt-name id="_">
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="samplecode">1</semx>
@@ -540,10 +540,10 @@ RSpec.describe IsoDoc do
             </fmt-name><fmt-xref-label>
                <span class="fmt-element-name">Figure</span>
                <semx element="autonum" source="samplecode">1</semx>
-            </fmt-xref-label><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body><fmt-sourcecode lang="xml" autonum="1"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></fmt-sourcecode></sourcecode>
+            </fmt-xref-label><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body><fmt-sourcecode id="_" lang="xml" autonum="1"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></fmt-sourcecode></sourcecode>
                      <sourcecode id="samplecode1" lang="xml" linenums="true" autonum="2">
             <name id="_">XML code</name>
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">Figure</span>
                   <semx element="autonum" source="samplecode1">2</semx>
@@ -555,7 +555,7 @@ RSpec.describe IsoDoc do
                <span class="fmt-element-name">Figure</span>
                <semx element="autonum" source="samplecode1">2</semx>
             </fmt-xref-label><body>&lt;xml&gt;A&lt;b&gt;C&lt;/b&gt;&lt;/xml&gt;</body>
-               <fmt-sourcecode lang="xml" linenums="true" autonum="2"><table class="rouge-line-table">
+               <fmt-sourcecode id="_" lang="xml" linenums="true" autonum="2"><table class="rouge-line-table">
                                 <tbody>
                    <tr id="line-1" class="lineno">
                      <td class="rouge-gutter gl" style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;">
@@ -628,15 +628,15 @@ RSpec.describe IsoDoc do
           
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <sourcecode id="_" autonum="1">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="_">1</semx>
@@ -665,7 +665,7 @@ RSpec.describe IsoDoc do
                    <annotation original-id="C" id="_">
                       <p original-id="_">This is yet another callout</p>
                    </annotation>
-                   <fmt-sourcecode autonum="1">
+                   <fmt-sourcecode id="_" autonum="1">
                          puts "Hello, world."
                          <span class="c">
                             <callout target="A">1</callout>
@@ -680,7 +680,7 @@ RSpec.describe IsoDoc do
                          end
                          <dl>
                             <name id="_">Key</name>
-                            <fmt-name>
+                            <fmt-name id="_">
                                <semx element="name" source="_">Key</semx>
                             </fmt-name>
                             <dt id="A">
@@ -854,15 +854,15 @@ RSpec.describe IsoDoc do
           
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <sourcecode id="_" linenums="true" autonum="1">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="_">1</semx>
@@ -891,7 +891,7 @@ RSpec.describe IsoDoc do
                    <annotation original-id="C" id="_">
                       <p original-id="_">This is yet another callout</p>
                    </annotation>
-                   <fmt-sourcecode linenums="true" autonum="1">
+                   <fmt-sourcecode id="_" linenums="true" autonum="1">
                          <table class="rouge-line-table">
                             <tbody>
                                <tr id="line-1" class="lineno">
@@ -943,7 +943,7 @@ RSpec.describe IsoDoc do
                          </table>
                          <dl>
                             <name id="_">Key</name>
-                            <fmt-name>
+                            <fmt-name id="_">
                                <semx element="name" source="_">Key</semx>
                             </fmt-name>
                             <dt id="A">
@@ -1213,15 +1213,15 @@ RSpec.describe IsoDoc do
           
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="X" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <sourcecode id="_" lang="ruby" linenums="true" autonum="1">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="_">1</semx>
@@ -1249,7 +1249,7 @@ RSpec.describe IsoDoc do
                          callout
                       </p>
                    </annotation>
-                   <fmt-sourcecode lang="ruby" linenums="true" autonum="1">
+                   <fmt-sourcecode id="_" lang="ruby" linenums="true" autonum="1">
                       <table class="rouge-line-table">
                          <tbody>
                             <tr id="line-1" class="lineno">
@@ -1330,7 +1330,7 @@ RSpec.describe IsoDoc do
                       </table>
                       <dl>
                          <name id="_">Key</name>
-                         <fmt-name>
+                         <fmt-name id="_">
                             <semx element="name" source="_">Key</semx>
                          </fmt-name>
                          <dt id="A">
@@ -1383,16 +1383,16 @@ RSpec.describe IsoDoc do
            
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
               <foreword id="fwd" displayorder="2">
                  <title id="_">Foreword</title>
-                 <fmt-title depth="1">
+                 <fmt-title id="_" depth="1">
                     <semx element="title" source="_">Foreword</semx>
                  </fmt-title>
                  <figure id="fig" class="pseudocode" keep-with-next="true" keep-lines-together="true" autonum="1">
                     <name id="_">Label</name>
-                    <fmt-name>
+                    <fmt-name id="_">
                        <span class="fmt-caption-label">
                           <span class="fmt-element-name">Figure</span>
                           <semx element="autonum" source="fig">1</semx>

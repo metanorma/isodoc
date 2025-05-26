@@ -31,7 +31,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <foreword displayorder='2' id="_">
         <title id="_">Foreword</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
                 <semx element="title" source="_">Foreword</semx>
           </fmt-title>
           <p id="_">
@@ -61,7 +61,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <foreword displayorder='2' id="_">
         <title id="_">Foreword</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
                 <semx element="title" source="_">Foreword</semx>
           </fmt-title>
           <p id="_">
@@ -122,7 +122,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <foreword displayorder='2' id="_">
         <title id="_">Foreword</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
                 <semx element="title" source="_">Foreword</semx>
           </fmt-title>
           <p id="_">
@@ -153,7 +153,7 @@ RSpec.describe IsoDoc do
           </foreword></preface>
           <bibliography><references id="_normative_references" obligation="informative" normative="true">
                   <title id="_">Normative References</title>
-        <fmt-title depth="1">
+        <fmt-title id="_" depth="1">
            <span class="fmt-caption-label">
               <semx element="autonum" source="A">1</semx>
               <span class="fmt-autonum-delim">.</span>
@@ -185,7 +185,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <foreword displayorder='2' id="_">
         <title id="_">Foreword</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
                 <semx element="title" source="_">Foreword</semx>
           </fmt-title>
           <p id="_">
@@ -247,13 +247,13 @@ RSpec.describe IsoDoc do
           </bibdata>
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
           </preface>
           <sections>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
                 <title id="_">Normative references</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -301,7 +301,7 @@ RSpec.describe IsoDoc do
           <bibliography>
              <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
                 <title id="_">Bibliography</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Bibliography</semx>
                 </fmt-title>
                 <bibitem id="ref4" type="standard">
@@ -384,7 +384,7 @@ RSpec.describe IsoDoc do
         <bibliography>
            <references id="_normative_references" obligation="informative" normative="false" displayorder="2">
               <title id="_">Bibliography</title>
-              <fmt-title depth="1">
+              <fmt-title id="_" depth="1">
                  <semx element="title" source="_">Bibliography</semx>
               </fmt-title>
               <bibitem id="ref1" type="standard">
@@ -453,7 +453,7 @@ RSpec.describe IsoDoc do
         <bibliography>
            <references id="_normative_references" obligation="informative" normative="false" displayorder="2">
               <title id="_">Bibliography</title>
-              <fmt-title depth="1">
+              <fmt-title id="_" depth="1">
                  <semx element="title" source="_">Bibliography</semx>
               </fmt-title>
               <bibitem id="ref1" type="standard">
@@ -536,7 +536,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
         <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
           <title id="_">Normative References</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="_normative_references">1</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -657,7 +657,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
        <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
           <title id="_4">Normative References</title>
-          <fmt-title depth="1">
+          <fmt-title id="_8" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="_normative_references">1</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -787,7 +787,7 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
       <foreword id="A" displayorder="2">
                   <title id="_">Foreword</title>
-            <fmt-title depth="1">
+            <fmt-title id="_" depth="1">
                   <semx element="title" source="_">Foreword</semx>
             </fmt-title>
         <p id="_">
@@ -828,13 +828,13 @@ RSpec.describe IsoDoc do
         </bibdata>
         <preface>
           <clause type="toc" id="_" displayorder="1">
-          <fmt-title depth="1">Table of contents</fmt-title>
+          <fmt-title id="_" depth="1">Table of contents</fmt-title>
           </clause>
         </preface>
         <sections>
           <references id="C" obligation="informative" normative="true" displayorder="2">
           <title id="_">Normative References 2</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="C">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -871,13 +871,13 @@ RSpec.describe IsoDoc do
         </bibdata>
         <preface>
           <clause type="toc" id="_" displayorder="1">
-          <fmt-title depth="1"/>
+          <fmt-title id="_" depth="1"/>
           </clause>
         </preface>
         <sections>
           <references id="C" obligation="informative" normative="true" displayorder="2">
                    <title id="_">Normative References 2</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="C">1</semx>
                <span class="fmt-autonum-delim">.</span>

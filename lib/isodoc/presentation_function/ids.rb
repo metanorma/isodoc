@@ -1,8 +1,16 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def id_validate(docxml)
+      add_missing_presxml_id(docxml)
       repeat_id_validate(docxml)
       idref_validate(docxml)
+    end
+
+    def add_missing_presxml_id(docxml)
+      docxml.xpath(ns("//fmt-name | //fmt-title | //fmt-definition | " \
+        "//fmt-sourcecode | //fmt-provision")).each do |x|
+        x["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      end
     end
 
     def repeat_id_validate1(elem)

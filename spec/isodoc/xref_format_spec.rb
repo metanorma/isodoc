@@ -50,11 +50,11 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                       <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <p>
@@ -124,7 +124,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
        <clause id="C" displayorder="3">
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="C">2</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -202,7 +202,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
        <clause id="C" displayorder="3">
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="C">2</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -269,7 +269,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
        <clause id="C" displayorder="3">
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="C">2</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -477,7 +477,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       <clause id="C" displayorder="4">
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="C">2</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -639,7 +639,7 @@ RSpec.describe IsoDoc do
     INPUT
     output = <<~OUTPUT
       <clause id="C" displayorder="3">
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="C">2</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -742,7 +742,7 @@ RSpec.describe IsoDoc do
   it "ignores locations in xrefs" do
     input = <<~INPUT
       <itu-standard xmlns="https://www.calconnect.org/standards/itu">
-      <preface><foreword id="_" displayorder="1"><fmt-title>Foreword</fmt-title>
+      <preface><foreword id="_" displayorder="1"><fmt-title id="_">Foreword</fmt-title>
                   <p id='_'>
               <xref target="item_6-4-a"><location target="item_6-4-a" connective="from"/><location target="item_6-4-i" connective="to"/><display-text>6.4 List 1.a) to 2.b)</display-text></xref>
               </p>
@@ -753,11 +753,11 @@ RSpec.describe IsoDoc do
        <itu-standard xmlns="https://www.calconnect.org/standards/itu" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">Foreword</fmt-title>
+                <fmt-title id="_" depth="1">Foreword</fmt-title>
                 <p id="_">
                    <xref target="item_6-4-a" id="_">
                       <location target="item_6-4-a" connective="from"/>

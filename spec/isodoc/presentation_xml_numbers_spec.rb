@@ -22,7 +22,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
               <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
@@ -465,7 +465,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
               <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
@@ -728,7 +728,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Sommaire</fmt-title>
+                 <fmt-title id="_" depth="1">Sommaire</fmt-title>
               </clause>
               <p displayorder="2" id="_">
                  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -934,7 +934,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Sommaire</fmt-title>
+                 <fmt-title id="_" depth="1">Sommaire</fmt-title>
               </clause>
               <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
@@ -1148,7 +1148,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Inhaltsübersicht</fmt-title>
+                 <fmt-title id="_" depth="1">Inhaltsübersicht</fmt-title>
               </clause>
               <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
@@ -1218,7 +1218,7 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
               <p displayorder="2" id="_">
                  <stem type="MathML" id="_">
