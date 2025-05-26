@@ -147,7 +147,7 @@ refer_list)
             list_item_value(li, c, depth,
                             { list_anchor:, prev_label:,
                               refer_list: depth == 1 ? refer_list : nil })
-          li["id"] ||= "_#{UUIDTools::UUID.random_create}"
+          #li["id"] ||= "_#{UUIDTools::UUID.random_create}"
           @anchors[li["id"]] =
             { label: bare_label, bare_xref: "#{label})", type: "listitem",
               xref: %[#{label}#{delim_wrap(list_item_delim)}], refer_list:,

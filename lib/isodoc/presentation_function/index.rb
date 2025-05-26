@@ -4,10 +4,6 @@ module IsoDoc
       false
     end
 
-    def add_id
-      %(id="_#{UUIDTools::UUID.random_create}")
-    end
-
     def strip_index(docxml)
       docxml.xpath(ns("//index | //index-xref | //indexsect")).each(&:remove)
     end
@@ -15,7 +11,7 @@ module IsoDoc
     def index(xml)
       if enable_indexsect && xml.at(ns("//index"))
         i = xml.at(ns("//indexsect")) ||
-          xml.root.add_child("<indexsect #{add_id}><title>#{@i18n.index}" \
+          xml.root.add_child("<indexsect #{add_id_text}><title>#{@i18n.index}" \
                              "</title></indexsect>").first
         index = sort_indexterms(xml.xpath(ns("//index")),
                                 xml.xpath(ns("//index-xref[@also = 'false']")),
@@ -173,7 +169,7 @@ module IsoDoc
     def index2bookmark(node)
       node.name = "bookmark"
       node.children.each(&:remove)
-      node["id"] = "_#{UUIDTools::UUID.random_create}"
+      add_id(node)
       node.delete("to")
     end
   end

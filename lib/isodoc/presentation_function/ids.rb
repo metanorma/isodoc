@@ -1,15 +1,29 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
+    def add_id_text
+      id = "_#{UUIDTools::UUID.random_create}"
+      @ids[id] = nil
+      %(id="#{id}")
+    end
+
+    def add_id(elem)
+      elem["id"] and return
+      id = "_#{UUIDTools::UUID.random_create}"
+      elem["id"] = id
+      @ids[id] = nil
+    end
+
     def id_validate(docxml)
       add_missing_presxml_id(docxml)
       repeat_id_validate(docxml)
       idref_validate(docxml)
+      contenthash_id_cleanup(docxml)
     end
 
     def add_missing_presxml_id(docxml)
       docxml.xpath(ns("//fmt-name | //fmt-title | //fmt-definition | " \
         "//fmt-sourcecode | //fmt-provision")).each do |x|
-        x["id"] ||= "_#{UUIDTools::UUID.random_create}"
+        add_id(x)
       end
     end
 
@@ -51,6 +65,7 @@ module IsoDoc
     end
 
     def provide_ids(docxml)
+      @ids = {} # guids assigned within Presentation XML
       anchor_sanitise(docxml)
       populate_id(docxml)
       add_missing_id(docxml)
@@ -73,8 +88,10 @@ module IsoDoc
 
     def add_missing_id(docxml)
       docxml.xpath(ns("//source | //modification | //erefstack | //fn | " \
-        "//review | //floating-title")).each do |s|
-        s["id"] ||= "_#{UUIDTools::UUID.random_create}"
+        "//review | //floating-title | //li | //executivesummary | " \
+        "//preface/abstract | //foreword | //introduction | //annex | " \
+        "//acknowledgements | //clause | //references | //terms")).each do |s|
+        add_id(s)
       end
     end
 
@@ -82,6 +99,38 @@ module IsoDoc
     def to_ncname(ident)
       ret = ident.split("#", 2)
       ret.map { |x| Metanorma::Utils::to_ncname(x) }.join("#")
+    end
+
+    def contenthash_id_cleanup(docxml)
+      add_new_contenthash_id(docxml, @ids)
+      xref_new_contenthash_id(docxml, @ids)
+    end
+
+    def add_new_contenthash_id(docxml, ids)
+      %w(original-id id).each do |k|
+        docxml.xpath("//*[@#{k}]").each do |x|
+          ids.has_key?(x[k]) or next
+          new_id = contenthash(x)
+          ids[x[k]] = new_id
+          x[k] = new_id
+        end
+      end
+    end
+
+    def xref_new_contenthash_id(docxml, ids)
+      Metanorma::Utils::anchor_attributes(presxml: true).each do |e|
+        docxml.xpath("//xmlns:#{e[0]}[@#{e[1]}]").each do |x|
+          ids.has_key?(x[e[1]]) or next
+          ids[x[e[1]]] or next
+          x[e[1]] = ids[x[e[1]]]
+        end
+      end
+    end
+
+    # TODO duplicate of standoc
+    def contenthash(elem)
+      Digest::MD5.hexdigest("#{elem.path}////#{elem.text}")
+        .sub(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, "_\\1-\\2-\\3-\\4-\\5")
     end
   end
 end

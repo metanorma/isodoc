@@ -88,7 +88,7 @@ module IsoDoc
       docxml.at(ns("//preface/clause[@type = 'toc']")) and return
       ins = toc_title_insert_pt(docxml) or return
       ins.previous = <<~CLAUSE
-        <clause type = 'toc' id='_#{UUIDTools::UUID.random_create}'><fmt-title depth='1'>#{@i18n.table_of_contents}</fmt-title></clause>
+        <clause type = 'toc' #{add_id_text}><fmt-title depth='1'>#{@i18n.table_of_contents}</fmt-title></clause>
       CLAUSE
     end
 
