@@ -45,33 +45,33 @@ RSpec.describe IsoDoc do
                    <fmt-name id="_">
                       <semx element="name" source="_">Caption</semx>
                    </fmt-name>
-                   <li>
+                   <li id="_">
                       <fmt-name id="_">
-                         <semx element="autonum" source="">—</semx>
+                         <semx element="autonum" source="_">—</semx>
                       </fmt-name>
                       <p id="_">Level 1</p>
                    </li>
-                   <li>
+                   <li id="_">
                       <fmt-name id="_">
-                         <semx element="autonum" source="">—</semx>
+                         <semx element="autonum" source="_">—</semx>
                       </fmt-name>
                       <p id="_">deletion of 4.3.</p>
                       <ul id="_" keep-with-next="true" keep-lines-together="true">
-                         <li>
+                         <li id="_">
                             <fmt-name id="_">
-                               <semx element="autonum" source="">—</semx>
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             <p id="_">Level 2</p>
                             <ul id="_" keep-with-next="true" keep-lines-together="true">
-                               <li>
+                               <li id="_">
                                   <fmt-name id="_">
-                                     <semx element="autonum" source="">—</semx>
+                                     <semx element="autonum" source="_">—</semx>
                                   </fmt-name>
                                   <p id="_">Level 3</p>
                                   <ul id="_" keep-with-next="true" keep-lines-together="true">
-                                     <li>
+                                     <li id="_">
                                         <fmt-name id="_">
-                                           <semx element="autonum" source="">—</semx>
+                                           <semx element="autonum" source="_">—</semx>
                                         </fmt-name>
                                         <p id="_">Level 4</p>
                                      </li>
@@ -108,22 +108,22 @@ RSpec.describe IsoDoc do
                    <div class="ul_wrap">
                       <p class="ListTitle">Caption</p>
                       <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <li>
+                         <li id="_">
                             <p id="_">Level 1</p>
                          </li>
-                         <li>
+                         <li id="_">
                             <p id="_">deletion of 4.3.</p>
                             <div class="ul_wrap">
                                <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                  <li>
+                                  <li id="_">
                                      <p id="_">Level 2</p>
                                      <div class="ul_wrap">
                                         <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                           <li>
+                                           <li id="_">
                                               <p id="_">Level 3</p>
                                               <div class="ul_wrap">
                                                  <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                                    <li>
+                                                    <li id="_">
                                                        <p id="_">Level 4</p>
                                                     </li>
                                                  </ul>
@@ -152,22 +152,22 @@ RSpec.describe IsoDoc do
           <div class="ul_wrap">
              <p class="ListTitle">Caption</p>
              <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                <li>
+                <li id="_">
                    <p id="_">Level 1</p>
                 </li>
-                <li>
+                <li id="_">
                    <p id="_">deletion of 4.3.</p>
                    <div class="ul_wrap">
                       <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <li>
+                         <li id="_">
                             <p id="_">Level 2</p>
                             <div class="ul_wrap">
                                <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                  <li>
+                                  <li id="_">
                                      <p id="_">Level 3</p>
                                      <div class="ul_wrap">
                                         <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                           <li>
+                                           <li id="_">
                                               <p id="_">Level 4</p>
                                            </li>
                                         </ul>
@@ -763,7 +763,7 @@ RSpec.describe IsoDoc do
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
-                <div id="_">
+                <div>
                    <h1 class="ForewordTitle">Foreword</h1>
                    <table id="_" class="dl">
                       <tr>

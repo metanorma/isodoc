@@ -47,7 +47,7 @@ module IsoDoc
     end
 
     def termnote_label(elem)
-      @xrefs.anchor(elem["id"], :label) || "???"
+      @xrefs.anchor(elem["id"], :label, false) || "???"
     end
 
     def termdefinition(docxml)
@@ -71,9 +71,9 @@ module IsoDoc
 
     def multidef(_elem, defn, fmt_defn)
       ret = defn.each_with_object([]) do |f, m|
-        m << "<li>#{to_xml(semx_fmt_dup(f))}</li>"
+        m << "<li #{add_id_text}>#{to_xml(semx_fmt_dup(f))}</li>"
       end
-      fmt_defn << "<ol>#{ret.join("\n")}</ol>"
+      fmt_defn << "<ol #{add_id_text}>#{ret.join("\n")}</ol>"
     end
 
     def singledef(_elem, defn, fmt_defn)
@@ -191,7 +191,7 @@ module IsoDoc
     end
 
     def term1(elem)
-      lbl = @xrefs.anchor(elem["id"], :label) or return
+      lbl = @xrefs.anchor(elem["id"], :label, false) or return
       prefix_name(elem, {}, "#{lbl}#{clausedelim}", "name")
     end
   end

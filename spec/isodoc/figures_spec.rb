@@ -221,7 +221,7 @@ RSpec.describe IsoDoc do
                          </localityStack>
                       </origin>
                       <modification id="_5">
-                         <p original-id="_">with adjustments</p>
+                         <p id="_">with adjustments</p>
                       </modification>
                    </source>
                    <fmt-source>

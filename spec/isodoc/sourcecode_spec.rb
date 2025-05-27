@@ -1243,7 +1243,7 @@ RSpec.describe IsoDoc do
                    <callout target="C">3</callout>
                    end
                    </body><annotation original-id="A" id="_">
-                      <p original-id="A1">
+                      <p id="A1">
                          This is
                          <em>one</em>
                          callout

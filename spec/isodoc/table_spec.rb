@@ -269,7 +269,7 @@ RSpec.describe IsoDoc do
                           </localityStack>
                        </origin>
                        <modification id="_5">
-                          <p original-id="_">with adjustments</p>
+                          <p id="_">with adjustments</p>
                        </modification>
                     </source>
                     <fmt-source>
@@ -821,14 +821,7 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <foreword id="_">
              <title id="_">Foreword</title>
-             <fmt-title id="_" depth="1">
-                <span class="fmt-caption-label">
-                   [_]
-                   <span class="fmt-autonum-delim">.</span>
-                </span>
-                <span class="fmt-caption-delim">
-                   <tab/>
-                </span>
+              <fmt-title depth="1" id="_">
                 <semx element="title" source="_">Foreword</semx>
              </fmt-title>
              <table id="tableD-1">
@@ -1001,7 +994,7 @@ RSpec.describe IsoDoc do
                <p class="page-break">
                  <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
                </p>
-               <div id="_">
+               <div>
                  <h1 class='ForewordTitle'>Foreword</h1>
                  <p class='TableTitle' style='text-align:center;'>
                    Repeatability and reproducibility of
@@ -1153,7 +1146,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div id="_">
+            <div>
               <h1 class="ForewordTitle">Foreword</h1>
               <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield</p>
               <div align="center" class="table_container">
@@ -1259,7 +1252,7 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-            <div id="_">
+            <div>
               <h1 class="ForewordTitle">Foreword</h1>
               <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield</p>
               <div align="center" class="table_container">
@@ -1366,7 +1359,7 @@ RSpec.describe IsoDoc do
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div id="_">
+             <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield</p>
                <div align="center" class="table_container">
@@ -1471,7 +1464,7 @@ RSpec.describe IsoDoc do
              <p class="page-break">
                <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div id="_">
+             <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p class="TableTitle" style="text-align:center;">Repeatability and reproducibility of <i>husked</i> rice yield</p>
                <div align="center" class="table_container">

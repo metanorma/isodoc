@@ -2298,14 +2298,14 @@ RSpec.describe IsoDoc do
           </bibdata>
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_">Table of contents</fmt-title>
              </clause>
           </preface>
           <sections>
              <p class="zzSTDTitle1" displayorder="2">Document title</p>
              <clause id="clause1" inline-header="false" obligation="normative" displayorder="3">
                 <title id="_">Clause 1</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="clause1">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -2321,7 +2321,7 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
                 <clause id="clause1A" inline-header="false" obligation="normative">
                    <title id="_">Clause 1A</title>
-                   <fmt-title id="_" depth="2">
+                   <fmt-title depth="2" id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="clause1">1</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -2341,7 +2341,7 @@ RSpec.describe IsoDoc do
                    </fmt-xref-label>
                    <clause id="clause1Aa" inline-header="false" obligation="normative">
                       <title id="_">Clause 1Aa</title>
-                      <fmt-title id="_" depth="3">
+                      <fmt-title depth="3" id="_">
                          <span class="fmt-caption-label">
                             <semx element="autonum" source="clause1">1</semx>
                             <span class="fmt-autonum-delim">.</span>
@@ -2366,7 +2366,7 @@ RSpec.describe IsoDoc do
                    </clause>
                    <clause id="clause1Ab" inline-header="false" obligation="normative">
                       <title id="_">Clause 1Ab</title>
-                      <fmt-title id="_" depth="3">
+                      <fmt-title depth="3" id="_">
                          <span class="fmt-caption-label">
                             <semx element="autonum" source="clause1">1</semx>
                             <span class="fmt-autonum-delim">.</span>
@@ -2392,7 +2392,7 @@ RSpec.describe IsoDoc do
                 </clause>
                 <clause id="clause1B" inline-header="false" obligation="normative">
                    <title id="_">Clause 1B</title>
-                   <fmt-title id="_" depth="2">
+                   <fmt-title depth="2" id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="clause1">1</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -2412,7 +2412,7 @@ RSpec.describe IsoDoc do
                    </fmt-xref-label>
                    <clause id="clause1Ba" inline-header="false" obligation="normative">
                       <title id="_">Clause 1Ba</title>
-                      <fmt-title id="_" depth="3">
+                      <fmt-title depth="3" id="_">
                          <span class="fmt-caption-label">
                             <semx element="autonum" source="clause1">1</semx>
                             <span class="fmt-autonum-delim">.</span>
@@ -2439,7 +2439,7 @@ RSpec.describe IsoDoc do
              </clause>
              <clause id="clause2" inline-header="false" obligation="normative" displayorder="4">
                 <title id="_">Clause 2</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="clause2">2</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -2456,9 +2456,9 @@ RSpec.describe IsoDoc do
                 <p id="A">And introducing: </p>
                 <toc>
                    <ul id="B">
-                      <li>
+                      <li id="_">
                          <fmt-name id="_">
-                            <semx element="autonum" source="">—</semx>
+                            <semx element="autonum" source="_">—</semx>
                          </fmt-name>
                          <xref target="clause1A" id="_">
                             <semx element="autonum" source="clause1">1</semx>
@@ -2481,14 +2481,14 @@ RSpec.describe IsoDoc do
                             </fmt-xref>
                          </semx>
                       </li>
-                      <li>
+                      <li id="_">
                          <fmt-name id="_">
-                            <semx element="autonum" source="">—</semx>
+                            <semx element="autonum" source="_">—</semx>
                          </fmt-name>
                          <ul id="C">
-                            <li>
+                            <li id="_">
                                <fmt-name id="_">
-                                  <semx element="autonum" source="">—</semx>
+                                  <semx element="autonum" source="_">—</semx>
                                </fmt-name>
                                <xref target="clause1Aa" id="_">
                                   <semx element="autonum" source="clause1">1</semx>
@@ -2515,9 +2515,9 @@ RSpec.describe IsoDoc do
                                   </fmt-xref>
                                </semx>
                             </li>
-                            <li>
+                            <li id="_">
                                <fmt-name id="_">
-                                  <semx element="autonum" source="">—</semx>
+                                  <semx element="autonum" source="_">—</semx>
                                </fmt-name>
                                <xref target="clause1Ab" id="_">
                                   <semx element="autonum" source="clause1">1</semx>
@@ -2546,9 +2546,9 @@ RSpec.describe IsoDoc do
                             </li>
                          </ul>
                       </li>
-                      <li>
+                      <li id="_">
                          <fmt-name id="_">
-                            <semx element="autonum" source="">—</semx>
+                            <semx element="autonum" source="_">—</semx>
                          </fmt-name>
                          <xref target="clause1B" id="_">
                             <semx element="autonum" source="clause1">1</semx>
@@ -2571,14 +2571,14 @@ RSpec.describe IsoDoc do
                             </fmt-xref>
                          </semx>
                       </li>
-                      <li>
+                      <li id="_">
                          <fmt-name id="_">
-                            <semx element="autonum" source="">—</semx>
+                            <semx element="autonum" source="_">—</semx>
                          </fmt-name>
                          <ul id="D">
-                            <li>
+                            <li id="_">
                                <fmt-name id="_">
-                                  <semx element="autonum" source="">—</semx>
+                                  <semx element="autonum" source="_">—</semx>
                                </fmt-name>
                                <xref target="clause1Ba" id="_">
                                   <semx element="autonum" source="clause1">1</semx>
@@ -2611,9 +2611,9 @@ RSpec.describe IsoDoc do
                 </toc>
                 <toc>
                    <ul id="E">
-                      <li>
+                      <li id="_">
                          <fmt-name id="_">
-                            <semx element="autonum" source="">—</semx>
+                            <semx element="autonum" source="_">—</semx>
                          </fmt-name>
                          <xref target="clause1A" id="_">
                             <semx element="autonum" source="clause1">1</semx>
@@ -2636,9 +2636,9 @@ RSpec.describe IsoDoc do
                             </fmt-xref>
                          </semx>
                       </li>
-                      <li>
+                      <li id="_">
                          <fmt-name id="_">
-                            <semx element="autonum" source="">—</semx>
+                            <semx element="autonum" source="_">—</semx>
                          </fmt-name>
                          <xref target="clause1B" id="_">
                             <semx element="autonum" source="clause1">1</semx>
@@ -2694,28 +2694,28 @@ RSpec.describe IsoDoc do
               <div class='toc'>
               <div class="ul_wrap">
                 <ul id='B'>
-                  <li>
+                  <li id="_">
                     <a href='#clause1A'>1.1\\u00a0 Clause 1A</a>
                   </li>
-                  <li>
+                  <li id="_">
                   <div class="ul_wrap">
                     <ul id='C'>
-                      <li>
+                      <li id="_">
                         <a href='#clause1Aa'>1.1.1\\u00a0 Clause 1Aa</a>
                       </li>
-                      <li>
+                      <li id="_">
                         <a href='#clause1Ab'>1.1.2\\u00a0 Clause 1Ab</a>
                       </li>
                     </ul>
                     </div>
                   </li>
-                  <li>
+                  <li id="_">
                     <a href='#clause1B'>1.2\\u00a0 Clause 1B</a>
                   </li>
-                  <li>
+                  <li id="_">
                   <div class="ul_wrap">
                     <ul id='D'>
-                      <li>
+                      <li id="_">
                         <a href='#clause1Ba'>1.2.1\\u00a0 Clause 1Ba</a>
                       </li>
                     </ul>
@@ -2727,10 +2727,10 @@ RSpec.describe IsoDoc do
               <div class='toc'>
                   <div class="ul_wrap">
                 <ul id='E'>
-                  <li>
+                  <li id="_">
                     <a href='#clause1A'>1.1\\u00a0 Clause 1A</a>
                   </li>
-                  <li>
+                  <li id="_">
                     <a href='#clause1B'>1.2\\u00a0 Clause 1B</a>
                   </li>
                 </ul>

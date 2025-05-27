@@ -225,14 +225,14 @@ RSpec.describe IsoDoc do
                       </expression>
                       <field-of-application id="_">in agriculture</field-of-application>
                       <usage-info id="_">dated</usage-info>
-                      <source status="modified" original-id="_">
+                      <source status="modified" id="_">
                          <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
                             <locality type="clause">
                                <referenceFrom>3.1</referenceFrom>
                             </locality>
                          </origin>
                          <modification id="_">
-                            <p original-id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+                            <p id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
                          </modification>
                       </source>
                    </preferred>
@@ -308,9 +308,9 @@ RSpec.describe IsoDoc do
                       </fmt-xref-label>
                       <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
                       <ul>
-                         <li>
+                         <li id="_">
                             <fmt-name id="_">
-                               <semx element="autonum" source="">—</semx>
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             A
                          </li>
@@ -339,9 +339,9 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="_">2</semx>
                       </fmt-xref-label>
                       <ul>
-                         <li>
+                         <li id="_">
                             <fmt-name id="_">
-                               <semx element="autonum" source="">—</semx>
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             A
                          </li>
@@ -352,7 +352,7 @@ RSpec.describe IsoDoc do
                          <termref base="IEV" target="xyz">t1</termref>
                       </origin>
                       <modification id="_">
-                         <p original-id="_">comment</p>
+                         <p id="_">comment</p>
                       </modification>
                    </source>
                    <source status="modified" id="_">
@@ -507,9 +507,9 @@ RSpec.describe IsoDoc do
                          <span class="fmt-element-name">Example</span>
                       </fmt-xref-label>
                       <ul>
-                         <li>
+                         <li id="_">
                             <fmt-name id="_">
-                               <semx element="autonum" source="">—</semx>
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             A
                          </li>
@@ -566,9 +566,9 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="_">2</semx>
                       </fmt-xref-label>
                       <ul>
-                         <li>
+                         <li id="_">
                             <fmt-name id="_">
-                               <semx element="autonum" source="">—</semx>
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             A
                          </li>
@@ -641,7 +641,7 @@ RSpec.describe IsoDoc do
                       <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -649,7 +649,7 @@ RSpec.describe IsoDoc do
                       <p class="example-title">EXAMPLE 2</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -666,7 +666,7 @@ RSpec.describe IsoDoc do
                       <p class="example-title">EXAMPLE</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -682,7 +682,7 @@ RSpec.describe IsoDoc do
                       </p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
@@ -720,7 +720,7 @@ RSpec.describe IsoDoc do
                       <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -728,7 +728,7 @@ RSpec.describe IsoDoc do
                       <p class="example-title">EXAMPLE 2</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -745,7 +745,7 @@ RSpec.describe IsoDoc do
                       <p class="example-title">EXAMPLE</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -761,7 +761,7 @@ RSpec.describe IsoDoc do
                       </p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
@@ -887,21 +887,21 @@ RSpec.describe IsoDoc do
              <definition id="_">
                 <verbal-definition>
                    <p original-id="_">rice retaining its husk after threshing, mark 2</p>
-                   <source status="modified" original-id="_">
+                   <source status="modified" id="_">
                       <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
                          <locality type="clause">
                             <referenceFrom>3.1</referenceFrom>
                          </locality>
                       </origin>
                       <modification id="_">
-                         <p original-id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+                         <p id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
                       </modification>
                    </source>
                 </verbal-definition>
              </definition>
              <fmt-definition id="_">
-                <ol>
-                   <li>
+                <ol id="_">
+                   <li id="_">
                       <semx element="definition" source="_">
                          <p id="_">
                             &lt;
@@ -910,7 +910,7 @@ RSpec.describe IsoDoc do
                          </p>
                       </semx>
                    </li>
-                   <li>
+                   <li id="_">
                       <semx element="definition" source="_">
                          <p id="_">rice retaining its husk after threshing, mark 2</p>
                          [SOURCE:
@@ -960,9 +960,9 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
                 <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
                 <ul>
-                   <li>
+                   <li id="_">
                       <fmt-name id="_">
-                         <semx element="autonum" source="">—</semx>
+                         <semx element="autonum" source="_">—</semx>
                       </fmt-name>
                       A
                    </li>
@@ -991,9 +991,9 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="_">2</semx>
                 </fmt-xref-label>
                 <ul>
-                   <li>
+                   <li id="_">
                       <fmt-name id="_">
-                         <semx element="autonum" source="">—</semx>
+                         <semx element="autonum" source="_">—</semx>
                       </fmt-name>
                       A
                    </li>
@@ -1009,7 +1009,7 @@ RSpec.describe IsoDoc do
                    <termref base="IEV" target="xyz"/>
                 </origin>
                 <modification id="_">
-                   <p original-id="_">with adjustments</p>
+                   <p id="_">with adjustments</p>
                 </modification>
              </source>
              <fmt-termsource status="identical">
@@ -1764,7 +1764,7 @@ RSpec.describe IsoDoc do
             <definition id="_">
                <verbal-definition>
                   <p original-id="C">Definition</p>
-                  <source status="identical" type="authoritative" original-id="_">
+                  <source status="identical" type="authoritative" id="_">
                      <origin bibitemid="ISO2191" type="inline" citeas="">
                         <localityStack>
                            <locality type="section">
@@ -1915,7 +1915,7 @@ RSpec.describe IsoDoc do
                         </math>
                      </stem>
                   </formula>
-                  <source status="identical" type="authoritative" original-id="_">
+                  <source status="identical" type="authoritative" id="_">
                      <origin bibitemid="ISO2191" type="inline" citeas="">
                         <localityStack>
                            <locality type="section">
@@ -2158,7 +2158,7 @@ RSpec.describe IsoDoc do
                 </p>
              </fmt-preferred>
              <related type="contrast" id="_">
-                <preferred>
+                <preferred id="_">
                    <expression>
                       <name>Fifth Designation</name>
                       <grammar>
@@ -2169,7 +2169,7 @@ RSpec.describe IsoDoc do
                 <xref target="second"/>
              </related>
              <related type="see" id="_">
-                <preferred>
+                <preferred id="_">
                    <expression>
                       <name>Fifth Designation</name>
                       <grammar>
@@ -2356,7 +2356,7 @@ RSpec.describe IsoDoc do
                    <termref base="IEV" target="xyz">t1</termref>
                 </origin>
                 <modification id="_">
-                   <p original-id="_">with adjustments</p>
+                   <p id="_">with adjustments</p>
                 </modification>
              </source>
              <source status="adapted" id="_">
@@ -2535,7 +2535,7 @@ RSpec.describe IsoDoc do
                    <termref base="IEV" target="xyz">t1</termref>
                 </origin>
                 <modification id="_">
-                   <p original-id="_">with adjustments</p>
+                   <p id="_">with adjustments</p>
                 </modification>
              </source>
              <source status="adapted" id="_">

@@ -30,7 +30,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
         <div class="WordSection2">
                 <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-                <div><a name="_" id="_"/>
+                <div>
                   <h1 class="ForewordTitle">Foreword</h1>
                   <table class="dl">
                     <tr>
@@ -243,7 +243,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(<<~"OUTPUT")
            <div class="WordSection2">
          /* an empty word intro page */
-        <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="TOC"><a name="_" id="_"/>
+        <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div class="TOC">
         <p class="zzContents">Table of Contents</p><p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-begin"/><span style="mso-spacerun:yes">\\u00a0</span>TOC \\o "1-2" \\h \\z \\u <span style="mso-element:field-separator"/></span><span class="MsoHyperlink"><span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB"><a href="#_Toc">Clause 4<span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-tab-count:1 dotted">. </span></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-begin"/></span>
         <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"> PAGEREF _Toc \\h </span>
           <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB"><span style="mso-element:field-separator"/></span><span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">1</span>
@@ -619,7 +619,6 @@ RSpec.describe IsoDoc do
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
            <div>
-              <a name="_" id="_"/>
               <h1 class="ForewordTitle">Foreword</h1>
               <div class="ul_wrap">
                  <p class="MsoListParagraphCxSpFirst" style="">
@@ -713,7 +712,7 @@ RSpec.describe IsoDoc do
                      <p class="MsoNormal">
                        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                      </p>
-                     <div><a name="_" id="_"/>
+                     <div>
                        <h1 class="ForewordTitle">Foreword</h1>
                        <div class="example"><a name="samplecode" id="samplecode"></a>
                  <p class="example">ABC</p>
@@ -748,7 +747,7 @@ RSpec.describe IsoDoc do
                  <p class="MsoNormal">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                  </p>
-                 <div><a name="_" id="_"/>
+                 <div>
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div class="figure"><a name="fig1" id="fig1"></a>
              <p style="page-break-after:avoid;" class="figure"><img src="_" width="400" height="337"/></p>
@@ -789,7 +788,6 @@ RSpec.describe IsoDoc do
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
            <div>
-              <a name="_" id="_"/>
               <h1 class="ForewordTitle">Foreword</h1>
               <div align="center" class="table_container">
                  <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
@@ -862,7 +860,6 @@ RSpec.describe IsoDoc do
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
            </p>
            <div>
-              <a name="_" id="_"/>
               <h1 class="ForewordTitle">Foreword</h1>
               <div align="center" class="table_container">
                  <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
@@ -976,8 +973,7 @@ RSpec.describe IsoDoc do
               <p class="MsoNormal">
                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
               </p>
-              <div class="Section3">
-                 <a name="_" id="_"/>
+              <div class="Section3" id="">
                  <h1 class="IntroTitle">Preface 1</h1>
                  <p style="text-align:center;" align="center" class="MsoNormal">
                     This is a
@@ -1000,7 +996,6 @@ RSpec.describe IsoDoc do
                  </table>
               </div>
               <div>
-                 <a name="_" id="_"/>
                  <h2>Preface 1.1</h2>
                  <p class="MsoNormal">On my side</p>
                  <p class="MsoNormal">
@@ -1011,7 +1006,6 @@ RSpec.describe IsoDoc do
            <div class="WordSection2_0">
               <p class="MsoNormal">Upright again</p>
               <div>
-                 <a name="_" id="_"/>
                  <h2>Preface 1.3</h2>
                  <p class="MsoNormal">And still upright</p>
               </div>
@@ -1022,7 +1016,6 @@ RSpec.describe IsoDoc do
            </p>
            <div class="WordSection3">
               <div>
-                 <a name="_" id="_"/>
                  <h1>Foreword</h1>
                  <div class="Note">
                     <p class="Note">

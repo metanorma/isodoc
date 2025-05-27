@@ -243,11 +243,11 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <p id="A">
+       <p id="A">
           <ul>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -266,9 +266,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -289,9 +289,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -309,9 +309,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -329,9 +329,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -349,9 +349,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -376,9 +376,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -411,9 +411,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -447,9 +447,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -465,9 +465,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <refterm>term</refterm>
@@ -483,9 +483,9 @@ RSpec.describe IsoDoc do
                    </semx>
                 </fmt-concept>
              </li>
-             <li>
+             <li id="_">
                 <fmt-name id="_">
-                   <semx element="autonum" source="">—</semx>
+                   <semx element="autonum" source="_">—</semx>
                 </fmt-name>
                 <concept id="_">
                    <strong>error!</strong>
@@ -503,48 +503,48 @@ RSpec.describe IsoDoc do
          <p id="A">
           <div class="ul_wrap">
              <ul>
-                <li>
+                <li id="_">
                    (
                    <a href="#clause1">Clause 2</a>
                    )
                 </li>
-                <li>
+                <li id="_">
                    <i>term</i>
                    (
                    <a href="#clause1">Clause 2</a>
                    )
                 </li>
-                <li>
+                <li id="_">
                    <i>w[o]rd</i>
                    (
                    <a href="#clause1">Clause #1</a>
                    )
                 </li>
-                <li>
+                <li id="_">
                    <i>term</i>
                    (
                    <a href="#ISO712">ISO\\u00a0712</a>
                    )
                 </li>
-                <li>
+                <li id="_">
                    <i>word</i>
                    (
                    <a href="#ISO712">The Aforementioned Citation</a>
                    )
                 </li>
-                <li>
+                <li id="_">
                    <i>word</i>
                    (
                    <a href="#ISO712">ISO\\u00a0712, Clause 3.1, Figure a</a>
                    )
                 </li>
-                <li>
+                <li id="_">
                    <i>word</i>
                    (
                    <a href="#ISO712">ISO\\u00a0712, Clause 3.1 and Figure b</a>
                    )
                 </li>
-                <li>
+                <li id="_">
                    <i>word</i>
                    (
                    <a href="#ISO712">
@@ -554,15 +554,15 @@ RSpec.describe IsoDoc do
                </a>
                    )
                 </li>
-                <li>
+                <li id="_">
                    <i>word</i>
                    [Termbase IEV, term ID 135-13-13]
                 </li>
-                <li>
+                <li id="_">
                    <i>word</i>
                    (The IEV database)
                 </li>
-                <li>
+                <li id="_">
                    <b>error!</b>
                 </li>
              </ul>
@@ -1992,7 +1992,7 @@ RSpec.describe IsoDoc do
                       <semx element="title" source="_">DEF</semx>
                 </fmt-title>
              </clause>
-             <p displayorder="9" id="_">A B D E</p>
+             <p displayorder="9">A B D E</p>
           </preface>
        </iso-standard>
     OUTPUT

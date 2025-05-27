@@ -124,7 +124,7 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <boilerplate>
              <copyright-statement>
-                <clause>
+                <clause id="_">
                    <title id="_">Copyright</title>
                    <fmt-title id="_" depth="1">
                       <semx element="title" source="_">Copyright</semx>
@@ -132,7 +132,7 @@ RSpec.describe IsoDoc do
                 </clause>
              </copyright-statement>
              <license-statement>
-                <clause>
+                <clause id="_">
                    <title id="_">License</title>
                    <fmt-title id="_" depth="1">
                       <semx element="title" source="_">License</semx>
@@ -140,7 +140,7 @@ RSpec.describe IsoDoc do
                 </clause>
              </license-statement>
              <legal-statement>
-                <clause>
+                <clause id="_">
                    <title id="_">Legal</title>
                    <fmt-title id="_" depth="1">
                       <semx element="title" source="_">Legal</semx>
@@ -148,7 +148,7 @@ RSpec.describe IsoDoc do
                 </clause>
              </legal-statement>
              <feedback-statement>
-                <clause>
+                <clause id="_">
                    <title id="_">Feedback</title>
                    <fmt-title id="_" depth="1">
                       <semx element="title" source="_">Feedback</semx>
@@ -615,22 +615,22 @@ RSpec.describe IsoDoc do
              <div class="main-section">
                 <div class="authority">
                    <div class="boilerplate-copyright">
-                      <div>
+                      <div id="_">
                          <h1>Copyright</h1>
                       </div>
                    </div>
                    <div class="boilerplate-license">
-                      <div>
+                      <div id="_">
                          <h1>License</h1>
                       </div>
                    </div>
                    <div class="boilerplate-legal">
-                      <div>
+                      <div id="_">
                          <h1>Legal</h1>
                       </div>
                    </div>
                    <div class="boilerplate-feedback">
-                      <div>
+                      <div id="_">
                          <h1>Feedback</h1>
                       </div>
                    </div>
@@ -792,19 +792,19 @@ RSpec.describe IsoDoc do
           <div class="WordSection2">
             <div class="authority">
           <div class="boilerplate-copyright">
-            <div><h1>Copyright</h1>
+            <div id="_"><h1>Copyright</h1>
             </div>
           </div>
           <div class="boilerplate-license">
-            <div><h1>License</h1>
+            <div id="_"><h1>License</h1>
             </div>
           </div>
           <div class="boilerplate-legal">
-            <div><h1>Legal</h1>
+            <div id="_"><h1>Legal</h1>
             </div>
           </div>
           <div class="boilerplate-feedback">
-            <div><h1>Feedback</h1>
+            <div id="_"><h1>Feedback</h1>
             </div>
           </div>
         </div>

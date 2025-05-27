@@ -959,20 +959,21 @@ RSpec.describe IsoDoc do
     html = File.read("test.html")
       .sub(/^.*<main class="main-section">/m, '<main class="main-section">')
       .sub(%r{</main>.*$}m, "</main>")
-    expect(strip_guid(Xml::C14n.format(html))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-       <main class="main-section">
-          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-          <br/>
-          <div>
-             <h1 class="ForewordTitle">Foreword</h1>
-             <pre id="samplecode" class="sourcecode">
-                <br/>
-                \\u00a0 &lt;xml&gt; &amp;
-                <br/>
-             </pre>
-             <p class="SourceTitle" style="text-align:center;">XML code</p>
-          </div>
-       </main>
+    expect(strip_guid(Xml::C14n.format(html)))
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+      <main class="main-section">
+         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+         <br/>
+         <div>
+            <h1 class="ForewordTitle">Foreword</h1>
+            <pre id="samplecode" class="sourcecode">
+               <br/>
+               \\u00a0 &lt;xml&gt; &amp;
+               <br/>
+            </pre>
+            <p class="SourceTitle" style="text-align:center;">XML code</p>
+         </div>
+      </main>
     OUTPUT
 
     FileUtils.rm_f "test.doc"
@@ -982,25 +983,24 @@ RSpec.describe IsoDoc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(strip_guid(Xml::C14n.format(word)))
-        .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-      <div class="WordSection2">
-          <p class="MsoNormal">
-             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-          </p>
-          <div>
-             <a name="_" id="_"/>
-             <h1 class="ForewordTitle">Foreword</h1>
-             <p class="Sourcecode" style="page-break-after:avoid;">
-                <a name="samplecode" id="samplecode"/>
-                <br/>
-                \\u00a0 &lt;xml&gt; &amp;
-                <br/>
-             </p>
-             <p class="SourceTitle" style="text-align:center;">XML code</p>
-          </div>
-          <p class="MsoNormal">\\u00a0</p>
-       </div>
-    OUTPUT
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
+        <div class="WordSection2">
+            <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p class="Sourcecode" style="page-break-after:avoid;">
+                  <a name="samplecode" id="samplecode"/>
+                  <br/>
+                  \\u00a0 &lt;xml&gt; &amp;
+                  <br/>
+               </p>
+               <p class="SourceTitle" style="text-align:center;">XML code</p>
+            </div>
+            <p class="MsoNormal">\\u00a0</p>
+         </div>
+      OUTPUT
   end
 
   it "cleans up boilerplate" do

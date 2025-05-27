@@ -2433,19 +2433,19 @@ RSpec.describe IsoDoc do
           </bibdata>
           <boilerplate>
              <copyright-statement>
-                <clause>
+                <clause id="_">
                    <title id="_">版權</title>
                    <fmt-title id="_" depth="1">
                       <semx element="title" source="_">版\\u3000權</semx>
                    </fmt-title>
                 </clause>
-                <clause>
+                <clause id="_">
                    <title id="_">版權聲明</title>
                    <fmt-title id="_" depth="1">
                       <semx element="title" source="_">版權聲明</semx>
                    </fmt-title>
                 </clause>
-                <clause language="en">
+                <clause language="en" id="_">
                    <title id="_">版權</title>
                    <fmt-title id="_" depth="1">
                       <semx element="title" source="_">版\\u3000權</semx>

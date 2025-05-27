@@ -929,7 +929,7 @@ RSpec.describe IsoDoc do
           </clause>
          </preface>
         <bibliography>
-          <references hidden='true'>
+          <references id="_" hidden='true'>
                    <title id="_">Title</title>
          <fmt-title id="_" depth="1">
                <semx element="title" source="_">Title</semx>
@@ -938,13 +938,13 @@ RSpec.describe IsoDoc do
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
           </references>
-          <references>
+          <references id="_">
             <bibitem hidden='true'/>
           <bibitem>
             <docidentifier type="metanorma-ordinal">[1]</docidentifier>
          </bibitem>
           </references>
-          <references>
+          <references id="_">
             <p/>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
