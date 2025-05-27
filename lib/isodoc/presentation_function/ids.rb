@@ -134,7 +134,7 @@ module IsoDoc
       Metanorma::Utils::anchor_attributes(presxml: true).each do |e|
         docxml.xpath("//xmlns:#{e[0]}[@#{e[1]}]").each do |x|
           ids.has_key?(x[e[1]]) or next
-          require "debug"; binding.b unless ids[x[e[1]]] 
+          #require "debug"; binding.b unless ids[x[e[1]]] 
           ids[x[e[1]]] or next
           x[e[1]] = ids[x[e[1]]]
         end
