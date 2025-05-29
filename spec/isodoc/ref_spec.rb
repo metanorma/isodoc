@@ -137,13 +137,14 @@ RSpec.describe IsoDoc do
           <bibdata>
              <language current="true">en</language>
           </bibdata>
+          
           <preface>
              <clause type="toc" id="_4" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_26">Table of contents</fmt-title>
              </clause>
              <foreword id="_1" displayorder="2">
                 <title id="_6">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_27">
                    <semx element="title" source="_6">Foreword</semx>
                 </fmt-title>
                 <p id="_">
@@ -185,7 +186,7 @@ RSpec.describe IsoDoc do
           <sections>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
                 <title id="_7">Normative References</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_28">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -294,7 +295,7 @@ RSpec.describe IsoDoc do
                    <biblio-tag>ICC/167, </biblio-tag>
                 </bibitem>
                 <note>
-                   <fmt-name>
+                   <fmt-name id="_29">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                       </span>
@@ -314,7 +315,7 @@ RSpec.describe IsoDoc do
           <bibliography>
              <references id="_bibliography" obligation="informative" normative="false" displayorder="4">
                 <title id="_8">Bibliography</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_30">
                    <semx element="title" source="_8">Bibliography</semx>
                 </fmt-title>
                 <bibitem id="ISBN" type="book">
@@ -356,7 +357,7 @@ RSpec.describe IsoDoc do
                    </biblio-tag>
                 </bibitem>
                 <note>
-                   <fmt-name>
+                   <fmt-name id="_31">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                       </span>
@@ -367,7 +368,7 @@ RSpec.describe IsoDoc do
                    <p>This is an annotation of document ISSN.</p>
                 </note>
                 <note>
-                   <fmt-name>
+                   <fmt-name id="_32">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                       </span>
@@ -924,26 +925,26 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
           <preface> <clause type="toc" id="_" displayorder="1">
-          <fmt-title depth="1">Table of contents</fmt-title>
+          <fmt-title id="_" depth="1">Table of contents</fmt-title>
           </clause>
          </preface>
         <bibliography>
-          <references hidden='true'>
+          <references id="_" hidden='true'>
                    <title id="_">Title</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
                <semx element="title" source="_">Title</semx>
          </fmt-title>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
           </references>
-          <references>
+          <references id="_">
             <bibitem hidden='true'/>
           <bibitem>
             <docidentifier type="metanorma-ordinal">[1]</docidentifier>
          </bibitem>
           </references>
-          <references>
+          <references id="_">
             <p/>
             <bibitem hidden='true'/>
             <bibitem hidden='true'/>
@@ -967,7 +968,7 @@ RSpec.describe IsoDoc do
         </bibdata>
         <preface>
         <clause type="toc" id="_toc" displayorder="1">
-          <fmt-title depth="1">Table of contents</fmt-title>
+          <fmt-title id="_" depth="1">Table of contents</fmt-title>
           </clause>
           <foreword>
             <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
@@ -1146,7 +1147,7 @@ RSpec.describe IsoDoc do
           <preface>
              <foreword id="_" displayorder="1">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <p id="_">
@@ -1185,13 +1186,13 @@ RSpec.describe IsoDoc do
                 </p>
              </foreword>
              <clause type="toc" id="_toc" displayorder="2">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
           </preface>
           <sections>
              <references id="_normative_references" obligation="informative" normative="true" hidden="true" displayorder="3">
                 <title id="_">Normative References</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references"/>
                       <span class="fmt-autonum-delim">.</span>
@@ -1313,7 +1314,7 @@ RSpec.describe IsoDoc do
                 </bibitem>
                 <note>
                    <name id="_">NOTE</name>
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                       </span>
@@ -1334,7 +1335,7 @@ RSpec.describe IsoDoc do
           <bibliography>
              <references id="_bibliography" obligation="informative" normative="false" hidden="true" displayorder="4">
                 <title depth="1" id="_">Bibliography</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Bibliography</semx>
                 </fmt-title>
                 <bibitem id="ISBN" type="book">
@@ -1375,7 +1376,7 @@ RSpec.describe IsoDoc do
                 </bibitem>
                 <note>
                    <name id="_">NOTE</name>
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                       </span>
@@ -1389,7 +1390,7 @@ RSpec.describe IsoDoc do
                 </note>
                 <note>
                    <name id="_">NOTE</name>
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                       </span>
@@ -1567,7 +1568,7 @@ RSpec.describe IsoDoc do
           <preface>
              <foreword id="_" displayorder="1">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <p id="_">
@@ -1583,7 +1584,7 @@ RSpec.describe IsoDoc do
              </foreword>
              <clause type="toc" id="_" displayorder="2">
                 <title depth="1" id="_">Table of contents</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Table of contents</semx>
                 </fmt-title>
              </clause>
@@ -1591,7 +1592,7 @@ RSpec.describe IsoDoc do
           <sections>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
                 <title id="_">Normative References</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -1755,209 +1756,209 @@ RSpec.describe IsoDoc do
          </iso-standard>
     INPUT
     presxml = <<~PRESXML
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <bibdata>
-             <language current="true">en</language>
-          </bibdata>
-          <preface>
-             <clause type="toc" id="_5" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
-             </clause>
-          </preface>
-          <sections>
-             <clause id="A" obligation="informative" displayorder="2">
-                <title id="_7">Normative References</title>
-                <fmt-title depth="1">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="A">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_7">Normative References</semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="A">1</semx>
-                </fmt-xref-label>
-                <p id="_">Text</p>
-                <references id="B" unnumbered="true" normative="true">
-                   <bibitem id="iso122">
-                      <formattedref format="application/x-isodoc+xml">
-                         <em>Standard</em>
-                      </formattedref>
-                      <docidentifier type="metanorma">
-                         [
-                         <strong>A</strong>
-                         .]
-                      </docidentifier>
-                      <docidentifier>XYZ</docidentifier>
-                      <docidentifier scope="biblio-tag">XYZ</docidentifier>
-                      <biblio-tag>
-                         <strong>A</strong>
-                         ., XYZ
-                         <fn reference="1" id="_1" original-reference="1" target="_13">
-                            <p original-id="_">hello</p>
-                            <fmt-fn-label>
-                               <span class="fmt-caption-label">
-                                  <sup>
-                                     <semx element="autonum" source="_1">1</semx>
-                                  </sup>
-                               </span>
-                            </fmt-fn-label>
-                         </fn>
-                         ,
-                      </biblio-tag>
-                   </bibitem>
-                   <p id="_">More text</p>
-                </references>
-                <references id="C" normative="true" obligation="informative">
-                   <title id="_9">Normative 1</title>
-                   <fmt-title depth="2">
-                      <span class="fmt-caption-label">
-                         <semx element="autonum" source="A">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
-                         <semx element="autonum" source="C">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
-                      </span>
-                      <span class="fmt-caption-delim">
-                         <tab/>
-                      </span>
-                      <semx element="title" source="_9">Normative 1</semx>
-                   </fmt-title>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Clause</span>
-                      <semx element="autonum" source="A">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                      <semx element="autonum" source="C">1</semx>
-                   </fmt-xref-label>
-                   <bibitem id="iso123">
-                      <formattedref format="application/x-isodoc+xml">
-                         <em>Standard</em>
-                      </formattedref>
-                      <docidentifier type="metanorma">
-                         [
-                         <strong>A</strong>
-                         .]
-                      </docidentifier>
-                      <docidentifier>XYZ</docidentifier>
-                      <docidentifier scope="biblio-tag">XYZ</docidentifier>
-                      <biblio-tag>
-                         <strong>A</strong>
-                         ., XYZ
-                         <fn reference="1" id="_2" original-reference="1" target="_13">
-                            <p id="_">hello</p>
-                            <fmt-fn-label>
-                               <span class="fmt-caption-label">
-                                  <sup>
-                                     <semx element="autonum" source="_2">1</semx>
-                                  </sup>
-                               </span>
-                            </fmt-fn-label>
-                         </fn>
-                         ,
-                      </biblio-tag>
-                   </bibitem>
-                </references>
-             </clause>
-          </sections>
-          <bibliography>
-             <clause id="D" obligation="informative" displayorder="3">
-                <title id="_10">Bibliography</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_10">Bibliography</semx>
-                </fmt-title>
-                <p id="_">Text</p>
-                <references id="E" unnumbered="true" normative="false">
-                   <bibitem id="iso124">
-                      <formattedref format="application/x-isodoc+xml">
-                         <em>Standard</em>
-                      </formattedref>
-                      <docidentifier type="metanorma">
-                         [
-                         <strong>A</strong>
-                         .]
-                      </docidentifier>
-                      <docidentifier>XYZ</docidentifier>
-                      <docidentifier scope="biblio-tag">XYZ</docidentifier>
-                      <biblio-tag>
-                         <strong>A</strong>
-                         .
-                         <tab/>
-                         XYZ
-                         <fn reference="1" id="_3" original-reference="1" target="_13">
-                            <p id="_">hello</p>
-                            <fmt-fn-label>
-                               <span class="fmt-caption-label">
-                                  <sup>
-                                     <semx element="autonum" source="_3">1</semx>
-                                  </sup>
-                               </span>
-                            </fmt-fn-label>
-                         </fn>
-                         ,
-                      </biblio-tag>
-                   </bibitem>
-                   <p id="_">More text</p>
-                </references>
-                <references id="F" normative="false" obligation="informative">
-                   <title id="_12">Bibliography 1</title>
-                   <fmt-title depth="2">
-                      <semx element="title" source="_12">Bibliography 1</semx>
-                   </fmt-title>
-                   <bibitem id="iso125">
-                      <formattedref format="application/x-isodoc+xml">
-                         <em>Standard</em>
-                      </formattedref>
-                      <docidentifier type="metanorma">
-                         [
-                         <strong>A</strong>
-                         .]
-                      </docidentifier>
-                      <docidentifier>XYZ</docidentifier>
-                      <docidentifier scope="biblio-tag">XYZ</docidentifier>
-                      <biblio-tag>
-                         <strong>A</strong>
-                         .
-                         <tab/>
-                         XYZ
-                         <fn reference="1" id="_4" original-reference="1" target="_13">
-                            <p id="_">hello</p>
-                            <fmt-fn-label>
-                               <span class="fmt-caption-label">
-                                  <sup>
-                                     <semx element="autonum" source="_4">1</semx>
-                                  </sup>
-                               </span>
-                            </fmt-fn-label>
-                         </fn>
-                         ,
-                      </biblio-tag>
-                   </bibitem>
-                </references>
-             </clause>
-          </bibliography>
-          <fmt-footnote-container>
-             <fmt-fn-body id="_13" target="_1" reference="1">
-                <semx element="fn" source="_1">
-                   <p id="_">
-                      <fmt-fn-label>
-                         <span class="fmt-caption-label">
-                            <sup>
-                               <semx element="autonum" source="_1">1</semx>
-                            </sup>
-                         </span>
-                         <span class="fmt-caption-delim">
-                            <tab/>
-                         </span>
-                      </fmt-fn-label>
-                      hello
-                   </p>
-                </semx>
-             </fmt-fn-body>
-          </fmt-footnote-container>
-       </iso-standard>
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+           <bibdata>
+              <language current="true">en</language>
+           </bibdata>
+           <preface>
+              <clause type="toc" id="_5" displayorder="1">
+                 <fmt-title depth="1" id="_14">Table of contents</fmt-title>
+              </clause>
+           </preface>
+           <sections>
+              <clause id="A" obligation="informative" displayorder="2">
+                 <title id="_7">Normative References</title>
+                 <fmt-title depth="1" id="_15">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="A">1</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_7">Normative References</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="A">1</semx>
+                 </fmt-xref-label>
+                 <p id="_">Text</p>
+                 <references id="B" unnumbered="true" normative="true">
+                    <bibitem id="iso122">
+                       <formattedref format="application/x-isodoc+xml">
+                          <em>Standard</em>
+                       </formattedref>
+                       <docidentifier type="metanorma">
+                          [
+                          <strong>A</strong>
+                          .]
+                       </docidentifier>
+                       <docidentifier>XYZ</docidentifier>
+                       <docidentifier scope="biblio-tag">XYZ</docidentifier>
+                       <biblio-tag>
+                          <strong>A</strong>
+                          ., XYZ
+                          <fn reference="1" id="_1" original-reference="1" target="_13">
+                             <p original-id="_">hello</p>
+                             <fmt-fn-label>
+                                <span class="fmt-caption-label">
+                                   <sup>
+                                      <semx element="autonum" source="_1">1</semx>
+                                   </sup>
+                                </span>
+                             </fmt-fn-label>
+                          </fn>
+                          ,
+                       </biblio-tag>
+                    </bibitem>
+                    <p id="_">More text</p>
+                 </references>
+                 <references id="C" normative="true" obligation="informative">
+                    <title id="_9">Normative 1</title>
+                    <fmt-title depth="2" id="_16">
+                       <span class="fmt-caption-label">
+                          <semx element="autonum" source="A">1</semx>
+                          <span class="fmt-autonum-delim">.</span>
+                          <semx element="autonum" source="C">1</semx>
+                          <span class="fmt-autonum-delim">.</span>
+                       </span>
+                       <span class="fmt-caption-delim">
+                          <tab/>
+                       </span>
+                       <semx element="title" source="_9">Normative 1</semx>
+                    </fmt-title>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Clause</span>
+                       <semx element="autonum" source="A">1</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                       <semx element="autonum" source="C">1</semx>
+                    </fmt-xref-label>
+                    <bibitem id="iso123">
+                       <formattedref format="application/x-isodoc+xml">
+                          <em>Standard</em>
+                       </formattedref>
+                       <docidentifier type="metanorma">
+                          [
+                          <strong>A</strong>
+                          .]
+                       </docidentifier>
+                       <docidentifier>XYZ</docidentifier>
+                       <docidentifier scope="biblio-tag">XYZ</docidentifier>
+                       <biblio-tag>
+                          <strong>A</strong>
+                          ., XYZ
+                          <fn reference="1" id="_2" original-reference="1" target="_13">
+                             <p id="_">hello</p>
+                             <fmt-fn-label>
+                                <span class="fmt-caption-label">
+                                   <sup>
+                                      <semx element="autonum" source="_2">1</semx>
+                                   </sup>
+                                </span>
+                             </fmt-fn-label>
+                          </fn>
+                          ,
+                       </biblio-tag>
+                    </bibitem>
+                 </references>
+              </clause>
+           </sections>
+           <bibliography>
+              <clause id="D" obligation="informative" displayorder="3">
+                 <title id="_10">Bibliography</title>
+                 <fmt-title depth="1" id="_17">
+                    <semx element="title" source="_10">Bibliography</semx>
+                 </fmt-title>
+                 <p id="_">Text</p>
+                 <references id="E" unnumbered="true" normative="false">
+                    <bibitem id="iso124">
+                       <formattedref format="application/x-isodoc+xml">
+                          <em>Standard</em>
+                       </formattedref>
+                       <docidentifier type="metanorma">
+                          [
+                          <strong>A</strong>
+                          .]
+                       </docidentifier>
+                       <docidentifier>XYZ</docidentifier>
+                       <docidentifier scope="biblio-tag">XYZ</docidentifier>
+                       <biblio-tag>
+                          <strong>A</strong>
+                          .
+                          <tab/>
+                          XYZ
+                          <fn reference="1" id="_3" original-reference="1" target="_13">
+                             <p id="_">hello</p>
+                             <fmt-fn-label>
+                                <span class="fmt-caption-label">
+                                   <sup>
+                                      <semx element="autonum" source="_3">1</semx>
+                                   </sup>
+                                </span>
+                             </fmt-fn-label>
+                          </fn>
+                          ,
+                       </biblio-tag>
+                    </bibitem>
+                    <p id="_">More text</p>
+                 </references>
+                 <references id="F" normative="false" obligation="informative">
+                    <title id="_12">Bibliography 1</title>
+                    <fmt-title depth="2" id="_18">
+                       <semx element="title" source="_12">Bibliography 1</semx>
+                    </fmt-title>
+                    <bibitem id="iso125">
+                       <formattedref format="application/x-isodoc+xml">
+                          <em>Standard</em>
+                       </formattedref>
+                       <docidentifier type="metanorma">
+                          [
+                          <strong>A</strong>
+                          .]
+                       </docidentifier>
+                       <docidentifier>XYZ</docidentifier>
+                       <docidentifier scope="biblio-tag">XYZ</docidentifier>
+                       <biblio-tag>
+                          <strong>A</strong>
+                          .
+                          <tab/>
+                          XYZ
+                          <fn reference="1" id="_4" original-reference="1" target="_13">
+                             <p id="_">hello</p>
+                             <fmt-fn-label>
+                                <span class="fmt-caption-label">
+                                   <sup>
+                                      <semx element="autonum" source="_4">1</semx>
+                                   </sup>
+                                </span>
+                             </fmt-fn-label>
+                          </fn>
+                          ,
+                       </biblio-tag>
+                    </bibitem>
+                 </references>
+              </clause>
+           </bibliography>
+           <fmt-footnote-container>
+              <fmt-fn-body id="_13" target="_1" reference="1">
+                 <semx element="fn" source="_1">
+                    <p id="_">
+                       <fmt-fn-label>
+                          <span class="fmt-caption-label">
+                             <sup>
+                                <semx element="autonum" source="_1">1</semx>
+                             </sup>
+                          </span>
+                          <span class="fmt-caption-delim">
+                             <tab/>
+                          </span>
+                       </fmt-fn-label>
+                       hello
+                    </p>
+                 </semx>
+              </fmt-fn-body>
+           </fmt-footnote-container>
+        </iso-standard>
     PRESXML
     html = <<~OUTPUT
        <html lang="en">
@@ -2082,13 +2083,13 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
           </preface>
           <sections>
              <clause id="A" obligation="informative" displayorder="2">
                 <title id="_">First References</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -2104,7 +2105,7 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
                 <references id="B" obligation="informative" normative="true">
                    <title id="_">Normative References 1</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="A">1</semx>
                  <span class="fmt-autonum-delim">.</span>
@@ -2125,7 +2126,7 @@ RSpec.describe IsoDoc do
                 </references>
                 <references id="C" obligation="informative" normative="false">
                    <title id="_">Normative References 2</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="A">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -2149,18 +2150,18 @@ RSpec.describe IsoDoc do
           <bibliography>
              <clause id="D" obligation="informative" displayorder="3">
                 <title id="_">Bibliography</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                       <semx element="title" source="_">Bibliography</semx>
                 </fmt-title>
                 <references id="E" obligation="informative" normative="false">
                    <title id="_">Bibliography Subsection 1</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                          <semx element="title" source="_">Bibliography Subsection 1</semx>
                    </fmt-title>
                 </references>
                 <references id="F" obligation="informative" normative="false">
                    <title id="_">Bibliography Subsection 2</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                          <semx element="title" source="_">Bibliography Subsection 2</semx>
                    </fmt-title>
                 </references>

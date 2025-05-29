@@ -57,10 +57,10 @@ RSpec.describe IsoDoc do
           </iso-standard>
     INPUT
     presxml = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata>
              <title>
-                <fn reference="1" id="_1" original-reference="43" target="_15">
+                <fn reference="1" id="_1" original-reference="43" target="_16">
                    <p>C</p>
                    <fmt-fn-label>
                       <span class="fmt-caption-label">
@@ -75,27 +75,27 @@ RSpec.describe IsoDoc do
           
           <boilerplate>
              <copyright-statement>
-                <clause>
-                   <title id="_10">
-                      <fn reference="2" original-id="_2" original-reference="44" id="_17" target="_16">
+                <clause id="_2">
+                   <title id="_11">
+                      <fn reference="2" original-id="_3" original-reference="44" id="_18" target="_17">
                          <p>D</p>
                          <fmt-fn-label>
                             <span class="fmt-caption-label">
                                <sup>
-                                  <semx element="autonum" source="_17">2</semx>
+                                  <semx element="autonum" source="_18">2</semx>
                                </sup>
                             </span>
                          </fmt-fn-label>
                       </fn>
                    </title>
-                   <fmt-title depth="1">
-                      <semx element="title" source="_10">
-                         <fn reference="2" id="_2" original-reference="44" target="_16">
+                   <fmt-title depth="1" id="_23">
+                      <semx element="title" source="_11">
+                         <fn reference="2" id="_3" original-reference="44" target="_17">
                             <p>D</p>
                             <fmt-fn-label>
                                <span class="fmt-caption-label">
                                   <sup>
-                                     <semx element="autonum" source="_2">2</semx>
+                                     <semx element="autonum" source="_3">2</semx>
                                   </sup>
                                </span>
                             </fmt-fn-label>
@@ -106,31 +106,18 @@ RSpec.describe IsoDoc do
              </copyright-statement>
           </boilerplate>
           <preface>
-             <clause type="toc" id="_9" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+             <clause type="toc" id="_10" displayorder="1">
+                <fmt-title depth="1" id="_24">Table of contents</fmt-title>
              </clause>
              <foreword id="F" displayorder="2">
-                <title id="_12">Foreword</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_12">Foreword</semx>
+                <title id="_13">Foreword</title>
+                <fmt-title depth="1" id="_25">
+                   <semx element="title" source="_13">Foreword</semx>
                 </fmt-title>
                 <p>
                    A.
-                   <fn reference="3" id="_3" original-reference="2" target="_18">
+                   <fn reference="3" id="_4" original-reference="2" target="_19">
                       <p original-id="_">Formerly denoted as 15 % (m/m).</p>
-                      <fmt-fn-label>
-                         <span class="fmt-caption-label">
-                            <sup>
-                               <semx element="autonum" source="_3">3</semx>
-                            </sup>
-                         </span>
-                      </fmt-fn-label>
-                   </fn>
-                </p>
-                <p>
-                   B.
-                   <fn reference="3" id="_4" original-reference="2" target="_18">
-                      <p id="_">Formerly denoted as 15 % (m/m).</p>
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
@@ -141,13 +128,26 @@ RSpec.describe IsoDoc do
                    </fn>
                 </p>
                 <p>
+                   B.
+                   <fn reference="3" id="_5" original-reference="2" target="_19">
+                      <p id="_">Formerly denoted as 15 % (m/m).</p>
+                      <fmt-fn-label>
+                         <span class="fmt-caption-label">
+                            <sup>
+                               <semx element="autonum" source="_5">3</semx>
+                            </sup>
+                         </span>
+                      </fmt-fn-label>
+                   </fn>
+                </p>
+                <p>
                    C.
-                   <fn reference="4" id="_5" original-reference="1" target="_19">
+                   <fn reference="4" id="_6" original-reference="1" target="_20">
                       <p original-id="_">Hello! denoted as 15 % (m/m).</p>
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
-                               <semx element="autonum" source="_5">4</semx>
+                               <semx element="autonum" source="_6">4</semx>
                             </sup>
                          </span>
                       </fmt-fn-label>
@@ -157,7 +157,7 @@ RSpec.describe IsoDoc do
           </preface>
           <sections>
              <clause id="A" displayorder="5">
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_26">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">2</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -168,12 +168,12 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="A">2</semx>
                 </fmt-xref-label>
                 A.
-                <fn reference="6" id="_6" original-reference="42" target="_21">
+                <fn reference="6" id="_7" original-reference="42" target="_22">
                    <p original-id="_">Third footnote.</p>
                    <fmt-fn-label>
                       <span class="fmt-caption-label">
                          <sup>
-                            <semx element="autonum" source="_6">6</semx>
+                            <semx element="autonum" source="_7">6</semx>
                          </sup>
                       </span>
                    </fmt-fn-label>
@@ -181,20 +181,20 @@ RSpec.describe IsoDoc do
              </clause>
              <p displayorder="3">
                 B.
-                <fn reference="3" id="_7" original-reference="2" target="_18">
+                <fn reference="3" id="_8" original-reference="2" target="_19">
                    <p id="_">Formerly denoted as 15 % (m/m).</p>
                    <fmt-fn-label>
                       <span class="fmt-caption-label">
                          <sup>
-                            <semx element="autonum" source="_7">3</semx>
+                            <semx element="autonum" source="_8">3</semx>
                          </sup>
                       </span>
                    </fmt-fn-label>
                 </fn>
              </p>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="4">
-                <title id="_14">Normative References</title>
-                <fmt-title depth="1">
+                <title id="_15">Normative References</title>
+                <fmt-title depth="1" id="_27">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -202,7 +202,7 @@ RSpec.describe IsoDoc do
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_14">Normative References</semx>
+                   <semx element="title" source="_15">Normative References</semx>
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Clause</span>
@@ -214,12 +214,12 @@ RSpec.describe IsoDoc do
                       International Organization for Standardization.
                       <em>
                          Cereals and cereal products
-                         <fn reference="5" id="_8" original-reference="7" target="_20">
+                         <fn reference="5" id="_9" original-reference="7" target="_21">
                             <p original-id="_">ISO is a standards organisation.</p>
                             <fmt-fn-label>
                                <span class="fmt-caption-label">
                                   <sup>
-                                     <semx element="autonum" source="_8">5</semx>
+                                     <semx element="autonum" source="_9">5</semx>
                                   </sup>
                                </span>
                             </fmt-fn-label>
@@ -230,12 +230,12 @@ RSpec.describe IsoDoc do
                    <title format="text/plain">Cereals or cereal products</title>
                    <title type="main" format="text/plain">
                       Cereals and cereal products
-                      <fn reference="5" id="_8" original-reference="7" target="_20">
+                      <fn reference="5" id="_9" original-reference="7" target="_21">
                          <p id="_">ISO is a standards organisation.</p>
                          <fmt-fn-label>
                             <span class="fmt-caption-label">
                                <sup>
-                                  <semx element="autonum" source="_8">5</semx>
+                                  <semx element="autonum" source="_9">5</semx>
                                </sup>
                             </span>
                          </fmt-fn-label>
@@ -256,7 +256,7 @@ RSpec.describe IsoDoc do
           <bibliography>
        </bibliography>
           <fmt-footnote-container>
-             <fmt-fn-body id="_15" target="_1" reference="1">
+             <fmt-fn-body id="_16" target="_1" reference="1">
                 <semx element="fn" source="_1">
                    <p>
                       <fmt-fn-label>
@@ -273,13 +273,13 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-fn-body>
-             <fmt-fn-body id="_16" target="" reference="2">
-                <semx element="fn" source="_2">
+             <fmt-fn-body id="_17" target="" reference="2">
+                <semx element="fn" source="_3">
                    <p>
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
-                               <semx element="autonum" source="_17">2</semx>
+                               <semx element="autonum" source="_18">2</semx>
                             </sup>
                          </span>
                          <span class="fmt-caption-delim">
@@ -290,13 +290,13 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-fn-body>
-             <fmt-fn-body id="_18" target="_3" reference="3">
-                <semx element="fn" source="_3">
+             <fmt-fn-body id="_19" target="_4" reference="3">
+                <semx element="fn" source="_4">
                    <p id="_">
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
-                               <semx element="autonum" source="_3">3</semx>
+                               <semx element="autonum" source="_4">3</semx>
                             </sup>
                          </span>
                          <span class="fmt-caption-delim">
@@ -307,13 +307,13 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-fn-body>
-             <fmt-fn-body id="_19" target="_5" reference="4">
-                <semx element="fn" source="_5">
+             <fmt-fn-body id="_20" target="_6" reference="4">
+                <semx element="fn" source="_6">
                    <p id="_">
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
-                               <semx element="autonum" source="_5">4</semx>
+                               <semx element="autonum" source="_6">4</semx>
                             </sup>
                          </span>
                          <span class="fmt-caption-delim">
@@ -324,13 +324,13 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-fn-body>
-             <fmt-fn-body id="_20" target="_8" reference="5">
-                <semx element="fn" source="_8">
+             <fmt-fn-body id="_21" target="_9" reference="5">
+                <semx element="fn" source="_9">
                    <p id="_">
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
-                               <semx element="autonum" source="_8">5</semx>
+                               <semx element="autonum" source="_9">5</semx>
                             </sup>
                          </span>
                          <span class="fmt-caption-delim">
@@ -341,13 +341,13 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-fn-body>
-             <fmt-fn-body id="_21" target="_6" reference="6">
-                <semx element="fn" source="_6">
+             <fmt-fn-body id="_22" target="_7" reference="6">
+                <semx element="fn" source="_7">
                    <p id="_">
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
-                               <semx element="autonum" source="_6">6</semx>
+                               <semx element="autonum" source="_7">6</semx>
                             </sup>
                          </span>
                          <span class="fmt-caption-delim">
@@ -376,9 +376,9 @@ RSpec.describe IsoDoc do
              <div class="main-section">
                 <div class="authority">
                    <div class="boilerplate-copyright">
-                      <div>
+                      <div id="_2">
                          <h1>
-                            <a class="FootnoteRef" href="#fn:_16">
+                            <a class="FootnoteRef" href="#fn:_17">
                                <sup>2</sup>
                             </a>
                          </h1>
@@ -394,26 +394,26 @@ RSpec.describe IsoDoc do
                    <h1 class="ForewordTitle">Foreword</h1>
                    <p>
                       A.
-                      <a class="FootnoteRef" href="#fn:_18">
+                      <a class="FootnoteRef" href="#fn:_19">
                          <sup>3</sup>
                       </a>
                    </p>
                    <p>
                       B.
-                      <a class="FootnoteRef" href="#fn:_18">
+                      <a class="FootnoteRef" href="#fn:_19">
                          <sup>3</sup>
                       </a>
                    </p>
                    <p>
                       C.
-                      <a class="FootnoteRef" href="#fn:_19">
+                      <a class="FootnoteRef" href="#fn:_20">
                          <sup>4</sup>
                       </a>
                    </p>
                 </div>
                 <p>
                    B.
-                   <a class="FootnoteRef" href="#fn:_18">
+                   <a class="FootnoteRef" href="#fn:_19">
                       <sup>3</sup>
                    </a>
                 </p>
@@ -424,7 +424,7 @@ RSpec.describe IsoDoc do
                       ISO\\u00a0712, International Organization for Standardization.
                       <i>
                          Cereals and cereal products
-                         <a class="FootnoteRef" href="#fn:_20">
+                         <a class="FootnoteRef" href="#fn:_21">
                             <sup>5</sup>
                          </a>
                       </i>
@@ -433,26 +433,26 @@ RSpec.describe IsoDoc do
                 </div>
                 <div id="A">
                    <h1>2.</h1>
-                   <a class="FootnoteRef" href="#fn:_21">
+                   <a class="FootnoteRef" href="#fn:_22">
                       <sup>6</sup>
                    </a>
                 </div>
-                <aside id="fn:_15" class="footnote">
+                <aside id="fn:_16" class="footnote">
                    <p>C</p>
                 </aside>
-                <aside id="fn:_16" class="footnote">
+                <aside id="fn:_17" class="footnote">
                    <p>D</p>
                 </aside>
-                <aside id="fn:_18" class="footnote">
+                <aside id="fn:_19" class="footnote">
                    <p id="_">Formerly denoted as 15 % (m/m).</p>
                 </aside>
-                <aside id="fn:_19" class="footnote">
+                <aside id="fn:_20" class="footnote">
                    <p id="_">Hello! denoted as 15 % (m/m).</p>
                 </aside>
-                <aside id="fn:_20" class="footnote">
+                <aside id="fn:_21" class="footnote">
                    <p id="_">ISO is a standards organisation.</p>
                 </aside>
-                <aside id="fn:_21" class="footnote">
+                <aside id="fn:_22" class="footnote">
                    <p id="_">Third footnote.</p>
                 </aside>
              </div>
@@ -470,10 +470,10 @@ RSpec.describe IsoDoc do
           <div class="WordSection2">
              <div class="authority">
                 <div class="boilerplate-copyright">
-                   <div>
+                   <div id="_2">
                       <h1>
                          <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                            <a class="FootnoteRef" epub:type="footnote" href="#ftn_16">2</a>
+                            <a class="FootnoteRef" epub:type="footnote" href="#ftn_17">2</a>
                          </span>
                       </h1>
                    </div>
@@ -482,7 +482,7 @@ RSpec.describe IsoDoc do
              <p class="page-break">
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
-             <div id="_9" class="TOC">
+             <div id="_10" class="TOC">
                 <p class="zzContents">Table of contents</p>
              </div>
              <p class="page-break">
@@ -493,7 +493,7 @@ RSpec.describe IsoDoc do
                 <p>
                    A.
                    <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                      <a class="FootnoteRef" epub:type="footnote" href="#ftn_18">3</a>
+                      <a class="FootnoteRef" epub:type="footnote" href="#ftn_19">3</a>
                    </span>
                 </p>
                 <p>
@@ -509,7 +509,7 @@ RSpec.describe IsoDoc do
                 <p>
                    C.
                    <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                      <a class="FootnoteRef" epub:type="footnote" href="#ftn_19">4</a>
+                      <a class="FootnoteRef" epub:type="footnote" href="#ftn_20">4</a>
                    </span>
                 </p>
              </div>
@@ -541,7 +541,7 @@ RSpec.describe IsoDoc do
                    <i>
                       Cereals and cereal products
                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                         <a class="FootnoteRef" epub:type="footnote" href="#ftn_20">5</a>
+                         <a class="FootnoteRef" epub:type="footnote" href="#ftn_21">5</a>
                       </span>
                    </i>
                    .
@@ -550,25 +550,25 @@ RSpec.describe IsoDoc do
              <div id="A">
                 <h1>2.</h1>
                 <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
-                   <a class="FootnoteRef" epub:type="footnote" href="#ftn_21">6</a>
+                   <a class="FootnoteRef" epub:type="footnote" href="#ftn_22">6</a>
                 </span>
              </div>
-             <aside id="ftn_15">
+             <aside id="ftn_16">
                 <p>C</p>
              </aside>
-             <aside id="ftn_16">
+             <aside id="ftn_17">
                 <p>D</p>
              </aside>
-             <aside id="ftn_18">
+             <aside id="ftn_19">
                 <p id="_">Formerly denoted as 15 % (m/m).</p>
              </aside>
-             <aside id="ftn_19">
+             <aside id="ftn_20">
                 <p id="_">Hello! denoted as 15 % (m/m).</p>
              </aside>
-             <aside id="ftn_20">
+             <aside id="ftn_21">
                 <p id="_">ISO is a standards organisation.</p>
              </aside>
-             <aside id="ftn_21">
+             <aside id="ftn_22">
                 <p id="_">Third footnote.</p>
              </aside>
           </div>
@@ -580,6 +580,7 @@ RSpec.describe IsoDoc do
              <div class="authority">
                 <div class="boilerplate-copyright">
                    <div>
+                   <a name="_2" id="_2"/>
        </div>
                 </div>
              </div>
@@ -671,11 +672,11 @@ RSpec.describe IsoDoc do
                 </span>
              </div>
              <aside>
-                <a name="ftn_15" id="ftn_15"/>
+                <a name="ftn_16" id="ftn_16"/>
                 <p class="MsoNormal">C</p>
              </aside>
              <aside>
-                <a name="ftn_16" id="ftn_16"/>
+                <a name="ftn_17" id="ftn_17"/>
                 <p class="MsoNormal">D</p>
              </aside>
           </div>
@@ -782,11 +783,11 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_8" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_33">Table of contents</fmt-title>
              </clause>
-             <foreword displayorder="2" id="_6">
+             <foreword displayorder="2" id="_1">
                 <title id="_10">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_34">
                    <semx element="title" source="_10">Foreword</semx>
                 </fmt-title>
                 <p id="A">
@@ -819,9 +820,9 @@ RSpec.describe IsoDoc do
                    </em>
                 </p>
              </foreword>
-             <introduction displayorder="3" id="_7">
+             <introduction displayorder="3" id="_2">
                 <title id="_11">Introduction</title>
-                <fmt-title depth="1">
+                <fmt-title depth="1" id="_35">
                    <semx element="title" source="_11">Introduction</semx>
                 </fmt-title>
                 <p id="C">
@@ -836,7 +837,7 @@ RSpec.describe IsoDoc do
              </introduction>
           </preface>
           <review-container>
-             <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_1">
+             <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_3">
                 <p original-id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
                 <p original-id="_">
                    For further information on the Foreword, see
@@ -844,7 +845,7 @@ RSpec.describe IsoDoc do
                 </p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170101T0000" from="_13" to="_14" id="_12">
-                <semx element="review" source="_1">
+                <semx element="review" source="_3">
                    <p id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
                    <p id="_">
                       For further information on the Foreword, see
@@ -852,27 +853,27 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_2">
+             <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_4">
                 <p original-id="_">Second note.</p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_16" to="_17" id="_15">
-                <semx element="review" source="_2">
+                <semx element="review" source="_4">
                    <p id="_">Second note.</p>
                 </semx>
              </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_3">
+             <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_5">
                 <p original-id="_">Third note.</p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_19" to="_20" id="_18">
-                <semx element="review" source="_3">
+                <semx element="review" source="_5">
                    <p id="_">Third note.</p>
                 </semx>
              </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_4">
+             <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_6">
                 <p original-id="_">Fourth note.</p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_22" to="_23" id="_21">
-                <semx element="review" source="_4">
+                <semx element="review" source="_6">
                    <p id="_">Fourth note.</p>
                 </semx>
              </fmt-review-body>
@@ -896,11 +897,11 @@ RSpec.describe IsoDoc do
                    <p id="_">Sixth note.</p>
                 </semx>
              </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="C" id="_5">
+             <review reviewer="ISO" date="20170108T0000" from="C" id="_7">
                 <p original-id="_">Seventh note.</p>
              </review>
              <fmt-review-body reviewer="ISO" date="20170108T0000" from="_31" id="_30" to="_32">
-                <semx element="review" source="_5">
+                <semx element="review" source="_7">
                    <p id="_">Seventh note.</p>
                 </semx>
              </fmt-review-body>
@@ -918,10 +919,10 @@ RSpec.describe IsoDoc do
              </h1>
           </div>
           <br/>
-          <div id="_6">
+          <div id="_1">
              <h1 class="ForewordTitle">
-                <a class="anchor" href="#_6"/>
-                <a class="header" href="#_6">Foreword</a>
+                <a class="anchor" href="#_1"/>
+                <a class="header" href="#_1">Foreword</a>
              </h1>
              <p id="A">
                 <i>
@@ -944,10 +945,10 @@ RSpec.describe IsoDoc do
              </p>
           </div>
           <br/>
-          <div class="Section3" id="_7">
+          <div class="Section3" id="_2">
              <h1 class="IntroTitle">
-                <a class="anchor" href="#_7"/>
-                <a class="header" href="#_7">Introduction</a>
+                <a class="anchor" href="#_2"/>
+                <a class="header" href="#_2">Introduction</a>
              </h1>
              <p id="C">C.</p>
           </div>
@@ -961,7 +962,7 @@ RSpec.describe IsoDoc do
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
              <div>
-                <a name="_6" id="_6"/>
+                <a name="_1" id="_1"/>
                 <h1 class="ForewordTitle">Foreword</h1>
                 <span style="MsoCommentReference" target="1" class="commentLink" from="A" to="B">
                    <span lang="EN-GB" style="font-size:9.0pt" xml:lang="EN-GB">
@@ -1053,7 +1054,7 @@ RSpec.describe IsoDoc do
                 </span>
              </p>
              <div class="Section3">
-                <a name="_7" id="_7"/>
+                <a name="_2" id="_2"/>
                 <span style="mso-comment-continuation:3">
                    <span style="mso-comment-continuation:2">
                       <h1 class="IntroTitle">Introduction</h1>
@@ -1261,48 +1262,48 @@ RSpec.describe IsoDoc do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-             <clause type="toc" id="_3" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+             <clause type="toc" id="_4" displayorder="1">
+                <fmt-title depth="1" id="_11">Table of contents</fmt-title>
              </clause>
              <foreword displayorder="2" id="_1">
-                <title id="_5">Foreword</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_5">Foreword</semx>
+                <title id="_6">Foreword</title>
+                <fmt-title depth="1" id="_12">
+                   <semx element="title" source="_6">Foreword</semx>
                 </fmt-title>
                 <ol type="alphabet">
                    <li id="A">
-                      <fmt-name>
+                      <fmt-name id="_13">
                          <semx element="autonum" source="A"/>
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
                       <p>
-                         <fmt-review-start id="_8" source="A" target="_7" end="C" author="" date="20170108T0000"/>
+                         <fmt-review-start id="_9" source="A" target="_8" end="C" author="" date="20170108T0000"/>
                          A.
                       </p>
                       <p>A1</p>
                    </li>
                    <li id="B">
-                      <fmt-name>
+                      <fmt-name id="_14">
                          <semx element="autonum" source="B"/>
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
                       B.
                    </li>
                    <ul>
-                      <li>
-                         <fmt-name>
-                            <semx element="autonum" source="">—</semx>
+                      <li id="_2">
+                         <fmt-name id="_15">
+                            <semx element="autonum" source="_2">—</semx>
                          </fmt-name>
                          <p>C.</p>
                          <p id="C">
                             C1
-                            <fmt-review-end id="_9" source="C" target="_7" start="A" author="" date="20170108T0000"/>
+                            <fmt-review-end id="_10" source="C" target="_8" start="A" author="" date="20170108T0000"/>
                          </p>
                       </li>
                       <li id="D">
-                         <fmt-name>
+                         <fmt-name id="_16">
                             <semx element="autonum" source="D">—</semx>
                          </fmt-name>
                          D.
@@ -1310,10 +1311,10 @@ RSpec.describe IsoDoc do
                    </ul>
                 </ol>
              </foreword>
-             <introduction displayorder="3" id="_2">
-                <title id="_6">Introduction</title>
-                <fmt-title depth="1">
-                   <semx element="title" source="_6">Introduction</semx>
+             <introduction displayorder="3" id="_3">
+                <title id="_7">Introduction</title>
+                <fmt-title depth="1" id="_17">
+                   <semx element="title" source="_7">Introduction</semx>
                 </fmt-title>
              </introduction>
           </preface>
@@ -1321,7 +1322,7 @@ RSpec.describe IsoDoc do
              <review reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
                 <p original-id="_">Second note.</p>
              </review>
-             <fmt-review-body reviewer="ISO" id="_7" date="20170108T0000" from="_8" to="_9">
+             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_9" to="_10" id="_8">
                 <semx element="review" source="_">
                    <p id="_">Second note.</p>
                 </semx>
@@ -1330,50 +1331,50 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     html = <<~OUTPUT
-      <main class="main-section">
-         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-         <br/>
-         <div id="_3" class="TOC">
-            <h1 class="IntroTitle">
-               <a class="anchor" href="#_3"/>
-               <a class="header" href="#_3">Table of contents</a>
-            </h1>
-         </div>
-         <br/>
-         <div id="_1">
-            <h1 class="ForewordTitle">
-               <a class="anchor" href="#_1"/>
-               <a class="header" href="#_1">Foreword</a>
-            </h1>
-            <div class="ol_wrap">
-               <ol type="a">
-                  <li id="A">
-                     <p>A.</p>
-                     <p>A1</p>
-                  </li>
-                  <li id="B">
-                     B.
-                     <div class="ul_wrap">
-                        <ul>
-                           <li>
-                              <p>C.</p>
-                              <p id="C">C1</p>
-                           </li>
-                           <li id="D">D.</li>
-                        </ul>
-                     </div>
-                  </li>
-               </ol>
-            </div>
-         </div>
-         <br/>
-         <div class="Section3" id="_2">
-            <h1 class="IntroTitle">
-               <a class="anchor" href="#_2"/>
-               <a class="header" href="#_2">Introduction</a>
-            </h1>
-         </div>
-      </main>
+       <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+          <br/>
+          <div id="_4" class="TOC">
+             <h1 class="IntroTitle">
+                <a class="anchor" href="#_4"/>
+                <a class="header" href="#_4">Table of contents</a>
+             </h1>
+          </div>
+          <br/>
+          <div id="_1">
+             <h1 class="ForewordTitle">
+                <a class="anchor" href="#_1"/>
+                <a class="header" href="#_1">Foreword</a>
+             </h1>
+             <div class="ol_wrap">
+                <ol type="a">
+                   <li id="A">
+                      <p>A.</p>
+                      <p>A1</p>
+                   </li>
+                   <li id="B">
+                      B.
+                      <div class="ul_wrap">
+                         <ul>
+                            <li id="_2">
+                               <p>C.</p>
+                               <p id="C">C1</p>
+                            </li>
+                            <li id="D">D.</li>
+                         </ul>
+                      </div>
+                   </li>
+                </ol>
+             </div>
+          </div>
+          <br/>
+          <div class="Section3" id="_3">
+             <h1 class="IntroTitle">
+                <a class="anchor" href="#_3"/>
+                <a class="header" href="#_3">Introduction</a>
+             </h1>
+          </div>
+       </main>
     OUTPUT
     word = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
@@ -1407,6 +1408,7 @@ RSpec.describe IsoDoc do
                    </p>
                    <div class="ul_wrap">
                       <p class="MsoListParagraphCxSpFirst" style="">
+                    <a name="_2" id="_2"/>
                          <span style="mso-comment-continuation:1">C.</span>
                          <p class="MsoListParagraphCxSpMiddle">
                             <a name="C" id="C"/>
@@ -1424,7 +1426,7 @@ RSpec.describe IsoDoc do
                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
              </p>
              <div class="Section3">
-                <a name="_2" id="_2"/>
+                <a name="_3" id="_3"/>
                 <h1 class="IntroTitle">Introduction</h1>
              </div>
              <p class="MsoNormal">\\u00a0</p>

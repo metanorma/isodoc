@@ -211,6 +211,7 @@ module IsoDoc
       date_note = bib.at(ns("./note[@type = 'Unpublished-Status']"))
       date_note.nil? and return ret
       id = "_#{UUIDTools::UUID.random_create}"
+      @new_ids[id] = nil
       "#{ret}<fn id='#{id}' reference='#{id}'><p>#{date_note.content}</p></fn>"
     end
 

@@ -18,13 +18,13 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
             <clause type="toc" id="_" displayorder="1">
-               <fmt-title depth="1">Table of contents</fmt-title>
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
             </clause>
          </preface>
          <sections>
             <terms id="H" obligation="normative" displayorder="2">
                <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
-               <fmt-title depth="1">
+               <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="H">1</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -39,7 +39,7 @@ RSpec.describe IsoDoc do
                   <semx element="autonum" source="H">1</semx>
                </fmt-xref-label>
                <term id="J">
-                  <fmt-name>
+                  <fmt-name id="_">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="H">1</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -183,13 +183,13 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
           </preface>
           <sections>
              <terms id="terms_and_definitions" obligation="normative" displayorder="2">
                 <title id="_">Terms and Definitions</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="terms_and_definitions">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -205,7 +205,7 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
                 <p>For the purposes of this document, the following terms and definitions apply.</p>
                 <term id="paddy1">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="terms_and_definitions">1</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -225,14 +225,14 @@ RSpec.describe IsoDoc do
                       </expression>
                       <field-of-application id="_">in agriculture</field-of-application>
                       <usage-info id="_">dated</usage-info>
-                      <source status="modified" original-id="_">
+                      <source status="modified" id="_">
                          <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
                             <locality type="clause">
                                <referenceFrom>3.1</referenceFrom>
                             </locality>
                          </origin>
                          <modification id="_">
-                            <p original-id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+                            <p id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
                          </modification>
                       </source>
                    </preferred>
@@ -275,7 +275,7 @@ RSpec.describe IsoDoc do
                          <p original-id="_">rice retaining its husk after threshing</p>
                       </verbal-definition>
                    </definition>
-                   <fmt-definition>
+                   <fmt-definition id="_">
                       <semx element="definition" source="_">
                          <p id="_">
                             &lt;
@@ -285,7 +285,7 @@ RSpec.describe IsoDoc do
                       </semx>
                    </fmt-definition>
                    <termexample id="_" keep-with-next="true" keep-lines-together="true" autonum="1">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">EXAMPLE</span>
                             <semx element="autonum" source="_">1</semx>
@@ -308,16 +308,16 @@ RSpec.describe IsoDoc do
                       </fmt-xref-label>
                       <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
                       <ul>
-                         <li>
-                            <fmt-name>
-                               <semx element="autonum" source="">—</semx>
+                         <li id="_">
+                            <fmt-name id="_">
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             A
                          </li>
                       </ul>
                    </termexample>
                    <termexample id="_" autonum="2">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">EXAMPLE</span>
                             <semx element="autonum" source="_">2</semx>
@@ -339,9 +339,9 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="_">2</semx>
                       </fmt-xref-label>
                       <ul>
-                         <li>
-                            <fmt-name>
-                               <semx element="autonum" source="">—</semx>
+                         <li id="_">
+                            <fmt-name id="_">
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             A
                          </li>
@@ -352,7 +352,7 @@ RSpec.describe IsoDoc do
                          <termref base="IEV" target="xyz">t1</termref>
                       </origin>
                       <modification id="_">
-                         <p original-id="_">comment</p>
+                         <p id="_">comment</p>
                       </modification>
                    </source>
                    <source status="modified" id="_">
@@ -414,7 +414,7 @@ RSpec.describe IsoDoc do
                    </fmt-termsource>
                 </term>
                 <term id="paddy">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="terms_and_definitions">1</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -482,13 +482,13 @@ RSpec.describe IsoDoc do
                          <p original-id="_">rice retaining its husk after threshing</p>
                       </verbal-definition>
                    </definition>
-                   <fmt-definition>
+                   <fmt-definition id="_">
                       <semx element="definition" source="_">
                          <p id="_">rice retaining its husk after threshing</p>
                       </semx>
                    </fmt-definition>
                    <termexample id="_" autonum="">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">EXAMPLE</span>
                          </span>
@@ -507,16 +507,16 @@ RSpec.describe IsoDoc do
                          <span class="fmt-element-name">Example</span>
                       </fmt-xref-label>
                       <ul>
-                         <li>
-                            <fmt-name>
-                               <semx element="autonum" source="">—</semx>
+                         <li id="_">
+                            <fmt-name id="_">
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             A
                          </li>
                       </ul>
                    </termexample>
                    <termnote id="_" keep-with-next="true" keep-lines-together="true" autonum="1">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             Note
                             <semx element="autonum" source="_">1</semx>
@@ -542,7 +542,7 @@ RSpec.describe IsoDoc do
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
                    </termnote>
                    <termnote id="_" autonum="2">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             Note
                             <semx element="autonum" source="_">2</semx>
@@ -566,9 +566,9 @@ RSpec.describe IsoDoc do
                          <semx element="autonum" source="_">2</semx>
                       </fmt-xref-label>
                       <ul>
-                         <li>
-                            <fmt-name>
-                               <semx element="autonum" source="">—</semx>
+                         <li id="_">
+                            <fmt-name id="_">
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             A
                          </li>
@@ -641,7 +641,7 @@ RSpec.describe IsoDoc do
                       <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -649,7 +649,7 @@ RSpec.describe IsoDoc do
                       <p class="example-title">EXAMPLE 2</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -666,7 +666,7 @@ RSpec.describe IsoDoc do
                       <p class="example-title">EXAMPLE</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -682,7 +682,7 @@ RSpec.describe IsoDoc do
                       </p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
@@ -720,7 +720,7 @@ RSpec.describe IsoDoc do
                       <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -728,7 +728,7 @@ RSpec.describe IsoDoc do
                       <p class="example-title">EXAMPLE 2</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -745,7 +745,7 @@ RSpec.describe IsoDoc do
                       <p class="example-title">EXAMPLE</p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                    </div>
@@ -761,7 +761,7 @@ RSpec.describe IsoDoc do
                       </p>
                       <div class="ul_wrap">
                          <ul>
-                            <li>A</li>
+                            <li id="_">A</li>
                          </ul>
                       </div>
                       <p id="_">The starch of waxy rice consists almost entirely of amylopectin. The kernels have a tendency to stick together after cooking.</p>
@@ -836,7 +836,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
           <title id="_">Terms and Definitions</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="terms_and_definitions">1</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -852,7 +852,7 @@ RSpec.describe IsoDoc do
           </fmt-xref-label>
           <p>For the purposes of this document, the following terms and definitions apply.</p>
           <term id="paddy1">
-             <fmt-name>
+             <fmt-name id="_">
                 <span class="fmt-caption-label">
                    <semx element="autonum" source="terms_and_definitions">1</semx>
                    <span class="fmt-autonum-delim">.</span>
@@ -887,21 +887,21 @@ RSpec.describe IsoDoc do
              <definition id="_">
                 <verbal-definition>
                    <p original-id="_">rice retaining its husk after threshing, mark 2</p>
-                   <source status="modified" original-id="_">
+                   <source status="modified" id="_">
                       <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
                          <locality type="clause">
                             <referenceFrom>3.1</referenceFrom>
                          </locality>
                       </origin>
                       <modification id="_">
-                         <p original-id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+                         <p id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
                       </modification>
                    </source>
                 </verbal-definition>
              </definition>
-             <fmt-definition>
-                <ol>
-                   <li>
+             <fmt-definition id="_">
+                <ol id="_">
+                   <li id="_">
                       <semx element="definition" source="_">
                          <p id="_">
                             &lt;
@@ -910,7 +910,7 @@ RSpec.describe IsoDoc do
                          </p>
                       </semx>
                    </li>
-                   <li>
+                   <li id="_">
                       <semx element="definition" source="_">
                          <p id="_">rice retaining its husk after threshing, mark 2</p>
                          [SOURCE:
@@ -937,7 +937,7 @@ RSpec.describe IsoDoc do
                 </ol>
              </fmt-definition>
              <termexample id="_" keep-with-next="true" keep-lines-together="true" autonum="1">
-                <fmt-name>
+                <fmt-name id="_">
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">EXAMPLE</span>
                       <semx element="autonum" source="_">1</semx>
@@ -960,16 +960,16 @@ RSpec.describe IsoDoc do
                 </fmt-xref-label>
                 <p id="_">Foreign seeds, husks, bran, sand, dust.</p>
                 <ul>
-                   <li>
-                      <fmt-name>
-                         <semx element="autonum" source="">—</semx>
+                   <li id="_">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="_">—</semx>
                       </fmt-name>
                       A
                    </li>
                 </ul>
              </termexample>
              <termexample id="_" autonum="2">
-                <fmt-name>
+                <fmt-name id="_">
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">EXAMPLE</span>
                       <semx element="autonum" source="_">2</semx>
@@ -991,9 +991,9 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="_">2</semx>
                 </fmt-xref-label>
                 <ul>
-                   <li>
-                      <fmt-name>
-                         <semx element="autonum" source="">—</semx>
+                   <li id="_">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="_">—</semx>
                       </fmt-name>
                       A
                    </li>
@@ -1009,7 +1009,7 @@ RSpec.describe IsoDoc do
                    <termref base="IEV" target="xyz"/>
                 </origin>
                 <modification id="_">
-                   <p original-id="_">with adjustments</p>
+                   <p id="_">with adjustments</p>
                 </modification>
              </source>
              <fmt-termsource status="identical">
@@ -1085,7 +1085,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
          <title id="_">Terms and Definitions</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -1100,7 +1100,7 @@ RSpec.describe IsoDoc do
             <semx element="autonum" source="terms_and_definitions">1</semx>
          </fmt-xref-label>
          <term id="paddy1">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -1141,7 +1141,7 @@ RSpec.describe IsoDoc do
                   <p original-id="_">rice retaining its husk after threshing</p>
                </verbal-definition>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="_">
                      &lt;
@@ -1152,7 +1152,7 @@ RSpec.describe IsoDoc do
             </fmt-definition>
          </term>
          <term id="paddy2">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -1193,7 +1193,7 @@ RSpec.describe IsoDoc do
                   <p original-id="_">rice retaining its husk after threshing</p>
                </verbal-definition>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="_">
                      &lt;
@@ -1204,7 +1204,7 @@ RSpec.describe IsoDoc do
             </fmt-definition>
          </term>
          <term id="paddy3">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -1247,7 +1247,7 @@ RSpec.describe IsoDoc do
                   <p original-id="_">rice retaining its husk after threshing</p>
                </verbal-definition>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="_">
                      &lt;
@@ -1258,7 +1258,7 @@ RSpec.describe IsoDoc do
             </fmt-definition>
          </term>
          <term id="paddy4">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -1302,7 +1302,7 @@ RSpec.describe IsoDoc do
                   <p original-id="_">rice retaining its husk after threshing</p>
                </verbal-definition>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="_">
                      &lt;
@@ -1355,7 +1355,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
          <title id="_">Terms and Definitions</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -1370,7 +1370,7 @@ RSpec.describe IsoDoc do
             <semx element="autonum" source="terms_and_definitions">1</semx>
          </fmt-xref-label>
          <term id="paddy1">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -1428,7 +1428,7 @@ RSpec.describe IsoDoc do
                   <p original-id="_">rice retaining its husk after threshing</p>
                </verbal-definition>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="_">
                      &lt;
@@ -1485,7 +1485,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
          <title id="_">Terms and Definitions</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -1500,7 +1500,7 @@ RSpec.describe IsoDoc do
             <semx element="autonum" source="terms_and_definitions">1</semx>
          </fmt-xref-label>
          <term id="paddy1">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -1587,7 +1587,7 @@ RSpec.describe IsoDoc do
                <p>
                   <semx element="preferred" source="_">
                      <figure id="_" autonum="1">
-                        <fmt-name>
+                        <fmt-name id="_">
                            <span class="fmt-caption-label">
                               <span class="fmt-element-name">Figure</span>
                               <semx element="autonum" source="_">1</semx>
@@ -1608,7 +1608,7 @@ RSpec.describe IsoDoc do
                   <p original-id="_">rice retaining its husk after threshing</p>
                </verbal-definition>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="_">
                      &lt;
@@ -1719,7 +1719,7 @@ RSpec.describe IsoDoc do
     presxml = <<~PRESXML
       <terms id="A" obligation="normative" displayorder="2">
          <title id="_">Terms and definitions</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="A">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -1735,7 +1735,7 @@ RSpec.describe IsoDoc do
          </fmt-xref-label>
          <p id="B">For the purposes of this document, the following terms and definitions apply.</p>
          <term id="term-term">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="A">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -1764,7 +1764,7 @@ RSpec.describe IsoDoc do
             <definition id="_">
                <verbal-definition>
                   <p original-id="C">Definition</p>
-                  <source status="identical" type="authoritative" original-id="_">
+                  <source status="identical" type="authoritative" id="_">
                      <origin bibitemid="ISO2191" type="inline" citeas="">
                         <localityStack>
                            <locality type="section">
@@ -1791,7 +1791,7 @@ RSpec.describe IsoDoc do
                   </table>
                </non-verbal-representation>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="C">Definition</p>
                   [SOURCE:
@@ -1816,7 +1816,7 @@ RSpec.describe IsoDoc do
                   </semx>
                   ]
                   <table id="D" autonum="1">
-                     <fmt-name>
+                     <fmt-name id="_">
                         <span class="fmt-caption-label">
                            <span class="fmt-element-name">Table</span>
                            <semx element="autonum" source="D">1</semx>
@@ -1875,7 +1875,7 @@ RSpec.describe IsoDoc do
             </fmt-termsource>
          </term>
          <term id="term-term-2">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="A">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -1915,7 +1915,7 @@ RSpec.describe IsoDoc do
                         </math>
                      </stem>
                   </formula>
-                  <source status="identical" type="authoritative" original-id="_">
+                  <source status="identical" type="authoritative" id="_">
                      <origin bibitemid="ISO2191" type="inline" citeas="">
                         <localityStack>
                            <locality type="section">
@@ -1926,10 +1926,10 @@ RSpec.describe IsoDoc do
                   </source>
                </non-verbal-representation>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <figure id="E" autonum="1">
-                     <fmt-name>
+                     <fmt-name id="_">
                         <span class="fmt-caption-label">
                            <span class="fmt-element-name">Figure</span>
                            <semx element="autonum" source="E">1</semx>
@@ -1942,7 +1942,7 @@ RSpec.describe IsoDoc do
                      <pre id="F">Literal</pre>
                   </figure>
                   <formula id="G" autonum="1">
-                     <fmt-name>
+                     <fmt-name id="_">
                         <span class="fmt-caption-label">
                            <span class="fmt-autonum-delim">(</span>
                            1
@@ -2073,7 +2073,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <terms id="A" obligation="normative" displayorder="2">
           <title id="_">Terms and definitions</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="A">1</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -2088,7 +2088,7 @@ RSpec.describe IsoDoc do
              <semx element="autonum" source="A">1</semx>
           </fmt-xref-label>
           <term id="second">
-             <fmt-name>
+             <fmt-name id="_">
                 <span class="fmt-caption-label">
                    <semx element="autonum" source="A">1</semx>
                    <span class="fmt-autonum-delim">.</span>
@@ -2126,12 +2126,12 @@ RSpec.describe IsoDoc do
              <definition id="_">
                 <verbal-definition>Definition 1</verbal-definition>
              </definition>
-             <fmt-definition>
+             <fmt-definition id="_">
                 <semx element="definition" source="_">Definition 1</semx>
              </fmt-definition>
           </term>
           <term id="C">
-             <fmt-name>
+             <fmt-name id="_">
                 <span class="fmt-caption-label">
                    <semx element="autonum" source="A">1</semx>
                    <span class="fmt-autonum-delim">.</span>
@@ -2158,7 +2158,7 @@ RSpec.describe IsoDoc do
                 </p>
              </fmt-preferred>
              <related type="contrast" id="_">
-                <preferred>
+                <preferred id="_">
                    <expression>
                       <name>Fifth Designation</name>
                       <grammar>
@@ -2169,7 +2169,7 @@ RSpec.describe IsoDoc do
                 <xref target="second"/>
              </related>
              <related type="see" id="_">
-                <preferred>
+                <preferred id="_">
                    <expression>
                       <name>Fifth Designation</name>
                       <grammar>
@@ -2220,7 +2220,7 @@ RSpec.describe IsoDoc do
              <definition id="_">
                 <verbal-definition>Definition 2</verbal-definition>
              </definition>
-             <fmt-definition>
+             <fmt-definition id="_">
                 <semx element="definition" source="_">Definition 2</semx>
              </fmt-definition>
           </term>
@@ -2299,7 +2299,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
        <terms id="terms_and_definitions" obligation="normative" displayorder="2">
           <title id="_">Terms and Definitions</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="terms_and_definitions">1</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -2315,7 +2315,7 @@ RSpec.describe IsoDoc do
           </fmt-xref-label>
           <p>For the purposes of this document, the following terms and definitions apply.</p>
           <term id="paddy1">
-             <fmt-name>
+             <fmt-name id="_">
                 <span class="fmt-caption-label">
                    <semx element="autonum" source="terms_and_definitions">1</semx>
                    <span class="fmt-autonum-delim">.</span>
@@ -2346,7 +2346,7 @@ RSpec.describe IsoDoc do
                    <p original-id="_">rice retaining its husk after threshing</p>
                 </verbal-definition>
              </definition>
-             <fmt-definition>
+             <fmt-definition id="_">
                 <semx element="definition" source="_">
                    <p id="_">rice retaining its husk after threshing</p>
                 </semx>
@@ -2356,7 +2356,7 @@ RSpec.describe IsoDoc do
                    <termref base="IEV" target="xyz">t1</termref>
                 </origin>
                 <modification id="_">
-                   <p original-id="_">with adjustments</p>
+                   <p id="_">with adjustments</p>
                 </modification>
              </source>
              <source status="adapted" id="_">
@@ -2478,7 +2478,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
        <terms id="terms_and_definitions" obligation="normative" displayorder="2">
           <title id="_">Terms and Definitions</title>
-          <fmt-title depth="1">
+          <fmt-title id="_" depth="1">
              <span class="fmt-caption-label">
                 <semx element="autonum" source="terms_and_definitions">1</semx>
                 <span class="fmt-autonum-delim">.</span>
@@ -2494,7 +2494,7 @@ RSpec.describe IsoDoc do
           </fmt-xref-label>
           <p>For the purposes of this document, the following terms and definitions apply.</p>
           <term id="paddy1">
-             <fmt-name>
+             <fmt-name id="_">
                 <span class="fmt-caption-label">
                    <semx element="autonum" source="terms_and_definitions">1</semx>
                    <span class="fmt-autonum-delim">.</span>
@@ -2525,7 +2525,7 @@ RSpec.describe IsoDoc do
                    <p original-id="_">rice retaining its husk after threshing</p>
                 </verbal-definition>
              </definition>
-             <fmt-definition>
+             <fmt-definition id="_">
                 <semx element="definition" source="_">
                    <p id="_">rice retaining its husk after threshing</p>
                 </semx>
@@ -2535,7 +2535,7 @@ RSpec.describe IsoDoc do
                    <termref base="IEV" target="xyz">t1</termref>
                 </origin>
                 <modification id="_">
-                   <p original-id="_">with adjustments</p>
+                   <p id="_">with adjustments</p>
                 </modification>
              </source>
              <source status="adapted" id="_">
@@ -2677,7 +2677,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <terms id="terms_and_definitions" obligation="normative" displayorder="2">
          <title id="_">Terms and Definitions</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="terms_and_definitions">1</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -2693,7 +2693,7 @@ RSpec.describe IsoDoc do
          </fmt-xref-label>
          <p>For the purposes of this document, the following terms and definitions apply.</p>
          <term id="paddy1">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -2726,14 +2726,14 @@ RSpec.describe IsoDoc do
                   <p original-id="_">rice retaining its husk after threshing</p>
                </verbal-definition>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="_">rice retaining its husk after threshing</p>
                </semx>
             </fmt-definition>
          </term>
          <term id="muddy">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <semx element="autonum" source="terms_and_definitions">1</semx>
                   <span class="fmt-autonum-delim">.</span>
@@ -2768,7 +2768,7 @@ RSpec.describe IsoDoc do
                   <p original-id="_">rice not retaining its husk after threshing</p>
                </verbal-definition>
             </definition>
-            <fmt-definition>
+            <fmt-definition id="_">
                <semx element="definition" source="_">
                   <p id="_">rice not retaining its husk after threshing</p>
                </semx>

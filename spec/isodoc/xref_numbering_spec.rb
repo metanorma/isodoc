@@ -48,7 +48,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
         <foreword id="fwd" displayorder="2">
            <title id="_">Foreword</title>
-           <fmt-title depth="1">
+           <fmt-title id="_" depth="1">
               <semx element="title" source="_">Foreword</semx>
            </fmt-title>
            <p>
@@ -287,7 +287,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
         <foreword id="fwd" displayorder="2">
            <title id="_">Foreword</title>
-           <fmt-title depth="1">
+           <fmt-title id="_" depth="1">
               <semx element="title" source="_">Foreword</semx>
            </fmt-title>
            <p>
@@ -672,7 +672,7 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
         <foreword id="fwd" displayorder="2">
            <title id="_">Foreword</title>
-           <fmt-title depth="1">
+           <fmt-title id="_" depth="1">
               <semx element="title" source="_">Foreword</semx>
            </fmt-title>
            <p>
@@ -970,11 +970,11 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
        <foreword id="fwd" displayorder="2">
            <title id="_">Foreword</title>
-           <fmt-title depth="1">
+           <fmt-title id="_" depth="1">
               <semx element="title" source="_">Foreword</semx>
            </fmt-title>
            <note id="A" unnumbered="true">
-              <fmt-name>
+              <fmt-name id="_">
                  <span class="fmt-caption-label">
                     <span class="fmt-element-name">NOTE</span>
                  </span>
@@ -994,7 +994,7 @@ RSpec.describe IsoDoc do
               </fmt-xref-label>
            </note>
            <note id="B" unnumbered="false">
-              <fmt-name>
+              <fmt-name id="_">
                  <span class="fmt-caption-label">
                     <span class="fmt-element-name">NOTE</span>
                     <semx element="autonum" source="B">1</semx>
@@ -1017,7 +1017,7 @@ RSpec.describe IsoDoc do
               </fmt-xref-label>
            </note>
            <note id="C" unnumbered="true">
-              <fmt-name>
+              <fmt-name id="_">
                  <span class="fmt-caption-label">
                     <span class="fmt-element-name">NOTE</span>
                  </span>

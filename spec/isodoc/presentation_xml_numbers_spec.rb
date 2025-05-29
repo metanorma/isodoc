@@ -22,9 +22,9 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
-              <p displayorder="2" id="_">
+              <p displayorder="2">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mstyle>
@@ -241,7 +241,7 @@ RSpec.describe IsoDoc do
                  <div id="_" class="TOC">
                     <h1 class="IntroTitle">Table of contents</h1>
                  </div>
-                 <p id="_">
+                 <p>
             <span>64,212,149,677,264,515</span>
             <span>642,121,496,772,645.15</span>
             <span>30,000</span>
@@ -465,9 +465,9 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
-              <p displayorder="2" id="_">
+              <p displayorder="2">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mn>30000</mn>
@@ -728,9 +728,9 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Sommaire</fmt-title>
+                 <fmt-title id="_" depth="1">Sommaire</fmt-title>
               </clause>
-              <p displayorder="2" id="_">
+              <p displayorder="2">
                  <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <mn>30000</mn>
                  </math>
@@ -934,9 +934,9 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Sommaire</fmt-title>
+                 <fmt-title id="_" depth="1">Sommaire</fmt-title>
               </clause>
-              <p displayorder="2" id="_">
+              <p displayorder="2">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mn>30000</mn>
@@ -1148,9 +1148,9 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Inhaltsübersicht</fmt-title>
+                 <fmt-title id="_" depth="1">Inhaltsübersicht</fmt-title>
               </clause>
-              <p displayorder="2" id="_">
+              <p displayorder="2">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mn>...</mn>
@@ -1218,9 +1218,9 @@ RSpec.describe IsoDoc do
            </bibdata>
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
-              <p displayorder="2" id="_">
+              <p displayorder="2">
                  <stem type="MathML" id="_">
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                        <mn>...</mn>

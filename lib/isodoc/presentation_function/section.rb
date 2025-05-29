@@ -44,7 +44,7 @@ module IsoDoc
       level = @xrefs.anchor(elem["id"], :level, false) ||
         (elem.ancestors("clause, annex").size + 1)
       is_unnumbered = unnumbered_clause?(elem)
-      lbl = @xrefs.anchor(elem["id"], :label, !is_unnumbered)
+      lbl = @xrefs.anchor(elem["id"], :label, false)
       if is_unnumbered || !lbl
         prefix_name(elem, {}, nil, "title")
       else
@@ -179,7 +179,7 @@ module IsoDoc
 
     def toc_refs(docxml)
       docxml.xpath(ns("//toc//xref[text()]")).each do |x|
-        lbl = @xrefs.anchor(x["target"], :label) or next
+        lbl = @xrefs.anchor(x["target"], :label, false) or next
         x.add_first_child "#{lbl}<span class='fmt-caption-delim'><tab/></span>"
       end
     end

@@ -5,8 +5,8 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
-          <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
+          <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Table of contents</fmt-title> </clause>
+          <foreword displayorder="2" id="fwd"><fmt-title id="_">Foreword</fmt-title>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
           <name>Caption</name>
         <li>
@@ -39,39 +39,39 @@ RSpec.describe IsoDoc do
           <preface>
              <foreword displayorder="1" id="fwd">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">Foreword</fmt-title>
+                <fmt-title id="_" depth="1">Foreword</fmt-title>
                 <ul id="_" keep-with-next="true" keep-lines-together="true">
                    <name id="_">Caption</name>
-                   <fmt-name>
+                   <fmt-name id="_">
                       <semx element="name" source="_">Caption</semx>
                    </fmt-name>
-                   <li>
-                      <fmt-name>
-                         <semx element="autonum" source="">—</semx>
+                   <li id="_">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="_">—</semx>
                       </fmt-name>
                       <p id="_">Level 1</p>
                    </li>
-                   <li>
-                      <fmt-name>
-                         <semx element="autonum" source="">—</semx>
+                   <li id="_">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="_">—</semx>
                       </fmt-name>
                       <p id="_">deletion of 4.3.</p>
                       <ul id="_" keep-with-next="true" keep-lines-together="true">
-                         <li>
-                            <fmt-name>
-                               <semx element="autonum" source="">—</semx>
+                         <li id="_">
+                            <fmt-name id="_">
+                               <semx element="autonum" source="_">—</semx>
                             </fmt-name>
                             <p id="_">Level 2</p>
                             <ul id="_" keep-with-next="true" keep-lines-together="true">
-                               <li>
-                                  <fmt-name>
-                                     <semx element="autonum" source="">—</semx>
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">—</semx>
                                   </fmt-name>
                                   <p id="_">Level 3</p>
                                   <ul id="_" keep-with-next="true" keep-lines-together="true">
-                                     <li>
-                                        <fmt-name>
-                                           <semx element="autonum" source="">—</semx>
+                                     <li id="_">
+                                        <fmt-name id="_">
+                                           <semx element="autonum" source="_">—</semx>
                                         </fmt-name>
                                         <p id="_">Level 4</p>
                                      </li>
@@ -84,7 +84,7 @@ RSpec.describe IsoDoc do
                 </ul>
              </foreword>
              <clause type="toc" id="_" displayorder="2">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
           </preface>
        </iso-standard>
@@ -108,22 +108,22 @@ RSpec.describe IsoDoc do
                    <div class="ul_wrap">
                       <p class="ListTitle">Caption</p>
                       <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <li>
+                         <li id="_">
                             <p id="_">Level 1</p>
                          </li>
-                         <li>
+                         <li id="_">
                             <p id="_">deletion of 4.3.</p>
                             <div class="ul_wrap">
                                <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                  <li>
+                                  <li id="_">
                                      <p id="_">Level 2</p>
                                      <div class="ul_wrap">
                                         <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                           <li>
+                                           <li id="_">
                                               <p id="_">Level 3</p>
                                               <div class="ul_wrap">
                                                  <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                                    <li>
+                                                    <li id="_">
                                                        <p id="_">Level 4</p>
                                                     </li>
                                                  </ul>
@@ -152,22 +152,22 @@ RSpec.describe IsoDoc do
           <div class="ul_wrap">
              <p class="ListTitle">Caption</p>
              <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                <li>
+                <li id="_">
                    <p id="_">Level 1</p>
                 </li>
-                <li>
+                <li id="_">
                    <p id="_">deletion of 4.3.</p>
                    <div class="ul_wrap">
                       <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                         <li>
+                         <li id="_">
                             <p id="_">Level 2</p>
                             <div class="ul_wrap">
                                <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                  <li>
+                                  <li id="_">
                                      <p id="_">Level 3</p>
                                      <div class="ul_wrap">
                                         <ul id="_" style="page-break-after: avoid;page-break-inside: avoid;">
-                                           <li>
+                                           <li id="_">
                                               <p id="_">Level 4</p>
                                            </li>
                                         </ul>
@@ -201,8 +201,8 @@ RSpec.describe IsoDoc do
   it "processes unordered checklists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
-          <foreword id="_" displayorder="2"><fmt-title>Foreword</fmt-title>
+          <preface><clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Table of contents</fmt-title> </clause>
+          <foreword id="_" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
           <ul id="_61961034-0fb1-436b-b281-828857a59ddb">
         <li  checkedcheckbox="true" uncheckedcheckbox="false">
           <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">updated normative references;</p>
@@ -321,20 +321,20 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="_" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="1">
                    <name id="_">Caption</name>
-                   <fmt-name>
+                   <fmt-name id="_">
                       <semx element="name" source="_">Caption</semx>
                    </fmt-name>
                    <li id="_">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <semx element="autonum" source="_">a</semx>
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
@@ -343,35 +343,35 @@ RSpec.describe IsoDoc do
                 </ol>
                 <ol id="A" type="alphabet">
                    <li id="_">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <semx element="autonum" source="_">a</semx>
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
                       <p id="_">Level 1</p>
                    </li>
                    <li id="_">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <semx element="autonum" source="_">b</semx>
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
                       <p id="_">Level 1</p>
                       <ol type="arabic">
                          <li id="_">
-                            <fmt-name>
+                            <fmt-name id="_">
                                <semx element="autonum" source="_">1</semx>
                                <span class="fmt-label-delim">)</span>
                             </fmt-name>
                             <p id="_">Level 2</p>
                             <ol type="roman">
                                <li id="_">
-                                  <fmt-name>
+                                  <fmt-name id="_">
                                      <semx element="autonum" source="_">i</semx>
                                      <span class="fmt-label-delim">)</span>
                                   </fmt-name>
                                   <p id="_">Level 3</p>
                                   <ol type="alphabet_upper">
                                      <li id="_">
-                                        <fmt-name>
+                                        <fmt-name id="_">
                                            <semx element="autonum" source="_">A</semx>
                                            <span class="fmt-label-delim">.</span>
                                         </fmt-name>
@@ -511,9 +511,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
-          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
+          <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Table of contents</fmt-title> </clause>
 
-        <foreword id="_" displayorder="2"><fmt-title>Foreword</fmt-title>
+        <foreword id="_" displayorder="2"><fmt-title id="_">Foreword</fmt-title>
           <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="roman_upper">
         <li id="_ae34a226-aab4-496d-987b-1aa7b6314027">
           <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">all information necessary for the complete identification of the sample;</p>
@@ -580,16 +580,16 @@ RSpec.describe IsoDoc do
         <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
               <foreword id="_" displayorder="2">
                  <title id="_">Foreword</title>
-                 <fmt-title depth="1">
+                 <fmt-title id="_" depth="1">
                     <semx element="title" source="_">Foreword</semx>
                  </fmt-title>
                  <dl id="_" keep-with-next="true" keep-lines-together="true" autonum="">
                     <name id="_">Caption</name>
-                    <fmt-name>
+                    <fmt-name id="_">
                        <semx element="name" source="_">Caption</semx>
                     </fmt-name>
                     <dt>
@@ -608,7 +608,7 @@ RSpec.describe IsoDoc do
                        <p>??</p>
                     </dd>
                     <note>
-                       <fmt-name>
+                       <fmt-name id="_">
                           <span class="fmt-caption-label">
                              <span class="fmt-element-name">NOTE</span>
                           </span>
@@ -721,7 +721,7 @@ RSpec.describe IsoDoc do
   it "processes nested definition lists (Word)" do
     input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
-           <preface><foreword displayorder="1"><fmt-title>Foreword</fmt-title>
+           <preface><foreword displayorder="1"><fmt-title id="_">Foreword</fmt-title>
        <dl id="_732d3f57-4f88-40bf-9ae9-633891edc394">
        <dt>A Deflist</dt>
        <dd>
@@ -763,7 +763,7 @@ RSpec.describe IsoDoc do
                 <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
-                <div id="_">
+                <div>
                    <h1 class="ForewordTitle">Foreword</h1>
                    <table id="_" class="dl">
                       <tr>

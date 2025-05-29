@@ -27,8 +27,10 @@ module IsoDoc
     end
 
     def prefix_name_labels(node)
-      { elem: node["id"],
-        name: "_#{UUIDTools::UUID.random_create}" }
+      @new_ids ||= {}
+      id = "_#{UUIDTools::UUID.random_create}"
+      @new_ids[id] = nil
+      { elem: node["id"], name: id }
     end
 
     def prefix_name_postprocess(node, elem)
@@ -45,7 +47,7 @@ module IsoDoc
     end
 
     def semx_fmt_dup(elem)
-      elem["id"] ||= "_#{UUIDTools::UUID.random_create}"
+      add_id(elem)
       new = Nokogiri::XML(<<~XML).root
         <semx xmlns='#{elem.namespace.href}' element='#{elem.name}' source='#{elem['original-id'] || elem['id']}'>#{to_xml(elem.children)}</semx>
       XML

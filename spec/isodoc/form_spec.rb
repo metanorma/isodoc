@@ -6,7 +6,7 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
             <clause type="toc" id="_" displayorder="1">
-          <fmt-title depth="1">Table of contents</fmt-title>
+          <fmt-title id="_" depth="1">Table of contents</fmt-title>
         </clause>
       </preface>
           <sections>

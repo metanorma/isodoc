@@ -22,7 +22,7 @@ module IsoDoc
 
     def fnbody(fnote, seen)
       body = Nokogiri::XML::Node.new("fmt-fn-body", fnote.document)
-      body["id"] = "_#{UUIDTools::UUID.random_create}"
+      add_id(body)
       body["target"] = fnote["id"]
       body["reference"] = fnote["reference"]
       body << semx_fmt_dup(fnote)
@@ -147,8 +147,8 @@ module IsoDoc
 
     def comment_body(elem)
       c1 = elem.after("<fmt-review-body/>").next
-      elem.attributes.each_key { |k| c1[k] = elem[k] }
-      c1["id"] = "_#{UUIDTools::UUID.random_create}"
+      elem.attributes.each_key { |k| k == "id" or c1[k] = elem[k] }
+      add_id(c1)
       c1 << semx_fmt_dup(elem)
     end
 
@@ -182,7 +182,7 @@ module IsoDoc
 
     def comment_bookmark_start(from, elem)
       ret = from.before("<fmt-review-start/>").previous
-      ret["id"] = "_#{UUIDTools::UUID.random_create}"
+      add_id(ret)
       ret["source"] = elem["from"]
       comment_to_bookmark_attrs(elem, ret, start: true)
       ret << comment_bookmark_start_label(elem)
@@ -191,7 +191,7 @@ module IsoDoc
 
     def comment_bookmark_end(to, elem)
       ret = to.after("<fmt-review-end/>").next
-      ret["id"] = "_#{UUIDTools::UUID.random_create}"
+      add_id(ret)
       ret["source"] = elem["to"]
       comment_to_bookmark_attrs(elem, ret, start: false)
       ret << comment_bookmark_end_label(elem)

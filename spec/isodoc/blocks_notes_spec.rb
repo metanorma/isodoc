@@ -18,15 +18,15 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <note id="A" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                          <semx element="autonum" source="A">1</semx>
@@ -139,15 +139,15 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <note id="note1" autonum="1">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                          <semx element="autonum" source="note1">1</semx>
@@ -171,7 +171,7 @@ RSpec.describe IsoDoc do
                    <p id="_">These results are based on a study carried out on three different types of kernel.</p>
                 </note>
                 <note id="note2" autonum="2">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                          <semx element="autonum" source="note2">2</semx>
@@ -230,11 +230,11 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <clause type="toc" id="_" displayorder="1">
-              <fmt-title depth="1">Table of contents</fmt-title>
+              <fmt-title id="_" depth="1">Table of contents</fmt-title>
           </clause>
-        <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
+        <foreword displayorder="2" id="fwd"><fmt-title id="_">Foreword</fmt-title>
           <note>
-          <fmt-name>NOTE<span class="fmt-label-delim"><tab/></span></fmt-name>
+          <fmt-name id="_">NOTE<span class="fmt-label-delim"><tab/></span></fmt-name>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">These results are based on a study carried out on three different types of kernel.</p>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83a">These results are based on a study carried out on three different types of kernel.</p>
       </note>
@@ -264,9 +264,9 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><clause type="toc" id="_" displayorder="1">
-              <fmt-title depth="1">Table of contents</fmt-title>
-            </clause><foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
-          <note id="A"><fmt-name>NOTE<span class="fmt-label-delim"><tab/></span></fmt-name>
+              <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause><foreword displayorder="2" id="fwd"><fmt-title id="_">Foreword</fmt-title>
+          <note id="A"><fmt-name id="_">NOTE<span class="fmt-label-delim"><tab/></span></fmt-name>
           <dl>
           <dt>A</dt>
           <dd><p>B</p></dd>
@@ -328,12 +328,12 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
                 <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>    <clause type="toc" id="_" displayorder="1">
-        <fmt-title depth="1">Table of contents</fmt-title>
+        <fmt-title id="_" depth="1">Table of contents</fmt-title>
       </clause>
-        <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
-            <p id="A">ABC <note id="B"><fmt-name>NOTE 1<span class="fmt-label-delim"><tab/></span></fmt-name>
+        <foreword displayorder="2" id="fwd"><fmt-title id="_">Foreword</fmt-title>
+            <p id="A">ABC <note id="B"><fmt-name id="_">NOTE 1<span class="fmt-label-delim"><tab/></span></fmt-name>
           <p id="C">XYZ</p></note>
-        <note id="B1"><fmt-name>NOTE 2<span class="fmt-label-delim"><tab/></span></fmt-name>
+        <note id="B1"><fmt-name id="_">NOTE 2<span class="fmt-label-delim"><tab/></span></fmt-name>
         <p id="C1">XYZ1</p></note></p>
         </foreword></preface>
             </iso-standard>
@@ -411,15 +411,15 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <note id="FB" coverpage="true" unnumbered="true">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">NOTE</span>
                       </span>
@@ -440,7 +440,7 @@ RSpec.describe IsoDoc do
                    <p>XYZ</p>
                 </note>
                 <admonition id="FC" coverpage="true" unnumbered="true" type="warning">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">WARNING</span>
                       </span>
@@ -527,15 +527,15 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <figure id="F" autonum="1">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="F">1</semx>
@@ -546,7 +546,7 @@ RSpec.describe IsoDoc do
                       <semx element="autonum" source="F">1</semx>
                    </fmt-xref-label>
                    <note id="FB" autonum="">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">NOTE</span>
                          </span>
@@ -568,7 +568,7 @@ RSpec.describe IsoDoc do
                    </note>
                 </figure>
                 <table id="T" autonum="1">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Table</span>
                          <semx element="autonum" source="T">1</semx>
@@ -579,7 +579,7 @@ RSpec.describe IsoDoc do
                       <semx element="autonum" source="T">1</semx>
                    </fmt-xref-label>
                    <note id="TB" autonum="">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">NOTE</span>
                          </span>
@@ -603,7 +603,7 @@ RSpec.describe IsoDoc do
                 <p id="A">
                    ABC
                    <note id="B" autonum="">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">NOTE</span>
                          </span>
@@ -651,15 +651,15 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml" type='presentation'>
           <preface>
            <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword displayorder="2" id="fwd">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                       <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
           <admonition id="_" type="caution" keep-with-next="true" keep-lines-together="true">
-            <fmt-name>
+            <fmt-name id="_">
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">CAUTION</span>
                </span>
@@ -711,15 +711,15 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
         <preface>
            <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword displayorder="2" id="fwd">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                       <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
             <admonition id="_" type="caution">
-              <fmt-name>
+              <fmt-name id="_">
                <span class="fmt-caption-label">
                   <span class="fmt-element-name">CAUTION</span>
                </span>
@@ -754,23 +754,23 @@ RSpec.describe IsoDoc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Table of contents</fmt-title>
+                <fmt-title id="_" depth="1">Table of contents</fmt-title>
              </clause>
              <foreword displayorder="2" id="fwd">
                 <title id="_">Foreword</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                       <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <admonition id="_" type="caution">
                    <name id="_">Title</name>
-                   <fmt-name>
+                   <fmt-name id="_">
                          <semx element="name" source="_">Title</semx>
                    </fmt-name>
                    <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                 </admonition>
                 <admonition id="_" type="caution" notag="true">
                    <name id="_">Title</name>
-                   <fmt-name>
+                   <fmt-name id="_">
                          <semx element="name" source="_">Title</semx>
                    </fmt-name>
                    <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -825,16 +825,16 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
            <preface>
               <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Table of contents</fmt-title>
+                 <fmt-title id="_" depth="1">Table of contents</fmt-title>
               </clause>
               <foreword id="fwd" displayorder="2">
                  <title id="_">Foreword</title>
-                 <fmt-title depth="1">
+                 <fmt-title id="_" depth="1">
                     <semx element="title" source="_">Foreword</semx>
                  </fmt-title>
                  <admonition id="_" type="box" autonum="1">
                     <name id="_">Title</name>
-                    <fmt-name>
+                    <fmt-name id="_">
                        <span class="fmt-caption-label">
                           <span class="fmt-element-name">Box</span>
                           <semx element="autonum" source="_">1</semx>
@@ -857,7 +857,7 @@ RSpec.describe IsoDoc do
                     <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                  </admonition>
                  <admonition id="_" type="box" notag="true" autonum="2">
-                    <fmt-name>
+                    <fmt-name id="_">
                        <span class="fmt-caption-label">
                           <span class="fmt-element-name">Box</span>
                           <semx element="autonum" source="_">2</semx>
