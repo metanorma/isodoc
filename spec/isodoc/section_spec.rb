@@ -749,7 +749,7 @@ RSpec.describe IsoDoc do
               </clause>
            </sections>
            <indexsect id="_" displayorder="3">
-              <title>Index</title>
+              <fmt-title id="_">Index</fmt-title>
               <ul>
                  <li>
                     <fmt-name id="_">
