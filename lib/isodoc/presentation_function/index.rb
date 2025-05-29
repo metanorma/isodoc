@@ -87,7 +87,7 @@ module IsoDoc
     end
 
     def index_entries_head(head, entries, opt)
-      ret = "<li>#{head}"
+      ret = "<li #{add_id_text}>#{head}"
       xref = entries&.dig(:xref)&.join(", ")
       see = index_entries_see(entries, :see)
       also = index_entries_see(entries, :also)
