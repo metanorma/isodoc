@@ -127,6 +127,23 @@ RSpec.describe IsoDoc do
     IsoDoc::XslfoPdfConvert.new({})
       .convert("spec/assets/iso.xml", nil, nil, nil)
   end
+
+  it "passes on stylesheet parameters" do
+    stylesheet_mock("xsl.pdf") # lib/isodoc/...
+    convert = IsoDoc::XslfoPdfConvert.new(
+      {
+        pdfstylesheet: "spec/examples/xsl.pdf",
+        pdfstylesheetoverride: "lib/isodoc/xsl.pdf",
+      },
+    )
+    convert.convert_prep("spec/assets/iso.xml", nil, false)
+    expect(convert.pdf_options(nil, nil))
+      .to eq({
+               "--xsl-file" => "../../spec/examples/xsl.pdf",
+               "--xsl-file-override" => "xsl.pdf",
+               :"--syntax-highlight" => nil,
+             })
+  end
 end
 
 private
