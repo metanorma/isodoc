@@ -61,6 +61,10 @@ module IsoDoc
         ret[x] &&= Pathname.new(File.expand_path(ret[x]))
           .relative_path_from(File.dirname(@xsl)).to_s
       end
+      if ret["--xsl-file"]
+        @xsl = ret["--xsl-file"]
+        ret.delete("--xsl-file")
+      end
       ret
     end
 
@@ -68,9 +72,10 @@ module IsoDoc
     def convert(input_fname, file = nil, debug = false,
                 output_fname = nil)
       _, docxml, filename = convert_prep(input_fname, file, debug)
+      opts = pdf_options(docxml, input_fname)
       ::Metanorma::Output::XslfoPdf.new.convert(
         filename, output_fname || output_filename(input_fname),
-        @xsl, pdf_options(docxml, input_fname)
+        @xsl, opts
       )
     end
 

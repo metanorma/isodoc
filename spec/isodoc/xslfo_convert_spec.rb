@@ -136,13 +136,19 @@ RSpec.describe IsoDoc do
         pdfstylesheetoverride: "lib/isodoc/xsl.pdf",
       },
     )
-    convert.convert_prep("spec/assets/iso.xml", nil, false)
-    expect(convert.pdf_options(nil, nil))
-      .to eq({
-               "--xsl-file" => "../../spec/examples/xsl.pdf",
-               "--xsl-file-override" => "xsl.pdf",
-               :"--syntax-highlight" => nil,
-             })
+    #convert.convert_prep("spec/assets/iso.xml", nil, false)
+    #expect(convert.pdf_options(nil, nil))
+      #.to eq({
+               ##"--xsl-file" => "../../spec/examples/xsl.pdf",
+               #"--xsl-file-override" => "xsl.pdf",
+               #:"--syntax-highlight" => nil,
+             #})
+    convert_mock("../../spec/examples/xsl.pdf", {
+      "--param baseassetpath=" => Pathname.new(File.join(File.dirname(__FILE__), "..", "assets")).cleanpath.to_s,
+       "--syntax-highlight": nil,
+       "--xsl-file-override" => "xsl.pdf"
+    })
+    convert.convert("spec/assets/iso.xml", nil, nil, nil)
   end
 end
 
@@ -154,8 +160,8 @@ def stylesheet_mock(dir)
     .and_return(dir)
 end
 
-def convert_mock(dir)
+def convert_mock(dir, opts = nil)
   allow_any_instance_of(::Metanorma::Output::XslfoPdf)
     .to receive(:convert)
-    .with(anything, anything, dir, anything)
+    .with(anything, anything, dir, opts || anything)
 end
