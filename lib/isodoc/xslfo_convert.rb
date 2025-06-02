@@ -13,6 +13,8 @@ module IsoDoc
                        pdfallowaccesscontent: "--allow-access-content",
                        pdfallowassembledocument: "--allow-assemble-document",
                        pdfallowprinthq: "--allow-print-hq",
+                       pdfstylesheet: "--xsl-file",
+                       pdfstylesheetoverride: "--xsl-file-override",
                        pdfencryptmetadata: "--encrypt-metadata" }.freeze
     MN2PDF_DEFAULT_ARGS = { "--syntax-highlight": nil }.freeze
 
