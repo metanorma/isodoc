@@ -18,7 +18,7 @@ module IsoDoc
 
     def attachments_extract(docxml)
       docxml.at(ns("//metanorma-extension/attachment")) or return
-      dir = File.join(@localdir, "_#{@outputfile}_attachments")
+      dir = File.join(@output_dir, "_#{@outputfile}_attachments")
       FileUtils.rm_rf(dir)
       FileUtils.mkdir_p(dir)
       docxml.xpath(ns("//metanorma-extension/attachment")).each do |a|

@@ -13,8 +13,8 @@ module IsoDoc
         filename = filepath.sub_ext("").sub(/\.presentation$/, "").to_s
         dir = init_dir(filename, debug)
         @filename = filename
-        @localdir = @baseassetpath || filepath.parent.to_s
-        @localdir += "/"
+        @output_dir = File.dirname(filename)
+        @localdir = (@baseassetpath || filepath.parent.to_s) + "/"
         @sourcedir = @localdir
         @sourcefilename and
           @sourcedir = "#{Pathname.new(@sourcefilename).parent}/"
