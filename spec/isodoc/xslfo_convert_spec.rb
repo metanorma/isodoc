@@ -136,18 +136,27 @@ RSpec.describe IsoDoc do
         pdfstylesheetoverride: "lib/isodoc/xsl.pdf",
       },
     )
-    #convert.convert_prep("spec/assets/iso.xml", nil, false)
-    #expect(convert.pdf_options(nil, nil))
-      #.to eq({
-               ##"--xsl-file" => "../../spec/examples/xsl.pdf",
-               #"--xsl-file-override" => "xsl.pdf",
-               #:"--syntax-highlight" => nil,
-             #})
-    convert_mock("../../spec/examples/xsl.pdf", {
-      "--param baseassetpath=" => Pathname.new(File.join(File.dirname(__FILE__), "..", "assets")).cleanpath.to_s,
-       "--syntax-highlight": nil,
-       "--xsl-file-override" => "xsl.pdf"
-    })
+    # convert.convert_prep("spec/assets/iso.xml", nil, false)
+    # expect(convert.pdf_options(nil, nil))
+    # .to eq({
+    # #"--xsl-file" => "../../spec/examples/xsl.pdf",
+    # "--xsl-file-override" => "xsl.pdf",
+    # :"--syntax-highlight" => nil,
+    # })
+    convert_mock(
+      # "../../spec/examples/xsl.pdf",
+      Pathname.new(File.join(File.dirname(__FILE__), "..", "examples",
+                             "xsl.pdf")).cleanpath.to_s,
+      {
+        "--param baseassetpath=" => Pathname.new(File.join(
+                                                   File.dirname(__FILE__), "..", "assets"
+                                                 )).cleanpath.to_s,
+        "--syntax-highlight": nil,
+        # "--xsl-file-override" => "xsl.pdf"
+        "--xsl-file-override" => Pathname.new(File.join(File.dirname(__FILE__),
+                                                        "..", "..", "lib", "isodoc", "xsl.pdf")).cleanpath.to_s,
+      },
+    )
     convert.convert("spec/assets/iso.xml", nil, nil, nil)
   end
 end

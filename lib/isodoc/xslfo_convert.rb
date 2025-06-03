@@ -58,8 +58,8 @@ module IsoDoc
         ret["--param baseassetpath="] = @baseassetpath
       ret = ret.merge(@pdf_cmd_options)
       %w(--xsl-file --xsl-file-override).each do |x|
-        ret[x] &&= Pathname.new(File.expand_path(ret[x]))
-          .relative_path_from(File.dirname(@xsl)).to_s
+        ret[x] &&= Pathname.new(File.expand_path(ret[x])).to_s
+          #.relative_path_from(File.dirname(@xsl)).to_s
       end
       if ret["--xsl-file"]
         @xsl = ret["--xsl-file"]
