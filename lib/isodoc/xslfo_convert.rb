@@ -13,6 +13,8 @@ module IsoDoc
                        pdfallowaccesscontent: "--allow-access-content",
                        pdfallowassembledocument: "--allow-assemble-document",
                        pdfallowprinthq: "--allow-print-hq",
+                       pdfstylesheet: "--xsl-file",
+                       pdfstylesheet_override: "--xsl-file-override",
                        pdfencryptmetadata: "--encrypt-metadata" }.freeze
     MN2PDF_DEFAULT_ARGS = { "--syntax-highlight": nil }.freeze
 
@@ -54,21 +56,36 @@ module IsoDoc
           @aligncrosselements.tr(",", " ")
       @baseassetpath and
         ret["--param baseassetpath="] = @baseassetpath
-      ret.merge(@pdf_cmd_options)
+      ret = ret.merge(@pdf_cmd_options)
+      %w(--xsl-file --xsl-file-override).each do |x|
+        ret[x] &&= Pathname.new(File.expand_path(ret[x])).to_s
+          #.relative_path_from(File.dirname(@xsl)).to_s
+      end
+      if ret["--xsl-file"]
+        @xsl = ret["--xsl-file"]
+        ret.delete("--xsl-file")
+      end
+      ret
     end
 
     # input_file: keep-alive tempfile
     def convert(input_fname, file = nil, debug = false,
                 output_fname = nil)
-      file ||= File.read(input_fname, encoding: "utf-8")
-      _, docxml, filename = input_xml_path(input_fname, file, debug)
-      xsl = pdf_stylesheet(docxml) or return
-      Pathname.new(xsl).absolute? or xsl = File.join(@libdir, xsl)
-      @doctype = Nokogiri::XML(file).at(ns("//bibdata/ext/doctype"))&.text
+      _, docxml, filename = convert_prep(input_fname, file, debug)
+      opts = pdf_options(docxml, input_fname)
       ::Metanorma::Output::XslfoPdf.new.convert(
         filename, output_fname || output_filename(input_fname),
-        xsl, pdf_options(docxml, input_fname)
+        @xsl, opts
       )
+    end
+
+    def convert_prep(input_fname, file, debug)
+      file ||= File.read(input_fname, encoding: "utf-8")
+      _, docxml, filename = input_xml_path(input_fname, file, debug)
+      @xsl = pdf_stylesheet(docxml) or return
+      Pathname.new(@xsl).absolute? or @xsl = File.join(@libdir, @xsl)
+      @doctype = docxml.at(ns("//bibdata/ext/doctype"))&.text
+      [file, docxml, filename]
     end
 
     def output_filename(input_fname)
