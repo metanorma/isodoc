@@ -120,14 +120,33 @@ module IsoDoc
         end
       end
 
+      def datauri_word(uri)
+        ret = %r{^data:}.match?(uri) ? save_dataimage(uri) : uri
+        if ret.end_with?(".svg")
+          v = Vectory::Svg.from_node(Nokogiri::XML(File.read(ret))).to_emf
+          target_path = imgfile_suffix(ret, "emf")
+          v.write(target_path).to_uri.content
+          ret = target_path
+        end
+        ret
+      end
+
       def info(xml, out)
-        @tocfigurestitle =
-          xml.at(ns("//metanorma-extension/toc[@type = 'figure']/title"))&.text
-        @toctablestitle =
-          xml.at(ns("//metanorma-extension/toc[@type = 'table']/title"))&.text
-        @tocrecommendationstitle = xml
-          .at(ns("//metanorma-extension/toc[@type = 'recommendation']/title"))&.text
+        toc_info(xml)
         super
+        if logos = @meta.get[:copublisher_logos] # may be DataURI
+          logos.map! { |l| datauri_word(l) }
+          @meta.set(:copublisher_logos, logos)
+        end
+        @meta.get
+      end
+
+      def toc_info(xml)
+        toc = "metanorma-extension/toc"
+        @tocfigurestitle = xml.at(ns("//#{toc}[@type = 'figure']/title"))&.text
+        @toctablestitle = xml.at(ns("//#{toc}[@type = 'table']/title"))&.text
+        @tocrecommendationstitle =
+          xml.at(ns("//#{toc}[@type = 'recommendation']/title"))&.text
       end
 
       def table_of_contents(clause, out)

@@ -180,9 +180,5 @@ module IsoDoc
       node["height"] = e["height"]
       node["width"] = e["width"]
     end
-
-    def imgfile_suffix(uri, suffix)
-      "#{File.join(File.dirname(uri), File.basename(uri, '.*'))}.#{suffix}"
-    end
   end
 end

@@ -236,6 +236,10 @@ module IsoDoc
         path.tr!(%{/}, "\\")
         path[/\s/] ? "\"#{path}\"" : path
       end
+
+      def imgfile_suffix(uri, suffix)
+        "#{File.join(File.dirname(uri), File.basename(uri, '.*'))}.#{suffix}"
+      end
     end
   end
 end
