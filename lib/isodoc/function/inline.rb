@@ -197,7 +197,7 @@ module IsoDoc
       end
 
       def children_parse(node, out)
-        node.children.each { |n| parse(n, out) }
+        node&.children&.each { |n| parse(n, out) }
       end
 
       def location_parse(node, out); end

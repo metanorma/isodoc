@@ -231,7 +231,6 @@ RSpec.describe IsoDoc do
       <phone type='fax'>4444444</phone>
       <email>x@example.com</email>
       <uri>http://www.example.com</uri>
-      <logo><image src="https://icaci.org/files/download/ica_logo.svg"/></logo>
            </organization>
         </contributor>
         <contributor>
@@ -246,7 +245,6 @@ RSpec.describe IsoDoc do
           <organization>
             <name>Institute of Electrical and Electronics Engineers</name>
             <abbreviation>IEEE</abbreviation>
-      <logo><image src="ieee.svg"/></logo>
           </organization>
         </contributor>
         <language>en</language>
@@ -281,7 +279,6 @@ RSpec.describe IsoDoc do
         circulateddate: "XXX",
         confirmeddate: "XXX",
         copieddate: "XXX",
-        copublisher_logos: ["https://icaci.org/files/download/ica_logo.svg", "ieee.svg"],
         correcteddate: "XXX",
         createddate: "XXX",
         docnumber: "17301-1-3",
@@ -322,6 +319,89 @@ RSpec.describe IsoDoc do
         vote_starteddate: "XXX" }
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
       .to be_equivalent_to output
+  end
+
+  it "processes logos" do
+    c = IsoDoc::Convert.new({})
+    c.convert_init(<<~INPUT, "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+    INPUT
+    img1uri = "spec/assets/rice_image1.png"
+    svg1uri = "spec/assets/test.svg"
+    img1datauri = "data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7"
+    svg1datauri = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg=="
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata type="standard">
+        <title language="en" format="text/plain">Cereals and pulses</title>
+        <docidentifier>17301-1-3</docidentifier>
+        <docnumber>17301</docnumber>
+        <date type="published"><on>2011-01</on></date>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>ISO</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+            <abbreviation>ISO</abbreviation>
+      <logo><image src="IMAGE1"/></logo>
+           </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Electrotechnical Commission</name>
+            <abbreviation>IEC</abbreviation>
+          </organization>
+        </contributor>
+         <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>Institute of Electrical and Electronics Engineers</name>
+            <abbreviation>IEEE</abbreviation>
+      <logo><image src="IMAGE2"/></logo>
+          </organization>
+        </contributor>
+        <language>en</language>
+        <script>Latn</script>
+        <status><stage>Published</stage></status>
+        <copyright>
+          <from>2016</from>
+          <owner>
+            <organization>
+              <name>International Organization for Standardization</name>
+            </organization>
+          </owner>
+        </copyright>
+        <ext>
+        <doctype>international-standard</doctype>
+        </ext>
+      </bibdata>
+      </iso-standard>
+    INPUT
+    input1 = input.sub("IMAGE1", img1uri).sub("IMAGE2", svg1uri)
+    input2 = input.sub("IMAGE1", img1datauri).sub("IMAGE2", svg1datauri)
+    expect(metadata(c.info(Nokogiri::XML(input1), nil))[:copublisher_logos])
+      .to be_equivalent_to [img1uri, svg1uri]
+    expect(metadata(c.info(Nokogiri::XML(input2), nil))[:copublisher_logos])
+      .to be_equivalent_to [img1datauri, svg1datauri]
+    c = IsoDoc::WordConvert.new({})
+    c.convert_init(<<~INPUT, "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+    INPUT
+    expect(metadata(c.info(Nokogiri::XML(input1), nil))[:copublisher_logos])
+      .to be_equivalent_to [img1uri, svg1uri.sub(".svg", ".emf")]
+    m = metadata(c.info(Nokogiri::XML(input2), nil))
+    expect(m[:copublisher_logos])
+      .not_to be_equivalent_to [img1datauri, svg1datauri]
+    expect(m[:copublisher_logos][0])
+      .to end_with ".gif"
+    expect(m[:copublisher_logos][1])
+      .to end_with ".emf"
   end
 
   it "processes IsoXML metadata language variants" do
