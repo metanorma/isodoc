@@ -2,7 +2,7 @@ module IsoDoc
   module Function
     module Terms
       def definition_parse(node, out)
-        node.children.each { |n| parse(n, out) }
+        children_parse(node, out)
       end
 
       def modification_parse(node, out)
@@ -78,7 +78,7 @@ module IsoDoc
 
       def termref_parse(node, out)
         out.p do |p|
-          node.children.each { |n| parse(n, p) }
+          children_parse(node, p)
         end
       end
 
@@ -89,7 +89,7 @@ module IsoDoc
         out.p class: "TermNum", id: node["id"] do |p|
           name&.children&.each { |n| parse(n, p) }
         end
-        node.children.each { |n| parse(n, out) }
+        children_parse(node, out)
       end
 
       def termdocsource_parse(_node, _out); end

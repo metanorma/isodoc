@@ -137,13 +137,13 @@ module IsoDoc
 
       def para_parse(node, out)
         out.p **attr_code(para_attrs(node)) do |p|
-          node.children.each { |n| parse(n, p) }
+                    children_parse(node, p)
         end
       end
 
       def attribution_parse(node, out)
-        out.div class: "QuoteAttribution" do |d|
-          node.children.each { |n| parse(n, d) }
+        out.div class: "QuoteAttribution" do |div|
+                    children_parse(node, div)
         end
       end
 
@@ -167,14 +167,14 @@ module IsoDoc
 
       def toc_parse(node, out)
         out.div class: "toc" do |div|
-          node.children.each { |n| parse(n, div) }
+                    children_parse(node, div)
         end
       end
 
       def source_parse(node, out)
         out.div class: "BlockSource" do |d|
           d.p do |p|
-            node.children.each { |n| parse(n, p) }
+                      children_parse(node, p)
           end
         end
       end
@@ -201,7 +201,7 @@ module IsoDoc
         tag = node.parent.name == "fmt-footnote-container" ? "aside" : "div"
         id = node["is_table"] ? node["reference"] : node["id"]
         out.send tag, id: "fn:#{id}", class: "footnote" do |div|
-          node.children.each { |n| parse(n, div) }
+                    children_parse(node, div)
         end
       end
     end

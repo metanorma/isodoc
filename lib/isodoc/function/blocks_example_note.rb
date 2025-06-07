@@ -4,7 +4,7 @@ module IsoDoc
       def example_label(_node, div, name)
         name.nil? and return
         div.p class: "example-title" do |_p|
-          name.children.each { |n| parse(n, div) }
+                    children_parse(name, div)
         end
       end
 

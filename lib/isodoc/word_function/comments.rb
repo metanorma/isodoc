@@ -46,7 +46,7 @@ module IsoDoc
         out.div style: "mso-element:comment", id: node["id"] do |div|
           div.span style: %{mso-comment-author:"#{node['reviewer']}"}
           make_comment_target(div)
-          node.children.each { |n| parse(n, div) }
+          children_parse(node, div)
         end
       end
 

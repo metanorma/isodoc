@@ -16,7 +16,7 @@ module IsoDoc
         tag = aside ? "aside" : "div"
         id = node["is_table"] ? node["reference"] : node["id"]
         out.send tag, id: "ftn#{id}" do |div|
-          node.children.each { |n| parse(n, div) }
+          children_parse(node, div)
         end
       end
 
@@ -36,7 +36,8 @@ module IsoDoc
       def footnote_parse(node, out)
         table_footnote?(node) and return table_footnote_parse(node, out)
         fn = node["reference"] # || UUIDTools::UUID.random_create.to_s
-        @seen_footnote.include?(fn) and return seen_footnote_parse(node, out, fn)
+        @seen_footnote.include?(fn) and return seen_footnote_parse(node, out,
+                                                                   fn)
         @fn_bookmarks[fn] = bookmarkid
         f = footnote_label_process(node)
         out.span style: "mso-bookmark:_Ref#{@fn_bookmarks[fn]}",

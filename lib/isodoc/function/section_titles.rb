@@ -90,7 +90,7 @@ module IsoDoc
       def variant_title(node, out)
         out.p **attr_code(style: "display:none;",
                           class: "variant-title-#{node['type']}") do |p|
-          node.children.each { |c| parse(c, p) }
+          children_parse(node, p)
         end
       end
     end

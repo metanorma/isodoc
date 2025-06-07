@@ -4,9 +4,7 @@ module IsoDoc
       def form_parse(node, out)
         out.div **attr_code(class: node["class"],
                             id: node["id"]) do |div|
-          node.children.each do |n|
-            parse(n, div)
-          end
+          children_parse(node, div)
         end
       end
 
@@ -34,9 +32,7 @@ module IsoDoc
       end
 
       def label_parse(node, out)
-        node.children.each do |n|
-          parse(n, out)
-        end
+        children_parse(node, out)
       end
 
       def option_parse(node, out); end

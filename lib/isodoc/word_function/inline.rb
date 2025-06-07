@@ -67,7 +67,7 @@ module IsoDoc
                    "##{node['target']}"
                  end
         out.a(href: target) do |l|
-          node.children.each { |n| parse(n, l) }
+          children_parse(node, l)
         end
       end
 
@@ -84,14 +84,14 @@ module IsoDoc
           r.replace(r.at(ns("./ruby/rb")))
         end
         out.ruby do |e|
-          node.children.each { |n| parse(n, e) }
+          children_parse(node, e)
         end
         double_ruby and out << "(#{double_ruby.text})"
       end
 
       def rt_parse(node, out)
         out.rt **{ style: "font-size: 6pt;" } do |e|
-          node.children.each { |n| parse(n, e) }
+          children_parse(node, e)
         end
       end
     end

@@ -40,10 +40,8 @@ module IsoDoc
       end
 
       def div_parse(node, out)
-        out.div **reqt_attrs(node, node["type"]) do |t|
-          node.children.each do |n|
-            parse(n, t)
-          end
+        out.div **reqt_attrs(node, node["type"]) do |div|
+          children_parse(node, div)
         end
       end
     end

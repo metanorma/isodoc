@@ -5,9 +5,7 @@ module IsoDoc
         out.form **attr_code(id: node["id"], name: node["name"],
                              class: node["class"],
                              action: node["action"]) do |div|
-          node.children.each do |n|
-            parse(n, div)
-          end
+          children_parse(node, div)
         end
       end
 
@@ -27,17 +25,13 @@ module IsoDoc
           id: node["id"], name: node["name"], size: node["size"],
           disabled: node["disabled"], multiple: node["multiple"]
         ) do |div|
-          node.children.each do |n|
-            parse(n, div)
-          end
+          children_parse(node, div)
         end
       end
 
       def label_parse(node, out)
         out.label **attr_code(for: node["for"]) do |div|
-          node.children.each do |n|
-            parse(n, div)
-          end
+          children_parse(node, div)
         end
       end
 
@@ -46,9 +40,7 @@ module IsoDoc
           disabled: node["disabled"], selected: node["selected"],
           value: node["value"]
         ) do |o|
-          node.children.each do |n|
-            parse(n, o)
-          end
+          children_parse(node, o)
         end
       end
 

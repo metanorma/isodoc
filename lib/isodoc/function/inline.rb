@@ -10,7 +10,7 @@ module IsoDoc
           if node.elements.empty? && node.text.strip.empty?
             l << @c.encode(node["target"].sub(/^mailto:/, ""), :basic,
                            :hexadecimal)
-          else node.children.each { |n| parse(n, l) }
+          else children_parse(node, l)
           end
         end
       end
@@ -74,8 +74,7 @@ module IsoDoc
       def termrefelem_parse(node, out)
         if node.text.strip.empty?
           out << "Termbase #{node['base']}, term ID #{node['target']}"
-        else
-          node.children.each { |n| parse(n, out) }
+        else children_parse(node, out)
         end
       end
 
@@ -142,7 +141,7 @@ module IsoDoc
 
       def smallcap_parse(node, xml)
         xml.span style: "font-variant:small-caps;" do |s|
-          node.children.each { |n| parse(n, s) }
+          children_parse(node, s)
         end
       end
 
@@ -158,13 +157,13 @@ module IsoDoc
 
       def add_parse(node, out)
         out.span class: "addition" do |e|
-          node.children.each { |n| parse(n, e) }
+          children_parse(node, e)
         end
       end
 
       def del_parse(node, out)
         out.span class: "deletion" do |e|
-          node.children.each { |n| parse(n, e) }
+          children_parse(node, e)
         end
       end
 
@@ -177,19 +176,19 @@ module IsoDoc
 
       def ruby_parse(node, out)
         out.ruby do |e|
-          node.children.each { |n| parse(n, e) }
+          children_parse(node, e)
         end
       end
 
       def rt_parse(node, out)
         out.rt do |e|
-          node.children.each { |n| parse(n, e) }
+          children_parse(node, e)
         end
       end
 
       def rb_parse(node, out)
         out.rb do |e|
-          node.children.each { |n| parse(n, e) }
+          children_parse(node, e)
         end
       end
 
