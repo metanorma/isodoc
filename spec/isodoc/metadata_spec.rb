@@ -231,6 +231,7 @@ RSpec.describe IsoDoc do
       <phone type='fax'>4444444</phone>
       <email>x@example.com</email>
       <uri>http://www.example.com</uri>
+      <logo><image src="https://icaci.org/files/download/ica_logo.svg"/></logo>
            </organization>
         </contributor>
         <contributor>
@@ -245,6 +246,7 @@ RSpec.describe IsoDoc do
           <organization>
             <name>Institute of Electrical and Electronics Engineers</name>
             <abbreviation>IEEE</abbreviation>
+      <logo><image src="ieee.svg"/></logo>
           </organization>
         </contributor>
         <language>en</language>
@@ -279,6 +281,7 @@ RSpec.describe IsoDoc do
         circulateddate: "XXX",
         confirmeddate: "XXX",
         copieddate: "XXX",
+        copublisher_logos: ["https://icaci.org/files/download/ica_logo.svg", "ieee.svg"],
         correcteddate: "XXX",
         createddate: "XXX",
         docnumber: "17301-1-3",
