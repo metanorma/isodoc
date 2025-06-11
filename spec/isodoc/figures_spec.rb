@@ -1121,7 +1121,7 @@ RSpec.describe IsoDoc do
            .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
   end
 
-  it "processes SVG" do
+  it "processes SVG with viewbox" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface><foreword>
@@ -1173,10 +1173,12 @@ RSpec.describe IsoDoc do
                 <div id="_">
                   <h1 class='ForewordTitle'>Foreword</h1>
                   <div id='figureA-1' class='figure'>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice" height="1px" padding-bottom="calc(100% * 3 / 4);">
-                      <circle fill='#009' r='45' cx='50' cy='50'/>
-                      <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
-                    </svg>
+                    <div class="svg-container">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="xMidYMin slice">
+                     <circle fill="#009" r="45" cx="50" cy="50"/>
+                     <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                  </svg>
+               </div>
                     <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
                   </div>
                 </div>
@@ -1184,29 +1186,6 @@ RSpec.describe IsoDoc do
             </body>
           </html>
     HTML
-
-    doc = <<~DOC
-      #{WORD_HDR}
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div id="_">
-              <h1 class='ForewordTitle'>Foreword</h1>
-              <div id='figureA-1' class='figure'>
-              <img src='_.emf' height='200' width='200'/>
-                <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
-              </div>
-            </div>
-            <p>\\u00a0</p>
-          </div>
-          <p class="section-break">
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection3'>
-          </div>
-        </body>
-      </html>
-    DOC
 
     output = IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
@@ -1220,11 +1199,86 @@ RSpec.describe IsoDoc do
     expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true))))
       .to be_equivalent_to strip_guid(Xml::C14n.format(html))
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", output, true)
-      .gsub(/['"][^'".]+(?<!odf1)(?<!odf)\.emf['"]/, "'_.emf'")
-      .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'"))))
-      .to be_equivalent_to strip_guid(Xml::C14n.format(doc))
+  end
+
+  it "processes SVG without viewbox" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface><foreword>
+          <figure id="figureA-1">
+          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwIiB3aWR0aD0iMTAwIj4KICA8Y2lyY2xlIGZpbGw9IiMwMDkiIHI9IjQ1IiBjeD0iNTAiIGN5PSI1MCIvPgogIDxwYXRoIGQ9Ik0zMywyNkg3OEEzNywzNywwLDAsMSwzMyw4M1Y1N0g1OVY0M0gzM1oiIGZpbGw9IiNGRkYiLz4KPC9zdmc+Cg==" id="_d3731866-1a07-435a-a6c2-1acd41023a4e" mimetype="image/svg+xml" height="200" width="200"/>
+      </figure>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+             <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+           <preface>
+      <clause type="toc" id="_" displayorder="1">
+      <fmt-title id="_" depth="1">Table of contents</fmt-title>
+      </clause>
+             <foreword displayorder='2' id="_">
+                 <title id="_">Foreword</title>
+        <fmt-title id="_" depth="1">
+              <semx element="title" source="_">Foreword</semx>
+        </fmt-title>
+        <figure id="figureA-1" autonum="1">
+           <fmt-name id="_">
+              <span class="fmt-caption-label">
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="figureA-1">1</semx>
+              </span>
+           </fmt-name>
+           <fmt-xref-label>
+              <span class="fmt-element-name">Figure</span>
+              <semx element="autonum" source="figureA-1">1</semx>
+           </fmt-xref-label>
+                 <image src='' id='_' mimetype='image/svg+xml' height='200' width='200'>
+                   <svg xmlns="http://www.w3.org/2000/svg"  height="100" width="100" preserveaspectratio="xMidYMin slice">
+                     <circle fill='#009' r='45' cx='50' cy='50'/>
+                     <path d='M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z' fill='#FFF'/>
+                   </svg>
+                   <emf src='data:image/emf;base64,AQAAAPwAAAAAAAAAAAAAAPsEAAD7BAAAAAAAAAAAAACLCgAAiwoAACBFTUYAAAEAWAQAACgAAAACAAAARwAAAGwAAAAAAAAA3ScAAH0zAADYAAAAFwEAAAAAAAAAAAAAAAAAAMBLAwDYQQQASQBuAGsAcwBjAGEAcABlACAAMQAuADIALgAxACAAKAA5AGMANgBkADQAMQBlACwAIAAyADAAMgAyAC0AMAA3AC0AMQA0ACkAIAAAAGkAbQBhAGcAZQAyADAAMgAyADAAOQAxADMALQA4ADMAMQA3ADYALQA2AHcAYwB1AGMAdgAuAGUAbQBmAAAAAAAAAAAAEQAAAAwAAAABAAAAJAAAACQAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAACAAAARgAAACwAAAAgAAAAU2NyZWVuPTEwMjA1eDEzMTgxcHgsIDIxNngyNzltbQBGAAAAMAAAACMAAABEcmF3aW5nPTEwMC4weDEwMC4wcHgsIDI2LjV4MjYuNW1tAAASAAAADAAAAAEAAAATAAAADAAAAAIAAAAWAAAADAAAABgAAAAYAAAADAAAAAAAAAAUAAAADAAAAA0AAAAnAAAAGAAAAAEAAAAAAAAAAACZAAYAAAAlAAAADAAAAAEAAAA7AAAACAAAABsAAAAQAAAApAQAAHECAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAApAQAAKgDAACoAwAApAQAAHECAACkBAAABQAAADQAAAAAAAAAAAAAAP//////////AwAAADoBAACkBAAAPwAAAKgDAAA/AAAAcQIAAAUAAAA0AAAAAAAAAAAAAAD//////////wMAAAA/AAAAOgEAADoBAAA/AAAAcQIAAD8AAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAqAMAAD8AAACkBAAAOgEAAKQEAABxAgAAPQAAAAgAAAA8AAAACAAAAD4AAAAYAAAAAAAAAAAAAAD//////////yUAAAAMAAAABQAAgCgAAAAMAAAAAQAAACcAAAAYAAAAAQAAAAAAAAD///8ABgAAACUAAAAMAAAAAQAAADsAAAAIAAAAGwAAABAAAACdAQAARQEAADYAAAAQAAAAzwMAAEUBAAAFAAAANAAAAAAAAAAAAAAA//////////8DAAAAXwQAAO0BAABkBAAA4wIAANsDAACRAwAABQAAADQAAAAAAAAAAAAAAP//////////AwAAAFIDAAA+BAAAYQIAAHMEAACdAQAADgQAADYAAAAQAAAAnQEAAMkCAAA2AAAAEAAAAOICAADJAgAANgAAABAAAADiAgAAGgIAADYAAAAQAAAAnQEAABoCAAA9AAAACAAAADwAAAAIAAAAPgAAABgAAAAAAAAAAAAAAP//////////JQAAAAwAAAAFAACAKAAAAAwAAAABAAAADgAAABQAAAAAAAAAAAAAAFgEAAA='/>
+                 </image>
+               </figure>
+             </foreword>
+           </preface>
+         </iso-standard>
+    OUTPUT
+
+    html = <<~HTML
+      #{HTML_HDR}
+              <br/>
+                <div id="_">
+                  <h1 class='ForewordTitle'>Foreword</h1>
+                  <div id='figureA-1' class='figure'>
+                    <div class="svg-container">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" preserveaspectratio="xMidYMin slice" viewbox="0 0 100 100">
+                     <circle fill="#009" r="45" cx="50" cy="50"/>
+                     <path d="M33,26H78A37,37,0,0,1,33,83V57H59V43H33Z" fill="#FFF"/>
+                  </svg>
+               </div>
+                    <p class='FigureTitle' style='text-align:center;'>Figure 1</p>
+                  </div>
+                </div>
+              </div>
+            </body>
+          </html>
+    HTML
+
+    output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
+      .convert("test", input, true)
+    expect(strip_guid(Xml::C14n.format(output
+      .gsub(/&lt;/, "&#x3c;")
+      .sub(%r{<metanorma-extension>.*</metanorma-extension}m, "")
+      .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))))
+      .to be_equivalent_to Xml::C14n.format(presxml
+         .gsub(%r{data:image/emf;base64,[^"']+}, "data:image/emf;base64"))
+    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .convert("test", output, true))))
+      .to be_equivalent_to strip_guid(Xml::C14n.format(html))
   end
 
   it "converts SVG (Word)" do
