@@ -100,12 +100,21 @@ module IsoDoc
         ret
       end
 
+      def svg_supply_viewbox(svg)
+        svg["viewbox"] and return
+        svg["height"] && svg["width"] or return
+        h = svg["height"].sub(/[^0-9]+$/, "")
+        w = svg["width"].sub(/[^0-9]+$/, "")
+        h.to_i.positive? && w.to_i.positive? or return
+        svg["viewbox"] = "0 0 #{w} #{h}"
+      end
+
       def image_body_parse(node, attrs, out)
         if svg = node.at("./m:svg", "m" => "http://www.w3.org/2000/svg")
-          svg.delete("width")
-          svg["height"] = "1px"
-          svg["padding-bottom"] = "calc(100% * 3 / 4);"
-          out.parent.add_child(svg)
+          svg_supply_viewbox(svg)
+          out.div class: "svg-container" do |div|
+            div.parent.add_child(svg)
+          end
         else super
         end
       end

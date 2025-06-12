@@ -277,6 +277,13 @@ visibility:visible;
   padding: 0;
 }
 
+.svg-container {
+  width: 100%; /* or any desired width */
+  display: block;     /* ← removes unwanted inline spacing */
+}
+
 svg {
-   width: 100%; overflow: visible; 
+  width: 100%;
+  height: auto;       /* ← key to maintaining aspect ratio */
+  display: block;     /* ← removes unwanted inline spacing */
 }
