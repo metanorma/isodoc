@@ -2329,7 +2329,7 @@ RSpec.describe IsoDoc do
     ext = <<~EXT
          <metanorma-extension>
       <presentation-metadata>
-      <name>doctype-alias</name><value>conference proceedings</value>
+      <doctype-alias>conference proceedings</doctype-alias>
       </presentation-metadata>
       </metanorma-extension>
     EXT
@@ -2345,8 +2345,7 @@ RSpec.describe IsoDoc do
          </bibdata>
             <metanorma-extension>
              <presentation-metadata>
-                <name>doctype-alias</name>
-                <value>conference proceedings</value>
+                <doctype-alias>conference proceedings</doctype-alias>
              </presentation-metadata>
           </metanorma-extension>
       </iso-standard>
