@@ -83,7 +83,11 @@ module IsoDoc
     end
 
     def status_print(status)
-      status.split(/[- ]/).map(&:capitalize).join(" ")
+      status.split(/[- ]/).map do |w|
+        letters = w.chars
+        letters.first.upcase!
+        letters.join
+      end.join(" ")
     end
 
     def docid(isoxml, _out)
