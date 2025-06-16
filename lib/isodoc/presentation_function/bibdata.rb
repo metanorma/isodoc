@@ -38,17 +38,23 @@ module IsoDoc
     end
 
     def bibdata_i18n(bib)
-      hash_translate(bib, @i18n.get["doctype_dict"], "./ext/doctype")
-      hash_translate(bib, @i18n.get["stage_dict"], "./status/stage")
-      hash_translate(bib, @i18n.get["substage_dict"], "./status/substage")
+      hash_translate(bib, @i18n.get["doctype_dict"], "./ext/doctype",
+                     "//presentation-metadata/doctype-alias", @lang)
+      hash_translate(bib, @i18n.get["stage_dict"], "./status/stage", nil, @lang)
+      hash_translate(bib, @i18n.get["substage_dict"], "./status/substage", nil,
+                     @lang)
       edition_translate(bib)
     end
 
-    def hash_translate(bibdata, hash, xpath, lang = @lang)
-      x = bibdata.at(ns(xpath)) or return
+    # translate dest_xpath in bibdata using lookup in hash
+    # source text is dest_xpath by default, can be alt_source_xpath if given
+    def hash_translate(bibdata, hash, dest_xpath, alt_source_xpath, lang)
+      x = bibdata.at(ns(dest_xpath)) or return
+      alt_source_xpath and doctype = bibdata.at(ns(alt_source_xpath))
+      doctype ||= x
       hash.is_a? Hash or return
-      hash[x.text] or return
-      tag_translate(x, lang, hash[x.text])
+      hash[doctype.text] or return
+      tag_translate(x, lang, hash[doctype.text])
     end
 
     # does not allow %Spellout and %Ordinal in the ordinal expression
