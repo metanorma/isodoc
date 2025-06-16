@@ -113,7 +113,7 @@ RSpec.describe IsoDoc do
         <keyword>KW1</keyword>
         <keyword>KW3</keyword>
         <ext>
-        <doctype>international-standard</doctype>
+        <doctype>international-standard-CAPITAL</doctype>
         <subdoctype>vocabulary</subdoctype>
         </ext>
       </bibdata>
@@ -151,8 +151,8 @@ RSpec.describe IsoDoc do
         docnumber: "17301-1",
         docnumeric: "17301",
         doctitle: "Cereals and pulses H<sup>2</sup>O",
-        doctype: "International Standard",
-        doctype_display: "International Standard",
+        doctype: "International Standard CAPITAL",
+        doctype_display: "International Standard CAPITAL",
         docyear: "2016",
         draft: "0.4",
         draftinfo: " (draft 0.4, 2016-05-01)",
