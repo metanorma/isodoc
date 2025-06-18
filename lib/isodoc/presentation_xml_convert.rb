@@ -41,7 +41,6 @@ module IsoDoc
       provide_ids docxml # feeds @xrefs.parse
       @xrefs.parse docxml
       @xrefs.klass.meta = @meta
-      @xrefs.klass.info docxml, nil
       counter_init
     end
 

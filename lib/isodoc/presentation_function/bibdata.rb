@@ -6,6 +6,7 @@ module IsoDoc
       a = bibdata_current(docxml) or return
       address_precompose(a)
       bibdata_i18n(a)
+      @xrefs.klass.info docxml, nil
     end
 
     def address_precompose(bib)
