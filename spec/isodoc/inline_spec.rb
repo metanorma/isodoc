@@ -73,26 +73,34 @@ RSpec.describe IsoDoc do
       <bibdata/>
       <sections><clause id="_scope" type="scope" inline-header="false" obligation="normative">
       <title>Scope</title>
-      <p id="A"><identifier>http://www.example.com</identifier></p>
+      <p id="A"><identifier>http://www.example.com A-B</identifier></p>
       </clause>
       </standard-document>
     INPUT
     presxml = <<~OUTPUT
-      <p id='A'>
-         <identifier id="_">http://www.example.com</identifier>
-        <fmt-identifier>
-            <tt>
-              <semx element="identifier" source="_">http://www.example.com</semx>
-            </tt>
-        </fmt-identifier>
-      </p>
+       <p id="A">
+          <identifier id="_">http://www.example.com A-B</identifier>
+          <fmt-identifier>
+             <tt>
+                <semx element="identifier" source="_">http://www.example.com A-B</semx>
+             </tt>
+          </fmt-identifier>
+       </p>
     OUTPUT
     html = <<~OUTPUT
-      <p id="A">
-      <span style="white-space: nowrap;">
-      <tt>http://www.example.com</tt>
-      </span>
-      </p>
+       <p id="A">
+          <span style="white-space: nowrap;">
+             <tt>http://www.example.com A-B</tt>
+          </span>
+       </p>
+    OUTPUT
+    doc = <<~OUTPUT
+           <p class="MsoNormal">
+          <a name="A" id="A"/>
+          <span>
+             <tt>http://www.⁠example.⁠com\\u00a0A‑B</tt>
+          </span>
+       </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -106,12 +114,14 @@ RSpec.describe IsoDoc do
     )
       .at("//p[@id = 'A']").to_xml)))
       .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
-      IsoDoc::WordConvert.new({})
-      .convert("test", pres_output, true),
-    )
-      .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    FileUtils.rm_f("test.doc")
+    IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
+    expect(File.exist?("test.doc")).to be true
+    word = File.read("test.doc", encoding: "UTF-8")
+      .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
+    wordxml = Nokogiri::XML(word)
+    expect(strip_guid(Xml::C14n.format(wordxml.at("//p").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "processes dates" do

@@ -49,6 +49,7 @@ module IsoDoc
         word_preface(docxml)
         word_sourcecode_annotations(docxml)
         word_sourcecode_table(docxml)
+        word_nonbreaking_spans(docxml)
         word_nested_tables(docxml)
         word_colgroup(docxml)
         word_table_align(docxml)
@@ -183,6 +184,17 @@ module IsoDoc
           b.delete("class")
           out.empty? and next
           out[-1].previous = b.remove
+        end
+      end
+
+      def word_nonbreaking_spans(docxml)
+        docxml.xpath("//span[@style = 'white-space: nowrap;']").each do |s|
+          s.delete("style")
+          s.traverse do |n|
+            n.text? or next
+            n.replace(n.text.gsub(" ", "\u00a0").gsub("-", "\u2011")
+              .gsub(/\.(?=.)/, ".\u2060"))
+          end
         end
       end
     end
