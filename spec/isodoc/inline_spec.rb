@@ -89,7 +89,9 @@ RSpec.describe IsoDoc do
     OUTPUT
     html = <<~OUTPUT
       <p id="A">
-         <tt>http://www.example.com</tt>
+      <span style="white-space: nowrap;">
+      <tt>http://www.example.com</tt>
+      </span>
       </p>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
@@ -100,6 +102,12 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true),
+    )
+      .at("//p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))

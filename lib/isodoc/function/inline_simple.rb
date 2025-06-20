@@ -77,6 +77,27 @@ module IsoDoc
           children_parse(node, e)
         end
       end
+
+      def location_parse(node, out); end
+      def author_parse(node, out); end
+      def xref_label_parse(node, out); end
+      def name_parse(node, out); end
+      def semx_definition_parse(node, out); end
+      def semx_xref_parse(node, out); end
+      def semx_eref_parse(node, out); end
+      def semx_link_parse(node, out); end
+      def semx_origin_parse(node, out); end
+      def date_parse(node, out); end
+      def semx_stem_parse(node, out); end
+      def floating_title_parse(node, out); end
+      def identifier_parse(node, out); end
+      def concept_parse(node, out); end
+      def erefstack_parse(node, out); end
+      def svgmap_parse(node, out); end
+      def amend_parse(node, out); end
+      def semx_sourcecode_parse(node, out); end
+      def review_note_parse(node, out); end
+      def semx_source_parse(node, out); end
     end
   end
 end
