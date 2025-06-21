@@ -59,7 +59,7 @@ module IsoDoc
       ret = ret.merge(@pdf_cmd_options)
       %w(--xsl-file --xsl-file-override).each do |x|
         ret[x] &&= Pathname.new(File.expand_path(ret[x])).to_s
-          #.relative_path_from(File.dirname(@xsl)).to_s
+        # .relative_path_from(File.dirname(@xsl)).to_s
       end
       if ret["--xsl-file"]
         @xsl = ret["--xsl-file"]
@@ -100,15 +100,15 @@ module IsoDoc
 
     def input_xml_path(input_filename, xml_file, debug)
       docxml, filename, dir = convert_init(xml_file, input_filename, debug)
-      input_filename = Tempfile.open([File.basename(filename), ".xml"],
-                                     mode: File::BINARY | File::SHARE_DELETE,
-                                     encoding: "utf-8") do |f|
-        f.write docxml
-        f
-      end
+      temp_file = Tempfile.open([File.basename(filename), ".xml"],
+                                mode: File::BINARY | File::SHARE_DELETE,
+                                encoding: "utf-8")
+      temp_file.write docxml
+      temp_file.flush
+      @tempfile_cache << temp_file # Add to cache to prevent garbage collection
       FileUtils.rm_rf dir
 
-      [input_filename, docxml, input_filename.path]
+      [temp_file, docxml, temp_file.path]
     end
   end
 end
