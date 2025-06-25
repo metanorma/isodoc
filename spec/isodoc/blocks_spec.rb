@@ -779,7 +779,7 @@ RSpec.describe IsoDoc do
                     </p>
                   </div>
                   <p style="page-break-after: avoid;">where</p>
-                  <table id="_" class='formula_dl'>
+                  <table id="_" class='formula_dl' align="left">
                     <tr>
                       <td valign='top' align='left'>
                         <p align='left' style='margin-left:0pt;text-align:left;'>
