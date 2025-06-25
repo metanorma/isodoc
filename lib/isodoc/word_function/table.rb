@@ -72,15 +72,14 @@ module IsoDoc
 
       def table_attrs(node)
         c = node["class"]
-        bordered = "border-spacing:0;border-width:1px;"
-        (%w(modspec).include?(c) || !c) or bordered = nil
-        ret = {
-          summary: node["summary"], width: node["width"],
-          style: "mso-table-anchor-horizontal:column;mso-table-overlap:never;" \
-                 "#{bordered}#{keep_style(node)}",
-          class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable")
-        }
-        bordered or ret.delete(:class)
+        style = node["style"] ? '' : "border-spacing:0;border-width:1px;"
+        (%w(modspec).include?(c) || !c) or style = nil
+        ret =
+          { summary: node["summary"], width: node["width"],
+            style: "mso-table-anchor-horizontal:column;mso-table-overlap:never;" \
+                 "#{style}#{keep_style(node)}",
+            class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable") }
+        style or ret.delete(:class)
         super.merge(attr_code(ret))
       end
 

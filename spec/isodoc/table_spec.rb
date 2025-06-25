@@ -85,7 +85,7 @@ RSpec.describe IsoDoc do
         </source>
         <note><p>This is a table about rice</p></note>
         </table>
-        <table id="tableD-2" unnumbered="true">
+        <table id="tableD-2" unnumbered="true" style="border-width:2px;">
         <tbody><tr><td>A</td></tr></tbody>
         </table>
         </foreword>
@@ -343,7 +343,7 @@ RSpec.describe IsoDoc do
                        </fmt-fn-body>
                     </fmt-footnote-container>
                  </table>
-                 <table id="tableD-2" unnumbered="true">
+                 <table id="tableD-2" unnumbered="true" style="border-width:2px;">
                     <tbody>
                        <tr>
                           <td>A</td>
@@ -575,7 +575,7 @@ RSpec.describe IsoDoc do
                          </p>
                       </aside>
                    </table>
-                   <table id="tableD-2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                   <table id="tableD-2" class="MsoISOTable" style="border-width:2px;;">
                       <tbody>
                          <tr>
                             <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">A</td>
@@ -719,7 +719,7 @@ RSpec.describe IsoDoc do
                  </table>
                </div>
                <div align="center" class="table_container">
-                 <table id="tableD-2" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                 <table id="tableD-2" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-width:2px;;">
                    <tbody>
                      <tr>
                        <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
