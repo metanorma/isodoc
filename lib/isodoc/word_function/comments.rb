@@ -2,7 +2,7 @@ module IsoDoc
   module WordFunction
     module Comments
       def comments(docxml, out)
-        c = docxml.xpath(ns("//fmt-review-body"))
+        c = docxml.xpath(ns("//fmt-annotation-body"))
         c.empty? and return
         out.div style: "mso-element:comment-list" do |div|
           @in_comment = true
@@ -17,7 +17,7 @@ module IsoDoc
           to: node["end"] }
       end
 
-      def fmt_review_start_parse(node, out)
+      def fmt_annotation_start_parse(node, out)
         make_comment_link(out, node["target"], node)
       end
 
@@ -42,7 +42,7 @@ module IsoDoc
         end
       end
 
-      def fmt_review_body_parse(node, out)
+      def fmt_annotation_body_parse(node, out)
         out.div style: "mso-element:comment", id: node["id"] do |div|
           div.span style: %{mso-comment-author:"#{node['reviewer']}"}
           make_comment_target(div)

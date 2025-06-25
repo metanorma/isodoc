@@ -753,7 +753,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(doc1)
   end
 
-  it "processes IsoXML reviewer notes" do
+  it "processes IsoXML annotations" do
     mock_uuid_increment
     FileUtils.rm_f "test.html"
     input = <<~INPUT
@@ -767,16 +767,16 @@ RSpec.describe IsoDoc do
           <p id="C">C.</p>
        </introduction>
         </preface>
-        <review-container>
-        <review reviewer="ISO" date="20170101T0000" from="A" to="B"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
-          <p id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p></review>
-        <review reviewer="ISO" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
-        <review reviewer="ISO" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c09">Third note.</p></review>
-        <review reviewer="ISO" date="20170108T0000" from="A1" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0a">Fourth note.</p></review>
-         <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0b">Fifth note.</p></review>
-          <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0c">Sixth note.</p></review>
-        <review reviewer="ISO" date="20170108T0000" from="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Seventh note.</p></review>
-      </review-container>
+        <annotation-container>
+        <annotation reviewer="ISO" date="20170101T0000" from="A" to="B"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c07">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
+          <p id="_f1a8b9da-ca75-458b-96fa-d4af7328975e">For further information on the Foreword, see <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong></p></annotation>
+        <annotation reviewer="ISO" date="20170108T0000" from="C" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></annotation>
+        <annotation reviewer="ISO" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c09">Third note.</p></annotation>
+        <annotation reviewer="ISO" date="20170108T0000" from="A1" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0a">Fourth note.</p></annotation>
+         <annotation reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0b">Fifth note.</p></annotation>
+          <annotation reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c0c">Sixth note.</p></annotation>
+        <annotation reviewer="ISO" date="20170108T0000" from="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Seventh note.</p></annotation>
+      </annotation-container>
         </iso-standard>
     INPUT
     presxml = <<~INPUT
@@ -793,15 +793,15 @@ RSpec.describe IsoDoc do
                 <p id="A">
                    <em>
                       <strong>
-                         <fmt-review-start id="_13" source="A" target="_12" end="B" author="" date="20170101T0000"/>
-                         <fmt-review-start id="_19" source="A" target="_18" end="C" author="" date="20170108T0000"/>
+                         <fmt-annotation-start id="_13" source="A" target="_12" end="B" author="" date="20170101T0000"/>
+                         <fmt-annotation-start id="_19" source="A" target="_18" end="C" author="" date="20170108T0000"/>
                          A.
                       </strong>
                    </em>
-                   <fmt-review-start id="_22" source="A1" target="_21" end="C" author="" date="20170108T0000"/>
-                   <fmt-review-start id="_25" source="A1" target="_24" end="A1" author="" date="20170108T0000"/>
+                   <fmt-annotation-start id="_22" source="A1" target="_21" end="C" author="" date="20170108T0000"/>
+                   <fmt-annotation-start id="_25" source="A1" target="_24" end="A1" author="" date="20170108T0000"/>
                    <bookmark id="A1"/>
-                   <fmt-review-end id="_26" source="A1" target="_24" start="A1" author="" date="20170108T0000"/>
+                   <fmt-annotation-end id="_26" source="A1" target="_24" start="A1" author="" date="20170108T0000"/>
                    B
                    <em>
                       <strong>C.</strong>
@@ -811,7 +811,7 @@ RSpec.describe IsoDoc do
                    <em>
                       <strong>
                          A.
-                         <fmt-review-end id="_14" source="B" target="_12" start="A" author="" date="20170101T0000"/>
+                         <fmt-annotation-end id="_14" source="B" target="_12" start="A" author="" date="20170101T0000"/>
                       </strong>
                    </em>
                    B
@@ -826,86 +826,86 @@ RSpec.describe IsoDoc do
                    <semx element="title" source="_11">Introduction</semx>
                 </fmt-title>
                 <p id="C">
-                   <fmt-review-start id="_16" source="C" target="_15" end="C" author="" date="20170108T0000"/>
-                   <fmt-review-start id="_31" source="C" target="_30" end="" author="" date="20170108T0000"/>
+                   <fmt-annotation-start id="_16" source="C" target="_15" end="C" author="" date="20170108T0000"/>
+                   <fmt-annotation-start id="_31" source="C" target="_30" end="" author="" date="20170108T0000"/>
                    C.
-                   <fmt-review-end id="_32" source="" target="_30" start="C" author="" date="20170108T0000"/>
-                   <fmt-review-end id="_23" source="C" target="_21" start="A1" author="" date="20170108T0000"/>
-                   <fmt-review-end id="_20" source="C" target="_18" start="A" author="" date="20170108T0000"/>
-                   <fmt-review-end id="_17" source="C" target="_15" start="C" author="" date="20170108T0000"/>
+                   <fmt-annotation-end id="_32" source="" target="_30" start="C" author="" date="20170108T0000"/>
+                   <fmt-annotation-end id="_23" source="C" target="_21" start="A1" author="" date="20170108T0000"/>
+                   <fmt-annotation-end id="_20" source="C" target="_18" start="A" author="" date="20170108T0000"/>
+                   <fmt-annotation-end id="_17" source="C" target="_15" start="C" author="" date="20170108T0000"/>
                 </p>
              </introduction>
           </preface>
-          <review-container>
-             <review reviewer="ISO" date="20170101T0000" from="A" to="B" id="_3">
+          <annotation-container>
+             <annotation reviewer="ISO" date="20170101T0000" from="A" to="B" id="_3">
                 <p original-id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
                 <p original-id="_">
                    For further information on the Foreword, see
                    <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
                 </p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170101T0000" from="_13" to="_14" id="_12">
-                <semx element="review" source="_3">
+             </annotation>
+             <fmt-annotation-body reviewer="ISO" date="20170101T0000" from="_13" to="_14" id="_12">
+                <semx element="annotation" source="_3">
                    <p id="_">A Foreword shall appear in each document. The generic text is shown here. It does not contain requirements, recommendations or permissions.</p>
                    <p id="_">
                       For further information on the Foreword, see
                       <strong>ISO/IEC Directives, Part 2, 2016, Clause 12.</strong>
                    </p>
                 </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="C" to="C" id="_4">
+             </fmt-annotation-body>
+             <annotation reviewer="ISO" date="20170108T0000" from="C" to="C" id="_4">
                 <p original-id="_">Second note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_16" to="_17" id="_15">
-                <semx element="review" source="_4">
+             </annotation>
+             <fmt-annotation-body reviewer="ISO" date="20170108T0000" from="_16" to="_17" id="_15">
+                <semx element="annotation" source="_4">
                    <p id="_">Second note.</p>
                 </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A" to="C" id="_5">
+             </fmt-annotation-body>
+             <annotation reviewer="ISO" date="20170108T0000" from="A" to="C" id="_5">
                 <p original-id="_">Third note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_19" to="_20" id="_18">
-                <semx element="review" source="_5">
+             </annotation>
+             <fmt-annotation-body reviewer="ISO" date="20170108T0000" from="_19" to="_20" id="_18">
+                <semx element="annotation" source="_5">
                    <p id="_">Third note.</p>
                 </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_6">
+             </fmt-annotation-body>
+             <annotation reviewer="ISO" date="20170108T0000" from="A1" to="C" id="_6">
                 <p original-id="_">Fourth note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_22" to="_23" id="_21">
-                <semx element="review" source="_6">
+             </annotation>
+             <fmt-annotation-body reviewer="ISO" date="20170108T0000" from="_22" to="_23" id="_21">
+                <semx element="annotation" source="_6">
                    <p id="_">Fourth note.</p>
                 </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1">
+             </fmt-annotation-body>
+             <annotation reviewer="ISO" date="20170108T0000" from="A1" to="A1" id="B1">
                 <p original-id="_">
-                   <fmt-review-start id="_28" source="B1" target="_27" end="B1" author="" date="20170108T0000"/>
+                   <fmt-annotation-start id="_28" source="B1" target="_27" end="B1" author="" date="20170108T0000"/>
                    Fifth note.
-                   <fmt-review-end id="_29" source="B1" target="_27" start="B1" author="" date="20170108T0000"/>
+                   <fmt-annotation-end id="_29" source="B1" target="_27" start="B1" author="" date="20170108T0000"/>
                 </p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_25" to="_26" id="_24">
-                <semx element="review" source="B1">
+             </annotation>
+             <fmt-annotation-body reviewer="ISO" date="20170108T0000" from="_25" to="_26" id="_24">
+                <semx element="annotation" source="B1">
                    <p id="_">Fifth note.</p>
                 </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2">
+             </fmt-annotation-body>
+             <annotation reviewer="ISO" date="20170108T0000" from="B1" to="B1" id="B2">
                 <p original-id="_">Sixth note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_28" to="_29" id="_27">
-                <semx element="review" source="B2">
+             </annotation>
+             <fmt-annotation-body reviewer="ISO" date="20170108T0000" from="_28" to="_29" id="_27">
+                <semx element="annotation" source="B2">
                    <p id="_">Sixth note.</p>
                 </semx>
-             </fmt-review-body>
-             <review reviewer="ISO" date="20170108T0000" from="C" id="_7">
+             </fmt-annotation-body>
+             <annotation reviewer="ISO" date="20170108T0000" from="C" id="_7">
                 <p original-id="_">Seventh note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_31" id="_30" to="_32">
-                <semx element="review" source="_7">
+             </annotation>
+             <fmt-annotation-body reviewer="ISO" date="20170108T0000" from="_31" id="_30" to="_32">
+                <semx element="annotation" source="_7">
                    <p id="_">Seventh note.</p>
                 </semx>
-             </fmt-review-body>
-          </review-container>
+             </fmt-annotation-body>
+          </annotation-container>
        </iso-standard>
     INPUT
     html = <<~OUTPUT
@@ -1237,7 +1237,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Xml::C14n.format(word)
   end
 
-  it "processes IsoXML reviewer notes spanning list" do
+  it "processes IsoXML annotations spanning list" do
     mock_uuid_increment
     FileUtils.rm_f "test.html"
     input = <<~INPUT
@@ -1256,9 +1256,9 @@ RSpec.describe IsoDoc do
        <introduction displayorder="2"><title>Introduction</title>
        </introduction>
        </preface>
-            <review-container>
-        <review reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></review>
-          </review-container>
+            <annotation-container>
+        <annotation reviewer="ISO" id="_4f4dff63-23c1-4ecb-8ac6-d3ffba93c712" date="20170108T0000" from="A" to="C"><p id="_c54b9549-369f-4f85-b5b2-9db3fd3d4c08">Second note.</p></annotation>
+          </annotation-container>
       </iso-standard>
     INPUT
     presxml = <<~INPUT
@@ -1279,7 +1279,7 @@ RSpec.describe IsoDoc do
                          <span class="fmt-label-delim">)</span>
                       </fmt-name>
                       <p>
-                         <fmt-review-start id="_9" source="A" target="_8" end="C" author="" date="20170108T0000"/>
+                         <fmt-annotation-start id="_9" source="A" target="_8" end="C" author="" date="20170108T0000"/>
                          A.
                       </p>
                       <p>A1</p>
@@ -1299,7 +1299,7 @@ RSpec.describe IsoDoc do
                          <p>C.</p>
                          <p id="C">
                             C1
-                            <fmt-review-end id="_10" source="C" target="_8" start="A" author="" date="20170108T0000"/>
+                            <fmt-annotation-end id="_10" source="C" target="_8" start="A" author="" date="20170108T0000"/>
                          </p>
                       </li>
                       <li id="D">
@@ -1318,16 +1318,16 @@ RSpec.describe IsoDoc do
                 </fmt-title>
              </introduction>
           </preface>
-          <review-container>
-             <review reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
+          <annotation-container>
+             <annotation reviewer="ISO" id="_" date="20170108T0000" from="A" to="C">
                 <p original-id="_">Second note.</p>
-             </review>
-             <fmt-review-body reviewer="ISO" date="20170108T0000" from="_9" to="_10" id="_8">
-                <semx element="review" source="_">
+             </annotation>
+             <fmt-annotation-body reviewer="ISO" date="20170108T0000" from="_9" to="_10" id="_8">
+                <semx element="annotation" source="_">
                    <p id="_">Second note.</p>
                 </semx>
-             </fmt-review-body>
-          </review-container>
+             </fmt-annotation-body>
+          </annotation-container>
        </iso-standard>
     INPUT
     html = <<~OUTPUT

@@ -100,7 +100,7 @@ module IsoDoc
 
     def add_missing_id(docxml)
       docxml.xpath(ns("//source | //modification | //erefstack | //fn | " \
-        "//review | //floating-title | //li | //executivesummary | " \
+        "//annotation | //floating-title | //li | //executivesummary | " \
         "//preface/abstract | //foreword | //introduction | //annex | " \
         "//acknowledgements | //clause | //references | //terms | " \
         "//preferred | //deprecates | //admitted | //related")).each do |s|

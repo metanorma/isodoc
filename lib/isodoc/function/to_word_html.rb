@@ -157,7 +157,7 @@ module IsoDoc
           when "fmt-source" then source_parse(node, out)
           when "tr" then tr_parse(node, out)
           when "note" then note_parse(node, out)
-          when "review" then review_note_parse(node, out)
+          when "annotation" then annotation_note_parse(node, out)
           when "admonition" then admonition_parse(node, out)
           when "formula" then formula_parse(node, out)
           when "table" then table_parse(node, out)
@@ -237,9 +237,9 @@ module IsoDoc
           when "fmt-fn-body" then fmt_fn_body_parse(node, out)
           when "fmt-fn-label" then fmt_fn_label_parse(node, out)
           when "fmt-footnote-container" then fmt_footnote_container_parse(node, out)
-          when "fmt-review-start" then fmt_review_start_parse(node, out)
-          when "fmt-review-end" then fmt_review_end_parse(node, out)
-          when "fmt-review-body" then fmt_review_body_parse(node, out)
+          when "fmt-annotation-start" then fmt_annotation_start_parse(node, out)
+          when "fmt-annotation-end" then fmt_annotation_end_parse(node, out)
+          when "fmt-annotation-body" then fmt_annotation_body_parse(node, out)
           else error_parse(node, out)
           end
         end

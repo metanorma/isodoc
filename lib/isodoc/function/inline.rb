@@ -226,11 +226,11 @@ module IsoDoc
         children_parse(node, out)
       end
 
-      def fmt_review_start_parse(node, out)
+      def fmt_annotation_start_parse(node, out)
         children_parse(node, out)
       end
 
-      def fmt_review_end_parse(node, out)
+      def fmt_annotation_end_parse(node, out)
         children_parse(node, out)
       end
     end

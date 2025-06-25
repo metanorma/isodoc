@@ -611,13 +611,13 @@ RSpec.describe IsoDoc do
       <sourcecode id="_"><body>puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
          %w{a b c}.each do |x|
            puts x <callout target="C">3</callout>
-         end</body><annotation id="A">
+         end</body><callout-annotation id="A">
            <p id="_">This is <em>one</em> callout</p>
-         </annotation><annotation id="B">
+         </callout-annotation><callout-annotation id="B">
            <p id="_">This is another callout</p>
-         </annotation><annotation id="C">
+         </callout-annotation><callout-annotation id="C">
            <p id="_">This is yet another callout</p>
-         </annotation></sourcecode>
+         </callout-annotation></sourcecode>
       </foreword></preface>
       </iso-standard>
     INPUT
@@ -652,19 +652,19 @@ RSpec.describe IsoDoc do
                    %w{a b c}.each do |x| puts x
                    <callout target="C">3</callout>
                    end
-                   </body><annotation original-id="A" id="_">
+                   </body><callout-annotation original-id="A" id="_">
                       <p original-id="_">
                          This is
                          <em>one</em>
                          callout
                       </p>
-                   </annotation>
-                   <annotation original-id="B" id="_">
+                   </callout-annotation>
+                   <callout-annotation original-id="B" id="_">
                       <p original-id="_">This is another callout</p>
-                   </annotation>
-                   <annotation original-id="C" id="_">
+                   </callout-annotation>
+                   <callout-annotation original-id="C" id="_">
                       <p original-id="_">This is yet another callout</p>
-                   </annotation>
+                   </callout-annotation>
                    <fmt-sourcecode id="_" autonum="1">
                          puts "Hello, world."
                          <span class="c">
@@ -687,7 +687,7 @@ RSpec.describe IsoDoc do
                                <span class="c">1</span>
                             </dt>
                             <dd>
-                               <semx element="annotation" source="_">
+                               <semx element="callout-annotation" source="_">
                                   <p original-id="_">
                                      This is
                                      <em>one</em>
@@ -699,7 +699,7 @@ RSpec.describe IsoDoc do
                                <span class="c">2</span>
                             </dt>
                             <dd>
-                               <semx element="annotation" source="_">
+                               <semx element="callout-annotation" source="_">
                                   <p original-id="_">This is another callout</p>
                                </semx>
                             </dd>
@@ -707,7 +707,7 @@ RSpec.describe IsoDoc do
                                <span class="c">3</span>
                             </dt>
                             <dd>
-                               <semx element="annotation" source="_">
+                               <semx element="callout-annotation" source="_">
                                   <p original-id="_">This is yet another callout</p>
                                </semx>
                             </dd>
@@ -837,13 +837,13 @@ RSpec.describe IsoDoc do
       <sourcecode id="_" linenums="true"><body>puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
          %w{a b c}.each do |x|
            puts x <callout target="C">3</callout>
-         end</body><annotation id="A">
+         end</body><callout-annotation id="A">
            <p id="_">This is <em>one</em> callout</p>
-         </annotation><annotation id="B">
+         </callout-annotation><callout-annotation id="B">
            <p id="_">This is another callout</p>
-         </annotation><annotation id="C">
+         </callout-annotation><callout-annotation id="C">
            <p id="_">This is yet another callout</p>
-         </annotation></sourcecode>
+         </callout-annotation></sourcecode>
       </foreword></preface>
       </iso-standard>
     INPUT
@@ -878,19 +878,19 @@ RSpec.describe IsoDoc do
                    %w{a b c}.each do |x| puts x
                    <callout target="C">3</callout>
                    end
-                   </body><annotation original-id="A" id="_">
+                   </body><callout-annotation original-id="A" id="_">
                       <p original-id="_">
                          This is
                          <em>one</em>
                          callout
                       </p>
-                   </annotation>
-                   <annotation original-id="B" id="_">
+                   </callout-annotation>
+                   <callout-annotation original-id="B" id="_">
                       <p original-id="_">This is another callout</p>
-                   </annotation>
-                   <annotation original-id="C" id="_">
+                   </callout-annotation>
+                   <callout-annotation original-id="C" id="_">
                       <p original-id="_">This is yet another callout</p>
-                   </annotation>
+                   </callout-annotation>
                    <fmt-sourcecode id="_" linenums="true" autonum="1">
                          <table class="rouge-line-table">
                             <tbody>
@@ -950,7 +950,7 @@ RSpec.describe IsoDoc do
                                <span class="c">1</span>
                             </dt>
                             <dd>
-                               <semx element="annotation" source="_">
+                               <semx element="callout-annotation" source="_">
                                   <p original-id="_">
                                      This is
                                      <em>one</em>
@@ -962,7 +962,7 @@ RSpec.describe IsoDoc do
                                <span class="c">2</span>
                             </dt>
                             <dd>
-                               <semx element="annotation" source="_">
+                               <semx element="callout-annotation" source="_">
                                   <p original-id="_">This is another callout</p>
                                </semx>
                             </dd>
@@ -970,7 +970,7 @@ RSpec.describe IsoDoc do
                                <span class="c">3</span>
                             </dt>
                             <dd>
-                               <semx element="annotation" source="_">
+                               <semx element="callout-annotation" source="_">
                                   <p original-id="_">This is yet another callout</p>
                                </semx>
                             </dd>
@@ -1199,9 +1199,9 @@ RSpec.describe IsoDoc do
       <sourcecode id="_" lang="ruby" linenums="true"><body>puts "Hello, world." <callout target="A">1</callout> <callout target="B">2</callout>
          %w{a b c}.each do |x|
            <strong>puts</strong> <xref target="X">x</xref> <callout target="C">3</callout>
-         end</body><annotation id="A">
+         end</body><callout-annotation id="A">
            <p id="A1">This is <em>one</em> callout</p>
-         </annotation>
+         </callout-annotation>
          </sourcecode>
       </foreword></preface>
       </iso-standard>
@@ -1242,13 +1242,13 @@ RSpec.describe IsoDoc do
                    </semx>
                    <callout target="C">3</callout>
                    end
-                   </body><annotation original-id="A" id="_">
+                   </body><callout-annotation original-id="A" id="_">
                       <p id="A1">
                          This is
                          <em>one</em>
                          callout
                       </p>
-                   </annotation>
+                   </callout-annotation>
                    <fmt-sourcecode id="_" lang="ruby" linenums="true" autonum="1">
                       <table class="rouge-line-table">
                          <tbody>
@@ -1337,7 +1337,7 @@ RSpec.describe IsoDoc do
                             <span class="c">1</span>
                          </dt>
                          <dd>
-                            <semx element="annotation" source="_">
+                            <semx element="callout-annotation" source="_">
                                <p original-id="A1">
                                   This is
                                   <em>one</em>

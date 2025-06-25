@@ -219,7 +219,7 @@ module IsoDoc
     end
 
     def ruby1(elem)
-      v = elem.at(ns("./pronunciation | ./annotation")).remove
+      v = elem.at(ns("./ruby-pronunciation | ./ruby-annotation")).remove
       elem.xpath(ns("./ruby")).each do |r|
         ruby1(r)
       end
