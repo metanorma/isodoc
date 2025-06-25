@@ -68,9 +68,9 @@ module IsoDoc
     end
 
     def annotations(elem, fmt_elem)
-      elem.at(ns("./annotation")) or return
+      elem.at(ns("./callout-annotation")) or return
       ret = ""
-      elem.xpath(ns("./annotation")).each do |a|
+      elem.xpath(ns("./callout-annotation")).each do |a|
         id = a["original-id"]
         dd = semx_fmt_dup(a)
         dd["source"] = a["id"]
@@ -79,7 +79,7 @@ module IsoDoc
           <dd>#{to_xml dd}</dd>
         OUT
       end
-      fmt_elem.xpath(ns("./annotation")).each(&:remove)
+      fmt_elem.xpath(ns("./callout-annotation")).each(&:remove)
       fmt_elem << "<dl><name>#{@i18n.key}</name>#{ret}</dl>"
     end
 
@@ -104,7 +104,7 @@ module IsoDoc
     end
 
     def source_remove_annotations(ret, elem)
-      ret[:ann] = elem.xpath(ns("./annotation")).each(&:remove)
+      ret[:ann] = elem.xpath(ns("./callout-annotation")).each(&:remove)
       ret[:call] = elem.xpath(ns("./callout")).each_with_object([]) do |c, m|
         m << { xml: c.remove, line: c.line - elem.line }
       end

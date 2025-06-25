@@ -96,7 +96,7 @@ module IsoDoc
       def svgmap_parse(node, out); end
       def amend_parse(node, out); end
       def semx_sourcecode_parse(node, out); end
-      def review_note_parse(node, out); end
+      def annotation_note_parse(node, out); end
       def semx_source_parse(node, out); end
     end
   end

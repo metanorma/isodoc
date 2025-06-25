@@ -2478,18 +2478,18 @@ RSpec.describe IsoDoc do
       <preface>
       <foreword id="F">
       <p id="A">
-      <ruby><pronunciation value="とうきょう"/>東京</ruby>
-      <ruby><pronunciation value="とうきょう" lang="ja" script="Hira"/>東京</ruby>
-      <ruby><pronunciation value="Tōkyō" script="Latn"/>東京</ruby>
-      <ruby><annotation value="ライバル"/>親友</ruby>
-      <ruby><pronunciation value="とう"/>東</ruby> <ruby><pronunciation value="きょう"/>京</ruby>
-      <ruby><pronunciation value="Tō" script="Latn"/>東</ruby><ruby><pronunciation value="kyō" script="Latn"/>京</ruby>
+      <ruby><ruby-pronunciation value="とうきょう"/>東京</ruby>
+      <ruby><ruby-pronunciation value="とうきょう" lang="ja" script="Hira"/>東京</ruby>
+      <ruby><ruby-pronunciation value="Tōkyō" script="Latn"/>東京</ruby>
+      <ruby><ruby-annotation value="ライバル"/>親友</ruby>
+      <ruby><ruby-pronunciation value="とう"/>東</ruby> <ruby><ruby-pronunciation value="きょう"/>京</ruby>
+      <ruby><ruby-pronunciation value="Tō" script="Latn"/>東</ruby><ruby><ruby-pronunciation value="kyō" script="Latn"/>京</ruby>
 
 
-      <ruby><pronunciation value="とう"/><ruby><pronunciation value="tou"/>東</ruby></ruby> <ruby><pronunciation value="なん"/><ruby><pronunciation value="nan"/>南</ruby></ruby> の方角
-      <ruby><pronunciation value="たつみ"/><ruby><pronunciation value="とう"/>東</ruby><ruby><pronunciation value="なん"/>南</ruby></ruby>
-      <ruby><pronunciation value="プロテゴ"/><ruby><pronunciation value="まも"/>護</ruby>れ</ruby>!
-      <ruby><pronunciation value="プロテゴ"/>れ<ruby><pronunciation value="まも"/>護</ruby></ruby>!</p>
+      <ruby><ruby-pronunciation value="とう"/><ruby><ruby-pronunciation value="tou"/>東</ruby></ruby> <ruby><ruby-pronunciation value="なん"/><ruby><ruby-pronunciation value="nan"/>南</ruby></ruby> の方角
+      <ruby><ruby-pronunciation value="たつみ"/><ruby><ruby-pronunciation value="とう"/>東</ruby><ruby><ruby-pronunciation value="なん"/>南</ruby></ruby>
+      <ruby><ruby-pronunciation value="プロテゴ"/><ruby><ruby-pronunciation value="まも"/>護</ruby>れ</ruby>!
+      <ruby><ruby-pronunciation value="プロテゴ"/>れ<ruby><ruby-pronunciation value="まも"/>護</ruby></ruby>!</p>
       </p>
       </foreword></preface></standard-document>
     INPUT

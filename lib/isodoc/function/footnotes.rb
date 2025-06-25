@@ -58,7 +58,7 @@ module IsoDoc
         end
       end
 
-      def fmt_review_body_parse(node, out); end
+      def fmt_annotation_body_parse(node, out); end
     end
   end
 end

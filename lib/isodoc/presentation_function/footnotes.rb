@@ -139,14 +139,14 @@ module IsoDoc
     end
 
     def comments(docxml)
-      docxml.xpath(ns("//review")).each do |c|
+      docxml.xpath(ns("//annotation")).each do |c|
         c1 = comment_body(c)
         comment_bookmarks(c1)
       end
     end
 
     def comment_body(elem)
-      c1 = elem.after("<fmt-review-body/>").next
+      c1 = elem.after("<fmt-annotation-body/>").next
       elem.attributes.each_key { |k| k == "id" or c1[k] = elem[k] }
       add_id(c1)
       c1 << semx_fmt_dup(elem)
@@ -162,7 +162,7 @@ module IsoDoc
 
     # Do not insert a comment bookmark inside another comment bookmark
     AVOID_COMMENT_BOOKMARKS = <<~XPATH.freeze
-      [not(ancestor::xmlns:fmt-review-start)][not(ancestor::xmlns:fmt-review-end)]
+      [not(ancestor::xmlns:fmt-annotation-start)][not(ancestor::xmlns:fmt-annotation-end)]
     XPATH
 
     def comment_bookmarks_locate(elem)
@@ -181,7 +181,7 @@ module IsoDoc
     end
 
     def comment_bookmark_start(from, elem)
-      ret = from.before("<fmt-review-start/>").previous
+      ret = from.before("<fmt-annotation-start/>").previous
       add_id(ret)
       ret["source"] = elem["from"]
       comment_to_bookmark_attrs(elem, ret, start: true)
@@ -190,7 +190,7 @@ module IsoDoc
     end
 
     def comment_bookmark_end(to, elem)
-      ret = to.after("<fmt-review-end/>").next
+      ret = to.after("<fmt-annotation-end/>").next
       add_id(ret)
       ret["source"] = elem["to"]
       comment_to_bookmark_attrs(elem, ret, start: false)
