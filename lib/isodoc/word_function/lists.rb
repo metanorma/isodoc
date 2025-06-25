@@ -61,10 +61,15 @@ module IsoDoc
         ddef.children[1..].each { |n| parse(n, out) }
       end
 
+      def dl_table_attrs(node)
+        { id: node["id"],
+          align: node["class"] == "formula_dl" ? "left" : nil,
+          class: node["class"] || "dl" }
+      end
+
       def dl_parse_table(node, out)
         list_title_parse(node, out)
-        out.table **attr_code(id: node["id"],
-                              class: node["class"] || "dl") do |v|
+        out.table **attr_code(dl_table_attrs(node)) do |v|
           node.elements.select { |n| dt_dd?(n) }
             .each_slice(2) do |dt, dd|
             dl_parse_table1(v, dt, dd)

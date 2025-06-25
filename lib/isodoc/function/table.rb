@@ -45,17 +45,15 @@ module IsoDoc
         c = node["class"]
         bordered = "border-width:1px;border-spacing:0;"
         (%w(modspec).include?(c) || !c) or bordered = ""
-        attr_code(
-          id: node["id"],
-          class: c || "MsoISOTable",
-          style: "#{bordered}#{width}#{keep_style(node)}",
-          title: node["alt"],
-        )
+        style = node["style"] ? "" : "#{bordered}#{width}"
+        attr_code(id: node["id"],
+                  class: c || "MsoISOTable",
+                  style: "#{style}#{keep_style(node)}",
+                  title: node["alt"])
       end
 
       def tcaption(node, table)
-        return unless node["summary"]
-
+        node["summary"] or return
         table.caption do |c|
           c.span style: "display:none" do |s|
             s << node["summary"]

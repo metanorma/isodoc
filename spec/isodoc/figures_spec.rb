@@ -503,7 +503,7 @@ RSpec.describe IsoDoc do
                       <p style="page-break-after: avoid;">
                          <b>Key</b>
                       </p>
-                      <table class="formula_dl">
+                      <table class="formula_dl" align="left">
                          <tr>
                             <td valign="top" align="left">
                                <p align="left" style="margin-left:0pt;text-align:left;">

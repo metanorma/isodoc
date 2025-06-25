@@ -112,7 +112,7 @@ module IsoDoc
 
     def table_css(elem)
       parser = IsoDoc::CssBorderParser::BorderParser.new
-      elem.xpath(ns(".//tr | .//th | .//td")).each do |n|
+      elem.xpath(ns(".//tr | .//th | .//td | .//table")).each do |n|
         n["style"] or next
         parsed_properties = parser.parse_declaration(n["style"])
         new_style = parser.to_css_string(parsed_properties)
