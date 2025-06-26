@@ -139,6 +139,7 @@ module IsoDoc
     end
 
     def comments(docxml)
+      display_comments?(docxml) or return
       docxml.xpath(ns("//annotation")).each do |c|
         c1 = comment_body(c)
         comment_bookmarks(c1)
@@ -204,6 +205,12 @@ module IsoDoc
 
     def comment_bookmark_end_label(_elem)
       ""
+    end
+
+    def display_comments?(docxml)
+      m = docxml.at(ns("//presentation-metadata/render-document-annotations"))
+      m&.text and return m.text != "false"
+      @meta.get[:unpublished]
     end
   end
 end
