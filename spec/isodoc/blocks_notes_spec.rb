@@ -419,24 +419,6 @@ RSpec.describe IsoDoc do
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <note id="FB" coverpage="true" unnumbered="true">
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">NOTE</span>
-                      </span>
-                      <span class="fmt-label-delim">
-                         <tab/>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Note</span>
-                   </fmt-xref-label>
-                   <fmt-xref-label container="fwd">
-                      <span class="fmt-xref-container">
-                         <semx element="foreword" source="fwd">Foreword</semx>
-                      </span>
-                      <span class="fmt-comma">,</span>
-                      <span class="fmt-element-name">Note</span>
-                   </fmt-xref-label>
                    <p>XYZ</p>
                 </note>
                 <admonition id="FC" coverpage="true" unnumbered="true" type="warning">
@@ -458,7 +440,6 @@ RSpec.describe IsoDoc do
               <h1 class='ForewordTitle'>Foreword</h1>
                 <div id='FB' class='Note' coverpage='true'>
                  <p>
-                   <span class='note_label'>NOTE\\u00a0 </span>
                    XYZ
                  </p>
                </div>
@@ -480,8 +461,6 @@ RSpec.describe IsoDoc do
               <h1 class='ForewordTitle'>Foreword</h1>
                 <div id='FB' class='Note' coverpage='true'>
                  <p class='Note'>
-                   <span class='note_label'>NOTE
-                   <span style='mso-tab-count:1'>\\u00a0 </span></span>
                    XYZ
                  </p>
                </div>
