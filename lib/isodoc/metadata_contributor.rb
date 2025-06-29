@@ -102,7 +102,28 @@ module IsoDoc
       set(:agency, agency)
       set(:publisher, connectives_strip(@i18n.boolean_conj(publisher, "and")))
       set(:copublisher_logos, logos)
+      set(:copublisher_logo_attrs, copublisher_logo_attrs(xml))
       agency_addr(xml)
+    end
+
+    def copublisher_logo_attrs(xml)
+      xml.xpath(ns("//metanorma-extension/presentation-metadata/*"))
+        .each_with_object([]) do |x, m|
+          copublisher_logo_attr?(x) or next
+          p = x.name.split(/[_-]/)
+          idx = (p[4] || "1").to_i - 1
+          m[idx] ||= {}
+          m[idx][p[2]] ||= {}
+          m[idx][p[2]][p[3]] = x.text
+        end
+    end
+
+    def copublisher_logo_attr?(elem)
+      elem.name.start_with?("logo-publisher-") or return false
+      p = elem.name.split(/[_-]/)
+      %w(doc html).include?(p[2]) &&
+        %w(height width).include?(p[3]) &&
+        (!p[4] || /^\d+/.match?(p[4]))
     end
 
     def agency_addr(xml)

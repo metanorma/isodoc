@@ -381,6 +381,20 @@ RSpec.describe IsoDoc do
         <doctype>international-standard</doctype>
         </ext>
       </bibdata>
+      <metanorma-extension>
+              <presentation-metadata>
+          <logo-publisher-doc-height>1</logo-publisher-doc-height>
+        </presentation-metadata>
+        <presentation-metadata>
+          <logo-publisher-doc-height_3>2</logo-publisher-doc-height_3>
+        </presentation-metadata>
+       <presentation-metadata>
+          <logo-publisher-html-width_3>3</logo-publisher-html-width_3>
+        </presentation-metadata>
+        <presentation-metadata>
+          <logo-publisher-html-width_4>4</logo-publisher-html-width_4>
+        </presentation-metadata>
+      </metanorma-extension>
       </iso-standard>
     INPUT
     input1 = input.sub("IMAGE1", img1uri).sub("IMAGE2", svg1uri)
@@ -402,6 +416,12 @@ RSpec.describe IsoDoc do
       .to end_with ".gif"
     expect(m[:copublisher_logos][1])
       .to end_with ".emf"
+    expect(m[:copublisher_logo_attrs])
+      .to be_equivalent_to [
+        { "doc" => { "height" => "1" } },
+        nil,
+        { "doc" => { "height" => "2" }, "html" => { "width" => "3" } },
+        { "html" => { "width" => "4" } } ]
   end
 
   it "processes IsoXML metadata language variants" do

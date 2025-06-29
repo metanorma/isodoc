@@ -1,12 +1,39 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def metadata(docxml)
+      preprocess_metadata(docxml)
       toc_metadata(docxml)
       fonts_metadata(docxml)
       attachments_extract(docxml)
-      localized_strings(docxml)
       a = docxml.at(ns("//metanorma-extension")) or return
       a.elements.empty? and a.remove
+    end
+
+    def preprocess_metadata(docxml)
+      localized_strings(docxml)
+      logo_expand_pres_metadata(docxml)
+    end
+
+    # logo-{role}-{format}-{height/width}-{number}
+    def logo_expand_pres_metadata(docxml)
+      docxml.xpath(ns("//metanorma-extension/presentation-metadata/*"))
+        .each do |x|
+        logo_size_pres_metadata_incomplete?(x) or next
+        parts = x.name.split("-")
+        @output_formats.each_key do |f|
+          tagname = "logo-#{parts[1]}-#{f}-#{parts[2..].join('-')}"
+          x.parent.next = <<~XML
+            <presentation-metadata><#{tagname}>#{x.text}</#{tagname}></presentation-metadata>
+          XML
+        end
+      end
+    end
+
+    def logo_size_pres_metadata_incomplete?(elem)
+      parts = elem.name.split("-")
+      elem.name.start_with?("logo-") &&
+        %w(author editor publisher authorizer distrbutor).include?(parts[1]) &&
+        %w(height width).include?(parts[2])
     end
 
     def localized_strings(docxml)
