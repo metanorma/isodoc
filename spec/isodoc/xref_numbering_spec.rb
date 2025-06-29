@@ -973,26 +973,7 @@ RSpec.describe IsoDoc do
            <fmt-title id="_" depth="1">
               <semx element="title" source="_">Foreword</semx>
            </fmt-title>
-           <note id="A" unnumbered="true">
-              <fmt-name id="_">
-                 <span class="fmt-caption-label">
-                    <span class="fmt-element-name">NOTE</span>
-                 </span>
-                 <span class="fmt-label-delim">
-                    <tab/>
-                 </span>
-              </fmt-name>
-              <fmt-xref-label>
-                 <span class="fmt-element-name">Note</span>
-              </fmt-xref-label>
-              <fmt-xref-label container="fwd">
-                 <span class="fmt-xref-container">
-                    <semx element="foreword" source="fwd">Foreword</semx>
-                 </span>
-                 <span class="fmt-comma">,</span>
-                 <span class="fmt-element-name">Note</span>
-              </fmt-xref-label>
-           </note>
+           <note id="A" unnumbered="true"/>
            <note id="B" unnumbered="false">
               <fmt-name id="_">
                  <span class="fmt-caption-label">
@@ -1016,26 +997,7 @@ RSpec.describe IsoDoc do
                  <semx element="autonum" source="B">1</semx>
               </fmt-xref-label>
            </note>
-           <note id="C" unnumbered="true">
-              <fmt-name id="_">
-                 <span class="fmt-caption-label">
-                    <span class="fmt-element-name">NOTE</span>
-                 </span>
-                 <span class="fmt-label-delim">
-                    <tab/>
-                 </span>
-              </fmt-name>
-              <fmt-xref-label>
-                 <span class="fmt-element-name">Note</span>
-              </fmt-xref-label>
-              <fmt-xref-label container="fwd">
-                 <span class="fmt-xref-container">
-                    <semx element="foreword" source="fwd">Foreword</semx>
-                 </span>
-                 <span class="fmt-comma">,</span>
-                 <span class="fmt-element-name">Note</span>
-              </fmt-xref-label>
-           </note>
+           <note id="C" unnumbered="true"/>
         </foreword>
     OUTPUT
     expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert

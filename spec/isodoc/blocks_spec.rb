@@ -545,23 +545,6 @@ RSpec.describe IsoDoc do
                    <p>Hello</p>
                 </example>
                 <example id="samplecode3" unnumbered="true">
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">EXAMPLE</span>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Example</span>
-                      <semx element="autonum" source="samplecode3">(??)</semx>
-                   </fmt-xref-label>
-                   <fmt-xref-label container="fwd">
-                      <span class="fmt-xref-container">
-                         <semx element="foreword" source="fwd">Foreword</semx>
-                      </span>
-                      <span class="fmt-comma">,</span>
-                      <span class="fmt-element-name">Example</span>
-                      <semx element="autonum" source="samplecode3">(??)</semx>
-                   </fmt-xref-label>
                    <p>Hello</p>
                 </example>
              </foreword>
@@ -1594,22 +1577,6 @@ RSpec.describe IsoDoc do
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <requirement id="A" unnumbered="true" keep-with-next="true" keep-lines-together="true" model="default">
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <span class="fmt-element-name">Requirement</span>
-                         <span class="fmt-caption-delim">
-                            :
-                            <br/>
-                         </span>
-                         <semx element="identifier" source="A">/ogc/recommendation/wfs/2</semx>
-                         .
-                         <semx element="title" source="A">A New Requirement</semx>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <span class="fmt-element-name">Requirement</span>
-                      <semx element="autonum" source="A">(??)</semx>
-                   </fmt-xref-label>
                    <title>A New Requirement</title>
                    <identifier>/ogc/recommendation/wfs/2</identifier>
                    <inherit id="_">/ss/584/2015/level/1</inherit>
@@ -1750,7 +1717,7 @@ RSpec.describe IsoDoc do
                       <div id="fwd">
                         <h1 class="ForewordTitle">Foreword</h1>
                         <div class="require" id='A' style='page-break-after: avoid;page-break-inside: avoid;'>
-                <p class="RecommendationTitle">Requirement:<br/>/ogc/recommendation/wfs/2. A New Requirement</p><p><i>Subject: user</i><br/><i>Inherits: /ss/584/2015/level/1</i></p>
+                <p><i>Subject: user</i><br/><i>Inherits: /ss/584/2015/level/1</i></p>
                   <div class="requirement-description">
                     <p id="_">I recommend <i>this</i>.</p>
                   </div>

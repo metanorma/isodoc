@@ -1,7 +1,7 @@
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def prefix_name(node, delims, label, elem)
-      label, delims = prefix_name_defaults(node, delims, label)
+      label, delims = prefix_name_defaults(node, delims, label, elem)
       name, ins, ids, number = prefix_name_prep(node, elem)
       ins.next = fmt_xref_label(label, number, ids)
       # autonum can be empty, e.g single note in clause: "NOTE []"
@@ -11,8 +11,11 @@ module IsoDoc
       prefix_name_postprocess(node, elem)
     end
 
-    def prefix_name_defaults(_node, delims, label)
+    def prefix_name_defaults(node, delims, label, elem)
       label&.empty? and label = nil
+      node["unnumbered"] == "true" && !node.at(ns("./#{elem}")) &&
+        node.name != "admonition" and label = nil
+      # do not caption unnumbered uncaptioned blocks, other than admonitions
       delims.nil? and delims = {}
       [label, delims]
     end
