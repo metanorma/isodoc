@@ -37,6 +37,7 @@ module IsoDoc
       def ol_attrs(node)
         { # type: node["type"] ? ol_style(node["type"].to_sym) : ol_depth(node),
           type: ol_style(node["type"]&.to_sym),
+          start: node["start"],
           id: node["id"], style: keep_style(node) }
       end
 

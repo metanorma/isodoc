@@ -298,7 +298,7 @@ RSpec.describe IsoDoc do
         <ol>
         <li>
           <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 2</p>
-        <ol>
+        <ol start="3">
         <li>
           <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 3</p>
         <ol>
@@ -362,10 +362,10 @@ RSpec.describe IsoDoc do
                                <span class="fmt-label-delim">)</span>
                             </fmt-name>
                             <p id="_">Level 2</p>
-                            <ol type="roman">
+                            <ol type="roman" start="3">
                                <li id="_">
                                   <fmt-name id="_">
-                                     <semx element="autonum" source="_">i</semx>
+                                     <semx element="autonum" source="_">iii</semx>
                                      <span class="fmt-label-delim">)</span>
                                   </fmt-name>
                                   <p id="_">Level 3</p>
@@ -414,7 +414,7 @@ RSpec.describe IsoDoc do
                                   <li id="_">
                                      <p id="_">Level 2</p>
                                      <div class="ol_wrap">
-                                        <ol type="i">
+                                        <ol type="i" start="3">
                                            <li id="_">
                                               <p id="_">Level 3</p>
                                               <div class="ol_wrap">
@@ -465,7 +465,7 @@ RSpec.describe IsoDoc do
                                   <li id="_">
                                      <p id="_">Level 2</p>
                                      <div class="ol_wrap">
-                                        <ol type="i">
+                                        <ol type="i" start="3">
                                            <li id="_">
                                               <p id="_">Level 3</p>
                                               <div class="ol_wrap">
