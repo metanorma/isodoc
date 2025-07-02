@@ -39,7 +39,7 @@ module IsoDoc
           border-top:#{top}mso-border-top-alt:#{top}
           border-bottom:#{bottom}mso-border-bottom-alt:#{bottom}
         STYLE
-        opt[:bordered] || !cell["style"] or ret = ""
+        opt[:bordered] && !cell["style"] or ret = ""
         pb = keep_rows_together(cell, rowmax, totalrows, opt) ? "avoid" : "auto"
         "#{ret}page-break-after:#{pb};"
       end
