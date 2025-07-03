@@ -2404,4 +2404,39 @@ RSpec.describe IsoDoc do
        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
+
+  it "gets rid of empty fmt- elements" do
+    mock_empty_fmt_identifier
+    input = <<~INPUT
+      <standard-document xmlns="https://www.metanorma.org/ns/standoc" type="semantic">
+      <bibdata/>
+      <sections><clause id="_scope" type="scope" inline-header="false" obligation="normative">
+      <title>Scope</title>
+      <p id="A"><identifier>http://www.example.com A-B</identifier></p>
+      </clause>
+      </standard-document>
+    INPUT
+    presxml = <<~OUTPUT
+      <p id="A">
+         <identifier>http://www.example.com A-B</identifier>
+      </p>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+      .at("//xmlns:p[@id = 'A']").to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+  end
+
+  private
+
+  def mock_empty_fmt_identifier
+    allow_any_instance_of(IsoDoc::PresentationXMLConvert)
+      .to receive(:identifier) do |_instance, docxml|
+      docxml.xpath("//xmlns:identifier").each do |n|
+        n.next = "<fmt-identifier> </fmt-identifier>"
+      end
+    end
+  end
 end

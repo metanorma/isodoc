@@ -13,6 +13,7 @@ require_relative "presentation_function/bibdata"
 require_relative "presentation_function/metadata"
 require_relative "presentation_function/footnotes"
 require_relative "presentation_function/ids"
+require_relative "presentation_function/cleanup"
 
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
@@ -25,8 +26,8 @@ module IsoDoc
     def convert1(docxml, filename, dir)
       presxml_convert_init(docxml, filename, dir)
       conversions(docxml)
-      docxml.root["type"] = "presentation"
-      id_validate(docxml.root)
+      cleanup(docxml.root)
+      validate(docxml.root)
       docxml.to_xml.gsub("&lt;", "&#x3c;").gsub("&gt;", "&#x3e;")
     end
 
@@ -42,6 +43,10 @@ module IsoDoc
       @xrefs.parse docxml
       @xrefs.klass.meta = @meta
       counter_init
+    end
+
+    def validate(docxml)
+      id_validate(docxml)
     end
 
     def bibitem_lookup(docxml)
