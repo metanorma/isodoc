@@ -139,11 +139,18 @@ module IsoDoc
     end
 
     def comments(docxml)
-      display_comments?(docxml) or return
+      global_display = display_comments_global?(docxml)
       docxml.xpath(ns("//annotation")).each do |c|
+        global_display || display_comment_override?(c) or next
         c1 = comment_body(c)
         comment_bookmarks(c1)
       end
+    end
+
+    # if false, then decision on displaying comment is only dependent on
+    # display_comments_global? . display_comment_override? overrides that
+    def display_comment_override?(_comment)
+      false
     end
 
     def comment_body(elem)
@@ -207,7 +214,7 @@ module IsoDoc
       ""
     end
 
-    def display_comments?(docxml)
+    def display_comments_global?(docxml)
       m = docxml.at(ns("//presentation-metadata/render-document-annotations"))
       m&.text and return m.text != "false"
       @meta.get[:unpublished]
