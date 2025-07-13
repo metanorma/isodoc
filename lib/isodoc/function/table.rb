@@ -51,7 +51,7 @@ module IsoDoc
         width = node["width"] ? "width:#{node['width']};" : nil
         c = node["class"]
         bordered = bordered_table_style(node, c)
-        style = node["style"] ? "" : "#{bordered}#{width}"
+        style = node["style"] ? nil : "#{bordered}#{width}"
         attr_code(id: node["id"],
                   class: node["plain"] == "true" ? nil : (c || "MsoISOTable"),
                   style: "#{style}#{keep_style(node)}",
