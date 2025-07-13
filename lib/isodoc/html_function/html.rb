@@ -96,7 +96,10 @@ module IsoDoc
 
       def table_attrs(node)
         ret = super
-        node.at(ns("./colgroup")) and ret[:style] += "table-layout:fixed;"
+        if node.at(ns("./colgroup"))
+          ret[:style] ||= ""
+          ret[:style] += "table-layout:fixed;"
+        end
         ret
       end
 
