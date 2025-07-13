@@ -40,16 +40,28 @@ module IsoDoc
         end
       end
 
-      def table_attrs(node)
-        width = node["width"] ? "width:#{node['width']};" : nil
-        c = node["class"]
+      def bordered_table_style(node, klass)
         bordered = "border-width:1px;border-spacing:0;"
-        (%w(modspec).include?(c) || !c) or bordered = ""
-        style = node["style"] ? "" : "#{bordered}#{width}"
+        (node["plain"] != "true" && (%w(modspec).include?(klass) || !klass)) or
+          bordered = ""
+        bordered
+      end
+
+      def table_attrs(node)
+        c = node["class"]
+        style = table_attrs_style(node, c)
         attr_code(id: node["id"],
-                  class: c || "MsoISOTable",
-                  style: "#{style}#{keep_style(node)}",
-                  title: node["alt"])
+                  class: node["plain"] == "true" ? nil : (c || "MsoISOTable"),
+                  style: style, title: node["alt"])
+      end
+
+      def table_attrs_style(node, klass)
+        width = node["width"] ? "width:#{node['width']};" : nil
+        bordered = bordered_table_style(node, klass)
+        style = node["style"] ? "" : "#{bordered}#{width}"
+        style += keep_style(node) || ""
+        style.empty? and style = nil
+        style
       end
 
       def tcaption(node, table)
@@ -125,6 +137,7 @@ module IsoDoc
       end
 
       def table_bordered?(node)
+        node.parent.parent["plain"] == "true" and return false
         c = node.parent.parent["class"]
         %w(modspec).include?(c) || !c
       end

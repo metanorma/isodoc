@@ -15,9 +15,10 @@ module IsoDoc
         table.at(".//tr").xpath("./td | ./th").each do |td|
           cols += (td["colspan"] ? td["colspan"].to_i : 1)
         end
-        style = "border-top:0pt;mso-border-top-alt:0pt;" \
-                "border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;"
-        tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
+        table["plain"] == "true" or
+          s = "style='border-top:0pt;mso-border-top-alt:0pt;" \
+              "border-bottom:#{SW1} 1.5pt;mso-border-bottom-alt:#{SW1} 1.5pt;'"
+        tfoot.add_child("<tr><td colspan='#{cols}' #{s}/></tr>")
         tfoot.xpath(".//td").last
       end
 
@@ -72,7 +73,7 @@ module IsoDoc
 
       def table_attrs(node)
         c = node["class"]
-        style = node["style"] ? '' : "border-spacing:0;border-width:1px;"
+        style = node["style"] || node["plain"] == "true" ? "" : "border-spacing:0;border-width:1px;"
         (%w(modspec).include?(c) || !c) or style = nil
         ret =
           { summary: node["summary"], width: node["width"],

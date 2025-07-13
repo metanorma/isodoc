@@ -287,7 +287,7 @@ RSpec.describe IsoDoc do
                       <i>code</i>
                    </p>
                    <div id="A" class="sourcecode">
-                      <table class="rouge-line-table" style="">
+                      <table class="rouge-line-table">
                          <tbody>
                             <tr>
                                <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
@@ -310,7 +310,7 @@ RSpec.describe IsoDoc do
                    </div>
                    <p class="SourceTitle" style="text-align:center;">More</p>
                    <div id="B" class="sourcecode">
-                      <table class="rouge-line-table" style="">
+                      <table class="rouge-line-table">
                          <tbody>
                             <tr>
                                <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
@@ -579,7 +579,7 @@ RSpec.describe IsoDoc do
                <h1 class="ForewordTitle">Foreword</h1>
                <pre id="samplecode" class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre>
                <p class="SourceTitle" style="text-align:center;">Figure 1\\u00a0— XML code</p>
-               <div id="samplecode1" class="sourcecode"><table class="rouge-line-table" style=""><tbody><tr>
+               <div id="samplecode1" class="sourcecode"><table class="rouge-line-table"><tbody><tr>
                <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
                 <pre>1</pre></td>
                 <td style="" class="rouge-code"><pre class="sourcecode"><span class="nt">&lt;xml&gt;</span>A<span class="nt">&lt;b&gt;</span>C<span class="nt">&lt;/b&gt;&lt;/xml&gt;</span></pre></td></tr></tbody></table>
@@ -987,7 +987,7 @@ RSpec.describe IsoDoc do
                 <div id="_">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div id="_" class="sourcecode">
-                      <table class="rouge-line-table" style="">
+                      <table class="rouge-line-table">
                          <tbody>
                             <tr>
                                <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
