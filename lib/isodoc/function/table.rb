@@ -44,7 +44,8 @@ module IsoDoc
         width = node["width"] ? "width:#{node['width']};" : nil
         c = node["class"]
         bordered = "border-width:1px;border-spacing:0;"
-        (%w(modspec).include?(c) || !c) or bordered = ""
+        (node["plain"] != "true" && (%w(modspec).include?(c) || !c)) or
+          bordered = ""
         style = node["style"] ? "" : "#{bordered}#{width}"
         attr_code(id: node["id"],
                   class: c || "MsoISOTable",
@@ -125,6 +126,7 @@ module IsoDoc
       end
 
       def table_bordered?(node)
+        node.parent.parent["plain"] == "true" and return false
         c = node.parent.parent["class"]
         %w(modspec).include?(c) || !c
       end

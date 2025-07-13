@@ -105,9 +105,9 @@ module IsoDoc
         table.at(".//tr").xpath("./td | ./th").each do |td|
           cols += (td["colspan"] ? td["colspan"].to_i : 1)
         end
-        style =
-          %{border-top:0pt;border-bottom:#{IsoDoc::Function::Table::SW} 1.5pt;}
-        tfoot.add_child("<tr><td colspan='#{cols}' style='#{style}'/></tr>")
+        table["plain"] == "true" or
+          s = "style='border-top:0pt;border-bottom:#{IsoDoc::Function::Table::SW} 1.5pt;'"
+        tfoot.add_child("<tr><td colspan='#{cols}' #{s}/></tr>")
         tfoot.xpath(".//td").last
       end
 
