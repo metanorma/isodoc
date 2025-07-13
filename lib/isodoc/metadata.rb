@@ -3,7 +3,7 @@ require_relative "metadata_contributor"
 
 module IsoDoc
   class Metadata
-    attr_accessor :fonts_options, :labels
+    attr_accessor :fonts_options, :labels, :localdir
 
     def ns(xpath)
       Common::ns(xpath)
