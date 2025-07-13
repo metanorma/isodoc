@@ -1166,7 +1166,7 @@ RSpec.describe IsoDoc do
                          <sup>1</sup>
                       </a>
                    </p>
-                   <table id="tableD-1" class="MsoISOTable" style="width:70%;page-break-after: avoid;page-break-inside: avoid;table-layout:fixed;" title="tool tip">
+                   <table id="tableD-1" style="width:70%;page-break-after: avoid;page-break-inside: avoid;table-layout:fixed;" title="tool tip">
                       <caption>
                          <span style="display:none">long desc</span>
                       </caption>

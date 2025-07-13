@@ -40,15 +40,20 @@ module IsoDoc
         end
       end
 
+      def bordered_table_style(node, klass)
+        bordered = "border-width:1px;border-spacing:0;"
+        (node["plain"] != "true" && (%w(modspec).include?(klass) || !klass)) or
+          bordered = ""
+        bordered
+      end
+
       def table_attrs(node)
         width = node["width"] ? "width:#{node['width']};" : nil
         c = node["class"]
-        bordered = "border-width:1px;border-spacing:0;"
-        (node["plain"] != "true" && (%w(modspec).include?(c) || !c)) or
-          bordered = ""
+        bordered = bordered_table_style(node, c)
         style = node["style"] ? "" : "#{bordered}#{width}"
         attr_code(id: node["id"],
-                  class: c || "MsoISOTable",
+                  class: node["plain"] == "true" ? nil : (c || "MsoISOTable"),
                   style: "#{style}#{keep_style(node)}",
                   title: node["alt"])
       end
