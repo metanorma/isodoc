@@ -30,7 +30,7 @@ module IsoDoc
     end
 
     def prefix_name_labels(node)
-      @new_ids ||= {}
+      #@new_ids ||= {}
       id = "_#{UUIDTools::UUID.random_create}"
       @new_ids[id] = nil
       { elem: node["id"], name: id }

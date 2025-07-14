@@ -77,7 +77,6 @@ module IsoDoc
     end
 
     def provide_ids(docxml)
-      @new_ids = {} # guids assigned within Presentation XML
       anchor_sanitise(docxml)
       populate_id(docxml)
       add_missing_id(docxml)

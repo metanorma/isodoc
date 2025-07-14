@@ -33,6 +33,7 @@ module IsoDoc
 
     def counter_init
       @counter = IsoDoc::XrefGen::Counter.new(0, {})
+      @new_ids = {} # guids assigned within Presentation XML
     end
 
     def presxml_convert_init(docxml, filename, dir)
