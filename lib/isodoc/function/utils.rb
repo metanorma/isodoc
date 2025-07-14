@@ -1,5 +1,4 @@
 require "metanorma-utils"
-require_relative "../../nokogiri/xml/node"
 
 module IsoDoc
   module Function
