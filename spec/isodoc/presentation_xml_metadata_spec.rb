@@ -306,6 +306,54 @@ wpLnRvX3MpCmVuZAo=</attachment>
       .to include("VCR.configure")
   end
 
+    it "completes incomplete logo presentation metadata" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <bibdata>
+        <title language="en">test</title>
+        </bibdata>
+        <metanorma-extension>
+          <presentation-metadata><logo-fred-height>4</logo-fred-height></presentation-metadata>
+          <presentation-metadata><logo-author-pdf-height>4</logo-author-pdf-height></presentation-metadata>
+          <presentation-metadata><logo-author-height>4</logo-author-height></presentation-metadata>
+        </metanorma-extension>
+      </iso-standard
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <bibdata>
+             <title language="en">test</title>
+          </bibdata>
+          <metanorma-extension>
+             <presentation-metadata>
+                <logo-fred-height>4</logo-fred-height>
+             </presentation-metadata>
+             <presentation-metadata>
+                <logo-author-pdf-height>4</logo-author-pdf-height>
+             </presentation-metadata>
+             <presentation-metadata>
+                <logo-author-height>4</logo-author-height>
+             </presentation-metadata>
+             <presentation-metadata>
+                <logo-author-html-height>4</logo-author-html-height>
+             </presentation-metadata>
+             <presentation-metadata>
+                <logo-author-pdf-height>4</logo-author-pdf-height>
+             </presentation-metadata>
+             <presentation-metadata>
+                <logo-author-doc-height>4</logo-author-doc-height>
+             </presentation-metadata>
+          </metanorma-extension>
+       </iso-standard>
+    OUTPUT
+    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+       .new(presxml_options.merge({ output_formats: { doc: "DOC", pdf: "PDF",
+                                                      html: "HTML" } }))
+       .convert("test", input, true)
+       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+  end
+
   private
 
   def mock_preprocess_xslt_read

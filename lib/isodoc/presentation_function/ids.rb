@@ -120,10 +120,12 @@ module IsoDoc
     end
 
     def add_new_contenthash_id(docxml, ids)
+      suffix = "" # for disambiguation in Metanorma Collections
+      docxml["document_suffix"] and suffix = "_#{docxml['document_suffix']}"
       %w(original-id id).each do |k|
         docxml.xpath("//*[@#{k}]").each do |x|
           ids.has_key?(x[k]) or next
-          new_id = contenthash(x)
+          new_id = Metanorma::Utils::contenthash(x) + suffix
           ids[x[k]] = new_id
           x[k] = new_id
         end
@@ -134,17 +136,10 @@ module IsoDoc
       Metanorma::Utils::anchor_attributes(presxml: true).each do |e|
         docxml.xpath("//xmlns:#{e[0]}[@#{e[1]}]").each do |x|
           ids.has_key?(x[e[1]]) or next
-          #require "debug"; binding.b unless ids[x[e[1]]] 
           ids[x[e[1]]] or next
           x[e[1]] = ids[x[e[1]]]
         end
       end
-    end
-
-    # TODO duplicate of standoc
-    def contenthash(elem)
-      Digest::MD5.hexdigest("#{elem.path}////#{elem.text}")
-        .sub(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, "_\\1-\\2-\\3-\\4-\\5")
     end
   end
 end
