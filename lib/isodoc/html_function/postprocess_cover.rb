@@ -13,8 +13,7 @@ module IsoDoc
       end
 
       def htmlstylesheet(file)
-        return if file.nil?
-
+        file.nil? and return
         file.open if file.is_a?(Tempfile)
         stylesheet = file.read
         xml = Nokogiri::XML("<style/>")
@@ -26,8 +25,7 @@ module IsoDoc
       end
 
       def htmlstyle(docxml)
-        return docxml unless @htmlstylesheet
-
+        @htmlstylesheet or return docxml
         head = docxml.at("//*[local-name() = 'head']")
         head << htmlstylesheet(@htmlstylesheet)
         s = htmlstylesheet(@htmlstylesheet_override) and head << s

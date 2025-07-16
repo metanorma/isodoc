@@ -14,7 +14,7 @@ module IsoDoc
 
       def toHTML(result, filename)
         result = from_xhtml(html_cleanup(to_xhtml(result)))
-        result = from_xhtml(move_images(resize_images(to_xhtml(result))))
+        result = from_xhtml(process_images(to_xhtml(result)))
         result = html5(script_cdata(inject_script(result)))
         File.open(filename, "w:UTF-8") { |f| f.write(result) }
       end
@@ -80,6 +80,10 @@ module IsoDoc
         IsoDoc::HtmlFunction::MathvariantToPlain.new(docxml).convert
       end
 
+      def process_images(docxml)
+        svg_data_uri(move_images(resize_images(docxml)))
+      end
+
       # do not resize SVG, their height is set to 1px in HTML for autofit
       def resize_images(docxml)
         docxml.xpath("//*[local-name() = 'img']").each do |i|
@@ -103,6 +107,15 @@ module IsoDoc
 
       def datauri(img)
         img["src"] = Vectory::Utils::datauri(img["src"], @localdir)
+      end
+
+      # SVG to data URI so that their CSS definitions don't contaminate DOM
+      def svg_data_uri(docxml)
+        docxml.xpath("//*[local-name() = 'svg']").each do |i|
+          uri = Vectory::Svg.from_content(i.to_xml).to_uri.content
+          i.replace("<img src='#{uri}'/>")
+        end
+        docxml
       end
 
       def image_suffix(img)

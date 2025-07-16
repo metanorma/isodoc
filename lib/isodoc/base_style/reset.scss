@@ -282,7 +282,7 @@ visibility:visible;
   display: block;     /* ← removes unwanted inline spacing */
 }
 
-svg {
+svg, .svg-container img {
   width: 100%;
   height: auto;       /* ← key to maintaining aspect ratio */
   display: block;     /* ← removes unwanted inline spacing */
