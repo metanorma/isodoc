@@ -2,6 +2,7 @@ require "isodoc/html_function/mathvariant_to_plain"
 require_relative "postprocess_footnotes"
 require_relative "postprocess_cover"
 require "metanorma-utils"
+require "set"
 
 module IsoDoc
   module HtmlFunction
@@ -81,7 +82,7 @@ module IsoDoc
       end
 
       def process_images(docxml)
-        svg_data_uri(move_images(resize_images(docxml)))
+        svg_css_scoping(move_images(resize_images(docxml)))
       end
 
       # do not resize SVG, their height is set to 1px in HTML for autofit
@@ -108,6 +109,91 @@ module IsoDoc
       def datauri(img)
         img["src"] = Vectory::Utils::datauri(img["src"], @localdir)
       end
+
+      # Scope CSS class names in SVG elements to prevent conflicts
+      def svg_css_scoping(docxml)
+        svg_counter = 0
+        docxml.xpath("//*[local-name() = 'svg'][.//style]").each do |svg|
+          svg_counter += 1
+          scope_svg_css_classes(svg, svg_counter)
+        end
+        docxml
+      end
+
+      private
+
+      # Process a single SVG element to scope its CSS classes
+      def scope_svg_css_classes(svg, counter)
+        # Find all style elements within this SVG
+        style_elements = svg.xpath(".//style")
+        return if style_elements.empty?
+
+        # Extract all class names from CSS and create mapping
+        class_mapping = {}
+        style_elements.each do |style|
+          css_content = style.content
+          extract_css_class_names(css_content).each do |class_name|
+            scoped_name = "#{class_name}_svg_class_#{counter}"
+            class_mapping[class_name] = scoped_name
+          end
+        end
+
+        return if class_mapping.empty?
+
+        # Update CSS definitions in style elements
+        style_elements.each do |style|
+          style.content = update_css_class_references(style.content, class_mapping)
+        end
+
+        # Update class attributes in SVG elements
+        update_svg_class_attributes(svg, class_mapping)
+      end
+
+      # Extract all CSS class names from CSS content
+      def extract_css_class_names(css_content)
+        class_names = Set.new
+        
+        # Remove CSS comments
+        css_content = css_content.gsub(/\/\*.*?\*\//m, "")
+        
+        # Find all class selectors (.classname)
+        # This regex matches .classname but not pseudo-classes like :hover
+        css_content.scan(/\.([a-zA-Z_][\w-]*)(?![:\w-])/) do |match|
+          class_names.add(match[0])
+        end
+        
+        class_names.to_a
+      end
+
+      # Update CSS content to use scoped class names
+      def update_css_class_references(css_content, class_mapping)
+        updated_css = css_content.dup
+        
+        class_mapping.each do |original, scoped|
+          # Replace class selectors (.classname) with scoped versions
+          # Use word boundaries to avoid partial matches
+          updated_css.gsub!(/\.#{Regexp.escape(original)}(?![:\w-])/, ".#{scoped}")
+        end
+        
+        updated_css
+      end
+
+      # Update class attributes in SVG elements
+      def update_svg_class_attributes(svg, class_mapping)
+        svg.xpath(".//*[@class]").each do |element|
+          class_attr = element["class"]
+          next if class_attr.nil? || class_attr.strip.empty?
+          
+          # Split multiple classes and update each one
+          updated_classes = class_attr.split(/\s+/).map do |class_name|
+            class_mapping[class_name] || class_name
+          end
+          
+          element["class"] = updated_classes.join(" ")
+        end
+      end
+
+      public
 
       # SVG to data URI so that their CSS definitions don't contaminate DOM
       def svg_data_uri(docxml)
