@@ -30,10 +30,9 @@ module IsoDoc
       end
 
       def sequential_figure_class_names(clause, container: false)
-        c = {}
         j = 0
         clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
-          .each do |t|
+          .each_with_object({}) do |t, c|
           c[t["class"]] ||= Counter.new
           # labelled_ancestor(t, %w(figure)) and next
           j = subfigure_increment(j, c[t["class"]], t)
@@ -50,7 +49,7 @@ module IsoDoc
 
       def figure_anchor(elem, sublabel, label, klass, container: false)
         if sublabel
-          /<semx/.match?(label) or label = semx(elem.parent, label)
+          label&.include?("<semx") or label = semx(elem.parent, label)
           subfigure_anchor(elem, sublabel, label, klass, container: false)
         else
           @anchors[elem["id"]] = anchor_struct(
@@ -185,9 +184,8 @@ container: false)
       end
 
       def hierarchical_figure_class_names(clauses, num)
-        c = {}
         j = 0
-        nodeSet(clauses).each do |clause|
+        nodeSet(clauses).each_with_object({}) do |clause, c|
           clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
             .noblank.each do |t|
             # labelled_ancestor(t, %w(figure)) and next
@@ -207,7 +205,8 @@ container: false)
             # labelled_ancestor(t) and next
             @anchors[t["id"]] =
               anchor_struct(hiersemx(clause, num, c.increment(t), t),
-                            t, @labels["table"], "table", { unnumb: t["unnumbered"], container: false })
+                            t, @labels["table"], "table",
+                            { unnumb: t["unnumbered"], container: false })
           end
         end
       end

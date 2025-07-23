@@ -135,7 +135,7 @@ module IsoDoc
         set(k, v)
       end
       n = a.at(ns("./address/formattedAddress")) and
-        set(:pub_address, n.children.to_xml)
+        set(:pub_address, to_xml(n.children))
     end
   end
 end

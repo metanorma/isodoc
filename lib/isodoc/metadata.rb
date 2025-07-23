@@ -131,8 +131,7 @@ module IsoDoc
 
     def title(isoxml, _out)
       main = isoxml.at(ns("//bibdata/title[@language='#{@lang}']"))
-        &.children&.to_xml
-      set(:doctitle, main)
+        &.children and set(:doctitle, to_xml(main))
     end
 
     def subtitle(_isoxml, _out)
@@ -193,5 +192,7 @@ module IsoDoc
         set(lbl, m << v.text)
       end
     end
+
+    include ::IsoDoc::ClassUtils
   end
 end
