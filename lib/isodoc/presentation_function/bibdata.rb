@@ -52,13 +52,9 @@ module IsoDoc
     def hash_translate(bibdata, hash, dest_xpath, alt_source_xpath, lang)
       hash.is_a? Hash or return
       x = bibdata.xpath(ns(dest_xpath))
-      x.empty? and return
-      alt_source_xpath and doctype = bibdata.xpath(ns(alt_source_xpath))
-      (doctype.nil? || doctype.empty?) and doctype = x
+      alt_source_xpath and alt_x = bibdata.at(ns(alt_source_xpath))&.text
       x.each do |d|
-        doctype.each do |d1|
-          hash[d1.text] and tag_translate(d, lang, hash[d1.text])
-        end
+        v = hash[alt_x || d.text] and tag_translate(d, lang, v)
       end
     end
 
