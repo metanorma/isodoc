@@ -730,26 +730,26 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output))
+    expect(strip_guid(Canon.format_xml(pres_output))
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Xml::C14n.format(output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Canon.format_xml(output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
       .at("//body").to_xml)))
-      .to be_equivalent_to strip_guid(Xml::C14n.format(doc))
+      .to be_equivalent_to strip_guid(Canon.format_xml(doc))
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
     output = File.read("test.doc").sub(/^.*<body/m, "<body").sub(
       %r{</body>.*$}m, "</body>"
     )
-    expect(strip_guid(Xml::C14n.format(output)))
-      .to be_equivalent_to Xml::C14n.format(doc1)
+    expect(strip_guid(Canon.format_xml(output)))
+      .to be_equivalent_to Canon.format_xml(doc1)
   end
 
   it "processes IsoXML annotations" do
@@ -1222,24 +1222,24 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", pres_output, false)
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(strip_guid(Xml::C14n.format(out)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    expect(strip_guid(Canon.format_xml(out)))
+      .to be_equivalent_to Canon.format_xml(html)
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", pres_output, false)
     out = File.read("test.doc").sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m,
                                                               "</body>")
-    expect(strip_guid(Xml::C14n.format(out)))
-      .to be_equivalent_to Xml::C14n.format(word)
+    expect(strip_guid(Canon.format_xml(out)))
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "processes IsoXML annotations spanning list" do
@@ -1468,24 +1468,24 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
     IsoDoc::HtmlConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", pres_output, false)
     out = File.read("test.html").sub(/^.*<main/m, "<main").sub(
       %r{</main>.*$}m, "</main>"
     )
-    expect(strip_guid(Xml::C14n.format(out)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    expect(strip_guid(Canon.format_xml(out)))
+      .to be_equivalent_to Canon.format_xml(html)
     FileUtils.rm_f "test.doc"
     IsoDoc::WordConvert.new({ wordstylesheet: "spec/assets/word.css",
                               htmlstylesheet: "spec/assets/html.scss" })
       .convert("test", pres_output, false)
     out = File.read("test.doc")
       .sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>")
-    expect(strip_guid(Xml::C14n.format(out)))
-      .to be_equivalent_to Xml::C14n.format(word)
+    expect(strip_guid(Canon.format_xml(out)))
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "outputs IsoXML annotations if draft or if instructed" do
@@ -1580,15 +1580,15 @@ RSpec.describe IsoDoc do
       .convert("test", input.sub("STAGE", "unpublished"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
-    expect(strip_guid(Xml::C14n.format(pres_output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml_annotated)
+    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml_annotated)
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("STAGE", "published"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
-    expect(strip_guid(Xml::C14n.format(pres_output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml_unannotated)
+    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml_unannotated)
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("STAGE", "published")
@@ -1596,8 +1596,8 @@ RSpec.describe IsoDoc do
       .sub("DIRECTIVE", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
-    expect(strip_guid(Xml::C14n.format(pres_output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml_annotated)
+    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml_annotated)
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("STAGE", "unpublished")
@@ -1605,7 +1605,7 @@ RSpec.describe IsoDoc do
       .sub("DIRECTIVE", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
-    expect(strip_guid(Xml::C14n.format(pres_output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml_unannotated)
+    expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml_unannotated)
   end
 end

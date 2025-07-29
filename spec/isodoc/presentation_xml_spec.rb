@@ -86,12 +86,12 @@ RSpec.describe IsoDoc do
           </sections>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r("_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"), '"_"'))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "resolve address components" do
@@ -151,11 +151,11 @@ RSpec.describe IsoDoc do
         </bibdata>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "strips variant-title" do
@@ -442,15 +442,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output
+    expect(strip_guid(Canon.format_xml(pres_output
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n.format(doc)
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 
   it "duplicates EMF and SVG files" do
@@ -516,7 +516,7 @@ RSpec.describe IsoDoc do
          </image>
       </figure>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
@@ -525,7 +525,7 @@ RSpec.describe IsoDoc do
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
             '"data:application/x-msmetafile;base64"'))))
-      .to be_equivalent_to (Xml::C14n.format(output))
+      .to be_equivalent_to (Canon.format_xml(output))
 
     output = <<~OUTPUT
       <figure id="B" autonum="1">
@@ -570,7 +570,7 @@ RSpec.describe IsoDoc do
              </image>
            </figure>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(output_formats: { html: "html" }))
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
@@ -579,7 +579,7 @@ RSpec.describe IsoDoc do
             '"data:image/emf;base64"')
       .gsub(%r{"data:application/x-msmetafile;base64,[^"]+"},
             '"data:application/x-msmetafile;base64"'))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "converts EPS to SVG files" do
@@ -810,13 +810,13 @@ RSpec.describe IsoDoc do
          <image mimetype="image/svg+xml" alt="3" src="_.svg"/>
       </figure>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
       .gsub(%r{src="[^"]+?\.emf"}, 'src="_.emf"')
       .gsub(%r{src="[^"]+?\.svg"}, 'src="_.svg"'))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "converts file EPS to SVG" do
@@ -848,7 +848,7 @@ RSpec.describe IsoDoc do
          <image mimetype="image/svg+xml" alt="3" src="_.svg"/>
       </figure>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:figure[@id = 'B']").to_xml
@@ -989,11 +989,11 @@ RSpec.describe IsoDoc do
          </li>
       </ol>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:ol[@id = 'B1']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "considers ul when adding types to ordered lists" do
@@ -1058,11 +1058,11 @@ RSpec.describe IsoDoc do
          </li>
       </ol>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:ol[@id = 'B1']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes multiple-target xrefs in English" do
@@ -1269,13 +1269,13 @@ RSpec.describe IsoDoc do
          </p>
       </foreword>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     )
       .at("//xmlns:foreword")
       .to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes multiple-target xrefs in Japanese" do
@@ -1492,13 +1492,13 @@ RSpec.describe IsoDoc do
           </semx>
        </p>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true),
     )
       .at("//xmlns:p[@id = 'A']")
       .to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "captions embedded figures" do
@@ -1640,11 +1640,11 @@ RSpec.describe IsoDoc do
          </figure>
       </clause>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:clause[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "skips numbering of hidden sections" do
@@ -1740,11 +1740,11 @@ RSpec.describe IsoDoc do
       </bibliography>
       </standard-document>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "sorts preface sections" do
@@ -1827,11 +1827,11 @@ RSpec.describe IsoDoc do
          </preface>
       </standard-document>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "leaves alone floating titles if preface sections already sorted" do
@@ -1907,11 +1907,11 @@ RSpec.describe IsoDoc do
             </preface>
       </standard-document>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "does not break up very long strings in tables by default" do
@@ -1951,11 +1951,11 @@ RSpec.describe IsoDoc do
            </tbody>
          </table>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:table").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "breaks up very long strings in tables on request" do
@@ -2027,11 +2027,11 @@ RSpec.describe IsoDoc do
          </tbody>
       </table>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options.merge(breakupurlsintables: "true"))
       .convert("test", input, true))
       .at("//xmlns:table").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "realises custom charsets" do
@@ -2064,11 +2064,11 @@ RSpec.describe IsoDoc do
           </preface>
        </standard-document>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "realises text-transform" do
@@ -2102,11 +2102,11 @@ RSpec.describe IsoDoc do
              </p>
         </foreword></preface></standard-document>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "label figures embedded within other assets" do
@@ -2170,7 +2170,7 @@ RSpec.describe IsoDoc do
            </preface>
         </standard-document>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
@@ -2257,11 +2257,11 @@ RSpec.describe IsoDoc do
          </preface>
       </standard-document>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
     presxml = <<~OUTPUT
       <standard-document xmlns="https://www.metanorma.org/ns/standoc" document_suffix="doc001" type="presentation">
          <bibdata/>
@@ -2320,12 +2320,12 @@ RSpec.describe IsoDoc do
          </preface>
       </standard-document>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input.sub("<standard-document ",
                                  "<standard-document document_suffix='doc001' "), true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "validates on duplicate identifiers" do
@@ -2440,9 +2440,9 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   private

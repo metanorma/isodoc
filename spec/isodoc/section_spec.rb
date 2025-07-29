@@ -115,12 +115,12 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(word)
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "processes indexsect" do
@@ -159,9 +159,9 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes annexes containing one, or more than one special sections" do
@@ -565,10 +565,10 @@ RSpec.describe IsoDoc do
           </annex>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes cross-align" do
@@ -625,9 +625,9 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "ignores index entries" do
@@ -645,11 +645,11 @@ RSpec.describe IsoDoc do
     output = <<~OUTPUT
       <p id="A"/>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
 
     mock_indexsect(true)
     output = <<~OUTPUT
@@ -657,11 +657,11 @@ RSpec.describe IsoDoc do
          <bookmark primary="A" secondary="B" tertiary="C" id="_"/>
       </p>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "generates an index in English" do
@@ -1138,20 +1138,20 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output
+    expect(strip_guid(Canon.format_xml(pres_output
       .gsub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
     wordxml = Nokogiri::XML(word)
-    expect(strip_guid(Xml::C14n.format(wordxml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(doc)
+    expect(strip_guid(Canon.format_xml(wordxml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 
   private

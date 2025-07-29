@@ -94,17 +94,17 @@ RSpec.describe IsoDoc do
       </p>
             </div><p>\\u00a0</p></div>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true))
       .at("//div[@class = 'WordSection2']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(doc)
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 
   it "droplocs xrefs" do
@@ -178,12 +178,12 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ i18nyaml: "spec/assets/i18n.yaml" }
     .merge(presxml_options))
     .convert("test", input, true))
     .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "puts custom labels on xrefs" do
@@ -240,12 +240,12 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
       .convert("test", input, true))
       .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "renders xrefs with style" do
@@ -437,11 +437,11 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "cases xrefs" do
@@ -610,12 +610,12 @@ RSpec.describe IsoDoc do
           </p>
        </clause>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml" }
       .merge(presxml_options))
       .convert("test", input, true))
       .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "ignores casing of xrefs in unicameral scripts" do
@@ -731,12 +731,12 @@ RSpec.describe IsoDoc do
        </clause>
     OUTPUT
     # We pretend this is Chinese—so no capitalisation is applied
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new({ i18nyaml: "spec/assets/i18n.yaml", script: "Hans" }
       .merge(presxml_options))
       .convert("test", input, true))
       .at("//xmlns:clause[@id = 'C']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "ignores locations in xrefs" do
@@ -793,15 +793,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(IsoDoc::HtmlConvert.new({})
     .convert("test", pres_output, true))
     .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true))
       .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_equivalent_to Xml::C14n.format(doc)
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 end

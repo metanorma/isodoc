@@ -161,9 +161,9 @@ RSpec.describe IsoDoc do
          </html>
     DOC
 
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
-      .convert("test", input, true)))).to be_equivalent_to Xml::C14n.format(doc)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
+      .convert("test", input, true)))).to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+      .convert("test", input, true)))).to be_equivalent_to Canon.format_xml(doc)
   end
 end

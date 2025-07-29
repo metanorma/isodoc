@@ -29,10 +29,10 @@ RSpec.describe IsoDoc do
           </metanorma-extension>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
   .convert("test", input, true))
   .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "inserts toc metadata" do
@@ -67,8 +67,8 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
     xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
       .each(&:remove)
-    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "passes font names to Presentation XML" do
@@ -110,8 +110,8 @@ RSpec.describe IsoDoc do
       .convert("test", input, true))
     xml.xpath("//xmlns:preface | //xmlns:localized-strings | //xmlns:sections")
       .each(&:remove)
-    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "extracts attachments" do
@@ -346,12 +346,12 @@ wpLnRvX3MpCmVuZAo=</attachment>
           </metanorma-extension>
        </iso-standard>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(Canon.format_xml(IsoDoc::PresentationXMLConvert
        .new(presxml_options.merge({ output_formats: { doc: "DOC", pdf: "PDF",
                                                       html: "HTML" } }))
        .convert("test", input, true)
        .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   private

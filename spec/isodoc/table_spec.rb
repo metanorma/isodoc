@@ -786,19 +786,19 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Xml::C14n.format(output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    expect(strip_guid(Canon.format_xml(output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(html)
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Xml::C14n.format(output.to_xml)
+    expect(strip_guid(Canon.format_xml(output.to_xml)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Xml::C14n.format(word)
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
     it "processes plain IsoXML tables" do
@@ -1399,19 +1399,19 @@ RSpec.describe IsoDoc do
          pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Xml::C14n.format(output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    expect(strip_guid(Canon.format_xml(output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(html)
     output = Nokogiri::XML(IsoDoc::WordConvert.new({})
     .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Xml::C14n.format(output.to_xml)
+    expect(strip_guid(Canon.format_xml(output.to_xml)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Xml::C14n.format(word)
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "breaks down CSS border shorthand attributes" do
@@ -1456,8 +1456,8 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "passes on classes of tables from Presentation XML" do
@@ -1521,13 +1521,13 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", presxml, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
       .convert("test", presxml, true)
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
-      .to be_equivalent_to Xml::C14n.format(word)
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "processes tables with big cells" do
@@ -1707,10 +1707,10 @@ RSpec.describe IsoDoc do
            </body>
          </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
       .convert("test", input, true))
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes tables with many rows" do
@@ -1813,10 +1813,10 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
         .convert("test", input, true))
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
 
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -1927,10 +1927,10 @@ RSpec.describe IsoDoc do
       </html>
 
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
         .convert("test", input, true))
         .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes tables with large rows" do
@@ -2034,10 +2034,10 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
            .convert("test", input, true))
            .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
 
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -2146,9 +2146,9 @@ RSpec.describe IsoDoc do
          </body>
        </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
                .convert("test", input, true))
                .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 end

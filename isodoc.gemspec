@@ -56,10 +56,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sassc-embedded", "~> 1"
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
-  spec.add_development_dependency "xml-c14n"
-  # html2doc locks lutaml-model to ~ 0.7.0, but until testing of lutaml-model
-  # releases against dowmstream gems (notably Plurimath) is in place, locking at
-  # patch level
-  #spec.add_dependency "lutaml-model", "0.7.1"
+  spec.add_development_dependency "canon"
   # spec.metadata["rubygems_mfa_required"] = "true"
 end

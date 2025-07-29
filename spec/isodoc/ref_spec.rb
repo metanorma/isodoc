@@ -877,15 +877,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)
+    expect(strip_guid(Canon.format_xml(pres_output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<fn reference="[^"]+"}m, "<fn reference=\"_\"")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Xml::C14n.format(output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    expect(strip_guid(Canon.format_xml(output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(html)
     IsoDoc::WordConvert.new({})
       .convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
@@ -895,8 +895,8 @@ RSpec.describe IsoDoc do
       .gsub("epub:", "")
       .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref")
       .gsub(/NOTEREF _Ref\d+/, "NOTEREF _Ref")
-    expect(strip_guid(Xml::C14n.format(html)))
-      .to be_equivalent_to Xml::C14n.format(doc)
+    expect(strip_guid(Canon.format_xml(html)))
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 
   it "marks references sections as hidden" do
@@ -953,11 +953,11 @@ RSpec.describe IsoDoc do
         </bibliography>
       </iso-standard>
     PRESXML
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes hidden references sections in Relaton bibliographies #1" do
@@ -1496,11 +1496,11 @@ RSpec.describe IsoDoc do
           </fmt-footnote-container>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes hidden references sections in Relaton bibliographies #2" do
@@ -1689,11 +1689,11 @@ RSpec.describe IsoDoc do
           </fmt-footnote-container>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "renders mixed bibitems and bibliographic subclauses" do
@@ -2045,13 +2045,13 @@ RSpec.describe IsoDoc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
     output = Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
     output.at("//div[@class='TOC']")["id"] = "_"
-    expect(strip_guid(Xml::C14n.format(output.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    expect(strip_guid(Canon.format_xml(output.to_xml)))
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes clauses containing normative references" do
@@ -2198,10 +2198,10 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 end

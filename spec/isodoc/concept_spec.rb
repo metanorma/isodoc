@@ -433,15 +433,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes concept attributes" do
@@ -950,15 +950,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes concept markup for symbols" do
@@ -1013,15 +1013,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
     it "do not process concept markup in Semantic XML" do
@@ -1150,10 +1150,10 @@ RSpec.describe IsoDoc do
           </term>
        </terms>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
       .at("//xmlns:terms").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 end

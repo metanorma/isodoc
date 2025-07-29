@@ -114,10 +114,10 @@ RSpec.describe IsoDoc do
          </preface>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert.new(presxml_options)
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes line breaks in MathML" do
@@ -249,16 +249,16 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert.new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(output)
+    expect(strip_guid(Canon.format_xml(output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
       .convert("test", output, true))))
-      .to be_equivalent_to Xml::C14n.format(word)
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "correctly parses options with commas inside values" do
@@ -363,15 +363,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "overrides AsciiMath delimiters" do
@@ -408,15 +408,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "duplicates MathML with AsciiMath" do
@@ -485,12 +485,12 @@ RSpec.describe IsoDoc do
         <sections> </sections>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
     .new(presxml_options)
       .convert("test", input, true)
       .gsub("<!--", "<comment>")
       .gsub("-->", "</comment>"))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "overrides duplication of MathML with AsciiMath" do
@@ -558,12 +558,12 @@ RSpec.describe IsoDoc do
         <sections> </sections>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new({ suppressasciimathdup: true }
       .merge(presxml_options))
       .convert("test", input, true)
       .gsub("<!--", "<comment>")
       .gsub("-->", "</comment>"))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 end

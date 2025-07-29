@@ -335,13 +335,13 @@ RSpec.describe IsoDoc do
     output = IsoDoc::PresentationXMLConvert.new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(output)
+    expect(strip_guid(Canon.format_xml(output)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
       .gsub(%r{<metanorma-extension>.*</metanorma-extension>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   context "when twitter_cldr_localiser_symbols has additional options" do
@@ -699,11 +699,11 @@ RSpec.describe IsoDoc do
     end
 
     it "Supports twitter_cldr_localiser_symbols fraction options" do
-      expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
         .new(presxml_options)
         .convert("test", input, true))
         .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-        .to(be_equivalent_to(Xml::C14n.format(output)))
+        .to(be_equivalent_to(Canon.format_xml(output)))
     end
   end
 
@@ -905,11 +905,11 @@ RSpec.describe IsoDoc do
          </preface>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "customises localisation of numbers" do
@@ -1116,11 +1116,11 @@ RSpec.describe IsoDoc do
          </preface>
       </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   context "overrides localisation of numbers in MathML" do
@@ -1188,12 +1188,12 @@ RSpec.describe IsoDoc do
          </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
-      expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
         .new({ localizenumber: "##0;###" }
         .merge(presxml_options))
           .convert("test", input, true))
           .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-        .to be_equivalent_to Xml::C14n.format(output2)
+        .to be_equivalent_to Canon.format_xml(output2)
     end
 
     it "with grouping of digits" do
@@ -1258,12 +1258,12 @@ RSpec.describe IsoDoc do
         </iso-standard>
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
-      expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
-        .to be_equivalent_to Xml::C14n.format(output1)
+        .to be_equivalent_to Canon.format_xml(output1)
     end
   end
 
@@ -1809,12 +1809,12 @@ RSpec.describe IsoDoc do
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
         .at("//xmlns:p[@id = 'A']").to_xml)))
-        .to be_equivalent_to Xml::C14n.format(output1)
+        .to be_equivalent_to Canon.format_xml(output1)
     end
 
     it "with data-metanorma-numberformat attributes and no default precision" do
@@ -2202,12 +2202,12 @@ RSpec.describe IsoDoc do
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
             .convert("test", input, true))
         .at("//xmlns:p[@id = 'A']").to_xml)))
-        .to be_equivalent_to Xml::C14n.format(output1)
+        .to be_equivalent_to Canon.format_xml(output1)
     end
 
     it "with large-notation attribute and implicit minimum and maximum" do
@@ -2626,12 +2626,12 @@ RSpec.describe IsoDoc do
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
         .at("//xmlns:p[@id = 'A']").to_xml)))
-        .to be_equivalent_to Xml::C14n.format(output1)
+        .to be_equivalent_to Canon.format_xml(output1)
     end
 
     it "with large-notation attribute and explicit minimum and maximum" do
@@ -3106,12 +3106,12 @@ RSpec.describe IsoDoc do
       OUTPUT
       TwitterCldr.reset_locale_fallbacks
 
-      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
     .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
       .convert("test", input, true))
         .at("//xmlns:p[@id = 'A']").to_xml)))
-        .to be_equivalent_to Xml::C14n.format(output1)
+        .to be_equivalent_to Canon.format_xml(output1)
     end
 
     it "with numbers within formulas" do
@@ -3246,12 +3246,12 @@ RSpec.describe IsoDoc do
             </formula>
          </p>
       OUTPUT
-      expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
         .new({ localizenumber: "#=#0;##$#" }
         .merge(presxml_options))
         .convert("test", input, true))
         .at("//xmlns:p[@id = 'A']").to_xml)))
-        .to be_equivalent_to Xml::C14n.format(output)
+        .to be_equivalent_to Canon.format_xml(output)
     end
   end
 

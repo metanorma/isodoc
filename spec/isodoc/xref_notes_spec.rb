@@ -191,11 +191,11 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "cross-references box admonitions in English and Japanese" do
@@ -397,11 +397,11 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))
        .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
 
     input1 = input.sub(%r{<language>en</language>},
                        "<language>ja</language>")
@@ -529,11 +529,11 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input1, true))
       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "cross-references term notes" do
@@ -671,11 +671,11 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "cross-references nested term notes" do
@@ -764,10 +764,10 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri.XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 end

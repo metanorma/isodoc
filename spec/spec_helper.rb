@@ -8,7 +8,7 @@ require "isodoc"
 require "rspec/matchers"
 require "equivalent-xml"
 require "tzinfo"
-require "xml-c14n"
+require "canon"
 require_relative "support/uuid_mock"
 
 RSpec.configure do |config|

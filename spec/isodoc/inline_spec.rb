@@ -57,14 +57,14 @@ RSpec.describe IsoDoc do
            </p>
          </div>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
       .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
       .convert("test", input, true))
       .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_equivalent_to Xml::C14n.format(doc)
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 
   it "processes identifier" do
@@ -105,23 +105,23 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
     FileUtils.rm_f("test.doc")
     IsoDoc::WordConvert.new({}).convert("test", pres_output, false)
     expect(File.exist?("test.doc")).to be true
     word = File.read("test.doc", encoding: "UTF-8")
       .sub(/^.*<body /m, "<body ").sub(%r{</body>.*$}m, "</body>")
     wordxml = Nokogiri::XML(word)
-    expect(strip_guid(Xml::C14n.format(wordxml.at("//p").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(doc)
+    expect(strip_guid(Canon.format_xml(wordxml.at("//p").to_xml)))
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 
   it "processes dates" do
@@ -147,15 +147,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes concept markup" do
@@ -590,13 +590,13 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes embedded inline formatting" do
@@ -675,11 +675,11 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes inline images" do
@@ -708,9 +708,9 @@ RSpec.describe IsoDoc do
         </body>
       </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes links" do
@@ -804,13 +804,13 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes updatetype links" do
@@ -846,14 +846,14 @@ RSpec.describe IsoDoc do
       </p>
               </div>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))
       .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(Canon.format_xml(IsoDoc::WordConvert.new({})
       .convert("test", input, true))
       .sub(/^.*<h1/m, "<div><h1").sub(%r{</div>.*$}m, "</div>"))
-      .to be_equivalent_to Xml::C14n.format(doc)
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 
   it "processes unrecognised markup" do
@@ -883,9 +883,9 @@ RSpec.describe IsoDoc do
              </body>
          </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes eref types" do
@@ -987,12 +987,12 @@ RSpec.describe IsoDoc do
     OUTPUT
     output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(output)
       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", output, true))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes eref content" do
@@ -1222,15 +1222,15 @@ RSpec.describe IsoDoc do
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes eref content pointing to reference with citation URL" do
@@ -1491,19 +1491,19 @@ RSpec.describe IsoDoc do
     OUTPUT
     output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(output)
       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
     xml = IsoDoc::HtmlConvert.new({})
       .convert("test", output, true)
-    expect(Xml::C14n.format(Nokogiri::XML(strip_guid(xml))
+    expect(Canon.format_xml(Nokogiri::XML(strip_guid(xml))
       .at("//div[h1/@class='ForewordTitle']").to_xml))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
     xml = IsoDoc::WordConvert.new({})
       .convert("test", output, true)
-    expect(Xml::C14n.format(Nokogiri::XML(strip_guid(xml))
+    expect(Canon.format_xml(Nokogiri::XML(strip_guid(xml))
       .at("//div[h1/@class='ForewordTitle']").to_xml))
-      .to be_equivalent_to Xml::C14n.format(word)
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "processes eref content pointing to reference with attachment URL" do
@@ -1552,9 +1552,9 @@ RSpec.describe IsoDoc do
     OUTPUT
     output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(output)
       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes eref content pointing to hidden bibliographic entries" do
@@ -1777,21 +1777,21 @@ RSpec.describe IsoDoc do
       .new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true),
     )
   .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(word)
+      .to be_equivalent_to Canon.format_xml(word)
   end
 
   it "processes eref content with Unicode characters" do
@@ -1834,8 +1834,8 @@ RSpec.describe IsoDoc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true))
-    expect(strip_guid(Xml::C14n.format(xml.at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(xml.at("//xmlns:foreword").to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes erefstack" do
@@ -1908,20 +1908,20 @@ RSpec.describe IsoDoc do
     xml = Nokogiri::XML(IsoDoc::PresentationXMLConvert.new(presxml_options)
         .convert("test", input, true))
     xml = xml.at("//xmlns:p[@id = 'A2']")
-    expect(strip_guid(Xml::C14n.format(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(strip_guid(Canon.format_xml(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A2']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A2']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes variant" do
@@ -2014,11 +2014,11 @@ RSpec.describe IsoDoc do
           </preface>
        </iso-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes add, del" do
@@ -2048,9 +2048,9 @@ RSpec.describe IsoDoc do
            </body>
         </html>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::HtmlConvert.new({})
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes formatting in eref/@citeas" do
@@ -2082,11 +2082,11 @@ RSpec.describe IsoDoc do
          </semx>
       </p>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "combines locality stacks with connectives" do
@@ -2466,10 +2466,10 @@ RSpec.describe IsoDoc do
          </semx>
       </itu-standard>
     OUTPUT
-    expect(strip_guid(Xml::C14n.format(IsoDoc::PresentationXMLConvert
+    expect(strip_guid(Canon.format_xml(IsoDoc::PresentationXMLConvert
     .new(presxml_options)
       .convert("test", input, true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes ruby markup" do
@@ -2517,20 +2517,20 @@ RSpec.describe IsoDoc do
       .new(presxml_options
       .merge(output_formats: { html: "html", doc: "doc" }))
       .convert("test", input, true)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(pres_output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::HtmlConvert.new({})
       .convert("test", pres_output, true),
     )
       .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(strip_guid(Xml::C14n.format(Nokogiri::XML(
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(
       IsoDoc::WordConvert.new({})
       .convert("test", pres_output, true),
     )
   .at("//p[@id = 'A']").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(doc)
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 end
