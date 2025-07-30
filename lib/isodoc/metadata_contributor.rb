@@ -97,11 +97,16 @@ module IsoDoc
       ret
     end
 
+    def to_datauri(src)
+      /^data:/.match?(src) and return src
+      Vectory::Utils::datauri(src, @localdir)
+    end
+
     def agency(xml)
       agency, publisher, logos = agency1(xml)
       set(:agency, agency)
       set(:publisher, connectives_strip(@i18n.boolean_conj(publisher, "and")))
-      set(:copublisher_logos, logos)
+      set(:copublisher_logos, logos.map { |l| to_datauri(l) })
       set(:copublisher_logo_attrs, copublisher_logo_attrs(xml))
       agency_addr(xml)
     end
