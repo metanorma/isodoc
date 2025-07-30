@@ -50,12 +50,12 @@ module IsoDoc
     # translate dest_xpath in bibdata using lookup in hash
     # source text is dest_xpath by default, can be alt_source_xpath if given
     def hash_translate(bibdata, hash, dest_xpath, alt_source_xpath, lang)
-      x = bibdata.at(ns(dest_xpath)) or return
-      alt_source_xpath and doctype = bibdata.at(ns(alt_source_xpath))
-      doctype ||= x
       hash.is_a? Hash or return
-      hash[doctype.text] or return
-      tag_translate(x, lang, hash[doctype.text])
+      x = bibdata.xpath(ns(dest_xpath))
+      alt_source_xpath and alt_x = bibdata.at(ns(alt_source_xpath))&.text
+      x.each do |d|
+        v = hash[alt_x || d.text] and tag_translate(d, lang, v)
+      end
     end
 
     # does not allow %Spellout and %Ordinal in the ordinal expression
