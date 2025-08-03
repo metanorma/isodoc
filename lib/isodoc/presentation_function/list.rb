@@ -62,6 +62,12 @@ module IsoDoc
       %w(&#x2014;)
     end
 
+    def ul_label_list_from_metadata(docxml)
+      list = docxml.xpath(ns("//presentation-metadata/ul-label-list"))
+      list.empty? and return nil
+      list.map(&:text)
+    end
+
     def ul_label(elem)
       val = ul_label_value(elem)
       semx = "<semx element='autonum' source='#{elem['id']}'>#{val}</semx>"
@@ -71,7 +77,9 @@ module IsoDoc
 
     def ul_label_value(elem)
       depth = elem.ancestors("ul, ol").size
-      val = ul_label_list(elem)
+      require "debug"; binding.b if depth == 1
+      val = ul_label_list_from_metadata(elem.document.root) ||
+        ul_label_list(elem)
       val[(depth - 1) % val.size]
     end
   end

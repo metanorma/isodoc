@@ -856,6 +856,226 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to(output)
   end
 
+  it "configures unordered list bullets dynamically" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata><language>en</language></bibdata>
+        <sections>
+           <clause id='A' inline-header='false' obligation='normative'>
+             <title>Clause</title>
+             <ul id="B1">
+             <li>A1
+             <ul id="B2">
+             <li>A2
+             <ul id="B3">
+             <li>A3
+             <ul id="B4">
+             <li>A4
+             <ul id="B5">
+             <li>A5
+             <ul id="B6">
+             <li>A6
+             <ul id="B7">
+             <li>A7
+             <ul id="B8">
+             <li>A8
+             <ul id="B9">
+             <li>A9
+             <ul id="B0">
+             <li>A0</li>
+             </ul></li>
+             </ul></li>
+             </ul></li>
+             </ul></li>
+             </ul></li>
+             </ul></li>
+             </ul></li>
+             </ul></li>
+             </ul></li>
+             </ul>
+           </clause>
+         </sections>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+          <ul id="B1">
+         <li id="_">
+            <fmt-name id="_">
+               <semx element="autonum" source="_">—</semx>
+            </fmt-name>
+            A1
+            <ul id="B2">
+               <li id="_">
+                  <fmt-name id="_">
+                     <semx element="autonum" source="_">—</semx>
+                  </fmt-name>
+                  A2
+                  <ul id="B3">
+                     <li id="_">
+                        <fmt-name id="_">
+                           <semx element="autonum" source="_">—</semx>
+                        </fmt-name>
+                        A3
+                        <ul id="B4">
+                           <li id="_">
+                              <fmt-name id="_">
+                                 <semx element="autonum" source="_">—</semx>
+                              </fmt-name>
+                              A4
+                              <ul id="B5">
+                                 <li id="_">
+                                    <fmt-name id="_">
+                                       <semx element="autonum" source="_">—</semx>
+                                    </fmt-name>
+                                    A5
+                                    <ul id="B6">
+                                       <li id="_">
+                                          <fmt-name id="_">
+                                             <semx element="autonum" source="_">—</semx>
+                                          </fmt-name>
+                                          A6
+                                          <ul id="B7">
+                                             <li id="_">
+                                                <fmt-name id="_">
+                                                   <semx element="autonum" source="_">—</semx>
+                                                </fmt-name>
+                                                A7
+                                                <ul id="B8">
+                                                   <li id="_">
+                                                      <fmt-name id="_">
+                                                         <semx element="autonum" source="_">—</semx>
+                                                      </fmt-name>
+                                                      A8
+                                                      <ul id="B9">
+                                                         <li id="_">
+                                                            <fmt-name id="_">
+                                                               <semx element="autonum" source="_">—</semx>
+                                                            </fmt-name>
+                                                            A9
+                                                            <ul id="B0">
+                                                               <li id="_">
+                                                                  <fmt-name id="_">
+                                                                     <semx element="autonum" source="_">—</semx>
+                                                                  </fmt-name>
+                                                                  A0
+                                                               </li>
+                                                            </ul>
+                                                         </li>
+                                                      </ul>
+                                                   </li>
+                                                </ul>
+                                             </li>
+                                          </ul>
+                                       </li>
+                                    </ul>
+                                 </li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+      </ul>
+    OUTPUT
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:ul[@id = 'B1']").to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    m = <<~METADATA
+      <metanorma-extension><presentation-metadata><ul-label-list>•</ul-label-list></presentation-metadata><presentation-metadata><ul-label-list>-</ul-label-list></presentation-metadata><presentation-metadata><ul-label-list>o</ul-label-list></presentation-metadata></metanorma-extension>
+    METADATA
+    presxml = <<~OUTPUT
+      <ul id="B1">
+         <li id="_">
+            <fmt-name id="_">
+               <semx element="autonum" source="_">•</semx>
+            </fmt-name>
+            A1
+            <ul id="B2">
+               <li id="_">
+                  <fmt-name id="_">
+                     <semx element="autonum" source="_">-</semx>
+                  </fmt-name>
+                  A2
+                  <ul id="B3">
+                     <li id="_">
+                        <fmt-name id="_">
+                           <semx element="autonum" source="_">o</semx>
+                        </fmt-name>
+                        A3
+                        <ul id="B4">
+                           <li id="_">
+                              <fmt-name id="_">
+                                 <semx element="autonum" source="_">•</semx>
+                              </fmt-name>
+                              A4
+                              <ul id="B5">
+                                 <li id="_">
+                                    <fmt-name id="_">
+                                       <semx element="autonum" source="_">-</semx>
+                                    </fmt-name>
+                                    A5
+                                    <ul id="B6">
+                                       <li id="_">
+                                          <fmt-name id="_">
+                                             <semx element="autonum" source="_">o</semx>
+                                          </fmt-name>
+                                          A6
+                                          <ul id="B7">
+                                             <li id="_">
+                                                <fmt-name id="_">
+                                                   <semx element="autonum" source="_">•</semx>
+                                                </fmt-name>
+                                                A7
+                                                <ul id="B8">
+                                                   <li id="_">
+                                                      <fmt-name id="_">
+                                                         <semx element="autonum" source="_">-</semx>
+                                                      </fmt-name>
+                                                      A8
+                                                      <ul id="B9">
+                                                         <li id="_">
+                                                            <fmt-name id="_">
+                                                               <semx element="autonum" source="_">o</semx>
+                                                            </fmt-name>
+                                                            A9
+                                                            <ul id="B0">
+                                                               <li id="_">
+                                                                  <fmt-name id="_">
+                                                                     <semx element="autonum" source="_">•</semx>
+                                                                  </fmt-name>
+                                                                  A0
+                                                               </li>
+                                                            </ul>
+                                                         </li>
+                                                      </ul>
+                                                   </li>
+                                                </ul>
+                                             </li>
+                                          </ul>
+                                       </li>
+                                    </ul>
+                                 </li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+      </ul>
+    OUTPUT
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(IsoDoc::PresentationXMLConvert
+      .new(presxml_options)
+        .convert("test", input.sub("</bibdata>", "</bibdata>#{m}"), true))
+      .at("//xmlns:ul[@id = 'B1']").to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+  end
+
   it "adds types to ordered lists" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
