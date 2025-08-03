@@ -74,7 +74,7 @@ module IsoDoc
 
     def published_default(xml)
       override = xml.at(ns("//semantic-metadata/stage-published"))&.text
-      default = override || "false"
+      default = override || "true"
       ret = default == "false"
       s = xml.at(ns("//bibdata/status/stage#{NOLANG}"))
       override || !s or ret = unpublished(s.text)

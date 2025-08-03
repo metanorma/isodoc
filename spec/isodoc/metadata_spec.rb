@@ -479,7 +479,7 @@ RSpec.describe IsoDoc do
         stable_untildate: "XXX",
         transmitteddate: "XXX",
         unchangeddate: "XXX",
-        unpublished: true,
+        unpublished: false,
         updateddate: "XXX",
         vote_endeddate: "XXX",
         vote_starteddate: "XXX" }
