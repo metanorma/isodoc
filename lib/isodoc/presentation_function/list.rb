@@ -77,7 +77,6 @@ module IsoDoc
 
     def ul_label_value(elem)
       depth = elem.ancestors("ul, ol").size
-      require "debug"; binding.b if depth == 1
       val = ul_label_list_from_metadata(elem.document.root) ||
         ul_label_list(elem)
       val[(depth - 1) % val.size]
