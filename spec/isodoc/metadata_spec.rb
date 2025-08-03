@@ -193,6 +193,13 @@ RSpec.describe IsoDoc do
         xml: "URL C" }
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
       .to be_equivalent_to output
+
+    ext = <<~EXT
+      <semantic-metadata><stage-published>true</stage-published></semantic-metadata>
+    EXT
+    m = metadata(c.info(Nokogiri::XML(input
+      .sub("</metanorma-extension>", "#{ext}</metanorma-extension>")), nil))
+    expect(m[:unpublished]).to be false
   end
 
   it "processes IsoXML metadata #2" do
