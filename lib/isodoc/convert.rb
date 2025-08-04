@@ -11,7 +11,7 @@ module IsoDoc
   class Convert < ::IsoDoc::Common
     attr_accessor :options, :i18n, :meta, :xrefs, :reqt_models,
                   :requirements_processor, :doctype, :bibrender,
-                  :tempfile_cache, :wordcoverpage, :wordintropage
+                  :tempfile_cache, :wordcoverpage, :wordintropage, :localdir
 
     # htmlstylesheet: Generic stylesheet for HTML
     # htmlstylesheet_override: Override stylesheet for HTML
