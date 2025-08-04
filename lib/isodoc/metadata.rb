@@ -58,7 +58,7 @@ module IsoDoc
     end
 
     def docstatus(xml, _out)
-      published_default(xml)
+      published = published_default(xml)
       s = xml.at(ns("//bibdata/status/stage#{NOLANG}")) or return
       s1 = xml.at(ns("//bibdata/status/stage#{currlang}")) || s
       set(:stage, status_print(s.text))
@@ -69,23 +69,23 @@ module IsoDoc
         set(:substage_display, i1)
       (i2 = xml.at(ns("//bibdata/status/iteration"))&.text) and
         set(:iteration, i2)
-      unpublished(s.text) && set(:stageabbr, stage_abbr(s.text))
+      !published && set(:stageabbr, stage_abbr(s.text))
     end
 
     def published_default(xml)
       override = xml.at(ns("//semantic-metadata/stage-published"))&.text
       default = override || "true"
       ret = default == "false"
-      s = xml.at(ns("//bibdata/status/stage#{NOLANG}"))
-      override || !s or ret = unpublished(s.text)
       set(:unpublished, ret)
+      default == "true"
     end
 
     def stage_abbr(docstatus)
       status_print(docstatus).split(/ /).map { |s| s[0].upcase }.join
     end
 
-    def unpublished(status)
+    # KILL
+    def unpublishedx(status)
       !status.casecmp("published").zero?
     end
 

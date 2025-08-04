@@ -1496,8 +1496,12 @@ RSpec.describe IsoDoc do
     input = <<~INPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <bibdata>
-        <status><stage>STAGE</stage></status>
         </bibdata>
+        <metanorma-extension>
+        <semantic-metadata>
+        <stage-published>PUBLISHED</stage-published>
+        </semantic-metadata>
+        </metanorma-extension>
         <preface>
         <foreword displayorder="1"><title>Foreword</title>
         <p id="A"><em><strong>A.</strong></em> <bookmark id="A1"/> B <em><strong>C.</strong></em></p>
@@ -1577,21 +1581,21 @@ RSpec.describe IsoDoc do
     INPUT
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input.sub("STAGE", "unpublished"), true))
+      .convert("test", input.sub("PUBLISHED", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
     expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
       .to be_equivalent_to Canon.format_xml(presxml_annotated)
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input.sub("STAGE", "published"), true))
+      .convert("test", input.sub("PUBLISHED", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
       "//xmlns:metanorma-extension | //xmlns:bibdata").each(&:remove)
     expect(strip_guid(Canon.format_xml(pres_output.to_xml)))
       .to be_equivalent_to Canon.format_xml(presxml_unannotated)
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input.sub("STAGE", "published")
+      .convert("test", input.sub("PUBLISHED", "true")
       .sub("</bibdata>", "</bibdata>#{directive}")
       .sub("DIRECTIVE", "true"), true))
     pres_output.xpath("//xmlns:localized-strings | " \
@@ -1600,7 +1604,7 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(presxml_annotated)
     pres_output = Nokogiri::XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
-      .convert("test", input.sub("STAGE", "unpublished")
+      .convert("test", input.sub("PUBLISHED", "false")
       .sub("</bibdata>", "</bibdata>#{directive}")
       .sub("DIRECTIVE", "false"), true))
     pres_output.xpath("//xmlns:localized-strings | " \

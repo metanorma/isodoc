@@ -118,6 +118,9 @@ RSpec.describe IsoDoc do
         </ext>
       </bibdata>
       <metanorma-extension>
+      <semantic-metadata>
+      <stage-published>false</stage-published>
+      </semantic-metadata>
         <presentation-metadata>
         <name>A</name><value>B</value>
         </presentation-metadata>
@@ -194,11 +197,8 @@ RSpec.describe IsoDoc do
     expect(metadata(c.info(Nokogiri::XML(input), nil)))
       .to be_equivalent_to output
 
-    ext = <<~EXT
-      <semantic-metadata><stage-published>true</stage-published></semantic-metadata>
-    EXT
     m = metadata(c.info(Nokogiri::XML(input
-      .sub("</metanorma-extension>", "#{ext}</metanorma-extension>")), nil))
+      .sub("<stage-published>false</stage-published>", "")), nil))
     expect(m[:unpublished]).to be false
   end
 
@@ -562,6 +562,11 @@ RSpec.describe IsoDoc do
       <doctype language="fr">Standard international</doctype>
       </ext>
       </bibdata>
+      <metanorma-extension>
+      <semantic-metadata>
+      <stage-published>false</stage-published>
+      </semantic-metadata>
+      </metanorma-extension>
       </iso-standard>
     INPUT
     output =
