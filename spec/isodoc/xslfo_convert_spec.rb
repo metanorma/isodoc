@@ -132,8 +132,8 @@ RSpec.describe IsoDoc do
     stylesheet_mock("xsl.pdf") # lib/isodoc/...
     convert = IsoDoc::XslfoPdfConvert.new(
       {
-        pdfstylesheet: "spec/examples/xsl.pdf",
-        pdfstylesheet_override: "lib/isodoc/xsl.pdf",
+        pdfstylesheet: "../../spec/examples/xsl.pdf",
+        pdfstylesheet_override: "../../lib/isodoc/xsl.pdf",
       },
     )
     baseassetpath = Pathname.new(File.join(
