@@ -49,16 +49,22 @@ module IsoDoc
       id
     end
 
+    def xml_to_string_skip_fn(node)
+      node1 = node.dup
+      node1.xpath(ns(".//fn")).each(&:remove)
+      to_xml(node1.children)
+    end
+
     def bracket_if_num(num)
       num.nil? and return nil
-      num = to_xml(num.children).sub(/^\[/, "").sub(/\]$/, "")
+      num = xml_to_string_skip_fn(num).sub(/^\[/, "").sub(/\]$/, "")
       /^\d+$/.match?(num) and return "[#{num}]"
       num
     end
 
     def unbracket1(ident)
       ident.nil? and return nil
-      ident.is_a?(String) or ident = to_xml(ident.children)
+      ident.is_a?(String) or ident = xml_to_string_skip_fn(ident)
       ident.sub(/^\[/, "").sub(/\]$/, "")
     end
 
