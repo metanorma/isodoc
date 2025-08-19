@@ -244,7 +244,7 @@ RSpec.describe IsoDoc do
                    </extent>
                    <biblio-tag>
                       ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
-                      <fn id="_2" reference="1" original-reference="_2" target="_9">
+                      <fn id="_2" reference="1" original-reference="_2" target="_14">
                          <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
                          <fmt-fn-label>
                             <span class="fmt-caption-label">
@@ -398,7 +398,7 @@ RSpec.describe IsoDoc do
                       [5]
                       <tab/>
                       ISO\\u00a03696
-                      <fn id="_3" reference="2" original-reference="_3" target="_10">
+                      <fn id="_3" reference="2" original-reference="_3" target="_15">
                          <p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p>
                          <fmt-fn-label>
                             <span class="fmt-caption-label">
@@ -499,7 +499,7 @@ RSpec.describe IsoDoc do
              </references>
           </bibliography>
           <fmt-footnote-container>
-             <fmt-fn-body id="_9" target="_2" reference="1">
+             <fmt-fn-body id="_14" target="_2" reference="1">
                 <semx element="fn" source="_2">
                    <p>
                       <fmt-fn-label>
@@ -516,7 +516,7 @@ RSpec.describe IsoDoc do
                    </p>
                 </semx>
              </fmt-fn-body>
-             <fmt-fn-body id="_10" target="_3" reference="2">
+             <fmt-fn-body id="_15" target="_3" reference="2">
                 <semx element="fn" source="_3">
                    <p>
                       <fmt-fn-label>
@@ -563,7 +563,7 @@ RSpec.describe IsoDoc do
                    </p>
                    <p id="ISO16634" class="NormRef">
                       ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
-                      <a class="FootnoteRef" href="#fn:_9">
+                      <a class="FootnoteRef" href="#fn:_14">
                          <sup>1</sup>
                       </a>
                       ,
@@ -619,7 +619,7 @@ RSpec.describe IsoDoc do
                    </div>
                    <p id="ISO3696" class="Biblio">
                       [5]\\u00a0 ISO\\u00a03696
-                      <a class="FootnoteRef" href="#fn:_10">
+                      <a class="FootnoteRef" href="#fn:_15">
                          <sup>2</sup>
                       </a>
                       ,
@@ -656,10 +656,10 @@ RSpec.describe IsoDoc do
                       .
                    </p>
                 </div>
-                <aside id="fn:_9" class="footnote">
+                <aside id="fn:_14" class="footnote">
                    <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
                 </aside>
-                <aside id="fn:_10" class="footnote">
+                <aside id="fn:_15" class="footnote">
                    <p>Under preparation. (Stage at the time of publication ISO/DIS 3696)</p>
                 </aside>
              </div>

@@ -86,8 +86,6 @@ module IsoDoc
       index docxml # fed by strip_duplicate_ids
       toc docxml
       display_order docxml # feeds document_footnotes
-      document_footnotes docxml
-      comments docxml
     end
 
     def block(docxml)
@@ -111,6 +109,8 @@ module IsoDoc
     end
 
     def inline(docxml)
+      document_footnotes docxml
+      comments docxml
       bibitem_lookup(docxml) # feeds citeas
       fmt_ref docxml # feeds citeas, xref, eref, origin, concept
       citeas docxml # feeds xref, eref, origin, concept

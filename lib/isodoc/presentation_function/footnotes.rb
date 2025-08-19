@@ -55,7 +55,8 @@ module IsoDoc
     end
 
     def table_fn(elem)
-      fnotes = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
+      fnotes = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn")) -
+        elem.xpath(ns("./fmt-name//fn"))
       ret = footnote_collect(fnotes)
       f = footnote_container(fnotes, ret) and elem << f
     end
@@ -80,9 +81,11 @@ module IsoDoc
 
     def non_document_footnotes(docxml)
       table_fns = docxml.xpath(ns("//table//fn")) -
-        docxml.xpath(ns("//table/name//fn"))
+        docxml.xpath(ns("//table/name//fn")) -
+        docxml.xpath(ns("//table/fmt-name//fn"))
       fig_fns = docxml.xpath(ns("//figure//fn")) -
-        docxml.xpath(ns("//figure/name//fn"))
+        docxml.xpath(ns("//figure/name//fn")) -
+        docxml.xpath(ns("//figure/fmt-name//fn"))
       table_fns + fig_fns
     end
 
@@ -117,7 +120,8 @@ module IsoDoc
 
     # move footnotes into key
     def figure_fn(elem)
-      fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn"))
+      fn = elem.xpath(ns(".//fn")) - elem.xpath(ns("./name//fn")) -
+        elem.xpath(ns("./fmt-name//fn"))
       fn.empty? and return
       dl = figure_key_insert_pt(elem)
       footnote_collect(fn).each do |f|
@@ -169,8 +173,10 @@ module IsoDoc
     end
 
     # Do not insert a comment bookmark inside another comment bookmark
+    # Also avoid list labels, which are typically not rendered downstream
+    # as selectable text
     AVOID_COMMENT_BOOKMARKS = <<~XPATH.freeze
-      [not(ancestor::xmlns:fmt-annotation-start)][not(ancestor::xmlns:fmt-annotation-end)]
+      [not(ancestor::xmlns:fmt-annotation-start)][not(ancestor::xmlns:fmt-annotation-end)][not(ancestor::xmlns:fmt-name[parent::xmlns:li])]
     XPATH
 
     def comment_bookmarks_locate(elem)
