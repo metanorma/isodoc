@@ -28,6 +28,8 @@ RSpec.describe IsoDoc do
         </fn></td>
               <td valign="bottom" align="center">Balilla<fn reference="a">
           <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
+        </fn><fn reference="a">
+          <p id="_0fe65e9a-5531-408e-8295-eeff35f41a55">Parboiled rice.</p>
         </fn></td>
               <td align="center">Thaibonnet</td>
             </tr>
@@ -117,41 +119,41 @@ RSpec.describe IsoDoc do
     presxml = <<~OUTPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
-             <clause type="toc" id="_7" displayorder="1">
-                <fmt-title depth="1" id="_24">Table of contents</fmt-title>
+             <clause type="toc" id="_8" displayorder="1">
+                <fmt-title depth="1" id="_25">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
-                <title id="_10">Foreword</title>
-                <fmt-title depth="1" id="_25">
-                   <semx element="title" source="_10">Foreword</semx>
+                <title id="_11">Foreword</title>
+                <fmt-title depth="1" id="_26">
+                   <semx element="title" source="_11">Foreword</semx>
                 </fmt-title>
                 <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" autonum="1">
-                   <name id="_13">
+                   <name id="_14">
                       Repeatability and reproducibility of
                       <em>husked</em>
                       rice yield
-                      <fn reference="1" original-id="_1" original-reference="1" id="_19" target="_18">
+                      <fn reference="1" original-id="_1" original-reference="1" id="_20" target="_19">
                          <p>X</p>
                          <fmt-fn-label>
                             <span class="fmt-caption-label">
                                <sup>
-                                  <semx element="autonum" source="_19">1</semx>
+                                  <semx element="autonum" source="_20">1</semx>
                                </sup>
                             </span>
                          </fmt-fn-label>
                       </fn>
                    </name>
-                   <fmt-name id="_26">
+                   <fmt-name id="_27">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Table</span>
                          <semx element="autonum" source="tableD-1">1</semx>
                       </span>
                       <span class="fmt-caption-delim">\\u00a0— </span>
-                      <semx element="name" source="_13">
+                      <semx element="name" source="_14">
                          Repeatability and reproducibility of
                          <em>husked</em>
                          rice yield
-                         <fn reference="1" id="_1" original-reference="1" target="_18">
+                         <fn reference="1" id="_1" original-reference="1" target="_19">
                             <p>X</p>
                             <fmt-fn-label>
                                <span class="fmt-caption-label">
@@ -183,7 +185,7 @@ RSpec.describe IsoDoc do
                          <td valign="top" align="left" style="background-color: green;">Arborio</td>
                          <td valign="middle" align="center">
                             Drago
-                            <fn reference="a" id="_2" target="_12">
+                            <fn reference="a" id="_2" target="_13">
                                <p original-id="_">Parboiled rice.</p>
                                <fmt-fn-label>
                                   <span class="fmt-caption-label">
@@ -196,12 +198,22 @@ RSpec.describe IsoDoc do
                          </td>
                          <td valign="bottom" align="center">
                             Balilla
-                            <fn reference="a" id="_3" target="_12">
+                            <fn reference="a" id="_3" target="_13">
                                <p id="_">Parboiled rice.</p>
                                <fmt-fn-label>
                                   <span class="fmt-caption-label">
                                      <sup>
                                         <semx element="autonum" source="_3">a</semx>
+                                     </sup>
+                                  </span>
+                               </fmt-fn-label>
+                            </fn>
+                            <fn reference="a" id="_4" target="_13">
+                               <p id="_">Parboiled rice.</p>
+                               <fmt-fn-label>
+                                  <span class="fmt-caption-label">
+                                     <sup>
+                                        <semx element="autonum" source="_4">a</semx>
                                      </sup>
                                   </span>
                                </fmt-fn-label>
@@ -230,14 +242,14 @@ RSpec.describe IsoDoc do
                       <tr>
                          <td align="left">
                             Reproducibility limit,
-                            <stem type="AsciiMath" id="_22">R</stem>
+                            <stem type="AsciiMath" id="_23">R</stem>
                             <fmt-stem type="AsciiMath">
-                               <semx element="stem" source="_22">R</semx>
+                               <semx element="stem" source="_23">R</semx>
                             </fmt-stem>
                             (= 2,83
-                            <stem type="AsciiMath" id="_23">s_R</stem>
+                            <stem type="AsciiMath" id="_24">s_R</stem>
                             <fmt-stem type="AsciiMath">
-                               <semx element="stem" source="_23">s_R</semx>
+                               <semx element="stem" source="_24">s_R</semx>
                             </fmt-stem>
                             )
                          </td>
@@ -253,14 +265,14 @@ RSpec.describe IsoDoc do
                       </tr>
                    </tfoot>
                    <dl key="true">
-                      <name id="_17">Key</name>
-                      <fmt-name id="_27">
-                         <semx element="name" source="_17">Key</semx>
+                      <name id="_18">Key</name>
+                      <fmt-name id="_28">
+                         <semx element="name" source="_18">Key</semx>
                       </fmt-name>
                       <dt>Drago</dt>
                       <dd>A type of rice</dd>
                    </dl>
-                   <source status="generalisation" id="_4">
+                   <source status="generalisation" id="_5">
                       <origin bibitemid="ISO712" type="inline" citeas="">
                          <localityStack>
                             <locality type="section">
@@ -268,42 +280,42 @@ RSpec.describe IsoDoc do
                             </locality>
                          </localityStack>
                       </origin>
-                      <modification id="_5">
+                      <modification id="_6">
                          <p id="_">with adjustments</p>
                       </modification>
                    </source>
                    <fmt-source>
                       [SOURCE:
-                      <semx element="source" source="_4">
-                         <origin bibitemid="ISO712" type="inline" citeas="" id="_20">
+                      <semx element="source" source="_5">
+                         <origin bibitemid="ISO712" type="inline" citeas="" id="_21">
                             <localityStack>
                                <locality type="section">
                                   <referenceFrom>1</referenceFrom>
                                </locality>
                             </localityStack>
                          </origin>
-                         <semx element="origin" source="_20">
+                         <semx element="origin" source="_21">
                             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 1</fmt-xref>
                          </semx>
                          —
-                         <semx element="modification" source="_5">with adjustments</semx>
+                         <semx element="modification" source="_6">with adjustments</semx>
                       </semx>
                       ;
-                      <semx element="source" source="_6">
-                         <origin bibitemid="ISO712" type="inline" citeas="" id="_21">
+                      <semx element="source" source="_7">
+                         <origin bibitemid="ISO712" type="inline" citeas="" id="_22">
                             <localityStack>
                                <locality type="section">
                                   <referenceFrom>2</referenceFrom>
                                </locality>
                             </localityStack>
                          </origin>
-                         <semx element="origin" source="_21">
+                         <semx element="origin" source="_22">
                             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 2</fmt-xref>
                          </semx>
                       </semx>
                       ]
                    </fmt-source>
-                   <source status="specialisation" id="_6">
+                   <source status="specialisation" id="_7">
                       <origin bibitemid="ISO712" type="inline" citeas="">
                          <localityStack>
                             <locality type="section">
@@ -313,7 +325,7 @@ RSpec.describe IsoDoc do
                       </origin>
                    </source>
                    <note>
-                      <fmt-name id="_28">
+                      <fmt-name id="_29">
                          <span class="fmt-caption-label">
                             <span class="fmt-element-name">NOTE</span>
                          </span>
@@ -324,7 +336,7 @@ RSpec.describe IsoDoc do
                       <p>This is a table about rice</p>
                    </note>
                    <fmt-footnote-container>
-                      <fmt-fn-body id="_12" target="_2" reference="a">
+                      <fmt-fn-body id="_13" target="_2" reference="a">
                          <semx element="fn" source="_2">
                             <p id="_">
                                <fmt-fn-label>
@@ -354,8 +366,8 @@ RSpec.describe IsoDoc do
           </preface>
           <sections>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
-                <title id="_11">Normative References</title>
-                <fmt-title depth="1" id="_29">
+                <title id="_12">Normative References</title>
+                <fmt-title depth="1" id="_30">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -363,7 +375,7 @@ RSpec.describe IsoDoc do
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_11">Normative References</semx>
+                   <semx element="title" source="_12">Normative References</semx>
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Clause</span>
@@ -390,7 +402,7 @@ RSpec.describe IsoDoc do
              </references>
           </sections>
           <annex id="Annex1" autonum="A" displayorder="4">
-             <fmt-title id="_30">
+             <fmt-title id="_31">
                 <strong>
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">Annex</span>
@@ -405,7 +417,7 @@ RSpec.describe IsoDoc do
                 <semx element="autonum" source="Annex1">A</semx>
              </fmt-xref-label>
              <table id="AnnexTable" autonum="A.1">
-                <fmt-name id="_31">
+                <fmt-name id="_32">
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">Table</span>
                       <semx element="autonum" source="Annex1">A</semx>
@@ -426,7 +438,7 @@ RSpec.describe IsoDoc do
                 </tbody>
              </table>
              <table>
-                <fmt-name id="_32">
+                <fmt-name id="_33">
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">Table</span>
                    </span>
@@ -441,13 +453,13 @@ RSpec.describe IsoDoc do
           <bibliography>
          </bibliography>
           <fmt-footnote-container>
-             <fmt-fn-body id="_18" target="" reference="1">
+             <fmt-fn-body id="_19" target="" reference="1">
                 <semx element="fn" source="_1">
                    <p>
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
-                               <semx element="autonum" source="_19">1</semx>
+                               <semx element="autonum" source="_20">1</semx>
                             </sup>
                          </span>
                          <span class="fmt-caption-delim">
@@ -471,7 +483,7 @@ RSpec.describe IsoDoc do
                       Table 1\\u00a0— Repeatability and reproducibility of
                       <i>husked</i>
                       rice yield
-                      <a class="FootnoteRef" href="#fn:_18">
+                      <a class="FootnoteRef" href="#fn:_19">
                          <sup>1</sup>
                       </a>
                    </p>
@@ -499,6 +511,7 @@ RSpec.describe IsoDoc do
                             </td>
                             <td style="text-align:center;vertical-align:bottom;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">
                                Balilla
+                               <a href="#tableD-1a" class="TableFootnoteRef">a</a>
                                <a href="#tableD-1a" class="TableFootnoteRef">a</a>
                             </td>
                             <td style="text-align:center;border-top:none;border-bottom:solid windowtext 1.5pt;" scope="col">Thaibonnet</td>
@@ -615,7 +628,7 @@ RSpec.describe IsoDoc do
                       </tbody>
                    </table>
                 </div>
-                <aside id="fn:_18" class="footnote">
+                <aside id="fn:_19" class="footnote">
                    <p>X</p>
                 </aside>
              </div>
@@ -634,7 +647,7 @@ RSpec.describe IsoDoc do
                        Table 1\\u00a0— Repeatability and reproducibility of
                        <i>husked</i>
                         rice yield
-                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn_18" epub:type="footnote">1</a></span>
+                       <span style="mso-bookmark:_Ref" class="MsoFootnoteReference"><a class="FootnoteRef" href="#ftn_19" epub:type="footnote">1</a></span>
                      </p>
                <div align="center" class="table_container">
                  <table id="tableD-1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
@@ -658,6 +671,7 @@ RSpec.describe IsoDoc do
                          </td>
                        <td valign="bottom" align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
                            Balilla
+                           <a href="#tableD-1a" class="TableFootnoteRef">a</a>
                            <a href="#tableD-1a" class="TableFootnoteRef">a</a>
                          </td>
                        <td align="center" style="border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">Thaibonnet</td>
@@ -776,7 +790,7 @@ RSpec.describe IsoDoc do
                       </table>
                    </div>
                 </div>
-                <aside id="ftn_18">
+                <aside id="ftn_19">
                    <p>X</p>
                 </aside>
              </div>

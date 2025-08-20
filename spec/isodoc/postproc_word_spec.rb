@@ -430,8 +430,8 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-     expect(strip_guid(Canon.format_xml(word.gsub(/_Toc\d\d+/, "_Toc"))
-                .gsub(/<o:p>\\u00a0<\/o:p>/, "")))
+    expect(strip_guid(Canon.format_xml(word.gsub(/_Toc\d\d+/, "_Toc"))
+               .gsub(/<o:p>\\u00a0<\/o:p>/, "")))
       .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
         <div class="WordSection2">
          /* an empty word intro page */
@@ -968,113 +968,113 @@ RSpec.describe IsoDoc do
     expect(html).to include("div.WordSection3_2 {page:WordSection3L;}")
 
     output = <<~OUTPUT
-        <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
-           <div class="WordSection2">
-              <p class="MsoNormal">
-                 <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-              </p>
-              <div class="Section3" id="">
-                 <h1 class="IntroTitle">Preface 1</h1>
-                 <p style="text-align:center;" align="center" class="MsoNormal">
-                    This is a
-                    <p class="MsoNormal">
-                       <br clear="all" class="section"/>
-                    </p>
-                    paragraph
-                 </p>
-              </div>
-           </div>
-           <div class="WordSection2_1">
-              <div align="center" class="table_container">
-                 <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
-                    <tbody>
-                       <tr>
-                          <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
-                          <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
-                       </tr>
-                    </tbody>
-                 </table>
-              </div>
-              <div>
-                 <h2>Preface 1.1</h2>
-                 <p class="MsoNormal">On my side</p>
-                 <p class="MsoNormal">
-                    <br clear="all" class="section"/>
-                 </p>
-              </div>
-           </div>
-           <div class="WordSection2_0">
-              <p class="MsoNormal">Upright again</p>
-              <div>
-                 <h2>Preface 1.3</h2>
-                 <p class="MsoNormal">And still upright</p>
-              </div>
-              <p class="MsoNormal">\\u00a0</p>
-           </div>
-           <p class="MsoNormal">
-              <br clear="all" class="section"/>
-           </p>
-           <div class="WordSection3">
-              <div>
-                 <h1>Foreword</h1>
-                 <div class="Note">
-                    <p class="Note">
-                       For further information on the Foreword, see
-                       <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
-                    </p>
-                    <p class="Note">
-                       <br clear="all" class="section"/>
-                    </p>
-                 </div>
-              </div>
-           </div>
-           <div class="WordSection3_2">
-              <div align="center" class="table_container">
-                 <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
-                    <a name="_" id="_"/>
-                    <thead>
-                       <tr>
-                          <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">A</th>
-                          <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">B</th>
-                       </tr>
-                    </thead>
-                    <tbody>
-                       <tr>
-                          <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">C</td>
-                          <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">D</td>
-                       </tr>
-                    </tbody>
-                    <tfoot>
-                       <tr>
-                          <td colspan="2" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
-                             <div class="Note">
-                                <a name="_" id="_"/>
-                                <p class="Note">B</p>
-                             </div>
-                          </td>
-                       </tr>
-                    </tfoot>
-                 </table>
-              </div>
-              <p class="Note">
-                 <br clear="all" class="section"/>
-              </p>
-           </div>
-           <div class="WordSection3_1">
-              <p class="Note">And up</p>
-              <p class="MsoNormal">
-                 <br clear="all" class="section"/>
-              </p>
-           </div>
-           <div class="WordSection3_0">
-              <div class="Section3">
-                 <a name="_level_1" id="_level_1"/>
-                 <h1 class="Annex">Annex 1</h1>
-              </div>
-           </div>
-           <div style="mso-element:footnote-list"/>
-        </body>
-      OUTPUT
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US">
+         <div class="WordSection2">
+            <p class="MsoNormal">
+               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+            <div class="Section3" id="">
+               <h1 class="IntroTitle">Preface 1</h1>
+               <p style="text-align:center;" align="center" class="MsoNormal">
+                  This is a
+                  <p class="MsoNormal">
+                     <br clear="all" class="section"/>
+                  </p>
+                  paragraph
+               </p>
+            </div>
+         </div>
+         <div class="WordSection2_1">
+            <div align="center" class="table_container">
+               <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                  <tbody>
+                     <tr>
+                        <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">A</td>
+                        <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">B</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div>
+               <h2>Preface 1.1</h2>
+               <p class="MsoNormal">On my side</p>
+               <p class="MsoNormal">
+                  <br clear="all" class="section"/>
+               </p>
+            </div>
+         </div>
+         <div class="WordSection2_0">
+            <p class="MsoNormal">Upright again</p>
+            <div>
+               <h2>Preface 1.3</h2>
+               <p class="MsoNormal">And still upright</p>
+            </div>
+            <p class="MsoNormal">\\u00a0</p>
+         </div>
+         <p class="MsoNormal">
+            <br clear="all" class="section"/>
+         </p>
+         <div class="WordSection3">
+            <div>
+               <h1>Foreword</h1>
+               <div class="Note">
+                  <p class="Note">
+                     For further information on the Foreword, see
+                     <b>ISO/IEC Directives, Part 2, 2016, Clause 12.</b>
+                  </p>
+                  <p class="Note">
+                     <br clear="all" class="section"/>
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="WordSection3_2">
+            <div align="center" class="table_container">
+               <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                  <a name="_" id="_"/>
+                  <thead>
+                     <tr>
+                        <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">A</th>
+                        <th align="left" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">B</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">C</td>
+                        <td align="left" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">D</td>
+                     </tr>
+                  </tbody>
+                  <tfoot>
+                     <tr>
+                        <td colspan="2" style="border-top:0pt;mso-border-top-alt:0pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;">
+                           <div class="Note">
+                              <a name="_" id="_"/>
+                              <p class="Note">B</p>
+                           </div>
+                        </td>
+                     </tr>
+                  </tfoot>
+               </table>
+            </div>
+            <p class="Note">
+               <br clear="all" class="section"/>
+            </p>
+         </div>
+         <div class="WordSection3_1">
+            <p class="Note">And up</p>
+            <p class="MsoNormal">
+               <br clear="all" class="section"/>
+            </p>
+         </div>
+         <div class="WordSection3_0">
+            <div class="Section3">
+               <a name="_level_1" id="_level_1"/>
+               <h1 class="Annex">Annex 1</h1>
+            </div>
+         </div>
+         <div style="mso-element:footnote-list"/>
+      </body>
+    OUTPUT
     expect(strip_guid(Canon.format_xml(html.sub(/^.*<body /m, "<body ")
       .sub(%r{</body>.*$}m, "</body>")))).to be_equivalent_to Canon.format_xml(output)
   end
@@ -1494,5 +1494,144 @@ RSpec.describe IsoDoc do
     word = File.read("test.doc")
     expect(word).to include("div.1Char, p.1Char, p.Heading1Char {")
     expect(word).to include("p.2Char")
+  end
+
+  it "puts delimiters between adjacent footnote markers" do
+    FileUtils.rm_f "test.doc"
+    FileUtils.rm_f "test.html"
+    input = <<~INPUT
+       <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface><foreword displayorder="1" id="A"><fmt-title id="_">Foreword</fmt-title>
+              <table id="tableD-1" alt="tool tip" summary="long desc" width="70%" keep-with-next="true" keep-lines-together="true" autonum="1">
+                 <name id="_14">
+                    Repeatability
+                 </name>
+                 <fmt-name id="_27">
+                    <span class="fmt-caption-label">
+                       <span class="fmt-element-name">Table</span>
+                       <semx element="autonum" source="tableD-1">1</semx>
+                    </span>
+                    <semx element="name" source="_14">
+                       Repeatability
+                    </semx>
+                 </fmt-name>
+                 <colgroup><col width="30%"/></colgroup>
+                 <tbody>
+                 <tr>
+                    <td valign="bottom" align="center">
+                          Balilla
+                          <fn reference="a" id="_3" target="_13">
+                             <p id="_">Parboiled rice.</p>
+                             <fmt-fn-label>
+                                <span class="fmt-caption-label">
+                                   <sup>
+                                      <semx element="autonum" source="_3">a</semx>
+                                   </sup>
+                                </span>
+                             </fmt-fn-label>
+                          </fn><fn reference="a" id="_4" target="_13">
+                             <p id="_">Parboiled rice.</p>
+                             <fmt-fn-label>
+                                <span class="fmt-caption-label">
+                                   <sup>
+                                      <semx element="autonum" source="_4">a</semx>
+                                   </sup>
+                                </span>
+                             </fmt-fn-label>
+                          </fn>
+                       </td>
+                 </tr>
+                 </tbody>
+                 </table>
+           <p>
+              B.
+              <fn reference="3" id="_8" original-reference="2" target="_20">
+                 <p id="_">Formerly denoted as 15 % (m/m).</p>
+                 <fmt-fn-label>
+                    <span class="fmt-caption-label">
+                       <sup>
+                          <semx element="autonum" source="_8">3</semx>
+                       </sup>
+                    </span>
+                 </fmt-fn-label>
+              </fn><fn reference="4" id="_9" original-reference="1" target="_21">
+                 <p id="_">Hello! denoted as 15 % (m/m).</p>
+                 <fmt-fn-label>
+                    <span class="fmt-caption-label">
+                       <sup>
+                          <semx element="autonum" source="_9">4</semx>
+                       </sup>
+                    </span>
+                 </fmt-fn-label>
+              </fn>
+           </p>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <div>
+         <a name="A" id="A"/>
+         <h1 class="ForewordTitle">Foreword</h1>
+         <p class="TableTitle" style="text-align:center;">
+
+                       Table
+                       1
+
+
+                       Repeatability
+
+                 </p>
+         <div align="center" class="table_container">
+            <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
+               <a name="tableD-1" id="tableD-1"/>
+               <colgroup>
+                  <col width="30%"/>
+               </colgroup>
+               <tbody>
+                  <tr>
+                     <td valign="bottom" align="center" style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;" width="30.0%">
+                        Balilla
+                        <a href="#tableD-1a" class="TableFootnoteRef">
+
+
+                                      a
+
+
+                             </a>
+                        <span class="TableFootnoteRef">, </span>
+                        <a href="#tableD-1a" class="TableFootnoteRef">
+
+
+                                      a
+
+
+                             </a>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <p class="MsoNormal">
+            B.
+            <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+               <a class="FootnoteRef" epub:type="footnote" href="#ftn_20">3</a>
+            </span>
+            <span class="MsoFootnoteReference">, </span>
+            <span style="mso-bookmark:_Ref" class="MsoFootnoteReference">
+               <a class="FootnoteRef" epub:type="footnote" href="#ftn_21">4</a>
+            </span>
+         </p>
+      </div>
+    OUTPUT
+    IsoDoc::WordConvert.new(
+      { wordstylesheet: "spec/assets/word.css",
+        htmlstylesheet: "spec/assets/html.scss" },
+    ).convert("test", input, false)
+    word = Nokogiri::XML(File.read("test.doc")
+      .sub(/^.*<body/m, "<body")
+      .sub(%r{</body>.*$}m, "</body>"))
+    word = word.at("//div[a/@name = 'A']")
+    expect(strip_guid(Canon.format_xml(word.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 end

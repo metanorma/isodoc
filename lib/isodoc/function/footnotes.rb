@@ -38,8 +38,7 @@ module IsoDoc
         fnbody.xpath(ns(".//fmt-fn-label")).each do |s|
           s["class"] = "TableFootnoteRef"
           s.name = "span"
-          d = s.at(ns("./span[@class = 'fmt-caption-delim']")) and
-            s.next = d
+          d = s.at(ns("./span[@class = 'fmt-caption-delim']")) and s.next = d
         end
       end
 
