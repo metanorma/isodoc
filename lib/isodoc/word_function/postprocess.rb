@@ -63,6 +63,7 @@ module IsoDoc
         word_floating_titles(docxml)
         word_section_breaks(docxml)
         word_tab_clean(docxml)
+        word_fn_cleanup(docxml)
         authority_cleanup(docxml)
         word_remove_empty_toc(docxml)
         word_remove_empty_sections(docxml)
@@ -195,6 +196,23 @@ module IsoDoc
             n.replace(n.text.gsub(" ", "\u00a0").gsub("-", "\u2011")
               .gsub(/\.(?=.)/, ".\u2060"))
           end
+        end
+      end
+
+      TABLE_FN_ADJ = <<~XPATH.freeze
+        //a[@class='TableFootnoteRef'][following-sibling::*[1][self::a[@class='TableFootnoteRef']]]
+      XPATH
+
+      FN_ADJ = <<~XPATH.freeze
+        //span[@class='MsoFootnoteReference'][following-sibling::*[1][self::span[@class='MsoFootnoteReference']]]
+      XPATH
+
+      def word_fn_cleanup(docxml)
+        docxml.xpath(TABLE_FN_ADJ).each do |a|
+          a.next = '<span class="TableFootnoteRef">, </span>'
+        end
+        docxml.xpath(FN_ADJ).each do |a|
+          a.next = '<span class="MsoFootnoteReference">, </span>'
         end
       end
     end
