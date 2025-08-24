@@ -107,14 +107,14 @@ module IsoDoc
       set(:agency, agency)
       set(:publisher, connectives_strip(@i18n.boolean_conj(publisher, "and")))
       set(:copublisher_logos, logos.map { |l| to_datauri(l) })
-      set(:copublisher_logo_attrs, copublisher_logo_attrs(xml))
+      set(:copublisher_logo_attrs, contrib_logo_attrs(xml, "publisher"))
       agency_addr(xml)
     end
 
-    def copublisher_logo_attrs(xml)
+    def contrib_logo_attrs(xml, role)
       xml.xpath(ns("//metanorma-extension/presentation-metadata/*"))
         .each_with_object([]) do |x, m|
-          copublisher_logo_attr?(x) or next
+          contrib_logo_attr?(x, role) or next
           p = x.name.split(/[_-]/)
           idx = (p[4] || "1").to_i - 1
           m[idx] ||= {}
@@ -123,8 +123,8 @@ module IsoDoc
         end
     end
 
-    def copublisher_logo_attr?(elem)
-      elem.name.start_with?("logo-publisher-") or return false
+    def contrib_logo_attr?(elem, role)
+      elem.name.start_with?("logo-#{role}-") or return false
       p = elem.name.split(/[_-]/)
       %w(doc html).include?(p[2]) &&
         %w(height width).include?(p[3]) &&
