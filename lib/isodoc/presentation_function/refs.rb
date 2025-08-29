@@ -4,9 +4,9 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def references(docxml)
       bibliography_bibitem_number(docxml)
-      renderings = references_render(docxml)
+      @ref_renderings = references_render(docxml)
       docxml.xpath(ns("//references/bibitem")).each do |x|
-        bibitem(x, renderings)
+        bibitem(x, @ref_renderings)
         reference_name(x)
       end
       hidden_items(docxml)
