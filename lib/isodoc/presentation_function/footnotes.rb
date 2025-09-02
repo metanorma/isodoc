@@ -80,13 +80,21 @@ module IsoDoc
     end
 
     def non_document_footnotes(docxml)
-      table_fns = docxml.xpath(ns("//table//fn")) -
+      table_footnotes(docxml) + figure_footnotes(docxml)
+    end
+
+    def table_footnotes(docxml)
+      docxml.xpath(ns("//table//fn")) -
         docxml.xpath(ns("//table/name//fn")) -
-        docxml.xpath(ns("//table/fmt-name//fn"))
-      fig_fns = docxml.xpath(ns("//figure//fn")) -
+        docxml.xpath(ns("//table/fmt-name//fn")) -
+        docxml.xpath(ns("//fmt-provision/table//fn")) +
+        docxml.xpath(ns("//fmt-provision/table//table//fn"))
+    end
+
+    def figure_footnotes(docxml)
+      docxml.xpath(ns("//figure//fn")) -
         docxml.xpath(ns("//figure/name//fn")) -
         docxml.xpath(ns("//figure/fmt-name//fn"))
-      table_fns + fig_fns
     end
 
     def filter_document_footnotes(sects, excl)
@@ -190,7 +198,8 @@ module IsoDoc
     def comment_to_bookmark_attrs(elem, bookmark, start: true)
       bookmark["target"] = elem["id"]
       if start then bookmark["end"] = elem["to"]
-      else bookmark["start"] = elem["from"] end
+      else bookmark["start"] = elem["from"]
+      end
       %w(author date).each { |k| bookmark[k] = elem[k] }
     end
 
