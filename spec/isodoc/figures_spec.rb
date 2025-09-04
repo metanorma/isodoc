@@ -80,11 +80,11 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_7" displayorder="1">
-                <fmt-title depth="1" id="_24">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_23">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
                 <title id="_10">Foreword</title>
-                <fmt-title depth="1" id="_25">
+                <fmt-title depth="1" id="_24">
                    <semx element="title" source="_10">Foreword</semx>
                 </fmt-title>
                 <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
@@ -92,18 +92,11 @@ RSpec.describe IsoDoc do
                       Split-it-right
                       <em>sample</em>
                       divider
-                      <fn reference="1" original-id="_1" id="_19" target="_18">
+                      <fn original-id="_1" original-reference="1">
                          <p>X</p>
-                         <fmt-fn-label>
-                            <span class="fmt-caption-label">
-                               <sup>
-                                  <semx element="autonum" source="_19">1</semx>
-                               </sup>
-                            </span>
-                         </fmt-fn-label>
                       </fn>
                    </name>
-                   <fmt-name id="_26">
+                   <fmt-name id="_25">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="figureA-1">1</semx>
@@ -136,9 +129,9 @@ RSpec.describe IsoDoc do
                    <fn reference="a" id="_2" target="_12">
                       <p original-id="_">
                          The time
-                         <stem type="AsciiMath" id="_22">t_90</stem>
+                         <stem type="AsciiMath" id="_21">t_90</stem>
                          <fmt-stem type="AsciiMath">
-                            <semx element="stem" source="_22">t_90</semx>
+                            <semx element="stem" source="_21">t_90</semx>
                          </fmt-stem>
                          was estimated to be 18,2 min for this example.
                       </p>
@@ -180,9 +173,9 @@ RSpec.describe IsoDoc do
                             <semx element="fn" source="_2">
                                <p id="_">
                                   The time
-                                  <stem type="AsciiMath" id="_23">t_90</stem>
+                                  <stem type="AsciiMath" id="_22">t_90</stem>
                                   <fmt-stem type="AsciiMath">
-                                     <semx element="stem" source="_23">t_90</semx>
+                                     <semx element="stem" source="_22">t_90</semx>
                                   </fmt-stem>
                                   was estimated to be 18,2 min for this example.
                                </p>
@@ -227,14 +220,14 @@ RSpec.describe IsoDoc do
                    <fmt-source>
                       [SOURCE:
                       <semx element="source" source="_4">
-                         <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_20">
+                         <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_19">
                             <localityStack>
                                <locality type="section">
                                   <referenceFrom>1</referenceFrom>
                                </locality>
                             </localityStack>
                          </origin>
-                         <semx element="origin" source="_20">
+                         <semx element="origin" source="_19">
                             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 1</fmt-xref>
                          </semx>
                          —
@@ -242,14 +235,14 @@ RSpec.describe IsoDoc do
                       </semx>
                       ;
                       <semx element="source" source="_6">
-                         <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_21">
+                         <origin bibitemid="ISO712" type="inline" citeas="ISO 712" id="_20">
                             <localityStack>
                                <locality type="section">
                                   <referenceFrom>2</referenceFrom>
                                </locality>
                             </localityStack>
                          </origin>
-                         <semx element="origin" source="_21">
+                         <semx element="origin" source="_20">
                             <fmt-xref type="inline" target="ISO712">ISO\\u00a0712, Section 2</fmt-xref>
                          </semx>
                       </semx>
@@ -266,7 +259,7 @@ RSpec.describe IsoDoc do
                    </source>
                 </figure>
                 <figure id="figure-B" autonum="2">
-                   <fmt-name id="_27">
+                   <fmt-name id="_26">
                       <span class="fmt-caption-label">
                          <span class="fmt-element-name">Figure</span>
                          <semx element="autonum" source="figure-B">2</semx>
@@ -288,7 +281,7 @@ RSpec.describe IsoDoc do
           <sections>
              <references id="_normative_references" obligation="informative" normative="true" displayorder="3">
                 <title id="_11">Normative References</title>
-                <fmt-title depth="1" id="_28">
+                <fmt-title depth="1" id="_27">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -303,6 +296,7 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="_normative_references">1</semx>
                 </fmt-xref-label>
                 <bibitem id="ISO712" type="standard">
+                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and cereal products</em>
@@ -318,12 +312,11 @@ RSpec.describe IsoDoc do
                          <name>International Organization for Standardization</name>
                       </organization>
                    </contributor>
-                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
                 </bibitem>
              </references>
           </sections>
           <annex id="Annex" autonum="A" displayorder="4">
-             <fmt-title id="_29">
+             <fmt-title id="_28">
                 <strong>
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">Annex</span>
@@ -338,7 +331,7 @@ RSpec.describe IsoDoc do
                 <semx element="autonum" source="Annex">A</semx>
              </fmt-xref-label>
              <figure id="AnnexFigure" autonum="A.1">
-                <fmt-name id="_30">
+                <fmt-name id="_29">
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">Figure</span>
                       <semx element="autonum" source="Annex">A</semx>
@@ -359,13 +352,13 @@ RSpec.describe IsoDoc do
           <bibliography>
              </bibliography>
           <fmt-footnote-container>
-             <fmt-fn-body id="_18" target="" reference="1">
+             <fmt-fn-body id="_18" target="_1" reference="1">
                 <semx element="fn" source="_1">
                    <p>
                       <fmt-fn-label>
                          <span class="fmt-caption-label">
                             <sup>
-                               <semx element="autonum" source="_19">1</semx>
+                               <semx element="autonum" source="_1">1</semx>
                             </sup>
                          </span>
                          <span class="fmt-caption-delim">
@@ -913,11 +906,11 @@ RSpec.describe IsoDoc do
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
+                <fmt-title depth="1" id="_">Table of contents</fmt-title>
              </clause>
              <foreword id="fwd" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" class="diagram" autonum="1">
@@ -925,15 +918,8 @@ RSpec.describe IsoDoc do
                       Split-it-right
                       <em>sample</em>
                       divider
-                      <fn reference="1" original-id="_" id="_" target="_">
+                      <fn original-id="_" original-reference="1">
                          <p>X</p>
-                         <fmt-fn-label>
-                            <span class="fmt-caption-label">
-                               <sup>
-                                  <semx element="autonum" source="_">1</semx>
-                               </sup>
-                            </span>
-                         </fmt-fn-label>
                       </fn>
                    </name>
                    <fmt-name id="_">
@@ -1040,7 +1026,7 @@ RSpec.describe IsoDoc do
              </foreword>
           </preface>
           <fmt-footnote-container>
-             <fmt-fn-body id="_" target="" reference="1">
+             <fmt-fn-body id="_" target="_" reference="1">
                 <semx element="fn" source="_">
                    <p>
                       <fmt-fn-label>
