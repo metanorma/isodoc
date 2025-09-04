@@ -166,7 +166,7 @@ module IsoDoc
           when "image" then image_parse(node, out, nil)
           when "sourcecode" then sourcecode_parse(node, out)
           when "pre" then pre_parse(node, out)
-          when "annotation" then annotation_parse(node, out)
+          when "callout-annotation" then annotation_parse(node, out)
           when "term" then termdef_parse(node, out)
           when "preferred" then semx_term_parse(node, out)
           when "fmt-preferred" then term_parse(node, out)

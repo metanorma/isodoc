@@ -11,9 +11,7 @@ module IsoDoc
           k.include?(a["class"]) or next
           a1 = a.next_element or next
           k.include?(a1["class"]) or next
-          a.next = <<~XML
-            <span class='#{a['class']}'>, </span>
-          XML
+          a << ", "
         end
         docxml
       end

@@ -1366,8 +1366,7 @@ RSpec.describe IsoDoc do
                 <ul>
                    <li>
                       A
-                      <a class="FootnoteRef" href="#1a">1</a>
-                      <span class="FootnoteRef">, </span>
+                      <a class="FootnoteRef" href="#1a">1, </a>
                       <a class="FootnoteRef" href="#2a">2</a>
                    </li>
                 </ul>
@@ -1376,8 +1375,7 @@ RSpec.describe IsoDoc do
                       <tr>
                          <td>
                             A
-                            <a class="TableFootnoteRef">a</a>
-                            <span class="TableFootnoteRef">, </span>
+                            <a class="TableFootnoteRef">a, </a>
                             <a class="TableFootnoteRef">b</a>
                          </td>
                       </tr>
