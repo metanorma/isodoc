@@ -11,6 +11,7 @@ module IsoDoc
           k.include?(a["class"]) or next
           a1 = a.next_element or next
           k.include?(a1["class"]) or next
+          sup = a.at("./sup") and a = sup
           a << ", "
         end
         docxml
