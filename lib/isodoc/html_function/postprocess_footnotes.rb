@@ -1,25 +1,19 @@
 module IsoDoc
   module HtmlFunction
     module Html
-      def update_footnote_filter(fnote, xref, idx, seen)
-        if seen[fnote.text]
-          xref.at("./sup").content = seen[fnote.text][:num].to_s
-          fnote.remove unless xref["href"] == seen[fnote.text][:href]
-          xref["href"] = seen[fnote.text][:href]
-        else
-          seen[fnote.text] = { num: idx, href: xref["href"] }
-          xref.at("./sup").content = idx.to_s
-          idx += 1
-        end
-        [idx, seen]
+      def html_footnote(html)
+        footnote_backlinks(footnote_delimit(html))
       end
 
-      def html_footnote_filter(docxml)
-        seen = {}
-        i = 1
-        docxml.xpath('//a[@class = "FootnoteRef"]').each do |x|
-          fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
-          i, seen = update_footnote_filter(fn, x, i, seen)
+      def footnote_delimit(docxml)
+        k = %w(FootnoteRef TableFootnoteRef)
+        docxml.xpath("//a").each do |a|
+          k.include?(a["class"]) or next
+          a1 = a.next_element or next
+          k.include?(a1["class"]) or next
+          a.next = <<~XML
+            <span class='#{a['class']}'>, </span>
+          XML
         end
         docxml
       end
@@ -37,13 +31,18 @@ module IsoDoc
       def footnote_backlinks(docxml)
         seen = {}
         docxml.xpath('//a[@class = "FootnoteRef"]').each_with_index do |x, i|
-          (seen[x["href"]] and next) or seen[x["href"]] = true
-          fn = docxml.at(%<//*[@id = '#{x['href'].sub(/^#/, '')}']>) || next
+          fn = footnote_backlink?(x, docxml, seen) or next
+          seen[x["href"]] = true
           footnote_backlinks1(x, fn)
           x["id"] ||= "fnref:#{i + 1}"
           fn.add_child "<a href='##{x['id']}'>&#x21A9;</a>"
         end
         docxml
+      end
+
+      def footnote_backlink?(elem, docxml, seen)
+        seen[elem["href"]] and return
+        docxml.at(%<//*[@id = '#{elem['href'].sub(/^#/, '')}']>)
       end
     end
   end

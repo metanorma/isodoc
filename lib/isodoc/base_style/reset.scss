@@ -145,16 +145,6 @@ div.document-stage-band, div.document-type-band {
   background-color: #333333;
 }
 
-a.FootnoteRef + a.FootnoteRef::before {
-    content: ", ";
-    vertical-align: super;
-  }
-
-a.TableFootnoteRef + a.TableFootnoteRef::before { 
-    content: ", ";
-    vertical-align: super; 
-  }
-
 a.TableFootnoteRef, span.TableFootnoteRef, 
 a.FootnoteRef, span.FootnoteRef {
   vertical-align: super; 

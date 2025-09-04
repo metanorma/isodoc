@@ -1335,4 +1335,60 @@ RSpec.describe IsoDoc do
     expect(html).not_to include("&#x3c;X&#x3e;")
     expect(html).to include("&lt;X&gt;")
   end
+
+  it "delimits footnotes (HTML)" do
+    input = <<~INPUT
+      <html xmlns:epub="http://www.idpf.org/2007/ops">
+      <head/>
+      <body>
+        <div class="main-section">
+        <ul>
+        <li>A<a class="FootnoteRef" href="#1a">1</a><a class="FootnoteRef" href="#2a">2</a></li>
+        </ul>
+        <table>
+        <tbody>
+        <tr>
+        <td>A<a class="TableFootnoteRef">a</a><a class="TableFootnoteRef">b</a></td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        <div>
+        <a name="1a"/>
+        <a name="2a"/>
+        <div>
+      </body>
+      </html>
+    INPUT
+    output = <<~OUTPUT
+       <main class="main-section">
+                <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+                <ul>
+                   <li>
+                      A
+                      <a class="FootnoteRef" href="#1a">1</a>
+                      <span class="FootnoteRef">, </span>
+                      <a class="FootnoteRef" href="#2a">2</a>
+                   </li>
+                </ul>
+                <table>
+                   <tbody>
+                      <tr>
+                         <td>
+                            A
+                            <a class="TableFootnoteRef">a</a>
+                            <span class="TableFootnoteRef">, </span>
+                            <a class="TableFootnoteRef">b</a>
+                         </td>
+                      </tr>
+                   </tbody>
+                </table>
+             </main>
+    OUTPUT
+    expect(Canon.format_xml(IsoDoc::HtmlConvert
+  .new(htmlstylesheet: "spec/assets/html.scss", filename: "test")
+  .html_cleanup(Nokogiri::XML(input)).to_xml)
+  .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+      .to be_equivalent_to Canon.format_xml(output)
+  end
 end

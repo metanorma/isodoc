@@ -13,8 +13,7 @@ module IsoDoc
       end
 
       def htmlstylesheet(file)
-        return if file.nil?
-
+        file.nil? and return
         file.open if file.is_a?(Tempfile)
         stylesheet = file.read
         xml = Nokogiri::XML("<style/>")
@@ -26,8 +25,7 @@ module IsoDoc
       end
 
       def htmlstyle(docxml)
-        return docxml unless @htmlstylesheet
-
+        @htmlstylesheet or return docxml
         head = docxml.at("//*[local-name() = 'head']")
         head << htmlstylesheet(@htmlstylesheet)
         s = htmlstylesheet(@htmlstylesheet_override) and head << s
@@ -53,10 +51,10 @@ module IsoDoc
       def authority_cleanup1(docxml, klass)
         dest = docxml.at("//div[@id = 'boilerplate-#{klass}-destination']")
         auth = docxml.at("//div[@id = 'boilerplate-#{klass}' or " \
-                         "@class = 'boilerplate-#{klass}']")
-        auth&.xpath(".//h1[not(text())] | .//h2[not(text())]")&.each(&:remove)
-        auth&.xpath(".//h1 | .//h2")&.each { |h| h["class"] = "IntroTitle" }
-        dest and auth and dest.replace(auth.remove)
+                         "@class = 'boilerplate-#{klass}']") or return
+        auth.xpath(".//h1[not(text())] | .//h2[not(text())]").each(&:remove)
+        auth.xpath(".//h1 | .//h2").each { |h| h["class"] = "IntroTitle" }
+        dest && auth and dest.replace(auth.remove)
       end
 
       def authority_cleanup(docxml)
@@ -163,8 +161,7 @@ module IsoDoc
       end
 
       def inject_script(doc)
-        return doc unless @scripts
-
+        @scripts or return doc
         scripts = File.read(@scripts, encoding: "UTF-8")
         scripts_override = ""
         @scripts_override and
