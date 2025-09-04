@@ -3,12 +3,12 @@ require_relative "docid"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def references(docxml)
-      bibliography_bibitem_number(docxml)
       @ref_renderings = references_render(docxml)
       docxml.xpath(ns("//references/bibitem")).each do |x|
         bibitem(x, @ref_renderings)
         reference_name(x)
       end
+      bibliography_bibitem_number(docxml)
       hidden_items(docxml)
       move_norm_ref_to_sections(docxml)
     end
@@ -174,7 +174,7 @@ module IsoDoc
             else norm_ref_entry_code(ordinal, idents, ids, standard, datefn,
                                      bib)
             end
-      bib << "<biblio-tag>#{ret}</biblio-tag>"
+      bib.add_first_child("<biblio-tag>#{ret}</biblio-tag>")
     end
 
     def norm_ref_entry_code(_ordinal, idents, _ids, _standard, datefn, _bib)

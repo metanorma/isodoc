@@ -115,6 +115,7 @@ module IsoDoc
     end
 
     def renumber_document_footnote(fnote, idx, seen)
+      sem_xml_descendant?(fnote) and return idx
       fnote["original-reference"] = fnote["reference"]
       if seen[fnote["reference"]]
         fnote["reference"] = seen[fnote["reference"]]
