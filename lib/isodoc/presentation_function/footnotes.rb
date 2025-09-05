@@ -3,7 +3,8 @@ module IsoDoc
     def footnote_collect(fnotes)
       seen = {}
       fnotes.each_with_object([]) do |x, m|
-        seen[x["reference"]] or m << fnbody(x, seen)
+        x["reference"] or next # ignore semx-only footnotes
+        b = fnbody(x, seen) and m << b
         x["target"] = seen[x["reference"]]
         ref = x["hiddenref"] == "true" ? "" : fn_ref_label(x)
         x << <<~FNOTE.strip
@@ -21,6 +22,7 @@ module IsoDoc
     end
 
     def fnbody(fnote, seen)
+      add_fnbody?(fnote, seen) or return nil
       body = Nokogiri::XML::Node.new("fmt-fn-body", fnote.document)
       add_id(body)
       body["target"] = fnote["id"]
@@ -29,6 +31,10 @@ module IsoDoc
       insert_fn_body_ref(fnote, body)
       seen[fnote["reference"]] = body["id"]
       body
+    end
+
+    def add_fnbody?(fnote, seen)
+      !seen[fnote["reference"]]
     end
 
     def insert_fn_body_ref(fnote, body)
@@ -116,7 +122,10 @@ module IsoDoc
 
     def renumber_document_footnote(fnote, idx, seen)
       fnote["original-reference"] = fnote["reference"]
-      if seen[fnote["reference"]]
+      if sem_xml_descendant?(fnote)
+        fnote.delete("reference")
+        return idx
+      elsif seen[fnote["reference"]]
         fnote["reference"] = seen[fnote["reference"]]
       else
         seen[fnote["reference"]] = idx
