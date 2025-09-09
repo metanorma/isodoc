@@ -84,11 +84,6 @@ module IsoDoc
       status_print(docstatus).split(/ /).map { |s| s[0].upcase }.join
     end
 
-    # KILL
-    def unpublishedx(status)
-      !status.casecmp("published").zero?
-    end
-
     def status_print(status)
       status.split(/[- ]/).map do |w|
         letters = w.chars

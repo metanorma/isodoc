@@ -96,10 +96,11 @@ module IsoDoc
       p.add_first_child "&lt;#{to_xml(d1)}&gt;  "
     end
 
+    # TODO should I wrap fmt-definition//termsource in fmt-termsource,
+    # in order to preserve termsource attributes?
+    # differentiating term and nonterm source under designations is not worth it
     def termsource(docxml)
       copy_baselevel_termsource(docxml)
-      # TODO should I wrap fmt-definition//termsource in fmt-termsource, in order to preserve termsource attributes?
-      # differentiating term and nonterm source under designations is not worth it
       docxml.xpath(ns("//fmt-termsource/source | //fmt-definition//source | //fmt-preferred//source | //fmt-admitted//source | //fmt-deprecates//source"))
         .each do |f|
         termsource_modification(f)

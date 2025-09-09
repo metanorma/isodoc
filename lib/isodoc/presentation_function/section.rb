@@ -71,8 +71,13 @@ module IsoDoc
       if unnumbered_clause?(elem)
         prefix_name(elem, {}, nil, "title")
       else
-        prefix_name(elem, { caption: annex_delim(elem) }, lbl, "title")
+        prefix_name(elem, { caption: annex_delim_override(elem) }, lbl, "title")
       end
+    end
+
+    def annex_delim_override(elem)
+      m = elem.document.root.at(ns("//presentation-metadata/annex-delim"))
+      m ? to_xml(m.children) : annex_delim(elem)
     end
 
     def annex_delim(_elem)

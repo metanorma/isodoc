@@ -3,10 +3,16 @@ require_relative "refs"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def middle_title(docxml)
-      s = docxml.at(ns("//sections")) or return
-      t = @meta.get[:doctitle]
-      t.nil? || t.empty? and return
-      s.add_first_child "<p class='zzSTDTitle1'>#{t}</p>"
+      sections = docxml.at(ns("//sections")) or return
+      m = docxml.at(ns("//presentation-metadata/middle-title"))
+      template = m ? to_xml(m.children) : middle_title_template
+      title = populate_template(template, nil)
+      Nokogiri::XML(title).root.text.strip.empty? and return
+      sections.add_first_child title
+    end
+
+    def middle_title_template
+      "<p class='zzSTDTitle1'>{{ doctitle }}</p>"
     end
 
     def missing_title(docxml)
@@ -79,7 +85,8 @@ module IsoDoc
         if prev.name == "floating-title"
           ret << prev
           p = prev
-        else break end
+        else break
+        end
       end
       ret
     end
