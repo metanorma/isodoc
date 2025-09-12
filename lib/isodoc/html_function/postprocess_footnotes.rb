@@ -2,7 +2,7 @@ module IsoDoc
   module HtmlFunction
     module Html
       def html_footnote(html)
-        footnote_backlinks(footnote_delimit(html))
+        footnote_delimit(footnote_backlinks(html))
       end
 
       def footnote_delimit(docxml)
