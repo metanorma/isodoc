@@ -13,7 +13,7 @@ module IsoDoc
     def middle_title_get_template(docxml)
       m = docxml.at(ns("//presentation-metadata/middle-title"))
       template = m ? to_xml(m.children) : middle_title_template
-      template.strip.empty? and template = nil
+      template&.strip&.empty? and template = nil
       template
     end
 
