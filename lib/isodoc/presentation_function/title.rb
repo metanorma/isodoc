@@ -4,11 +4,17 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def middle_title(docxml)
       sections = docxml.at(ns("//sections")) or return
-      m = docxml.at(ns("//presentation-metadata/middle-title"))
-      template = m ? to_xml(m.children) : middle_title_template
+      template = middle_title_get_template(docxml) or return
       title = populate_template(template, nil)
       Nokogiri::XML(title).root.text.strip.empty? and return
       sections.add_first_child title
+    end
+
+    def middle_title_get_template(docxml)
+      m = docxml.at(ns("//presentation-metadata/middle-title"))
+      template = m ? to_xml(m.children) : middle_title_template
+      template.strip.empty? and template = nil
+      template
     end
 
     def middle_title_template
