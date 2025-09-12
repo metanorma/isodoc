@@ -6,6 +6,7 @@ module IsoDoc
       sections = docxml.at(ns("//sections")) or return
       template = middle_title_get_template(docxml) or return
       title = populate_template(template, nil) or return
+      title.strip.empty? and return
       Nokogiri::XML(title).root.text.strip.empty? and return
       sections.add_first_child title
     end
