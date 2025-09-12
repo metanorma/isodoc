@@ -1353,40 +1353,66 @@ RSpec.describe IsoDoc do
         </tbody>
         </table>
         </div>
-        <div>
-        <a name="1a"/>
-        <a name="2a"/>
-        <div>
+        <div id="footnote-container">
+        <aside>
+        <a id="1a"/>Footnote 1
+        </aside>
+        <aside>
+        <a id="2a"/>Footnote 2
+        </aside>
+        </div>
       </body>
       </html>
     INPUT
     output = <<~OUTPUT
        <main class="main-section">
-                <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-                <ul>
-                   <li>
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+          <ul>
+             <li>
+                A
+                <a class="FootnoteRef" href="#1a" id="fnref:1">1, </a>
+                <a class="FootnoteRef" href="#2a" id="fnref:2">2</a>
+             </li>
+          </ul>
+          <table>
+             <tbody>
+                <tr>
+                   <td>
                       A
-                      <a class="FootnoteRef" href="#1a">1, </a>
-                      <a class="FootnoteRef" href="#2a">2</a>
-                   </li>
-                </ul>
-                <table>
-                   <tbody>
-                      <tr>
-                         <td>
-                            A
-                            <a class="TableFootnoteRef">a, </a>
-                            <a class="TableFootnoteRef">b</a>
-                         </td>
-                      </tr>
-                   </tbody>
-                </table>
-             </main>
+                      <a class="TableFootnoteRef">a, </a>
+                      <a class="TableFootnoteRef">b</a>
+                   </td>
+                </tr>
+             </tbody>
+          </table>
+       </main>
     OUTPUT
-    expect(Canon.format_xml(IsoDoc::HtmlConvert
+    output1 = <<~OUTPUT
+       <div id="footnote-container">
+          <aside>
+             <a id="1a">
+                <a class="FootnoteRef" href="#1a">1</a>
+                <a href="#fnref:1">↩</a>
+             </a>
+             Footnote 1
+          </aside>
+          <aside>
+             <a id="2a">
+                <a class="FootnoteRef" href="#2a">2</a>
+                <a href="#fnref:2">↩</a>
+             </a>
+             Footnote 2
+          </aside>
+       </div>
+    OUTPUT
+    html = IsoDoc::HtmlConvert
   .new(htmlstylesheet: "spec/assets/html.scss", filename: "test")
-  .html_cleanup(Nokogiri::XML(input)).to_xml)
-  .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>"))
+  .html_cleanup(Nokogiri::XML(input)).to_xml
+    expect(Canon.format_xml(html
+  .sub(/^.*<main/m, "<main").sub(%r{</main>.*$}m, "</main>")))
       .to be_equivalent_to Canon.format_xml(output)
+    expect(Canon.format_xml(html
+  .sub(/^.*<div id="footnote-container">/m, '<div id="footnote-container">').sub(%r{</div>.*$}m, "</div>")))
+      .to be_equivalent_to Canon.format_xml(output1)
   end
 end
