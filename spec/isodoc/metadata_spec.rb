@@ -5,7 +5,7 @@ RSpec.describe IsoDoc do
   it "processes IsoXML metadata #1" do
     c = IsoDoc::Convert.new({})
     c.convert_init(<<~INPUT, "test", false)
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="http://riboseinc.com/isoxml"/>
     INPUT
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -141,9 +141,8 @@ RSpec.describe IsoDoc do
         announceddate: "2025",
         authors: ["Barney Rubble", "Fred Flintstone", "B. B. Rubble"],
         authors_affiliations: {
-          "Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock" => ["Barney Rubble"], "" => [
-            "Fred Flintstone", "B. B. Rubble"
-          ]
+          "Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock" => ["Barney Rubble"],
+          "" => ["Fred Flintstone", "B. B. Rubble"],
         },
         circulateddate: "2015",
         confirmeddate: "2017",
@@ -177,6 +176,18 @@ RSpec.describe IsoDoc do
         receiveddate: "XXX",
         revdate: "2016-05-01",
         revdate_monthyear: "May 2016",
+        roles_authors_affiliations: {
+          "editor" => [{ name: "Barney Rubble",
+                         aff: "Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock" }],
+          "author" => [{ name: "Fred Flintstone", aff: "" },
+                       { name: "B. B. Rubble", aff: "" }],
+        },
+        roles_desc_authors_affiliations: {
+          "editor" => { nil => [{ name: "Barney Rubble",
+                                  aff: "Chief Engineer, Slate Inc., Hermeneutics Unit, Exegesis Subunit, Bedrock" }] },
+          "author" => { nil => [{ name: "Fred Flintstone", aff: "" },
+                                { name: "B. B. Rubble", aff: "" }] },
+        },
         script: "Latn",
         stable_untildate: "2026",
         stage: "Committee Draft",
@@ -328,6 +339,182 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to output
   end
 
+  it "processes IsoXML metadata roles" do
+    c = IsoDoc::Convert.new({})
+    c.convert_init(<<~INPUT, "test", false)
+      <iso-standard xmlns="http://riboseinc.com/isoxml"/>
+    INPUT
+    input = <<~INPUT
+      <csa-standard xmlns="https://open.ribose.com/standards/csa">
+      <bibdata type="standard">
+        <title language="en" format="plain">Main Title</title>
+        <docidentifier type="csa">1000(wd)</docidentifier>
+        <docnumber>1000</docnumber>
+           <contributor>
+             <role type='author'/>
+             <person>
+               <name>
+                 <completename>Fred Nerk</completename>
+               </name>
+             </person>
+           </contributor>
+           <contributor>
+             <role type='author'/>
+             <person>
+               <name>
+                 <forename>Joe</forename>
+                 <forename>Frederick</forename>
+                 <surname>Bloggs</surname>
+               </name>
+             </person>
+           </contributor>
+           <contributor>
+             <role type='author'>
+               <description>full-author</description>
+             </role>
+             <person>
+               <name>
+                 <completename>Jerry Springer</completename>
+               </name>
+             </person>
+           </contributor>
+           <contributor>
+             <role type='author'>
+               <description>full-author</description>
+             </role>
+             <person>
+               <name>
+                 <completename>George Foreman</completename>
+               </name>
+             <affiliation>
+               <name>Chief Engineer</name>
+               <organization>
+                 <name>Apple</name>
+                 <subdivision>Sales</subdivision>
+                 <formattedAddress>1 Infinity Loop, Cupertino CA, USA</formattedAddress>
+               </organization>
+             </affiliation>
+             </person>
+           </contributor>
+           <contributor>
+             <role type='author'>
+               <description>regisseur</description>
+             </role>
+             <person>
+               <name>
+                 <completename>Cosmo Cramer</completename>
+               </name>
+             <affiliation>
+               <organization>
+                 <name>Microsoft</name>
+               </organization>
+             </affiliation>
+             </person>
+           </contributor>
+           <contributor>
+             <role type='editor'/>
+             <person>
+               <name>
+                 <forename>Julius</forename>
+                 <surname>Caesar</surname>
+               </name>
+             </person>
+           </contributor>
+           <contributor>
+             <role type='editor'>
+               <description>contributor</description>
+             </role>
+             <person>
+               <name>
+                 <forename>Mark</forename>
+                 <surname>Antony</surname>
+               </name>
+             </person>
+           </contributor>
+           <contributor>
+             <role type='editor'>
+               <description>contributor</description>
+             </role>
+             <person>
+               <name>
+                 <completename>Augustus</completename>
+               </name>
+             </person>
+           </contributor>
+       </bibdata>
+       </csa-standard>
+    INPUT
+    output =
+      { accesseddate: "XXX",
+        adapteddate: "XXX",
+        announceddate: "XXX",
+        authors: ["Fred Nerk", "Joe Frederick Bloggs", "Jerry Springer",
+                  "George Foreman", "Cosmo Cramer", "Julius Caesar",
+                  "Mark Antony", "Augustus"],
+        authors_affiliations: { "" => ["Fred Nerk", "Joe Frederick Bloggs",
+                                       "Jerry Springer", "Julius Caesar",
+                                       "Mark Antony", "Augustus"],
+                                "Chief Engineer, Apple, Sales" => ["George Foreman"],
+                                "Microsoft" => ["Cosmo Cramer"] },
+        circulateddate: "XXX",
+        confirmeddate: "XXX",
+        copieddate: "XXX",
+        correcteddate: "XXX",
+        createddate: "XXX",
+        docnumber: "1000(wd)",
+        docnumeric: "1000",
+        doctitle: "Main Title",
+        implementeddate: "XXX",
+        issueddate: "XXX",
+        lang: "en",
+        obsoleteddate: "XXX",
+        publisheddate: "XXX",
+        receiveddate: "XXX",
+        roles_authors_affiliations: { "author" => [{ name: "Fred Nerk",
+                                                     aff: "" },
+                                                   {
+                                                     name: "Joe Frederick Bloggs",
+                                                     aff: "",
+                                                   },
+                                                   { name: "Jerry Springer",
+                                                     aff: "" },
+                                                   { name: "George Foreman",
+                                                     aff: "Chief Engineer, Apple, Sales" },
+                                                   { name: "Cosmo Cramer",
+                                                     aff: "Microsoft" }],
+                                      "editor" => [{ name: "Julius Caesar",
+                                                     aff: "" },
+                                                   { name: "Mark Antony",
+                                                     aff: "" },
+                                                   { name: "Augustus",
+                                                     aff: "" }] },
+        roles_desc_authors_affiliations: {
+          "author" => {
+            nil => [{ name: "Fred Nerk", aff: "" },
+                    { name: "Joe Frederick Bloggs",
+                      aff: "" }],
+            "full-author" => [{ name: "Jerry Springer", aff: "" },
+                              { name: "George Foreman",
+                                aff: "Chief Engineer, Apple, Sales" }],
+            "regisseur" => [{ name: "Cosmo Cramer",
+                              aff: "Microsoft" }],
+          },
+          "editor" => { nil => [{ name: "Julius Caesar", aff: "" }],
+                        "contributor" => [{ name: "Mark Antony", aff: "" },
+                                          { name: "Augustus", aff: "" }] },
+        },
+        script: "Latn",
+        stable_untildate: "XXX",
+        transmitteddate: "XXX",
+        unchangeddate: "XXX",
+        unpublished: false,
+        updateddate: "XXX",
+        vote_endeddate: "XXX",
+        vote_starteddate: "XXX" }
+    expect(metadata(c.info(Nokogiri::XML(input), nil)))
+      .to be_equivalent_to output
+  end
+
   it "processes logos" do
     c = IsoDoc::Convert.new({})
     c.convert_init(<<~INPUT, "test", false)
@@ -429,7 +616,8 @@ RSpec.describe IsoDoc do
         { "doc" => { "height" => "1" } },
         nil,
         { "doc" => { "height" => "2" }, "html" => { "width" => "3" } },
-        { "html" => { "width" => "4" } } ]
+        { "html" => { "width" => "4" } },
+      ]
   end
 
   it "processes IsoXML metadata language variants" do

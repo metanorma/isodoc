@@ -1,12 +1,16 @@
 module IsoDoc
   class Metadata
+    def extract_person_name(author)
+      if author.at(ns("./name/completename"))
+        author.at(ns("./name/completename")).text
+      else
+        extract_person_name_from_components(author)
+      end
+    end
+
     def extract_person_names(authors)
       authors.reduce([]) do |ret, a|
-        ret << if a.at(ns("./name/completename"))
-                 a.at(ns("./name/completename")).text
-               else
-                 extract_person_name_from_components(a)
-               end
+        ret << extract_person_name(a)
       end
     end
 
@@ -18,16 +22,20 @@ module IsoDoc
       l10n(out.compact.join(" "))
     end
 
+    def extract_person_affiliation(author)
+      pos = author.at(ns("./affiliation/name"))&.text
+      name = author.at(ns("./affiliation/organization/name"))&.text
+      subdivs = author.xpath(ns("./affiliation/organization/subdivision"))
+        &.map(&:text)&.join(", ")
+      location =
+        author.at(ns("./affiliation/organization/address/formattedAddress"))&.text
+      l10n([pos, name, subdivs, location].map { |x| x&.empty? ? nil : x }
+        .compact.join(", "))
+    end
+
     def extract_person_affiliations(authors)
       authors.reduce([]) do |m, a|
-        pos = a.at(ns("./affiliation/name"))&.text
-        name = a.at(ns("./affiliation/organization/name"))&.text
-        subdivs = a.xpath(ns("./affiliation/organization/subdivision"))
-          &.map(&:text)&.join(", ")
-        location =
-          a.at(ns("./affiliation/organization/address/formattedAddress"))&.text
-        m << l10n([pos, name, subdivs, location].map { |x| x&.empty? ? nil : x }
-          .compact.join(", "))
+        m << extract_person_affiliation(a)
         m
       end
     end
@@ -50,8 +58,32 @@ module IsoDoc
       set(:authors_affiliations, extract_person_names_affiliations(authors))
     end
 
+    def person_roles(isoxml)
+      roles = {}
+      roledesc = {}
+      isoxml.xpath(ns("//bibdata/contributor[person]")).each do |c|
+        role, desc, name_aff = person_roles_prep(c)
+        roles[role] ||= []
+        roles[role] << name_aff
+        roledesc[role] ||= {}
+        roledesc[role][desc] ||= []
+        roledesc[role][desc] << name_aff
+      end
+      set(:roles_authors_affiliations, roles)
+      set(:roles_desc_authors_affiliations, roledesc)
+    end
+
+    def person_roles_prep(contrib)
+      role = contrib.at("role/@type").value
+      desc = contrib.at("role/description")&.text
+      name = extract_person_name(contrib.at(ns("./person")))
+      aff = extract_person_affiliation(contrib.at(ns("./person")))
+      [role, desc, { name: name, aff: aff }]
+    end
+
     def author(xml, _out)
       personal_authors(xml)
+      person_roles(xml)
       agency(xml)
     end
 
