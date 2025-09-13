@@ -93,7 +93,8 @@ module IsoDoc
     end
 
     def docid(isoxml, _out)
-      dn = isoxml.at(ns("//bibdata/docidentifier"))
+      dn = isoxml.at(ns("//bibdata/docidentifier[@primary = 'true']")) ||
+        isoxml.at(ns("//bibdata/docidentifier"))
       set(:docnumber, dn&.text)
     end
 

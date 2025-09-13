@@ -3,11 +3,15 @@ require_relative "refs"
 module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def middle_title(docxml)
-      sections = docxml.at(ns("//sections")) or return
       template = middle_title_get_template(docxml) or return
       title = populate_template(template, nil) or return
       title.strip.empty? and return
       Nokogiri::XML(title).root.text.strip.empty? and return
+      middle_title_insert(title)
+    end
+
+    def middle_title_insert(title)
+      sections = docxml.at(ns("//sections")) or return
       sections.add_first_child title
     end
 
