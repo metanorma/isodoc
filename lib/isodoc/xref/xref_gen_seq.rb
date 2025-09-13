@@ -131,18 +131,19 @@ module IsoDoc
       def sequential_permission_body(id, parent_id, elem, label, klass, model,
 container: false)
         lbl = parent_id ? "#{parent_id}#{subreqt_separator}#{id}" : id
-        @anchors[elem["id"]] = model.postprocess_anchor_struct(
+        e = elem["id"]
+        @anchors[e] = model.postprocess_anchor_struct(
           elem, anchor_struct(lbl, elem,
                               label, klass, { unnumb: elem["unnumbered"], container: })
         )
-        @anchors[elem["id"]][:semx] = semx(elem, lbl)
+        @anchors[e][:semx] = semx(elem, lbl)
         if parent_id
           x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
-          @anchors[elem["id"]][:semx] = @anchors[elem.parent["id"]][:semx] + x
-          @anchors[elem["id"]][:label] =
-            "<span class='fmt-element-name'>#{label}</span> #{@anchors[elem['id']][:semx]}"
-          @anchors[elem["id"]][:xref] =
-            "<span class='fmt-element-name'>#{label}</span> #{@anchors[elem['id']][:semx]}"
+          @anchors[e][:semx] = @anchors[elem.parent["id"]][:semx] + x
+          @anchors[e][:label] =
+            "<span class='fmt-element-name'>#{label}</span> #{@anchors[e][:semx]}"
+          @anchors[e][:xref] =
+            "<span class='fmt-element-name'>#{label}</span> #{@anchors[e][:semx]}"
         end
         model.permission_parts(elem, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
