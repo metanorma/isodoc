@@ -118,7 +118,7 @@ module IsoDoc
         sheet_content = File.read(filename, encoding: "UTF-8")
           .gsub(%r<([a-z])\.([0-9])(?=[^{}]*{)>m, "\\1.__WORD__\\2")
         SassC::Engine.new(%<@use "variables" as *;\n#{sheet_content}>,
-                          syntax: :scss, importer: SasscImporter)
+                          syntax: :scss, quiet_deps: true, importer: SasscImporter)
           .render.gsub(/__WORD__/, "")
       end
     end

@@ -88,7 +88,6 @@ module IsoDoc
     def compile_scss(modified_stylesheet)
       SassC::Engine
         .new(modified_stylesheet, quiet_deps: true, syntax: :scss,
-                                  silence_deprecations: %w(mixed-decls),
                                   importer: SasscImporter)
         .render.gsub(/__WORD__/, "")
     end
