@@ -36,6 +36,12 @@ module IsoDoc
         end
       end
 
+      def related_parse(node, out)
+        out.div class: "RelatedTerms", style: "text-align:left;" do |p|
+          node.children.each { |c1| parse(c1, p) }
+        end
+      end
+
       def semx_term_parse(node, out); end
 
       def semx_related_parse(node, out); end

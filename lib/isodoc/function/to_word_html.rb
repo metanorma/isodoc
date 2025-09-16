@@ -180,6 +180,7 @@ module IsoDoc
           when "termsource" then semx_termref_parse(node, out)
           when "fmt-termsource" then termref_parse(node, out)
           when "related" then semx_related_parse(node, out)
+          when "fmt-related" then related_parse(node, out)
           when "modification" then modification_parse(node, out)
           when "termnote" then termnote_parse(node, out)
           when "terms" then terms_parse(node, out)
