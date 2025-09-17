@@ -15,6 +15,7 @@ module IsoDoc
     end
 
     def citeas_cleanup(ref)
+      ref.nil? and return nil
       if ref.include?("<")
         xml = Nokogiri::XML("<root>#{ref}</root>")
         xml.xpath("//semx").each { |x| x.replace(x.children) }
@@ -49,8 +50,7 @@ module IsoDoc
     def eref_localities_conflated(refs, target, node)
       droploc = node["droploc"]
       node["droploc"] = true
-      ret = resolve_eref_connectives(eref_locality_stacks(refs, target,
-                                                          node))
+      ret = resolve_eref_connectives(eref_locality_stacks(refs, target, node))
       node.delete("droploc") unless droploc
       eref_localities1({ target:, number: "pl",
                          type: refs.first.at(ns("./locality/@type")).text,
