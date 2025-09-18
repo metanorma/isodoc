@@ -321,6 +321,128 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(presxml)
   end
 
+    it "renders references with title identifier" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata>
+          <language>en</language>
+          </bibdata>
+          <sections/>
+          <bibliography>
+          <references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+      <bibitem id="ISO712" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="title" primary="true">Cereals or cereal products</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+      </references>
+          <references id="_bibliography" obligation="informative" normative="false"><title>Bibliography</title>
+      <bibitem id="ISO713" type="standard">
+        <title format="text/plain">Cereals or cereal products</title>
+        <title type="main" format="text/plain">Cereals and cereal products</title>
+        <docidentifier type="title" primary="true">Cereals or cereal products #2</docidentifier>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>International Organization for Standardization</name>
+          </organization>
+        </contributor>
+      </bibitem>
+      </references>
+      </bibliography></iso-standard>
+    INPUT
+presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <bibdata>
+             <language current="true">en</language>
+          </bibdata>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1" id="_">Table of contents</fmt-title>
+             </clause>
+          </preface>
+          <sections>
+             <references id="_normative_references" obligation="informative" normative="true" displayorder="2">
+                <title id="_">Normative References</title>
+                <fmt-title depth="1" id="_">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_normative_references">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Normative References</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="_normative_references">1</semx>
+                </fmt-xref-label>
+                <bibitem id="ISO712" type="standard">
+                   <biblio-tag>Cereals\\u00a0or\\u00a0cereal\\u00a0products </biblio-tag>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Cereals and cereal products</em>
+                      .
+                   </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <title type="main" format="text/plain">Cereals and cereal products</title>
+                   <docidentifier type="title" primary="true">Cereals\\u00a0or\\u00a0cereal\\u00a0products</docidentifier>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                </bibitem>
+             </references>
+          </sections>
+          <bibliography>
+             <references id="_bibliography" obligation="informative" normative="false" displayorder="3">
+                <title id="_">Bibliography</title>
+                <fmt-title depth="1" id="_">
+                   <semx element="title" source="_">Bibliography</semx>
+                </fmt-title>
+                <bibitem id="ISO713" type="standard">
+                   <biblio-tag>
+                      [1]
+                      <tab/>
+                   </biblio-tag>
+                   <formattedref>
+                      International Organization for Standardization.
+                      <em>Cereals and cereal products</em>
+                      .
+                   </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <title type="main" format="text/plain">Cereals and cereal products</title>
+                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                   <docidentifier type="title" primary="true">Cereals\\u00a0or\\u00a0cereal\\u00a0products\\u00a0#2</docidentifier>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                      </organization>
+                   </contributor>
+                </bibitem>
+             </references>
+          </bibliography>
+       </iso-standard>
+OUTPUT
+ xml = Nokogiri::XML(
+      IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true),
+    )
+    xml.at("//xmlns:localized-strings").remove
+    expect(strip_guid(Canon.format_xml(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+  end
+
   it "enforces consistent metanorma-ordinal numbering" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">

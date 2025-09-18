@@ -36,7 +36,8 @@ module IsoDoc
     end
 
     def bibitem_ref_code_prep(bib)
-      id = bib.at(ns("./docidentifier[@type = 'metanorma']"))
+      id = bib.at(ns("./docidentifier[@type = 'metanorma']")) ||
+        bib.at(ns("./docidentifier[@type = 'title']"))
       id1 = pref_ref_code(bib)
       id2 = bib.at(ns("./docidentifier[#{SKIP_DOCID}]"))
       id3 = bib.at(ns("./docidentifier[@type = 'metanorma-ordinal']"))
