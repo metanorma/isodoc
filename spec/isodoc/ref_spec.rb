@@ -1147,7 +1147,7 @@ RSpec.describe IsoDoc do
           <preface>
              <foreword id="_" displayorder="1">
                 <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <p id="_">
@@ -1192,7 +1192,7 @@ RSpec.describe IsoDoc do
           <sections>
              <references id="_normative_references" obligation="informative" normative="true" hidden="true" displayorder="3">
                 <title id="_">Normative References</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_normative_references"/>
                       <span class="fmt-autonum-delim">.</span>
@@ -1214,6 +1214,7 @@ RSpec.describe IsoDoc do
                amendments) applies.
              </p>
                 <bibitem id="ISO712" type="standard">
+                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and cereal products</em>
@@ -1229,9 +1230,22 @@ RSpec.describe IsoDoc do
                          <name>International Organization for Standardization</name>
                       </organization>
                    </contributor>
-                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
                 </bibitem>
                 <bibitem id="ISO16634" type="standard">
+                   <biblio-tag>
+                      ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
+                      <fn id="_" reference="1" original-reference="_" target="_">
+                         <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
+                         <fmt-fn-label>
+                            <span class="fmt-caption-label">
+                               <sup>
+                                  <semx element="autonum" source="_">1</semx>
+                               </sup>
+                            </span>
+                         </fmt-fn-label>
+                      </fn>
+                      ,
+                   </biblio-tag>
                    <formattedref>
                       <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
                       .
@@ -1256,22 +1270,9 @@ RSpec.describe IsoDoc do
                    <extent type="part">
                       <referenceFrom>all</referenceFrom>
                    </extent>
-                   <biblio-tag>
-                      ISO\\u00a016634:--\\u00a0(all\\u00a0parts)
-                      <fn id="_" reference="1" original-reference="_" target="_">
-                         <p>Under preparation. (Stage at the time of publication ISO/DIS 16634)</p>
-                         <fmt-fn-label>
-                            <span class="fmt-caption-label">
-                               <sup>
-                                  <semx element="autonum" source="_">1</semx>
-                               </sup>
-                            </span>
-                         </fmt-fn-label>
-                      </fn>
-                      ,
-                   </biblio-tag>
                 </bibitem>
                 <bibitem id="ISO20483" type="standard">
+                   <biblio-tag>ISO\\u00a020483:2013-2014, </biblio-tag>
                    <formattedref>
                       International Organization for Standardization.
                       <em>Cereals and pulses</em>
@@ -1290,9 +1291,9 @@ RSpec.describe IsoDoc do
                          <name>International Organization for Standardization</name>
                       </organization>
                    </contributor>
-                   <biblio-tag>ISO\\u00a020483:2013-2014, </biblio-tag>
                 </bibitem>
                 <bibitem id="ref1">
+                   <biblio-tag>ICC/167, </biblio-tag>
                    <formattedref format="application/x-isodoc+xml">
                       <smallcap>Standard No I.C.C 167</smallcap>
                       .
@@ -1310,7 +1311,6 @@ RSpec.describe IsoDoc do
                    </formattedref>
                    <docidentifier type="ICC">ICC/167</docidentifier>
                    <docidentifier scope="biblio-tag">ICC/167</docidentifier>
-                   <biblio-tag>ICC/167, </biblio-tag>
                 </bibitem>
                 <note>
                    <name id="_">NOTE</name>
@@ -1327,18 +1327,22 @@ RSpec.describe IsoDoc do
                    <p>This is an annotation of ISO 20483:2013-2014</p>
                 </note>
                 <bibitem id="zip_ffs">
+                   <biblio-tag/>
                    <formattedref format="application/x-isodoc+xml">Title 5</formattedref>
-                   <biblio-tag>(NO ID), </biblio-tag>
                 </bibitem>
              </references>
           </sections>
           <bibliography>
              <references id="_bibliography" obligation="informative" normative="false" hidden="true" displayorder="4">
                 <title depth="1" id="_">Bibliography</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <semx element="title" source="_">Bibliography</semx>
                 </fmt-title>
                 <bibitem id="ISBN" type="book">
+                   <biblio-tag>
+                      [1]
+                      <tab/>
+                   </biblio-tag>
                    <formattedref>
                       <em>Chemicals for analytical laboratory use</em>
                       . n.p.: n.d. ISBN: ISBN.
@@ -1351,12 +1355,12 @@ RSpec.describe IsoDoc do
                          <abbreviation>ISBN</abbreviation>
                       </organization>
                    </contributor>
-                   <biblio-tag>
-                      [1]
-                      <tab/>
-                   </biblio-tag>
                 </bibitem>
                 <bibitem id="ISSN" type="journal">
+                   <biblio-tag>
+                      [2]
+                      <tab/>
+                   </biblio-tag>
                    <formattedref>
                       <em>Instruments for analytical laboratory use</em>
                       . n.d. ISSN: ISSN.
@@ -1369,10 +1373,6 @@ RSpec.describe IsoDoc do
                          <abbreviation>ISSN</abbreviation>
                       </organization>
                    </contributor>
-                   <biblio-tag>
-                      [2]
-                      <tab/>
-                   </biblio-tag>
                 </bibitem>
                 <note>
                    <name id="_">NOTE</name>
@@ -1403,6 +1403,11 @@ RSpec.describe IsoDoc do
                    <p>This is another annotation of document ISSN.</p>
                 </note>
                 <bibitem id="ISO3696" type="standard">
+                   <biblio-tag>
+                      [3]
+                      <tab/>
+                      ISO\\u00a03696,
+                   </biblio-tag>
                    <formattedref>
                       <em>Water for analytical laboratory use</em>
                       .
@@ -1416,13 +1421,12 @@ RSpec.describe IsoDoc do
                          <abbreviation>ISO</abbreviation>
                       </organization>
                    </contributor>
-                   <biblio-tag>
-                      [3]
-                      <tab/>
-                      ISO\\u00a03696,
-                   </biblio-tag>
                 </bibitem>
                 <bibitem id="ref10">
+                   <biblio-tag>
+                      [4]
+                      <tab/>
+                   </biblio-tag>
                    <formattedref format="application/x-isodoc+xml">
                       <smallcap>Standard No I.C.C 167</smallcap>
                       .
@@ -1438,13 +1442,13 @@ RSpec.describe IsoDoc do
                       </semx>
                       )
                    </formattedref>
-                   <biblio-tag>
-                      [4]
-                      <tab/>
-                      (NO ID),
-                   </biblio-tag>
                 </bibitem>
                 <bibitem id="ref11">
+                   <biblio-tag>
+                      [5]
+                      <tab/>
+                      IETF\\u00a0RFC\\u00a010,
+                   </biblio-tag>
                    <formattedref>
                       <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
                       .
@@ -1452,13 +1456,13 @@ RSpec.describe IsoDoc do
                    <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
                    <docidentifier type="IETF">IETF\\u00a0RFC\\u00a010</docidentifier>
                    <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a010</docidentifier>
-                   <biblio-tag>
-                      [5]
-                      <tab/>
-                      IETF\\u00a0RFC\\u00a010,
-                   </biblio-tag>
                 </bibitem>
                 <bibitem id="ref12">
+                   <biblio-tag>
+                      Citn
+                      <tab/>
+                      IETF\\u00a0RFC\\u00a020,
+                   </biblio-tag>
                    <formattedref format="application/x-isodoc+xml">
                       CitationWorks. 2019.
                       <em>How to cite a reference</em>
@@ -1467,11 +1471,6 @@ RSpec.describe IsoDoc do
                    <docidentifier type="metanorma">[Citn]</docidentifier>
                    <docidentifier type="IETF">IETF\\u00a0RFC\\u00a020</docidentifier>
                    <docidentifier scope="biblio-tag">IETF\\u00a0RFC\\u00a020</docidentifier>
-                   <biblio-tag>
-                      Citn
-                      <tab/>
-                      IETF\\u00a0RFC\\u00a020,
-                   </biblio-tag>
                 </bibitem>
              </references>
           </bibliography>

@@ -31,11 +31,13 @@ module IsoDoc
       id, id1, id2, id3 = bibitem_ref_code_prep(bib)
       id || id1 || id2 || id3 and return [id, id1, id2, id3]
       bib["suppress_identifier"] == "true" and return [nil, nil, nil, nil]
-      [nil, no_identifier(bib), nil, nil]
+      # [nil, no_identifier(bib), nil, nil]
+      [nil, nil, nil, nil]
     end
 
     def bibitem_ref_code_prep(bib)
-      id = bib.at(ns("./docidentifier[@type = 'metanorma']"))
+      id = bib.at(ns("./docidentifier[@type = 'metanorma']")) ||
+        bib.at(ns("./docidentifier[@type = 'title']"))
       id1 = pref_ref_code(bib)
       id2 = bib.at(ns("./docidentifier[#{SKIP_DOCID}]"))
       id3 = bib.at(ns("./docidentifier[@type = 'metanorma-ordinal']"))
