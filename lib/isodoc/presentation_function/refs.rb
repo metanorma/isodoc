@@ -184,6 +184,7 @@ module IsoDoc
       ret += datefn
       ret.empty? and return ret
       idents[:sdo] and ret += ","
+      ret.sub(",", "").strip.empty? and return ""
       "#{ret} "
     end
 
@@ -192,7 +193,7 @@ module IsoDoc
     def biblio_ref_entry_code(ordinal, ids, _id, _standard, datefn, _bib)
       # standard and id = nil
       ret = ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]"
-      if ids[:sdo]
+      if ids[:sdo] && !ids[:sdo].empty?
         ret = prefix_bracketed_ref(ret)
         ret += "#{ids[:sdo]}#{datefn}, "
       else

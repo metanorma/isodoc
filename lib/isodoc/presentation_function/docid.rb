@@ -31,7 +31,8 @@ module IsoDoc
       id, id1, id2, id3 = bibitem_ref_code_prep(bib)
       id || id1 || id2 || id3 and return [id, id1, id2, id3]
       bib["suppress_identifier"] == "true" and return [nil, nil, nil, nil]
-      [nil, no_identifier(bib), nil, nil]
+      # [nil, no_identifier(bib), nil, nil]
+      [nil, nil, nil, nil]
     end
 
     def bibitem_ref_code_prep(bib)
