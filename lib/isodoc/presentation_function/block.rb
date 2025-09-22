@@ -87,7 +87,8 @@ module IsoDoc
 
     def admonition_label(elem, num)
       lbl = if elem["type"] == "box" then @i18n.box
-            else @i18n.admonition[elem["type"]]&.upcase end
+            else @i18n.admonition[elem["type"]]&.upcase
+            end
       labelled_autonum(lbl, elem["id"], num)
     end
 
@@ -185,16 +186,24 @@ module IsoDoc
     end
 
     def source1(elem, ancestor)
-      n = elem
-      while n = n&.next_element
-        case n.name
+      source_elems = source1_gather(elem)
+      source_elems.each do |e|
+        elem << "; #{to_xml(e.remove.children)}"
+      end
+      source1_label(elem, to_xml(elem.children).strip, ancestor)
+    end
+
+    def source1_gather(elem)
+      source_elems = []
+      while elem = elem&.next_element
+        case elem.name
         when "source"
         when "fmt-source"
-          elem << "; #{to_xml(n.remove.children)}"
+          source_elems << elem
         else break
         end
       end
-      source1_label(elem, to_xml(elem.children).strip, ancestor)
+      source_elems
     end
 
     def source1_label(elem, sources, _ancestor)
