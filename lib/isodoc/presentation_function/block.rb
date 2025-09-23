@@ -185,10 +185,14 @@ module IsoDoc
       source1(elem, :figure)
     end
 
+    def source_join_delim(_elem)
+      "; "
+    end
+
     def source1(elem, ancestor)
       source_elems = source1_gather(elem)
       source_elems.each do |e|
-        elem << "; #{to_xml(e.remove.children).strip}"
+        elem << "#{source_join_delim(elem)}#{to_xml(e.remove.children).strip}"
       end
       source1_label(elem, to_xml(elem.children).strip, ancestor)
     end
