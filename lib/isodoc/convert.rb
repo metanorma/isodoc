@@ -86,8 +86,9 @@ module IsoDoc
     end
 
     def bibrenderer(options = {})
-      ::Relaton::Render::IsoDoc::General.new(options.merge(language: @lang,
-                                                           i18nhash: @i18n.get))
+      ::Relaton::Render::IsoDoc::General
+        .new(options.merge(language: @lang, script: @script,
+                           i18nhash: @i18n.get))
     end
 
     def convert1_namespaces(html)
