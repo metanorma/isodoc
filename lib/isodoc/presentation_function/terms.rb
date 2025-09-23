@@ -37,13 +37,14 @@ module IsoDoc
       docxml.xpath(ns("//termnote")).each { |f| termnote1(f) }
     end
 
-    def termnote_delim(_elem)
-      l10n(": ")
+    def termnote_delim(_elem, lbl)
+      l10n(": ", { prev: lbl })
     end
 
     def termnote1(elem)
       lbl = termnote_label(elem)
-      prefix_name(elem, { label: termnote_delim(elem) }, lower2cap(lbl), "name")
+      prefix_name(elem, { label: termnote_delim(elem, lbl) },
+                  lower2cap(lbl), "name")
     end
 
     def termnote_label(elem)
@@ -163,7 +164,8 @@ module IsoDoc
     def termsource_modification(elem)
       elem.xpath(".//text()[normalize-space() = '']").each(&:remove)
       origin = elem.at(ns("./origin"))
-      s = termsource_status(elem["status"]) and origin.next = l10n(", #{s}")
+      s = termsource_status(elem["status"]) and
+        origin.next = l10n(", #{s}", { prev: origin.text })
       mod = elem.at(ns("./modification")) or return
       termsource_add_modification_text(mod)
     end

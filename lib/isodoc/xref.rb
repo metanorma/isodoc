@@ -90,8 +90,9 @@ module IsoDoc
       Common::ns(xpath)
     end
 
-    def l10n(text, lang = @lang, script = @script, locale = @locale)
-      @i18n.l10n(text, lang, script, locale)
+    def l10n(expr, lang = @lang, script = @script, opt = {})
+      opt[:locale] ||= @locale
+      @i18n.l10n(expr, lang, script, opt)
     end
 
     include ::IsoDoc::XrefGen::Util
