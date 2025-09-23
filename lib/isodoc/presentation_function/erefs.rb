@@ -216,7 +216,7 @@ module IsoDoc
     def eref2link1(node, href)
       url = href[:link]
       att = href[:type] == :attachment ? "attachment='true'" : ""
-      repl = "<fmt-link #{att} target='#{url}'>#{node.children}</link>"
+      repl = "<fmt-link #{att} target='#{url}'>#{to_xml(node.children)}</link>"
       node["type"] == "footnote" and repl = "<sup>#{repl}</sup>"
       node.replace(repl)
     end
