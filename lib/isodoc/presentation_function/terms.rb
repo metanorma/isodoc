@@ -153,8 +153,13 @@ module IsoDoc
       while elem&.next_element&.name == "source"
         ret << semx_fmt_dup(elem.next_element.remove)
       end
-      s = ret.map { |x| to_xml(x) }.map(&:strip).join("; ")
+      s = ret.map { |x| to_xml(x) }.map(&:strip)
+        .join(termsource_join_delim(elem))
       termsource_label(elem, s)
+    end
+
+    def termsource_join_delim(_elem)
+      "; "
     end
 
     def termsource_label(elem, sources)
