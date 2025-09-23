@@ -165,7 +165,7 @@ module IsoDoc
       elem.xpath(".//text()[normalize-space() = '']").each(&:remove)
       origin = elem.at(ns("./origin"))
       s = termsource_status(elem["status"]) and
-        origin.next = l10n(", #{s}", { prev: origin.text })
+        origin.next = l10n(", #{s}", @lang, @script, { prev: origin.text })
       mod = elem.at(ns("./modification")) or return
       termsource_add_modification_text(mod)
     end
