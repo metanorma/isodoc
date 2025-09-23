@@ -14,8 +14,9 @@ module IsoDoc
                                      i18nyaml: i18nyaml || @i18nyaml)
     end
 
-    def l10n(expr, lang = @lang, script = @script, locale = @locale)
-      @i18n.l10n(expr, lang, script, locale)
+    def l10n(expr, lang = @lang, script = @script, opt = {})
+      opt[:locale] ||= @locale
+      @i18n.l10n(expr, lang, script, opt)
     end
 
     def toc_init(docxml)

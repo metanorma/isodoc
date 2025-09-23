@@ -9,8 +9,9 @@ module IsoDoc
       Common::ns(xpath)
     end
 
-    def l10n(expr, lang = @lang, script = @script, locale = @locale)
-      @i18n.l10n(expr, lang, script, locale)
+        def l10n(expr, lang = @lang, script = @script, opt = {})
+      opt[:locale] ||= @locale
+      @i18n.l10n(expr, lang, script, opt)
     end
 
     def connectives_strip(text)
@@ -115,7 +116,7 @@ module IsoDoc
       draftinfo = " (#{@labels['draft_label']} #{draft}"
       draftinfo += ", #{revdate}" if revdate
       draftinfo += ")"
-      l10n(draftinfo, @lang, @script, @locale)
+      l10n(draftinfo, @lang, @script)
     end
 
     def version(isoxml, _out)

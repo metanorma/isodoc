@@ -188,7 +188,7 @@ module IsoDoc
     def source1(elem, ancestor)
       source_elems = source1_gather(elem)
       source_elems.each do |e|
-        elem << "; #{to_xml(e.remove.children)}"
+        elem << "; #{to_xml(e.remove.children).strip}"
       end
       source1_label(elem, to_xml(elem.children).strip, ancestor)
     end
