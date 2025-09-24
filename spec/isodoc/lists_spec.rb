@@ -507,6 +507,99 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(word)
   end
 
+   it "processes mixed ordered and unordered lists" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword id="_" displayorder="2">
+        <ul id="A">
+        <li id="A1">
+          <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">Level 1</p>
+          </li>
+        <li id="A2">
+          <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">Level 1</p>
+        <ol id="B">
+        <li id="B1">
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 2</p>
+        <ol start="3" id="C">
+        <li id="C1">
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 3</p>
+        <ul id="D">
+        <li id="D1">
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 4</p>
+        </li>
+        </ul>
+        </li>
+        </ol>
+        </li>
+        </ol>
+        </li>
+        </ul>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1" id="_">Table of contents</fmt-title>
+             </clause>
+             <foreword id="_" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1" id="_">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <ul id="A">
+                   <li id="A1">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="A1">—</semx>
+                      </fmt-name>
+                      <p id="_">Level 1</p>
+                   </li>
+                   <li id="A2">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="A2">—</semx>
+                      </fmt-name>
+                      <p id="_">Level 1</p>
+                      <ol id="B" type="arabic">
+                         <li id="B1">
+                            <fmt-name id="_">
+                               <semx element="autonum" source="B1">1</semx>
+                               <span class="fmt-label-delim">)</span>
+                            </fmt-name>
+                            <p id="_">Level 2</p>
+                            <ol start="3" id="C" type="roman">
+                               <li id="C1">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="C1">iii</semx>
+                                     <span class="fmt-label-delim">)</span>
+                                  </fmt-name>
+                                  <p id="_">Level 3</p>
+                                  <ul id="D">
+                                     <li id="D1">
+                                        <fmt-name id="_">
+                                           <semx element="autonum" source="D1">—</semx>
+                                        </fmt-name>
+                                        <p id="_">Level 4</p>
+                                     </li>
+                                  </ul>
+                               </li>
+                            </ol>
+                         </li>
+                      </ol>
+                   </li>
+                </ul>
+             </foreword>
+          </preface>
+       </iso-standard>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+    expect(strip_guid(Canon.format_xml(pres_output
+      .sub(%r{<metanorma-extension>.*</metanorma-extension>}m, ""))))
+      .to be_equivalent_to Canon.format_xml(presxml)
+   end
+
   it "processes Roman Upper ordered lists" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
