@@ -1539,7 +1539,7 @@ RSpec.describe IsoDoc do
        </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <p id="A">
+       <p id="A">
           <xref target="ref1" id="_">
              <location target="ref1" connective="from"/>
              <location target="ref2" connective="to"/>
@@ -1592,7 +1592,7 @@ RSpec.describe IsoDoc do
                 <span class="fmt-element-name">箇条</span>
                 <semx element="autonum" source="ref1">1</semx>
              </fmt-xref>
-             <span class="fmt-enum-comma">,</span>
+             <span class="fmt-enum-comma">、</span>
              <fmt-xref target="ref2">
                 <span class="fmt-element-name">箇条</span>
                 <semx element="autonum" source="ref2">2</semx>
@@ -1640,7 +1640,7 @@ RSpec.describe IsoDoc do
                 <span class="fmt-element-name">箇条</span>
                 <semx element="autonum" source="ref1">1</semx>
              </fmt-xref>
-             <span class="fmt-enum-comma">,</span>
+             <span class="fmt-enum-comma">、</span>
              <fmt-xref target="ref2">
                 <span class="fmt-element-name">箇条</span>
                 <semx element="autonum" source="ref2">2</semx>
