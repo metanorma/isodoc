@@ -5,7 +5,7 @@ module IsoDoc
   module XrefGen
     module Blocks
       def subfigure_increment(idx, counter, elem)
-        if elem.parent.name == "figure" then idx += 1
+        if elem.ancestors.map(&:name).include?("figure") then idx += 1
         else
           idx = 0
           counter.increment(elem)
@@ -18,9 +18,9 @@ module IsoDoc
       XPATH
 
       def sequential_figure_names(clause, container: false)
-        c = Counter.new
         j = 0
-        clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank.each do |t|
+        clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank
+          .each_with_object(Counter.new) do |t, c|
           # labelled_ancestor(t, %w(figure)) and next # disable nested figure labelling
           j = subfigure_increment(j, c, t)
           sublabel = subfigure_label(j)
@@ -34,7 +34,6 @@ module IsoDoc
         clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
           .each_with_object({}) do |t, c|
           c[t["class"]] ||= Counter.new
-          # labelled_ancestor(t, %w(figure)) and next
           j = subfigure_increment(j, c[t["class"]], t)
           sublabel = subfigure_label(j)
           figure_anchor(t, sublabel, c[t["class"]].print, t["class"],
@@ -71,19 +70,19 @@ module IsoDoc
           { unnumb: elem["unnumbered"] }
         )
         if elem["unnumbered"] != "true"
+          p = elem.at("./ancestor::xmlns:figure")
           x = "#{subfigure_separator(markup: true)}#{semx(elem, sublabel)}"
           @anchors[elem["id"]][:label] = "#{label}#{x}"
-          @anchors[elem["id"]][:xref] = @anchors[elem.parent["id"]][:xref] + x +
+          @anchors[elem["id"]][:xref] = @anchors[p["id"]][:xref] + x +
             delim_wrap(subfigure_delim)
-          x = @anchors[elem.parent["id"]][:container] and
+          x = @anchors[p["id"]][:container] and
             @anchors[elem["id"]][:container] = x
         end
       end
 
       def sequential_table_names(clause, container: false)
-        c = Counter.new
-        clause.xpath(ns(".//table")).noblank.each do |t|
-          # labelled_ancestor(t) and next
+        clause.xpath(ns(".//table")).noblank
+          .each_with_object(Counter.new) do |t, c|
           @anchors[t["id"]] = anchor_struct(
             c.increment(t).print, t, @labels["table"], "table",
             { unnumb: t["unnumbered"], container: container }
@@ -92,8 +91,8 @@ module IsoDoc
       end
 
       def sequential_formula_names(clause, container: false)
-        c = Counter.new
-        clause.xpath(ns(".//formula")).noblank.each do |t|
+        clause.xpath(ns(".//formula")).noblank
+          .each_with_object(Counter.new) do |t, c|
           @anchors[t["id"]] = anchor_struct(
             c.increment(t).print, t,
             t["inequality"] ? @labels["inequality"] : @labels["formula"],
@@ -104,8 +103,8 @@ module IsoDoc
       end
 
       def sequential_permission_names(clause, container: true)
-        c = ReqCounter.new
-        clause.xpath(ns(first_lvl_req)).noblank.each do |t|
+        clause.xpath(ns(first_lvl_req)).noblank
+          .each_with_object(ReqCounter.new) do |t, c|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_label(t, m)
           id = c.increment(label, t).print
@@ -116,8 +115,8 @@ module IsoDoc
       end
 
       def sequential_permission_children(elem, lbl, klass, container: false)
-        c = ReqCounter.new
-        elem.xpath(ns(req_children)).noblank.each do |t|
+        elem.xpath(ns(req_children)).noblank
+          .each_with_object(ReqCounter.new) do |t, c|
           m = @reqt_models.model(t["model"])
           klass, label = reqt2class_nested_label(t, m)
           ctr = c.increment(label, t).print
@@ -142,8 +141,7 @@ container: false)
           @anchors[e][:semx] = @anchors[elem.parent["id"]][:semx] + x
           @anchors[e][:label] =
             "<span class='fmt-element-name'>#{label}</span> #{@anchors[e][:semx]}"
-          @anchors[e][:xref] =
-            "<span class='fmt-element-name'>#{label}</span> #{@anchors[e][:semx]}"
+          @anchors[e][:xref] = @anchors[e][:label]
         end
         model.permission_parts(elem, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
@@ -168,12 +166,11 @@ container: false)
         [nil, nil]
       end
 
-      # these can take a NodeSet as argument; semx will point to members of the NodeSet,
-      # but numbering will be consecutive
+      # these can take a NodeSet as argument; semx will point to members
+      # of the NodeSet, but numbering will be consecutive
       def hierarchical_figure_names(clauses, num)
-        c = Counter.new
         j = 0
-        nodeSet(clauses).each do |clause|
+        nodeSet(clauses).each_with_object(Counter.new) do |clause, c|
           clause.xpath(ns(self.class::FIGURE_NO_CLASS)).noblank.each do |t|
             # labelled_ancestor(t, %w(figure)) and next
             j = subfigure_increment(j, c, t)
@@ -189,7 +186,6 @@ container: false)
         nodeSet(clauses).each_with_object({}) do |clause, c|
           clause.xpath(ns(".//figure[@class][not(@class = 'pseudocode')]"))
             .noblank.each do |t|
-            # labelled_ancestor(t, %w(figure)) and next
             c[t["class"]] ||= Counter.new
             j = subfigure_increment(j, c[t["class"]], t)
             sublabel = subfigure_label(j)
@@ -200,10 +196,8 @@ container: false)
       end
 
       def hierarchical_table_names(clauses, num)
-        c = Counter.new
-        nodeSet(clauses).each do |clause|
+        nodeSet(clauses).each_with_object(Counter.new) do |clause, c|
           clause.xpath(ns(".//table")).noblank.each do |t|
-            # labelled_ancestor(t) and next
             @anchors[t["id"]] =
               anchor_struct(hiersemx(clause, num, c.increment(t), t),
                             t, @labels["table"], "table",
@@ -213,8 +207,7 @@ container: false)
       end
 
       def hierarchical_formula_names(clauses, num)
-        c = Counter.new
-        nodeSet(clauses).each do |clause|
+        nodeSet(clauses).each_with_object(Counter.new) do |clause, c|
           clause.xpath(ns(".//formula")).noblank.each do |t|
             @anchors[t["id"]] = anchor_struct(
               hiersemx(clause, num, c.increment(t), t), t,
@@ -227,8 +220,7 @@ container: false)
       end
 
       def hierarchical_permission_names(clauses, num)
-        c = ReqCounter.new
-        nodeSet(clauses).each do |clause|
+        nodeSet(clauses).each_with_object(ReqCounter.new) do |clause, c|
           clause.xpath(ns(first_lvl_req)).noblank.each do |t|
             m = @reqt_models.model(t["model"])
             klass, label = reqt2class_label(t, m)
