@@ -908,6 +908,358 @@ RSpec.describe IsoDoc do
       .to be_equivalent_to Canon.format_xml(word)
   end
 
+  it "processes tabular subfigures" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+           <preface><foreword id="fwd">
+           <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
+         <name>Overall title</name>
+         <table id="T">
+         <tbody>
+         <tr>
+         <td>
+         <figure id="note1">
+       <name>Subfigure 1</name>
+         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+         </figure>
+         </td>
+         <td>
+         <figure id="note2">
+       <name>Subfigure 2</name>
+         <image src="rice_images/rice_image1.png" height="20" width="auto" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f1" mimetype="image/png"/>
+         </figure>
+         </td>
+         </tr>
+         </tbody>
+         </table>
+       </figure>
+        <figure id="figureA-2" keep-with-next="true" keep-lines-together="true" unnumbered='true'>
+         <name>Overall title</name>
+        <table id="T1">
+         <tbody>
+         <tr>
+         <td>
+         <figure id="note3">
+       <name>Subfigure 1</name>
+         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+         </figure>
+         </td>
+         </tr>
+         </tbody>
+         </table>
+         </figure>
+         <figure id="figureA-3" keep-with-next="true" keep-lines-together="true">
+         <name>Overall title</name>
+         <table id="T2">
+         <tbody>
+         <tr>
+         <td>
+         <figure id="note4" unnumbered="true">
+       <name>Subfigure 1</name>
+         <image src="rice_images/rice_image1.png" height="20" width="30" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png" alt="alttext" title="titletxt"/>
+         </figure>
+         </tr>
+         </tbody>
+         </table>
+         </figure>
+           </foreword></preface>
+           </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+            <foreword id="fwd" displayorder="2">
+                <title id="_">Foreword</title>
+                <fmt-title depth="1" id="_">
+                   <semx element="title" source="_">Foreword</semx>
+                </fmt-title>
+                <figure id="figureA-1" keep-with-next="true" keep-lines-together="true" autonum="1">
+                   <name id="_">Overall title</name>
+                   <fmt-name id="_">
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Figure</span>
+                         <semx element="autonum" source="figureA-1">1</semx>
+                      </span>
+                      <span class="fmt-caption-delim">\\u00a0— </span>
+                      <semx element="name" source="_">Overall title</semx>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="figureA-1">1</semx>
+                   </fmt-xref-label>
+                   <table id="T">
+                      <tbody>
+                         <tr>
+                            <td>
+                               <figure id="note1" autonum="1-1">
+                                  <name id="_">Subfigure 1</name>
+                                  <fmt-name id="_">
+                                     <span class="fmt-caption-label">
+                                        <span class="fmt-element-name">Figure</span>
+                                        <semx element="autonum" source="">1</semx>
+                                        <span class="fmt-autonum-delim">-</span>
+                                        <semx element="autonum" source="note1">1</semx>
+                                     </span>
+                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <semx element="name" source="_">Subfigure 1</semx>
+                                  </fmt-name>
+                                  <fmt-xref-label>
+                                     <span class="fmt-element-name">Figure</span>
+                                     <semx element="autonum" source="figureA-1">1</semx>
+                                     <span class="fmt-autonum-delim">-</span>
+                                     <semx element="autonum" source="note1">1</semx>
+                                  </fmt-xref-label>
+                                  <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+                               </figure>
+                            </td>
+                            <td>
+                               <figure id="note2" autonum="1-2">
+                                  <name id="_">Subfigure 2</name>
+                                  <fmt-name id="_">
+                                     <span class="fmt-caption-label">
+                                        <span class="fmt-element-name">Figure</span>
+                                        <semx element="autonum" source="">1</semx>
+                                        <span class="fmt-autonum-delim">-</span>
+                                        <semx element="autonum" source="note2">2</semx>
+                                     </span>
+                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <semx element="name" source="_">Subfigure 2</semx>
+                                  </fmt-name>
+                                  <fmt-xref-label>
+                                     <span class="fmt-element-name">Figure</span>
+                                     <semx element="autonum" source="figureA-1">1</semx>
+                                     <span class="fmt-autonum-delim">-</span>
+                                     <semx element="autonum" source="note2">2</semx>
+                                  </fmt-xref-label>
+                                  <image src="rice_images/rice_image1.png" height="20" width="auto" id="_" mimetype="image/png"/>
+                               </figure>
+                            </td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </figure>
+                <figure id="figureA-2" keep-with-next="true" keep-lines-together="true" unnumbered="true">
+                   <name id="_">Overall title</name>
+                   <fmt-name id="_">
+                      <semx element="name" source="_">Overall title</semx>
+                   </fmt-name>
+                   <table id="T1">
+                      <tbody>
+                         <tr>
+                            <td>
+                               <figure id="note3" autonum="-1">
+                                  <name id="_">Subfigure 1</name>
+                                  <fmt-name id="_">
+                                     <span class="fmt-caption-label">
+                                        <span class="fmt-element-name">Figure</span>
+                                        <semx element="autonum" source=""/>
+                                        <span class="fmt-autonum-delim">-</span>
+                                        <semx element="autonum" source="note3">1</semx>
+                                     </span>
+                                     <span class="fmt-caption-delim">\\u00a0— </span>
+                                     <semx element="name" source="_">Subfigure 1</semx>
+                                  </fmt-name>
+                                  <fmt-xref-label>
+                                     <span class="fmt-element-name">Figure</span>
+                                     <semx element="autonum" source="figureA-2">(??)</semx>
+                                     <span class="fmt-autonum-delim">-</span>
+                                     <semx element="autonum" source="note3">1</semx>
+                                  </fmt-xref-label>
+                                  <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+                               </figure>
+                            </td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </figure>
+                <figure id="figureA-3" keep-with-next="true" keep-lines-together="true" autonum="2">
+                   <name id="_">Overall title</name>
+                   <fmt-name id="_">
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Figure</span>
+                         <semx element="autonum" source="figureA-3">2</semx>
+                      </span>
+                      <span class="fmt-caption-delim">\\u00a0— </span>
+                      <semx element="name" source="_">Overall title</semx>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="figureA-3">2</semx>
+                   </fmt-xref-label>
+                   <table id="T2">
+                      <tbody>
+                         <tr>
+                            <td>
+                               <figure id="note4" unnumbered="true">
+                                  <name id="_">Subfigure 1</name>
+                                  <fmt-name id="_">
+                                     <semx element="name" source="_">Subfigure 1</semx>
+                                  </fmt-name>
+                                  <image src="rice_images/rice_image1.png" height="20" width="30" id="_" mimetype="image/png" alt="alttext" title="titletxt"/>
+                               </figure>
+                            </td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </figure>
+             </foreword>
+          </preface>
+       </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+      #{HTML_HDR}
+             <br/>
+                <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <table id="T" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                                  <div id="note1" class="figure">
+                                     <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+                                     <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
+                                  </div>
+                               </td>
+                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                                  <div id="note2" class="figure">
+                                     <img src="rice_images/rice_image1.png" height="20" width="auto"/>
+                                     <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
+                                  </div>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                      <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
+                   </div>
+                   <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <table id="T1" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                                  <div id="note3" class="figure">
+                                     <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+                                     <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
+                                  </div>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                      <p class="FigureTitle" style="text-align:center;">Overall title</p>
+                   </div>
+                   <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <table id="T2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                         <tbody>
+                            <tr>
+                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                                  <div id="note4" class="figure">
+                                     <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
+                                     <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
+                                  </div>
+                               </td>
+                            </tr>
+                         </tbody>
+                      </table>
+                      <p class="FigureTitle" style="text-align:center;">Figure 2\\u00a0— Overall title</p>
+                   </div>
+                </div>
+             </div>
+          </body>
+       </html>
+    OUTPUT
+    word = <<~OUTPUT
+      #{WORD_HDR}
+            <p class="page-break">
+              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+            </p>
+               <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <div align="center" class="table_container">
+                         <table id="T" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                            <tbody>
+                               <tr>
+                                  <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                     <div id="note1" class="figure">
+                                        <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
+                                        <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
+                                     </div>
+                                  </td>
+                                  <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                     <div id="note2" class="figure">
+                                        <img src="rice_images/rice_image1.png" height="20" width="auto"/>
+                                        <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
+                                     </div>
+                                  </td>
+                               </tr>
+                            </tbody>
+                         </table>
+                      </div>
+                      <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
+                   </div>
+                   <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <div align="center" class="table_container">
+                         <table id="T1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                            <tbody>
+                               <tr>
+                                  <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                     <div id="note3" class="figure">
+                                        <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
+                                        <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
+                                     </div>
+                                  </td>
+                               </tr>
+                            </tbody>
+                         </table>
+                      </div>
+                      <p class="FigureTitle" style="text-align:center;">Overall title</p>
+                   </div>
+                   <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                      <div align="center" class="table_container">
+                         <table id="T2" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                            <tbody>
+                               <tr>
+                                  <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                     <div id="note4" class="figure">
+                                        <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
+                                        <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
+                                     </div>
+                                  </td>
+                               </tr>
+                            </tbody>
+                         </table>
+                      </div>
+                      <p class="FigureTitle" style="text-align:center;">Figure 2\\u00a0— Overall title</p>
+                   </div>
+                </div>
+                <p>\\u00a0</p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3"/>
+          </body>
+       </html>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    expect(strip_guid(Canon.format_xml(pres_output
+      .gsub(/&lt;/, "&#x3c;"))))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
+      .to be_equivalent_to Canon.format_xml(html)
+    FileUtils.rm_rf "spec/assets/odf1.emf"
+    expect(strip_guid(Canon.format_xml(IsoDoc::WordConvert.new({})
+      .convert("test", pres_output, true)
+      .gsub(/['"][^'".]+\.(gif|xml)['"]/, "'_.\\1'")
+      .gsub(/mso-bookmark:_Ref\d+/, "mso-bookmark:_Ref"))))
+      .to be_equivalent_to Canon.format_xml(word)
+  end
+
   it "processes figure classes, existing figure keys" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
