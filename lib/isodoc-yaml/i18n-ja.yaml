@@ -245,4 +245,5 @@ punct:
   open-nested-quote: "’"
   close-nested-quote: "’"
   ellipse: ⋯⋯
+  cjk-latin-separator: "&#x2005;"
 
