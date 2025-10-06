@@ -14,9 +14,9 @@ punct:
   em-dash: ⸺
   en-dash: "–"
   number-en-dash: "〜"
-  open-quote: "“"
-  close-quote: "”"
-  open-nested-quote: "’"
-  close-nested-quote: "’"
+  open-quote: "&#x300c;"
+  close-quote: "&#x300d;"
+  open-nested-quote: "&#x300e;"
+  close-nested-quote: "&#x300f;"
   ellipse: ⋯⋯
 

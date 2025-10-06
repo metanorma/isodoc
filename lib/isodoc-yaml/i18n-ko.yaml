@@ -1,15 +1,15 @@
 punct:
-  colon: "："
-  comma: "，"
-  enum-comma: "、"
-  semicolon: "；"
-  period: "。"
+  colon: ":"
+  comma: ","
+  enum-comma: ","
+  semicolon: ";"
+  period: "."
   close-paren: "）"
   open-paren: "（"
   close-bracket: "］"
   open-bracket: "［"
-  question-mark: "？"
-  exclamation-mark: "！"
+  question-mark: "?"
+  exclamation-mark: "!"
   emphasis-mark: •
   em-dash: ⸺
   en-dash: "–"

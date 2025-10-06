@@ -226,7 +226,7 @@ doctype_dict:
   directive: Directive
 punct:
   colon: "："
-  comma: "，"
+  comma: "、"
   enum-comma: "、"
   semicolon: "；"
   period: "。"
@@ -238,12 +238,12 @@ punct:
   exclamation-mark: "！"
   emphasis-mark: •
   em-dash: ⸺
-  en-dash: "–"
+  en-dash: "〜"
   number-en-dash: "〜"
-  open-quote: "“"
-  close-quote: "”"
-  open-nested-quote: "’"
-  close-nested-quote: "’"
+  open-quote: "「"
+  close-quote: "」"
+  open-nested-quote: "『"
+  close-nested-quote: "』"
   ellipse: ⋯⋯
   cjk-latin-separator: "&#x2005;"
 
