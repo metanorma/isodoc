@@ -147,4 +147,25 @@ relatedterms:
   contrast: 对比
   see: 见
   seealso: 参见
+punct:
+  colon: "："
+  comma: "，"
+  enum-comma: "、"
+  semicolon: "；"
+  period: "。"
+  close-paren: "）"
+  open-paren: "（"
+  close-bracket: "］"
+  open-bracket: "［"
+  question-mark: "？"
+  exclamation-mark: "！"
+  emphasis-mark: •
+  em-dash: ⸺
+  en-dash: "–"
+  number-en-dash: "〜"
+  open-quote: "“"
+  close-quote: "”"
+  open-nested-quote: "’"
+  close-nested-quote: "’"
+  ellipse: ⋯⋯
 
