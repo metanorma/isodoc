@@ -172,7 +172,7 @@ module IsoDoc
 
     def eref_localities1(opt)
       opt[:type] == "anchor" and return nil
-      opt[:lang] == "zh" and
+      %(zh ja ko).include?(opt[:lang]) and
         return l10n(eref_localities1_zh(opt))
       ret = eref_locality_populate(opt[:type], opt[:node], opt[:number])
       ret += " #{opt[:from]}" if opt[:from]
