@@ -397,6 +397,7 @@ RSpec.describe IsoDoc do
            </p>
         </foreword>
     OUTPUT
+
     expect(strip_guid(Canon.format_xml(Nokogiri.XML(IsoDoc::PresentationXMLConvert
       .new(presxml_options)
        .convert("test", input, true))

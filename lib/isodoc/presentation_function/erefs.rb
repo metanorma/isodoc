@@ -39,7 +39,7 @@ module IsoDoc
 
     def eref_localities(refs, target, node)
       if can_conflate_eref_rendering?(refs)
-        l10n(", #{eref_localities_conflated(refs, target, node)}"
+        l10n(", <esc>#{eref_localities_conflated(refs, target, node)}</esc>"
           .gsub(/\s+/, " "), @lang, @script, { prev: target })
       else
         ret = resolve_eref_connectives(eref_locality_stacks(refs, target, node))

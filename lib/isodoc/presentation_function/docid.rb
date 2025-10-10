@@ -23,7 +23,7 @@ module IsoDoc
       data, = @bibrender.parse(bib)
       ret = data[:authoritative_identifier] or return nil
       ret.empty? and return nil
-      ret
+      ret.map { |x| @i18n.l10n(x) } # get rid of `<esc>` wrappers
     end
 
     # returns [metanorma, non-metanorma, DOI/ISSN/ISBN] identifiers

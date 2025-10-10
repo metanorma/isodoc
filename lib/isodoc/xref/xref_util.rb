@@ -136,7 +136,7 @@ module IsoDoc
 
       def delim_wrap(delim, klass = "fmt-autonum-delim")
         delim.blank? and return ""
-        "<span class='#{klass}'>#{delim}</span>"
+        "<span class='#{klass}'><esc>#{delim}</esc></span>"
       end
 
       def stripsemx(elem)
@@ -153,7 +153,7 @@ module IsoDoc
 
       def labelled_autonum(label, autonum)
         label.blank? and return autonum
-        l10n("<span class='fmt-element-name'>#{label}</span> #{autonum}")
+        "<span class='fmt-element-name'>#{label}</span> #{autonum}"
       end
 
       def increment_label(elems, node, counter, increment: true)

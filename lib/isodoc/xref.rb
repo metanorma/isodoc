@@ -80,9 +80,10 @@ module IsoDoc
 
     def localise_anchors
       @anchors.each_value do |v|
-        v[:label] &&= l10n(v[:label])
-        v[:value] &&= l10n(v[:value])
-        v[:xref] &&= l10n(v[:xref])
+        %i(label value xref).each do |t|
+          v[t] && !v[t].empty? or next
+          v[t] = @i18n.l10n(v[t])
+        end
       end
     end
 
