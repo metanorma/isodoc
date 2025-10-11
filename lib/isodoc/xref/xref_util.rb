@@ -1,7 +1,9 @@
 module Enumerable
   def noblank
     reject do |n|
-      n["id"].nil? || n["id"].empty?
+      (n["id"].nil? || n["id"].empty?) &&
+        # deal with possible temporary swap of id to original-id
+        (n["original-id"].nil? || n["original-id"].empty?)
     end
   end
 end
