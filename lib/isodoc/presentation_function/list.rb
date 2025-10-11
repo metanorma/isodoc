@@ -22,6 +22,8 @@ module IsoDoc
     def ol(docxml)
       docxml.xpath(ns("//ol")).each { |f| ol1(f) }
       @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
+      @xrefs.localise_anchors(type: "list")
+      @xrefs.localise_anchors(type: "listitem")
       docxml.xpath(ns("//ol/li")).each { |f| ol_label(f) }
     end
 
