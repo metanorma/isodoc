@@ -78,7 +78,7 @@ module IsoDoc
       @parse_settings = {}
     end
 
-    def localise_anchors(type: nil)
+    def localise_anchors(type = nil)
       @anchors.each_value do |v|
         type && v[:type] != type and next
         %i(label value xref xref_bare modspec).each do |t|
