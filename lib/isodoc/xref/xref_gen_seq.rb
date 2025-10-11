@@ -114,6 +114,11 @@ module IsoDoc
         end
       end
 
+      def delim_wrap(delim, klass = "fmt-autonum-delim")
+        delim.blank? and return ""
+        "<span class='#{klass}'><esc>#{delim}</esc></span>"
+      end
+
       def sequential_permission_children(elem, lbl, klass, container: false)
         elem.xpath(ns(req_children)).noblank
           .each_with_object(ReqCounter.new) do |t, c|
