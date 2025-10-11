@@ -46,8 +46,7 @@ module IsoDoc
           lbl = semx(node, lbl)
           s = " #{anchor_struct_value(lbl, elem)}"
         end
-        l10n("<span class='fmt-element-name'>#{elem}</span>#{s}")
-          .gsub(/ $/, "")
+        "<span class='fmt-element-name'>#{elem}</span>#{s}".gsub(/ $/, "")
       end
 
       def anchor_struct_value(lbl, elem)
