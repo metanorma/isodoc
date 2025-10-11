@@ -1,0 +1,22 @@
+punct:
+  colon: "："
+  comma: "，"
+  enum-comma: "、"
+  semicolon: "；"
+  period: "。"
+  close-paren: "）"
+  open-paren: "（"
+  close-bracket: "］"
+  open-bracket: "［"
+  question-mark: "？"
+  exclamation-mark: "！"
+  emphasis-mark: •
+  em-dash: ⸺
+  en-dash: "–"
+  number-en-dash: "〜"
+  open-quote: "&#x300c;"
+  close-quote: "&#x300d;"
+  open-nested-quote: "&#x300e;"
+  close-nested-quote: "&#x300f;"
+  ellipse: ⋯⋯
+

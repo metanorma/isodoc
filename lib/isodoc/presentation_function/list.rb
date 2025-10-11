@@ -20,9 +20,22 @@ module IsoDoc
     end
 
     def ol(docxml)
+      ol_prep(docxml)
       docxml.xpath(ns("//ol")).each { |f| ol1(f) }
-      @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
       docxml.xpath(ns("//ol/li")).each { |f| ol_label(f) }
+    end
+
+    def ol_numbering(docxml)
+      docxml.xpath(ns("//ol")).each do |elem|
+        elem["type"] ||= ol_depth(elem).to_s # feeds ol_label_format
+      end
+    end
+
+    def ol_prep(docxml)
+      ol_numbering(docxml)
+      @xrefs.list_anchor_names(docxml.xpath(ns(@xrefs.sections_xpath)))
+      @xrefs.localise_anchors("list")
+      @xrefs.localise_anchors("listitem")
     end
 
     def ol_depth(node)
