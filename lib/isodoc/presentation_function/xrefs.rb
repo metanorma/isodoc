@@ -22,7 +22,7 @@ module IsoDoc
                          node, target)
       l10n(connectives_spans(@i18n.nested_xref
         .sub("%1", "<span class='fmt-xref-container'><esc>#{container_label}</esc></span>")
-        .sub("%2", linkend)))
+        .sub("%2", "<esc>#{linkend}</esc>")))
     end
 
     def anchor_value(id)
