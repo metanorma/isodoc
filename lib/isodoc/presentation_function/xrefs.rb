@@ -140,14 +140,13 @@ module IsoDoc
     end
 
     def loc2xref(entry)
-      ret = if entry[:target]
-              <<~XML
-                <fmt-xref nested='true' target='#{entry[:target]}'>#{entry[:label]}</fmt-xref>
-              XML
-            else
-              entry[:label]
-            end
-      "<esc>#{ret}</esc>"
+      if entry[:target]
+        <<~XML
+          <fmt-xref nested='true' target='#{entry[:target]}'>#{entry[:label]}</fmt-xref>
+        XML
+      else
+        entry[:label]
+      end
     end
 
     def combine_conn(list)

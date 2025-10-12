@@ -34,7 +34,7 @@ module IsoDoc
         [e["connective"], to_xml(e.parent.remove)]
       end.flatten
       ret = resolve_eref_connectives(locs)
-      elem.next = "<semx element='erefstack' source='#{elem['id']}'>#{ret[1]}</semx>"
+      elem.next = "<semx element='erefstack' source='#{elem['id']}'>#{l10n ret[1]}</semx>"
     end
 
     def eref_localities(refs, target, node)
@@ -66,6 +66,8 @@ module IsoDoc
     end
 
     def resolve_eref_connectives(locs)
+      #require 'debug'; binding.b
+      locs = escape_l10n(locs)
       locs = resolve_comma_connectives(locs)
       locs = resolve_to_connectives(locs)
       locs.size < 3 and return locs
@@ -73,6 +75,16 @@ module IsoDoc
         m << { conn: a[0], label: a[1] }
       end
       [", ", combine_conn(locs)]
+    end
+
+    def escape_l10n(locs)
+      locs.map do |x|
+        if ["from", "to", "or", "and", ", ", " ", ""].include?(x)
+          x
+        else
+          "<esc>#{x}</esc>"
+        end
+      end
     end
 
     def resolve_comma_connectives(locs)
@@ -111,6 +123,7 @@ module IsoDoc
     end
 
     def eref_locality_stacks(refs, target, node)
+      #require "debug"; binding.b
       ret = refs.each_with_index.with_object([]) do |(r, i), m|
         added = eref_locality_stack(r, i, target, node)
         added.empty? and next
