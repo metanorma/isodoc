@@ -124,7 +124,7 @@ module IsoDoc
       # leave alone, else wrap in semx
       def semx(node, label, element = "autonum")
         label = label.to_s
-        id = node["id"] || node[:id]
+        id = node["id"] || node[:id] || node["original-id"]
         /<semx element='[^']+' source='#{id}'/.match?(label) and return label
         l = stripsemx(label)
         %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
