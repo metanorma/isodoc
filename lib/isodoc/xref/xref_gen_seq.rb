@@ -135,8 +135,7 @@ module IsoDoc
       def sequential_permission_body(id, parent_id, elem, label, klass, model,
 container: false)
         lbl = parent_id ? "#{parent_id}#{subreqt_separator}#{id}" : id
-        elem["id"] or elem["id"] = elem["original-id"]
-        e = elem["id"]
+        e = elem["id"] || elem["original-id"]
         @anchors[e] = model.postprocess_anchor_struct(
           elem, anchor_struct(lbl, elem,
                               label, klass, { unnumb: elem["unnumbered"], container: })
