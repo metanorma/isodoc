@@ -78,11 +78,13 @@ module IsoDoc
       @parse_settings = {}
     end
 
-    def localise_anchors
+    def localise_anchors(type = nil)
       @anchors.each_value do |v|
-        v[:label] &&= l10n(v[:label])
-        v[:value] &&= l10n(v[:value])
-        v[:xref] &&= l10n(v[:xref])
+        type && v[:type] != type and next
+        %i(label value xref xref_bare modspec).each do |t|
+          v[t] && !v[t].empty? or next
+          v[t] = @i18n.l10n(v[t])
+        end
       end
     end
 

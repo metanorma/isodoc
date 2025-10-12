@@ -1,7 +1,9 @@
 module Enumerable
   def noblank
     reject do |n|
-      n["id"].nil? || n["id"].empty?
+      (n["id"].nil? || n["id"].empty?) &&
+        # deal with possible temporary swap of id to original-id
+        (n["original-id"].nil? || n["original-id"].empty?)
     end
   end
 end
@@ -122,7 +124,7 @@ module IsoDoc
       # leave alone, else wrap in semx
       def semx(node, label, element = "autonum")
         label = label.to_s
-        id = node["id"] || node[:id]
+        id = node["id"] || node[:id] || node["original-id"]
         /<semx element='[^']+' source='#{id}'/.match?(label) and return label
         l = stripsemx(label)
         %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
@@ -136,7 +138,7 @@ module IsoDoc
 
       def delim_wrap(delim, klass = "fmt-autonum-delim")
         delim.blank? and return ""
-        "<span class='#{klass}'>#{delim}</span>"
+        "<span class='#{klass}'><esc>#{delim}</esc></span>"
       end
 
       def stripsemx(elem)
@@ -153,7 +155,7 @@ module IsoDoc
 
       def labelled_autonum(label, autonum)
         label.blank? and return autonum
-        l10n("<span class='fmt-element-name'>#{label}</span> #{autonum}")
+        "<span class='fmt-element-name'>#{label}</span> #{autonum}"
       end
 
       def increment_label(elems, node, counter, increment: true)

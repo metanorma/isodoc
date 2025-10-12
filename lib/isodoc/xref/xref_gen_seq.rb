@@ -114,6 +114,11 @@ module IsoDoc
         end
       end
 
+      def delim_wrap(delim, klass = "fmt-autonum-delim")
+        delim.blank? and return ""
+        "<span class='#{klass}'><esc>#{delim}</esc></span>"
+      end
+
       def sequential_permission_children(elem, lbl, klass, container: false)
         elem.xpath(ns(req_children)).noblank
           .each_with_object(ReqCounter.new) do |t, c|
@@ -130,7 +135,7 @@ module IsoDoc
       def sequential_permission_body(id, parent_id, elem, label, klass, model,
 container: false)
         lbl = parent_id ? "#{parent_id}#{subreqt_separator}#{id}" : id
-        e = elem["id"]
+        e = elem["id"] || elem["original-id"]
         @anchors[e] = model.postprocess_anchor_struct(
           elem, anchor_struct(lbl, elem,
                               label, klass, { unnumb: elem["unnumbered"], container: })

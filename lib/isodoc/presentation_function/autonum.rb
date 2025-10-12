@@ -78,7 +78,7 @@ module IsoDoc
     end
 
     def semx(node, label, element = "autonum")
-      id = node["id"] || node[:id]
+      id = node["id"] || node[:id] || elem['original-id']
       /<semx element='[^']+' source='#{id}'/.match?(label) and return label
       l = stripsemx(label)
       %(<semx element='#{element}' source='#{id}'>#{l}</semx>)
@@ -118,7 +118,7 @@ module IsoDoc
         prefix_container_fmt_xref_label(container_container,
                                         @xrefs.anchor(container, :xref, false))
       l10n(connectives_spans(@i18n.nested_xref
-        .sub("%1", "<span class='fmt-xref-container'>#{container_label}</span>")
+        .sub("%1", "<span class='fmt-xref-container'><esc>#{container_label}</esc></span>")
         .sub("%2", xref)))
     end
 

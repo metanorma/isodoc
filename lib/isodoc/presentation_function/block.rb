@@ -108,7 +108,7 @@ module IsoDoc
       elem["unnumbered"] && !elem.at(ns("./name")) and return
       n = @xrefs.anchor(elem["id"], :label, false)
       lbl = labelled_autonum(lower2cap(@i18n.table), elem["id"], n)
-      prefix_name(elem, { caption: table_delim }, l10n(lbl), "name")
+      prefix_name(elem, { caption: table_delim }, lbl, "name")
     end
 
     def table_css(elem)

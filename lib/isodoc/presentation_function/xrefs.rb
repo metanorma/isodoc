@@ -21,8 +21,8 @@ module IsoDoc
                          anchor_xref(node, container, container: true),
                          node, target)
       l10n(connectives_spans(@i18n.nested_xref
-        .sub("%1", "<span class='fmt-xref-container'>#{container_label}</span>")
-        .sub("%2", linkend)))
+        .sub("%1", "<span class='fmt-xref-container'><esc>#{container_label}</esc></span>")
+        .sub("%2", "<esc>#{linkend}</esc>")))
     end
 
     def anchor_value(id)
@@ -70,7 +70,7 @@ module IsoDoc
     def anchor_xref_short(node, target, container)
       if (l = node["label"]) && !container
         v = anchor_value(target)
-        @i18n.l10n(%[<span class="fmt-element-name">#{l}</span> #{v}])
+        @i18n.l10n(%[<span class="fmt-element-name">#{l}</span> <esc>#{v}</esc>])
       else @xrefs.anchor(target, :xref)
       end
     end
@@ -93,7 +93,9 @@ module IsoDoc
       linkend = if can_conflate_xref_rendering?(locs)
                   combine_conflated_xref_locations(locs)
                 else
-                  out = locs.each { |l| l[:label] = anchor_linkend1(l[:node]) }
+                  out = locs.each do |l|
+                    l[:label] = "<esc>#{anchor_linkend1(l[:node])}</esc>"
+                  end
                   l10n(combine_conn(out))
                 end
       capitalise_xref(node, linkend, anchor_value(node["target"]))
@@ -114,7 +116,7 @@ module IsoDoc
     def conflate_xref_locations(locs)
       out = locs.each { |l| l[:label] = anchor_value(l[:target]) }
       label = @i18n.inflect(locs.first[:elem], number: "pl")
-      out[0][:label] = l10n("#{label} #{out[0][:label]}").strip
+      out[0][:label] = l10n("#{label} <esc>#{out[0][:label]}</esc>").strip
       out
     end
 
@@ -139,7 +141,9 @@ module IsoDoc
 
     def loc2xref(entry)
       if entry[:target]
-        "<fmt-xref nested='true' target='#{entry[:target]}'>#{entry[:label]}</fmt-xref>"
+        <<~XML
+          <fmt-xref nested='true' target='#{entry[:target]}'>#{entry[:label]}</fmt-xref>
+        XML
       else
         entry[:label]
       end

@@ -34,12 +34,12 @@ module IsoDoc
         [e["connective"], to_xml(e.parent.remove)]
       end.flatten
       ret = resolve_eref_connectives(locs)
-      elem.next = "<semx element='erefstack' source='#{elem['id']}'>#{ret[1]}</semx>"
+      elem.next = "<semx element='erefstack' source='#{elem['id']}'>#{l10n ret[1]}</semx>"
     end
 
     def eref_localities(refs, target, node)
       if can_conflate_eref_rendering?(refs)
-        l10n(", #{eref_localities_conflated(refs, target, node)}"
+        l10n(", <esc>#{eref_localities_conflated(refs, target, node)}</esc>"
           .gsub(/\s+/, " "), @lang, @script, { prev: target })
       else
         ret = resolve_eref_connectives(eref_locality_stacks(refs, target, node))
@@ -66,6 +66,8 @@ module IsoDoc
     end
 
     def resolve_eref_connectives(locs)
+      #require 'debug'; binding.b
+      locs = escape_l10n(locs)
       locs = resolve_comma_connectives(locs)
       locs = resolve_to_connectives(locs)
       locs.size < 3 and return locs
@@ -73,6 +75,16 @@ module IsoDoc
         m << { conn: a[0], label: a[1] }
       end
       [", ", combine_conn(locs)]
+    end
+
+    def escape_l10n(locs)
+      locs.map do |x|
+        if ["from", "to", "or", "and", ", ", " ", ""].include?(x)
+          x
+        else
+          "<esc>#{x}</esc>"
+        end
+      end
     end
 
     def resolve_comma_connectives(locs)
@@ -111,6 +123,7 @@ module IsoDoc
     end
 
     def eref_locality_stacks(refs, target, node)
+      #require "debug"; binding.b
       ret = refs.each_with_index.with_object([]) do |(r, i), m|
         added = eref_locality_stack(r, i, target, node)
         added.empty? and next
@@ -163,8 +176,8 @@ module IsoDoc
     end
 
     def eref_localities1_zh(opt)
-      ret = "第#{opt[:from]}" if opt[:from]
-      ret += "&#x2013;#{opt[:upto]}" if opt[:upto]
+      ret = "第<esc>#{opt[:from]}</esc>" if opt[:from]
+      ret += "&#x2013;<esc>#{opt[:upto]}</esc>" if opt[:upto]
       loc = eref_locality_populate(opt[:type], opt[:node], "sg")
       ret += " #{loc}" unless opt[:node]["droploc"] == "true"
       ret
@@ -172,7 +185,7 @@ module IsoDoc
 
     def eref_localities1(opt)
       opt[:type] == "anchor" and return nil
-      opt[:lang] == "zh" and
+      %(zh ja ko).include?(opt[:lang]) and
         return l10n(eref_localities1_zh(opt))
       ret = eref_locality_populate(opt[:type], opt[:node], opt[:number])
       ret += " #{opt[:from]}" if opt[:from]
