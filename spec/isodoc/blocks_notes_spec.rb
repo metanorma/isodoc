@@ -431,7 +431,7 @@ RSpec.describe IsoDoc do
                 </admonition>
              </foreword>
           </preface>
-       </iso-standard
+       </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       #{HTML_HDR}
