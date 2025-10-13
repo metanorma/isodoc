@@ -143,7 +143,7 @@ container: false)
         @anchors[e][:semx] = semx(elem, lbl)
         if parent_id
           x = "#{subreqt_separator(markup: true)}#{semx(elem, id)}"
-          @anchors[e][:semx] = @anchors[elem.parent["id"]][:semx] + x
+          @anchors[e][:semx] = @anchors[elem.parent["id"] || elem.parent["original-id"]][:semx] + x
           @anchors[e][:label] =
             "<span class='fmt-element-name'>#{label}</span> #{@anchors[e][:semx]}"
           @anchors[e][:xref] = @anchors[e][:label]
