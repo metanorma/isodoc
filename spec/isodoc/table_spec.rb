@@ -1286,7 +1286,7 @@ RSpec.describe IsoDoc do
                      </span>
                   </p>
                   <div align="center" class="table_container">
-                     <table id="tableD-1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
+                     <table id="tableD-1" class="MsoNormalTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;page-break-after: avoid;page-break-inside: avoid;" title="tool tip" summary="long desc" width="70%">
                         <colgroup>
                            <col width="30%"/>
                            <col width="20%"/>

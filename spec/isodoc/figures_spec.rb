@@ -914,7 +914,7 @@ RSpec.describe IsoDoc do
            <preface><foreword id="fwd">
            <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
          <name>Overall title</name>
-         <table id="T">
+         <table id="T" plain="true">
          <tbody>
          <tr>
          <td>
@@ -935,7 +935,7 @@ RSpec.describe IsoDoc do
        </figure>
         <figure id="figureA-2" keep-with-next="true" keep-lines-together="true" unnumbered='true'>
          <name>Overall title</name>
-        <table id="T1">
+        <table id="T1" plain="true">
          <tbody>
          <tr>
          <td>
@@ -950,7 +950,7 @@ RSpec.describe IsoDoc do
          </figure>
          <figure id="figureA-3" keep-with-next="true" keep-lines-together="true">
          <name>Overall title</name>
-         <table id="T2">
+         <table id="T2" plain="true">
          <tbody>
          <tr>
          <td>
@@ -990,7 +990,7 @@ RSpec.describe IsoDoc do
                       <span class="fmt-element-name">Figure</span>
                       <semx element="autonum" source="figureA-1">1</semx>
                    </fmt-xref-label>
-                   <table id="T">
+                   <table id="T" plain="true">
                       <tbody>
                          <tr>
                             <td>
@@ -1046,7 +1046,7 @@ RSpec.describe IsoDoc do
                    <fmt-name id="_">
                       <semx element="name" source="_">Overall title</semx>
                    </fmt-name>
-                   <table id="T1">
+                   <table id="T1" plain="true">
                       <tbody>
                          <tr>
                             <td>
@@ -1089,7 +1089,7 @@ RSpec.describe IsoDoc do
                       <span class="fmt-element-name">Figure</span>
                       <semx element="autonum" source="figureA-3">2</semx>
                    </fmt-xref-label>
-                   <table id="T2">
+                   <table id="T2" plain="true">
                       <tbody>
                          <tr>
                             <td>
@@ -1115,16 +1115,16 @@ RSpec.describe IsoDoc do
                 <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <table id="T" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                      <table id="T">
                          <tbody>
                             <tr>
-                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                               <td style="">
                                   <div id="note1" class="figure">
                                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                                      <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
                                   </div>
                                </td>
-                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                               <td style="">
                                   <div id="note2" class="figure">
                                      <img src="rice_images/rice_image1.png" height="20" width="auto"/>
                                      <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
@@ -1136,10 +1136,10 @@ RSpec.describe IsoDoc do
                       <p class="FigureTitle" style="text-align:center;">Figure 1\\u00a0— Overall title</p>
                    </div>
                    <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <table id="T1" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                      <table id="T1">
                          <tbody>
                             <tr>
-                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                               <td style="">
                                   <div id="note3" class="figure">
                                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                                      <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
@@ -1151,10 +1151,10 @@ RSpec.describe IsoDoc do
                       <p class="FigureTitle" style="text-align:center;">Overall title</p>
                    </div>
                    <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
-                      <table id="T2" class="MsoISOTable" style="border-width:1px;border-spacing:0;">
+                      <table id="T2">
                          <tbody>
                             <tr>
-                               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;">
+                               <td style="">
                                   <div id="note4" class="figure">
                                      <img src="rice_images/rice_image1.png" height="20" width="30" title="titletxt" alt="alttext"/>
                                      <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
@@ -1175,20 +1175,20 @@ RSpec.describe IsoDoc do
             <p class="page-break">
               <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
             </p>
-               <div id="fwd">
+                <div id="fwd">
                    <h1 class="ForewordTitle">Foreword</h1>
                    <div id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <div align="center" class="table_container">
-                         <table id="T" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                         <table id="T" class="MsoNormalTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
                             <tbody>
                                <tr>
-                                  <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                  <td style="page-break-after:auto;">
                                      <div id="note1" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
                                         <p class="FigureTitle" style="text-align:center;">Figure 1-1\\u00a0— Subfigure 1</p>
                                      </div>
                                   </td>
-                                  <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                  <td style="page-break-after:auto;">
                                      <div id="note2" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" width="auto"/>
                                         <p class="FigureTitle" style="text-align:center;">Figure 1-2\\u00a0— Subfigure 2</p>
@@ -1202,10 +1202,10 @@ RSpec.describe IsoDoc do
                    </div>
                    <div id="figureA-2" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <div align="center" class="table_container">
-                         <table id="T1" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                         <table id="T1" class="MsoNormalTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
                             <tbody>
                                <tr>
-                                  <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                  <td style="page-break-after:auto;">
                                      <div id="note3" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
                                         <p class="FigureTitle" style="text-align:center;">Figure -1\\u00a0— Subfigure 1</p>
@@ -1219,10 +1219,10 @@ RSpec.describe IsoDoc do
                    </div>
                    <div id="figureA-3" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
                       <div align="center" class="table_container">
-                         <table id="T2" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
+                         <table id="T2" class="MsoNormalTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;">
                             <tbody>
                                <tr>
-                                  <td style="border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:auto;">
+                                  <td style="page-break-after:auto;">
                                      <div id="note4" class="figure">
                                         <img src="rice_images/rice_image1.png" height="20" alt="alttext" title="titletxt" width="30"/>
                                         <p class="FigureTitle" style="text-align:center;">Subfigure 1</p>
