@@ -72,16 +72,27 @@ module IsoDoc
       end
 
       def table_attrs(node)
-        c = node["class"]
-        style = node["style"] || node["plain"] == "true" ? "" : "border-spacing:0;border-width:1px;"
-        (%w(modspec).include?(c) || !c) or style = nil
-        ret =
-          { summary: node["summary"], width: node["width"],
-            style: "mso-table-anchor-horizontal:column;mso-table-overlap:never;" \
-                 "#{style}#{keep_style(node)}",
-            class: (node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable") }
+        style = table_border_css(node)
+        ret = { summary: node["summary"], width: node["width"],
+                class: table_class(node),
+                style: "mso-table-anchor-horizontal:column;" \
+                "mso-table-overlap:never;#{style}#{keep_style(node)}" }
         style or ret.delete(:class)
         super.merge(attr_code(ret))
+      end
+
+      def table_border_css(node)
+        c = node["class"]
+        style = "border-spacing:0;border-width:1px;"
+        node["style"] || node["plain"] == "true" and style = ""
+        (%w(modspec).include?(c) || !c) or style = nil
+        node["plain"] == "true" and style = ""
+        style
+      end
+
+      def table_class(node)
+        node["plain"] == "true" and return "MsoNormalTable"
+        node.text.length > 4000 ? "MsoISOTableBig" : "MsoISOTable"
       end
 
       def colgroup(node, table)
