@@ -1,1 +1,7 @@
 spec/assets/img.svg
+coverage
+Gemfile.lock
+spec/test_*
+pkg/
+.rubocop-http*
+_test_attachments
