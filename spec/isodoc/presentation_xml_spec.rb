@@ -2607,7 +2607,7 @@ RSpec.describe IsoDoc do
     INPUT
     expect(File.exist?("test.presentation.xml")).to be true
     expect(log.abort_messages).not_to be_empty
-    expect(log.abort_messages.first).to eq "Anchor _f06fd0d1-a203-4f3d-a515-0bdba0f8d83e has already been used at line 7"
+    expect(log.abort_messages.first).to eq "ID _f06fd0d1-a203-4f3d-a515-0bdba0f8d83e has already been used at line 7"
   end
 
   it "validates on undefined IDREF" do

@@ -30,9 +30,8 @@ module IsoDoc
 
     def repeat_id_validate1(elem)
       if @doc_ids[elem["id"]]
-        @log&.add("Anchors", elem,
-                  "Anchor #{elem['id']} has already been " \
-                  "used at line #{@doc_ids[elem['id']]}", severity: 0)
+        @log&.add("STANDOC_36", elem,
+                  params: [elem["id"], @doc_ids[elem["id"]]])
       end
       @doc_ids[elem["id"]] = elem.line
     end
@@ -71,9 +70,7 @@ module IsoDoc
       node[attr].strip.empty? and return
       @doc_ids[node[attr]] and return
       @doc_orig_ids[node[attr]] and return
-      @log.add("Anchors", node,
-               "Anchor #{node[attr]} pointed to by #{node.name} " \
-               "is not defined in the document", severity: 1)
+      @log.add("ISODOC_1", node, params: [node[attr], node.name])
     end
 
     def provide_ids(docxml)

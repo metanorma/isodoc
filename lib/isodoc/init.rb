@@ -58,6 +58,20 @@ module IsoDoc
       @bare = options[:bare]
       @semantic_xml_insert = options[:semanticxmlinsert] != "false"
       @log = options[:log]
+      @log&.add_msg(log_messages)
+    end
+
+    def log_messages
+      # rubocop:disable Naming/VariableNumber
+      {
+        "STANDOC_36": { category: "Anchors",
+                        error: "ID %s has already been used at line %s",
+                        severity: 0 },
+        "ISODOC_1": { category: "Crossreferences",
+                      error: "Anchor %s pointed to by %s " \
+             "is not defined in the document", severity: 1 },
+      }
+      # rubocop:enable Naming/VariableNumber
     end
 
     def init_i18n(options)
