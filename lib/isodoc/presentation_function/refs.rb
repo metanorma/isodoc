@@ -96,10 +96,6 @@ module IsoDoc
       end
     end
 
-    def citestyle
-      nil
-    end
-
     def bibliography_bibitem_number_skip(bibitem)
       implicit_reference(bibitem) ||
         bibitem.at(ns(".//docidentifier[@type = 'metanorma']")) ||

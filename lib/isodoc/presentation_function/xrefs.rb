@@ -35,6 +35,8 @@ module IsoDoc
         return anchor_id_postproc(node)
       node["citeas"].nil? && node["bibitemid"] and
         return citeas_cleanup(@xrefs.anchor(node["bibitemid"], :xref)) || "???"
+      node["style"] && x = @ref_renderings&.dig(node["bibitemid"], :citation, node["style"].to_sym) and
+        return x.strip
       node.at(ns("./location")) and
         return combine_xref_locations(node) || "???"
       node["target"] && node["droploc"] and
