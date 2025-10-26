@@ -179,13 +179,17 @@ module IsoDoc
       termsource_add_modification_text(mod)
     end
 
+    def termsource_mod_text_delim(_elem)
+      " &#x2014; "
+    end
+
     def termsource_add_modification_text(mod)
       mod or return
       if mod.text.strip.empty?
         mod.remove
         return
       end
-      mod.previous = " &#x2014; "
+      mod.previous = termsource_mod_text_delim(mod)
       c = mod.at(ns("./semx")) || mod
       c.elements.size == 1 and c.children = to_xml(c.elements[0].children)
       mod.replace(mod.children)
