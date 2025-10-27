@@ -270,6 +270,7 @@ RSpec.describe IsoDoc do
       <bibitem id="ISO712" type="book">
               <title>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</title>
               <uri type="src">https://www.iso.org/standard/4766.html</uri>
+              <uri type="citation">http://www.example.com</uri>
               <docidentifier type="DOI">https://doi.org/10.1017/9781108877831</docidentifier>
               <docidentifier type="ISBN">9781108877831</docidentifier>
               <docidentifier scope="biblio-tag">[1]</docidentifier>
@@ -331,30 +332,30 @@ RSpec.describe IsoDoc do
           <p>
              <eref type="inline" style="author_date" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
-                <fmt-xref type="inline" style="author_date" target="ISO712">Aluffi, Anderson, Hering, Mustaţă and Payne 2022</fmt-xref>
+                <fmt-link target="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne 2022</fmt-link>
              </semx>
              <eref type="inline" style="author_date_br" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
-                <fmt-xref type="inline" style="author_date_br" target="ISO712">Aluffi, Anderson, Hering, Mustaţă and Payne (2022)</fmt-xref>
+                <fmt-link target="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne (2022)</fmt-link>
              </semx>
              <eref type="inline" style="reference_tag" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
-                <fmt-xref type="inline" style="reference_tag" target="ISO712">[1]</fmt-xref>
+                <fmt-link target="http://www.example.com">[1]</fmt-link>
              </semx>
              <eref type="inline" style="title" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
-                <fmt-xref type="inline" style="title" target="ISO712">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</fmt-xref>
+                <fmt-link target="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</fmt-link>
              </semx>
              <eref type="inline" style="title_reference_tag" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
-                <fmt-xref type="inline" style="title_reference_tag" target="ISO712">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday [1]</fmt-xref>
+                <fmt-link target="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday [1]</fmt-link>
              </semx>
              <eref type="inline" style="short" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
                 <fmt-xref type="inline" style="short" target="ISO712">
                    ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
                    <em>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</em>
-                   . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. 1 vol.
+                   . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\u00a09781108877831. 1 vol.
                 </fmt-xref>
              </semx>
              <eref type="inline" style="full" bibitemid="ISO712" citeas="ISO 712" id="_"/>
@@ -362,8 +363,8 @@ RSpec.describe IsoDoc do
                 <fmt-xref type="inline" style="full" target="ISO712">
                    ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
                    <em>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</em>
-                   . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831.
-                   <link target="https://www.iso.org/standard/4766.html">https://www.iso.org/standard/4766.html</link>
+                   . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\u00a09781108877831.
+                   <link target="http://www.example.com">http://www.example.com</link>
                    . 1 vol.
                 </fmt-xref>
              </semx>

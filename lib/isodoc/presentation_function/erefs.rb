@@ -103,7 +103,8 @@ module IsoDoc
         sem_xml_descendant?(e) and next
         href = eref_target(e) or next
         e.xpath(ns("./locality | ./localityStack")).each(&:remove)
-        if href[:type] == :anchor then eref2xref(e)
+        if href[:type] == :anchor || %w(full short).include?(e["style"])
+            eref2xref(e)
         else eref2link1(e, href)
         end
       end
