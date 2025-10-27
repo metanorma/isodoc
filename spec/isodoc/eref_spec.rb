@@ -256,15 +256,13 @@ RSpec.describe IsoDoc do
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface>
           <foreword>
-          <p>
-          <eref type="inline" style="author_date" bibitemid="ISO712" citeas="ISO 712"/>
-          <eref type="inline" style="author_date_br" bibitemid="ISO712" citeas="ISO 712"/>
-          <eref type="inline" style="reference_tag" bibitemid="ISO712" citeas="ISO 712"/>
-          <eref type="inline" style="title" bibitemid="ISO712" citeas="ISO 712"/>
-          <eref type="inline" style="title_reference_tag" bibitemid="ISO712" citeas="ISO 712"/>
-          <eref type="inline" style="short" bibitemid="ISO712" citeas="ISO 712"/>
-          <eref type="inline" style="full" bibitemid="ISO712" citeas="ISO 712"/>
-          </p>
+          <p><eref type="inline" style="author_date" bibitemid="ISO712" citeas="ISO 712"/></p>
+          <p><eref type="inline" style="author_date_br" bibitemid="ISO712" citeas="ISO 712"/></p>
+          <p><eref type="inline" style="reference_tag" bibitemid="ISO712" citeas="ISO 712"/></p>
+          <p><eref type="inline" style="title" bibitemid="ISO712" citeas="ISO 712"/></p>
+          <p><eref type="inline" style="title_reference_tag" bibitemid="ISO712" citeas="ISO 712"/></p>
+          <p><eref type="inline" style="short" bibitemid="ISO712" citeas="ISO 712"/></p>
+          <p><eref type="inline" style="full" bibitemid="ISO712" citeas="ISO 712"/></p>
           </foreword></preface>
           <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
       <bibitem id="ISO712" type="book">
@@ -334,22 +332,32 @@ RSpec.describe IsoDoc do
              <semx element="eref" source="_">
                 <fmt-link target="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne 2022</fmt-link>
              </semx>
+          </p>
+          <p>
              <eref type="inline" style="author_date_br" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
                 <fmt-link target="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne (2022)</fmt-link>
              </semx>
+          </p>
+          <p>
              <eref type="inline" style="reference_tag" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
                 <fmt-link target="http://www.example.com">[1]</fmt-link>
              </semx>
+          </p>
+          <p>
              <eref type="inline" style="title" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
                 <fmt-link target="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</fmt-link>
              </semx>
+          </p>
+          <p>
              <eref type="inline" style="title_reference_tag" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
                 <fmt-link target="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday [1]</fmt-link>
              </semx>
+          </p>
+          <p>
              <eref type="inline" style="short" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
                 <fmt-xref type="inline" style="short" target="ISO712">
@@ -358,6 +366,8 @@ RSpec.describe IsoDoc do
                    . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. 1 vol
                 </fmt-xref>
              </semx>
+          </p>
+          <p>
              <eref type="inline" style="full" bibitemid="ISO712" citeas="ISO 712" id="_"/>
              <semx element="eref" source="_">
                 <fmt-xref type="inline" style="full" target="ISO712">
@@ -371,11 +381,74 @@ RSpec.describe IsoDoc do
           </p>
        </foreword>
     OUTPUT
-    output = IsoDoc::PresentationXMLConvert.new(presxml_options)
+    html = <<~OUTPUT
+          <html lang="en">
+          <head/>
+          <body lang="en">
+             <div class="title-section">
+                <p>\\u00a0</p>
+             </div>
+             <br/>
+             <div class="prefatory-section">
+                <p>\\u00a0</p>
+             </div>
+             <br/>
+             <div class="main-section">
+                <br/>
+                <div id="_" class="TOC">
+                   <h1 class="IntroTitle">Table of contents</h1>
+                </div>
+                <br/>
+                <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <p>
+                      <a href="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne 2022</a>
+                   </p>
+                   <p>
+                      <a href="http://www.example.com">Aluffi, Anderson, Hering, Mustaţă and Payne (2022)</a>
+                   </p>
+                   <p>
+                      <a href="http://www.example.com">[1]</a>
+                   </p>
+                   <p>
+                      <a href="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</a>
+                   </p>
+                   <p>
+                      <a href="http://www.example.com">Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday [1]</a>
+                   </p>
+                   <p>
+                      ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
+                      <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
+                      . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. 1 vol
+                   </p>
+                   <p>
+                      ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
+                      <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
+                      . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. . 1 vol
+                   </p>
+                </div>
+                <div>
+                   <h1>1.\\u00a0 Normative References</h1>
+                   <p id="ISO712" class="NormRef">
+                      1, ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
+                      <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
+                      . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831.
+                      <a href="http://www.example.com">http://www.example.com</a>
+                      . 1 vol.
+                   </p>
+                </div>
+             </div>
+          </body>
+       </html>
+    OUTPUT
+    pres_output = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(strip_guid(Canon.format_xml(Nokogiri::XML(output)
+    expect(strip_guid(Canon.format_xml(Nokogiri::XML(pres_output)
       .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
+      .convert("test", pres_output, true))))
+      .to be_equivalent_to Canon.format_xml(html)
     end
 
   it "processes eref content" do
