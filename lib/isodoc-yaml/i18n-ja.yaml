@@ -96,6 +96,7 @@ no_identifier: (識別子なし)
 all_parts: 規格群
 edition_ordinal: "第{{ var1 }}版"
 edition: 版
+version: 版
 toc_figures: List of figures
 toc_tables: List of tables
 toc_recommendations: List of recommendations
