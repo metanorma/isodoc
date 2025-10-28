@@ -33,10 +33,11 @@ module IsoDoc
     def anchor_linkend(node, linkend)
       node["style"] == "id" and
         return anchor_id_postproc(node)
+      node["style"] && x = @ref_renderings&.dig(node["bibitemid"], :citation,
+                                                node["style"].to_sym) and
+        return x.strip
       node["citeas"].nil? && node["bibitemid"] and
         return citeas_cleanup(@xrefs.anchor(node["bibitemid"], :xref)) || "???"
-      node["style"] && x = @ref_renderings&.dig(node["bibitemid"], :citation, node["style"].to_sym) and
-        return x.strip
       node.at(ns("./location")) and
         return combine_xref_locations(node) || "???"
       node["target"] && node["droploc"] and
