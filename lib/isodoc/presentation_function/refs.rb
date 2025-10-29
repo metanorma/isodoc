@@ -24,7 +24,7 @@ module IsoDoc
       identifiers = render_identifier(ids)
       reference = docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
                     identifiers[:ordinal] || identifiers[:doi])
-      @xrefs.get[ref["id"]] = { xref: reference }
+      @xrefs.get[ref["id"]] = { xref: esc(reference) }
     end
 
     def move_norm_ref_to_sections(docxml)
