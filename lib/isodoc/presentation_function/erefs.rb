@@ -56,7 +56,7 @@ module IsoDoc
         if XREF_CONNECTIVES.include?(x) || [", ", " ", ""].include?(x)
           x
         else
-          "<esc>#{x}</esc>"
+          esc x
         end
       end
     end

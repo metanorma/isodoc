@@ -2,7 +2,7 @@ module IsoDoc
   class PresentationXMLConvert < ::IsoDoc::Convert
     def eref_localities(refs, target, node)
       if can_conflate_eref_rendering?(refs)
-        l10n(", <esc>#{eref_localities_conflated(refs, target, node)}</esc>"
+        l10n(", #{esc(eref_localities_conflated(refs, target, node))}"
           .gsub(/\s+/, " "), @lang, @script, { prev: target })
       else
         ret = resolve_eref_connectives(eref_locality_stacks(refs, target, node))
@@ -81,8 +81,8 @@ module IsoDoc
     end
 
     def eref_localities1_zh(opt)
-      ret = "第<esc>#{opt[:from]}</esc>" if opt[:from]
-      ret += "&#x2013;<esc>#{opt[:upto]}</esc>" if opt[:upto]
+      ret = "第#{esc opt[:from]}" if opt[:from]
+      ret += "&#x2013;#{esc opt[:upto]}" if opt[:upto]
       loc = eref_locality_populate(opt[:type], opt[:node], "sg")
       ret += " #{loc}" unless opt[:node]["droploc"] == "true"
       ret

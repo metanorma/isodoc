@@ -157,9 +157,9 @@ module IsoDoc
       while elem.next_element&.name == "source"
         ret << semx_fmt_dup(elem.next_element.remove)
       end
-      s = ret.map { |x| to_xml(x) }.map(&:strip).map { |x| "<esc>#{x}</esc>" }
+      s = ret.map { |x| to_xml(x) }.map(&:strip).map { |x| esc(x) }
         .join(termsource_join_delim(elem))
-      termsource_label(elem, "<esc>#{@i18n.l10n s}</esc>")
+      termsource_label(elem, esc(@i18n.l10n(s)))
     end
 
     def termsource_join_delim(_elem)
@@ -167,7 +167,7 @@ module IsoDoc
     end
 
     def termsource_label(elem, sources)
-      elem.replace(l10n("[#{@i18n.source}: <esc>#{sources}</esc>]"))
+      elem.replace(l10n("[#{@i18n.source}: #{esc sources}]"))
     end
 
     def termsource_modification(elem)

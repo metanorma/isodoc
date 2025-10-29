@@ -21,8 +21,8 @@ module IsoDoc
                          anchor_xref(node, container, container: true),
                          node, target)
       l10n(connectives_spans(@i18n.nested_xref
-        .sub("%1", "<span class='fmt-xref-container'><esc>#{container_label}</esc></span>")
-        .sub("%2", "<esc>#{linkend}</esc>")))
+        .sub("%1", "<span class='fmt-xref-container'>#{esc container_label}</span>")
+        .sub("%2", esc(linkend))))
     end
 
     def anchor_value(id)
@@ -73,7 +73,7 @@ module IsoDoc
     def anchor_xref_short(node, target, container)
       if (l = node["label"]) && !container
         v = anchor_value(target)
-        @i18n.l10n(%[<span class="fmt-element-name">#{l}</span> <esc>#{v}</esc>])
+        @i18n.l10n(%[<span class="fmt-element-name">#{l}</span> #{esc v}])
       else @xrefs.anchor(target, :xref)
       end
     end
@@ -97,7 +97,7 @@ module IsoDoc
                   combine_conflated_xref_locations(locs)
                 else
                   out = locs.each do |l|
-                    l[:label] = "<esc>#{anchor_linkend1(l[:node])}</esc>"
+                    l[:label] = esc(anchor_linkend1(l[:node]))
                   end
                   l10n(combine_conn(out))
                 end
@@ -119,7 +119,7 @@ module IsoDoc
     def conflate_xref_locations(locs)
       out = locs.each { |l| l[:label] = anchor_value(l[:target]) }
       label = @i18n.inflect(locs.first[:elem], number: "pl")
-      out[0][:label] = l10n("#{label} <esc>#{out[0][:label]}</esc>").strip
+      out[0][:label] = l10n("#{label} #{esc out[0][:label]}").strip
       out
     end
 
