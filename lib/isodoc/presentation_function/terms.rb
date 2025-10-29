@@ -159,7 +159,7 @@ module IsoDoc
       end
       s = ret.map { |x| to_xml(x) }.map(&:strip).map { |x| esc(x) }
         .join(termsource_join_delim(elem))
-      termsource_label(elem, esc(@i18n.l10n(s)))
+      termsource_label(elem, @i18n.l10n(s))
     end
 
     def termsource_join_delim(_elem)
