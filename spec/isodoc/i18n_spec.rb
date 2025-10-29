@@ -1434,7 +1434,7 @@ RSpec.describe IsoDoc do
                    <semx element="autonum" source="R">2</semx>
                 </fmt-xref-label>
                 <bibitem id="ISO712" type="standard">
-                   <biblio-tag>ISO\\u00a0712, </biblio-tag>
+                   <biblio-tag>ISO\\u00a0712， </biblio-tag>
                    <formattedref>
                       <em>Cereals and cereal products</em>
                       。
@@ -1562,7 +1562,7 @@ RSpec.describe IsoDoc do
              </div>
              <div><h1>2.\\u3000Normative References</h1>
 
-             <p id="ISO712" class="NormRef">ISO\\u00a0712, <i>Cereals and cereal products</i>。</p>
+             <p id="ISO712" class="NormRef">ISO\\u00a0712， <i>Cereals and cereal products</i>。</p>
               </div>
              <div id="H">
                <h1>3.\\u3000Terms, definitions, symbols and abbreviated terms</h1>

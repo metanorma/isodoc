@@ -169,7 +169,7 @@ module IsoDoc
             else norm_ref_entry_code(ordinal, idents, ids, standard, datefn,
                                      bib)
             end
-      bib.add_first_child("<biblio-tag>#{ret}</biblio-tag>")
+      bib.add_first_child("<biblio-tag>#{@i18n.l10n(ret)}</biblio-tag>")
     end
 
     def norm_ref_entry_code(_ordinal, idents, _ids, _standard, datefn, _bib)
