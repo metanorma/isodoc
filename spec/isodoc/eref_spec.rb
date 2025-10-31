@@ -363,7 +363,7 @@ RSpec.describe IsoDoc do
                 <fmt-xref type="inline" style="short" target="ISO712">
                    ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
                    <em>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</em>
-                   . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. 1 vol
+                   . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. 1 vol.
                 </fmt-xref>
              </semx>
           </p>
@@ -375,7 +375,7 @@ RSpec.describe IsoDoc do
                    <em>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</em>
                    . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831.
                    <link target="http://www.example.com">http://www.example.com</link>
-                   . 1 vol
+                   . 1 vol.
                 </fmt-xref>
              </semx>
           </p>
@@ -419,12 +419,12 @@ RSpec.describe IsoDoc do
                    <p>
                       ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
                       <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
-                      . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. 1 vol
+                      . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. 1 vol.
                    </p>
                    <p>
                       ALUFFI, Paolo, David ANDERSON, Milena HERING, Mircea MUSTAŢĂ and Sam PAYNE (eds.).
                       <i>Facets of Algebraic Geometry: A Collection in Honor of William Fulton's 80th Birthday</i>
-                      . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. . 1 vol
+                      . First edition. (London Mathematical Society Lecture Note Series 472.) Cambridge, UK: Cambridge University Press. 2022. [1]. DOI: DOI\\u00a0https://doi.org/10.1017/9781108877831. ISBN: ISBN\\u00a09781108877831. . 1 vol.
                    </p>
                 </div>
                 <div>
