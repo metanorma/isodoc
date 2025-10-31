@@ -192,9 +192,12 @@ module IsoDoc
     def source1(elem, ancestor)
       source_elems = source1_gather(elem)
       source_elems.each do |e|
+        e.xpath(ns(".//origin")).each do |origin|
+          origin.wrap("<esc></esc>")
+        end
         elem << "#{source_join_delim(elem)}#{to_xml(e.remove.children).strip}"
       end
-      source1_label(elem, to_xml(elem.children).strip, ancestor)
+      source1_label(elem, @i18n.l10n(to_xml(elem.children).strip), ancestor)
     end
 
     def source1_gather(elem)
@@ -211,7 +214,7 @@ module IsoDoc
     end
 
     def source1_label(elem, sources, _ancestor)
-      elem.children = l10n("[#{@i18n.source}: #{sources}]")
+      elem.children = l10n("[#{@i18n.source}: #{esc sources}]")
     end
 
     def source_modification(mod)

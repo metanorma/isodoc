@@ -44,12 +44,16 @@ module IsoDoc
       end
 
       def xref_parse(node, out)
-        target = if node["target"].include?("#")
-                   node["target"].sub("#", ".html#")
-                 else
-                   "##{node['target']}"
-                 end
-        out.a(href: target) { |l| no_locality_parse(node, l) }
+        if %w(short full).include?(node["style"])
+          no_locality_parse(node, out)
+        else
+          target = if node["target"].include?("#")
+                     node["target"].sub("#", ".html#")
+                   else
+                     "##{node['target']}"
+                   end
+          out.a(href: target) { |l| no_locality_parse(node, l) }
+        end
       end
 
       def suffix_url(url)
@@ -109,7 +113,7 @@ module IsoDoc
       def asciimath_parse(node)
         a = node.at(ns("./asciimath"))&.text || node.text
         ["#{@openmathdelim}#{HTMLEntities.new.encode(a)}" \
-          "#{@closemathdelim}", /^[[0-9,.+-]]*$/.match?(a)]
+         "#{@closemathdelim}", /^[[0-9,.+-]]*$/.match?(a)]
       end
 
       def latexmath_parse(node)

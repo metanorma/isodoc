@@ -148,7 +148,8 @@ module IsoDoc
       m1.replace("<modification>#{to_xml(new_m1)}</modification>")
     end
 
-    # concatenate sources. localise the concatenation, escaping the concatenands
+    # concatenate sources. localise the concatenation, escaping the docids
+    # within the concatenands
     # from punctuation localisation: l10n(<esc>A</esc>, <esc>B</esc>)
     # pass the result to termsource_label, where it will be appended after
     # "SOURCE: ", and therefore again needs to be escaped
@@ -157,9 +158,14 @@ module IsoDoc
       while elem.next_element&.name == "source"
         ret << semx_fmt_dup(elem.next_element.remove)
       end
-      s = ret.map { |x| to_xml(x) }.map(&:strip).map { |x| "<esc>#{x}</esc>" }
+      ret.each do |element|
+        element.xpath(ns(".//origin")).each do |origin|
+          origin.wrap("<esc></esc>")
+        end
+      end
+      s = ret.map { |x| to_xml(x) }.map(&:strip)
         .join(termsource_join_delim(elem))
-      termsource_label(elem, "<esc>#{@i18n.l10n s}</esc>")
+      termsource_label(elem, @i18n.l10n(s))
     end
 
     def termsource_join_delim(_elem)
@@ -167,7 +173,7 @@ module IsoDoc
     end
 
     def termsource_label(elem, sources)
-      elem.replace(l10n("[#{@i18n.source}: <esc>#{sources}</esc>]"))
+      elem.replace(l10n("[#{@i18n.source}: #{esc sources}]"))
     end
 
     def termsource_modification(elem)
@@ -179,13 +185,17 @@ module IsoDoc
       termsource_add_modification_text(mod)
     end
 
+    def termsource_mod_text_delim(_elem)
+      " &#x2014; "
+    end
+
     def termsource_add_modification_text(mod)
       mod or return
       if mod.text.strip.empty?
         mod.remove
         return
       end
-      mod.previous = " &#x2014; "
+      mod.previous = termsource_mod_text_delim(mod)
       c = mod.at(ns("./semx")) || mod
       c.elements.size == 1 and c.children = to_xml(c.elements[0].children)
       mod.replace(mod.children)

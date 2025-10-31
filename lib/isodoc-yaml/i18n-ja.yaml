@@ -87,7 +87,7 @@ wholeoftext: Whole of text
 draft_label: draft
 inform_annex: 参考
 norm_annex: 規定
-modified: 修正された
+modified: を変更
 adapted: 適合しました
 deprecated: 推奨しない用語
 source: 出典
@@ -96,6 +96,7 @@ no_identifier: (識別子なし)
 all_parts: 規格群
 edition_ordinal: "第{{ var1 }}版"
 edition: 版
+version: 版
 toc_figures: List of figures
 toc_tables: List of tables
 toc_recommendations: List of recommendations

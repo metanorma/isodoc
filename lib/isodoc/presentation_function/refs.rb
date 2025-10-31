@@ -24,7 +24,7 @@ module IsoDoc
       identifiers = render_identifier(ids)
       reference = docid_l10n(identifiers[:metanorma] || identifiers[:sdo] ||
                     identifiers[:ordinal] || identifiers[:doi])
-      @xrefs.get[ref["id"]] = { xref: reference }
+      @xrefs.get[ref["id"]] = { xref: esc(reference) }
     end
 
     def move_norm_ref_to_sections(docxml)
@@ -61,8 +61,7 @@ module IsoDoc
         prep_for_rendering(b)
         m << to_xml(b)
       end.join
-      @bibrender.render_all("<references>#{refs}</references>",
-                            type: citestyle)
+      @bibrender.render_all("<references>#{refs}</references>")
     end
 
     def prep_for_rendering(bib)
@@ -95,10 +94,6 @@ module IsoDoc
       else
         xml.children.first.previous = f
       end
-    end
-
-    def citestyle
-      nil
     end
 
     def bibliography_bibitem_number_skip(bibitem)
@@ -174,13 +169,14 @@ module IsoDoc
             else norm_ref_entry_code(ordinal, idents, ids, standard, datefn,
                                      bib)
             end
-      bib.add_first_child("<biblio-tag>#{ret}</biblio-tag>")
+      bib.add_first_child("<biblio-tag>#{@i18n.l10n(ret)}</biblio-tag>")
     end
 
     def norm_ref_entry_code(_ordinal, idents, _ids, _standard, datefn, _bib)
       ret = (idents[:ordinal] || idents[:metanorma] || idents[:sdo]).to_s
+      ret = esc(ret)
       (idents[:ordinal] || idents[:metanorma]) && idents[:sdo] and
-        ret += ", #{idents[:sdo]}"
+        ret += ", #{esc idents[:sdo]}"
       ret += datefn
       ret.empty? and return ret
       idents[:sdo] and ret += ","
@@ -192,10 +188,10 @@ module IsoDoc
     # else, use both ordinal, as prefix, and ids
     def biblio_ref_entry_code(ordinal, ids, _id, _standard, datefn, _bib)
       # standard and id = nil
-      ret = ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]"
+      ret = esc(ids[:ordinal]) || esc(ids[:metanorma]) || "[#{esc ordinal.to_s}]"
       if ids[:sdo] && !ids[:sdo].empty?
         ret = prefix_bracketed_ref(ret)
-        ret += "#{ids[:sdo]}#{datefn}, "
+        ret += "#{esc ids[:sdo]}#{datefn}, "
       else
         ret = prefix_bracketed_ref("#{ret}#{datefn}")
       end

@@ -118,7 +118,7 @@ module IsoDoc
         prefix_container_fmt_xref_label(container_container,
                                         @xrefs.anchor(container, :xref, false))
       l10n(connectives_spans(@i18n.nested_xref
-        .sub("%1", "<span class='fmt-xref-container'><esc>#{container_label}</esc></span>")
+        .sub("%1", "<span class='fmt-xref-container'>#{esc container_label}</span>")
         .sub("%2", xref)))
     end
 
@@ -154,6 +154,11 @@ module IsoDoc
         "#{label}#{d}<semx #{attr}>#{to_xml(name.children)}</semx>"
       elsif label then label
       end
+    end
+
+    def esc(text)
+      text.nil? || text.empty? and return text
+      "<esc>#{text}</esc>"
     end
   end
 end
