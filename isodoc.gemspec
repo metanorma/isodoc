@@ -36,8 +36,7 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "metanorma-utils", "~> 1.5.0" # already in isodoc-i18n
   spec.add_dependency "mn2pdf", ">= 2.13"
   spec.add_dependency "mn-requirements", "~> 0.5.0"
-
-  spec.add_dependency "relaton-render", "~> 0.10.0"
+  spec.add_dependency "relaton-render", "~> 1.0.0"
   spec.add_dependency "roman-numerals"
   spec.add_dependency "rouge", "~> 4.0"
   spec.add_dependency "thread_safe"
