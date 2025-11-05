@@ -762,7 +762,8 @@ RSpec.describe IsoDoc do
                     </p>
                   </div>
                   <p style="page-break-after: avoid;">where</p>
-                  <table id="_" class='formula_dl' align="left">
+                  <div align="left">
+                  <table id="_" style="text-align:left;" class="formula_dl">
                     <tr>
                       <td valign='top' align='left'>
                         <p align='left' style='margin-left:0pt;text-align:left;'>
@@ -774,6 +775,7 @@ RSpec.describe IsoDoc do
                       </td>
                     </tr>
                   </table>
+                  </div>
                   <div id='_' class='Note'>
                     <p class='Note'>
                       <span class='note_label'>NOTE<span style='mso-tab-count:1'>\\u00a0 </span></span>
