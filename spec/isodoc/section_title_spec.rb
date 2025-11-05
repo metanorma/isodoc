@@ -782,169 +782,263 @@ RSpec.describe IsoDoc do
     word = <<~OUTPUT
         <html xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
        <head><style/></head>
-       <body lang="EN-US" link="blue" vlink="#954F72">
-          <div class="WordSection1">
-            <p>\\u00a0</p>
-          </div>
-          <p class="section-break">
-            <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection2">
-            <div class="authority">
-          <div class="boilerplate-copyright">
-            <div id="_"><h1>Copyright</h1>
-            </div>
-          </div>
-          <div class="boilerplate-license">
-            <div id="_"><h1>License</h1>
-            </div>
-          </div>
-          <div class="boilerplate-legal">
-            <div id="_"><h1>Legal</h1>
-            </div>
-          </div>
-          <div class="boilerplate-feedback">
-            <div id="_"><h1>Feedback</h1>
-            </div>
-          </div>
-        </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-                  <div class="TOC" id="_">
-        <p class="zzContents">Table of contents</p>
-      </div>
-      <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-            <div id="_">
-              <h1 class="AbstractTitle">Abstract</h1>
-            </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div id="_">
-              <h1 class="ForewordTitle">Foreword</h1>
-              <p id="A">This is a preamble</p>
-            </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div class="Section3" id="B">
-              <h1 class="IntroTitle">Introduction</h1>
-              <div id="C"><h2>Introduction Subsection</h2>
-            </div>
-            </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div class="Section3" id="B1">
-              <h1 class="IntroTitle">Dedication</h1>
-            </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div class="Section3" id="B2">
-              <h1 class="IntroTitle">Note to reader</h1>
-            </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div class="Section3" id="_">
-              <h1 class="IntroTitle">Acknowledgements</h1>
-            </div>
-            <p class="page-break">
-           <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-        </p>
-        <div class="Section3" id="_">
-           <h1 class="IntroTitle">Executive Summary</h1>
-        </div>
-            <p>\\u00a0</p>
-          </div>
-          <p class="section-break">
-            <br clear="all" class="section"/>
-          </p>
-          <div class="WordSection3">
-            <div id="NN1" class="Note">
-              <p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">\\u00a0 </span></span>Initial note</p>
-            </div>
-            <div id="NN2" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
-            <p>Initial admonition</p>
-          </div>
-            <div id="D">
-              <h1>1.<span style="mso-tab-count:1">\\u00a0 </span>Scope</h1>
-              <p id="E">Text</p>
-            </div>
-            <div><h1>2.<span style="mso-tab-count:1">\\u00a0 </span>Normative References</h1>
-          </div>
-            <div id="H">
-              <h1>3.<span style="mso-tab-count:1">\\u00a0 </span>Terms, Definitions, Symbols and Abbreviated Terms</h1>
-              <div id="I"><h2>3.1.<span style="mso-tab-count:1">\\u00a0 </span>Normal Terms</h2>
-              <p class="TermNum" id="J">3.1.1.</p>
-                <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-            </div>
-              <div id="K"><h2>3.2.<span style="mso-tab-count:1">\\u00a0 </span>Symbols</h2>
-              <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">Symbol</p></td><td valign="top">Definition</td></tr></table>
-            </div>
-            </div>
-            <div id="L" class="Symbols">
-              <h1>4.<span style="mso-tab-count:1">\\u00a0 </span>Symbols and abbreviated terms</h1>
-              <table class="dl">
-                <tr>
-                  <td valign="top" align="left">
-                    <p align="left" style="margin-left:0pt;text-align:left;">Symbol</p>
-                  </td>
-                  <td valign="top">Definition</td>
-                </tr>
-              </table>
-            </div>
-            <div id="M">
-              <h1>5.<span style="mso-tab-count:1">\\u00a0 </span>Clause 4</h1>
-              <div id="N"><h2>5.1.<span style="mso-tab-count:1">\\u00a0 </span>Introduction</h2>
-            </div>
-              <div id="O"><h2>5.2.<span style="mso-tab-count:1">\\u00a0 </span>Clause 4.2</h2>
-            </div>
-              <div id="O1"><h2>5.3.</h2>
-            </div>
-            </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div id="P" class="Section3">
-              <h1 class="Annex"> <b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b>
-          </h1>
-              <div id="Q"><h2>A.1.<span style="mso-tab-count:1">\\u00a0 </span>Annex A.1</h2>
-            <div id="Q1"><h3>A.1.1.<span style="mso-tab-count:1">\\u00a0 </span>Annex A.1a</h3>
-            </div>
-            <div><h3 class="Section3">A.1.2.<span style="mso-tab-count:1">\\u00a0 </span>Annex Bibliography</h3>
-            </div>
-          </div>
-            </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div id="P1" class="Section3">
-              <h1 class="Annex"><b>Annex B</b><br/>(normative)</h1>
-            </div>
-            <p class="page-break">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-            </p>
-            <div><h1 class="Section3">Bibliography</h1>
-            <div><h2 class="Section3">Bibliography Subsection</h2>
-            </div>
-          </div>
+                 <body lang="EN-US" link="blue" vlink="#954F72">
+             <div class="WordSection1">
+                <p>\\u00a0</p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection2">
+                <div class="authority">
+                   <div class="boilerplate-copyright">
+                      <div id="_">
+                         <h1>Copyright</h1>
+                      </div>
+                   </div>
+                   <div class="boilerplate-license">
+                      <div id="_">
+                         <h1>License</h1>
+                      </div>
+                   </div>
+                   <div class="boilerplate-legal">
+                      <div id="_">
+                         <h1>Legal</h1>
+                      </div>
+                   </div>
+                   <div class="boilerplate-feedback">
+                      <div id="_">
+                         <h1>Feedback</h1>
+                      </div>
+                   </div>
+                </div>
                 <p class="page-break">
-        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-      </p>
-      <div class="Section3" id="U1">
-        <h1 class="IntroTitle">Postface 1</h1>
-      </div>
-      <div class="Section3" id="U2">
-        <h1 class="IntroTitle">Postface 2</h1>
-      </div>
-          </div>
-        </body>
-      </html>
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="_" class="TOC">
+                   <p class="zzContents">Table of contents</p>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="_">
+                   <h1 class="AbstractTitle">Abstract</h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <p id="A">This is a preamble</p>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div class="Section3" id="B">
+                   <h1 class="IntroTitle">Introduction</h1>
+                   <div id="C">
+                      <h2>Introduction Subsection</h2>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="B1" class="Section3">
+                   <h1 class="IntroTitle">Dedication</h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="B2" class="Section3">
+                   <h1 class="IntroTitle">Note to reader</h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div class="Section3" id="_">
+                   <h1 class="IntroTitle">Acknowledgements</h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div class="Section3" id="_">
+                   <h1 class="IntroTitle">Executive Summary</h1>
+                </div>
+                <p>\\u00a0</p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3">
+                <div id="NN1" class="Note">
+                   <p class="Note">
+                      <span class="note_label">
+                         NOTE
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                      </span>
+                      Initial note
+                   </p>
+                </div>
+                <div id="NN2" class="Admonition">
+                   <p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+                   <p>Initial admonition</p>
+                </div>
+                <div id="D">
+                   <h1>
+                      1.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Scope
+                   </h1>
+                   <p id="E">Text</p>
+                </div>
+                <div>
+                   <h1>
+                      2.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Normative References
+                   </h1>
+                </div>
+                <div id="H">
+                   <h1>
+                      3.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Terms, Definitions, Symbols and Abbreviated Terms
+                   </h1>
+                   <div id="I">
+                      <h2>
+                         3.1.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Normal Terms
+                      </h2>
+                      <p class="TermNum" id="J">3.1.1.</p>
+                      <p class="Terms" style="text-align:left;">
+                         <b>Term2</b>
+                      </p>
+                   </div>
+                   <div id="K">
+                      <h2>
+                         3.2.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Symbols
+                      </h2>
+                      <div align="left">
+                         <table class="dl">
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">Symbol</p>
+                               </td>
+                               <td valign="top">Definition</td>
+                            </tr>
+                         </table>
+                      </div>
+                   </div>
+                </div>
+                <div id="L" class="Symbols">
+                   <h1>
+                      4.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Symbols and abbreviated terms
+                   </h1>
+                   <div align="left">
+                      <table class="dl">
+                         <tr>
+                            <td valign="top" align="left">
+                               <p align="left" style="margin-left:0pt;text-align:left;">Symbol</p>
+                            </td>
+                            <td valign="top">Definition</td>
+                         </tr>
+                      </table>
+                   </div>
+                </div>
+                <div id="M">
+                   <h1>
+                      5.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Clause 4
+                   </h1>
+                   <div id="N">
+                      <h2>
+                         5.1.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Introduction
+                      </h2>
+                   </div>
+                   <div id="O">
+                      <h2>
+                         5.2.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Clause 4.2
+                      </h2>
+                   </div>
+                   <div id="O1">
+                      <h2>5.3.</h2>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="P" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (normative)
+                      <br/>
+                      <br/>
+                      <b>Annex</b>
+                   </h1>
+                   <div id="Q">
+                      <h2>
+                         A.1.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Annex A.1
+                      </h2>
+                      <div id="Q1">
+                         <h3>
+                            A.1.1.
+                            <span style="mso-tab-count:1">\\u00a0 </span>
+                            Annex A.1a
+                         </h3>
+                      </div>
+                      <div>
+                         <h3 class="Section3">
+                            A.1.2.
+                            <span style="mso-tab-count:1">\\u00a0 </span>
+                            Annex Bibliography
+                         </h3>
+                      </div>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="P1" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex B</b>
+                      <br/>
+                      (normative)
+                   </h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div>
+                   <h1 class="Section3">Bibliography</h1>
+                   <div>
+                      <h2 class="Section3">Bibliography Subsection</h2>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div class="Section3" id="U1">
+                   <h1 class="IntroTitle">Postface 1</h1>
+                </div>
+                <div class="Section3" id="U2">
+                   <h1 class="IntroTitle">Postface 2</h1>
+                </div>
+             </div>
+          </body>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new(presxml_options)
@@ -1416,74 +1510,74 @@ RSpec.describe IsoDoc do
       <p class="page-break">
         <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-      <div id="_">
-              <h1 class='AbstractTitle'>
-                Abstract
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div id="_">
-              <h1 class='ForewordTitle'>
-                Foreword
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-              <p id='A'>This is a preamble</p>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div class='Section3' id='B'>
-              <h1 class='IntroTitle'>Introduction</h1>
-              <div id='C'>
-                <h2>
-                  Introduction Subsection
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
-              </div>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div class='Section3' id='B1'>
-              <h1 class='IntroTitle'>
-                Dedication
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div class='Section3' id='B2'>
-              <h1 class='IntroTitle'>
-                Note to reader
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div class='Section3' id='_'>
-              <h1 class='IntroTitle'>
-                Acknowledgements
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-            </div>
-            <p class="page-break">
+                <div id="_">
+                   <h1 class="AbstractTitle">
+                      Abstract
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="_">
+                   <h1 class="ForewordTitle">
+                      Foreword
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                   <p id="A">This is a preamble</p>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div class="Section3" id="B">
+                   <h1 class="IntroTitle">Introduction</h1>
+                   <div id="C">
+                      <h2>
+                         Introduction Subsection
+                         <br/>
+                         <br/>
+                         Variant 1
+                      </h2>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="B1" class="Section3">
+                   <h1 class="IntroTitle">
+                      Dedication
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="B2" class="Section3">
+                   <h1 class="IntroTitle">
+                      Note to reader
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div class="Section3" id="_">
+                   <h1 class="IntroTitle">
+                      Acknowledgements
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                </div>
+                <p class="page-break">
                    <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                 </p>
                 <div class="Section3" id="_">
@@ -1494,210 +1588,218 @@ RSpec.describe IsoDoc do
                       Variant 1
                    </h1>
                 </div>
-            <p>\\u00a0</p>
-          </div>
-          <p class="section-break">
-            <br clear='all' class='section'/>
-          </p>
-          <div class='WordSection3'>
-            <div id='NN1' class='Note'>
-              <p class='Note'>
-                <span class='note_label'>NOTE
-                <span style='mso-tab-count:1'>\\u00a0 </span></span>
-                Initial note
-              </p>
-            </div>
-            <div id='NN2' class='Admonition'>
-              <p class='AdmonitionTitle' style='text-align:center;'>WARNING</p>
-              <p>Initial admonition</p>
-            </div>
-            <div id='D'>
-              <h1>
-                1.
-                <span style='mso-tab-count:1'>\\u00a0 </span>
-                Scope
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-              <p id='E'>Text</p>
-            </div>
-            <div>
-              <h1>
-                2.
-                <span style='mso-tab-count:1'>\\u00a0 </span>
-                Normative References
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-            </div>
-            <div id='H'>
-              <h1>
-                3.
-                <span style='mso-tab-count:1'>\\u00a0 </span>
-                Terms, Definitions, Symbols and Abbreviated Terms
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-              <div id='I'>
-                <h2>
-                  3.1.
-                  <span style='mso-tab-count:1'>\\u00a0 </span>
-                  Normal Terms
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
-                <p class='TermNum' id='J'>3.1.1.</p>
-                <p class='Terms' style='text-align:left;'><b>Term2</b></p>
-              </div>
-              <div id='K'>
-                <h2>
-                  3.2.
-                  <span style='mso-tab-count:1'>\\u00a0 </span>
-                  Definitions
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
-                <table class='dl'>
-                  <tr>
-                    <td valign='top' align='left'>
-                      <p align='left' style='margin-left:0pt;text-align:left;'>Symbol</p>
-                    </td>
-                    <td valign='top'>Definition</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div id='L' class='Symbols'>
-              <h1>
-                4.
-                <span style='mso-tab-count:1'>\\u00a0 </span>
-                Symbols and abbreviated terms
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-              <table class='dl'>
-                <tr>
-                  <td valign='top' align='left'>
-                    <p align='left' style='margin-left:0pt;text-align:left;'>Symbol</p>
-                  </td>
-                  <td valign='top'>Definition</td>
-                </tr>
-              </table>
-            </div>
-            <div id='M'>
-              <h1>
-                5.
-                <span style='mso-tab-count:1'>\\u00a0 </span>
-                Clause 4
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-              <div id='N'>
-                <h2>
-                  5.1.
-                  <span style='mso-tab-count:1'>\\u00a0 </span>
-                  Introduction
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
-              </div>
-              <div id='O'>
-                <h2>
-                  5.2.
-                  <span style='mso-tab-count:1'>\\u00a0 </span>
-                  Clause 4.2
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
-              </div>
-              <div id='O1'>
-                <h2>5.3.</h2>
-              </div>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div id='P' class='Section3'>
-              <h1 class='Annex'>
-                <b>Annex A</b>
-                <br/>
-                (normative)
-                <br/>
-                <br/>
-                <b>Annex</b>
-                <br/>
-                <br/>
-                Variant 1
-              </h1>
-              <p style='display:none;' class='variant-title-sub'>Variant 1</p>
-              <div id='Q'>
-                <h2>
-                  A.1.
-                  <span style='mso-tab-count:1'>\\u00a0 </span>
-                  Annex A.1
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
-                <div id='Q1'>
-                  <h3>
-                    A.1.1.
-                    <span style='mso-tab-count:1'>\\u00a0 </span>
-                    Annex A.1a
-                    <br/>
-                    <br/>
-                    Variant 1
-                  </h3>
+                <p>\\u00a0</p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3">
+                <div id="NN1" class="Note">
+                   <p class="Note">
+                      <span class="note_label">
+                         NOTE
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                      </span>
+                      Initial note
+                   </p>
+                </div>
+                <div id="NN2" class="Admonition">
+                   <p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+                   <p>Initial admonition</p>
+                </div>
+                <div id="D">
+                   <h1>
+                      1.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Scope
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                   <p id="E">Text</p>
                 </div>
                 <div>
-                  <h3 class='Section3'>
-                    A.1.2.
-                    <span style='mso-tab-count:1'>\\u00a0 </span>
-                    Annex Bibliography
-                    <br/>
-                    <br/>
-                    Variant 1
-                  </h3>
+                   <h1>
+                      2.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Normative References
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
                 </div>
-              </div>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div id='P1' class='Section3'>
-              <h1 class='Annex'>
-                <b>Annex B</b>
-                <br/>
-                (normative)
-              </h1>
-            </div>
-            <p class="page-break">
-              <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-            </p>
-            <div>
-              <h1 class='Section3'>Bibliography</h1>
-              <p style='display:none;' class='variant-title-sub'>Variant 1</p>
-              <div>
-                <h2 class='Section3'>
-                  Bibliography Subsection
-                  <br/>
-                  <br/>
-                  Variant 1
-                </h2>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+                <div id="H">
+                   <h1>
+                      3.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Terms, Definitions, Symbols and Abbreviated Terms
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                   <div id="I">
+                      <h2>
+                         3.1.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Normal Terms
+                         <br/>
+                         <br/>
+                         Variant 1
+                      </h2>
+                      <p class="TermNum" id="J">3.1.1.</p>
+                      <p class="Terms" style="text-align:left;">
+                         <b>Term2</b>
+                      </p>
+                   </div>
+                   <div id="K">
+                      <h2>
+                         3.2.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Definitions
+                         <br/>
+                         <br/>
+                         Variant 1
+                      </h2>
+                      <div align="left">
+                         <table class="dl">
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">Symbol</p>
+                               </td>
+                               <td valign="top">Definition</td>
+                            </tr>
+                         </table>
+                      </div>
+                   </div>
+                </div>
+                <div id="L" class="Symbols">
+                   <h1>
+                      4.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Symbols and abbreviated terms
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                   <div align="left">
+                      <table class="dl">
+                         <tr>
+                            <td valign="top" align="left">
+                               <p align="left" style="margin-left:0pt;text-align:left;">Symbol</p>
+                            </td>
+                            <td valign="top">Definition</td>
+                         </tr>
+                      </table>
+                   </div>
+                </div>
+                <div id="M">
+                   <h1>
+                      5.
+                      <span style="mso-tab-count:1">\\u00a0 </span>
+                      Clause 4
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                   <div id="N">
+                      <h2>
+                         5.1.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Introduction
+                         <br/>
+                         <br/>
+                         Variant 1
+                      </h2>
+                   </div>
+                   <div id="O">
+                      <h2>
+                         5.2.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Clause 4.2
+                         <br/>
+                         <br/>
+                         Variant 1
+                      </h2>
+                   </div>
+                   <div id="O1">
+                      <h2>5.3.</h2>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="P" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex A</b>
+                      <br/>
+                      (normative)
+                      <br/>
+                      <br/>
+                      <b>Annex</b>
+                      <br/>
+                      <br/>
+                      Variant 1
+                   </h1>
+                   <p style="display:none;" class="variant-title-sub">Variant 1</p>
+                   <div id="Q">
+                      <h2>
+                         A.1.
+                         <span style="mso-tab-count:1">\\u00a0 </span>
+                         Annex A.1
+                         <br/>
+                         <br/>
+                         Variant 1
+                      </h2>
+                      <div id="Q1">
+                         <h3>
+                            A.1.1.
+                            <span style="mso-tab-count:1">\\u00a0 </span>
+                            Annex A.1a
+                            <br/>
+                            <br/>
+                            Variant 1
+                         </h3>
+                      </div>
+                      <div>
+                         <h3 class="Section3">
+                            A.1.2.
+                            <span style="mso-tab-count:1">\\u00a0 </span>
+                            Annex Bibliography
+                            <br/>
+                            <br/>
+                            Variant 1
+                         </h3>
+                      </div>
+                   </div>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div id="P1" class="Section3">
+                   <h1 class="Annex">
+                      <b>Annex B</b>
+                      <br/>
+                      (normative)
+                   </h1>
+                </div>
+                <p class="page-break">
+                   <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+                </p>
+                <div>
+                   <h1 class="Section3">Bibliography</h1>
+                   <p style="display:none;" class="variant-title-sub">Variant 1</p>
+                   <div>
+                      <h2 class="Section3">
+                         Bibliography Subsection
+                         <br/>
+                         <br/>
+                         Variant 1
+                      </h2>
+                   </div>
+                </div>
+             </div>
+          </body>
+       </html>
     OUTPUT
     presxml = IsoDoc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)

@@ -300,23 +300,42 @@ RSpec.describe IsoDoc do
     doc = <<~OUTPUT
       #{WORD_HDR}
             <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-            <div id="fwd">
-              <h1 class="ForewordTitle">Foreword</h1>
-              <div id="A" class="Note"><p class="Note"><span class="note_label">NOTE<span style="mso-tab-count:1">\\u00a0 </span></span></p>
-          <table class="dl"><tr><td valign="top" align="left"><p align="left" style="margin-left:0pt;text-align:left;">A</p></td><td valign="top"><p class="Note">B</p></td></tr></table>
-          <div class="ul_wrap">
-          <ul>
-          <li>C</li></ul>
-          </div>
-      </div>
-            </div>
-            <p>\\u00a0</p>
-          </div>
-          <p class="section-break"><br clear="all" class="section"/></p>
-          <div class="WordSection3">
-          </div>
-        </body>
-      </html>
+                <div id="fwd">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div id="A" class="Note">
+                      <p class="Note">
+                         <span class="note_label">
+                            NOTE
+                            <span style="mso-tab-count:1">\\u00a0 </span>
+                         </span>
+                      </p>
+                      <div align="left">
+                         <table class="dl">
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">A</p>
+                               </td>
+                               <td valign="top">
+                                  <p class="Note">B</p>
+                               </td>
+                            </tr>
+                         </table>
+                      </div>
+                      <div class="ul_wrap">
+                         <ul>
+                            <li>C</li>
+                         </ul>
+                      </div>
+                   </div>
+                </div>
+                <p>\\u00a0</p>
+             </div>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3"/>
+          </body>
+       </html>
     OUTPUT
     expect(strip_guid(Canon.format_xml(IsoDoc::HtmlConvert.new({})
       .convert("test", input, true)))).to be_equivalent_to Canon.format_xml(html)

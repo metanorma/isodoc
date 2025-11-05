@@ -760,58 +760,74 @@ RSpec.describe IsoDoc do
                <p class="page-break">
                  <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
                </p>
-               <div id="_">
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p id="_" class="Sourcecode">puts "Hello, world." <span class="c"> &lt;1&gt;</span><span class="c"> &lt;2&gt;</span> <br/>\\u00a0\\u00a0 %w{a b c}.each do |x|<br/>\\u00a0\\u00a0\\u00a0\\u00a0 puts x <span class="c"> &lt;3&gt;</span><br/>\\u00a0\\u00a0 end</p>
-                 <div class="annotation">
-          <p class="ListTitle">Key</p>
-          <table class="dl">
-            <tr>
-              <td valign="top" align="left">
-                <p align="left" style="margin-left:0pt;text-align:left;">
-                  <span class="c">1</span>
-                </p>
-              </td>
-              <td valign="top">
-                <p>This is <i>one</i> callout</p>
-              </td>
-            </tr>
-            <tr>
-              <td valign="top" align="left">
-                <p align="left" style="margin-left:0pt;text-align:left;">
-                  <span class="c">2</span>
-                </p>
-              </td>
-              <td valign="top">
-                <p>This is another callout</p>
-              </td>
-            </tr>
-            <tr>
-              <td valign="top" align="left">
-                <p align="left" style="margin-left:0pt;text-align:left;">
-                  <span class="c">3</span>
-                </p>
-              </td>
-              <td valign="top">
-                <p>This is yet another callout</p>
-              </td>
-            </tr>
-                  <tr>
-                     <td colspan="2"/>
-                  </tr>
-          </table>
-        </div>
-                 <p class="SourceTitle" style="text-align:center;">Figure 1</p>
-               </div>
-               <p>\\u00a0</p>
+                <div id="_">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <p id="_" class="Sourcecode">
+                      puts "Hello, world."
+                      <span class="c"> &lt;1&gt;</span>
+                      <span class="c"> &lt;2&gt;</span>
+                      <br/>
+                      \\u00a0\\u00a0 %w{a b c}.each do |x|
+                      <br/>
+                      \\u00a0\\u00a0\\u00a0\\u00a0 puts x
+                      <span class="c"> &lt;3&gt;</span>
+                      <br/>
+                      \\u00a0\\u00a0 end
+                   </p>
+                   <div class="annotation">
+                      <div align="left">
+                         <p class="ListTitle">Key</p>
+                         <table class="dl">
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                     <span class="c">1</span>
+                                  </p>
+                               </td>
+                               <td valign="top">
+                                  <p>
+                                     This is
+                                     <i>one</i>
+                                     callout
+                                  </p>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                     <span class="c">2</span>
+                                  </p>
+                               </td>
+                               <td valign="top">
+                                  <p>This is another callout</p>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                     <span class="c">3</span>
+                                  </p>
+                               </td>
+                               <td valign="top">
+                                  <p>This is yet another callout</p>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td colspan="2"/>
+                            </tr>
+                         </table>
+                      </div>
+                   </div>
+                   <p class="SourceTitle" style="text-align:center;">Figure 1</p>
+                </div>
+                <p>\\u00a0</p>
              </div>
              <p class="section-break">
-               <br clear="all" class="section"/>
+                <br clear="all" class="section"/>
              </p>
-             <div class="WordSection3">
-             </div>
-           </body>
-         </html>
+             <div class="WordSection3"/>
+          </body>
+       </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert
       .new({ sourcehighlighter: true }
@@ -1123,46 +1139,48 @@ RSpec.describe IsoDoc do
                       </div>
                    </p>
                    <div class="annotation">
-                      <p class="ListTitle">Key</p>
-                      <table class="dl">
-                         <tr>
-                            <td valign="top" align="left">
-                               <p align="left" style="margin-left:0pt;text-align:left;">
-                                  <span class="c">1</span>
-                               </p>
-                            </td>
-                            <td valign="top">
-                               <p>
-                                  This is
-                                  <i>one</i>
-                                  callout
-                               </p>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td valign="top" align="left">
-                               <p align="left" style="margin-left:0pt;text-align:left;">
-                                  <span class="c">2</span>
-                               </p>
-                            </td>
-                            <td valign="top">
-                               <p>This is another callout</p>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td valign="top" align="left">
-                               <p align="left" style="margin-left:0pt;text-align:left;">
-                                  <span class="c">3</span>
-                               </p>
-                            </td>
-                            <td valign="top">
-                               <p>This is yet another callout</p>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td colspan="2"/>
-                         </tr>
-                      </table>
+                      <div align="left">
+                         <p class="ListTitle">Key</p>
+                         <table class="dl">
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                     <span class="c">1</span>
+                                  </p>
+                               </td>
+                               <td valign="top">
+                                  <p>
+                                     This is
+                                     <i>one</i>
+                                     callout
+                                  </p>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                     <span class="c">2</span>
+                                  </p>
+                               </td>
+                               <td valign="top">
+                                  <p>This is another callout</p>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                     <span class="c">3</span>
+                                  </p>
+                               </td>
+                               <td valign="top">
+                                  <p>This is yet another callout</p>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td colspan="2"/>
+                            </tr>
+                         </table>
+                      </div>
                    </div>
                    <p class="SourceTitle" style="text-align:center;">Figure 1</p>
                 </div>

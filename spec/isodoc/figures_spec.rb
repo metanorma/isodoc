@@ -529,56 +529,58 @@ RSpec.describe IsoDoc do
                       <p style="page-break-after: avoid;">
                          <b>Key</b>
                       </p>
-                      <table align="left" class="formula_dl">
-                         <tr>
-                            <td valign="top" align="left">
-                               <p align="left" style="margin-left:0pt;text-align:left;">
-                                  <p>
-                                     <sup>a</sup>
+                      <div align="left">
+                         <table style="text-align:left;" class="formula_dl">
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                     <p>
+                                        <sup>a</sup>
+                                     </p>
                                   </p>
-                               </p>
-                            </td>
-                            <td valign="top">
-                               <div id="ftnfigureA-1a">
-                                  <p id="_">
-                                     The time
-                                     <span class="stem">(#(t_90)#)</span>
-                                     was estimated to be 18,2 min for this example.
+                               </td>
+                               <td valign="top">
+                                  <div id="ftnfigureA-1a">
+                                     <p id="_">
+                                        The time
+                                        <span class="stem">(#(t_90)#)</span>
+                                        was estimated to be 18,2 min for this example.
+                                     </p>
+                                  </div>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">
+                                     <p>
+                                        <sup>b</sup>
+                                     </p>
                                   </p>
-                               </div>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td valign="top" align="left">
-                               <p align="left" style="margin-left:0pt;text-align:left;">
-                                  <p>
-                                     <sup>b</sup>
-                                  </p>
-                               </p>
-                            </td>
-                            <td valign="top">
-                               <div id="ftnfigureA-1b">
-                                  <p id="_">Second footnote.</p>
-                               </div>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td valign="top" align="left">
-                               <p align="left" style="margin-left:0pt;text-align:left;">A</p>
-                            </td>
-                            <td valign="top">
-                               <p>B</p>
-                            </td>
-                         </tr>
-                      </table>
+                               </td>
+                               <td valign="top">
+                                  <div id="ftnfigureA-1b">
+                                     <p id="_">Second footnote.</p>
+                                  </div>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td valign="top" align="left">
+                                  <p align="left" style="margin-left:0pt;text-align:left;">A</p>
+                               </td>
+                               <td valign="top">
+                                  <p>B</p>
+                               </td>
+                            </tr>
+                         </table>
+                      </div>
                       <div class="BlockSource">
                          <p>
                             [SOURCE:
-                            <a href="#ISO712">ISO\\u00a0712, Section 1</a>
+                            <a href="#ISO712">ISO\\u00a0712,  Section 1</a>
                             — with adjustments;
-                            <a href="#ISO712">ISO\\u00a0712, Section 2</a>
+                            <a href="#ISO712">ISO\\u00a0712,  Section 2</a>
                             ;
-                            <a href="#ISO712">ISO\\u00a0712, Section 3</a>
+                            <a href="#ISO712">ISO\\u00a0712,  Section 3</a>
                             ]
                          </p>
                       </div>
