@@ -752,50 +752,53 @@ RSpec.describe IsoDoc do
       #{WORD_HDR}
                <p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
                <div id="_">
-                 <h1 class="ForewordTitle">Foreword</h1>
-                 <p class='ListTitle'>Caption</p>
-                 <table class="dl" id="_">
-                   <tr>
-                     <td valign="top" align="left">
-                       <p align="left" style="margin-left:0pt;text-align:left;">
+                   <h1 class="ForewordTitle">Foreword</h1>
+                   <div align="left">
+                      <p class="ListTitle">Caption</p>
+                      <table id="_" class="dl">
+                         <tr>
+                            <td valign="top" align="left">
+                               <p align="left" style="margin-left:0pt;text-align:left;">
            W
          </p>
-                     </td>
-                     <td valign="top">
-           <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
-         </td>
-                   </tr>
-                   <tr>
-                     <td valign="top" align="left">
-                     <p align="left" style="margin-left:0pt;text-align:left;">
-                       <span class="stem">(#(w)#)</span>
-                     </p>
-                     </td>
-                     <td valign="top">
-                       <p>??</p>
-                     </td>
-                   </tr>
-                   <tr>
-                    <td colspan="2">
-                      <div class="Note">
-                        <p class="Note">
-                           <span class="note_label">
-                              NOTE
-                              <span style="mso-tab-count:1">\\u00a0 </span>
-                           </span>
-                           This is a note
-                        </p>
-                      </div>
-                     </td>
-                   </tr>
-                 </table>
-               </div>
-               <p>\\u00a0</p>
+                            </td>
+                            <td valign="top">
+                               <p id="_">mass fraction of gelatinized kernels, expressed in per cent</p>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td valign="top" align="left">
+                               <p align="left" style="margin-left:0pt;text-align:left;">
+                                  <span class="stem">(#(w)#)</span>
+                               </p>
+                            </td>
+                            <td valign="top">
+                               <p>??</p>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td colspan="2">
+                               <div class="Note">
+                                  <p class="Note">
+                                     <span class="note_label">
+                                        NOTE
+                                        <span style="mso-tab-count:1">\\u00a0 </span>
+                                     </span>
+                                     This is a note
+                                  </p>
+                               </div>
+                            </td>
+                         </tr>
+                      </table>
+                   </div>
+                </div>
+                <p>\\u00a0</p>
              </div>
-             <p class="section-break"><br clear="all" class="section"/></p>
-             <div class="WordSection3">
-             </div>
-           </body>
+             <p class="section-break">
+                <br clear="all" class="section"/>
+             </p>
+             <div class="WordSection3"/>
+          </body>
        </html>
     OUTPUT
     pres_output = IsoDoc::PresentationXMLConvert.new({})
@@ -858,23 +861,25 @@ RSpec.describe IsoDoc do
                 </p>
                 <div>
                    <h1 class="ForewordTitle">Foreword</h1>
-                   <table id="_" class="dl">
-                      <tr>
-                         <td valign="top" align="left">
-                            <p align="left" style="margin-left:0pt;text-align:left;">A Deflist</p>
-                         </td>
-                         <td valign="top">
-                            <div class="figdl">
-                               <a id="_"/>
-                               <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
-                                  W
-                                  <span style="mso-tab-count:1">\\u00a0 </span>
-                                  mass fraction of gelatinized kernels
-                               </p>
-                            </div>
-                         </td>
-                      </tr>
-                   </table>
+                   <div align="left">
+                      <table id="_" class="dl">
+                         <tr>
+                            <td valign="top" align="left">
+                               <p align="left" style="margin-left:0pt;text-align:left;">A Deflist</p>
+                            </td>
+                            <td valign="top">
+                               <div class="figdl">
+                                  <a id="_"/>
+                                  <p style="text-indent: -2.0cm; margin-left: 2.0cm; tab-stops: 2.0cm;">
+                                     W
+                                     <span style="mso-tab-count:1">\\u00a0 </span>
+                                     mass fraction of gelatinized kernels
+                                  </p>
+                               </div>
+                            </td>
+                         </tr>
+                      </table>
+                   </div>
                    <div align="center" class="table_container">
                       <table id="_" class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;">
                          <tbody>

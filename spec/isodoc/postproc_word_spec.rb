@@ -28,27 +28,31 @@ RSpec.describe IsoDoc do
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(strip_guid(Canon.format_xml(word)))
       .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
-        <div class="WordSection2">
-                <p class="MsoNormal"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
-                <div>
-                  <h1 class="ForewordTitle">Foreword</h1>
-                  <table class="dl">
-                    <tr>
+       <div class="WordSection2">
+          <p class="MsoNormal">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div>
+             <h1 class="ForewordTitle">Foreword</h1>
+             <div align="left">
+                <table class="dl">
+                   <tr>
                       <td valign="top" align="left">
-                        <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Term</p>
+                         <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Term</p>
                       </td>
                       <td valign="top">Definition</td>
-                    </tr>
-                    <tr>
+                   </tr>
+                   <tr>
                       <td valign="top" align="left">
-                        <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Term 2</p>
+                         <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">Term 2</p>
                       </td>
                       <td valign="top">Definition 2</td>
-                    </tr>
-                  </table>
-                </div>
-                <p class="MsoNormal">\\u00a0</p>
-              </div>
+                   </tr>
+                </table>
+             </div>
+          </div>
+          <p class="MsoNormal">\\u00a0</p>
+       </div>
       OUTPUT
   end
 
@@ -614,80 +618,82 @@ RSpec.describe IsoDoc do
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
     expect(strip_guid(Canon.format_xml(word)))
       .to be_equivalent_to Canon.format_xml(<<~OUTPUT)
-        <div xmlns:m="m" class="WordSection2">
-           <p class="MsoNormal">
-              <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
-           </p>
-           <div>
-              <h1 class="ForewordTitle">Foreword</h1>
-              <div class="ul_wrap">
-                 <p class="MsoListParagraphCxSpFirst" style="">
-                    A
-                    <div class="ListContLevel1">
-                       <p class="MsoNormal">B</p>
-                    </div>
-                 </p>
-                 <p class="MsoListParagraphCxSpLast">
-                    <div class="ol_wrap">
-                       <p class="MsoListParagraphCxSpFirst" style="">
-                          C
-                          <div class="ListContLevel2">
-                             <p class="MsoNormal">D</p>
-                          </div>
-                          <div class="ListContLevel2">
-                             <p class="Sourcecode">E</p>
-                          </div>
-                       </p>
-                    </div>
-                 </p>
-              </div>
-              <div class="ol_wrap">
-                 <p class="MsoListParagraphCxSpFirst" style="">
-                    A1
-                    <div class="ListContLevel1">
-                       <p class="MsoNormal">B1</p>
-                    </div>
-                 </p>
-                 <p class="MsoListParagraphCxSpLast">
-                    <div class="ul_wrap">
-                       <p class="MsoListParagraphCxSpFirst" style="">
-                          C1
-                          <div class="ListContLevel2">
-                             <div>
-                                <a name="_" id="_"/>
-                                <div class="formula">
-                                   <p class="MsoNormal">
-                                      <span class="stem">(#(D1)#)</span>
-                                      <span style="mso-tab-count:1">\\u00a0 </span>
-                                   </p>
-                                </div>
-                             </div>
-                          </div>
-                          <div class="ListContLevel2">
-                             <table class="dl">
-                                <a name="_" id="_"/>
-                                <tr>
-                                   <td valign="top" align="left">
-                                      <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">
-                                         <i>n</i>
-                                      </p>
-                                   </td>
-                                   <td valign="top">
-                                      <p class="MsoNormal">
-                                         <a name="_" id="_"/>
-                                         is the number of coating layers
-                                      </p>
-                                   </td>
-                                </tr>
-                             </table>
-                          </div>
-                       </p>
-                    </div>
-                 </p>
-              </div>
-           </div>
-           <p class="MsoNormal">\\u00a0</p>
-        </div>
+       <div xmlns:m="m" class="WordSection2">
+          <p class="MsoNormal">
+             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
+          <div>
+             <h1 class="ForewordTitle">Foreword</h1>
+             <div class="ul_wrap">
+                <p class="MsoListParagraphCxSpFirst" style="">
+                   A
+                   <div class="ListContLevel1">
+                      <p class="MsoNormal">B</p>
+                   </div>
+                </p>
+                <p class="MsoListParagraphCxSpLast">
+                   <div class="ol_wrap">
+                      <p class="MsoListParagraphCxSpFirst" style="">
+                         C
+                         <div class="ListContLevel2">
+                            <p class="MsoNormal">D</p>
+                         </div>
+                         <div class="ListContLevel2">
+                            <p class="Sourcecode">E</p>
+                         </div>
+                      </p>
+                   </div>
+                </p>
+             </div>
+             <div class="ol_wrap">
+                <p class="MsoListParagraphCxSpFirst" style="">
+                   A1
+                   <div class="ListContLevel1">
+                      <p class="MsoNormal">B1</p>
+                   </div>
+                </p>
+                <p class="MsoListParagraphCxSpLast">
+                   <div class="ul_wrap">
+                      <p class="MsoListParagraphCxSpFirst" style="">
+                         C1
+                         <div class="ListContLevel2">
+                            <div>
+                               <a name="_" id="_"/>
+                               <div class="formula">
+                                  <p class="MsoNormal">
+                                     <span class="stem">(#(D1)#)</span>
+                                     <span style="mso-tab-count:1">\\u00a0 </span>
+                                  </p>
+                               </div>
+                            </div>
+                         </div>
+                         <div class="ListContLevel2">
+                            <div align="left">
+                               <table class="dl">
+                                  <a name="_" id="_"/>
+                                  <tr>
+                                     <td valign="top" align="left">
+                                        <p align="left" style="margin-left:0pt;text-align:left;" class="MsoNormal">
+                                           <i>n</i>
+                                        </p>
+                                     </td>
+                                     <td valign="top">
+                                        <p class="MsoNormal">
+                                           <a name="_" id="_"/>
+                                           is the number of coating layers
+                                        </p>
+                                     </td>
+                                  </tr>
+                               </table>
+                            </div>
+                         </div>
+                      </p>
+                   </div>
+                </p>
+             </div>
+          </div>
+          <p class="MsoNormal">\\u00a0</p>
+       </div>
       OUTPUT
   end
 
